@@ -12,26 +12,18 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate {
 
     @IBOutlet var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
+    var heightConstraint: NSLayoutConstraint?
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
     
         // Add custom view sizing constraints here
-        
-        
+        let screenBounds = UIScreen.mainScreen().bounds
+        self.inputView.removeConstraint(self.heightConstraint!)
     }
 
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
-        for family in UIFont.familyNames() {
-            println("\(family)")
-            
-            for name in UIFont.fontNamesForFamilyName(family as String) {
-                println("  \(name)")
-            }
-        }
         
         self.lyricPicker = LyricPickerTableViewController()
         self.view.addSubview(self.lyricPicker.view)
@@ -47,10 +39,12 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate {
         self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         
         self.view.addSubview(self.nextKeyboardButton)
-    
+
         var nextKeyboardButtonLeftSideConstraint = NSLayoutConstraint(item: self.nextKeyboardButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 0.0)
         var nextKeyboardButtonBottomConstraint = NSLayoutConstraint(item: self.nextKeyboardButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
         self.view.addConstraints([nextKeyboardButtonLeftSideConstraint, nextKeyboardButtonBottomConstraint])
+        
+//        self.heightConstraint = NSLayoutConstraint(?)
     }
     
     override func viewWillLayoutSubviews() {
