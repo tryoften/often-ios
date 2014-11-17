@@ -81,7 +81,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate {
             lyricPicker.al_top == view.al_top,
             lyricPicker.al_left == view.al_left,
             lyricPicker.al_right == view.al_right,
-            lyricPicker.al_bottom == sectionPickerView.al_top,
+            lyricPicker.al_bottom == view.al_bottom,
         ])
     }
     

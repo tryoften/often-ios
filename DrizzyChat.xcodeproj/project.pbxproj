@@ -83,6 +83,22 @@
 		8180E6831A147FBA007FA1CF /* LyricTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8180E67F1A147FBA007FA1CF /* LyricTableViewCell.xib */; };
 		81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
 		81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
+		81A1A4E41A19786D00D566B8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DA1A19786D00D566B8 /* .gitignore */; };
+		81A1A4E51A19786D00D566B8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DA1A19786D00D566B8 /* .gitignore */; };
+		81A1A4E61A19786D00D566B8 /* ILTranslucentView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DB1A19786D00D566B8 /* ILTranslucentView.podspec */; };
+		81A1A4E71A19786D00D566B8 /* ILTranslucentView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DB1A19786D00D566B8 /* ILTranslucentView.podspec */; };
+		81A1A4E81A19786D00D566B8 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DC1A19786D00D566B8 /* LICENSE */; };
+		81A1A4E91A19786D00D566B8 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DC1A19786D00D566B8 /* LICENSE */; };
+		81A1A4EA1A19786D00D566B8 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4DD1A19786D00D566B8 /* README.md */; };
+		81A1A4EB1A19786D00D566B8 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4DD1A19786D00D566B8 /* README.md */; };
+		81A1A4EC1A19786D00D566B8 /* ScreenShot example.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DE1A19786D00D566B8 /* ScreenShot example.png */; };
+		81A1A4ED1A19786D00D566B8 /* ScreenShot example.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DE1A19786D00D566B8 /* ScreenShot example.png */; };
+		81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */; };
+		81A1A4EF1A19786D00D566B8 /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */; };
+		81A1A4F21A19786D00D566B8 /* StoryboardOrXIB.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4E31A19786D00D566B8 /* StoryboardOrXIB.png */; };
+		81A1A4F31A19786D00D566B8 /* StoryboardOrXIB.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4E31A19786D00D566B8 /* StoryboardOrXIB.png */; };
+		81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
+		81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
 		BE4402AFA1E84C0CFEB6ECDE /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */; };
 /* End PBXBuildFile section */
@@ -194,6 +210,16 @@
 		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Source/LyricTableViewCell.swift; sourceTree = "<group>"; };
 		8180E67F1A147FBA007FA1CF /* LyricTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LyricTableViewCell.xib; path = Source/LyricTableViewCell.xib; sourceTree = "<group>"; };
 		81A1A4D31A196D6200D566B8 /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
+		81A1A4DA1A19786D00D566B8 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		81A1A4DB1A19786D00D566B8 /* ILTranslucentView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ILTranslucentView.podspec; sourceTree = "<group>"; };
+		81A1A4DC1A19786D00D566B8 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		81A1A4DD1A19786D00D566B8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		81A1A4DE1A19786D00D566B8 /* ScreenShot example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScreenShot example.png"; sourceTree = "<group>"; };
+		81A1A4E01A19786D00D566B8 /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
+		81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
+		81A1A4E31A19786D00D566B8 /* StoryboardOrXIB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoryboardOrXIB.png; sourceTree = "<group>"; };
+		81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HEXString.h"; sourceTree = "<group>"; };
+		81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEXString.m"; sourceTree = "<group>"; };
 		81ABAAE71A15820600456A5A /* SectionPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerView.swift; path = Source/SectionPickerView.swift; sourceTree = "<group>"; };
 		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		D5794374D5B3F63155309941 /* Pods-DrizzyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrizzyChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrizzyChat/Pods-DrizzyChat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -267,6 +293,7 @@
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				81A1A4D91A19786D00D566B8 /* ILTranslucentView */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
 			);
 			path = Vendors;
@@ -347,6 +374,8 @@
 				8180E6161A142157007FA1CF /* LaunchScreen.xib */,
 				8180E60B1A142157007FA1CF /* Supporting Files */,
 				81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */,
+				81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */,
+				81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */,
 			);
 			path = DrizzyChat;
 			sourceTree = "<group>";
@@ -435,6 +464,29 @@
 				81ABAAE71A15820600456A5A /* SectionPickerView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		81A1A4D91A19786D00D566B8 /* ILTranslucentView */ = {
+			isa = PBXGroup;
+			children = (
+				81A1A4DA1A19786D00D566B8 /* .gitignore */,
+				81A1A4DB1A19786D00D566B8 /* ILTranslucentView.podspec */,
+				81A1A4DC1A19786D00D566B8 /* LICENSE */,
+				81A1A4DD1A19786D00D566B8 /* README.md */,
+				81A1A4DE1A19786D00D566B8 /* ScreenShot example.png */,
+				81A1A4DF1A19786D00D566B8 /* Source */,
+				81A1A4E31A19786D00D566B8 /* StoryboardOrXIB.png */,
+			);
+			path = ILTranslucentView;
+			sourceTree = "<group>";
+		};
+		81A1A4DF1A19786D00D566B8 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				81A1A4E01A19786D00D566B8 /* ILTranslucentView.h */,
+				81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -575,6 +627,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8180E6651A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
+				81A1A4E41A19786D00D566B8 /* .gitignore in Resources */,
 				8180E67B1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
 				8180E66B1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
 				8180E6591A147A78007FA1CF /* Lato-Black.ttf in Resources */,
@@ -582,6 +635,7 @@
 				81331E251A1806BB003E4609 /* .gitignore in Resources */,
 				8180E6821A147FBA007FA1CF /* LyricTableViewCell.xib in Resources */,
 				8180E6131A142157007FA1CF /* Main.storyboard in Resources */,
+				81A1A4E81A19786D00D566B8 /* LICENSE in Resources */,
 				8180E6711A147A78007FA1CF /* Lato-MediumItalic.ttf in Resources */,
 				8180E6771A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
 				8180E65B1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
@@ -589,7 +643,9 @@
 				81331E2F1A1806BB003E4609 /* Info.plist in Resources */,
 				81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */,
 				8180E6181A142157007FA1CF /* LaunchScreen.xib in Resources */,
+				81A1A4E61A19786D00D566B8 /* ILTranslucentView.podspec in Resources */,
 				8180E6631A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
+				81A1A4EC1A19786D00D566B8 /* ScreenShot example.png in Resources */,
 				8180E65F1A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
 				8180E6751A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
 				8180E66F1A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
@@ -598,6 +654,7 @@
 				8180E6691A147A78007FA1CF /* Lato-Italic.ttf in Resources */,
 				8180E6151A142157007FA1CF /* Images.xcassets in Resources */,
 				8180E6791A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
+				81A1A4F21A19786D00D566B8 /* StoryboardOrXIB.png in Resources */,
 				8180E66D1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
 				81331E2B1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6731A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
@@ -616,14 +673,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81A1A4E71A19786D00D566B8 /* ILTranslucentView.podspec in Resources */,
 				8180E6681A147A78007FA1CF /* Lato-HeavyItalic.ttf in Resources */,
 				8180E65C1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
 				8180E6621A147A78007FA1CF /* Lato-Hairline.ttf in Resources */,
+				81A1A4E91A19786D00D566B8 /* LICENSE in Resources */,
 				8180E67A1A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
 				81331E261A1806BB003E4609 /* .gitignore in Resources */,
 				8180E66C1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
 				8180E6641A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
+				81A1A4E51A19786D00D566B8 /* .gitignore in Resources */,
 				81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */,
+				81A1A4ED1A19786D00D566B8 /* ScreenShot example.png in Resources */,
 				8180E6781A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
 				81331E2C1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6701A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
@@ -635,6 +696,7 @@
 				8180E6601A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
 				8180E6761A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
 				8180E6741A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
+				81A1A4F31A19786D00D566B8 /* StoryboardOrXIB.png in Resources */,
 				8180E6831A147FBA007FA1CF /* LyricTableViewCell.xib in Resources */,
 				8180E6661A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
 				8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */,
@@ -721,7 +783,10 @@
 				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				81331E151A17FA8B003E4609 /* CategoryService.swift in Sources */,
+				81A1A4EA1A19786D00D566B8 /* README.md in Sources */,
 				8180E6101A142157007FA1CF /* ViewController.swift in Sources */,
+				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
+				81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				81331E5E1A194855003E4609 /* SectionCollectionViewController.swift in Sources */,
 				81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */,
@@ -741,14 +806,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81A1A4EF1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
 				8180E63F1A142B1A007FA1CF /* SectionCollectionViewController.swift in Sources */,
 				81331E121A17F9F3003E4609 /* Lyric.swift in Sources */,
+				81A1A4EB1A19786D00D566B8 /* README.md in Sources */,
 				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
 				81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */,
 				8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */,
 				81331E051A17E538003E4609 /* Category.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
+				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81331E091A17EC52003E4609 /* CategoryService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

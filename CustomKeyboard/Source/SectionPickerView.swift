@@ -8,10 +8,12 @@
 
 import UIKit
 
-class SectionPickerView: UIView, UITableViewDataSource, UITableViewDelegate {
+class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDelegate {
     var categoriesTableView: UITableView
     var nextKeyboardButton: UIButton
+    var toggleDrawerButton: UIButton
     var currentCategoryLabel: UILabel
+    
     var categories: [Category]? {
         didSet {
             self.categoriesTableView.reloadData()
@@ -31,24 +33,28 @@ class SectionPickerView: UIView, UITableViewDataSource, UITableViewDelegate {
         self.nextKeyboardButton.titleLabel!.font = UIFont(name: "font_icons8", size:20)
         self.nextKeyboardButton.setTitle("\u{f114}", forState: .Normal)
         self.nextKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-
+        self.nextKeyboardButton.backgroundColor = UIColor(fromHexString: "#ffc538")
+        
+        self.toggleDrawerButton = UIButton()
+        self.toggleDrawerButton.titleLabel!.font = UIFont(name: "font_icons8", size:20)
+        self.toggleDrawerButton.setTitle("\u{f132}", forState: .Normal)
+        self.toggleDrawerButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.toggleDrawerButton.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
+        
         self.currentCategoryLabel = UILabel()
         self.currentCategoryLabel.textColor = UIColor.whiteColor()
         self.currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         super.init(frame: frame)
-        
-        self.backgroundColor = UIColor.clearColor()
-        
-        var toolbar = 
 
-//        UIToolbar* bgToolbar = [[UIToolbar alloc] initWithFrame:myView.frame];
-//        bgToolbar.barStyle = UIBarStyleDefault;
-//        [myView.superview insertSubview:bgToolbar belowSubview:myView];
+        self.translucent = true
+        self.translucentAlpha = 0.88
+        self.translucentTintColor = UIColor(fromHexString: "#ffae36")
         self.categoriesTableView.dataSource = self
         
         self.addSubview(self.categoriesTableView)
         self.addSubview(self.nextKeyboardButton)
+        self.addSubview(self.toggleDrawerButton)
         self.addSubview(self.currentCategoryLabel)
         
         self.categoriesTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "tableCell")
@@ -61,6 +67,7 @@ class SectionPickerView: UIView, UITableViewDataSource, UITableViewDelegate {
         var tableView = self.categoriesTableView as ALView
         var keyboardButton = self.nextKeyboardButton as ALView
         var categoryLabel = self.currentCategoryLabel as ALView
+        var toggleDrawer = self.toggleDrawerButton as ALView
         
         // keyboard button
         view.addConstraints([
@@ -70,8 +77,14 @@ class SectionPickerView: UIView, UITableViewDataSource, UITableViewDelegate {
             keyboardButton.al_height == view.al_height,
             keyboardButton.al_width == keyboardButton.al_height,
             
+            toggleDrawer.al_right == view.al_right,
+            toggleDrawer.al_top == view.al_top,
+            toggleDrawer.al_height == view.al_height,
+            toggleDrawer.al_width == toggleDrawer.al_height,
+            toggleDrawer.al_height <= 50.0,
+            
             // current category label
-            categoryLabel.al_left == keyboardButton.al_right,
+            categoryLabel.al_left == keyboardButton.al_right + 10.0,
             categoryLabel.al_right == view.al_right,
             categoryLabel.al_height == view.al_height,
             categoryLabel.al_top == view.al_top,

@@ -25,7 +25,14 @@ class LyricPickerTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.labelFont = UIFont(name: "Lato-Light", size: 20)
+//        self.tableView.backgroundColor = UIColor(red: 31, green: 39, blue: 67, alpha: 1)
+        self.tableView.backgroundColor = UIColor(fromHexString: "#1f2743")
+
+//        self.tableView.backgroundColor = UIColor.blackColor()
+        self.tableView.separatorColor = UIColor(fromHexString: "#373e57")
+        self.tableView.separatorInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         self.tableView.registerNib(UINib(nibName: LyricTableViewCellIdentifier, bundle: NSBundle.mainBundle()), forCellReuseIdentifier: LyricTableViewCellIdentifier)
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,7 +87,7 @@ class LyricPickerTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
+        return 70
     }
 
     /*

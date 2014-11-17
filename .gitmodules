@@ -1,3 +1,6 @@
 [submodule "Vendors/SwiftAutoLayout"]
 	path = Vendors/SwiftAutoLayout
 	url = git@github.com:indragiek/SwiftAutoLayout.git
+[submodule "Vendors/ILTranslucentView"]
+	path = Vendors/ILTranslucentView
+	url = git@github.com:ivoleko/ILTranslucentView.git
