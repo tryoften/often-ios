@@ -7,9 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		49FE9F1B1E98F2BC085C3ACE /* libPods-DrizzyChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34A1AC279BD85B39182E791B /* libPods-DrizzyChat.a */; };
-		81331E011A17DF84003E4609 /* LyricGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E001A17DF84003E4609 /* LyricGroup.swift */; };
+		4CAB6DC932CA670B7FE8D53A /* libPods-DrizzyChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D409EF9C892829C2F11DC4 /* libPods-DrizzyChat.a */; };
 		81331E051A17E538003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
+		81331E091A17EC52003E4609 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E081A17EC52003E4609 /* CategoryService.swift */; };
+		81331E121A17F9F3003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
+		81331E131A17FA85003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
+		81331E141A17FA88003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
+		81331E151A17FA8B003E4609 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E081A17EC52003E4609 /* CategoryService.swift */; };
+		81331E251A1806BB003E4609 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 81331E181A1806BB003E4609 /* .gitignore */; };
+		81331E261A1806BB003E4609 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 81331E181A1806BB003E4609 /* .gitignore */; };
+		81331E271A1806BB003E4609 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 81331E191A1806BB003E4609 /* LICENSE */; };
+		81331E281A1806BB003E4609 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 81331E191A1806BB003E4609 /* LICENSE */; };
+		81331E2B1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
+		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
+		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
+		81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
+		81331E2F1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E231A1806BB003E4609 /* Info.plist */; };
+		81331E301A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E231A1806BB003E4609 /* Info.plist */; };
+		81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
+		81331E5E1A194855003E4609 /* SectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E63E1A142B1A007FA1CF /* SectionCollectionViewController.swift */; };
+		81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
+		81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
+		81331E611A194868003E4609 /* LyricPickerTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6431A142EA4007FA1CF /* LyricPickerTableViewController.xib */; };
 		8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60D1A142157007FA1CF /* AppDelegate.swift */; };
 		8180E6101A142157007FA1CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60F1A142157007FA1CF /* ViewController.swift */; };
 		8180E6131A142157007FA1CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6111A142157007FA1CF /* Main.storyboard */; };
@@ -62,10 +81,34 @@
 		8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
 		8180E6821A147FBA007FA1CF /* LyricTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8180E67F1A147FBA007FA1CF /* LyricTableViewCell.xib */; };
 		8180E6831A147FBA007FA1CF /* LyricTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8180E67F1A147FBA007FA1CF /* LyricTableViewCell.xib */; };
+		81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
+		81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
 		81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
+		BE4402AFA1E84C0CFEB6ECDE /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		81331E361A1806BB003E4609 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 725A2B321A0468F300F44058;
+			remoteInfo = "SwiftAutoLayout-iOS";
+		};
+		81331E381A1806BB003E4609 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 725A2B3D1A0468F300F44058;
+			remoteInfo = SwiftAutoLayoutTests;
+		};
+		81331E3A1A1806BB003E4609 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 725A2B551A046A3C00F44058;
+			remoteInfo = "SwiftAutoLayout-Mac";
+		};
 		8180E61E1A142158007FA1CF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8180E6001A142157007FA1CF /* Project object */;
@@ -98,10 +141,21 @@
 
 /* Begin PBXFileReference section */
 		03776BC2F64FC0C6FCC35217 /* Pods-DrizzyChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrizzyChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrizzyChat/Pods-DrizzyChat.release.xcconfig"; sourceTree = "<group>"; };
-		34A1AC279BD85B39182E791B /* libPods-DrizzyChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DrizzyChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81331E001A17DF84003E4609 /* LyricGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricGroup.swift; path = Source/LyricGroup.swift; sourceTree = "<group>"; };
+		34D409EF9C892829C2F11DC4 /* libPods-DrizzyChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DrizzyChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
+		81331E081A17EC52003E4609 /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryService.swift; path = Source/CategoryService.swift; sourceTree = "<group>"; };
+		81331E111A17F9F3003E4609 /* Lyric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lyric.swift; path = Source/Lyric.swift; sourceTree = "<group>"; };
+		81331E181A1806BB003E4609 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		81331E191A1806BB003E4609 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		81331E1A1A1806BB003E4609 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		81331E1C1A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81331E1D1A1806BB003E4609 /* SwiftAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftAutoLayout.h; sourceTree = "<group>"; };
+		81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayout.swift; sourceTree = "<group>"; };
+		81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SwiftAutoLayout.xcodeproj; sourceTree = "<group>"; };
+		81331E231A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
 		8180E6081A142157007FA1CF /* DrizzyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrizzyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E60C1A142157007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E60D1A142157007FA1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,8 +193,11 @@
 		8180E6581A147A77007FA1CF /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Source/LyricTableViewCell.swift; sourceTree = "<group>"; };
 		8180E67F1A147FBA007FA1CF /* LyricTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LyricTableViewCell.xib; path = Source/LyricTableViewCell.xib; sourceTree = "<group>"; };
+		81A1A4D31A196D6200D566B8 /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
 		81ABAAE71A15820600456A5A /* SectionPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerView.swift; path = Source/SectionPickerView.swift; sourceTree = "<group>"; };
+		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		D5794374D5B3F63155309941 /* Pods-DrizzyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrizzyChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrizzyChat/Pods-DrizzyChat.debug.xcconfig"; sourceTree = "<group>"; };
+		FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49FE9F1B1E98F2BC085C3ACE /* libPods-DrizzyChat.a in Frameworks */,
+				4CAB6DC932CA670B7FE8D53A /* libPods-DrizzyChat.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE4402AFA1E84C0CFEB6ECDE /* libPods-CustomKeyboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +232,8 @@
 			children = (
 				D5794374D5B3F63155309941 /* Pods-DrizzyChat.debug.xcconfig */,
 				03776BC2F64FC0C6FCC35217 /* Pods-DrizzyChat.release.xcconfig */,
+				FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */,
+				945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -181,7 +241,8 @@
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				34A1AC279BD85B39182E791B /* libPods-DrizzyChat.a */,
+				7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */,
+				34D409EF9C892829C2F11DC4 /* libPods-DrizzyChat.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -189,8 +250,8 @@
 		81331DFF1A17DF66003E4609 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				81331E001A17DF84003E4609 /* LyricGroup.swift */,
 				81331E041A17E538003E4609 /* Category.swift */,
+				81331E111A17F9F3003E4609 /* Lyric.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -198,8 +259,59 @@
 		81331E061A17E552003E4609 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				81331E081A17EC52003E4609 /* CategoryService.swift */,
 			);
 			name = Service;
+			sourceTree = "<group>";
+		};
+		81331E161A1806BB003E4609 /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
+			);
+			path = Vendors;
+			sourceTree = "<group>";
+		};
+		81331E171A1806BB003E4609 /* SwiftAutoLayout */ = {
+			isa = PBXGroup;
+			children = (
+				81331E181A1806BB003E4609 /* .gitignore */,
+				81331E191A1806BB003E4609 /* LICENSE */,
+				81331E1A1A1806BB003E4609 /* README.md */,
+				81331E1B1A1806BB003E4609 /* SwiftAutoLayout */,
+				81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */,
+				81331E221A1806BB003E4609 /* SwiftAutoLayoutTests */,
+			);
+			path = SwiftAutoLayout;
+			sourceTree = "<group>";
+		};
+		81331E1B1A1806BB003E4609 /* SwiftAutoLayout */ = {
+			isa = PBXGroup;
+			children = (
+				81331E1C1A1806BB003E4609 /* Info.plist */,
+				81331E1D1A1806BB003E4609 /* SwiftAutoLayout.h */,
+				81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */,
+			);
+			path = SwiftAutoLayout;
+			sourceTree = "<group>";
+		};
+		81331E201A1806BB003E4609 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				81331E371A1806BB003E4609 /* SwiftAutoLayout.framework */,
+				81331E391A1806BB003E4609 /* SwiftAutoLayoutTests.xctest */,
+				81331E3B1A1806BB003E4609 /* SwiftAutoLayout.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		81331E221A1806BB003E4609 /* SwiftAutoLayoutTests */ = {
+			isa = PBXGroup;
+			children = (
+				81331E231A1806BB003E4609 /* Info.plist */,
+				81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */,
+			);
+			path = SwiftAutoLayoutTests;
 			sourceTree = "<group>";
 		};
 		8180E5FF1A142157007FA1CF = {
@@ -207,6 +319,7 @@
 			children = (
 				8180E60A1A142157007FA1CF /* DrizzyChat */,
 				8180E6201A142158007FA1CF /* DrizzyChatTests */,
+				81331E161A1806BB003E4609 /* Vendors */,
 				8180E6321A142199007FA1CF /* CustomKeyboard */,
 				8180E6091A142157007FA1CF /* Products */,
 				3A906368B7CA46AA11C157BA /* Pods */,
@@ -291,6 +404,7 @@
 		8180E6461A1477F2007FA1CF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				81A1A4D31A196D6200D566B8 /* font_icons8.ttf */,
 				8180E6471A147A77007FA1CF /* Lato-Black.ttf */,
 				8180E6481A147A77007FA1CF /* Lato-BlackItalic.ttf */,
 				8180E6491A147A77007FA1CF /* Lato-Bold.ttf */,
@@ -369,9 +483,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8180E63A1A142199007FA1CF /* Build configuration list for PBXNativeTarget "CustomKeyboard" */;
 			buildPhases = (
+				194ABAC59D0290C32B9EF891 /* Check Pods Manifest.lock */,
 				8180E62D1A142199007FA1CF /* Sources */,
 				8180E62E1A142199007FA1CF /* Frameworks */,
 				8180E62F1A142199007FA1CF /* Resources */,
+				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -414,6 +530,12 @@
 			mainGroup = 8180E5FF1A142157007FA1CF;
 			productRefGroup = 8180E6091A142157007FA1CF /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 81331E201A1806BB003E4609 /* Products */;
+					ProjectRef = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8180E6071A142157007FA1CF /* DrizzyChat */,
@@ -422,6 +544,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		81331E371A1806BB003E4609 /* SwiftAutoLayout.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftAutoLayout.framework;
+			remoteRef = 81331E361A1806BB003E4609 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		81331E391A1806BB003E4609 /* SwiftAutoLayoutTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftAutoLayoutTests.xctest;
+			remoteRef = 81331E381A1806BB003E4609 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		81331E3B1A1806BB003E4609 /* SwiftAutoLayout.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftAutoLayout.framework;
+			remoteRef = 81331E3A1A1806BB003E4609 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8180E6061A142157007FA1CF /* Resources */ = {
@@ -433,23 +579,29 @@
 				8180E66B1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
 				8180E6591A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				8180E65D1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
+				81331E251A1806BB003E4609 /* .gitignore in Resources */,
 				8180E6821A147FBA007FA1CF /* LyricTableViewCell.xib in Resources */,
 				8180E6131A142157007FA1CF /* Main.storyboard in Resources */,
 				8180E6711A147A78007FA1CF /* Lato-MediumItalic.ttf in Resources */,
 				8180E6771A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
 				8180E65B1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
 				8180E6671A147A78007FA1CF /* Lato-HeavyItalic.ttf in Resources */,
+				81331E2F1A1806BB003E4609 /* Info.plist in Resources */,
+				81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */,
 				8180E6181A142157007FA1CF /* LaunchScreen.xib in Resources */,
 				8180E6631A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
 				8180E65F1A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
 				8180E6751A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
 				8180E66F1A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
 				8180E6611A147A78007FA1CF /* Lato-Hairline.ttf in Resources */,
+				81331E271A1806BB003E4609 /* LICENSE in Resources */,
 				8180E6691A147A78007FA1CF /* Lato-Italic.ttf in Resources */,
 				8180E6151A142157007FA1CF /* Images.xcassets in Resources */,
 				8180E6791A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
 				8180E66D1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
+				81331E2B1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6731A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
+				81331E611A194868003E4609 /* LyricPickerTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,14 +620,18 @@
 				8180E65C1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
 				8180E6621A147A78007FA1CF /* Lato-Hairline.ttf in Resources */,
 				8180E67A1A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
+				81331E261A1806BB003E4609 /* .gitignore in Resources */,
 				8180E66C1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
 				8180E6641A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
+				81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */,
 				8180E6781A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
+				81331E2C1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6701A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
 				8180E66A1A147A78007FA1CF /* Lato-Italic.ttf in Resources */,
 				8180E65E1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
 				8180E6411A142B7C007FA1CF /* KeyboardView.xib in Resources */,
 				8180E6721A147A78007FA1CF /* Lato-MediumItalic.ttf in Resources */,
+				81331E281A1806BB003E4609 /* LICENSE in Resources */,
 				8180E6601A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
 				8180E6761A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
 				8180E6741A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
@@ -484,6 +640,7 @@
 				8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
 				8180E6451A142EA4007FA1CF /* LyricPickerTableViewController.xib in Resources */,
+				81331E301A1806BB003E4609 /* Info.plist in Resources */,
 				8180E66E1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,6 +648,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		194ABAC59D0290C32B9EF891 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		45728D1C2D72036A77085D41 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -504,6 +676,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrizzyChat/Pods-DrizzyChat-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E81146B4BB9D2702D75E23C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A00C0EDAA51482F77D82BB77 /* Check Pods Manifest.lock */ = {
@@ -528,9 +715,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
+				81331E141A17FA88003E4609 /* Category.swift in Sources */,
+				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
+				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
+				81331E151A17FA8B003E4609 /* CategoryService.swift in Sources */,
 				8180E6101A142157007FA1CF /* ViewController.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
+				81331E5E1A194855003E4609 /* SectionCollectionViewController.swift in Sources */,
+				81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */,
+				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,12 +742,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8180E63F1A142B1A007FA1CF /* SectionCollectionViewController.swift in Sources */,
+				81331E121A17F9F3003E4609 /* Lyric.swift in Sources */,
 				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
 				81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */,
 				8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */,
-				81331E011A17DF84003E4609 /* LyricGroup.swift in Sources */,
 				81331E051A17E538003E4609 /* Category.swift in Sources */,
+				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
+				81331E091A17EC52003E4609 /* CategoryService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,7 +870,12 @@
 			baseConfigurationReference = D5794374D5B3F63155309941 /* Pods-DrizzyChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Firebase",
+				);
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -686,7 +888,12 @@
 			baseConfigurationReference = 03776BC2F64FC0C6FCC35217 /* Pods-DrizzyChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Firebase",
+				);
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -730,25 +937,47 @@
 		};
 		8180E63B1A142199007FA1CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
+					"$(PROJECT_DIR)/Pods/Firebase",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = CustomKeyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		8180E63C1A142199007FA1CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
+					"$(PROJECT_DIR)/Pods/Firebase",
+				);
 				INFOPLIST_FILE = CustomKeyboard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
 			name = Release;
 		};

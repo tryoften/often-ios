@@ -9,5 +9,15 @@
 import UIKit
 
 class Lyric: NSObject {
-   
+    var text: String
+    var categoryId: String
+    var trackId: String
+    
+    init(text: String, categoryId: String, trackId: String) {
+        self.text = text
+        self.categoryId = categoryId
+        self.trackId = trackId
+
+        super.init()
+    }
 }

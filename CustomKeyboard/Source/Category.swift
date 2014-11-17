@@ -11,10 +11,12 @@ import UIKit
 class Category: NSObject {
     var id: String
     var name: String
+    var lyrics: [Lyric]
     
-    init(id: String, name: String) {
+    init(id: String, name: String, lyrics: [Lyric]) {
         self.id = id
         self.name = name
+        self.lyrics = lyrics
         
         super.init()
     }

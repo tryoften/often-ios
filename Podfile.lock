@@ -1,10 +1,13 @@
 PODS:
   - Firebase (2.0.2)
+  - Reveal-iOS-SDK (1.0.6)
 
 DEPENDENCIES:
   - Firebase (>= 2.0.2)
+  - Reveal-iOS-SDK (~> 1.0.6)
 
 SPEC CHECKSUMS:
   Firebase: 793a4581e4f4d9cb1e156cab89ca367f3d02b473
+  Reveal-iOS-SDK: 74a39b426dbc915962704ed24f43ee32ae7797f9
 
-COCOAPODS: 0.34.2
+COCOAPODS: 0.35.0.rc2
