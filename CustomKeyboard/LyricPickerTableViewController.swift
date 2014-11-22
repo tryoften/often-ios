@@ -25,10 +25,8 @@ class LyricPickerTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         self.labelFont = UIFont(name: "Lato-Light", size: 20)
-//        self.tableView.backgroundColor = UIColor(red: 31, green: 39, blue: 67, alpha: 1)
-        self.tableView.backgroundColor = UIColor(fromHexString: "#1f2743")
 
-//        self.tableView.backgroundColor = UIColor.blackColor()
+        self.tableView.backgroundColor = UIColor(fromHexString: "#1f2743")
         self.tableView.separatorColor = UIColor(fromHexString: "#373e57")
         self.tableView.separatorInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         self.tableView.registerNib(UINib(nibName: LyricTableViewCellIdentifier, bundle: NSBundle.mainBundle()), forCellReuseIdentifier: LyricTableViewCellIdentifier)
@@ -57,8 +55,6 @@ class LyricPickerTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(LyricTableViewCellIdentifier, forIndexPath: indexPath) as LyricTableViewCell
-    
-//        cell.lyricLabel.font = self.labelFont
 
         switch(indexPath.row) {
         case 0:

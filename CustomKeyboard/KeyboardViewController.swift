@@ -18,45 +18,31 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate {
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
-    
-        // Add custom view sizing constraints here
-        let screenBounds = UIScreen.mainScreen().bounds
-//        self.inputView.removeConstraint(self.heightConstraint!)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for family in UIFont.familyNames() {
-            println("\(family)")
-            
-            for name in UIFont.fontNamesForFamilyName(family as String) {
-                println("  \(name)")
-            }
-        }
-        
-        self.lyricPicker = LyricPickerTableViewController()
-        self.view.addSubview(self.lyricPicker.view)
-        self.lyricPicker.delegate = self
-        self.lyricPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+//        for family in UIFont.familyNames() {
+//            println("\(family)")
+//            
+//            for name in UIFont.fontNamesForFamilyName(family as String) {
+//                println("  \(name)")
+//            }
+//        }
         
         self.categoryService = CategoryService()
         
-        // Perform custom UI setup here
-//        self.nextKeyboardButton = UIButton.buttonWithType(.System) as UIButton
-//    
-//        self.nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
-//        self.nextKeyboardButton.sizeToFit()
-//        self.nextKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-//    
-//        self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
-        
-//        self.view.addSubview(self.nextKeyboardButton)
+        self.lyricPicker = LyricPickerTableViewController()
+        self.lyricPicker.delegate = self
+        self.lyricPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         self.sectionPickerView = SectionPickerView(frame: CGRectZero)
         self.sectionPickerView?.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.sectionPickerView?.categories = self.categoryService?.categories
         self.sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
+        
+        self.view.addSubview(self.lyricPicker.view)
         self.view.addSubview(self.sectionPickerView!)
         
         setupLayout()
@@ -69,7 +55,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate {
 
         //section Picker View
         view.addConstraints([
-            sectionPickerView.al_height == 50.0 * 1.0,
             sectionPickerView.al_width == view.al_width,
             sectionPickerView.al_bottom == view.al_bottom,
             sectionPickerView.al_left == view.al_left,
@@ -83,9 +68,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate {
             lyricPicker.al_right == view.al_right,
             lyricPicker.al_bottom == view.al_bottom,
         ])
-    }
-    
-    override func viewWillLayoutSubviews() {
     }
 
     override func didReceiveMemoryWarning() {
@@ -107,7 +89,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate {
         } else {
             textColor = UIColor.blackColor()
         }
-//        self.nextKeyboardButton.setTitleColor(textColor, forState: .Normal)
     }
     
     func didPickLyric(lyricPicker: LyricPickerTableViewController, lyric: String?) {
