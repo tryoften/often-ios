@@ -23,8 +23,10 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
             self.categoriesTableView.reloadData()
             if (self.categories!.count > 0) {
                 let category =  self.categories![0]
-                self.currentCategoryLabel.text = category.name
                 self.delegate?.didSelectSection(self, category: category)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.currentCategoryLabel.text = category.name
+                })
             }
         }
     }
@@ -53,6 +55,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         self.currentCategoryLabel = UILabel()
         self.currentCategoryLabel.textColor = UIColor.whiteColor()
         self.currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.currentCategoryLabel.userInteractionEnabled = true
         
         super.init(frame: frame)
 
@@ -69,8 +72,9 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         self.addSubview(self.toggleDrawerButton)
         self.addSubview(self.currentCategoryLabel)
         
-        self.toggleDrawerButton.addTarget(self, action: Selector("toggleDrawer"), forControlEvents: .TouchUpInside)
-        self.currentCategoryLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: Selector("toggleDrawer")))
+        let toggleSelector = Selector("toggleDrawer")
+        self.toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
+        self.currentCategoryLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: toggleSelector))
         self.categoriesTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "tableCell")
         
         setupLayout()
