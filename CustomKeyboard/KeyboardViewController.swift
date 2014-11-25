@@ -31,21 +31,28 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate {
 //            }
 //        }
         
-        self.categoryService = CategoryService()
+        var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
+        self.categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
         
         self.lyricPicker = LyricPickerTableViewController()
         self.lyricPicker.delegate = self
         self.lyricPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         self.sectionPickerView = SectionPickerView(frame: CGRectZero)
+        self.sectionPickerView?.delegate = self.lyricPicker
         self.sectionPickerView?.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.sectionPickerView?.categories = self.categoryService?.categories
         self.sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
-        
+        self.sectionPickerView?.categoryService = self.categoryService
+
         self.view.addSubview(self.lyricPicker.view)
         self.view.addSubview(self.sectionPickerView!)
         
         setupLayout()
+        
+        self.categoryService?.requestData { categories in
+            self.sectionPickerView?.categories = self.categoryService?.categories
+            return
+        }
     }
     
     func setupLayout() {

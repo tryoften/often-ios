@@ -7,3 +7,5 @@
 //
 
 import Foundation
+
+let CategoryServiceEndpoint = "https://blinding-fire-1400.firebaseio.com/"

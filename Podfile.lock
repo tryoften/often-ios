@@ -1,13 +1,19 @@
 PODS:
   - Firebase (2.0.2)
+  - NUI (0.5.4):
+    - NUIParse
+  - NUIParse (1.2.1)
   - Reveal-iOS-SDK (1.0.6)
 
 DEPENDENCIES:
   - Firebase (>= 2.0.2)
+  - NUI (>= 0.5)
   - Reveal-iOS-SDK (~> 1.0.6)
 
 SPEC CHECKSUMS:
   Firebase: 793a4581e4f4d9cb1e156cab89ca367f3d02b473
+  NUI: ce8570dc3bb7983ffa8ae58ab0fc852d378b00cb
+  NUIParse: f29eb240cfc9848b216c827884f37ae64abd19e4
   Reveal-iOS-SDK: 74a39b426dbc915962704ed24f43ee32ae7797f9
 
 COCOAPODS: 0.35.0.rc2

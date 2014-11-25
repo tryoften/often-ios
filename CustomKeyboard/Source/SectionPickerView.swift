@@ -16,12 +16,15 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     var drawerOpened: Bool = false
     var heightConstraint: NSLayoutConstraint?
     var delegate: SectionPickerViewDelegate?
-    
+    var categoryService: CategoryService?
+
     var categories: [Category]? {
         didSet {
             self.categoriesTableView.reloadData()
             if (self.categories!.count > 0) {
-                self.currentCategoryLabel.text = self.categories![0].name
+                let category =  self.categories![0]
+                self.currentCategoryLabel.text = category.name
+                self.delegate?.didSelectSection(self, category: category)
             }
         }
     }
@@ -142,7 +145,11 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         
         self.currentCategoryLabel.text = category.name
         self.toggleDrawer()
-        self.delegate?.didSelectSection(self, category: category)
+        
+        self.categoryService?.requestLyrics(category.id, artistIds: nil).onSuccess({ lyrics in
+            self.delegate?.didSelectSection(self, category: category)
+            return
+        })
     }
     
     // MARK: UITableViewDataSource

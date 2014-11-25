@@ -9,11 +9,13 @@
 import UIKit
 
 class Lyric: NSObject {
+    var id: String
     var text: String
     var categoryId: String
-    var trackId: String
+    var trackId: String?
     
-    init(text: String, categoryId: String, trackId: String) {
+    init(id: String, text: String, categoryId: String, trackId: String?) {
+        self.id = id
         self.text = text
         self.categoryId = categoryId
         self.trackId = trackId

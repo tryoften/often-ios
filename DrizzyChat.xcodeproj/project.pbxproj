@@ -8,6 +8,34 @@
 
 /* Begin PBXBuildFile section */
 		4CAB6DC932CA670B7FE8D53A /* libPods-DrizzyChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D409EF9C892829C2F11DC4 /* libPods-DrizzyChat.a */; };
+		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
+		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
+		810C407E1A21402A00170DB4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 810C406B1A21402A00170DB4 /* .gitignore */; };
+		810C407F1A21402A00170DB4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 810C406B1A21402A00170DB4 /* .gitignore */; };
+		810C40801A21402A00170DB4 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 810C406C1A21402A00170DB4 /* .travis.yml */; };
+		810C40811A21402A00170DB4 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 810C406C1A21402A00170DB4 /* .travis.yml */; };
+		810C40821A21402A00170DB4 /* ExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C406E1A21402A00170DB4 /* ExecutionContext.swift */; };
+		810C40831A21402A00170DB4 /* ExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C406E1A21402A00170DB4 /* ExecutionContext.swift */; };
+		810C40841A21402A00170DB4 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C406F1A21402A00170DB4 /* Future.swift */; };
+		810C40851A21402A00170DB4 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C406F1A21402A00170DB4 /* Future.swift */; };
+		810C40861A21402A00170DB4 /* FutureUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40701A21402A00170DB4 /* FutureUtils.swift */; };
+		810C40871A21402A00170DB4 /* FutureUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40701A21402A00170DB4 /* FutureUtils.swift */; };
+		810C40881A21402A00170DB4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 810C40711A21402A00170DB4 /* Info.plist */; };
+		810C40891A21402A00170DB4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 810C40711A21402A00170DB4 /* Info.plist */; };
+		810C408A1A21402A00170DB4 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40721A21402A00170DB4 /* Promise.swift */; };
+		810C408B1A21402A00170DB4 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40721A21402A00170DB4 /* Promise.swift */; };
+		810C408C1A21402A00170DB4 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40731A21402A00170DB4 /* Queue.swift */; };
+		810C408D1A21402A00170DB4 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40731A21402A00170DB4 /* Queue.swift */; };
+		810C408E1A21402A00170DB4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40741A21402A00170DB4 /* Result.swift */; };
+		810C408F1A21402A00170DB4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40741A21402A00170DB4 /* Result.swift */; };
+		810C40921A21402A00170DB4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 810C407A1A21402A00170DB4 /* Info.plist */; };
+		810C40931A21402A00170DB4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 810C407A1A21402A00170DB4 /* Info.plist */; };
+		810C40941A21402A00170DB4 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407B1A21402A00170DB4 /* CHANGELOG.md */; };
+		810C40951A21402A00170DB4 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407B1A21402A00170DB4 /* CHANGELOG.md */; };
+		810C40961A21402A00170DB4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 810C407C1A21402A00170DB4 /* LICENSE */; };
+		810C40971A21402A00170DB4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 810C407C1A21402A00170DB4 /* LICENSE */; };
+		810C40981A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
+		810C40991A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
 		81331E051A17E538003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
 		81331E091A17EC52003E4609 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E081A17EC52003E4609 /* CategoryService.swift */; };
 		81331E121A17F9F3003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
@@ -25,10 +53,8 @@
 		81331E2F1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E231A1806BB003E4609 /* Info.plist */; };
 		81331E301A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E231A1806BB003E4609 /* Info.plist */; };
 		81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
-		81331E5E1A194855003E4609 /* SectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E63E1A142B1A007FA1CF /* SectionCollectionViewController.swift */; };
 		81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
 		81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
-		81331E611A194868003E4609 /* LyricPickerTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6431A142EA4007FA1CF /* LyricPickerTableViewController.xib */; };
 		8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60D1A142157007FA1CF /* AppDelegate.swift */; };
 		8180E6101A142157007FA1CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60F1A142157007FA1CF /* ViewController.swift */; };
 		8180E6131A142157007FA1CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6111A142157007FA1CF /* Main.storyboard */; };
@@ -37,10 +63,8 @@
 		8180E6241A142158007FA1CF /* DrizzyChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6231A142158007FA1CF /* DrizzyChatTests.swift */; };
 		8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		8180E6391A142199007FA1CF /* CustomKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* CustomKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8180E63F1A142B1A007FA1CF /* SectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E63E1A142B1A007FA1CF /* SectionCollectionViewController.swift */; };
 		8180E6411A142B7C007FA1CF /* KeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6401A142B7C007FA1CF /* KeyboardView.xib */; };
 		8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
-		8180E6451A142EA4007FA1CF /* LyricPickerTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6431A142EA4007FA1CF /* LyricPickerTableViewController.xib */; };
 		8180E6591A147A78007FA1CF /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6471A147A77007FA1CF /* Lato-Black.ttf */; };
 		8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6471A147A77007FA1CF /* Lato-Black.ttf */; };
 		8180E65B1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6481A147A77007FA1CF /* Lato-BlackItalic.ttf */; };
@@ -104,6 +128,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		810C409C1A21402A00170DB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 810C40751A21402A00170DB4 /* BrightFutures.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E9DF0815194470060083F7F2;
+			remoteInfo = BrightFutures;
+		};
+		810C409E1A21402A00170DB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 810C40751A21402A00170DB4 /* BrightFutures.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E9DF0820194470060083F7F2;
+			remoteInfo = BrightFuturesTests;
+		};
 		81331E361A1806BB003E4609 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
@@ -159,6 +197,22 @@
 		03776BC2F64FC0C6FCC35217 /* Pods-DrizzyChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrizzyChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrizzyChat/Pods-DrizzyChat.release.xcconfig"; sourceTree = "<group>"; };
 		34D409EF9C892829C2F11DC4 /* libPods-DrizzyChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DrizzyChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		810C406B1A21402A00170DB4 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		810C406C1A21402A00170DB4 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		810C406E1A21402A00170DB4 /* ExecutionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionContext.swift; sourceTree = "<group>"; };
+		810C406F1A21402A00170DB4 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
+		810C40701A21402A00170DB4 /* FutureUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureUtils.swift; sourceTree = "<group>"; };
+		810C40711A21402A00170DB4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		810C40721A21402A00170DB4 /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		810C40731A21402A00170DB4 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		810C40741A21402A00170DB4 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		810C40751A21402A00170DB4 /* BrightFutures.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = BrightFutures.xcodeproj; sourceTree = "<group>"; };
+		810C40791A21402A00170DB4 /* BrightFuturesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrightFuturesTests.swift; sourceTree = "<group>"; };
+		810C407A1A21402A00170DB4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		810C407B1A21402A00170DB4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		810C407C1A21402A00170DB4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		810C407D1A21402A00170DB4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		81331E081A17EC52003E4609 /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryService.swift; path = Source/CategoryService.swift; sourceTree = "<group>"; };
@@ -185,10 +239,8 @@
 		8180E6311A142199007FA1CF /* CustomKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CustomKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6341A142199007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E6351A142199007FA1CF /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
-		8180E63E1A142B1A007FA1CF /* SectionCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionCollectionViewController.swift; sourceTree = "<group>"; };
 		8180E6401A142B7C007FA1CF /* KeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardView.xib; sourceTree = "<group>"; };
 		8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LyricPickerTableViewController.swift; sourceTree = "<group>"; };
-		8180E6431A142EA4007FA1CF /* LyricPickerTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LyricPickerTableViewController.xib; sourceTree = "<group>"; };
 		8180E6471A147A77007FA1CF /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		8180E6481A147A77007FA1CF /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		8180E6491A147A77007FA1CF /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -273,6 +325,53 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		810C406A1A21402A00170DB4 /* BrightFutures */ = {
+			isa = PBXGroup;
+			children = (
+				810C406B1A21402A00170DB4 /* .gitignore */,
+				810C406C1A21402A00170DB4 /* .travis.yml */,
+				810C406D1A21402A00170DB4 /* BrightFutures */,
+				810C40751A21402A00170DB4 /* BrightFutures.xcodeproj */,
+				810C40781A21402A00170DB4 /* BrightFuturesTests */,
+				810C407B1A21402A00170DB4 /* CHANGELOG.md */,
+				810C407C1A21402A00170DB4 /* LICENSE */,
+				810C407D1A21402A00170DB4 /* README.md */,
+			);
+			path = BrightFutures;
+			sourceTree = "<group>";
+		};
+		810C406D1A21402A00170DB4 /* BrightFutures */ = {
+			isa = PBXGroup;
+			children = (
+				810C406E1A21402A00170DB4 /* ExecutionContext.swift */,
+				810C406F1A21402A00170DB4 /* Future.swift */,
+				810C40701A21402A00170DB4 /* FutureUtils.swift */,
+				810C40711A21402A00170DB4 /* Info.plist */,
+				810C40721A21402A00170DB4 /* Promise.swift */,
+				810C40731A21402A00170DB4 /* Queue.swift */,
+				810C40741A21402A00170DB4 /* Result.swift */,
+			);
+			path = BrightFutures;
+			sourceTree = "<group>";
+		};
+		810C40761A21402A00170DB4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				810C409D1A21402A00170DB4 /* BrightFutures.framework */,
+				810C409F1A21402A00170DB4 /* BrightFuturesTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		810C40781A21402A00170DB4 /* BrightFuturesTests */ = {
+			isa = PBXGroup;
+			children = (
+				810C40791A21402A00170DB4 /* BrightFuturesTests.swift */,
+				810C407A1A21402A00170DB4 /* Info.plist */,
+			);
+			path = BrightFuturesTests;
+			sourceTree = "<group>";
+		};
 		81331DFF1A17DF66003E4609 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +392,7 @@
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				810C406A1A21402A00170DB4 /* BrightFutures */,
 				81A1A4D91A19786D00D566B8 /* ILTranslucentView */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
 			);
@@ -376,6 +476,7 @@
 				81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */,
 				81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */,
 				81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */,
+				810C40641A21125B00170DB4 /* Constants.swift */,
 			);
 			path = DrizzyChat;
 			sourceTree = "<group>";
@@ -412,9 +513,7 @@
 				81331DFF1A17DF66003E4609 /* Models */,
 				8180E67D1A147F7D007FA1CF /* Views */,
 				8180E6351A142199007FA1CF /* KeyboardViewController.swift */,
-				8180E63E1A142B1A007FA1CF /* SectionCollectionViewController.swift */,
 				8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */,
-				8180E6431A142EA4007FA1CF /* LyricPickerTableViewController.xib */,
 				8180E6461A1477F2007FA1CF /* Resources */,
 				8180E6331A142199007FA1CF /* Supporting Files */,
 				8180E6401A142B7C007FA1CF /* KeyboardView.xib */,
@@ -584,6 +683,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 810C40761A21402A00170DB4 /* Products */;
+					ProjectRef = 810C40751A21402A00170DB4 /* BrightFutures.xcodeproj */;
+				},
+				{
 					ProductGroup = 81331E201A1806BB003E4609 /* Products */;
 					ProjectRef = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
 				},
@@ -598,6 +701,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		810C409D1A21402A00170DB4 /* BrightFutures.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = BrightFutures.framework;
+			remoteRef = 810C409C1A21402A00170DB4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		810C409F1A21402A00170DB4 /* BrightFuturesTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = BrightFuturesTests.xctest;
+			remoteRef = 810C409E1A21402A00170DB4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		81331E371A1806BB003E4609 /* SwiftAutoLayout.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -630,21 +747,26 @@
 				81A1A4E41A19786D00D566B8 /* .gitignore in Resources */,
 				8180E67B1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
 				8180E66B1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
+				810C407E1A21402A00170DB4 /* .gitignore in Resources */,
 				8180E6591A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				8180E65D1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
 				81331E251A1806BB003E4609 /* .gitignore in Resources */,
+				810C40961A21402A00170DB4 /* LICENSE in Resources */,
 				8180E6821A147FBA007FA1CF /* LyricTableViewCell.xib in Resources */,
 				8180E6131A142157007FA1CF /* Main.storyboard in Resources */,
 				81A1A4E81A19786D00D566B8 /* LICENSE in Resources */,
 				8180E6711A147A78007FA1CF /* Lato-MediumItalic.ttf in Resources */,
 				8180E6771A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
+				810C40881A21402A00170DB4 /* Info.plist in Resources */,
 				8180E65B1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
 				8180E6671A147A78007FA1CF /* Lato-HeavyItalic.ttf in Resources */,
 				81331E2F1A1806BB003E4609 /* Info.plist in Resources */,
 				81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */,
 				8180E6181A142157007FA1CF /* LaunchScreen.xib in Resources */,
 				81A1A4E61A19786D00D566B8 /* ILTranslucentView.podspec in Resources */,
+				810C40921A21402A00170DB4 /* Info.plist in Resources */,
 				8180E6631A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
+				810C40801A21402A00170DB4 /* .travis.yml in Resources */,
 				81A1A4EC1A19786D00D566B8 /* ScreenShot example.png in Resources */,
 				8180E65F1A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
 				8180E6751A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
@@ -658,7 +780,6 @@
 				8180E66D1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
 				81331E2B1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6731A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
-				81331E611A194868003E4609 /* LyricPickerTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,18 +802,23 @@
 				8180E67A1A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
 				81331E261A1806BB003E4609 /* .gitignore in Resources */,
 				8180E66C1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
+				810C40891A21402A00170DB4 /* Info.plist in Resources */,
 				8180E6641A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
+				810C40931A21402A00170DB4 /* Info.plist in Resources */,
 				81A1A4E51A19786D00D566B8 /* .gitignore in Resources */,
 				81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */,
 				81A1A4ED1A19786D00D566B8 /* ScreenShot example.png in Resources */,
+				810C407F1A21402A00170DB4 /* .gitignore in Resources */,
 				8180E6781A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
 				81331E2C1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6701A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
 				8180E66A1A147A78007FA1CF /* Lato-Italic.ttf in Resources */,
 				8180E65E1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
+				810C40811A21402A00170DB4 /* .travis.yml in Resources */,
 				8180E6411A142B7C007FA1CF /* KeyboardView.xib in Resources */,
 				8180E6721A147A78007FA1CF /* Lato-MediumItalic.ttf in Resources */,
 				81331E281A1806BB003E4609 /* LICENSE in Resources */,
+				810C40971A21402A00170DB4 /* LICENSE in Resources */,
 				8180E6601A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
 				8180E6761A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
 				8180E6741A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
@@ -701,7 +827,6 @@
 				8180E6661A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
 				8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
-				8180E6451A142EA4007FA1CF /* LyricPickerTableViewController.xib in Resources */,
 				81331E301A1806BB003E4609 /* Info.plist in Resources */,
 				8180E66E1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
 			);
@@ -778,17 +903,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */,
+				810C40821A21402A00170DB4 /* ExecutionContext.swift in Sources */,
+				810C40841A21402A00170DB4 /* Future.swift in Sources */,
+				810C408C1A21402A00170DB4 /* Queue.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				81331E141A17FA88003E4609 /* Category.swift in Sources */,
+				810C408E1A21402A00170DB4 /* Result.swift in Sources */,
+				810C408A1A21402A00170DB4 /* Promise.swift in Sources */,
+				810C40981A21402A00170DB4 /* README.md in Sources */,
+				810C40861A21402A00170DB4 /* FutureUtils.swift in Sources */,
 				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				81331E151A17FA8B003E4609 /* CategoryService.swift in Sources */,
 				81A1A4EA1A19786D00D566B8 /* README.md in Sources */,
+				810C40941A21402A00170DB4 /* CHANGELOG.md in Sources */,
 				8180E6101A142157007FA1CF /* ViewController.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
-				81331E5E1A194855003E4609 /* SectionCollectionViewController.swift in Sources */,
+				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */,
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
 			);
@@ -806,18 +939,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				810C408F1A21402A00170DB4 /* Result.swift in Sources */,
+				810C40831A21402A00170DB4 /* ExecutionContext.swift in Sources */,
 				81A1A4EF1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
-				8180E63F1A142B1A007FA1CF /* SectionCollectionViewController.swift in Sources */,
+				810C40991A21402A00170DB4 /* README.md in Sources */,
 				81331E121A17F9F3003E4609 /* Lyric.swift in Sources */,
 				81A1A4EB1A19786D00D566B8 /* README.md in Sources */,
 				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
 				81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */,
+				810C408B1A21402A00170DB4 /* Promise.swift in Sources */,
 				8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */,
+				810C40951A21402A00170DB4 /* CHANGELOG.md in Sources */,
+				810C40851A21402A00170DB4 /* Future.swift in Sources */,
 				81331E051A17E538003E4609 /* Category.swift in Sources */,
+				810C40871A21402A00170DB4 /* FutureUtils.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
+				810C408D1A21402A00170DB4 /* Queue.swift in Sources */,
 				81331E091A17EC52003E4609 /* CategoryService.swift in Sources */,
+				810C40691A21126500170DB4 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

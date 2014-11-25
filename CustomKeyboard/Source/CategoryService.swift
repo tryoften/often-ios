@@ -8,32 +8,102 @@
 
 import UIKit
 
-let CategoryServiceEndpoint = "https://blinding-fire-1400.firebaseio.com/"
-
 class CategoryService: NSObject {
-    var root = Firebase(url: CategoryServiceEndpoint)
+    var artistId: String
+    var root: Firebase
+    var categoriesRef: Firebase
+    var lyricsRef: Firebase
     var categories: [Category] = []
+    var lyrics: [Lyric] = []
+    var isDataLoaded: Bool = false
     
-    override init() {
-        self.categories = [
-            Category(id: "misc", name: "Miscellaneous", lyrics: [
-                    Lyric(text: "This woman that I messed with unprotected, texting saying that she wish she would've kept it.", categoryId: "misc", trackId: "0llA0pYA6GpGk7fTjew0wO"),
-                    Lyric(text: "Everybody talks and everybody listens/but somehow the truth always comes up missing", categoryId: "misc", trackId: "0llA0pYA6GpGk7fTjew0wO")
-                ]),
+    init(artistId: String, root: Firebase) {
+        self.artistId = artistId
+        self.root = root
+        self.categoriesRef = root.childByAppendingPath("categories")
+        self.lyricsRef = root.childByAppendingPath("lyrics")
 
-            Category(id: "party", name: "Party", lyrics: [
-                Lyric(text: "Let's toast to the fact that I moved out my momma's basement", categoryId: "party", trackId: "")
-                ])
-        ]
+        super.init()
     }
     
-    func fetchInitialData() {
-        var categoriesRef = root.childByAppendingPath("categories")
-        
-        categoriesRef.observeSingleEventOfType(.Value, withBlock: {
-            (snapshot: FDataSnapshot!)  in
-            
-            let categories = snapshot.value as [Dictionary<String, AnyObject>]
-        })
+    func observeNewCategories(snapshot: FDataSnapshot!) {
+        if (!self.isDataLoaded) {
+            return
+        }
+        let data = snapshot.value as [String: String]
+        var category = Category(id: data["id"]!, name: data["name"]!, lyrics: nil)
     }
+    
+    func categoryForId(categoryId: String) -> Category? {
+        for category in categories {
+            if category.id == categoryId {
+                return category
+            }
+        }
+        return nil
+    }
+    
+    func requestCategories() -> Future<[Category]> {
+        var promise = Promise<[Category]>()
+        
+        categoriesRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            
+            let data = snapshot.value as [ [String: String] ]
+            
+            for category in data {
+                self.categories.append(Category(id: category["id"]!, name: category["name"]!, lyrics: nil))
+            }
+            
+            self.isDataLoaded = true
+            
+            promise.success(self.categories)
+        })
+        
+        return promise.future
+    }
+    
+    func requestLyrics(categoryId: String, artistIds: [String]?) -> Future<[Lyric]> {
+        var promise = Promise<[Lyric]>()
+        
+        var query = lyricsRef.childByAppendingPath("\(categoryId)")
+        query.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            
+            let data = snapshot.value as Dictionary<String, [ [String : String] ]>
+            var lyrics = [Lyric]()
+            
+            for (key, lyricsData) in data {
+                for lyricData in lyricsData {
+                    var lyric = Lyric(id: key, text: lyricData["text"]!, categoryId: lyricData["category_id"]!, trackId: lyricData["track_id"])
+                    lyrics.append(lyric)
+                }
+            }
+            
+            if let category = self.categoryForId(categoryId) {
+                category.lyrics = lyrics
+            }
+            
+            promise.success(lyrics)
+        })
+        
+        return promise.future
+    }
+    
+    func requestData(completion: (Bool) -> Void) {
+        self.requestCategories().andThen { result in
+            var category = self.categories[0]
+            self.requestLyrics(category.id, artistIds: nil).onSuccess { data in
+                completion(true)
+            }
+        }
+        
+        // listen for any new categories added after the initial load
+        categoriesRef.observeEventType(.ChildAdded, withBlock: self.observeNewCategories)
+        
+        
+    }
+}
+
+protocol CategoryServiceDelegate {
+    func categoryServiceDidLoad(service: CategoryService)
+    func categoryServiceDidAddLyric(service: CategoryService, lyric: Lyric)
 }
