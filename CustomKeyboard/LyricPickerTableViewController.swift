@@ -71,11 +71,12 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as LyricTableViewCell
         
-        self.delegate?.didPickLyric(self, lyric: cell.lyricLabel.text)
+        var lyric = self.currentCategory?.lyrics![indexPath.row]
+        self.delegate?.didPickLyric(self, lyric: lyric)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
+        return 80
     }
     
     // MARK: SectionPickerViewDelegate
@@ -91,5 +92,5 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
 }
 
 protocol LyricPickerDelegate {
-    func didPickLyric(lyricPicker: LyricPickerTableViewController, lyric: String?)
+    func didPickLyric(lyricPicker: LyricPickerTableViewController, lyric: Lyric?)
 }

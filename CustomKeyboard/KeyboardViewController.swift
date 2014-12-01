@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KeyboardViewController: UIInputViewController, LyricPickerDelegate {
+class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate {
 
     @IBOutlet var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
@@ -98,10 +98,27 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate {
         }
     }
     
-    func didPickLyric(lyricPicker: LyricPickerTableViewController, lyric: String?) {
+    func didPickLyric(lyricPicker: LyricPickerTableViewController, lyric: Lyric?) {
         let proxy = self.textDocumentProxy as UIKeyInput
         
-        proxy.insertText(lyric!)
-    }
+        let shareVC = ShareViewController(nibName: "ShareView", bundle: nil)
+        shareVC.lyric = lyric
+        shareVC.delegate = self
+        shareVC.modalPresentationStyle = .Custom
 
+        self.presentViewController(shareVC, animated: true, completion: nil)
+        proxy.insertText(lyric!.text)
+    }
+    
+    // MARK: ShareViewControllerDelegate
+
+    func shareViewControllerDidCancel(shareVC: ShareViewController) {
+        let proxy = self.textDocumentProxy as UIKeyInput
+        
+        for var i = 0, len = shareVC.lyric!.text.utf16Count; i < len; i++ {
+            proxy.deleteBackward()
+        }
+        
+        shareVC.dismissViewControllerAnimated(true, completion: nil)
+    }
 }

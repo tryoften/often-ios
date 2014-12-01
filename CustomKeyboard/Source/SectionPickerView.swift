@@ -56,6 +56,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         self.currentCategoryLabel.textColor = UIColor.whiteColor()
         self.currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.currentCategoryLabel.userInteractionEnabled = true
+        self.currentCategoryLabel.font = UIFont(name: "Lato-Black", size: 20)
         
         super.init(frame: frame)
 
@@ -89,8 +90,8 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         
         view.addConstraint(self.heightConstraint!)
         
-        // keyboard button
         view.addConstraints([
+            // keyboard button
             keyboardButton.al_left == view.al_left,
             keyboardButton.al_top == view.al_top,
             keyboardButton.al_bottom == view.al_bottom,
@@ -164,7 +165,9 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         var category = self.categories![indexPath.row]
         cell.backgroundColor = UIColor.clearColor()
         cell.textLabel.text = category.name
-        
+        cell.textLabel.font = UIFont(name: "Lato-Light", size: 16)
+        cell.textLabel.textColor = UIColor.whiteColor()
+
         return cell
     }
     

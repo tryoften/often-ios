@@ -36,6 +36,8 @@
 		810C40971A21402A00170DB4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 810C407C1A21402A00170DB4 /* LICENSE */; };
 		810C40981A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
 		810C40991A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
+		8119F4191A245C4D00F191DE /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8119F4181A245C4D00F191DE /* ShareView.xib */; };
+		8119F41A1A245C4D00F191DE /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8119F4181A245C4D00F191DE /* ShareView.xib */; };
 		81331E051A17E538003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
 		81331E091A17EC52003E4609 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E081A17EC52003E4609 /* CategoryService.swift */; };
 		81331E121A17F9F3003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
@@ -124,6 +126,8 @@
 		81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
+		81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */; };
+		81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */; };
 		BE4402AFA1E84C0CFEB6ECDE /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */; };
 /* End PBXBuildFile section */
 
@@ -213,6 +217,7 @@
 		810C407B1A21402A00170DB4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		810C407C1A21402A00170DB4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		810C407D1A21402A00170DB4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8119F4181A245C4D00F191DE /* ShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareView.xib; path = Source/ShareView.xib; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		81331E081A17EC52003E4609 /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryService.swift; path = Source/CategoryService.swift; sourceTree = "<group>"; };
@@ -273,6 +278,7 @@
 		81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HEXString.h"; sourceTree = "<group>"; };
 		81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEXString.m"; sourceTree = "<group>"; };
 		81ABAAE71A15820600456A5A /* SectionPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerView.swift; path = Source/SectionPickerView.swift; sourceTree = "<group>"; };
+		81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareViewController.swift; path = Source/ShareViewController.swift; sourceTree = "<group>"; };
 		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		D5794374D5B3F63155309941 /* Pods-DrizzyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrizzyChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrizzyChat/Pods-DrizzyChat.debug.xcconfig"; sourceTree = "<group>"; };
 		FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -509,11 +515,10 @@
 		8180E6321A142199007FA1CF /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
 				81331E061A17E552003E4609 /* Service */,
 				81331DFF1A17DF66003E4609 /* Models */,
 				8180E67D1A147F7D007FA1CF /* Views */,
-				8180E6351A142199007FA1CF /* KeyboardViewController.swift */,
-				8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */,
 				8180E6461A1477F2007FA1CF /* Resources */,
 				8180E6331A142199007FA1CF /* Supporting Files */,
 				8180E6401A142B7C007FA1CF /* KeyboardView.xib */,
@@ -561,6 +566,7 @@
 				8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */,
 				8180E67F1A147FBA007FA1CF /* LyricTableViewCell.xib */,
 				81ABAAE71A15820600456A5A /* SectionPickerView.swift */,
+				8119F4181A245C4D00F191DE /* ShareView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -586,6 +592,16 @@
 				81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		81AD7FBC1A2818BC00C616F4 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */,
+				8180E6351A142199007FA1CF /* KeyboardViewController.swift */,
+				81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -660,6 +676,7 @@
 				TargetAttributes = {
 					8180E6071A142157007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 2YWQFVQAMW;
 					};
 					8180E61C1A142158007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
@@ -667,6 +684,7 @@
 					};
 					8180E6301A142199007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 2YWQFVQAMW;
 					};
 				};
 			};
@@ -775,6 +793,7 @@
 				81331E271A1806BB003E4609 /* LICENSE in Resources */,
 				8180E6691A147A78007FA1CF /* Lato-Italic.ttf in Resources */,
 				8180E6151A142157007FA1CF /* Images.xcassets in Resources */,
+				8119F4191A245C4D00F191DE /* ShareView.xib in Resources */,
 				8180E6791A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
 				81A1A4F21A19786D00D566B8 /* StoryboardOrXIB.png in Resources */,
 				8180E66D1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
@@ -812,6 +831,7 @@
 				8180E6781A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
 				81331E2C1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6701A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
+				8119F41A1A245C4D00F191DE /* ShareView.xib in Resources */,
 				8180E66A1A147A78007FA1CF /* Lato-Italic.ttf in Resources */,
 				8180E65E1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
 				810C40811A21402A00170DB4 /* .travis.yml in Resources */,
@@ -907,6 +927,7 @@
 				810C40841A21402A00170DB4 /* Future.swift in Sources */,
 				810C408C1A21402A00170DB4 /* Queue.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
+				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
 				81331E141A17FA88003E4609 /* Category.swift in Sources */,
 				810C408E1A21402A00170DB4 /* Result.swift in Sources */,
 				810C408A1A21402A00170DB4 /* Promise.swift in Sources */,
@@ -950,6 +971,7 @@
 				81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */,
 				810C408B1A21402A00170DB4 /* Promise.swift in Sources */,
 				8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */,
+				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				810C40951A21402A00170DB4 /* CHANGELOG.md in Sources */,
 				810C40851A21402A00170DB4 /* Future.swift in Sources */,
 				81331E051A17E538003E4609 /* Category.swift in Sources */,
@@ -1080,6 +1102,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1098,6 +1121,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1148,6 +1172,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
@@ -1173,6 +1198,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
