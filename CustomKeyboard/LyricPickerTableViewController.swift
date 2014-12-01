@@ -10,7 +10,8 @@ import UIKit
 
 let LyricTableViewCellIdentifier = "LyricTableViewCell"
 
-class LyricPickerTableViewController: UITableViewController, SectionPickerViewDelegate {
+class LyricPickerTableViewController: UITableViewController, SectionPickerViewDelegate,
+    LyricTableViewCellDelegate {
     
     var delegate: LyricPickerDelegate?
     var labelFont: UIFont?
@@ -63,7 +64,8 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
         let cell = tableView.dequeueReusableCellWithIdentifier(LyricTableViewCellIdentifier, forIndexPath: indexPath) as LyricTableViewCell
         
         var lyric = self.currentCategory?.lyrics![indexPath.row]
-        cell.lyricLabel.text = lyric?.text
+        cell.lyric = lyric
+        cell.delegate = self
 
         return cell
     }
@@ -72,7 +74,6 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as LyricTableViewCell
         
         var lyric = self.currentCategory?.lyrics![indexPath.row]
-        self.delegate?.didPickLyric(self, lyric: lyric)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -87,7 +88,12 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
         })
-//        self.tableView.layoutIfNeeded()
+    }
+
+    // MARK: LyricTableViewCellDelegate
+    
+    func lyricTableViewCellDidLongPress(cell: LyricTableViewCell) {
+        self.delegate?.didPickLyric(self, lyric: cell.lyric)
     }
 }
 
