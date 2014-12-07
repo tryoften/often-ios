@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let SectionPickerViewHeight: CGFloat = 45.0
+
 class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDelegate {
     var categoriesTableView: UITableView
     var nextKeyboardButton: UIButton
@@ -39,6 +41,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         self.categoriesTableView = UITableView(frame: CGRectZero)
         self.categoriesTableView.backgroundColor = UIColor.clearColor()
         self.categoriesTableView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.categoriesTableView.separatorStyle = .None
         
         self.nextKeyboardButton = UIButton()
         self.nextKeyboardButton.titleLabel!.font = UIFont(name: "font_icons8", size:20)
@@ -56,15 +59,16 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         self.currentCategoryLabel.textColor = UIColor.whiteColor()
         self.currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         self.currentCategoryLabel.userInteractionEnabled = true
-        self.currentCategoryLabel.font = UIFont(name: "Lato-Black", size: 20)
+        self.currentCategoryLabel.font = UIFont(name: "Lato-Regular", size: 20)
         
         super.init(frame: frame)
 
-        self.heightConstraint = (self as ALView).al_height == 50.0
+        self.heightConstraint = (self as ALView).al_height == SectionPickerViewHeight
 
-        self.translucent = true
-        self.translucentAlpha = 0.88
-        self.translucentTintColor = UIColor(fromHexString: "#ffae36")
+        self.translucent = false
+//        self.translucentAlpha = 0.88
+//        self.translucentTintColor = UIColor(fromHexString: "#ffae36")
+        self.backgroundColor = UIColor(fromHexString: "#ffae36")
         self.categoriesTableView.dataSource = self
         self.categoriesTableView.delegate = self
         
@@ -94,19 +98,19 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
             // keyboard button
             keyboardButton.al_left == view.al_left,
             keyboardButton.al_top == view.al_top,
-            keyboardButton.al_bottom == view.al_bottom,
-            keyboardButton.al_height == 50.0,
-            keyboardButton.al_width == keyboardButton.al_height,
+            keyboardButton.al_height == SectionPickerViewHeight,
+            keyboardButton.al_width == SectionPickerViewHeight,
             
+            // toggle drawer
             toggleDrawer.al_right == view.al_right,
             toggleDrawer.al_top == view.al_top,
-            toggleDrawer.al_height == 50.0,
+            toggleDrawer.al_height == SectionPickerViewHeight,
             toggleDrawer.al_width == toggleDrawer.al_height,
             
             // current category label
-            categoryLabel.al_left == keyboardButton.al_right + 10.0,
-            categoryLabel.al_right == view.al_right,
-            categoryLabel.al_height == 50.0,
+            categoryLabel.al_left == view.al_left + SectionPickerViewHeight + 10.0,
+//            categoryLabel.al_right == toggleDrawer.al_left,
+            categoryLabel.al_height == SectionPickerViewHeight,
             categoryLabel.al_top == view.al_top,
             
             // table View
@@ -135,7 +139,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
             
         } else {
             UIView.animateWithDuration(0.2, animations: {
-                self.heightConstraint?.constant = 50.0
+                self.heightConstraint?.constant = SectionPickerViewHeight
                 self.layoutIfNeeded()
                 return
             }, completion: completionBlock)
@@ -164,9 +168,11 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         
         var category = self.categories![indexPath.row]
         cell.backgroundColor = UIColor.clearColor()
+        cell.selectionStyle = .None
         cell.textLabel.text = category.name
         cell.textLabel.font = UIFont(name: "Lato-Light", size: 16)
         cell.textLabel.textColor = UIColor.whiteColor()
+        cell.textLabel.textAlignment = .Center
 
         return cell
     }

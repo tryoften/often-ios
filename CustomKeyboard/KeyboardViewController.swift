@@ -14,6 +14,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var lyricPicker: LyricPickerTableViewController!
     var heightConstraint: NSLayoutConstraint?
     var categoryService: CategoryService?
+    var trackService: TrackService?
     var sectionPickerView: SectionPickerView?
 
     override func updateViewConstraints() {
@@ -33,6 +34,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
         self.categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
+        
+        self.trackService = TrackService(root: firebaseRoot)
+        self.trackService?.requestData({ data in
+            
+        })
         
         self.lyricPicker = LyricPickerTableViewController()
         self.lyricPicker.delegate = self

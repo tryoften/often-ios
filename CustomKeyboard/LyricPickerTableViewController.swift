@@ -16,6 +16,7 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
     var delegate: LyricPickerDelegate?
     var labelFont: UIFont?
     var currentCategory: Category?
+    var selectedRows = [Int: Bool]()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +29,12 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
         
         self.labelFont = UIFont(name: "Lato-Light", size: 20)
 
-        self.tableView.backgroundColor = UIColor(fromHexString: "#1f2743")
-        self.tableView.separatorColor = UIColor(fromHexString: "#373e57")
+        self.tableView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        self.tableView.separatorColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.08)
         self.tableView.separatorInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         self.tableView.registerNib(UINib(nibName: LyricTableViewCellIdentifier, bundle: NSBundle.mainBundle()), forCellReuseIdentifier: LyricTableViewCellIdentifier)
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+        self.tableView.showsVerticalScrollIndicator = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,9 +76,25 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
         let cell = self.tableView.cellForRowAtIndexPath(indexPath) as LyricTableViewCell
         
         var lyric = self.currentCategory?.lyrics![indexPath.row]
+        
+        if (self.selectedRows.indexForKey(indexPath.row) == nil) {
+            self.selectedRows[indexPath.row] = true
+        } else {
+            var selected = selectedRows[indexPath.row]!
+            self.selectedRows[indexPath.row] = !selected
+        }
+
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+        
+        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        var selected = selectedRows[indexPath.row]
+        if selected == true {
+            return 160
+        }
         return 80
     }
     

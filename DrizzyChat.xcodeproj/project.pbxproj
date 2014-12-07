@@ -38,6 +38,9 @@
 		810C40991A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
 		8119F4191A245C4D00F191DE /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8119F4181A245C4D00F191DE /* ShareView.xib */; };
 		8119F41A1A245C4D00F191DE /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8119F4181A245C4D00F191DE /* ShareView.xib */; };
+		81240A791A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
+		81240A7A1A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
+		81240A831A34C8C200E946F8 /* TrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A821A34C8C200E946F8 /* TrackInfoViewController.swift */; };
 		81331E051A17E538003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
 		81331E091A17EC52003E4609 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E081A17EC52003E4609 /* CategoryService.swift */; };
 		81331E121A17F9F3003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
@@ -128,6 +131,8 @@
 		81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
 		81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */; };
 		81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */; };
+		81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
+		81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
 		BE4402AFA1E84C0CFEB6ECDE /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */; };
 /* End PBXBuildFile section */
 
@@ -218,6 +223,8 @@
 		810C407C1A21402A00170DB4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		810C407D1A21402A00170DB4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8119F4181A245C4D00F191DE /* ShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareView.xib; path = Source/ShareView.xib; sourceTree = "<group>"; };
+		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
+		81240A821A34C8C200E946F8 /* TrackInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackInfoViewController.swift; path = Source/TrackInfoViewController.swift; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		81331E081A17EC52003E4609 /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryService.swift; path = Source/CategoryService.swift; sourceTree = "<group>"; };
@@ -279,6 +286,7 @@
 		81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEXString.m"; sourceTree = "<group>"; };
 		81ABAAE71A15820600456A5A /* SectionPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerView.swift; path = Source/SectionPickerView.swift; sourceTree = "<group>"; };
 		81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareViewController.swift; path = Source/ShareViewController.swift; sourceTree = "<group>"; };
+		81E897D91A32A17F005C7CD9 /* TrackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackService.swift; path = Source/TrackService.swift; sourceTree = "<group>"; };
 		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		D5794374D5B3F63155309941 /* Pods-DrizzyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrizzyChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrizzyChat/Pods-DrizzyChat.debug.xcconfig"; sourceTree = "<group>"; };
 		FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -383,6 +391,7 @@
 			children = (
 				81331E041A17E538003E4609 /* Category.swift */,
 				81331E111A17F9F3003E4609 /* Lyric.swift */,
+				81240A781A33BCF600E946F8 /* Track.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -391,6 +400,7 @@
 			isa = PBXGroup;
 			children = (
 				81331E081A17EC52003E4609 /* CategoryService.swift */,
+				81E897D91A32A17F005C7CD9 /* TrackService.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -600,6 +610,7 @@
 				8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */,
 				8180E6351A142199007FA1CF /* KeyboardViewController.swift */,
 				81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */,
+				81240A821A34C8C200E946F8 /* TrackInfoViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -923,8 +934,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */,
+				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
 				810C40821A21402A00170DB4 /* ExecutionContext.swift in Sources */,
 				810C40841A21402A00170DB4 /* Future.swift in Sources */,
+				81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */,
 				810C408C1A21402A00170DB4 /* Queue.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
@@ -965,8 +978,10 @@
 				81A1A4EF1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
 				810C40991A21402A00170DB4 /* README.md in Sources */,
 				81331E121A17F9F3003E4609 /* Lyric.swift in Sources */,
+				81240A7A1A33BCF600E946F8 /* Track.swift in Sources */,
 				81A1A4EB1A19786D00D566B8 /* README.md in Sources */,
 				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
+				81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
 				81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */,
 				810C408B1A21402A00170DB4 /* Promise.swift in Sources */,
@@ -974,6 +989,7 @@
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				810C40951A21402A00170DB4 /* CHANGELOG.md in Sources */,
 				810C40851A21402A00170DB4 /* Future.swift in Sources */,
+				81240A831A34C8C200E946F8 /* TrackInfoViewController.swift in Sources */,
 				81331E051A17E538003E4609 /* Category.swift in Sources */,
 				810C40871A21402A00170DB4 /* FutureUtils.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,

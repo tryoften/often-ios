@@ -12,31 +12,68 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="80" id="KGk-i7-Jjw" customClass="LyricTableViewCell" customModule="CustomKeyboard" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="160" id="KGk-i7-Jjw" customClass="LyricTableViewCell" customModule="CustomKeyboard" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8i-lh-rIE">
-                        <rect key="frame" x="18" y="18" width="284" height="39"/>
+                        <rect key="frame" x="18" y="10" width="284" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="Irj-Qq-STe"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                        <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" white="0.0" alpha="0.65000000000000002" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTF-LX-X17">
+                        <rect key="frame" x="0.0" y="83" width="320" height="81"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ixu-3t-QwS">
+                                <rect key="frame" x="18" y="8" width="49" height="30"/>
+                                <state key="normal" title="Spotify">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hkA-5a-Jpi">
+                                <rect key="frame" x="115" y="8" width="59" height="30"/>
+                                <state key="normal" title="YouTube">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bFg-Up-ctv">
+                                <rect key="frame" x="229" y="8" width="83" height="30"/>
+                                <state key="normal" title="Soundcloud">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.70000000000000007" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="M8i-lh-rIE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="Qzv-fT-9vp"/>
-                    <constraint firstItem="M8i-lh-rIE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="bYH-20-ROP"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="M8i-lh-rIE" secondAttribute="trailing" constant="10" id="hro-35-rWN"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="M8i-lh-rIE" secondAttribute="bottom" constant="14" id="jg5-Qv-dGl"/>
+                    <constraint firstItem="M8i-lh-rIE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="17H-rZ-uGo"/>
+                    <constraint firstItem="M8i-lh-rIE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="5JA-Rh-tzA"/>
+                    <constraint firstItem="M8i-lh-rIE" firstAttribute="centerX" secondItem="hTF-LX-X17" secondAttribute="centerX" id="863-1A-Bb4"/>
+                    <constraint firstItem="M8i-lh-rIE" firstAttribute="top" secondItem="hTF-LX-X17" secondAttribute="top" constant="-73" id="Ekv-T8-TxX"/>
+                    <constraint firstItem="hTF-LX-X17" firstAttribute="top" secondItem="M8i-lh-rIE" secondAttribute="bottom" constant="3" id="M9O-bs-g3D"/>
+                    <constraint firstAttribute="trailing" secondItem="hTF-LX-X17" secondAttribute="trailing" id="TW6-zU-Ycp"/>
+                    <constraint firstItem="hTF-LX-X17" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ypf-HB-j25"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="hTF-LX-X17" secondAttribute="bottom" constant="-13" id="cgf-Xb-ijU"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="Ekv-T8-TxX"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
+                <outlet property="infoView" destination="hTF-LX-X17" id="SAE-Qj-B7x"/>
                 <outlet property="lyricLabel" destination="M8i-lh-rIE" id="Xza-Vy-upB"/>
             </connections>
-            <point key="canvasLocation" x="246" y="245"/>
+            <point key="canvasLocation" x="342" y="278"/>
         </tableViewCell>
     </objects>
 </document>

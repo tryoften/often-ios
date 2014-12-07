@@ -10,7 +10,9 @@ import UIKit
 
 class LyricTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var lyricLabel: UILabel!
+    
     var delegate: LyricTableViewCellDelegate?
     var isUserLongPressing = false
 
@@ -29,6 +31,11 @@ class LyricTableViewCell: UITableViewCell {
         self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("didLongPressRow:"))
         
         self.addGestureRecognizer(self.longPressGestureRecognizer!)
+        self.clipsToBounds = true
+        
+        self.infoView.backgroundColor = UIColor(fromHexString: "#eeeeee")
+        
+        setupLayout()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -37,6 +44,16 @@ class LyricTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func setupLayout() {
+        var infoView = self.infoView as ALView
+//        var shareButton = self.shareButton as ALView
+//        
+//        self.addConstraints([
+//            shareButton.al_left == infoView.al_left,
+//            shareButton.al_right == infoView.al_right,
+//            shareButton.al_bottom == infoView.al_bottom
+//        ])
+    }
     
     func didLongPressRow(gestureRecognizer: UILongPressGestureRecognizer) {
         switch(gestureRecognizer.state) {
