@@ -13,8 +13,6 @@ class LyricTableViewCell: UITableViewCell {
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var lyricLabel: UILabel!
     
-    var shareVC: ShareViewController?
-    
     var delegate: LyricTableViewCellDelegate?
     var isUserLongPressing = false
 
@@ -42,22 +40,26 @@ class LyricTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        if selected {
-            self.delegate?.lyricTableViewCellDidLongPress(self)
-        }
 
         // Configure the view for the selected state
     }
     
     func setupLayout() {
         var infoView = self.infoView as ALView
+//        var shareButton = self.shareButton as ALView
+//        
+//        self.addConstraints([
+//            shareButton.al_left == infoView.al_left,
+//            shareButton.al_right == infoView.al_right,
+//            shareButton.al_bottom == infoView.al_bottom
+//        ])
     }
     
     func didLongPressRow(gestureRecognizer: UILongPressGestureRecognizer) {
         switch(gestureRecognizer.state) {
             case .Began:
                 if !isUserLongPressing {
+                    self.delegate?.lyricTableViewCellDidLongPress(self)
                     self.isUserLongPressing = true
                 }
             break

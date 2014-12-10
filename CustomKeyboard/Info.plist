@@ -42,6 +42,7 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>ss-social-circle.ttf</string>
 		<string>Lato-Regular.ttf</string>
 		<string>font_icons8.ttf</string>
 		<string>Lato-Light.ttf</string>

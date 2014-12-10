@@ -12,13 +12,11 @@ class TrackService: NSObject {
     var tracksRef : Firebase
     var root : Firebase
     var tracks: [Track]
-    var isDataLoaded: Bool
 
     init(root: Firebase) {
         self.tracksRef = root.childByAppendingPath("tracks")
         self.root = root
         self.tracks = []
-        self.isDataLoaded = false
 
         super.init()
     }
@@ -35,22 +33,7 @@ class TrackService: NSObject {
                 self.tracks.append(track)
             }
             
-            self.isDataLoaded = true
             completion(true)
         })
     }
-    
-    func trackForId(id: String) -> Track? {
-        var track: Track? = nil
-        
-        for aTrack in tracks {
-            if aTrack.id == id {
-                return aTrack
-            }
-        }
-        
-        return nil
-    }
-    
-    
 }

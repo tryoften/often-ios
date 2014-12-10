@@ -36,6 +36,8 @@
 		810C40971A21402A00170DB4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 810C407C1A21402A00170DB4 /* LICENSE */; };
 		810C40981A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
 		810C40991A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
+		8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
+		8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
 		8119F4191A245C4D00F191DE /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8119F4181A245C4D00F191DE /* ShareView.xib */; };
 		8119F41A1A245C4D00F191DE /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8119F4181A245C4D00F191DE /* ShareView.xib */; };
 		81240A791A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
@@ -222,6 +224,7 @@
 		810C407B1A21402A00170DB4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		810C407C1A21402A00170DB4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		810C407D1A21402A00170DB4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-circle.ttf"; sourceTree = "<group>"; };
 		8119F4181A245C4D00F191DE /* ShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareView.xib; path = Source/ShareView.xib; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
 		81240A821A34C8C200E946F8 /* TrackInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackInfoViewController.swift; path = Source/TrackInfoViewController.swift; sourceTree = "<group>"; };
@@ -547,6 +550,7 @@
 		8180E6461A1477F2007FA1CF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */,
 				81A1A4D31A196D6200D566B8 /* font_icons8.ttf */,
 				8180E6471A147A77007FA1CF /* Lato-Black.ttf */,
 				8180E6481A147A77007FA1CF /* Lato-BlackItalic.ttf */,
@@ -776,6 +780,7 @@
 				81A1A4E41A19786D00D566B8 /* .gitignore in Resources */,
 				8180E67B1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
 				8180E66B1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
+				8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
 				810C407E1A21402A00170DB4 /* .gitignore in Resources */,
 				8180E6591A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				8180E65D1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
@@ -859,6 +864,7 @@
 				8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
 				81331E301A1806BB003E4609 /* Info.plist in Resources */,
+				8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
 				8180E66E1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

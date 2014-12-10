@@ -13,8 +13,7 @@ class Lyric: NSObject {
     var text: String
     var categoryId: String
     var trackId: String?
-    var track: Track?
-
+    
     init(id: String, text: String, categoryId: String, trackId: String?) {
         self.id = id
         self.text = text

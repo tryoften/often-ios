@@ -17,8 +17,7 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
     var labelFont: UIFont?
     var currentCategory: Category?
     var selectedRows = [Int: Bool]()
-    var trackService: TrackService?
-
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -83,29 +82,6 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
         } else {
             var selected = selectedRows[indexPath.row]!
             self.selectedRows[indexPath.row] = !selected
-        }
-        
-        if lyric?.track == nil {
-            var track = self.trackService?.trackForId(lyric!.trackId!)
-            lyric?.track = track
-            
-            var shareVC = ShareViewController()
-            cell.shareVC = shareVC
-            cell.infoView.addSubview(shareVC.view)
-            
-            let shareView = shareVC.view as ALView
-            let infoView = cell.infoView as ALView
-            let cellView = cell as ALView
-            
-            infoView.addConstraints([
-                shareView.al_width == infoView.al_width,
-                shareView.al_height == infoView.al_height,
-                shareView.al_top == infoView.al_top,
-                shareView.al_left == infoView.al_left
-            ])
-            
-            shareVC.lyric = lyric
-//            shareVC.addShareButtons()
         }
 
         self.tableView.beginUpdates()

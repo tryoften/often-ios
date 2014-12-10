@@ -24,13 +24,13 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for family in UIFont.familyNames() {
-            println("\(family)")
-            
-            for name in UIFont.fontNamesForFamilyName(family as String) {
-                println("  \(name)")
-            }
-        }
+//        for family in UIFont.familyNames() {
+//            println("\(family)")
+//            
+//            for name in UIFont.fontNamesForFamilyName(family as String) {
+//                println("  \(name)")
+//            }
+//        }
         
         var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
         self.categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
@@ -42,7 +42,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         self.lyricPicker = LyricPickerTableViewController()
         self.lyricPicker.delegate = self
-        self.lyricPicker.trackService = self.trackService
         self.lyricPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         self.sectionPickerView = SectionPickerView(frame: CGRectZero)
@@ -107,6 +106,13 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func didPickLyric(lyricPicker: LyricPickerTableViewController, lyric: Lyric?) {
         let proxy = self.textDocumentProxy as UIKeyInput
+        
+        let shareVC = ShareViewController(nibName: "ShareView", bundle: nil)
+        shareVC.lyric = lyric
+        shareVC.delegate = self
+        shareVC.modalPresentationStyle = .Custom
+
+        self.presentViewController(shareVC, animated: true, completion: nil)
         proxy.insertText(lyric!.text)
     }
     
@@ -120,9 +126,5 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
         
         shareVC.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func shareViewControllerDidToggleShareOption(shareViewController: ShareViewController, option: ShareOption, url: NSURL) {
-        
     }
 }

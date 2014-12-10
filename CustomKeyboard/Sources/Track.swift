@@ -8,13 +8,6 @@
 
 import UIKit
 
-enum ShareOption {
-    case Spotify
-    case Soundcloud
-    case YouTube
-    case RapGenius
-}
-
 class Track: NSObject {
     var id: String
     var name: String

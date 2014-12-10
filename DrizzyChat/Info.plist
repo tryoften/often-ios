@@ -24,6 +24,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>ss-social-circle.ttf</string>
 		<string>font_icons8.ttf</string>
 		<string>Lato-Light.ttf</string>
 		<string>Lato-Black.ttf</string>
