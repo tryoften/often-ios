@@ -10,3 +10,5 @@
 #import "SwiftAutoLayout.h"
 #import "ILTranslucentView.h"
 #import "UIColor+HEXString.h"
+#import <AFNetworking.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>

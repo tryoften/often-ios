@@ -89,23 +89,8 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
             var track = self.trackService?.trackForId(lyric!.trackId!)
             lyric?.track = track
             
-            var shareVC = ShareViewController()
-            cell.shareVC = shareVC
-            cell.infoView.addSubview(shareVC.view)
-            
-            let shareView = shareVC.view as ALView
-            let infoView = cell.infoView as ALView
-            let cellView = cell as ALView
-            
-            infoView.addConstraints([
-                shareView.al_width == infoView.al_width,
-                shareView.al_height == infoView.al_height,
-                shareView.al_top == infoView.al_top,
-                shareView.al_left == infoView.al_left
-            ])
-            
-            shareVC.lyric = lyric
-//            shareVC.addShareButtons()
+            cell.shareVC!.lyric = lyric
+            cell.metadataView.track = track
         }
 
         self.tableView.beginUpdates()
@@ -117,7 +102,7 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var selected = selectedRows[indexPath.row]
         if selected == true {
-            return 160
+            return 180
         }
         return 80
     }

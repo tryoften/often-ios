@@ -62,6 +62,8 @@
 		81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
 		81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
+		817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */; };
+		817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */; };
 		8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60D1A142157007FA1CF /* AppDelegate.swift */; };
 		8180E6101A142157007FA1CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60F1A142157007FA1CF /* ViewController.swift */; };
 		8180E6131A142157007FA1CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6111A142157007FA1CF /* Main.storyboard */; };
@@ -241,6 +243,7 @@
 		81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SwiftAutoLayout.xcodeproj; sourceTree = "<group>"; };
 		81331E231A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
+		817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackMetadataView.swift; path = Sources/TrackMetadataView.swift; sourceTree = "<group>"; };
 		8180E6081A142157007FA1CF /* DrizzyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrizzyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E60C1A142157007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E60D1A142157007FA1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -581,6 +584,7 @@
 				8180E67F1A147FBA007FA1CF /* LyricTableViewCell.xib */,
 				81ABAAE71A15820600456A5A /* SectionPickerView.swift */,
 				8119F4181A245C4D00F191DE /* ShareView.xib */,
+				817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -960,6 +964,7 @@
 				8180E6101A142157007FA1CF /* ViewController.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
+				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */,
@@ -996,6 +1001,7 @@
 				810C40951A21402A00170DB4 /* CHANGELOG.md in Sources */,
 				810C40851A21402A00170DB4 /* Future.swift in Sources */,
 				81240A831A34C8C200E946F8 /* TrackInfoViewController.swift in Sources */,
+				817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */,
 				81331E051A17E538003E4609 /* Category.swift in Sources */,
 				810C40871A21402A00170DB4 /* FutureUtils.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,

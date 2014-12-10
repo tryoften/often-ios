@@ -13,14 +13,14 @@ class LyricTableViewCell: UITableViewCell {
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var lyricLabel: UILabel!
     
-    var shareVC: ShareViewController?
-    
+    var shareVC: ShareViewController!
+    var metadataView: TrackMetadataView!
     var delegate: LyricTableViewCellDelegate?
     var isUserLongPressing = false
 
     var lyric: Lyric? {
         didSet {
-            self.lyricLabel?.text = lyric?.text
+            lyricLabel?.text = lyric?.text
         }
     }
 
@@ -29,13 +29,19 @@ class LyricTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.backgroundColor = UIColor.clearColor()
-        self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("didLongPressRow:"))
+        backgroundColor = UIColor.clearColor()
+        longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("didLongPressRow:"))
         
-        self.addGestureRecognizer(self.longPressGestureRecognizer!)
-        self.clipsToBounds = true
+        addGestureRecognizer(self.longPressGestureRecognizer!)
+        clipsToBounds = true
         
-        self.infoView.backgroundColor = UIColor(fromHexString: "#eeeeee")
+        shareVC = ShareViewController()
+        infoView.addSubview(shareVC.view)
+        
+        metadataView = TrackMetadataView(frame: CGRectZero)
+        metadataView?.setTranslatesAutoresizingMaskIntoConstraints(false)
+        infoView.addSubview(metadataView!)
+        infoView.backgroundColor = UIColor(fromHexString: "#eeeeee")
         
         setupLayout()
     }
@@ -44,26 +50,38 @@ class LyricTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         if selected {
-            self.delegate?.lyricTableViewCellDidLongPress(self)
+            delegate?.lyricTableViewCellDidLongPress(self)
         }
 
         // Configure the view for the selected state
     }
     
     func setupLayout() {
-        var infoView = self.infoView as ALView
+        let shareView = shareVC.view
+        
+        infoView.addConstraints([
+            metadataView.al_width == infoView.al_width,
+            metadataView.al_height == 40.0,
+            metadataView.al_top == infoView.al_top,
+            metadataView.al_left == infoView.al_left,
+            
+            shareView.al_width == infoView.al_width,
+            shareView.al_top == metadataView.al_bottom,
+            shareView.al_left == infoView.al_left,
+            shareView.al_bottom == infoView.al_bottom
+        ])
     }
     
     func didLongPressRow(gestureRecognizer: UILongPressGestureRecognizer) {
         switch(gestureRecognizer.state) {
             case .Began:
                 if !isUserLongPressing {
-                    self.isUserLongPressing = true
+                    isUserLongPressing = true
                 }
             break
             
             case .Ended:
-                self.isUserLongPressing = false
+                isUserLongPressing = false
             break
             
             default:

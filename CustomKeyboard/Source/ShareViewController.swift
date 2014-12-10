@@ -37,7 +37,7 @@ class ShareViewController: UIViewController {
 
         if let track = lyric?.track {
             
-            func setupButton(target: AnyObject, button: UIButton, selectedColor: UIColor) {
+            func setupButton(button: UIButton, selectedColor: UIColor) {
                 button.setTitleColor(selectedColor, forState: .Highlighted)
                 button.setTitleColor(selectedColor, forState: .Selected)
                 button.setTitleColor(selectedColor, forState: .Highlighted | .Selected)
@@ -72,7 +72,7 @@ class ShareViewController: UIViewController {
             if track.spotifyURL != nil {
                 let button = UIButton(frame: CGRectZero)
                 button.setTitle("\u{f6b1}", forState: .Normal)
-                setupButton(self, button, UIColor(fromHexString: "#b8c81f"))
+                setupButton(button, UIColor(fromHexString: "#b8c81f"))
                 self.spotifyButton = button
                 buttons.append(button)
             }
@@ -81,7 +81,7 @@ class ShareViewController: UIViewController {
             if track.soundcloudURL != nil {
                 let button = UIButton(frame: CGRectZero)
                 button.setTitle("\u{f6b3}", forState: .Normal)
-                setupButton(self, button, UIColor(fromHexString: "#ed7233"))
+                setupButton(button, UIColor(fromHexString: "#ed7233"))
                 
                 self.soundcloudButton = button
                 buttons.append(button)
@@ -90,9 +90,19 @@ class ShareViewController: UIViewController {
             if track.youtubeURL != nil {
                 let button = UIButton(frame: CGRectZero)
                 button.setTitle("\u{f630}", forState: .Normal)
-                setupButton(self, button, UIColor(fromHexString: "#ce594b"))
+                setupButton(button, UIColor(fromHexString: "#ce594b"))
                 
                 self.youtubeButton = button
+                buttons.append(button)
+            }
+            
+            if lyric?.text != nil {
+                let button = UIButton(frame: CGRectZero)
+                button.setTitle("\u{f601}", forState: .Normal)
+                setupButton(button, UIColor(fromHexString: "#ffae36"))
+                button.selected = true
+                
+                self.lyricButton = button
                 buttons.append(button)
             }
             
