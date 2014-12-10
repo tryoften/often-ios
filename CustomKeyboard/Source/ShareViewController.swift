@@ -17,24 +17,42 @@ class ShareViewController: UIViewController {
     }
     
     var delegate: ShareViewControllerDelegate?
-    
+    var seperatorView: UIView!
     var spotifyButton: UIButton?
     var soundcloudButton: UIButton?
     var youtubeButton: UIButton?
     var lyricButton: UIButton?
+    var buttons: [UIButton]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.clearColor()
-        self.view.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.view.clipsToBounds = true
+        view.backgroundColor = UIColor.clearColor()
+        view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.clipsToBounds = true
+        
+        seperatorView = UIView(frame: CGRectZero)
+        seperatorView.backgroundColor = UIColor(fromHexString: "#d8d8d8")
+        seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.addSubview(seperatorView)
+        
+        view.addConstraints([
+            seperatorView.al_bottom == view.al_bottom,
+            seperatorView.al_width == view.al_width,
+            seperatorView.al_left == view.al_left,
+            seperatorView.al_height == 1.0
+        ])
+        
+        buttons = []
     }
     
     func addShareButtons() {
-        var buttons: [UIButton] = []
-
+        for button in buttons {
+            button.removeFromSuperview()
+        }
+        buttons = []
+        
         if let track = lyric?.track {
             
             func setupButton(button: UIButton, selectedColor: UIColor) {
@@ -42,6 +60,7 @@ class ShareViewController: UIViewController {
                 button.setTitleColor(selectedColor, forState: .Selected)
                 button.setTitleColor(selectedColor, forState: .Highlighted | .Selected)
                 button.setTranslatesAutoresizingMaskIntoConstraints(false)
+                button.contentEdgeInsets = UIEdgeInsets(top: 7.0, left: 0, bottom: 0, right: 0)
                 button.addTarget(self, action: "buttonSelected:", forControlEvents: .TouchUpInside)
             }
             

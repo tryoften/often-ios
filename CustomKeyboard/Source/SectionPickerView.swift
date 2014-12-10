@@ -63,11 +63,9 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         
         super.init(frame: frame)
 
-        heightConstraint = (self as ALView).al_height == SectionPickerViewHeight
+        heightConstraint = self.al_height == SectionPickerViewHeight
 
         translucent = false
-//        translucentAlpha = 0.88
-//        translucentTintColor = UIColor(fromHexString: "#ffae36")
         backgroundColor = UIColor(fromHexString: "#ffae36")
         categoriesTableView.dataSource = self
         categoriesTableView.delegate = self

@@ -21,19 +21,12 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
         self.labelFont = UIFont(name: "Lato-Light", size: 20)
 
         self.tableView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
-        self.tableView.separatorColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.08)
-        self.tableView.separatorInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        self.tableView.registerNib(UINib(nibName: LyricTableViewCellIdentifier, bundle: NSBundle.mainBundle()), forCellReuseIdentifier: LyricTableViewCellIdentifier)
+        self.tableView.registerClass(LyricTableViewCell.self, forCellReuseIdentifier: LyricTableViewCellIdentifier)
+        self.tableView.separatorStyle = .None
+        
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         self.tableView.showsVerticalScrollIndicator = false
     }
@@ -46,15 +39,10 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        
         if let category = self.currentCategory {
             return category.lyrics!.count
         }

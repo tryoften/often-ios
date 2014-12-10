@@ -10,40 +10,60 @@ import UIKit
 
 class LyricTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var infoView: UIView!
-    @IBOutlet weak var lyricLabel: UILabel!
-    
+    var infoView: UIView!
+    var lyricLabel: UILabel!
     var shareVC: ShareViewController!
     var metadataView: TrackMetadataView!
+    var seperatorView: UIView!
     var delegate: LyricTableViewCellDelegate?
-    var isUserLongPressing = false
 
     var lyric: Lyric? {
         didSet {
             lyricLabel?.text = lyric?.text
         }
     }
-
-    var longPressGestureRecognizer: UILongPressGestureRecognizer?
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-        backgroundColor = UIColor.clearColor()
-        longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("didLongPressRow:"))
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addGestureRecognizer(self.longPressGestureRecognizer!)
+        backgroundColor = UIColor.clearColor()
+        selectionStyle = .None
+        
         clipsToBounds = true
+        
+        lyricLabel = UILabel(frame: CGRectZero)
+        lyricLabel.numberOfLines = 2
+        lyricLabel.font = UIFont(name: "Lato-Regular", size: 15)
+        lyricLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        lyricLabel.textAlignment = .Center
+        lyricLabel.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        contentView.addSubview(lyricLabel)
+        
+        infoView = UIView(frame: CGRectZero)
+        infoView.backgroundColor = UIColor(fromHexString: "#eeeeee")
+        infoView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contentView.addSubview(infoView)
+
+        seperatorView = UIView(frame: CGRectZero)
+        seperatorView.backgroundColor = UIColor(fromHexString: "#d8d8d8")
+        seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contentView.addSubview(seperatorView)
         
         shareVC = ShareViewController()
         infoView.addSubview(shareVC.view)
         
         metadataView = TrackMetadataView(frame: CGRectZero)
-        metadataView?.setTranslatesAutoresizingMaskIntoConstraints(false)
+        metadataView.setTranslatesAutoresizingMaskIntoConstraints(false)
         infoView.addSubview(metadataView!)
-        infoView.backgroundColor = UIColor(fromHexString: "#eeeeee")
+        
+        contentView.bringSubviewToFront(lyricLabel)
+        contentView.insertSubview(seperatorView, aboveSubview: lyricLabel)
         
         setupLayout()
+    }
+
+    convenience required init(coder aDecoder: NSCoder) {
+        self.init(style: .Default, reuseIdentifier: nil)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -59,9 +79,29 @@ class LyricTableViewCell: UITableViewCell {
     func setupLayout() {
         let shareView = shareVC.view
         
-        infoView.addConstraints([
+        self.addConstraints([
+            contentView.al_top == self.al_top,
+            contentView.al_bottom == self.al_bottom,
+            contentView.al_left == self.al_left,
+            contentView.al_right == self.al_right,
+            
+            lyricLabel.al_width == contentView.al_width,
+            lyricLabel.al_top == contentView.al_top,
+            lyricLabel.al_left == contentView.al_left,
+            lyricLabel.al_height == 80.0,
+            
+            infoView.al_top == lyricLabel.al_bottom,
+            infoView.al_bottom == contentView.al_bottom,
+            infoView.al_width == contentView.al_width,
+            infoView.al_left == contentView.al_left,
+            
+            seperatorView.al_bottom == lyricLabel.al_bottom,
+            seperatorView.al_width == contentView.al_width,
+            seperatorView.al_left == contentView.al_left,
+            seperatorView.al_height == 1.0,
+            
             metadataView.al_width == infoView.al_width,
-            metadataView.al_height == 40.0,
+            metadataView.al_height == 50.0,
             metadataView.al_top == infoView.al_top,
             metadataView.al_left == infoView.al_left,
             
@@ -70,24 +110,6 @@ class LyricTableViewCell: UITableViewCell {
             shareView.al_left == infoView.al_left,
             shareView.al_bottom == infoView.al_bottom
         ])
-    }
-    
-    func didLongPressRow(gestureRecognizer: UILongPressGestureRecognizer) {
-        switch(gestureRecognizer.state) {
-            case .Began:
-                if !isUserLongPressing {
-                    isUserLongPressing = true
-                }
-            break
-            
-            case .Ended:
-                isUserLongPressing = false
-            break
-            
-            default:
-            break
-        }
-        
     }
     
 }
