@@ -11,6 +11,7 @@ import UIKit
 class LyricTableViewCell: UITableViewCell {
 
     var infoView: UIView!
+    var lyricView: UIView!
     var lyricLabel: UILabel!
     var shareVC: ShareViewController!
     var metadataView: TrackMetadataView!
@@ -31,13 +32,18 @@ class LyricTableViewCell: UITableViewCell {
         
         clipsToBounds = true
         
+        lyricView = UIView(frame: CGRectZero)
+        lyricView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        lyricView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contentView.addSubview(lyricView)
+        
         lyricLabel = UILabel(frame: CGRectZero)
         lyricLabel.numberOfLines = 2
         lyricLabel.font = UIFont(name: "Lato-Regular", size: 15)
         lyricLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         lyricLabel.textAlignment = .Center
-        lyricLabel.backgroundColor = UIColor(fromHexString: "#f7f7f7")
-        contentView.addSubview(lyricLabel)
+        
+        lyricView.addSubview(lyricLabel)
         
         infoView = UIView(frame: CGRectZero)
         infoView.backgroundColor = UIColor(fromHexString: "#eeeeee")
@@ -56,8 +62,8 @@ class LyricTableViewCell: UITableViewCell {
         metadataView.setTranslatesAutoresizingMaskIntoConstraints(false)
         infoView.addSubview(metadataView!)
         
-        contentView.bringSubviewToFront(lyricLabel)
-        contentView.insertSubview(seperatorView, aboveSubview: lyricLabel)
+        contentView.bringSubviewToFront(lyricView)
+        contentView.insertSubview(seperatorView, aboveSubview: lyricView)
         
         setupLayout()
     }
@@ -79,23 +85,23 @@ class LyricTableViewCell: UITableViewCell {
     func setupLayout() {
         let shareView = shareVC.view
         
-        self.addConstraints([
-            contentView.al_top == self.al_top,
-            contentView.al_bottom == self.al_bottom,
-            contentView.al_left == self.al_left,
-            contentView.al_right == self.al_right,
+        addConstraints([
+            lyricView.al_width == contentView.al_width,
+            lyricView.al_top == contentView.al_top,
+            lyricView.al_left == contentView.al_left,
+            lyricView.al_height == 75.0,
             
-            lyricLabel.al_width == contentView.al_width,
-            lyricLabel.al_top == contentView.al_top,
-            lyricLabel.al_left == contentView.al_left,
-            lyricLabel.al_height == 80.0,
+            lyricLabel.al_left == lyricView.al_left + 10.0,
+            lyricLabel.al_right == lyricView.al_right - 10.0,
+            lyricLabel.al_top == lyricView.al_top + 10.0,
+            lyricLabel.al_bottom == lyricView.al_bottom - 10.0,
             
-            infoView.al_top == lyricLabel.al_bottom,
+            infoView.al_top == lyricView.al_bottom,
             infoView.al_bottom == contentView.al_bottom,
             infoView.al_width == contentView.al_width,
             infoView.al_left == contentView.al_left,
             
-            seperatorView.al_bottom == lyricLabel.al_bottom,
+            seperatorView.al_bottom == lyricView.al_bottom,
             seperatorView.al_width == contentView.al_width,
             seperatorView.al_left == contentView.al_left,
             seperatorView.al_height == 1.0,

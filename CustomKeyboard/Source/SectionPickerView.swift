@@ -19,6 +19,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     var heightConstraint: NSLayoutConstraint?
     var delegate: SectionPickerViewDelegate?
     var categoryService: CategoryService?
+    var selectedBgView: UIView
 
     var categories: [Category]? {
         didSet {
@@ -42,6 +43,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         categoriesTableView.backgroundColor = UIColor.clearColor()
         categoriesTableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoriesTableView.separatorStyle = .None
+        categoriesTableView.rowHeight = 50
         
         nextKeyboardButton = UIButton()
         nextKeyboardButton.titleLabel!.font = UIFont(name: "font_icons8", size:20)
@@ -61,9 +63,12 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         currentCategoryLabel.userInteractionEnabled = true
         currentCategoryLabel.font = UIFont(name: "Lato-Regular", size: 20)
         
+        selectedBgView = UIView(frame: CGRectZero)
+        selectedBgView.backgroundColor = UIColor(fromHexString: "#ffc538")
+        
         super.init(frame: frame)
 
-        heightConstraint = self.al_height == SectionPickerViewHeight
+        heightConstraint = al_height == SectionPickerViewHeight
 
         translucent = false
         backgroundColor = UIColor(fromHexString: "#ffae36")
@@ -89,32 +94,32 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         var categoryLabel = currentCategoryLabel
         var toggleDrawer = toggleDrawerButton
         
-        self.addConstraint(heightConstraint!)
+        addConstraint(heightConstraint!)
         
-        self.addConstraints([
+        addConstraints([
             // keyboard button
-            keyboardButton.al_left == self.al_left,
-            keyboardButton.al_top == self.al_top,
+            keyboardButton.al_left == al_left,
+            keyboardButton.al_top == al_top,
             keyboardButton.al_height == SectionPickerViewHeight,
             keyboardButton.al_width == SectionPickerViewHeight,
             
             // toggle drawer
-            toggleDrawer.al_right == self.al_right,
-            toggleDrawer.al_top == self.al_top,
+            toggleDrawer.al_right == al_right,
+            toggleDrawer.al_top == al_top,
             toggleDrawer.al_height == SectionPickerViewHeight,
             toggleDrawer.al_width == toggleDrawer.al_height,
             
             // current category label
-            categoryLabel.al_left == self.al_left + SectionPickerViewHeight + 10.0,
+            categoryLabel.al_left == al_left + SectionPickerViewHeight + 10.0,
 //            categoryLabel.al_right == toggleDrawer.al_left,
             categoryLabel.al_height == SectionPickerViewHeight,
-            categoryLabel.al_top == self.al_top,
+            categoryLabel.al_top == al_top,
             
             // table View
             tableView.al_top == keyboardButton.al_bottom,
-            tableView.al_left == self.al_left,
-            tableView.al_right == self.al_right,
-            tableView.al_bottom == self.al_bottom
+            tableView.al_left == al_left,
+            tableView.al_right == al_right,
+            tableView.al_bottom == al_bottom
         ])
     }
     
@@ -165,9 +170,9 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         
         var category = categories![indexPath.row]
         cell.backgroundColor = UIColor.clearColor()
-        cell.selectionStyle = .None
+        cell.selectedBackgroundView = selectedBgView
         cell.textLabel.text = category.name
-        cell.textLabel.font = UIFont(name: "Lato-Light", size: 16)
+        cell.textLabel.font = UIFont(name: "Lato-Light", size: 20)
         cell.textLabel.textColor = UIColor.whiteColor()
         cell.textLabel.textAlignment = .Center
 

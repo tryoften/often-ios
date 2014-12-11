@@ -62,53 +62,59 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as LyricTableViewCell
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as LyricTableViewCell
+        var lyric = currentCategory?.lyrics![indexPath.row]
         
-        var lyric = self.currentCategory?.lyrics![indexPath.row]
-        
-        if (self.selectedRows.indexForKey(indexPath.row) == nil) {
-            self.selectedRows[indexPath.row] = true
+        if (selectedRows.indexForKey(indexPath.row) == nil) {
+            selectedRows[indexPath.row] = true
         } else {
             var selected = selectedRows[indexPath.row]!
-            self.selectedRows[indexPath.row] = !selected
+            selectedRows[indexPath.row] = !selected
         }
         
         if lyric?.track == nil {
-            var track = self.trackService?.trackForId(lyric!.trackId!)
+            var track = trackService?.trackForId(lyric!.trackId!)
             lyric?.track = track
             
             cell.shareVC!.lyric = lyric
             cell.metadataView.track = track
         }
 
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
+        tableView.beginUpdates()
+        tableView.endUpdates()
         
-        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var selected = selectedRows[indexPath.row]
         if selected == true {
-            return 180
+            return 171
         }
-        return 80
+        return 75
     }
     
     // MARK: SectionPickerViewDelegate
     
     func didSelectSection(sectionPickerView: SectionPickerView, category: Category) {
-        self.currentCategory = category
+        currentCategory = category
         
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
+            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
         })
     }
 
     // MARK: LyricTableViewCellDelegate
     
     func lyricTableViewCellDidLongPress(cell: LyricTableViewCell) {
-        self.delegate?.didPickLyric(self, lyric: cell.lyric)
+        if let indexPath = tableView.indexPathForCell(cell) {
+            var selected = selectedRows[indexPath.row]
+            
+            if selected == nil || selected == false {
+                self.delegate?.didPickLyric(self, lyric: cell.lyric)
+            }
+        }
     }
 }
 

@@ -56,6 +56,7 @@ class ShareViewController: UIViewController {
         if let track = lyric?.track {
             
             func setupButton(button: UIButton, selectedColor: UIColor) {
+                button.setTitleColor(UIColor(fromHexString: "#cecece"), forState: .Normal)
                 button.setTitleColor(selectedColor, forState: .Highlighted)
                 button.setTitleColor(selectedColor, forState: .Selected)
                 button.setTitleColor(selectedColor, forState: .Highlighted | .Selected)
@@ -117,8 +118,12 @@ class ShareViewController: UIViewController {
             
             if lyric?.text != nil {
                 let button = UIButton(frame: CGRectZero)
-                button.setTitle("\u{f601}", forState: .Normal)
+                button.imageView?.contentMode = .ScaleAspectFit
+                button.setImage(UIImage(named: "ShareLyricOff"), forState: .Normal)
+                button.setImage(UIImage(named: "ShareLyricOn"), forState: .Highlighted)
+                button.setImage(UIImage(named: "ShareLyricOn"), forState: .Selected)
                 setupButton(button, UIColor(fromHexString: "#ffae36"))
+                button.contentEdgeInsets = UIEdgeInsets(top: 7.0, left: 0, bottom: 7.0, right: 0)
                 button.selected = true
                 
                 self.lyricButton = button
@@ -129,7 +134,7 @@ class ShareViewController: UIViewController {
             var prevButton: ALView?
             for (index, button) in enumerate(buttons) {
                 let buttonAL = button as ALView
-                button.titleLabel!.font = UIFont(name: "SSSocialCircle", size: 30)
+                button.titleLabel!.font = UIFont(name: "SSSocialCircle", size: 32)
                 view.addSubview(button)
                 let seperator = addSeperatorNextTo(button)
                 let seperatorAL = seperator as ALView

@@ -16,6 +16,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var categoryService: CategoryService?
     var trackService: TrackService?
     var sectionPickerView: SectionPickerView?
+    var seperatorView: UIView!
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -33,42 +34,51 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
         
         var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
-        self.categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
+        categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
         
-        self.trackService = TrackService(root: firebaseRoot)
-        self.trackService?.requestData({ data in
+        trackService = TrackService(root: firebaseRoot)
+        trackService?.requestData({ data in
             
         })
         
-        self.lyricPicker = LyricPickerTableViewController()
-        self.lyricPicker.delegate = self
-        self.lyricPicker.trackService = self.trackService
-        self.lyricPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        lyricPicker = LyricPickerTableViewController()
+        lyricPicker.delegate = self
+        lyricPicker.trackService = trackService
+        lyricPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        self.sectionPickerView = SectionPickerView(frame: CGRectZero)
-        self.sectionPickerView?.delegate = self.lyricPicker
-        self.sectionPickerView?.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
-        self.sectionPickerView?.categoryService = self.categoryService
+        seperatorView = UIView(frame: CGRectZero)
+        seperatorView.backgroundColor = UIColor(fromHexString: "#d8d8d8")
+        seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        sectionPickerView = SectionPickerView(frame: CGRectZero)
+        sectionPickerView?.delegate = lyricPicker
+        sectionPickerView?.setTranslatesAutoresizingMaskIntoConstraints(false)
+        sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
+        sectionPickerView?.categoryService = categoryService
 
-        self.view.addSubview(self.lyricPicker.view)
-        self.view.addSubview(self.sectionPickerView!)
+        view.addSubview(lyricPicker.view)
+        view.addSubview(sectionPickerView!)
+        view.addSubview(seperatorView)
         
         setupLayout()
         
-        self.categoryService?.requestData { categories in
+        categoryService?.requestData { categories in
             self.sectionPickerView?.categories = self.categoryService?.categories
             return
         }
     }
     
     func setupLayout() {
-        let view = self.view as ALView
-        let lyricPicker = self.lyricPicker.view as ALView
-        let sectionPickerView = self.sectionPickerView! as ALView
+        let lyricPicker = self.lyricPicker.view
+        let sectionPickerView = self.sectionPickerView!
 
         //section Picker View
         view.addConstraints([
+            seperatorView.al_height == 1.0,
+            seperatorView.al_width == view.al_width,
+            seperatorView.al_top == view.al_top,
+            seperatorView.al_left == view.al_left,
+            
             sectionPickerView.al_width == view.al_width,
             sectionPickerView.al_bottom == view.al_bottom,
             sectionPickerView.al_left == view.al_left,
@@ -97,7 +107,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         // The app has just changed the document's contents, the document context has been updated.
     
         var textColor: UIColor
-        var proxy = self.textDocumentProxy as UITextDocumentProxy
+        var proxy = textDocumentProxy as UITextDocumentProxy
         if proxy.keyboardAppearance == UIKeyboardAppearance.Dark {
             textColor = UIColor.whiteColor()
         } else {
@@ -106,14 +116,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func didPickLyric(lyricPicker: LyricPickerTableViewController, lyric: Lyric?) {
-        let proxy = self.textDocumentProxy as UIKeyInput
+        let proxy = textDocumentProxy as UIKeyInput
         proxy.insertText(lyric!.text)
     }
     
     // MARK: ShareViewControllerDelegate
 
     func shareViewControllerDidCancel(shareVC: ShareViewController) {
-        let proxy = self.textDocumentProxy as UIKeyInput
+        let proxy = textDocumentProxy as UIKeyInput
         
         for var i = 0, len = shareVC.lyric!.text.utf16Count; i < len; i++ {
             proxy.deleteBackward()
