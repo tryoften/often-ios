@@ -100,6 +100,7 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
         currentCategory = category
         
         dispatch_async(dispatch_get_main_queue(), {
+            self.selectedRows = [Int: Bool]()
             self.tableView.reloadData()
             self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
         })
@@ -107,7 +108,7 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
 
     // MARK: LyricTableViewCellDelegate
     
-    func lyricTableViewCellDidLongPress(cell: LyricTableViewCell) {
+    func lyricTableViewCellDidSelect(cell: LyricTableViewCell) {
         if let indexPath = tableView.indexPathForCell(cell) {
             var selected = selectedRows[indexPath.row]
             

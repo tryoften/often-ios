@@ -17,6 +17,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var trackService: TrackService?
     var sectionPickerView: SectionPickerView?
     var seperatorView: UIView!
+    var lastInsertedLyric: Lyric?
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -115,9 +116,44 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
     }
     
+    func deleteLyricFromDocument(lyric: Lyric) {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        proxy.adjustTextPositionByCharacterOffset(proxy.documentContextAfterInput.utf16Count)
+        
+        var range = proxy.documentContextBeforeInput.rangeOfString(lyric.text)
+        
+        if range != nil {
+            
+        }
+    }
+    
+    func clearInput() {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+
+        if let afterInputText = proxy.documentContextAfterInput {
+            proxy.adjustTextPositionByCharacterOffset(afterInputText.utf16Count)
+        }
+
+        if let beforeInputText = proxy.documentContextBeforeInput {
+            for var i = 0, len = beforeInputText.utf16Count; i < len; i++ {
+                proxy.deleteBackward()
+            }
+        }
+    }
+    
     func didPickLyric(lyricPicker: LyricPickerTableViewController, lyric: Lyric?) {
+        
+        if lastInsertedLyric != nil {
+            clearInput()
+        }
+        
+        insertLyric(lyric!)
+    }
+    
+    func insertLyric(lyric: Lyric) {
         let proxy = textDocumentProxy as UIKeyInput
-        proxy.insertText(lyric!.text)
+        proxy.insertText(lyric.text)
+        lastInsertedLyric = lyric
     }
     
     // MARK: ShareViewControllerDelegate
@@ -132,7 +168,30 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         shareVC.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func shareViewControllerDidToggleShareOption(shareViewController: ShareViewController, option: ShareOption, url: NSURL) {
+    func shareViewControllerDidToggleShareOption(shareViewController: ShareViewController, option: ShareOption, selected: Bool, url: NSURL?) {
+        
+        let proxy = textDocumentProxy as UIKeyInput
+        var shareString: String
+        
+        switch option {
+        case .Spotify:
+            shareString = "\nSpotify: "
+            break
+        case .Soundcloud:
+            shareString = "\nSoundcloud: "
+            break
+        case .YouTube:
+            shareString = "\nYouTube: "
+            break
+        case .Lyric:
+            clearInput()
+            if selected == true {
+                insertLyric(shareViewController.lyric!)
+            }
+            break
+        default:
+            break
+        }
         
     }
 }

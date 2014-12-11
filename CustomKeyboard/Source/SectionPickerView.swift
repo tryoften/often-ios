@@ -61,7 +61,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         currentCategoryLabel.textColor = UIColor.whiteColor()
         currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         currentCategoryLabel.userInteractionEnabled = true
-        currentCategoryLabel.font = UIFont(name: "Lato-Regular", size: 20)
+        currentCategoryLabel.font = UIFont(name: "Lato-Regular", size: 19)
         
         selectedBgView = UIView(frame: CGRectZero)
         selectedBgView.backgroundColor = UIColor(fromHexString: "#ffc538")

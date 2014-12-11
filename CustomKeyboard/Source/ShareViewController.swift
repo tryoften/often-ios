@@ -160,14 +160,29 @@ class ShareViewController: UIViewController {
     internal func buttonSelected(button: UIButton!) {
         button.selected = !button.selected
         
+        var option: ShareOption = .Unknown
+        var shareURL: NSURL? = nil
         
-        if self.spotifyButton == button {
-            
+        if spotifyButton == button {
+            option = .Spotify
+            shareURL = lyric?.track?.spotifyURL
         }
         
-        if self.soundcloudButton == button {
-            
+        if soundcloudButton == button {
+            option = .Soundcloud
+            shareURL = lyric?.track?.soundcloudURL
         }
+        
+        if youtubeButton == button {
+            option = .YouTube
+            shareURL = lyric?.track?.youtubeURL
+        }
+        
+        if lyricButton == button {
+            option = .Lyric
+        }
+        
+        delegate?.shareViewControllerDidToggleShareOption(self, option: option, selected: button.selected, url: shareURL)
     }
 
     override func didReceiveMemoryWarning() {
@@ -181,6 +196,6 @@ class ShareViewController: UIViewController {
 }
 
 protocol ShareViewControllerDelegate {
-    func shareViewControllerDidToggleShareOption(shareViewController: ShareViewController, option: ShareOption, url: NSURL)
+    func shareViewControllerDidToggleShareOption(shareViewController: ShareViewController, option: ShareOption, selected: Bool, url: NSURL?)
     func shareViewControllerDidCancel(shareViewController: ShareViewController)
 }

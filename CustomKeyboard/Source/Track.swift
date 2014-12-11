@@ -13,6 +13,8 @@ enum ShareOption {
     case Soundcloud
     case YouTube
     case RapGenius
+    case Lyric
+    case Unknown
 }
 
 class Track: NSObject {

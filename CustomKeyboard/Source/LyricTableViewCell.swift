@@ -76,7 +76,7 @@ class LyricTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         
         if selected {
-            delegate?.lyricTableViewCellDidLongPress(self)
+            delegate?.lyricTableViewCellDidSelect(self)
         }
 
         // Configure the view for the selected state
@@ -121,5 +121,5 @@ class LyricTableViewCell: UITableViewCell {
 }
 
 protocol LyricTableViewCellDelegate {
-    func lyricTableViewCellDidLongPress(lyricTableViewCell: LyricTableViewCell)
+    func lyricTableViewCellDidSelect(lyricTableViewCell: LyricTableViewCell)
 }
