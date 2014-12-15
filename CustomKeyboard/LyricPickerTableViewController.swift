@@ -10,7 +10,7 @@ import UIKit
 
 let LyricTableViewCellIdentifier = "LyricTableViewCell"
 
-class LyricPickerTableViewController: UITableViewController, SectionPickerViewDelegate,
+class LyricPickerTableViewController: UITableViewController, UITableViewDelegate, SectionPickerViewDelegate,
     LyricTableViewCellDelegate {
     
     var delegate: LyricPickerDelegate?
@@ -21,14 +21,14 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.labelFont = UIFont(name: "Lato-Light", size: 20)
+        labelFont = UIFont(name: "Lato-Light", size: 20)
 
-        self.tableView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
-        self.tableView.registerClass(LyricTableViewCell.self, forCellReuseIdentifier: LyricTableViewCellIdentifier)
-        self.tableView.separatorStyle = .None
-        
-        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
-        self.tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        tableView.registerClass(LyricTableViewCell.self, forCellReuseIdentifier: LyricTableViewCellIdentifier)
+        tableView.separatorStyle = .None
+        tableView.delegate = self
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+        tableView.showsVerticalScrollIndicator = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,7 +43,7 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let category = self.currentCategory {
+        if let category = currentCategory {
             return category.lyrics!.count
         }
         
@@ -54,7 +54,7 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(LyricTableViewCellIdentifier, forIndexPath: indexPath) as LyricTableViewCell
         
-        var lyric = self.currentCategory?.lyrics![indexPath.row]
+        var lyric = currentCategory?.lyrics![indexPath.row]
         cell.lyric = lyric
         cell.delegate = self
 
@@ -94,6 +94,25 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
         return 75
     }
     
+    // MARK: UIScrollViewDelegate
+    
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            scrollToNearestRow()
+        }
+    }
+    
+    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        scrollToNearestRow()
+    }
+    
+    func scrollToNearestRow() {
+        var point = tableView.contentOffset
+        point.y = point.y + 75/2
+        var indexPath = tableView.indexPathForRowAtPoint(point)
+        tableView.scrollToRowAtIndexPath(indexPath!, atScrollPosition: .Middle, animated: true)
+    }
+    
     // MARK: SectionPickerViewDelegate
     
     func didSelectSection(sectionPickerView: SectionPickerView, category: Category) {
@@ -113,12 +132,12 @@ class LyricPickerTableViewController: UITableViewController, SectionPickerViewDe
             var selected = selectedRows[indexPath.row]
             
             if selected == nil || selected == false {
-                self.delegate?.didPickLyric(self, lyric: cell.lyric)
+                delegate?.didPickLyric(self, shareVC: cell.shareVC, lyric: cell.lyric)
             }
         }
     }
 }
 
 protocol LyricPickerDelegate {
-    func didPickLyric(lyricPicker: LyricPickerTableViewController, lyric: Lyric?)
+    func didPickLyric(lyricPicker: LyricPickerTableViewController,shareVC: ShareViewController, lyric: Lyric?)
 }

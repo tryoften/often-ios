@@ -42,7 +42,6 @@ class LyricTableViewCell: UITableViewCell {
         lyricLabel.font = UIFont(name: "Lato-Regular", size: 15)
         lyricLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         lyricLabel.textAlignment = .Center
-        
         lyricView.addSubview(lyricLabel)
         
         infoView = UIView(frame: CGRectZero)
@@ -78,8 +77,6 @@ class LyricTableViewCell: UITableViewCell {
         if selected {
             delegate?.lyricTableViewCellDidSelect(self)
         }
-
-        // Configure the view for the selected state
     }
     
     func setupLayout() {

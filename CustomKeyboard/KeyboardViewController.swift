@@ -17,7 +17,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var trackService: TrackService?
     var sectionPickerView: SectionPickerView?
     var seperatorView: UIView!
-    var lastInsertedLyric: Lyric?
+    var lastInsertedString: String?
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -34,6 +34,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             }
         }
         
+        Firebase.setOption("persistence", to: true)
         var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
         categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
         
@@ -133,6 +134,12 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         if let afterInputText = proxy.documentContextAfterInput {
             proxy.adjustTextPositionByCharacterOffset(afterInputText.utf16Count)
         }
+        
+        if let beforeInputText = lastInsertedString {
+            for var i = 0, len = beforeInputText.utf16Count; i < len; i++ {
+                proxy.deleteBackward()
+            }
+        }
 
         if let beforeInputText = proxy.documentContextBeforeInput {
             for var i = 0, len = beforeInputText.utf16Count; i < len; i++ {
@@ -141,19 +148,56 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
     }
     
-    func didPickLyric(lyricPicker: LyricPickerTableViewController, lyric: Lyric?) {
+    func insertLyric(lyric: Lyric, selectedOptions: [ShareOption: NSURL]?) {
+        let proxy = textDocumentProxy as UIKeyInput
+        var text = ""
         
-        if lastInsertedLyric != nil {
-            clearInput()
+        if let options = selectedOptions {
+            
+            if (options.indexForKey(.Lyric) != nil) {
+                text = lyric.text + "\n\n"
+            }
+            
+            for (option, url) in options {
+                if option == .Lyric {
+                    continue
+                }
+                text += shareStringForOption(option, url: url)
+            }
+        } else {
+            text = lyric.text + "\n"
         }
         
-        insertLyric(lyric!)
+        clearInput()
+        proxy.insertText(text)
+        lastInsertedString = text
     }
     
-    func insertLyric(lyric: Lyric) {
-        let proxy = textDocumentProxy as UIKeyInput
-        proxy.insertText(lyric.text)
-        lastInsertedLyric = lyric
+    func shareStringForOption(option: ShareOption, url: NSURL) -> String {
+        var shareString = ""
+    
+        switch option {
+            case .Spotify:
+                shareString = "Spotify: "
+                break
+            case .Soundcloud:
+                shareString = "Soundcloud: "
+                break
+            case .YouTube:
+                shareString = "YouTube: "
+                break
+            default:
+                break
+        }
+        
+        return shareString + url.absoluteString! + "\n"
+    }
+    
+    // MARK: LyricPickerDelegate
+    func didPickLyric(lyricPicker: LyricPickerTableViewController,shareVC: ShareViewController, lyric: Lyric?) {
+        shareVC.delegate = self
+        
+        insertLyric(lyric!, selectedOptions: nil)
     }
     
     // MARK: ShareViewControllerDelegate
@@ -168,30 +212,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         shareVC.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func shareViewControllerDidToggleShareOption(shareViewController: ShareViewController, option: ShareOption, selected: Bool, url: NSURL?) {
-        
-        let proxy = textDocumentProxy as UIKeyInput
-        var shareString: String
-        
-        switch option {
-        case .Spotify:
-            shareString = "\nSpotify: "
-            break
-        case .Soundcloud:
-            shareString = "\nSoundcloud: "
-            break
-        case .YouTube:
-            shareString = "\nYouTube: "
-            break
-        case .Lyric:
-            clearInput()
-            if selected == true {
-                insertLyric(shareViewController.lyric!)
-            }
-            break
-        default:
-            break
-        }
-        
+    func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL]) {
+        insertLyric(shareViewController.lyric!, selectedOptions:options)
     }
 }

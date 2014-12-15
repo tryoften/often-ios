@@ -19,16 +19,17 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     var heightConstraint: NSLayoutConstraint?
     var delegate: SectionPickerViewDelegate?
     var categoryService: CategoryService?
+    var currentCategory: Category?
     var selectedBgView: UIView
 
     var categories: [Category]? {
         didSet {
             categoriesTableView.reloadData()
             if (categories!.count > 0) {
-                let category =  categories![0]
-                delegate?.didSelectSection(self, category: category)
+                currentCategory = categories![0]
+                delegate?.didSelectSection(self, category: currentCategory!)
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.currentCategoryLabel.text = category.name
+                    self.currentCategoryLabel.text = self.currentCategory!.name
                 })
             }
         }
@@ -154,6 +155,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var category = categories![indexPath.row] as Category;
         
+        currentCategory = category
         currentCategoryLabel.text = category.name
         toggleDrawer()
         
@@ -162,6 +164,14 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
             return
         })
     }
+    
+//    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        if let category = categories?[indexPath.row] {
+//            var selected = category == currentCategory
+//            return selected
+//        }
+//        return false
+//    }
     
     // MARK: UITableViewDataSource
     

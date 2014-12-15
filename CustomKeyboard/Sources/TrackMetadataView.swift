@@ -9,15 +9,6 @@
 import UIKit
 
 class TrackMetadataView: UIView {
-
-    
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     var title: NSAttributedString
     var contentView: UIView
@@ -46,6 +37,7 @@ class TrackMetadataView: UIView {
         titleLabel = UILabel(frame: CGRectZero)
         titleLabel.textColor = UIColor(fromHexString: "#777777")
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.text = "No Metadata"
         
         seperatorView = UIView(frame: CGRectZero)
         seperatorView.backgroundColor = UIColor(fromHexString: "#d8d8d8")

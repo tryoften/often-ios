@@ -61,4 +61,22 @@ class Track: NSObject {
             previewURL = NSURL(string: previewURLString)
         }
     }
+    
+    func getShareOptions() -> [ShareOption : NSURL] {
+        var options = [ShareOption : NSURL]()
+        
+        if spotifyURL != nil {
+            options[.Spotify] = spotifyURL
+        }
+        
+        if soundcloudURL != nil {
+            options[.Soundcloud] = soundcloudURL
+        }
+        
+        if youtubeURL != nil {
+            options[.YouTube] = youtubeURL
+        }
+        
+        return options
+    }
 }

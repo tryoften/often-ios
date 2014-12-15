@@ -658,6 +658,7 @@
 				194ABAC59D0290C32B9EF891 /* Check Pods Manifest.lock */,
 				8180E62D1A142199007FA1CF /* Sources */,
 				8180E62E1A142199007FA1CF /* Frameworks */,
+				81C8EE301A3B7E8E00EBAA78 /* ShellScript */,
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
 			);
@@ -901,6 +902,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		81C8EE301A3B7E8E00EBAA78 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "touch ${PROJECT_DIR}/DrizzyChat/AppDelegate.swift";
 		};
 		A00C0EDAA51482F77D82BB77 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
