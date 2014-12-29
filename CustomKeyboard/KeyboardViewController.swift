@@ -12,6 +12,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     @IBOutlet var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
+    var sectionPicker: SectionPickerViewController!
     var heightConstraint: NSLayoutConstraint?
     var categoryService: CategoryService?
     var trackService: TrackService?
@@ -26,13 +27,13 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for family in UIFont.familyNames() {
-            println("\(family)")
-            
-            for name in UIFont.fontNamesForFamilyName(family as String) {
-                println("  \(name)")
-            }
-        }
+//        for family in UIFont.familyNames() {
+//            println("\(family)")
+//            
+//            for name in UIFont.fontNamesForFamilyName(family as String) {
+//                println("  \(name)")
+//            }
+//        }
         
         Firebase.setOption("persistence", to: true)
         var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
@@ -52,7 +53,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         seperatorView.backgroundColor = UIColor(fromHexString: "#d8d8d8")
         seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        sectionPickerView = SectionPickerView(frame: CGRectZero)
+        sectionPicker = SectionPickerViewController()
+        sectionPicker.categoryService = categoryService
+        
+        sectionPickerView = (sectionPicker.view as SectionPickerView)
         sectionPickerView?.delegate = lyricPicker
         sectionPickerView?.setTranslatesAutoresizingMaskIntoConstraints(false)
         sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)

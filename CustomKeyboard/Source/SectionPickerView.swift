@@ -8,12 +8,13 @@
 
 import UIKit
 
-private let SectionPickerViewHeight: CGFloat = 45.0
+let SectionPickerViewHeight: CGFloat = 45.0
 
 class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDelegate {
     var categoriesTableView: UITableView
     var nextKeyboardButton: UIButton
     var toggleDrawerButton: UIButton
+    var currentCategoryView: UIView
     var currentCategoryLabel: UILabel
     var drawerOpened: Bool = false
     var heightConstraint: NSLayoutConstraint?
@@ -52,6 +53,9 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         nextKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         nextKeyboardButton.backgroundColor = UIColor(fromHexString: "#ffc538")
         
+        currentCategoryView = UIView()
+        currentCategoryView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         toggleDrawerButton = UIButton()
         toggleDrawerButton.titleLabel!.font = UIFont(name: "font_icons8", size:20)
         toggleDrawerButton.setTitle("\u{f132}", forState: .Normal)
@@ -76,10 +80,12 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         categoriesTableView.dataSource = self
         categoriesTableView.delegate = self
         
+        currentCategoryView.addSubview(toggleDrawerButton)
+        currentCategoryView.addSubview(currentCategoryLabel)
+        
         addSubview(categoriesTableView)
         addSubview(nextKeyboardButton)
-        addSubview(toggleDrawerButton)
-        addSubview(currentCategoryLabel)
+        addSubview(currentCategoryView)
         
         let toggleSelector = Selector("toggleDrawer")
         toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
@@ -95,26 +101,32 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         var categoryLabel = currentCategoryLabel
         var toggleDrawer = toggleDrawerButton
         
-        addConstraint(heightConstraint!)
-        
         addConstraints([
+            heightConstraint!,
+            
             // keyboard button
             keyboardButton.al_left == al_left,
             keyboardButton.al_top == al_top,
             keyboardButton.al_height == SectionPickerViewHeight,
             keyboardButton.al_width == SectionPickerViewHeight,
             
+            // current category view
+            currentCategoryView.al_left == al_left + SectionPickerViewHeight + 10.0,
+            currentCategoryView.al_right == al_right,
+            currentCategoryView.al_height == SectionPickerViewHeight,
+            currentCategoryView.al_top == al_top,
+            
             // toggle drawer
-            toggleDrawer.al_right == al_right,
-            toggleDrawer.al_top == al_top,
+            toggleDrawer.al_right == currentCategoryView.al_right,
+            toggleDrawer.al_top == currentCategoryView.al_top,
             toggleDrawer.al_height == SectionPickerViewHeight,
             toggleDrawer.al_width == toggleDrawer.al_height,
             
             // current category label
-            categoryLabel.al_left == al_left + SectionPickerViewHeight + 10.0,
-//            categoryLabel.al_right == toggleDrawer.al_left,
-            categoryLabel.al_height == SectionPickerViewHeight,
-            categoryLabel.al_top == al_top,
+            currentCategoryLabel.al_left == currentCategoryView.al_left,
+            currentCategoryLabel.al_right == toggleDrawer.al_left,
+            currentCategoryLabel.al_height == SectionPickerViewHeight,
+            currentCategoryLabel.al_top == currentCategoryView.al_top,
             
             // table View
             tableView.al_top == keyboardButton.al_bottom,
@@ -127,27 +139,33 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     func toggleDrawer() {
         layoutIfNeeded()
         
-        var completionBlock: (Bool) -> Void = { done in
-            self.drawerOpened = !self.drawerOpened
-            var icon = (self.drawerOpened) ? "\u{f10f}" : "\u{f132}"
-            self.toggleDrawerButton.setTitle(icon, forState: .Normal)
-        }
-        
         if (!drawerOpened) {
-            UIView.animateWithDuration(0.2, animations: {
-                self.heightConstraint?.constant = self.superview!.bounds.height
-                self.layoutIfNeeded()
-                return
-            }, completion: completionBlock)
-            
+            open()
         } else {
-            UIView.animateWithDuration(0.2, animations: {
-                self.heightConstraint?.constant = SectionPickerViewHeight
-                self.layoutIfNeeded()
-                return
-            }, completion: completionBlock)
+            close()
         }
-
+        drawerOpened = !drawerOpened
+    }
+    
+    func open() {
+        UIView.animateWithDuration(0.2, animations: {
+            println("superview height ", self.superview!.bounds.height)
+            self.heightConstraint?.constant = self.superview!.bounds.height
+            self.layoutIfNeeded()
+            return
+            }, completion: { completed in
+                completionBlock(self, completed)
+        })
+    }
+    
+    func close() {
+        UIView.animateWithDuration(0.2, animations: {
+            self.heightConstraint?.constant = SectionPickerViewHeight
+            self.layoutIfNeeded()
+            return
+            }, completion: { completed in
+                completionBlock(self, completed)
+        })
     }
     
     // MARK: UITableViewDelegate
@@ -181,10 +199,10 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         var category = categories![indexPath.row]
         cell.backgroundColor = UIColor.clearColor()
         cell.selectedBackgroundView = selectedBgView
-        cell.textLabel.text = category.name
-        cell.textLabel.font = UIFont(name: "Lato-Light", size: 20)
-        cell.textLabel.textColor = UIColor.whiteColor()
-        cell.textLabel.textAlignment = .Center
+        cell.textLabel!.text = category.name
+        cell.textLabel!.font = UIFont(name: "Lato-Light", size: 20)
+        cell.textLabel!.textColor = UIColor.whiteColor()
+        cell.textLabel!.textAlignment = .Center
 
         return cell
     }
@@ -199,6 +217,15 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+}
+
+let completionBlock: (SectionPickerView, Bool) -> Void = { (view, done) in
+    let angle = (view.drawerOpened) ? CGFloat(M_PI) : 0
+    UIView.beginAnimations("rotate", context: nil)
+    UIView.setAnimationDuration(0.2)
+    view.toggleDrawerButton.transform = CGAffineTransformMakeRotation(angle)
+    UIView.commitAnimations()
+    
 }
 
 protocol SectionPickerViewDelegate {

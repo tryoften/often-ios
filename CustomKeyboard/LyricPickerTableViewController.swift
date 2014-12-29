@@ -102,6 +102,9 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         }
     }
     
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    }
+    
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         scrollToNearestRow()
     }

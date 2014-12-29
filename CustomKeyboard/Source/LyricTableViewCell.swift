@@ -32,6 +32,8 @@ class LyricTableViewCell: UITableViewCell {
         
         clipsToBounds = true
         
+        contentView.autoresizingMask = .FlexibleHeight | .FlexibleWidth
+        
         lyricView = UIView(frame: CGRectZero)
         lyricView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
         lyricView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -103,8 +105,8 @@ class LyricTableViewCell: UITableViewCell {
             seperatorView.al_left == contentView.al_left,
             seperatorView.al_height == 1.0,
             
-            metadataView.al_width == infoView.al_width,
             metadataView.al_height == 50.0,
+            metadataView.al_width == infoView.al_width,
             metadataView.al_top == infoView.al_top,
             metadataView.al_left == infoView.al_left,
             

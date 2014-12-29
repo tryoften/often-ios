@@ -40,6 +40,8 @@
 		8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
 		81240A791A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
 		81240A7A1A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
+		812D74801A3E5E480083F655 /* SectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */; };
+		812D74811A3E5E480083F655 /* SectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */; };
 		81331E051A17E538003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
 		81331E091A17EC52003E4609 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E081A17EC52003E4609 /* CategoryService.swift */; };
 		81331E121A17F9F3003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
@@ -222,6 +224,7 @@
 		810C407D1A21402A00170DB4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-circle.ttf"; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
+		812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerViewController.swift; path = Sources/SectionPickerViewController.swift; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		81331E081A17EC52003E4609 /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryService.swift; path = Source/CategoryService.swift; sourceTree = "<group>"; };
@@ -605,6 +608,7 @@
 				8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */,
 				8180E6351A142199007FA1CF /* KeyboardViewController.swift */,
 				81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */,
+				812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -942,6 +946,7 @@
 				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
 				810C40821A21402A00170DB4 /* ExecutionContext.swift in Sources */,
 				810C40841A21402A00170DB4 /* Future.swift in Sources */,
+				812D74801A3E5E480083F655 /* SectionPickerViewController.swift in Sources */,
 				81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */,
 				810C408C1A21402A00170DB4 /* Queue.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
@@ -984,6 +989,7 @@
 				81A1A4EF1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
 				810C40991A21402A00170DB4 /* README.md in Sources */,
 				81331E121A17F9F3003E4609 /* Lyric.swift in Sources */,
+				812D74811A3E5E480083F655 /* SectionPickerViewController.swift in Sources */,
 				81240A7A1A33BCF600E946F8 /* Track.swift in Sources */,
 				81A1A4EB1A19786D00D566B8 /* README.md in Sources */,
 				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
