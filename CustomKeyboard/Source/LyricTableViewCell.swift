@@ -84,6 +84,8 @@ class LyricTableViewCell: UITableViewCell {
     func setupLayout() {
         let shareView = shareVC.view
         
+        contentView.bounds = CGRectMake(0, 0, 99999, 99999)
+        
         addConstraints([
             lyricView.al_width == contentView.al_width,
             lyricView.al_top == contentView.al_top,

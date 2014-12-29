@@ -37,6 +37,7 @@ class TrackMetadataView: UIView {
         titleLabel = UILabel(frame: CGRectZero)
         titleLabel.textColor = UIColor(fromHexString: "#777777")
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.font = UIFont(name: "Lato-Regular", size: 12)
         titleLabel.text = "No Metadata"
         
         seperatorView = UIView(frame: CGRectZero)
@@ -62,8 +63,6 @@ class TrackMetadataView: UIView {
             contentView.al_height == al_height,
             contentView.al_width == titleLabel.al_width + 45.0,
 
-            coverArtView.al_width == 35.0,
-            coverArtView.al_height == coverArtView.al_width,
             coverArtView.al_centerY == contentView.al_centerY,
             coverArtView.al_left == contentView.al_left,
             
@@ -92,7 +91,11 @@ class TrackMetadataView: UIView {
         if let track = track {
             coverArtView.setImageWithURL(track.albumCoverImage)
             titleLabel.text = NSString(format: "\"%@\" - %@", track.name, track.artistName)
-            titleLabel.font = UIFont(name: "Lato-Regular", size: 12)
+
+            addConstraints([
+                coverArtView.al_width == 35.0,
+                coverArtView.al_height == coverArtView.al_width
+            ])
         }
     }
 }

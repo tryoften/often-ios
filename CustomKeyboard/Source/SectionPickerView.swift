@@ -11,6 +11,7 @@ import UIKit
 let SectionPickerViewHeight: CGFloat = 45.0
 
 class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDelegate {
+    
     var categoriesTableView: UITableView
     var nextKeyboardButton: UIButton
     var toggleDrawerButton: UIButton
@@ -147,10 +148,19 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         drawerOpened = !drawerOpened
     }
     
+    func animateArrow(pointingUp: Bool = true) {
+        let angle = (pointingUp) ? CGFloat(M_PI) : 0
+        
+        UIView.animateWithDuration(0.2, animations: {
+            self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(angle)
+        })
+    }
+    
     func open() {
         UIView.animateWithDuration(0.2, animations: {
             println("superview height ", self.superview!.bounds.height)
             self.heightConstraint?.constant = self.superview!.bounds.height
+            self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
             self.layoutIfNeeded()
             return
             }, completion: { completed in
@@ -161,6 +171,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     func close() {
         UIView.animateWithDuration(0.2, animations: {
             self.heightConstraint?.constant = SectionPickerViewHeight
+            self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(0)
             self.layoutIfNeeded()
             return
             }, completion: { completed in
@@ -220,12 +231,6 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
 }
 
 let completionBlock: (SectionPickerView, Bool) -> Void = { (view, done) in
-    let angle = (view.drawerOpened) ? CGFloat(M_PI) : 0
-    UIView.beginAnimations("rotate", context: nil)
-    UIView.setAnimationDuration(0.2)
-    view.toggleDrawerButton.transform = CGAffineTransformMakeRotation(angle)
-    UIView.commitAnimations()
-    
 }
 
 protocol SectionPickerViewDelegate {

@@ -9,6 +9,7 @@
 import UIKit
 
 let LyricTableViewCellIdentifier = "LyricTableViewCell"
+let LyricTableViewCellHeight: CGFloat = 75
 
 class LyricPickerTableViewController: UITableViewController, UITableViewDelegate, SectionPickerViewDelegate,
     LyricTableViewCellDelegate {
@@ -91,7 +92,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         if selected == true {
             return 171
         }
-        return 75
+        return LyricTableViewCellHeight
     }
     
     // MARK: UIScrollViewDelegate
@@ -111,9 +112,9 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     
     func scrollToNearestRow() {
         var point = tableView.contentOffset
-        point.y = point.y + 75/2
+        point.y = point.y + LyricTableViewCellHeight / 2
         var indexPath = tableView.indexPathForRowAtPoint(point)
-        tableView.scrollToRowAtIndexPath(indexPath!, atScrollPosition: .Middle, animated: true)
+        tableView.scrollToRowAtIndexPath(indexPath!, atScrollPosition: .Top, animated: true)
     }
     
     // MARK: SectionPickerViewDelegate
@@ -122,8 +123,15 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         currentCategory = category
         
         dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.alpha = 0.0
+            self.tableView.layer.transform = CATransform3DMakeScale(0.90, 0.90, 0.90)
+            
             self.selectedRows = [Int: Bool]()
             self.tableView.reloadData()
+            UIView.animateWithDuration(0.3, animations: {
+                self.tableView.alpha = 1.0
+                self.tableView.layer.transform = CATransform3DIdentity
+            })
             self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
         })
     }
