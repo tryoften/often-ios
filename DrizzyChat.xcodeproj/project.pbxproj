@@ -110,6 +110,8 @@
 		8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6581A147A77007FA1CF /* Lato-ThinItalic.ttf */; };
 		8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
 		8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
+		819982AD1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */; };
+		819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */; };
 		81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
 		81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
 		81A1A4E41A19786D00D566B8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DA1A19786D00D566B8 /* .gitignore */; };
@@ -272,6 +274,7 @@
 		8180E6571A147A77007FA1CF /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
 		8180E6581A147A77007FA1CF /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Source/LyricTableViewCell.swift; sourceTree = "<group>"; };
+		819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentlyUsedCategory.swift; path = Sources/RecentlyUsedCategory.swift; sourceTree = "<group>"; };
 		81A1A4D31A196D6200D566B8 /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
 		81A1A4DA1A19786D00D566B8 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		81A1A4DB1A19786D00D566B8 /* ILTranslucentView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ILTranslucentView.podspec; sourceTree = "<group>"; };
@@ -391,6 +394,7 @@
 				81331E041A17E538003E4609 /* Category.swift */,
 				81331E111A17F9F3003E4609 /* Lyric.swift */,
 				81240A781A33BCF600E946F8 /* Track.swift */,
+				819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -964,6 +968,7 @@
 				8180E6101A142157007FA1CF /* ViewController.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
+				819982AD1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
@@ -998,6 +1003,7 @@
 				81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */,
 				810C408B1A21402A00170DB4 /* Promise.swift in Sources */,
 				8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */,
+				819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				810C40951A21402A00170DB4 /* CHANGELOG.md in Sources */,
 				810C40851A21402A00170DB4 /* Future.swift in Sources */,

@@ -30,7 +30,10 @@ class Track: NSObject {
     var youtubeURL: NSURL?
     var previewURL: NSURL?
     
+    private var dict: [String: String]
+    
     init(dictionary: [String: String]) {
+        self.dict = dictionary
         id = dictionary["id"]!
         name = dictionary["name"]!
         albumCoverImage = NSURL(string: dictionary["album_cover_image"]!)
@@ -60,6 +63,10 @@ class Track: NSObject {
         if let previewURLString = dictionary["preview_url"] {
             previewURL = NSURL(string: previewURLString)
         }
+    }
+    
+    func toDictionary() -> [String: String] {
+        return dict
     }
     
     func getShareOptions() -> [ShareOption : NSURL] {

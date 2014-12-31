@@ -144,6 +144,13 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             
             if selected == nil || selected == false {
                 delegate?.didPickLyric(self, shareVC: cell.shareVC, lyric: cell.lyric)
+                var data = [NSString: AnyObject]()
+                data["lyric"] = cell.lyric
+
+                var notification = NSNotification(name: "lyric:selected", object: nil, userInfo: data)
+                NSNotificationCenter.defaultCenter().postNotification(notification)
+                
+                
             }
         }
     }

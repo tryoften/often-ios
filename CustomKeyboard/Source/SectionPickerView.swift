@@ -27,8 +27,8 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     var categories: [Category]? {
         didSet {
             categoriesTableView.reloadData()
-            if (categories!.count > 0) {
-                currentCategory = categories![0]
+            if (categories!.count > 1) {
+                currentCategory = categories![1]
                 delegate?.didSelectSection(self, category: currentCategory!)
                 dispatch_async(dispatch_get_main_queue(), {
                     self.currentCategoryLabel.text = self.currentCategory!.name
@@ -188,10 +188,14 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         currentCategoryLabel.text = category.name
         toggleDrawer()
         
-        categoryService?.requestLyrics(category.id, artistIds: nil).onSuccess({ lyrics in
-            self.delegate?.didSelectSection(self, category: category)
-            return
-        })
+        if category.id == "recently" {
+            delegate?.didSelectSection(self, category: category)
+        } else {
+            categoryService?.requestLyrics(category.id, artistIds: nil).onSuccess({ lyrics in
+                self.delegate?.didSelectSection(self, category: category)
+                return
+            })
+        }
     }
     
 //    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {

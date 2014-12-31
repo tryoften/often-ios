@@ -14,6 +14,17 @@ class Lyric: NSObject {
     var categoryId: String
     var trackId: String?
     var track: Track?
+    
+    init(dict: [String: AnyObject]) {
+        id = dict["id"] as String
+        text = dict["text"] as String
+        categoryId = dict["category_id"] as String
+        trackId = dict["track_id"] as? String
+        
+        if let trackData = dict["track"] as? [String: String] {
+            track = Track(dictionary: trackData)
+        }
+    }
 
     init(id: String, text: String, categoryId: String, trackId: String?) {
         self.id = id
@@ -22,5 +33,20 @@ class Lyric: NSObject {
         self.trackId = trackId
 
         super.init()
+    }
+    
+    func toDictionary() -> [String: AnyObject] {
+        var dict = [
+            "id": id,
+            "text": text,
+            "category_id": categoryId,
+            "track_id": trackId!
+        ]
+//        
+//        if let trackData = track?.toDictionary() {
+//            dict["track"] = trackData
+//        }
+        
+        return dict
     }
 }

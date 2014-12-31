@@ -46,6 +46,8 @@ class CategoryService: NSObject {
     func requestCategories() -> Future<[Category]> {
         var promise = Promise<[Category]>()
         
+        self.categories.append(RecentlyUsedCategory())
+        
         categoriesRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
             let data = snapshot.value as [ [String: String] ]
@@ -68,21 +70,24 @@ class CategoryService: NSObject {
         var query = lyricsRef.childByAppendingPath("\(categoryId)")
         query.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
-            let data = snapshot.value as Dictionary<String, [ [String : String] ]>
-            var lyrics = [Lyric]()
-            
-            for (key, lyricsData) in data {
-                for lyricData in lyricsData {
-                    var lyric = Lyric(id: key, text: lyricData["text"]!, categoryId: lyricData["category_id"]!, trackId: lyricData["track_id"])
-                    lyrics.append(lyric)
+            if let data = snapshot.value as? [String: [ [String : String] ]] {
+                var lyrics = [Lyric]()
+                
+                for (key, lyricsData) in data {
+                    for lyricData in lyricsData {
+                        var lyric = Lyric(id: key, text: lyricData["text"]!, categoryId: lyricData["category_id"]!, trackId: lyricData["track_id"])
+                        lyrics.append(lyric)
+                    }
                 }
+                
+                if let category = self.categoryForId(categoryId) {
+                    category.lyrics = lyrics
+                }
+                
+                promise.success(lyrics)
+            } else {
+                promise.error(NSError())
             }
-            
-            if let category = self.categoryForId(categoryId) {
-                category.lyrics = lyrics
-            }
-            
-            promise.success(lyrics)
         })
         
         return promise.future
@@ -90,10 +95,16 @@ class CategoryService: NSObject {
     
     func requestData(completion: (Bool) -> Void) {
         self.requestCategories().andThen { result in
-            var category = self.categories[0]
-            self.requestLyrics(category.id, artistIds: nil).onSuccess { data in
+            var category = self.categories[1]
+            var request = self.requestLyrics(category.id, artistIds: nil)
+                
+            request.onSuccess { data in
                 completion(true)
             }
+            
+            request.onFailure({ error in
+                completion(false)
+            })
         }
         
         // listen for any new categories added after the initial load
