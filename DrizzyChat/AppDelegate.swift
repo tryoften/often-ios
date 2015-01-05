@@ -12,11 +12,17 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
 
     var window: UIWindow?
-
+    var mainController: ViewController!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         MMLayershots.sharedInstance().delegate = self
+        
+        mainController = ViewController()
+        
+        window?.makeKeyAndVisible()
+        window?.rootViewController?.presentViewController(mainController, animated: true, completion: nil)
+        
         return true
     }
 

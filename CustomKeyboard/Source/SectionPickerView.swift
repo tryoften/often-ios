@@ -214,10 +214,10 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         var category = categories![indexPath.row]
         cell.backgroundColor = UIColor.clearColor()
         cell.selectedBackgroundView = selectedBgView
-        cell.textLabel!.text = category.name
-        cell.textLabel!.font = UIFont(name: "Lato-Light", size: 20)
-        cell.textLabel!.textColor = UIColor.whiteColor()
-        cell.textLabel!.textAlignment = .Center
+        cell.textLabel.text = category.name
+        cell.textLabel.font = UIFont(name: "Lato-Light", size: 20)
+        cell.textLabel.textColor = UIColor.whiteColor()
+        cell.textLabel.textAlignment = .Center
 
         return cell
     }
