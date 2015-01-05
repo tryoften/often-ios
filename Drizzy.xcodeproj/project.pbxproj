@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4CAB6DC932CA670B7FE8D53A /* libPods-DrizzyChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D409EF9C892829C2F11DC4 /* libPods-DrizzyChat.a */; };
+		4CAB6DC932CA670B7FE8D53A /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D409EF9C892829C2F11DC4 /* libPods-Drizzy.a */; };
+		61566BC87701869D7B506BC0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 818B2DB82ED1FAA95A878B9D /* libPods.a */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C407E1A21402A00170DB4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 810C406B1A21402A00170DB4 /* .gitignore */; };
@@ -56,8 +57,6 @@
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
-		81331E2F1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E231A1806BB003E4609 /* Info.plist */; };
-		81331E301A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E231A1806BB003E4609 /* Info.plist */; };
 		81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
 		81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
@@ -136,6 +135,7 @@
 		81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
 		81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
 		BE4402AFA1E84C0CFEB6ECDE /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */; };
+		FF0DC9F89E8EA72618FEE026 /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B49383CD7898F4FE37014E84 /* libPods-Drizzy.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,8 +205,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		03776BC2F64FC0C6FCC35217 /* Pods-DrizzyChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrizzyChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrizzyChat/Pods-DrizzyChat.release.xcconfig"; sourceTree = "<group>"; };
-		34D409EF9C892829C2F11DC4 /* libPods-DrizzyChat.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DrizzyChat.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
+		34D409EF9C892829C2F11DC4 /* libPods-Drizzy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Drizzy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		810C406B1A21402A00170DB4 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -241,14 +241,14 @@
 		81331E231A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
 		817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackMetadataView.swift; path = Sources/TrackMetadataView.swift; sourceTree = "<group>"; };
-		8180E6081A142157007FA1CF /* DrizzyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrizzyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8180E6081A142157007FA1CF /* Drizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E60C1A142157007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E60D1A142157007FA1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8180E60F1A142157007FA1CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8180E6121A142157007FA1CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8180E6141A142157007FA1CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8180E6171A142157007FA1CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		8180E61D1A142158007FA1CF /* DrizzyChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrizzyChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8180E61D1A142158007FA1CF /* DrizzyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrizzyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6221A142158007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E6231A142158007FA1CF /* DrizzyChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrizzyChatTests.swift; sourceTree = "<group>"; };
 		8180E6311A142199007FA1CF /* CustomKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CustomKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +274,7 @@
 		8180E6571A147A77007FA1CF /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
 		8180E6581A147A77007FA1CF /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Source/LyricTableViewCell.swift; sourceTree = "<group>"; };
+		818B2DB82ED1FAA95A878B9D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentlyUsedCategory.swift; path = Sources/RecentlyUsedCategory.swift; sourceTree = "<group>"; };
 		81A1A4D31A196D6200D566B8 /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
 		81A1A4DA1A19786D00D566B8 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -289,8 +290,11 @@
 		81ABAAE71A15820600456A5A /* SectionPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerView.swift; path = Source/SectionPickerView.swift; sourceTree = "<group>"; };
 		81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareViewController.swift; path = Source/ShareViewController.swift; sourceTree = "<group>"; };
 		81E897D91A32A17F005C7CD9 /* TrackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackService.swift; path = Source/TrackService.swift; sourceTree = "<group>"; };
+		928E8AB5169157015D98D681 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
-		D5794374D5B3F63155309941 /* Pods-DrizzyChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrizzyChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrizzyChat/Pods-DrizzyChat.debug.xcconfig"; sourceTree = "<group>"; };
+		9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B49383CD7898F4FE37014E84 /* libPods-Drizzy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Drizzy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.debug.xcconfig"; sourceTree = "<group>"; };
 		FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -299,7 +303,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CAB6DC932CA670B7FE8D53A /* libPods-DrizzyChat.a in Frameworks */,
+				4CAB6DC932CA670B7FE8D53A /* libPods-Drizzy.a in Frameworks */,
+				61566BC87701869D7B506BC0 /* libPods.a in Frameworks */,
+				FF0DC9F89E8EA72618FEE026 /* libPods-Drizzy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,10 +330,12 @@
 		3A906368B7CA46AA11C157BA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D5794374D5B3F63155309941 /* Pods-DrizzyChat.debug.xcconfig */,
-				03776BC2F64FC0C6FCC35217 /* Pods-DrizzyChat.release.xcconfig */,
+				D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */,
+				03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */,
 				FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */,
 				945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */,
+				9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */,
+				928E8AB5169157015D98D681 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -336,7 +344,9 @@
 			isa = PBXGroup;
 			children = (
 				7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */,
-				34D409EF9C892829C2F11DC4 /* libPods-DrizzyChat.a */,
+				34D409EF9C892829C2F11DC4 /* libPods-Drizzy.a */,
+				818B2DB82ED1FAA95A878B9D /* libPods.a */,
+				B49383CD7898F4FE37014E84 /* libPods-Drizzy.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -476,8 +486,8 @@
 		8180E6091A142157007FA1CF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8180E6081A142157007FA1CF /* DrizzyChat.app */,
-				8180E61D1A142158007FA1CF /* DrizzyChatTests.xctest */,
+				8180E6081A142157007FA1CF /* Drizzy.app */,
+				8180E61D1A142158007FA1CF /* DrizzyTests.xctest */,
 				8180E6311A142199007FA1CF /* CustomKeyboard.appex */,
 			);
 			name = Products;
@@ -620,9 +630,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8180E6071A142157007FA1CF /* DrizzyChat */ = {
+		8180E6071A142157007FA1CF /* Drizzy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8180E6271A142158007FA1CF /* Build configuration list for PBXNativeTarget "DrizzyChat" */;
+			buildConfigurationList = 8180E6271A142158007FA1CF /* Build configuration list for PBXNativeTarget "Drizzy" */;
 			buildPhases = (
 				A00C0EDAA51482F77D82BB77 /* Check Pods Manifest.lock */,
 				8180E6041A142157007FA1CF /* Sources */,
@@ -636,14 +646,14 @@
 			dependencies = (
 				8180E6381A142199007FA1CF /* PBXTargetDependency */,
 			);
-			name = DrizzyChat;
+			name = Drizzy;
 			productName = DrizzyChat;
-			productReference = 8180E6081A142157007FA1CF /* DrizzyChat.app */;
+			productReference = 8180E6081A142157007FA1CF /* Drizzy.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8180E61C1A142158007FA1CF /* DrizzyChatTests */ = {
+		8180E61C1A142158007FA1CF /* DrizzyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8180E62A1A142158007FA1CF /* Build configuration list for PBXNativeTarget "DrizzyChatTests" */;
+			buildConfigurationList = 8180E62A1A142158007FA1CF /* Build configuration list for PBXNativeTarget "DrizzyTests" */;
 			buildPhases = (
 				8180E6191A142158007FA1CF /* Sources */,
 				8180E61A1A142158007FA1CF /* Frameworks */,
@@ -654,9 +664,9 @@
 			dependencies = (
 				8180E61F1A142158007FA1CF /* PBXTargetDependency */,
 			);
-			name = DrizzyChatTests;
+			name = DrizzyTests;
 			productName = DrizzyChatTests;
-			productReference = 8180E61D1A142158007FA1CF /* DrizzyChatTests.xctest */;
+			productReference = 8180E61D1A142158007FA1CF /* DrizzyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		8180E6301A142199007FA1CF /* CustomKeyboard */ = {
@@ -690,7 +700,7 @@
 				TargetAttributes = {
 					8180E6071A142157007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 2YWQFVQAMW;
+						DevelopmentTeam = LMA3M32RE8;
 					};
 					8180E61C1A142158007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
@@ -698,11 +708,16 @@
 					};
 					8180E6301A142199007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 2YWQFVQAMW;
+						DevelopmentTeam = LMA3M32RE8;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
-			buildConfigurationList = 8180E6031A142157007FA1CF /* Build configuration list for PBXProject "DrizzyChat" */;
+			buildConfigurationList = 8180E6031A142157007FA1CF /* Build configuration list for PBXProject "Drizzy" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -725,8 +740,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				8180E6071A142157007FA1CF /* DrizzyChat */,
-				8180E61C1A142158007FA1CF /* DrizzyChatTests */,
+				8180E6071A142157007FA1CF /* Drizzy */,
+				8180E61C1A142158007FA1CF /* DrizzyTests */,
 				8180E6301A142199007FA1CF /* CustomKeyboard */,
 			);
 		};
@@ -792,7 +807,6 @@
 				810C40881A21402A00170DB4 /* Info.plist in Resources */,
 				8180E65B1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
 				8180E6671A147A78007FA1CF /* Lato-HeavyItalic.ttf in Resources */,
-				81331E2F1A1806BB003E4609 /* Info.plist in Resources */,
 				81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */,
 				8180E6181A142157007FA1CF /* LaunchScreen.xib in Resources */,
 				81A1A4E61A19786D00D566B8 /* ILTranslucentView.podspec in Resources */,
@@ -857,7 +871,6 @@
 				8180E6661A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
 				8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
-				81331E301A1806BB003E4609 /* Info.plist in Resources */,
 				8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
 				8180E66E1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
 			);
@@ -893,7 +906,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrizzyChat/Pods-DrizzyChat-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5E81146B4BB9D2702D75E23C /* Copy Pods Resources */ = {
@@ -1023,7 +1036,7 @@
 /* Begin PBXTargetDependency section */
 		8180E61F1A142158007FA1CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8180E6071A142157007FA1CF /* DrizzyChat */;
+			target = 8180E6071A142157007FA1CF /* Drizzy */;
 			targetProxy = 8180E61E1A142158007FA1CF /* PBXContainerItemProxy */;
 		};
 		8180E6381A142199007FA1CF /* PBXTargetDependency */ = {
@@ -1055,6 +1068,7 @@
 /* Begin XCBuildConfiguration section */
 		8180E6251A142158007FA1CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1070,7 +1084,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1090,6 +1104,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "a3392855-4102-42e3-aa92-ca7d189f18c6";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1097,6 +1112,7 @@
 		};
 		8180E6261A142158007FA1CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 928E8AB5169157015D98D681 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1112,7 +1128,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1125,6 +1142,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "a3392855-4102-42e3-aa92-ca7d189f18c6";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1132,11 +1150,12 @@
 		};
 		8180E6281A142158007FA1CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D5794374D5B3F63155309941 /* Pods-DrizzyChat.debug.xcconfig */;
+			baseConfigurationReference = D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1144,18 +1163,19 @@
 				);
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Drizzy;
+				PROVISIONING_PROFILE = "a3392855-4102-42e3-aa92-ca7d189f18c6";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		8180E6291A142158007FA1CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03776BC2F64FC0C6FCC35217 /* Pods-DrizzyChat.release.xcconfig */;
+			baseConfigurationReference = 03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1163,7 +1183,8 @@
 				);
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Drizzy;
+				PROVISIONING_PROFILE = "a3392855-4102-42e3-aa92-ca7d189f18c6";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
 			name = Release;
@@ -1182,8 +1203,8 @@
 				);
 				INFOPLIST_FILE = DrizzyChatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrizzyChat.app/DrizzyChat";
+				PRODUCT_NAME = DrizzyTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Drizzy.app/Drizzy";
 			};
 			name = Debug;
 		};
@@ -1197,8 +1218,8 @@
 				);
 				INFOPLIST_FILE = DrizzyChatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrizzyChat.app/DrizzyChat";
+				PRODUCT_NAME = DrizzyTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Drizzy.app/Drizzy";
 			};
 			name = Release;
 		};
@@ -1206,7 +1227,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
@@ -1223,6 +1246,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a3392855-4102-42e3-aa92-ca7d189f18c6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
@@ -1232,7 +1256,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
@@ -1245,6 +1271,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a3392855-4102-42e3-aa92-ca7d189f18c6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
@@ -1253,7 +1280,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8180E6031A142157007FA1CF /* Build configuration list for PBXProject "DrizzyChat" */ = {
+		8180E6031A142157007FA1CF /* Build configuration list for PBXProject "Drizzy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8180E6251A142158007FA1CF /* Debug */,
@@ -1262,7 +1289,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8180E6271A142158007FA1CF /* Build configuration list for PBXNativeTarget "DrizzyChat" */ = {
+		8180E6271A142158007FA1CF /* Build configuration list for PBXNativeTarget "Drizzy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8180E6281A142158007FA1CF /* Debug */,
@@ -1271,7 +1298,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8180E62A1A142158007FA1CF /* Build configuration list for PBXNativeTarget "DrizzyChatTests" */ = {
+		8180E62A1A142158007FA1CF /* Build configuration list for PBXNativeTarget "DrizzyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8180E62B1A142158007FA1CF /* Debug */,

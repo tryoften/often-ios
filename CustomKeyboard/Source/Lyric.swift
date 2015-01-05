@@ -36,16 +36,16 @@ class Lyric: NSObject {
     }
     
     func toDictionary() -> [String: AnyObject] {
-        var dict = [
+        var dict: [String: AnyObject] = [
             "id": id,
             "text": text,
             "category_id": categoryId,
             "track_id": trackId!
         ]
-//        
-//        if let trackData = track?.toDictionary() {
-//            dict["track"] = trackData
-//        }
+        
+        if let trackData = track?.toDictionary() {
+            dict["track"] = trackData
+        }
         
         return dict
     }

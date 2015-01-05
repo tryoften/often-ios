@@ -3,21 +3,23 @@ platform :ios, '8.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
 
-target 'DrizzyChat' do
+pod 'MMLayershots'
+
+target 'Drizzy' do
   pod 'Firebase', '>= 2.0.2'
-  pod 'Reveal-iOS-SDK', '~> 1.0.6'
-  pod 'NUI', '>= 0.5'
+#  pod 'Reveal-iOS-SDK', '~> 1.0.6'
+#  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
 end
 
-target 'DrizzyChatTests' do
+target 'DrizzyTests' do
 
 end
 
 target 'CustomKeyboard' do
   pod 'Firebase', '>= 2.0.2'
-  pod 'Reveal-iOS-SDK', '~> 1.0.6'
-  pod 'NUI', '>= 0.5'
+#  pod 'Reveal-iOS-SDK', '~> 1.0.6'
+#  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
 end
 

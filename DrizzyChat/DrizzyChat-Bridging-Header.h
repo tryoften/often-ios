@@ -12,3 +12,4 @@
 #import "SwiftAutoLayout.h"
 #import "ILTranslucentView.h"
 #import "UIColor+HEXString.h"
+#import <MMLayershots/MMLayershots.h>

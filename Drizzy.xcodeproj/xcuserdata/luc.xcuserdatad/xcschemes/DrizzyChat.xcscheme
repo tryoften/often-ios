@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0610"
-   version = "1.3">
+   version = "1.8">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8180E6071A142157007FA1CF"
-               BuildableName = "DrizzyChat.app"
-               BlueprintName = "DrizzyChat"
-               ReferencedContainer = "container:DrizzyChat.xcodeproj">
+               BuildableName = "Drizzy.app"
+               BlueprintName = "Drizzy"
+               ReferencedContainer = "container:Drizzy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8180E61C1A142158007FA1CF"
-               BuildableName = "DrizzyChatTests.xctest"
-               BlueprintName = "DrizzyChatTests"
-               ReferencedContainer = "container:DrizzyChat.xcodeproj">
+               BuildableName = "DrizzyTests.xctest"
+               BlueprintName = "DrizzyTests"
+               ReferencedContainer = "container:Drizzy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8180E61C1A142158007FA1CF"
-               BuildableName = "DrizzyChatTests.xctest"
-               BlueprintName = "DrizzyChatTests"
-               ReferencedContainer = "container:DrizzyChat.xcodeproj">
+               BuildableName = "DrizzyTests.xctest"
+               BlueprintName = "DrizzyTests"
+               ReferencedContainer = "container:Drizzy.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8180E6071A142157007FA1CF"
-            BuildableName = "DrizzyChat.app"
-            BlueprintName = "DrizzyChat"
-            ReferencedContainer = "container:DrizzyChat.xcodeproj">
+            BuildableName = "Drizzy.app"
+            BlueprintName = "Drizzy"
+            ReferencedContainer = "container:Drizzy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -68,17 +68,18 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8180E6071A142157007FA1CF"
-            BuildableName = "DrizzyChat.app"
-            BlueprintName = "DrizzyChat"
-            ReferencedContainer = "container:DrizzyChat.xcodeproj">
+            BuildableName = "Drizzy.app"
+            BlueprintName = "Drizzy"
+            ReferencedContainer = "container:Drizzy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -90,13 +91,14 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8180E6071A142157007FA1CF"
-            BuildableName = "DrizzyChat.app"
-            BlueprintName = "DrizzyChat"
-            ReferencedContainer = "container:DrizzyChat.xcodeproj">
+            BuildableName = "Drizzy.app"
+            BlueprintName = "Drizzy"
+            ReferencedContainer = "container:Drizzy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

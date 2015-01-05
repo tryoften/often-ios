@@ -79,6 +79,23 @@ class LyricTableViewCell: UITableViewCell {
         if selected {
             delegate?.lyricTableViewCellDidSelect(self)
         }
+
+        UIView.animateWithDuration(0.3, animations: {
+            if selected {
+                self.lyricView.backgroundColor = UIColor.whiteColor()
+            } else {
+                self.lyricView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+            }
+        })
+
+    }
+    
+    override func setHighlighted(highlighted: Bool, animated: Bool) {
+//        if highlighted {
+//            lyricView.backgroundColor = UIColor.whiteColor()
+//        } else {
+//            lyricView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+//        }
     }
     
     func setupLayout() {

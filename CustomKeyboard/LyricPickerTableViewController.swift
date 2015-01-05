@@ -30,6 +30,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         tableView.showsVerticalScrollIndicator = false
+        tableView.allowsMultipleSelection = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,6 +72,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         } else {
             var selected = selectedRows[indexPath.row]!
             selectedRows[indexPath.row] = !selected
+//            cell.setSelected(selected, animated: true)
         }
         
         if lyric?.track == nil {
@@ -85,6 +87,12 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         tableView.endUpdates()
         
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+    }
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? LyricTableViewCell {
+            cell.setSelected(false, animated: true)
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

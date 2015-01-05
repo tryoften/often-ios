@@ -2,7 +2,7 @@
 <Scheme
    LastUpgradeVersion = "0610"
    wasCreatedForAppExtension = "YES"
-   version = "1.3">
+   version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -18,7 +18,7 @@
                BlueprintIdentifier = "8180E6301A142199007FA1CF"
                BuildableName = "CustomKeyboard.appex"
                BlueprintName = "CustomKeyboard"
-               ReferencedContainer = "container:DrizzyChat.xcodeproj">
+               ReferencedContainer = "container:Drizzy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -30,9 +30,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8180E6071A142157007FA1CF"
-               BuildableName = "DrizzyChat.app"
-               BlueprintName = "DrizzyChat"
-               ReferencedContainer = "container:DrizzyChat.xcodeproj">
+               BuildableName = "Drizzy.app"
+               BlueprintName = "Drizzy"
+               ReferencedContainer = "container:Drizzy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,7 +50,7 @@
             BlueprintIdentifier = "8180E6301A142199007FA1CF"
             BuildableName = "CustomKeyboard.appex"
             BlueprintName = "CustomKeyboard"
-            ReferencedContainer = "container:DrizzyChat.xcodeproj">
+            ReferencedContainer = "container:Drizzy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -58,27 +58,32 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
-      askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
-      allowLocationSimulation = "YES">
-      <IDERemoteRunnable
-         RemotePath = "/Applications/MobileSMS.app"
-         BundleIdentifier = "/Applications/MobileSMS.app">
-      </IDERemoteRunnable>
+      allowLocationSimulation = "YES"
+      launchAutomaticallySubstyle = "2">
+      <RemoteRunnable
+         runnableDebuggingMode = "1"
+         BundleIdentifier = "com.apple.MobileSMS"
+         RemotePath = "/Applications/MobileSMS.app">
+      </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8180E6071A142157007FA1CF"
-            BuildableName = "DrizzyChat.app"
-            BlueprintName = "DrizzyChat"
-            ReferencedContainer = "container:DrizzyChat.xcodeproj">
+            BuildableName = "Drizzy.app"
+            BlueprintName = "Drizzy"
+            ReferencedContainer = "container:Drizzy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
+      <IDERemoteRunnable
+         RemotePath = "/Applications/MobileSMS.app"
+         BundleIdentifier = "/Applications/MobileSMS.app">
+      </IDERemoteRunnable>
    </LaunchAction>
    <ProfileAction
       shouldUseLaunchSchemeArgsEnv = "YES"
@@ -86,14 +91,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES"
-      askForAppToLaunch = "Yes">
-      <BuildableProductRunnable>
+      launchAutomaticallySubstyle = "2">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8180E6071A142157007FA1CF"
-            BuildableName = "DrizzyChat.app"
-            BlueprintName = "DrizzyChat"
-            ReferencedContainer = "container:DrizzyChat.xcodeproj">
+            BuildableName = "Drizzy.app"
+            BlueprintName = "Drizzy"
+            ReferencedContainer = "container:Drizzy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

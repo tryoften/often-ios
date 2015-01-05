@@ -9,13 +9,14 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
 
     var window: UIWindow?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        MMLayershots.sharedInstance().delegate = self
         return true
     }
 
@@ -40,7 +41,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    // MARK: MMLayershotsDelegate
+    
+    func shouldCreateLayershotForScreen(screen: UIScreen!) -> MMLayershotsCreatePolicy {
+        return .NowPolicy
+    }
+    
+    func didCreateLayershotForScreen(screen: UIScreen!, data: NSData!) {
 
+        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        var documentsDirectory = paths.first as NSString
+        var filePath = documentsDirectory.stringByAppendingPathComponent("layershots.psd")
+        data.writeToFile(filePath, atomically: false)
+        println("Saving psd to \(filePath)")
+    }
 
 }
 
