@@ -24,6 +24,13 @@ class LyricTableViewCell: UITableViewCell {
         }
     }
     
+    var height: CGFloat {
+        if selected {
+            return 171
+        }
+        return LyricTableViewCellHeight
+    }
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

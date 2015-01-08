@@ -157,6 +157,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     }
     
     func open() {
+        
         UIView.animateWithDuration(0.2, animations: {
             println("superview height ", self.superview!.bounds.height)
             self.heightConstraint?.constant = self.superview!.bounds.height
@@ -210,14 +211,17 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as UITableViewCell
+        let category = categories![indexPath.row]
         
-        var category = categories![indexPath.row]
         cell.backgroundColor = UIColor.clearColor()
         cell.selectedBackgroundView = selectedBgView
-        cell.textLabel.text = category.name
-        cell.textLabel.font = UIFont(name: "Lato-Light", size: 20)
-        cell.textLabel.textColor = UIColor.whiteColor()
-        cell.textLabel.textAlignment = .Center
+        
+        if let label = cell.textLabel {
+            label.text = category.name
+            label.font = UIFont(name: "Lato-Light", size: 20)
+            label.textColor = UIColor.whiteColor()
+            label.textAlignment = .Center
+        }
 
         return cell
     }

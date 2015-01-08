@@ -18,7 +18,9 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     var labelFont: UIFont?
     var currentCategory: Category?
     var selectedRows = [Int: Bool]()
+    var selectedRow: NSIndexPath?
     var trackService: TrackService?
+    var lyricFilterBar: LyricFilterBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,13 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         tableView.showsVerticalScrollIndicator = false
         tableView.allowsMultipleSelection = false
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if lyricFilterBar == nil {
+            lyricFilterBar = LyricFilterBar(tableView: tableView, targetViewController: self)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,7 +57,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         if let category = currentCategory {
             return category.lyrics!.count
         }
-        
         return 0
     }
 
@@ -67,13 +75,11 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         let cell = tableView.cellForRowAtIndexPath(indexPath) as LyricTableViewCell
         var lyric = currentCategory?.lyrics![indexPath.row]
         
-        if (selectedRows.indexForKey(indexPath.row) == nil) {
-            selectedRows[indexPath.row] = true
-        } else {
-            var selected = selectedRows[indexPath.row]!
-            selectedRows[indexPath.row] = !selected
-//            cell.setSelected(selected, animated: true)
+        if selectedRow != nil {
+            let selectedCell = tableView.cellForRowAtIndexPath(selectedRow!)
+            selectedCell?.selected = false
         }
+        selectedRow = indexPath
         
         if lyric?.track == nil {
             var track = trackService?.trackForId(lyric!.trackId!)
@@ -96,8 +102,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var selected = selectedRows[indexPath.row]
-        if selected == true {
+        if indexPath == selectedRow {
             return 171
         }
         return LyricTableViewCellHeight
@@ -112,10 +117,16 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
+        if let selectedRow = selectedRow {
+            let selectedCell = tableView.cellForRowAtIndexPath(selectedRow)
+            selectedCell?.selected = false
+        }
     }
     
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        scrollToNearestRow()
+        if !lyricFilterBar.pulledDown {
+            scrollToNearestRow()
+        }
     }
     
     func scrollToNearestRow() {

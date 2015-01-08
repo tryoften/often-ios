@@ -18,10 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
         // Override point for customization after application launch.
         MMLayershots.sharedInstance().delegate = self
         
+        let frame = UIScreen.mainScreen().bounds
+        window = UIWindow(frame: frame)
+
         mainController = ViewController()
-        
-        window?.makeKeyAndVisible()
-        window?.rootViewController?.presentViewController(mainController, animated: true, completion: nil)
+        var keyboardVC = KeyboardViewController(nibName: nil, bundle: nil)
+
+        if let window = self.window {
+            window.rootViewController = keyboardVC
+            window.makeKeyAndVisible()
+         }
         
         return true
     }
