@@ -13,12 +13,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     @IBOutlet var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
     var sectionPicker: SectionPickerViewController!
-    var heightConstraint: NSLayoutConstraint?
+    var standardKeyboard: StandardKeyboardViewController!
+    var heightConstraint: NSLayoutConstraint!
     var categoryService: CategoryService?
     var trackService: TrackService?
     var sectionPickerView: SectionPickerView?
     var seperatorView: UIView!
     var lastInsertedString: String?
+
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -47,7 +49,13 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         lyricPicker = LyricPickerTableViewController()
         lyricPicker.delegate = self
         lyricPicker.trackService = trackService
+        lyricPicker.keyboardViewController = self
         lyricPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        standardKeyboard = StandardKeyboardViewController()
+        standardKeyboard.parentKeyboardViewController = self
+        standardKeyboard.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        standardKeyboard.view.alpha = 0.0
         
         seperatorView = UIView(frame: CGRectZero)
         seperatorView.backgroundColor = UIColor(fromHexString: "#d8d8d8")
@@ -65,8 +73,12 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         view.addSubview(lyricPicker.view)
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
+        view.addSubview(standardKeyboard.view)
+        
+        heightConstraint = view.al_height == 230
         
         setupLayout()
+        standardKeyboard.addConstraintsToInputView(standardKeyboard.view, rowViews: standardKeyboard.rowViews)
         
         categoryService?.requestData { categories in
             self.sectionPickerView?.categories = self.categoryService?.categories
@@ -77,9 +89,12 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     func setupLayout() {
         let lyricPicker = self.lyricPicker.view
         let sectionPickerView = self.sectionPickerView!
+        let standardKeyboardView = self.standardKeyboard.view
 
         //section Picker View
         view.addConstraints([
+            heightConstraint,
+
             seperatorView.al_height == 1.0,
             seperatorView.al_width == view.al_width,
             seperatorView.al_top == view.al_top,
@@ -88,7 +103,12 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             sectionPickerView.al_width == view.al_width,
             sectionPickerView.al_bottom == view.al_bottom,
             sectionPickerView.al_left == view.al_left,
-            sectionPickerView.al_right == view.al_right
+            sectionPickerView.al_right == view.al_right,
+            
+            standardKeyboardView.al_bottom == view.al_bottom,
+            standardKeyboardView.al_width == view.al_width,
+            standardKeyboardView.al_top == view.al_top + LyricFilterBarHeight + 3 * LyricTableViewCellHeight,
+            standardKeyboardView.al_left == view.al_left
         ])
         
         //lyric Picker
@@ -195,6 +215,18 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
         
         return shareString + url.absoluteString! + "\n"
+    }
+    
+    func displayStandardKeyboard() {
+        var screenSize = UIScreen.mainScreen().bounds.size
+        
+        UIView.animateWithDuration(0.5, animations: {
+            self.heightConstraint.constant = screenSize.height * 0.7
+            }, completion: { done in
+                UIView.animateWithDuration(0.3, animations: {
+                    self.standardKeyboard.view.alpha = 1.0
+                })
+        })
     }
     
     // MARK: LyricPickerDelegate

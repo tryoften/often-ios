@@ -8,10 +8,15 @@
 
 import UIKit
 
-class StandardKeyboardViewController: UIInputViewController {
+class StandardKeyboardViewController: UIViewController {
+    
+    var parentKeyboardViewController: KeyboardViewController!
+    var rowViews: [UIView]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.whiteColor()
         
         let buttonTitles1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
         let buttonTitles2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
@@ -33,14 +38,14 @@ class StandardKeyboardViewController: UIInputViewController {
         row3.setTranslatesAutoresizingMaskIntoConstraints(false)
         row4.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        addConstraintsToInputView(self.view, rowViews: [row1, row2, row3, row4])
+        rowViews = [row1, row2, row3, row4]
     }
     
     func createRowOfButtons(buttonTitles: [NSString]) -> UIView {
         
         var buttons = [UIButton]()
-        var keyboardRowView = UIView(frame: CGRectMake(0, 0, 320, 50))
-        
+        var keyboardRowView = UIView(frame: CGRectZero)
+        keyboardRowView.setTranslatesAutoresizingMaskIntoConstraints(false)
         for buttonTitle in buttonTitles{
             
             let button = createButtonWithTitle(buttonTitle)
@@ -58,23 +63,6 @@ class StandardKeyboardViewController: UIInputViewController {
         // Dispose of any resources that can be recreated
     }
     
-    override func textWillChange(textInput: UITextInput) {
-        // The app is about to change the document's contents. Perform any preparation here.
-    }
-    
-    override func textDidChange(textInput: UITextInput) {
-        // The app has just changed the document's contents, the document context has been updated.
-        
-        var textColor: UIColor
-        var proxy = self.textDocumentProxy as UITextDocumentProxy
-        if proxy.keyboardAppearance == UIKeyboardAppearance.Dark {
-            textColor = UIColor.whiteColor()
-        } else {
-            textColor = UIColor.blackColor()
-        }
-    }
-    
-    
     
     func createButtonWithTitle(title: String) -> UIButton {
         
@@ -82,11 +70,10 @@ class StandardKeyboardViewController: UIInputViewController {
         button.frame = CGRectMake(0, 0, 20, 20)
         button.setTitle(title, forState: .Normal)
         button.sizeToFit()
-        button.titleLabel?.font = UIFont.systemFontOfSize(15)
+        button.titleLabel?.font = UIFont(name: "Lato-Light", size: 15)
         button.setTranslatesAutoresizingMaskIntoConstraints(false)
         button.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
         button.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        
         button.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
         
         return button
@@ -95,7 +82,7 @@ class StandardKeyboardViewController: UIInputViewController {
     func didTapButton(sender: AnyObject?) {
         
         let button = sender as UIButton
-        var proxy = textDocumentProxy as UITextDocumentProxy
+        var proxy = parentKeyboardViewController.textDocumentProxy as UITextDocumentProxy
         
         if let title = button.titleForState(.Normal) {
             switch title {
@@ -106,9 +93,9 @@ class StandardKeyboardViewController: UIInputViewController {
             case "SPACE" :
                 proxy.insertText(" ")
             case "CHG" :
-                self.advanceToNextInputMode()
+                self.parentKeyboardViewController.advanceToNextInputMode()
             default :
-                proxy.insertText(title)
+                proxy.insertText(title.lowercaseString)
             }
         }
     }
@@ -140,7 +127,7 @@ class StandardKeyboardViewController: UIInputViewController {
                 
                 leftConstraint = NSLayoutConstraint(item: button, attribute: .Left, relatedBy: .Equal, toItem: mainView, attribute: .Left, multiplier: 1.0, constant: 1)
                 
-            }else{
+            } else {
                 
                 let prevtButton = buttons[index-1]
                 leftConstraint = NSLayoutConstraint(item: button, attribute: .Left, relatedBy: .Equal, toItem: prevtButton, attribute: .Right, multiplier: 1.0, constant: 1)
@@ -189,7 +176,7 @@ class StandardKeyboardViewController: UIInputViewController {
             if index == rowViews.count - 1 {
                 bottomConstraint = NSLayoutConstraint(item: rowView, attribute: .Bottom, relatedBy: .Equal, toItem: inputView, attribute: .Bottom, multiplier: 1.0, constant: 0)
                 
-            }else{
+            } else {
                 
                 let nextRow = rowViews[index+1]
                 bottomConstraint = NSLayoutConstraint(item: rowView, attribute: .Bottom, relatedBy: .Equal, toItem: nextRow, attribute: .Top, multiplier: 1.0, constant: 0)

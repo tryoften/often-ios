@@ -10,24 +10,43 @@ import UIKit
 
 let LyricFilterBarHeight: CGFloat = 50.0
 
-class LyricFilterBar: UIView {
+class LyricFilterBar: UIView, UISearchBarDelegate {
     
     var tableView: UITableView
-    var searchBar: UISearchBar!
+    var searchBar: UISearchBar
     var pulledDown: Bool
     var pullingDown: Bool
     
-    init(tableView: UITableView, targetViewController: UIViewController) {
-        self.tableView = tableView
-        self.pulledDown = false
-        self.pullingDown = false
+    var delegate: LyricFilterBarDelegate?
+    
+    init(aTableView: UITableView, targetViewController: UIViewController) {
+        tableView = aTableView
+        pulledDown = false
+        pullingDown = false
 
         var tableFrame = tableView.frame
-        super.init(frame: CGRectMake(CGRectGetMinX(tableFrame), -LyricFilterBarHeight, CGRectGetWidth(tableFrame), LyricFilterBarHeight))
+        var barFrame = CGRectMake(CGRectGetMinX(tableFrame), -LyricFilterBarHeight, CGRectGetWidth(tableFrame), LyricFilterBarHeight)
         
-        backgroundColor = UIColor.blackColor()
+        searchBar = UISearchBar(frame: CGRectMake(0, 0, barFrame.width, barFrame.height))
+        searchBar.backgroundColor = UIColor.clearColor()
+        searchBar.backgroundImage = UIImage()
+        searchBar.placeholder = "Filter lyrics"
+        searchBar.barTintColor = UIColor.clearColor()
+        searchBar.autoresizingMask = .FlexibleLeftMargin | .FlexibleTopMargin | .FlexibleWidth | .FlexibleHeight
+        super.init(frame: barFrame)
+        searchBar.inputView?.layer.borderWidth = 1
+        searchBar.inputView?.layer.borderColor = UIColor(fromHexString: "#d8d8d8").CGColor
+        backgroundColor = UIColor.clearColor()
+        
+        searchBar.delegate = self
+        addSubview(searchBar)
         tableView.addSubview(self)
         tableView.addObserver(self, forKeyPath: "contentOffset", options: .New | .Initial, context: nil)
+        
+        setupLayout()
+    }
+    
+    func setupLayout() {
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
@@ -36,9 +55,8 @@ class LyricFilterBar: UIView {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         var ratio: CGFloat = -(scrollView.contentInset.top + scrollView.contentOffset.y) / self.frame.size.height
-        println("ratio: \(ratio)")
         
-        var pulldownDeactivationThresholdInFilterBarHeights: CGFloat = 3
+        var pulldownDeactivationThresholdInFilterBarHeights: CGFloat = 1.5
         
         if pulledDown && ratio < -pulldownDeactivationThresholdInFilterBarHeights && scrollView.decelerating {
             pulledDown = false
@@ -48,6 +66,7 @@ class LyricFilterBar: UIView {
             frame.origin.y = frame.origin.y - self.frame.size.height
             self.frame = frame
             tableView.addSubview(self)
+            delegate?.lyricFilterBarStateDidChange(self, hidden: true)
             return
         }
         
@@ -63,13 +82,14 @@ class LyricFilterBar: UIView {
             tableView.tableHeaderView = self
             pulledDown = true
             pullingDown = false
+            delegate?.lyricFilterBarStateDidChange(self, hidden: false)
         }
         
         if pulledDown {
             return
         }
         
-        var pulldownActivationThresholdInFilterBarHeights: CGFloat = 1.5
+        var pulldownActivationThresholdInFilterBarHeights: CGFloat = 0.9
         var minScale: CGFloat = 0.8
         var maxScale: CGFloat = 1.0
         var minAlpha: CGFloat = 0.1
@@ -105,7 +125,21 @@ class LyricFilterBar: UIView {
     }
     
     convenience required init(coder aDecoder: NSCoder) {
-        self.init(tableView: UITableView(), targetViewController: UIViewController())
+        self.init(aTableView: UITableView(), targetViewController: UIViewController())
     }
+    
+    // MARK: UISearchBarDelegate
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+    }
+}
 
+protocol LyricFilterBarDelegate {
+    /*
+        Invoked when the state of the lyric filter bar changes
+        @param lyricFilterBar the filter bar in question
+        @param hidden Whether the bar is hidden or not
+    */
+    func lyricFilterBarStateDidChange(lyricFilterBar: LyricFilterBar, hidden: Bool)
 }

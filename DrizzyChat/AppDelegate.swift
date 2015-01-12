@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
         if let window = self.window {
             window.rootViewController = keyboardVC
             window.makeKeyAndVisible()
-         }
+        }
         
         return true
     }
