@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Lyric: NSObject {
+class Lyric: NSObject, DebugPrintable {
     var id: String
     var text: String
     var categoryId: String
@@ -48,5 +48,9 @@ class Lyric: NSObject {
         }
         
         return dict
+    }
+    
+    override var debugDescription: String {
+        return self.text
     }
 }

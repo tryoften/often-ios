@@ -131,7 +131,7 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
     // MARK: UISearchBarDelegate
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        delegate?.lyricFilterBarTextDidChange(self, searchText: searchText)
     }
 }
 
@@ -142,4 +142,5 @@ protocol LyricFilterBarDelegate {
         @param hidden Whether the bar is hidden or not
     */
     func lyricFilterBarStateDidChange(lyricFilterBar: LyricFilterBar, hidden: Bool)
+    func lyricFilterBarTextDidChange(lyricFilterBar: LyricFilterBar, searchText: String)
 }

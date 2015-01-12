@@ -24,6 +24,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     var trackService: TrackService?
     var lyricFilterBar: LyricFilterBar!
     var animatingCell: Bool!
+    var filteredLyrics: [Lyric]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +59,9 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if filteredLyrics != nil {
+            return filteredLyrics!.count
+        }
         if let category = currentCategory {
             return category.lyrics!.count
         }
@@ -68,7 +72,9 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(LyricTableViewCellIdentifier, forIndexPath: indexPath) as LyricTableViewCell
         
-        var lyric = currentCategory?.lyrics![indexPath.row]
+        var lyrics = filteredLyrics == nil ? currentCategory?.lyrics : filteredLyrics
+        var lyric = lyrics![indexPath.row]
+        
         cell.lyric = lyric
         cell.delegate = self
 
@@ -77,7 +83,9 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as LyricTableViewCell
-        var lyric = currentCategory?.lyrics![indexPath.row]
+        
+        var lyrics = filteredLyrics == nil ? currentCategory?.lyrics : filteredLyrics
+        var lyric = lyrics?[indexPath.row]
         
         selectedRow = indexPath
         selectedCell = cell
@@ -203,6 +211,12 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             lyricFilterBar.searchBar.becomeFirstResponder()
             keyboardViewController.displayStandardKeyboard()
         }
+    }
+    
+    func lyricFilterBarTextDidChange(lyricFilterBar: LyricFilterBar, searchText: String) {
+        filteredLyrics = currentCategory?.filterLyricsByText(searchText)
+        println("\(filteredLyrics)")
+        tableView.reloadData()
     }
 }
 

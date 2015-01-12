@@ -40,6 +40,8 @@
 		810C40991A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
 		8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
 		8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
+		8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
+		8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
 		81240A791A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
 		81240A7A1A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
 		812D74801A3E5E480083F655 /* SectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */; };
@@ -228,6 +230,7 @@
 		810C407C1A21402A00170DB4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		810C407D1A21402A00170DB4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-circle.ttf"; sourceTree = "<group>"; };
+		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
 		812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerViewController.swift; path = Sources/SectionPickerViewController.swift; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
@@ -502,6 +505,7 @@
 			children = (
 				8180E60D1A142157007FA1CF /* AppDelegate.swift */,
 				8180E60F1A142157007FA1CF /* ViewController.swift */,
+				8120FB471A648BBC00EA457A /* FuzzySearch.swift */,
 				8180E6141A142157007FA1CF /* Images.xcassets */,
 				8180E6161A142157007FA1CF /* LaunchScreen.xib */,
 				8180E60B1A142157007FA1CF /* Supporting Files */,
@@ -968,6 +972,7 @@
 				810C40821A21402A00170DB4 /* ExecutionContext.swift in Sources */,
 				810C40841A21402A00170DB4 /* Future.swift in Sources */,
 				812D74801A3E5E480083F655 /* SectionPickerViewController.swift in Sources */,
+				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */,
 				810C408C1A21402A00170DB4 /* Queue.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
@@ -1025,6 +1030,7 @@
 				819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */,
+				8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				810C40951A21402A00170DB4 /* CHANGELOG.md in Sources */,
 				810C40851A21402A00170DB4 /* Future.swift in Sources */,
 				817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */,

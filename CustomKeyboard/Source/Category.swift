@@ -21,4 +21,22 @@ class Category: NSObject {
         
         super.init()
     }
+    
+    func filterLyricsByText(filterText: String) -> [Lyric]? {
+        var filterLyricSet = [Lyric]()
+        
+        if filterText == "" {
+            return lyrics
+        }
+        
+        if let lyrics = self.lyrics {
+            for lyric in lyrics {
+                if fuzzySearch(lyric.text, filterText, caseSensitive: true) {
+                    filterLyricSet.append(lyric)
+                }
+            }
+        }
+        
+        return filterLyricSet
+    }
 }
