@@ -7,7 +7,8 @@ pod 'MMLayershots'
 
 target 'Drizzy' do
   pod 'Firebase', '>= 2.0.2'
-#  pod 'Reveal-iOS-SDK', '~> 1.0.6'
+  pod 'JNWSpringAnimation', '~> 0.5'
+  pod 'Reveal-iOS-SDK', '~> 1.0.6'
 #  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
 end
@@ -18,7 +19,8 @@ end
 
 target 'CustomKeyboard' do
   pod 'Firebase', '>= 2.0.2'
-#  pod 'Reveal-iOS-SDK', '~> 1.0.6'
+  pod 'JNWSpringAnimation', '~> 0.5'
+  pod 'Reveal-iOS-SDK', '~> 1.0.6'
 #  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
 end
