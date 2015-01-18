@@ -12,45 +12,98 @@ let LyricFilterBarHeight: CGFloat = 50.0
 
 class LyricFilterBar: UIView, UISearchBarDelegate {
     
+    var targetViewController: KeyboardViewController
     var tableView: UITableView
+    var searchBarContainer: UIView
     var searchBar: UISearchBar
     var pulledDown: Bool
     var pullingDown: Bool
     
     var delegate: LyricFilterBarDelegate?
     
-    init(aTableView: UITableView, targetViewController: UIViewController) {
+    init(aTableView: UITableView, aTargetViewController: KeyboardViewController) {
         tableView = aTableView
+        targetViewController = aTargetViewController
         pulledDown = false
         pullingDown = false
 
         var tableFrame = tableView.frame
         var barFrame = CGRectMake(CGRectGetMinX(tableFrame), -LyricFilterBarHeight, CGRectGetWidth(tableFrame), LyricFilterBarHeight)
         
-        searchBar = UISearchBar(frame: CGRectMake(0, 0, barFrame.width, barFrame.height))
+        searchBarContainer = UIView(frame: CGRectMake(0, 0, barFrame.width, barFrame.height))
+        searchBarContainer.autoresizingMask = .FlexibleLeftMargin | .FlexibleTopMargin | .FlexibleWidth | .FlexibleHeight
+        
+        searchBar = UISearchBar(frame: CGRectZero)
+        searchBar.setTranslatesAutoresizingMaskIntoConstraints(false)
         searchBar.backgroundColor = UIColor.clearColor()
         searchBar.backgroundImage = UIImage()
         searchBar.placeholder = "Filter lyrics"
         searchBar.barTintColor = UIColor.clearColor()
-        searchBar.autoresizingMask = .FlexibleLeftMargin | .FlexibleTopMargin | .FlexibleWidth | .FlexibleHeight
+        
         super.init(frame: barFrame)
-        searchBar.inputView?.layer.borderWidth = 1
-        searchBar.inputView?.layer.borderColor = UIColor(fromHexString: "#d8d8d8").CGColor
-        backgroundColor = UIColor.clearColor()
         
         searchBar.delegate = self
-        addSubview(searchBar)
+        self.addSubview(searchBarContainer)
+        searchBarContainer.addSubview(searchBar)
+
         tableView.addSubview(self)
         tableView.addObserver(self, forKeyPath: "contentOffset", options: .New | .Initial, context: nil)
         
         setupLayout()
+        searchBarContainer.layoutIfNeeded()
+        searchBarContainer.updateConstraints()
     }
     
     func setupLayout() {
+        searchBarContainer.addConstraints([
+            searchBar.al_height == searchBarContainer.al_height,
+            searchBar.al_left == searchBarContainer.al_left,
+            searchBar.al_right == searchBarContainer.al_right,
+            searchBar.al_top == searchBarContainer.al_top,
+        ])
+    }
+    
+//    func promotable() -> LyricFilterBarPromotable? {
+//        
+//        if targetViewController is LyricFilterBarPromotable {
+//            return targetViewController as? LyricFilterBarPromotable
+//        }
+//        
+//        return nil
+//    }
+    
+    override func layoutSubviews() {
+        searchBar.frame = CGRectMake(0, 0, CGRectGetWidth(searchBarContainer.frame), CGRectGetHeight(searchBarContainer.frame))
+    }
+    
+    func didTapCancelButton() {
+        removeSearchBarFromTableHeaderView()
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         scrollViewDidScroll(tableView)
+    }
+    
+    func addSearchBarFromTableHeaderView() {
+        tableView.tableHeaderView = self
+        pulledDown = true
+        pullingDown = false
+        delegate?.lyricFilterBarStateDidChange(self, hidden: false)
+        targetViewController.promote(true, animated: true)
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func removeSearchBarFromTableHeaderView() {
+        pulledDown = false
+        pullingDown = false
+        tableView.tableHeaderView = nil
+        var frame = self.frame
+        frame.origin.y = frame.origin.y - self.frame.size.height
+        self.frame = frame
+        tableView.addSubview(self)
+        delegate?.lyricFilterBarStateDidChange(self, hidden: true)
+        targetViewController.promote(false, animated: true)
+        searchBar.setShowsCancelButton(false, animated: true)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -58,17 +111,10 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
         
         var pulldownDeactivationThresholdInFilterBarHeights: CGFloat = 1.5
         
-        if pulledDown && ratio < -pulldownDeactivationThresholdInFilterBarHeights && scrollView.decelerating {
-            pulledDown = false
-            pullingDown = false
-            tableView.tableHeaderView = nil
-            var frame = self.frame
-            frame.origin.y = frame.origin.y - self.frame.size.height
-            self.frame = frame
-            tableView.addSubview(self)
-            delegate?.lyricFilterBarStateDidChange(self, hidden: true)
-            return
-        }
+//        if pulledDown && ratio < -pulldownDeactivationThresholdInFilterBarHeights && scrollView.decelerating {
+//            removeSearchBarFromTableHeaderView()
+//            return
+//        }
         
         if ratio < -1 {
             // If the bar is out of sight, no point in doing more work
@@ -79,10 +125,7 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
         // visible and we had previously pulled enough to activate it (i.e. pullingDown == YES) then
         // activate the filter bar (by attaching it as the tableHeaderView.
         if !pulledDown && ratio < 1 && pullingDown && scrollView.decelerating {
-            tableView.tableHeaderView = self
-            pulledDown = true
-            pullingDown = false
-            delegate?.lyricFilterBarStateDidChange(self, hidden: false)
+            addSearchBarFromTableHeaderView()
         }
         
         if pulledDown {
@@ -125,13 +168,17 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
     }
     
     convenience required init(coder aDecoder: NSCoder) {
-        self.init(aTableView: UITableView(), targetViewController: UIViewController())
+        self.init(aTableView: UITableView(), aTargetViewController: KeyboardViewController())
     }
     
     // MARK: UISearchBarDelegate
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         delegate?.lyricFilterBarTextDidChange(self, searchText: searchText)
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        removeSearchBarFromTableHeaderView()
     }
 }
 
@@ -143,4 +190,8 @@ protocol LyricFilterBarDelegate {
     */
     func lyricFilterBarStateDidChange(lyricFilterBar: LyricFilterBar, hidden: Bool)
     func lyricFilterBarTextDidChange(lyricFilterBar: LyricFilterBar, searchText: String)
+}
+
+@objc protocol LyricFilterBarPromotable {
+    func promote(shouldPromote: Bool, animated: Bool)
 }

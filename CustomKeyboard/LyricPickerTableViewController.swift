@@ -25,11 +25,13 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     var lyricFilterBar: LyricFilterBar!
     var animatingCell: Bool!
     var filteredLyrics: [Lyric]?
+    var searchModeOn :Bool!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         labelFont = UIFont(name: "Lato-Light", size: 20)
         animatingCell = false
+        searchModeOn = false
 
         tableView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
         tableView.registerClass(LyricTableViewCell.self, forCellReuseIdentifier: LyricTableViewCellIdentifier)
@@ -42,7 +44,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     
     override func viewWillAppear(animated: Bool) {
         if lyricFilterBar == nil {
-            lyricFilterBar = LyricFilterBar(aTableView: tableView, targetViewController: self)
+            lyricFilterBar = LyricFilterBar(aTableView: tableView, aTargetViewController: keyboardViewController)
             lyricFilterBar.delegate = self
         }
     }
@@ -114,9 +116,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-//        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? LyricTableViewCell {
-//            selectedRow =
-//        }
+
         selectedRow = nil
         selectedCell = nil
         
@@ -187,6 +187,19 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     // MARK: LyricTableViewCellDelegate
     
     func lyricTableViewCellDidSelect(cell: LyricTableViewCell) {
+        if tableView.decelerating {
+            return
+        }
+        if searchModeOn! {
+            lyricFilterBar.removeSearchBarFromTableHeaderView()
+            filteredLyrics = nil
+//            tableView.reloadData()
+//            let indexPath = tableView.indexPathForCell(cell)
+//            cell.selected = true
+//            tableView.scrollToRowAtIndexPath(indexPath!, atScrollPosition: .Top, animated: true)
+            return
+        }
+        
         if let indexPath = tableView.indexPathForCell(cell) {
             selectedRow = indexPath
             var selected = selectedRows[indexPath.row]
@@ -210,13 +223,19 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         if !hidden {
             lyricFilterBar.searchBar.becomeFirstResponder()
             keyboardViewController.displayStandardKeyboard()
+            searchModeOn = true
+        } else {
+            lyricFilterBar.searchBar.resignFirstResponder()
+            keyboardViewController.hideStandardKeyboard()
+            searchModeOn = false
         }
+        
     }
     
     func lyricFilterBarTextDidChange(lyricFilterBar: LyricFilterBar, searchText: String) {
         filteredLyrics = currentCategory?.filterLyricsByText(searchText)
         println("\(filteredLyrics)")
-        tableView.reloadData()
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
     }
 }
 

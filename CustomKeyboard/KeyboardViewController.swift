@@ -8,9 +8,9 @@
 
 import UIKit
 
-class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate {
+class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, LyricFilterBarPromotable {
 
-    @IBOutlet var nextKeyboardButton: UIButton!
+    var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
     var sectionPicker: SectionPickerViewController!
     var standardKeyboard: StandardKeyboardViewController!
@@ -20,7 +20,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var sectionPickerView: SectionPickerView?
     var seperatorView: UIView!
     var lastInsertedString: String?
-
+    var fixedFilterBarView: UIView!
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -69,11 +69,18 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         sectionPickerView?.setTranslatesAutoresizingMaskIntoConstraints(false)
         sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         sectionPickerView?.categoryService = categoryService
+        
+        fixedFilterBarView = UIView(frame: CGRectZero)
+        fixedFilterBarView.backgroundColor = UIColor.whiteColor()
+        fixedFilterBarView.accessibilityIdentifier = "fixed filter bar view"
+        fixedFilterBarView.alpha = 0.0
+        fixedFilterBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         view.addSubview(lyricPicker.view)
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
         view.addSubview(standardKeyboard.view)
+        view.addSubview(fixedFilterBarView)
         
         heightConstraint = view.al_height == 230
         
@@ -107,8 +114,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             
             standardKeyboardView.al_bottom == view.al_bottom,
             standardKeyboardView.al_width == view.al_width,
-            standardKeyboardView.al_top == view.al_top + LyricFilterBarHeight + 3 * LyricTableViewCellHeight,
-            standardKeyboardView.al_left == view.al_left
+            standardKeyboardView.al_top == view.al_top + LyricFilterBarHeight + 2 * LyricTableViewCellHeight,
+            standardKeyboardView.al_left == view.al_left,
+            standardKeyboardView.al_height <= 230,
+            
+            fixedFilterBarView.al_height == LyricFilterBarHeight,
+            fixedFilterBarView.al_top == view.al_top,
+            fixedFilterBarView.al_width == view.al_width,
+            fixedFilterBarView.al_left == view.al_left
         ])
         
         //lyric Picker
@@ -227,6 +240,39 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                     self.standardKeyboard.view.alpha = 1.0
                 })
         })
+    }
+    
+    func hideStandardKeyboard() {
+        UIView.animateWithDuration(0.5, animations: {
+            self.heightConstraint.constant = 230
+            }, completion: { done in
+                UIView.animateWithDuration(0.3, animations: {
+                    self.standardKeyboard.view.alpha = 0.0
+                })
+        })
+    }
+    
+    // MARK: LyricFilterBarPromotable
+    func promote(shouldPromote: Bool, animated: Bool) {
+        if animated {
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDuration(0.3)
+        }
+        
+        if shouldPromote {
+            lyricPicker.lyricFilterBar.removeFromSuperview()
+            fixedFilterBarView.alpha = 1.0
+            fixedFilterBarView.addSubview(lyricPicker.lyricFilterBar)
+        } else {
+            lyricPicker.tableView.addSubview(lyricPicker.lyricFilterBar)
+            fixedFilterBarView.alpha = 0.0
+        }
+    
+        if animated {
+            UIView.commitAnimations()
+        }
+        
+//        completion(true)
     }
     
     // MARK: LyricPickerDelegate

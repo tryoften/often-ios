@@ -69,7 +69,6 @@
 		8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60D1A142157007FA1CF /* AppDelegate.swift */; };
 		8180E6101A142157007FA1CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60F1A142157007FA1CF /* ViewController.swift */; };
 		8180E6151A142157007FA1CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
-		8180E6181A142157007FA1CF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6161A142157007FA1CF /* LaunchScreen.xib */; };
 		8180E6241A142158007FA1CF /* DrizzyChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6231A142158007FA1CF /* DrizzyChatTests.swift */; };
 		8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		8180E6391A142199007FA1CF /* CustomKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* CustomKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -252,7 +251,6 @@
 		8180E60D1A142157007FA1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8180E60F1A142157007FA1CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8180E6141A142157007FA1CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		8180E6171A142157007FA1CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8180E61D1A142158007FA1CF /* DrizzyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrizzyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6221A142158007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E6231A142158007FA1CF /* DrizzyChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrizzyChatTests.swift; sourceTree = "<group>"; };
@@ -507,7 +505,6 @@
 				8180E60F1A142157007FA1CF /* ViewController.swift */,
 				8120FB471A648BBC00EA457A /* FuzzySearch.swift */,
 				8180E6141A142157007FA1CF /* Images.xcassets */,
-				8180E6161A142157007FA1CF /* LaunchScreen.xib */,
 				8180E60B1A142157007FA1CF /* Supporting Files */,
 				81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */,
 				81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */,
@@ -816,7 +813,6 @@
 				8180E65B1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
 				8180E6671A147A78007FA1CF /* Lato-HeavyItalic.ttf in Resources */,
 				81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */,
-				8180E6181A142157007FA1CF /* LaunchScreen.xib in Resources */,
 				81A1A4E61A19786D00D566B8 /* ILTranslucentView.podspec in Resources */,
 				810C40921A21402A00170DB4 /* Info.plist in Resources */,
 				8180E6631A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
@@ -1059,17 +1055,6 @@
 			targetProxy = 8180E6371A142199007FA1CF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		8180E6161A142157007FA1CF /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8180E6171A142157007FA1CF /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		8180E6251A142158007FA1CF /* Debug */ = {
