@@ -40,6 +40,7 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
         searchBar.placeholder = "Filter lyrics"
         searchBar.barTintColor = UIColor.clearColor()
         
+        
         super.init(frame: barFrame)
         
         searchBar.delegate = self
@@ -52,6 +53,13 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
         setupLayout()
         searchBarContainer.layoutIfNeeded()
         searchBarContainer.updateConstraints()
+        
+        for subview in searchBar.subviews {
+            if subview.isKindOfClass(UITextField.self) {
+                let textField = subview as UITextField
+                textField.font = UIFont(name: "Lato-Light", size: 13)!
+            }
+        }
     }
     
     func setupLayout() {
@@ -89,8 +97,6 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
         pulledDown = true
         pullingDown = false
         delegate?.lyricFilterBarStateDidChange(self, hidden: false)
-        targetViewController.promote(true, animated: true)
-        searchBar.setShowsCancelButton(true, animated: true)
     }
     
     func removeSearchBarFromTableHeaderView() {
@@ -101,20 +107,19 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
         frame.origin.y = frame.origin.y - self.frame.size.height
         self.frame = frame
         tableView.addSubview(self)
+        searchBar.endEditing(true)
         delegate?.lyricFilterBarStateDidChange(self, hidden: true)
-        targetViewController.promote(false, animated: true)
-        searchBar.setShowsCancelButton(false, animated: true)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         var ratio: CGFloat = -(scrollView.contentInset.top + scrollView.contentOffset.y) / self.frame.size.height
         
-        var pulldownDeactivationThresholdInFilterBarHeights: CGFloat = 1.5
+        var pulldownDeactivationThresholdInFilterBarHeights: CGFloat = 5
         
-//        if pulledDown && ratio < -pulldownDeactivationThresholdInFilterBarHeights && scrollView.decelerating {
-//            removeSearchBarFromTableHeaderView()
-//            return
-//        }
+        if pulledDown && ratio < -pulldownDeactivationThresholdInFilterBarHeights && scrollView.decelerating {
+            removeSearchBarFromTableHeaderView()
+            return
+        }
         
         if ratio < -1 {
             // If the bar is out of sight, no point in doing more work
@@ -177,8 +182,28 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
         delegate?.lyricFilterBarTextDidChange(self, searchText: searchText)
     }
     
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        delegate?.lyricFilterBarShouldShowKeyboard(self, showKeyboard: true)
+        targetViewController.promote(true, animated: true)
+        searchBar.becomeFirstResponder()
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        delegate?.lyricFilterBarShouldShowKeyboard(self, showKeyboard: false)
+        targetViewController.promote(false, animated: true)
+        searchBar.endEditing(true)
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         removeSearchBarFromTableHeaderView()
+        searchBarTextDidEndEditing(searchBar)
+        searchBar.endEditing(true)
+        searchBar.resignFirstResponder()
+        searchBarContainer.endEditing(true)
+        searchBar.text = ""
     }
 }
 
@@ -190,6 +215,7 @@ protocol LyricFilterBarDelegate {
     */
     func lyricFilterBarStateDidChange(lyricFilterBar: LyricFilterBar, hidden: Bool)
     func lyricFilterBarTextDidChange(lyricFilterBar: LyricFilterBar, searchText: String)
+    func lyricFilterBarShouldShowKeyboard(lyricFilterBar: LyricFilterBar, showKeyboard: Bool)
 }
 
 @objc protocol LyricFilterBarPromotable {

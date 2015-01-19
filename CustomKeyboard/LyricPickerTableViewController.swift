@@ -143,13 +143,28 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         if selectedRow != nil && !animatingCell && !scrollView.decelerating {
             selectedRow = nil
             selectedCell = nil
-//            let selectedCell = tableView.cellForRowAtIndexPath(selectedRow)
-//            selectedCell?.selected = false
             
             tableView.beginUpdates()
             tableView.endUpdates()
             
             CATransaction.commit()
+        }
+        
+        if let sectionPickerView = keyboardViewController.sectionPickerView {
+            let screenBounds = UIScreen.mainScreen().bounds
+        
+            // if the lyric picker bar is still visible in the view move it down
+            if sectionPickerView.frame.origin.y < screenBounds.size.height && scrollView.panGestureRecognizer.numberOfTouches() > 0 {
+                var frame = sectionPickerView.frame
+//                let translation = scrollView.panGestureRecognizer.translationInView(scrollView.superview!)
+                let translationY = scrollView.contentOffset.y / CGRectGetHeight(sectionPickerView.frame)
+                println("translation \(translationY)")
+                frame.origin.y += translationY
+                UIView.beginAnimations(nil, context: nil)
+                UIView.setAnimationDuration(0.3)
+                sectionPickerView.frame = frame
+                UIView.commitAnimations()
+            }
         }
     }
     
@@ -219,8 +234,8 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     
     // MARK: LyricFilterBarDelegate
     
-    func lyricFilterBarStateDidChange(lyricFilterBar: LyricFilterBar, hidden: Bool) {
-        if !hidden {
+    func lyricFilterBarShouldShowKeyboard(lyricFilterBar: LyricFilterBar, showKeyboard: Bool) {
+        if showKeyboard {
             lyricFilterBar.searchBar.becomeFirstResponder()
             keyboardViewController.displayStandardKeyboard()
             searchModeOn = true
@@ -229,6 +244,10 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             keyboardViewController.hideStandardKeyboard()
             searchModeOn = false
         }
+    }
+    
+    func lyricFilterBarStateDidChange(lyricFilterBar: LyricFilterBar, hidden: Bool) {
+
         
     }
     

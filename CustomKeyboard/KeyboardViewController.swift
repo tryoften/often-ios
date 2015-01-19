@@ -85,12 +85,24 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         heightConstraint = view.al_height == 230
         
         setupLayout()
+        setupAppearance()
+
         standardKeyboard.addConstraintsToInputView(standardKeyboard.view, rowViews: standardKeyboard.rowViews)
         
         categoryService?.requestData { categories in
             self.sectionPickerView?.categories = self.categoryService?.categories
             return
         }
+    
+    }
+    
+    func setupAppearance() {
+        var textAttributes = [
+            NSFontAttributeName: UIFont(name: "Lato-Light", size: 15)!
+        ]
+        UIBarButtonItem.appearance().setTitleTextAttributes(textAttributes, forState: .Normal)
+        UITextField.appearance().tintColor = UIColor.blackColor()
+        UITextField.appearance().font = UIFont(name: "Lato-Light", size: 13)!
     }
     
     func setupLayout() {
