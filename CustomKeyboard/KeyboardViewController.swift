@@ -8,12 +8,13 @@
 
 import UIKit
 
-class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, LyricFilterBarPromotable {
+class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, LyricFilterBarPromotable, YIFullScreenScrollDelegate {
 
     var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
     var sectionPicker: SectionPickerViewController!
     var standardKeyboard: StandardKeyboardViewController!
+    var hideToolbarScroll: DrizzyFullScreenScroll!
     var heightConstraint: NSLayoutConstraint!
     var categoryService: CategoryService?
     var trackService: TrackService?
@@ -62,13 +63,19 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         sectionPicker = SectionPickerViewController()
+        sectionPicker.keyboardViewController = self
         sectionPicker.categoryService = categoryService
         
         sectionPickerView = (sectionPicker.view as SectionPickerView)
         sectionPickerView?.delegate = lyricPicker
-        sectionPickerView?.setTranslatesAutoresizingMaskIntoConstraints(false)
+//        sectionPickerView?.setTranslatesAutoresizingMaskIntoConstrasints(false)
         sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
-        sectionPickerView?.categoryService = categoryService
+        
+        fullScreenScroll = DrizzyFullScreenScroll(viewController: self, scrollView: lyricPicker.tableView, style: YIFullScreenScrollStyle.Default)
+        fullScreenScroll.viewController = self
+        //        fullScreenScroll.delegate = self
+        fullScreenScroll.scrollView = lyricPicker.tableView
+        (fullScreenScroll as DrizzyFullScreenScroll).toolbar = sectionPickerView
         
         fixedFilterBarView = UIView(frame: CGRectZero)
         fixedFilterBarView.backgroundColor = UIColor.whiteColor()
@@ -90,10 +97,17 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         standardKeyboard.addConstraintsToInputView(standardKeyboard.view, rowViews: standardKeyboard.rowViews)
         
         categoryService?.requestData { categories in
-            self.sectionPickerView?.categories = self.categoryService?.categories
+            self.sectionPicker.categories = self.categoryService?.categories
             return
         }
     
+        let superviewHeight = CGRectGetHeight(view.frame)
+        if let sectionPickerView = self.sectionPickerView {
+            sectionPickerView.frame = CGRectMake(CGRectGetMinX(view.frame),
+                superviewHeight - SectionPickerViewHeight,
+                CGRectGetWidth(view.frame),
+                superviewHeight)
+        }
     }
     
     func setupAppearance() {
@@ -119,10 +133,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             seperatorView.al_top == view.al_top,
             seperatorView.al_left == view.al_left,
             
-            sectionPickerView.al_width == view.al_width,
-            sectionPickerView.al_bottom == view.al_bottom,
-            sectionPickerView.al_left == view.al_left,
-            sectionPickerView.al_right == view.al_right,
+//            sectionPickerView.al_width == view.al_width,
+//            sectionPickerView.al_bottom == view.al_bottom,
+//            sectionPickerView.al_left == view.al_left,
+//            sectionPickerView.al_right == view.al_right,
             
             standardKeyboardView.al_bottom == view.al_bottom,
             standardKeyboardView.al_width == view.al_width,
@@ -143,6 +157,17 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             lyricPicker.al_right == view.al_right,
             lyricPicker.al_bottom == view.al_bottom,
         ])
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        let superviewHeight = CGRectGetHeight(view.frame)
+        if let sectionPickerView = self.sectionPickerView {
+            sectionPickerView.frame = CGRectMake(CGRectGetMinX(view.frame),
+                superviewHeight - SectionPickerViewHeight,
+                CGRectGetWidth(view.frame),
+                SectionPickerViewHeight)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -249,6 +274,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             self.heightConstraint.constant = screenSize.height * 0.7
             }, completion: { done in
                 UIView.animateWithDuration(0.3, animations: {
+                    self.sectionPickerView?.alpha = 0.0
                     self.standardKeyboard.view.alpha = 1.0
                 })
         })
@@ -259,9 +285,16 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             self.heightConstraint.constant = 230
             }, completion: { done in
                 UIView.animateWithDuration(0.3, animations: {
+                    self.sectionPickerView?.alpha = 1.0
                     self.standardKeyboard.view.alpha = 0.0
                 })
         })
+    }
+    
+    // MARK: YIFullScreenScrollDelegate
+    
+    func fullScreenScrollDidLayoutUIBars(fullScreenScroll: YIFullScreenScroll!) {
+        
     }
     
     // MARK: LyricFilterBarPromotable

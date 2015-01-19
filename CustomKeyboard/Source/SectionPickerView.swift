@@ -10,7 +10,7 @@ import UIKit
 
 let SectionPickerViewHeight: CGFloat = 45.0
 
-class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDelegate {
+class SectionPickerView: ILTranslucentView {
     
     var categoriesTableView: UITableView
     var nextKeyboardButton: UIButton
@@ -20,22 +20,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     var drawerOpened: Bool = false
     var heightConstraint: NSLayoutConstraint?
     var delegate: SectionPickerViewDelegate?
-    var categoryService: CategoryService?
-    var currentCategory: Category?
     var selectedBgView: UIView
-
-    var categories: [Category]? {
-        didSet {
-            categoriesTableView.reloadData()
-            if (categories!.count > 1) {
-                currentCategory = categories![1]
-                delegate?.didSelectSection(self, category: currentCategory!)
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.currentCategoryLabel.text = self.currentCategory!.name
-                })
-            }
-        }
-    }
 
     convenience required init(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
@@ -74,12 +59,10 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         
         super.init(frame: frame)
 
-        heightConstraint = al_height == SectionPickerViewHeight
+//        heightConstraint = al_height == SectionPickerViewHeight
 
         translucent = false
         backgroundColor = UIColor(fromHexString: "#ffae36")
-        categoriesTableView.dataSource = self
-        categoriesTableView.delegate = self
         
         currentCategoryView.addSubview(toggleDrawerButton)
         currentCategoryView.addSubview(currentCategoryLabel)
@@ -87,10 +70,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         addSubview(categoriesTableView)
         addSubview(nextKeyboardButton)
         addSubview(currentCategoryView)
-        
-        let toggleSelector = Selector("toggleDrawer")
-        toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
-        currentCategoryLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: toggleSelector))
+
         categoriesTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "tableCell")
         
         setupLayout()
@@ -103,7 +83,7 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         var toggleDrawer = toggleDrawerButton
         
         addConstraints([
-            heightConstraint!,
+//            heightConstraint!,
             
             // keyboard button
             keyboardButton.al_left == al_left,
@@ -137,17 +117,6 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         ])
     }
     
-    func toggleDrawer() {
-        layoutIfNeeded()
-        
-        if (!drawerOpened) {
-            open()
-        } else {
-            close()
-        }
-        drawerOpened = !drawerOpened
-    }
-    
     func animateArrow(pointingUp: Bool = true) {
         let angle = (pointingUp) ? CGFloat(M_PI) : 0
         
@@ -160,7 +129,10 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
         
         UIView.animateWithDuration(0.2, animations: {
             println("superview height ", self.superview!.bounds.height)
-            self.heightConstraint?.constant = self.superview!.bounds.height
+            var frame = self.frame
+            frame.size.height = self.superview!.bounds.height
+            frame.origin.y = 0
+            self.frame = frame
             self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
             self.layoutIfNeeded()
             return
@@ -171,70 +143,16 @@ class SectionPickerView: ILTranslucentView, UITableViewDataSource, UITableViewDe
     
     func close() {
         UIView.animateWithDuration(0.2, animations: {
-            self.heightConstraint?.constant = SectionPickerViewHeight
+            var frame = self.frame
+            frame.size.height = SectionPickerViewHeight
+            frame.origin.y = self.superview!.bounds.height - SectionPickerViewHeight
+            self.frame = frame
             self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(0)
             self.layoutIfNeeded()
             return
             }, completion: { completed in
                 completionBlock(self, completed)
         })
-    }
-    
-    // MARK: UITableViewDelegate
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var category = categories![indexPath.row] as Category;
-        
-        currentCategory = category
-        currentCategoryLabel.text = category.name
-        toggleDrawer()
-        
-        if category.id == "recently" {
-            delegate?.didSelectSection(self, category: category)
-        } else {
-            categoryService?.requestLyrics(category.id, artistIds: nil).onSuccess({ lyrics in
-                self.delegate?.didSelectSection(self, category: category)
-                return
-            })
-        }
-    }
-    
-//    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        if let category = categories?[indexPath.row] {
-//            var selected = category == currentCategory
-//            return selected
-//        }
-//        return false
-//    }
-    
-    // MARK: UITableViewDataSource
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as UITableViewCell
-        let category = categories![indexPath.row]
-        
-        cell.backgroundColor = UIColor.clearColor()
-        cell.selectedBackgroundView = selectedBgView
-        
-        if let label = cell.textLabel {
-            label.text = category.name
-            label.font = UIFont(name: "Lato-Light", size: 20)
-            label.textColor = UIColor.whiteColor()
-            label.textAlignment = .Center
-        }
-
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let categories = categories {
-            return categories.count
-        }
-        return 0
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
     }
 }
 

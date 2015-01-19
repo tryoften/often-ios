@@ -9,6 +9,7 @@ target 'Drizzy' do
   pod 'Firebase', '>= 2.0.2'
   pod 'JNWSpringAnimation', '~> 0.5'
   pod 'Reveal-iOS-SDK', '~> 1.0.6'
+  pod 'YIFullScreenScroll', '~> 1.4'
 #  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
 end
@@ -21,6 +22,7 @@ target 'CustomKeyboard' do
   pod 'Firebase', '>= 2.0.2'
   pod 'JNWSpringAnimation', '~> 0.5'
   pod 'Reveal-iOS-SDK', '~> 1.0.6'
+  pod 'YIFullScreenScroll', '~> 1.4'
 #  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
 end

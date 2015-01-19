@@ -149,23 +149,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             
             CATransaction.commit()
         }
-        
-        if let sectionPickerView = keyboardViewController.sectionPickerView {
-            let screenBounds = UIScreen.mainScreen().bounds
-        
-            // if the lyric picker bar is still visible in the view move it down
-            if sectionPickerView.frame.origin.y < screenBounds.size.height && scrollView.panGestureRecognizer.numberOfTouches() > 0 {
-                var frame = sectionPickerView.frame
-//                let translation = scrollView.panGestureRecognizer.translationInView(scrollView.superview!)
-                let translationY = scrollView.contentOffset.y / CGRectGetHeight(sectionPickerView.frame)
-                println("translation \(translationY)")
-                frame.origin.y += translationY
-                UIView.beginAnimations(nil, context: nil)
-                UIView.setAnimationDuration(0.3)
-                sectionPickerView.frame = frame
-                UIView.commitAnimations()
-            }
-        }
     }
     
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
@@ -221,6 +204,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             
             if selected == nil || selected == false {
                 delegate?.didPickLyric(self, shareVC: cell.shareVC, lyric: cell.lyric)
+                keyboardViewController.fullScreenScroll.hideUIBarsAnimated(true)
                 var data = [NSString: AnyObject]()
                 data["lyric"] = cell.lyric
 
