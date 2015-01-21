@@ -65,6 +65,7 @@
 		81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
 		813E66BB1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */; };
 		813E66BC1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */; };
+		813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E66C11A6DA541007E15AD /* WalkthroughPage.swift */; };
 		81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */; };
 		817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */; };
 		817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */; };
@@ -249,6 +250,7 @@
 		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
 		813E66B91A6CEA5A007E15AD /* DrizzyFullScreenScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrizzyFullScreenScroll.h; sourceTree = "<group>"; };
 		813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrizzyFullScreenScroll.m; sourceTree = "<group>"; };
+		813E66C11A6DA541007E15AD /* WalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughPage.swift; sourceTree = "<group>"; };
 		817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackMetadataView.swift; path = Sources/TrackMetadataView.swift; sourceTree = "<group>"; };
 		8180E6081A142157007FA1CF /* Drizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E60C1A142157007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 				810C40641A21125B00170DB4 /* Constants.swift */,
 				813E66B91A6CEA5A007E15AD /* DrizzyFullScreenScroll.h */,
 				813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */,
+				813E66C11A6DA541007E15AD /* WalkthroughPage.swift */,
 			);
 			path = DrizzyChat;
 			sourceTree = "<group>";
@@ -973,6 +976,7 @@
 				813E66BB1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m in Sources */,
 				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
 				810C40821A21402A00170DB4 /* ExecutionContext.swift in Sources */,
+				813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */,
 				810C40841A21402A00170DB4 /* Future.swift in Sources */,
 				812D74801A3E5E480083F655 /* SectionPickerViewController.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,

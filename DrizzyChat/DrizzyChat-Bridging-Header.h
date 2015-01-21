@@ -14,4 +14,4 @@
 #import "UIColor+HEXString.h"
 #import "DrizzyFullScreenScroll.h"
 #import <MMLayershots/MMLayershots.h>
-#import <JNWSpringAnimation/JNWSpringAnimation.h>
+#import <Canvas/Canvas.h>

@@ -24,9 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
         mainController = ViewController()
         var keyboardVC = KeyboardViewController()
         keyboardVC.view.frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMaxY(frame) - 230, CGRectGetWidth(frame), 230)
+        
+        
 
         if let window = self.window {
-            window.rootViewController = keyboardVC
+            window.rootViewController = mainController
             window.makeKeyAndVisible()
         }
         

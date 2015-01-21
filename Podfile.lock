@@ -20,8 +20,8 @@ PODS:
   - AFNetworking/UIKit (2.5.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Canvas (0.1.2)
   - Firebase (2.0.2)
-  - JNWSpringAnimation (0.5)
   - JRSwizzle (1.0)
   - MMLayershots (0.2.6)
   - Reveal-iOS-SDK (1.0.7)
@@ -32,16 +32,16 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - Canvas (~> 0.1)
   - Firebase (>= 2.0.2)
-  - JNWSpringAnimation (~> 0.5)
   - MMLayershots
   - Reveal-iOS-SDK (~> 1.0.6)
   - YIFullScreenScroll (~> 1.4)
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
+  Canvas: ae2faca05a15c4d6659fb3ae5e2a14817df4449a
   Firebase: 793a4581e4f4d9cb1e156cab89ca367f3d02b473
-  JNWSpringAnimation: 823b06c4e6a6a2aa1be19f68ce48d67f63c0f0e0
   JRSwizzle: 30da7a2c539a4ebf954b16d15f6dd8221c9f6fa5
   MMLayershots: 8d0177032bf9516b28c1cd21e54c3cc00a5ce503
   Reveal-iOS-SDK: 7ee5e9b37ef13dcd93ae1736c1b72c7c650da3e3
