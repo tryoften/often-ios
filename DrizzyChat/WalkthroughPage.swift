@@ -8,31 +8,33 @@
 
 import UIKit
 
+func isIPhone5() -> Bool {
+    var screen = UIScreen.mainScreen()
+    
+    if screen.scale == 2.0 && CGRectGetHeight(screen.bounds) <= 568 {
+        return true
+    }
+    return false
+}
+
 class WalkthroughPage: UIView {
     
     var titleLabel: UILabel!
     var subtitleLabel: UILabel!
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
+    var imageViews: [UIImageView]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         titleLabel = UILabel()
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 30)
+        titleLabel.font = UIFont(name: "Lato-Regular", size: (isIPhone5()) ? 22 : 30)
         titleLabel.textColor = UIColor(fromHexString: "#39474b")
 //        titleLabel.textColor = UIColor.blackColor()
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.textAlignment = .Center
         
         subtitleLabel = UILabel()
-        subtitleLabel.font = UIFont(name: "Lato-light", size: 20)
+        subtitleLabel.font = UIFont(name: "Lato-light", size: (isIPhone5()) ? 15 : 20)
         subtitleLabel.textColor = UIColor(fromHexString: "#91989a")
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         subtitleLabel.textAlignment = .Center
@@ -46,12 +48,12 @@ class WalkthroughPage: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 60,
+            titleLabel.al_top == al_top + (isIPhone5() ? 40 : 60),
             titleLabel.al_width == al_width,
             titleLabel.al_height == 50,
             titleLabel.al_centerX == al_centerX,
             
-            subtitleLabel.al_top == titleLabel.al_bottom + 20,
+            subtitleLabel.al_top == titleLabel.al_bottom + (isIPhone5() ? 0 : 20),
             subtitleLabel.al_width == al_width - 40,
             subtitleLabel.al_centerX == al_centerX
         ])
