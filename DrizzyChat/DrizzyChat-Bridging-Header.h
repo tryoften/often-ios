@@ -15,3 +15,5 @@
 #import "DrizzyFullScreenScroll.h"
 #import <MMLayershots/MMLayershots.h>
 #import <Canvas/Canvas.h>
+#import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>

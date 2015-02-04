@@ -262,6 +262,10 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         page.addSubview(cover3)
         page.addSubview(cover1)
         
+        var loginView = FBLoginView()
+        loginView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        page.addSubview(loginView)
+        
         page.addConstraints([
             cover1.al_top == page.subtitleLabel.al_bottom + 100,
             cover1.al_centerX == page.al_centerX,
@@ -276,7 +280,12 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             cover3.al_width == cover1.al_width * 0.9,
             cover3.al_height == cover1.al_height * 0.9,
             cover3.al_centerY == cover1.al_centerY,
-            cover3.al_centerX == cover1.al_centerX + 50
+            cover3.al_centerX == cover1.al_centerX + 50,
+            
+            loginView.al_top == cover1.al_bottom + 20,
+            loginView.al_centerX == page.al_centerX,
+            loginView.al_width == CGRectGetWidth(loginView.frame),
+            loginView.al_height == CGRectGetHeight(loginView.frame)
         ])
     }
 

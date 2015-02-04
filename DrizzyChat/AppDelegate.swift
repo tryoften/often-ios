@@ -15,9 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
     var mainController: ViewController!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
         MMLayershots.sharedInstance().delegate = self
         
+        Parse.setApplicationId("L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G", clientKey: "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN")
+        
+        PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
+        PFFacebookUtils.initializeFacebook()
+        FBAppEvents.activateApp()
+
         let frame = UIScreen.mainScreen().bounds
         window = UIWindow(frame: frame)
 
@@ -25,8 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
         var keyboardVC = KeyboardViewController()
         keyboardVC.view.frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMaxY(frame) - 230, CGRectGetWidth(frame), 230)
         
-        
-
         if let window = self.window {
             window.rootViewController = mainController
             window.makeKeyAndVisible()
