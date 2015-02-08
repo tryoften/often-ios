@@ -9,7 +9,6 @@
 import UIKit
 
 
-
 class FacebookButton: UIButton {
     
     override var selected: Bool {
@@ -24,13 +23,13 @@ class FacebookButton: UIButton {
         }
     }
     
-    class func button() -> UIButton {
+    class func button() -> FacebookButton {
         var fbButton = FacebookButton.buttonWithType(UIButtonType.Custom) as UIButton
 
-        fbButton.backgroundColor = UIColor(fromHexString: "#3b5998")
+        fbButton.backgroundColor = BlueColor
         fbButton.layer.cornerRadius = 5
         
-        var title = NSMutableAttributedString(string: "\u{f610}   Sign in with Facebook")
+        var title = NSMutableAttributedString(string: "\u{f610}   Sign up with Facebook")
         
         title.addAttribute(NSFontAttributeName, value: UIFont(name: "SSSocialRegular", size: 24)!, range: NSMakeRange(0, 1))
         title.addAttribute(NSBaselineOffsetAttributeName, value: -5.0, range: NSMakeRange(0, 1))
@@ -39,7 +38,7 @@ class FacebookButton: UIButton {
         fbButton.titleLabel?.textColor = UIColor.whiteColor()
         fbButton.setAttributedTitle(title, forState: .Normal)
         
-        return fbButton
+        return fbButton as FacebookButton
     }
     
     func setHighlightedColor(highlighted: Bool) {

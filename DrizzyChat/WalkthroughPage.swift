@@ -23,6 +23,7 @@ class WalkthroughPage: UIView {
     var subtitleLabel: UILabel!
     var imageViews: [UIImageView]?
     var type: WalkthroughPageType!
+    var delegate: WalkthroughPageDelegate?
     
     required override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,5 +78,8 @@ class WalkthroughPage: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
     }
+}
 
+protocol WalkthroughPageDelegate {
+    func walkthroughPage(walkthroughPage: WalkthroughPage, shouldHideControls: Bool)
 }

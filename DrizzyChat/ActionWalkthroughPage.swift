@@ -22,5 +22,13 @@ class ActionWalkthroughPage: WalkthroughPage {
         
         homeVC.seeIntroButton.addTarget(self, action: "didTapIntroButton", forControlEvents: .TouchUpInside)
     }
+    
+    override func pageDidHide() {
+        delegate?.walkthroughPage(self, shouldHideControls: false)
+    }
+    
+    override func pageDidShow() {
+        delegate?.walkthroughPage(self, shouldHideControls: true)
+    }
 
 }

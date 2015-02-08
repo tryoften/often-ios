@@ -9,10 +9,26 @@
 import UIKit
 
 class SignUpWalkthroughPage: WalkthroughPage {
+    
+    var loginButton: FacebookButton
+    var signUpButton: UIButton
 
     required init(frame: CGRect) {
+        loginButton = FacebookButton.button()
+        loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        signUpButton = UIButton(frame: CGRectZero)
+        signUpButton.setTitle("Sign up with email", forState: .Normal)
+        signUpButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: 14)
+        signUpButton.setTitleColor(BlueColor, forState: .Normal)
+        signUpButton.contentHorizontalAlignment = .Left
+        signUpButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+
         super.init(frame: frame)
-        self.type = .SignUpPage
+        type = .SignUpPage
+        
+        addSubview(loginButton)
+        addSubview(signUpButton)
     }
     
     override func setupPage() {
@@ -28,17 +44,13 @@ class SignUpWalkthroughPage: WalkthroughPage {
             cover.setTranslatesAutoresizingMaskIntoConstraints(false)
         }
         
-        self.addSubview(cover2)
-        self.addSubview(cover3)
-        self.addSubview(cover1)
+        addSubview(cover2)
+        addSubview(cover3)
+        addSubview(cover1)
         
-        var loginView = FacebookButton.button()
-        loginView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.addSubview(loginView)
-        
-        self.addConstraints([
-            cover1.al_top == self.subtitleLabel.al_bottom + 80,
-            cover1.al_centerX == self.al_centerX,
+        addConstraints([
+            cover1.al_top == subtitleLabel.al_bottom + 80,
+            cover1.al_centerX == al_centerX,
             cover1.al_width == CGRectGetWidth(cover1.frame),
             cover1.al_height == CGRectGetHeight(cover1.frame),
             
@@ -52,11 +64,16 @@ class SignUpWalkthroughPage: WalkthroughPage {
             cover3.al_centerY == cover1.al_centerY,
             cover3.al_centerX == cover1.al_centerX + 50,
             
-            loginView.al_top == cover1.al_bottom + 20,
-            loginView.al_centerX == self.al_centerX,
-            loginView.al_left == cover2.al_left,
-            loginView.al_right == cover3.al_right,
-            loginView.al_height == 50
+            loginButton.al_top == cover1.al_bottom + 20,
+            loginButton.al_centerX == al_centerX,
+            loginButton.al_left == cover2.al_left,
+            loginButton.al_right == cover3.al_right,
+            loginButton.al_height == 50,
+            
+            signUpButton.al_top == loginButton.al_bottom + 10,
+            signUpButton.al_left == loginButton.al_left,
+            signUpButton.al_height == 30,
+            signUpButton.al_width == loginButton.al_width / 2
         ])
     }
 }

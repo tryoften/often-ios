@@ -9,3 +9,7 @@
 import Foundation
 
 let CategoryServiceEndpoint = "https://blinding-fire-1400.firebaseio.com/"
+
+
+// Colors
+let BlueColor = UIColor(fromHexString: "#3b5998")
