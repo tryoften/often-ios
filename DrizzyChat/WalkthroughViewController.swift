@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-class ViewController: UIViewController, UIScrollViewDelegate {
+class WalkthroughViewController: UIViewController, UIScrollViewDelegate {
     
     var scrollView: UIScrollView!
     var pageControl: UIPageControl!
@@ -32,14 +32,16 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             "Game Changing",
             "Curated Lyrics",
             "Install Drizzy",
-            "Keep it 100, Sign Up"
+            "Keep it 100, Sign Up",
+            ""
         ]
         
         subtitles = [
             "Keep Drake in your pocket & let him do the talking for you",
             "Send the best Drizzy verses right from your keyboard",
             "Make sure you turn on \"full access\" so Drizzy can do his thing",
-            "Connect to get access to new artists, lyrics & features."
+            "Connect to get access to new artists, lyrics & features.",
+            ""
         ]
         
         scrollView = UIScrollView(frame: view.bounds)
@@ -66,7 +68,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(actionButton)
         
         scrollView.frame = view.bounds
-        createPages(titles.count)
+        createPages(pageControl.numberOfPages)
         setupLayout()
     }
     
@@ -88,6 +90,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         page2()
         page3()
         page4()
+        page5()
         
         scrollView.contentSize = CGSizeMake(pageWidth * CGFloat(size), pageHeight)
     }
@@ -123,12 +126,6 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             var constraints = [NSLayoutConstraint]()
             
             var topConstraint: NSLayoutConstraint!
-//            
-//            if isIPhone5() {
-//                var frame = imageView.frame
-//                frame.size.width -= 20
-//                imageView.frame = frame
-//            }
             
             if i == 0 || i == 2 || i == 5 {
                 constraints.append(imageView.al_left == page.al_left + 20)
@@ -201,18 +198,13 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             } else {
                 if i % 2 == 0 {
                     imageView.frame = CGRectMake(midX + spacing, CGFloat(CGRectGetMaxY(prevPicRight!.frame) + spacing), CGRectGetWidth(prevPicRight!.frame), CGRectGetHeight(prevPicRight!.frame))
-//                    imageView.center = CGPointMake(midX + halfWidth + spacing,
-//                        CGFloat(CGRectGetMaxY(prevPicRight!.frame) + CGRectGetHeight(prevPicRight!.frame) / 2 + spacing))
                     prevPicRight = imageView
                 } else {
                     imageView.frame = CGRectMake(midX - fullWidth - spacing, CGFloat(CGRectGetMaxY(prevPicLeft!.frame) + spacing), CGRectGetWidth(prevPicLeft!.frame), CGRectGetHeight(prevPicLeft!.frame))
-//                    imageView.center = CGPointMake(midX - halfWidth - spacing,
-//                        CGFloat(CGRectGetMaxY(prevPicLeft!.frame) + CGRectGetHeight(prevPicLeft!.frame) / 2 + spacing))
                     prevPicLeft = imageView
                 }
             }
             
-//            imageView.center = CGPointMake(imageView.center.x, imageView.center.y + 100)
             page.addSubview(imageView)
             
             imageViews.append(imageView)
@@ -229,6 +221,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         videoPlayer = MPMoviePlayerController(contentURL: NSURL.fileURLWithPath(urlPath!))
         videoPlayer.controlStyle = .None
         videoPlayer.repeatMode = .One
+        videoPlayer.view.backgroundColor = UIColor(fromHexString: "#b2b2b2")
 
         var pageWidth = CGRectGetWidth(page.frame)
         var width = pageWidth * 0.7
@@ -262,7 +255,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         page.addSubview(cover3)
         page.addSubview(cover1)
         
-        var loginView = FBLoginView()
+        var loginView = FacebookButton.button()
         loginView.setTranslatesAutoresizingMaskIntoConstraints(false)
         page.addSubview(loginView)
         
@@ -284,9 +277,25 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             
             loginView.al_top == cover1.al_bottom + 20,
             loginView.al_centerX == page.al_centerX,
-            loginView.al_width == CGRectGetWidth(loginView.frame),
-            loginView.al_height == CGRectGetHeight(loginView.frame)
+            loginView.al_left == cover2.al_left,
+            loginView.al_right == cover3.al_right,
+            loginView.al_height == 50
         ])
+    }
+    
+    func page5() {
+        var page = pages[4]
+        
+        var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+        homeVC.view.frame = page.bounds
+        page.addSubview(homeVC.view)
+        
+        homeVC.seeIntroButton.addTarget(self, action: "didTapIntroButton", forControlEvents: .TouchUpInside)
+    }
+    
+    func didTapIntroButton() {
+        scrollView.setContentOffset(CGPointZero, animated: true)
+        pageControl.currentPage = 0
     }
 
     func setupLayout() {
@@ -315,24 +324,19 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         scrollView.setContentOffset(position, animated: true)
         pageControl.currentPage = nextPage
         
-        if nextPage == 4 {
-            var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
-            self.presentViewController(homeVC, animated: true, completion: nil)
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        pageDidChange(nextPage)
     }
     
     // MARK: UIScrollViewDelegate
-    
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         var width = scrollView.frame.size.width
         var page = Int((scrollView.contentOffset.x + (0.5 * width)) / width);
         pageControl.currentPage = page
         
+        pageDidChange(page)
+    }
+    
+    func pageDidChange(page: Int) {
         if page == 1 {
             var pageView = pages[1]
             
@@ -342,10 +346,18 @@ class ViewController: UIViewController, UIScrollViewDelegate {
                 UIView.animateKeyframesWithDuration(NSTimeInterval(0.3), delay: NSTimeInterval(i) * 0.3, options: nil, animations: {
                     imageView.alpha = 1.0
                     imageView.center = CGPointMake(imageView.center.x, imageView.center.y - 100)
-                }, completion: nil)
+                    }, completion: nil)
             }
         } else if page == 2 {
-//            videoPlayer.play()
+            dispatch_after(dispatch_time_t(1.0), dispatch_get_main_queue(), {
+                self.videoPlayer.play()
+            })
+        } else if page == 4 {
+            
+        }
+        
+        if page != 2 {
+            videoPlayer.stop()
         }
     }
     

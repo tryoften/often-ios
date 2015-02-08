@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
 
     var window: UIWindow?
-    var mainController: ViewController!
+    var mainController: WalkthroughViewController!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         MMLayershots.sharedInstance().delegate = self
@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
         let frame = UIScreen.mainScreen().bounds
         window = UIWindow(frame: frame)
 
-        mainController = ViewController()
+        mainController = WalkthroughViewController()
         var keyboardVC = KeyboardViewController()
         keyboardVC.view.frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMaxY(frame) - 230, CGRectGetWidth(frame), 230)
         
@@ -36,6 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
         }
         
         return true
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
     }
 
     func applicationWillResignActive(application: UIApplication) {

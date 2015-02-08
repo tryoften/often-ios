@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6724" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -29,9 +29,6 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon+text" translatesAutoresizingMaskIntoConstraints="NO" id="zmx-EN-mv4">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                    <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="66" y="58" width="268" height="45"/>
-                    </variation>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uui-SC-Apq">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -49,7 +46,7 @@
                         </mask>
                     </variation>
                     <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="108" y="230" width="184" height="33"/>
+                        <rect key="frame" x="122" y="230" width="156" height="28"/>
                         <mask key="constraints">
                             <include reference="AAL-m7-7aZ"/>
                         </mask>
@@ -63,7 +60,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="119" y="473" width="163" height="32"/>
+                        <rect key="frame" x="136" y="458" width="129" height="28"/>
                     </variation>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdv-L4-7DG">
@@ -74,7 +71,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="119" y="392" width="163" height="33"/>
+                        <rect key="frame" x="146" y="382" width="110" height="28"/>
                     </variation>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXC-rb-lPC">
@@ -85,7 +82,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="108" y="311" width="184" height="33"/>
+                        <rect key="frame" x="110" y="306" width="180" height="28"/>
                     </variation>
                 </button>
             </subviews>
@@ -115,16 +112,16 @@
                     <exclude reference="XXC-rb-lPC"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="HNj-Ht-5JX"/>
-                    <exclude reference="Tbt-GR-5dO"/>
+                    <exclude reference="0pB-so-DKu"/>
+                    <exclude reference="rQh-zi-P6b"/>
                     <exclude reference="5i1-nZ-0g0"/>
                     <exclude reference="JWr-ii-xSZ"/>
                     <exclude reference="9ls-qK-T3L"/>
                     <exclude reference="DK4-p4-47S"/>
-                    <exclude reference="0pB-so-DKu"/>
-                    <exclude reference="rQh-zi-P6b"/>
                     <exclude reference="dYm-kh-Bsa"/>
                     <exclude reference="izy-Nv-hHt"/>
+                    <exclude reference="HNj-Ht-5JX"/>
+                    <exclude reference="Tbt-GR-5dO"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -136,16 +133,16 @@
                     <include reference="XXC-rb-lPC"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="HNj-Ht-5JX"/>
-                    <include reference="Tbt-GR-5dO"/>
+                    <include reference="0pB-so-DKu"/>
+                    <include reference="rQh-zi-P6b"/>
                     <include reference="5i1-nZ-0g0"/>
                     <include reference="JWr-ii-xSZ"/>
                     <include reference="9ls-qK-T3L"/>
                     <include reference="DK4-p4-47S"/>
-                    <include reference="0pB-so-DKu"/>
-                    <include reference="rQh-zi-P6b"/>
                     <include reference="dYm-kh-Bsa"/>
                     <include reference="izy-Nv-hHt"/>
+                    <include reference="HNj-Ht-5JX"/>
+                    <include reference="Tbt-GR-5dO"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="246" y="258"/>

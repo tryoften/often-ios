@@ -66,6 +66,9 @@
 		813E66BB1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */; };
 		813E66BC1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */; };
 		813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E66C11A6DA541007E15AD /* WalkthroughPage.swift */; };
+		816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE58F1A86B19700E42C17 /* FacebookButton.swift */; };
+		816FE5991A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
+		816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
 		81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81794EC81A81D6D5009D4A71 /* HomeViewController.swift */; };
 		81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81794EC91A81D6D5009D4A71 /* HomeViewController.xib */; };
 		81794ED01A81E5C3009D4A71 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ECD1A81E5C3009D4A71 /* Parse.framework */; };
@@ -104,7 +107,7 @@
 		817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */; };
 		817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */; };
 		8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60D1A142157007FA1CF /* AppDelegate.swift */; };
-		8180E6101A142157007FA1CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60F1A142157007FA1CF /* ViewController.swift */; };
+		8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */; };
 		8180E6151A142157007FA1CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		8180E6241A142158007FA1CF /* DrizzyChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6231A142158007FA1CF /* DrizzyChatTests.swift */; };
 		8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
@@ -286,6 +289,8 @@
 		813E66B91A6CEA5A007E15AD /* DrizzyFullScreenScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrizzyFullScreenScroll.h; sourceTree = "<group>"; };
 		813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrizzyFullScreenScroll.m; sourceTree = "<group>"; };
 		813E66C11A6DA541007E15AD /* WalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughPage.swift; sourceTree = "<group>"; };
+		816FE58F1A86B19700E42C17 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
+		816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-regular.ttf"; sourceTree = "<group>"; };
 		81794EC81A81D6D5009D4A71 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		81794EC91A81D6D5009D4A71 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		81794ECD1A81E5C3009D4A71 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -308,7 +313,7 @@
 		8180E6081A142157007FA1CF /* Drizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E60C1A142157007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E60D1A142157007FA1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8180E60F1A142157007FA1CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		8180E6141A142157007FA1CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8180E61D1A142158007FA1CF /* DrizzyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrizzyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6221A142158007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -583,6 +588,13 @@
 			path = SwiftAutoLayoutTests;
 			sourceTree = "<group>";
 		};
+		816FE5A01A86E5FB00E42C17 /* Walkthrough Pages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Walkthrough Pages";
+			sourceTree = "<group>";
+		};
 		8180E5FF1A142157007FA1CF = {
 			isa = PBXGroup;
 			children = (
@@ -609,8 +621,9 @@
 		8180E60A1A142157007FA1CF /* DrizzyChat */ = {
 			isa = PBXGroup;
 			children = (
+				816FE5A01A86E5FB00E42C17 /* Walkthrough Pages */,
 				8180E60D1A142157007FA1CF /* AppDelegate.swift */,
-				8180E60F1A142157007FA1CF /* ViewController.swift */,
+				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				8120FB471A648BBC00EA457A /* FuzzySearch.swift */,
 				8180E6141A142157007FA1CF /* Images.xcassets */,
 				81B35FAE1A7A10B6001A546C /* Resources */,
@@ -624,6 +637,7 @@
 				813E66C11A6DA541007E15AD /* WalkthroughPage.swift */,
 				81794EC81A81D6D5009D4A71 /* HomeViewController.swift */,
 				81794EC91A81D6D5009D4A71 /* HomeViewController.xib */,
+				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
 			);
 			path = DrizzyChat;
 			sourceTree = "<group>";
@@ -677,6 +691,7 @@
 		8180E6461A1477F2007FA1CF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */,
 				8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */,
 				81A1A4D31A196D6200D566B8 /* font_icons8.ttf */,
 				8180E6471A147A77007FA1CF /* Lato-Black.ttf */,
@@ -768,6 +783,7 @@
 				8180E6061A142157007FA1CF /* Resources */,
 				8180E63D1A142199007FA1CF /* Embed App Extensions */,
 				45728D1C2D72036A77085D41 /* Copy Pods Resources */,
+				816FE53D1A847DAD00E42C17 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -928,6 +944,7 @@
 				8180E65D1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
 				81331E251A1806BB003E4609 /* .gitignore in Resources */,
 				810C40961A21402A00170DB4 /* LICENSE in Resources */,
+				816FE5991A86D7A500E42C17 /* ss-social-regular.ttf in Resources */,
 				81A1A4E81A19786D00D566B8 /* LICENSE in Resources */,
 				8180E6711A147A78007FA1CF /* Lato-MediumItalic.ttf in Resources */,
 				8180E6771A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
@@ -976,6 +993,7 @@
 				8180E67A1A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
 				81331E261A1806BB003E4609 /* .gitignore in Resources */,
 				8180E66C1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
+				816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */,
 				810C40891A21402A00170DB4 /* Info.plist in Resources */,
 				8180E6641A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
 				810C40931A21402A00170DB4 /* Info.plist in Resources */,
@@ -1052,6 +1070,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		816FE53D1A847DAD00E42C17 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#\n# Set the build number to the current git commit count.\n# If we're using the Dev scheme, then we'll suffix the build\n# number with the current branch name, to make collisions\n# far less likely across feature branches.\n# Based on: http://w3facility.info/question/how-do-i-force-xcode-to-rebuild-the-info-plist-file-in-my-project-every-time-i-build-the-project/\n#\ngit=`sh /etc/profile; which git`\nappBuild=`\"$git\" rev-list --all |wc -l`\nif [ $CONFIGURATION = \"Debug\" ]; then\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"";
+		};
 		81C8EE301A3B7E8E00EBAA78 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1111,13 +1143,14 @@
 				81331E151A17FA8B003E4609 /* CategoryService.swift in Sources */,
 				81A1A4EA1A19786D00D566B8 /* README.md in Sources */,
 				810C40941A21402A00170DB4 /* CHANGELOG.md in Sources */,
-				8180E6101A142157007FA1CF /* ViewController.swift in Sources */,
+				8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */,
 				81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
 				819982AD1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
+				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */,
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,

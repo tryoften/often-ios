@@ -136,7 +136,7 @@ class ShareViewController: UIViewController {
         var prevButton: ALView?
         for (index, button) in enumerate(buttons) {
             let buttonAL = button as ALView
-            button.titleLabel!.font = UIFont(name: "SSSocialCircle", size: 32)
+            button.titleLabel!.font = UIFont(name: "SSSocialRegular", size: 32)
             view.addSubview(button)
             let seperator = addSeperatorNextTo(button)
             let seperatorAL = seperator as ALView
@@ -161,6 +161,22 @@ class ShareViewController: UIViewController {
     internal func buttonSelected(button: UIButton!) {
         button.selected = !button.selected
         var selectedOptions = [ShareOption: NSURL]()
+        
+        let duration = 0.3 / 3
+        button.transform = CGAffineTransformMakeScale(1, 1);
+        
+        UIView.animateKeyframesWithDuration(duration, delay: 0, options: nil, animations: {
+            button.transform = CGAffineTransformMakeScale(1.2, 1.2)
+            }, completion: { done in
+                UIView.animateKeyframesWithDuration(duration, delay: 0, options: nil, animations: {
+                    button.transform = CGAffineTransformMakeScale(0.9, 0.9)
+                    }, completion: { done in
+                        UIView.animateKeyframesWithDuration(duration, delay: 0, options: nil, animations: {
+                            }, completion: { done in
+                                button.transform = CGAffineTransformMakeScale(1, 1)
+                        })
+                })
+        })
         
         if let options = lyric?.track?.getShareOptions() {
             if spotifyButton != nil && spotifyButton!.selected {
