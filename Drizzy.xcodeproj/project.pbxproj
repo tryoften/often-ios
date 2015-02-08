@@ -69,6 +69,11 @@
 		816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE58F1A86B19700E42C17 /* FacebookButton.swift */; };
 		816FE5991A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
 		816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
+		816FE5A41A871D6700E42C17 /* TextConvoWalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5A31A871D6700E42C17 /* TextConvoWalkthroughPage.swift */; };
+		816FE5A71A8724A500E42C17 /* AlbumCoverArtsWalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5A61A8724A500E42C17 /* AlbumCoverArtsWalkthroughPage.swift */; };
+		816FE5AA1A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5A91A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift */; };
+		816FE5AC1A87275A00E42C17 /* SignUpWalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5AB1A87275A00E42C17 /* SignUpWalkthroughPage.swift */; };
+		816FE5AE1A87284600E42C17 /* ActionWalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5AD1A87284600E42C17 /* ActionWalkthroughPage.swift */; };
 		81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81794EC81A81D6D5009D4A71 /* HomeViewController.swift */; };
 		81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81794EC91A81D6D5009D4A71 /* HomeViewController.xib */; };
 		81794ED01A81E5C3009D4A71 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ECD1A81E5C3009D4A71 /* Parse.framework */; };
@@ -291,6 +296,11 @@
 		813E66C11A6DA541007E15AD /* WalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughPage.swift; sourceTree = "<group>"; };
 		816FE58F1A86B19700E42C17 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-regular.ttf"; sourceTree = "<group>"; };
+		816FE5A31A871D6700E42C17 /* TextConvoWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextConvoWalkthroughPage.swift; sourceTree = "<group>"; };
+		816FE5A61A8724A500E42C17 /* AlbumCoverArtsWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCoverArtsWalkthroughPage.swift; sourceTree = "<group>"; };
+		816FE5A91A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTutorialWalkthroughPage.swift; sourceTree = "<group>"; };
+		816FE5AB1A87275A00E42C17 /* SignUpWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWalkthroughPage.swift; sourceTree = "<group>"; };
+		816FE5AD1A87284600E42C17 /* ActionWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionWalkthroughPage.swift; sourceTree = "<group>"; };
 		81794EC81A81D6D5009D4A71 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		81794EC91A81D6D5009D4A71 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		81794ECD1A81E5C3009D4A71 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -591,8 +601,32 @@
 		816FE5A01A86E5FB00E42C17 /* Walkthrough Pages */ = {
 			isa = PBXGroup;
 			children = (
+				816FE5A31A871D6700E42C17 /* TextConvoWalkthroughPage.swift */,
+				816FE5A61A8724A500E42C17 /* AlbumCoverArtsWalkthroughPage.swift */,
+				816FE5A91A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift */,
+				816FE5AB1A87275A00E42C17 /* SignUpWalkthroughPage.swift */,
+				816FE5AD1A87284600E42C17 /* ActionWalkthroughPage.swift */,
 			);
 			name = "Walkthrough Pages";
+			sourceTree = "<group>";
+		};
+		816FE5A11A86E66900E42C17 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				81794EC81A81D6D5009D4A71 /* HomeViewController.swift */,
+				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		816FE5A21A86E67100E42C17 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
+				813E66C11A6DA541007E15AD /* WalkthroughPage.swift */,
+				816FE5A01A86E5FB00E42C17 /* Walkthrough Pages */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		8180E5FF1A142157007FA1CF = {
@@ -621,23 +655,20 @@
 		8180E60A1A142157007FA1CF /* DrizzyChat */ = {
 			isa = PBXGroup;
 			children = (
-				816FE5A01A86E5FB00E42C17 /* Walkthrough Pages */,
+				816FE5A21A86E67100E42C17 /* Views */,
+				816FE5A11A86E66900E42C17 /* View Controllers */,
 				8180E60D1A142157007FA1CF /* AppDelegate.swift */,
-				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
-				8120FB471A648BBC00EA457A /* FuzzySearch.swift */,
 				8180E6141A142157007FA1CF /* Images.xcassets */,
 				81B35FAE1A7A10B6001A546C /* Resources */,
 				8180E60B1A142157007FA1CF /* Supporting Files */,
 				81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */,
+				8120FB471A648BBC00EA457A /* FuzzySearch.swift */,
 				81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */,
 				81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */,
-				810C40641A21125B00170DB4 /* Constants.swift */,
 				813E66B91A6CEA5A007E15AD /* DrizzyFullScreenScroll.h */,
 				813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */,
-				813E66C11A6DA541007E15AD /* WalkthroughPage.swift */,
-				81794EC81A81D6D5009D4A71 /* HomeViewController.swift */,
+				810C40641A21125B00170DB4 /* Constants.swift */,
 				81794EC91A81D6D5009D4A71 /* HomeViewController.xib */,
-				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
 			);
 			path = DrizzyChat;
 			sourceTree = "<group>";
@@ -1134,7 +1165,10 @@
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
 				81331E141A17FA88003E4609 /* Category.swift in Sources */,
 				810C408E1A21402A00170DB4 /* Result.swift in Sources */,
+				816FE5AA1A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift in Sources */,
 				810C408A1A21402A00170DB4 /* Promise.swift in Sources */,
+				816FE5AE1A87284600E42C17 /* ActionWalkthroughPage.swift in Sources */,
+				816FE5A41A871D6700E42C17 /* TextConvoWalkthroughPage.swift in Sources */,
 				810C40981A21402A00170DB4 /* README.md in Sources */,
 				810C40861A21402A00170DB4 /* FutureUtils.swift in Sources */,
 				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
@@ -1152,8 +1186,10 @@
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
+				816FE5AC1A87275A00E42C17 /* SignUpWalkthroughPage.swift in Sources */,
 				81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */,
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
+				816FE5A71A8724A500E42C17 /* AlbumCoverArtsWalkthroughPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

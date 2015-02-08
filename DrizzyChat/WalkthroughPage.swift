@@ -22,14 +22,14 @@ class WalkthroughPage: UIView {
     var titleLabel: UILabel!
     var subtitleLabel: UILabel!
     var imageViews: [UIImageView]?
+    var type: WalkthroughPageType!
     
-    override init(frame: CGRect) {
+    required override init(frame: CGRect) {
         super.init(frame: frame)
         
         titleLabel = UILabel()
         titleLabel.font = UIFont(name: "Lato-Regular", size: (isIPhone5()) ? 22 : 30)
         titleLabel.textColor = UIColor(fromHexString: "#39474b")
-//        titleLabel.textColor = UIColor.blackColor()
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.textAlignment = .Center
         
@@ -43,6 +43,7 @@ class WalkthroughPage: UIView {
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         
+        setupPage()
         setupLayout()
     }
     
@@ -58,6 +59,16 @@ class WalkthroughPage: UIView {
             subtitleLabel.al_centerX == al_centerX
         ])
     }
+    
+    func setupPage() {}
+    
+    func pageDidShow() {}
+    
+    func pageWillShow() {}
+    
+    func pageWillHide() {}
+    
+    func pageDidHide() {}
 
     convenience required init(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
