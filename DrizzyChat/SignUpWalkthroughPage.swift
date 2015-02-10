@@ -10,12 +10,13 @@ import UIKit
 
 class SignUpWalkthroughPage: WalkthroughPage {
     
-    var loginButton: FacebookButton
+    var facebookButton: FacebookButton
     var signUpButton: UIButton
+    var loginButton: UIButton
 
     required init(frame: CGRect) {
-        loginButton = FacebookButton.button()
-        loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        facebookButton = FacebookButton.button()
+        facebookButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         signUpButton = UIButton(frame: CGRectZero)
         signUpButton.setTitle("Sign up with email", forState: .Normal)
@@ -23,12 +24,20 @@ class SignUpWalkthroughPage: WalkthroughPage {
         signUpButton.setTitleColor(BlueColor, forState: .Normal)
         signUpButton.contentHorizontalAlignment = .Left
         signUpButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        loginButton = UIButton(frame: CGRectZero)
+        loginButton.setTitle("Log in with account", forState: .Normal)
+        loginButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: 14)
+        loginButton.setTitleColor(BlueColor, forState: .Normal)
+        loginButton.contentHorizontalAlignment = .Right
+        loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         super.init(frame: frame)
         type = .SignUpPage
         
-        addSubview(loginButton)
+        addSubview(facebookButton)
         addSubview(signUpButton)
+        addSubview(loginButton)
     }
     
     override func setupPage() {
@@ -64,16 +73,21 @@ class SignUpWalkthroughPage: WalkthroughPage {
             cover3.al_centerY == cover1.al_centerY,
             cover3.al_centerX == cover1.al_centerX + 50,
             
-            loginButton.al_top == cover1.al_bottom + 20,
-            loginButton.al_centerX == al_centerX,
-            loginButton.al_left == cover2.al_left,
-            loginButton.al_right == cover3.al_right,
-            loginButton.al_height == 50,
+            facebookButton.al_top == cover1.al_bottom + 20,
+            facebookButton.al_centerX == al_centerX,
+            facebookButton.al_left == cover2.al_left,
+            facebookButton.al_right == cover3.al_right,
+            facebookButton.al_height == 50,
             
-            signUpButton.al_top == loginButton.al_bottom + 10,
-            signUpButton.al_left == loginButton.al_left,
+            signUpButton.al_top == facebookButton.al_bottom + 10,
+            signUpButton.al_left == facebookButton.al_left,
             signUpButton.al_height == 30,
-            signUpButton.al_width == loginButton.al_width / 2
+            signUpButton.al_width == facebookButton.al_width / 2,
+            
+            loginButton.al_top == facebookButton.al_bottom + 10,
+            loginButton.al_right == facebookButton.al_right,
+            loginButton.al_height == 30,
+            loginButton.al_width == facebookButton.al_width / 2
         ])
     }
 }

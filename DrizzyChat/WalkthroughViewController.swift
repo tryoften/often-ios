@@ -25,6 +25,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
     var titles: [String]!
     var subtitles: [String]!
     var actionButton = UIButton()
+    var pageWidth: CGFloat!
     
     private var previousPoint: CGPoint!
     private var currentPoint: CGPoint!
@@ -52,9 +53,11 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         
         previousPage = -1
         currentPage = 0
-        
+        pointDelta = 0
+
         currentPoint = CGPointZero
         previousPoint = CGPointZero
+        pageWidth = CGRectGetWidth(view.bounds)
         
         scrollView = UIScrollView(frame: view.bounds)
         scrollView.pagingEnabled = true
@@ -86,7 +89,6 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
     
     func createPages(size: Int) {
         var frame = view.frame
-        let pageWidth: CGFloat = CGRectGetWidth(frame)
         let pageHeight: CGFloat = CGRectGetHeight(frame)
         
         let classes: [WalkthroughPage.Type] = [
@@ -152,26 +154,36 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         })
     }
     
+    func getCurrentPage() -> Int {
+        let width = pageWidth
+        return Int((max(0, scrollView.contentOffset.x) + (0.5 * width)) / width)
+    }
+    
     // MARK: UIScrollViewDelegate
     func scrollViewDidScroll(scrollView: UIScrollView) {
         currentPoint = scrollView.contentOffset
         pointDelta = currentPoint.x - previousPoint.x
-        
         previousPoint = currentPoint
+        
+        let pos = (currentPoint.x % pageWidth)
+        println("position: \(pos), currentPage: \(currentPage)")
+        pages[currentPage].scrollViewDidScroll(scrollView, position: pos)
     }
-    
+
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         let direction = pointDelta < 0 ? -1 : 1
         
-        println("Point delta: \(pointDelta)")
-
-        let width = scrollView.frame.size.width
-        currentPage = Int((scrollView.contentOffset.x + (0.5 * width)) / width)
+        println("direction: \(direction), Point delta: \(pointDelta)")
+        currentPage = getCurrentPage()
+        
         pageControl.currentPage = currentPage
         previousPage = currentPage - direction
-
-        pages[previousPage].pageDidHide()
+        
+        if previousPage >= 0 && previousPage < pages.count {
+            pages[previousPage].pageDidHide()
+        }
         pages[currentPage].pageDidShow()
+
     }
     
     // MARK: WalkthroughPage

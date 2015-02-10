@@ -24,9 +24,14 @@ class WalkthroughPage: UIView {
     var imageViews: [UIImageView]?
     var type: WalkthroughPageType!
     var delegate: WalkthroughPageDelegate?
+    var xTitlePositionConstraint: NSLayoutConstraint!
+    var xSubtitlePositionConstraint: NSLayoutConstraint!
+    var index: Int!
     
     required override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        clipsToBounds = true
         
         titleLabel = UILabel()
         titleLabel.font = UIFont(name: "Lato-Regular", size: (isIPhone5()) ? 22 : 30)
@@ -49,15 +54,18 @@ class WalkthroughPage: UIView {
     }
     
     func setupLayout() {
+        xTitlePositionConstraint = titleLabel.al_centerX == al_centerX
+        xSubtitlePositionConstraint = subtitleLabel.al_centerX == al_centerX
+
         addConstraints([
             titleLabel.al_top == al_top + (isIPhone5() ? 40 : 60),
             titleLabel.al_width == al_width,
             titleLabel.al_height == 50,
-            titleLabel.al_centerX == al_centerX,
+            xTitlePositionConstraint,
             
             subtitleLabel.al_top == titleLabel.al_bottom + (isIPhone5() ? 0 : 20),
             subtitleLabel.al_width == al_width - 40,
-            subtitleLabel.al_centerX == al_centerX
+            xSubtitlePositionConstraint
         ])
     }
     
@@ -70,6 +78,11 @@ class WalkthroughPage: UIView {
     func pageWillHide() {}
     
     func pageDidHide() {}
+    
+    func scrollViewDidScroll(scrollView: UIScrollView, position: CGFloat) {
+        self.xTitlePositionConstraint.constant = -position * 0.9
+        self.xSubtitlePositionConstraint.constant = -position * 1.2
+    }
 
     convenience required init(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)

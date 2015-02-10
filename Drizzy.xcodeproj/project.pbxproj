@@ -74,6 +74,7 @@
 		816FE5AA1A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5A91A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift */; };
 		816FE5AC1A87275A00E42C17 /* SignUpWalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5AB1A87275A00E42C17 /* SignUpWalkthroughPage.swift */; };
 		816FE5AE1A87284600E42C17 /* ActionWalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5AD1A87284600E42C17 /* ActionWalkthroughPage.swift */; };
+		816FE5B01A881C6500E42C17 /* SignUpFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5AF1A881C6500E42C17 /* SignUpFormViewController.swift */; };
 		81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81794EC81A81D6D5009D4A71 /* HomeViewController.swift */; };
 		81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81794EC91A81D6D5009D4A71 /* HomeViewController.xib */; };
 		81794ED01A81E5C3009D4A71 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ECD1A81E5C3009D4A71 /* Parse.framework */; };
@@ -301,6 +302,7 @@
 		816FE5A91A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTutorialWalkthroughPage.swift; sourceTree = "<group>"; };
 		816FE5AB1A87275A00E42C17 /* SignUpWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWalkthroughPage.swift; sourceTree = "<group>"; };
 		816FE5AD1A87284600E42C17 /* ActionWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionWalkthroughPage.swift; sourceTree = "<group>"; };
+		816FE5AF1A881C6500E42C17 /* SignUpFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewController.swift; sourceTree = "<group>"; };
 		81794EC81A81D6D5009D4A71 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		81794EC91A81D6D5009D4A71 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		81794ECD1A81E5C3009D4A71 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 			children = (
 				81794EC81A81D6D5009D4A71 /* HomeViewController.swift */,
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
+				816FE5AF1A881C6500E42C17 /* SignUpFormViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1152,6 +1155,7 @@
 			files = (
 				81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */,
 				813E66BB1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m in Sources */,
+				816FE5B01A881C6500E42C17 /* SignUpFormViewController.swift in Sources */,
 				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
 				81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */,
 				810C40821A21402A00170DB4 /* ExecutionContext.swift in Sources */,
