@@ -19,6 +19,7 @@
                 <outlet property="rateUsButton" destination="Hdv-L4-7DG" id="Q7l-Pb-e1D"/>
                 <outlet property="seeIntroButton" destination="Uui-SC-Apq" id="q4J-Ac-frn"/>
                 <outlet property="suggestLyricsButton" destination="XXC-rb-lPC" id="cWd-ae-38q"/>
+                <outlet property="topMargin" destination="JWr-ii-xSZ" id="fdC-Iy-iPG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

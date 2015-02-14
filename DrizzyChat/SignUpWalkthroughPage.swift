@@ -53,12 +53,20 @@ class SignUpWalkthroughPage: WalkthroughPage {
             cover.setTranslatesAutoresizingMaskIntoConstraints(false)
         }
         
+        var topMargin: CGFloat = 0
+        
+        if isIPhone5() {
+            topMargin = 60
+        } else {
+            topMargin = 80
+        }
+        
         addSubview(cover2)
         addSubview(cover3)
         addSubview(cover1)
         
         addConstraints([
-            cover1.al_top == subtitleLabel.al_bottom + 80,
+            cover1.al_top == subtitleLabel.al_bottom + topMargin,
             cover1.al_centerX == al_centerX,
             cover1.al_width == CGRectGetWidth(cover1.frame),
             cover1.al_height == CGRectGetHeight(cover1.frame),

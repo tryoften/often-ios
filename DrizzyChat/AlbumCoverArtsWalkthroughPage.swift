@@ -26,10 +26,22 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
         ]
         var imageViews = [UIImageView]()
         
+        // midpoint in screen
         var midX: CGFloat = CGRectGetWidth(self.frame) / 2
+        // spacing between images
         var spacing: CGFloat = 2.5
+
         var prevPicLeft: UIImageView?
         var prevPicRight: UIImageView?
+        
+        var topMargin: CGFloat = 0
+        
+        if isIPhone5() {
+            topMargin = 240
+        } else {
+            topMargin = 300
+        }
+    
         for (i, image) in enumerate(images) {
             var imageView = UIImageView(image: image)
             imageView.alpha = 0.0
@@ -37,13 +49,19 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
             var fullHeight = CGFloat(CGRectGetHeight(imageView.frame))
             var fullWidth = CGFloat(CGRectGetWidth(imageView.frame))
             
+            if isIPhone5() {
+                fullHeight -= 20
+                fullWidth -= 20
+                imageView.frame = CGRectMake(0, 0, fullWidth, fullHeight)
+            }
+            
             if prevPicRight == nil {
                 imageView.center = CGPointMake(midX + fullWidth / 2 + spacing,
-                    CGFloat(300))
+                    topMargin)
                 prevPicRight = imageView
             } else if prevPicLeft == nil {
                 imageView.center = CGPointMake(midX - fullWidth / 2 - spacing,
-                    CGFloat(320))
+                    topMargin + 20)
                 prevPicLeft = imageView
             } else {
                 if i % 2 == 0 {

@@ -34,8 +34,19 @@ class TextConvoWalkthroughPage: WalkthroughPage {
         var side: String
         
         for (i, image) in enumerate(textImages) {
-            var scaledImage = (isIPhone5()) ? UIImage(CGImage: image?.CGImage, scale: CGFloat(0.5), orientation: UIImageOrientation.Up) : image
+            var scaledImage: UIImage!
+            var imageSize: CGSize = image!.size
+            
+            if isIPhone5() {
+                scaledImage = UIImage(CGImage: image?.CGImage, scale: CGFloat(0.5), orientation: UIImageOrientation.Up)
+                imageSize.height = imageSize.height - 8
+                imageSize.width = (imageSize.height / image!.size.height) * image!.size.width
+            } else {
+                scaledImage = image
+                imageSize = image!.size
+            }
             println("image: \(image!.size) scaledImage: \(scaledImage?.size)")
+
             var imageView = UIImageView(image: scaledImage)
             imageView.alpha = 0.0
             imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -43,7 +54,6 @@ class TextConvoWalkthroughPage: WalkthroughPage {
             self.addSubview(imageView)
             
             var constraints = [NSLayoutConstraint]()
-            
             var topConstraint: NSLayoutConstraint!
             
             if i == 0 || i == 2 || i == 5 {
@@ -60,8 +70,9 @@ class TextConvoWalkthroughPage: WalkthroughPage {
                 side = "right"
             }
             
-            constraints.append(imageView.al_width == image!.size.width)
-            constraints.append(imageView.al_height == (isIPhone5() ? image!.size.height - 8 : image!.size.height))
+            constraints.append(imageView.al_width == imageSize.width)
+            constraints.append(imageView.al_height == imageSize.height)
+            
             self.addConstraints(constraints)
             topConstraints.append(topConstraint)
             imageViews.append(imageView)

@@ -31,8 +31,6 @@ class WalkthroughPage: UIView {
     required override init(frame: CGRect) {
         super.init(frame: frame)
         
-        clipsToBounds = true
-        
         titleLabel = UILabel()
         titleLabel.font = UIFont(name: "Lato-Regular", size: (isIPhone5()) ? 22 : 30)
         titleLabel.textColor = UIColor(fromHexString: "#39474b")
@@ -80,8 +78,8 @@ class WalkthroughPage: UIView {
     func pageDidHide() {}
     
     func scrollViewDidScroll(scrollView: UIScrollView, position: CGFloat) {
-        self.xTitlePositionConstraint.constant = -position * 0.9
-        self.xSubtitlePositionConstraint.constant = -position * 1.2
+        self.xTitlePositionConstraint.constant = -position * 0.6
+        self.xSubtitlePositionConstraint.constant = -position * 0.9
     }
 
     convenience required init(coder aDecoder: NSCoder) {

@@ -165,9 +165,13 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         pointDelta = currentPoint.x - previousPoint.x
         previousPoint = currentPoint
         
-        let pos = (currentPoint.x % pageWidth)
+        let currentPage = getCurrentPage()
+        let pos = currentPoint.x - CGFloat(pageWidth) * CGFloat(currentPage)
         println("position: \(pos), currentPage: \(currentPage)")
-        pages[currentPage].scrollViewDidScroll(scrollView, position: pos)
+        
+        for page in pages {
+            page.scrollViewDidScroll(scrollView, position: pos)
+        }
     }
 
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

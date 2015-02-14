@@ -14,11 +14,17 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var suggestLyricsButton: UIButton!
     @IBOutlet weak var rateUsButton: UIButton!
     @IBOutlet weak var feedbackButton: UIButton!
+    @IBOutlet weak var topMargin: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if isIPhone5() {
+            topMargin.constant = 190
+        }
 
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
