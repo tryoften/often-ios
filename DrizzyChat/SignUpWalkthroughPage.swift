@@ -35,9 +35,46 @@ class SignUpWalkthroughPage: WalkthroughPage {
         super.init(frame: frame)
         type = .SignUpPage
         
+        facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
+        signUpButton.addTarget(self, action: "didTapSignUpButton", forControlEvents: .TouchUpInside)
+        
         addSubview(facebookButton)
         addSubview(signUpButton)
         addSubview(loginButton)
+    }
+    
+    func didTapSignUpButton() {
+        var signUpFormViewController = SignUpFormViewController()
+        var navigationController = UINavigationController(rootViewController: signUpFormViewController)
+        
+        let attributes: NSDictionary = [
+            NSFontAttributeName: UIFont(name: "Lato-Regular", size: 14)!
+        ]
+
+        navigationController.navigationBar.titleTextAttributes = attributes
+        walkthroughViewController.presentViewController(navigationController, animated: true, completion: {})
+    }
+    
+    func didTapFacebookButton() {
+        var session = FBSession.activeSession()
+        
+        // If the session state is any of the two "open" states when the button is clicked
+        if session.state == .Open || session.state == .OpenTokenExtended {
+            
+            // Close the session and remove the access token from the cache
+            // The session state handler (in the app delegate) will be called automatically
+            session.closeAndClearTokenInformation()
+        }
+        
+        // If the session state is not any of the two "open" states when the button is clicked
+        else {
+            FBSession.openActiveSessionWithReadPermissions(["public_profile"], allowLoginUI: true, completionHandler: {
+                (session: FBSession!, state: FBSessionState, err: NSError!) in
+                var appDelegate = UIApplication.sharedApplication().delegate! as AppDelegate
+                
+                appDelegate.sessionStateChanged(session, state: state, error: err)
+            })
+        }
     }
     
     override func setupPage() {

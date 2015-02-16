@@ -28,6 +28,8 @@ class WalkthroughPage: UIView {
     var xSubtitlePositionConstraint: NSLayoutConstraint!
     var index: Int!
     
+    weak var walkthroughViewController: WalkthroughViewController!
+    
     required override init(frame: CGRect) {
         super.init(frame: frame)
         

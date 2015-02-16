@@ -105,6 +105,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
             var page: WalkthroughPage = WalkthroughPageClass(frame: pageFrame)
 
             page.delegate = self
+            page.walkthroughViewController = self
             page.titleLabel.text = self.titles[i]
             page.subtitleLabel.text = subtitles[i]
             pages.append(page)

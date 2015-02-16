@@ -10,7 +10,10 @@ import UIKit
 
 class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
     
+    var isAnimationDone: Bool
+    
     required init(frame: CGRect) {
+        self.isAnimationDone = false
         super.init(frame: frame)
         self.type = .AlbumCoverArtsPage
     }
@@ -30,11 +33,9 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
         var midX: CGFloat = CGRectGetWidth(self.frame) / 2
         // spacing between images
         var spacing: CGFloat = 2.5
-
+        var topMargin: CGFloat = 0
         var prevPicLeft: UIImageView?
         var prevPicRight: UIImageView?
-        
-        var topMargin: CGFloat = 0
         
         if isIPhone5() {
             topMargin = 240
@@ -74,7 +75,6 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
             }
             
             self.addSubview(imageView)
-            
             imageViews.append(imageView)
         }
         
@@ -82,6 +82,10 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
     }
     
     override func pageDidShow() {
+        if isAnimationDone {
+            return
+        }
+
         for (i, imageView) in enumerate(self.imageViews!) {
             imageView.alpha = 0.0
             imageView.center = CGPointMake(imageView.center.x, imageView.center.y + 100)
@@ -90,6 +94,7 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
                 imageView.center = CGPointMake(imageView.center.x, imageView.center.y - 100)
                 }, completion: nil)
         }
+        isAnimationDone = true
     }
 
 }

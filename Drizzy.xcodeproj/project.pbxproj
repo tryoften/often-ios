@@ -66,6 +66,8 @@
 		813E66BB1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */; };
 		813E66BC1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */; };
 		813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E66C11A6DA541007E15AD /* WalkthroughPage.swift */; };
+		81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */; };
+		81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */; };
 		816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE58F1A86B19700E42C17 /* FacebookButton.swift */; };
 		816FE5991A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
 		816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
@@ -293,6 +295,8 @@
 		813E66B91A6CEA5A007E15AD /* DrizzyFullScreenScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrizzyFullScreenScroll.h; sourceTree = "<group>"; };
 		813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrizzyFullScreenScroll.m; sourceTree = "<group>"; };
 		813E66C11A6DA541007E15AD /* WalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughPage.swift; sourceTree = "<group>"; };
+		81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormTableViewCell.swift; sourceTree = "<group>"; };
+		81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
 		816FE58F1A86B19700E42C17 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-regular.ttf"; sourceTree = "<group>"; };
 		816FE5A31A871D6700E42C17 /* TextConvoWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextConvoWalkthroughPage.swift; sourceTree = "<group>"; };
@@ -594,6 +598,14 @@
 			path = SwiftAutoLayoutTests;
 			sourceTree = "<group>";
 		};
+		81413DB31A91C0A400926E7C /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */,
+			);
+			name = "View Models";
+			sourceTree = "<group>";
+		};
 		816FE5A01A86E5FB00E42C17 /* Walkthrough Pages */ = {
 			isa = PBXGroup;
 			children = (
@@ -621,6 +633,7 @@
 			children = (
 				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
 				813E66C11A6DA541007E15AD /* WalkthroughPage.swift */,
+				81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */,
 				816FE5A01A86E5FB00E42C17 /* Walkthrough Pages */,
 			);
 			name = Views;
@@ -652,6 +665,7 @@
 		8180E60A1A142157007FA1CF /* DrizzyChat */ = {
 			isa = PBXGroup;
 			children = (
+				81413DB31A91C0A400926E7C /* View Models */,
 				816FE5A21A86E67100E42C17 /* Views */,
 				816FE5A11A86E66900E42C17 /* View Controllers */,
 				8180E60D1A142157007FA1CF /* AppDelegate.swift */,
@@ -874,6 +888,9 @@
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = LMA3M32RE8;
 						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 0;
+							};
 							com.apple.InAppPurchase = {
 								enabled = 0;
 							};
@@ -1171,6 +1188,7 @@
 				816FE5AA1A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift in Sources */,
 				810C408A1A21402A00170DB4 /* Promise.swift in Sources */,
 				816FE5AE1A87284600E42C17 /* ActionWalkthroughPage.swift in Sources */,
+				81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */,
 				816FE5A41A871D6700E42C17 /* TextConvoWalkthroughPage.swift in Sources */,
 				810C40981A21402A00170DB4 /* README.md in Sources */,
 				810C40861A21402A00170DB4 /* FutureUtils.swift in Sources */,
@@ -1182,6 +1200,7 @@
 				810C40941A21402A00170DB4 /* CHANGELOG.md in Sources */,
 				8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
+				81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */,
 				81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */,
 				81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
 				819982AD1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,

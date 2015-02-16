@@ -22,6 +22,7 @@ class VideoTutorialWalkthroughPage: WalkthroughPage {
         var urlPath = NSBundle.mainBundle().pathForResource("tutorial-video", ofType: "mov")
         println("\(urlPath)")
         videoPlayer = MPMoviePlayerController(contentURL: NSURL.fileURLWithPath(urlPath!))
+        videoPlayer.prepareToPlay()
         videoPlayer.controlStyle = .None
         videoPlayer.repeatMode = .One
         videoPlayer.view.backgroundColor = UIColor(fromHexString: "#b2b2b2")
