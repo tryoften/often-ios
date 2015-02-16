@@ -26,7 +26,7 @@ class LyricTableViewCell: UITableViewCell {
     
     var height: CGFloat {
         if selected {
-            return 171
+            return 181
         }
         return LyricTableViewCellHeight
     }

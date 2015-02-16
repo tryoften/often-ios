@@ -18,7 +18,6 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
     var searchBar: UISearchBar
     var pulledDown: Bool
     var pullingDown: Bool
-    
     var delegate: LyricFilterBarDelegate?
     
     init(aTableView: UITableView, aTargetViewController: KeyboardViewController) {
@@ -39,7 +38,6 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
         searchBar.backgroundImage = UIImage()
         searchBar.placeholder = "Filter lyrics"
         searchBar.barTintColor = UIColor.clearColor()
-        
         
         super.init(frame: barFrame)
         

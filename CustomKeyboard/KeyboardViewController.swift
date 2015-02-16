@@ -30,14 +30,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        for family in UIFont.familyNames() {
-//            println("\(family)")
-//            
-//            for name in UIFont.fontNamesForFamilyName(family as String) {
-//                println("  \(name)")
-//            }
-//        }
-        
         Firebase.setOption("persistence", to: true)
         var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
         categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
@@ -68,14 +60,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         sectionPickerView = (sectionPicker.view as SectionPickerView)
         sectionPickerView?.delegate = lyricPicker
-//        sectionPickerView?.setTranslatesAutoresizingMaskIntoConstrasints(false)
         sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
-        
-        fullScreenScroll = DrizzyFullScreenScroll(viewController: self, scrollView: lyricPicker.tableView, style: YIFullScreenScrollStyle.Default)
-        fullScreenScroll.viewController = self
-        //        fullScreenScroll.delegate = self
-        fullScreenScroll.scrollView = lyricPicker.tableView
-        (fullScreenScroll as DrizzyFullScreenScroll).toolbar = sectionPickerView
         
         fixedFilterBarView = UIView(frame: CGRectZero)
         fixedFilterBarView.backgroundColor = UIColor.whiteColor()

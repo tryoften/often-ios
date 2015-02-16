@@ -204,7 +204,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             
             if selected == nil || selected == false {
                 delegate?.didPickLyric(self, shareVC: cell.shareVC, lyric: cell.lyric)
-                keyboardViewController.fullScreenScroll.hideUIBarsAnimated(true)
+//                keyboardViewController.fullScreenScroll.hideUIBarsAnimated(true)
                 var data = [NSString: AnyObject]()
                 data["lyric"] = cell.lyric
 

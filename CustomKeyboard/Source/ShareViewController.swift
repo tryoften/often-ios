@@ -92,6 +92,7 @@ class ShareViewController: UIViewController {
             // Spotify button
             if track.spotifyURL != nil {
                 let button = UIButton(frame: CGRectZero)
+                button.titleLabel!.font = UIFont(name: "SSSocialRegular", size: 32)
                 button.setTitle("\u{f6b1}", forState: .Normal)
                 setupButton(button, UIColor(fromHexString: "#b8c81f"))
                 
@@ -102,6 +103,7 @@ class ShareViewController: UIViewController {
             // Soundcloud button
             if track.soundcloudURL != nil {
                 let button = UIButton(frame: CGRectZero)
+                button.titleLabel!.font = UIFont(name: "SSSocialCircle", size: 32)
                 button.setTitle("\u{f6b3}", forState: .Normal)
                 setupButton(button, UIColor(fromHexString: "#ed7233"))
                 
@@ -111,6 +113,7 @@ class ShareViewController: UIViewController {
             
             if track.youtubeURL != nil {
                 let button = UIButton(frame: CGRectZero)
+                button.titleLabel!.font = UIFont(name: "SSSocialCircle", size: 32)
                 button.setTitle("\u{f630}", forState: .Normal)
                 setupButton(button, UIColor(fromHexString: "#ce594b"))
                 
@@ -136,7 +139,6 @@ class ShareViewController: UIViewController {
         var prevButton: ALView?
         for (index, button) in enumerate(buttons) {
             let buttonAL = button as ALView
-            button.titleLabel!.font = UIFont(name: "SSSocialRegular", size: 32)
             view.addSubview(button)
             let seperator = addSeperatorNextTo(button)
             let seperatorAL = seperator as ALView
