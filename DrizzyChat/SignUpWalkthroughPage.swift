@@ -135,4 +135,15 @@ class SignUpWalkthroughPage: WalkthroughPage {
             loginButton.al_width == facebookButton.al_width / 2
         ])
     }
+    
+    override func pageDidShow() {
+        super.pageDidShow()
+        delegate?.walkthroughPage(self, shouldHideControls: true)
+    }
+    
+    override func pageDidHide() {
+        super.pageDidHide()
+        delegate?.walkthroughPage(self, shouldHideControls: false)
+//        walkthroughViewController.presentHomeView()
+    }
 }

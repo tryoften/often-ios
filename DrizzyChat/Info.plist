@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.drizzy.drizzy</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -39,6 +39,8 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>ss-glyphish-filled.ttf</string>
+		<string>ss-glyphish-outlined.ttf</string>
 		<string>ss-social-regular.ttf</string>
 		<string>Lato-Regular.ttf</string>
 		<string>ss-social-circle.ttf</string>

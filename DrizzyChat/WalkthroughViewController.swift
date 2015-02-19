@@ -26,6 +26,18 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
     var subtitles: [String]!
     var actionButton = UIButton()
     var pageWidth: CGFloat!
+
+    var fbSession: FBSession! {
+        didSet {
+            switch(fbSession.state) {
+            case .CreatedTokenLoaded:
+                
+                return
+            default:
+                break
+            }
+        }
+    }
     
     private var previousPoint: CGPoint!
     private var currentPoint: CGPoint!
@@ -39,16 +51,14 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
             "Game Changing",
             "Curated Lyrics",
             "Install Drizzy",
-            "Keep it 100, Sign Up",
-            ""
+            "Keep it 100, Sign Up"
         ]
         
         subtitles = [
             "Keep Drake in your pocket & let him do the talking for you",
             "Send the best Drizzy verses right from your keyboard",
             "Make sure you turn on \"full access\" so Drizzy can do his thing",
-            "Connect to get access to new artists, lyrics & features.",
-            ""
+            "Connect to get access to new artists, lyrics & features."
         ]
         
         previousPage = -1
@@ -95,8 +105,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
             TextConvoWalkthroughPage.self,
             AlbumCoverArtsWalkthroughPage.self,
             VideoTutorialWalkthroughPage.self,
-            SignUpWalkthroughPage.self,
-            ActionWalkthroughPage.self
+            SignUpWalkthroughPage.self
         ]
 
         for var i = 0; i < size; i++ {
@@ -190,6 +199,21 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         pages[currentPage].pageDidShow()
 
     }
+
+    func userLoggedIn() {
+        
+    }
+    
+    func userLoggedOut() {
+        
+    }
+    
+    func presentHomeView() {
+        var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+//        homeVC.seeIntroButton.addTarget(self, action: "didTapIntroButton", forControlEvents: .TouchUpInside)
+        
+        presentViewController(homeVC, animated: true, completion: nil)
+    }
     
     // MARK: WalkthroughPage
     
@@ -201,6 +225,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
                 
         })
     }
+    
 
     override func prefersStatusBarHidden() -> Bool {
         return true

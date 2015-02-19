@@ -15,6 +15,7 @@ enum TextFieldKey : Int {
 class SignUpFormViewController: UIViewController,
     UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
+    var navigationBar: UINavigationBar!
     var tableView: UITableView!
     var cells: [UITableViewCell]!
     var viewModel: SignUpFormViewModel!
@@ -36,13 +37,14 @@ class SignUpFormViewController: UIViewController,
         tableView.rowHeight = 50
         tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
-        tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0.1)
         tableView.scrollEnabled = false
         view.addSubview(tableView)
         
         cells = [UITableViewCell]()
         
         var nameRow = SignUpFormTableViewCell()
+        nameRow.icon = "\u{1F464}"
         nameField = nameRow.textField
         nameField.placeholder = "Full name"
         nameField.returnKeyType = .Next
@@ -52,6 +54,7 @@ class SignUpFormViewController: UIViewController,
         cells.append(nameRow)
         
         var emailRow = SignUpFormTableViewCell()
+        emailRow.icon = "\u{2709}"
         emailField = emailRow.textField
         emailField.placeholder = "Email"
         emailField.returnKeyType = .Next
@@ -61,6 +64,7 @@ class SignUpFormViewController: UIViewController,
         cells.append(emailRow)
         
         var passwordRow = SignUpFormTableViewCell()
+        passwordRow.icon = "\u{1F512}"
         passwordField = passwordRow.textField
         passwordField.placeholder = "Password"
         passwordField.secureTextEntry = true
@@ -76,6 +80,7 @@ class SignUpFormViewController: UIViewController,
         
 
         setupLayout()
+        nameField.becomeFirstResponder()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -146,7 +151,8 @@ class SignUpFormViewController: UIViewController,
     }
     
     func didTapCancelButton() {
-        navigationController?.popViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
+//        navigationController?.popoverPresentationController
     }
     
     func setupLayout() {

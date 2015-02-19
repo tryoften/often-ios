@@ -13,10 +13,25 @@ class SignUpFormTableViewCell: UITableViewCell {
     var iconView: UILabel!
     var textField: UITextField!
     
+    var icon: String! {
+        didSet {
+            iconView.attributedText = NSAttributedString(string: icon, attributes: [NSBaselineOffsetAttributeName: -3])
+        }
+    }
+    
+    override var layoutMargins: UIEdgeInsets {
+        get { return UIEdgeInsetsZero }
+        set(newVal) {}
+    }
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         iconView = UILabel()
+        iconView.font = UIFont(name: "SSGlyphish-Outlined", size: 23)
+        iconView.textAlignment = .Center
+        iconView.baselineAdjustment = .AlignCenters
+        iconView.textColor = UIColor(fromHexString: "#d8d8d8")
         iconView.setTranslatesAutoresizingMaskIntoConstraints(false)
         contentView.addSubview(iconView)
         
@@ -26,6 +41,9 @@ class SignUpFormTableViewCell: UITableViewCell {
         contentView.addSubview(textField)
         
         backgroundColor = UIColor.whiteColor()
+        
+        separatorInset = UIEdgeInsetsZero
+        layoutMargins = UIEdgeInsetsZero
         
         setupLayout()
     }

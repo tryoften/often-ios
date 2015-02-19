@@ -28,10 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
 
         mainController = WalkthroughViewController()
         var keyboardVC = KeyboardViewController()
-        keyboardVC.view.frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMaxY(frame) - 230, CGRectGetWidth(frame), 230)
+//        keyboardVC.view.frame = CGRectMake(CGRectGetMinX(frame), CGRectGetHeight(frame) - 230, CGRectGetWidth(frame), 230)
         
         if let window = self.window {
-            window.rootViewController = mainController
+            window.rootViewController = keyboardVC
             window.makeKeyAndVisible()
         }
         
@@ -43,6 +43,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
                 (session, state, error) -> Void in
                 self.sessionStateChanged(session, state: state, error: error)
             })
+        }
+        
+        for family in UIFont.familyNames() {
+            println("\(family)")
+
+            for name in UIFont.fontNamesForFamilyName(family as String) {
+                println("  \(name)")
+            }
         }
         
         return true
@@ -67,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        FBAppCall.handleDidBecomeActive()
+        FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
     }
 
     func applicationWillTerminate(application: UIApplication) {
