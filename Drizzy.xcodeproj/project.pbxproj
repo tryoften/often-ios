@@ -68,6 +68,10 @@
 		813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E66C11A6DA541007E15AD /* WalkthroughPage.swift */; };
 		81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */; };
 		81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */; };
+		81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
+		81413DBD1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
+		81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
+		81413DC01A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
 		816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE58F1A86B19700E42C17 /* FacebookButton.swift */; };
 		816FE5991A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
 		816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
@@ -183,6 +187,7 @@
 		81B35FB51A7A1137001A546C /* tutorial-video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 81B35FB41A7A1137001A546C /* tutorial-video.mov */; };
 		81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */; };
+		81DB4ED31A945251004EE28C /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DB4ED21A945251004EE28C /* backspace.png */; };
 		81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
 		81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
 		BE4402AFA1E84C0CFEB6ECDE /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */; };
@@ -297,6 +302,8 @@
 		813E66C11A6DA541007E15AD /* WalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughPage.swift; sourceTree = "<group>"; };
 		81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormTableViewCell.swift; sourceTree = "<group>"; };
 		81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
+		81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-outlined.ttf"; sourceTree = "<group>"; };
+		81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-filled.ttf"; sourceTree = "<group>"; };
 		816FE58F1A86B19700E42C17 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-regular.ttf"; sourceTree = "<group>"; };
 		816FE5A31A871D6700E42C17 /* TextConvoWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextConvoWalkthroughPage.swift; sourceTree = "<group>"; };
@@ -372,6 +379,7 @@
 		81B35FB41A7A1137001A546C /* tutorial-video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "tutorial-video.mov"; sourceTree = "<group>"; };
 		81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StandardKeyboardViewController.swift; path = Sources/StandardKeyboardViewController.swift; sourceTree = "<group>"; };
 		81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricFilterBar.swift; path = Sources/LyricFilterBar.swift; sourceTree = "<group>"; };
+		81DB4ED21A945251004EE28C /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
 		81E897D91A32A17F005C7CD9 /* TrackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackService.swift; path = Source/TrackService.swift; sourceTree = "<group>"; };
 		928E8AB5169157015D98D681 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
@@ -733,6 +741,9 @@
 		8180E6461A1477F2007FA1CF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				81DB4ED21A945251004EE28C /* backspace.png */,
+				81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */,
+				81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */,
 				816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */,
 				8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */,
 				81A1A4D31A196D6200D566B8 /* font_icons8.ttf */,
@@ -988,8 +999,10 @@
 				81A1A4E41A19786D00D566B8 /* .gitignore in Resources */,
 				8180E67B1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
 				8180E66B1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
+				81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */,
 				8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
 				810C407E1A21402A00170DB4 /* .gitignore in Resources */,
+				81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */,
 				8180E6591A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				8180E65D1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
 				81331E251A1806BB003E4609 /* .gitignore in Resources */,
@@ -1045,11 +1058,13 @@
 				8180E66C1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
 				816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */,
 				810C40891A21402A00170DB4 /* Info.plist in Resources */,
+				81413DC01A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */,
 				8180E6641A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
 				810C40931A21402A00170DB4 /* Info.plist in Resources */,
 				81A1A4E51A19786D00D566B8 /* .gitignore in Resources */,
 				81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */,
 				81A1A4ED1A19786D00D566B8 /* ScreenShot example.png in Resources */,
+				81413DBD1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */,
 				810C407F1A21402A00170DB4 /* .gitignore in Resources */,
 				8180E6781A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
 				81331E2C1A1806BB003E4609 /* Info.plist in Resources */,
@@ -1066,6 +1081,7 @@
 				81A1A4F31A19786D00D566B8 /* StoryboardOrXIB.png in Resources */,
 				8180E6661A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
 				8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */,
+				81DB4ED31A945251004EE28C /* backspace.png in Resources */,
 				8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
 				8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
 				8180E66E1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,

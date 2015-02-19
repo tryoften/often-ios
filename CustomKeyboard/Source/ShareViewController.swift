@@ -8,6 +8,43 @@
 
 import UIKit
 
+func addSeperatorNextTo(button: UIButton, leftSide: Bool) -> UIView {
+    var seperator = UIView(frame: CGRectZero)
+    seperator.setTranslatesAutoresizingMaskIntoConstraints(false)
+    seperator.backgroundColor = UIColor(fromHexString: "#d8d8d8")
+    button.addSubview(seperator)
+    
+    var positionConstraint: NSLayoutConstraint!
+    
+    positionConstraint = seperator.al_left == ((leftSide) ? button.al_left : button.al_right)
+    positionConstraint.priority = 250
+    
+    button.addConstraints([
+        seperator.al_width == 1.0,
+        seperator.al_height == button.al_height,
+        seperator.al_top == button.al_top,
+        positionConstraint
+    ])
+    
+    return seperator
+}
+
+func addSeperatorBelow(view: UIView) -> UIView {
+    var seperator = UIView(frame: CGRectZero)
+    seperator.setTranslatesAutoresizingMaskIntoConstraints(false)
+    seperator.backgroundColor = UIColor(fromHexString: "#d8d8d8")
+    view.addSubview(seperator)
+    
+    view.addConstraints([
+        seperator.al_height == 1.0,
+        seperator.al_width == view.al_width,
+        seperator.al_bottom == view.al_bottom,
+        seperator.al_left == view.al_left
+    ])
+    
+    return seperator
+}
+
 class ShareViewController: UIViewController {
     
     var lyric: Lyric? {
@@ -57,29 +94,6 @@ class ShareViewController: UIViewController {
             button.setTranslatesAutoresizingMaskIntoConstraints(false)
             button.contentEdgeInsets = UIEdgeInsets(top: 7.0, left: 0, bottom: 0, right: 0)
             button.addTarget(self, action: "buttonSelected:", forControlEvents: .TouchUpInside)
-        }
-        
-        func addSeperatorNextTo(button: UIButton) -> UIView {
-            var seperator = UIView(frame: CGRectZero)
-            seperator.setTranslatesAutoresizingMaskIntoConstraints(false)
-            seperator.backgroundColor = UIColor(fromHexString: "#d8d8d8")
-            
-            self.view.addSubview(seperator)
-            
-            let buttonAL = button as ALView
-            let seperatorAL = seperator as ALView
-            
-            let positionConstraint = seperatorAL.al_left == buttonAL.al_right
-            positionConstraint.priority = 250
-            
-            self.view.addConstraints([
-                seperatorAL.al_width == 1.0,
-                seperatorAL.al_height == buttonAL.al_height,
-                seperatorAL.al_top == buttonAL.al_top,
-                positionConstraint
-                ])
-            
-            return seperator
         }
 
         for button in buttons {
@@ -140,7 +154,7 @@ class ShareViewController: UIViewController {
         for (index, button) in enumerate(buttons) {
             let buttonAL = button as ALView
             view.addSubview(button)
-            let seperator = addSeperatorNextTo(button)
+            let seperator = addSeperatorNextTo(button, false)
             let seperatorAL = seperator as ALView
             
             view.addConstraints([

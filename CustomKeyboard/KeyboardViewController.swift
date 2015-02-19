@@ -127,7 +127,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             standardKeyboardView.al_width == view.al_width,
             standardKeyboardView.al_top == view.al_top + LyricFilterBarHeight + 2 * LyricTableViewCellHeight,
             standardKeyboardView.al_left == view.al_left,
-            standardKeyboardView.al_height <= 230,
+            standardKeyboardView.al_height <= 200,
             
             fixedFilterBarView.al_height == LyricFilterBarHeight,
             fixedFilterBarView.al_top == view.al_top,
@@ -253,10 +253,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func displayStandardKeyboard() {
-        var screenSize = UIScreen.mainScreen().bounds.size
-        
+        var height = 200
+            + LyricTableViewCellHeight * 2 + LyricFilterBarHeight
+
         UIView.animateWithDuration(0.5, animations: {
-            self.heightConstraint.constant = screenSize.height * 0.7
+            self.heightConstraint.constant = height
             }, completion: { done in
                 UIView.animateWithDuration(0.3, animations: {
                     self.sectionPickerView?.alpha = 0.0

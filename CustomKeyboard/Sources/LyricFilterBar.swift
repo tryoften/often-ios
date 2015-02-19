@@ -58,6 +58,8 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
                 textField.font = UIFont(name: "Lato-Light", size: 13)!
             }
         }
+        
+        addSeperatorBelow(self)
     }
     
     func setupLayout() {
