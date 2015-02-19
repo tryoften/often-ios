@@ -44,37 +44,25 @@ class SignUpWalkthroughPage: WalkthroughPage {
     }
     
     func didTapSignUpButton() {
-        var signUpFormViewController = SignUpFormViewController()
-        var navigationController = UINavigationController(rootViewController: signUpFormViewController)
-        
-        let attributes: NSDictionary = [
-            NSFontAttributeName: UIFont(name: "Lato-Regular", size: 14)!
-        ]
-
-        navigationController.navigationBar.titleTextAttributes = attributes
-        walkthroughViewController.presentViewController(navigationController, animated: true, completion: {})
     }
     
     func didTapFacebookButton() {
-        var session = FBSession.activeSession()
-        
-        // If the session state is any of the two "open" states when the button is clicked
-        if session.state == .Open || session.state == .OpenTokenExtended {
-            
-            // Close the session and remove the access token from the cache
-            // The session state handler (in the app delegate) will be called automatically
-            session.closeAndClearTokenInformation()
-        }
-        
-        // If the session state is not any of the two "open" states when the button is clicked
-        else {
-            FBSession.openActiveSessionWithReadPermissions(["public_profile"], allowLoginUI: true, completionHandler: {
-                (session: FBSession!, state: FBSessionState, err: NSError!) in
-                var appDelegate = UIApplication.sharedApplication().delegate! as AppDelegate
-                
-                appDelegate.sessionStateChanged(session, state: state, error: err)
-            })
-        }
+        PFFacebookUtils.logInWithPermissions(["public_profile", "email"], block: { (user, error) in
+            // The user cancelled the facebook login
+            if user == nil {
+                self.walkthroughViewController.getUserInfo({ (result, err) in
+                    
+                })
+            }
+            // The user signed up and logged in through facebook
+            else if user.isNew {
+                self.walkthroughViewController.presentSignUpFormView(user)
+            }
+            // User logged in through facebook
+            else {
+                self.walkthroughViewController.presentHomeView()
+            }
+        })
     }
     
     override func setupPage() {
@@ -134,6 +122,12 @@ class SignUpWalkthroughPage: WalkthroughPage {
             loginButton.al_height == 30,
             loginButton.al_width == facebookButton.al_width / 2
         ])
+    }
+    
+    func toggleLoginControls(visible: Bool) {
+        facebookButton.hidden = !visible
+        loginButton.hidden = !visible
+        signUpButton.hidden = !visible
     }
     
     override func pageDidShow() {

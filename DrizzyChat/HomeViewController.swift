@@ -16,6 +16,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var feedbackButton: UIButton!
     @IBOutlet weak var topMargin: NSLayoutConstraint!
     
+//    var loginIndicationView:
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

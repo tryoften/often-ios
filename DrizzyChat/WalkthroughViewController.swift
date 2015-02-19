@@ -208,11 +208,50 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         
     }
     
-    func presentHomeView() {
-        var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
-//        homeVC.seeIntroButton.addTarget(self, action: "didTapIntroButton", forControlEvents: .TouchUpInside)
+    func getUserInfo(completion: ([String: String]?, NSError?) -> ()) {
+        var request = FBRequest.requestForMe()
         
-        presentViewController(homeVC, animated: true, completion: nil)
+        request.startWithCompletionHandler({ (connection, result, error) in
+            
+            if error == nil {
+                println("\(result)")
+                completion(result as? [String: String], nil)
+            } else {
+                completion(nil, error)
+            }
+            
+        })
+    }
+    
+    func presentHomeView() {
+        getUserInfo({ (result, error) in
+            var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+            //        homeVC.seeIntroButton.addTarget(self, action: "didTapIntroButton", forControlEvents: .TouchUpInside)
+            
+            self.presentViewController(homeVC, animated: true, completion: nil)
+        })
+    }
+    
+    func presentSignUpFormView(fbUser: PFUser?) {
+        getUserInfo({ (result, error) in
+            var signUpFormViewController = SignUpFormViewController()
+            
+            if let user = fbUser {
+                var firstName = result!["first_name"]! as String
+                var lastName = result!["last_name"]! as String
+                signUpFormViewController.nameField.text = "\(firstName) \(lastName)"
+                signUpFormViewController.emailField.text = user.email
+            }
+            
+            var navigationController = UINavigationController(rootViewController: signUpFormViewController)
+            
+            let attributes: NSDictionary = [
+                NSFontAttributeName: UIFont(name: "Lato-Regular", size: 14)!
+            ]
+            
+            navigationController.navigationBar.titleTextAttributes = attributes
+            self.presentViewController(navigationController, animated: true, completion: {})
+        })
     }
     
     // MARK: WalkthroughPage
