@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
 
         mainController = WalkthroughViewController()
         var keyboardVC = KeyboardViewController()
-//        keyboardVC.view.frame = CGRectMake(CGRectGetMinX(frame), CGRectGetHeight(frame) - 230, CGRectGetWidth(frame), 230)
         
         if let window = self.window {
             window.rootViewController = mainController

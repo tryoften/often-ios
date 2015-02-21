@@ -177,7 +177,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         
         let currentPage = getCurrentPage()
         let pos = currentPoint.x - CGFloat(pageWidth) * CGFloat(currentPage)
-        println("position: \(pos), currentPage: \(currentPage)")
+//        println("position: \(pos), currentPage: \(currentPage)")
         
         for page in pages {
             page.scrollViewDidScroll(scrollView, position: pos)
