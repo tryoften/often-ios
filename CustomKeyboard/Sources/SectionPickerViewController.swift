@@ -91,7 +91,6 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
             var frame = self.pickerView.frame
             frame.size.height = view.superview!.bounds.height
             self.pickerView.frame = frame
-            keyboardViewController.fullScreenScroll.enabled = false
             return
         }
         
@@ -118,7 +117,6 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
                     pickerView.close()
                 }
             }
-            keyboardViewController.fullScreenScroll.enabled = true
             return
         }
         
@@ -132,13 +130,6 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
         UIView.commitAnimations()
         
         startingPoint = translation
-        
-//        if !pickerView.drawerOpened {
-//            pickerView.heightConstraint?.constant = SectionPickerViewHeight + yChange
-//        } else {
-//            pickerView.heightConstraint?.constant =
-//                pickerView.superview!.bounds.height - yChange
-//        }
         
         if yChange > threshold && !Position.isAbove {
             println("animate arrow down")
@@ -173,15 +164,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
             })
         }
     }
-    
-    //    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    //        if let category = categories?[indexPath.row] {
-    //            var selected = category == currentCategory
-    //            return selected
-    //        }
-    //        return false
-    //    }
-    
+
     // MARK: UITableViewDataSource
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

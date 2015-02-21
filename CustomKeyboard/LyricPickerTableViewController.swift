@@ -238,7 +238,8 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     func lyricFilterBarTextDidChange(lyricFilterBar: LyricFilterBar, searchText: String) {
         filteredLyrics = currentCategory?.filterLyricsByText(searchText)
         println("\(filteredLyrics)")
-        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
+//        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
+        tableView.reloadData()
     }
 }
 

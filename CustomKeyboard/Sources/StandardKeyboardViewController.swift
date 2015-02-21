@@ -30,7 +30,7 @@ class StandardKeyboardViewController: UIViewController {
         var row1 = createRowOfButtons(buttonTitles1, margin: 0)
         var row2 = createRowOfButtons(buttonTitles2, margin: screenBoundsWidth - keyWidth * CGFloat(buttonTitles2.count))
         var row3 = createRowOfButtons(buttonTitles3, margin: screenBoundsWidth - keyWidth * CGFloat(buttonTitles3.count))
-        var row4 = createRowOfButtons(buttonTitles4, margin: screenBoundsWidth - keyWidth * CGFloat(buttonTitles4.count))
+        var row4 = setupLastInputRow(buttonTitles4)
         
         self.view.addSubview(row1)
         self.view.addSubview(row2)
@@ -76,7 +76,7 @@ class StandardKeyboardViewController: UIViewController {
         button.frame = CGRectMake(0, 0, 20, 20)
         button.setTitle(title, forState: .Normal)
         button.sizeToFit()
-        button.titleLabel?.font = UIFont(name: "Lato-Light", size: 15)
+        button.titleLabel?.font = UIFont(name: "Lato-Regular", size: 18)
         button.setTranslatesAutoresizingMaskIntoConstraints(false)
         button.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
         button.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
@@ -90,6 +90,9 @@ class StandardKeyboardViewController: UIViewController {
         let button = sender as UIButton
         var proxy = parentKeyboardViewController.textDocumentProxy as UITextDocumentProxy
         
+        var animationClass: CSAnimation.Type = CSAnimation.classForAnimationType("pop") as CSAnimation.Type
+        animationClass.performAnimationOnView(button, duration: 0.2, delay: 0.0)
+
         if let title = button.titleForState(.Normal) {
             switch title {
             case "BP" :
@@ -115,35 +118,100 @@ class StandardKeyboardViewController: UIViewController {
             var leftConstraint : NSLayoutConstraint!
             var rightConstraint : NSLayoutConstraint!
             
+            
+            // Right Constraint
             if index == buttons.count - 1 {
-                rightConstraint = button.al_right == mainView.al_right - margin
+                var rightMargin = margin
+                if countElements(button.titleLabel!.text!) > 1 {
+                    rightMargin = 0
+                    button.addConstraint(button.al_width == keyWidth * 1.5 - 1)
+                }
+                rightConstraint = button.al_right == mainView.al_right - rightMargin
             }
             else {
                 let nextButton = buttons[index+1]
                 rightConstraint = button.al_right == nextButton.al_left - 1
             }
             
+            // Left Constraint
             if index == 0 {
-                leftConstraint = button.al_left == mainView.al_left + margin
-                addSeperatorNextTo(button, true)
+                var leftMargin = margin
+                if countElements(button.titleLabel!.text!) > 1 {
+                    leftMargin = 0
+                    button.addConstraint(button.al_width == keyWidth * 1.5 - 1)
+                }
+                leftConstraint = button.al_left == mainView.al_left + leftMargin
+                
+                if leftMargin != 0 {
+                    addSeperatorNextTo(button, true)
+                }
             }
             else {
                 let prevButton = buttons[index-1]
-                leftConstraint = button.al_left == prevButton.al_right + 1
+                var widthConstraint: NSLayoutConstraint!
                 
-                var widthConstraint = button.al_width == buttons[0].al_width
+                if countElements(buttons[0].titleLabel!.text!) > 1 {
+                    widthConstraint = button.al_width == buttons[1].al_width
+                } else {
+                    widthConstraint = button.al_width == buttons[0].al_width
+                }
                 widthConstraint.priority = 800
-                
                 mainView.addConstraint(widthConstraint)
+                
+                leftConstraint = button.al_left == prevButton.al_right + 1
             }
             
             addSeperatorNextTo(button, false)
-            mainView.addConstraints([topConstraint, bottomConstraint, rightConstraint, leftConstraint])
+            mainView.addConstraints([
+                topConstraint, bottomConstraint,
+                rightConstraint, leftConstraint
+            ])
         }
     }
     
-    func setupLastInputRow() {
+    func setupLastInputRow(buttonTitles: [String]) -> UIView {
+        var buttons = [UIButton]()
+        var keyboardRowView = UIView(frame: CGRectZero)
+        keyboardRowView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        var prevButton: UIButton?
         
+        for buttonTitle in buttonTitles {
+            var constraints = [NSLayoutConstraint]()
+            let button = createButtonWithTitle(buttonTitle)
+            button.setTranslatesAutoresizingMaskIntoConstraints(false)
+            buttons.append(button)
+            keyboardRowView.addSubview(button)
+            
+            constraints += [
+                button.al_height == keyboardRowView.al_height,
+                button.al_top == keyboardRowView.al_top
+            ]
+        
+            if buttonTitle == "CHG" {
+                constraints += [
+                    button.al_width == keyWidth,
+                    button.al_left == keyboardRowView.al_left
+                ]
+                addSeperatorNextTo(button, false)
+            } else if buttonTitle == "SPACE" {
+                constraints += [
+                    button.al_left == prevButton!.al_right
+                ]
+                addSeperatorNextTo(button, false)
+            } else if buttonTitle == "RETURN" {
+                constraints += [
+                    button.al_right == keyboardRowView.al_right,
+                    button.al_width == keyWidth * 2,
+                    buttons[1].al_right == button.al_left
+                ]
+            }
+            
+            keyboardRowView.addConstraints(constraints)
+            prevButton = button
+        }
+        
+        
+        return keyboardRowView
     }
     
     func addConstraintsToInputView(inputView: UIView, rowViews: [UIView]){
