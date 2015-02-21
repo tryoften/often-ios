@@ -22,7 +22,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     var selectedRow: NSIndexPath?
     var selectedCell: LyricTableViewCell?
     var trackService: TrackService?
-    var lyricFilterBar: LyricFilterBar!
     var animatingCell: Bool!
     var filteredLyrics: [Lyric]?
     var searchModeOn :Bool!
@@ -43,10 +42,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     override func viewWillAppear(animated: Bool) {
-        if lyricFilterBar == nil {
-            lyricFilterBar = LyricFilterBar(aTableView: tableView, aTargetViewController: keyboardViewController)
-            lyricFilterBar.delegate = self
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,7 +50,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
 
     // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -152,9 +146,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        if !lyricFilterBar.pulledDown {
-            scrollToNearestRow()
-        }
     }
     
     func scrollToNearestRow() {
@@ -188,15 +179,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         if tableView.decelerating {
             return
         }
-        if searchModeOn! {
-            lyricFilterBar.removeSearchBarFromTableHeaderView()
-            filteredLyrics = nil
-//            tableView.reloadData()
-//            let indexPath = tableView.indexPathForCell(cell)
-//            cell.selected = true
-//            tableView.scrollToRowAtIndexPath(indexPath!, atScrollPosition: .Top, animated: true)
-            return
-        }
         
         if let indexPath = tableView.indexPathForCell(cell) {
             selectedRow = indexPath
@@ -204,7 +186,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             
             if selected == nil || selected == false {
                 delegate?.didPickLyric(self, shareVC: cell.shareVC, lyric: cell.lyric)
-//                keyboardViewController.fullScreenScroll.hideUIBarsAnimated(true)
                 var data = [NSString: AnyObject]()
                 data["lyric"] = cell.lyric
 
@@ -238,7 +219,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     func lyricFilterBarTextDidChange(lyricFilterBar: LyricFilterBar, searchText: String) {
         filteredLyrics = currentCategory?.filterLyricsByText(searchText)
         println("\(filteredLyrics)")
-//        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Top)
         tableView.reloadData()
     }
 }

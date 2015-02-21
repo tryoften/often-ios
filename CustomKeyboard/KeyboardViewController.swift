@@ -14,7 +14,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var lyricPicker: LyricPickerTableViewController!
     var sectionPicker: SectionPickerViewController!
     var standardKeyboard: StandardKeyboardViewController!
-    var hideToolbarScroll: DrizzyFullScreenScroll!
     var heightConstraint: NSLayoutConstraint!
     var categoryService: CategoryService?
     var trackService: TrackService?
@@ -117,11 +116,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             seperatorView.al_width == view.al_width,
             seperatorView.al_top == view.al_top,
             seperatorView.al_left == view.al_left,
-            
-//            sectionPickerView.al_width == view.al_width,
-//            sectionPickerView.al_bottom == view.al_bottom,
-//            sectionPickerView.al_left == view.al_left,
-//            sectionPickerView.al_right == view.al_right,
             
             standardKeyboardView.al_bottom == view.al_bottom,
             standardKeyboardView.al_width == view.al_width,
@@ -277,33 +271,16 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         })
     }
     
-    // MARK: YIFullScreenScrollDelegate
-    
-    func fullScreenScrollDidLayoutUIBars(fullScreenScroll: YIFullScreenScroll!) {
-        
-    }
-    
     // MARK: LyricFilterBarPromotable
     func promote(shouldPromote: Bool, animated: Bool) {
         if animated {
             UIView.beginAnimations(nil, context: nil)
             UIView.setAnimationDuration(0.3)
         }
-        
-        if shouldPromote {
-            lyricPicker.lyricFilterBar.removeFromSuperview()
-            fixedFilterBarView.alpha = 1.0
-            fixedFilterBarView.addSubview(lyricPicker.lyricFilterBar)
-        } else {
-            lyricPicker.tableView.addSubview(lyricPicker.lyricFilterBar)
-            fixedFilterBarView.alpha = 0.0
-        }
     
         if animated {
             UIView.commitAnimations()
         }
-        
-//        completion(true)
     }
     
     // MARK: LyricPickerDelegate
