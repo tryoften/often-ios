@@ -1483,6 +1483,26 @@ fi
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>816CE0961A99A32700D718E1</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>LoginFormViewController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>816CE0971A99A32700D718E1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>816CE0961A99A32700D718E1</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>816FE53D1A847DAD00E42C17</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -1588,6 +1608,7 @@ echo "Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"</string>
 				<string>81794EC81A81D6D5009D4A71</string>
 				<string>8180E60F1A142157007FA1CF</string>
 				<string>816FE5AF1A881C6500E42C17</string>
+				<string>816CE0961A99A32700D718E1</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -1603,8 +1624,8 @@ echo "Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"</string>
 				<string>816FE58F1A86B19700E42C17</string>
 				<string>813E66C11A6DA541007E15AD</string>
 				<string>81413D9F1A903FCD00926E7C</string>
-				<string>816FE5A01A86E5FB00E42C17</string>
 				<string>81B6D5861A956E680089767B</string>
+				<string>816FE5A01A86E5FB00E42C17</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -2356,6 +2377,7 @@ echo "Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"</string>
 				<string>8120FB481A648BBC00EA457A</string>
 				<string>81E897E01A336E22005C7CD9</string>
 				<string>810C408C1A21402A00170DB4</string>
+				<string>816CE0971A99A32700D718E1</string>
 				<string>8180E6801A147FBA007FA1CF</string>
 				<string>81AD7FC21A298DED00C616F4</string>
 				<string>81331E141A17FA88003E4609</string>

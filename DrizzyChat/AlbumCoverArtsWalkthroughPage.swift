@@ -20,8 +20,8 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
     
     override func setupPage() {
         var images = [
+            UIImage(named: "if you're reading this now, it's too late"),
             UIImage(named: "nothing was the same"),
-            UIImage(named: "so far gone"),
             UIImage(named: "thank me later"),
             UIImage(named: "0 to 100"),
             UIImage(named: "take care"),
@@ -89,10 +89,11 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
         for (i, imageView) in enumerate(self.imageViews!) {
             imageView.alpha = 0.0
             imageView.center = CGPointMake(imageView.center.x, imageView.center.y + 100)
-            UIView.animateKeyframesWithDuration(NSTimeInterval(0.3), delay: NSTimeInterval(i) * 0.3, options: nil, animations: {
+            UIView.animateKeyframesWithDuration(NSTimeInterval(0.3), delay: NSTimeInterval(i) * 0.15, options: nil, animations: {
                 imageView.alpha = 1.0
                 imageView.center = CGPointMake(imageView.center.x, imageView.center.y - 100)
-                }, completion: nil)
+            }, completion: nil)
+            
         }
         isAnimationDone = true
     }
