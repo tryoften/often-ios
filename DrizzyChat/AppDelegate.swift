@@ -37,16 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
             window.makeKeyAndVisible()
         }
         
-        // Whenever a person opens the app, check for a cached session
-        if FBSession.activeSession().state == FBSessionState.CreatedTokenLoaded {
-            
-            // If there's one, just open the session silently, without showing the user the login UI
-            FBSession.openActiveSessionWithReadPermissions(["public_profile"], allowLoginUI: false, completionHandler: {
-                (session, state, error) -> Void in
-                self.sessionStateChanged(session, state: state, error: error)
-            })
-        }
-        
         for family in UIFont.familyNames() {
             println("\(family)")
 
@@ -60,9 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
     
     func shouldHomeViewBeShown() -> Bool {
         var visitedHomeView = NSUserDefaults.standardUserDefaults().boolForKey("visitedHomeView")
-        
-        println("visited home view: \(visitedHomeView)")
-        
         return visitedHomeView
     }
     
@@ -90,17 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
-    func sessionStateChanged(session: FBSession, state: FBSessionState, error:NSError?) {
-        // If the session was opened successfully
-        if state == FBSessionState.Open {
-            println("Session Opened")
-        }
-        // If the session closed
-        else if state == FBSessionState.Closed {
-            println("Closed")
-        }
     }
     
     // MARK: MMLayershotsDelegate
