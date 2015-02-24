@@ -19,26 +19,50 @@ class SignUpFormViewModel: NSObject {
         password = ""
     }
     
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        
+        if let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx) {
+            return emailTest.evaluateWithObject(testStr)
+        }
+        return false
+    }
+    
     func validateForm() -> String? {
         var errorMessage: String?
         
-        var regex = "[^@]+@[A-Za-z0-9.-]+\\.[A-Za-z]+"
-        var emailPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        
-        if (!(countElements(fullName) >= 1)) {
+        if !(countElements(fullName) >= 1) {
             errorMessage = "Please enter a  name"
-        } else if (emailPredicate?.evaluateWithObject(email) != nil) {
+        } else if !isValidEmail(email) {
             errorMessage = "Please enter a valid email address"
-        } else if (!(countElements(password) >= 1)) {
+        } else if !(countElements(password) >= 1) {
             errorMessage = "Please enter a valid password"
-        } else if (!(countElements(password) >= 6)) {
+        } else if !(countElements(password) >= 6) {
             errorMessage = "Password needs to be at least 6 characters"
         }
         
-        return errorMessage;
+        return errorMessage
     }
     
-    func submitForm() {
+    func submitForm(completion: (success: Bool, error: NSError?) -> ()) {
+        var user = PFUser.currentUser()
+        var isExistingUser: Bool = false
         
+        if user == nil {
+            user = PFUser()
+        } else {
+            isExistingUser = true
+        }
+        
+        user.username = email
+        user.email = email
+        user.password = password
+        user["fullName"] = fullName
+        
+        if !isExistingUser {
+            user.signUpInBackgroundWithBlock(completion)
+        } else {
+            user.saveInBackgroundWithBlock(completion)
+        }
     }
 }

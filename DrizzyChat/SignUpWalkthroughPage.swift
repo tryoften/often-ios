@@ -13,6 +13,8 @@ class SignUpWalkthroughPage: WalkthroughPage {
     var facebookButton: FacebookButton
     var signUpButton: UIButton
     var loginButton: UIButton
+    var skipButton: UIButton
+    var loginIndicatorView: LoginIndicatorView
 
     required init(frame: CGRect) {
         facebookButton = FacebookButton.button()
@@ -31,28 +33,70 @@ class SignUpWalkthroughPage: WalkthroughPage {
         loginButton.setTitleColor(BlueColor, forState: .Normal)
         loginButton.contentHorizontalAlignment = .Right
         loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        skipButton = UIButton(frame: CGRectZero)
+        skipButton.setTitle("Skip to main screen", forState: .Normal)
+        skipButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: 20)
+        skipButton.backgroundColor = UIColor(fromHexString: "#ffb61d")
+        skipButton.contentHorizontalAlignment = .Center
+        skipButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        loginIndicatorView = LoginIndicatorView(frame: CGRectZero)
+        loginIndicatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         super.init(frame: frame)
         type = .SignUpPage
         
-        facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
-        signUpButton.addTarget(self, action: "didTapSignUpButton", forControlEvents: .TouchUpInside)
-        
         addSubview(facebookButton)
         addSubview(signUpButton)
         addSubview(loginButton)
+        addSubview(skipButton)
+        addSubview(loginIndicatorView)
+        
+        facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
+        signUpButton.addTarget(self, action: "didTapSignUpButton", forControlEvents: .TouchUpInside)
+        loginButton.addTarget(self, action: "didTapLoginButton", forControlEvents: .TouchUpInside)
+        skipButton.addTarget(self, action: "didTapSkipButton", forControlEvents: .TouchUpInside)
     }
     
     func didTapSignUpButton() {
+        self.walkthroughViewController.presentSignUpFormView(nil)
+    }
+    
+    func didTapLoginButton() {
+        
+    }
+    
+    func didTapSkipButton() {
+        self.walkthroughViewController.presentHomeView(nil)
+    }
+    
+    func loginStateChanged() {
+        var currentUser = PFUser.currentUser()
+        println("\(currentUser)")
+        
+        if currentUser != nil {
+            if let fullName = currentUser["fullName"] as? String {
+                loginIndicatorView.nameLabel.text = "Wassup, \(fullName)"
+            } else {
+                loginIndicatorView.nameLabel.text = "Wassup homie"
+            }
+            skipButton.setTitle("Go to main screen", forState: .Normal)
+            signUpButton.hidden = true
+            loginButton.hidden = true
+        } else {
+            loginIndicatorView.hidden = true
+        }
     }
     
     func didTapFacebookButton() {
         PFFacebookUtils.logInWithPermissions(["public_profile", "email"], block: { (user, error) in
             // The user cancelled the facebook login
             if user == nil {
-                self.walkthroughViewController.getUserInfo({ (result, err) in
-                    
-                })
+
+                var alertView = UIAlertView(title: "Sign Up Failed", message: "The facebook sign up was cancelled or failed, please try again", delegate: nil, cancelButtonTitle: "Bah! Fine")
+                
+                alertView.show()
             }
             // The user signed up and logged in through facebook
             else if user.isNew {
@@ -60,9 +104,16 @@ class SignUpWalkthroughPage: WalkthroughPage {
             }
             // User logged in through facebook
             else {
-                self.walkthroughViewController.presentHomeView()
+                self.walkthroughViewController.getUserInfo({ (result, err) in
+                    self.walkthroughViewController.presentHomeView(result)
+                })
             }
         })
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        loginStateChanged()
     }
     
     override func setupPage() {
@@ -81,9 +132,9 @@ class SignUpWalkthroughPage: WalkthroughPage {
         var topMargin: CGFloat = 0
         
         if isIPhone5() {
-            topMargin = 60
+            topMargin = 40
         } else {
-            topMargin = 80
+            topMargin = 60
         }
         
         addSubview(cover2)
@@ -106,7 +157,7 @@ class SignUpWalkthroughPage: WalkthroughPage {
             cover3.al_centerY == cover1.al_centerY,
             cover3.al_centerX == cover1.al_centerX + 50,
             
-            facebookButton.al_top == cover1.al_bottom + 20,
+            facebookButton.al_top == cover1.al_bottom + 40,
             facebookButton.al_centerX == al_centerX,
             facebookButton.al_left == cover2.al_left,
             facebookButton.al_right == cover3.al_right,
@@ -120,7 +171,17 @@ class SignUpWalkthroughPage: WalkthroughPage {
             loginButton.al_top == facebookButton.al_bottom + 10,
             loginButton.al_right == facebookButton.al_right,
             loginButton.al_height == 30,
-            loginButton.al_width == facebookButton.al_width / 2
+            loginButton.al_width == facebookButton.al_width / 2,
+            
+            skipButton.al_bottom == al_bottom,
+            skipButton.al_left == al_left,
+            skipButton.al_width == al_width,
+            skipButton.al_height == 50,
+            
+            loginIndicatorView.al_top == cover1.al_bottom + 40,
+            loginIndicatorView.al_height == 100,
+            loginIndicatorView.al_width == al_width,
+            loginIndicatorView.al_left == al_left
         ])
     }
     
@@ -138,6 +199,5 @@ class SignUpWalkthroughPage: WalkthroughPage {
     override func pageDidHide() {
         super.pageDidHide()
         delegate?.walkthroughPage(self, shouldHideControls: false)
-//        walkthroughViewController.presentHomeView()
     }
 }

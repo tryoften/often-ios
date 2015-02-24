@@ -23,14 +23,13 @@ class SignUpFormViewController: UIViewController,
     var emailField: UITextField!
     var passwordField: UITextField!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         viewModel = SignUpFormViewModel()
         
-        title = "Sign Up"
-        view.backgroundColor = UIColor.whiteColor()
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
+        title = "Sign Up"
+
         tableView = UITableView(frame: CGRectZero, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
@@ -39,10 +38,9 @@ class SignUpFormViewController: UIViewController,
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0.1)
         tableView.scrollEnabled = false
-        view.addSubview(tableView)
-        
+
         cells = [UITableViewCell]()
-        
+
         var nameRow = SignUpFormTableViewCell()
         nameRow.icon = "\u{1F464}"
         nameField = nameRow.textField
@@ -52,7 +50,7 @@ class SignUpFormViewController: UIViewController,
         nameField.autocapitalizationType = .Words
         nameField.tag = TextFieldKey.FullName.rawValue
         cells.append(nameRow)
-        
+
         var emailRow = SignUpFormTableViewCell()
         emailRow.icon = "\u{2709}"
         emailField = emailRow.textField
@@ -62,7 +60,7 @@ class SignUpFormViewController: UIViewController,
         emailField.autocapitalizationType = .None
         emailField.tag = TextFieldKey.Email.rawValue
         cells.append(emailRow)
-        
+
         var passwordRow = SignUpFormTableViewCell()
         passwordRow.icon = "\u{1F512}"
         passwordField = passwordRow.textField
@@ -74,12 +72,23 @@ class SignUpFormViewController: UIViewController,
 
         cells.append(passwordRow)
         cells.append(provideSubmitButtonCell())
-        
+
         var cancelButton = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "didTapCancelButton")
         navigationItem.setLeftBarButtonItem(cancelButton, animated: true)
         
+    }
 
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.whiteColor()
+        view.addSubview(tableView)
         setupLayout()
+    
         nameField.becomeFirstResponder()
     }
     
@@ -140,10 +149,26 @@ class SignUpFormViewController: UIViewController,
     }
     
     func didTapSubmitButton() {
+        viewModel.fullName = nameField.text
+        viewModel.email = emailField.text
+        viewModel.password = passwordField.text
+
         var errorMessage = viewModel.validateForm()
         
         if errorMessage == nil {
-            viewModel.submitForm()
+            viewModel.submitForm({ (completed, error) in
+                if completed {
+                    var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+                    homeVC.loginIndicatorView.nameLabel.text = "Welcome, \(self.viewModel.fullName)"
+                    
+                    self.presentViewController(homeVC, animated: true, completion: nil)
+                } else {
+                    var errorMessage = (error?.userInfo as [String: AnyObject])["error"] as String
+                    var alertView = UIAlertView(title: "Sign up failed", message: "Sorry! \(errorMessage)", delegate: self, cancelButtonTitle: "Try again")
+                    alertView.show()
+
+                }
+            })
         } else {
             var alertView = UIAlertView(title: "Form Invalid", message: errorMessage, delegate: self, cancelButtonTitle: "Try again")
             alertView.show()

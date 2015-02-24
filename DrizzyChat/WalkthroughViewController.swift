@@ -95,6 +95,16 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         scrollView.frame = view.bounds
         createPages(titles.count)
         setupLayout()
+        
+        shouldHomeViewBeShown()
+    }
+    
+    func shouldHomeViewBeShown() {
+        var visitedHomeView = NSUserDefaults.standardUserDefaults().boolForKey("visitedHomeView")
+        
+        if visitedHomeView {
+            presentHomeView(nil)
+        }
     }
     
     func createPages(size: Int) {
@@ -138,6 +148,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
             pageControl.al_right == view.al_right,
             pageControl.al_width == view.al_width,
             pageControl.al_centerX == view.al_centerX,
+            
             actionButton.al_bottom == view.al_bottom,
             actionButton.al_left == view.al_left,
             actionButton.al_right == view.al_right,
@@ -175,9 +186,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         pointDelta = currentPoint.x - previousPoint.x
         previousPoint = currentPoint
         
-        let currentPage = getCurrentPage()
         let pos = currentPoint.x - CGFloat(pageWidth) * CGFloat(currentPage)
-//        println("position: \(pos), currentPage: \(currentPage)")
         
         for page in pages {
             page.scrollViewDidScroll(scrollView, position: pos)
@@ -208,14 +217,15 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         
     }
     
-    func getUserInfo(completion: ([String: String]?, NSError?) -> ()) {
+    func getUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
         var request = FBRequest.requestForMe()
         
         request.startWithCompletionHandler({ (connection, result, error) in
             
             if error == nil {
-                println("\(result)")
-                completion(result as? [String: String], nil)
+//                println("\(result)")
+                var data = result as NSDictionary
+                completion(data, nil)
             } else {
                 completion(nil, error)
             }
@@ -223,24 +233,21 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         })
     }
     
-    func presentHomeView() {
-        getUserInfo({ (result, error) in
-            var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
-            //        homeVC.seeIntroButton.addTarget(self, action: "didTapIntroButton", forControlEvents: .TouchUpInside)
-            
-            self.presentViewController(homeVC, animated: true, completion: nil)
-        })
+    func presentHomeView(userInfo: NSDictionary?) {
+        var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+        self.presentViewController(homeVC, animated: true, completion: nil)
     }
     
     func presentSignUpFormView(fbUser: PFUser?) {
         getUserInfo({ (result, error) in
-            var signUpFormViewController = SignUpFormViewController()
+            println("\(result)")
+            var signUpFormViewController = SignUpFormViewController(nibName: nil, bundle: nil)
             
             if let user = fbUser {
                 var firstName = result!["first_name"]! as String
                 var lastName = result!["last_name"]! as String
                 signUpFormViewController.nameField.text = "\(firstName) \(lastName)"
-                signUpFormViewController.emailField.text = user.email
+                signUpFormViewController.emailField.text = result!["email"] as String
             }
             
             var navigationController = UINavigationController(rootViewController: signUpFormViewController)

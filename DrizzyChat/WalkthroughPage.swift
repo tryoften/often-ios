@@ -48,9 +48,6 @@ class WalkthroughPage: UIView {
         
         addSubview(titleLabel)
         addSubview(subtitleLabel)
-        
-        setupPage()
-        setupLayout()
     }
     
     func setupLayout() {
@@ -80,8 +77,8 @@ class WalkthroughPage: UIView {
     func pageDidHide() {}
     
     func scrollViewDidScroll(scrollView: UIScrollView, position: CGFloat) {
-        self.xTitlePositionConstraint.constant = -position * 0.6
-        self.xSubtitlePositionConstraint.constant = -position * 0.9
+//        self.xTitlePositionConstraint.constant = -position * 0.6
+//        self.xSubtitlePositionConstraint.constant = -position * 0.9
     }
 
     convenience required init(coder aDecoder: NSCoder) {
@@ -90,6 +87,9 @@ class WalkthroughPage: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        setupPage()
+        setupLayout()
     }
 }
 

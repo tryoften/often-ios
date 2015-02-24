@@ -9,7 +9,6 @@
             <string>Lato-Light</string>
             <string>Lato-Light</string>
             <string>Lato-Light</string>
-            <string>Lato-Light</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -18,7 +17,6 @@
                 <outlet property="feedbackButton" destination="xmJ-YQ-dII" id="M9N-ov-jSz"/>
                 <outlet property="rateUsButton" destination="Hdv-L4-7DG" id="Q7l-Pb-e1D"/>
                 <outlet property="seeIntroButton" destination="Uui-SC-Apq" id="q4J-Ac-frn"/>
-                <outlet property="suggestLyricsButton" destination="XXC-rb-lPC" id="cWd-ae-38q"/>
                 <outlet property="topMargin" destination="JWr-ii-xSZ" id="fdC-Iy-iPG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -61,7 +59,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="136" y="458" width="129" height="28"/>
+                        <rect key="frame" x="136" y="382" width="129" height="28"/>
                     </variation>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdv-L4-7DG">
@@ -72,29 +70,14 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="146" y="382" width="110" height="28"/>
-                    </variation>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XXC-rb-lPC">
-                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                    <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="24"/>
-                    <state key="normal" title=" Suggest Lyrics" image="note">
-                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <variation key="widthClass=compact" misplaced="YES">
-                        <rect key="frame" x="110" y="306" width="180" height="28"/>
+                        <rect key="frame" x="146" y="306" width="110" height="28"/>
                     </variation>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Hdv-L4-7DG" firstAttribute="top" secondItem="XXC-rb-lPC" secondAttribute="bottom" constant="48" id="0pB-so-DKu"/>
+                <constraint firstItem="Hdv-L4-7DG" firstAttribute="top" secondItem="Uui-SC-Apq" secondAttribute="bottom" constant="48" id="4qb-mz-rS5"/>
                 <constraint firstItem="Uui-SC-Apq" firstAttribute="top" secondItem="zmx-EN-mv4" secondAttribute="bottom" constant="127" id="5i1-nZ-0g0"/>
-                <constraint firstAttribute="centerX" secondItem="XXC-rb-lPC" secondAttribute="centerX" id="9ls-qK-T3L"/>
-                <constraint firstItem="XXC-rb-lPC" firstAttribute="top" secondItem="Uui-SC-Apq" secondAttribute="bottom" constant="37" id="DK4-p4-47S">
-                    <variation key="widthClass=compact" constant="48"/>
-                </constraint>
                 <constraint firstAttribute="centerX" secondItem="zmx-EN-mv4" secondAttribute="centerX" id="HNj-Ht-5JX"/>
                 <constraint firstItem="Uui-SC-Apq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="230" id="JWr-ii-xSZ"/>
                 <constraint firstItem="zmx-EN-mv4" firstAttribute="centerX" secondItem="Uui-SC-Apq" secondAttribute="centerX" id="Tbt-GR-5dO"/>
@@ -110,19 +93,16 @@
                     <exclude reference="Uui-SC-Apq"/>
                     <exclude reference="xmJ-YQ-dII"/>
                     <exclude reference="Hdv-L4-7DG"/>
-                    <exclude reference="XXC-rb-lPC"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="0pB-so-DKu"/>
-                    <exclude reference="rQh-zi-P6b"/>
-                    <exclude reference="5i1-nZ-0g0"/>
-                    <exclude reference="JWr-ii-xSZ"/>
-                    <exclude reference="9ls-qK-T3L"/>
-                    <exclude reference="DK4-p4-47S"/>
-                    <exclude reference="dYm-kh-Bsa"/>
-                    <exclude reference="izy-Nv-hHt"/>
                     <exclude reference="HNj-Ht-5JX"/>
                     <exclude reference="Tbt-GR-5dO"/>
+                    <exclude reference="5i1-nZ-0g0"/>
+                    <exclude reference="JWr-ii-xSZ"/>
+                    <exclude reference="4qb-mz-rS5"/>
+                    <exclude reference="rQh-zi-P6b"/>
+                    <exclude reference="dYm-kh-Bsa"/>
+                    <exclude reference="izy-Nv-hHt"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
@@ -131,19 +111,16 @@
                     <include reference="Uui-SC-Apq"/>
                     <include reference="xmJ-YQ-dII"/>
                     <include reference="Hdv-L4-7DG"/>
-                    <include reference="XXC-rb-lPC"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="0pB-so-DKu"/>
-                    <include reference="rQh-zi-P6b"/>
-                    <include reference="5i1-nZ-0g0"/>
-                    <include reference="JWr-ii-xSZ"/>
-                    <include reference="9ls-qK-T3L"/>
-                    <include reference="DK4-p4-47S"/>
-                    <include reference="dYm-kh-Bsa"/>
-                    <include reference="izy-Nv-hHt"/>
                     <include reference="HNj-Ht-5JX"/>
                     <include reference="Tbt-GR-5dO"/>
+                    <include reference="5i1-nZ-0g0"/>
+                    <include reference="JWr-ii-xSZ"/>
+                    <include reference="4qb-mz-rS5"/>
+                    <include reference="rQh-zi-P6b"/>
+                    <include reference="dYm-kh-Bsa"/>
+                    <include reference="izy-Nv-hHt"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="246" y="258"/>
@@ -152,7 +129,6 @@
     <resources>
         <image name="Icon+text" width="257" height="44"/>
         <image name="mailbox" width="16" height="15"/>
-        <image name="note" width="15" height="18"/>
         <image name="phone" width="15" height="25"/>
         <image name="statsup" width="17" height="9"/>
     </resources>

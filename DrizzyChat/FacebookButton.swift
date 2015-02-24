@@ -28,6 +28,7 @@ class FacebookButton: UIButton {
 
         fbButton.backgroundColor = BlueColor
         fbButton.layer.cornerRadius = 5
+        fbButton.addTarget(fbButton, action: "didTapButton", forControlEvents: .TouchUpInside)
         
         var title = NSMutableAttributedString(string: "\u{f610}   Sign up with Facebook")
         
@@ -39,6 +40,11 @@ class FacebookButton: UIButton {
         fbButton.setAttributedTitle(title, forState: .Normal)
         
         return fbButton as FacebookButton
+    }
+    
+    func didTapButton() {
+        var animationClass: CSAnimation.Type = CSAnimation.classForAnimationType("pop") as CSAnimation.Type
+        animationClass.performAnimationOnView(self, duration: 0.2, delay: 0.0)
     }
     
     func setHighlightedColor(highlighted: Bool) {
