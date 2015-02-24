@@ -21,6 +21,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var seperatorView: UIView!
     var lastInsertedString: String?
     var fixedFilterBarView: UIView!
+    var allowFullAccessMessage: UILabel!
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -66,12 +67,23 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         fixedFilterBarView.accessibilityIdentifier = "fixed filter bar view"
         fixedFilterBarView.alpha = 0.0
         fixedFilterBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        allowFullAccessMessage = UILabel(frame: CGRectZero)
+        allowFullAccessMessage.font = UIFont(name: "Lato-Regular", size: 16)
+        allowFullAccessMessage.text = "Ayo! enable \"Full Access\" in Settings for this keyboard to work"
+        allowFullAccessMessage.numberOfLines = 0
+        allowFullAccessMessage.textAlignment = .Center
+        allowFullAccessMessage.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        allowFullAccessMessage.textColor = UIColor.blackColor()
+        allowFullAccessMessage.hidden = true
+        allowFullAccessMessage.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         view.addSubview(lyricPicker.view)
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
         view.addSubview(standardKeyboard.view)
         view.addSubview(fixedFilterBarView)
+        view.addSubview(allowFullAccessMessage)
         
         heightConstraint = view.al_height == 230
         
@@ -94,6 +106,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        var openAccessGranted = isOpenAccessGranted()
+        allowFullAccessMessage.hidden = openAccessGranted
+        fixedFilterBarView.hidden = !openAccessGranted
+        lyricPicker.view.hidden = !openAccessGranted
+        sectionPickerView?.hidden = !openAccessGranted
+    }
+    
     func setupAppearance() {
         var textAttributes = [
             NSFontAttributeName: UIFont(name: "Lato-Light", size: 15)!
@@ -101,6 +121,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         UIBarButtonItem.appearance().setTitleTextAttributes(textAttributes, forState: .Normal)
         UITextField.appearance().tintColor = UIColor.blackColor()
         UITextField.appearance().font = UIFont(name: "Lato-Light", size: 13)!
+    }
+    
+    func isOpenAccessGranted() -> Bool {
+        return UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
     }
     
     func setupLayout() {
@@ -135,6 +159,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             lyricPicker.al_left == view.al_left,
             lyricPicker.al_right == view.al_right,
             lyricPicker.al_bottom == view.al_bottom,
+            
+            allowFullAccessMessage.al_top == view.al_top,
+            allowFullAccessMessage.al_left == view.al_left,
+            allowFullAccessMessage.al_bottom == view.al_bottom,
+            allowFullAccessMessage.al_right == view.al_right
         ])
     }
 

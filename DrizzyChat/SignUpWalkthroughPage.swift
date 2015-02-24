@@ -24,7 +24,7 @@ class SignUpWalkthroughPage: WalkthroughPage {
         signUpButton.setTitle("Sign up with email", forState: .Normal)
         signUpButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: 14)
         signUpButton.setTitleColor(BlueColor, forState: .Normal)
-        signUpButton.contentHorizontalAlignment = .Left
+        signUpButton.contentHorizontalAlignment = .Center
         signUpButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         loginButton = UIButton(frame: CGRectZero)
@@ -33,6 +33,7 @@ class SignUpWalkthroughPage: WalkthroughPage {
         loginButton.setTitleColor(BlueColor, forState: .Normal)
         loginButton.contentHorizontalAlignment = .Right
         loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        loginButton.hidden = true
         
         skipButton = UIButton(frame: CGRectZero)
         skipButton.setTitle("Skip to main screen", forState: .Normal)
@@ -166,7 +167,7 @@ class SignUpWalkthroughPage: WalkthroughPage {
             signUpButton.al_top == facebookButton.al_bottom + 10,
             signUpButton.al_left == facebookButton.al_left,
             signUpButton.al_height == 30,
-            signUpButton.al_width == facebookButton.al_width / 2,
+            signUpButton.al_width == facebookButton.al_width,
             
             loginButton.al_top == facebookButton.al_bottom + 10,
             loginButton.al_right == facebookButton.al_right,

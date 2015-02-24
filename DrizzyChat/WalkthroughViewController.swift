@@ -95,16 +95,6 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         scrollView.frame = view.bounds
         createPages(titles.count)
         setupLayout()
-        
-        shouldHomeViewBeShown()
-    }
-    
-    func shouldHomeViewBeShown() {
-        var visitedHomeView = NSUserDefaults.standardUserDefaults().boolForKey("visitedHomeView")
-        
-        if visitedHomeView {
-            presentHomeView(nil)
-        }
     }
     
     func createPages(size: Int) {

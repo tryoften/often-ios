@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
 
     var window: UIWindow?
-    var mainController: WalkthroughViewController!
+    var mainController: UIViewController!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         MMLayershots.sharedInstance().delegate = self
@@ -27,7 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
         window = UIWindow(frame: frame)
 
         mainController = WalkthroughViewController()
-        var keyboardVC = KeyboardViewController()
+        
+        if shouldHomeViewBeShown() {
+            mainController = HomeViewController(nibName:  "HomeViewController", bundle: nil)
+        }
         
         if let window = self.window {
             window.rootViewController = mainController
@@ -53,6 +56,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
         }
         
         return true
+    }
+    
+    func shouldHomeViewBeShown() -> Bool {
+        var visitedHomeView = NSUserDefaults.standardUserDefaults().boolForKey("visitedHomeView")
+        
+        println("visited home view: \(visitedHomeView)")
+        
+        return visitedHomeView
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {

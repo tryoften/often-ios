@@ -22,10 +22,6 @@ class HomeViewController: UIViewController {
         
         loginIndicatorView = LoginIndicatorView(frame: CGRectZero)
         loginIndicatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        view.backgroundColor = UIColor(fromHexString: "#f7f7f7")
-        view.addSubview(loginIndicatorView)
-        setupLayout()
     }
 
     convenience required init(coder aDecoder: NSCoder) {
@@ -35,9 +31,14 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        if isIPhone5() {
-//            topMargin.constant = 190
-//        }
+        view.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        view.addSubview(loginIndicatorView)
+        
+        setupLayout()
+        
+        if isIPhone5() {
+            topMargin.constant = 190
+        }
         
         var currentUser = PFUser.currentUser()
         
@@ -56,7 +57,7 @@ class HomeViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "visitedHomeVew")
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "visitedHomeView")
     }
     
     func didTapSeeIntroButton() {
@@ -65,7 +66,7 @@ class HomeViewController: UIViewController {
     }
     
     func didTapRateUsButton() {
-        
+        UIApplication.sharedApplication().openURL(NSURL(string: "itms-apps://itunes.apple.com/app/id955090584")!)
     }
     
     func didTapFeedbackButton() {
