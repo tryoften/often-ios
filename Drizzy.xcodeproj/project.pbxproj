@@ -38,6 +38,12 @@
 		810C40971A21402A00170DB4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 810C407C1A21402A00170DB4 /* LICENSE */; };
 		810C40981A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
 		810C40991A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
+		81164A881A9D670600AE5B30 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */; };
+		81164A891A9D670600AE5B30 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */; };
+		81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
+		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
+		81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
+		81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
 		8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
 		8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
 		8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
@@ -284,6 +290,10 @@
 		810C407B1A21402A00170DB4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		810C407C1A21402A00170DB4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		810C407D1A21402A00170DB4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
+		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-circle.ttf"; sourceTree = "<group>"; };
 		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
@@ -402,9 +412,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794EEB1A81E66D009D4A71 /* libsqlite3.dylib in Frameworks */,
-				81794F181A81F50E009D4A71 /* FacebookSDK.framework in Frameworks */,
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
+				81794F181A81F50E009D4A71 /* FacebookSDK.framework in Frameworks */,
 				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
 				81794EE11A81E649009D4A71 /* Security.framework in Frameworks */,
@@ -412,8 +423,10 @@
 				81794EDD1A81E63B009D4A71 /* MobileCoreServices.framework in Frameworks */,
 				81794EDB1A81E633009D4A71 /* CoreLocation.framework in Frameworks */,
 				81794ED91A81E62D009D4A71 /* CoreGraphics.framework in Frameworks */,
+				81164A881A9D670600AE5B30 /* ParseCrashReporting.framework in Frameworks */,
 				81794ED71A81E621009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */,
+				81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */,
 				81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */,
 				4CAB6DC932CA670B7FE8D53A /* libPods-Drizzy.a in Frameworks */,
 				61566BC87701869D7B506BC0 /* libPods.a in Frameworks */,
@@ -434,7 +447,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */,
+				81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */,
+				81164A891A9D670600AE5B30 /* ParseCrashReporting.framework in Frameworks */,
 				81794F101A81F202009D4A71 /* ParseFacebookUtils.framework in Frameworks */,
 				81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */,
 				81794EFE1A81ECD5009D4A71 /* Security.framework in Frameworks */,
@@ -472,8 +488,12 @@
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				81164A8E1A9D699800AE5B30 /* libstdc++.dylib */,
+				81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */,
 				81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */,
 				81794EE81A81E666009D4A71 /* libz.dylib */,
+				81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */,
+				81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */,
 				81794F171A81F50E009D4A71 /* FacebookSDK.framework */,
 				81794F0E1A81F202009D4A71 /* ParseFacebookUtils.framework */,
 				81794EE61A81E660009D4A71 /* SystemConfiguration.framework */,
@@ -865,6 +885,7 @@
 				8180E63D1A142199007FA1CF /* Embed App Extensions */,
 				819A375B1A9806900041F5E0 /* Update Bundle Version */,
 				45728D1C2D72036A77085D41 /* Copy Pods Resources */,
+				81164A7E1A9D661C00AE5B30 /* Upload Symbols to Parse */,
 			);
 			buildRules = (
 			);
@@ -904,6 +925,7 @@
 				81C8EE301A3B7E8E00EBAA78 /* ShellScript */,
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
+				81164A9B1A9D760900AE5B30 /* Upload Symbols to Parse */,
 			);
 			buildRules = (
 			);
@@ -1163,6 +1185,34 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		81164A7E1A9D661C00AE5B30 /* Upload Symbols to Parse */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload Symbols to Parse";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/luc/parse/\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+		};
+		81164A9B1A9D760900AE5B30 /* Upload Symbols to Parse */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload Symbols to Parse";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/luc/parse/\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 		819A375B1A9806900041F5E0 /* Update Bundle Version */ = {
 			isa = PBXShellScriptBuildPhase;
