@@ -26,9 +26,6 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon+text" translatesAutoresizingMaskIntoConstraints="NO" id="zmx-EN-mv4">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uui-SC-Apq">
                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                     <constraints>
@@ -73,11 +70,16 @@
                         <rect key="frame" x="146" y="306" width="110" height="28"/>
                     </variation>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon+text" translatesAutoresizingMaskIntoConstraints="NO" id="zmx-EN-mv4">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Hdv-L4-7DG" firstAttribute="top" secondItem="Uui-SC-Apq" secondAttribute="bottom" constant="48" id="4qb-mz-rS5"/>
-                <constraint firstItem="Uui-SC-Apq" firstAttribute="top" secondItem="zmx-EN-mv4" secondAttribute="bottom" constant="127" id="5i1-nZ-0g0"/>
+                <constraint firstItem="Uui-SC-Apq" firstAttribute="top" secondItem="zmx-EN-mv4" secondAttribute="bottom" constant="127" id="5i1-nZ-0g0">
+                    <variation key="widthClass=compact" constant="91"/>
+                </constraint>
                 <constraint firstAttribute="centerX" secondItem="zmx-EN-mv4" secondAttribute="centerX" id="HNj-Ht-5JX"/>
                 <constraint firstItem="Uui-SC-Apq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="230" id="JWr-ii-xSZ"/>
                 <constraint firstItem="zmx-EN-mv4" firstAttribute="centerX" secondItem="Uui-SC-Apq" secondAttribute="centerX" id="Tbt-GR-5dO"/>
@@ -89,38 +91,38 @@
             </constraints>
             <variation key="default">
                 <mask key="subviews">
-                    <exclude reference="zmx-EN-mv4"/>
                     <exclude reference="Uui-SC-Apq"/>
                     <exclude reference="xmJ-YQ-dII"/>
                     <exclude reference="Hdv-L4-7DG"/>
+                    <exclude reference="zmx-EN-mv4"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="HNj-Ht-5JX"/>
-                    <exclude reference="Tbt-GR-5dO"/>
-                    <exclude reference="5i1-nZ-0g0"/>
-                    <exclude reference="JWr-ii-xSZ"/>
                     <exclude reference="4qb-mz-rS5"/>
                     <exclude reference="rQh-zi-P6b"/>
+                    <exclude reference="5i1-nZ-0g0"/>
+                    <exclude reference="JWr-ii-xSZ"/>
                     <exclude reference="dYm-kh-Bsa"/>
                     <exclude reference="izy-Nv-hHt"/>
+                    <exclude reference="HNj-Ht-5JX"/>
+                    <exclude reference="Tbt-GR-5dO"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
                 <mask key="subviews">
-                    <include reference="zmx-EN-mv4"/>
                     <include reference="Uui-SC-Apq"/>
                     <include reference="xmJ-YQ-dII"/>
                     <include reference="Hdv-L4-7DG"/>
+                    <include reference="zmx-EN-mv4"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="HNj-Ht-5JX"/>
-                    <include reference="Tbt-GR-5dO"/>
-                    <include reference="5i1-nZ-0g0"/>
-                    <include reference="JWr-ii-xSZ"/>
                     <include reference="4qb-mz-rS5"/>
                     <include reference="rQh-zi-P6b"/>
+                    <include reference="5i1-nZ-0g0"/>
+                    <include reference="JWr-ii-xSZ"/>
                     <include reference="dYm-kh-Bsa"/>
                     <include reference="izy-Nv-hHt"/>
+                    <include reference="HNj-Ht-5JX"/>
+                    <include reference="Tbt-GR-5dO"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="246" y="258"/>
