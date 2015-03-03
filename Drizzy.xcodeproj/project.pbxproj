@@ -8,14 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4CAB6DC932CA670B7FE8D53A /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34D409EF9C892829C2F11DC4 /* libPods-Drizzy.a */; };
-		61566BC87701869D7B506BC0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 818B2DB82ED1FAA95A878B9D /* libPods.a */; };
 		810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
-		810C407E1A21402A00170DB4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 810C406B1A21402A00170DB4 /* .gitignore */; };
-		810C407F1A21402A00170DB4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 810C406B1A21402A00170DB4 /* .gitignore */; };
-		810C40801A21402A00170DB4 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 810C406C1A21402A00170DB4 /* .travis.yml */; };
-		810C40811A21402A00170DB4 /* .travis.yml in Resources */ = {isa = PBXBuildFile; fileRef = 810C406C1A21402A00170DB4 /* .travis.yml */; };
 		810C40821A21402A00170DB4 /* ExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C406E1A21402A00170DB4 /* ExecutionContext.swift */; };
 		810C40831A21402A00170DB4 /* ExecutionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C406E1A21402A00170DB4 /* ExecutionContext.swift */; };
 		810C40841A21402A00170DB4 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C406F1A21402A00170DB4 /* Future.swift */; };
@@ -32,12 +27,6 @@
 		810C408F1A21402A00170DB4 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40741A21402A00170DB4 /* Result.swift */; };
 		810C40921A21402A00170DB4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 810C407A1A21402A00170DB4 /* Info.plist */; };
 		810C40931A21402A00170DB4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 810C407A1A21402A00170DB4 /* Info.plist */; };
-		810C40941A21402A00170DB4 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407B1A21402A00170DB4 /* CHANGELOG.md */; };
-		810C40951A21402A00170DB4 /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407B1A21402A00170DB4 /* CHANGELOG.md */; };
-		810C40961A21402A00170DB4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 810C407C1A21402A00170DB4 /* LICENSE */; };
-		810C40971A21402A00170DB4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 810C407C1A21402A00170DB4 /* LICENSE */; };
-		810C40981A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
-		810C40991A21402A00170DB4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 810C407D1A21402A00170DB4 /* README.md */; };
 		81164A881A9D670600AE5B30 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */; };
 		81164A891A9D670600AE5B30 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */; };
 		81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
@@ -58,10 +47,6 @@
 		81331E131A17FA85003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
 		81331E141A17FA88003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
 		81331E151A17FA8B003E4609 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E081A17EC52003E4609 /* CategoryService.swift */; };
-		81331E251A1806BB003E4609 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 81331E181A1806BB003E4609 /* .gitignore */; };
-		81331E261A1806BB003E4609 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 81331E181A1806BB003E4609 /* .gitignore */; };
-		81331E271A1806BB003E4609 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 81331E191A1806BB003E4609 /* LICENSE */; };
-		81331E281A1806BB003E4609 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 81331E191A1806BB003E4609 /* LICENSE */; };
 		81331E2B1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
@@ -172,20 +157,8 @@
 		819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */; };
 		81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
 		81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
-		81A1A4E41A19786D00D566B8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DA1A19786D00D566B8 /* .gitignore */; };
-		81A1A4E51A19786D00D566B8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DA1A19786D00D566B8 /* .gitignore */; };
-		81A1A4E61A19786D00D566B8 /* ILTranslucentView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DB1A19786D00D566B8 /* ILTranslucentView.podspec */; };
-		81A1A4E71A19786D00D566B8 /* ILTranslucentView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DB1A19786D00D566B8 /* ILTranslucentView.podspec */; };
-		81A1A4E81A19786D00D566B8 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DC1A19786D00D566B8 /* LICENSE */; };
-		81A1A4E91A19786D00D566B8 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DC1A19786D00D566B8 /* LICENSE */; };
-		81A1A4EA1A19786D00D566B8 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4DD1A19786D00D566B8 /* README.md */; };
-		81A1A4EB1A19786D00D566B8 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4DD1A19786D00D566B8 /* README.md */; };
-		81A1A4EC1A19786D00D566B8 /* ScreenShot example.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DE1A19786D00D566B8 /* ScreenShot example.png */; };
-		81A1A4ED1A19786D00D566B8 /* ScreenShot example.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4DE1A19786D00D566B8 /* ScreenShot example.png */; };
 		81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */; };
 		81A1A4EF1A19786D00D566B8 /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */; };
-		81A1A4F21A19786D00D566B8 /* StoryboardOrXIB.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4E31A19786D00D566B8 /* StoryboardOrXIB.png */; };
-		81A1A4F31A19786D00D566B8 /* StoryboardOrXIB.png in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4E31A19786D00D566B8 /* StoryboardOrXIB.png */; };
 		81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
@@ -201,7 +174,6 @@
 		81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
 		81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
 		BE4402AFA1E84C0CFEB6ECDE /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */; };
-		FF0DC9F89E8EA72618FEE026 /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B49383CD7898F4FE37014E84 /* libPods-Drizzy.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,8 +247,6 @@
 		34D409EF9C892829C2F11DC4 /* libPods-Drizzy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Drizzy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		810C406B1A21402A00170DB4 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		810C406C1A21402A00170DB4 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		810C406E1A21402A00170DB4 /* ExecutionContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecutionContext.swift; sourceTree = "<group>"; };
 		810C406F1A21402A00170DB4 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		810C40701A21402A00170DB4 /* FutureUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureUtils.swift; sourceTree = "<group>"; };
@@ -287,9 +257,6 @@
 		810C40751A21402A00170DB4 /* BrightFutures.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = BrightFutures.xcodeproj; sourceTree = "<group>"; };
 		810C40791A21402A00170DB4 /* BrightFuturesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrightFuturesTests.swift; sourceTree = "<group>"; };
 		810C407A1A21402A00170DB4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		810C407B1A21402A00170DB4 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
-		810C407C1A21402A00170DB4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		810C407D1A21402A00170DB4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
@@ -302,9 +269,6 @@
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		81331E081A17EC52003E4609 /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryService.swift; path = Source/CategoryService.swift; sourceTree = "<group>"; };
 		81331E111A17F9F3003E4609 /* Lyric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lyric.swift; path = Source/Lyric.swift; sourceTree = "<group>"; };
-		81331E181A1806BB003E4609 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		81331E191A1806BB003E4609 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		81331E1A1A1806BB003E4609 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		81331E1C1A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E1D1A1806BB003E4609 /* SwiftAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftAutoLayout.h; sourceTree = "<group>"; };
 		81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayout.swift; sourceTree = "<group>"; };
@@ -376,17 +340,10 @@
 		8180E6571A147A77007FA1CF /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
 		8180E6581A147A77007FA1CF /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Source/LyricTableViewCell.swift; sourceTree = "<group>"; };
-		818B2DB82ED1FAA95A878B9D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentlyUsedCategory.swift; path = Sources/RecentlyUsedCategory.swift; sourceTree = "<group>"; };
 		81A1A4D31A196D6200D566B8 /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
-		81A1A4DA1A19786D00D566B8 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		81A1A4DB1A19786D00D566B8 /* ILTranslucentView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ILTranslucentView.podspec; sourceTree = "<group>"; };
-		81A1A4DC1A19786D00D566B8 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		81A1A4DD1A19786D00D566B8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		81A1A4DE1A19786D00D566B8 /* ScreenShot example.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ScreenShot example.png"; sourceTree = "<group>"; };
 		81A1A4E01A19786D00D566B8 /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
 		81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
-		81A1A4E31A19786D00D566B8 /* StoryboardOrXIB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StoryboardOrXIB.png; sourceTree = "<group>"; };
 		81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HEXString.h"; sourceTree = "<group>"; };
 		81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEXString.m"; sourceTree = "<group>"; };
 		81ABAAE71A15820600456A5A /* SectionPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerView.swift; path = Source/SectionPickerView.swift; sourceTree = "<group>"; };
@@ -402,7 +359,6 @@
 		928E8AB5169157015D98D681 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		B49383CD7898F4FE37014E84 /* libPods-Drizzy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Drizzy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.debug.xcconfig"; sourceTree = "<group>"; };
 		FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -429,8 +385,6 @@
 				81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */,
 				81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */,
 				4CAB6DC932CA670B7FE8D53A /* libPods-Drizzy.a in Frameworks */,
-				61566BC87701869D7B506BC0 /* libPods.a in Frameworks */,
-				FF0DC9F89E8EA72618FEE026 /* libPods-Drizzy.a in Frameworks */,
 				81794F0F1A81F202009D4A71 /* ParseFacebookUtils.framework in Frameworks */,
 				81794ED01A81E5C3009D4A71 /* Parse.framework in Frameworks */,
 			);
@@ -509,8 +463,6 @@
 				81794ECD1A81E5C3009D4A71 /* Parse.framework */,
 				7C41CA3C514F8735A05DD019 /* libPods-CustomKeyboard.a */,
 				34D409EF9C892829C2F11DC4 /* libPods-Drizzy.a */,
-				818B2DB82ED1FAA95A878B9D /* libPods.a */,
-				B49383CD7898F4FE37014E84 /* libPods-Drizzy.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -518,14 +470,9 @@
 		810C406A1A21402A00170DB4 /* BrightFutures */ = {
 			isa = PBXGroup;
 			children = (
-				810C406B1A21402A00170DB4 /* .gitignore */,
-				810C406C1A21402A00170DB4 /* .travis.yml */,
 				810C406D1A21402A00170DB4 /* BrightFutures */,
 				810C40751A21402A00170DB4 /* BrightFutures.xcodeproj */,
 				810C40781A21402A00170DB4 /* BrightFuturesTests */,
-				810C407B1A21402A00170DB4 /* CHANGELOG.md */,
-				810C407C1A21402A00170DB4 /* LICENSE */,
-				810C407D1A21402A00170DB4 /* README.md */,
 			);
 			path = BrightFutures;
 			sourceTree = "<group>";
@@ -596,9 +543,6 @@
 		81331E171A1806BB003E4609 /* SwiftAutoLayout */ = {
 			isa = PBXGroup;
 			children = (
-				81331E181A1806BB003E4609 /* .gitignore */,
-				81331E191A1806BB003E4609 /* LICENSE */,
-				81331E1A1A1806BB003E4609 /* README.md */,
 				81331E1B1A1806BB003E4609 /* SwiftAutoLayout */,
 				81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */,
 				81331E221A1806BB003E4609 /* SwiftAutoLayoutTests */,
@@ -823,13 +767,7 @@
 		81A1A4D91A19786D00D566B8 /* ILTranslucentView */ = {
 			isa = PBXGroup;
 			children = (
-				81A1A4DA1A19786D00D566B8 /* .gitignore */,
-				81A1A4DB1A19786D00D566B8 /* ILTranslucentView.podspec */,
-				81A1A4DC1A19786D00D566B8 /* LICENSE */,
-				81A1A4DD1A19786D00D566B8 /* README.md */,
-				81A1A4DE1A19786D00D566B8 /* ScreenShot example.png */,
 				81A1A4DF1A19786D00D566B8 /* Source */,
-				81A1A4E31A19786D00D566B8 /* StoryboardOrXIB.png */,
 			);
 			path = ILTranslucentView;
 			sourceTree = "<group>";
@@ -1046,40 +984,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				8180E6651A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
-				81A1A4E41A19786D00D566B8 /* .gitignore in Resources */,
 				8180E67B1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
 				8180E66B1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
 				81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */,
 				8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
-				810C407E1A21402A00170DB4 /* .gitignore in Resources */,
 				81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */,
 				8180E6591A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				8180E65D1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
 				81DC50AA1A9C2C5A00E2AA9B /* tutorial-video.mov in Resources */,
-				81331E251A1806BB003E4609 /* .gitignore in Resources */,
-				810C40961A21402A00170DB4 /* LICENSE in Resources */,
 				816FE5991A86D7A500E42C17 /* ss-social-regular.ttf in Resources */,
-				81A1A4E81A19786D00D566B8 /* LICENSE in Resources */,
 				8180E6711A147A78007FA1CF /* Lato-MediumItalic.ttf in Resources */,
 				8180E6771A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
 				810C40881A21402A00170DB4 /* Info.plist in Resources */,
 				8180E65B1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
 				8180E6671A147A78007FA1CF /* Lato-HeavyItalic.ttf in Resources */,
 				81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */,
-				81A1A4E61A19786D00D566B8 /* ILTranslucentView.podspec in Resources */,
 				810C40921A21402A00170DB4 /* Info.plist in Resources */,
 				8180E6631A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
-				810C40801A21402A00170DB4 /* .travis.yml in Resources */,
-				81A1A4EC1A19786D00D566B8 /* ScreenShot example.png in Resources */,
 				8180E65F1A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
 				8180E6751A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
 				8180E66F1A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
 				8180E6611A147A78007FA1CF /* Lato-Hairline.ttf in Resources */,
-				81331E271A1806BB003E4609 /* LICENSE in Resources */,
 				8180E6691A147A78007FA1CF /* Lato-Italic.ttf in Resources */,
 				8180E6151A142157007FA1CF /* Images.xcassets in Resources */,
 				8180E6791A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
-				81A1A4F21A19786D00D566B8 /* StoryboardOrXIB.png in Resources */,
 				8180E66D1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
 				81331E2B1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6731A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
@@ -1098,37 +1026,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81A1A4E71A19786D00D566B8 /* ILTranslucentView.podspec in Resources */,
 				8180E6681A147A78007FA1CF /* Lato-HeavyItalic.ttf in Resources */,
 				8180E65C1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
 				8180E6621A147A78007FA1CF /* Lato-Hairline.ttf in Resources */,
-				81A1A4E91A19786D00D566B8 /* LICENSE in Resources */,
 				8180E67A1A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
-				81331E261A1806BB003E4609 /* .gitignore in Resources */,
 				8180E66C1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
 				816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */,
 				810C40891A21402A00170DB4 /* Info.plist in Resources */,
 				81413DC01A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */,
 				8180E6641A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
 				810C40931A21402A00170DB4 /* Info.plist in Resources */,
-				81A1A4E51A19786D00D566B8 /* .gitignore in Resources */,
 				81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */,
-				81A1A4ED1A19786D00D566B8 /* ScreenShot example.png in Resources */,
 				81413DBD1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */,
-				810C407F1A21402A00170DB4 /* .gitignore in Resources */,
 				8180E6781A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
 				81331E2C1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6701A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
 				8180E66A1A147A78007FA1CF /* Lato-Italic.ttf in Resources */,
 				8180E65E1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
-				810C40811A21402A00170DB4 /* .travis.yml in Resources */,
 				8180E6721A147A78007FA1CF /* Lato-MediumItalic.ttf in Resources */,
-				81331E281A1806BB003E4609 /* LICENSE in Resources */,
-				810C40971A21402A00170DB4 /* LICENSE in Resources */,
 				8180E6601A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
 				8180E6761A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
 				8180E6741A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
-				81A1A4F31A19786D00D566B8 /* StoryboardOrXIB.png in Resources */,
 				8180E6661A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
 				8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				81DB4ED31A945251004EE28C /* backspace.png in Resources */,
@@ -1285,14 +1203,11 @@
 				816FE5AE1A87284600E42C17 /* ActionWalkthroughPage.swift in Sources */,
 				81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */,
 				816FE5A41A871D6700E42C17 /* TextConvoWalkthroughPage.swift in Sources */,
-				810C40981A21402A00170DB4 /* README.md in Sources */,
 				810C40861A21402A00170DB4 /* FutureUtils.swift in Sources */,
 				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */,
 				81331E151A17FA8B003E4609 /* CategoryService.swift in Sources */,
-				81A1A4EA1A19786D00D566B8 /* README.md in Sources */,
-				810C40941A21402A00170DB4 /* CHANGELOG.md in Sources */,
 				8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */,
@@ -1326,12 +1241,10 @@
 				810C408F1A21402A00170DB4 /* Result.swift in Sources */,
 				810C40831A21402A00170DB4 /* ExecutionContext.swift in Sources */,
 				81A1A4EF1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
-				810C40991A21402A00170DB4 /* README.md in Sources */,
 				81331E121A17F9F3003E4609 /* Lyric.swift in Sources */,
 				812D74811A3E5E480083F655 /* SectionPickerViewController.swift in Sources */,
 				81B6D5911A95B1F90089767B /* KeyboardKey.swift in Sources */,
 				81240A7A1A33BCF600E946F8 /* Track.swift in Sources */,
-				81A1A4EB1A19786D00D566B8 /* README.md in Sources */,
 				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
@@ -1343,7 +1256,6 @@
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */,
 				8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */,
-				810C40951A21402A00170DB4 /* CHANGELOG.md in Sources */,
 				810C40851A21402A00170DB4 /* Future.swift in Sources */,
 				817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */,
 				81331E051A17E538003E4609 /* Category.swift in Sources */,
