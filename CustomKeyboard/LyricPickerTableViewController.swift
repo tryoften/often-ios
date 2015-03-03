@@ -43,6 +43,9 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     
     override func viewWillAppear(animated: Bool) {
     }
+    
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -119,6 +122,14 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if interfaceOrientation == .LandscapeLeft
+            || interfaceOrientation == .LandscapeRight {
+
+            if indexPath == selectedRow {
+                return 120
+            }
+        }
+        
         if indexPath == selectedRow {
             return 171
         }

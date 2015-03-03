@@ -62,12 +62,13 @@ class TrackMetadataView: UIView {
             contentView.al_centerY == al_centerY,
             contentView.al_height == al_height,
             contentView.al_width == titleLabel.al_width + 45.0,
+//            contentView.al_width < al_width,
 
             coverArtView.al_centerY == contentView.al_centerY,
             coverArtView.al_left == contentView.al_left,
             
             titleLabel.al_left == coverArtView.al_right + 10.0,
-//            titleLabel.al_right == contentView.al_right,
+            titleLabel.al_right == contentView.al_right,
             titleLabel.al_centerY == contentView.al_centerY,
             
             seperatorView.al_height == 1.0,

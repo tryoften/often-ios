@@ -114,7 +114,7 @@ class LyricTableViewCell: UITableViewCell {
             lyricView.al_width == contentView.al_width,
             lyricView.al_top == contentView.al_top,
             lyricView.al_left == contentView.al_left,
-            lyricView.al_height == 75.0,
+            lyricView.al_height == LyricTableViewCellHeight,
             
             lyricLabel.al_left == lyricView.al_left + 10.0,
             lyricLabel.al_right == lyricView.al_right - 10.0,

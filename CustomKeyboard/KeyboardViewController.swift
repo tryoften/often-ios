@@ -30,6 +30,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ParseCrashReporting.enable()
+        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
+        AFNetworkReachabilityManager.sharedManager().startMonitoring()
+        
         Firebase.setOption("persistence", to: true)
         var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
         categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
@@ -70,7 +74,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         allowFullAccessMessage = UILabel(frame: CGRectZero)
         allowFullAccessMessage.font = UIFont(name: "Lato-Regular", size: 16)
-        allowFullAccessMessage.text = "Ayo! enable \"Full Access\" in Settings for this keyboard to work"
+        allowFullAccessMessage.text = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to his thing"
         allowFullAccessMessage.numberOfLines = 0
         allowFullAccessMessage.textAlignment = .Center
         allowFullAccessMessage.backgroundColor = UIColor(fromHexString: "#f7f7f7")
@@ -78,17 +82,18 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         allowFullAccessMessage.hidden = true
         allowFullAccessMessage.setTranslatesAutoresizingMaskIntoConstraints(false)
 
+        view.addSubview(allowFullAccessMessage)
         view.addSubview(lyricPicker.view)
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
         view.addSubview(standardKeyboard.view)
         view.addSubview(fixedFilterBarView)
-        view.addSubview(allowFullAccessMessage)
         
         heightConstraint = view.al_height == 230
         
         setupLayout()
         setupAppearance()
+        layoutSectionPickerView()
 
         standardKeyboard.addConstraintsToInputView(standardKeyboard.view, rowViews: standardKeyboard.rowViews)
         
@@ -96,22 +101,62 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             self.sectionPicker.categories = self.categoryService?.categories
             return
         }
-    
-        let superviewHeight = CGRectGetHeight(view.frame)
-        if let sectionPickerView = self.sectionPickerView {
-            sectionPickerView.frame = CGRectMake(CGRectGetMinX(view.frame),
-                superviewHeight - SectionPickerViewHeight,
-                CGRectGetWidth(view.frame),
-                superviewHeight)
+
+        AFNetworkReachabilityManager.sharedManager().setReachabilityStatusChangeBlock { status in
+            dispatch_async(dispatch_get_main_queue(), {
+                
+                // if there's no connectivity and no cached data
+                if status == .NotReachable && !self.trackService!.isDataLoaded {
+                    self.reachabilityStatusChanged(false)
+                } else {
+                    self.reachabilityStatusChanged(true)
+                }
+            })
         }
     }
     
     override func viewWillAppear(animated: Bool) {
         var openAccessGranted = isOpenAccessGranted()
+        
+        allowFullAccessMessage.text = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to his thing"
         allowFullAccessMessage.hidden = openAccessGranted
         fixedFilterBarView.hidden = !openAccessGranted
         lyricPicker.view.hidden = !openAccessGranted
-        sectionPickerView?.hidden = !openAccessGranted
+        
+        if !openAccessGranted {
+            return
+        }
+        
+        if !trackService!.isDataLoaded {
+            var internetReachable = AFNetworkReachabilityManager.sharedManager().reachable
+            reachabilityStatusChanged(internetReachable)
+        }
+    }
+    
+    
+    override func viewWillLayoutSubviews() {
+        if !sectionPickerView!.drawerOpened {
+            layoutSectionPickerView()
+        }
+    }
+    
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        layoutSectionPickerView()
+    }
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        layoutSectionPickerView()
+    }
+    
+    func reachabilityStatusChanged(internetReachable: Bool) {
+        allowFullAccessMessage.hidden = internetReachable
+        fixedFilterBarView.hidden = !internetReachable
+        lyricPicker.view.hidden = !internetReachable
+        
+        if !internetReachable {
+            allowFullAccessMessage.text = "No Internet Connection"
+        } else {
+            self.sectionPicker.categories = self.categoryService?.categories
+        }
     }
     
     func setupAppearance() {
@@ -125,6 +170,16 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func isOpenAccessGranted() -> Bool {
         return UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
+    }
+    
+    func layoutSectionPickerView() {
+        let superviewHeight = CGRectGetHeight(view.frame)
+        if let sectionPickerView = self.sectionPickerView {
+            sectionPickerView.frame = CGRectMake(CGRectGetMinX(view.frame),
+                superviewHeight - SectionPickerViewHeight,
+                CGRectGetWidth(view.frame),
+                superviewHeight)
+        }
     }
     
     func setupLayout() {
@@ -141,20 +196,20 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             seperatorView.al_top == view.al_top,
             seperatorView.al_left == view.al_left,
             
-            standardKeyboardView.al_bottom == view.al_bottom,
-            standardKeyboardView.al_width == view.al_width,
-            standardKeyboardView.al_top == view.al_top + LyricFilterBarHeight + 2 * LyricTableViewCellHeight,
-            standardKeyboardView.al_left == view.al_left,
-            standardKeyboardView.al_height <= 200,
-            
-            fixedFilterBarView.al_height == LyricFilterBarHeight,
-            fixedFilterBarView.al_top == view.al_top,
-            fixedFilterBarView.al_width == view.al_width,
-            fixedFilterBarView.al_left == view.al_left
+//            standardKeyboardView.al_bottom == view.al_bottom,
+//            standardKeyboardView.al_width == view.al_width,
+//            standardKeyboardView.al_top == view.al_top + (LyricFilterBarHeight + 2 * 75),
+//            standardKeyboardView.al_left == view.al_left,
+//            standardKeyboardView.al_height <= 200
         ])
         
         //lyric Picker
         view.addConstraints([
+            fixedFilterBarView.al_height == LyricFilterBarHeight,
+            fixedFilterBarView.al_top == view.al_top,
+            fixedFilterBarView.al_width == view.al_width,
+            fixedFilterBarView.al_left == view.al_left,
+
             lyricPicker.al_top == view.al_top,
             lyricPicker.al_left == view.al_left,
             lyricPicker.al_right == view.al_right,
@@ -162,7 +217,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             
             allowFullAccessMessage.al_top == view.al_top,
             allowFullAccessMessage.al_left == view.al_left,
-            allowFullAccessMessage.al_bottom == view.al_bottom,
+            allowFullAccessMessage.al_bottom == view.al_bottom - LyricFilterBarHeight,
             allowFullAccessMessage.al_right == view.al_right
         ])
     }
@@ -333,5 +388,26 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL]) {
         insertLyric(shareViewController.lyric!, selectedOptions:options)
+    }
+    
+    class func isConnectedToNetwork() -> Bool {
+        
+        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
+        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
+            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0)).takeRetainedValue()
+        }
+        
+        var flags: SCNetworkReachabilityFlags = 0
+        if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == 0 {
+            return false
+        }
+        
+        let isReachable = (flags & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        
+        return (isReachable && !needsConnection) ? true : false
     }
 }

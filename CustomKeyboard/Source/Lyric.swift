@@ -39,9 +39,12 @@ class Lyric: NSObject, DebugPrintable {
         var dict: [String: AnyObject] = [
             "id": id,
             "text": text,
-            "category_id": categoryId,
-            "track_id": trackId!
+            "category_id": categoryId
         ]
+        
+        if let trackId = trackId {
+            dict["track_id"] = trackId
+        }
         
         if let trackData = track?.toDictionary() {
             dict["track"] = trackData

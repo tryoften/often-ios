@@ -42,7 +42,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
         super.viewDidLoad()
         
         panRecognizer = UIPanGestureRecognizer(target: self, action: "didPanView:")
-        view.addGestureRecognizer(panRecognizer)
+//        view.addGestureRecognizer(panRecognizer)
         
         let toggleSelector = Selector("toggleDrawer")
         tapRecognizer = UITapGestureRecognizer(target: self, action: toggleSelector)
