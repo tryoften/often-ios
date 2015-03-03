@@ -3,12 +3,12 @@ platform :ios, '8.0'
 
 source 'https://github.com/CocoaPods/Specs.git'
 
-pod 'MMLayershots'
+#pod 'MMLayershots'
 
 target 'Drizzy' do
   pod 'Firebase', '>= 2.0.2'
   pod 'Canvas', '~> 0.1'
-  pod 'Reveal-iOS-SDK', '~> 1.5'
+#  pod 'Reveal-iOS-SDK', '~> 1.5'
   pod 'YIFullScreenScroll', '~> 1.4'
 #  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
@@ -21,7 +21,7 @@ end
 target 'CustomKeyboard' do
   pod 'Firebase', '>= 2.0.2'
   pod 'Canvas', '~> 0.1'
-  pod 'Reveal-iOS-SDK', '~> 1.5'
+#  pod 'Reveal-iOS-SDK', '~> 1.5'
   pod 'YIFullScreenScroll', '~> 1.4'
 #  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'

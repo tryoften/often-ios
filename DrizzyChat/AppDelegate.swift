@@ -9,13 +9,12 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var mainController: UIViewController!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        MMLayershots.sharedInstance().delegate = self
 
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
@@ -30,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
         mainController = WalkthroughViewController()
         
         if shouldHomeViewBeShown() {
-            mainController = HomeViewController(nibName:  "HomeViewController", bundle: nil)
+            mainController = HomeViewController(nibName: "HomeViewController", bundle: nil)
         }
         
         if let window = self.window {
@@ -79,21 +78,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    // MARK: MMLayershotsDelegate
-    
-    func shouldCreateLayershotForScreen(screen: UIScreen!) -> MMLayershotsCreatePolicy {
-        return .NowPolicy
-    }
-    
-    func didCreateLayershotForScreen(screen: UIScreen!, data: NSData!) {
-
-        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        var documentsDirectory = paths.first as NSString
-        var filePath = documentsDirectory.stringByAppendingPathComponent("layershots.psd")
-        data.writeToFile(filePath, atomically: false)
-        println("Saving psd to \(filePath)")
-    }
-
 }
 
