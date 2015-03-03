@@ -16,8 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MMLayershotsDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         MMLayershots.sharedInstance().delegate = self
-        
-        Parse.setApplicationId("L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G", clientKey: "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN")
+
+        ParseCrashReporting.enable()
+        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
