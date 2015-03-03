@@ -154,8 +154,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         if !internetReachable {
             allowFullAccessMessage.text = "No Internet Connection"
-        } else {
-            self.sectionPicker.categories = self.categoryService?.categories
         }
     }
     

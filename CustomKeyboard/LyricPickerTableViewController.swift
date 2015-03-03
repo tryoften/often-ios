@@ -23,7 +23,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     var selectedCell: LyricTableViewCell?
     var trackService: TrackService?
     var animatingCell: Bool!
-    var filteredLyrics: [Lyric]?
     var searchModeOn :Bool!
 
     override func viewDidLoad() {
@@ -58,9 +57,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if filteredLyrics != nil {
-            return filteredLyrics!.count
-        }
+
         if let category = currentCategory {
             return category.lyrics!.count
         }
@@ -71,7 +68,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(LyricTableViewCellIdentifier, forIndexPath: indexPath) as LyricTableViewCell
         
-        var lyrics = filteredLyrics == nil ? currentCategory?.lyrics : filteredLyrics
+        var lyrics = currentCategory?.lyrics
         var lyric = lyrics![indexPath.row]
         
         cell.lyric = lyric
@@ -83,7 +80,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as LyricTableViewCell
         
-        var lyrics = filteredLyrics == nil ? currentCategory?.lyrics : filteredLyrics
+        var lyrics = currentCategory?.lyrics
         var lyric = lyrics?[indexPath.row]
         
         selectedRow = indexPath
@@ -228,9 +225,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     func lyricFilterBarTextDidChange(lyricFilterBar: LyricFilterBar, searchText: String) {
-        filteredLyrics = currentCategory?.filterLyricsByText(searchText)
-        println("\(filteredLyrics)")
-        tableView.reloadData()
     }
 }
 
