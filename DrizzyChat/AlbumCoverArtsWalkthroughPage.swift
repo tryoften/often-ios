@@ -36,6 +36,7 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
         var topMargin: CGFloat = 0
         var prevPicLeft: UIImageView?
         var prevPicRight: UIImageView?
+        var scale = UIScreen.mainScreen().scale
         
         if isIPhone5() {
             topMargin = 240
@@ -53,6 +54,10 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
             if isIPhone5() {
                 fullHeight -= 20
                 fullWidth -= 20
+                imageView.frame = CGRectMake(0, 0, fullWidth, fullHeight)
+            } else if scale == 3.0 {
+                fullHeight -= 30
+                fullWidth -= 30
                 imageView.frame = CGRectMake(0, 0, fullWidth, fullHeight)
             }
             

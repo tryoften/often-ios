@@ -32,6 +32,7 @@ class TextConvoWalkthroughPage: WalkthroughPage {
         var prevDelay: NSTimeInterval = 0
         var prevView: UIView = self.subtitleLabel
         var side: String
+        var scale = UIScreen.mainScreen().scale
         
         for (i, image) in enumerate(textImages) {
             var scaledImage: UIImage!
@@ -39,7 +40,11 @@ class TextConvoWalkthroughPage: WalkthroughPage {
             
             if isIPhone5() {
                 scaledImage = UIImage(CGImage: image?.CGImage, scale: CGFloat(0.5), orientation: UIImageOrientation.Up)
-                imageSize.height = imageSize.height - 8
+                imageSize.height = imageSize.height - 9
+                imageSize.width = (imageSize.height / image!.size.height) * image!.size.width
+            } else if scale == 3.0 {
+                scaledImage = UIImage(CGImage: image?.CGImage, scale: CGFloat(0.5), orientation: UIImageOrientation.Up)
+                imageSize.height = imageSize.height - 12
                 imageSize.width = (imageSize.height / image!.size.height) * image!.size.width
             } else {
                 scaledImage = image
