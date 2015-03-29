@@ -23,8 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFFacebookUtils.initializeFacebook()
         FBAppEvents.activateApp()
 
-        let frame = UIScreen.mainScreen().bounds
+        var screen = UIScreen.mainScreen()
+        let frame = screen.bounds
         window = UIWindow(frame: frame)
+        
+        var userNotificationTypes = UIUserNotificationType.Alert |
+            UIUserNotificationType.Badge |
+            UIUserNotificationType.Sound
+        var settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
 
         mainController = WalkthroughViewController()
         
@@ -37,15 +46,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.makeKeyAndVisible()
         }
         
-        for family in UIFont.familyNames() {
-            println("\(family)")
-
-            for name in UIFont.fontNamesForFamilyName(family as String) {
-                println("  \(name)")
-            }
-        }
+//        for family in UIFont.familyNames() {
+//            println("\(family)")
+//
+//            for name in UIFont.fontNamesForFamilyName(family as String) {
+//                println("  \(name)")
+//            }
+//        }
         
         return true
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        var currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation.setDeviceTokenFromData(deviceToken)
+        currentInstallation.addUniqueObject("Lyrics", forKey: "channels")
+        currentInstallation.saveInBackgroundWithBlock({ saved in
+            
+        })
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        println("Registration failed \(error)")
+    }
+
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        PFPush.handlePush(userInfo)
     }
     
     func shouldHomeViewBeShown() -> Bool {

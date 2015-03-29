@@ -63,6 +63,8 @@
 		81413DBD1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
 		81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
 		81413DC01A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
+		81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
+		81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		816CE0971A99A32700D718E1 /* LoginFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816CE0961A99A32700D718E1 /* LoginFormViewController.swift */; };
 		816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE58F1A86B19700E42C17 /* FacebookButton.swift */; };
 		816FE5991A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
@@ -282,6 +284,7 @@
 		81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
 		81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-outlined.ttf"; sourceTree = "<group>"; };
 		81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-filled.ttf"; sourceTree = "<group>"; };
+		81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceList.swift"; sourceTree = "<group>"; };
 		816CE0961A99A32700D718E1 /* LoginFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFormViewController.swift; sourceTree = "<group>"; };
 		816FE58F1A86B19700E42C17 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-regular.ttf"; sourceTree = "<group>"; };
@@ -671,6 +674,7 @@
 				813E66BA1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m */,
 				810C40641A21125B00170DB4 /* Constants.swift */,
 				81794EC91A81D6D5009D4A71 /* HomeViewController.xib */,
+				81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */,
 			);
 			path = DrizzyChat;
 			sourceTree = "<group>";
@@ -897,6 +901,7 @@
 					};
 					8180E61C1A142158007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = LMA3M32RE8;
 						TestTargetID = 8180E6071A142157007FA1CF;
 					};
 					8180E6301A142199007FA1CF = {
@@ -1211,6 +1216,7 @@
 				8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */,
+				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */,
 				81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
 				819982AD1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
@@ -1263,6 +1269,7 @@
 				810C40871A21402A00170DB4 /* FutureUtils.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
+				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				810C408D1A21402A00170DB4 /* Queue.swift in Sources */,
 				813E66BC1A6CEA5A007E15AD /* DrizzyFullScreenScroll.m in Sources */,
 				81331E091A17EC52003E4609 /* CategoryService.swift in Sources */,
@@ -1304,6 +1311,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1324,7 +1332,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "a3392855-4102-42e3-aa92-ca7d189f18c6";
+				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1362,7 +1370,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "a3392855-4102-42e3-aa92-ca7d189f18c6";
+				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1374,7 +1382,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Luc Succes (78UP337X3V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1386,7 +1394,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Drizzy;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1398,7 +1406,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Luc Succes (78UP337X3V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1410,7 +1418,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Drizzy;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1420,6 +1428,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1431,6 +1441,7 @@
 				INFOPLIST_FILE = DrizzyChatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DrizzyTests;
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Drizzy.app/Drizzy";
 			};
 			name = Debug;
@@ -1439,6 +1450,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1446,6 +1459,7 @@
 				INFOPLIST_FILE = DrizzyChatTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = DrizzyTests;
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Drizzy.app/Drizzy";
 			};
 			name = Release;
@@ -1455,7 +1469,7 @@
 			baseConfigurationReference = FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Luc Succes (78UP337X3V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1468,13 +1482,14 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = CustomKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0cb99d94-351c-4a80-8fb3-ec7d466e4afd";
+				PROVISIONING_PROFILE = "f009054f-0df0-44a5-9506-eab5d90b4c8f";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
@@ -1494,13 +1509,14 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = CustomKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0cb99d94-351c-4a80-8fb3-ec7d466e4afd";
+				PROVISIONING_PROFILE = "f009054f-0df0-44a5-9506-eab5d90b4c8f";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
