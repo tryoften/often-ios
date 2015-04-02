@@ -8,13 +8,24 @@
 
 import UIKit
 
-enum ShareOption {
+enum ShareOption : Printable {
     case Spotify
     case Soundcloud
     case YouTube
     case RapGenius
     case Lyric
     case Unknown
+    
+    var description : String {
+        switch self {
+        case .Spotify: return "spotify"
+        case .Soundcloud: return "soundcloud"
+        case .YouTube: return "youtube"
+        case .RapGenius: return "genius"
+        case .Lyric: return "lyric"
+        case .Unknown: return "unknown"
+        }
+    }
 }
 
 class Track: NSObject {

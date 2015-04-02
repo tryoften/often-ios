@@ -8,6 +8,8 @@
 
 import UIKit
 
+let EnableFullAccessMessage = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to do his thing"
+
 class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, LyricFilterBarPromotable, YIFullScreenScrollDelegate {
 
     var nextKeyboardButton: UIButton!
@@ -22,6 +24,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var lastInsertedString: String?
     var fixedFilterBarView: UIView!
     var allowFullAccessMessage: UILabel!
+    var currentlyInjectedLyric: Lyric?
+    var lyricInserted = false
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -30,9 +34,18 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        println(Diagnostics.platformString())
+        
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
+//        
+//        Flurry.startSession(FlurryClientKey)
+//        Flurry.setCrashReportingEnabled(true)
+//        Flurry.setDebugLogEnabled(true)
+//        Flurry.logEvent("Keyboard_Loaded")
+        var configuration = SEGAnalyticsConfiguration(writeKey: "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI")
+        SEGAnalytics.setupWithConfiguration(configuration)
         
         Firebase.setOption("persistence", to: true)
         var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
@@ -74,7 +87,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         allowFullAccessMessage = UILabel(frame: CGRectZero)
         allowFullAccessMessage.font = UIFont(name: "Lato-Regular", size: 16)
-        allowFullAccessMessage.text = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to his thing"
+        allowFullAccessMessage.text = EnableFullAccessMessage
         allowFullAccessMessage.numberOfLines = 0
         allowFullAccessMessage.textAlignment = .Center
         allowFullAccessMessage.backgroundColor = UIColor(fromHexString: "#f7f7f7")
@@ -91,10 +104,12 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         heightConstraint = view.al_height == 230
         
+        getCurrentUser()
         setupLayout()
         setupAppearance()
         layoutSectionPickerView()
-
+        
+        SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
         standardKeyboard.addConstraintsToInputView(standardKeyboard.view, rowViews: standardKeyboard.rowViews)
         
         categoryService?.requestData { categories in
@@ -115,10 +130,21 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
     }
     
+    func getCurrentUser() {
+        var currentUser = PFUser.currentUser()
+        
+        if currentUser != nil {
+            SEGAnalytics.sharedAnalytics().identify(currentUser.objectId, traits: [
+                "email": currentUser["email"]
+            ])
+//            Flurry.setUserID(currentUser.objectId)
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
         var openAccessGranted = isOpenAccessGranted()
         
-        allowFullAccessMessage.text = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to his thing"
+        allowFullAccessMessage.text = EnableFullAccessMessage
         allowFullAccessMessage.hidden = openAccessGranted
         fixedFilterBarView.hidden = !openAccessGranted
         lyricPicker.view.hidden = !openAccessGranted
@@ -238,17 +264,41 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func textWillChange(textInput: UITextInput) {
         // The app is about to change the document's contents. Perform any preparation here.
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        
+        if !proxy.hasText() {
+            return
+        }
+        
+//        if !proxy.documentContextAfterInput.isEmpty {
+//            var characterCount = proxy.documentContextAfterInput.utf16Count
+//            proxy.adjustTextPositionByCharacterOffset(characterCount)
+//        }
+        
+        var context = proxy.documentContextBeforeInput
+        
+        println("context: \(context)")
+        
+        if let injectedLyric = currentlyInjectedLyric {
+            // Whether the current context is the currently selected lyric on not
+            lyricInserted = injectedLyric == context
+        }
     }
 
     override func textDidChange(textInput: UITextInput) {
-        // The app has just changed the document's contents, the document context has been updated.
-    
-        var textColor: UIColor
         var proxy = textDocumentProxy as UITextDocumentProxy
-        if proxy.keyboardAppearance == UIKeyboardAppearance.Dark {
-            textColor = UIColor.whiteColor()
-        } else {
-            textColor = UIColor.blackColor()
+        var analytics = SEGAnalytics.sharedAnalytics()
+        // When the lyric is flushed and sent to the proper context
+        if lyricInserted && !proxy.hasText() {
+            if let lyric = currentlyInjectedLyric {
+                analytics.track("Lyric_committed", properties: [
+                    "lyric_id": lyric.id,
+                    "lyric_text": lyric.text,
+                ])
+            } else {
+                analytics.track("Lyric_committed")
+//                Flurry.logEvent("Lyric_committed")
+            }
         }
     }
     
@@ -286,22 +336,30 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     func insertLyric(lyric: Lyric, selectedOptions: [ShareOption: NSURL]?) {
         let proxy = textDocumentProxy as UIKeyInput
         var text = ""
+        var optionKeys = [String]()
         
         if let options = selectedOptions {
             
             if (options.indexForKey(.Lyric) != nil) {
-                text = lyric.text + "\n\n"
+                text = lyric.text + "\n"
             }
             
             for (option, url) in options {
+                optionKeys.append(option.description)
                 if option == .Lyric {
                     continue
                 }
-                text += shareStringForOption(option, url: url)
+                text = text + "\n" + shareStringForOption(option, url: url)
             }
         } else {
-            text = lyric.text + "\n"
+            text = lyric.text
         }
+        
+        SEGAnalytics.sharedAnalytics().track("Lyric_Inserted", properties: [
+            "lyric_id": lyric.id,
+            "lyric_text": lyric.text,
+            "share_options": optionKeys
+        ])
         
         clearInput()
         proxy.insertText(text)
@@ -325,7 +383,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                 break
         }
         
-        return shareString + url.absoluteString! + "\n"
+        return shareString + url.absoluteString!
     }
     
     func displayStandardKeyboard() {
@@ -368,7 +426,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     // MARK: LyricPickerDelegate
     func didPickLyric(lyricPicker: LyricPickerTableViewController,shareVC: ShareViewController, lyric: Lyric?) {
         shareVC.delegate = self
-        
+        currentlyInjectedLyric = lyric
         insertLyric(lyric!, selectedOptions: nil)
     }
     
@@ -386,26 +444,5 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL]) {
         insertLyric(shareViewController.lyric!, selectedOptions:options)
-    }
-    
-    class func isConnectedToNetwork() -> Bool {
-        
-        var zeroAddress = sockaddr_in(sin_len: 0, sin_family: 0, sin_port: 0, sin_addr: in_addr(s_addr: 0), sin_zero: (0, 0, 0, 0, 0, 0, 0, 0))
-        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
-        zeroAddress.sin_family = sa_family_t(AF_INET)
-        
-        let defaultRouteReachability = withUnsafePointer(&zeroAddress) {
-            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0)).takeRetainedValue()
-        }
-        
-        var flags: SCNetworkReachabilityFlags = 0
-        if SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) == 0 {
-            return false
-        }
-        
-        let isReachable = (flags & UInt32(kSCNetworkFlagsReachable)) != 0
-        let needsConnection = (flags & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
-        
-        return (isReachable && !needsConnection) ? true : false
     }
 }

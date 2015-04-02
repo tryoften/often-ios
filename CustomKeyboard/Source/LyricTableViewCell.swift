@@ -132,9 +132,10 @@ class LyricTableViewCell: UITableViewCell {
             seperatorView.al_height == 1.0,
             
             metadataView.al_height == 50.0,
-            metadataView.al_width == infoView.al_width,
+            metadataView.al_width <= infoView.al_width,
             metadataView.al_top == infoView.al_top,
             metadataView.al_left == infoView.al_left,
+            metadataView.al_right == infoView.al_right,
             
             shareView.al_width == infoView.al_width,
             shareView.al_top == metadataView.al_bottom,

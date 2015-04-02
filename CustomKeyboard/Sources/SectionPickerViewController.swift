@@ -63,12 +63,21 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
             })
         }
         
+        SEGAnalytics.sharedAnalytics().track("Drawer_Toggled")
         if (!pickerView.drawerOpened) {
             pickerView.open()
+
         } else {
             pickerView.close()
+            var params = [String: String]()
+            
+            if let currentCategory = currentCategory {
+                params["current_category_id"] = currentCategory.id
+            }
+//            Flurry.endTimedEvent("Drawer_Toggled", withParameters: params)
         }
         pickerView.drawerOpened = !pickerView.drawerOpened
+        
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -154,6 +163,11 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
         currentCategory = category
         pickerView.currentCategoryLabel.text = category.name
         toggleDrawer()
+        
+        SEGAnalytics.sharedAnalytics().track("Category_Selected", properties: [
+            "category_name": category.name,
+            "category_id": category.id
+        ])
         
         if category.id == "recently" {
             pickerView.delegate?.didSelectSection(pickerView, category: category)

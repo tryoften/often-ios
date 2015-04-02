@@ -177,8 +177,9 @@ class ShareViewController: UIViewController {
     internal func buttonSelected(button: UIButton!) {
         button.selected = !button.selected
         var selectedOptions = [ShareOption: NSURL]()
-        
+        var buttonTag = ShareOption.Unknown.description
         let duration = 0.3 / 3
+        
         button.transform = CGAffineTransformMakeScale(1, 1);
         
         UIView.animateKeyframesWithDuration(duration, delay: 0, options: nil, animations: {
@@ -193,6 +194,21 @@ class ShareViewController: UIViewController {
                         })
                 })
         })
+        
+        if button == spotifyButton {
+            buttonTag = ShareOption.Spotify.description
+        } else if button == soundcloudButton {
+            buttonTag = ShareOption.Soundcloud.description
+        } else if button == youtubeButton {
+            buttonTag = ShareOption.YouTube.description
+        } else if button == lyricButton {
+            buttonTag = ShareOption.Lyric.description
+        }
+        
+        SEGAnalytics.sharedAnalytics().track("ShareOption_Toggled", properties: [
+            "tag": buttonTag,
+            "selected": button.selected
+        ])
         
         if let options = lyric?.track?.getShareOptions() {
             if spotifyButton != nil && spotifyButton!.selected {
