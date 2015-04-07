@@ -20,9 +20,114 @@ PODS:
   - AFNetworking/UIKit (2.5.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Amplitude-iOS (2.2.4)
+  - Analytics (1.11.2):
+    - Analytics/Amplitude (= 1.11.2)
+    - Analytics/AppsFlyer (= 1.11.2)
+    - Analytics/Bugsnag (= 1.11.2)
+    - Analytics/Core-iOS (= 1.11.2)
+    - Analytics/Countly (= 1.11.2)
+    - Analytics/Crittercism (= 1.11.2)
+    - Analytics/Flurry (= 1.11.2)
+    - Analytics/GoogleAnalytics (= 1.11.2)
+    - Analytics/Kahuna (= 1.11.2)
+    - Analytics/Localytics (= 1.11.2)
+    - Analytics/Mixpanel (= 1.11.2)
+    - Analytics/Optimizely (= 1.11.2)
+    - Analytics/Quantcast (= 1.11.2)
+    - Analytics/Segmentio (= 1.11.2)
+    - Analytics/Taplytics (= 1.11.2)
+    - Analytics/Tapstream (= 1.11.2)
+  - Analytics/Amplitude (1.11.2):
+    - Amplitude-iOS (= 2.2.4)
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+  - Analytics/AppsFlyer (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - AppsFlyer-SDK (= 2.5.3.10)
+  - Analytics/Bugsnag (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - Bugsnag (= 4.0.3)
+  - Analytics/Core-iOS (1.11.2):
+    - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
+  - Analytics/Countly (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - Countly (= 1.0.0)
+  - Analytics/Crittercism (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - CrittercismSDK (= 5.0.5)
+  - Analytics/Flurry (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - FlurrySDK (= 4.4.0)
+  - Analytics/GoogleAnalytics (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - GoogleAnalytics-iOS-SDK (= 3.10)
+    - GoogleAnalytics-iOS-SDK/IDFA (= 3.10)
+  - Analytics/Kahuna (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - KahunaSDK (= 1.0.520)
+  - Analytics/Localytics (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - Localytics (= 3.1.0)
+  - Analytics/Mixpanel (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - Mixpanel (= 2.6.0)
+  - Analytics/Optimizely (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - Optimizely-iOS-SDK (= 1.0.75)
+  - Analytics/Quantcast (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - Quantcast-Measure (= 1.4.6)
+  - Analytics/Segmentio (1.11.2):
+    - Analytics/Core-iOS
+  - Analytics/Taplytics (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - Taplytics (= 2.1.60)
+  - Analytics/Tapstream (1.11.2):
+    - Analytics/Core-iOS
+    - Analytics/Segmentio
+    - Tapstream (= 2.8.3)
+  - AppsFlyer-SDK (2.5.3.10)
+  - Bugsnag (4.0.3):
+    - Bugsnag/no-arc (= 4.0.3)
+  - Bugsnag/no-arc (4.0.3)
   - Canvas (0.1.2)
+  - Countly (1.0.0)
+  - CrittercismSDK (5.0.5)
   - Firebase (2.2.0)
+  - FlurrySDK (4.4.0):
+    - FlurrySDK/FlurrySDK (= 4.4.0)
+  - FlurrySDK/FlurrySDK (4.4.0)
+  - GoogleAnalytics-iOS-SDK (3.10):
+    - GoogleAnalytics-iOS-SDK/Core (= 3.10)
+  - GoogleAnalytics-iOS-SDK/Core (3.10)
+  - GoogleAnalytics-iOS-SDK/IDFA (3.10):
+    - GoogleAnalytics-iOS-SDK/Core
   - JRSwizzle (1.0)
+  - KahunaSDK (1.0.520)
+  - Localytics (3.1.0)
+  - Mixpanel (2.6.0):
+    - Mixpanel/MPCategoryHelpers (= 2.6.0)
+  - Mixpanel/MPCategoryHelpers (2.6.0)
+  - Optimizely-iOS-SDK (1.0.75)
+  - Quantcast-Measure (1.4.6):
+    - Quantcast-Measure/Core (= 1.4.6)
+  - Quantcast-Measure/Core (1.4.6)
+  - Taplytics (2.1.60)
+  - Tapstream (2.8.3)
+  - TRVSDictionaryWithCaseInsensitivity (0.0.2)
   - ViewUtils (1.1.2)
   - YIFullScreenScroll (1.4.0):
     - JRSwizzle (~> 1.0)
@@ -30,16 +135,33 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - Analytics (~> 1.11)
   - Canvas (~> 0.1)
   - Firebase (>= 2.0.2)
   - YIFullScreenScroll (~> 1.4)
 
 SPEC CHECKSUMS:
-  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
-  Canvas: ae2faca05a15c4d6659fb3ae5e2a14817df4449a
-  Firebase: e7a2ea2ffeff99f9c37028b354194dcc9718d36b
-  JRSwizzle: 30da7a2c539a4ebf954b16d15f6dd8221c9f6fa5
-  ViewUtils: 11aaceb3b215b3d051c2f00ae143133a71095365
-  YIFullScreenScroll: 715c0b189cfc7ee1cfbd8ca300f27fb1e3ee85f5
+  AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
+  Amplitude-iOS: bd609dc4b2b20602866f6739a10494764e4cf666
+  Analytics: 1e5d01a5466f0e171193142757e69590ffb1a5fb
+  AppsFlyer-SDK: f83ad2e0821c57852512ea0bb8d3b207c64ef698
+  Bugsnag: 7267951d92ac48ff264b605cf65b42208dfde905
+  Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
+  Countly: 61e8a4518699221846db98f09a5d6f2b38267a25
+  CrittercismSDK: 807a7ae007fc0f5e14973926ac846351650e3bce
+  Firebase: e5f9cf72c72a9fdaf7e136012b6c52a263a23ca7
+  FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946
+  GoogleAnalytics-iOS-SDK: 4f98a376c1d61e6ac4ca47951655820314856eef
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
+  KahunaSDK: c99d1a178bfbd38ba20696895f1373dab9d790be
+  Localytics: 87268a820c285f6f5ed3fa505a176c049ed07462
+  Mixpanel: 488567f7138408f360377dd46e1d189655f8b435
+  Optimizely-iOS-SDK: 857b640aebe3bbe1770ba7b1715666e224a066bd
+  Quantcast-Measure: 415d204ee4010b27493369e131cec09de1b5acf5
+  Taplytics: 99885a3f3345a1cc8121abc76146769d33858999
+  Tapstream: 37f7339a7d8aa8cc92b045edbacc91ef7f4090c5
+  TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
+  ViewUtils: 68e42c708a4b3912e39691cef5080282dc5013fb
+  YIFullScreenScroll: eb5c383486ed7a239d6b358038eea63a92cd8226
 
 COCOAPODS: 0.36.0.beta.1

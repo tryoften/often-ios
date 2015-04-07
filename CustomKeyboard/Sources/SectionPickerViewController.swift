@@ -66,7 +66,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
         SEGAnalytics.sharedAnalytics().track("Drawer_Toggled")
         if (!pickerView.drawerOpened) {
             pickerView.open()
-
+            Flurry.logEvent("Drawer_Toggled", timed: true)
         } else {
             pickerView.close()
             var params = [String: String]()
@@ -74,7 +74,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
             if let currentCategory = currentCategory {
                 params["current_category_id"] = currentCategory.id
             }
-//            Flurry.endTimedEvent("Drawer_Toggled", withParameters: params)
+            Flurry.endTimedEvent("Drawer_Toggled", withParameters: params)
         }
         pickerView.drawerOpened = !pickerView.drawerOpened
         

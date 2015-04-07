@@ -38,12 +38,9 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
-        AFNetworkReachabilityManager.sharedManager().startMonitoring()
-//        
-//        Flurry.startSession(FlurryClientKey)
-//        Flurry.setCrashReportingEnabled(true)
-//        Flurry.setDebugLogEnabled(true)
-//        Flurry.logEvent("Keyboard_Loaded")
+        AFNetworkReachabilityManager.sharedManager().startMonitoring()    
+        Flurry.startSession(FlurryClientKey)
+
         var configuration = SEGAnalyticsConfiguration(writeKey: "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI")
         SEGAnalytics.setupWithConfiguration(configuration)
         
@@ -137,7 +134,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             SEGAnalytics.sharedAnalytics().identify(currentUser.objectId, traits: [
                 "email": currentUser["email"]
             ])
-//            Flurry.setUserID(currentUser.objectId)
+            Flurry.setUserID(currentUser.objectId)
         }
     }
     
@@ -297,7 +294,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                 ])
             } else {
                 analytics.track("Lyric_committed")
-//                Flurry.logEvent("Lyric_committed")
             }
         }
     }

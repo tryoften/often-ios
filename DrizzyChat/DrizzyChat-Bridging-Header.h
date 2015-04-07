@@ -18,3 +18,5 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
+//#import <FlurrySDK/Flurry.h>
+#import <Analytics/SEGAnalytics.h>

@@ -50,7 +50,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         titles = [
             "Game Changing",
             "Curated Lyrics",
-            "Install Drizzy",
+            "How to install Drizzy",
             "Keep it 100, Sign Up"
         ]
         
@@ -149,6 +149,10 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
     func didTapContinueButton() {
         previousPage = currentPage
         currentPage = previousPage + 1
+        
+        if currentPage >= pages.count {
+            return
+        }
 
         let position = CGPointMake(CGFloat(currentPage) * CGRectGetWidth(scrollView.frame), 0)
 

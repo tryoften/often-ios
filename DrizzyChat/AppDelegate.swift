@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
         FBAppEvents.activateApp()
+        
+        Flurry.startSession(FlurryClientKey)
 
         var screen = UIScreen.mainScreen()
         let frame = screen.bounds
@@ -45,14 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.rootViewController = mainController
             window.makeKeyAndVisible()
         }
-        
-//        for family in UIFont.familyNames() {
-//            println("\(family)")
-//
-//            for name in UIFont.fontNamesForFamilyName(family as String) {
-//                println("  \(name)")
-//            }
-//        }
         
         return true
     }

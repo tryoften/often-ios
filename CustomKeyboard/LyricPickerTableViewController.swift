@@ -59,7 +59,9 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if let category = currentCategory {
-            return category.lyrics!.count
+            if let lyrics = category.lyrics {
+                return lyrics.count
+            }
         }
         return 0
     }

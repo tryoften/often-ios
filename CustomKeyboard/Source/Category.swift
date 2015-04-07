@@ -11,7 +11,7 @@ import UIKit
 class Category: NSObject {
     var id: String
     var name: String
-    var lyrics: [Lyric]?
+    var lyrics: [Lyric]? = [Lyric]()
     var lyricsRef = Firebase(url: CategoryServiceEndpoint + "/lyrics")
     
     init(id: String, name: String, lyrics: [Lyric]?) {

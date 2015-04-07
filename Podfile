@@ -12,6 +12,7 @@ target 'Drizzy' do
   pod 'YIFullScreenScroll', '~> 1.4'
 #  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
+  pod 'Analytics', '~> 1.11'
 end
 
 target 'DrizzyTests' do
@@ -25,5 +26,6 @@ target 'CustomKeyboard' do
   pod 'YIFullScreenScroll', '~> 1.4'
 #  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
+  pod 'Analytics', '~> 1.11'
 end
 

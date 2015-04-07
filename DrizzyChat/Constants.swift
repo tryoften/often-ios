@@ -8,9 +8,11 @@
 
 import Foundation
 
-let CategoryServiceEndpoint = "https://blinding-fire-1400.firebaseio.com/"
+let CategoryServiceEndpoint = "https://blinding-fire-1400.firebaseio.com/" // production
+//let CategoryServiceEndpoint = "https://brilliant-fire-154.firebaseio.com/"
 let ParseAppID = "L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G"
 let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"
+let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 
 // Colors
 let BlueColor = UIColor(fromHexString: "#3b5998")
