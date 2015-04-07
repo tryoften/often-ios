@@ -95,6 +95,10 @@ class TextConvoWalkthroughPage: WalkthroughPage {
             imageView.alpha = 1.0
             topConstraints[i].constant -= 105
             UIView.commitAnimations()
+            
+            if i == imageViews.count - 1 {
+                delegate?.walkthroughPage(self, shouldHideControls: false)
+            }
         }
     }
 }

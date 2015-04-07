@@ -97,7 +97,10 @@ class AlbumCoverArtsWalkthroughPage: WalkthroughPage {
             UIView.animateKeyframesWithDuration(NSTimeInterval(0.3), delay: NSTimeInterval(i) * 0.15, options: nil, animations: {
                 imageView.alpha = 1.0
                 imageView.center = CGPointMake(imageView.center.x, imageView.center.y - 100)
-            }, completion: nil)
+                }, completion: { completed in
+                    self.delegate?.walkthroughPage(self, shouldHideControls: false)
+                    return
+            })
             
         }
         isAnimationDone = true

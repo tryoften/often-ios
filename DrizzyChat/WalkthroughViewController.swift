@@ -95,6 +95,8 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         scrollView.frame = view.bounds
         createPages(titles.count)
         setupLayout()
+        
+        pages[currentPage].pageDidShow()
     }
     
     func createPages(size: Int) {
