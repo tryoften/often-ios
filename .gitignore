@@ -1,2 +1,4 @@
 Pods/
 *.xcbkptlist
+*xcshareddata/
+*xcuserdata/
