@@ -33,7 +33,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
 
     override func loadView() {
         view = SectionPickerView(frame: CGRectZero)
-        pickerView = (view as SectionPickerView)
+        pickerView = (view as! SectionPickerView)
         pickerView.categoriesTableView.dataSource = self
         pickerView.categoriesTableView.delegate = self
     }
@@ -58,8 +58,8 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
     func toggleDrawer() {
         
         if tapRecognizer.state == .Ended {
-            UIView.animateWithDuration(0.3, {
-                self.pickerView.backgroundColor = UIColor(fromHexString: "#ffae36")
+            UIView.animateWithDuration(0.3, animations: {
+                self.pickerView.backgroundColor = UIColor(fromHexString: "#121314")
             })
         }
         
@@ -80,10 +80,10 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
         
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
-        UIView.animateWithDuration(0.3, {
-            self.pickerView.backgroundColor = UIColor(fromHexString: "#ffc538")
+        UIView.animateWithDuration(0.3, animations: {
+            self.pickerView.backgroundColor = UIColor.blackColor()
         })
     }
     
@@ -182,7 +182,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: UITableViewDataSource
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! UITableViewCell
         let category = categories![indexPath.row]
         
         cell.backgroundColor = UIColor.clearColor()

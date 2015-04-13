@@ -37,7 +37,7 @@ class SectionPickerView: ILTranslucentView {
         nextKeyboardButton.titleLabel!.font = UIFont(name: "font_icons8", size:20)
         nextKeyboardButton.setTitle("\u{f114}", forState: .Normal)
         nextKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nextKeyboardButton.backgroundColor = UIColor(fromHexString: "#ffc538")
+        nextKeyboardButton.backgroundColor = UIColor(fromHexString: "#121314")
         
         currentCategoryView = UIView()
         currentCategoryView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -55,14 +55,14 @@ class SectionPickerView: ILTranslucentView {
         currentCategoryLabel.font = UIFont(name: "Lato-Regular", size: 19)
         
         selectedBgView = UIView(frame: CGRectZero)
-        selectedBgView.backgroundColor = UIColor(fromHexString: "#ffc538")
+        selectedBgView.backgroundColor = UIColor(fromHexString: "#1f1f1f")
         
         super.init(frame: frame)
 
 //        heightConstraint = al_height == SectionPickerViewHeight
 
         translucent = false
-        backgroundColor = UIColor(fromHexString: "#ffae36")
+        backgroundColor = UIColor(fromHexString: "#121314")
         
         currentCategoryView.addSubview(toggleDrawerButton)
         currentCategoryView.addSubview(currentCategoryLabel)
