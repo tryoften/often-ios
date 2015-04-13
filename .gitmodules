@@ -4,6 +4,3 @@
 [submodule "Vendors/ILTranslucentView"]
 	path = Vendors/ILTranslucentView
 	url = git@github.com:ivoleko/ILTranslucentView.git
-[submodule "Vendors/BrightFutures"]
-	path = Vendors/BrightFutures
-	url = git@github.com:Thomvis/BrightFutures.git
