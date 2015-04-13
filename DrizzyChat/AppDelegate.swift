@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FlurrySDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

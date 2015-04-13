@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Canvas
 
 class StandardKeyboardViewController: UIViewController {
     

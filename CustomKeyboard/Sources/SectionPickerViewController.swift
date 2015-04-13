@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Analytics
+import FlurrySDK
 
 class SectionPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -33,7 +35,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
 
     override func loadView() {
         view = SectionPickerView(frame: CGRectZero)
-        pickerView = (view as! SectionPickerView)
+        pickerView = (view as SectionPickerView)
         pickerView.categoriesTableView.dataSource = self
         pickerView.categoriesTableView.delegate = self
     }
@@ -79,8 +81,8 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
         pickerView.drawerOpened = !pickerView.drawerOpened
         
     }
-    
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
         UIView.animateWithDuration(0.3, animations: {
             self.pickerView.backgroundColor = UIColor.blackColor()
@@ -182,7 +184,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: UITableViewDataSource
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as UITableViewCell
         let category = categories![indexPath.row]
         
         cell.backgroundColor = UIColor.clearColor()

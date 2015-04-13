@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Luc Success. All rights reserved.
 //
 
+import BrightFutures
 import UIKit
 
 class CategoryService: NSObject {
@@ -86,7 +87,7 @@ class CategoryService: NSObject {
                 
                 promise.success(lyrics)
             } else {
-                promise.error(NSError())
+                promise.failure(NSError())
             }
         })
         

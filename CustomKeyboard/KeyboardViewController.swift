@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import AFNetworking
+import FlurrySDK
+import Analytics
 
 let EnableFullAccessMessage = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to do his thing"
 
-class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, LyricFilterBarPromotable, YIFullScreenScrollDelegate {
+class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, LyricFilterBarPromotable {
 
     var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
