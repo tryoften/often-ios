@@ -24,7 +24,7 @@ class FacebookButton: UIButton {
     }
     
     class func button() -> FacebookButton {
-        var fbButton = FacebookButton.buttonWithType(UIButtonType.Custom) as UIButton
+        var fbButton = FacebookButton.buttonWithType(UIButtonType.Custom) as! UIButton
 
         fbButton.backgroundColor = BlueColor
         fbButton.layer.cornerRadius = 5
@@ -39,11 +39,11 @@ class FacebookButton: UIButton {
         fbButton.titleLabel?.textColor = UIColor.whiteColor()
         fbButton.setAttributedTitle(title, forState: .Normal)
         
-        return fbButton as FacebookButton
+        return fbButton as! FacebookButton
     }
     
     func didTapButton() {
-        var animationClass: CSAnimation.Type = CSAnimation.classForAnimationType("pop") as CSAnimation.Type
+        var animationClass: CSAnimation.Type = CSAnimation.classForAnimationType("pop") as! CSAnimation.Type
         animationClass.performAnimationOnView(self, duration: 0.2, delay: 0.0)
     }
     

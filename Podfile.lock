@@ -28,7 +28,7 @@ PODS:
     - FlurrySDK (= 4.4.0)
   - Analytics/Segmentio (1.11.2):
     - Analytics/Core-iOS
-  - BrightFutures (1.0.0-beta.4)
+  - BrightFutures (1.0.0-beta.5)
   - Canvas (0.1.2)
   - Firebase (2.2.0)
   - FlurrySDK (4.4.0):
@@ -39,14 +39,14 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - Analytics/Flurry (~> 1.11)
-  - BrightFutures (= 1.0.0-beta.4)
+  - BrightFutures (= 1.0.0-beta.5)
   - Canvas (~> 0.1)
   - Firebase (>= 2.0.2)
 
 SPEC CHECKSUMS:
   AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
   Analytics: 1e5d01a5466f0e171193142757e69590ffb1a5fb
-  BrightFutures: 9d5d06b9b9e5d8770f5a3db504c9ed31d439c79f
+  BrightFutures: e957f91c50c398f52d2173bb32d0c61a5c34df3d
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
   Firebase: e5f9cf72c72a9fdaf7e136012b6c52a263a23ca7
   FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946

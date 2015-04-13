@@ -91,7 +91,7 @@ class TrackMetadataView: UIView {
     func updateMetadata() {
         if let track = track {
             coverArtView.setImageWithURL(track.albumCoverImage)
-            titleLabel.text = NSString(format: "\"%@\" - %@", track.name, track.artistName)
+            titleLabel.text = NSString(format: "\"%@\" - %@", track.name, track.artistName) as String
 
             addConstraints([
                 coverArtView.al_width == 35.0,

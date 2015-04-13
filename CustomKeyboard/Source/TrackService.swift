@@ -27,7 +27,7 @@ class TrackService: NSObject {
         self.tracksRef.observeSingleEventOfType(.Value, withBlock: {
             snapshot in
             
-            let data = snapshot.value as [ [String : String] ]
+            let data = snapshot.value as! [ [String : String] ]
             println("\(data)")
             
             for trackData in data {

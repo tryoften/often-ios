@@ -68,7 +68,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(LyricTableViewCellIdentifier, forIndexPath: indexPath) as LyricTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(LyricTableViewCellIdentifier, forIndexPath: indexPath) as! LyricTableViewCell
         
         var lyrics = currentCategory?.lyrics
         var lyric = lyrics![indexPath.row]
@@ -80,7 +80,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as LyricTableViewCell
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! LyricTableViewCell
         
         var lyrics = currentCategory?.lyrics
         var lyric = lyrics?[indexPath.row]

@@ -54,7 +54,7 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
         
         for subview in searchBar.subviews {
             if subview.isKindOfClass(UITextField.self) {
-                let textField = subview as UITextField
+                let textField = subview as! UITextField
                 textField.font = UIFont(name: "Lato-Light", size: 13)!
             }
         }

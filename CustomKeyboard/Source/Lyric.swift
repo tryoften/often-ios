@@ -16,9 +16,9 @@ class Lyric: NSObject, DebugPrintable {
     var track: Track?
     
     init(dict: [String: AnyObject]) {
-        id = dict["id"] as String
-        text = dict["text"] as String
-        categoryId = dict["category_id"] as String
+        id = dict["id"] as! String
+        text = dict["text"] as! String
+        categoryId = dict["category_id"] as! String
         trackId = dict["track_id"] as? String
         
         if let trackData = dict["track"] as? [String: String] {

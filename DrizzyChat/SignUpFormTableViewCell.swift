@@ -47,10 +47,6 @@ class SignUpFormTableViewCell: UITableViewCell {
         
         setupLayout()
     }
-    
-    convenience override init() {
-        self.init(style: UITableViewCellStyle.Default, reuseIdentifier: "signUpFormTableViewCell")
-    }
 
     convenience required init(coder aDecoder: NSCoder) {
         self.init(style: UITableViewCellStyle.Default, reuseIdentifier: "signUpFormTableViewCell")

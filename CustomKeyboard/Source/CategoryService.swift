@@ -31,7 +31,7 @@ class CategoryService: NSObject {
         if (!self.isDataLoaded) {
             return
         }
-        let data = snapshot.value as [String: String]
+        let data = snapshot.value as! [String: String]
         var category = Category(id: data["id"]!, name: data["name"]!, lyrics: nil)
     }
     
@@ -51,7 +51,7 @@ class CategoryService: NSObject {
         
         categoriesRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
-            let data = snapshot.value as [ [String: String] ]
+            let data = snapshot.value as! [ [String: String] ]
             
             for category in data {
                 self.categories.append(Category(id: category["id"]!, name: category["name"]!, lyrics: nil))
@@ -103,9 +103,9 @@ class CategoryService: NSObject {
                 completion(true)
             }
             
-            request.onFailure({ error in
+            request.onFailure { error in
                 completion(false)
-            })
+            }
         }
         
         // listen for any new categories added after the initial load

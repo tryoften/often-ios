@@ -55,7 +55,7 @@ class StandardKeyboardViewController: UIViewController {
 
         for buttonTitle in buttonTitles{
             
-            let button = createButtonWithTitle(buttonTitle)
+            let button = createButtonWithTitle(buttonTitle as String)
             buttons.append(button)
             keyboardRowView.addSubview(button)
         }
@@ -73,7 +73,7 @@ class StandardKeyboardViewController: UIViewController {
     
     func createButtonWithTitle(title: String) -> UIButton {
         
-        let button = UIButton.buttonWithType(.System) as UIButton
+        let button = UIButton.buttonWithType(.System) as! UIButton
         button.frame = CGRectMake(0, 0, 20, 20)
         button.setTitle(title, forState: .Normal)
         button.sizeToFit()
@@ -88,10 +88,10 @@ class StandardKeyboardViewController: UIViewController {
     
     func didTapButton(sender: AnyObject?) {
         
-        let button = sender as UIButton
-        var proxy = parentKeyboardViewController.textDocumentProxy as UITextDocumentProxy
+        let button = sender as! UIButton
+        var proxy = parentKeyboardViewController.textDocumentProxy as! UITextDocumentProxy
         
-        var animationClass: CSAnimation.Type = CSAnimation.classForAnimationType("pop") as CSAnimation.Type
+        var animationClass: CSAnimation.Type = CSAnimation.classForAnimationType("pop") as! CSAnimation.Type
         animationClass.performAnimationOnView(button, duration: 0.2, delay: 0.0)
 
         if let title = button.titleForState(.Normal) {
@@ -123,7 +123,7 @@ class StandardKeyboardViewController: UIViewController {
             // Right Constraint
             if index == buttons.count - 1 {
                 var rightMargin = margin
-                if countElements(button.titleLabel!.text!) > 1 {
+                if count(button.titleLabel!.text!) > 1 {
                     rightMargin = 0
                     button.addConstraint(button.al_width == keyWidth * 1.5 - 1)
                 }
@@ -137,7 +137,7 @@ class StandardKeyboardViewController: UIViewController {
             // Left Constraint
             if index == 0 {
                 var leftMargin = margin
-                if countElements(button.titleLabel!.text!) > 1 {
+                if count(button.titleLabel!.text!) > 1 {
                     leftMargin = 0
                     button.addConstraint(button.al_width == keyWidth * 1.5 - 1)
                 }
@@ -151,7 +151,7 @@ class StandardKeyboardViewController: UIViewController {
                 let prevButton = buttons[index-1]
                 var widthConstraint: NSLayoutConstraint!
                 
-                if countElements(buttons[0].titleLabel!.text!) > 1 {
+                if count(buttons[0].titleLabel!.text!) > 1 {
                     widthConstraint = button.al_width == buttons[1].al_width
                 } else {
                     widthConstraint = button.al_width == buttons[0].al_width

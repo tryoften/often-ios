@@ -75,7 +75,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         sectionPicker.keyboardViewController = self
         sectionPicker.categoryService = categoryService
         
-        sectionPickerView = (sectionPicker.view as SectionPickerView)
+        sectionPickerView = (sectionPicker.view as! SectionPickerView)
         sectionPickerView?.delegate = lyricPicker
         sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         
@@ -264,7 +264,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func textWillChange(textInput: UITextInput) {
         // The app is about to change the document's contents. Perform any preparation here.
-        let proxy = textDocumentProxy as UITextDocumentProxy
+        let proxy = textDocumentProxy as! UITextDocumentProxy
         
         if !proxy.hasText() {
             return
@@ -286,7 +286,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
 
     override func textDidChange(textInput: UITextInput) {
-        var proxy = textDocumentProxy as UITextDocumentProxy
+        var proxy = textDocumentProxy as! UITextDocumentProxy
         var analytics = SEGAnalytics.sharedAnalytics()
         // When the lyric is flushed and sent to the proper context
         if lyricInserted && !proxy.hasText() {
@@ -302,8 +302,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func deleteLyricFromDocument(lyric: Lyric) {
-        let proxy = textDocumentProxy as UITextDocumentProxy
-        proxy.adjustTextPositionByCharacterOffset(proxy.documentContextAfterInput.utf16Count)
+        let proxy = textDocumentProxy as! UITextDocumentProxy
+        proxy.adjustTextPositionByCharacterOffset(count(proxy.documentContextAfterInput.utf16))
         
         var range = proxy.documentContextBeforeInput.rangeOfString(lyric.text)
         
@@ -313,27 +313,27 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func clearInput() {
-        let proxy = textDocumentProxy as UITextDocumentProxy
+        let proxy = textDocumentProxy as! UITextDocumentProxy
 
         if let afterInputText = proxy.documentContextAfterInput {
-            proxy.adjustTextPositionByCharacterOffset(afterInputText.utf16Count)
+            proxy.adjustTextPositionByCharacterOffset(count(afterInputText.utf16))
         }
         
         if let beforeInputText = lastInsertedString {
-            for var i = 0, len = beforeInputText.utf16Count; i < len; i++ {
+            for var i = 0, len = count(beforeInputText.utf16); i < len; i++ {
                 proxy.deleteBackward()
             }
         }
 
         if let beforeInputText = proxy.documentContextBeforeInput {
-            for var i = 0, len = beforeInputText.utf16Count; i < len; i++ {
+            for var i = 0, len = count(beforeInputText.utf16); i < len; i++ {
                 proxy.deleteBackward()
             }
         }
     }
     
     func insertLyric(lyric: Lyric, selectedOptions: [ShareOption: NSURL]?) {
-        let proxy = textDocumentProxy as UIKeyInput
+        let proxy = textDocumentProxy as! UIKeyInput
         var text = ""
         var optionKeys = [String]()
         
@@ -432,9 +432,9 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     // MARK: ShareViewControllerDelegate
 
     func shareViewControllerDidCancel(shareVC: ShareViewController) {
-        let proxy = textDocumentProxy as UIKeyInput
+        let proxy = textDocumentProxy as! UIKeyInput
         
-        for var i = 0, len = shareVC.lyric!.text.utf16Count; i < len; i++ {
+        for var i = 0, len = count(shareVC.lyric!.text.utf16); i < len; i++ {
             proxy.deleteBackward()
         }
         

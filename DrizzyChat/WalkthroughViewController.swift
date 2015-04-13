@@ -220,7 +220,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
             
             if error == nil {
 //                println("\(result)")
-                var data = result as NSDictionary
+                var data = result as! NSDictionary
                 completion(data, nil)
             } else {
                 completion(nil, error)
@@ -240,10 +240,10 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
             var signUpFormViewController = SignUpFormViewController(nibName: nil, bundle: nil)
             
             if let user = fbUser {
-                var firstName = result!["first_name"]! as String
-                var lastName = result!["last_name"]! as String
+                var firstName = result!["first_name"]! as! String
+                var lastName = result!["last_name"]! as! String
                 signUpFormViewController.nameField.text = "\(firstName) \(lastName)"
-                signUpFormViewController.emailField.text = result!["email"] as String
+                signUpFormViewController.emailField.text = result!["email"] as! String
             }
             
             var navigationController = UINavigationController(rootViewController: signUpFormViewController)
@@ -252,7 +252,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
                 NSFontAttributeName: UIFont(name: "Lato-Regular", size: 14)!
             ]
             
-            navigationController.navigationBar.titleTextAttributes = attributes
+            navigationController.navigationBar.titleTextAttributes = attributes as [NSObject : AnyObject]
             self.presentViewController(navigationController, animated: true, completion: {})
         })
     }

@@ -15,7 +15,7 @@ target 'Drizzy' do
 #  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
   pod 'Analytics/Flurry', '~> 1.11'
-  pod 'BrightFutures', '1.0.0-beta.4'
+  pod 'BrightFutures', '1.0.0-beta.5'
 end
 
 target 'DrizzyTests' do
@@ -30,6 +30,15 @@ target 'CustomKeyboard' do
 #  pod 'NUI', '>= 0.5'
   pod 'AFNetworking', '~> 2.0'
   pod 'Analytics/Flurry', '~> 1.11'
-  pod 'BrightFutures', '1.0.0-beta.4'
+  pod 'BrightFutures', '1.0.0-beta.5'
 end
+
+#post_install do |installer_representation|
+#    installer_representation.project.targets.each do |target|
+#        if target.name == "Pods-CustomKeyboard"
+#            target.build_configurations.each do |config|
+#                    config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'AF_APP_EXTENSIONS=1']
+#            end
+#        end
+#end
 

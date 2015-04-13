@@ -21,23 +21,20 @@ class SignUpFormViewModel: NSObject {
     
     func isValidEmail(testStr:String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-        
-        if let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx) {
-            return emailTest.evaluateWithObject(testStr)
-        }
-        return false
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluateWithObject(testStr)
     }
     
     func validateForm() -> String? {
         var errorMessage: String?
         
-        if !(countElements(fullName) >= 1) {
+        if !(count(fullName) >= 1) {
             errorMessage = "Please enter a  name"
         } else if !isValidEmail(email) {
             errorMessage = "Please enter a valid email address"
-        } else if !(countElements(password) >= 1) {
+        } else if !(count(password) >= 1) {
             errorMessage = "Please enter a valid password"
-        } else if !(countElements(password) >= 6) {
+        } else if !(count(password) >= 6) {
             errorMessage = "Password needs to be at least 6 characters"
         }
         

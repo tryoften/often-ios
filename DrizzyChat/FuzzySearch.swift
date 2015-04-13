@@ -5,11 +5,11 @@
 */
 func fuzzySearch(var originalString: String, var stringToSearch: String, caseSensitive: Bool = false) -> Bool {
 
-    if countElements(originalString) == 0 || countElements(stringToSearch) == 0 {
+    if count(originalString) == 0 || count(stringToSearch) == 0 {
         return false
     }
 
-    if countElements(originalString) < countElements(stringToSearch){
+    if count(originalString) < count(stringToSearch){
         return false
     }
 
@@ -25,7 +25,7 @@ func fuzzySearch(var originalString: String, var stringToSearch: String, caseSen
             if indexIn == searchIndex {
                 if charOut == charIn {
                     searchIndex++
-                    if searchIndex == countElements(stringToSearch) {
+                    if searchIndex == count(stringToSearch) {
                         return true;
                     }
                     else {
