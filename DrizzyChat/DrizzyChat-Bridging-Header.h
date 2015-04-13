@@ -10,7 +10,6 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <Firebase/Firebase.h>
 #import "SwiftAutoLayout.h"
-#import "ILTranslucentView.h"
 #import "UIColor+HEXString.h"
 #import <Canvas/Canvas.h>
 #import <Parse/Parse.h>

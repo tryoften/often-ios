@@ -10,7 +10,7 @@ import UIKit
 
 let SectionPickerViewHeight: CGFloat = 45.0
 
-class SectionPickerView: ILTranslucentView {
+class SectionPickerView: UIView {
     
     var categoriesTableView: UITableView
     var nextKeyboardButton: UIButton
@@ -61,7 +61,6 @@ class SectionPickerView: ILTranslucentView {
 
 //        heightConstraint = al_height == SectionPickerViewHeight
 
-        translucent = false
         backgroundColor = UIColor(fromHexString: "#121314")
         
         currentCategoryView.addSubview(toggleDrawerButton)

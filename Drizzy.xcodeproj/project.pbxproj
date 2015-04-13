@@ -141,8 +141,6 @@
 		819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */; };
 		81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
 		81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
-		81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */; };
-		81A1A4EF1A19786D00D566B8 /* ILTranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */; };
 		81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
@@ -300,8 +298,6 @@
 		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Source/LyricTableViewCell.swift; sourceTree = "<group>"; };
 		819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentlyUsedCategory.swift; path = Sources/RecentlyUsedCategory.swift; sourceTree = "<group>"; };
 		81A1A4D31A196D6200D566B8 /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
-		81A1A4E01A19786D00D566B8 /* ILTranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILTranslucentView.h; sourceTree = "<group>"; };
-		81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILTranslucentView.m; sourceTree = "<group>"; };
 		81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HEXString.h"; sourceTree = "<group>"; };
 		81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEXString.m"; sourceTree = "<group>"; };
 		81ABAAE71A15820600456A5A /* SectionPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerView.swift; path = Source/SectionPickerView.swift; sourceTree = "<group>"; };
@@ -450,7 +446,6 @@
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
-				81A1A4D91A19786D00D566B8 /* ILTranslucentView */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
 			);
 			path = Vendors;
@@ -677,23 +672,6 @@
 				81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		81A1A4D91A19786D00D566B8 /* ILTranslucentView */ = {
-			isa = PBXGroup;
-			children = (
-				81A1A4DF1A19786D00D566B8 /* Source */,
-			);
-			path = ILTranslucentView;
-			sourceTree = "<group>";
-		};
-		81A1A4DF1A19786D00D566B8 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				81A1A4E01A19786D00D566B8 /* ILTranslucentView.h */,
-				81A1A4E11A19786D00D566B8 /* ILTranslucentView.m */,
-			);
-			path = Source;
 			sourceTree = "<group>";
 		};
 		81AD7FBC1A2818BC00C616F4 /* View Controllers */ = {
@@ -1132,7 +1110,6 @@
 				81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */,
 				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */,
-				81A1A4EE1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
 				819982AD1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
 				81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */,
@@ -1158,7 +1135,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81A1A4EF1A19786D00D566B8 /* ILTranslucentView.m in Sources */,
 				81331E121A17F9F3003E4609 /* Lyric.swift in Sources */,
 				812D74811A3E5E480083F655 /* SectionPickerViewController.swift in Sources */,
 				81B6D5911A95B1F90089767B /* KeyboardKey.swift in Sources */,
