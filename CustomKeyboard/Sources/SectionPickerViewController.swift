@@ -10,10 +10,18 @@ import UIKit
 import Analytics
 import FlurrySDK
 
-class SectionPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+let highlightColors = ["#e85769", //Red
+    "#5d82f7", //Blue
+    "#f19720", //Orange
+    "#21ce99", //Green
+    "#a065d8", //Purple
+    "#2db8ff" //Light Blue
+]
+let CategoryCollectionViewCellReuseIdentifier = "CategoryCollectionViewCell"
+
+class SectionPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     var keyboardViewController: KeyboardViewController!
-    var panRecognizer: UIPanGestureRecognizer!
     var tapRecognizer: UITapGestureRecognizer!
     var drawerOpened: Bool = false
     var startingPoint: CGPoint?
@@ -22,35 +30,41 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
     var currentCategory: Category?
     var categories: [Category]? {
         didSet {
-            pickerView.categoriesTableView.reloadData()
+//            pickerView.categoriesTableView.reloadData()
+            pickerView.categoriesCollectionView.reloadData()
             if (categories!.count > 1) {
                 currentCategory = categories![1]
                 pickerView.delegate?.didSelectSection(pickerView, category: currentCategory!)
                 dispatch_async(dispatch_get_main_queue(), {
                     self.pickerView.currentCategoryLabel.text = self.currentCategory!.name
+                    self.pickerView.categoriesCollectionView.setNeedsLayout()
                 })
             }
         }
     }
 
     override func loadView() {
-        view = SectionPickerView(frame: CGRectZero)
+        view = SectionPickerView(frame: keyboardViewController.view.bounds)
         pickerView = (view as! SectionPickerView)
-        pickerView.categoriesTableView.dataSource = self
-        pickerView.categoriesTableView.delegate = self
+//        pickerView.categoriesTableView.dataSource = self
+//        pickerView.categoriesTableView.delegate = self
+        
+        pickerView.categoriesCollectionView.dataSource = self
+        pickerView.categoriesCollectionView.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        panRecognizer = UIPanGestureRecognizer(target: self, action: "didPanView:")
-//        view.addGestureRecognizer(panRecognizer)
-        
         let toggleSelector = Selector("toggleDrawer")
         tapRecognizer = UITapGestureRecognizer(target: self, action: toggleSelector)
         pickerView.toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
         pickerView.currentCategoryLabel.addGestureRecognizer(tapRecognizer)
+        
+        var viewLayout = SectionPickerView.provideCollectionViewLayout(pickerView.bounds)
+        pickerView.categoriesCollectionView.setCollectionViewLayout(viewLayout, animated: false)
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -210,5 +224,56 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+    
+    // MARK: UICollectionViewDataSource
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let categories = categories {
+            return categories.count
+        }
+        return 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSizeMake(CGRectGetWidth(collectionView.bounds) / 2.5 - 10, CGRectGetHeight(collectionView.bounds) / 2 - 10)
+    }
+    
+    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CategoryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as! CategoryCollectionViewCell
+        let category = categories![indexPath.row]
+        
+        cell.titleLabel.text = category.name
+        cell.highlightColorBorder.backgroundColor = UIColor(fromHexString: highlightColors[indexPath.row % highlightColors.count])
+        
+        if let lyrics = category.lyrics {
+            cell.subtitleLabel.text = "\(lyrics.count) lyrics"
+        }
+        
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        var category = categories![indexPath.row] as Category;
+        
+        currentCategory = category
+        pickerView.currentCategoryLabel.text = category.name
+        toggleDrawer()
+        
+        SEGAnalytics.sharedAnalytics().track("Category_Selected", properties: [
+            "category_name": category.name,
+            "category_id": category.id
+            ])
+        
+        if category.id == "recently" {
+            pickerView.delegate?.didSelectSection(pickerView, category: category)
+        } else {
+            categoryService?.requestLyrics(category.id, artistIds: nil).onSuccess { lyrics in
+                self.pickerView.delegate?.didSelectSection(self.pickerView, category: category)
+                return
+            }
+        }
+    }
+    
 
 }

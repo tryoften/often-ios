@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5ABAEFB3905FC99A9D5A6F14 /* Pods_CustomKeyboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27095C856EF4AC4D5C9CF61F /* Pods_CustomKeyboard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		8105025B1ADB81A000708248 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025A1ADB81A000708248 /* CategoryCollectionViewController.swift */; };
 		810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
@@ -153,6 +152,8 @@
 		81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D5861A956E680089767B /* LoginIndicatorView.swift */; };
 		81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
 		81B6D5911A95B1F90089767B /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D5901A95B1F90089767B /* KeyboardKey.swift */; };
+		81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
+		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		81DB4ED31A945251004EE28C /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DB4ED21A945251004EE28C /* backspace.png */; };
 		81DC50AA1A9C2C5A00E2AA9B /* tutorial-video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 81DC50A91A9C2C5A00E2AA9B /* tutorial-video.mov */; };
 		81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
@@ -215,7 +216,6 @@
 /* Begin PBXFileReference section */
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
 		27095C856EF4AC4D5C9CF61F /* Pods_CustomKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8105025A1ADB81A000708248 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -687,7 +687,6 @@
 				81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */,
 				812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */,
 				81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */,
-				8105025A1ADB81A000708248 /* CategoryCollectionViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -765,6 +764,7 @@
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
 				81164A9B1A9D760900AE5B30 /* Upload Symbols to Parse */,
 				9B122C623D5FA5337C873626 /* Embed Pods Frameworks */,
+				819622141ADE0F9600B685B6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -911,6 +911,7 @@
 				8180E6681A147A78007FA1CF /* Lato-HeavyItalic.ttf in Resources */,
 				8180E65C1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
 				8180E6621A147A78007FA1CF /* Lato-Hairline.ttf in Resources */,
+				81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */,
 				8180E67A1A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
 				8180E66C1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
 				816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */,
@@ -1012,6 +1013,19 @@
 			shellPath = /bin/sh;
 			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/luc/parse/\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
+		819622141ADE0F9600B685B6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "touch \"${PROJECT_DIR}/CustomKeyboard/KeyboardViewController.swift\"";
+		};
 		819A375B1A9806900041F5E0 /* Update Bundle Version */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1095,6 +1109,7 @@
 				816FE5B01A881C6500E42C17 /* SignUpFormViewController.swift in Sources */,
 				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
 				81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */,
+				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
 				813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */,
 				812D74801A3E5E480083F655 /* SectionPickerViewController.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
@@ -1152,7 +1167,6 @@
 				81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */,
 				8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */,
 				819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
-				8105025B1ADB81A000708248 /* CategoryCollectionViewController.swift in Sources */,
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */,
 				8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */,
@@ -1220,7 +1234,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
@@ -1259,7 +1273,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
 				SDKROOT = iphoneos;
@@ -1360,7 +1374,7 @@
 			baseConfigurationReference = FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Luc Succes (78UP337X3V)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

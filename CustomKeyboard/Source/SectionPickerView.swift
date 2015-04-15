@@ -13,6 +13,7 @@ let SectionPickerViewHeight: CGFloat = 45.0
 class SectionPickerView: UIView {
     
     var categoriesTableView: UITableView
+    var categoriesCollectionView: UICollectionView
     var nextKeyboardButton: UIButton
     var toggleDrawerButton: UIButton
     var currentCategoryView: UIView
@@ -32,6 +33,12 @@ class SectionPickerView: UIView {
         categoriesTableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoriesTableView.separatorStyle = .None
         categoriesTableView.rowHeight = 50
+        categoriesTableView.hidden = true
+
+        categoriesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: SectionPickerView.provideCollectionViewLayout(frame))
+        categoriesCollectionView.backgroundColor = UIColor(fromHexString: "#121314")
+        categoriesCollectionView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        categoriesCollectionView.registerClass(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
         
         nextKeyboardButton = UIButton()
         nextKeyboardButton.titleLabel!.font = UIFont(name: "font_icons8", size:20)
@@ -67,6 +74,7 @@ class SectionPickerView: UIView {
         currentCategoryView.addSubview(currentCategoryLabel)
         
         addSubview(categoriesTableView)
+        addSubview(categoriesCollectionView)
         addSubview(nextKeyboardButton)
         addSubview(currentCategoryView)
 
@@ -75,8 +83,18 @@ class SectionPickerView: UIView {
         setupLayout()
     }
     
+    class func provideCollectionViewLayout(frame: CGRect) -> UICollectionViewLayout {
+        var viewLayout = UICollectionViewFlowLayout()
+//        let viewSize = frame.size
+//        viewLayout.itemSize = CGSizeMake(140, viewSize.height / 2 - 10)
+        viewLayout.scrollDirection = .Horizontal
+        viewLayout.sectionInset = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
+        return viewLayout
+    }
+    
     func setupLayout() {
         var tableView = categoriesTableView
+        var collectionView = categoriesCollectionView
         var keyboardButton = nextKeyboardButton
         var categoryLabel = currentCategoryLabel
         var toggleDrawer = toggleDrawerButton
@@ -112,7 +130,12 @@ class SectionPickerView: UIView {
             tableView.al_top == keyboardButton.al_bottom,
             tableView.al_left == al_left,
             tableView.al_right == al_right,
-            tableView.al_bottom == al_bottom
+            tableView.al_bottom == al_bottom,
+            
+            collectionView.al_top == keyboardButton.al_bottom,
+            collectionView.al_left == al_left,
+            collectionView.al_right == al_right,
+            collectionView.al_bottom == al_bottom
         ])
     }
     
