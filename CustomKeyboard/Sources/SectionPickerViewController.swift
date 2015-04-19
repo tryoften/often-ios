@@ -245,10 +245,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
         
         cell.titleLabel.text = category.name
         cell.highlightColorBorder.backgroundColor = UIColor(fromHexString: highlightColors[indexPath.row % highlightColors.count])
-        
-        if let lyrics = category.lyrics {
-            cell.subtitleLabel.text = "\(lyrics.count) lyrics"
-        }
+        cell.subtitleLabel.text = "\(category.lyrics.count) lyrics"
         
         return cell
     }

@@ -39,6 +39,8 @@
 		81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ABAAE71A15820600456A5A /* SectionPickerView.swift */; };
 		81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
+		813C82A11AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
+		813C82A21AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
 		813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E66C11A6DA541007E15AD /* WalkthroughPage.swift */; };
 		81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */; };
 		81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */; };
@@ -236,6 +238,7 @@
 		81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SwiftAutoLayout.xcodeproj; sourceTree = "<group>"; };
 		81331E231A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
+		813C82A01AE3031700925206 /* lyrics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lyrics.json; sourceTree = "<group>"; };
 		813E66C11A6DA541007E15AD /* WalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughPage.swift; sourceTree = "<group>"; };
 		81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormTableViewCell.swift; sourceTree = "<group>"; };
 		81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
@@ -438,13 +441,13 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		81331E061A17E552003E4609 /* Service */ = {
+		81331E061A17E552003E4609 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				81331E081A17EC52003E4609 /* CategoryService.swift */,
 				81E897D91A32A17F005C7CD9 /* TrackService.swift */,
 			);
-			name = Service;
+			name = Services;
 			sourceTree = "<group>";
 		};
 		81331E161A1806BB003E4609 /* Vendors */ = {
@@ -619,7 +622,7 @@
 			children = (
 				81B6D58D1A95B07B0089767B /* VIew Models */,
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
-				81331E061A17E552003E4609 /* Service */,
+				81331E061A17E552003E4609 /* Services */,
 				81331DFF1A17DF66003E4609 /* Models */,
 				8180E67D1A147F7D007FA1CF /* Views */,
 				8180E6461A1477F2007FA1CF /* Resources */,
@@ -639,6 +642,7 @@
 		8180E6461A1477F2007FA1CF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				813C82A01AE3031700925206 /* lyrics.json */,
 				81DB4ED21A945251004EE28C /* backspace.png */,
 				81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */,
 				81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */,
@@ -884,6 +888,7 @@
 				81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */,
 				8180E6631A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
 				8180E65F1A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
+				813C82A11AE3031700925206 /* lyrics.json in Resources */,
 				8180E6751A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
 				8180E66F1A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
 				8180E6611A147A78007FA1CF /* Lato-Hairline.ttf in Resources */,
@@ -929,6 +934,7 @@
 				8180E6761A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
 				8180E6741A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
 				8180E6661A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
+				813C82A21AE3031700925206 /* lyrics.json in Resources */,
 				8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				81DB4ED31A945251004EE28C /* backspace.png in Resources */,
 				8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,

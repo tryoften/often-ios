@@ -37,28 +37,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println(Diagnostics.platformString())
-        
-        ParseCrashReporting.enable()
-        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
-        AFNetworkReachabilityManager.sharedManager().startMonitoring()    
-        Flurry.startSession(FlurryClientKey)
-
-        var configuration = SEGAnalyticsConfiguration(writeKey: "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI")
-        SEGAnalytics.setupWithConfiguration(configuration)
-        
-        Firebase.setOption("persistence", to: true)
-        var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
-        categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
-        
-        trackService = TrackService(root: firebaseRoot)
-        trackService?.requestData({ data in
-            
-        })
-        
         lyricPicker = LyricPickerTableViewController()
         lyricPicker.delegate = self
-        lyricPicker.trackService = trackService
         lyricPicker.keyboardViewController = self
         lyricPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -68,12 +48,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         standardKeyboard.view.alpha = 0.0
         
         seperatorView = UIView(frame: CGRectZero)
-        seperatorView.backgroundColor = UIColor(fromHexString: "#d8d8d8")
+        seperatorView.backgroundColor = KeyboardTableSeperatorColor
         seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         sectionPicker = SectionPickerViewController()
         sectionPicker.keyboardViewController = self
-        sectionPicker.categoryService = categoryService
         
         sectionPickerView = (sectionPicker.view as! SectionPickerView)
         sectionPickerView?.delegate = lyricPicker
@@ -104,19 +83,43 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         heightConstraint = view.al_height == 230
         
-        getCurrentUser()
         setupLayout()
         setupAppearance()
         layoutSectionPickerView()
         
+        bootstrap()
+        getCurrentUser()
         SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
         standardKeyboard.addConstraintsToInputView(standardKeyboard.view, rowViews: standardKeyboard.rowViews)
+    }
+    
+    func bootstrap() {
+        ParseCrashReporting.enable()
+        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
+        AFNetworkReachabilityManager.sharedManager().startMonitoring()
+        Flurry.startSession(FlurryClientKey)
+        
+        var configuration = SEGAnalyticsConfiguration(writeKey: "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI")
+        SEGAnalytics.setupWithConfiguration(configuration)
+        
+        Firebase.setOption("persistence", to: true)
+        var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
+        categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
+        sectionPicker.categories = categoryService?.categories
+        
+        trackService = TrackService(root: firebaseRoot)
+        trackService?.requestData({ data in
+            
+        })
+        
+        lyricPicker.trackService = trackService
+        sectionPicker.categoryService = categoryService
         
         categoryService?.requestData { categories in
             self.sectionPicker.categories = self.categoryService?.categories
             return
         }
-
+        
         AFNetworkReachabilityManager.sharedManager().setReachabilityStatusChangeBlock { status in
             dispatch_async(dispatch_get_main_queue(), {
                 
@@ -143,16 +146,16 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     override func viewWillAppear(animated: Bool) {
         var openAccessGranted = isOpenAccessGranted()
-        
-        allowFullAccessMessage.text = EnableFullAccessMessage
-        allowFullAccessMessage.hidden = openAccessGranted
-        fixedFilterBarView.hidden = !openAccessGranted
-        lyricPicker.view.hidden = !openAccessGranted
-        
-        if !openAccessGranted {
-            return
-        }
-        
+//        
+//        allowFullAccessMessage.text = EnableFullAccessMessage
+//        allowFullAccessMessage.hidden = openAccessGranted
+//        fixedFilterBarView.hidden = !openAccessGranted
+//        lyricPicker.view.hidden = !openAccessGranted
+//        
+//        if !openAccessGranted {
+//            return
+//        }
+//        
         if !trackService!.isDataLoaded {
             var internetReachable = AFNetworkReachabilityManager.sharedManager().reachable
             reachabilityStatusChanged(internetReachable)
@@ -174,13 +177,13 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func reachabilityStatusChanged(internetReachable: Bool) {
-        allowFullAccessMessage.hidden = internetReachable
-        fixedFilterBarView.hidden = !internetReachable
-        lyricPicker.view.hidden = !internetReachable
-        
-        if !internetReachable {
-            allowFullAccessMessage.text = "No Internet Connection"
-        }
+//        allowFullAccessMessage.hidden = internetReachable
+//        fixedFilterBarView.hidden = !internetReachable
+//        lyricPicker.view.hidden = !internetReachable
+//        
+//        if !internetReachable {
+//            allowFullAccessMessage.text = "No Internet Connection"
+//        }
     }
     
     func setupAppearance() {

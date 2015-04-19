@@ -31,7 +31,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         animatingCell = false
         searchModeOn = false
 
-        tableView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        tableView.backgroundColor = KeyboardTableViewBackgroundColor
         tableView.registerClass(LyricTableViewCell.self, forCellReuseIdentifier: LyricTableViewCellIdentifier)
         tableView.separatorStyle = .None
         tableView.delegate = self
@@ -59,9 +59,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if let category = currentCategory {
-            if let lyrics = category.lyrics {
-                return lyrics.count
-            }
+            return category.lyrics.count
         }
         return 0
     }

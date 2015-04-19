@@ -1,23 +1,23 @@
 PODS:
-  - AFNetworking (2.5.1):
-    - AFNetworking/NSURLConnection (= 2.5.1)
-    - AFNetworking/NSURLSession (= 2.5.1)
-    - AFNetworking/Reachability (= 2.5.1)
-    - AFNetworking/Security (= 2.5.1)
-    - AFNetworking/Serialization (= 2.5.1)
-    - AFNetworking/UIKit (= 2.5.1)
-  - AFNetworking/NSURLConnection (2.5.1):
+  - AFNetworking (2.5.2):
+    - AFNetworking/NSURLConnection (= 2.5.2)
+    - AFNetworking/NSURLSession (= 2.5.2)
+    - AFNetworking/Reachability (= 2.5.2)
+    - AFNetworking/Security (= 2.5.2)
+    - AFNetworking/Serialization (= 2.5.2)
+    - AFNetworking/UIKit (= 2.5.2)
+  - AFNetworking/NSURLConnection (2.5.2):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.1):
+  - AFNetworking/NSURLSession (2.5.2):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.1)
-  - AFNetworking/Security (2.5.1)
-  - AFNetworking/Serialization (2.5.1)
-  - AFNetworking/UIKit (2.5.1):
+  - AFNetworking/Reachability (2.5.2)
+  - AFNetworking/Security (2.5.2)
+  - AFNetworking/Serialization (2.5.2)
+  - AFNetworking/UIKit (2.5.2):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Analytics/Core-iOS (1.11.2):
@@ -30,10 +30,11 @@ PODS:
     - Analytics/Core-iOS
   - BrightFutures (1.0.0-beta.5)
   - Canvas (0.1.2)
-  - Firebase (2.2.0)
+  - Firebase (2.2.1)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
+  - SwiftyJSON (2.2.0)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
 
 DEPENDENCIES:
@@ -42,14 +43,16 @@ DEPENDENCIES:
   - BrightFutures (= 1.0.0-beta.5)
   - Canvas (~> 0.1)
   - Firebase (>= 2.0.2)
+  - SwiftyJSON (>= 2.2)
 
 SPEC CHECKSUMS:
-  AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
+  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
   Analytics: 1e5d01a5466f0e171193142757e69590ffb1a5fb
   BrightFutures: e957f91c50c398f52d2173bb32d0c61a5c34df3d
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
-  Firebase: e5f9cf72c72a9fdaf7e136012b6c52a263a23ca7
+  Firebase: a3d54b42f090ca275b22dcdf103b8ab6ac6f353c
   FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946
+  SwiftyJSON: 0b3e6c07af17ff745e77e8e9984097b55c956e5c
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
 
 COCOAPODS: 0.36.3

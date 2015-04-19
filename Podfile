@@ -16,6 +16,7 @@ target 'Drizzy' do
   pod 'AFNetworking', '~> 2.0'
   pod 'Analytics/Flurry', '~> 1.11'
   pod 'BrightFutures', '1.0.0-beta.5'
+  pod 'SwiftyJSON', '>= 2.2'
 end
 
 target 'DrizzyTests' do
@@ -31,6 +32,7 @@ target 'CustomKeyboard' do
   pod 'AFNetworking', '~> 2.0'
   pod 'Analytics/Flurry', '~> 1.11'
   pod 'BrightFutures', '1.0.0-beta.5'
+  pod 'SwiftyJSON', '>= 2.2'
 end
 
 #post_install do |installer_representation|

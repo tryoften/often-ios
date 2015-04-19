@@ -11,13 +11,15 @@ import UIKit
 class Category: NSObject {
     var id: String
     var name: String
-    var lyrics: [Lyric]? = [Lyric]()
+    var lyrics = [Lyric]()
     var lyricsRef = Firebase(url: CategoryServiceEndpoint + "/lyrics")
     
     init(id: String, name: String, lyrics: [Lyric]?) {
         self.id = id
         self.name = name
-        self.lyrics = lyrics
+        if let lyrics = lyrics {
+            self.lyrics = lyrics
+        }
         
         super.init()
     }
@@ -29,11 +31,9 @@ class Category: NSObject {
             return lyrics
         }
         
-        if let lyrics = self.lyrics {
-            for lyric in lyrics {
-                if fuzzySearch(lyric.text, filterText, caseSensitive: true) {
-                    filterLyricSet.append(lyric)
-                }
+        for lyric in lyrics {
+            if fuzzySearch(lyric.text, filterText, caseSensitive: true) {
+                filterLyricSet.append(lyric)
             }
         }
         

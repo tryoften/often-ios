@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class TrackService: NSObject {
     var tracksRef : Firebase
@@ -24,11 +25,27 @@ class TrackService: NSObject {
     }
     
     func requestData(completion: (Bool) -> Void) {
+        if !isDataLoaded {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+                self.getDataFromDisk({
+                    (success, error) in
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        completion(success)
+                    })
+                    
+                })
+            })
+        } else {
+            completion(false)
+        }
+        
+        
         self.tracksRef.observeSingleEventOfType(.Value, withBlock: {
             snapshot in
             
             let data = snapshot.value as! [ [String : String] ]
-            println("\(data)")
+//            println("\(data)")
             
             for trackData in data {
                 var track = Track(dictionary: trackData)
@@ -52,5 +69,32 @@ class TrackService: NSObject {
         return nil
     }
     
-    
+    func getDataFromDisk(completion: (success: Bool, error: NSError?) -> ()) {
+        if let urlPath = NSBundle.mainBundle().pathForResource("lyrics", ofType: "json"), data = NSData(contentsOfFile: urlPath) {
+            var error: NSError?
+            var json = JSON(data: data, options: nil, error: &error)
+            
+            if error != nil {
+                completion(success: false, error: error)
+                return
+            }
+            
+            tracks = [Track]()
+            
+            if let tracks = json["tracks"].array {
+                
+                for track in tracks {
+                    
+                    if let trackDictionary = track.dictionaryObject {
+                        self.tracks.append(Track(dictionary: trackDictionary as! [String: String]))
+                    }
+
+                }
+                
+                isDataLoaded = true
+                completion(success: true, error: nil)
+            }
+        }
+    }
+
 }

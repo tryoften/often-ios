@@ -19,13 +19,13 @@ class RecentlyUsedCategory: Category {
     func didSelectLyric(notification: NSNotification) {
         if let userInfo = notification.userInfo as? [String: Lyric] {
             var lyric = userInfo["lyric"]
-            for (index, aLyric) in enumerate(lyrics!) {
+            for (index, aLyric) in enumerate(lyrics) {
                 if lyric?.trackId == aLyric.trackId {
-                    lyrics?.removeAtIndex(index)
+                    lyrics.removeAtIndex(index)
                     break
                 }
             }
-            lyrics!.insert(lyric!, atIndex: 0)
+            lyrics.insert(lyric!, atIndex: 0)
             println("Lyric received: \(lyric)")
             persistLyrics()
         }
@@ -35,7 +35,7 @@ class RecentlyUsedCategory: Category {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         var lyricsData = [ [String: AnyObject] ]()
         
-        for lyric in lyrics! {
+        for lyric in lyrics {
             lyricsData.append(lyric.toDictionary())
         }
         userDefaults.setObject(lyricsData, forKey: "recently-used-lyrics")
@@ -46,7 +46,7 @@ class RecentlyUsedCategory: Category {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         if let lyricsData = userDefaults.objectForKey("recently-used-lyrics") as? [[String: AnyObject]] {
             for lyricData in lyricsData {
-                lyrics!.append(Lyric(dict: lyricData))
+                lyrics.append(Lyric(dict: lyricData))
             }
             
         }
