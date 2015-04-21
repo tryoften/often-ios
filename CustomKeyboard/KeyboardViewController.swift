@@ -13,7 +13,7 @@ import Analytics
 
 let EnableFullAccessMessage = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to do his thing"
 
-class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, LyricFilterBarPromotable {
+class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, LyricFilterBarPromotable, CategoryServiceDelegate {
 
     var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
@@ -88,49 +88,44 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         layoutSectionPickerView()
         
         bootstrap()
-        getCurrentUser()
-        SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
         standardKeyboard.addConstraintsToInputView(standardKeyboard.view, rowViews: standardKeyboard.rowViews)
     }
     
     func bootstrap() {
+        var configuration = SEGAnalyticsConfiguration(writeKey: "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI")
+        SEGAnalytics.setupWithConfiguration(configuration)
+        SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
+        
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
         Flurry.startSession(FlurryClientKey)
-        
-        var configuration = SEGAnalyticsConfiguration(writeKey: "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI")
-        SEGAnalytics.setupWithConfiguration(configuration)
-        
         Firebase.setOption("persistence", to: true)
-        var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
-        categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
-        sectionPicker.categories = categoryService?.categories
         
-        trackService = TrackService(root: firebaseRoot)
-        trackService?.requestData({ data in
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+            self.getCurrentUser()
             
-        })
-        
-        lyricPicker.trackService = trackService
-        sectionPicker.categoryService = categoryService
-        
-        categoryService?.requestData { categories in
-            self.sectionPicker.categories = self.categoryService?.categories
-            return
-        }
-        
-        AFNetworkReachabilityManager.sharedManager().setReachabilityStatusChangeBlock { status in
-            dispatch_async(dispatch_get_main_queue(), {
+            var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
+            self.categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
+            self.categoryService!.delegate = self
+            self.sectionPicker.categories = self.categoryService?.categoryArray
+            
+            self.trackService = TrackService(root: firebaseRoot)
+            self.trackService?.requestData({ data in
                 
-                // if there's no connectivity and no cached data
-                if status == .NotReachable && !self.trackService!.isDataLoaded {
-                    self.reachabilityStatusChanged(false)
-                } else {
-                    self.reachabilityStatusChanged(true)
-                }
             })
-        }
+            
+            self.lyricPicker.trackService = self.trackService
+            self.sectionPicker.categoryService = self.categoryService
+            
+            self.categoryService?.requestData { categories in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.sectionPicker.categories = self.categoryService?.categoryArray
+                    return
+                })
+                return
+            }
+        })
     }
     
     func getCurrentUser() {
@@ -144,25 +139,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        var openAccessGranted = isOpenAccessGranted()
-//        
-//        allowFullAccessMessage.text = EnableFullAccessMessage
-//        allowFullAccessMessage.hidden = openAccessGranted
-//        fixedFilterBarView.hidden = !openAccessGranted
-//        lyricPicker.view.hidden = !openAccessGranted
-//        
-//        if !openAccessGranted {
-//            return
-//        }
-//        
-        if !trackService!.isDataLoaded {
-            var internetReachable = AFNetworkReachabilityManager.sharedManager().reachable
-            reachabilityStatusChanged(internetReachable)
-        }
-    }
-    
-    
     override func viewWillLayoutSubviews() {
         if !sectionPickerView!.drawerOpened {
             layoutSectionPickerView()
@@ -174,16 +150,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         layoutSectionPickerView()
-    }
-    
-    func reachabilityStatusChanged(internetReachable: Bool) {
-//        allowFullAccessMessage.hidden = internetReachable
-//        fixedFilterBarView.hidden = !internetReachable
-//        lyricPicker.view.hidden = !internetReachable
-//        
-//        if !internetReachable {
-//            allowFullAccessMessage.text = "No Internet Connection"
-//        }
     }
     
     func setupAppearance() {
@@ -221,13 +187,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             seperatorView.al_height == 1.0,
             seperatorView.al_width == view.al_width,
             seperatorView.al_top == view.al_top,
-            seperatorView.al_left == view.al_left,
-            
-//            standardKeyboardView.al_bottom == view.al_bottom,
-//            standardKeyboardView.al_width == view.al_width,
-//            standardKeyboardView.al_top == view.al_top + (LyricFilterBarHeight + 2 * 75),
-//            standardKeyboardView.al_left == view.al_left,
-//            standardKeyboardView.al_height <= 200
+            seperatorView.al_left == view.al_left
         ])
         
         //lyric Picker
@@ -272,11 +232,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         if !proxy.hasText() {
             return
         }
-        
-//        if !proxy.documentContextAfterInput.isEmpty {
-//            var characterCount = proxy.documentContextAfterInput.utf16Count
-//            proxy.adjustTextPositionByCharacterOffset(characterCount)
-//        }
         
         var context = proxy.documentContextBeforeInput
         
@@ -446,5 +401,23 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL]) {
         insertLyric(shareViewController.lyric!, selectedOptions:options)
+    }
+    
+    // MARK: CategoryServiceDelegate
+    
+    func categoryServiceDidLoad(service: CategoryService) {
+        self.sectionPicker.categories = self.categoryService?.categoryArray
+    }
+    
+    func categoryServiceDidLoadCategory(service: CategoryService, category: Category) {
+        
+    }
+    
+    func categoryServiceDidAddLyric(service: CategoryService, lyric: Lyric) {
+        
+    }
+    
+    func categoryServiceLoadFailed(service: CategoryService) {
+        
     }
 }

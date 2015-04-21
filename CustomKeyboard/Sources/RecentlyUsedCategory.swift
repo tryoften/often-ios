@@ -16,6 +16,10 @@ class RecentlyUsedCategory: Category {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectLyric:", name: "lyric:selected", object: nil)
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     func didSelectLyric(notification: NSNotification) {
         if let userInfo = notification.userInfo as? [String: Lyric] {
             var lyric = userInfo["lyric"]

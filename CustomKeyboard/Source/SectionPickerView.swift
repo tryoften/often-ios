@@ -33,12 +33,12 @@ class SectionPickerView: UIView {
         categoriesTableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoriesTableView.separatorStyle = .None
         categoriesTableView.rowHeight = 50
-        categoriesTableView.hidden = true
 
         categoriesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: SectionPickerView.provideCollectionViewLayout(frame))
         categoriesCollectionView.backgroundColor = UIColor(fromHexString: "#121314")
         categoriesCollectionView.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoriesCollectionView.registerClass(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
+        categoriesCollectionView.hidden = true
         
         nextKeyboardButton = UIButton()
         nextKeyboardButton.titleLabel!.font = UIFont(name: "font_icons8", size:20)

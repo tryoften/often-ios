@@ -97,12 +97,8 @@ class LyricTableViewCell: UITableViewCell {
 
     }
     
-    override func setHighlighted(highlighted: Bool, animated: Bool) {
-//        if highlighted {
-//            lyricView.backgroundColor = UIColor.whiteColor()
-//        } else {
-//            lyricView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
-//        }
+    override func prepareForReuse() {
+        metadataView.resetConstraints()
     }
     
     func setupLayout() {

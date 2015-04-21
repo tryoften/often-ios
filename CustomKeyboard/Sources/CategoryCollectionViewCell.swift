@@ -50,7 +50,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             highlightColorBorder.al_width == al_width,
             highlightColorBorder.al_left == al_left,
             highlightColorBorder.al_top == al_top,
-            highlightColorBorder.al_height == 5,
+            highlightColorBorder.al_height == 4.5,
 
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_centerY == al_centerY - 10,

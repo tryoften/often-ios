@@ -27,7 +27,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        labelFont = UIFont(name: "Lato-Light", size: 20)
+        labelFont = BaseFont
         animatingCell = false
         searchModeOn = false
 
@@ -167,7 +167,9 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     
     func didSelectSection(sectionPickerView: SectionPickerView, category: Category) {
         currentCategory = category
-        
+        selectedRow = nil
+        selectedCell = nil
+
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.alpha = 0.0
             self.tableView.layer.transform = CATransform3DMakeScale(0.90, 0.90, 0.90)
@@ -177,7 +179,12 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
                 self.tableView.alpha = 1.0
                 self.tableView.layer.transform = CATransform3DIdentity
             })
-            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: true)
+            
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            
+            if self.tableView.numberOfSections() > 0 && self.tableView.numberOfRowsInSection(0) > 0 {
+                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            }
         })
     }
 

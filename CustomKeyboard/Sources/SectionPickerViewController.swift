@@ -30,14 +30,15 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
     var currentCategory: Category?
     var categories: [Category]? {
         didSet {
-//            pickerView.categoriesTableView.reloadData()
-            pickerView.categoriesCollectionView.reloadData()
+            pickerView.categoriesTableView.reloadData()
+//            pickerView.categoriesCollectionView.reloadData()
             if (categories!.count > 1) {
                 currentCategory = categories![1]
                 pickerView.delegate?.didSelectSection(pickerView, category: currentCategory!)
                 dispatch_async(dispatch_get_main_queue(), {
                     self.pickerView.currentCategoryLabel.text = self.currentCategory!.name
                     self.pickerView.categoriesCollectionView.setNeedsLayout()
+                    self.pickerView.categoriesTableView.setNeedsLayout()
                 })
             }
         }
@@ -46,8 +47,8 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
     override func loadView() {
         view = SectionPickerView(frame: keyboardViewController.view.bounds)
         pickerView = (view as! SectionPickerView)
-//        pickerView.categoriesTableView.dataSource = self
-//        pickerView.categoriesTableView.delegate = self
+        pickerView.categoriesTableView.dataSource = self
+        pickerView.categoriesTableView.delegate = self
         
         pickerView.categoriesCollectionView.dataSource = self
         pickerView.categoriesCollectionView.delegate = self
@@ -251,7 +252,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        var category = categories![indexPath.row] as Category;
+        var category = categories![indexPath.row] as Category
         
         currentCategory = category
         pickerView.currentCategoryLabel.text = category.name

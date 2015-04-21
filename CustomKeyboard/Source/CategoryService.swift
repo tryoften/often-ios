@@ -9,21 +9,35 @@
 import BrightFutures
 import UIKit
 import SwiftyJSON
+import AFNetworking
 
 class CategoryService: NSObject {
     var artistId: String
     var root: Firebase
     var categoriesRef: Firebase
     var lyricsRef: Firebase
-    var categories: [Category] = []
+    var categories: [String: Category] {
+        didSet {
+            var array = [Category]()
+            
+            for (key, category) in categories {
+                array.append(category)
+            }
+            
+            categoryArray = array
+        }
+    }
     var lyrics: [Lyric] = []
     var isDataLoaded: Bool = false
-    
+    var delegate: CategoryServiceDelegate?
+    var categoryArray: [Category] = []
+
     init(artistId: String, root: Firebase) {
         self.artistId = artistId
         self.root = root
         self.categoriesRef = root.childByAppendingPath("categories")
         self.lyricsRef = root.childByAppendingPath("lyrics")
+        self.categories = [String: Category]()
 
         super.init()
     }
@@ -36,17 +50,8 @@ class CategoryService: NSObject {
         var category = Category(id: data["id"]!, name: data["name"]!, lyrics: nil)
     }
     
-    func categoryForId(categoryId: String) -> Category? {
-        for category in categories {
-            if category.id == categoryId {
-                return category
-            }
-        }
-        return nil
-    }
-    
-    func requestCategories() -> Future<[Category]> {
-        var promise = Promise<[Category]>()
+    func requestCategories() -> Future<[String: Category]> {
+        var promise = Promise<[String: Category]>()
         
         if !isDataLoaded {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
@@ -54,32 +59,24 @@ class CategoryService: NSObject {
                     (success, error) in
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        if success {
-                            promise.success(self.categories)
-                        } else {
-                            promise.failure(error!)
-                        }
+                        self.delegate?.categoryServiceDidLoad(self)
                     })
                     
                 })
             })
         } else {
-            promise.success(self.categories)
+            self.delegate?.categoryServiceDidLoad(self)
         }
         
-        var categories = [Category]()
-        categories.append(RecentlyUsedCategory())
+        var categories = [String: Category]()
+        categories["recent"] = (RecentlyUsedCategory())
         
         categoriesRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
             let data = snapshot.value as! [ [String: String] ]
             
             for category in data {
                 if let id = category["id"], name = category["name"] {
-                    if let cachedCategory = self.categoryForId(id) {
-                        categories.append(Category(id: id, name: name, lyrics: cachedCategory.lyrics))
-                    } else {
-                        categories.append(Category(id: id, name: name, lyrics: nil))
-                    }
+                    categories[id] = Category(id: id, name: name, lyrics: self.categories[id]?.lyrics ?? nil)
                 }
             }
             
@@ -87,9 +84,8 @@ class CategoryService: NSObject {
             self.categories = categories
 
             promise.success(self.categories)
+            self.delegate?.categoryServiceDidLoad(self)
     
-        }, withCancelBlock: { error in
-            promise.success(self.categories)
         })
         
         return promise.future
@@ -98,52 +94,64 @@ class CategoryService: NSObject {
     func requestLyrics(categoryId: String, artistIds: [String]?) -> Future<[Lyric]> {
         var promise = Promise<[Lyric]>()
         
-        if let category = self.categoryForId(categoryId) {
-            promise.success(category.lyrics)
-        }
+        var internetReachable = AFNetworkReachabilityManager.sharedManager().reachable
         
-        var query = lyricsRef.childByAppendingPath("\(categoryId)")
-        query.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            
-            if let data = snapshot.value as? [String: [ [String : String] ]] {
-                var lyrics = [Lyric]()
+        if !internetReachable {
+            if let category = self.categories[categoryId] {
+                promise.success(category.lyrics)
+            } else {
+                promise.failure(NSError())
+            }
+        } else {
+        
+            var query = lyricsRef.childByAppendingPath("\(categoryId)")
+            query.observeSingleEventOfType(.Value, withBlock: { snapshot in
                 
-                for (key, lyricsData) in data {
-                    for lyricData in lyricsData {
-                        var lyric = Lyric(id: key, text: lyricData["text"]!, categoryId: lyricData["category_id"]!, trackId: lyricData["track_id"])
-                        lyrics.append(lyric)
+                if let data = snapshot.value as? [String: [ [String : String] ]] {
+                    var lyrics = [Lyric]()
+                    
+                    for (key, lyricsData) in data {
+                        for lyricData in lyricsData {
+                            var lyric = Lyric(id: key, text: lyricData["text"]!, categoryId: lyricData["category_id"]!, trackId: lyricData["track_id"])
+                            lyrics.append(lyric)
+                        }
+                    }
+                    
+                    if let category = self.categories[categoryId] {
+                        category.lyrics = lyrics
+                    }
+                    
+                    promise.success(lyrics)
+
+                } else {
+                    if let category = self.categories[categoryId] {
+                        promise.success(category.lyrics)
+                    } else {
+                        promise.failure(NSError())
                     }
                 }
-                
-                if let category = self.categoryForId(categoryId) {
-                    category.lyrics = lyrics
-                }
-                
-                promise.success(lyrics)
-            } else {
-                if let category = self.categoryForId(categoryId) {
-                    promise.success(category.lyrics)
-                } else {
-                    promise.failure(NSError())
-                }
-            }
-        })
+            })
+        }
         
         return promise.future
     }
     
     func requestData(completion: (Bool) -> Void) {
         self.requestCategories().andThen { result in
-            var category = self.categories[1]
-            var request = self.requestLyrics(category.id, artistIds: nil)
-                
-            request.onSuccess { data in
-                completion(true)
-            }
+            var keys = self.categories.keys
             
-            request.onFailure { error in
-                completion(false)
+            if let category = self.categories[keys.first!] {
+                var request = self.requestLyrics(category.id, artistIds: nil)
+    
+                request.onSuccess { data in
+                    completion(true)
+                }
+                
+                request.onFailure { error in
+                    completion(false)
+                }
             }
+
         }
         
         // listen for any new categories added after the initial load
@@ -160,8 +168,8 @@ class CategoryService: NSObject {
                 return
             }
 
-            categories = [Category]()
-            categories.append(RecentlyUsedCategory())
+            categories = [String: Category]()
+            categories["recent"] = (RecentlyUsedCategory())
 
             if let categories = json["categories"].array {
                 
@@ -181,7 +189,7 @@ class CategoryService: NSObject {
                             lyrics.append(lyric)
                             }
                         }
-                        self.categories.append(Category(id: categoryId, name: categoryName, lyrics: lyrics))
+                        self.categories[categoryId] = Category(id: categoryId, name: categoryName, lyrics: lyrics)
                     }
                 }
                 
@@ -192,7 +200,10 @@ class CategoryService: NSObject {
     }
 }
 
-protocol CategoryServiceDelegate {
+@objc protocol CategoryServiceDelegate {
     func categoryServiceDidLoad(service: CategoryService)
+    func categoryServiceDidLoadCategory(service: CategoryService, category: Category)
     func categoryServiceDidAddLyric(service: CategoryService, lyric: Lyric)
+    
+    optional func categoryServiceLoadFailed(service: CategoryService)
 }

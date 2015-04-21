@@ -20,6 +20,8 @@ let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 
 // Colors
 let BlueColor = UIColor(fromHexString: "#3b5998")
+let DarkGrey = UIColor(fromHexString: "#d8d8d8")
+
 let MainBackgroundColor = UIColor(fromHexString: "")
 let MainTextColor = UIColor(fromHexString: "#777777")
 
@@ -29,4 +31,11 @@ let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
 
 let KeyboardTableViewBackgroundColor = UIColor(fromHexString: "#f7f7f7")
-let KeyboardTableSeperatorColor = UIColor(fromHexString: "#d8d8d8")
+let KeyboardTableSeperatorColor = DarkGrey
+let KeyboardTableCoverArtViewBackgroundColor = DarkGrey
+
+
+let BaseFont = UIFont(name: "Lato-Light", size: 20)
+let SubtitleFont = UIFont(name: "Lato-Regular", size: 12)
+
+let CoverArtViewImageWidth = 35.0
