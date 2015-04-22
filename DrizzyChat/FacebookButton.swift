@@ -26,17 +26,17 @@ class FacebookButton: UIButton {
     class func button() -> FacebookButton {
         var fbButton = FacebookButton.buttonWithType(UIButtonType.Custom) as! UIButton
 
-        fbButton.backgroundColor = BlueColor
+        fbButton.backgroundColor = FacebookButtonNormalBackgroundColor
         fbButton.layer.cornerRadius = 5
         fbButton.addTarget(fbButton, action: "didTapButton", forControlEvents: .TouchUpInside)
         
         var title = NSMutableAttributedString(string: "\u{f610}   Sign up with Facebook")
         
-        title.addAttribute(NSFontAttributeName, value: UIFont(name: "SSSocialRegular", size: 24)!, range: NSMakeRange(0, 1))
+        title.addAttribute(NSFontAttributeName, value: FacebookButtonIconFont!, range: NSMakeRange(0, 1))
         title.addAttribute(NSBaselineOffsetAttributeName, value: -5.0, range: NSMakeRange(0, 1))
-        title.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 18)!, range: NSMakeRange(1, title.length - 1))
+        title.addAttribute(NSFontAttributeName, value: FacebookButtonTitleFont!, range: NSMakeRange(1, title.length - 1))
         
-        fbButton.titleLabel?.textColor = UIColor.whiteColor()
+        fbButton.titleLabel?.textColor = FacebookButtonTitleTextColor
         fbButton.setAttributedTitle(title, forState: .Normal)
         
         return fbButton as! FacebookButton
@@ -49,9 +49,9 @@ class FacebookButton: UIButton {
     
     func setHighlightedColor(highlighted: Bool) {
         if highlighted {
-            backgroundColor = UIColor(fromHexString: "#4d75c7")
+            backgroundColor = FacebookButtonHighlightedBackgroundColor
         } else {
-            backgroundColor = UIColor(fromHexString: "#3b5998")
+            backgroundColor = FacebookButtonNormalBackgroundColor
         }
     }
 }

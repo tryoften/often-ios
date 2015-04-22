@@ -18,7 +18,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
     var sectionPicker: SectionPickerViewController!
-    var standardKeyboard: StandardKeyboardViewController!
+//    var standardKeyboard: StandardKeyboardViewController!
     var heightConstraint: NSLayoutConstraint!
     var categoryService: CategoryService?
     var trackService: TrackService?
@@ -42,11 +42,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         lyricPicker.keyboardViewController = self
         lyricPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        standardKeyboard = StandardKeyboardViewController()
-        standardKeyboard.parentKeyboardViewController = self
-        standardKeyboard.view.setTranslatesAutoresizingMaskIntoConstraints(false)
-        standardKeyboard.view.alpha = 0.0
-        
         seperatorView = UIView(frame: CGRectZero)
         seperatorView.backgroundColor = KeyboardTableSeperatorColor
         seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -57,42 +52,22 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         sectionPickerView = (sectionPicker.view as! SectionPickerView)
         sectionPickerView?.delegate = lyricPicker
         sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
-        
-        fixedFilterBarView = UIView(frame: CGRectZero)
-        fixedFilterBarView.backgroundColor = UIColor.whiteColor()
-        fixedFilterBarView.accessibilityIdentifier = "fixed filter bar view"
-        fixedFilterBarView.alpha = 0.0
-        fixedFilterBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        allowFullAccessMessage = UILabel(frame: CGRectZero)
-        allowFullAccessMessage.font = UIFont(name: "Lato-Regular", size: 16)
-        allowFullAccessMessage.text = EnableFullAccessMessage
-        allowFullAccessMessage.numberOfLines = 0
-        allowFullAccessMessage.textAlignment = .Center
-        allowFullAccessMessage.backgroundColor = UIColor(fromHexString: "#f7f7f7")
-        allowFullAccessMessage.textColor = UIColor.blackColor()
-        allowFullAccessMessage.hidden = true
-        allowFullAccessMessage.setTranslatesAutoresizingMaskIntoConstraints(false)
-
-        view.addSubview(allowFullAccessMessage)
+    
         view.addSubview(lyricPicker.view)
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
-        view.addSubview(standardKeyboard.view)
-        view.addSubview(fixedFilterBarView)
         
         heightConstraint = view.al_height == 230
         
         setupLayout()
         setupAppearance()
         layoutSectionPickerView()
-        
+
         bootstrap()
-        standardKeyboard.addConstraintsToInputView(standardKeyboard.view, rowViews: standardKeyboard.rowViews)
     }
     
     func bootstrap() {
-        var configuration = SEGAnalyticsConfiguration(writeKey: "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI")
+        var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
         
@@ -177,8 +152,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func setupLayout() {
         let lyricPicker = self.lyricPicker.view
-        let sectionPickerView = self.sectionPickerView!
-        let standardKeyboardView = self.standardKeyboard.view
 
         //section Picker View
         view.addConstraints([
@@ -192,20 +165,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         //lyric Picker
         view.addConstraints([
-            fixedFilterBarView.al_height == LyricFilterBarHeight,
-            fixedFilterBarView.al_top == view.al_top,
-            fixedFilterBarView.al_width == view.al_width,
-            fixedFilterBarView.al_left == view.al_left,
-
             lyricPicker.al_top == view.al_top,
             lyricPicker.al_left == view.al_left,
             lyricPicker.al_right == view.al_right,
             lyricPicker.al_bottom == view.al_bottom,
-            
-            allowFullAccessMessage.al_top == view.al_top,
-            allowFullAccessMessage.al_left == view.al_left,
-            allowFullAccessMessage.al_bottom == view.al_bottom - LyricFilterBarHeight,
-            allowFullAccessMessage.al_right == view.al_right
         ])
     }
 
@@ -342,32 +305,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         return shareString + url.absoluteString!
     }
-    
-    func displayStandardKeyboard() {
-        var height = 200
-            + LyricTableViewCellHeight * 2 + LyricFilterBarHeight
 
-        UIView.animateWithDuration(0.5, animations: {
-            self.heightConstraint.constant = height
-            }, completion: { done in
-                UIView.animateWithDuration(0.3, animations: {
-                    self.sectionPickerView?.alpha = 0.0
-                    self.standardKeyboard.view.alpha = 1.0
-                })
-        })
-    }
-    
-    func hideStandardKeyboard() {
-        UIView.animateWithDuration(0.5, animations: {
-            self.heightConstraint.constant = 230
-            }, completion: { done in
-                UIView.animateWithDuration(0.3, animations: {
-                    self.sectionPickerView?.alpha = 1.0
-                    self.standardKeyboard.view.alpha = 0.0
-                })
-        })
-    }
-    
     // MARK: LyricFilterBarPromotable
     func promote(shouldPromote: Bool, animated: Bool) {
         if animated {

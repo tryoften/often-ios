@@ -8,9 +8,6 @@
 
 import UIKit
 
-let LyricTableViewCellIdentifier = "LyricTableViewCell"
-let LyricTableViewCellHeight: CGFloat = 75
-
 class LyricPickerTableViewController: UITableViewController, UITableViewDelegate, SectionPickerViewDelegate,
     LyricTableViewCellDelegate, LyricFilterBarDelegate {
     
@@ -204,10 +201,8 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
                 var data = [NSString: AnyObject]()
                 data["lyric"] = cell.lyric
 
-                var notification = NSNotification(name: "lyric:selected", object: nil, userInfo: data)
+                var notification = NSNotification(name: LyricSelectedEventIdentifier, object: nil, userInfo: data)
                 NSNotificationCenter.defaultCenter().postNotification(notification)
-                
-                
             }
         }
     }
@@ -215,15 +210,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     // MARK: LyricFilterBarDelegate
     
     func lyricFilterBarShouldShowKeyboard(lyricFilterBar: LyricFilterBar, showKeyboard: Bool) {
-        if showKeyboard {
-            lyricFilterBar.searchBar.becomeFirstResponder()
-            keyboardViewController.displayStandardKeyboard()
-            searchModeOn = true
-        } else {
-            lyricFilterBar.searchBar.resignFirstResponder()
-            keyboardViewController.hideStandardKeyboard()
-            searchModeOn = false
-        }
     }
     
     func lyricFilterBarStateDidChange(lyricFilterBar: LyricFilterBar, hidden: Bool) {

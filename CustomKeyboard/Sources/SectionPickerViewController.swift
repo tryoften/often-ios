@@ -10,15 +10,6 @@ import UIKit
 import Analytics
 import FlurrySDK
 
-let highlightColors = ["#e85769", //Red
-    "#5d82f7", //Blue
-    "#f19720", //Orange
-    "#21ce99", //Green
-    "#a065d8", //Purple
-    "#2db8ff" //Light Blue
-]
-let CategoryCollectionViewCellReuseIdentifier = "CategoryCollectionViewCell"
-
 class SectionPickerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     var keyboardViewController: KeyboardViewController!
@@ -76,7 +67,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
         
         if tapRecognizer.state == .Ended {
             UIView.animateWithDuration(0.3, animations: {
-                self.pickerView.backgroundColor = UIColor(fromHexString: "#121314")
+                self.pickerView.backgroundColor = SectionPickerViewCellNormalBackgroundColor
             })
         }
         
@@ -100,7 +91,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
         UIView.animateWithDuration(0.3, animations: {
-            self.pickerView.backgroundColor = UIColor.blackColor()
+            self.pickerView.backgroundColor = SectionPickerViewCellHighlightedBackgroundColor
         })
     }
     
@@ -202,13 +193,13 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
         let cell = tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath) as! UITableViewCell
         let category = categories![indexPath.row]
         
-        cell.backgroundColor = UIColor.clearColor()
+        cell.backgroundColor = SectionPickerViewCellNormalBackgroundColor
         cell.selectedBackgroundView = pickerView.selectedBgView
         
         if let label = cell.textLabel {
             label.text = category.name
-            label.font = UIFont(name: "Lato-Light", size: 20)
-            label.textColor = UIColor.whiteColor()
+            label.font = SectionPickerViewCellTitleFont
+            label.textColor = SectionPickerViewCellTitleFontColor
             label.textAlignment = .Center
         }
         
@@ -245,7 +236,7 @@ class SectionPickerViewController: UIViewController, UITableViewDataSource, UITa
         let category = categories![indexPath.row]
         
         cell.titleLabel.text = category.name
-        cell.highlightColorBorder.backgroundColor = UIColor(fromHexString: highlightColors[indexPath.row % highlightColors.count])
+        cell.highlightColorBorder.backgroundColor = UIColor(fromHexString: CategoryCollectionViewCellHighlightColors[indexPath.row % CategoryCollectionViewCellHighlightColors.count])
         cell.subtitleLabel.text = "\(category.lyrics.count) lyrics"
         
         return cell

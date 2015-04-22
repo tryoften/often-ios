@@ -13,7 +13,7 @@ class RecentlyUsedCategory: Category {
         super.init(id: "recently", name: "Recently Used", lyrics: nil)
         lyrics = []
         retrieveLyrics()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectLyric:", name: "lyric:selected", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectLyric:", name: LyricSelectedEventIdentifier, object: nil)
     }
     
     deinit {

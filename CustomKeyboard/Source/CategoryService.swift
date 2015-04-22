@@ -54,16 +54,9 @@ class CategoryService: NSObject {
         var promise = Promise<[String: Category]>()
         
         if !isDataLoaded {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-                self.getDataFromDisk({
-                    (success, error) in
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.delegate?.categoryServiceDidLoad(self)
-                    })
-                    
-                })
-            })
+            self.getDataFromDisk { (success, error) in
+                self.delegate?.categoryServiceDidLoad(self)
+            }
         } else {
             self.delegate?.categoryServiceDidLoad(self)
         }

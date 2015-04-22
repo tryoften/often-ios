@@ -8,8 +8,6 @@
 
 import UIKit
 
-let SectionPickerViewHeight: CGFloat = 45.0
-
 class SectionPickerView: UIView {
     
     var categoriesTableView: UITableView
@@ -32,43 +30,41 @@ class SectionPickerView: UIView {
         categoriesTableView.backgroundColor = UIColor.clearColor()
         categoriesTableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoriesTableView.separatorStyle = .None
-        categoriesTableView.rowHeight = 50
+        categoriesTableView.rowHeight = SectionPickerViewCellHeight
 
         categoriesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: SectionPickerView.provideCollectionViewLayout(frame))
-        categoriesCollectionView.backgroundColor = UIColor(fromHexString: "#121314")
+        categoriesCollectionView.backgroundColor = CategoriesCollectionViewBackgroundColor
         categoriesCollectionView.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoriesCollectionView.registerClass(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
         categoriesCollectionView.hidden = true
         
         nextKeyboardButton = UIButton()
-        nextKeyboardButton.titleLabel!.font = UIFont(name: "font_icons8", size:20)
+        nextKeyboardButton.titleLabel!.font = NextKeyboardButtonFont
         nextKeyboardButton.setTitle("\u{f114}", forState: .Normal)
         nextKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nextKeyboardButton.backgroundColor = UIColor(fromHexString: "#121314")
+        nextKeyboardButton.backgroundColor = NextKeyboardButtonBackgroundColor
         
         currentCategoryView = UIView()
         currentCategoryView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         toggleDrawerButton = UIButton()
-        toggleDrawerButton.titleLabel!.font = UIFont(name: "font_icons8", size:20)
+        toggleDrawerButton.titleLabel!.font = NextKeyboardButtonFont
         toggleDrawerButton.setTitle("\u{f132}", forState: .Normal)
         toggleDrawerButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         toggleDrawerButton.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 0, bottom: 0, right: 0)
         
         currentCategoryLabel = UILabel()
-        currentCategoryLabel.textColor = UIColor.whiteColor()
+        currentCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
         currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         currentCategoryLabel.userInteractionEnabled = true
         currentCategoryLabel.font = UIFont(name: "Lato-Regular", size: 19)
         
         selectedBgView = UIView(frame: CGRectZero)
-        selectedBgView.backgroundColor = UIColor(fromHexString: "#1f1f1f")
+        selectedBgView.backgroundColor = SectionPickerViewCellHighlightedBackgroundColor
         
         super.init(frame: frame)
 
-//        heightConstraint = al_height == SectionPickerViewHeight
-
-        backgroundColor = UIColor(fromHexString: "#121314")
+        backgroundColor = SectionPickerViewBackgroundColor
         
         currentCategoryView.addSubview(toggleDrawerButton)
         currentCategoryView.addSubview(currentCategoryLabel)
@@ -85,8 +81,6 @@ class SectionPickerView: UIView {
     
     class func provideCollectionViewLayout(frame: CGRect) -> UICollectionViewLayout {
         var viewLayout = UICollectionViewFlowLayout()
-//        let viewSize = frame.size
-//        viewLayout.itemSize = CGSizeMake(140, viewSize.height / 2 - 10)
         viewLayout.scrollDirection = .Horizontal
         viewLayout.sectionInset = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
         return viewLayout
@@ -100,8 +94,6 @@ class SectionPickerView: UIView {
         var toggleDrawer = toggleDrawerButton
         
         addConstraints([
-//            heightConstraint!,
-            
             // keyboard button
             keyboardButton.al_left == al_left,
             keyboardButton.al_top == al_top,
@@ -150,7 +142,6 @@ class SectionPickerView: UIView {
     func open() {
         
         UIView.animateWithDuration(0.2, animations: {
-            println("superview height ", self.superview!.bounds.height)
             var frame = self.frame
             frame.size.height = self.superview!.bounds.height
             frame.origin.y = 0

@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        view.backgroundColor = HomeViewBackgroundColor
         view.addSubview(loginIndicatorView)
         
         setupLayout()
@@ -66,7 +66,7 @@ class HomeViewController: UIViewController {
     }
     
     func didTapRateUsButton() {
-        UIApplication.sharedApplication().openURL(NSURL(string: "itms-apps://itunes.apple.com/app/id955090584")!)
+        UIApplication.sharedApplication().openURL(NSURL(string: AppStoreLink)!)
     }
     
     func didTapFeedbackButton() {

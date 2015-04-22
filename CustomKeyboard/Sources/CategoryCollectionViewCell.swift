@@ -16,23 +16,22 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(fromHexString: "#1c1c1c")
+        backgroundColor = CategoryCollectionViewCellBackgroundColor
         
         titleLabel = UILabel()
         titleLabel.textColor = UIColor.whiteColor()
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        titleLabel.font = UIFont(name: "Lato-Regular", size: 15)
+        titleLabel.font = CategoryCollectionViewCellTitleFont
         titleLabel.textAlignment = .Center
         
         subtitleLabel = UILabel()
-        subtitleLabel.textColor = UIColor(fromHexString: "#aeb5b8")
+        subtitleLabel.textColor = CategoryCollectionViewCellSubtitleTextColor
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        subtitleLabel.font = UIFont(name: "Lato-Regular", size: 12)
+        subtitleLabel.font = CategoryCollectionViewCellSubtitleFont
         subtitleLabel.textAlignment = .Center
         
         highlightColorBorder = UIView(frame: CGRectZero)
         highlightColorBorder.setTranslatesAutoresizingMaskIntoConstraints(false)
-        highlightColorBorder.backgroundColor = UIColor(fromHexString: "#e85769")
 
         addSubview(titleLabel)
         addSubview(subtitleLabel)

@@ -42,24 +42,24 @@ class LyricTableViewCell: UITableViewCell {
         contentView.autoresizingMask = .FlexibleHeight | .FlexibleWidth
         
         lyricView = UIView(frame: CGRectZero)
-        lyricView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        lyricView.backgroundColor = LyricTableViewCellTextViewBackgroundColor!
         lyricView.setTranslatesAutoresizingMaskIntoConstraints(false)
         contentView.addSubview(lyricView)
         
         lyricLabel = UILabel(frame: CGRectZero)
         lyricLabel.numberOfLines = 2
-        lyricLabel.font = UIFont(name: "Lato-Regular", size: 15)
+        lyricLabel.font = LyricTableViewCellMainTitleFont
         lyricLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         lyricLabel.textAlignment = .Center
         lyricView.addSubview(lyricLabel)
         
         infoView = UIView(frame: CGRectZero)
-        infoView.backgroundColor = UIColor(fromHexString: "#eeeeee")
+        infoView.backgroundColor = LyricTableViewCellInfoBackgroundColor
         infoView.setTranslatesAutoresizingMaskIntoConstraints(false)
         contentView.addSubview(infoView)
 
         seperatorView = UIView(frame: CGRectZero)
-        seperatorView.backgroundColor = UIColor(fromHexString: "#d8d8d8")
+        seperatorView.backgroundColor = KeyboardTableSeperatorColor
         seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
         contentView.addSubview(seperatorView)
         
@@ -89,9 +89,9 @@ class LyricTableViewCell: UITableViewCell {
 
         UIView.animateWithDuration(0.3, animations: {
             if selected {
-                self.lyricView.backgroundColor = UIColor.whiteColor()
+                self.lyricView.backgroundColor = LyricTableViewCellHighlightedBackgroundColor
             } else {
-                self.lyricView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+                self.lyricView.backgroundColor = LyricTableViewCellNormalBackgroundColor
             }
         })
 
@@ -127,7 +127,7 @@ class LyricTableViewCell: UITableViewCell {
             seperatorView.al_left == contentView.al_left,
             seperatorView.al_height == 1.0,
             
-            metadataView.al_height == 50.0,
+            metadataView.al_height == CGFloat(LyricTableViewCellInfoHeight),
             metadataView.al_width <= infoView.al_width,
             metadataView.al_top == infoView.al_top,
             metadataView.al_left == infoView.al_left,
