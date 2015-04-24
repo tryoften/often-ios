@@ -125,7 +125,7 @@ class CategoryService: NSObject {
                 }
             })
         }
-        
+    
         return promise.future
     }
     
@@ -152,7 +152,9 @@ class CategoryService: NSObject {
     }
     
     func getDataFromDisk(completion: (success: Bool, error: NSError?) -> ()) {
-        if let urlPath = NSBundle.mainBundle().pathForResource("lyrics", ofType: "json"), data = NSData(contentsOfFile: urlPath) {
+        if let urlPath = NSBundle.mainBundle().pathForResource("lyrics", ofType: "json"),
+            data = NSData(contentsOfFile: urlPath) {
+            
             var error: NSError?
             var json = JSON(data: data, options: nil, error: &error)
             

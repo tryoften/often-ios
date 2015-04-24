@@ -26,15 +26,11 @@ class TrackService: NSObject {
     
     func requestData(completion: (Bool) -> Void) {
         if !isDataLoaded {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-                self.getDataFromDisk({
-                    (success, error) in
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        completion(success)
-                    })
-                    
-                })
+            self.getDataFromDisk({
+                (success, error) in
+        
+                completion(success)
+                
             })
         } else {
             completion(false)
@@ -45,7 +41,6 @@ class TrackService: NSObject {
             snapshot in
             
             let data = snapshot.value as! [ [String : String] ]
-//            println("\(data)")
             
             for trackData in data {
                 var track = Track(dictionary: trackData)

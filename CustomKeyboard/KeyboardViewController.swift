@@ -13,7 +13,7 @@ import Analytics
 
 let EnableFullAccessMessage = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to do his thing"
 
-class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, LyricFilterBarPromotable, CategoryServiceDelegate {
+class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, CategoryServiceDelegate {
 
     var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
@@ -22,6 +22,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var heightConstraint: NSLayoutConstraint!
     var categoryService: CategoryService?
     var trackService: TrackService?
+    var viewModel: KeyboardViewModel!
     var sectionPickerView: SectionPickerView?
     var seperatorView: UIView!
     var lastInsertedString: String?
@@ -36,6 +37,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel = KeyboardViewModel()
+        viewModel.requestData({ data in
+            
+        })
         
         lyricPicker = LyricPickerTableViewController()
         lyricPicker.delegate = self

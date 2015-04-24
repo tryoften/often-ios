@@ -62,6 +62,12 @@
 		816FE5AC1A87275A00E42C17 /* SignUpWalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5AB1A87275A00E42C17 /* SignUpWalkthroughPage.swift */; };
 		816FE5AE1A87284600E42C17 /* ActionWalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5AD1A87284600E42C17 /* ActionWalkthroughPage.swift */; };
 		816FE5B01A881C6500E42C17 /* SignUpFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE5AF1A881C6500E42C17 /* SignUpFormViewController.swift */; };
+		817618EE1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */; };
+		817618EF1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */; };
+		817618F41AE9ED4F00C7D9CB /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618F31AE9ED4F00C7D9CB /* Keyboard.swift */; };
+		817618F51AE9ED4F00C7D9CB /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618F31AE9ED4F00C7D9CB /* Keyboard.swift */; };
+		817618F61AE9F58300C7D9CB /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010771AE8A47C008F3296 /* KeyboardService.swift */; };
+		817618F71AEA146900C7D9CB /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010751AE89956008F3296 /* Artist.swift */; };
 		81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81794EC81A81D6D5009D4A71 /* HomeViewController.swift */; };
 		81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81794EC91A81D6D5009D4A71 /* HomeViewController.xib */; };
 		81794ED01A81E5C3009D4A71 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ECD1A81E5C3009D4A71 /* Parse.framework */; };
@@ -156,6 +162,9 @@
 		81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D5861A956E680089767B /* LoginIndicatorView.swift */; };
 		81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
 		81B6D5911A95B1F90089767B /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D5901A95B1F90089767B /* KeyboardKey.swift */; };
+		81C010711AE89631008F3296 /* ArtistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010701AE89631008F3296 /* ArtistService.swift */; };
+		81C010761AE89956008F3296 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010751AE89956008F3296 /* Artist.swift */; };
+		81C010781AE8A47C008F3296 /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010771AE8A47C008F3296 /* KeyboardService.swift */; };
 		81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		81DB4ED31A945251004EE28C /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DB4ED21A945251004EE28C /* backspace.png */; };
@@ -257,6 +266,8 @@
 		816FE5AB1A87275A00E42C17 /* SignUpWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWalkthroughPage.swift; sourceTree = "<group>"; };
 		816FE5AD1A87284600E42C17 /* ActionWalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionWalkthroughPage.swift; sourceTree = "<group>"; };
 		816FE5AF1A881C6500E42C17 /* SignUpFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewController.swift; sourceTree = "<group>"; };
+		817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewModel.swift; path = Sources/KeyboardViewModel.swift; sourceTree = "<group>"; };
+		817618F31AE9ED4F00C7D9CB /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = Sources/Keyboard.swift; sourceTree = "<group>"; };
 		81794EC81A81D6D5009D4A71 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		81794EC91A81D6D5009D4A71 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		81794ECD1A81E5C3009D4A71 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -317,6 +328,9 @@
 		81B6D5861A956E680089767B /* LoginIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginIndicatorView.swift; sourceTree = "<group>"; };
 		81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricPickerViewModel.swift; path = Sources/LyricPickerViewModel.swift; sourceTree = "<group>"; };
 		81B6D5901A95B1F90089767B /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKey.swift; path = Sources/KeyboardKey.swift; sourceTree = "<group>"; };
+		81C010701AE89631008F3296 /* ArtistService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistService.swift; path = Sources/ArtistService.swift; sourceTree = "<group>"; };
+		81C010751AE89956008F3296 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Sources/Artist.swift; sourceTree = "<group>"; };
+		81C010771AE8A47C008F3296 /* KeyboardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardService.swift; path = Sources/KeyboardService.swift; sourceTree = "<group>"; };
 		81DB4ED21A945251004EE28C /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
 		81DC50A91A9C2C5A00E2AA9B /* tutorial-video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "tutorial-video.mov"; sourceTree = "<group>"; };
 		81E897D91A32A17F005C7CD9 /* TrackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackService.swift; path = Source/TrackService.swift; sourceTree = "<group>"; };
@@ -440,6 +454,8 @@
 				81240A781A33BCF600E946F8 /* Track.swift */,
 				819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */,
 				81B6D5901A95B1F90089767B /* KeyboardKey.swift */,
+				81C010751AE89956008F3296 /* Artist.swift */,
+				817618F31AE9ED4F00C7D9CB /* Keyboard.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -447,8 +463,10 @@
 		81331E061A17E552003E4609 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				81C010701AE89631008F3296 /* ArtistService.swift */,
 				81331E081A17EC52003E4609 /* CategoryService.swift */,
 				81E897D91A32A17F005C7CD9 /* TrackService.swift */,
+				81C010771AE8A47C008F3296 /* KeyboardService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -719,6 +737,7 @@
 			isa = PBXGroup;
 			children = (
 				81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */,
+				817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */,
 			);
 			name = "VIew Models";
 			sourceTree = "<group>";
@@ -1149,13 +1168,17 @@
 				81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */,
 				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */,
+				817618F61AE9F58300C7D9CB /* KeyboardService.swift in Sources */,
 				819982AD1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
 				81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
+				817618F41AE9ED4F00C7D9CB /* Keyboard.swift in Sources */,
+				817618F71AEA146900C7D9CB /* Artist.swift in Sources */,
 				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
+				817618EE1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
 				816FE5AC1A87275A00E42C17 /* SignUpWalkthroughPage.swift in Sources */,
 				81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */,
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
@@ -1183,6 +1206,7 @@
 				81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
 				81ABAAE81A15820600456A5A /* SectionPickerView.swift in Sources */,
+				81C010711AE89631008F3296 /* ArtistService.swift in Sources */,
 				81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */,
 				8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */,
 				819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
@@ -1192,13 +1216,17 @@
 				817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */,
 				810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */,
 				81331E051A17E538003E4609 /* Category.swift in Sources */,
+				81C010781AE8A47C008F3296 /* KeyboardService.swift in Sources */,
+				817618EF1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
 				81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
+				81C010761AE89956008F3296 /* Artist.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
 				81331E091A17EC52003E4609 /* CategoryService.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
+				817618F51AE9ED4F00C7D9CB /* Keyboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
