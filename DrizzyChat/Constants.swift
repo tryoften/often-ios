@@ -58,6 +58,7 @@ let LyricSelectedEventIdentifier = "lyric:selected"
 let CoverArtViewImageWidth: CGFloat = 35.0
 
 let SectionPickerViewHeight: CGFloat = 45.0
+let SectionPickerViewSwitchArtistHeight: CGFloat = 25.0
 let SectionPickerViewBackgroundColor = BlackColor
 
 let SectionPickerViewCellHeight: CGFloat = 50.0
@@ -84,6 +85,16 @@ let CategoryCollectionViewCellHighlightColors = [
     "#a065d8", //Purple
     "#2db8ff" //Light Blue
 ]
+
+let ArtistCollectionViewCloseButtonBackgroundColor = UIColor(fromHexString: "#262a32")
+
+let ArtistCollectionViewCellBackgroundColor = UIColor(fromHexString: "#1f2129")
+let ArtistCollectionViewCellTitleTextColor = UIColor.whiteColor()
+let ArtistCollectionViewCellSubtitleTextColor = CategoryCollectionViewCellSubtitleTextColor
+let ArtistCollectionViewCellTitleFont = MediumRegularFont
+let ArtistCollectionViewCellSubtitleFont = SubtitleFont
+let ArtistCollectionViewCellWidth: CGFloat = 135
+let ArtistCollectionViewCellImageViewLeftMargin: CGFloat = 25
 
 // Main App
 

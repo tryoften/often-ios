@@ -22,33 +22,41 @@ class KeyboardService: NSObject {
         super.init()
     }
     
-    func requestData(completion: (Bool) -> Void) {
+    func requestData(completion: ([String: Keyboard]) -> Void) {
         keyboardsRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
             
 //            println("\(snapshot.value)")
             if let keyboardsData = snapshot.value as? [String: AnyObject] {
+                let keyboardCount = keyboardsData.count
+                var index = 0
                 
                 for (key, keyboardData) in keyboardsData {
                     let ownerId = keyboardData["owner"] as! String
                     let ownerURI = "owners/\(ownerId)"
                     var keyboard = Keyboard()
                     keyboard.id = key
-                    keyboard.categories = self.createCategories(keyboardData["categories"] as! NSDictionary)
+                    
+                    if let categories = keyboardData["categories"] as? NSDictionary {
+                        keyboard.categories = self.createCategories(categories)
  
-                    self.root.childByAppendingPath(ownerURI).observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
-                        println("\(snapshot.value)")
-                        if let artistData = snapshot.value as? NSDictionary,
-                            id = snapshot.key,
-                            name = artistData["name"] as? String {
-                                
-                            var artist = Artist(id: id, name: id, imageURLSmall: nil, imageURLLarge: nil)
-                            keyboard.artist = artist
-                                
-
-                                
-                            self.keyboards[keyboard.id] = keyboard
-                        }
-                    })
+                        self.root.childByAppendingPath(ownerURI).observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+                            println("\(snapshot.value)")
+                            if let artistData = snapshot.value as? NSDictionary,
+                                id = snapshot.key,
+                                name = artistData["name"] as? String {
+                                    
+                                var artist = Artist(id: id, name: name, imageURLSmall: nil, imageURLLarge: nil)
+                                keyboard.artist = artist
+                                    
+                                self.keyboards[keyboard.id] = keyboard
+                            }
+                            index++
+                            
+                            if index + 1 >= keyboardCount {
+                                completion(self.keyboards)
+                            }
+                        })
+                    }
                 }
             }
             

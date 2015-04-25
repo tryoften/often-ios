@@ -13,12 +13,11 @@ import Analytics
 
 let EnableFullAccessMessage = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to do his thing"
 
-class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, CategoryServiceDelegate {
+class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, CategoryServiceDelegate, KeyboardViewModelDelegate {
 
-    var nextKeyboardButton: UIButton!
     var lyricPicker: LyricPickerTableViewController!
     var sectionPicker: SectionPickerViewController!
-//    var standardKeyboard: StandardKeyboardViewController!
+    var artistPicker: ArtistPickerCollectionViewController!
     var heightConstraint: NSLayoutConstraint!
     var categoryService: CategoryService?
     var trackService: TrackService?
@@ -39,8 +38,9 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         super.viewDidLoad()
         
         viewModel = KeyboardViewModel()
+        viewModel.delegate = self
         viewModel.requestData({ data in
-            
+
         })
         
         lyricPicker = LyricPickerTableViewController()
@@ -55,6 +55,9 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         sectionPicker = SectionPickerViewController()
         sectionPicker.keyboardViewController = self
         
+        artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero))
+        artistPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         sectionPickerView = (sectionPicker.view as! SectionPickerView)
         sectionPickerView?.delegate = lyricPicker
         sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
@@ -62,6 +65,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         view.addSubview(lyricPicker.view)
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
+        view.addSubview(artistPicker.view)
         
         heightConstraint = view.al_height == 230
         
@@ -160,22 +164,27 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         let lyricPicker = self.lyricPicker.view
 
         //section Picker View
-        view.addConstraints([
+        var constraints: [NSLayoutConstraint] = [
             heightConstraint,
 
             seperatorView.al_height == 1.0,
             seperatorView.al_width == view.al_width,
             seperatorView.al_top == view.al_top,
-            seperatorView.al_left == view.al_left
-        ])
+            seperatorView.al_left == view.al_left,
+            
+            artistPicker.view.al_top == view.al_top,
+            artistPicker.view.al_left == view.al_left,
+            artistPicker.view.al_right == view.al_right,
+            artistPicker.view.al_bottom == view.al_bottom,
         
-        //lyric Picker
-        view.addConstraints([
+            //lyric Picker
             lyricPicker.al_top == view.al_top,
             lyricPicker.al_left == view.al_left,
             lyricPicker.al_right == view.al_right,
-            lyricPicker.al_bottom == view.al_bottom,
-        ])
+            lyricPicker.al_bottom == view.al_bottom
+        ]
+        
+        view.addConstraints(constraints)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -362,6 +371,16 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func categoryServiceLoadFailed(service: CategoryService) {
+        
+    }
+    
+    // MARK: KeyboardViewModelDelegate
+    
+    func keyboardViewModelDidLoadData(keyboardViewModel: KeyboardViewModel, data: [Keyboard]) {
+        self.artistPicker.keyboards = self.viewModel.keyboards
+    }
+
+    func keyboardViewModelCurrentKeyboardDidChange(keyboardViewModel: KeyboardViewModel, keyboard: Keyboard) {
         
     }
 }

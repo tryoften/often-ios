@@ -13,6 +13,9 @@ class Category: NSObject {
     var name: String
     var lyrics = [Lyric]()
     var lyricsRef = Firebase(url: CategoryServiceEndpoint + "/lyrics")
+    var lyricsCount: Int {
+        return self.lyrics.count
+    }
     
     init(id: String, name: String, lyrics: [Lyric]?) {
         self.id = id

@@ -68,6 +68,12 @@
 		817618F51AE9ED4F00C7D9CB /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618F31AE9ED4F00C7D9CB /* Keyboard.swift */; };
 		817618F61AE9F58300C7D9CB /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010771AE8A47C008F3296 /* KeyboardService.swift */; };
 		817618F71AEA146900C7D9CB /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010751AE89956008F3296 /* Artist.swift */; };
+		817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */; };
+		817619F71AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */; };
+		817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */; };
+		817619FA1AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */; };
+		817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */; };
+		817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */; };
 		81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81794EC81A81D6D5009D4A71 /* HomeViewController.swift */; };
 		81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81794EC91A81D6D5009D4A71 /* HomeViewController.xib */; };
 		81794ED01A81E5C3009D4A71 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ECD1A81E5C3009D4A71 /* Parse.framework */; };
@@ -268,6 +274,9 @@
 		816FE5AF1A881C6500E42C17 /* SignUpFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewController.swift; sourceTree = "<group>"; };
 		817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewModel.swift; path = Sources/KeyboardViewModel.swift; sourceTree = "<group>"; };
 		817618F31AE9ED4F00C7D9CB /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = Sources/Keyboard.swift; sourceTree = "<group>"; };
+		817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwitchArtistButton.swift; path = Sources/SwitchArtistButton.swift; sourceTree = "<group>"; };
+		817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistPickerCollectionViewController.swift; path = Sources/ArtistPickerCollectionViewController.swift; sourceTree = "<group>"; };
+		817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionViewCell.swift; path = Sources/ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		81794EC81A81D6D5009D4A71 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		81794EC91A81D6D5009D4A71 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		81794ECD1A81E5C3009D4A71 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -578,6 +587,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		817619F41AEAF40D00C7D9CB /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
 		8180E5FF1A142157007FA1CF = {
 			isa = PBXGroup;
 			children = (
@@ -704,11 +721,13 @@
 		8180E67D1A147F7D007FA1CF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				817619F41AEAF40D00C7D9CB /* Buttons */,
 				8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */,
 				81ABAAE71A15820600456A5A /* SectionPickerView.swift */,
 				817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */,
 				81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */,
 				8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */,
+				817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -721,6 +740,7 @@
 				81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */,
 				812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */,
 				81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */,
+				817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1142,6 +1162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
 				81331E601A194864003E4609 /* LyricPickerTableViewController.swift in Sources */,
 				816FE5B01A881C6500E42C17 /* SignUpFormViewController.swift in Sources */,
 				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
@@ -1160,7 +1181,9 @@
 				81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */,
 				816FE5A41A871D6700E42C17 /* TextConvoWalkthroughPage.swift in Sources */,
 				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
+				817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
+				817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */,
 				81331E151A17FA8B003E4609 /* CategoryService.swift in Sources */,
 				8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */,
@@ -1212,13 +1235,16 @@
 				819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */,
+				817619FA1AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */,
 				810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */,
 				81331E051A17E538003E4609 /* Category.swift in Sources */,
+				817619F71AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
 				81C010781AE8A47C008F3296 /* KeyboardService.swift in Sources */,
 				817618EF1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
 				81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */,
+				817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
