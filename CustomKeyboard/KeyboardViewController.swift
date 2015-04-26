@@ -13,16 +13,17 @@ import Analytics
 
 let EnableFullAccessMessage = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to do his thing"
 
-class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, CategoryServiceDelegate, KeyboardViewModelDelegate {
+class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, CategoryServiceDelegate, KeyboardViewModelDelegate,
+    ArtistPickerCollectionViewControllerDelegate {
 
     var lyricPicker: LyricPickerTableViewController!
     var sectionPicker: SectionPickerViewController!
-    var artistPicker: ArtistPickerCollectionViewController!
+    var artistPicker: ArtistPickerCollectionViewController?
     var heightConstraint: NSLayoutConstraint!
     var categoryService: CategoryService?
     var trackService: TrackService?
     var viewModel: KeyboardViewModel!
-    var sectionPickerView: SectionPickerView?
+    var sectionPickerView: SectionPickerView!
     var seperatorView: UIView!
     var lastInsertedString: String?
     var fixedFilterBarView: UIView!
@@ -39,9 +40,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         viewModel = KeyboardViewModel()
         viewModel.delegate = self
-        viewModel.requestData({ data in
-
-        })
         
         lyricPicker = LyricPickerTableViewController()
         lyricPicker.delegate = self
@@ -55,25 +53,25 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         sectionPicker = SectionPickerViewController()
         sectionPicker.keyboardViewController = self
         
-        artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero))
-        artistPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        sectionPickerView = (sectionPicker.view as! SectionPickerView)
-        sectionPickerView?.delegate = lyricPicker
-        sectionPickerView?.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
+        sectionPickerView = sectionPicker.view as! SectionPickerView
+        sectionPickerView.delegate = lyricPicker
+        sectionPickerView.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
+        sectionPickerView.switchArtistButton.addTarget(self, action: "didTapSwitchArtistButton", forControlEvents: .TouchUpInside)
     
         view.addSubview(lyricPicker.view)
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
-        view.addSubview(artistPicker.view)
         
         heightConstraint = view.al_height == 230
         
         setupLayout()
         setupAppearance()
-        layoutSectionPickerView()
-
         bootstrap()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        layoutSectionPickerView()
+        layoutArtistPickerView()
     }
     
     func bootstrap() {
@@ -89,27 +87,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
             self.getCurrentUser()
-            
-            var firebaseRoot = Firebase(url: CategoryServiceEndpoint)
-            self.categoryService = CategoryService(artistId: "drake", root: firebaseRoot)
-            self.categoryService!.delegate = self
-            self.sectionPicker.categories = self.categoryService?.categoryArray
-            
-            self.trackService = TrackService(root: firebaseRoot)
-            self.trackService?.requestData({ data in
-                
-            })
-            
-            self.lyricPicker.trackService = self.trackService
-            self.sectionPicker.categoryService = self.categoryService
-            
-            self.categoryService?.requestData { categories in
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.sectionPicker.categories = self.categoryService?.categoryArray
-                    return
-                })
-                return
-            }
+            self.viewModel.requestData()
         })
     }
     
@@ -121,12 +99,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                 "email": currentUser["email"]
             ])
             Flurry.setUserID(currentUser.objectId)
-        }
-    }
-    
-    override func viewWillLayoutSubviews() {
-        if !sectionPickerView!.drawerOpened {
-            layoutSectionPickerView()
         }
     }
     
@@ -150,6 +122,13 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         return UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
     }
     
+    func layoutArtistPickerView(hidden: Bool = true) {
+        var artistPickerViewFrame = view.bounds
+        artistPickerViewFrame.origin.x = (hidden) ? -CGRectGetMaxX(view.bounds) : 0
+    
+        artistPicker?.view.frame = artistPickerViewFrame
+    }
+    
     func layoutSectionPickerView() {
         let superviewHeight = CGRectGetHeight(view.frame)
         if let sectionPickerView = self.sectionPickerView {
@@ -171,12 +150,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             seperatorView.al_width == view.al_width,
             seperatorView.al_top == view.al_top,
             seperatorView.al_left == view.al_left,
-            
-            artistPicker.view.al_top == view.al_top,
-            artistPicker.view.al_left == view.al_left,
-            artistPicker.view.al_right == view.al_right,
-            artistPicker.view.al_bottom == view.al_bottom,
-        
+
             //lyric Picker
             lyricPicker.al_top == view.al_top,
             lyricPicker.al_left == view.al_left,
@@ -185,6 +159,45 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         ]
         
         view.addConstraints(constraints)
+    }
+    
+    func didTapCloseButton() {
+        UIView.animateWithDuration(0.3,
+            delay: 0,
+            usingSpringWithDamping: 1.0,
+            initialSpringVelocity: 0.1,
+            options: .CurveEaseIn,
+            animations: {
+                self.layoutArtistPickerView()
+                self.layoutSectionPickerView()
+            },
+            completion: nil)
+    }
+    
+    func didTapSwitchArtistButton() {
+        
+        if artistPicker == nil {
+            artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero))
+            artistPicker!.delegate = self
+            artistPicker!.keyboards = viewModel.keyboards
+            artistPicker!.closeButton.addTarget(self, action: "didTapCloseButton", forControlEvents: .TouchUpInside)
+            view.addSubview(artistPicker!.view)
+            layoutArtistPickerView(hidden: true)
+        }
+        
+        UIView.animateWithDuration(0.3,
+            delay: 0,
+            usingSpringWithDamping: 1.0,
+            initialSpringVelocity: 0.1,
+            options: .CurveEaseOut,
+            animations: {
+                self.layoutArtistPickerView(hidden: false)
+                
+                var sectionPickerViewFrame = self.sectionPickerView.frame
+                sectionPickerViewFrame.origin.y = CGRectGetHeight(self.view.frame)
+                self.sectionPickerView.frame = sectionPickerViewFrame
+            },
+            completion: nil)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -196,11 +209,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                 CGRectGetWidth(view.frame),
                 SectionPickerViewHeight)
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated
     }
 
     override func textWillChange(textInput: UITextInput) {
@@ -377,10 +385,18 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     // MARK: KeyboardViewModelDelegate
     
     func keyboardViewModelDidLoadData(keyboardViewModel: KeyboardViewModel, data: [Keyboard]) {
-        self.artistPicker.keyboards = self.viewModel.keyboards
+        self.artistPicker?.keyboards = self.viewModel.keyboards
     }
 
     func keyboardViewModelCurrentKeyboardDidChange(keyboardViewModel: KeyboardViewModel, keyboard: Keyboard) {
-        
+        sectionPicker.categories = keyboard.categoryList
+        sectionPickerView.switchArtistButton.artistImageView.setImageWithURL(keyboard.artist?.imageURLSmall)
+    }
+    
+    // MARK: ArtistPickerCollectionViewControllerDelegate
+    
+    func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
+        viewModel.currentKeyboard = keyboard
+        didTapCloseButton()
     }
 }

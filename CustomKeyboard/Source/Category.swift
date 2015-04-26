@@ -12,7 +12,8 @@ class Category: NSObject {
     var id: String
     var name: String
     var lyrics = [Lyric]()
-    var lyricsRef = Firebase(url: CategoryServiceEndpoint + "/lyrics")
+    var highlightColor: UIColor!
+
     var lyricsCount: Int {
         return self.lyrics.count
     }

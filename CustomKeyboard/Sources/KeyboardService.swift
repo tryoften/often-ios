@@ -45,7 +45,10 @@ class KeyboardService: NSObject {
                                 id = snapshot.key,
                                 name = artistData["name"] as? String {
                                     
-                                var artist = Artist(id: id, name: name, imageURLSmall: nil, imageURLLarge: nil)
+                                    var urlSmall: String = (artistData["image_small"] ?? "") as! String
+                                    var urlLarge: String = (artistData["image_large"] ?? "") as! String
+                                    
+                                    var artist = Artist(id: id, name: name, imageURLSmall: NSURL(string: urlSmall)!, imageURLLarge: NSURL(string: urlLarge)!)
                                 keyboard.artist = artist
                                     
                                 self.keyboards[keyboard.id] = keyboard
@@ -69,16 +72,17 @@ class KeyboardService: NSObject {
         var categories = [String: Category]()
 
         for (categoryKey, categoryData) in data as! [String: AnyObject] {
-            
-            if let name = categoryData["name"] as? String,
-            let lyricsData = categoryData["contents"] as? [String: String] {
+
+            if  let count = categoryData["count"] as? Int,
+                let lyricsData = categoryData["contents"] as? [String: String] {
                 var lyrics = [Lyric]()
                 
                 for (lyricKey: String, lyricText: String) in lyricsData {
                     lyrics.append(Lyric(id: lyricKey, text: lyricText, categoryId: categoryKey, trackId: nil))
                 }
-            
+                
                 var category = Category(id: categoryKey, name: "Category", lyrics: lyrics)
+                category.highlightColor = UIColor(fromHexString: CategoryCollectionViewCellHighlightColors[categories.count % CategoryCollectionViewCellHighlightColors.count])
                 categories[category.id] = category
             }
         }

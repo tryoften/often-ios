@@ -26,6 +26,7 @@ let DarkGrey = UIColor(fromHexString: "#d8d8d8")
 let MediumGrey = UIColor(fromHexString: "#eeeeee")
 let LightGrey = UIColor(fromHexString: "#f7f7f7")
 let BlackColor = UIColor(fromHexString: "#121314")
+let MediumLightGrey = UIColor(fromHexString: "#1c1c1c")
 let MainBackgroundColor = UIColor(fromHexString: "")
 let MainTextColor = UIColor(fromHexString: "#777777")
 
@@ -35,7 +36,7 @@ let MediumRegularFont = UIFont(name: "Lato-Regular", size: 15)
 let SubtitleFont = UIFont(name: "Lato-Regular", size: 12)
 
 // Navbar
-let NavbarDefaultBackgroundColor = UIColor(fromHexString: "#1c1c1c")
+let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
 
@@ -86,9 +87,9 @@ let CategoryCollectionViewCellHighlightColors = [
     "#2db8ff" //Light Blue
 ]
 
-let ArtistCollectionViewCloseButtonBackgroundColor = UIColor(fromHexString: "#262a32")
+let ArtistCollectionViewCloseButtonBackgroundColor = UIColor(fromHexString: "#121314")
 
-let ArtistCollectionViewCellBackgroundColor = UIColor(fromHexString: "#1f2129")
+let ArtistCollectionViewCellBackgroundColor = UIColor(fromHexString: "#121314")
 let ArtistCollectionViewCellTitleTextColor = UIColor.whiteColor()
 let ArtistCollectionViewCellSubtitleTextColor = CategoryCollectionViewCellSubtitleTextColor
 let ArtistCollectionViewCellTitleFont = MediumRegularFont

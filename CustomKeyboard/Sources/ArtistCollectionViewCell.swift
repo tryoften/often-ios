@@ -17,6 +17,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         imageView = UIImageView()
         imageView.backgroundColor = UIColor.blackColor()
         imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        imageView.contentMode = .ScaleAspectFill
         
         titleLabel = UILabel()
         titleLabel.font = ArtistCollectionViewCellTitleFont

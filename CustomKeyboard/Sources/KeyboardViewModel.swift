@@ -24,23 +24,26 @@ class KeyboardViewModel: NSObject {
     
     override init() {
         var BaseURL = "https://multi-keyboards.firebaseio.com/"
-        BaseURL = "https://drizzy-db-dev.firebaseio.com/v3/"
+//        BaseURL = "https://drizzy-db-dev.firebaseio.com/v3/"
         self.keyboardService = KeyboardService(userId: "-Jl8teqNE9rtE5cwE_ZU",
             root: Firebase(url: BaseURL))
 
         super.init()
     }
     
-    func requestData(completion: (Bool) -> ()) {
+    func requestData(completion: ((Bool) -> ())? = nil) {
         
         keyboardService.requestData({ data in
+        
+            self.delegate?.keyboardViewModelDidLoadData(self, data: data.values.array)
             
             if self.keyboardService.keyboards.count > 0 {
                 
                 // TODO(luc): persist the current keyboard ID on disk and read it back
                 self.currentKeyboard = self.keyboardService.keyboards.values.first
+                self.delegate?.keyboardViewModelCurrentKeyboardDidChange(self, keyboard: self.currentKeyboard!)
             }
-            self.delegate?.keyboardViewModelDidLoadData(self, data: data.values.array)
+            completion?(true)
         })
     }
 }

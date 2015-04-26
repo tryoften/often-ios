@@ -71,15 +71,6 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
         ])
     }
     
-//    func promotable() -> LyricFilterBarPromotable? {
-//        
-//        if targetViewController is LyricFilterBarPromotable {
-//            return targetViewController as? LyricFilterBarPromotable
-//        }
-//        
-//        return nil
-//    }
-    
     override func layoutSubviews() {
         searchBar.frame = CGRectMake(0, 0, CGRectGetWidth(searchBarContainer.frame), CGRectGetHeight(searchBarContainer.frame))
     }

@@ -10,15 +10,18 @@ import UIKit
 
 class SwitchArtistButton: UIButton {
     
-    var backgroundImage: UIImageView
+    var artistImageView: UIImageView
 
     override init(frame: CGRect) {
-        backgroundImage = UIImageView()
+        artistImageView = UIImageView()
+        artistImageView.contentMode = .ScaleAspectFill
+
         super.init(frame: frame)
         
-        addSubview(backgroundImage)
+        addSubview(artistImageView)
         backgroundColor = UIColor.blackColor()
         layer.cornerRadius = (SectionPickerViewSwitchArtistHeight) / 2
+        clipsToBounds = true
     }
 
     convenience required init(coder aDecoder: NSCoder) {
@@ -26,7 +29,7 @@ class SwitchArtistButton: UIButton {
     }
     
     override func layoutSubviews() {
-        backgroundImage.frame = bounds
+        artistImageView.frame = bounds
     }
 
 }

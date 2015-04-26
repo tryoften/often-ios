@@ -9,16 +9,16 @@
 import UIKit
 
 class SectionPickerView: UIView {
-    
-    var categoriesTableView: UITableView
+
     var categoriesCollectionView: UICollectionView
     var nextKeyboardButton: UIButton
     var toggleDrawerButton: UIButton
-    var switchArtistButton: UIButton
+    var switchArtistButton: SwitchArtistButton
     var currentCategoryView: UIView
+    var currentHighlightColorView: UIView
     var currentCategoryLabel: UILabel
     var drawerOpened: Bool = false
-    var heightConstraint: NSLayoutConstraint?
+    var collectionViewEnabled: Bool = true
     var delegate: SectionPickerViewDelegate?
     var selectedBgView: UIView
 
@@ -27,17 +27,11 @@ class SectionPickerView: UIView {
     }
     
     override init(frame: CGRect) {
-        categoriesTableView = UITableView(frame: CGRectZero)
-        categoriesTableView.backgroundColor = UIColor.clearColor()
-        categoriesTableView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        categoriesTableView.separatorStyle = .None
-        categoriesTableView.rowHeight = SectionPickerViewCellHeight
-
+        
         categoriesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: SectionPickerView.provideCollectionViewLayout(frame))
         categoriesCollectionView.backgroundColor = CategoriesCollectionViewBackgroundColor
         categoriesCollectionView.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoriesCollectionView.registerClass(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
-        categoriesCollectionView.hidden = true
         
         nextKeyboardButton = UIButton()
         nextKeyboardButton.titleLabel!.font = NextKeyboardButtonFont
@@ -47,6 +41,9 @@ class SectionPickerView: UIView {
         
         currentCategoryView = UIView()
         currentCategoryView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        currentHighlightColorView = UIView()
+        currentHighlightColorView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         toggleDrawerButton = UIButton()
         toggleDrawerButton.titleLabel!.font = NextKeyboardButtonFont
@@ -73,13 +70,13 @@ class SectionPickerView: UIView {
         currentCategoryView.addSubview(toggleDrawerButton)
         currentCategoryView.addSubview(currentCategoryLabel)
         
-        addSubview(categoriesTableView)
+
         addSubview(categoriesCollectionView)
         addSubview(nextKeyboardButton)
-        addSubview(switchArtistButton)
         addSubview(currentCategoryView)
+        addSubview(currentHighlightColorView)
+        addSubview(switchArtistButton)
 
-        categoriesTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "tableCell")
         
         setupLayout()
     }
@@ -92,7 +89,6 @@ class SectionPickerView: UIView {
     }
     
     func setupLayout() {
-        var tableView = categoriesTableView
         var collectionView = categoriesCollectionView
         var keyboardButton = nextKeyboardButton
         var categoryLabel = currentCategoryLabel
@@ -113,10 +109,15 @@ class SectionPickerView: UIView {
             switchArtistButton.al_width == switchArtistButton.al_height,
             
             // current category view
-            currentCategoryView.al_left == al_left + SectionPickerViewHeight + 10.0,
+            currentCategoryView.al_left == switchArtistButton.al_left + SectionPickerViewHeight + 10.0,
             currentCategoryView.al_right == al_right,
             currentCategoryView.al_height == SectionPickerViewHeight,
             currentCategoryView.al_top == al_top,
+            
+            // current highlight color view
+            currentHighlightColorView.al_width == al_width,
+            currentHighlightColorView.al_top == al_top - 4.5,
+            currentHighlightColorView.al_height == 4.5,
             
             // toggle drawer
             toggleDrawer.al_right == currentCategoryView.al_right,
@@ -129,12 +130,6 @@ class SectionPickerView: UIView {
             currentCategoryLabel.al_right == toggleDrawer.al_left,
             currentCategoryLabel.al_height == SectionPickerViewHeight,
             currentCategoryLabel.al_top == currentCategoryView.al_top,
-            
-            // table View
-            tableView.al_top == keyboardButton.al_bottom,
-            tableView.al_left == al_left,
-            tableView.al_right == al_right,
-            tableView.al_bottom == al_bottom,
             
             collectionView.al_top == keyboardButton.al_bottom,
             collectionView.al_left == al_left,
@@ -154,7 +149,6 @@ class SectionPickerView: UIView {
     }
     
     func open() {
-        
         UIView.animateWithDuration(0.2, animations: {
             var frame = self.frame
             frame.size.height = self.superview!.bounds.height
@@ -163,9 +157,7 @@ class SectionPickerView: UIView {
             self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
             self.layoutIfNeeded()
             return
-            }, completion: { completed in
-                completionBlock(self, completed)
-        })
+        }, completion: nil)
     }
     
     func close() {
@@ -177,13 +169,8 @@ class SectionPickerView: UIView {
             self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(0)
             self.layoutIfNeeded()
             return
-            }, completion: { completed in
-                completionBlock(self, completed)
-        })
+        }, completion: nil)
     }
-}
-
-let completionBlock: (SectionPickerView, Bool) -> Void = { (view, done) in
 }
 
 protocol SectionPickerViewDelegate {

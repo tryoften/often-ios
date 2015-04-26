@@ -9,13 +9,18 @@
 import UIKit
 import FlurrySDK
 
+let KeyboardHeight: CGFloat = 475 / 2
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var mainController: UIViewController!
+    var testKeyboard: Bool = false
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        testKeyboard = true
 
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
@@ -27,7 +32,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.startSession(FlurryClientKey)
 
         var screen = UIScreen.mainScreen()
-        let frame = screen.bounds
+        var frame = screen.bounds
+        
+        if testKeyboard {
+            frame.origin.y = CGRectGetHeight(screen.bounds) - KeyboardHeight
+            frame.size.height = KeyboardHeight
+        }
+        
         window = UIWindow(frame: frame)
         
         var userNotificationTypes = UIUserNotificationType.Alert |
@@ -38,10 +49,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
 
-        mainController = WalkthroughViewController()
-        
-        if shouldHomeViewBeShown() {
-            mainController = HomeViewController(nibName: "HomeViewController", bundle: nil)
+        if testKeyboard {
+            mainController = KeyboardViewController()
+        } else {
+            mainController = WalkthroughViewController()
+            
+            if shouldHomeViewBeShown() {
+                mainController = HomeViewController(nibName: "HomeViewController", bundle: nil)
+            }
         }
         
         if let window = self.window {

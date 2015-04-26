@@ -12,15 +12,27 @@ let ArtistCollectionViewCellReuseIdentifier = "ArtistCollectionViewCell"
 
 class ArtistPickerCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    var closeButton: UIButton!
+    var closeButton: ArtistCollectionCloseButton
     var viewModel: KeyboardViewModel?
+    var delegate: ArtistPickerCollectionViewControllerDelegate?
     var keyboards: [Keyboard]? {
         didSet {
             dispatch_async(dispatch_get_main_queue(), {
                 self.collectionView!.reloadData()
             })
         }
+    }
+    
+    override init(collectionViewLayout layout: UICollectionViewLayout) {
+        closeButton = ArtistCollectionCloseButton(frame: CGRectZero)
+        super.init(collectionViewLayout: layout)
         
+        closeButton.addTarget(self, action: "didTapCloseButton", forControlEvents: .TouchUpInside)
+        view.addSubview(closeButton)
+    }
+
+    required convenience init(coder aDecoder: NSCoder) {
+        self.init(collectionViewLayout: ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero))
     }
     
     class func provideCollectionViewLayout(frame: CGRect) -> UICollectionViewLayout {
@@ -36,17 +48,9 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         
-        var closeButtonFrame = view.frame
+        var closeButtonFrame = view.bounds
         closeButtonFrame.size.width = 30
-
-        closeButton = UIButton(frame: closeButtonFrame)
-        closeButton.addTarget(self, action: "didTapCloseButton", forControlEvents: .TouchUpInside)
-        closeButton.setTitle("\u{f10d}", forState: .Normal)
-        closeButton.titleLabel!.font = UIFont(name: "font_icons8", size: 21)
-        closeButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        closeButton.backgroundColor = ArtistCollectionViewCloseButtonBackgroundColor
-
-        view.addSubview(closeButton)
+        closeButton.frame = closeButtonFrame
     
         // Register cell classes
         collectionView!.registerClass(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: ArtistCollectionViewCellReuseIdentifier)
@@ -81,16 +85,19 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         cell.titleLabel.text = keyboard.artist?.name
         cell.subtitleLabel.text = "\(keyboard.categories.count) categories"
         
-        cell.imageView.setImageWithURL(keyboard.artist?.imageURLSmall)
+        cell.imageView.setImageWithURL(keyboard.artist?.imageURLLarge)
 
         return cell
     }
     
-    func didTapCloseButton() {
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        var keyboard = keyboards![indexPath.row]
         
+        delegate?.artistPickerCollectionViewControllerDidSelectKeyboard(self, keyboard: keyboard)
     }
     
-    func slideIn() {
+    func didTapCloseButton() {
+        
     }
 
     // MARK: UICollectionViewFlowLayoutDelegate
@@ -99,4 +106,8 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         return CGSizeMake(ArtistCollectionViewCellWidth, CGRectGetHeight(collectionView.bounds) - 10)
     }
 
+}
+
+protocol ArtistPickerCollectionViewControllerDelegate {
+    func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard)
 }
