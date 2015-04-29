@@ -50,6 +50,7 @@
 		81413DC01A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
 		81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
+		8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
 		816CE0971A99A32700D718E1 /* LoginFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816CE0961A99A32700D718E1 /* LoginFormViewController.swift */; };
 		816EB9711AE5EBA8000620E2 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816EB9701AE5EBA8000620E2 /* delay.swift */; };
 		816EB9721AE5EBB1000620E2 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816EB9701AE5EBA8000620E2 /* delay.swift */; };
@@ -74,6 +75,8 @@
 		817619FA1AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */; };
 		817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */; };
 		817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */; };
+		817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */; };
+		81761A001AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */; };
 		81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81794EC81A81D6D5009D4A71 /* HomeViewController.swift */; };
 		81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81794EC91A81D6D5009D4A71 /* HomeViewController.xib */; };
 		81794ED01A81E5C3009D4A71 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ECD1A81E5C3009D4A71 /* Parse.framework */; };
@@ -242,6 +245,7 @@
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-circle.ttf"; sourceTree = "<group>"; };
+		812029E91AED3AE0005D1D8F /* CustomKeyboardPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomKeyboardPrefixHeader.pch; path = Sources/CustomKeyboardPrefixHeader.pch; sourceTree = "<group>"; };
 		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
 		812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerViewController.swift; path = Sources/SectionPickerViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 		817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwitchArtistButton.swift; path = Sources/SwitchArtistButton.swift; sourceTree = "<group>"; };
 		817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistPickerCollectionViewController.swift; path = Sources/ArtistPickerCollectionViewController.swift; sourceTree = "<group>"; };
 		817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionViewCell.swift; path = Sources/ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
+		817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionCloseButton.swift; path = Sources/ArtistCollectionCloseButton.swift; sourceTree = "<group>"; };
 		81794EC81A81D6D5009D4A71 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		81794EC91A81D6D5009D4A71 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		81794ECD1A81E5C3009D4A71 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -591,6 +596,7 @@
 			isa = PBXGroup;
 			children = (
 				817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */,
+				817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -682,6 +688,7 @@
 			isa = PBXGroup;
 			children = (
 				8180E6341A142199007FA1CF /* Info.plist */,
+				812029E91AED3AE0005D1D8F /* CustomKeyboardPrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1202,7 +1209,9 @@
 				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				817618EE1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
+				8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */,
 				816FE5AC1A87275A00E42C17 /* SignUpWalkthroughPage.swift in Sources */,
+				817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
 				81331E5F1A19485A003E4609 /* SectionPickerView.swift in Sources */,
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
 				816FE5A71A8724A500E42C17 /* AlbumCoverArtsWalkthroughPage.swift in Sources */,
@@ -1235,6 +1244,7 @@
 				819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */,
+				81761A001AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
 				817619FA1AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */,
@@ -1369,9 +1379,15 @@
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TARGET_IS_APP=1",
+				);
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Drizzy;
 				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
@@ -1393,12 +1409,23 @@
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TARGET_IS_APP=1",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Drizzy;
 				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1459,6 +1486,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"TARGET_IS_EXTENSION=1",
 				);
 				INFOPLIST_FILE = CustomKeyboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1486,6 +1514,11 @@
 					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TARGET_IS_EXTENSION=1",
 				);
 				INFOPLIST_FILE = CustomKeyboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

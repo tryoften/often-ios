@@ -9,8 +9,6 @@
 import UIKit
 import FlurrySDK
 
-let KeyboardHeight: CGFloat = 475 / 2
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -20,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        testKeyboard = true
+        testKeyboard = false
 
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
@@ -35,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var frame = screen.bounds
         
         if testKeyboard {
-            frame.origin.y = CGRectGetHeight(screen.bounds) - KeyboardHeight
+            frame.origin.y = CGRectGetHeight(screen.bounds) - KeyboardHeight - SectionPickerViewHeight
             frame.size.height = KeyboardHeight
         }
         

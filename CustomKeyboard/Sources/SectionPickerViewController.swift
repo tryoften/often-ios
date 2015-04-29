@@ -27,10 +27,10 @@ class SectionPickerViewController: UIViewController, UICollectionViewDelegate, U
         }
     }
 
-    var categories: [Category]? {
+    var categories: [Category] = [] {
         didSet {
-            if (categories!.count > 1) {
-                currentCategory = categories![1]
+            if (categories.count > 1) {
+                currentCategory = categories[1]
                 pickerView.delegate?.didSelectSection(pickerView, category: currentCategory!)
                 dispatch_async(dispatch_get_main_queue(), {
                     self.pickerView.categoriesCollectionView.reloadData()
@@ -81,10 +81,7 @@ class SectionPickerViewController: UIViewController, UICollectionViewDelegate, U
     // MARK: UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let categories = categories {
-            return categories.count
-        }
-        return 0
+        return categories.count
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -97,20 +94,19 @@ class SectionPickerViewController: UIViewController, UICollectionViewDelegate, U
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CategoryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as! CategoryCollectionViewCell
-
-        if let category = categories?[indexPath.row] {
         
+        if indexPath.row < categories.count {
+            let category = categories[indexPath.row]
             cell.titleLabel.text = category.name
             cell.highlightColorBorder.backgroundColor = category.highlightColor
             cell.subtitleLabel.text = "\(category.lyrics.count) lyrics"
-
         }
 
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        var category = categories![indexPath.row] as Category
+        var category = categories[indexPath.row] as Category
         
         currentCategory = category
         toggleDrawer()

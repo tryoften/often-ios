@@ -13,14 +13,30 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     
     var keyboardViewController: KeyboardViewController!
     var delegate: LyricPickerDelegate?
+    var viewModel: LyricPickerViewModel!
     var labelFont: UIFont?
     var currentCategory: Category?
     var selectedRows = [Int: Bool]()
     var selectedRow: NSIndexPath?
     var selectedCell: LyricTableViewCell?
-    var trackService: TrackService?
     var animatingCell: Bool!
     var searchModeOn :Bool!
+    
+//    init(lyricPickerViewModel: LyricPickerViewModel,
+//        keyboardViewController: KeyboardViewController) {
+//        viewModel = lyricPickerViewModel
+//        self.keyboardViewController = keyboardViewController
+//            
+//        super.init(style: .Plain)
+//    }
+//    
+//    override init!(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//    }
+//
+//    required init!(coder aDecoder: NSCoder!) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,17 +94,20 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! LyricTableViewCell
         
         var lyrics = currentCategory?.lyrics
-        var lyric = lyrics?[indexPath.row]
         
         selectedRow = indexPath
         selectedCell = cell
         
-        if lyric?.track == nil {
-            var track = trackService?.trackForId(lyric!.trackId!)
-            lyric?.track = track
-            
-            cell.shareVC!.lyric = lyric
-            cell.metadataView.track = track
+        if let lyric = lyrics?[indexPath.row] {
+        
+            if lyric.track == nil {
+                
+                self.viewModel.getTrackForLyric(lyric, completion: { track in
+                    lyric.track = track
+                    cell.shareVC!.lyric = lyric
+                    cell.metadataView.track = track
+                })
+            }
         }
         
         animatingCell = true

@@ -44,6 +44,7 @@ class SectionPickerView: UIView {
         
         currentHighlightColorView = UIView()
         currentHighlightColorView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        currentHighlightColorView.hidden = true
         
         toggleDrawerButton = UIButton()
         toggleDrawerButton.titleLabel!.font = NextKeyboardButtonFont

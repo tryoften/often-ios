@@ -20,9 +20,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var sectionPicker: SectionPickerViewController!
     var artistPicker: ArtistPickerCollectionViewController?
     var heightConstraint: NSLayoutConstraint!
-    var categoryService: CategoryService?
-    var trackService: TrackService?
     var viewModel: KeyboardViewModel!
+    var lyricPickerViewModel: LyricPickerViewModel!
     var sectionPickerView: SectionPickerView!
     var seperatorView: UIView!
     var lastInsertedString: String?
@@ -41,8 +40,13 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         viewModel = KeyboardViewModel()
         viewModel.delegate = self
         
+        var firebaseRoot = Firebase(url: BaseURL)
+        lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot))
+        
+//        lyricPicker = LyricPickerTableViewController(lyricPickerViewModel: lyricPickerViewModel, keyboardViewController: self)
         lyricPicker = LyricPickerTableViewController()
         lyricPicker.delegate = self
+        lyricPicker.viewModel = lyricPickerViewModel
         lyricPicker.keyboardViewController = self
         lyricPicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -61,8 +65,12 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         view.addSubview(lyricPicker.view)
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
-        
-        heightConstraint = view.al_height == 230
+#if TARGET_IS_APP
+        let appDelegate = UIApplication.sharedApplication().delegate
+        heightConstraint = view.al_height == appDelegate!.window!!.bounds.size.height
+#else
+        heightConstraint = view.al_height == KeyboardHeight
+#endif
         
         setupLayout()
         setupAppearance()
@@ -367,7 +375,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     // MARK: CategoryServiceDelegate
     
     func categoryServiceDidLoad(service: CategoryService) {
-        self.sectionPicker.categories = self.categoryService?.categoryArray
+
     }
     
     func categoryServiceDidLoadCategory(service: CategoryService, category: Category) {

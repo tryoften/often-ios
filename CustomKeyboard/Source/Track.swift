@@ -46,10 +46,11 @@ class Track: NSObject {
     init(dictionary: [String: String]) {
         self.dict = dictionary
         id = dictionary["id"]!
-        name = dictionary["name"]!
-        albumCoverImage = NSURL(string: dictionary["album_cover_image"]!)
+        name = (dictionary["name"] ?? dictionary["track_name"])!
+        albumCoverImage = NSURL(string: dictionary["album_cover_image_small"]!)
+        albumCoverImageLarge = NSURL(string: dictionary["album_cover_image_large"]!)
         artistName = dictionary["artist_name"]!
-        artistId = dictionary["artist_id"]!
+        artistId = (dictionary["artist_id"] ?? dictionary["artist_sp_id"])!
         
         if let albumCoverImageLargeString = dictionary["album_cover_image_large"] {
             albumCoverImageLarge = NSURL(string: albumCoverImageLargeString)

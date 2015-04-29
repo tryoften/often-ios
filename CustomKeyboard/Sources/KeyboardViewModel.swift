@@ -23,7 +23,6 @@ class KeyboardViewModel: NSObject {
     }
     
     override init() {
-        var BaseURL = "https://multi-keyboards.firebaseio.com/"
 //        BaseURL = "https://drizzy-db-dev.firebaseio.com/v3/"
         self.keyboardService = KeyboardService(userId: "-Jl8teqNE9rtE5cwE_ZU",
             root: Firebase(url: BaseURL))

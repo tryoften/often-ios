@@ -9,5 +9,14 @@
 import UIKit
 
 class LyricPickerViewModel: NSObject {
-   
+    
+    var trackService: TrackService
+    
+    init(trackService: TrackService) {
+        self.trackService = trackService
+    }
+    
+    func getTrackForLyric(lyric: Lyric, completion: (track: Track) -> ()) {
+        trackService.getTrackForLyric(lyric, completion: completion)
+    }
 }

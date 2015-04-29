@@ -8,6 +8,7 @@
 
 import Foundation
 
+var BaseURL = "https://multi-keyboards.firebaseio.com/"
 #if DEBUG
 let CategoryServiceEndpoint = "https://brilliant-fire-154.firebaseio.com/"
 #else
@@ -39,7 +40,7 @@ let SubtitleFont = UIFont(name: "Lato-Regular", size: 12)
 let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
-
+let KeyboardHeight: CGFloat = 475 / 2
 let KeyboardTableViewBackgroundColor = LightGrey
 let KeyboardTableSeperatorColor = DarkGrey
 let KeyboardTableCoverArtViewBackgroundColor = DarkGrey

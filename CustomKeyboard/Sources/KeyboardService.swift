@@ -81,7 +81,7 @@ class KeyboardService: NSObject {
                     lyrics.append(Lyric(id: lyricKey, text: lyricText, categoryId: categoryKey, trackId: nil))
                 }
                 
-                var category = Category(id: categoryKey, name: "Category", lyrics: lyrics)
+                var category = Category(id: categoryKey, name: categoryData["name"] as! String, lyrics: lyrics)
                 category.highlightColor = UIColor(fromHexString: CategoryCollectionViewCellHighlightColors[categories.count % CategoryCollectionViewCellHighlightColors.count])
                 categories[category.id] = category
             }
