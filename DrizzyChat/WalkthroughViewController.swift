@@ -50,14 +50,14 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         titles = [
             "Game Changing",
             "Curated Lyrics",
-            "How to install Drizzy",
+            "How to install Artist",
             "Keep it 100, Sign Up"
         ]
         
         subtitles = [
-            "Keep Drake in your pocket & let him do the talking for you",
-            "Send the best Drizzy verses right from your keyboard",
-            "Make sure you turn on \"full access\" so Drizzy can do his thing",
+            "Keep Artists in your pocket & let him do the talking for you",
+            "Send the best Artist verses right from your keyboard",
+            "Make sure you turn on \"full access\" so Artist can do his thing",
             "Connect to get access to new artists, lyrics & features."
         ]
         
@@ -77,12 +77,12 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         pageControl.setTranslatesAutoresizingMaskIntoConstraints(false)
         pageControl.numberOfPages = titles.count
         pageControl.pageIndicatorTintColor = UIColor(fromHexString: "#b2b2b2")
-        pageControl.currentPageIndicatorTintColor = UIColor(fromHexString: "#ffb61d")
+        pageControl.currentPageIndicatorTintColor = BlackColor
         pageControl.currentPage = currentPage
         
         actionButton = UIButton()
         actionButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        actionButton.backgroundColor = UIColor(fromHexString: "#ffb61d")
+        actionButton.backgroundColor = BlackColor
         actionButton.setTitle("Continue", forState: .Normal)
         actionButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 20)
         actionButton.titleLabel?.textColor = UIColor.whiteColor()

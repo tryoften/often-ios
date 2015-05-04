@@ -56,23 +56,23 @@ class Track: NSObject {
             albumCoverImageLarge = NSURL(string: albumCoverImageLargeString)
         }
         
-        if let spotifyURLString = dictionary["spotify_url"] {
+        if let spotifyURLString = dictionary["track_spotify_url"] {
             spotifyURL = NSURL(string: spotifyURLString)
         }
         
-        if let soundcloudURLString = dictionary["soundcloud_url"] {
+        if let soundcloudURLString = dictionary["track_soundcloud_url"] {
             soundcloudURL = NSURL(string: soundcloudURLString)
         }
         
-        if let rapgeniusURLString = dictionary["rapgenius_url"] {
+        if let rapgeniusURLString = dictionary["track_rapgenius_url"] {
             rapgeniusURL = NSURL(string: rapgeniusURLString)
         }
         
-        if let youtubeURLString = dictionary["youtube_url"] {
+        if let youtubeURLString = dictionary["track_youtube_url"] {
             youtubeURL = NSURL(string: youtubeURLString)
         }
         
-        if let previewURLString = dictionary["preview_url"] {
+        if let previewURLString = dictionary["track_preview_url"] {
             previewURL = NSURL(string: previewURLString)
         }
     }

@@ -21,22 +21,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     var selectedCell: LyricTableViewCell?
     var animatingCell: Bool!
     var searchModeOn :Bool!
-    
-//    init(lyricPickerViewModel: LyricPickerViewModel,
-//        keyboardViewController: KeyboardViewController) {
-//        viewModel = lyricPickerViewModel
-//        self.keyboardViewController = keyboardViewController
-//            
-//        super.init(style: .Plain)
-//    }
-//    
-//    override init!(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
-//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//    }
-//
-//    required init!(coder aDecoder: NSCoder!) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,7 +128,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         }
         
         if indexPath == selectedRow {
-            return 171
+            return KeyboardHeight - SectionPickerViewHeight
         }
         return LyricTableViewCellHeight
     }

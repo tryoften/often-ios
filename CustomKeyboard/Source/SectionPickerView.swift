@@ -85,7 +85,9 @@ class SectionPickerView: UIView {
     class func provideCollectionViewLayout(frame: CGRect) -> UICollectionViewLayout {
         var viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .Horizontal
-        viewLayout.sectionInset = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
+        viewLayout.minimumInteritemSpacing = 5
+        viewLayout.minimumLineSpacing = 5
+        viewLayout.sectionInset = UIEdgeInsets(top: 0.0, left: 5.0, bottom: 5.0, right: 5.0)
         return viewLayout
     }
     
@@ -104,7 +106,7 @@ class SectionPickerView: UIView {
             keyboardButton.al_width == SectionPickerViewHeight,
             
             // switch artist button
-            switchArtistButton.al_left == keyboardButton.al_right + 5,
+            switchArtistButton.al_left == keyboardButton.al_right + 15,
             switchArtistButton.al_centerY == keyboardButton.al_centerY,
             switchArtistButton.al_height == SectionPickerViewSwitchArtistHeight,
             switchArtistButton.al_width == switchArtistButton.al_height,
@@ -127,10 +129,11 @@ class SectionPickerView: UIView {
             toggleDrawer.al_width == toggleDrawer.al_height,
             
             // current category label
-            currentCategoryLabel.al_left == switchArtistButton.al_right + 20.0,
+            currentCategoryLabel.al_left == switchArtistButton.al_right + 30.0,
             currentCategoryLabel.al_right == toggleDrawer.al_left,
             currentCategoryLabel.al_height == SectionPickerViewHeight,
             currentCategoryLabel.al_top == currentCategoryView.al_top,
+            currentCategoryLabel.al_centerY == switchArtistButton.al_centerY,
             
             collectionView.al_top == keyboardButton.al_bottom,
             collectionView.al_left == al_left,

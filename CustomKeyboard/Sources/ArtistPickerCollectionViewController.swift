@@ -39,14 +39,16 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         var viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .Horizontal
         viewLayout.minimumInteritemSpacing = 5.0
-        viewLayout.sectionInset = UIEdgeInsets(top: 5.0, left: 40.0, bottom: 5.0, right: 0.0)
+        viewLayout.minimumLineSpacing = 5.0
+        viewLayout.sectionInset = UIEdgeInsets(top: 5.0, left: 35.0, bottom: 5.0, right: 5.0)
         return viewLayout
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        view.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 0.73)
+        collectionView?.backgroundColor = UIColor.clearColor()
         
         var closeButtonFrame = view.bounds
         closeButtonFrame.size.width = 30
@@ -83,7 +85,7 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         var keyboard = keyboards![indexPath.row]
         
         cell.titleLabel.text = keyboard.artist?.name
-        cell.subtitleLabel.text = "\(keyboard.categories.count) categories"
+        cell.subtitleLabel.text = "\(keyboard.categories.count) categories".uppercaseString
         
         cell.imageView.setImageWithURL(keyboard.artist?.imageURLLarge)
 

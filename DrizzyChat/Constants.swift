@@ -33,14 +33,14 @@ let MainTextColor = UIColor(fromHexString: "#777777")
 
 
 let BaseFont = UIFont(name: "Lato-Light", size: 20)
-let MediumRegularFont = UIFont(name: "Lato-Regular", size: 15)
+let MediumRegularFont = UIFont(name: "Lato-Regular", size: 18)
 let SubtitleFont = UIFont(name: "Lato-Regular", size: 12)
 
 // Navbar
 let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
-let KeyboardHeight: CGFloat = 475 / 2
+let KeyboardHeight: CGFloat = 240
 let KeyboardTableViewBackgroundColor = LightGrey
 let KeyboardTableSeperatorColor = DarkGrey
 let KeyboardTableCoverArtViewBackgroundColor = DarkGrey
@@ -50,7 +50,7 @@ let LyricTableViewCellHighlightedBackgroundColor = UIColor.whiteColor()
 
 // The color of the background that incapsulates the text
 let LyricTableViewCellTextViewBackgroundColor = LightGrey
-let LyricTableViewCellMainTitleFont = MediumRegularFont
+let LyricTableViewCellMainTitleFont = UIFont(name: "Lato-Regular", size: 15)
 let LyricTableViewCellHeight: CGFloat = 75
 let LyricTableViewCellInfoHeight: CGFloat = 50.0
 let LyricTableViewCellInfoBackgroundColor = MediumGrey
@@ -59,8 +59,8 @@ let LyricSelectedEventIdentifier = "lyric:selected"
 
 let CoverArtViewImageWidth: CGFloat = 35.0
 
-let SectionPickerViewHeight: CGFloat = 45.0
-let SectionPickerViewSwitchArtistHeight: CGFloat = 25.0
+let SectionPickerViewHeight: CGFloat = 55.0
+let SectionPickerViewSwitchArtistHeight: CGFloat = 18.0
 let SectionPickerViewBackgroundColor = BlackColor
 
 let SectionPickerViewCellHeight: CGFloat = 50.0
@@ -71,12 +71,12 @@ let SectionPickerViewCellTitleFontColor = UIColor.whiteColor()
 let SectionPickerViewCurrentCategoryLabelTextColor = UIColor.whiteColor()
 
 let NextKeyboardButtonBackgroundColor = BlackColor
-let NextKeyboardButtonFont = UIFont(name: "font_icons8", size:20)
+let NextKeyboardButtonFont = UIFont(name: "font_icons8", size:16)
 
 let CategoriesCollectionViewBackgroundColor = BlackColor
 let CategoryCollectionViewCellBackgroundColor = UIColor(fromHexString: "#1c1c1c")
-let CategoryCollectionViewCellTitleFont = MediumRegularFont
-let CategoryCollectionViewCellSubtitleFont = SubtitleFont
+let CategoryCollectionViewCellTitleFont = UIFont(name: "Lato-Regular", size: 18)
+let CategoryCollectionViewCellSubtitleFont = UIFont(name: "Lato-Regular", size: 12)
 let CategoryCollectionViewCellSubtitleTextColor = UIColor(fromHexString: "#aeb5b8")
 let CategoryCollectionViewCellReuseIdentifier = "CategoryCollectionViewCell"
 let CategoryCollectionViewCellHighlightColors = [
@@ -93,10 +93,10 @@ let ArtistCollectionViewCloseButtonBackgroundColor = UIColor(fromHexString: "#12
 let ArtistCollectionViewCellBackgroundColor = UIColor(fromHexString: "#121314")
 let ArtistCollectionViewCellTitleTextColor = UIColor.whiteColor()
 let ArtistCollectionViewCellSubtitleTextColor = CategoryCollectionViewCellSubtitleTextColor
-let ArtistCollectionViewCellTitleFont = MediumRegularFont
-let ArtistCollectionViewCellSubtitleFont = SubtitleFont
+let ArtistCollectionViewCellTitleFont = UIFont(name: "Lato-Regular", size: 16)
+let ArtistCollectionViewCellSubtitleFont = UIFont(name: "Lato-Regular", size: 10)
 let ArtistCollectionViewCellWidth: CGFloat = 135
-let ArtistCollectionViewCellImageViewLeftMargin: CGFloat = 25
+let ArtistCollectionViewCellImageViewLeftMargin: CGFloat = 32
 
 // Main App
 

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Analytics
 
 func addSeperatorNextTo(button: UIButton, leftSide: Bool) -> UIView {
     var seperator = UIView(frame: CGRectZero)

@@ -56,7 +56,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             titleLabel.al_width == al_width,
             
             subtitleLabel.al_centerX == al_centerX,
-            subtitleLabel.al_top == titleLabel.al_bottom + 5,
+            subtitleLabel.al_top == titleLabel.al_bottom + 2.0,
             subtitleLabel.al_width == titleLabel.al_width
         ])
     }

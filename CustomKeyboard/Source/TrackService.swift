@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftyJSON
 
 class TrackService: NSObject {
     var tracksRef : Firebase

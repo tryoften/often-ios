@@ -53,12 +53,12 @@ class ArtistCollectionViewCell: UICollectionViewCell {
             imageView.al_width == al_width - ArtistCollectionViewCellImageViewLeftMargin * 2,
             imageView.al_height == imageView.al_width,
             imageView.al_centerX == al_centerX,
-            imageView.al_top == al_top + 30,
+            imageView.al_centerY == al_centerY - 30,
             
-            titleLabel.al_top == imageView.al_bottom + 10,
+            titleLabel.al_top == imageView.al_bottom + 5,
             titleLabel.al_centerX == al_centerX,
-            titleLabel.al_width == al_width - 10,
-            titleLabel.al_height == 20,
+            titleLabel.al_width == al_width - 15,
+            titleLabel.al_height == 25,
             
             subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_centerX == al_centerX,

@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Analytics
-import FlurrySDK
 
 class SectionPickerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -17,7 +15,6 @@ class SectionPickerViewController: UIViewController, UICollectionViewDelegate, U
     var drawerOpened: Bool = false
     var startingPoint: CGPoint?
     var pickerView: SectionPickerView!
-    var categoryService: CategoryService?
     var currentCategory: Category? {
         didSet {
             if let category = currentCategory {
@@ -88,7 +85,7 @@ class SectionPickerViewController: UIViewController, UICollectionViewDelegate, U
 
         return CGSizeMake(
             CGRectGetWidth(collectionView.bounds) / 2.5 - 10,
-            CGRectGetHeight(collectionView.bounds) / 2 - 10
+            CGRectGetHeight(collectionView.bounds) / 2 - 5
         )
     }
 
@@ -99,7 +96,7 @@ class SectionPickerViewController: UIViewController, UICollectionViewDelegate, U
             let category = categories[indexPath.row]
             cell.titleLabel.text = category.name
             cell.highlightColorBorder.backgroundColor = category.highlightColor
-            cell.subtitleLabel.text = "\(category.lyrics.count) lyrics"
+            cell.subtitleLabel.text = "\(category.lyrics.count) lyrics".uppercaseString
         }
 
         return cell

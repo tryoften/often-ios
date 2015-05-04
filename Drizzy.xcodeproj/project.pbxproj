@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5ABAEFB3905FC99A9D5A6F14 /* Pods_CustomKeyboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27095C856EF4AC4D5C9CF61F /* Pods_CustomKeyboard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		31838A8D340CC45D4B35C4E2 /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */; };
 		810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
@@ -27,11 +27,9 @@
 		812D74801A3E5E480083F655 /* SectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */; };
 		812D74811A3E5E480083F655 /* SectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */; };
 		81331E051A17E538003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
-		81331E091A17EC52003E4609 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E081A17EC52003E4609 /* CategoryService.swift */; };
 		81331E121A17F9F3003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
 		81331E131A17FA85003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
 		81331E141A17FA88003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
-		81331E151A17FA8B003E4609 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E081A17EC52003E4609 /* CategoryService.swift */; };
 		81331E2B1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
@@ -177,10 +175,12 @@
 		81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		81DB4ED31A945251004EE28C /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DB4ED21A945251004EE28C /* backspace.png */; };
+		81DC114B1AF05CF400412BD2 /* SwiftyJSON in Resources */ = {isa = PBXBuildFile; fileRef = 81DC114A1AF05CF400412BD2 /* SwiftyJSON */; };
+		81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */ = {isa = PBXBuildFile; fileRef = 81DC114A1AF05CF400412BD2 /* SwiftyJSON */; };
 		81DC50AA1A9C2C5A00E2AA9B /* tutorial-video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 81DC50A91A9C2C5A00E2AA9B /* tutorial-video.mov */; };
 		81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
 		81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
-		994130A61DABFD0C1512E95C /* Pods_Drizzy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F34E41BD4B35E70DCAC8D5E3 /* Pods_Drizzy.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C78A7615E4F5FBBBE83EF4C4 /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF6D0294D68428C6F0931653 /* libPods-CustomKeyboard.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,7 +237,6 @@
 
 /* Begin PBXFileReference section */
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
-		27095C856EF4AC4D5C9CF61F /* Pods_CustomKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CustomKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -251,7 +250,6 @@
 		812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerViewController.swift; path = Sources/SectionPickerViewController.swift; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
-		81331E081A17EC52003E4609 /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryService.swift; path = Source/CategoryService.swift; sourceTree = "<group>"; };
 		81331E111A17F9F3003E4609 /* Lyric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lyric.swift; path = Source/Lyric.swift; sourceTree = "<group>"; };
 		81331E1C1A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E1D1A1806BB003E4609 /* SwiftAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftAutoLayout.h; sourceTree = "<group>"; };
@@ -346,13 +344,15 @@
 		81C010751AE89956008F3296 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Sources/Artist.swift; sourceTree = "<group>"; };
 		81C010771AE8A47C008F3296 /* KeyboardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardService.swift; path = Sources/KeyboardService.swift; sourceTree = "<group>"; };
 		81DB4ED21A945251004EE28C /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
+		81DC114A1AF05CF400412BD2 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftyJSON; sourceTree = "<group>"; };
 		81DC50A91A9C2C5A00E2AA9B /* tutorial-video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "tutorial-video.mov"; sourceTree = "<group>"; };
 		81E897D91A32A17F005C7CD9 /* TrackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackService.swift; path = Source/TrackService.swift; sourceTree = "<group>"; };
 		928E8AB5169157015D98D681 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		BF6D0294D68428C6F0931653 /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.debug.xcconfig"; sourceTree = "<group>"; };
-		F34E41BD4B35E70DCAC8D5E3 /* Pods_Drizzy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Drizzy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Drizzy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -379,7 +379,7 @@
 				81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */,
 				81794F0F1A81F202009D4A71 /* ParseFacebookUtils.framework in Frameworks */,
 				81794ED01A81E5C3009D4A71 /* Parse.framework in Frameworks */,
-				994130A61DABFD0C1512E95C /* Pods_Drizzy.framework in Frameworks */,
+				31838A8D340CC45D4B35C4E2 /* libPods-Drizzy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +412,7 @@
 				81794EF61A81EC62009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794EF51A81EC58009D4A71 /* Accounts.framework in Frameworks */,
 				81794ED11A81E5C3009D4A71 /* Parse.framework in Frameworks */,
-				5ABAEFB3905FC99A9D5A6F14 /* Pods_CustomKeyboard.framework in Frameworks */,
+				C78A7615E4F5FBBBE83EF4C4 /* libPods-CustomKeyboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,8 +454,8 @@
 				81794ED41A81E613009D4A71 /* CFNetwork.framework */,
 				81794ED21A81E607009D4A71 /* Accounts.framework */,
 				81794ECD1A81E5C3009D4A71 /* Parse.framework */,
-				27095C856EF4AC4D5C9CF61F /* Pods_CustomKeyboard.framework */,
-				F34E41BD4B35E70DCAC8D5E3 /* Pods_Drizzy.framework */,
+				BF6D0294D68428C6F0931653 /* libPods-CustomKeyboard.a */,
+				F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -478,7 +478,6 @@
 			isa = PBXGroup;
 			children = (
 				81C010701AE89631008F3296 /* ArtistService.swift */,
-				81331E081A17EC52003E4609 /* CategoryService.swift */,
 				81E897D91A32A17F005C7CD9 /* TrackService.swift */,
 				81C010771AE8A47C008F3296 /* KeyboardService.swift */,
 			);
@@ -488,6 +487,7 @@
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				81DC114A1AF05CF400412BD2 /* SwiftyJSON */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
 			);
 			path = Vendors;
@@ -784,7 +784,6 @@
 				819A375B1A9806900041F5E0 /* Update Bundle Version */,
 				45728D1C2D72036A77085D41 /* Copy Pods Resources */,
 				81164A7E1A9D661C00AE5B30 /* Upload Symbols to Parse */,
-				81DE268E3CA55D941E99910E /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -825,7 +824,6 @@
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
 				81164A9B1A9D760900AE5B30 /* Upload Symbols to Parse */,
-				9B122C623D5FA5337C873626 /* Embed Pods Frameworks */,
 				819622141ADE0F9600B685B6 /* ShellScript */,
 			);
 			buildRules = (
@@ -954,6 +952,7 @@
 				8180E6151A142157007FA1CF /* Images.xcassets in Resources */,
 				8180E6791A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
 				8180E66D1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
+				81DC114B1AF05CF400412BD2 /* SwiftyJSON in Resources */,
 				81331E2B1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6731A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
 				81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */,
@@ -993,6 +992,7 @@
 				8180E6741A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
 				8180E6661A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
 				813C82A21AE3031700925206 /* lyrics.json in Resources */,
+				81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */,
 				8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				81DB4ED31A945251004EE28C /* backspace.png in Resources */,
 				8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
@@ -1117,36 +1117,6 @@
 			shellPath = /bin/sh;
 			shellScript = "touch ${PROJECT_DIR}/DrizzyChat/AppDelegate.swift";
 		};
-		81DE268E3CA55D941E99910E /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9B122C623D5FA5337C873626 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A00C0EDAA51482F77D82BB77 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1192,7 +1162,6 @@
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */,
-				81331E151A17FA8B003E4609 /* CategoryService.swift in Sources */,
 				8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */,
@@ -1260,7 +1229,6 @@
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81C010761AE89956008F3296 /* Artist.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
-				81331E091A17EC52003E4609 /* CategoryService.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
 				817618F51AE9ED4F00C7D9CB /* Keyboard.swift in Sources */,
 			);

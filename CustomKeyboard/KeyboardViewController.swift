@@ -7,13 +7,10 @@
 //
 
 import UIKit
-import AFNetworking
-import FlurrySDK
-import Analytics
 
 let EnableFullAccessMessage = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to do his thing"
 
-class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, CategoryServiceDelegate, KeyboardViewModelDelegate,
+class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, KeyboardViewModelDelegate,
     ArtistPickerCollectionViewControllerDelegate {
 
     var lyricPicker: LyricPickerTableViewController!
@@ -43,7 +40,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var firebaseRoot = Firebase(url: BaseURL)
         lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot))
         
-//        lyricPicker = LyricPickerTableViewController(lyricPickerViewModel: lyricPickerViewModel, keyboardViewController: self)
         lyricPicker = LyricPickerTableViewController()
         lyricPicker.delegate = self
         lyricPicker.viewModel = lyricPickerViewModel
@@ -65,21 +61,19 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         view.addSubview(lyricPicker.view)
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
-#if TARGET_IS_APP
-        let appDelegate = UIApplication.sharedApplication().delegate
-        heightConstraint = view.al_height == appDelegate!.window!!.bounds.size.height
-#else
-        heightConstraint = view.al_height == KeyboardHeight
-#endif
         
-        setupLayout()
-        setupAppearance()
         bootstrap()
     }
     
     override func viewWillAppear(animated: Bool) {
-        layoutSectionPickerView()
+        heightConstraint =  NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: KeyboardHeight)
+        
+        view.addConstraint(heightConstraint)
+        
+        setupLayout()
+        setupAppearance()
         layoutArtistPickerView()
+        layoutSectionPickerView()
     }
     
     func bootstrap() {
@@ -138,7 +132,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func layoutSectionPickerView() {
-        let superviewHeight = CGRectGetHeight(view.frame)
+        let superviewHeight = KeyboardHeight
         if let sectionPickerView = self.sectionPickerView {
             sectionPickerView.frame = CGRectMake(CGRectGetMinX(view.frame),
                 superviewHeight - SectionPickerViewHeight,
@@ -152,7 +146,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
         //section Picker View
         var constraints: [NSLayoutConstraint] = [
-            heightConstraint,
 
             seperatorView.al_height == 1.0,
             seperatorView.al_width == view.al_width,
@@ -193,6 +186,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             layoutArtistPickerView(hidden: true)
         }
         
+        sectionPickerView.close()
         UIView.animateWithDuration(0.3,
             delay: 0,
             usingSpringWithDamping: 1.0,
@@ -210,13 +204,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        let superviewHeight = CGRectGetHeight(view.frame)
-        if let sectionPickerView = self.sectionPickerView {
-            sectionPickerView.frame = CGRectMake(CGRectGetMinX(view.frame),
-                superviewHeight - SectionPickerViewHeight,
-                CGRectGetWidth(view.frame),
-                SectionPickerViewHeight)
-        }
+        layoutSectionPickerView()
     }
 
     override func textWillChange(textInput: UITextInput) {
@@ -370,24 +358,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL]) {
         insertLyric(shareViewController.lyric!, selectedOptions:options)
-    }
-    
-    // MARK: CategoryServiceDelegate
-    
-    func categoryServiceDidLoad(service: CategoryService) {
-
-    }
-    
-    func categoryServiceDidLoadCategory(service: CategoryService, category: Category) {
-        
-    }
-    
-    func categoryServiceDidAddLyric(service: CategoryService, lyric: Lyric) {
-        
-    }
-    
-    func categoryServiceLoadFailed(service: CategoryService) {
-        
     }
     
     // MARK: KeyboardViewModelDelegate

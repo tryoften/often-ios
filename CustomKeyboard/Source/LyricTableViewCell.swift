@@ -119,6 +119,7 @@ class LyricTableViewCell: UITableViewCell {
             
             infoView.al_top == lyricView.al_bottom,
             infoView.al_bottom == contentView.al_bottom,
+          
             infoView.al_width == contentView.al_width,
             infoView.al_left == contentView.al_left,
             
@@ -127,7 +128,7 @@ class LyricTableViewCell: UITableViewCell {
             seperatorView.al_left == contentView.al_left,
             seperatorView.al_height == 1.0,
             
-            metadataView.al_height == CGFloat(LyricTableViewCellInfoHeight),
+            metadataView.al_height == infoView.al_height / 2,
             metadataView.al_width <= infoView.al_width,
             metadataView.al_top == infoView.al_top,
             metadataView.al_left == infoView.al_left,
