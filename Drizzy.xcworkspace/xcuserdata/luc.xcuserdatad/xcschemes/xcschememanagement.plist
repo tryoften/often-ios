@@ -3,23 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
-	<dict/>
-	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>8180E6071A142157007FA1CF</key>
+		<key>CustomKeyboard.xcscheme_^#shared#^_</key>
 		<dict>
-			<key>primary</key>
-			<true/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
-		<key>8180E61C1A142158007FA1CF</key>
+		<key>October.xcscheme_^#shared#^_</key>
 		<dict>
-			<key>primary</key>
+			<key>isShown</key>
 			<true/>
-		</dict>
-		<key>8180E6301A142199007FA1CF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 </dict>
