@@ -50,14 +50,14 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         titles = [
             "Game Changing",
             "Curated Lyrics",
-            "How to install Artist",
+            "How to install October",
             "Keep it 100, Sign Up"
         ]
         
         subtitles = [
-            "Keep Artists in your pocket & let him do the talking for you",
+            "Keep Artists in your pocket & let them do the talking for you",
             "Send the best Artist verses right from your keyboard",
-            "Make sure you turn on \"full access\" so Artist can do his thing",
+            "Make sure you turn on \"full access\" so October can do its thing",
             "Connect to get access to new artists, lyrics & features."
         ]
         

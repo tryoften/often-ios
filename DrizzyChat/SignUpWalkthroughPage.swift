@@ -37,7 +37,7 @@ class SignUpWalkthroughPage: WalkthroughPage {
         
         skipButton = UIButton(frame: CGRectZero)
         skipButton.setTitle("Skip to main screen", forState: .Normal)
-        skipButton.backgroundColor = UIColor(fromHexString: "#ffb61d")
+        skipButton.backgroundColor = BlackColor
         skipButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: 16)
         skipButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         skipButton.contentHorizontalAlignment = .Center
