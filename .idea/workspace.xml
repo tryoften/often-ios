@@ -2,12 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7bacba25-9c1f-4a6a-82ef-8d3d2fd7ee72" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Source/CategoryService.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/Source/CategoryService.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/DrizzyChat.iml" afterPath="$PROJECT_DIR$/.idea/DrizzyChat.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Vendors/SwiftyJSON" afterPath="$PROJECT_DIR$/Vendors/SwiftyJSON" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Sources/ArtistCollectionCloseButton.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/Sources/ArtistCollectionCloseButton.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Sources/ArtistPickerCollectionViewController.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/Sources/ArtistPickerCollectionViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Sources/CategoryCollectionViewCell.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/Sources/CategoryCollectionViewCell.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DrizzyChat/Constants.swift" afterPath="$PROJECT_DIR$/DrizzyChat/Constants.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DrizzyChat/HomeViewController.xib" afterPath="$PROJECT_DIR$/DrizzyChat/HomeViewController.xib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Info.plist" afterPath="$PROJECT_DIR$/CustomKeyboard/Info.plist" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DrizzyChat/Info.plist" afterPath="$PROJECT_DIR$/DrizzyChat/Info.plist" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Sources/Keyboard.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/Sources/Keyboard.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Sources/KeyboardService.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/Sources/KeyboardService.swift" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/KeyboardViewController.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/KeyboardViewController.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Source/TrackService.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/Source/TrackService.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Source/SectionPickerView.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/Source/SectionPickerView.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Sources/SectionPickerViewController.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/Sources/SectionPickerViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CustomKeyboard/Source/ShareViewController.swift" afterPath="$PROJECT_DIR$/CustomKeyboard/Source/ShareViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DrizzyChat/SignUpWalkthroughPage.swift" afterPath="$PROJECT_DIR$/DrizzyChat/SignUpWalkthroughPage.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DrizzyChat/WalkthroughViewController.swift" afterPath="$PROJECT_DIR$/DrizzyChat/WalkthroughViewController.swift" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Drizzy.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/Drizzy.xcodeproj/project.pbxproj" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Drizzy.xcodeproj/xcuserdata/luc.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="$PROJECT_DIR$/Drizzy.xcodeproj/xcuserdata/luc.xcuserdatad/xcschemes/xcschememanagement.plist" />
     </list>
     <ignored path="DrizzyChat.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,8 +48,18 @@
       <file leaf-file-name="AppDelegate.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DrizzyChat/AppDelegate.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1635">
-              <caret line="47" column="54" selection-start-line="47" selection-start-column="54" selection-end-line="47" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="1815">
+              <caret line="79" column="86" selection-start-line="79" selection-start-column="86" selection-end-line="79" selection-end-column="86" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="KeyboardViewController.swift" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CustomKeyboard/KeyboardViewController.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3187251" vertical-offset="1080" max-vertical-offset="5760">
+              <caret line="88" column="8" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -44,18 +68,18 @@
       <file leaf-file-name="Constants.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DrizzyChat/Constants.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1515">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1710">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FuzzySearch.swift" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FuzzySearch.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DrizzyChat/FuzzySearch.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="753">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="735">
+              <caret line="7" column="65" selection-start-line="7" selection-start-column="65" selection-end-line="7" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -71,6 +95,7 @@
       <list>
         <option value="$PROJECT_DIR$/DrizzyChat/Constants.swift" />
         <option value="$PROJECT_DIR$/DrizzyChat/FuzzySearch.swift" />
+        <option value="$PROJECT_DIR$/CustomKeyboard/KeyboardViewController.swift" />
       </list>
     </option>
   </component>
@@ -151,6 +176,38 @@
               <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Drizzy" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CustomKeyboard" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeRootNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Drizzy" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CustomKeyboard" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="View Controllers" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.XcodeViewNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Cidr.FilesView" />
@@ -169,14 +226,7 @@
       </EXTENSION>
       <method />
     </configuration>
-    <configuration default="false" name="CustomKeyboard" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Drizzy" TARGET_NAME="CustomKeyboard" CONFIG_NAME="Debug" SCHEME_NAME="CustomKeyboard" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
-      <envs />
-      <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
-        <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
-      </EXTENSION>
-      <method />
-    </configuration>
-    <configuration default="false" name="DrizzyChat" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Drizzy" TARGET_NAME="Drizzy" CONFIG_NAME="Release" SCHEME_NAME="DrizzyChat" RUN_TARGET_PROJECT_NAME="Drizzy" RUN_TARGET_NAME="Drizzy" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
+    <configuration default="false" name="Pods-Drizzy-MMLayershots" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Pods" TARGET_NAME="Pods-Drizzy-MMLayershots" CONFIG_NAME="Debug" SCHEME_NAME="Pods-Drizzy-MMLayershots" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
       <envs />
       <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
         <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
@@ -211,13 +261,6 @@
       </EXTENSION>
       <method />
     </configuration>
-    <configuration default="false" name="Pods-CustomKeyboard-BrightFutures" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Pods" TARGET_NAME="Pods-CustomKeyboard-BrightFutures" CONFIG_NAME="Debug" SCHEME_NAME="Pods-CustomKeyboard-BrightFutures" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
-      <envs />
-      <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
-        <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
-      </EXTENSION>
-      <method />
-    </configuration>
     <configuration default="false" name="Pods-CustomKeyboard-Canvas" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Pods" TARGET_NAME="Pods-CustomKeyboard-Canvas" CONFIG_NAME="Debug" SCHEME_NAME="Pods-CustomKeyboard-Canvas" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
       <envs />
       <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
@@ -226,13 +269,6 @@
       <method />
     </configuration>
     <configuration default="false" name="Pods-CustomKeyboard-FlurrySDK" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Pods" TARGET_NAME="Pods-CustomKeyboard-FlurrySDK" CONFIG_NAME="Debug" SCHEME_NAME="Pods-CustomKeyboard-FlurrySDK" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
-      <envs />
-      <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
-        <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
-      </EXTENSION>
-      <method />
-    </configuration>
-    <configuration default="false" name="Pods-CustomKeyboard-SwiftyJSON" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Pods" TARGET_NAME="Pods-CustomKeyboard-SwiftyJSON" CONFIG_NAME="Debug" SCHEME_NAME="Pods-CustomKeyboard-SwiftyJSON" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
       <envs />
       <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
         <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
@@ -267,13 +303,6 @@
       </EXTENSION>
       <method />
     </configuration>
-    <configuration default="false" name="Pods-Drizzy-BrightFutures" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Pods" TARGET_NAME="Pods-Drizzy-BrightFutures" CONFIG_NAME="Debug" SCHEME_NAME="Pods-Drizzy-BrightFutures" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
-      <envs />
-      <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
-        <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
-      </EXTENSION>
-      <method />
-    </configuration>
     <configuration default="false" name="Pods-Drizzy-Canvas" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Pods" TARGET_NAME="Pods-Drizzy-Canvas" CONFIG_NAME="Debug" SCHEME_NAME="Pods-Drizzy-Canvas" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
       <envs />
       <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
@@ -282,13 +311,6 @@
       <method />
     </configuration>
     <configuration default="false" name="Pods-Drizzy-FlurrySDK" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Pods" TARGET_NAME="Pods-Drizzy-FlurrySDK" CONFIG_NAME="Debug" SCHEME_NAME="Pods-Drizzy-FlurrySDK" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
-      <envs />
-      <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
-        <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
-      </EXTENSION>
-      <method />
-    </configuration>
-    <configuration default="false" name="Pods-Drizzy-SwiftyJSON" type="AppleRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Pods" TARGET_NAME="Pods-Drizzy-SwiftyJSON" CONFIG_NAME="Debug" SCHEME_NAME="Pods-Drizzy-SwiftyJSON" MAKE_ACTIVE="TRUE" WAIT_FOR="FALSE">
       <envs />
       <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
         <REVEAL_SETTINGS autoInject="false" autoInstall="true" askToEnableAutoInstall="true" />
@@ -309,27 +331,24 @@
       </EXTENSION>
       <method />
     </configuration>
-    <list size="20">
-      <item index="0" class="java.lang.String" itemvalue="Application.CustomKeyboard" />
-      <item index="1" class="java.lang.String" itemvalue="Application.DrizzyChat" />
-      <item index="2" class="java.lang.String" itemvalue="Application.SwiftAutoLayout-iOS" />
-      <item index="3" class="java.lang.String" itemvalue="Application.SwiftAutoLayout-Mac" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard-AFNetworking" />
-      <item index="5" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard-Analytics" />
-      <item index="6" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard-BrightFutures" />
+    <list size="17">
+      <item index="0" class="java.lang.String" itemvalue="Application.October" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Pods-Drizzy-MMLayershots" />
+      <item index="2" class="java.lang.String" itemvalue="Application.CustomKeyboard" />
+      <item index="3" class="java.lang.String" itemvalue="Application.SwiftAutoLayout-iOS" />
+      <item index="4" class="java.lang.String" itemvalue="Application.SwiftAutoLayout-Mac" />
+      <item index="5" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard-AFNetworking" />
+      <item index="6" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard-Analytics" />
       <item index="7" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard-Canvas" />
       <item index="8" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard-FlurrySDK" />
-      <item index="9" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard-SwiftyJSON" />
-      <item index="10" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard-TRVSDictionaryWithCaseInsensitivity" />
-      <item index="11" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard" />
-      <item index="12" class="java.lang.String" itemvalue="Application.Pods-Drizzy-AFNetworking" />
-      <item index="13" class="java.lang.String" itemvalue="Application.Pods-Drizzy-Analytics" />
-      <item index="14" class="java.lang.String" itemvalue="Application.Pods-Drizzy-BrightFutures" />
-      <item index="15" class="java.lang.String" itemvalue="Application.Pods-Drizzy-Canvas" />
-      <item index="16" class="java.lang.String" itemvalue="Application.Pods-Drizzy-FlurrySDK" />
-      <item index="17" class="java.lang.String" itemvalue="Application.Pods-Drizzy-SwiftyJSON" />
-      <item index="18" class="java.lang.String" itemvalue="Application.Pods-Drizzy-TRVSDictionaryWithCaseInsensitivity" />
-      <item index="19" class="java.lang.String" itemvalue="Application.Pods-Drizzy" />
+      <item index="9" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard-TRVSDictionaryWithCaseInsensitivity" />
+      <item index="10" class="java.lang.String" itemvalue="Application.Pods-CustomKeyboard" />
+      <item index="11" class="java.lang.String" itemvalue="Application.Pods-Drizzy-AFNetworking" />
+      <item index="12" class="java.lang.String" itemvalue="Application.Pods-Drizzy-Analytics" />
+      <item index="13" class="java.lang.String" itemvalue="Application.Pods-Drizzy-Canvas" />
+      <item index="14" class="java.lang.String" itemvalue="Application.Pods-Drizzy-FlurrySDK" />
+      <item index="15" class="java.lang.String" itemvalue="Application.Pods-Drizzy-TRVSDictionaryWithCaseInsensitivity" />
+      <item index="16" class="java.lang.String" itemvalue="Application.Pods-Drizzy" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -347,24 +366,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24947146" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -393,7 +412,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/DrizzyChat/AppDelegate.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1635">
+        <state vertical-scroll-proportion="0.0" vertical-offset="705" max-vertical-offset="1635">
           <caret line="47" column="54" selection-start-line="47" selection-start-column="54" selection-end-line="47" selection-end-column="54" />
           <folding />
         </state>
@@ -401,7 +420,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DrizzyChat/Constants.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1515">
+        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1515">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
@@ -409,8 +428,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DrizzyChat/FuzzySearch.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="753">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DrizzyChat/FuzzySearch.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="735">
+          <caret line="7" column="65" selection-start-line="7" selection-start-column="65" selection-end-line="7" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DrizzyChat/AppDelegate.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="1815">
+          <caret line="79" column="86" selection-start-line="79" selection-start-column="86" selection-end-line="79" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DrizzyChat/Constants.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1710">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CustomKeyboard/KeyboardViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3187251" vertical-offset="1080" max-vertical-offset="5760">
+          <caret line="88" column="8" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
           <folding />
         </state>
       </provider>
