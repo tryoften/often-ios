@@ -32,6 +32,7 @@ class SectionPickerView: UIView {
         categoriesCollectionView.backgroundColor = CategoriesCollectionViewBackgroundColor
         categoriesCollectionView.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoriesCollectionView.registerClass(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
+        categoriesCollectionView.showsHorizontalScrollIndicator = false
         
         nextKeyboardButton = UIButton()
         nextKeyboardButton.titleLabel!.font = NextKeyboardButtonFont

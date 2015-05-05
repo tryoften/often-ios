@@ -52,9 +52,10 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         
         var closeButtonFrame = view.bounds
         closeButtonFrame.size.width = 30
+        closeButtonFrame.size.height = KeyboardHeight
         closeButton.frame = closeButtonFrame
     
-        // Register cell classes
+        collectionView?.showsHorizontalScrollIndicator = false
         collectionView!.registerClass(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: ArtistCollectionViewCellReuseIdentifier)
     }
 

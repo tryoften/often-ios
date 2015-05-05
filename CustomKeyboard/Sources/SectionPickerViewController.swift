@@ -27,7 +27,7 @@ class SectionPickerViewController: UIViewController, UICollectionViewDelegate, U
     var categories: [Category] = [] {
         didSet {
             if (categories.count > 1) {
-                currentCategory = categories[1]
+                currentCategory = categories[0]
                 pickerView.delegate?.didSelectSection(pickerView, category: currentCategory!)
                 dispatch_async(dispatch_get_main_queue(), {
                     self.pickerView.categoriesCollectionView.reloadData()

@@ -87,10 +87,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         Flurry.startSession(FlurryClientKey)
         Firebase.setOption("persistence", to: true)
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
-            self.getCurrentUser()
-            self.viewModel.requestData()
-        })
+        self.getCurrentUser()
+        self.viewModel.requestData()
     }
     
     func getCurrentUser() {
@@ -163,8 +161,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func didTapCloseButton() {
-        UIView.animateWithDuration(0.3,
-            delay: 0,
+        UIView.animateWithDuration(0.4,
+            delay: 0.1,
             usingSpringWithDamping: 1.0,
             initialSpringVelocity: 0.1,
             options: .CurveEaseIn,

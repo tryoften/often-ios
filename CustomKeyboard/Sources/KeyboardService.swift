@@ -82,7 +82,7 @@ class KeyboardService: NSObject {
                 }
                 
                 var category = Category(id: categoryKey, name: categoryData["name"] as! String, lyrics: lyrics)
-                category.highlightColor = UIColor(fromHexString: CategoryCollectionViewCellHighlightColors[categories.count % CategoryCollectionViewCellHighlightColors.count])
+
                 categories[category.id] = category
             }
         }

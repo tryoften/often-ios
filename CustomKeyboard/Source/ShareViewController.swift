@@ -143,7 +143,7 @@ class ShareViewController: UIViewController {
             button.setImage(UIImage(named: "ShareLyricOn"), forState: .Highlighted)
             button.setImage(UIImage(named: "ShareLyricOn"), forState: .Selected)
             setupButton(button, UIColor(fromHexString: "#ffae36"))
-            button.contentEdgeInsets = UIEdgeInsets(top: 7.0, left: 0, bottom: 7.0, right: 0)
+            button.contentEdgeInsets = UIEdgeInsets(top: 11.0, left: 0, bottom: 11.0, right: 0)
             button.selected = true
             
             lyricButton = button

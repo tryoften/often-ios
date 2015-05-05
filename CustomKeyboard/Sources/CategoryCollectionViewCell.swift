@@ -52,7 +52,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             highlightColorBorder.al_height == 4.5,
 
             titleLabel.al_centerX == al_centerX,
-            titleLabel.al_centerY == al_centerY - 10,
+            titleLabel.al_centerY == al_centerY - 5,
             titleLabel.al_width == al_width,
             
             subtitleLabel.al_centerX == al_centerX,

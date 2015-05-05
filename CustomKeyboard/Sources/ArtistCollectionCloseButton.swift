@@ -15,27 +15,13 @@ class ArtistCollectionCloseButton: UIButton {
         icon = UILabel()
         icon.setTranslatesAutoresizingMaskIntoConstraints(false)
         super.init(frame: frame)
-
-        icon.text = "\u{f10d}"
-        icon.textAlignment = .Center
-        icon.font = UIFont(name: "font_icons8", size: 20)
-        icon.textColor = UIColor.whiteColor()
-        addSubview(icon)
-        backgroundColor = ArtistCollectionViewCloseButtonBackgroundColor
         
-        setupLayout()
+        setImage(UIImage(named: "close artists"), forState: .Normal)
+
+        backgroundColor = ArtistCollectionViewCloseButtonBackgroundColor
     }
     
     convenience required init(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
-    }
-    
-    func setupLayout() {
-        addConstraints([
-            icon.al_centerX == al_centerX,
-            icon.al_top == al_top + 100,
-            icon.al_width == 20,
-            icon.al_height == icon.al_width
-        ])
     }
 }

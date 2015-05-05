@@ -16,10 +16,21 @@ class Keyboard: NSObject {
         didSet {
             var array = [Category]()
             
-            for (key, category) in categories {
-                array.append(category)
-            }
+            var sortedCategories = (categories as NSDictionary
+                ).keysSortedByValueUsingComparator({ (val1, val2) in
+                let string1 = (val1 as! Category).name as String
+                let string2 = (val2 as! Category).name as String
+                return string1.compare(string2)
+            })
             
+            var i = 0
+            for key in sortedCategories {
+                if let category = categories[key as! String] {
+                    category.highlightColor = UIColor(fromHexString: CategoryCollectionViewCellHighlightColors[i++ % CategoryCollectionViewCellHighlightColors.count])
+                    array.append(category)
+                }
+            }
+
             categoryList = array
         }
     }
