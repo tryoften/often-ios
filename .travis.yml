@@ -1,0 +1,4 @@
+language: objective-c
+
+script:
+- xcodebuild clean build -workspace Drizzy.xcworkspace -scheme October -destination 'platform=iOS Simulator,name=iPhone 6,OS=8.1'
