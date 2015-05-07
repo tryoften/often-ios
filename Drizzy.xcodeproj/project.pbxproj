@@ -24,8 +24,8 @@
 		8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
 		81240A791A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
 		81240A7A1A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
-		812D74801A3E5E480083F655 /* SectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */; };
-		812D74811A3E5E480083F655 /* SectionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */; };
+		812D74801A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
+		812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
 		81331E051A17E538003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
 		81331E121A17F9F3003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
 		81331E131A17FA85003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
@@ -247,7 +247,7 @@
 		812029E91AED3AE0005D1D8F /* CustomKeyboardPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomKeyboardPrefixHeader.pch; path = Sources/CustomKeyboardPrefixHeader.pch; sourceTree = "<group>"; };
 		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
-		812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionPickerViewController.swift; path = Sources/SectionPickerViewController.swift; sourceTree = "<group>"; };
+		812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		81331E111A17F9F3003E4609 /* Lyric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lyric.swift; path = Source/Lyric.swift; sourceTree = "<group>"; };
@@ -745,7 +745,7 @@
 				8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */,
 				8180E6351A142199007FA1CF /* KeyboardViewController.swift */,
 				81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */,
-				812D747F1A3E5E480083F655 /* SectionPickerViewController.swift */,
+				812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */,
 				81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */,
 				817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */,
 			);
@@ -1146,7 +1146,7 @@
 				81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */,
 				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
 				813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */,
-				812D74801A3E5E480083F655 /* SectionPickerViewController.swift in Sources */,
+				812D74801A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */,
 				816CE0971A99A32700D718E1 /* LoginFormViewController.swift in Sources */,
@@ -1200,7 +1200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81331E121A17F9F3003E4609 /* Lyric.swift in Sources */,
-				812D74811A3E5E480083F655 /* SectionPickerViewController.swift in Sources */,
+				812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */,
 				81B6D5911A95B1F90089767B /* KeyboardKey.swift in Sources */,
 				81240A7A1A33BCF600E946F8 /* Track.swift in Sources */,
 				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,

@@ -37,9 +37,12 @@ class KeyboardViewModel: NSObject {
             self.delegate?.keyboardViewModelDidLoadData(self, data: data.values.array)
             
             if self.keyboardService.keyboards.count > 0 {
+                if let lastKeyboardId = NSUserDefaults.standardUserDefaults().objectForKey("currentKeyboard") as? String, lastKeyboard = self.keyboardService.keyboards[lastKeyboardId] {
+                    self.currentKeyboard = lastKeyboard
+                } else {
+                    self.currentKeyboard = self.keyboardService.keyboards.values.first
+                }
                 
-                // TODO(luc): persist the current keyboard ID on disk and read it back
-                self.currentKeyboard = self.keyboardService.keyboards.values.first
                 self.delegate?.keyboardViewModelCurrentKeyboardDidChange(self, keyboard: self.currentKeyboard!)
             }
             completion?(true)

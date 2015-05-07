@@ -14,7 +14,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     ArtistPickerCollectionViewControllerDelegate {
 
     var lyricPicker: LyricPickerTableViewController!
-    var sectionPicker: SectionPickerViewController!
+    var categoryPicker: CategoryCollectionViewController!
     var artistPicker: ArtistPickerCollectionViewController?
     var heightConstraint: NSLayoutConstraint!
     var viewModel: KeyboardViewModel!
@@ -50,10 +50,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         seperatorView.backgroundColor = KeyboardTableSeperatorColor
         seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        sectionPicker = SectionPickerViewController()
-        sectionPicker.keyboardViewController = self
+        categoryPicker = CategoryCollectionViewController()
+        categoryPicker.keyboardViewController = self
         
-        sectionPickerView = sectionPicker.view as! SectionPickerView
+        sectionPickerView = categoryPicker.view as! SectionPickerView
         sectionPickerView.delegate = lyricPicker
         sectionPickerView.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         sectionPickerView.switchArtistButton.addTarget(self, action: "didTapSwitchArtistButton", forControlEvents: .TouchUpInside)
@@ -365,13 +365,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
 
     func keyboardViewModelCurrentKeyboardDidChange(keyboardViewModel: KeyboardViewModel, keyboard: Keyboard) {
-        sectionPicker.categories = keyboard.categoryList
+        categoryPicker.categories = keyboard.categoryList
         sectionPickerView.switchArtistButton.artistImageView.setImageWithURL(keyboard.artist?.imageURLSmall)
     }
     
     // MARK: ArtistPickerCollectionViewControllerDelegate
     
     func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
+        NSUserDefaults.standardUserDefaults().setValue(keyboard.id, forKey: "currentKeyboard")
         viewModel.currentKeyboard = keyboard
         didTapCloseButton()
     }

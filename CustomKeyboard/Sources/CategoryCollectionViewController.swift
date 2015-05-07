@@ -1,5 +1,5 @@
 //
-//  SectionPickerViewController.swift
+//  CategoryCollectionViewController.swift
 //  DrizzyChat
 //
 //  Created by Luc Success on 12/14/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SectionPickerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class CategoryCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     var keyboardViewController: KeyboardViewController!
     var tapRecognizer: UITapGestureRecognizer!
