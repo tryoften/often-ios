@@ -48,6 +48,10 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         self.init(frame: CGRectZero)
     }
     
+    override func prepareForReuse() {
+        imageView.image = nil
+    }
+    
     func setupLayout() {
         let constraints: [NSLayoutConstraint] = [
             imageView.al_width == al_width - ArtistCollectionViewCellImageViewLeftMargin * 2,

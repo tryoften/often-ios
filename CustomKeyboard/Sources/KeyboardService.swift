@@ -53,6 +53,7 @@ class KeyboardService: NSObject {
                                     
                                 self.keyboards[keyboard.id] = keyboard
                             }
+                            keyboard.index = index
                             index++
                             
                             if index + 1 >= keyboardCount {

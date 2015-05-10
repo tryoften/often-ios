@@ -1,5 +1,5 @@
 //
-//  SectionPickerView.swift
+//  CategoriesPanelView.swift
 //  DrizzyChat
 //
 //  Created by Luc Success on 11/13/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SectionPickerView: UIView {
+class CategoriesPanelView: UIView {
 
     var categoriesCollectionView: UICollectionView
     var nextKeyboardButton: UIButton
@@ -28,7 +28,7 @@ class SectionPickerView: UIView {
     
     override init(frame: CGRect) {
         
-        categoriesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: SectionPickerView.provideCollectionViewLayout(frame))
+        categoriesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: CategoriesPanelView.provideCollectionViewLayout(frame))
         categoriesCollectionView.backgroundColor = CategoriesCollectionViewBackgroundColor
         categoriesCollectionView.setTranslatesAutoresizingMaskIntoConstraints(false)
         categoriesCollectionView.registerClass(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
@@ -71,7 +71,6 @@ class SectionPickerView: UIView {
         
         currentCategoryView.addSubview(toggleDrawerButton)
         currentCategoryView.addSubview(currentCategoryLabel)
-        
 
         addSubview(categoriesCollectionView)
         addSubview(nextKeyboardButton)
@@ -79,7 +78,6 @@ class SectionPickerView: UIView {
         addSubview(currentHighlightColorView)
         addSubview(switchArtistButton)
 
-        
         setupLayout()
     }
     
@@ -179,5 +177,5 @@ class SectionPickerView: UIView {
 }
 
 protocol SectionPickerViewDelegate {
-    func didSelectSection(sectionPickerView: SectionPickerView, category: Category)
+    func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category)
 }

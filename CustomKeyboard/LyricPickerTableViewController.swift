@@ -165,7 +165,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     
     // MARK: SectionPickerViewDelegate
     
-    func didSelectSection(sectionPickerView: SectionPickerView, category: Category) {
+    func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category) {
         currentCategory = category
         selectedRow = nil
         selectedCell = nil

@@ -19,7 +19,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var heightConstraint: NSLayoutConstraint!
     var viewModel: KeyboardViewModel!
     var lyricPickerViewModel: LyricPickerViewModel!
-    var sectionPickerView: SectionPickerView!
+    var sectionPickerView: CategoriesPanelView!
     var seperatorView: UIView!
     var lastInsertedString: String?
     var fixedFilterBarView: UIView!
@@ -53,7 +53,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         categoryPicker = CategoryCollectionViewController()
         categoryPicker.keyboardViewController = self
         
-        sectionPickerView = categoryPicker.view as! SectionPickerView
+        sectionPickerView = categoryPicker.view as! CategoriesPanelView
         sectionPickerView.delegate = lyricPicker
         sectionPickerView.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         sectionPickerView.switchArtistButton.addTarget(self, action: "didTapSwitchArtistButton", forControlEvents: .TouchUpInside)
@@ -366,6 +366,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     func keyboardViewModelCurrentKeyboardDidChange(keyboardViewModel: KeyboardViewModel, keyboard: Keyboard) {
         categoryPicker.categories = keyboard.categoryList
+        artistPicker?.scrollToCellAtIndex(keyboard.index)
         sectionPickerView.switchArtistButton.artistImageView.setImageWithURL(keyboard.artist?.imageURLSmall)
     }
     

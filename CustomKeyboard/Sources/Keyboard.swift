@@ -10,7 +10,9 @@ import UIKit
 
 class Keyboard: NSObject {
     var id: String = ""
+    var index: Int = -1
     var artist: Artist?
+    var currentCategoryId: String?
     
     var categories: [String: Category] = [String: Category]() {
         didSet {

@@ -97,6 +97,18 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         var keyboard = keyboards![indexPath.row]
         
         delegate?.artistPickerCollectionViewControllerDidSelectKeyboard(self, keyboard: keyboard)
+        
+        scrollToCellAtIndex(indexPath.row)
+    }
+    
+    func scrollToCellAtIndex(index: Int) {
+        if let collectionView = collectionView {
+            var xPosition = CGFloat(index) * (ArtistCollectionViewCellWidth + 5.0)
+                - (collectionView.frame.size.width - ArtistCollectionViewCellWidth) / 2
+                + 30.0
+            
+            collectionView.setContentOffset(CGPointMake(xPosition, 0), animated: true)
+        }
     }
     
     func didTapCloseButton() {

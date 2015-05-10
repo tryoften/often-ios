@@ -33,8 +33,6 @@ class KeyboardViewModel: NSObject {
     func requestData(completion: ((Bool) -> ())? = nil) {
         
         keyboardService.requestData({ data in
-        
-            self.delegate?.keyboardViewModelDidLoadData(self, data: data.values.array)
             
             if self.keyboardService.keyboards.count > 0 {
                 if let lastKeyboardId = NSUserDefaults.standardUserDefaults().objectForKey("currentKeyboard") as? String, lastKeyboard = self.keyboardService.keyboards[lastKeyboardId] {
@@ -45,6 +43,8 @@ class KeyboardViewModel: NSObject {
                 
                 self.delegate?.keyboardViewModelCurrentKeyboardDidChange(self, keyboard: self.currentKeyboard!)
             }
+            
+            self.delegate?.keyboardViewModelDidLoadData(self, data: data.values.array)
             completion?(true)
         })
     }

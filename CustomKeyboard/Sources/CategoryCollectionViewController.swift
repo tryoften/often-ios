@@ -14,7 +14,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     var tapRecognizer: UITapGestureRecognizer!
     var drawerOpened: Bool = false
     var startingPoint: CGPoint?
-    var pickerView: SectionPickerView!
+    var pickerView: CategoriesPanelView!
     var currentCategory: Category? {
         didSet {
             if let category = currentCategory {
@@ -38,8 +38,8 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
 
     override func loadView() {
-        view = SectionPickerView(frame: keyboardViewController.view.bounds)
-        pickerView = (view as! SectionPickerView)
+        view = CategoriesPanelView(frame: keyboardViewController.view.bounds)
+        pickerView = (view as! CategoriesPanelView)
         pickerView.categoriesCollectionView.dataSource = self
         pickerView.categoriesCollectionView.delegate = self
     }
@@ -52,7 +52,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         pickerView.toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
         pickerView.currentCategoryLabel.addGestureRecognizer(tapRecognizer)
         
-        var viewLayout = SectionPickerView.provideCollectionViewLayout(pickerView.bounds)
+        var viewLayout = CategoriesPanelView.provideCollectionViewLayout(pickerView.bounds)
         pickerView.categoriesCollectionView.setCollectionViewLayout(viewLayout, animated: false)
     }
     
