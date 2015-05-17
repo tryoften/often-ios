@@ -204,22 +204,16 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
         pages[currentPage].pageDidShow()
 
     }
-
-    func userLoggedIn() {
-        
-    }
-    
-    func userLoggedOut() {
-        
-    }
     
     func getUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
         var request = FBRequest.requestForMe()
         
+        FBSession.activeSession()
+        
         request.startWithCompletionHandler({ (connection, result, error) in
             
             if error == nil {
-//                println("\(result)")
+                println("\(result)")
                 var data = result as! NSDictionary
                 completion(data, nil)
             } else {

@@ -17,3 +17,4 @@
 #import <ParseCrashReporting/ParseCrashReporting.h>
 #import <FlurrySDK/Flurry.h>
 #import <Analytics/SEGAnalytics.h>
+#import <TOMSMorphingLabel/TOMSMorphingLabel.h>

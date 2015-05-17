@@ -15,6 +15,7 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
     var closeButton: ArtistCollectionCloseButton
     var viewModel: KeyboardViewModel?
     var delegate: ArtistPickerCollectionViewControllerDelegate?
+    var selectedCell: ArtistCollectionViewCell?
     var keyboards: [Keyboard]? {
         didSet {
             dispatch_async(dispatch_get_main_queue(), {
@@ -85,9 +86,19 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         
         var keyboard = keyboards![indexPath.row]
         
+        if let currentKeyboard = viewModel?.currentKeyboard {
+            if currentKeyboard.index == keyboard.index {
+                selectedCell = cell
+                cell.selected = true
+            } else {
+                cell.selected = false
+            }
+        } else {
+            cell.selected = false
+        }
+        
         cell.titleLabel.text = keyboard.artist?.name
         cell.subtitleLabel.text = "\(keyboard.categories.count) categories".uppercaseString
-        
         cell.imageView.setImageWithURL(keyboard.artist?.imageURLLarge)
 
         return cell
@@ -97,6 +108,15 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         var keyboard = keyboards![indexPath.row]
         
         delegate?.artistPickerCollectionViewControllerDidSelectKeyboard(self, keyboard: keyboard)
+        
+        if let cell = selectedCell {
+            cell.selected = false
+        }
+        
+        if let selectedCell = collectionView.cellForItemAtIndexPath(indexPath) as? ArtistCollectionViewCell {
+            self.selectedCell = selectedCell
+            selectedCell.selected = true
+        }
         
         scrollToCellAtIndex(indexPath.row)
     }

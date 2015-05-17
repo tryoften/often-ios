@@ -13,11 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var mainController: UIViewController!
+    var sessionManager: SessionManager!
     var testKeyboard: Bool = false
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         testKeyboard = false
+        sessionManager = SessionManager()
+        sessionManager.login()
 
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)

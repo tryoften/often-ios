@@ -11,6 +11,7 @@ target 'Drizzy' do
   pod 'MMLayershots', :configurations => ['Debug']
   pod 'AFNetworking', '~> 2.0'
   pod 'Analytics/Flurry', '~> 1.11'
+  pod 'TOMSMorphingLabel', '~> 0.5'
 end
 
 target 'DrizzyTests' do
@@ -23,6 +24,7 @@ target 'CustomKeyboard' do
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
   pod 'AFNetworking', '~> 2.0'
   pod 'Analytics/Flurry', '~> 1.11'
+  pod 'TOMSMorphingLabel', '~> 0.5'
 end
 
 

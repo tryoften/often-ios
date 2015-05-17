@@ -16,7 +16,7 @@ class CategoriesPanelView: UIView {
     var switchArtistButton: SwitchArtistButton
     var currentCategoryView: UIView
     var currentHighlightColorView: UIView
-    var currentCategoryLabel: UILabel
+    var currentCategoryLabel: TOMSMorphingLabel
     var drawerOpened: Bool = false
     var collectionViewEnabled: Bool = true
     var delegate: SectionPickerViewDelegate?
@@ -56,7 +56,7 @@ class CategoriesPanelView: UIView {
         switchArtistButton = SwitchArtistButton()
         switchArtistButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        currentCategoryLabel = UILabel()
+        currentCategoryLabel = TOMSMorphingLabel()
         currentCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
         currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         currentCategoryLabel.userInteractionEnabled = true

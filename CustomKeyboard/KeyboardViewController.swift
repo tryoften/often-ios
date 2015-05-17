@@ -178,10 +178,19 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         if artistPicker == nil {
             artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero))
             artistPicker!.delegate = self
+            artistPicker!.viewModel = viewModel
             artistPicker!.keyboards = viewModel.keyboards
             artistPicker!.closeButton.addTarget(self, action: "didTapCloseButton", forControlEvents: .TouchUpInside)
             view.addSubview(artistPicker!.view)
             layoutArtistPickerView(hidden: true)
+            
+            if let keyboard = viewModel.currentKeyboard,
+                artistPicker = artistPicker,
+                collectionView = artistPicker.collectionView,
+                indexPath = NSIndexPath(forItem: keyboard.index, inSection: 0) {
+
+                artistPicker.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+            }
         }
         
         sectionPickerView.close()

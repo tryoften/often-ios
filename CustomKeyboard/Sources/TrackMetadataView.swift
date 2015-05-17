@@ -8,13 +8,14 @@
 
 import UIKit
 
-func addCircularMaskToView(view: UIView, width: CGFloat) {
+func addCircularMaskToView(view: UIView, width: CGFloat) -> CAShapeLayer {
     var circle = CAShapeLayer()
     var circularPath = UIBezierPath(roundedRect: CGRectMake(0, 0, width, width), cornerRadius: CGFloat(width / 2))
     circle.path = circularPath.CGPath
     circle.lineWidth = 0
     
     view.layer.mask = circle
+    return circle
 }
 
 class TrackMetadataView: UIView {
