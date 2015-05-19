@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31838A8D340CC45D4B35C4E2 /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */; };
+		3B0728B31B05953600D86892 /* CustomKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* CustomKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
@@ -115,7 +116,6 @@
 		8180E6151A142157007FA1CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		8180E6241A142158007FA1CF /* DrizzyChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6231A142158007FA1CF /* DrizzyChatTests.swift */; };
 		8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
-		8180E6391A142199007FA1CF /* CustomKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* CustomKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
 		8180E6591A147A78007FA1CF /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6471A147A77007FA1CF /* Lato-Black.ttf */; };
 		8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6471A147A77007FA1CF /* Lato-Black.ttf */; };
@@ -186,6 +186,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3B0728B41B05953600D86892 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8180E6001A142157007FA1CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8180E6301A142199007FA1CF;
+			remoteInfo = CustomKeyboard;
+		};
 		81331E361A1806BB003E4609 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
@@ -214,23 +221,16 @@
 			remoteGlobalIDString = 8180E6071A142157007FA1CF;
 			remoteInfo = DrizzyChat;
 		};
-		8180E6371A142199007FA1CF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8180E6001A142157007FA1CF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8180E6301A142199007FA1CF;
-			remoteInfo = CustomKeyboard;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		8180E63D1A142199007FA1CF /* Embed App Extensions */ = {
+		3B0728B61B05953800D86892 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				8180E6391A142199007FA1CF /* CustomKeyboard.appex in Embed App Extensions */,
+				3B0728B31B05953600D86892 /* CustomKeyboard.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -784,15 +784,15 @@
 				8180E6041A142157007FA1CF /* Sources */,
 				8180E6051A142157007FA1CF /* Frameworks */,
 				8180E6061A142157007FA1CF /* Resources */,
-				8180E63D1A142199007FA1CF /* Embed App Extensions */,
 				819A375B1A9806900041F5E0 /* Update Bundle Version */,
 				45728D1C2D72036A77085D41 /* Copy Pods Resources */,
 				81164A7E1A9D661C00AE5B30 /* Upload Symbols to Parse */,
+				3B0728B61B05953800D86892 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				8180E6381A142199007FA1CF /* PBXTargetDependency */,
+				3B0728B51B05953600D86892 /* PBXTargetDependency */,
 			);
 			name = Drizzy;
 			productName = DrizzyChat;
@@ -824,10 +824,8 @@
 				194ABAC59D0290C32B9EF891 /* Check Pods Manifest.lock */,
 				8180E62D1A142199007FA1CF /* Sources */,
 				8180E62E1A142199007FA1CF /* Frameworks */,
-				81C8EE301A3B7E8E00EBAA78 /* ShellScript */,
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
-				81164A9B1A9D760900AE5B30 /* Upload Symbols to Parse */,
 				819622141ADE0F9600B685B6 /* ShellScript */,
 			);
 			buildRules = (
@@ -850,7 +848,6 @@
 				TargetAttributes = {
 					8180E6071A142157007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = LMA3M32RE8;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 0;
@@ -1055,7 +1052,7 @@
 		};
 		81164A7E1A9D661C00AE5B30 /* Upload Symbols to Parse */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -1063,23 +1060,9 @@
 			name = "Upload Symbols to Parse";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/luc/parse/\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
-		};
-		81164A9B1A9D760900AE5B30 /* Upload Symbols to Parse */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Upload Symbols to Parse";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/luc/parse/\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd ~/parse/\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
 		819622141ADE0F9600B685B6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1107,19 +1090,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
-		};
-		81C8EE301A3B7E8E00EBAA78 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "touch ${PROJECT_DIR}/DrizzyChat/AppDelegate.swift";
 		};
 		A00C0EDAA51482F77D82BB77 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1243,22 +1213,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3B0728B51B05953600D86892 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8180E6301A142199007FA1CF /* CustomKeyboard */;
+			targetProxy = 3B0728B41B05953600D86892 /* PBXContainerItemProxy */;
+		};
 		8180E61F1A142158007FA1CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8180E6071A142157007FA1CF /* Drizzy */;
 			targetProxy = 8180E61E1A142158007FA1CF /* PBXContainerItemProxy */;
-		};
-		8180E6381A142199007FA1CF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8180E6301A142199007FA1CF /* CustomKeyboard */;
-			targetProxy = 8180E6371A142199007FA1CF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8180E6251A142158007FA1CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1303,7 +1273,7 @@
 		};
 		8180E6261A142158007FA1CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 928E8AB5169157015D98D681 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1347,7 +1317,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
@@ -1377,7 +1346,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
@@ -1462,7 +1430,7 @@
 					"$(inherited)",
 					"TARGET_IS_EXTENSION=1",
 				);
-				INFOPLIST_FILE = CustomKeyboard/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CustomKeyboard/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1494,7 +1462,7 @@
 					"COCOAPODS=1",
 					"TARGET_IS_EXTENSION=1",
 				);
-				INFOPLIST_FILE = CustomKeyboard/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CustomKeyboard/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = (

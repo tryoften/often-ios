@@ -1,35 +1,35 @@
 PODS:
-  - AFNetworking (2.5.2):
-    - AFNetworking/NSURLConnection (= 2.5.2)
-    - AFNetworking/NSURLSession (= 2.5.2)
-    - AFNetworking/Reachability (= 2.5.2)
-    - AFNetworking/Security (= 2.5.2)
-    - AFNetworking/Serialization (= 2.5.2)
-    - AFNetworking/UIKit (= 2.5.2)
-  - AFNetworking/NSURLConnection (2.5.2):
+  - AFNetworking (2.5.3):
+    - AFNetworking/NSURLConnection (= 2.5.3)
+    - AFNetworking/NSURLSession (= 2.5.3)
+    - AFNetworking/Reachability (= 2.5.3)
+    - AFNetworking/Security (= 2.5.3)
+    - AFNetworking/Serialization (= 2.5.3)
+    - AFNetworking/UIKit (= 2.5.3)
+  - AFNetworking/NSURLConnection (2.5.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.2):
+  - AFNetworking/NSURLSession (2.5.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.2)
-  - AFNetworking/Security (2.5.2)
-  - AFNetworking/Serialization (2.5.2)
-  - AFNetworking/UIKit (2.5.2):
+  - AFNetworking/Reachability (2.5.3)
+  - AFNetworking/Security (2.5.3)
+  - AFNetworking/Serialization (2.5.3)
+  - AFNetworking/UIKit (2.5.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Analytics/Core-iOS (1.11.2):
+  - Analytics/Core-iOS (1.11.8):
     - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
-  - Analytics/Flurry (1.11.2):
+  - Analytics/Flurry (1.11.8):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - FlurrySDK (= 4.4.0)
-  - Analytics/Segmentio (1.11.2):
+  - Analytics/Segmentio (1.11.8):
     - Analytics/Core-iOS
   - Canvas (0.1.2)
-  - Firebase (2.2.1)
+  - Firebase (2.2.2)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
@@ -46,13 +46,13 @@ DEPENDENCIES:
   - Reveal-iOS-SDK
 
 SPEC CHECKSUMS:
-  AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
-  Analytics: 1e5d01a5466f0e171193142757e69590ffb1a5fb
+  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  Analytics: 8c476a147c05c93bb64c5d8c20424c9e2caa0519
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
-  Firebase: a3d54b42f090ca275b22dcdf103b8ab6ac6f353c
+  Firebase: e35cdd2561bf4fea9c1e384e9400a9c173d19e47
   FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946
   MMLayershots: ce67f35806c9c32ba722cd309571a4ff236a244d
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
 
-COCOAPODS: 0.36.3
+COCOAPODS: 0.35.0
