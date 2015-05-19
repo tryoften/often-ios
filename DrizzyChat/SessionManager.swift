@@ -11,11 +11,14 @@ import UIKit
 class SessionManager: NSObject {
     
     var firebase: Firebase
+    var keyboardService: KeyboardService?
     var userRef: Firebase?
     var currentUser: User?
+    private var observers: NSMutableArray
     
     init(firebase: Firebase = Firebase(url: BaseURL)) {
         self.firebase = firebase
+        self.observers = NSMutableArray()
         
         super.init()
         
@@ -24,28 +27,54 @@ class SessionManager: NSObject {
         }
     }
     
+    func fetchKeyboards() {
+        if let currentUser = currentUser {
+            self.keyboardService = KeyboardService(userId: currentUser.id, root: self.firebase)
+            self.keyboardService?.requestData({ data in
+                self.broadcastDidFetchKeyboardsEvent()
+            })
+        } else {
+            // TODO(luc): throw an error if the current user is not set
+        }
+    }
+    
     private func processAuthData(authData: FAuthData?) {
         if (authData != nil) {
             var uid = authData?.providerData["id"] as! String
             
             self.userRef = firebase.childByAppendingPath("users/\(uid)")
-            
             self.userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
-                // TODO create user model with data and send event
+                // TODO(luc): create user model with data and send event
                 if snapshot.exists() {
                     if let value = snapshot.value as? [String: AnyObject] {
                         self.currentUser = User(data: value)
+                        self.broadcastUserLoginEvent()
                     }
                 } else {
                     self.getUserInfo({ (data, err) in
                         self.userRef?.setValue(data)
                         self.currentUser = User(data: data as! [String : AnyObject])
+                        self.broadcastUserLoginEvent()
                     })
                 }
             })
 
         } else {
             
+        }
+    }
+    
+    private func broadcastUserLoginEvent() {
+        for observer in observers {
+            observer.sessionManagerDidLoginUser(self, user: self.currentUser!)
+        }
+    }
+    
+    private func broadcastDidFetchKeyboardsEvent() {
+        if let keyboardService = self.keyboardService {
+            for observer in observers {
+                observer.sessionManagerDidFetchKeyboards(self, keyboards: keyboardService.keyboards)
+            }
         }
     }
 
@@ -100,6 +129,19 @@ class SessionManager: NSObject {
     }
     
     func logout() {
-        
     }
+    
+    func addSessionObserver(observer: SessionManagerObserver) {
+        self.observers.addObject(observer)
+    }
+    
+    func removeSessionObserver(observer: SessionManagerObserver) {
+        self.observers.removeObject(observer)
+    }
+}
+
+@objc protocol SessionManagerObserver {
+    func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User)
+    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard])
 }

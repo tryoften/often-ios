@@ -12,6 +12,7 @@ target 'Drizzy' do
   pod 'AFNetworking', '~> 2.0'
   pod 'Analytics/Flurry', '~> 1.11'
   pod 'TOMSMorphingLabel', '~> 0.5'
+  pod 'CSStickyHeaderFlowLayout', '~> 0.2'
 end
 
 target 'DrizzyTests' do

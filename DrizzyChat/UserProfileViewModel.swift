@@ -8,6 +8,41 @@
 
 import UIKit
 
-class UserProfileViewModel: NSObject {
-   
+class UserProfileViewModel: NSObject, SessionManagerObserver {
+    var sessionManager: SessionManager
+    var keyboardsList: [Keyboard]?
+    var delegate: UserProfileViewModelDelegate?
+    
+    init(sessionManager: SessionManager) {
+        self.sessionManager = sessionManager
+        super.init()
+        self.sessionManager.addSessionObserver(self)
+    }
+    
+    deinit {
+        sessionManager.removeSessionObserver(self)
+    }
+
+    func requestData(completion: ((Bool) -> ())? = nil) {
+        self.sessionManager.login()
+    }
+    
+    func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
+        
+    }
+
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
+        self.sessionManager.fetchKeyboards()
+        self.delegate?.userProfileViewModelDidLoginUser(self, user: user)
+    }
+    
+    func sessionManagerDidFetchKeyboards(sessionManager: SessionManager, keyboards: [String: Keyboard]) {
+        self.keyboardsList = keyboards.values.array
+        self.delegate?.userProfileViewModelDidLoadKeyboardList(self, keyboardList: self.keyboardsList!)
+    }
+}
+
+protocol UserProfileViewModelDelegate {
+    func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User)
+    func userProfileViewModelDidLoadKeyboardList(userProfileViewModel: UserProfileViewModel, keyboardList: [Keyboard])
 }

@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         testKeyboard = false
         sessionManager = SessionManager()
-        sessionManager.login()
 
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
@@ -55,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             mainController = WalkthroughViewController()
             
             if shouldHomeViewBeShown() {
-                mainController = HomeViewController(nibName: "HomeViewController", bundle: nil)
+                mainController = TabBarController(sessionManager: sessionManager)
             }
         }
         
