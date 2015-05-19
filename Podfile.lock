@@ -29,6 +29,7 @@ PODS:
   - Analytics/Segmentio (1.11.8):
     - Analytics/Core-iOS
   - Canvas (0.1.2)
+  - CSStickyHeaderFlowLayout (0.2.5)
   - Firebase (2.2.2)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
@@ -42,6 +43,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - Analytics/Flurry (~> 1.11)
   - Canvas (~> 0.1)
+  - CSStickyHeaderFlowLayout (~> 0.2)
   - Firebase (>= 2.0.2)
   - MMLayershots
   - Reveal-iOS-SDK
@@ -51,6 +53,7 @@ SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Analytics: 8c476a147c05c93bb64c5d8c20424c9e2caa0519
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
+  CSStickyHeaderFlowLayout: 75e439a59c23f609091d9a784c7b5db7de583f1f
   Firebase: e35cdd2561bf4fea9c1e384e9400a9c173d19e47
   FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946
   MMLayershots: ce67f35806c9c32ba722cd309571a4ff236a244d

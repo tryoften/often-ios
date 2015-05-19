@@ -16,7 +16,7 @@ class KeyboardService: NSObject {
 
     init(userId: String, root: Firebase) {
         self.userId = userId
-        self.keyboardsRef = root.childByAppendingPath("keyboards")
+        self.keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
         self.root = root
         self.keyboards = [String: Keyboard]()
         super.init()
@@ -25,42 +25,48 @@ class KeyboardService: NSObject {
     func requestData(completion: ([String: Keyboard]) -> Void) {
         keyboardsRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
             
-//            println("\(snapshot.value)")
             if let keyboardsData = snapshot.value as? [String: AnyObject] {
                 let keyboardCount = keyboardsData.count
                 var index = 0
                 
-                for (key, keyboardData) in keyboardsData {
-                    let ownerId = keyboardData["owner"] as! String
-                    let ownerURI = "owners/\(ownerId)"
-                    var keyboard = Keyboard()
-                    keyboard.id = key
+                for (key, val) in keyboardsData {
+                    var keyboardRef = self.root.childByAppendingPath("keyboards/\(key)")
                     
-                    if let categories = keyboardData["categories"] as? NSDictionary {
-                        keyboard.categories = self.createCategories(categories)
- 
-                        self.root.childByAppendingPath(ownerURI).observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
-                            println("\(snapshot.value)")
-                            if let artistData = snapshot.value as? NSDictionary,
-                                id = snapshot.key,
-                                name = artistData["name"] as? String {
-                                    
-                                    var urlSmall: String = (artistData["image_small"] ?? "") as! String
-                                    var urlLarge: String = (artistData["image_large"] ?? "") as! String
-                                    
-                                    var artist = Artist(id: id, name: name, imageURLSmall: NSURL(string: urlSmall)!, imageURLLarge: NSURL(string: urlLarge)!)
-                                keyboard.artist = artist
-                                    
-                                self.keyboards[keyboard.id] = keyboard
-                            }
-                            keyboard.index = index
-                            index++
+                    keyboardRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                        let keyboardData = snapshot.value as! [String: AnyObject]
+                        let ownerId = keyboardData["owner"] as! String
+                        let ownerURI = "owners/\(ownerId)"
+                        var keyboard = Keyboard()
+                        keyboard.id = key
+                        
+                        if let categories = keyboardData["categories"] as? NSDictionary {
+                            keyboard.categories = self.createCategories(categories)
                             
-                            if index + 1 >= keyboardCount {
-                                completion(self.keyboards)
-                            }
-                        })
-                    }
+                            self.root.childByAppendingPath(ownerURI).observeSingleEventOfType(.Value, withBlock: { snapshot in
+                                println("\(snapshot.value)")
+                                if let artistData = snapshot.value as? NSDictionary,
+                                    id = snapshot.key,
+                                    name = artistData["name"] as? String {
+                                        
+                                        var urlSmall: String = (artistData["image_small"] ?? "") as! String
+                                        var urlLarge: String = (artistData["image_large"] ?? "") as! String
+                                        
+                                        var artist = Artist(id: id, name: name, imageURLSmall: NSURL(string: urlSmall)!, imageURLLarge: NSURL(string: urlLarge)!)
+                                        keyboard.artist = artist
+                                        
+                                        self.keyboards[keyboard.id] = keyboard
+                                }
+                                keyboard.index = index
+                                index++
+                                
+                                if index + 1 >= keyboardCount {
+                                    completion(self.keyboards)
+                                }
+                            })
+                        }
+
+                    })
+                    
                 }
             }
             
