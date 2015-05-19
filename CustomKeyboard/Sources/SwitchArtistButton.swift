@@ -11,17 +11,33 @@ import UIKit
 class SwitchArtistButton: UIButton {
     
     var artistImageView: UIImageView
+    var circleLayer: CAShapeLayer
+    var circleView: UIView
 
     override init(frame: CGRect) {
         artistImageView = UIImageView()
         artistImageView.contentMode = .ScaleAspectFill
+        
+        circleView = UIView()
+        
+        circleLayer = CAShapeLayer()
+        var width = SectionPickerViewSwitchArtistHeight + 4
+        var circularPath = UIBezierPath(roundedRect: CGRectMake(1.0, 1.0, width, width), cornerRadius: CGFloat(width / 2))
+        circleLayer.path = circularPath.CGPath
+        circleLayer.lineWidth = 1.0
+        circleLayer.strokeColor = UIColor(fromHexString: "#f19720").CGColor
+        circleLayer.fillColor = UIColor.clearColor().CGColor
 
         super.init(frame: frame)
         
         addSubview(artistImageView)
+        addSubview(circleView)
+    
+        circleView.layer.addSublayer(circleLayer)
         backgroundColor = UIColor.blackColor()
-        layer.cornerRadius = (SectionPickerViewSwitchArtistHeight) / 2
-        clipsToBounds = true
+        artistImageView.layer.cornerRadius = (SectionPickerViewSwitchArtistHeight) / 2
+        artistImageView.clipsToBounds = true
+        backgroundColor = UIColor.clearColor()
     }
 
     convenience required init(coder aDecoder: NSCoder) {
@@ -30,6 +46,7 @@ class SwitchArtistButton: UIButton {
     
     override func layoutSubviews() {
         artistImageView.frame = bounds
+        circleView.frame = CGRectInset(artistImageView.frame, -3, -3)
     }
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {

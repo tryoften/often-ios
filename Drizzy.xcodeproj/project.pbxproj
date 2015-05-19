@@ -41,6 +41,10 @@
 		813C82A11AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
 		813C82A21AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
 		813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E66C11A6DA541007E15AD /* WalkthroughPage.swift */; };
+		8140D24E1B0306FB00D0695A /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8140D24D1B0306FB00D0695A /* SessionManager.swift */; };
+		8140D24F1B0306FB00D0695A /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8140D24D1B0306FB00D0695A /* SessionManager.swift */; };
+		8140D2511B031E6200D0695A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8140D2501B031E6200D0695A /* User.swift */; };
+		8140D2521B031E6200D0695A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8140D2501B031E6200D0695A /* User.swift */; };
 		81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */; };
 		81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */; };
 		81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
@@ -261,6 +265,8 @@
 		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
 		813C82A01AE3031700925206 /* lyrics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lyrics.json; sourceTree = "<group>"; };
 		813E66C11A6DA541007E15AD /* WalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughPage.swift; sourceTree = "<group>"; };
+		8140D24D1B0306FB00D0695A /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		8140D2501B031E6200D0695A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Sources/User.swift; sourceTree = "<group>"; };
 		81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormTableViewCell.swift; sourceTree = "<group>"; };
 		81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
 		81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-outlined.ttf"; sourceTree = "<group>"; };
@@ -473,6 +479,7 @@
 				81B6D5901A95B1F90089767B /* KeyboardKey.swift */,
 				81C010751AE89956008F3296 /* Artist.swift */,
 				817618F31AE9ED4F00C7D9CB /* Keyboard.swift */,
+				8140D2501B031E6200D0695A /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -533,6 +540,14 @@
 				81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */,
 			);
 			path = SwiftAutoLayoutTests;
+			sourceTree = "<group>";
+		};
+		8140D24C1B0306C700D0695A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8140D24D1B0306FB00D0695A /* SessionManager.swift */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 		81413DB31A91C0A400926E7C /* View Models */ = {
@@ -631,6 +646,7 @@
 			isa = PBXGroup;
 			children = (
 				816EB96C1AE5EB7F000620E2 /* Utilities */,
+				8140D24C1B0306C700D0695A /* Managers */,
 				816CE0741A992E7100D718E1 /* Categories */,
 				81413DB31A91C0A400926E7C /* View Models */,
 				816FE5A21A86E67100E42C17 /* Views */,
@@ -1133,6 +1149,7 @@
 				81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */,
 				816FE5A41A871D6700E42C17 /* TextConvoWalkthroughPage.swift in Sources */,
 				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
+				8140D2511B031E6200D0695A /* User.swift in Sources */,
 				817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
@@ -1145,6 +1162,7 @@
 				817618F61AE9F58300C7D9CB /* KeyboardService.swift in Sources */,
 				819982AD1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
+				8140D24E1B0306FB00D0695A /* SessionManager.swift in Sources */,
 				81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
@@ -1187,9 +1205,11 @@
 				8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */,
 				819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
+				8140D2521B031E6200D0695A /* User.swift in Sources */,
 				81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */,
 				81761A001AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
 				817619FA1AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
+				8140D24F1B0306FB00D0695A /* SessionManager.swift in Sources */,
 				8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */,
 				810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */,
@@ -1315,7 +1335,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1332,7 +1352,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Drizzy;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2c0b465a-3654-479f-99fa-2651d853fc37";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1344,7 +1364,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1365,7 +1385,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Drizzy;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2c0b465a-3654-479f-99fa-2651d853fc37";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1417,7 +1437,7 @@
 			baseConfigurationReference = FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1438,7 +1458,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7fdb5137-791c-4d35-a852-7186ac884448";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
@@ -1449,7 +1469,7 @@
 			baseConfigurationReference = 945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1470,7 +1490,7 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7fdb5137-791c-4d35-a852-7186ac884448";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
