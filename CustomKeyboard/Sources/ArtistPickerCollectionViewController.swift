@@ -36,7 +36,7 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         self.init(collectionViewLayout: ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero))
     }
     
-    class func provideCollectionViewLayout(frame: CGRect) -> UICollectionViewLayout {
+    class func provideCollectionViewLayout(frame: CGRect) -> UICollectionViewFlowLayout {
         var viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .Horizontal
         viewLayout.minimumInteritemSpacing = 5.0

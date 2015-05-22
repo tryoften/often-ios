@@ -16,6 +16,13 @@ class SessionManager: NSObject {
     var currentUser: User?
     private var observers: NSMutableArray
     
+    let permissions = [
+        "public_profile",
+        "user_actions.music",
+        "user_likes",
+        "cover"
+    ]
+    
     init(firebase: Firebase = Firebase(url: BaseURL)) {
         self.firebase = firebase
         self.observers = NSMutableArray()
@@ -79,7 +86,7 @@ class SessionManager: NSObject {
     }
 
     private func openSession() {
-        FBSession.openActiveSessionWithReadPermissions(["public_profile", "user_actions.music", "user_likes"], allowLoginUI: true,
+        FBSession.openActiveSessionWithReadPermissions(permissions, allowLoginUI: true,
             completionHandler: { session, state, error in
                 
                 if error != nil {

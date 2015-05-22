@@ -20,14 +20,18 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         
         titleLabel = UILabel()
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        titleLabel.text = "Keyboards".uppercaseString
-        titleLabel.font = MediumRegularFont
+        
+        let attributedString = NSMutableAttributedString(string: "Keyboards".uppercaseString)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.2), range: NSRange(location: 0, length: 9))
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 15)!, range: NSRange(location: 0, length: 9))
+        
+        titleLabel.attributedText = attributedString
         
         editButton = UIButton()
         editButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         editButton.setTitle("Edit".uppercaseString, forState: .Normal)
         editButton.setTitleColor(UIColor(fromHexString: "#868686"), forState: .Normal)
-        editButton.titleLabel!.font = MediumRegularFont
+        editButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
         editButton.titleLabel?.textAlignment = .Right
         
         super.init(frame: frame)
@@ -49,9 +53,9 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
             
             titleLabel.al_centerY == al_centerY,
             titleLabel.al_width == al_width / 2,
-            titleLabel.al_left == al_left + 10,
+            titleLabel.al_left == al_left + 15,
             
-            editButton.al_right == al_right - 10,
+            editButton.al_right == al_right - 15,
             editButton.al_centerY == al_centerY
             ])
     }
