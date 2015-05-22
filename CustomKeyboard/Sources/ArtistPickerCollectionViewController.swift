@@ -127,6 +127,9 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
                 - (collectionView.frame.size.width - ArtistCollectionViewCellWidth) / 2
                 + 30.0
             
+            let cellCount = CGFloat(self.collectionView(collectionView, numberOfItemsInSection: 0))
+            xPosition = max(0, min(xPosition, cellCount * (ArtistCollectionViewCellWidth + 5.0)))
+            
             collectionView.setContentOffset(CGPointMake(xPosition, 0), animated: true)
         }
     }
