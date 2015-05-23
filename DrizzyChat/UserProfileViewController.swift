@@ -13,6 +13,9 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     
     var viewModel: UserProfileViewModel
     var keyboardManagerViewController: ArtistPickerCollectionViewController?
+    var headerView: UserProfileHeaderView?
+    var sectionHeaderView: UserProfileSectionHeaderView?
+    var artistPickerViewController: ArtistPickerCollectionViewController?
     
     init(viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
@@ -74,12 +77,12 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         cell.backgroundColor = UIColor.whiteColor()
 
         if indexPath.section == 0 && indexPath.row == 0 {
-            var artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero))
+            var artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewLayout.provideCollectionViewLayout())
             keyboardManagerViewController = artistPicker
             artistPicker.closeButton.removeFromSuperview()
             artistPicker.view.backgroundColor = UIColor.clearColor()
             
-            var layout = ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero)
+            var layout = ArtistPickerCollectionViewLayout.provideCollectionViewLayout()
             layout.sectionInset = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 5.0)
             artistPicker.collectionView?.setCollectionViewLayout(layout, animated: false)
 
@@ -89,6 +92,8 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
 
             cell.contentView.addSubview(artistPicker.view)
             artistPicker.view.frame = cell.bounds
+            
+            artistPickerViewController = artistPicker
             return cell
         }
 
@@ -98,13 +103,15 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! UserProfileHeaderView
-            cell.profileImageView.setImageWithURL(NSURL(string: "https://scontent-atl.xx.fbcdn.net/hphotos-xfa1/v/l/t1.0-9/10858372_10152928508488584_1315316552519268754_n.jpg?oh=42ee8e85fc4c842be55c8314766c48ea&oe=55CF5AD7"))
-            cell.coverPhotoView.setImageWithURL(NSURL(string: "https://scontent-iad3-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/p720x720/10362377_10152729420793584_4850878730011552484_n.jpg?oh=7790e73162ba6e2c946329513311c027&oe=55C99ED1"))
-            cell.nameLabel.text = "Luc Succes".uppercaseString
-            cell.keyboardCountLabel.text = "32 keyboards".uppercaseString
+            
+            headerView = cell
             return cell
         } else if kind == UICollectionElementKindSectionHeader {
-            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UICollectionReusableView
+            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
+            
+            cell.editButton.addTarget(self, action: "didTapEditButton", forControlEvents: .TouchUpInside)
+            sectionHeaderView = cell
+
             return cell
         }
         return UICollectionReusableView()
@@ -115,13 +122,42 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         return CGSizeMake(screenWidth, 55.5)
     }
     
+    func didTapEditButton() {
+        if let artistPickerVC = artistPickerViewController {
+            artistPickerVC.isDeletionModeOn = !artistPickerVC.isDeletionModeOn
+            
+            if let sectionHeaderView = sectionHeaderView {
+                if artistPickerVC.isDeletionModeOn {
+                    sectionHeaderView.editButton.setTitle("Done".uppercaseString, forState: .Normal)
+                } else {
+                    sectionHeaderView.editButton.setTitle("Edit".uppercaseString, forState: .Normal)
+                }
+            }
+        }
+    }
+    
     // MARK: UserProfileViewModelDelegate
     
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
+        if let headerView = headerView {
+            headerView.profileImageView.setImageWithURL(user.profileImageLarge)
+            headerView.nameLabel.text = user.fullName.uppercaseString
+            
+            let coverImageURL = user.profileImageLarge
         
+            headerView.coverPhotoView.setImageWithURLRequest(NSURLRequest(URL: coverImageURL), placeholderImage: UIImage(), success: { (req, res, image) in
+                let blurredImage = image.blurredImageWithRadius(8, iterations: 2, tintColor: UIColor.blackColor())
+                headerView.coverPhotoView.image = blurredImage
+                }, failure: { (req, res, err) in
+                    
+            })
+        }
     }
     
     func userProfileViewModelDidLoadKeyboardList(userProfileViewModel: UserProfileViewModel, keyboardList: [Keyboard]) {
+        if let headerView = headerView {
+            headerView.keyboardCountLabel.text = "\(keyboardList.count) keyboards".uppercaseString
+        }
         if let artistPicker = keyboardManagerViewController {
             artistPicker.keyboards = keyboardList
         }

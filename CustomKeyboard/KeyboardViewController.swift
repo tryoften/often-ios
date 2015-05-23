@@ -176,7 +176,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     func didTapSwitchArtistButton() {
         
         if artistPicker == nil {
-            artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero))
+            artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewLayout.provideCollectionViewLayout())
             artistPicker!.delegate = self
             artistPicker!.viewModel = viewModel
             artistPicker!.keyboards = viewModel.keyboards

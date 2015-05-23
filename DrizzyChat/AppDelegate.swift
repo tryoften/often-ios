@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
         FBAppEvents.activateApp()
+        Firebase.setOption("persistence", to: true)
         
         Flurry.startSession(FlurryClientKey)
 

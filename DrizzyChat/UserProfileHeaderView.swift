@@ -11,7 +11,6 @@ import UIKit
 class UserProfileHeaderView: UICollectionReusableView {
     var coverPhotoView: UIImageView
     var profileImageView: UIImageView
-    var imageOverlayView: UIVisualEffectView
     var metadataView: UIView
     var nameLabel: UILabel
     var keyboardCountLabel: UILabel
@@ -28,10 +27,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         profileImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         profileImageView.layer.borderColor = UIColor.whiteColor().CGColor
         profileImageView.layer.borderWidth = 3
-        
-        let effect = UIBlurEffect(style: .Dark)
-        imageOverlayView = UIVisualEffectView(effect: effect)
-        imageOverlayView.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         metadataView = UIView()
         metadataView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -55,7 +50,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         backgroundColor = UIColor.whiteColor()
 
         addSubview(coverPhotoView)
-        coverPhotoView.addSubview(imageOverlayView)
         addSubview(profileImageView)
         addSubview(metadataView)
         addSubview(settingsButton)
@@ -81,11 +75,6 @@ class UserProfileHeaderView: UICollectionReusableView {
             profileImageView.al_height == profileImageView.al_width,
             profileImageView.al_centerX == al_centerX,
             profileImageView.al_bottom == al_bottom - 75,
-
-            imageOverlayView.al_height == coverPhotoView.al_height,
-            imageOverlayView.al_width == coverPhotoView.al_width,
-            imageOverlayView.al_top == coverPhotoView.al_top,
-            imageOverlayView.al_left == coverPhotoView.al_left,
 
             metadataView.al_top == profileImageView.al_bottom,
             metadataView.al_width == al_width,

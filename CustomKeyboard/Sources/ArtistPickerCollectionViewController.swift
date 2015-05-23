@@ -10,16 +10,28 @@ import UIKit
 
 let ArtistCollectionViewCellReuseIdentifier = "ArtistCollectionViewCell"
 
-class ArtistPickerCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ArtistPickerCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,
+    ArtistPickerCollectionViewLayoutDelegate {
     
     var closeButton: ArtistCollectionCloseButton
     var viewModel: KeyboardViewModel?
     var delegate: ArtistPickerCollectionViewControllerDelegate?
     var selectedCell: ArtistCollectionViewCell?
+    var isDeletionModeOn: Bool = false {
+        willSet(newValue) {
+            if newValue {
+                self.startDeleteMode()
+            } else {
+                self.endDeleteMode()
+            }
+        }
+    }
+
     var keyboards: [Keyboard]? {
         didSet {
             dispatch_async(dispatch_get_main_queue(), {
                 self.collectionView!.reloadData()
+                self.isDeletionModeOn = false
             })
         }
     }
@@ -33,16 +45,7 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
     }
 
     required convenience init(coder aDecoder: NSCoder) {
-        self.init(collectionViewLayout: ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero))
-    }
-    
-    class func provideCollectionViewLayout(frame: CGRect) -> UICollectionViewFlowLayout {
-        var viewLayout = UICollectionViewFlowLayout()
-        viewLayout.scrollDirection = .Horizontal
-        viewLayout.minimumInteritemSpacing = 5.0
-        viewLayout.minimumLineSpacing = 5.0
-        viewLayout.sectionInset = UIEdgeInsets(top: 5.0, left: 35.0, bottom: 5.0, right: 5.0)
-        return viewLayout
+        self.init(collectionViewLayout: ArtistPickerCollectionViewLayout.provideCollectionViewLayout())
     }
 
     override func viewDidLoad() {
@@ -137,13 +140,51 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
     func didTapCloseButton() {
         
     }
+    
+    func startDeleteMode(indexPath: NSIndexPath = NSIndexPath(forItem: 0, inSection: 0) ) {
+        let layout = collectionView?.collectionViewLayout as! ArtistPickerCollectionViewLayout
+        var attributes = layout.layoutAttributesForItemAtIndexPath(indexPath)
+        
+        layout.invalidateLayout()
+        
+        for cell in collectionView?.visibleCells() as! [ArtistCollectionViewCell] {
+            cell.applyLayoutAttributes(attributes)
+        }
+    }
+    
+    func endDeleteMode(indexPath: NSIndexPath = NSIndexPath(forItem: 0, inSection: 0)) {
+        let layout = collectionView?.collectionViewLayout as! ArtistPickerCollectionViewLayout
+        let attributes = layout.layoutAttributesForItemAtIndexPath(indexPath)
+        
+        layout.invalidateLayout()
+        
+        for cell in collectionView?.visibleCells() as! [ArtistCollectionViewCell] {
+            cell.applyLayoutAttributes(attributes)
+        }
+    }
 
     // MARK: UICollectionViewFlowLayoutDelegate
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(ArtistCollectionViewCellWidth, CGRectGetHeight(collectionView.bounds) - 10)
     }
+    
+    // MARK: ArtistPickerCollectionViewLayoutDelegate
+    
+    func isDeletionModeActiveForCollectionView(collectionView: UICollectionView, layout: UICollectionViewLayout) -> Bool {
+        return isDeletionModeOn
+    }
 
+}
+
+class ArtistPickerCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
+    var deleteButtonHidden: Bool = true
+    
+    override func copyWithZone(zone: NSZone) -> AnyObject {
+        var attributes: ArtistPickerCollectionViewLayoutAttributes = super.copyWithZone(zone) as! ArtistPickerCollectionViewLayoutAttributes
+        attributes.deleteButtonHidden = deleteButtonHidden
+        return attributes
+    }
 }
 
 protocol ArtistPickerCollectionViewControllerDelegate {

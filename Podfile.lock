@@ -34,6 +34,7 @@ PODS:
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
+  - FXBlurView (1.6.3)
   - MMLayershots (0.2.6)
   - Reveal-iOS-SDK (1.5.1)
   - TOMSMorphingLabel (0.5.1)
@@ -45,6 +46,7 @@ DEPENDENCIES:
   - Canvas (~> 0.1)
   - CSStickyHeaderFlowLayout (~> 0.2)
   - Firebase (>= 2.0.2)
+  - FXBlurView (~> 1.6)
   - MMLayershots
   - Reveal-iOS-SDK
   - TOMSMorphingLabel (~> 0.5)
@@ -56,9 +58,10 @@ SPEC CHECKSUMS:
   CSStickyHeaderFlowLayout: 75e439a59c23f609091d9a784c7b5db7de583f1f
   Firebase: e35cdd2561bf4fea9c1e384e9400a9c173d19e47
   FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946
+  FXBlurView: c6d23f3d35af2c6282296a2930f61c6e2c788d01
   MMLayershots: ce67f35806c9c32ba722cd309571a4ff236a244d
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
   TOMSMorphingLabel: 3e88a2bf5257f8993ebc51fb3109187a0bfb2c4d
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.3

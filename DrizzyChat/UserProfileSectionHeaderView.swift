@@ -35,7 +35,7 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         editButton.titleLabel?.textAlignment = .Right
         
         super.init(frame: frame)
-        
+
         backgroundColor = UIColor.whiteColor()
         addSubview(seperatorView)
         addSubview(titleLabel)
@@ -59,7 +59,7 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
             editButton.al_centerY == al_centerY
             ])
     }
-    
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
