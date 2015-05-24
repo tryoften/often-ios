@@ -22,6 +22,10 @@ class KeyboardService: NSObject {
         super.init()
     }
     
+    func deleteKeyboardWithId(keyboardId: String) {
+        self.keyboardsRef.childByAppendingPath(keyboardId).removeValue()
+    }
+    
     func requestData(completion: ([String: Keyboard]) -> Void) {
         keyboardsRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
             

@@ -55,8 +55,6 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         deleteButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         deleteButton.layer.cornerRadius = 25 / 2
         deleteButton.clipsToBounds = true
-        deleteButton.layer.borderColor = UIColor.whiteColor().CGColor
-        deleteButton.layer.borderWidth = 2.0
         deleteButton.alpha = 0.0
         deleteButton.hidden = true
 
