@@ -10,6 +10,7 @@ import UIKit
 
 class UserProfileHeaderView: UICollectionReusableView {
     var coverPhotoView: UIImageView
+    var coverPhotoTintView: UIView
     var profileImageView: UIImageView
     var metadataView: UIView
     var nameLabel: UILabel
@@ -21,6 +22,10 @@ class UserProfileHeaderView: UICollectionReusableView {
         coverPhotoView.contentMode = .ScaleAspectFill
         coverPhotoView.setTranslatesAutoresizingMaskIntoConstraints(false)
         coverPhotoView.clipsToBounds = true
+
+        coverPhotoTintView = UIView()
+        coverPhotoTintView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        coverPhotoTintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
 
         profileImageView = UIImageView()
         profileImageView.contentMode = .ScaleAspectFill
@@ -50,6 +55,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         backgroundColor = UIColor.whiteColor()
 
         addSubview(coverPhotoView)
+        addSubview(coverPhotoTintView)
         addSubview(profileImageView)
         addSubview(metadataView)
         addSubview(settingsButton)
@@ -70,6 +76,11 @@ class UserProfileHeaderView: UICollectionReusableView {
             coverPhotoView.al_height == 180,
             coverPhotoView.al_left == al_left,
             coverPhotoView.al_top == al_top,
+
+            coverPhotoTintView.al_width == coverPhotoView.al_width,
+            coverPhotoTintView.al_height == coverPhotoView.al_height,
+            coverPhotoTintView.al_left == coverPhotoView.al_left,
+            coverPhotoTintView.al_top == coverPhotoView.al_top,
 
             profileImageView.al_width == 150,
             profileImageView.al_height == profileImageView.al_width,

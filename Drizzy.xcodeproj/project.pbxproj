@@ -260,6 +260,8 @@
 		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
 		812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
+		813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
+		813138881B13ADA3001AF9AC /* Drizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Drizzy.entitlements; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		81331E111A17F9F3003E4609 /* Lyric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lyric.swift; path = Source/Lyric.swift; sourceTree = "<group>"; };
@@ -647,6 +649,7 @@
 		8180E5FF1A142157007FA1CF = {
 			isa = PBXGroup;
 			children = (
+				813138881B13ADA3001AF9AC /* Drizzy.entitlements */,
 				8180E60A1A142157007FA1CF /* DrizzyChat */,
 				8180E6201A142158007FA1CF /* DrizzyChatTests */,
 				81331E161A1806BB003E4609 /* Vendors */,
@@ -717,6 +720,7 @@
 		8180E6321A142199007FA1CF /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */,
 				81592FA91B0FB7B00092EA8F /* View Layouts */,
 				81B6D58D1A95B07B0089767B /* VIew Models */,
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
@@ -894,6 +898,9 @@
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = LMA3M32RE8;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.GameCenter = {
 								enabled = 0;
 							};
@@ -912,7 +919,7 @@
 						DevelopmentTeam = LMA3M32RE8;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1397,6 +1404,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Drizzy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1427,6 +1435,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Drizzy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1500,7 +1509,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboard/CustomKeyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1532,7 +1541,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboard/CustomKeyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (

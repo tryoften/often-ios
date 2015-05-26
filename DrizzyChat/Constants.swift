@@ -20,6 +20,7 @@ let ParseAppID = "L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G"
 let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"
 let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 let AnalyticsWriteKey = "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI"
+let AppSuiteName = "group.com.drizzy.drizzy"
 
 // Colors
 let BlueColor = UIColor(fromHexString: "#3b5998")
