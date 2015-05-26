@@ -8,7 +8,7 @@
 
 import Foundation
 
-class signUpOrLoginView: UIView {
+class SignUpOrLoginView: UIView {
     
     var titleLabel: UILabel!
     var subtitleLabel: UILabel!
@@ -24,6 +24,7 @@ class signUpOrLoginView: UIView {
         titleLabel.textAlignment = .Center
         titleLabel.font = BaseFont
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.text = "vsnclkxdmkl"
         
         spacer = UIView()
         spacer.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -34,12 +35,16 @@ class signUpOrLoginView: UIView {
         subtitleLabel.font = BaseFont
         subtitleLabel.numberOfLines = 0
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        subtitleLabel.text = "vsnclkxdmkl"
         
         facebookButton = FacebookButton.button()
         facebookButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         signUpButton = UIButton()
         signUpButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        signUpButton.backgroundColor = UIColor.blackColor()
+        signUpButton.setTitle("SIGN UP", forState: .Normal)
+        signUpButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         
         buttonSpacer = UIView()
         buttonSpacer.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -47,6 +52,9 @@ class signUpOrLoginView: UIView {
         
         loginButton = UIButton()
         loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        loginButton.backgroundColor = UIColor.blackColor()
+        loginButton.setTitle("LOGIN IN", forState: .Normal)
+        loginButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     
         super.init(frame: frame)
         
@@ -70,16 +78,16 @@ class signUpOrLoginView: UIView {
     func setupLayout() {
         addConstraints([
             
-            titleLabel.al_top == al_top + 44,
+            titleLabel.al_top == al_top + 60,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             
-            spacer.al_top == al_top + 10,
+            spacer.al_top == titleLabel.al_bottom + 4,
             spacer.al_height == 1,
             spacer.al_width == 60,
             spacer.al_centerX == al_centerX,
             
-            subtitleLabel.al_top == al_top + 10,
+            subtitleLabel.al_top == spacer.al_bottom + 10,
             subtitleLabel.al_left == al_left,
             subtitleLabel.al_right == al_right,
             subtitleLabel.al_height == 80,
@@ -99,7 +107,7 @@ class signUpOrLoginView: UIView {
             loginButton.al_left == buttonSpacer.al_right,
             loginButton.al_bottom == al_bottom,
             
-            facebookButton.al_bottom == al_bottom - 10,
+            facebookButton.al_bottom == loginButton.al_top - 10,
             facebookButton.al_left == al_left + 10,
             facebookButton.al_right == al_right - 10
             
