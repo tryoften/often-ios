@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		31838A8D340CC45D4B35C4E2 /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */; };
+		698B13E71B14176600E06CD0 /* ArtistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010701AE89631008F3296 /* ArtistService.swift */; };
+		698B13E91B14266700E06CD0 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698B13E81B14266700E06CD0 /* BrowseViewController.swift */; };
 		810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
@@ -249,6 +251,7 @@
 
 /* Begin PBXFileReference section */
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
+		698B13E81B14266700E06CD0 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -615,6 +618,7 @@
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				816FE5AF1A881C6500E42C17 /* SignUpFormViewController.swift */,
 				816CE0961A99A32700D718E1 /* LoginFormViewController.swift */,
+				698B13E81B14266700E06CD0 /* BrowseViewController.swift */,
 				81592F991B0FA55A0092EA8F /* TabBarController.swift */,
 				81592F9C1B0FA5750092EA8F /* UserProfileViewController.swift */,
 			);
@@ -1187,6 +1191,7 @@
 			files = (
 				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
 				816FE5B01A881C6500E42C17 /* SignUpFormViewController.swift in Sources */,
+				698B13E71B14176600E06CD0 /* ArtistService.swift in Sources */,
 				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
 				81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */,
 				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
@@ -1198,6 +1203,7 @@
 				81592F9F1B0FA57E0092EA8F /* UserProfileViewModel.swift in Sources */,
 				816CE0971A99A32700D718E1 /* LoginFormViewController.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
+				698B13E91B14266700E06CD0 /* BrowseViewController.swift in Sources */,
 				81592FA61B0FA5E90092EA8F /* CategoriesPanelView.swift in Sources */,
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
 				81331E141A17FA88003E4609 /* Category.swift in Sources */,

@@ -29,6 +29,12 @@ class SessionManager: NSObject {
         
         super.init()
         
+        
+        var artistService = ArtistService(root: self.firebase)
+        artistService.requestData { done in
+            
+        }
+        
         self.firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
         }
