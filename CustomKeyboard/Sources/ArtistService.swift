@@ -21,8 +21,6 @@ class ArtistService: NSObject {
     func requestData(completion: (Bool) -> Void) {
         artistsRef.observeEventType(.Value, withBlock: { snapshot in 
             if let artistsData = snapshot.value as? [String: AnyObject] {
-                
-                var artistCount = artistsData.count
                 for (key, val) in artistsData {
                     
                     if let artistData = val as? [String: AnyObject],
@@ -32,7 +30,6 @@ class ArtistService: NSObject {
                         let artistId = key as? String {
                             
                             var tracks = [Track]()
-                            
                             var artist = Artist(id: key, name: artistName, imageURLSmall: NSURL(string: urlSmall)!, imageURLLarge: NSURL(string: urlLarge)!)
                             
                             if let tracksData = artistData["tracks"] as? [String : [String : String]] {
@@ -41,10 +38,12 @@ class ArtistService: NSObject {
                                     data["id"] = trackKey
                                     var track = Track(dictionary: data)
                                     tracks.append(track)
+                                    
+                                    //need completion still
                                 }
                                 artist.tracks = tracks
                             }
-                            self.artists[key] = artist
+                        self.artists[key] = artist
                     }
                 }
             }

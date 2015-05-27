@@ -23,6 +23,21 @@ class TrackService: NSObject {
         super.init()
     }
     
+    func requestData(completion: (Bool)-> Void) { 
+        tracksRef.observeEventType(.Value, withBlock: { snapshot in
+            if let tracksData = snapshot.value as? [String : [String : String]]{
+                for (key, data) in tracksData {
+                    if let trackData = data as? [String : String],
+                    let trackId = key as? String {
+                        var currentTrack = Track(dictionary: trackData)
+                        self.tracks["\(trackId)"] = currentTrack //append [String:Track] to self.tracks
+                    }
+                    //need completion still
+                }
+            }
+        })
+    }
+    
     func getTrackForLyric(lyric: Lyric, completion: (track: Track) -> ()) {
         self.tracksRef.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
             

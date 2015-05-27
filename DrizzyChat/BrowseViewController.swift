@@ -12,16 +12,24 @@ class BrowseViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     var coverPhotoView: UIImageView!
     var pageControl: UIPageControl!
-    var lyrics: [Lyric]?
+    //var tracks: [Track]?
+    var viewModel: BrowseViewModel?
+    
+//    init(viewModel: BrowseViewModel) {
+//        self.viewModel = viewModel
+//        super.init(
+//    }
+//
+//    required init(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor(fromHexString: "#f7f7f7")
-    }
-
-    func setupLayout(){
         
+        setupLayout()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -31,5 +39,9 @@ class BrowseViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
+    }
+    
+    func setupLayout(){
+        
     }
 }

@@ -35,6 +35,10 @@ class SessionManager: NSObject {
             
         }
         
+        var trackService = TrackService(root: self.firebase)
+        //request data here
+        
+        
         self.firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
         }
