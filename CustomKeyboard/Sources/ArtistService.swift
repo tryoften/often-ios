@@ -44,7 +44,6 @@ class ArtistService: NSObject {
                                 }
                                 artist.tracks = tracks
                             }
-                            
                             self.artists[key] = artist
                     }
                 }

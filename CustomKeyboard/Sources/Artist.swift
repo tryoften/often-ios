@@ -14,7 +14,6 @@ class Artist: NSObject {
     var imageURLSmall: NSURL?
     var imageURLLarge: NSURL?
     var tracks: [Track]?
-    var lyrics: [Lyric]?
     
     init(id: String, name: String, imageURLSmall: NSURL? = nil, imageURLLarge: NSURL? = nil) {
         self.id = id
