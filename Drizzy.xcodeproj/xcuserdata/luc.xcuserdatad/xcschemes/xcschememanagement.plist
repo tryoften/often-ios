@@ -4,10 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CustomKeyboard.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>22</integer>
+		</dict>
 		<key>CustomKeyboard.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>18</integer>
+		</dict>
+		<key>Drizzy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>20</integer>
+		</dict>
+		<key>DrizzyTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
 		</dict>
 		<key>October.xcscheme_^#shared#^_</key>
 		<dict>
