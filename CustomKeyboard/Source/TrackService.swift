@@ -29,7 +29,10 @@ class TrackService: NSObject {
                 for (key, data) in tracksData {
                     if let trackData = data as? [String : String],
                     let trackId = key as? String {
-                        var currentTrack = Track(dictionary: trackData)
+                        var data = trackData
+                        data["id"] = trackId
+                        var currentTrack = Track(dictionary: data)
+                        println("\(trackId)")
                         self.tracks["\(trackId)"] = currentTrack //append [String:Track] to self.tracks
                     }
                     //need completion still

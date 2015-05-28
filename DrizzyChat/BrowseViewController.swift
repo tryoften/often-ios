@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BrowseViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BrowseViewController: UIViewController, UITableViewDelegate {
 
     var coverPhotoView: UIImageView!
     var pageControl: UIPageControl!
@@ -30,15 +30,6 @@ class BrowseViewController: UIViewController, UITableViewDelegate, UITableViewDa
         view.backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
         setupLayout()
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
     }
     
     func setupLayout(){
