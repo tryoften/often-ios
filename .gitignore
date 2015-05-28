@@ -17,7 +17,8 @@ DerivedData
 *.hmap
 *.xccheckout
 *.xcbkptlist
-*xcshareddata
+*/xcshareddata/*
+*/xcuserdata/*
 
 #CocoaPods
 Pods
