@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>965</string>
+	<string>993</string>
 	<key>FacebookAppID</key>
 	<string>874453295910366</string>
 	<key>FacebookDisplayName</key>
@@ -47,6 +47,15 @@
 		<string>font_icons8.ttf</string>
 		<string>Lato-Light.ttf</string>
 		<string>Lato-Black.ttf</string>
+		<string>OpenSans-ExtraBold.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>OpenSans-SemiBold.ttf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-Light.ttf</string>
+		<string>OpenSans-Italic.ttf</string>
+		<string>Oswald-Bold.ttf</string>
+		<string>Oswald-Regular.ttf</string>
+		<string>Oswald-Light.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

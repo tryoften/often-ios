@@ -51,16 +51,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if testKeyboard {
             mainController = KeyboardViewController()
         } else {
-            mainController = WalkthroughViewController()
+            mainController = SignUpWalkthroughViewController()
             
-            if shouldHomeViewBeShown() {
-                mainController = TabBarController(sessionManager: sessionManager)
-            }
+//            if shouldHomeViewBeShown() {
+//                mainController = TabBarController(sessionManager: sessionManager)
+//            }
         }
         
         if let window = self.window {
             window.rootViewController = mainController
             window.makeKeyAndVisible()
+        }
+        
+        for family in UIFont.familyNames() {
+            println("\(family)")
+
+            for name in UIFont.fontNamesForFamilyName(family as! String) {
+                println("  \(name)")
+            }
         }
         
         return true

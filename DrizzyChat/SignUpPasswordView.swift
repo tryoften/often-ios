@@ -19,6 +19,7 @@ class SignUpPasswordView: UIView {
     var andLabel: UILabel!
     var termsofService: UIButton!
     var privacyPolicy: UIButton!
+    
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
@@ -92,6 +93,7 @@ class SignUpPasswordView: UIView {
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setupLayout() {
         
         addConstraints([
@@ -142,6 +144,6 @@ class SignUpPasswordView: UIView {
             privacyPolicy.al_width == 120,
             privacyPolicy.al_left == andLabel.al_right + 4,
             
-            ])
+        ])
     }
 }

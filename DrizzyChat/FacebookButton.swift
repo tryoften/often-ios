@@ -26,17 +26,14 @@ class FacebookButton: UIButton {
         var fbButton = FacebookButton.buttonWithType(UIButtonType.Custom) as! UIButton
 
         fbButton.backgroundColor = FacebookButtonNormalBackgroundColor
-        fbButton.layer.cornerRadius = 5
         fbButton.addTarget(fbButton, action: "didTapButton", forControlEvents: .TouchUpInside)
         
-        var title = NSMutableAttributedString(string: "\u{f610}   Sign up with Facebook")
-        
-        title.addAttribute(NSFontAttributeName, value: FacebookButtonIconFont!, range: NSMakeRange(0, 1))
-        title.addAttribute(NSBaselineOffsetAttributeName, value: -5.0, range: NSMakeRange(0, 1))
-        title.addAttribute(NSFontAttributeName, value: FacebookButtonTitleFont!, range: NSMakeRange(1, title.length - 1))
-        
+        fbButton.setImage(UIImage(named: "FacebookButton"), forState: .Normal)
+        fbButton.setTitle("Sign Up with Facebook".uppercaseString, forState: .Normal)
+        fbButton.imageView?.contentMode = .ScaleAspectFit
+        fbButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         fbButton.titleLabel?.textColor = FacebookButtonTitleTextColor
-        fbButton.setAttributedTitle(title, forState: .Normal)
+        fbButton.titleLabel?.font = UIFont(name: "OpenSans", size: 14)
         
         return fbButton as! FacebookButton
     }
