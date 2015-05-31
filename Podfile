@@ -10,7 +10,7 @@ target 'Drizzy' do
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
   pod 'MMLayershots', :configurations => ['Debug']
   pod 'AFNetworking', '~> 2.0'
-  pod 'Analytics/Flurry', '~> 1.11'
+  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'TOMSMorphingLabel', '~> 0.5'
   pod 'CSStickyHeaderFlowLayout', '~> 0.2'
   pod 'FXBlurView', '~> 1.6'
@@ -25,9 +25,18 @@ target 'CustomKeyboard' do
   pod 'Canvas', '~> 0.1'
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
   pod 'AFNetworking', '~> 2.0'
-  pod 'Analytics/Flurry', '~> 1.11'
+  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'TOMSMorphingLabel', '~> 0.5'
   pod 'FXBlurView', '~> 1.6'
 end
 
 
+post_install do |add_app_extension_macro|
+    add_app_extension_macro.project.targets.each do |target|
+        if target.name.include?("Pods-CustomKeyboard")
+            target.build_configurations.each do |config|
+                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'AF_APP_EXTENSIONS=1']
+            end
+        end
+    end
+end
