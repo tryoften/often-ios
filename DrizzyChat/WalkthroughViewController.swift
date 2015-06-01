@@ -194,33 +194,12 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
     }
     
     func presentHomeView(userInfo: NSDictionary?) {
-        var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+        var homeVC = TabBarController(sessionManager: SessionManager.defaultManager)
         self.presentViewController(homeVC, animated: true, completion: nil)
-    }
-
-    func getUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
-        var request = FBRequest.requestForMe()
-        
-        request.startWithCompletionHandler({ (connection, result, error) in
-            
-            if error == nil {
-                println("\(result)")
-                var data = (result as! NSDictionary).mutableCopy() as! NSMutableDictionary
-                var profilePicURLTemplate = "https://graph.facebook.com/%@/picture?type=%@"
-                
-                data["profile_pic_small"] = String(format: profilePicURLTemplate, data["id"] as! String, "small")
-                data["profile_pic_large"] = String(format: profilePicURLTemplate, data["id"] as! String, "large")
-                
-                completion(data, nil)
-            } else {
-                completion(nil, error)
-            }
-            
-        })
     }
     
     func presentSignUpFormView(fbUser: PFUser?) {
-        getUserInfo({ (result, error) in
+        SessionManager.defaultManager.getUserInfo({ (result, error) in
             println("\(result)")
             var signUpFormViewController = SignUpFormViewController(nibName: nil, bundle: nil)
             

@@ -80,26 +80,19 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
-        
-        ParseCrashReporting.enable()
-        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
-        Flurry.startSession(FlurryClientKey)
-        Firebase.setOption("persistence", to: true)
-        
+
         self.getCurrentUser()
         self.viewModel.requestData()
     }
     
     func getCurrentUser() {
-        var currentUser = PFUser.currentUser()
         
-        if currentUser != nil {
-            SEGAnalytics.sharedAnalytics().identify(currentUser.objectId, traits: [
-                "email": currentUser["email"]
-            ])
-            Flurry.setUserID(currentUser.objectId)
-        }
+//        if let currentUser = PFUser.currentUser() {
+//            SEGAnalytics.sharedAnalytics().identify(currentUser.objectId!, traits: [
+//                "email": currentUser.email!
+//            ])
+//        }
     }
     
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {

@@ -39,10 +39,8 @@ class HomeViewController: UIViewController {
         if isIPhone5() {
             topMargin.constant = 190
         }
-        
-        var currentUser = PFUser.currentUser()
-        
-        if currentUser != nil {
+
+        if let currentUser = PFUser.currentUser() {
             if let fullName = currentUser["fullName"] as? String {
                 loginIndicatorView.nameLabel.text = "Wassup, \(fullName)"
             } else {
