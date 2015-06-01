@@ -85,7 +85,9 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
         Flurry.startSession(FlurryClientKey)
-        Firebase.setOption("persistence", to: true)
+//      setOption has been deprecated and has been replaced with [Firebase defaultConfig].persistenceEnabled = YES instead.
+//        Firebase.setOption("persistence", to: true)
+        Firebase.defaultConfig().persistenceEnabled = true
         
         self.getCurrentUser()
         self.viewModel.requestData()
@@ -176,7 +178,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     func didTapSwitchArtistButton() {
         
         if artistPicker == nil {
-            artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewController.provideCollectionViewLayout(CGRectZero))
+            artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewLayout.provideCollectionViewLayout())
             artistPicker!.delegate = self
             artistPicker!.viewModel = viewModel
             artistPicker!.keyboards = viewModel.keyboards

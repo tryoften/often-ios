@@ -14,6 +14,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     var subtitleLabel: UILabel
     var circleView: UIView
     var circleLayer: CAShapeLayer
+    var deleteButton: UIButton
     
     override var selected: Bool {
         didSet {
@@ -48,6 +49,17 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         subtitleLabel.textAlignment = .Center
         
+        deleteButton = UIButton()
+        deleteButton.backgroundColor = UIColor(fromHexString: "#f19720")
+        deleteButton.setImage(UIImage(named: "close artists"), forState: .Normal)
+        deleteButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        deleteButton.layer.cornerRadius = 25 / 2
+        deleteButton.clipsToBounds = true
+        deleteButton.layer.borderColor = UIColor.whiteColor().CGColor
+        deleteButton.layer.borderWidth = 2.0
+        deleteButton.alpha = 0.0
+        deleteButton.hidden = true
+
         var width = ArtistCollectionViewCellWidth - ArtistCollectionViewCellImageViewLeftMargin * 2
 
         addCircularMaskToView(imageView, width)
@@ -71,8 +83,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(circleView)
-        
-
+        addSubview(deleteButton)
 
         layer.cornerRadius = 5.0
         
@@ -107,9 +118,30 @@ class ArtistCollectionViewCell: UICollectionViewCell {
             subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_centerX == al_centerX,
             subtitleLabel.al_width == titleLabel.al_width,
-            subtitleLabel.al_height == 15
+            subtitleLabel.al_height == 15,
+            
+            deleteButton.al_width == 25,
+            deleteButton.al_height == deleteButton.al_width,
+            deleteButton.al_right == al_right + 5,
+            deleteButton.al_top == al_top - 5
         ]
         
         addConstraints(constraints)
+    }
+    
+    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes!) {
+        var attributes = layoutAttributes as! ArtistPickerCollectionViewLayoutAttributes
+        
+        UIView.animateWithDuration(0.3, animations: {
+            if attributes.deleteButtonHidden == true {
+                self.deleteButton.alpha = 0.0
+            } else {
+                self.deleteButton.hidden = false
+                self.deleteButton.alpha = 1.0
+            }
+        }, completion: { done in
+            self.deleteButton.hidden = attributes.deleteButtonHidden
+        })
+
     }
 }
