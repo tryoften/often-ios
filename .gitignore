@@ -13,7 +13,7 @@
 profile
 *.moved-aside
 DerivedData
-.idea/
+.idea/*
 *.hmap
 *.xccheckout
 *.xcbkptlist
