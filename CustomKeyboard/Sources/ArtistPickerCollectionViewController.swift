@@ -152,8 +152,6 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
                 if isDeletionModeOn {
                     self.endDeleteMode(indexPath: indexPath)
                 }
-                
-                
         }
     }
     
