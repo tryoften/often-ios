@@ -8,6 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		31838A8D340CC45D4B35C4E2 /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */; };
+		3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */; };
+		3B4D9A961B14169300643EF8 /* SignUpEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */; };
+		3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */; };
+		3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */; };
+		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
+		3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
+		3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */; };
+		3BAAB1951B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */; };
+		3BAAB1961B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */; };
+		3BAAB1971B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */; };
+		3BAAB1981B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18B1B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf */; };
+		3BAAB1991B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18B1B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf */; };
+		3BAAB19A1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18C1B1A5D3700EA1925 /* OpenSans-Italic.ttf */; };
+		3BAAB19B1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18C1B1A5D3700EA1925 /* OpenSans-Italic.ttf */; };
+		3BAAB19C1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18D1B1A5D3700EA1925 /* OpenSans-Light.ttf */; };
+		3BAAB19D1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18D1B1A5D3700EA1925 /* OpenSans-Light.ttf */; };
+		3BAAB19E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf */; };
+		3BAAB19F1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf */; };
+		3BAAB1A01B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18F1B1A5D3700EA1925 /* OpenSans-Regular.ttf */; };
+		3BAAB1A11B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18F1B1A5D3700EA1925 /* OpenSans-Regular.ttf */; };
+		3BAAB1A21B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1901B1A5D3700EA1925 /* OpenSans-Semibold.ttf */; };
+		3BAAB1A31B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1901B1A5D3700EA1925 /* OpenSans-Semibold.ttf */; };
+		3BAAB1A41B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */; };
+		3BAAB1A51B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */; };
+		3BAAB1A91B1A653100EA1925 /* Oswald-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */; };
+		3BAAB1AA1B1A653100EA1925 /* Oswald-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */; };
+		3BAAB1AB1B1A653100EA1925 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */; };
+		3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */; };
+		3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
+		3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
+		3BAAB1DF1B1CFEB100EA1925 /* SignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAAB1DE1B1CFEB100EA1925 /* SignUpFormViewModel.swift */; };
+		3BAAB1E01B1D003F00EA1925 /* CategoriesPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */; };
+		3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */; };
+		3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */; };
 		810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
@@ -36,7 +70,6 @@
 		813C82A21AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
 		813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813E66C11A6DA541007E15AD /* WalkthroughPage.swift */; };
 		81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */; };
-		81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */; };
 		81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
 		81413DBD1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
 		81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
@@ -54,7 +87,6 @@
 		81592FA21B0FA5870092EA8F /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */; };
 		81592FA31B0FA5870092EA8F /* UserProfileSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */; };
 		81592FA51B0FA5BD0092EA8F /* PrimaryToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FA41B0FA5BD0092EA8F /* PrimaryToolbarView.swift */; };
-		81592FA61B0FA5E90092EA8F /* CategoriesPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */; };
 		81592FA71B0FA64D0092EA8F /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
 		81592FA81B0FA6CE0092EA8F /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
 		81592FAB1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FAA1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift */; };
@@ -240,6 +272,26 @@
 
 /* Begin PBXFileReference section */
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
+		3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWalkthroughViewController.swift; sourceTree = "<group>"; };
+		3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpEmailView.swift; sourceTree = "<group>"; };
+		3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPasswordView.swift; sourceTree = "<group>"; };
+		3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpOrLoginView.swift; sourceTree = "<group>"; };
+		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		3BAAB18B1B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		3BAAB18C1B1A5D3700EA1925 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		3BAAB18D1B1A5D3700EA1925 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		3BAAB18E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		3BAAB18F1B1A5D3700EA1925 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		3BAAB1901B1A5D3700EA1925 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Bold.ttf"; sourceTree = "<group>"; };
+		3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
+		3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
+		3BAAB1DE1B1CFEB100EA1925 /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
+		3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPhoneNumberView.swift; sourceTree = "<group>"; };
+		3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameView.swift; sourceTree = "<group>"; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -264,7 +316,6 @@
 		813C82A01AE3031700925206 /* lyrics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lyrics.json; sourceTree = "<group>"; };
 		813E66C11A6DA541007E15AD /* WalkthroughPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughPage.swift; sourceTree = "<group>"; };
 		81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormTableViewCell.swift; sourceTree = "<group>"; };
-		81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
 		81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-outlined.ttf"; sourceTree = "<group>"; };
 		81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-filled.ttf"; sourceTree = "<group>"; };
 		81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceList.swift"; sourceTree = "<group>"; };
@@ -535,7 +586,7 @@
 			isa = PBXGroup;
 			children = (
 				81592F9E1B0FA57E0092EA8F /* UserProfileViewModel.swift */,
-				81413DB91A91C0CC00926E7C /* SignUpFormViewModel.swift */,
+				3BAAB1DE1B1CFEB100EA1925 /* SignUpFormViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -589,6 +640,7 @@
 			isa = PBXGroup;
 			children = (
 				81794EC81A81D6D5009D4A71 /* HomeViewController.swift */,
+				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				816FE5AF1A881C6500E42C17 /* SignUpFormViewController.swift */,
 				816CE0961A99A32700D718E1 /* LoginFormViewController.swift */,
@@ -603,6 +655,11 @@
 			children = (
 				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
 				813E66C11A6DA541007E15AD /* WalkthroughPage.swift */,
+				3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */,
+				3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */,
+				3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */,
+				3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */,
+				3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */,
 				81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */,
 				81B6D5861A956E680089767B /* LoginIndicatorView.swift */,
 				81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */,
@@ -780,6 +837,19 @@
 		81B35FAE1A7A10B6001A546C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */,
+				3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */,
+				3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */,
+				3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */,
+				3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */,
+				3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */,
+				3BAAB18B1B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf */,
+				3BAAB18C1B1A5D3700EA1925 /* OpenSans-Italic.ttf */,
+				3BAAB18D1B1A5D3700EA1925 /* OpenSans-Light.ttf */,
+				3BAAB18E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf */,
+				3BAAB18F1B1A5D3700EA1925 /* OpenSans-Regular.ttf */,
+				3BAAB1901B1A5D3700EA1925 /* OpenSans-Semibold.ttf */,
+				3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */,
 				81DC50A91A9C2C5A00E2AA9B /* tutorial-video.mov */,
 			);
 			name = Resources;
@@ -962,6 +1032,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8180E6651A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
+				3BAAB1A41B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				8180E67B1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
 				8180E66B1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
 				81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */,
@@ -969,26 +1040,38 @@
 				81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */,
 				8180E6591A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				8180E65D1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
+				3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				81DC50AA1A9C2C5A00E2AA9B /* tutorial-video.mov in Resources */,
+				3BAAB1A91B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				816FE5991A86D7A500E42C17 /* ss-social-regular.ttf in Resources */,
+				3BAAB1961B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
+				3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
+				3BAAB19A1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				8180E6711A147A78007FA1CF /* Lato-MediumItalic.ttf in Resources */,
 				8180E6771A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
+				3BAAB1A01B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
 				8180E65B1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
 				8180E6671A147A78007FA1CF /* Lato-HeavyItalic.ttf in Resources */,
 				81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */,
+				3BAAB1AB1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
 				8180E6631A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
 				8180E65F1A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
 				813C82A11AE3031700925206 /* lyrics.json in Resources */,
 				8180E6751A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
+				3BAAB19C1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
 				8180E66F1A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
 				8180E6611A147A78007FA1CF /* Lato-Hairline.ttf in Resources */,
+				3BAAB19E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
+				3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
 				8180E6691A147A78007FA1CF /* Lato-Italic.ttf in Resources */,
 				8180E6151A142157007FA1CF /* Images.xcassets in Resources */,
+				3BAAB1A21B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
 				8180E6791A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
 				8180E66D1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
 				81DC114B1AF05CF400412BD2 /* SwiftyJSON in Resources */,
 				81331E2B1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6731A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
+				3BAAB1981B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1006,17 +1089,24 @@
 			files = (
 				8180E6681A147A78007FA1CF /* Lato-HeavyItalic.ttf in Resources */,
 				8180E65C1A147A78007FA1CF /* Lato-BlackItalic.ttf in Resources */,
+				3BAAB1AA1B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				8180E6621A147A78007FA1CF /* Lato-Hairline.ttf in Resources */,
 				81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */,
+				3BAAB19D1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
 				8180E67A1A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
 				8180E66C1A147A78007FA1CF /* Lato-Light.ttf in Resources */,
 				816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */,
+				3BAAB1991B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				3BAAB19F1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
+				3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
 				81413DC01A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */,
 				8180E6641A147A78007FA1CF /* Lato-HairlineItalic.ttf in Resources */,
 				81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */,
 				81413DBD1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */,
+				3BAAB19B1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				8180E6781A147A78007FA1CF /* Lato-SemiboldItalic.ttf in Resources */,
 				81331E2C1A1806BB003E4609 /* Info.plist in Resources */,
+				3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
 				8180E6701A147A78007FA1CF /* Lato-Medium.ttf in Resources */,
 				8180E66A1A147A78007FA1CF /* Lato-Italic.ttf in Resources */,
 				8180E65E1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
@@ -1024,13 +1114,19 @@
 				8180E6601A147A78007FA1CF /* Lato-BoldItalic.ttf in Resources */,
 				8180E6761A147A78007FA1CF /* Lato-Semibold.ttf in Resources */,
 				8180E6741A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
+				3BAAB1A31B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
+				3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				8180E6661A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
 				813C82A21AE3031700925206 /* lyrics.json in Resources */,
 				81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */,
+				3BAAB1951B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
 				8180E65A1A147A78007FA1CF /* Lato-Black.ttf in Resources */,
 				81DB4ED31A945251004EE28C /* backspace.png in Resources */,
 				8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
+				3BAAB1971B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
 				8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
+				3BAAB1A11B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
+				3BAAB1A51B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				8180E66E1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1149,7 +1245,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "touch ${PROJECT_DIR}/DrizzyChat/AppDelegate.swift";
+			shellScript = "touch ./DrizzyChat/AppDelegate.swift";
 		};
 		A00C0EDAA51482F77D82BB77 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1173,6 +1269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */,
 				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
 				816FE5B01A881C6500E42C17 /* SignUpFormViewController.swift in Sources */,
 				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
@@ -1181,17 +1278,19 @@
 				813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */,
 				81592FA81B0FA6CE0092EA8F /* CategoryCollectionViewController.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
+				3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */,
 				81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */,
 				81592FAC1B0FC5450092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */,
 				81592F9F1B0FA57E0092EA8F /* UserProfileViewModel.swift in Sources */,
 				816CE0971A99A32700D718E1 /* LoginFormViewController.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
-				81592FA61B0FA5E90092EA8F /* CategoriesPanelView.swift in Sources */,
+				3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */,
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
 				81331E141A17FA88003E4609 /* Category.swift in Sources */,
 				816FE5AA1A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift in Sources */,
 				81592FA21B0FA5870092EA8F /* UserProfileHeaderView.swift in Sources */,
 				816FE5AE1A87284600E42C17 /* ActionWalkthroughPage.swift in Sources */,
+				3BAAB1E01B1D003F00EA1925 /* CategoriesPanelView.swift in Sources */,
 				81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */,
 				816FE5A41A871D6700E42C17 /* TextConvoWalkthroughPage.swift in Sources */,
 				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
@@ -1205,10 +1304,11 @@
 				81592F9D1B0FA5750092EA8F /* UserProfileViewController.swift in Sources */,
 				8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
-				81413DBA1A91C0CC00926E7C /* SignUpFormViewModel.swift in Sources */,
+				3B4D9A961B14169300643EF8 /* SignUpEmailView.swift in Sources */,
 				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */,
 				817618F61AE9F58300C7D9CB /* KeyboardService.swift in Sources */,
+				3BAAB1DF1B1CFEB100EA1925 /* SignUpFormViewModel.swift in Sources */,
 				819982AD1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */,
 				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
 				81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */,
@@ -1222,8 +1322,10 @@
 				81592F941B0FA5070092EA8F /* SessionManager.swift in Sources */,
 				817618EE1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
 				8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */,
+				3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */,
 				816FE5AC1A87275A00E42C17 /* SignUpWalkthroughPage.swift in Sources */,
 				817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
+				3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */,
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
 				816FE5A71A8724A500E42C17 /* AlbumCoverArtsWalkthroughPage.swift in Sources */,
 			);

@@ -23,7 +23,7 @@ let AnalyticsWriteKey = "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI"
 let AppSuiteName = "group.com.drizzy.drizzy"
 
 // Colors
-let BlueColor = UIColor(fromHexString: "#3b5998")
+let BlueColor = UIColor(fromHexString: "#4575BF")
 let DarkGrey = UIColor(fromHexString: "#d8d8d8")
 let MediumGrey = UIColor(fromHexString: "#eeeeee")
 let LightGrey = UIColor(fromHexString: "#f7f7f7")
@@ -33,9 +33,9 @@ let MainBackgroundColor = UIColor(fromHexString: "")
 let MainTextColor = UIColor(fromHexString: "#777777")
 
 
-let BaseFont = UIFont(name: "Lato-Light", size: 20)
-let MediumRegularFont = UIFont(name: "Lato-Regular", size: 18)
-let SubtitleFont = UIFont(name: "Lato-Regular", size: 12)
+let BaseFont = UIFont(name: "OpenSans-Light", size: 20)
+let MediumRegularFont = UIFont(name: "OpenSans-Regular", size: 18)
+let SubtitleFont = UIFont(name: "OpenSans-Regular", size: 12)
 
 // Navbar
 let NavbarDefaultBackgroundColor = MediumLightGrey
@@ -101,7 +101,7 @@ let ArtistCollectionViewCellImageViewLeftMargin: CGFloat = 32
 
 // Main App
 
-let FacebookButtonTitleFont = UIFont(name: "Lato-Regular", size: 18)
+let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 15)
 let FacebookButtonTitleTextColor = UIColor.whiteColor()
 let FacebookButtonIconFont = UIFont(name: "SSSocialRegular", size: 24)
 let FacebookButtonNormalBackgroundColor = BlueColor
