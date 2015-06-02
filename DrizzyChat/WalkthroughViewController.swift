@@ -26,18 +26,6 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
     var subtitles: [String]!
     var actionButton = UIButton()
     var pageWidth: CGFloat!
-
-    var fbSession: FBSession! {
-        didSet {
-            switch(fbSession.state) {
-            case .CreatedTokenLoaded:
-                
-                return
-            default:
-                break
-            }
-        }
-    }
     
     private var previousPoint: CGPoint!
     private var currentPoint: CGPoint!
@@ -117,7 +105,7 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
 
             page.delegate = self
             page.walkthroughViewController = self
-            page.titleLabel.text = self.titles[i]
+            page.titleLabel.text = titles[i]
             page.subtitleLabel.text = subtitles[i]
             pages.append(page)
             scrollView.addSubview(page)
@@ -205,31 +193,13 @@ class WalkthroughViewController: UIViewController, UIScrollViewDelegate, Walkthr
 
     }
     
-    func getUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
-        var request = FBRequest.requestForMe()
-        
-        FBSession.activeSession()
-        
-        request.startWithCompletionHandler({ (connection, result, error) in
-            
-            if error == nil {
-                println("\(result)")
-                var data = result as! NSDictionary
-                completion(data, nil)
-            } else {
-                completion(nil, error)
-            }
-            
-        })
-    }
-    
     func presentHomeView(userInfo: NSDictionary?) {
-        var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
+        var homeVC = TabBarController(sessionManager: SessionManager.defaultManager)
         self.presentViewController(homeVC, animated: true, completion: nil)
     }
     
     func presentSignUpFormView(fbUser: PFUser?) {
-        getUserInfo({ (result, error) in
+        SessionManager.defaultManager.getUserInfo({ (result, error) in
             println("\(result)")
             var signUpFormViewController = SignUpFormViewController(nibName: nil, bundle: nil)
             

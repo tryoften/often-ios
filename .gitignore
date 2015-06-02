@@ -13,11 +13,11 @@
 profile
 *.moved-aside
 DerivedData
-.idea/
+.idea/*
 *.hmap
 *.xccheckout
 *.xcbkptlist
-*xcshareddata
+*/xcuserdata/*
 
 #CocoaPods
 Pods

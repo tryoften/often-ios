@@ -103,6 +103,7 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         cell.titleLabel.text = keyboard.artist?.name
         cell.subtitleLabel.text = "\(keyboard.categories.count) categories".uppercaseString
         cell.imageView.setImageWithURL(keyboard.artist?.imageURLLarge)
+        cell.deleteButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: .TouchUpInside)
 
         return cell
     }
@@ -131,7 +132,7 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
                 + 30.0
             
             let cellCount = CGFloat(self.collectionView(collectionView, numberOfItemsInSection: 0))
-            xPosition = max(0, min(xPosition, cellCount * (ArtistCollectionViewCellWidth + 5.0)))
+            xPosition = max(0, min(xPosition, collectionView.contentSize.width))
             
             collectionView.setContentOffset(CGPointMake(xPosition, 0), animated: true)
         }
@@ -139,6 +140,19 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
     
     func didTapCloseButton() {
         
+    }
+    
+    func didTapDeleteButton(target: UIButton) {
+        if let cell = target.superview as? ArtistCollectionViewCell,
+            let indexPath = collectionView?.indexPathForCell(cell),
+            let keyboard = keyboards?[indexPath.row] {
+                keyboards?.removeAtIndex(indexPath.row)
+                collectionView?.deleteItemsAtIndexPaths([indexPath])
+                
+                if isDeletionModeOn {
+                    self.endDeleteMode(indexPath: indexPath)
+                }
+        }
     }
     
     func startDeleteMode(indexPath: NSIndexPath = NSIndexPath(forItem: 0, inSection: 0) ) {

@@ -48,7 +48,7 @@ class TabBarController: UITabBarController {
         var viewModel = UserProfileViewModel(sessionManager: sessionManager)
         var userProfileVC = UserProfileViewController(viewModel: viewModel)
 
-        var addKeyboardsVC = UIViewController()
+        var addKeyboardsVC = BrowseCollectionViewController(viewModel: BrowseViewModel(sessionManager: sessionManager))
         var trendingVC = UIViewController()
         
         var iconInsets = UIEdgeInsetsMake(6, 0, -6, 0)

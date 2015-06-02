@@ -20,48 +20,84 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Analytics/Core-iOS (1.11.8):
+  - Analytics/Core-iOS (1.11.3):
     - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
-  - Analytics/Flurry (1.11.8):
+  - Analytics/Flurry (1.11.3):
     - Analytics/Core-iOS
     - Analytics/Segmentio
     - FlurrySDK (= 4.4.0)
-  - Analytics/Segmentio (1.11.8):
+  - Analytics/Segmentio (1.11.3):
     - Analytics/Core-iOS
+  - Bolts (1.1.5):
+    - Bolts/AppLinks (= 1.1.5)
+    - Bolts/Tasks (= 1.1.5)
+  - Bolts/AppLinks (1.1.5):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.1.5)
   - Canvas (0.1.2)
   - CSStickyHeaderFlowLayout (0.2.5)
-  - Firebase (2.2.2)
+  - Facebook-iOS-SDK (3.23.2):
+    - Bolts (~> 1.0)
+  - Firebase (2.3.1)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
   - FXBlurView (1.6.3)
   - MMLayershots (0.2.6)
+  - Parse (1.7.4)
+  - ParseCrashReporting (1.7.4):
+    - Bolts/Tasks (>= 1.1.5)
+    - Parse (~> 1.7.4)
+  - ParseFacebookUtils (1.7.4):
+    - Bolts/Tasks (>= 1.1.5)
+    - Facebook-iOS-SDK (~> 3.23)
+    - Parse (~> 1.7.4)
   - Reveal-iOS-SDK (1.5.1)
   - TOMSMorphingLabel (0.5.1)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
-  - Analytics/Flurry (~> 1.11)
+  - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
   - Canvas (~> 0.1)
   - CSStickyHeaderFlowLayout (~> 0.2)
+  - Facebook-iOS-SDK (~> 3.0)
   - Firebase (>= 2.0.2)
   - FXBlurView (~> 1.6)
   - MMLayershots
+  - Parse (from `Parse.podspec.json`)
+  - ParseCrashReporting (~> 1.7)
+  - ParseFacebookUtils (~> 1.7)
   - Reveal-iOS-SDK
   - TOMSMorphingLabel (~> 0.5)
 
+EXTERNAL SOURCES:
+  Analytics:
+    :git: https://github.com/October-Labs/analytics-ios.git
+  Parse:
+    :podspec: Parse.podspec.json
+
+CHECKOUT OPTIONS:
+  Analytics:
+    :commit: f55c68031f7c92235f861ccc744623f9897db989
+    :git: https://github.com/October-Labs/analytics-ios.git
+
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
-  Analytics: 8c476a147c05c93bb64c5d8c20424c9e2caa0519
+  Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
+  Bolts: aac24961496d504aa56fc267cde95162a71bac39
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
   CSStickyHeaderFlowLayout: 75e439a59c23f609091d9a784c7b5db7de583f1f
-  Firebase: e35cdd2561bf4fea9c1e384e9400a9c173d19e47
+  Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
+  Firebase: 462795adf92029ddb97777660627f5dd4fd59876
   FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946
   FXBlurView: c6d23f3d35af2c6282296a2930f61c6e2c788d01
   MMLayershots: ce67f35806c9c32ba722cd309571a4ff236a244d
+  Parse: ba553bf1ea90160c60ba302a193881ad8acc1d9f
+  ParseCrashReporting: 0cff3a2720d6e977fff1bdd64e6d3ea94528e170
+  ParseFacebookUtils: 7115990b291ae95b920fde413272828d0eb0d963
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
   TOMSMorphingLabel: 3e88a2bf5257f8993ebc51fb3109187a0bfb2c4d
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
 
-COCOAPODS: 0.37.1
+COCOAPODS: 0.37.2

@@ -20,9 +20,10 @@ let ParseAppID = "L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G"
 let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"
 let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 let AnalyticsWriteKey = "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI"
+let AppSuiteName = "group.com.drizzy.drizzy"
 
 // Colors
-let BlueColor = UIColor(fromHexString: "#3b5998")
+let BlueColor = UIColor(fromHexString: "#4575BF")
 let DarkGrey = UIColor(fromHexString: "#d8d8d8")
 let MediumGrey = UIColor(fromHexString: "#eeeeee")
 let LightGrey = UIColor(fromHexString: "#f7f7f7")
@@ -30,11 +31,14 @@ let BlackColor = UIColor(fromHexString: "#121314")
 let MediumLightGrey = UIColor(fromHexString: "#1c1c1c")
 let MainBackgroundColor = UIColor(fromHexString: "")
 let MainTextColor = UIColor(fromHexString: "#777777")
-
-
-let BaseFont = UIFont(name: "Lato-Light", size: 20)
-let MediumRegularFont = UIFont(name: "Lato-Regular", size: 18)
-let SubtitleFont = UIFont(name: "Lato-Regular", size: 12)
+let SubtitleGreyColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 0.74)
+let LightBlackColor = UIColor(fromHexString: "#303030")
+//Font
+let BaseFont = UIFont(name: "OpenSans-Light", size: 20)
+let MediumRegularFont = UIFont(name: "OpenSans-Regular", size: 18)
+let SubtitleFont = UIFont(name: "OpenSans", size: 12)
+let ButtonFont = UIFont(name: "OpenSans", size: 15)
+let TitleFont = UIFont(name: "Oswald-Regular", size: 19)
 
 // Navbar
 let NavbarDefaultBackgroundColor = MediumLightGrey
@@ -106,7 +110,7 @@ let BrowseCollectionViewCellHeight: CGFloat = CGFloat(63)
 
 // Main App
 
-let FacebookButtonTitleFont = UIFont(name: "Lato-Regular", size: 18)
+let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 15)
 let FacebookButtonTitleTextColor = UIColor.whiteColor()
 let FacebookButtonIconFont = UIFont(name: "SSSocialRegular", size: 24)
 let FacebookButtonNormalBackgroundColor = BlueColor

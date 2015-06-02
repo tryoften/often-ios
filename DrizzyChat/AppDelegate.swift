@@ -10,7 +10,6 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
     var mainController: UIViewController!
     var sessionManager: SessionManager!
@@ -19,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         testKeyboard = false
-        sessionManager = SessionManager()
+        sessionManager = SessionManager.defaultManager
 
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
@@ -27,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
         FBAppEvents.activateApp()
-        Firebase.setOption("persistence", to: true)
         
         Flurry.startSession(FlurryClientKey)
 
@@ -52,18 +50,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if testKeyboard {
             mainController = KeyboardViewController()
         } else {
-            mainController = WalkthroughViewController()
-            mainController = BrowseCollectionViewController(viewModel: BrowseViewModel(sessionManager: sessionManager))
+            mainController = SignUpWalkthroughViewController()
             
-//            if shouldHomeViewBeShown() {
-//                mainController = TabBarController(sessionManager: sessionManager)
-//
-//            }
+            if shouldHomeViewBeShown() {
+                mainController = TabBarController(sessionManager: sessionManager)
+            }
         }
         
         if let window = self.window {
             window.rootViewController = mainController
             window.makeKeyAndVisible()
+        }
+        
+        for family in UIFont.familyNames() {
+            println("\(family)")
+
+            for name in UIFont.fontNamesForFamilyName(family as! String) {
+                println("  \(name)")
+            }
         }
         
         return true

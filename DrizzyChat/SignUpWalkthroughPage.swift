@@ -74,10 +74,8 @@ class SignUpWalkthroughPage: WalkthroughPage {
     }
     
     func loginStateChanged() {
-        var currentUser = PFUser.currentUser()
-        println("\(currentUser)")
         
-        if currentUser != nil {
+        if let currentUser = PFUser.currentUser() {
             if let fullName = currentUser["fullName"] as? String {
                 loginIndicatorView.nameLabel.text = "Wassup, \(fullName)"
             } else {
@@ -93,6 +91,7 @@ class SignUpWalkthroughPage: WalkthroughPage {
     
     func didTapFacebookButton() {
         PFFacebookUtils.logInWithPermissions(["public_profile", "email"], block: { (user, error) in
+
             // The user cancelled the facebook login
             if user == nil {
 
@@ -101,14 +100,11 @@ class SignUpWalkthroughPage: WalkthroughPage {
                 alertView.show()
             }
             // The user signed up and logged in through facebook
-            else if user.isNew {
+            else if user!.isNew {
                 self.walkthroughViewController.presentSignUpFormView(user)
             }
             // User logged in through facebook
             else {
-                self.walkthroughViewController.getUserInfo({ (result, err) in
-                    self.walkthroughViewController.presentHomeView(result)
-                })
             }
         })
     }
