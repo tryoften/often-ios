@@ -106,8 +106,6 @@ class SignUpNameView: UIView {
             privacyPolicy.al_width == 120,
             privacyPolicy.al_left == andLabel.al_right + 4,
 
-            
-            
             ])
     }
     
