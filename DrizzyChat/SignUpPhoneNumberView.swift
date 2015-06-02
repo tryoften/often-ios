@@ -15,7 +15,6 @@ class SignUpPhoneNumberView: UIView {
     var subtitleLabel: UILabel!
     
     override init(frame: CGRect) {
-        
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
         titleLabel.font = BaseFont
@@ -39,6 +38,7 @@ class SignUpPhoneNumberView: UIView {
         subtitleLabel.text = "vsnclkxdmkl"
         
         super.init(frame: frame)
+        
         backgroundColor = UIColor.whiteColor()
         addSubview(titleLabel)
         addSubview(subtitleLabel)

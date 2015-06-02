@@ -85,8 +85,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
         Flurry.startSession(FlurryClientKey)
-//      setOption has been deprecated and has been replaced with [Firebase defaultConfig].persistenceEnabled = YES instead.
-//        Firebase.setOption("persistence", to: true)
         Firebase.defaultConfig().persistenceEnabled = true
         
         self.getCurrentUser()

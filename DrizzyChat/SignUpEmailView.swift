@@ -16,6 +16,7 @@ class SignUpEmailView: UIView {
     var andLabel: UILabel!
     var termsofService: UIButton!
     var privacyPolicy: UIButton!
+    
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
