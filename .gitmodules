@@ -4,3 +4,6 @@
 [submodule "Vendors/SwiftyJSON"]
 	path = Vendors/SwiftyJSON
 	url = https://github.com/SwiftyJSON/SwiftyJSON.git
+[submodule "Vendors/Quick"]
+	path = Vendors/Quick
+	url = git@github.com:Quick/Quick.git
