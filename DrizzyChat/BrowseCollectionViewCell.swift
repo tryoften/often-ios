@@ -18,6 +18,7 @@ class BrowseCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         
         rankLabel = UILabel()
+        rankLabel.textAlignment = .Center
         rankLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         rankLabel.font = UIFont(name: "Lato-Regular", size: 16.0)
         

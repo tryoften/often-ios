@@ -104,7 +104,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
-        return CGSizeMake(screenWidth, 55.5)
+        return CGSizeMake(screenWidth, 39.5)
     }
     
     func browseViewModelDidLoadTracks(browseViewModel: BrowseViewModel, trackList: [Track]) {
