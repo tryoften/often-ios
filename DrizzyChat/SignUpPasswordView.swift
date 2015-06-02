@@ -85,7 +85,7 @@ class SignUpPasswordView: UIView {
             passwordTxtFieldOne.al_centerX == al_centerX,
             
             spacer.al_top == passwordTxtFieldOne.al_bottom + 8,
-            spacer.al_height == 1,
+            spacer.al_height == 0,7,
             spacer.al_width == 40,
             spacer.al_centerX == al_centerX,
             
@@ -101,7 +101,7 @@ class SignUpPasswordView: UIView {
             confirmPasswordTxtField.al_centerX == al_centerX,
             
             spacerTwo.al_top == confirmPasswordTxtField.al_bottom + 8,
-            spacerTwo.al_height == 1,
+            spacerTwo.al_height == 0.7,
             spacerTwo.al_width == 40,
             spacerTwo.al_centerX == al_centerX,
             
