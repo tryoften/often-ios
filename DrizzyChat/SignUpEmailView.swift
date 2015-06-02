@@ -12,48 +12,28 @@ class SignUpEmailView: UIView {
     var titleLabel: UILabel!
     var emailTxtField : UITextField!
     var spacer : UIView!
-    var termAndServiceLabel: UILabel!
-    var andLabel: UILabel!
-    var termsofService: UIButton!
-    var privacyPolicy: UIButton!
+    var termsAndPrivacyView : TermsAndPrivacyView
     
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
-        titleLabel.font = BaseFont
+        titleLabel.font = UIFont(name: "OpenSans", size: 14)
+        titleLabel.textColor = UIColor(fromHexString: "#202020")
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        titleLabel.text = "WHAT'S YOUR EMAIL?"
+        titleLabel.text = "what's your email?".uppercaseString
         
         emailTxtField = UITextField()
         emailTxtField.textAlignment = .Center
-        emailTxtField.font = BaseFont
+        emailTxtField.font = TitleFont
+        emailTxtField.placeholder = "Email Here"
         emailTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         spacer = UIView()
         spacer.setTranslatesAutoresizingMaskIntoConstraints(false)
         spacer.backgroundColor = UIColor.blackColor()
         
-        termAndServiceLabel = UILabel()
-        termAndServiceLabel.textAlignment = .Center
-        termAndServiceLabel.font = BaseFont
-        termAndServiceLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        termAndServiceLabel.text = "By registering, I accept the "
-        
-        andLabel = UILabel()
-        andLabel.textAlignment = .Center
-        andLabel.font = BaseFont
-        andLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        andLabel.text = "&"
-        
-        termsofService = UIButton()
-        termsofService.setTranslatesAutoresizingMaskIntoConstraints(false)
-        termsofService.setTitle("Terms of Service", forState: .Normal)
-        termsofService.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        
-        privacyPolicy = UIButton()
-        privacyPolicy.setTranslatesAutoresizingMaskIntoConstraints(false)
-        privacyPolicy.setTitle("Privacy Policy", forState: .Normal)
-        privacyPolicy.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        termsAndPrivacyView = TermsAndPrivacyView()
+        termsAndPrivacyView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         super.init(frame: frame)
         
@@ -61,11 +41,10 @@ class SignUpEmailView: UIView {
         addSubview(titleLabel)
         addSubview(emailTxtField)
         addSubview(spacer)
-        addSubview(termAndServiceLabel)
-        addSubview(andLabel)
-        addSubview(termsofService)
-        addSubview(privacyPolicy)
+        addSubview(termsAndPrivacyView)
+        
         setupLayout()
+
         
     }
     
@@ -74,38 +53,24 @@ class SignUpEmailView: UIView {
     }
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 170,
+            titleLabel.al_top == al_top + 190,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_centerX == al_centerX,
             
             emailTxtField.al_top == titleLabel.al_bottom + 20,
-            emailTxtField.al_width == 100,
-            emailTxtField.al_height == 44,
+            emailTxtField.al_left == al_left + 20,
+            emailTxtField.al_right == al_right - 20,
             emailTxtField.al_centerX == al_centerX,
             
             spacer.al_top == emailTxtField.al_bottom + 8,
-            spacer.al_height == 1,
-            spacer.al_width == 60,
+            spacer.al_height == 0.7,
+            spacer.al_width == 40,
             spacer.al_centerX == al_centerX,
             
-            termAndServiceLabel.al_top == spacer.al_bottom + 20,
-            termAndServiceLabel.al_left == al_left,
-            termAndServiceLabel.al_right == al_right,
-            termAndServiceLabel.al_centerX == al_centerX,
-            
-            andLabel.al_top == termAndServiceLabel.al_bottom + 6,
-            andLabel.al_width == 20,
-            andLabel.al_centerX == al_centerX,
-            
-            termsofService.al_top == termAndServiceLabel.al_bottom + 2,
-            termsofService.al_width == 140,
-            termsofService.al_right == andLabel.al_left - 4,
-            
-            privacyPolicy.al_top == termAndServiceLabel.al_bottom + 2,
-            privacyPolicy.al_width == 120,
-            privacyPolicy.al_left == andLabel.al_right + 4,
-            
+            termsAndPrivacyView.al_top == spacer.al_bottom + 75,
+            termsAndPrivacyView.al_left == al_left + 32,
+            termsAndPrivacyView.al_right == al_right - 32,
             ])
     }
 }
