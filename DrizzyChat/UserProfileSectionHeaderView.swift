@@ -21,9 +21,11 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         titleLabel = UILabel()
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        let attributedString = NSMutableAttributedString(string: "Keyboards".uppercaseString)
-        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.2), range: NSRange(location: 0, length: 9))
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 15)!, range: NSRange(location: 0, length: 9))
+        let headerText = "Cards".uppercaseString
+        let range = NSRange(location: 0, length: count(headerText))
+        let attributedString = NSMutableAttributedString(string: headerText)
+        attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.2), range: range)
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 15)!, range: range)
         
         titleLabel.attributedText = attributedString
         

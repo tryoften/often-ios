@@ -50,16 +50,18 @@ class SignUpFormViewModel: NSObject {
         } else {
             isExistingUser = true
         }
-        
-        user.username = email
-        user.email = email
-        user.password = password
-        user["fullName"] = fullName
-        
-        if !isExistingUser {
-            user.signUpInBackgroundWithBlock(completion)
-        } else {
-            user.saveInBackgroundWithBlock(completion)
+
+        if let user = user {
+            user.username = email
+            user.email = email
+            user.password = password
+            user["fullName"] = fullName
+            
+            if !isExistingUser {
+                user.signUpInBackgroundWithBlock(completion)
+            } else {
+                user.saveInBackgroundWithBlock(completion)
+            }
         }
     }
 }
