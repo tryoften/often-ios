@@ -15,7 +15,7 @@ class SignUpWalkthroughViewController: UIViewController {
         super.viewDidLoad()
         
         //view.backgroundColor = UIColor(fromHexString: "#f7f7f7")
-        var signUpOrLoginView = SignUpOrLoginView()
+        var signUpOrLoginView = TermsAndPrivacyView()
         signUpOrLoginView.frame = view.bounds
         view.addSubview(signUpOrLoginView)
         
