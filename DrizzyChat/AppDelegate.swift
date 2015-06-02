@@ -53,10 +53,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             mainController = KeyboardViewController()
         } else {
             mainController = WalkthroughViewController()
+            mainController = BrowseCollectionViewController(viewModel: BrowseViewModel(sessionManager: sessionManager))
             
-            if shouldHomeViewBeShown() {
-                mainController = TabBarController(sessionManager: sessionManager)
-            }
+//            if shouldHomeViewBeShown() {
+//                mainController = TabBarController(sessionManager: sessionManager)
+//
+//            }
         }
         
         if let window = self.window {

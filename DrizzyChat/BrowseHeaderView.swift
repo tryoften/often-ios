@@ -26,11 +26,13 @@ class BrowseHeaderView: UICollectionReusableView {
         
         // (kom) not sure if should have own view like the Facebook Button
         addArtistButton = UIButton()
-        addArtistButton.backgroundColor = UIColor(fromHexString: "")
+        //addArtistButton.backgroundColor = UIColor(fromHexString: "#")
         addArtistButton.titleLabel?.textAlignment = .Center
         addArtistButton.titleLabel?.text = "Add Artist"
         
         super.init(frame: frame)
+        
+        backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
         setLayout()
     }

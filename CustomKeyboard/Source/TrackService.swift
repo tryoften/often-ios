@@ -23,7 +23,7 @@ class TrackService: NSObject {
         super.init()
     }
     
-    func requestData(completion: (Bool)-> Void) { 
+    func requestData(completion: ([String:Track])-> Void) {
         tracksRef.observeEventType(.Value, withBlock: { snapshot in
             if let tracksData = snapshot.value as? [String : [String : String]]{
                 for (key, data) in tracksData {
@@ -32,10 +32,9 @@ class TrackService: NSObject {
                         var data = trackData
                         data["id"] = trackId
                         var currentTrack = Track(dictionary: data)
-                        println("\(trackId)")
-                        self.tracks["\(trackId)"] = currentTrack //append [String:Track] to self.tracks
+                        self.tracks["\(trackId)"] = currentTrack
                     }
-                    //need completion still
+                    completion(self.tracks)
                 }
             }
         })

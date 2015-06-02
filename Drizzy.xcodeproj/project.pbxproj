@@ -8,8 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		31838A8D340CC45D4B35C4E2 /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */; };
+		6984D2D91B1BB527001F2295 /* TrackCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6984D2D81B1BB527001F2295 /* TrackCollectionViewController.swift */; };
 		698B13E71B14176600E06CD0 /* ArtistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010701AE89631008F3296 /* ArtistService.swift */; };
-		698B13E91B14266700E06CD0 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698B13E81B14266700E06CD0 /* BrowseViewController.swift */; };
+		69BDF0BA1B1AE2FC0021902C /* BrowseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */; };
+		69BDF0BF1B1AEFFC0021902C /* BrowseCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BDF0BE1B1AEFFC0021902C /* BrowseCollectionViewFlowLayout.swift */; };
+		69ED8B501B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */; };
+		69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */; };
 		69EE3F291B1639A00008BC7A /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE3F281B1639A00008BC7A /* BrowseViewModel.swift */; };
 		69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */; };
 		810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
@@ -253,7 +257,11 @@
 
 /* Begin PBXFileReference section */
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
-		698B13E81B14266700E06CD0 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		6984D2D81B1BB527001F2295 /* TrackCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCollectionViewController.swift; sourceTree = "<group>"; };
+		69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewController.swift; sourceTree = "<group>"; };
+		69BDF0BE1B1AEFFC0021902C /* BrowseCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewCell.swift; sourceTree = "<group>"; };
+		69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSectionHeaderView.swift; sourceTree = "<group>"; };
 		69EE3F281B1639A00008BC7A /* BrowseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewModel.swift; sourceTree = "<group>"; };
 		69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderView.swift; sourceTree = "<group>"; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -460,6 +468,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		69BDF0BD1B1AEEFC0021902C /* View Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				69BDF0BE1B1AEFFC0021902C /* BrowseCollectionViewFlowLayout.swift */,
+			);
+			name = "View Layouts";
+			sourceTree = "<group>";
+		};
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -623,8 +639,9 @@
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				816FE5AF1A881C6500E42C17 /* SignUpFormViewController.swift */,
 				816CE0961A99A32700D718E1 /* LoginFormViewController.swift */,
-				698B13E81B14266700E06CD0 /* BrowseViewController.swift */,
 				81592F991B0FA55A0092EA8F /* TabBarController.swift */,
+				69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */,
+				6984D2D81B1BB527001F2295 /* TrackCollectionViewController.swift */,
 				81592F9C1B0FA5750092EA8F /* UserProfileViewController.swift */,
 			);
 			name = "View Controllers";
@@ -638,6 +655,8 @@
 				81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */,
 				81B6D5861A956E680089767B /* LoginIndicatorView.swift */,
 				69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */,
+				69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */,
+				69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */,
 				81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */,
 				81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */,
 				816FE5A01A86E5FB00E42C17 /* Walkthrough Pages */,
@@ -684,6 +703,7 @@
 				816EB96C1AE5EB7F000620E2 /* Utilities */,
 				816CE0741A992E7100D718E1 /* Categories */,
 				81413DB31A91C0A400926E7C /* View Models */,
+				69BDF0BD1B1AEEFC0021902C /* View Layouts */,
 				816FE5A21A86E67100E42C17 /* Views */,
 				816FE5A11A86E66900E42C17 /* View Controllers */,
 				8180E60D1A142157007FA1CF /* AppDelegate.swift */,
@@ -1201,6 +1221,7 @@
 				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
 				81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */,
 				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
+				69BDF0BF1B1AEFFC0021902C /* BrowseCollectionViewFlowLayout.swift in Sources */,
 				813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */,
 				81592FA81B0FA6CE0092EA8F /* CategoryCollectionViewController.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
@@ -1209,9 +1230,9 @@
 				81592F9F1B0FA57E0092EA8F /* UserProfileViewModel.swift in Sources */,
 				816CE0971A99A32700D718E1 /* LoginFormViewController.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
-				698B13E91B14266700E06CD0 /* BrowseViewController.swift in Sources */,
 				81592FA61B0FA5E90092EA8F /* CategoriesPanelView.swift in Sources */,
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
+				69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */,
 				81331E141A17FA88003E4609 /* Category.swift in Sources */,
 				816FE5AA1A87264C00E42C17 /* VideoTutorialWalkthroughPage.swift in Sources */,
 				81592FA21B0FA5870092EA8F /* UserProfileHeaderView.swift in Sources */,
@@ -1249,8 +1270,11 @@
 				817618EE1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
 				8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */,
 				816FE5AC1A87275A00E42C17 /* SignUpWalkthroughPage.swift in Sources */,
+				69ED8B501B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift in Sources */,
+				69BDF0BA1B1AE2FC0021902C /* BrowseCollectionViewController.swift in Sources */,
 				817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
+				6984D2D91B1BB527001F2295 /* TrackCollectionViewController.swift in Sources */,
 				816FE5A71A8724A500E42C17 /* AlbumCoverArtsWalkthroughPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -44,6 +44,7 @@ class Track: NSObject {
     private var dict: [String: String]
     
     init(dictionary: [String: String]) {
+        
         self.dict = dictionary
         id = dictionary["id"]!
         name = (dictionary["name"] ?? dictionary["track_name"])!

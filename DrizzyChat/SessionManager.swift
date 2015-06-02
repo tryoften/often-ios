@@ -12,6 +12,7 @@ class SessionManager: NSObject {
     
     var firebase: Firebase
     var keyboardService: KeyboardService?
+    var trackService: TrackService?
     var userRef: Firebase?
     var currentUser: User?
     private var observers: NSMutableArray
@@ -36,9 +37,9 @@ class SessionManager: NSObject {
         }
         
         var trackService = TrackService(root: self.firebase)
-        trackService.requestData({ done in
+        trackService.requestData { done in
             
-        })
+        }
         
         
         self.firebase.observeAuthEventWithBlock { authData in
@@ -55,6 +56,13 @@ class SessionManager: NSObject {
         } else {
             // TODO(luc): throw an error if the current user is not set
         }
+    }
+    
+    func fetchTracks() {
+        self.trackService = TrackService(root: firebase)
+        self.trackService?.requestData({ data in
+            self.broadcastDidFetchTracksEvent()
+        })
     }
     
     private func processAuthData(authData: FAuthData?) {
@@ -93,6 +101,14 @@ class SessionManager: NSObject {
         if let keyboardService = self.keyboardService {
             for observer in observers {
                 observer.sessionManagerDidFetchKeyboards(self, keyboards: keyboardService.keyboards)
+            }
+        }
+    }
+    
+    private func broadcastDidFetchTracksEvent(){
+        if let trackService = self.trackService {
+            for observer in observers {
+                observer.sessionManagerDidFetchTracks(self, tracks: trackService.tracks)
             }
         }
     }
@@ -163,4 +179,5 @@ class SessionManager: NSObject {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User)
     func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard])
+    func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track])
 }

@@ -19,25 +19,58 @@ Table View Cell
     -> Add a cellAccessoryDisclosureIndicator in right block
 *******************************************************************************************************/
 
-class BrowseViewModel: NSObject, UITableViewDataSource {
-    var tracks: [Track]?
+class BrowseViewModel: NSObject, SessionManagerObserver {
+    var sessionManager: SessionManager
+    var delegate: BrowseViewModelDelegate?
+    var tracksList: [Track]?
     
-    //(kom) maybe should create own table cell object
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
-        
-        //cell.textLabel?.text = //track name
-        //cell.detailTextLabel?.text = //lyric count
-        cell.textLabel?.font = UIFont(name: "Lato-Regular", size: 18.0)
-        cell.detailTextLabel?.font = UIFont(name: "Lato-Regular", size: 14.0)
-        
-        cell.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
-        
-        return cell
+    init(sessionManager: SessionManager){
+        self.sessionManager = sessionManager
+        super.init()
+        self.sessionManager.addSessionObserver(self)
+        sessionManager.fetchTracks()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+    func requestData(completion: ((Bool) -> ())? = nil) {
+        sessionManager.login()
     }
     
+    func trackNameAtIndex(index: Int) -> String? {
+        if let tracksList = tracksList {
+            if index < tracksList.count {
+                return tracksList[index].name
+            }
+        }
+
+        return "No Track Name"
+    }
+    
+//    func lyricCountAtIndex(index: Int) -> Int? {
+//        if let tracksList = tracksList {
+//            if index < tracksList.count {
+//                return tracksList[index].lyricCount
+//            }
+//        }
+//    }
+    
+    func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
+        
+    }
+    
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
+        
+    }
+    
+    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard]) {
+        
+    }
+    
+    func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track]) {
+        tracksList = tracks.values.array
+        self.delegate?.browseViewModelDidLoadTrackList(self, tracks: self.tracksList!)
+    }
+}
+
+protocol BrowseViewModelDelegate {
+    func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track])
 }
