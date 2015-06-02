@@ -49,7 +49,6 @@ class SignUpPhoneNumberView: UIView {
         addSubview(phoneNumberTxtField)
         
         setupLayout()
-
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -79,6 +78,5 @@ class SignUpPhoneNumberView: UIView {
             subtitleLabel.al_height == 80,
             ])
     }
-    
     
 }

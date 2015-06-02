@@ -101,7 +101,6 @@ class SignUpOrLoginView: UIView {
         buttonView.addSubview(loginButton)
         
         setupLayout()
-
     }
 
     required init(coder aDecoder: NSCoder) {

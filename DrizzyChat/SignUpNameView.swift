@@ -44,7 +44,6 @@ class SignUpNameView: UIView {
         addSubview(termsAndPrivacyView)
         
         setupLayout()
-        
     }
 
      required init(coder aDecoder: NSCoder) {
@@ -73,4 +72,5 @@ class SignUpNameView: UIView {
             termsAndPrivacyView.al_right == al_right - 32,
             ])
     }
+    
 }
