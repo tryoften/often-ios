@@ -14,7 +14,10 @@ class SessionManager: NSObject {
     var keyboardService: KeyboardService?
     var userRef: Firebase?
     var currentUser: User?
+    var userDefaults: NSUserDefaults
+
     private var observers: NSMutableArray
+    static let defaultManager = SessionManager()
     
     let permissions = [
         "public_profile",
@@ -26,6 +29,7 @@ class SessionManager: NSObject {
     init(firebase: Firebase = Firebase(url: BaseURL)) {
         self.firebase = firebase
         self.observers = NSMutableArray()
+        self.userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         
         super.init()
         
@@ -43,6 +47,10 @@ class SessionManager: NSObject {
         } else {
             // TODO(luc): throw an error if the current user is not set
         }
+    }
+    
+    private func persistSession() {
+
     }
     
     private func processAuthData(authData: FAuthData?) {
@@ -122,6 +130,8 @@ class SessionManager: NSObject {
                 
                 data["profile_pic_small"] = String(format: profilePicURLTemplate, data["id"] as! String, "small")
                 data["profile_pic_large"] = String(format: profilePicURLTemplate, data["id"] as! String, "large")
+                
+                self.userDefaults.setObject(data, forKey: "user")
                 
                 completion(data, nil)
             } else {
