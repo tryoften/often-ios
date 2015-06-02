@@ -32,7 +32,8 @@ class UserProfileHeaderView: UICollectionReusableView {
         profileImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         profileImageView.layer.borderColor = UIColor.whiteColor().CGColor
         profileImageView.layer.borderWidth = 3
-
+        profileImageView.clipsToBounds = true
+        
         metadataView = UIView()
         metadataView.setTranslatesAutoresizingMaskIntoConstraints(false)
         metadataView.backgroundColor = UIColor.whiteColor()

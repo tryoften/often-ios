@@ -1,6 +1,6 @@
 [submodule "Vendors/SwiftAutoLayout"]
 	path = Vendors/SwiftAutoLayout
-	url = git@github.com:indragiek/SwiftAutoLayout.git
+	url = https://github.com/indragiek/SwiftAutoLayout.git
 [submodule "Vendors/SwiftyJSON"]
 	path = Vendors/SwiftyJSON
-	url = git@github.com:SwiftyJSON/SwiftyJSON.git
+	url = https://github.com/SwiftyJSON/SwiftyJSON.git
