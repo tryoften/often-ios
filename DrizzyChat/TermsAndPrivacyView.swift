@@ -32,12 +32,15 @@ class TermsAndPrivacyView: UIView {
         termsofServiceButton = UIButton()
         termsofServiceButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         termsofServiceButton.setTitle("Terms of Service", forState: .Normal)
-        termsofServiceButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        termsofServiceButton.titleLabel!.font = UIFont(name: "Oswald-Regular", size: 12)
+        termsofServiceButton.setTitleColor(BlackColor, forState: .Normal)
         
         privacyPolicyButton = UIButton()
         privacyPolicyButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         privacyPolicyButton.setTitle("Privacy Policy", forState: .Normal)
         privacyPolicyButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        privacyPolicyButton.titleLabel!.font = UIFont(name: "Oswald-Regular", size: 12)
+        privacyPolicyButton.setTitleColor(BlackColor, forState: .Normal)
         
         super.init(frame: frame)
         
@@ -61,18 +64,20 @@ class TermsAndPrivacyView: UIView {
             termAndServiceLabel.al_right == al_right,
             termAndServiceLabel.al_centerX == al_centerX,
             
-            andLabel.al_top == termAndServiceLabel.al_bottom + 6,
-            andLabel.al_width == 20,
+            andLabel.al_top == termAndServiceLabel.al_bottom,
+            andLabel.al_width == 15,
             andLabel.al_centerX == al_centerX,
+            andLabel.al_height == 17,
             
-            termsofServiceButton.al_top == termAndServiceLabel.al_bottom + 2,
-            termsofServiceButton.al_width == 140,
-            termsofServiceButton.al_right == andLabel.al_left - 4,
+            termsofServiceButton.al_top == termAndServiceLabel.al_bottom,
+            termsofServiceButton.al_width == 80,
+            termsofServiceButton.al_right == andLabel.al_left,
+            termsofServiceButton.al_height == andLabel.al_height,
             
-            privacyPolicyButton.al_top == termAndServiceLabel.al_bottom + 2,
-            privacyPolicyButton.al_width == 120,
-            privacyPolicyButton.al_left == andLabel.al_right + 4,
-            
+            privacyPolicyButton.al_top == termAndServiceLabel.al_bottom ,
+            privacyPolicyButton.al_width == 70,
+            privacyPolicyButton.al_left == andLabel.al_right,
+            privacyPolicyButton.al_height == andLabel.al_height,
             ])
     }
     
