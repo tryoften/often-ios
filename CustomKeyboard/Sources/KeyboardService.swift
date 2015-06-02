@@ -9,14 +9,20 @@
 import UIKit
 
 class KeyboardService: NSObject {
-    var userId: String
+    var userId: String?
     var keyboardsRef: Firebase
     var keyboards: [String: Keyboard]
     var root: Firebase
 
-    init(userId: String, root: Firebase) {
+    init(userId: String?, root: Firebase) {
         self.userId = userId
-        self.keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
+        
+        if let userId = userId {
+            self.keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
+        } else {
+            self.keyboardsRef = root.childByAppendingPath("keyboards")
+        }
+        
         self.root = root
         self.keyboards = [String: Keyboard]()
         super.init()
