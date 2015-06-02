@@ -154,11 +154,13 @@ class SessionManager: NSObject {
             if error == nil {
                 println("\(result)")
                 var data = (result as! NSDictionary).mutableCopy() as! NSMutableDictionary
+                var userId = data["id"] as! String
                 var profilePicURLTemplate = "https://graph.facebook.com/%@/picture?type=%@"
                 
-                data["profile_pic_small"] = String(format: profilePicURLTemplate, data["id"] as! String, "small")
-                data["profile_pic_large"] = String(format: profilePicURLTemplate, data["id"] as! String, "large")
+                data["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
+                data["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
                 
+                self.userDefaults.setObject(userId, forKey: "userId")
                 self.userDefaults.setObject(data, forKey: "user")
                 
                 completion(data, nil)
