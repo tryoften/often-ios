@@ -110,7 +110,6 @@ class SignUpOrLoginView: UIView {
     
     func setupLayout() {
         addConstraints([
-            
             titleLabel.al_top == al_top + 55,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
