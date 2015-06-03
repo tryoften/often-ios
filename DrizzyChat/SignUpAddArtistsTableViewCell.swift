@@ -20,7 +20,10 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         artistImageView = UIImageView()
         artistImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistImageView.contentMode = .ScaleAspectFit
-        artistImageView.image = UIImage(named: "ArtistPicture")
+        artistImageView.backgroundColor = UIColor.blueColor()
+        artistImageView.layer.cornerRadius  = 20
+        artistImageView.layer.masksToBounds = true
+        
         
         artistNameLabel = UILabel()
         artistNameLabel.textAlignment = .Left
@@ -31,8 +34,8 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         
         lyricsCountLabel = UILabel()
         lyricsCountLabel.textAlignment = .Left
-        lyricsCountLabel.font = UIFont(name: "OpenSans", size: 14)
-        lyricsCountLabel.textColor = UIColor(fromHexString: "#202020")
+        lyricsCountLabel.font = UIFont(name: "OpenSans", size: 10)
+        lyricsCountLabel.textColor = SubtitleGreyColor
         lyricsCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         lyricsCountLabel.text = "128 Lyrics"
         
@@ -55,20 +58,17 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
     func setupLayout() {
         addConstraints([
             
-            artistImageView.al_left == al_left + 5,
+            artistImageView.al_left == al_left + 15,
             artistImageView.al_width == 40,
             artistImageView.al_height == 40,
             artistImageView.al_centerY == al_centerY,
             
-            artistNameLabel.al_top == al_top + 20,
-            artistNameLabel.al_left == artistImageView.al_right + 15,
-            artistNameLabel.al_right == selectionButton.al_left - 5,
-            artistNameLabel.al_height == 20,
+            artistNameLabel.al_top == al_top + 15,
+            artistNameLabel.al_left == artistImageView.al_right + 20,
             artistNameLabel.al_centerX == al_centerX,
             
             lyricsCountLabel.al_top == artistNameLabel.al_bottom,
-            lyricsCountLabel.al_left == artistImageView.al_right + 5,
-            lyricsCountLabel.al_right == selectionButton.al_left - 5,
+            lyricsCountLabel.al_left == artistImageView.al_right + 20,
             lyricsCountLabel.al_centerX == al_centerX,
             
             
