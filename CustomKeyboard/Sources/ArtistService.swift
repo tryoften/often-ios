@@ -10,7 +10,6 @@ import UIKit
 
 class ArtistService: NSObject {
     var artistsRef: Firebase
-
     var artists: [String: Artist]
     
     init(root: Firebase) {
@@ -19,7 +18,21 @@ class ArtistService: NSObject {
         super.init()
     }
     
-    func requestData(completion: (Bool) -> Void) {
+    func requestData(completion: (success:Bool) -> Void) {
+        artistsRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
+            if let artistsData = snapshot.value as? [String: NSDictionary] {
+                for (owner, data) in artistsData
+                {
+                    //let artistsRefKey = owner
+                    let artistsRefName = Artist(id: owner, dictionary: data)
+                    
+                    //println(artistsRefKey)
+                    println(artistsRefName.name)
+                }
+                
+            }
+
+        })
         
     }
 }
