@@ -10,26 +10,27 @@ import UIKit
 
 class ArtistService: NSObject {
     var artistsRef: Firebase
-    var artists: [String: Artist]
+    var artistsList: [String: Artist]
     
     init(root: Firebase) {
-        artistsRef = root.childByAppendingPath("owners")
-        artists = [String: Artist]()
+        self.artistsRef = root.childByAppendingPath("owners")
+        self.artistsList = [String: Artist]()
         super.init()
     }
     
-    func requestData(completion: (success:Bool) -> Void) {
+    func requestData(completion: (artistsList:[String: Artist]) -> Void) {
         artistsRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
             if let artistsData = snapshot.value as? [String: NSDictionary] {
                 for (owner, data) in artistsData
                 {
-                    //let artistsRefKey = owner
                     let artistsRefName = Artist(id: owner, dictionary: data)
-                    
-                    //println(artistsRefKey)
-                    println(artistsRefName.name)
+                    self.artistsList[owner] = artistsRefName
+                    println(self.artistsList.count)
                 }
-                
+                //ask luc about adding a bool in the completion block
+                if self.artistsList.count <= 1{
+                    completion(artistsList: self.artistsList)
+                }
             }
 
         })

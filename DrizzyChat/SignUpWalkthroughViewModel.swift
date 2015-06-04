@@ -13,14 +13,19 @@ class SignUpWalkthroughViewModel: NSObject {
     var fullName: String
     var email: String
     var password: String
-    var artistsList: [String]
+    var artistSelectedList: [String]?
+    var artistsList: [Artist]
+    var artistService: ArtistService
     
-    override init() {
-        phoneNumber = ""
-        fullName = ""
-        email = ""
-        password = ""
-        artistsList = [""]
+     init(artistService: ArtistService) {
+        self.phoneNumber = ""
+        self.fullName = ""
+        self.email = ""
+        self.password = ""
+        self.artistSelectedList = [String]()
+        self.artistsList = [Artist]()
+        self.artistService = artistService
+
     }
     
     func isPhoneValid(testStr:String) -> Bool {
@@ -47,7 +52,37 @@ class SignUpWalkthroughViewModel: NSObject {
         return (passwordStrOne == passwordStrTwo)
     }
     
-    func isArtisitsListValid(artistList:[String]) -> Bool {
-        return artistList.isEmpty
+    func isArtistsSelectedListValid(artistList:[String]) -> Bool {
+        return artistSelectedList!.isEmpty
+    }
+    
+    func getListOfArtists(completion: (artist: [Artist]) -> ()) {
+        artistService.requestData { (artistsList) -> Void in
+            self.artistsList = artistsList.values.array
+        }
+        completion(artist:self.artistsList)
+    }
+    
+    func submitNewUser(completion: (success: Bool, error: NSError?) -> ()) {
+        var user = PFUser.currentUser()
+        var isExistingUser: Bool = false
+        
+        if user == nil {
+            user = PFUser()
+        } else {
+            isExistingUser = true
+        }
+        
+        user.username = email
+        user.email = email
+        user.password = password
+        user["fullName"] = fullName
+        user["phoneNumber"] = phoneNumber
+        
+        if !isExistingUser {
+            user.signUpInBackgroundWithBlock(completion)
+        } else {
+            user.saveInBackgroundWithBlock(completion)
+        }
     }
 }
