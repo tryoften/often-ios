@@ -9,13 +9,15 @@
 import UIKit
 
 class TrackService: NSObject {
-    var tracksRef : Firebase
+    var ref : Firebase
     var root : Firebase
     var tracks: [String: Track]
     var isDataLoaded: Bool
+    
+    let artistId = "-JoBAZJLJUQMdJXiCgch"
 
     init(root: Firebase) {
-        self.tracksRef = root.childByAppendingPath("contents")
+        self.ref = root.childByAppendingPath("owners")
         self.root = root
         self.tracks = [String: Track]()
         self.isDataLoaded = false
@@ -23,16 +25,32 @@ class TrackService: NSObject {
         super.init()
     }
     
-    func requestData(completion: ([String:Track])-> Void) {
-        tracksRef.observeEventType(.Value, withBlock: { snapshot in
-            if let tracksData = snapshot.value as? [String : [String : String]]{
-                for (key, data) in tracksData {
-                    if let trackData = data as? [String : String],
-                    let trackId = key as? String {
-                        var data = trackData
-                        data["id"] = trackId
-                        var currentTrack = Track(dictionary: data)
-                        self.tracks["\(trackId)"] = currentTrack
+    /*
+     * requestData(artistId: String): takes in an artist ID and returns all of the tracks for that
+     * artists in self.tracks as a [String : Track]
+     */
+    func requestData(completion: ([String : Track])-> Void) {
+        ref.observeEventType(.Value, withBlock: { snapshot in
+            // [artist ID : [image kind : image URL]]
+            if let artistsData = snapshot.value as? [String : [String : AnyObject]] {
+                for (key, data) in artistsData {
+                    //images and then track dictionary
+                    if let artistData = data as? [String : AnyObject],
+                    let artistId = key as? String {
+                        println("\(artistId)")
+                        self.ref = self.ref.childByAppendingPath("\(artistId)/tracks")
+                        self.ref.observeEventType(.Value, withBlock: { snapshot in
+                            if let tracksData = snapshot.value as? [String : [String : String]] {
+                                println("YOLO")
+                                for(key, data) in tracksData {
+                                    if let trackData = data as? [String : String],
+                                        let trackId = key as? String {
+                                        let currentTrack = Track(dictionary: trackData)
+                                        println("SUP")
+                                    }
+                                }
+                            }
+                        })
                     }
                     completion(self.tracks)
                 }
@@ -40,13 +58,40 @@ class TrackService: NSObject {
         })
     }
     
+    func getTracksForArtistId(artistId: String) {
+        println("1")
+        ref = ref.childByAppendingPath("/\(artistId)/tracks") //owners/artistID/tracks
+        println(ref)
+        ref.observeEventType(.Value, withBlock: { snapshot in
+            println()
+            println()
+            println()
+            println(snapshot)
+            println()
+            println()
+            println()
+            if let artistData = snapshot.value as? [String : [String : AnyObject]] {
+                for(key, data) in artistData {
+                    println("3")
+                    if let trackId: AnyObject = key as? AnyObject,
+                        let trackData = data as? [String : AnyObject] {
+                            var mutableTrackData = trackData
+                            mutableTrackData["id"] = key
+                            var currentTrack = Track(dictionary: mutableTrackData)
+                            self.tracks["\(trackId)"] = currentTrack
+                            println("Done!")
+                    }
+                }
+            }
+        })
+    }
+    
     func getTrackForLyric(lyric: Lyric, completion: (track: Track) -> ()) {
-        self.tracksRef.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
-            
+        self.ref.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
             println("\(snapshot.value)")
             if var trackData = snapshot.value as? [String: String] {
                 trackData["id"] = snapshot.key
-
+                
                 let track = Track(dictionary: trackData)
                 self.tracks[track.id] = track
                 

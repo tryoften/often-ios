@@ -45,13 +45,14 @@ class BrowseViewModel: NSObject, SessionManagerObserver {
         return "No Track Name"
     }
     
-//    func lyricCountAtIndex(index: Int) -> Int? {
-//        if let tracksList = tracksList {
-//            if index < tracksList.count {
-//                return tracksList[index].lyricCount
-//            }
-//        }
-//    }
+    func lyricCountAtIndex(index: Int) -> Int? {
+        if let tracksList = tracksList {
+            if index < tracksList.count {
+                return tracksList[index].lyricCount
+            }
+        }
+        return 0 
+    }
     
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
         

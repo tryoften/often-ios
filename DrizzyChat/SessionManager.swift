@@ -67,6 +67,8 @@ class SessionManager: NSObject {
         self.trackService?.requestData({ data in
             self.broadcastDidFetchTracksEvent()
         })
+        
+        self.trackService?.getTracksForArtistId("-Jo284H6WX4QySExfJ5U")
     }
 
     private func persistSession() {
