@@ -16,6 +16,10 @@ class Lyric: Object, DebugPrintable {
     var trackId: String?
     var track: Track?
     
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
     func toDictionary() -> [String: AnyObject] {
         var dict: [String: AnyObject] = [
             "id": id,

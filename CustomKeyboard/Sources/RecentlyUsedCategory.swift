@@ -10,12 +10,6 @@ import UIKit
 
 class RecentlyUsedCategory: Category {
     required init() {
-        
-//        super.init(value: [
-//            "id": "recently",
-//            "name": "Recently Used",
-//            "lyrics": []
-//        ])
         super.init()
         
         retrieveLyrics()

@@ -33,16 +33,20 @@ class Track: Object {
     dynamic var name: String = ""
     dynamic var artistName: String = ""
     dynamic var artistId: String = ""
-    dynamic var albumCoverImage: String?
-    dynamic var albumCoverImageLarge: String?
+    dynamic var albumCoverImage: String? = ""
+    dynamic var albumCoverImageLarge: String? = ""
     dynamic var owner: Owner?
-    dynamic var spotifyURL: String?
-    dynamic var soundcloudURL: String?
-    dynamic var rapgeniusURL: String?
-    dynamic var youtubeURL: String?
-    dynamic var previewURL: String?
+    dynamic var spotifyURL: String? = ""
+    dynamic var soundcloudURL: String? = ""
+    dynamic var rapgeniusURL: String? = ""
+    dynamic var youtubeURL: String? = ""
+    dynamic var previewURL: String? = ""
     
     private var dict: [String: String] = [String: String]()
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
     
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         var dictionary = keyedValues as! [String: String]
