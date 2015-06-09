@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Realm
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBAppEvents.activateApp()
         
         Flurry.startSession(FlurryClientKey)
+        
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+        RLMRealm.setDefaultRealmPath(realmPath)
 
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
@@ -51,10 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             mainController = KeyboardViewController()
         } else {
             mainController = SignUpWalkthroughViewController()
-            
-//            if shouldHomeViewBeShown() {
-//                mainController = TabBarController(sessionManager: sessionManager)
-//            }
         }
         
         if let window = self.window {

@@ -38,7 +38,6 @@ class KeyboardViewModel: NSObject {
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
-        
         keyboardService.requestData({ data in
             
             if self.keyboardService.keyboards.count > 0 {

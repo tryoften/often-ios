@@ -6,41 +6,20 @@
 //  Copyright (c) 2014 Luc Success. All rights reserved.
 //
 
-import UIKit
+import RealmSwift
 
-class Category: NSObject {
-    var id: String
-    var name: String
-    var lyrics = [Lyric]()
+class Category: Object {
+    dynamic var id: String = ""
+    dynamic var name: String = ""
+    let lyrics = List<Lyric>()
     var highlightColor: UIColor!
+    
+    override static func ignoredProperties() -> [String] {
+        return ["highlightColor"]
+    }
 
     var lyricsCount: Int {
         return self.lyrics.count
     }
-    
-    init(id: String, name: String, lyrics: [Lyric]?) {
-        self.id = id
-        self.name = name
-        if let lyrics = lyrics {
-            self.lyrics = lyrics
-        }
-        
-        super.init()
-    }
-    
-    func filterLyricsByText(filterText: String) -> [Lyric]? {
-        var filterLyricSet = [Lyric]()
-        
-        if filterText == "" {
-            return lyrics
-        }
-        
-        for lyric in lyrics {
-            if fuzzySearch(lyric.text, filterText, caseSensitive: true) {
-                filterLyricSet.append(lyric)
-            }
-        }
-        
-        return filterLyricSet
-    }
+
 }

@@ -6,34 +6,15 @@
 //  Copyright (c) 2014 Luc Success. All rights reserved.
 //
 
-import UIKit
+import Realm
+import RealmSwift
 
-class Lyric: NSObject, DebugPrintable {
-    var id: String
-    var text: String
-    var categoryId: String
+class Lyric: Object, DebugPrintable {
+    dynamic var id: String = ""
+    dynamic var text: String = ""
+    dynamic var categoryId: String = ""
     var trackId: String?
     var track: Track?
-    
-    init(dict: [String: AnyObject]) {
-        id = dict["id"] as! String
-        text = dict["text"] as! String
-        categoryId = dict["category_id"] as! String
-        trackId = dict["track_id"] as? String
-        
-        if let trackData = dict["track"] as? [String: String] {
-            track = Track(dictionary: trackData)
-        }
-    }
-
-    init(id: String, text: String, categoryId: String, trackId: String?) {
-        self.id = id
-        self.text = text
-        self.categoryId = categoryId
-        self.trackId = trackId
-
-        super.init()
-    }
     
     func toDictionary() -> [String: AnyObject] {
         var dict: [String: AnyObject] = [

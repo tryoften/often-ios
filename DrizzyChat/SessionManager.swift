@@ -62,13 +62,13 @@ class SessionManager: NSObject {
                 // TODO(luc): create user model with data and send event
                 if snapshot.exists() {
                     if let value = snapshot.value as? [String: AnyObject] {
-                        self.currentUser = User(data: value)
+                        self.currentUser = User(value: value)
                         self.broadcastUserLoginEvent()
                     }
                 } else {
                     self.getUserInfo({ (data, err) in
                         self.userRef?.setValue(data)
-                        self.currentUser = User(data: data as! [String : AnyObject])
+                        self.currentUser = User(value: data as! [String : AnyObject])
                         self.broadcastUserLoginEvent()
                     })
                 }

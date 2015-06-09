@@ -158,8 +158,7 @@ class SignUpFormViewController: UIViewController,
         if errorMessage == nil {
             viewModel.submitForm({ (completed, error) in
                 if completed {
-                    var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
-                    homeVC.loginIndicatorView.nameLabel.text = "Welcome, \(self.viewModel.fullName)"
+                    var homeVC = TabBarController(sessionManager: SessionManager.defaultManager)
                     
                     self.presentViewController(homeVC, animated: true, completion: nil)
                 } else {
@@ -177,7 +176,6 @@ class SignUpFormViewController: UIViewController,
     
     func didTapCancelButton() {
         self.dismissViewControllerAnimated(true, completion: nil)
-//        navigationController?.popoverPresentationController
     }
     
     func setupLayout() {

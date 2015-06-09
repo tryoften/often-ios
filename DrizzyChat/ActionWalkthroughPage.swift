@@ -16,11 +16,6 @@ class ActionWalkthroughPage: WalkthroughPage {
     }
     
     override func setupPage() {
-        var homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
-        homeVC.view.frame = self.bounds
-        self.addSubview(homeVC.view)
-        
-        homeVC.seeIntroButton.addTarget(self, action: "didTapIntroButton", forControlEvents: .TouchUpInside)
     }
     
     override func pageDidHide() {

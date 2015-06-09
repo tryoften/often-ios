@@ -6,4 +6,12 @@
 //  Copyright (c) 2015 Luc Success. All rights reserved.
 //
 
-import Foundation
+
+import RealmSwift
+
+class Owner: Object {
+    dynamic var id: String = ""
+    dynamic var name: String = ""
+    dynamic var imageURLSmall: String = ""
+    dynamic var imageURLLarge: String = ""
+}

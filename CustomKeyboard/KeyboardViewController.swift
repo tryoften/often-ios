@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Realm
 
 let EnableFullAccessMessage = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to do his thing"
 
@@ -33,9 +34,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             Firebase.defaultConfig().persistenceEnabled = true
         }
 
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+        RLMRealm.setDefaultRealmPath(realmPath)
+
         viewModel = KeyboardViewModel()
         var firebaseRoot = Firebase(url: BaseURL)
         lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot))
+        
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         viewModel.delegate = self
@@ -377,7 +383,9 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     func keyboardViewModelCurrentKeyboardDidChange(keyboardViewModel: KeyboardViewModel, keyboard: Keyboard) {
         categoryPicker.categories = keyboard.categoryList
         artistPicker?.scrollToCellAtIndex(keyboard.index)
-        sectionPickerView.switchArtistButton.artistImageView.setImageWithURL(keyboard.artist?.imageURLSmall)
+        if let imageURLSmall = keyboard.artist?.imageURLSmall {
+            sectionPickerView.switchArtistButton.artistImageView.setImageWithURL(NSURL(string: imageURLSmall))
+        }
     }
     
     // MARK: ArtistPickerCollectionViewControllerDelegate

@@ -140,12 +140,12 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
         if let headerView = headerView {
-            headerView.profileImageView.setImageWithURL(user.profileImageLarge)
+            headerView.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge))
             headerView.nameLabel.text = user.fullName.uppercaseString
             
             let coverImageURL = user.profileImageLarge
         
-            headerView.coverPhotoView.setImageWithURLRequest(NSURLRequest(URL: coverImageURL), placeholderImage: UIImage(), success: { (req, res, image) in
+            headerView.coverPhotoView.setImageWithURLRequest(NSURLRequest(URL: NSURL(string: coverImageURL)!), placeholderImage: UIImage(), success: { (req, res, image) in
                 let blurredImage = image.blurredImageWithRadius(8, iterations: 2, tintColor: UIColor.blackColor())
                 headerView.coverPhotoView.image = blurredImage
                 }, failure: { (req, res, err) in

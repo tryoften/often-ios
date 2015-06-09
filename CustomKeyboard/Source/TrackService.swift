@@ -6,35 +6,44 @@
 //  Copyright (c) 2014 Luc Success. All rights reserved.
 //
 
-import UIKit
+import RealmSwift
 
-class TrackService: NSObject {
+class TrackService: Service {
     var tracksRef : Firebase
-    var root : Firebase
     var tracks: [String: Track]
     var isDataLoaded: Bool
 
-    init(root: Firebase) {
+    override init(root: Firebase, realm: Realm = Realm()) {
         self.tracksRef = root.childByAppendingPath("contents")
-        self.root = root
         self.tracks = [String: Track]()
         self.isDataLoaded = false
 
-        super.init()
+        super.init(root: root, realm: realm)
     }
     
     func getTrackForLyric(lyric: Lyric, completion: (track: Track) -> ()) {
-        self.tracksRef.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
-            
-            println("\(snapshot.value)")
-            if var trackData = snapshot.value as? [String: String] {
-                trackData["id"] = snapshot.key
-
-                let track = Track(dictionary: trackData)
-                self.tracks[track.id] = track
+        dispatch_async(writeQueue) {
+            self.tracksRef.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
                 
-                completion(track: track)
-            }
-        })
+                println("\(snapshot.value)")
+                if var trackData = snapshot.value as? [String: String] {
+                    trackData["id"] = snapshot.key
+                    
+                    let track = Track()
+                    track.id = snapshot.key
+                    track.setValuesForKeysWithDictionary(trackData)
+                    
+                    self.tracks[track.id] = track
+                    
+                    self.realm.write {
+                        self.realm.add(track, update: true)
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        completion(track: track)
+                    }
+                }
+            })
+        }
     }
 }

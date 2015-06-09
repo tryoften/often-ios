@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31838A8D340CC45D4B35C4E2 /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */; };
+		0B34F6631E195D267E7C503E /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A7739D64C1EC7752556F914 /* libPods-CustomKeyboard.a */; };
 		3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */; };
 		3B4D9A961B14169300643EF8 /* SignUpEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */; };
 		3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */; };
@@ -52,6 +52,10 @@
 		81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
 		8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
 		8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
+		811B1E121B1F9D8F00618E1A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E111B1F9D8F00618E1A /* Service.swift */; };
+		811B1E131B1F9D8F00618E1A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E111B1F9D8F00618E1A /* Service.swift */; };
+		811B1E181B1FBE5200618E1A /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E171B1FBE5200618E1A /* Owner.swift */; };
+		811B1E191B1FBE5200618E1A /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E171B1FBE5200618E1A /* Owner.swift */; };
 		8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
 		8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
 		81240A791A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
@@ -117,8 +121,6 @@
 		817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */; };
 		817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */; };
 		81761A001AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */; };
-		81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81794EC81A81D6D5009D4A71 /* HomeViewController.swift */; };
-		81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81794EC91A81D6D5009D4A71 /* HomeViewController.xib */; };
 		81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED21A81E607009D4A71 /* Accounts.framework */; };
 		81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED41A81E613009D4A71 /* CFNetwork.framework */; };
 		81794ED71A81E621009D4A71 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED61A81E621009D4A71 /* AudioToolbox.framework */; };
@@ -191,6 +193,13 @@
 		8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6581A147A77007FA1CF /* Lato-ThinItalic.ttf */; };
 		8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
 		8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
+		818309771B1F6B4B005BB221 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818309761B1F6B4B005BB221 /* Realm.framework */; };
+		818309781B1F6B4B005BB221 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818309761B1F6B4B005BB221 /* Realm.framework */; };
+		818309861B1F7917005BB221 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818309851B1F7917005BB221 /* RealmSwift.framework */; };
+		818309871B1F7917005BB221 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818309851B1F7917005BB221 /* RealmSwift.framework */; };
+		818309881B1F7A1D005BB221 /* RealmSwift.framework in Resources */ = {isa = PBXBuildFile; fileRef = 818309851B1F7917005BB221 /* RealmSwift.framework */; };
+		818309891B1F7B33005BB221 /* RealmSwift.framework in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 818309851B1F7917005BB221 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8183098A1B1F7B74005BB221 /* Realm.framework in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 818309761B1F6B4B005BB221 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		819982AD1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */; };
 		819982AE1A547BB800D7027A /* RecentlyUsedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */; };
 		81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
@@ -210,12 +219,11 @@
 		81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		81DB4ED31A945251004EE28C /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DB4ED21A945251004EE28C /* backspace.png */; };
-		81DC114B1AF05CF400412BD2 /* SwiftyJSON in Resources */ = {isa = PBXBuildFile; fileRef = 81DC114A1AF05CF400412BD2 /* SwiftyJSON */; };
 		81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */ = {isa = PBXBuildFile; fileRef = 81DC114A1AF05CF400412BD2 /* SwiftyJSON */; };
 		81DC50AA1A9C2C5A00E2AA9B /* tutorial-video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 81DC50A91A9C2C5A00E2AA9B /* tutorial-video.mov */; };
 		81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
 		81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
-		C78A7615E4F5FBBBE83EF4C4 /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF6D0294D68428C6F0931653 /* libPods-CustomKeyboard.a */; };
+		DAED157B44A929A62A7ABEFA /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDCF48BC364A6872E706C264 /* libPods-Drizzy.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +271,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				8183098A1B1F7B74005BB221 /* Realm.framework in Embed App Extensions */,
+				818309891B1F7B33005BB221 /* RealmSwift.framework in Embed App Extensions */,
 				8180E6391A142199007FA1CF /* CustomKeyboard.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -292,18 +302,21 @@
 		3BAAB1DE1B1CFEB100EA1925 /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
 		3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPhoneNumberView.swift; sourceTree = "<group>"; };
 		3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameView.swift; sourceTree = "<group>"; };
+		6A7739D64C1EC7752556F914 /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-circle.ttf"; sourceTree = "<group>"; };
+		811B1E111B1F9D8F00618E1A /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = DrizzyChat/Service.swift; sourceTree = SOURCE_ROOT; };
+		811B1E171B1FBE5200618E1A /* Owner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Owner.swift; path = DrizzyChat/Owner.swift; sourceTree = SOURCE_ROOT; };
 		812029E91AED3AE0005D1D8F /* CustomKeyboardPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomKeyboardPrefixHeader.pch; path = Sources/CustomKeyboardPrefixHeader.pch; sourceTree = "<group>"; };
 		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
 		812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
 		813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
-		813138881B13ADA3001AF9AC /* Drizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Drizzy.entitlements; sourceTree = "<group>"; };
+		813138881B13ADA3001AF9AC /* Drizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Drizzy.entitlements; path = ../Drizzy.entitlements; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		81331E111A17F9F3003E4609 /* Lyric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lyric.swift; path = Source/Lyric.swift; sourceTree = "<group>"; };
@@ -345,8 +358,6 @@
 		817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistPickerCollectionViewController.swift; path = Sources/ArtistPickerCollectionViewController.swift; sourceTree = "<group>"; };
 		817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionViewCell.swift; path = Sources/ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionCloseButton.swift; path = Sources/ArtistCollectionCloseButton.swift; sourceTree = "<group>"; };
-		81794EC81A81D6D5009D4A71 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		81794EC91A81D6D5009D4A71 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		81794ED21A81E607009D4A71 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		81794ED41A81E613009D4A71 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		81794ED61A81E621009D4A71 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -391,6 +402,8 @@
 		8180E6571A147A77007FA1CF /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
 		8180E6581A147A77007FA1CF /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Source/LyricTableViewCell.swift; sourceTree = "<group>"; };
+		818309761B1F6B4B005BB221 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		818309851B1F7917005BB221 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		819982AC1A547BB800D7027A /* RecentlyUsedCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecentlyUsedCategory.swift; path = Sources/RecentlyUsedCategory.swift; sourceTree = "<group>"; };
 		81A1A4D31A196D6200D566B8 /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
 		81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HEXString.h"; sourceTree = "<group>"; };
@@ -411,9 +424,8 @@
 		928E8AB5169157015D98D681 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		BF6D0294D68428C6F0931653 /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.debug.xcconfig"; sourceTree = "<group>"; };
-		F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Drizzy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDCF48BC364A6872E706C264 /* libPods-Drizzy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Drizzy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -424,6 +436,7 @@
 			files = (
 				81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794EEB1A81E66D009D4A71 /* libsqlite3.dylib in Frameworks */,
+				818309861B1F7917005BB221 /* RealmSwift.framework in Frameworks */,
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
 				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
@@ -436,7 +449,8 @@
 				81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */,
 				81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */,
 				81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */,
-				31838A8D340CC45D4B35C4E2 /* libPods-Drizzy.a in Frameworks */,
+				818309771B1F6B4B005BB221 /* Realm.framework in Frameworks */,
+				DAED157B44A929A62A7ABEFA /* libPods-Drizzy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +466,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */,
+				818309781B1F6B4B005BB221 /* Realm.framework in Frameworks */,
+				818309871B1F7917005BB221 /* RealmSwift.framework in Frameworks */,
 				81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */,
@@ -465,7 +481,7 @@
 				81794EF71A81EC6D009D4A71 /* CFNetwork.framework in Frameworks */,
 				81794EF61A81EC62009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794EF51A81EC58009D4A71 /* Accounts.framework in Frameworks */,
-				C78A7615E4F5FBBBE83EF4C4 /* libPods-CustomKeyboard.a in Frameworks */,
+				0B34F6631E195D267E7C503E /* libPods-CustomKeyboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,10 +504,12 @@
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				818309851B1F7917005BB221 /* RealmSwift.framework */,
 				81164A8E1A9D699800AE5B30 /* libstdc++.dylib */,
 				81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */,
 				81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */,
 				81794EE81A81E666009D4A71 /* libz.dylib */,
+				818309761B1F6B4B005BB221 /* Realm.framework */,
 				81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */,
 				81794EE61A81E660009D4A71 /* SystemConfiguration.framework */,
 				81794EE21A81E651009D4A71 /* Social.framework */,
@@ -503,10 +521,20 @@
 				81794ED61A81E621009D4A71 /* AudioToolbox.framework */,
 				81794ED41A81E613009D4A71 /* CFNetwork.framework */,
 				81794ED21A81E607009D4A71 /* Accounts.framework */,
-				BF6D0294D68428C6F0931653 /* libPods-CustomKeyboard.a */,
-				F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */,
+				6A7739D64C1EC7752556F914 /* libPods-CustomKeyboard.a */,
+				DDCF48BC364A6872E706C264 /* libPods-Drizzy.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		811B1E101B1F961100618E1A /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				81592F921B0FA4F10092EA8F /* Managers */,
+				81331E061A17E552003E4609 /* Services */,
+				81331DFF1A17DF66003E4609 /* Models */,
+			);
+			name = Core;
 			sourceTree = "<group>";
 		};
 		81331DFF1A17DF66003E4609 /* Models */ = {
@@ -520,8 +548,10 @@
 				81C010751AE89956008F3296 /* Artist.swift */,
 				817618F31AE9ED4F00C7D9CB /* Keyboard.swift */,
 				81592F961B0FA51D0092EA8F /* User.swift */,
+				811B1E171B1FBE5200618E1A /* Owner.swift */,
 			);
 			name = Models;
+			path = CustomKeyboard;
 			sourceTree = "<group>";
 		};
 		81331E061A17E552003E4609 /* Services */ = {
@@ -530,8 +560,10 @@
 				81C010701AE89631008F3296 /* ArtistService.swift */,
 				81E897D91A32A17F005C7CD9 /* TrackService.swift */,
 				81C010771AE8A47C008F3296 /* KeyboardService.swift */,
+				811B1E111B1F9D8F00618E1A /* Service.swift */,
 			);
 			name = Services;
+			path = CustomKeyboard;
 			sourceTree = "<group>";
 		};
 		81331E161A1806BB003E4609 /* Vendors */ = {
@@ -597,6 +629,7 @@
 				81592F931B0FA5070092EA8F /* SessionManager.swift */,
 			);
 			name = Managers;
+			path = DrizzyChat;
 			sourceTree = "<group>";
 		};
 		81592FA91B0FB7B00092EA8F /* View Layouts */ = {
@@ -639,7 +672,6 @@
 		816FE5A11A86E66900E42C17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				81794EC81A81D6D5009D4A71 /* HomeViewController.swift */,
 				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				816FE5AF1A881C6500E42C17 /* SignUpFormViewController.swift */,
@@ -681,12 +713,12 @@
 		8180E5FF1A142157007FA1CF = {
 			isa = PBXGroup;
 			children = (
-				813138881B13ADA3001AF9AC /* Drizzy.entitlements */,
+				811B1E101B1F961100618E1A /* Core */,
 				8180E60A1A142157007FA1CF /* DrizzyChat */,
-				8180E6201A142158007FA1CF /* DrizzyChatTests */,
 				81331E161A1806BB003E4609 /* Vendors */,
 				8180E6321A142199007FA1CF /* CustomKeyboard */,
 				8180E6091A142157007FA1CF /* Products */,
+				8180E6201A142158007FA1CF /* DrizzyChatTests */,
 				3A906368B7CA46AA11C157BA /* Pods */,
 				7F93937CEF33AF0CDDEE7D74 /* Frameworks */,
 			);
@@ -705,7 +737,7 @@
 		8180E60A1A142157007FA1CF /* DrizzyChat */ = {
 			isa = PBXGroup;
 			children = (
-				81592F921B0FA4F10092EA8F /* Managers */,
+				813138881B13ADA3001AF9AC /* Drizzy.entitlements */,
 				816EB96C1AE5EB7F000620E2 /* Utilities */,
 				816CE0741A992E7100D718E1 /* Categories */,
 				81413DB31A91C0A400926E7C /* View Models */,
@@ -718,7 +750,6 @@
 				81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */,
 				8120FB471A648BBC00EA457A /* FuzzySearch.swift */,
 				810C40641A21125B00170DB4 /* Constants.swift */,
-				81794EC91A81D6D5009D4A71 /* HomeViewController.xib */,
 				81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */,
 			);
 			path = DrizzyChat;
@@ -756,8 +787,6 @@
 				81592FA91B0FB7B00092EA8F /* View Layouts */,
 				81B6D58D1A95B07B0089767B /* VIew Models */,
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
-				81331E061A17E552003E4609 /* Services */,
-				81331DFF1A17DF66003E4609 /* Models */,
 				8180E67D1A147F7D007FA1CF /* Views */,
 				8180E6461A1477F2007FA1CF /* Resources */,
 				8180E6331A142199007FA1CF /* Supporting Files */,
@@ -919,7 +948,6 @@
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
 				81164A9B1A9D760900AE5B30 /* Upload Symbols to Parse */,
-				819622141ADE0F9600B685B6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1031,6 +1059,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				818309881B1F7A1D005BB221 /* RealmSwift.framework in Resources */,
 				8180E6651A147A78007FA1CF /* Lato-Heavy.ttf in Resources */,
 				3BAAB1A41B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				8180E67B1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */,
@@ -1068,11 +1097,9 @@
 				3BAAB1A21B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
 				8180E6791A147A78007FA1CF /* Lato-Thin.ttf in Resources */,
 				8180E66D1A147A78007FA1CF /* Lato-LightItalic.ttf in Resources */,
-				81DC114B1AF05CF400412BD2 /* SwiftyJSON in Resources */,
 				81331E2B1A1806BB003E4609 /* Info.plist in Resources */,
 				8180E6731A147A78007FA1CF /* Lato-Regular.ttf in Resources */,
 				3BAAB1981B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
-				81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1207,19 +1234,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export PATH=/usr/local/bin:$PATH\ncd /Users/luc/parse/\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
 		};
-		819622141ADE0F9600B685B6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "touch \"${PROJECT_DIR}/CustomKeyboard/KeyboardViewController.swift\"";
-		};
 		819A375B1A9806900041F5E0 /* Update Bundle Version */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1273,7 +1287,6 @@
 				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
 				816FE5B01A881C6500E42C17 /* SignUpFormViewController.swift in Sources */,
 				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
-				81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */,
 				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
 				813E66C21A6DA541007E15AD /* WalkthroughPage.swift in Sources */,
 				81592FA81B0FA6CE0092EA8F /* CategoryCollectionViewController.swift in Sources */,
@@ -1283,6 +1296,7 @@
 				81592FAC1B0FC5450092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */,
 				81592F9F1B0FA57E0092EA8F /* UserProfileViewModel.swift in Sources */,
 				816CE0971A99A32700D718E1 /* LoginFormViewController.swift in Sources */,
+				811B1E181B1FBE5200618E1A /* Owner.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */,
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
@@ -1296,6 +1310,7 @@
 				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
 				817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
+				811B1E121B1F9D8F00618E1A /* Service.swift in Sources */,
 				817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				81592FA71B0FA64D0092EA8F /* LyricPickerTableViewController.swift in Sources */,
 				81592F971B0FA51D0092EA8F /* User.swift in Sources */,
@@ -1348,6 +1363,7 @@
 				81B6D5911A95B1F90089767B /* KeyboardKey.swift in Sources */,
 				81240A7A1A33BCF600E946F8 /* Track.swift in Sources */,
 				81592F911B0FA4740092EA8F /* CategoriesPanelView.swift in Sources */,
+				811B1E131B1F9D8F00618E1A /* Service.swift in Sources */,
 				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
@@ -1371,6 +1387,7 @@
 				81592F981B0FA51D0092EA8F /* User.swift in Sources */,
 				817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
+				811B1E191B1FBE5200618E1A /* Owner.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81C010761AE89956008F3296 /* Artist.swift in Sources */,
@@ -1494,6 +1511,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
+					"/Users/luc/Downloads/realm-swift-0.93.1/ios",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1503,7 +1521,6 @@
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Drizzy;
 				PROVISIONING_PROFILE = "";
@@ -1526,6 +1543,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
+					"/Users/luc/Downloads/realm-swift-0.93.1/ios",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1539,7 +1557,6 @@
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Drizzy;
 				PROVISIONING_PROFILE = "";
@@ -1616,7 +1633,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
-				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -1651,7 +1667,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
-				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;

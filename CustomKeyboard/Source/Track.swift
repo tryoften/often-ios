@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Luc Success. All rights reserved.
 //
 
-import UIKit
+import RealmSwift
 
 enum ShareOption : Printable {
     case Spotify
@@ -28,52 +28,56 @@ enum ShareOption : Printable {
     }
 }
 
-class Track: NSObject {
-    var id: String
-    var name: String
-    var albumCoverImage: NSURL?
-    var albumCoverImageLarge: NSURL?
-    var artistName: String
-    var artistId: String
-    var spotifyURL: NSURL?
-    var soundcloudURL: NSURL?
-    var rapgeniusURL: NSURL?
-    var youtubeURL: NSURL?
-    var previewURL: NSURL?
+class Track: Object {
+    dynamic var id: String = ""
+    dynamic var name: String = ""
+    dynamic var artistName: String = ""
+    dynamic var artistId: String = ""
+    dynamic var albumCoverImage: String?
+    dynamic var albumCoverImageLarge: String?
+    dynamic var owner: Owner?
+    dynamic var spotifyURL: String?
+    dynamic var soundcloudURL: String?
+    dynamic var rapgeniusURL: String?
+    dynamic var youtubeURL: String?
+    dynamic var previewURL: String?
     
-    private var dict: [String: String]
+    private var dict: [String: String] = [String: String]()
     
-    init(dictionary: [String: String]) {
+    override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
+        var dictionary = keyedValues as! [String: String]
         self.dict = dictionary
         id = dictionary["id"]!
         name = (dictionary["name"] ?? dictionary["track_name"])!
-        albumCoverImage = NSURL(string: dictionary["album_cover_image_small"]!)
-        albumCoverImageLarge = NSURL(string: dictionary["album_cover_image_large"]!)
         artistName = dictionary["artist_name"]!
         artistId = (dictionary["artist_id"] ?? dictionary["artist_sp_id"])!
         
+        if let albumCoverImageString = dictionary["album_cover_image_small"] {
+            albumCoverImage = albumCoverImageString
+        }
+        
         if let albumCoverImageLargeString = dictionary["album_cover_image_large"] {
-            albumCoverImageLarge = NSURL(string: albumCoverImageLargeString)
+            albumCoverImageLarge = albumCoverImageLargeString
         }
         
         if let spotifyURLString = dictionary["track_spotify_url"] {
-            spotifyURL = NSURL(string: spotifyURLString)
+            spotifyURL = spotifyURLString
         }
         
         if let soundcloudURLString = dictionary["track_soundcloud_url"] {
-            soundcloudURL = NSURL(string: soundcloudURLString)
+            soundcloudURL = soundcloudURLString
         }
         
         if let rapgeniusURLString = dictionary["track_rapgenius_url"] {
-            rapgeniusURL = NSURL(string: rapgeniusURLString)
+            rapgeniusURL = rapgeniusURLString
         }
         
         if let youtubeURLString = dictionary["track_youtube_url"] {
-            youtubeURL = NSURL(string: youtubeURLString)
+            youtubeURL = youtubeURLString
         }
         
         if let previewURLString = dictionary["track_preview_url"] {
-            previewURL = NSURL(string: previewURLString)
+            previewURL = previewURLString
         }
     }
     
@@ -84,16 +88,16 @@ class Track: NSObject {
     func getShareOptions() -> [ShareOption : NSURL] {
         var options = [ShareOption : NSURL]()
         
-        if spotifyURL != nil {
-            options[.Spotify] = spotifyURL
+        if let spotifyURL = spotifyURL {
+            options[.Spotify] = NSURL(string: spotifyURL)
         }
         
-        if soundcloudURL != nil {
-            options[.Soundcloud] = soundcloudURL
+        if let soundcloudURL = soundcloudURL {
+            options[.Soundcloud] = NSURL(string: soundcloudURL)
         }
         
-        if youtubeURL != nil {
-            options[.YouTube] = youtubeURL
+        if let youtubeURL = youtubeURL {
+            options[.YouTube] = NSURL(string: youtubeURL)
         }
         
         return options

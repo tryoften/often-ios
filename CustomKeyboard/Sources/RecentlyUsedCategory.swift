@@ -9,9 +9,15 @@
 import UIKit
 
 class RecentlyUsedCategory: Category {
-    init() {
-        super.init(id: "recently", name: "Recently Used", lyrics: nil)
-        lyrics = []
+    required init() {
+        
+//        super.init(value: [
+//            "id": "recently",
+//            "name": "Recently Used",
+//            "lyrics": []
+//        ])
+        super.init()
+        
         retrieveLyrics()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSelectLyric:", name: LyricSelectedEventIdentifier, object: nil)
     }
@@ -50,7 +56,7 @@ class RecentlyUsedCategory: Category {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         if let lyricsData = userDefaults.objectForKey("recently-used-lyrics") as? [[String: AnyObject]] {
             for lyricData in lyricsData {
-                lyrics.append(Lyric(dict: lyricData))
+                lyrics.append(Lyric(value: lyricData))
             }
             
         }

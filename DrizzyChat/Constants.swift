@@ -34,8 +34,8 @@ let MainTextColor = UIColor(fromHexString: "#777777")
 
 
 let BaseFont = UIFont(name: "OpenSans-Light", size: 20)
-let MediumRegularFont = UIFont(name: "OpenSans-Regular", size: 18)
-let SubtitleFont = UIFont(name: "OpenSans-Regular", size: 12)
+let MediumRegularFont = UIFont(name: "OpenSans", size: 18)
+let SubtitleFont = UIFont(name: "OpenSans", size: 12)
 
 // Navbar
 let NavbarDefaultBackgroundColor = MediumLightGrey
