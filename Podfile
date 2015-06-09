@@ -18,6 +18,7 @@ target 'Drizzy' do
   pod 'Parse', :podspec => 'Parse.podspec.json'
   pod 'ParseFacebookUtils', '~> 1.7'
   pod 'ParseCrashReporting', '~> 1.7'
+#  pod 'Realm', '~> 0.93'
 end
 
 target 'DrizzyTests' do
@@ -31,6 +32,7 @@ target 'CustomKeyboard' do
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'TOMSMorphingLabel', '~> 0.5'
   pod 'FXBlurView', '~> 1.6'
+#  pod 'Realm', '~> 0.93'
 end
 
 
