@@ -88,6 +88,7 @@ class TrackMetadataView: UIView {
             .CenterY: coverArtView.al_centerY == contentView.al_centerY
         ]
         
+        coverArtViewConstraints[.Left]?.priority = 800
         contentViewWidthConstraint = contentView.al_width == titleLabel.al_width
 
         addConstraint(contentViewWidthConstraint!)

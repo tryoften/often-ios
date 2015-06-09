@@ -85,6 +85,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     override func viewWillAppear(animated: Bool) {
         heightConstraint =  NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: KeyboardHeight)
+        heightConstraint.priority = 800
         
         view.addConstraint(heightConstraint)
         

@@ -96,6 +96,14 @@ class CategoriesPanelView: UIView {
         var categoryLabel = currentCategoryLabel
         var toggleDrawer = toggleDrawerButton
         var switchArtistButton = self.switchArtistButton
+        var currentCategoryLabelLeftConstraint = currentCategoryLabel.al_left == switchArtistButton.al_right + 30.0
+        currentCategoryLabelLeftConstraint.priority = 800
+        
+        var switchArtistButtonLeftConstraint = switchArtistButton.al_left == keyboardButton.al_right + 15
+        switchArtistButtonLeftConstraint.priority = 800
+        
+        var collectionViewTopConstraint = collectionView.al_top == keyboardButton.al_bottom
+        collectionViewTopConstraint.priority = 800
         
         let constraints: [NSLayoutConstraint] = [
             // keyboard button
@@ -105,7 +113,7 @@ class CategoriesPanelView: UIView {
             keyboardButton.al_width == SectionPickerViewHeight,
             
             // switch artist button
-            switchArtistButton.al_left == keyboardButton.al_right + 15,
+            switchArtistButtonLeftConstraint,
             switchArtistButton.al_centerY == keyboardButton.al_centerY,
             switchArtistButton.al_height == SectionPickerViewSwitchArtistHeight,
             switchArtistButton.al_width == switchArtistButton.al_height,
@@ -128,13 +136,13 @@ class CategoriesPanelView: UIView {
             toggleDrawer.al_width == toggleDrawer.al_height,
             
             // current category label
-            currentCategoryLabel.al_left == switchArtistButton.al_right + 30.0,
+            currentCategoryLabelLeftConstraint,
             currentCategoryLabel.al_right == toggleDrawer.al_left,
             currentCategoryLabel.al_height == SectionPickerViewHeight,
             currentCategoryLabel.al_top == currentCategoryView.al_top,
             currentCategoryLabel.al_centerY == switchArtistButton.al_centerY,
             
-            collectionView.al_top == keyboardButton.al_bottom,
+            collectionViewTopConstraint,
             collectionView.al_left == al_left,
             collectionView.al_right == al_right,
             collectionView.al_bottom == al_bottom
