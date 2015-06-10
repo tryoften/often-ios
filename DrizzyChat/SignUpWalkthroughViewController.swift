@@ -177,9 +177,15 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController, UITableVi
 }
     
     override func didTapNavButton() {
-        if addPhoneNumberPage.phoneNumberTxtField.text != nil {
-            println("it has stuff")
-            return
+        if count(addPhoneNumberPage.phoneNumberTxtField.text) != 0 {
+            
+            if PhoneIsValid(addPhoneNumberPage.phoneNumberTxtField.text) {
+                viewModel.phoneNumber = addPhoneNumberPage.phoneNumberTxtField.text
+            }
+            else {
+                println("redo you phonenumber")
+                return
+            }
         }
         
         let Namevc = SignUpNameWalkthroughViewController()
@@ -232,6 +238,14 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController, UITableVie
     }
     
     override func didTapNavButton() {
+        if NameIsValid(addNamePage.fullNameTxtField.text) {
+            viewModel.fullName = addNamePage.fullNameTxtField.text
+        }
+        else {
+            println("enter name")
+            return
+        }
+
         let Emailvc = SignUpEmailWalkthroughViewController()
         Emailvc.viewModel = self.viewModel
         
@@ -277,6 +291,14 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController, UITableVi
     }
     
     override func didTapNavButton() {
+        if EmailIsValid(addEmailPage.emailTxtField.text) {
+            viewModel.email = addEmailPage.emailTxtField.text
+        }
+        else {
+            println("enter email")
+            return
+        }
+        
         let Passwordvc = SignUpPassWordWalkthroughViewController()
         Passwordvc.viewModel = self.viewModel
         
@@ -328,6 +350,18 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController, UITabl
     }
     
     override func didTapNavButton() {
+        if PasswordIsValid(addPasswordPage.passwordTxtFieldOne.text) {
+            if arePasswordMatchingValid(addPasswordPage.passwordTxtFieldOne.text, addPasswordPage.confirmPasswordTxtField.text) {
+                viewModel.password = addPasswordPage.passwordTxtFieldOne.text
+            } else {
+                println("passwords dont match")
+                return
+            }
+            
+        } else {
+            println("need more chars")
+            return
+        }
         let selectArtistvc = SelectArtistWalkthroughViewController()
         selectArtistvc.viewModel = self.viewModel
         
@@ -469,6 +503,13 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController,UITableVi
             viewModel.artistSelectedList?.append(viewModel.artistsList[objects.integerValue].id)
         }
         println(viewModel.artistSelectedList!)
+        if ArtistsSelectedListIsValid(viewModel.artistSelectedList!) {
+            println("go to make screen")
+        } else {
+            println("need to pick at lest one")
+            return
+        }
+        
     }
     
     func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist]) {
