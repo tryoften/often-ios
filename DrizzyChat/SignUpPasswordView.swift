@@ -83,12 +83,12 @@ class SignUpPasswordView: UIView {
             passwordTxtFieldOne.al_left == al_left + 20,
             passwordTxtFieldOne.al_right == al_right - 20,
             passwordTxtFieldOne.al_centerX == al_centerX,
-            
+
             spacer.al_top == passwordTxtFieldOne.al_bottom + 8,
-            spacer.al_height == 0,7,
+            spacer.al_height == 0.7,
             spacer.al_width == 40,
             spacer.al_centerX == al_centerX,
-            
+
             titleLabelTwo.al_top == spacer.al_bottom + 20,
             titleLabelTwo.al_left == al_left,
             titleLabelTwo.al_right == al_right,
@@ -105,7 +105,7 @@ class SignUpPasswordView: UIView {
             spacerTwo.al_width == 40,
             spacerTwo.al_centerX == al_centerX,
             
-            termsAndPrivacyView.al_top == spacerTwo.al_bottom + 65,
+            termsAndPrivacyView.al_top == spacerTwo.al_bottom + 55,
             termsAndPrivacyView.al_left == al_left + 32,
             termsAndPrivacyView.al_right == al_right - 32,
         ])

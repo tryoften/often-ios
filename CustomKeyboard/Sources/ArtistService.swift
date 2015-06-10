@@ -25,10 +25,9 @@ class ArtistService: NSObject {
                 {
                     let artistsRefName = Artist(id: owner, dictionary: data)
                     self.artistsList[owner] = artistsRefName
-                    println(self.artistsList.count)
                 }
-                //ask luc about adding a bool in the completion block
-                if self.artistsList.count <= 1{
+    
+                if self.artistsList.count >= 1{
                     completion(artistsList: self.artistsList)
                 }
             }

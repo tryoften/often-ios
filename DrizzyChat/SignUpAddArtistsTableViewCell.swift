@@ -19,7 +19,7 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         
         artistImageView = UIImageView()
         artistImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        artistImageView.contentMode = .ScaleAspectFit
+        artistImageView.contentMode = .ScaleAspectFill
         artistImageView.backgroundColor = UIColor.blueColor()
         artistImageView.layer.cornerRadius  = 20
         artistImageView.layer.masksToBounds = true
@@ -30,18 +30,19 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         artistNameLabel.font = UIFont(name: "OpenSans", size: 14)
         artistNameLabel.textColor = UIColor(fromHexString: "#202020")
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        artistNameLabel.text = "Sam Smith"
+        
         
         lyricsCountLabel = UILabel()
         lyricsCountLabel.textAlignment = .Left
         lyricsCountLabel.font = UIFont(name: "OpenSans", size: 10)
         lyricsCountLabel.textColor = SubtitleGreyColor
         lyricsCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lyricsCountLabel.text = "128 Lyrics"
+        
         
         selectionButton = UIButton()
         selectionButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         selectionButton.setImage(UIImage(named: "Unselected"), forState: .Normal)
+        selectionButton.setImage(UIImage(named: "SelectedButton"), forState: .Selected)
         
         backgroundColor = UIColor.whiteColor()
         contentView.addSubview(artistImageView)
