@@ -313,7 +313,7 @@ class SelectArtisitWalkthroughViewController: WalkthroughViewController,UITableV
     var tableView: UITableView!
     let kCellIdentifier = "signUpAddArtistsTableViewCell"
     var selectedArt = [NSNumber]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -378,6 +378,7 @@ class SelectArtisitWalkthroughViewController: WalkthroughViewController,UITableV
         cell.artistImageView.setImageWithURL(viewModel.artistsList[indexPath.row].imageURLLarge, placeholderImage: UIImage(named: "ArtistPicture")!)
         cell.selectionButton.addTarget(self, action: "didTapSelectButton:", forControlEvents: .TouchUpInside)
         cell.selectionButton.tag = indexPath.row
+        
         for objects in selectedArt {
             if objects.integerValue == indexPath.row {
                 cell.selectionButton.selected = true
@@ -411,6 +412,13 @@ class SelectArtisitWalkthroughViewController: WalkthroughViewController,UITableV
                 }
             }
         }
+    }
+    
+    override func didTapNavButton() {
+        for objects in selectedArt {
+            viewModel.artistSelectedList?.append(viewModel.artistsList[objects.integerValue].id)
+        }
+        println(viewModel.artistSelectedList!)
     }
     
     func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist]) {
