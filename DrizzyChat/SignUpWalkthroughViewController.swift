@@ -312,7 +312,7 @@ class TermAndPrivacyWebView: UIViewController {
 class SelectArtisitWalkthroughViewController: WalkthroughViewController,UITableViewDataSource, UITableViewDelegate, WalkthroughViewModelDelegate {
     var tableView: UITableView!
     let kCellIdentifier = "signUpAddArtistsTableViewCell"
-    var selectedArt = NSDictionary()
+    var selectedArt = [NSNumber]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -377,20 +377,39 @@ class SelectArtisitWalkthroughViewController: WalkthroughViewController,UITableV
         var image : UIImage = UIImage(named: "ArtistPicture")!
         cell.artistImageView.setImageWithURL(viewModel.artistsList[indexPath.row].imageURLLarge, placeholderImage: UIImage(named: "ArtistPicture")!)
         cell.selectionButton.addTarget(self, action: "didTapSelectButton:", forControlEvents: .TouchUpInside)
-        cell.selectionButton.tag = 
+        cell.selectionButton.tag = indexPath.row
+        for objects in selectedArt {
+            if objects.integerValue == indexPath.row {
+                cell.selectionButton.selected = true
+            }
+        }
         
+    
         return cell
         
     }
     
     func didTapSelectButton(sender : UIButton) {
-         sender.selected = !sender.selected
-        
+        sender.selected = !sender.selected
+        let buttonTag = NSNumber(integer: sender.tag)
+        var count : Int
         if sender.selected {
-        println("selected")
+            println("selected")
+            selectedArt.append(buttonTag)
+            
         } else  {
-        println("not selected")
-    
+            println("not selected")
+            for objects in selectedArt {
+                if objects == buttonTag {
+                    
+                    if let foundIndex = find(selectedArt, objects) {
+                        
+                        //remove the item at the found index
+                        self.selectedArt.removeAtIndex(foundIndex)
+                        
+                    }
+                }
+            }
         }
     }
     
