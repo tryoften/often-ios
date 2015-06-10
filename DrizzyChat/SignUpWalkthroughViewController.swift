@@ -12,15 +12,14 @@ import WebKit
 class WalkthroughViewController: UIViewController {
     var viewModel: SignUpWalkthroughViewModel!
     var artistService: ArtistService!
+    let firebaseRoot = Firebase(url: BaseURL)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var firebaseRoot = Firebase(url: BaseURL)
-        self.artistService = ArtistService(root: firebaseRoot)
-        viewModel = SignUpWalkthroughViewModel(artistService: self.artistService)
-    }
     
+        self.artistService = ArtistService(root: firebaseRoot)
+    }
+
     override func viewWillAppear(animated: Bool) {
         setupLayout()
     }
@@ -89,6 +88,8 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel = SignUpWalkthroughViewModel(artistService: self.artistService)
+
         addPhoneNumberPage = SignUpPhoneNumberView()
         addPhoneNumberPage.setTranslatesAutoresizingMaskIntoConstraints(false)
         addPhoneNumberPage.phoneNumberTxtField.delegate = self
@@ -126,8 +127,63 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController, UITableVi
         view.addConstraints(constraints)
     }
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+        if textField == addPhoneNumberPage.phoneNumberTxtField {
+            var newString = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: string)
+            var components = newString.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
+            var decimalString = "".join(components) as NSString
+            var length = decimalString.length
+            var hasLeadingOne = length > 0 && decimalString.characterAtIndex(0) == (1 as unichar)
+            
+            if length == 0 || (length > 10 && !hasLeadingOne) || length > 11 {
+                var newLength = (textField.text as NSString).length + (string as NSString).length - range.length as Int
+                
+                return (newLength > 10) ? false : true
+            }
+            
+            var index = 0 as Int
+            var formattedString = NSMutableString()
+            
+            if hasLeadingOne {
+                formattedString.appendString("1 ")
+                index += 1
+            }
+            
+            if (length - index) > 3 {
+                var areaCode = decimalString.substringWithRange(NSMakeRange(index, 3))
+                
+                formattedString.appendFormat("%@-", areaCode)
+                index += 3
+            }
+            
+            if length - index > 3 {
+                var prefix = decimalString.substringWithRange(NSMakeRange(index, 3))
+                
+                formattedString.appendFormat("%@-", prefix)
+                index += 3
+            }
+            
+            var remainder = decimalString.substringFromIndex(index)
+            
+            formattedString.appendString(remainder)
+            textField.text = formattedString as String
+            
+            return false
+        }
+        
+        else {
+            return true
+        }
+}
+    
     override func didTapNavButton() {
+        if addPhoneNumberPage.phoneNumberTxtField.text != nil {
+            println("it has stuff")
+            return
+        }
+        
         let Namevc = SignUpNameWalkthroughViewController()
+        Namevc.viewModel = self.viewModel
         
         self.navigationController?.pushViewController(Namevc, animated: true)
     }
@@ -177,6 +233,7 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController, UITableVie
     
     override func didTapNavButton() {
         let Emailvc = SignUpEmailWalkthroughViewController()
+        Emailvc.viewModel = self.viewModel
         
         self.navigationController?.pushViewController(Emailvc, animated: true)
     }
@@ -221,6 +278,7 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController, UITableVi
     
     override func didTapNavButton() {
         let Passwordvc = SignUpPassWordWalkthroughViewController()
+        Passwordvc.viewModel = self.viewModel
         
         self.navigationController?.pushViewController(Passwordvc, animated: true)
     }
@@ -270,9 +328,10 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController, UITabl
     }
     
     override func didTapNavButton() {
-        let selectArtisitvc = SelectArtisitWalkthroughViewController()
+        let selectArtistvc = SelectArtistWalkthroughViewController()
+        selectArtistvc.viewModel = self.viewModel
         
-        self.navigationController?.pushViewController(selectArtisitvc, animated: true)
+        self.navigationController?.pushViewController(selectArtistvc, animated: true)
     }
 }
 
@@ -309,10 +368,10 @@ class TermAndPrivacyWebView: UIViewController {
 
 }
 
-class SelectArtisitWalkthroughViewController: WalkthroughViewController,UITableViewDataSource, UITableViewDelegate, WalkthroughViewModelDelegate {
+class SelectArtistWalkthroughViewController: WalkthroughViewController,UITableViewDataSource, UITableViewDelegate, WalkthroughViewModelDelegate {
     var tableView: UITableView!
     let kCellIdentifier = "signUpAddArtistsTableViewCell"
-    var selectedArt = [NSNumber]()
+    var selectedArtistes = [NSNumber]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -324,12 +383,11 @@ class SelectArtisitWalkthroughViewController: WalkthroughViewController,UITableV
         tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         self.viewModel.delegate = self
+        self.viewModel.getListOfArtists()
         
         self.tableView.registerClass(SignUpAddArtistsTableViewCell.classForCoder(), forCellReuseIdentifier: kCellIdentifier)
         
         setupNavBar("done")
-        
-        self.viewModel.getListOfArtists()
         
         view.addSubview(tableView)
     }
@@ -370,44 +428,36 @@ class SelectArtisitWalkthroughViewController: WalkthroughViewController,UITableV
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : SignUpAddArtistsTableViewCell = SignUpAddArtistsTableViewCell(style: .Default, reuseIdentifier: kCellIdentifier)
-        cell.artistNameLabel!.text = viewModel.artistsList[indexPath.row].name
+       
         let lyricCount = viewModel.artistsList[indexPath.row].lyricCount as NSNumber
-        cell.lyricsCountLabel!.text = lyricCount.stringValue
         
-        var image : UIImage = UIImage(named: "ArtistPicture")!
-        cell.artistImageView.setImageWithURL(viewModel.artistsList[indexPath.row].imageURLLarge, placeholderImage: UIImage(named: "ArtistPicture")!)
-        cell.selectionButton.addTarget(self, action: "didTapSelectButton:", forControlEvents: .TouchUpInside)
-        cell.selectionButton.tag = indexPath.row
-        
-        for objects in selectedArt {
+        for objects in selectedArtistes {
             if objects.integerValue == indexPath.row {
                 cell.selectionButton.selected = true
             }
         }
         
-    
+        cell.lyricsCountLabel!.text = lyricCount.stringValue
+        cell.artistNameLabel!.text = viewModel.artistsList[indexPath.row].name
+        cell.artistImageView.setImageWithURL(viewModel.artistsList[indexPath.row].imageURLLarge, placeholderImage: UIImage(named: "ArtistPicture")!)
+        cell.selectionButton.addTarget(self, action: "didTapSelectButton:", forControlEvents: .TouchUpInside)
+        cell.selectionButton.tag = indexPath.row
+
         return cell
-        
     }
     
     func didTapSelectButton(sender : UIButton) {
-        sender.selected = !sender.selected
         let buttonTag = NSNumber(integer: sender.tag)
-        var count : Int
+        
+        sender.selected = !sender.selected
+        
         if sender.selected {
-            println("selected")
-            selectedArt.append(buttonTag)
-            
+            selectedArtistes.append(buttonTag)
         } else  {
-            println("not selected")
-            for objects in selectedArt {
+            for objects in selectedArtistes {
                 if objects == buttonTag {
-                    
-                    if let foundIndex = find(selectedArt, objects) {
-                        
-                        //remove the item at the found index
-                        self.selectedArt.removeAtIndex(foundIndex)
-                        
+                    if let foundIndex = find(selectedArtistes, objects) {
+                        selectedArtistes.removeAtIndex(foundIndex)
                     }
                 }
             }
@@ -415,7 +465,7 @@ class SelectArtisitWalkthroughViewController: WalkthroughViewController,UITableV
     }
     
     override func didTapNavButton() {
-        for objects in selectedArt {
+        for objects in selectedArtistes {
             viewModel.artistSelectedList?.append(viewModel.artistsList[objects.integerValue].id)
         }
         println(viewModel.artistSelectedList!)
@@ -424,7 +474,6 @@ class SelectArtisitWalkthroughViewController: WalkthroughViewController,UITableV
     func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist]) {
         self.tableView.reloadData()
     }
-    
     
 }
 
