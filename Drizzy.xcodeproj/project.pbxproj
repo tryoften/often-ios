@@ -11,7 +11,10 @@
 		3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */; };
 		3B4D9A961B14169300643EF8 /* SignUpEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */; };
 		3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */; };
+		3B82E6D01B1F722000ABA660 /* SignUpWalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B82E6CF1B1F722000ABA660 /* SignUpWalkthroughViewModel.swift */; };
+		3B82E6D51B1FA72E00ABA660 /* ArtistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010701AE89631008F3296 /* ArtistService.swift */; };
 		3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */; };
+		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */; };
@@ -40,6 +43,8 @@
 		3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
 		3BAAB1DF1B1CFEB100EA1925 /* SignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAAB1DE1B1CFEB100EA1925 /* SignUpFormViewModel.swift */; };
 		3BAAB1E01B1D003F00EA1925 /* CategoriesPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */; };
+		3BAAB1E21B1E1B0D00EA1925 /* TermsAndPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAAB1E11B1E1B0D00EA1925 /* TermsAndPrivacyView.swift */; };
+		3BAAB1E61B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */; };
 		3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */; };
 		3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */; };
 		810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
@@ -284,7 +289,9 @@
 		3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWalkthroughViewController.swift; sourceTree = "<group>"; };
 		3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpEmailView.swift; sourceTree = "<group>"; };
 		3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPasswordView.swift; sourceTree = "<group>"; };
+		3B82E6CF1B1F722000ABA660 /* SignUpWalkthroughViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWalkthroughViewModel.swift; sourceTree = "<group>"; };
 		3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpOrLoginView.swift; sourceTree = "<group>"; };
+		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -299,6 +306,8 @@
 		3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
 		3BAAB1DE1B1CFEB100EA1925 /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
+		3BAAB1E11B1E1B0D00EA1925 /* TermsAndPrivacyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndPrivacyView.swift; sourceTree = "<group>"; };
+		3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpAddArtistsTableViewCell.swift; sourceTree = "<group>"; };
 		3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPhoneNumberView.swift; sourceTree = "<group>"; };
 		3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameView.swift; sourceTree = "<group>"; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -504,6 +513,20 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */ = {
+			isa = PBXGroup;
+			children = (
+				3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */,
+				3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */,
+				3BAAB1E11B1E1B0D00EA1925 /* TermsAndPrivacyView.swift */,
+				3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */,
+				3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */,
+				3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */,
+				3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */,
+			);
+			name = "SignUpWalkthrough Views";
+			sourceTree = "<group>";
+		};
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -610,6 +633,7 @@
 			children = (
 				81592F9E1B0FA57E0092EA8F /* UserProfileViewModel.swift */,
 				3BAAB1DE1B1CFEB100EA1925 /* SignUpFormViewModel.swift */,
+				3B82E6CF1B1F722000ABA660 /* SignUpWalkthroughViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -643,6 +667,7 @@
 			isa = PBXGroup;
 			children = (
 				816EB9701AE5EBA8000620E2 /* delay.swift */,
+				3B9AD78A1B27DFF600727E79 /* Validation.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -678,15 +703,11 @@
 			children = (
 				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
 				813E66C11A6DA541007E15AD /* WalkthroughPage.swift */,
-				3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */,
-				3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */,
-				3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */,
-				3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */,
-				3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */,
 				81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */,
 				81B6D5861A956E680089767B /* LoginIndicatorView.swift */,
 				81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */,
 				81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */,
+				3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */,
 				816FE5A01A86E5FB00E42C17 /* Walkthrough Pages */,
 			);
 			name = Views;
@@ -1283,6 +1304,7 @@
 			files = (
 				3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */,
 				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
+				3B82E6D51B1FA72E00ABA660 /* ArtistService.swift in Sources */,
 				816FE5B01A881C6500E42C17 /* SignUpFormViewController.swift in Sources */,
 				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
 				81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */,
@@ -1307,7 +1329,9 @@
 				816FE5A41A871D6700E42C17 /* TextConvoWalkthroughPage.swift in Sources */,
 				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
 				817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
+				3B82E6D01B1F722000ABA660 /* SignUpWalkthroughViewModel.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
+				3BAAB1E21B1E1B0D00EA1925 /* TermsAndPrivacyView.swift in Sources */,
 				817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				81592FA71B0FA64D0092EA8F /* LyricPickerTableViewController.swift in Sources */,
 				81592F971B0FA51D0092EA8F /* User.swift in Sources */,
@@ -1332,6 +1356,8 @@
 				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				81592F941B0FA5070092EA8F /* SessionManager.swift in Sources */,
+				3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */,
+				3BAAB1E61B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift in Sources */,
 				817618EE1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
 				8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */,
 				3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */,
