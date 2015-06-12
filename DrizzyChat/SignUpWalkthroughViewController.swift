@@ -362,6 +362,7 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
         addPasswordPage = SignUpPasswordView()
         addPasswordPage.setTranslatesAutoresizingMaskIntoConstraints(false)
         addPasswordPage.passwordTxtFieldOne.delegate = self
+        addPasswordPage.passwordTxtFieldOne.returnKeyType = .Next
         addPasswordPage.confirmPasswordTxtField.delegate = self
         
         setupNavBar("next")
@@ -413,6 +414,14 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
         selectArtistvc.viewModel = viewModel
         
         navigationController?.pushViewController(selectArtistvc, animated: true)
+    }
+    override func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField.returnKeyType == .Next {
+            addPasswordPage.confirmPasswordTxtField.becomeFirstResponder()
+        } else {
+            didTapNavButton()
+        }
+        return true
     }
 }
 
