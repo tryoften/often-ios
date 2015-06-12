@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var mainController: UINavigationController!
+    var mainController: UIViewController!
     var sessionManager: SessionManager!
     var testKeyboard: Bool = false
 
@@ -49,9 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
 
         if testKeyboard {
-            mainController = UINavigationController(rootViewController:KeyboardViewController())
+            mainController = KeyboardViewController()
         } else {
-            mainController = UINavigationController(rootViewController:SignUpLoginWalkthroughViewController())
+            mainController = UINavigationController(rootViewController: SignUpLoginWalkthroughViewController()) 
             
 //            if shouldHomeViewBeShown() {
 //                mainController = TabBarController(sessionManager: sessionManager)

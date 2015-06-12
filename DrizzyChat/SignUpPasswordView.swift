@@ -34,13 +34,13 @@ class SignUpPasswordView: UIView {
         
         passwordTxtFieldOne = UITextField()
         passwordTxtFieldOne.textAlignment = .Center
-        passwordTxtFieldOne.font = TitleFont
+        passwordTxtFieldOne.font = UIFont(name: "OpenSans", size: 14)
         passwordTxtFieldOne.placeholder = "enter your password"
         passwordTxtFieldOne.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         confirmPasswordTxtField = UITextField()
         confirmPasswordTxtField.textAlignment = .Center
-        confirmPasswordTxtField.font = TitleFont
+        confirmPasswordTxtField.font = UIFont(name: "OpenSans", size: 14)
         confirmPasswordTxtField.placeholder = "re-enter your password"
         confirmPasswordTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -74,7 +74,7 @@ class SignUpPasswordView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 140,
+            titleLabel.al_top == al_top + 90,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_centerX == al_centerX,

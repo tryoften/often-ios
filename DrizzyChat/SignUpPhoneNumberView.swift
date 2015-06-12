@@ -24,7 +24,7 @@ class SignUpPhoneNumberView: UIView {
         
         phoneNumberTxtField = UITextField()
         phoneNumberTxtField.textAlignment = .Center
-        phoneNumberTxtField.font = TitleFont
+        phoneNumberTxtField.font = UIFont(name: "OpenSans", size: 14)
         phoneNumberTxtField.placeholder = "###"
         phoneNumberTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -57,7 +57,7 @@ class SignUpPhoneNumberView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 190,
+            titleLabel.al_top == al_top + 180,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_centerX == al_centerX,

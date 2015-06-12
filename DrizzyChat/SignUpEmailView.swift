@@ -24,7 +24,7 @@ class SignUpEmailView: UIView {
         
         emailTxtField = UITextField()
         emailTxtField.textAlignment = .Center
-        emailTxtField.font = TitleFont
+        emailTxtField.font = UIFont(name: "OpenSans", size: 14)
         emailTxtField.placeholder = "Email Here"
         emailTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -54,7 +54,7 @@ class SignUpEmailView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 190,
+            titleLabel.al_top == al_top + 150,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_centerX == al_centerX,

@@ -13,8 +13,8 @@ class ArtistService: NSObject {
     var artistsList: [String: Artist]
     
     init(root: Firebase) {
-        self.artistsRef = root.childByAppendingPath("owners")
-        self.artistsList = [String: Artist]()
+        artistsRef = root.childByAppendingPath("owners")
+        artistsList = [String: Artist]()
         super.init()
     }
     

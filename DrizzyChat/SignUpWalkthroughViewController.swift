@@ -9,7 +9,7 @@
 import Foundation
 import WebKit
 
-class WalkthroughViewController: UIViewController {
+class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate {
     var viewModel: SignUpWalkthroughViewModel!
     var artistService: ArtistService!
     let firebaseRoot = Firebase(url: BaseURL)
@@ -17,7 +17,7 @@ class WalkthroughViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        self.artistService = ArtistService(root: firebaseRoot)
+        artistService = ArtistService(root: firebaseRoot)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -25,17 +25,53 @@ class WalkthroughViewController: UIViewController {
     }
     
     func setupNavBar (titlePushViewButton: String) {
-        var skipButton = UIBarButtonItem(title: titlePushViewButton.uppercaseString, style: .Plain, target: self, action: "didTapNavButton")
+        let navButton = UIBarButtonItem(title: titlePushViewButton.uppercaseString, style: .Plain, target: self, action: "didTapNavButton")
+        let fixedSpaceItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
+        let backButton = UIButton(frame: CGRectMake(0, 0, 20, 16))
+        let backImage = UIImage(named: "BackButton")
+        let backButtonItem = UIBarButtonItem(customView: backButton)
+        let textAttributes = [NSFontAttributeName:ButtonFont!,NSForegroundColorAttributeName: UIColor.whiteColor()]
+        let textAttributeForButtons = [NSFontAttributeName:ButtonFont!,NSForegroundColorAttributeName: UIColor(fromHexString: "#FFFFFF")]
         
-        self.navigationItem.setRightBarButtonItem(skipButton, animated: true)
-        self.navigationItem.title = "sign up".uppercaseString
-        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        self.navigationController?.navigationBar.barTintColor = BlackColor
+        fixedSpaceItem.width = 10
+        
+        backButton.setBackgroundImage(backImage, forState: .Normal)
+        backButton.imageView?.contentMode = .ScaleAspectFit
+        backButton.addTarget(self, action: "popBack", forControlEvents: .TouchUpInside)
+        
+        navButton.setTitleTextAttributes(textAttributeForButtons, forState: .Normal)
+        
+        navigationItem.rightBarButtonItems = [fixedSpaceItem,navButton]
+        navigationItem.leftBarButtonItem = backButtonItem
+        navigationItem.title = "sign up".uppercaseString
+        navigationItem.rightBarButtonItem?.tintColor = BlackColor
+        
+        navigationController?.navigationBar.sizeThatFits(CGSizeMake(UIScreen.mainScreen().bounds.size.width, 54))
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationController?.navigationBar.barTintColor = BlackColor
+        navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.backIndicatorImage = UIImage()
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName:ButtonFont!,NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
     
     func didTapNavButton() {}
     func setupLayout() {}
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
+    
+    func popBack() {
+        navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        didTapNavButton()
+        
+        return true
+    }
 }
 
 class SignUpLoginWalkthroughViewController: WalkthroughViewController {
@@ -55,7 +91,7 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     
-        self.navigationController?.navigationBar.hidden = true
+        navigationController?.navigationBar.hidden = true
     }
     
     override func setupLayout() {
@@ -74,7 +110,7 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
     func didTapSignUpButton() {
         let phoneNumbervc = PhoneNumberWalkthroughViewController()
         
-        self.navigationController?.pushViewController(phoneNumbervc, animated: true)
+        navigationController?.pushViewController(phoneNumbervc, animated: true)
     }
     
     func didTapLoginButton () {
@@ -82,28 +118,28 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
     }
 }
 
-class PhoneNumberWalkthroughViewController: WalkthroughViewController, UITableViewDelegate, UITextFieldDelegate  {
+class PhoneNumberWalkthroughViewController: WalkthroughViewController {
     var addPhoneNumberPage: SignUpPhoneNumberView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = SignUpWalkthroughViewModel(artistService: self.artistService)
-
+        viewModel = SignUpWalkthroughViewModel(artistService: artistService)
+        
         addPhoneNumberPage = SignUpPhoneNumberView()
         addPhoneNumberPage.setTranslatesAutoresizingMaskIntoConstraints(false)
         addPhoneNumberPage.phoneNumberTxtField.delegate = self
         addPhoneNumberPage.phoneNumberTxtField.keyboardType = .PhonePad
         
         setupNavBar("skip")
-    
+        
         view.addSubview(addPhoneNumberPage)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
+        navigationController?.navigationBar.hidden = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -128,6 +164,8 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController, UITableVi
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+        checkCharacterCountOfTextField()
+    
         if textField == addPhoneNumberPage.phoneNumberTxtField {
             var newString = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: string)
             var components = newString.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
@@ -170,11 +208,19 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController, UITableVi
             
             return false
         }
-        
+            
         else {
             return true
         }
-}
+    }
+    
+    func checkCharacterCountOfTextField() {
+        if (count(addPhoneNumberPage.phoneNumberTxtField.text) >= 2) {
+            navigationItem.rightBarButtonItem?.title = "next".uppercaseString
+        } else {
+            navigationItem.rightBarButtonItem?.title = "skip".uppercaseString
+        }
+    }
     
     override func didTapNavButton() {
         if count(addPhoneNumberPage.phoneNumberTxtField.text) != 0 {
@@ -189,13 +235,13 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController, UITableVi
         }
         
         let Namevc = SignUpNameWalkthroughViewController()
-        Namevc.viewModel = self.viewModel
+        Namevc.viewModel = viewModel
         
-        self.navigationController?.pushViewController(Namevc, animated: true)
+        navigationController?.pushViewController(Namevc, animated: true)
     }
 }
 
-class SignUpNameWalkthroughViewController: WalkthroughViewController, UITableViewDelegate, UITextFieldDelegate  {
+class SignUpNameWalkthroughViewController: WalkthroughViewController  {
     var addNamePage: SignUpNameView!
 
     override func viewDidLoad() {
@@ -213,7 +259,7 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController, UITableVie
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
+        navigationController?.navigationBar.hidden = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -247,14 +293,14 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController, UITableVie
         }
 
         let Emailvc = SignUpEmailWalkthroughViewController()
-        Emailvc.viewModel = self.viewModel
+        Emailvc.viewModel = viewModel
         
-        self.navigationController?.pushViewController(Emailvc, animated: true)
+        navigationController?.pushViewController(Emailvc, animated: true)
     }
-
+    
 }
 
-class SignUpEmailWalkthroughViewController: WalkthroughViewController, UITableViewDelegate, UITextFieldDelegate  {
+class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
     var addEmailPage: SignUpEmailView!
 
     override func viewDidLoad() {
@@ -263,6 +309,7 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController, UITableVi
         addEmailPage = SignUpEmailView()
         addEmailPage.setTranslatesAutoresizingMaskIntoConstraints(false)
         addEmailPage.emailTxtField.delegate = self
+        addEmailPage.emailTxtField.keyboardType = .EmailAddress
         
          setupNavBar("next")
         
@@ -300,13 +347,13 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController, UITableVi
         }
         
         let Passwordvc = SignUpPassWordWalkthroughViewController()
-        Passwordvc.viewModel = self.viewModel
+        Passwordvc.viewModel = viewModel
         
-        self.navigationController?.pushViewController(Passwordvc, animated: true)
+        navigationController?.pushViewController(Passwordvc, animated: true)
     }
 }
 
-class SignUpPassWordWalkthroughViewController: WalkthroughViewController, UITableViewDelegate, UITextFieldDelegate  {
+class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
     var addPasswordPage: SignUpPasswordView!
     
     override func viewDidLoad() {
@@ -325,7 +372,7 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController, UITabl
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.hidden = false
+        navigationController?.navigationBar.hidden = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -363,9 +410,9 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController, UITabl
             return
         }
         let selectArtistvc = SelectArtistWalkthroughViewController()
-        selectArtistvc.viewModel = self.viewModel
+        selectArtistvc.viewModel = viewModel
         
-        self.navigationController?.pushViewController(selectArtistvc, animated: true)
+        navigationController?.pushViewController(selectArtistvc, animated: true)
     }
 }
 
@@ -416,10 +463,10 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController,UITableVi
         tableView.rowHeight = 70
         tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        self.viewModel.delegate = self
-        self.viewModel.getListOfArtists()
+        viewModel.delegate = self
+        viewModel.getListOfArtists()
         
-        self.tableView.registerClass(SignUpAddArtistsTableViewCell.classForCoder(), forCellReuseIdentifier: kCellIdentifier)
+        tableView.registerClass(SignUpAddArtistsTableViewCell.classForCoder(), forCellReuseIdentifier: kCellIdentifier)
         
         setupNavBar("done")
         
@@ -428,6 +475,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController,UITableVi
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        title = "add artists".uppercaseString
         
     }
     
@@ -445,19 +493,40 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController,UITableVi
      func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.artistsList.count
     }
-    
-    
-     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "recommended".uppercaseString
-        
-    }
-    
+
     func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int  {
         return 1
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return 35
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        //TODO: make a view for this
+        var recommendedLabel = UILabel()
+        let titleString = "recommended".uppercaseString
+        let titleRange = NSMakeRange(0, count(titleString))
+        let title = NSMutableAttributedString(string: titleString)
+        let headerView = UIView()
+        var spacer = UIView()
+        
+        recommendedLabel.frame = CGRectMake(20, 8, tableView.frame.size.width, 20)
+        recommendedLabel.font = UIFont(name: "OpenSans", size: 9)
+        
+        title.addAttribute(NSFontAttributeName, value: recommendedLabel.font!, range: titleRange)
+        title.addAttribute(NSKernAttributeName, value: 1.0, range: titleRange)
+        
+        recommendedLabel.attributedText = title
+        
+        spacer.frame = CGRectMake(0, 34, tableView.frame.size.width, 1)
+        spacer.backgroundColor = UIColor(fromHexString: "#E4E4E4")
+        
+        headerView.backgroundColor = UIColor.whiteColor()
+        headerView.addSubview(recommendedLabel)
+        headerView.addSubview(spacer)
+        
+        return headerView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -513,7 +582,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController,UITableVi
     }
     
     func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist]) {
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
 }

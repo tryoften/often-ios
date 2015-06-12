@@ -24,7 +24,7 @@ class SignUpNameView: UIView {
         
         fullNameTxtField = UITextField()
         fullNameTxtField.textAlignment = .Center
-        fullNameTxtField.font = TitleFont
+        fullNameTxtField.font = UIFont(name: "OpenSans", size: 14)
         fullNameTxtField.placeholder = "Name Here"
         fullNameTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -52,7 +52,7 @@ class SignUpNameView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 190,
+            titleLabel.al_top == al_top + 150,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_centerX == al_centerX,
