@@ -8,6 +8,116 @@
 
 import UIKit
 
+/**
+    TrendingCollectionViewCell:
+
+    Cell that will either display info about the tracks or name of songs when looking at
+    the Trending collection view controller
+
+    - Rank of the artist or track
+    - Name of the track or the artist
+    - Subtitle contains the number of songs + lyrics for that artist and number of lyrics for track
+    - Disclosure Indicator
+    - Line Break
+
+*/
+
+/// To determine the correct arrow image to display in the cell
+enum Trend {
+    case Up
+    case Down
+    case Neutral
+}
+
 class TrendingCollectionViewCell: UICollectionViewCell {
+    @IBOutlet var rankLabel: UILabel! /// number rank on the left of the cell
+    @IBOutlet var nameLabel: UILabel! /// Track name label
+    @IBOutlet var subLabel: UILabel! /// label for lyric Count "Lyrics: n"
+    @IBOutlet var disclosureIndicator: UIImageView! /// arrow image
+    @IBOutlet var lineBreakView: UIView! /// line break 1 pixel high to fake a line break
+    @IBOutlet var trendIndicator: UIImageView! /// green or red arrow depending on performance
     
+    override init(frame: CGRect) {
+        rankLabel = UILabel()
+        rankLabel.textAlignment = .Right
+        rankLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        rankLabel.font = UIFont(name: "OpenSans", size: 16.0)
+        
+        trendIndicator = UIImageView()
+        trendIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
+        trendIndicator.contentMode = .ScaleAspectFit
+        
+        nameLabel = UILabel()
+        nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        nameLabel.font = UIFont(name: "OpenSans", size: 14.0)
+        
+        subLabel = UILabel()
+        subLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        subLabel.font = UIFont(name: "OpenSans", size: 9.0)
+        
+        disclosureIndicator = UIImageView()
+        disclosureIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
+        disclosureIndicator.contentMode = .ScaleAspectFit
+        
+        lineBreakView = UIView()
+        lineBreakView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        lineBreakView.backgroundColor = UIColor(fromHexString: "#d3d3d3")
+        
+        super.init(frame: frame)
+        
+        backgroundColor = UIColor(fromHexString: "#ffffff")
+        
+        addSubview(rankLabel)
+        addSubview(trendIndicator)
+        addSubview(nameLabel)
+        addSubview(subLabel)
+        addSubview(disclosureIndicator)
+        addSubview(lineBreakView)
+        
+        var viewsDict = ["rank":rankLabel,
+            "trendIndicator":trendIndicator,
+            "trackName":nameLabel,
+            "lyricCount": subLabel,
+            "disclosureIndicator":disclosureIndicator,
+            "lineBreak":lineBreakView]
+        
+        setLayout()
+        
+    }
+    
+    func setLayout() {
+        let constraints: [NSLayoutConstraint] = [
+            rankLabel.al_width == 25,
+            rankLabel.al_height == 25,
+            rankLabel.al_left == al_left + 8,
+            rankLabel.al_top == al_top + 17,
+            
+            trendIndicator.al_width == 8,
+            trendIndicator.al_height == 8,
+            trendIndicator.al_left == rankLabel.al_right + 5,
+            trendIndicator.al_top == al_top + 26,
+            
+            nameLabel.al_left == trendIndicator.al_right + 26,
+            nameLabel.al_top == al_top + 14,
+            
+            subLabel.al_top == nameLabel.al_bottom,
+            subLabel.al_left == trendIndicator.al_right + 27,
+            
+            disclosureIndicator.al_right == al_right - 13,
+            disclosureIndicator.al_top == al_top + 23,
+            disclosureIndicator.al_width == 19,
+            disclosureIndicator.al_height == 19,
+            
+            lineBreakView.al_bottom == al_bottom,
+            lineBreakView.al_width == 335,
+            lineBreakView.al_height == 1/2,
+            lineBreakView.al_left == al_left + 20
+        ]
+        addConstraints(constraints)
+    }
+        
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
