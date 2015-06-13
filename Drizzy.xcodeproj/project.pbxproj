@@ -714,9 +714,9 @@
 			isa = PBXGroup;
 			children = (
 				811B1E101B1F961100618E1A /* Core */,
-				8180E60A1A142157007FA1CF /* DrizzyChat */,
+				8180E6321A142199007FA1CF /* Keyboard */,
+				8180E60A1A142157007FA1CF /* Container App */,
 				81331E161A1806BB003E4609 /* Vendors */,
-				8180E6321A142199007FA1CF /* CustomKeyboard */,
 				8180E6091A142157007FA1CF /* Products */,
 				8180E6201A142158007FA1CF /* DrizzyChatTests */,
 				3A906368B7CA46AA11C157BA /* Pods */,
@@ -734,7 +734,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8180E60A1A142157007FA1CF /* DrizzyChat */ = {
+		8180E60A1A142157007FA1CF /* Container App */ = {
 			isa = PBXGroup;
 			children = (
 				813138881B13ADA3001AF9AC /* Drizzy.entitlements */,
@@ -752,6 +752,7 @@
 				810C40641A21125B00170DB4 /* Constants.swift */,
 				81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */,
 			);
+			name = "Container App";
 			path = DrizzyChat;
 			sourceTree = "<group>";
 		};
@@ -780,7 +781,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8180E6321A142199007FA1CF /* CustomKeyboard */ = {
+		8180E6321A142199007FA1CF /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
 				813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */,
@@ -791,6 +792,7 @@
 				8180E6461A1477F2007FA1CF /* Resources */,
 				8180E6331A142199007FA1CF /* Supporting Files */,
 			);
+			name = Keyboard;
 			path = CustomKeyboard;
 			sourceTree = "<group>";
 		};

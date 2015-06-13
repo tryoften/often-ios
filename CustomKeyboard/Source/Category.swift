@@ -14,6 +14,10 @@ class Category: Object {
     let lyrics = List<Lyric>()
     var highlightColor: UIColor!
     
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
     override static func ignoredProperties() -> [String] {
         return ["highlightColor"]
     }
@@ -21,5 +25,8 @@ class Category: Object {
     var lyricsCount: Int {
         return self.lyrics.count
     }
+}
 
+func ==(lhs: Category, rhs: Category) -> Bool {
+    return lhs.id == rhs.id
 }

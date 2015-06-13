@@ -26,7 +26,7 @@ class KeyboardViewModel: NSObject {
     
     override init() {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        
+
         if let userId = userDefaults.objectForKey("userId") as? String {
             keyboardService = KeyboardService(userId: userId,
                 root: Firebase(url: BaseURL))
@@ -38,7 +38,7 @@ class KeyboardViewModel: NSObject {
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
-        keyboardService.requestData({ data in
+        self.keyboardService.requestData({ data in
             
             if self.keyboardService.keyboards.count > 0 {
                 if let lastKeyboardId = NSUserDefaults.standardUserDefaults().objectForKey("currentKeyboard") as? String, lastKeyboard = self.keyboardService.keyboards[lastKeyboardId] {

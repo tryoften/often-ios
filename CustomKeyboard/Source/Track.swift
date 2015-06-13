@@ -51,7 +51,7 @@ class Track: Object {
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         var dictionary = keyedValues as! [String: String]
         self.dict = dictionary
-        id = dictionary["id"]!
+
         name = (dictionary["name"] ?? dictionary["track_name"])!
         artistName = dictionary["artist_name"]!
         artistId = (dictionary["artist_id"] ?? dictionary["artist_sp_id"])!

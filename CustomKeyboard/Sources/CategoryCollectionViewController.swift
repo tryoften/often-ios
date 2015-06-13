@@ -29,10 +29,8 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             if (categories.count > 1) {
                 currentCategory = categories[0]
                 pickerView.delegate?.didSelectSection(pickerView, category: currentCategory!)
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.pickerView.categoriesCollectionView.reloadData()
-                    self.pickerView.categoriesCollectionView.setNeedsLayout()
-                })
+                pickerView.categoriesCollectionView.reloadData()
+                pickerView.categoriesCollectionView.setNeedsLayout()
             }
         }
     }
@@ -57,7 +55,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
     
     func toggleDrawer() {
-        
         SEGAnalytics.sharedAnalytics().track("Drawer_Toggled")
         if (!pickerView.drawerOpened) {
             pickerView.open()
@@ -72,12 +69,12 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             Flurry.endTimedEvent("Drawer_Toggled", withParameters: params)
         }
         pickerView.drawerOpened = !pickerView.drawerOpened
-        
     }
 
     // MARK: UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        println("Categories: \(categories)")
         return categories.count
     }
     
@@ -103,7 +100,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        var category = categories[indexPath.row] as Category
+        let category = categories[indexPath.row] as Category
         
         currentCategory = category
         toggleDrawer()
@@ -114,8 +111,5 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             ])
 
         pickerView.delegate?.didSelectSection(pickerView, category: category)
- 
     }
-    
-
 }

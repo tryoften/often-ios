@@ -14,4 +14,8 @@ class Owner: Object {
     dynamic var name: String = ""
     dynamic var imageURLSmall: String = ""
     dynamic var imageURLLarge: String = ""
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 }

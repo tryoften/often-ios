@@ -14,36 +14,36 @@ class TrackService: Service {
     var isDataLoaded: Bool
 
     override init(root: Firebase, realm: Realm = Realm()) {
-        self.tracksRef = root.childByAppendingPath("contents")
-        self.tracks = [String: Track]()
-        self.isDataLoaded = false
+        tracksRef = root.childByAppendingPath("contents")
+        tracks = [String: Track]()
+        isDataLoaded = false
 
         super.init(root: root, realm: realm)
     }
     
     func getTrackForLyric(lyric: Lyric, completion: (track: Track) -> ()) {
-        dispatch_async(writeQueue) {
-            self.tracksRef.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
+        tracksRef.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
+            
+            println("\(snapshot.value)")
+            if let trackData = snapshot.value as? [String: String] {
                 
-                println("\(snapshot.value)")
-                if var trackData = snapshot.value as? [String: String] {
-                    trackData["id"] = snapshot.key
-                    
-                    let track = Track()
-                    track.id = snapshot.key
-                    track.setValuesForKeysWithDictionary(trackData)
-                    
-                    self.tracks[track.id] = track
-                    
-                    self.realm.write {
-                        self.realm.add(track, update: true)
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue()) {
-                        completion(track: track)
-                    }
+                let track = Track()
+                track.id = snapshot.key
+                track.setValuesForKeysWithDictionary(trackData)
+                
+                self.tracks[track.id] = track
+                lyric.track = track
+                lyric.trackId = track.id
+                
+                self.realm.write {
+                    self.realm.add(lyric, update: true)
+                    self.realm.add(track, update: true)
                 }
-            })
-        }
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(track: track)
+                }
+            }
+        })
     }
 }

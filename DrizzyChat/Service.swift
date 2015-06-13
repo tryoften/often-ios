@@ -13,15 +13,20 @@ class Service {
     let root: Firebase
     let realm: Realm
     let writeQueue: dispatch_queue_t
+    var delegate: ServiceDelegate?
 
     init(root: Firebase, realm: Realm = Realm()) {
         self.root = root
         self.realm = realm
-        self.writeQueue = dispatch_queue_create("com.drizzyapp.queue.service", DISPATCH_QUEUE_SERIAL)
+        self.writeQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
     }
     
     func fetchLocalData() {}
     func fetchRemoteData() {}
     func fetchData() {}
-    func getAllObjects() {}
+}
+
+protocol ServiceDelegate {
+    /// Gets called after the service is done loading into the service
+    func serviceDataDidLoad(service: Service)
 }
