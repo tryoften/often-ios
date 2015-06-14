@@ -20,17 +20,16 @@ import UIKit
 */
 
 class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
-    /// var coverPhoto: UIImageView
-    var nameLabel: UILabel
     @IBOutlet var featuredButton: UIButton?
     @IBOutlet var scrollView: UIScrollView?
     @IBOutlet var pageControl: UIPageControl?
+    @IBOutlet var nameLabel: UILabel?
+    
     var screenWidth: CGFloat
     var pageCount: Int
     var pagesScrollViewSize: CGSize
     
-    //testing
-    
+    /// testing
     var pageImages: [UIImage] = [
         UIImage(named: "rome-fortune")!,
         UIImage(named: "chance-the-rapper")!,
@@ -61,19 +60,12 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         scrollView?.contentSize = CGSize(width: pagesScrollViewSize.width * CGFloat(pageImages.count),
             height: pagesScrollViewSize.height)
         
-//        coverPhoto = UIImageView()
-//        coverPhoto.setTranslatesAutoresizingMaskIntoConstraints(false)
-//        coverPhoto.contentMode = .ScaleAspectFit
-//        coverPhoto.translatesAutoresizingMaskIntoConstraints()
-//        coverPhoto.clipsToBounds = true
-//        coverPhoto.image = UIImage(named: "rome-fortune")
-        
         nameLabel = UILabel()
-        nameLabel.textAlignment = .Center
-        nameLabel.font = UIFont(name: "Oswald-Light", size: 24.0)
-        nameLabel.textColor = UIColor.whiteColor()
-        nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nameLabel.text = "R O M E  F O R T U N E"
+        nameLabel?.textAlignment = .Center
+        nameLabel?.font = UIFont(name: "Oswald-Light", size: 24.0)
+        nameLabel?.textColor = UIColor.whiteColor()
+        nameLabel?.setTranslatesAutoresizingMaskIntoConstraints(false)
+        nameLabel?.text = "R O M E  F O R T U N E"
         
         featuredButton = UIButton(frame: CGRectMake(0.0, 0.0, 85.0, 10.0))
         featuredButton?.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -92,7 +84,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         /// addSubview(coverPhoto)
         addSubview(scrollView!)
         addSubview(pageControl!)
-        addSubview(nameLabel)
+        addSubview(nameLabel!)
         addSubview(featuredButton!)
         
         setLayout()
@@ -103,73 +95,71 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     }
     
     func loadVisiblePages() {
-        // First, determine which page is currently visible
+        /// visible pages
         let pageWidth = scrollView!.frame.size.width
         let page = Int(floor((scrollView!.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
         
         // Update the page control
         pageControl!.currentPage = page
         if page == 0 {
-            nameLabel.text = "R O M E  F O R T U N E"
+            nameLabel?.text = "R O M E  F O R T U N E"
         } else if page == 1 {
-            nameLabel.text = "C H A N C E  T H E  R A P P E R"
+            nameLabel?.text = "C H A N C E  T H E  R A P P E R"
         } else if page == 2 {
-            nameLabel.text = "M E E K  M I L L"
+            nameLabel?.text = "M E E K  M I L L"
         }
         
-        // Work out which pages you want to load
+        /// Which page to load
         let firstPage = page - 1
         let lastPage = page + 1
         
-        // Purge anything before the first page
+        /// Purge anything before the first page
         for var index = 0; index < firstPage; ++index {
             purgePage(index)
         }
         
-        // Load pages in our range
+        /// Load pages in our range
         for index in firstPage...lastPage {
             loadPage(index)
         }
         
-        // Purge anything after the last page
-        for var index = lastPage+1; index < pageImages.count; ++index {
+        /// Purge anything after the last page
+        for var index = lastPage + 1; index < pageImages.count; ++index {
             purgePage(index)
         }
     }
     
     func loadPage(page: Int) {
         if page < 0 || page >= pageImages.count {
-            // If it's outside the range of what you have to display, then do nothing
+            /// If it's outside the range of what you have to display, then do nothing
             return
         }
         
-        // 1
         if let pageView = pageViews[page] {
-            // Do nothing. The view is already loaded.
+            /// view already loaded
         } else {
-            // 2
+            /// frame of content is the size of the header
             var frame = scrollView!.bounds
             frame.origin.x = frame.size.width * CGFloat(page)
             frame.origin.y = 0.0
             
-            // 3
+            /// new image view to be placed inside of the content area just made
             let newPageView = UIImageView(image: pageImages[page])
             newPageView.contentMode = .ScaleAspectFit
             newPageView.frame = frame
             scrollView!.addSubview(newPageView)
             
-            // 4
             pageViews[page] = newPageView
         }
     }
     
     func purgePage(page: Int) {
         if page < 0 || page >= pageImages.count {
-            // If it's outside the range of what you have to display, then do nothing
+            /// If it's outside the range of what you have to display, then do nothing
             return
         }
         
-        // Remove a page from the scroll view and reset the container array
+        /// Remove a page from the scroll view and reset the container array
         if let pageView = pageViews[page] {
             pageView.removeFromSuperview()
             pageViews[page] = nil
@@ -177,28 +167,19 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        // Load the pages that are now on screen
+        /// Load the pages that are now on screen
         loadVisiblePages()
     }
     
-    /**
-        
-    coverPhoto.al_left == al_left,
-    coverPhoto.al_top == al_top - 115,
-    coverPhoto.al_width == screenWidth,
-    coverPhoto.al_height == 480,
-    
-    */
-    
     func setLayout() {
         addConstraints([
-            nameLabel.al_top == al_top + 100,
-            nameLabel.al_width == 280,
-            nameLabel.al_centerX == al_centerX,
+            nameLabel!.al_top == al_top + 100,
+            nameLabel!.al_width == 280,
+            nameLabel!.al_centerX == al_centerX,
             featuredButton!.al_height == 20,
             featuredButton!.al_width == 70,
-            featuredButton!.al_top == nameLabel.al_bottom + 5,
-            featuredButton!.al_centerX == nameLabel.al_centerX,
+            featuredButton!.al_top == nameLabel!.al_bottom + 5,
+            featuredButton!.al_centerX == nameLabel!.al_centerX,
             pageControl!.al_left == al_left + 172,
             pageControl!.al_top == al_top + 210,
             scrollView!.al_top == al_top - 35,
