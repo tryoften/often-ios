@@ -11,6 +11,7 @@ import UIKit
 class KeyboardViewModel: NSObject {
     var keyboardService: KeyboardService
     var delegate: KeyboardViewModelDelegate?
+    var userDefaults: NSUserDefaults
     var keyboards: [Keyboard] {
         return self.keyboardService.keyboards.values.array
     }
@@ -22,9 +23,16 @@ class KeyboardViewModel: NSObject {
         }
     }
     
+    
     override init() {
-        self.keyboardService = KeyboardService(userId: "10153072377538584",
-            root: Firebase(url: BaseURL))
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        
+        if let userId = userDefaults.objectForKey("userId") as? String {
+            keyboardService = KeyboardService(userId: userId,
+                root: Firebase(url: BaseURL))
+        } else {
+            keyboardService = KeyboardService(userId: nil, root: Firebase(url: BaseURL))
+        }
 
         super.init()
     }

@@ -59,8 +59,6 @@
 		810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
-		81164A881A9D670600AE5B30 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */; };
-		81164A891A9D670600AE5B30 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */; };
 		81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
 		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
@@ -94,7 +92,6 @@
 		8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
 		81592F911B0FA4740092EA8F /* CategoriesPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */; };
 		81592F941B0FA5070092EA8F /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F931B0FA5070092EA8F /* SessionManager.swift */; };
-		81592F951B0FA5070092EA8F /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F931B0FA5070092EA8F /* SessionManager.swift */; };
 		81592F971B0FA51D0092EA8F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F961B0FA51D0092EA8F /* User.swift */; };
 		81592F981B0FA51D0092EA8F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F961B0FA51D0092EA8F /* User.swift */; };
 		81592F9A1B0FA55A0092EA8F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F991B0FA55A0092EA8F /* TabBarController.swift */; };
@@ -135,8 +132,6 @@
 		81761A001AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */; };
 		81794ECA1A81D6D5009D4A71 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81794EC81A81D6D5009D4A71 /* HomeViewController.swift */; };
 		81794ECB1A81D6D5009D4A71 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81794EC91A81D6D5009D4A71 /* HomeViewController.xib */; };
-		81794ED01A81E5C3009D4A71 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ECD1A81E5C3009D4A71 /* Parse.framework */; };
-		81794ED11A81E5C3009D4A71 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ECD1A81E5C3009D4A71 /* Parse.framework */; };
 		81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED21A81E607009D4A71 /* Accounts.framework */; };
 		81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED41A81E613009D4A71 /* CFNetwork.framework */; };
 		81794ED71A81E621009D4A71 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED61A81E621009D4A71 /* AudioToolbox.framework */; };
@@ -161,10 +156,6 @@
 		81794EFE1A81ECD5009D4A71 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE01A81E649009D4A71 /* Security.framework */; };
 		81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE21A81E651009D4A71 /* Social.framework */; };
 		81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE61A81E660009D4A71 /* SystemConfiguration.framework */; };
-		81794F0F1A81F202009D4A71 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794F0E1A81F202009D4A71 /* ParseFacebookUtils.framework */; };
-		81794F101A81F202009D4A71 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794F0E1A81F202009D4A71 /* ParseFacebookUtils.framework */; };
-		81794F181A81F50E009D4A71 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794F171A81F50E009D4A71 /* FacebookSDK.framework */; };
-		81794F191A81F50E009D4A71 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794F171A81F50E009D4A71 /* FacebookSDK.framework */; };
 		81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */; };
 		817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */; };
 		817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */; };
@@ -328,7 +319,6 @@
 		3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameView.swift; sourceTree = "<group>"; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
@@ -337,6 +327,8 @@
 		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
 		812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
+		813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
+		813138881B13ADA3001AF9AC /* Drizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Drizzy.entitlements; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		81331E111A17F9F3003E4609 /* Lyric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lyric.swift; path = Source/Lyric.swift; sourceTree = "<group>"; };
@@ -380,7 +372,6 @@
 		817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionCloseButton.swift; path = Sources/ArtistCollectionCloseButton.swift; sourceTree = "<group>"; };
 		81794EC81A81D6D5009D4A71 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		81794EC91A81D6D5009D4A71 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
-		81794ECD1A81E5C3009D4A71 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		81794ED21A81E607009D4A71 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		81794ED41A81E613009D4A71 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		81794ED61A81E621009D4A71 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -393,8 +384,6 @@
 		81794EE61A81E660009D4A71 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		81794EE81A81E666009D4A71 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		81794F0E1A81F202009D4A71 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
-		81794F171A81F50E009D4A71 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackMetadataView.swift; path = Sources/TrackMetadataView.swift; sourceTree = "<group>"; };
 		8180E6081A142157007FA1CF /* Drizzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drizzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E60C1A142157007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -461,7 +450,6 @@
 				81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794EEB1A81E66D009D4A71 /* libsqlite3.dylib in Frameworks */,
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
-				81794F181A81F50E009D4A71 /* FacebookSDK.framework in Frameworks */,
 				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
 				81794EE11A81E649009D4A71 /* Security.framework in Frameworks */,
@@ -469,13 +457,10 @@
 				81794EDD1A81E63B009D4A71 /* MobileCoreServices.framework in Frameworks */,
 				81794EDB1A81E633009D4A71 /* CoreLocation.framework in Frameworks */,
 				81794ED91A81E62D009D4A71 /* CoreGraphics.framework in Frameworks */,
-				81164A881A9D670600AE5B30 /* ParseCrashReporting.framework in Frameworks */,
 				81794ED71A81E621009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */,
 				81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */,
 				81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */,
-				81794F0F1A81F202009D4A71 /* ParseFacebookUtils.framework in Frameworks */,
-				81794ED01A81E5C3009D4A71 /* Parse.framework in Frameworks */,
 				31838A8D340CC45D4B35C4E2 /* libPods-Drizzy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,11 +479,8 @@
 				81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */,
 				81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */,
-				81164A891A9D670600AE5B30 /* ParseCrashReporting.framework in Frameworks */,
-				81794F101A81F202009D4A71 /* ParseFacebookUtils.framework in Frameworks */,
 				81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */,
 				81794EFE1A81ECD5009D4A71 /* Security.framework in Frameworks */,
-				81794F191A81F50E009D4A71 /* FacebookSDK.framework in Frameworks */,
 				81794EFD1A81ECCD009D4A71 /* QuartzCore.framework in Frameworks */,
 				81794EFC1A81ECC6009D4A71 /* MobileCoreServices.framework in Frameworks */,
 				81794EFB1A81ECBF009D4A71 /* CoreLocation.framework in Frameworks */,
@@ -508,7 +490,6 @@
 				81794EF71A81EC6D009D4A71 /* CFNetwork.framework in Frameworks */,
 				81794EF61A81EC62009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794EF51A81EC58009D4A71 /* Accounts.framework in Frameworks */,
-				81794ED11A81E5C3009D4A71 /* Parse.framework in Frameworks */,
 				C78A7615E4F5FBBBE83EF4C4 /* libPods-CustomKeyboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -568,9 +549,6 @@
 				81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */,
 				81794EE81A81E666009D4A71 /* libz.dylib */,
 				81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */,
-				81164A871A9D670600AE5B30 /* ParseCrashReporting.framework */,
-				81794F171A81F50E009D4A71 /* FacebookSDK.framework */,
-				81794F0E1A81F202009D4A71 /* ParseFacebookUtils.framework */,
 				81794EE61A81E660009D4A71 /* SystemConfiguration.framework */,
 				81794EE21A81E651009D4A71 /* Social.framework */,
 				81794EE01A81E649009D4A71 /* Security.framework */,
@@ -581,7 +559,6 @@
 				81794ED61A81E621009D4A71 /* AudioToolbox.framework */,
 				81794ED41A81E613009D4A71 /* CFNetwork.framework */,
 				81794ED21A81E607009D4A71 /* Accounts.framework */,
-				81794ECD1A81E5C3009D4A71 /* Parse.framework */,
 				BF6D0294D68428C6F0931653 /* libPods-CustomKeyboard.a */,
 				F5D8733E073B834ABAAB187C /* libPods-Drizzy.a */,
 			);
@@ -757,6 +734,7 @@
 		8180E5FF1A142157007FA1CF = {
 			isa = PBXGroup;
 			children = (
+				813138881B13ADA3001AF9AC /* Drizzy.entitlements */,
 				8180E60A1A142157007FA1CF /* DrizzyChat */,
 				8180E6201A142158007FA1CF /* DrizzyChatTests */,
 				81331E161A1806BB003E4609 /* Vendors */,
@@ -827,6 +805,7 @@
 		8180E6321A142199007FA1CF /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */,
 				81592FA91B0FB7B00092EA8F /* View Layouts */,
 				81B6D58D1A95B07B0089767B /* VIew Models */,
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
@@ -1017,11 +996,17 @@
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = LMA3M32RE8;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.GameCenter = {
 								enabled = 0;
 							};
 							com.apple.InAppPurchase = {
 								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
 							};
 						};
 					};
@@ -1035,7 +1020,10 @@
 						DevelopmentTeam = LMA3M32RE8;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
-								enabled = 0;
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
 							};
 						};
 					};
@@ -1456,7 +1444,6 @@
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
 				817618F51AE9ED4F00C7D9CB /* Keyboard.swift in Sources */,
-				81592F951B0FA5070092EA8F /* SessionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1565,6 +1552,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Drizzy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1581,6 +1569,7 @@
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Drizzy;
 				PROVISIONING_PROFILE = "";
@@ -1595,6 +1584,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Drizzy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1615,6 +1605,7 @@
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Drizzy;
 				PROVISIONING_PROFILE = "";
@@ -1668,7 +1659,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboard/CustomKeyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1691,6 +1682,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -1702,7 +1694,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboard/CustomKeyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1725,6 +1717,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;

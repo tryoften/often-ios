@@ -17,7 +17,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var categoryPicker: CategoryCollectionViewController!
     var artistPicker: ArtistPickerCollectionViewController?
     var heightConstraint: NSLayoutConstraint!
-    var viewModel: KeyboardViewModel!
+    var viewModel: KeyboardViewModel
     var lyricPickerViewModel: LyricPickerViewModel!
     var sectionPickerView: CategoriesPanelView!
     var seperatorView: UIView!
@@ -26,6 +26,24 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var allowFullAccessMessage: UILabel!
     var currentlyInjectedLyric: Lyric?
     var lyricInserted = false
+    static var onceToken: dispatch_once_t = 0
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        dispatch_once(&KeyboardViewController.onceToken) {
+            Firebase.defaultConfig().persistenceEnabled = true
+        }
+
+        viewModel = KeyboardViewModel()
+        var firebaseRoot = Firebase(url: BaseURL)
+        lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot))
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        viewModel.delegate = self
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -33,13 +51,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel = KeyboardViewModel()
-        viewModel.delegate = self
-        
-        var firebaseRoot = Firebase(url: BaseURL)
-        lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot))
-        
+
         lyricPicker = LyricPickerTableViewController()
         lyricPicker.delegate = self
         lyricPicker.viewModel = lyricPickerViewModel
@@ -80,26 +92,15 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
-        
-        ParseCrashReporting.enable()
-        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
+
         Flurry.startSession(FlurryClientKey)
-        Firebase.defaultConfig().persistenceEnabled = true
         
         self.getCurrentUser()
         self.viewModel.requestData()
     }
     
     func getCurrentUser() {
-        var currentUser = PFUser.currentUser()
-        
-        if currentUser != nil {
-            SEGAnalytics.sharedAnalytics().identify(currentUser.objectId, traits: [
-                "email": currentUser["email"]
-            ])
-            Flurry.setUserID(currentUser.objectId)
-        }
     }
     
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {

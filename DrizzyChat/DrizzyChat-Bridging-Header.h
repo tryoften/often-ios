@@ -12,10 +12,11 @@
 #import "SwiftAutoLayout.h"
 #import "UIColor+HEXString.h"
 #import <Canvas/Canvas.h>
+#import <FacebookSDK/FacebookSDK.h>
+#import <FlurrySDK/Flurry.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseCrashReporting/ParseCrashReporting.h>
-#import <FlurrySDK/Flurry.h>
 #import <Analytics/SEGAnalytics.h>
 #import <TOMSMorphingLabel/TOMSMorphingLabel.h>
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>

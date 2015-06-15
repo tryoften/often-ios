@@ -83,7 +83,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             artistPicker.view.backgroundColor = UIColor.clearColor()
             
             var layout = ArtistPickerCollectionViewLayout.provideCollectionViewLayout()
-            layout.sectionInset = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 5.0)
+            layout.sectionInset = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 15.0)
             artistPicker.collectionView?.setCollectionViewLayout(layout, animated: false)
 
             if let keyboardList = viewModel.keyboardsList {
@@ -156,7 +156,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     
     func userProfileViewModelDidLoadKeyboardList(userProfileViewModel: UserProfileViewModel, keyboardList: [Keyboard]) {
         if let headerView = headerView {
-            headerView.keyboardCountLabel.text = "\(keyboardList.count) keyboards".uppercaseString
+            headerView.keyboardCountLabel.text = "\(keyboardList.count) cards".uppercaseString
         }
         if let artistPicker = keyboardManagerViewController {
             artistPicker.keyboards = keyboardList
