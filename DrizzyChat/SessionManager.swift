@@ -70,6 +70,10 @@ class SessionManager: NSObject {
         
         self.trackService?.getTracksForArtistId("-Jo284H6WX4QySExfJ5U")
     }
+    
+    func fetchArtists() {
+        
+    }
 
     private func persistSession() {
 
@@ -194,4 +198,5 @@ class SessionManager: NSObject {
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User)
     func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard])
     func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track])
+    func sessionManagerDidFetchArtists(sessionManager: SessionManager, artists: [String : Artist])
 }

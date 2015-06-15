@@ -55,6 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if shouldHomeViewBeShown() {
                 mainController = TabBarController(sessionManager: sessionManager)
             }
+            //mainController = BrowseCollectionViewController(viewModel: BrowseViewModel(sessionManager: sessionManager))
+            //mainController = TrendingCollectionViewController(viewModel: TrendingViewModel(sessionManager: sessionManager))
         }
         
         if let window = self.window {

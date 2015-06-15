@@ -50,11 +50,11 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     class func getLayout() -> UICollectionViewLayout {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
         var flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 200)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 280)
-        flowLayout.headerReferenceSize = CGSizeMake(screenWidth, 200)
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 100)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 300)
+        flowLayout.disableStickyHeaders = true /// allow sticky header for dragging down the table view
+        flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.itemSize = CGSizeMake(screenWidth, 65) /// height of the cell
-        flowLayout.disableStickyHeaders = false /// allow sticky header for dragging down the table view
         return flowLayout
     }
 
@@ -125,7 +125,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
         
-        return CGSizeMake(screenWidth, 70.5)
+        return CGSizeMake(screenWidth, 40.5)
     }
 
     
