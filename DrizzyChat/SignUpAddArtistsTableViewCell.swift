@@ -58,7 +58,6 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
     
     func setupLayout() {
         addConstraints([
-            
             artistImageView.al_left == al_left + 15,
             artistImageView.al_width == 40,
             artistImageView.al_height == 40,

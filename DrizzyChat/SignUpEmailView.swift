@@ -44,8 +44,6 @@ class SignUpEmailView: UIView {
         addSubview(termsAndPrivacyView)
         
         setupLayout()
-
-        
     }
     
     required init(coder aDecoder: NSCoder) {
