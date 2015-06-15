@@ -39,26 +39,6 @@ class SignUpWalkthroughViewModel: NSObject {
     }
     
     func submitNewUser(completion: (success: Bool, error: NSError?) -> ()) {
-        var user = PFUser.currentUser()
-        var isExistingUser: Bool = false
-        
-        if user == nil {
-            user = PFUser()
-        } else {
-            isExistingUser = true
-        }
-        
-        user.username = email
-        user.email = email
-        user.password = password
-        user["fullName"] = fullName
-        user["phoneNumber"] = phoneNumber
-        
-        if !isExistingUser {
-            user.signUpInBackgroundWithBlock(completion)
-        } else {
-            user.saveInBackgroundWithBlock(completion)
-        }
     }
 }
 
