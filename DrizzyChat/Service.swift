@@ -10,19 +10,19 @@ import RealmSwift
 
 /// Provides data of specific entity (e.g. keyboard, lyric) from a local or remote source
 class Service {
-    let root: Firebase
+    var rootURL: Firebase
     let realm: Realm
     let writeQueue: dispatch_queue_t
     var delegate: ServiceDelegate?
 
     init(root: Firebase, realm: Realm = Realm()) {
-        self.root = root
+        self.rootURL = root
         self.realm = realm
         self.writeQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
     }
     
     func fetchLocalData() {}
-    func fetchRemoteData() {}
+    func fetchRemoteData(completion: (Bool) -> Void) {}
     func fetchData() {}
 }
 

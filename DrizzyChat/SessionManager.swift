@@ -15,6 +15,7 @@ class SessionManager: NSObject {
     var userRef: Firebase?
     var currentUser: User?
     var userDefaults: NSUserDefaults
+    var currentSession: FBSession?
 
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
@@ -47,10 +48,6 @@ class SessionManager: NSObject {
         } else {
             // TODO(luc): throw an error if the current user is not set
         }
-    }
-    
-    private func persistSession() {
-
     }
     
     private func processAuthData(authData: FAuthData?) {
@@ -118,6 +115,30 @@ class SessionManager: NSObject {
         })
     }
     
+    func signUpUser(data: [String: String]) {
+        if let email = data["email"],
+            let username = data["username"],
+            let password = data["password"] {
+                
+                var user = PFUser()
+                user.email = email
+                user.username = email
+                user.password = password
+                
+                if let phone = data["phone"] {
+                    user["phone"] = phone
+                }
+                
+                user.signUpInBackgroundWithBlock { (success, error) in
+                    if error == nil {
+                        
+                    } else {
+                        
+                    }
+                }
+        }
+    }
+    
     func getUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
         var request = FBRequest.requestForMe()
         
@@ -147,7 +168,14 @@ class SessionManager: NSObject {
         openSession()
     }
     
+    func loginWithEmail(email: String, password: String) {
+        PFUser.logInWithUsernameInBackground(email, password: password) { (user, error) in
+            
+        }
+    }
+    
     func logout() {
+        PFUser.logOut()
     }
     
     func addSessionObserver(observer: SessionManagerObserver) {

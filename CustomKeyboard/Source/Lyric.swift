@@ -9,35 +9,20 @@
 import Realm
 import RealmSwift
 
-class Lyric: Object, DebugPrintable {
+class Lyric: Object {
     dynamic var id: String = ""
     dynamic var text: String = ""
     dynamic var categoryId: String = ""
-    var trackId: String?
-    var track: Track?
+    dynamic var trackId: String = ""
+    dynamic var artistId: String = ""
+    dynamic var track: Track?
     
     override static func primaryKey() -> String? {
         return "id"
     }
-    
-    func toDictionary() -> [String: AnyObject] {
-        var dict: [String: AnyObject] = [
-            "id": id,
-            "text": text,
-            "category_id": categoryId
-        ]
-        
-        if let trackId = trackId {
-            dict["track_id"] = trackId
-        }
-        
-        if let trackData = track?.toDictionary() {
-            dict["track"] = trackData
-        }
-        
-        return dict
-    }
-    
+}
+
+extension Lyric: DebugPrintable {
     override var debugDescription: String {
         return self.text
     }

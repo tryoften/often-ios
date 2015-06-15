@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KeyboardViewModel: NSObject {
+class KeyboardViewModel: NSObject, KeyboardServiceDelegate {
     var keyboardService: KeyboardService
     var delegate: KeyboardViewModelDelegate?
     var userDefaults: NSUserDefaults
@@ -35,24 +35,28 @@ class KeyboardViewModel: NSObject {
         }
 
         super.init()
+        keyboardService.delegate = self
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
         self.keyboardService.requestData({ data in
-            
-            if self.keyboardService.keyboards.count > 0 {
-                if let lastKeyboardId = NSUserDefaults.standardUserDefaults().objectForKey("currentKeyboard") as? String, lastKeyboard = self.keyboardService.keyboards[lastKeyboardId] {
-                    self.currentKeyboard = lastKeyboard
-                } else {
-                    self.currentKeyboard = self.keyboardService.keyboards.values.first
-                }
-                
-                self.delegate?.keyboardViewModelCurrentKeyboardDidChange(self, keyboard: self.currentKeyboard!)
-            }
-            
-            self.delegate?.keyboardViewModelDidLoadData(self, data: data.values.array)
             completion?(true)
         })
+    }
+    
+    // MARK: KeyboardServiceDelegate
+    func serviceDataDidLoad(service: Service) {
+        let keyboards = keyboardService.keyboards
+        if keyboards.count > 0 {
+            if let lastKeyboardId = NSUserDefaults.standardUserDefaults().objectForKey("currentKeyboard") as? String, lastKeyboard = keyboards[lastKeyboardId] {
+                currentKeyboard = lastKeyboard
+            } else {
+                currentKeyboard = keyboards.values.first
+            }
+            
+            delegate?.keyboardViewModelCurrentKeyboardDidChange(self, keyboard: currentKeyboard!)
+        }
+        delegate?.keyboardViewModelDidLoadData(self, data: keyboards.values.array)
     }
 }
 

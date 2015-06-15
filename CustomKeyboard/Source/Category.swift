@@ -11,7 +11,8 @@ import RealmSwift
 class Category: Object {
     dynamic var id: String = ""
     dynamic var name: String = ""
-    let lyrics = List<Lyric>()
+    var ownerId: String = ""
+    var lyrics = List<Lyric>()
     var highlightColor: UIColor!
     
     override static func primaryKey() -> String? {
@@ -19,7 +20,7 @@ class Category: Object {
     }
     
     override static func ignoredProperties() -> [String] {
-        return ["highlightColor"]
+        return ["highlightColor", "ownerId"]
     }
 
     var lyricsCount: Int {
