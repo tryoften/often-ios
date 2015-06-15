@@ -8,16 +8,17 @@
 
 import UIKit
 
-/*
- * Views:
- *  - coverPhoto -> Background that contains the current artist art image as blurred
- *  - nameLabel -> displays the name of the current artist
- *  - addArtistButton -> button that adds the current artist's keyboard to the user's list of keyboards
- *
- * Sizes:
- *  - full header: 447
- *  - inter-card spacing: 40
- *  - cards:
+/**
+    Views:
+    - coverPhoto -> Background that contains the current artist art image as blurred
+    - nameLabel -> displays the name of the current artist
+    - addArtistButton -> button that adds the current artist's keyboard to the user's list of keyboards
+
+    Sizes:
+    - full header: 447
+    - inter-card spacing: 40
+    - cards:
+
  */
 
 let BrowseHeaderViewCellIdentifier = "headerCell"

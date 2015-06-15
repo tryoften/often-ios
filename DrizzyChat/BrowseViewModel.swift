@@ -9,15 +9,16 @@
 import UIKit
 
 /**
-    BrowseViewModel
+    BrowseViewModel:
+
     Load data into the tracks array
     Acts as table view data source and delegates to the BrowseViewController
     
     Table View Cell
-    -> index + 1 ranking in left block
-    -> Track Name as Title
-    -> Lyric Count as Subtitle
-    -> Add a cellAccessoryDisclosureIndicator in right block
+    - index + 1 ranking in left block
+    - Track Name as Title
+    - Lyric Count as Subtitle
+    - Add a cellAccessoryDisclosureIndicator in right block
 
 */
 

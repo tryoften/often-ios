@@ -44,6 +44,10 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track]) {
         
     }
+    
+    func sessionManagerDidFetchArtists(sessionManager: SessionManager, artists: [String : Artist]) {
+        
+    }
 }
 
 protocol UserProfileViewModelDelegate {
