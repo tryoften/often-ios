@@ -12,7 +12,7 @@ class ButtonView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         var animationClass: CSAnimation.Type = CSAnimation.classForAnimationType("fadeInUp") as! CSAnimation.Type
-        animationClass.performAnimationOnView(self, duration: 0.4, delay: 0.0)
+        animationClass.performAnimationOnView(self, duration: 0.6, delay: 0.0)
     }
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -83,7 +83,7 @@ class SignUpOrLoginView: UIView {
         loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         loginButton.backgroundColor = UIColor.blackColor()
         loginButton.setTitle("login".uppercaseString, forState: .Normal)
-        loginButton.titleLabel!.font = TitleFont
+        loginButton.titleLabel!.font = ButtonFont
         loginButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     
         super.init(frame: frame)
@@ -101,7 +101,6 @@ class SignUpOrLoginView: UIView {
         buttonView.addSubview(loginButton)
         
         setupLayout()
-
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -110,7 +109,6 @@ class SignUpOrLoginView: UIView {
     
     func setupLayout() {
         addConstraints([
-            
             titleLabel.al_top == al_top + 55,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
