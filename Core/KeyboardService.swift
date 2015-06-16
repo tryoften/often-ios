@@ -88,8 +88,10 @@ class KeyboardService: Service {
                         self.keyboards[keyboard.id] = keyboard
                         
                         if index + 1 >= keyboardCount {
-                            self.realm.write {
-                                self.realm.add(self.keyboards.values.array, update: true)
+                            if self.userId != nil {
+                                self.realm.write {
+                                    self.realm.add(self.keyboards.values.array, update: true)
+                                }
                             }
                             dispatch_async(dispatch_get_main_queue(), {
                                 self.delegate?.serviceDataDidLoad(self)

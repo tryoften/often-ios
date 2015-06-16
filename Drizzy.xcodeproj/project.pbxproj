@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B34F6631E195D267E7C503E /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A7739D64C1EC7752556F914 /* libPods-CustomKeyboard.a */; };
+		3250224964CF65603A0E4AC4 /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE029A1C4A784B9B85DE8FF7 /* libPods-Drizzy.a */; };
 		3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */; };
 		3B4D9A961B14169300643EF8 /* SignUpEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */; };
 		3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */; };
 		3B82E6D01B1F722000ABA660 /* SignUpWalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B82E6CF1B1F722000ABA660 /* SignUpWalkthroughViewModel.swift */; };
-		3B82E6D51B1FA72E00ABA660 /* ArtistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010701AE89631008F3296 /* ArtistService.swift */; };
 		3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		3B9AD79D1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD79C1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift */; };
@@ -54,6 +53,7 @@
 		3BAAB1E61B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */; };
 		3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */; };
 		3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */; };
+		5F50FC2DA9F65D8AF03CAD67 /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */; };
 		696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */; };
 		69BA82021B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82011B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift */; };
 		69BA82061B2FA9B000233789 /* SignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82051B2FA9B000233789 /* SignUpFormViewModel.swift */; };
@@ -63,8 +63,6 @@
 		69BA820D1B2FABA700233789 /* TrendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA820C1B2FABA700233789 /* TrendingViewModel.swift */; };
 		69BA820F1B2FABB800233789 /* TrendingSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA820E1B2FABB800233789 /* TrendingSectionHeaderView.swift */; };
 		69BA82101B2FABE200233789 /* BrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */; };
-		69BA821B1B2FB55900233789 /* RealmSwift.framework in Copy Dynamic Frameworks */ = {isa = PBXBuildFile; fileRef = 818309851B1F7917005BB221 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		69BA821C1B2FB55F00233789 /* Realm.framework in Copy Dynamic Frameworks */ = {isa = PBXBuildFile; fileRef = 818309761B1F6B4B005BB221 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */; };
 		69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */; };
 		69F2B5E11B27842E004FCD19 /* TrendingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F2B5E01B27842E004FCD19 /* TrendingCollectionViewController.swift */; };
@@ -80,19 +78,9 @@
 		81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
 		8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
 		8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
-		811B1E121B1F9D8F00618E1A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E111B1F9D8F00618E1A /* Service.swift */; };
-		811B1E131B1F9D8F00618E1A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E111B1F9D8F00618E1A /* Service.swift */; };
-		811B1E181B1FBE5200618E1A /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E171B1FBE5200618E1A /* Owner.swift */; };
-		811B1E191B1FBE5200618E1A /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E171B1FBE5200618E1A /* Owner.swift */; };
 		8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
 		8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
-		81240A791A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
-		81240A7A1A33BCF600E946F8 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
 		812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
-		81331E051A17E538003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
-		81331E121A17F9F3003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
-		81331E131A17FA85003E4609 /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
-		81331E141A17FA88003E4609 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
 		81331E2B1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
@@ -109,9 +97,6 @@
 		81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
 		81592F911B0FA4740092EA8F /* CategoriesPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */; };
-		81592F941B0FA5070092EA8F /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F931B0FA5070092EA8F /* SessionManager.swift */; };
-		81592F971B0FA51D0092EA8F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F961B0FA51D0092EA8F /* User.swift */; };
-		81592F981B0FA51D0092EA8F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F961B0FA51D0092EA8F /* User.swift */; };
 		81592F9A1B0FA55A0092EA8F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F991B0FA55A0092EA8F /* TabBarController.swift */; };
 		81592F9D1B0FA5750092EA8F /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F9C1B0FA5750092EA8F /* UserProfileViewController.swift */; };
 		81592F9F1B0FA57E0092EA8F /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F9E1B0FA57E0092EA8F /* UserProfileViewModel.swift */; };
@@ -129,10 +114,6 @@
 		816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
 		817618EE1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */; };
 		817618EF1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */; };
-		817618F41AE9ED4F00C7D9CB /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618F31AE9ED4F00C7D9CB /* Keyboard.swift */; };
-		817618F51AE9ED4F00C7D9CB /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618F31AE9ED4F00C7D9CB /* Keyboard.swift */; };
-		817618F61AE9F58300C7D9CB /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010771AE8A47C008F3296 /* KeyboardService.swift */; };
-		817618F71AEA146900C7D9CB /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010751AE89956008F3296 /* Artist.swift */; };
 		817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */; };
 		817619F71AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */; };
 		817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */; };
@@ -213,9 +194,7 @@
 		8180E67C1A147A78007FA1CF /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6581A147A77007FA1CF /* Lato-ThinItalic.ttf */; };
 		8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
 		8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
-		818309771B1F6B4B005BB221 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818309761B1F6B4B005BB221 /* Realm.framework */; };
 		818309781B1F6B4B005BB221 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818309761B1F6B4B005BB221 /* Realm.framework */; };
-		818309861B1F7917005BB221 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818309851B1F7917005BB221 /* RealmSwift.framework */; };
 		818309871B1F7917005BB221 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 818309851B1F7917005BB221 /* RealmSwift.framework */; };
 		818309881B1F7A1D005BB221 /* RealmSwift.framework in Resources */ = {isa = PBXBuildFile; fileRef = 818309851B1F7917005BB221 /* RealmSwift.framework */; };
 		81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
@@ -224,22 +203,40 @@
 		81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */; };
 		81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */; };
+		81B19E941B30AD5500D3575C /* ArtistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010701AE89631008F3296 /* ArtistService.swift */; };
+		81B19E951B30AD5500D3575C /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
+		81B19E961B30AD5500D3575C /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010771AE8A47C008F3296 /* KeyboardService.swift */; };
+		81B19E971B30AD5500D3575C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E111B1F9D8F00618E1A /* Service.swift */; };
+		81B19E981B30AD5500D3575C /* ArtistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010701AE89631008F3296 /* ArtistService.swift */; };
+		81B19E991B30AD5500D3575C /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
+		81B19E9A1B30AD5500D3575C /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010771AE8A47C008F3296 /* KeyboardService.swift */; };
+		81B19E9B1B30AD5500D3575C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E111B1F9D8F00618E1A /* Service.swift */; };
+		81B19E9C1B30AD5A00D3575C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
+		81B19E9D1B30AD5A00D3575C /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
+		81B19E9E1B30AD5A00D3575C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
+		81B19E9F1B30AD5A00D3575C /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010751AE89956008F3296 /* Artist.swift */; };
+		81B19EA01B30AD5A00D3575C /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618F31AE9ED4F00C7D9CB /* Keyboard.swift */; };
+		81B19EA11B30AD5A00D3575C /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E171B1FBE5200618E1A /* Owner.swift */; };
+		81B19EA21B30AD5B00D3575C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
+		81B19EA31B30AD5B00D3575C /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
+		81B19EA41B30AD5B00D3575C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
+		81B19EA51B30AD5B00D3575C /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010751AE89956008F3296 /* Artist.swift */; };
+		81B19EA61B30AD5B00D3575C /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618F31AE9ED4F00C7D9CB /* Keyboard.swift */; };
+		81B19EA71B30AD5B00D3575C /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E171B1FBE5200618E1A /* Owner.swift */; };
+		81B19EA91B30AD5D00D3575C /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F931B0FA5070092EA8F /* SessionManager.swift */; };
+		81B19EAB1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
+		81B19EAC1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
+		81B19EBA1B30B6CC00D3575C /* RealmSwift.framework in Copy Dynamic Frameworks */ = {isa = PBXBuildFile; fileRef = 818309851B1F7917005BB221 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81B19EBB1B30B6CC00D3575C /* Realm.framework in Copy Dynamic Frameworks */ = {isa = PBXBuildFile; fileRef = 818309761B1F6B4B005BB221 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */; };
 		81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D5861A956E680089767B /* LoginIndicatorView.swift */; };
 		81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
-		81B6D5911A95B1F90089767B /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D5901A95B1F90089767B /* KeyboardKey.swift */; };
-		81C010711AE89631008F3296 /* ArtistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010701AE89631008F3296 /* ArtistService.swift */; };
-		81C010761AE89956008F3296 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010751AE89956008F3296 /* Artist.swift */; };
-		81C010781AE8A47C008F3296 /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010771AE8A47C008F3296 /* KeyboardService.swift */; };
 		81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		81DB4ED31A945251004EE28C /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DB4ED21A945251004EE28C /* backspace.png */; };
 		81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */ = {isa = PBXBuildFile; fileRef = 81DC114A1AF05CF400412BD2 /* SwiftyJSON */; };
 		81DC50AA1A9C2C5A00E2AA9B /* tutorial-video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 81DC50A91A9C2C5A00E2AA9B /* tutorial-video.mov */; };
-		81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
-		81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
-		DAED157B44A929A62A7ABEFA /* libPods-Drizzy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDCF48BC364A6872E706C264 /* libPods-Drizzy.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,18 +278,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		69BA821A1B2FB53B00233789 /* Copy Dynamic Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				69BA821B1B2FB55900233789 /* RealmSwift.framework in Copy Dynamic Frameworks */,
-				69BA821C1B2FB55F00233789 /* Realm.framework in Copy Dynamic Frameworks */,
-			);
-			name = "Copy Dynamic Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8180E63D1A142199007FA1CF /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -304,10 +289,23 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		81B19EB91B30B6BB00D3575C /* Copy Dynamic Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				81B19EBA1B30B6CC00D3575C /* RealmSwift.framework in Copy Dynamic Frameworks */,
+				81B19EBB1B30B6CC00D3575C /* Realm.framework in Copy Dynamic Frameworks */,
+			);
+			name = "Copy Dynamic Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
+		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWalkthroughViewController.swift; sourceTree = "<group>"; };
 		3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpEmailView.swift; sourceTree = "<group>"; };
 		3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPasswordView.swift; sourceTree = "<group>"; };
@@ -356,24 +354,23 @@
 		69F2B5E61B2786F6004FCD19 /* TrendingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingHeaderView.swift; sourceTree = "<group>"; };
 		69F2B5E81B27870F004FCD19 /* TrendingSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingSectionHeaderView.swift; sourceTree = "<group>"; };
 		69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingCollectionViewCell.swift; sourceTree = "<group>"; };
-		6A7739D64C1EC7752556F914 /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-circle.ttf"; sourceTree = "<group>"; };
-		811B1E111B1F9D8F00618E1A /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = DrizzyChat/Service.swift; sourceTree = SOURCE_ROOT; };
-		811B1E171B1FBE5200618E1A /* Owner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Owner.swift; path = DrizzyChat/Owner.swift; sourceTree = SOURCE_ROOT; };
+		811B1E111B1F9D8F00618E1A /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = Core/Service.swift; sourceTree = SOURCE_ROOT; };
+		811B1E171B1FBE5200618E1A /* Owner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Owner.swift; path = Core/Owner.swift; sourceTree = "<group>"; };
 		812029E91AED3AE0005D1D8F /* CustomKeyboardPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomKeyboardPrefixHeader.pch; path = Sources/CustomKeyboardPrefixHeader.pch; sourceTree = "<group>"; };
 		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
-		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Source/Track.swift; sourceTree = "<group>"; };
+		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Core/Track.swift; sourceTree = "<group>"; };
 		812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
 		813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
 		813138881B13ADA3001AF9AC /* Drizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Drizzy.entitlements; path = ../Drizzy.entitlements; sourceTree = "<group>"; };
-		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Source/Category.swift; sourceTree = "<group>"; };
+		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Core/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
-		81331E111A17F9F3003E4609 /* Lyric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lyric.swift; path = Source/Lyric.swift; sourceTree = "<group>"; };
+		81331E111A17F9F3003E4609 /* Lyric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lyric.swift; path = Core/Lyric.swift; sourceTree = "<group>"; };
 		81331E1C1A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E1D1A1806BB003E4609 /* SwiftAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftAutoLayout.h; sourceTree = "<group>"; };
 		81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayout.swift; sourceTree = "<group>"; };
@@ -386,20 +383,19 @@
 		81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-filled.ttf"; sourceTree = "<group>"; };
 		81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceList.swift"; sourceTree = "<group>"; };
 		81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoriesPanelView.swift; path = Sources/CategoriesPanelView.swift; sourceTree = "<group>"; };
-		81592F931B0FA5070092EA8F /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
-		81592F961B0FA51D0092EA8F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Sources/User.swift; sourceTree = "<group>"; };
+		81592F931B0FA5070092EA8F /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Core/SessionManager.swift; sourceTree = "<group>"; };
 		81592F991B0FA55A0092EA8F /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		81592F9C1B0FA5750092EA8F /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		81592F9E1B0FA57E0092EA8F /* UserProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
 		81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSectionHeaderView.swift; sourceTree = "<group>"; };
 		81592FA41B0FA5BD0092EA8F /* PrimaryToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrimaryToolbarView.swift; path = Sources/PrimaryToolbarView.swift; sourceTree = "<group>"; };
-		81592FAA1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistPickerCollectionViewLayout.swift; sourceTree = "<group>"; };
+		81592FAA1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistPickerCollectionViewLayout.swift; path = Sources/ArtistPickerCollectionViewLayout.swift; sourceTree = "<group>"; };
 		816EB9701AE5EBA8000620E2 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		816FE58F1A86B19700E42C17 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-regular.ttf"; sourceTree = "<group>"; };
 		817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewModel.swift; path = Sources/KeyboardViewModel.swift; sourceTree = "<group>"; };
-		817618F31AE9ED4F00C7D9CB /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = Sources/Keyboard.swift; sourceTree = "<group>"; };
+		817618F31AE9ED4F00C7D9CB /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = Core/Keyboard.swift; sourceTree = "<group>"; };
 		817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwitchArtistButton.swift; path = Sources/SwitchArtistButton.swift; sourceTree = "<group>"; };
 		817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistPickerCollectionViewController.swift; path = Sources/ArtistPickerCollectionViewController.swift; sourceTree = "<group>"; };
 		817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionViewCell.swift; path = Sources/ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -427,8 +423,8 @@
 		8180E6231A142158007FA1CF /* DrizzyChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrizzyChatTests.swift; sourceTree = "<group>"; };
 		8180E6311A142199007FA1CF /* CustomKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CustomKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6341A142199007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8180E6351A142199007FA1CF /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
-		8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LyricPickerTableViewController.swift; sourceTree = "<group>"; };
+		8180E6351A142199007FA1CF /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = Sources/KeyboardViewController.swift; sourceTree = "<group>"; };
+		8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricPickerTableViewController.swift; path = Sources/LyricPickerTableViewController.swift; sourceTree = "<group>"; };
 		8180E6471A147A77007FA1CF /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		8180E6481A147A77007FA1CF /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		8180E6491A147A77007FA1CF /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -447,30 +443,35 @@
 		8180E6561A147A77007FA1CF /* Lato-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		8180E6571A147A77007FA1CF /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
 		8180E6581A147A77007FA1CF /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
-		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Source/LyricTableViewCell.swift; sourceTree = "<group>"; };
+		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Sources/LyricTableViewCell.swift; sourceTree = "<group>"; };
 		818309761B1F6B4B005BB221 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		818309851B1F7917005BB221 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		81A1A4D31A196D6200D566B8 /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
 		81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HEXString.h"; sourceTree = "<group>"; };
 		81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEXString.m"; sourceTree = "<group>"; };
-		81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareViewController.swift; path = Source/ShareViewController.swift; sourceTree = "<group>"; };
+		81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareViewController.swift; path = Sources/ShareViewController.swift; sourceTree = "<group>"; };
+		81B19E8D1B30A66700D3575C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		81B19E8F1B30A71500D3575C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		81B19EAA1B30AD9900D3575C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Core/User.swift; sourceTree = "<group>"; };
 		81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StandardKeyboardViewController.swift; path = Sources/StandardKeyboardViewController.swift; sourceTree = "<group>"; };
 		81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricFilterBar.swift; path = Sources/LyricFilterBar.swift; sourceTree = "<group>"; };
 		81B6D5861A956E680089767B /* LoginIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginIndicatorView.swift; sourceTree = "<group>"; };
 		81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricPickerViewModel.swift; path = Sources/LyricPickerViewModel.swift; sourceTree = "<group>"; };
-		81B6D5901A95B1F90089767B /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKey.swift; path = Sources/KeyboardKey.swift; sourceTree = "<group>"; };
-		81C010701AE89631008F3296 /* ArtistService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistService.swift; path = Sources/ArtistService.swift; sourceTree = "<group>"; };
-		81C010751AE89956008F3296 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Sources/Artist.swift; sourceTree = "<group>"; };
-		81C010771AE8A47C008F3296 /* KeyboardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardService.swift; path = Sources/KeyboardService.swift; sourceTree = "<group>"; };
+		81C010701AE89631008F3296 /* ArtistService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistService.swift; path = Core/ArtistService.swift; sourceTree = "<group>"; };
+		81C010751AE89956008F3296 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Core/Artist.swift; sourceTree = "<group>"; };
+		81C010771AE8A47C008F3296 /* KeyboardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardService.swift; path = Core/KeyboardService.swift; sourceTree = "<group>"; };
 		81DB4ED21A945251004EE28C /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
 		81DC114A1AF05CF400412BD2 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftyJSON; sourceTree = "<group>"; };
 		81DC50A91A9C2C5A00E2AA9B /* tutorial-video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "tutorial-video.mov"; sourceTree = "<group>"; };
-		81E897D91A32A17F005C7CD9 /* TrackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackService.swift; path = Source/TrackService.swift; sourceTree = "<group>"; };
+		81E897D91A32A17F005C7CD9 /* TrackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackService.swift; path = Core/TrackService.swift; sourceTree = "<group>"; };
+		90CC34E177E03E45A67CAEEB /* Pods-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.release.xcconfig"; path = "Pods/Target Support Files/Pods-Core/Pods-Core.release.xcconfig"; sourceTree = "<group>"; };
 		928E8AB5169157015D98D681 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		CAC04D95B6CDD62B74E1C6FE /* libPods-Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.debug.xcconfig"; sourceTree = "<group>"; };
-		DDCF48BC364A6872E706C264 /* libPods-Drizzy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Drizzy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE029A1C4A784B9B85DE8FF7 /* libPods-Drizzy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Drizzy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0DD50C141D01B72F4932753 /* Pods-Core.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Core/Pods-Core.debug.xcconfig"; sourceTree = "<group>"; };
 		FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -481,7 +482,6 @@
 			files = (
 				81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794EEB1A81E66D009D4A71 /* libsqlite3.dylib in Frameworks */,
-				818309861B1F7917005BB221 /* RealmSwift.framework in Frameworks */,
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
 				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
@@ -494,8 +494,7 @@
 				81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */,
 				81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */,
 				81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */,
-				818309771B1F6B4B005BB221 /* Realm.framework in Frameworks */,
-				DAED157B44A929A62A7ABEFA /* libPods-Drizzy.a in Frameworks */,
+				3250224964CF65603A0E4AC4 /* libPods-Drizzy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,7 +525,7 @@
 				81794EF71A81EC6D009D4A71 /* CFNetwork.framework in Frameworks */,
 				81794EF61A81EC62009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794EF51A81EC58009D4A71 /* Accounts.framework in Frameworks */,
-				0B34F6631E195D267E7C503E /* libPods-CustomKeyboard.a in Frameworks */,
+				5F50FC2DA9F65D8AF03CAD67 /* libPods-CustomKeyboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,6 +541,8 @@
 				945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */,
 				9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */,
 				928E8AB5169157015D98D681 /* Pods.release.xcconfig */,
+				F0DD50C141D01B72F4932753 /* Pods-Core.debug.xcconfig */,
+				90CC34E177E03E45A67CAEEB /* Pods-Core.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -587,11 +588,13 @@
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				818309851B1F7917005BB221 /* RealmSwift.framework */,
+				81B19E8F1B30A71500D3575C /* libicucore.dylib */,
+				81B19E8D1B30A66700D3575C /* libc++.dylib */,
 				81164A8E1A9D699800AE5B30 /* libstdc++.dylib */,
 				81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */,
 				81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */,
 				81794EE81A81E666009D4A71 /* libz.dylib */,
+				818309851B1F7917005BB221 /* RealmSwift.framework */,
 				818309761B1F6B4B005BB221 /* Realm.framework */,
 				81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */,
 				81794EE61A81E660009D4A71 /* SystemConfiguration.framework */,
@@ -604,8 +607,9 @@
 				81794ED61A81E621009D4A71 /* AudioToolbox.framework */,
 				81794ED41A81E613009D4A71 /* CFNetwork.framework */,
 				81794ED21A81E607009D4A71 /* Accounts.framework */,
-				6A7739D64C1EC7752556F914 /* libPods-CustomKeyboard.a */,
-				DDCF48BC364A6872E706C264 /* libPods-Drizzy.a */,
+				CAC04D95B6CDD62B74E1C6FE /* libPods-Core.a */,
+				36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */,
+				DE029A1C4A784B9B85DE8FF7 /* libPods-Drizzy.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -617,23 +621,22 @@
 				81331E061A17E552003E4609 /* Services */,
 				81331DFF1A17DF66003E4609 /* Models */,
 			);
-			name = Core;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		81331DFF1A17DF66003E4609 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				81B19EAA1B30AD9900D3575C /* User.swift */,
 				81331E041A17E538003E4609 /* Category.swift */,
 				81331E111A17F9F3003E4609 /* Lyric.swift */,
 				81240A781A33BCF600E946F8 /* Track.swift */,
-				81B6D5901A95B1F90089767B /* KeyboardKey.swift */,
 				81C010751AE89956008F3296 /* Artist.swift */,
 				817618F31AE9ED4F00C7D9CB /* Keyboard.swift */,
-				81592F961B0FA51D0092EA8F /* User.swift */,
 				811B1E171B1FBE5200618E1A /* Owner.swift */,
 			);
 			name = Models;
-			path = CustomKeyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		81331E061A17E552003E4609 /* Services */ = {
@@ -645,8 +648,8 @@
 				811B1E111B1F9D8F00618E1A /* Service.swift */,
 			);
 			name = Services;
-			path = CustomKeyboard;
-			sourceTree = "<group>";
+			path = "/Users/luc/Desktop/october-client-ios";
+			sourceTree = "<absolute>";
 		};
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
@@ -715,7 +718,7 @@
 				81592F931B0FA5070092EA8F /* SessionManager.swift */,
 			);
 			name = Managers;
-			path = DrizzyChat;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		81592FA91B0FB7B00092EA8F /* View Layouts */ = {
@@ -990,7 +993,7 @@
 				819A375B1A9806900041F5E0 /* Update Bundle Version */,
 				45728D1C2D72036A77085D41 /* Copy Pods Resources */,
 				81164A7E1A9D661C00AE5B30 /* Upload Symbols to Parse */,
-				69BA821A1B2FB53B00233789 /* Copy Dynamic Frameworks */,
+				81B19EB91B30B6BB00D3575C /* Copy Dynamic Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1369,71 +1372,70 @@
 			files = (
 				3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */,
 				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
-				3B82E6D51B1FA72E00ABA660 /* ArtistService.swift in Sources */,
-				81240A791A33BCF600E946F8 /* Track.swift in Sources */,
 				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
 				81592FA81B0FA6CE0092EA8F /* CategoryCollectionViewController.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */,
-				81E897E01A336E22005C7CD9 /* TrackService.swift in Sources */,
 				3B9AD7AC1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift in Sources */,
 				81592FAC1B0FC5450092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */,
 				69BA82081B2FA9D000233789 /* BrowseViewModel.swift in Sources */,
 				81592F9F1B0FA57E0092EA8F /* UserProfileViewModel.swift in Sources */,
-				811B1E181B1FBE5200618E1A /* Owner.swift in Sources */,
+				81B19EA01B30AD5A00D3575C /* Keyboard.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */,
 				3B9AD7A41B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift in Sources */,
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
+				81B19E941B30AD5500D3575C /* ArtistService.swift in Sources */,
 				69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */,
 				69BA82021B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift in Sources */,
+				81B19E9F1B30AD5A00D3575C /* Artist.swift in Sources */,
 				69F2B5E11B27842E004FCD19 /* TrendingCollectionViewController.swift in Sources */,
-				81331E141A17FA88003E4609 /* Category.swift in Sources */,
 				81592FA21B0FA5870092EA8F /* UserProfileHeaderView.swift in Sources */,
 				3BAAB1E01B1D003F00EA1925 /* CategoriesPanelView.swift in Sources */,
+				81B19EA91B30AD5D00D3575C /* SessionManager.swift in Sources */,
 				3B9AD7A81B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift in Sources */,
 				69BA82101B2FABE200233789 /* BrowseCollectionViewCell.swift in Sources */,
 				81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */,
-				81331E131A17FA85003E4609 /* Lyric.swift in Sources */,
 				817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				69BA820A1B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift in Sources */,
 				3B82E6D01B1F722000ABA660 /* SignUpWalkthroughViewModel.swift in Sources */,
 				3B9AD7AF1B2F5FF500727E79 /* LoginViewConroller.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
-				811B1E121B1F9D8F00618E1A /* Service.swift in Sources */,
 				3BAAB1E21B1E1B0D00EA1925 /* TermsAndPrivacyView.swift in Sources */,
+				81B19E9D1B30AD5A00D3575C /* Lyric.swift in Sources */,
 				3B9AD7A21B2F4D4A00727E79 /* LoginView.swift in Sources */,
 				817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				69F2B5E71B2786F6004FCD19 /* TrendingHeaderView.swift in Sources */,
 				81592FA71B0FA64D0092EA8F /* LyricPickerTableViewController.swift in Sources */,
 				69BA820D1B2FABA700233789 /* TrendingViewModel.swift in Sources */,
 				69BA820F1B2FABB800233789 /* TrendingSectionHeaderView.swift in Sources */,
-				81592F971B0FA51D0092EA8F /* User.swift in Sources */,
+				81B19E951B30AD5500D3575C /* TrackService.swift in Sources */,
 				810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */,
 				81592F9A1B0FA55A0092EA8F /* TabBarController.swift in Sources */,
 				81592F9D1B0FA5750092EA8F /* UserProfileViewController.swift in Sources */,
 				8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */,
+				81B19EA11B30AD5A00D3575C /* Owner.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
+				81B19E9C1B30AD5A00D3575C /* Category.swift in Sources */,
 				3B4D9A961B14169300643EF8 /* SignUpEmailView.swift in Sources */,
 				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */,
-				817618F61AE9F58300C7D9CB /* KeyboardService.swift in Sources */,
 				69BA820B1B2FAAA800233789 /* BrowseCollectionViewController.swift in Sources */,
 				696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */,
 				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
+				81B19E971B30AD5500D3575C /* Service.swift in Sources */,
 				81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				69BA82061B2FA9B000233789 /* SignUpFormViewModel.swift in Sources */,
+				81B19E961B30AD5500D3575C /* KeyboardService.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
 				69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */,
-				817618F41AE9ED4F00C7D9CB /* Keyboard.swift in Sources */,
 				81592FA31B0FA5870092EA8F /* UserProfileSectionHeaderView.swift in Sources */,
 				3B9AD79D1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift in Sources */,
-				817618F71AEA146900C7D9CB /* Artist.swift in Sources */,
 				69F2B5EB1B278826004FCD19 /* TrendingCollectionViewCell.swift in Sources */,
+				81B19E9E1B30AD5A00D3575C /* Track.swift in Sources */,
 				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
-				81592F941B0FA5070092EA8F /* SessionManager.swift in Sources */,
 				3B9AD7AA1B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift in Sources */,
 				3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */,
 				3BAAB1E61B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift in Sources */,
@@ -1444,6 +1446,7 @@
 				3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */,
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
 				3B9AD7A61B2F4F3D00727E79 /* SignUpNameWalkthroughViewController.swift in Sources */,
+				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1459,42 +1462,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81331E121A17F9F3003E4609 /* Lyric.swift in Sources */,
 				812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */,
-				81B6D5911A95B1F90089767B /* KeyboardKey.swift in Sources */,
-				81240A7A1A33BCF600E946F8 /* Track.swift in Sources */,
+				81B19E9B1B30AD5500D3575C /* Service.swift in Sources */,
 				81592F911B0FA4740092EA8F /* CategoriesPanelView.swift in Sources */,
-				811B1E131B1F9D8F00618E1A /* Service.swift in Sources */,
 				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
-				81E897DA1A32A17F005C7CD9 /* TrackService.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
-				81C010711AE89631008F3296 /* ArtistService.swift in Sources */,
 				81592FA51B0FA5BD0092EA8F /* PrimaryToolbarView.swift in Sources */,
 				81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */,
 				8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */,
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
+				81B19E981B30AD5500D3575C /* ArtistService.swift in Sources */,
 				81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */,
+				81B19EA31B30AD5B00D3575C /* Lyric.swift in Sources */,
 				81761A001AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
 				817619FA1AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */,
+				81B19E991B30AD5500D3575C /* TrackService.swift in Sources */,
 				817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */,
 				810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */,
-				81331E051A17E538003E4609 /* Category.swift in Sources */,
 				817619F71AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
-				81C010781AE8A47C008F3296 /* KeyboardService.swift in Sources */,
 				817618EF1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
+				81B19E9A1B30AD5500D3575C /* KeyboardService.swift in Sources */,
 				81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */,
-				81592F981B0FA51D0092EA8F /* User.swift in Sources */,
 				817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
-				811B1E191B1FBE5200618E1A /* Owner.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
+				81B19EA61B30AD5B00D3575C /* Keyboard.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
-				81C010761AE89956008F3296 /* Artist.swift in Sources */,
+				81B19EA21B30AD5B00D3575C /* Category.swift in Sources */,
 				81592FAB1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */,
+				81B19EA41B30AD5B00D3575C /* Track.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
+				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
+				81B19EA71B30AD5B00D3575C /* Owner.swift in Sources */,
+				81B19EA51B30AD5B00D3575C /* Artist.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
-				817618F51AE9ED4F00C7D9CB /* Keyboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1606,7 +1608,6 @@
 				CODE_SIGN_ENTITLEMENTS = Drizzy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
@@ -1638,7 +1639,6 @@
 				CODE_SIGN_ENTITLEMENTS = Drizzy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
