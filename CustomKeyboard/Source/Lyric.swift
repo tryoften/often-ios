@@ -6,53 +6,23 @@
 //  Copyright (c) 2014 Luc Success. All rights reserved.
 //
 
-import UIKit
+import Realm
+import RealmSwift
 
-class Lyric: NSObject, DebugPrintable {
-    var id: String
-    var text: String
-    var categoryId: String
-    var trackId: String?
-    var track: Track?
+class Lyric: Object {
+    dynamic var id: String = ""
+    dynamic var text: String = ""
+    dynamic var categoryId: String = ""
+    dynamic var trackId: String = ""
+    dynamic var artistId: String = ""
+    dynamic var track: Track?
     
-    init(dict: [String: AnyObject]) {
-        id = dict["id"] as! String
-        text = dict["text"] as! String
-        categoryId = dict["category_id"] as! String
-        trackId = dict["track_id"] as? String
-        
-        if let trackData = dict["track"] as? [String: String] {
-            track = Track(dictionary: trackData)
-        }
+    override static func primaryKey() -> String? {
+        return "id"
     }
+}
 
-    init(id: String, text: String, categoryId: String, trackId: String?) {
-        self.id = id
-        self.text = text
-        self.categoryId = categoryId
-        self.trackId = trackId
-
-        super.init()
-    }
-    
-    func toDictionary() -> [String: AnyObject] {
-        var dict: [String: AnyObject] = [
-            "id": id,
-            "text": text,
-            "category_id": categoryId
-        ]
-        
-        if let trackId = trackId {
-            dict["track_id"] = trackId
-        }
-        
-        if let trackData = track?.toDictionary() {
-            dict["track"] = trackData
-        }
-        
-        return dict
-    }
-    
+extension Lyric: DebugPrintable {
     override var debugDescription: String {
         return self.text
     }

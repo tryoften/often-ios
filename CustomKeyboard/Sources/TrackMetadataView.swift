@@ -88,6 +88,7 @@ class TrackMetadataView: UIView {
             .CenterY: coverArtView.al_centerY == contentView.al_centerY
         ]
         
+        coverArtViewConstraints[.Left]?.priority = 800
         contentViewWidthConstraint = contentView.al_width == titleLabel.al_width
 
         addConstraint(contentViewWidthConstraint!)
@@ -118,7 +119,7 @@ class TrackMetadataView: UIView {
     func updateMetadata() {
         if let track = track {
             if let url = track.albumCoverImage {
-                coverArtView.setImageWithURLRequest(NSURLRequest(URL: url), placeholderImage: UIImage(), success: { (req, res, image) -> Void in
+                coverArtView.setImageWithURLRequest(NSURLRequest(URL: NSURL(string: url)!), placeholderImage: UIImage(), success: { (req, res, image) -> Void in
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         self.coverArtView.alpha = 0.0

@@ -6,29 +6,27 @@
 //  Copyright (c) 2014 Luc Success. All rights reserved.
 //
 
-import UIKit
+import RealmSwift
 
-class TrackService: NSObject {
-    var ref : Firebase
-    var root : Firebase
+class TrackService: Service {
+    var tracksRef : Firebase
+    var ref: Firebase
     var tracks: [String: Track]
     var isDataLoaded: Bool
     
     let artistId = "-JoBAZJLJUQMdJXiCgch"
 
-    init(root: Firebase) {
-        self.ref = root.childByAppendingPath("owners")
-        self.root = root
-        self.tracks = [String: Track]()
-        self.isDataLoaded = false
-
-        super.init()
+    override init(root: Firebase, realm: Realm = Realm()) {
+        tracksRef = root.childByAppendingPath("contents")
+        ref = root.childByAppendingPath("owners")
+        tracks = [String: Track]()
+        isDataLoaded = false
+        super.init(root: root, realm: realm)
     }
     
     /**
         requestData(artistId: String): takes in an artist ID and returns all of the tracks for that
         artists in self.tracks as a [String : Track]
-     
     */
     func requestData(completion: ([String : Track])-> Void) {
         ref.observeEventType(.Value, withBlock: { snapshot in
@@ -44,7 +42,7 @@ class TrackService: NSObject {
                                 for(key, data) in tracksData {
                                     if let trackData = data as? [String : String],
                                         let trackId = key as? String {
-                                        let currentTrack = Track(dictionary: trackData)
+                                        let currentTrack = Track(value: trackData)
                                     }
                                 }
                             }
@@ -70,28 +68,39 @@ class TrackService: NSObject {
         ref.observeEventType(.Value, withBlock: { snapshot in
             if let artistData = snapshot.value as? [String : [String : AnyObject]] {
                 for(key, data) in artistData {
-                    if let trackId: AnyObject = key as? AnyObject,
-                        let trackData = data as? [String : AnyObject] {
-                            var mutableTrackData = trackData
-                            mutableTrackData["id"] = key
-                            var currentTrack = Track(dictionary: mutableTrackData)
-                            self.tracks["\(trackId)"] = currentTrack
-                    }
+                    var track = Track(value: [
+                        "id": key
+                    ])
+                    
+                    track.setValuesForKeysWithDictionary(data)
+                    self.tracks[key] = track
                 }
             }
         })
     }
     
     func getTrackForLyric(lyric: Lyric, completion: (track: Track) -> ()) {
-        self.ref.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
+        tracksRef.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
+            
             println("\(snapshot.value)")
-            if var trackData = snapshot.value as? [String: String] {
-                trackData["id"] = snapshot.key
+            if let trackData = snapshot.value as? [String: String] {
                 
-                let track = Track(dictionary: trackData)
+                let track = Track()
+                track.id = snapshot.key
+                track.setValuesForKeysWithDictionary(trackData)
+
                 self.tracks[track.id] = track
+                lyric.track = track
+                lyric.trackId = track.id
                 
-                completion(track: track)
+                self.realm.write {
+                    self.realm.add(lyric, update: true)
+                    self.realm.add(track, update: true)
+                }
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(track: track)
+                }
             }
         })
     }

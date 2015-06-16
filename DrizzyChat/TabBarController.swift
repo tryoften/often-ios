@@ -14,7 +14,7 @@ class TabBarController: UITabBarController {
     var barBorderView: UIView
     var sessionManager: SessionManager
 
-    init (sessionManager: SessionManager) {
+    init (sessionManager: SessionManager = SessionManager.defaultManager) {
         self.sessionManager = sessionManager
         
         backgroundView = UIView()

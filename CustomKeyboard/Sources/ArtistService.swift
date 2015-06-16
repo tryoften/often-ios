@@ -21,9 +21,9 @@ class ArtistService: NSObject {
     func requestData(completion: (artistsList:[String: Artist]) -> Void) {
         artistsRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
             if let artistsData = snapshot.value as? [String: NSDictionary] {
-                for (owner, data) in artistsData
-                {
-                    let artistsRefName = Artist(id: owner, dictionary: data)
+                for (owner, data) in artistsData {
+                    var artistsRefName = Artist(value: data)
+                    artistsRefName.id = owner
                     self.artistsList[owner] = artistsRefName
                 }
     

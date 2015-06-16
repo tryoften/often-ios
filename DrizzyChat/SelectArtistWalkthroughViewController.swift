@@ -101,7 +101,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController,UITableVi
         
         cell.lyricsCountLabel!.text = lyricCount.stringValue
         cell.artistNameLabel!.text = viewModel.artistsList[indexPath.row].name
-        cell.artistImageView.setImageWithURL(viewModel.artistsList[indexPath.row].imageURLLarge, placeholderImage: UIImage(named: "ArtistPicture")!)
+        cell.artistImageView.setImageWithURL(NSURL(string: viewModel.artistsList[indexPath.row].imageURLLarge), placeholderImage: UIImage(named: "ArtistPicture")!)
         cell.selectionButton.addTarget(self, action: "didTapSelectButton:", forControlEvents: .TouchUpInside)
         cell.selectionButton.tag = indexPath.row
         

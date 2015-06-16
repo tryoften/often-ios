@@ -6,15 +6,16 @@
 //  Copyright (c) 2015 Luc Success. All rights reserved.
 //
 
-import UIKit
+import RealmSwift
 
-class KeyboardService: NSObject {
+/// Service that provides and manages keyboard models along with categories.
+/// It stores the data both locally and remotely
+class KeyboardService: Service {
     var userId: String?
     var keyboardsRef: Firebase
     var keyboards: [String: Keyboard]
-    var root: Firebase
 
-    init(userId: String?, root: Firebase) {
+    init(userId: String?, root: Firebase, realm: Realm = Realm()) {
         self.userId = userId
         
         if let userId = userId {
@@ -23,16 +24,58 @@ class KeyboardService: NSObject {
             self.keyboardsRef = root.childByAppendingPath("keyboards")
         }
         
-        self.root = root
         self.keyboards = [String: Keyboard]()
-        super.init()
+        
+        super.init(root: root, realm: realm)
     }
     
     func deleteKeyboardWithId(keyboardId: String) {
         self.keyboardsRef.childByAppendingPath(keyboardId).removeValue()
     }
     
-    func requestData(completion: ([String: Keyboard]) -> Void) {
+    /**
+    Fetches data from the local database and creates models
+    
+    :param: completion callback that gets called when data has loaded
+    */
+    func fetchLocalData(completion: (Bool) -> Void) {
+        // We have to create a new realm for reading on the main thread
+        let realm = Realm()
+        
+        realm.addNotificationBlock { (notification, realm) in
+            self.createKeyboardModels(completion)
+        }
+        
+        createKeyboardModels(completion)
+    }
+    
+    /**
+    Creates keyboard models from the default realm
+    */
+    private func createKeyboardModels(completion: (Bool) -> Void) {
+        let keyboards = realm.objects(Keyboard)
+        
+        for keyboard in keyboards {
+            self.keyboards[keyboard.id] = keyboard
+            
+            for category in keyboard.categories {
+                if let artist = keyboard.artist {
+                    category.ownerId = artist.id
+                }
+            }
+        }
+        
+        delegate?.serviceDataDidLoad(self)
+        completion(true)
+    }
+
+    /**
+    Listens for changes on the server (firebase) database and updates
+    the local (realm) database, then notifies the delegate and calls the completion callback
+    
+    :param: completion callback that gets called when data has loaded
+    */
+    override func fetchRemoteData(completion: (Bool) -> Void) {
         keyboardsRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
             
             if let keyboardsData = snapshot.value as? [String: AnyObject] {
@@ -40,71 +83,145 @@ class KeyboardService: NSObject {
                 var index = 0
                 
                 for (key, val) in keyboardsData {
-                    var keyboardRef = self.root.childByAppendingPath("keyboards/\(key)")
-                    
-                    keyboardRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-                        if let keyboardData = snapshot.value as? [String: AnyObject],
-                            let ownerId = keyboardData["owner"] as? String {
-                                let ownerURI = "owners/\(ownerId)"
-                                var keyboard = Keyboard()
-                                keyboard.id = key
-                                
-                                if let categories = keyboardData["categories"] as? NSDictionary {
-                                    keyboard.categories = self.createCategories(categories)
-                                    
-                                    self.root.childByAppendingPath(ownerURI).observeSingleEventOfType(.Value, withBlock: { snapshot in
-                                        println("\(snapshot.value)")
-                                        if let artistData = snapshot.value as? NSDictionary,
-                                            id = snapshot.key,
-                                            name = artistData["name"] as? String {
-                                                
-                                                var urlSmall: String = (artistData["image_small"] ?? "") as! String
-                                                var urlLarge: String = (artistData["image_large"] ?? "") as! String
-                                                
-                                                var artist = Artist(id: id, name: name, imageURLSmall: NSURL(string: urlSmall)!, imageURLLarge: NSURL(string: urlLarge)!)
-                                                keyboard.artist = artist
-                                                
-                                                self.keyboards[keyboard.id] = keyboard
-                                        }
-                                        keyboard.index = index
-                                        index++
-                                        
-                                        if index + 1 >= keyboardCount {
-                                            completion(self.keyboards)
-                                        }
-                                    })
-                                }
+                    self.processKeyboardData(key, data: val, completion: { (keyboard, success) in
+                        keyboard.index = index++
+                        self.keyboards[keyboard.id] = keyboard
+                        
+                        if index + 1 >= keyboardCount {
+                            self.realm.write {
+                                self.realm.add(self.keyboards.values.array, update: true)
+                            }
+                            dispatch_async(dispatch_get_main_queue(), {
+                                self.delegate?.serviceDataDidLoad(self)
+                                completion(true)
+                            })
                         }
-
                     })
-                    
                 }
             }
             
-        }) { (err) -> Void in
+            }) { (err) -> Void in
+                completion(false)
+        }
+    }
+
+    override func fetchData() {
+        
+    }
+    
+    /**
+    Fetches data from the local database first and notifies the delegate
+    simultaneously, kicks off a request to the remote database and refreshes the data of the local one
+    
+    :param: completion callback that gets called when data has loaded
+    */
+    func requestData(completion: ([String: Keyboard]) -> Void) {
+        fetchLocalData { success in
+            completion(self.keyboards)
+        }
+
+        fetchRemoteData { success in
             
         }
     }
     
-    func createCategories(data: NSDictionary) -> [String: Category] {
-        var categories = [String: Category]()
+    /**
+    Processes JSON keyboard data and creates models objects
 
-        for (categoryKey, categoryData) in data as! [String: AnyObject] {
+    :param: key The key from the key/value store, the keyboard object ID
+    :param: data The JSON data returned from the backend call
+    :param: completion callback which gets called when keyboard objects are done being created
+    */
+    private func processKeyboardData(key: String, data: AnyObject, completion: (Keyboard, Bool) -> ()) {
+        let keyboardRef = rootURL.childByAppendingPath("keyboards/\(key)")
+
+        keyboardRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            dispatch_async(self.writeQueue) {
+                if let keyboardData = snapshot.value as? [String: AnyObject] {
+                    var keyboard = Keyboard()
+                    keyboard.id = key
+                    
+                    
+                    if let ownerId = keyboardData["owner"] as? String {
+                        if let categories = keyboardData["categories"] as? [String: AnyObject] {
+                            self.processCategoriesData(keyboard, ownerId: ownerId, data: categories)
+                        }
+                        
+                        self.processOwnerData(keyboard, ownerId: ownerId, completion: { success in
+                            completion(keyboard, true)
+                        })
+                    }
+                }
+            }
+        })
+    }
+    
+    /** 
+    Processes owner (artist) JSON data and adds it to the keyboard
+    
+    :param: keyboard The keyboard model the owner object will be set on
+    :param: ownerId The owner ID
+    :param: completion gets invoked when the owner object is fetched and created
+    */
+    private func processOwnerData(keyboard: Keyboard, ownerId: String, completion: (Bool) -> ()) {
+        let ownerRef = rootURL.childByAppendingPath("owners/\(ownerId)")
+
+        ownerRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            if let artistData = snapshot.value as? [String: AnyObject],
+                id = snapshot.key,
+                name = artistData["name"] as? String {
+                    var data = artistData
+                    data["id"] = id
+                    
+                    var urlSmall: String = (artistData["image_small"] ?? "") as! String
+                    var urlLarge: String = (artistData["image_large"] ?? "") as! String
+                    
+                    let artist = Artist(value: data)
+                    artist.imageURLSmall = urlSmall
+                    artist.imageURLLarge = urlLarge
+                    
+                    keyboard.artist = artist
+                    
+                    completion(true)
+            }
+        })
+    }
+    
+    /**
+    Processes categories data
+    */
+    private func processCategoriesData(keyboard: Keyboard, ownerId: String, data: [String: AnyObject]) {
+        let categories = List<Category>()
+        let realm = Realm()
+
+        for (categoryKey, categoryData) in data {
 
             if  let count = categoryData["count"] as? Int,
+                let name = categoryData["name"] as? String,
                 let lyricsData = categoryData["contents"] as? [String: String] {
-                var lyrics = [Lyric]()
+                var lyrics = List<Lyric>()
                 
                 for (lyricKey: String, lyricText: String) in lyricsData {
-                    lyrics.append(Lyric(id: lyricKey, text: lyricText, categoryId: categoryKey, trackId: nil))
+                    lyrics.append(Lyric(value: [
+                        "id": lyricKey,
+                        "text": lyricText,
+                        "categoryId": categoryKey,
+                        "artistId": ownerId,
+                        "trackId": ""
+                    ]))
                 }
-                
-                var category = Category(id: categoryKey, name: categoryData["name"] as! String, lyrics: lyrics)
 
-                categories[category.id] = category
+                var category = Category()
+                category.id = categoryKey
+                category.name = name
+                category.lyrics = lyrics
+                categories.append(category)
             }
         }
 
-        return categories
+        keyboard.categories.extend(categories)
     }
+}
+
+protocol KeyboardServiceDelegate: ServiceDelegate {
 }
