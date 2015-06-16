@@ -52,9 +52,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             mainController = UINavigationController(rootViewController: SignUpLoginWalkthroughViewController()) 
             
-//            if shouldHomeViewBeShown() {
-//                mainController = TabBarController(sessionManager: sessionManager)
-//            }
+            if shouldHomeViewBeShown() {
+                mainController = TabBarController(sessionManager: sessionManager)
+            }
+            //mainController = BrowseCollectionViewController(viewModel: BrowseViewModel(sessionManager: sessionManager))
+            //mainController = TrendingCollectionViewController(viewModel: TrendingViewModel(sessionManager: sessionManager))
         }
         
         if let window = self.window {

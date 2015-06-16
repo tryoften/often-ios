@@ -40,6 +40,14 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         self.keyboardsList = keyboards.values.array
         self.delegate?.userProfileViewModelDidLoadKeyboardList(self, keyboardList: self.keyboardsList!)
     }
+    
+    func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track]) {
+        
+    }
+    
+    func sessionManagerDidFetchArtists(sessionManager: SessionManager, artists: [String : Artist]) {
+        
+    }
 }
 
 protocol UserProfileViewModelDelegate {

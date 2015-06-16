@@ -102,6 +102,12 @@ let ArtistCollectionViewCellSubtitleFont = UIFont(name: "Lato-Regular", size: 10
 let ArtistCollectionViewCellWidth: CGFloat = 135
 let ArtistCollectionViewCellImageViewLeftMargin: CGFloat = 32
 
+let BrowseCollectionViewCellBackgroudColor = UIColor(fromHexString: "#f7f7f7")
+let BrowseCollectionViewCellTrackNameFont = UIFont(name: "Lato-Regular", size: 14.0)
+let BrowseCollectionViewCellLyricCountFont = UIFont(name: "Lato-Regular", size: 9.0)
+let BrowseCollectionViewCellWidth: CGFloat = CGFloat(UIScreen.mainScreen().bounds.width)
+let BrowseCollectionViewCellHeight: CGFloat = CGFloat(63)
+
 // Main App
 
 let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 15)
