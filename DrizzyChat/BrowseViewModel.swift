@@ -19,9 +19,7 @@ import UIKit
     - Track Name as Title
     - Lyric Count as Subtitle
     - Add a cellAccessoryDisclosureIndicator in right block
-
 */
-
 class BrowseViewModel: NSObject, SessionManagerObserver {
     var sessionManager: SessionManager
     var delegate: BrowseViewModelDelegate?
@@ -31,7 +29,6 @@ class BrowseViewModel: NSObject, SessionManagerObserver {
         self.sessionManager = sessionManager
         super.init()
         self.sessionManager.addSessionObserver(self)
-        sessionManager.fetchTracks()
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
