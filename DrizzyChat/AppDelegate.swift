@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if testKeyboard {
             mainController = KeyboardViewController()
         } else {
-            mainController = SignUpWalkthroughViewController()
+            mainController = UINavigationController(rootViewController: SignUpLoginWalkthroughViewController()) 
             
             if shouldHomeViewBeShown() {
                 mainController = TabBarController(sessionManager: sessionManager)

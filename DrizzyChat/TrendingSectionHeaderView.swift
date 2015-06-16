@@ -16,8 +16,8 @@ import UIKit
 */
 
 class TrendingSectionHeaderView: UICollectionReusableView {
-    @IBOutlet var trendingLabel: UILabel?
-    @IBOutlet var bottomLineBreak: UIView?
+    var trendingLabel: UILabel?
+    var bottomLineBreak: UIView?
     var screenWidth: CGFloat?
     
     override init(frame: CGRect) {
