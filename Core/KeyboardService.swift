@@ -89,6 +89,7 @@ class KeyboardService: Service {
                         
                         if index + 1 >= keyboardCount {
                             self.realm.write {
+                                self.realm.delete(self.realm.objects(Keyboard))
                                 self.realm.add(self.keyboards.values.array, update: true)
                             }
                             dispatch_async(dispatch_get_main_queue(), {

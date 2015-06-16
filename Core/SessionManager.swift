@@ -6,17 +6,19 @@
 //  Copyright (c) 2015 Luc Success. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import RealmSwift
 
 class SessionManager: NSObject {
     
     var firebase: Firebase
     var keyboardService: KeyboardService?
-    var trackService: TrackService?
     var userRef: Firebase?
     var currentUser: User?
     var userDefaults: NSUserDefaults
     var currentSession: FBSession?
+    var writeRealm: Realm
+    var readRealm: Realm
 
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
@@ -27,24 +29,14 @@ class SessionManager: NSObject {
         "user_likes"
     ]
     
-    init(firebase: Firebase = Firebase(url: BaseURL)) {
-        self.firebase = firebase
-        self.observers = NSMutableArray()
-        self.userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+    init(rootFirebase: Firebase = Firebase(url: BaseURL)) {
+        firebase = rootFirebase
+        observers = NSMutableArray()
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        writeRealm = Realm()
+        readRealm = Realm()
         
         super.init()
-        
-        
-        var artistService = ArtistService(root: self.firebase)
-        artistService.requestData { done in
-            
-        }
-        
-        var trackService = TrackService(root: self.firebase)
-        trackService.requestData { done in
-            
-        }
-        
         
         self.firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
@@ -55,6 +47,9 @@ class SessionManager: NSObject {
         if let currentUser = currentUser {
             self.keyboardService = KeyboardService(userId: currentUser.id, root: self.firebase)
             self.keyboardService?.requestData({ data in
+                for (key, keyboard) in data {
+                    currentUser.keyboards.append(keyboard)
+                }
                 self.broadcastDidFetchKeyboardsEvent()
             })
         } else {
@@ -62,19 +57,6 @@ class SessionManager: NSObject {
         }
     }
 
-    func fetchTracks() {
-        self.trackService = TrackService(root: firebase)
-        self.trackService?.requestData({ data in
-            self.broadcastDidFetchTracksEvent()
-        })
-        
-        self.trackService?.getTracksForArtistId("-Jo284H6WX4QySExfJ5U")
-    }
-    
-    func fetchArtists() {
-        
-    }
-    
     func isUserLoggedIn() -> Bool {
         return !(PFUser.currentUser() == nil)
     }
@@ -83,8 +65,8 @@ class SessionManager: NSObject {
         if (authData != nil) {
             var uid = authData?.providerData["id"] as! String
             
-            self.userRef = firebase.childByAppendingPath("users/\(uid)")
-            self.userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+            userRef = firebase.childByAppendingPath("users/\(uid)")
+            userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                 // TODO(luc): create user model with data and send event
                 if snapshot.exists() {
                     if let id = snapshot.key,
@@ -111,6 +93,12 @@ class SessionManager: NSObject {
                         self.userRef?.setValue(data)
                         self.currentUser = User(value: data as! [String : AnyObject])
                         self.broadcastUserLoginEvent()
+                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                            self.writeRealm.write {
+                                self.writeRealm.add(self.currentUser!, update: true)
+                            }
+                        }
+
                     })
                 }
             })
@@ -133,29 +121,18 @@ class SessionManager: NSObject {
             }
         }
     }
-    
-    private func broadcastDidFetchTracksEvent(){
-        if let trackService = self.trackService {
-            for observer in observers {
-                observer.sessionManagerDidFetchTracks(self, tracks: trackService.tracks)
-            }
-        }
-    }
 
     private func openSession() {
         PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
             let accessToken = FBSession.activeSession().accessTokenData.accessToken
-            println(accessToken)
             self.firebase.authWithOAuthProvider("facebook", token: accessToken,
                 withCompletionBlock: { error, authData in
-                    
                     if error != nil {
                         println("Login failed. \(error)")
                     } else {
                         println("Logged in! \(authData)")
                     }
             })
-            
         })
     }
     
@@ -185,7 +162,6 @@ class SessionManager: NSObject {
     
     func getUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
         var request = FBRequest.requestForMe()
-        
         request.startWithCompletionHandler({ (connection, result, error) in
             
             if error == nil {
@@ -235,6 +211,4 @@ class SessionManager: NSObject {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User)
     func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard])
-    func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track])
-    func sessionManagerDidFetchArtists(sessionManager: SessionManager, artists: [String : Artist])
 }

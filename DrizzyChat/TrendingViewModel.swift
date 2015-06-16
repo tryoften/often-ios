@@ -26,7 +26,6 @@ class TrendingViewModel: NSObject, SessionManagerObserver {
         self.sessionManager = sessionManager
         super.init()
         self.sessionManager.addSessionObserver(self)
-        sessionManager.fetchArtists()
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
