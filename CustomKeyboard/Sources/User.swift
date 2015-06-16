@@ -15,7 +15,7 @@ class User: Object {
     dynamic var profileImageLarge: String = ""
     dynamic var username: String = ""
     dynamic var email: String = ""
-    dynamic var keyboards: [Keyboard] = []
+    let keyboards = List<Keyboard>()
     
     override static func primaryKey() -> String? {
         return "id"

@@ -16,10 +16,14 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
         
         loginView = LoginView()
         loginView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
+        loginView.facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
         title = "login"
         
         view.addSubview(loginView)
+    }
+    
+    func didTapFacebookButton() {
+        SessionManager.defaultManager.login()
     }
     
     override func viewWillAppear(animated: Bool) {

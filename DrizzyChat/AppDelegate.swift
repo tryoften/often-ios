@@ -14,11 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
     var sessionManager: SessionManager!
-    var testKeyboard: Bool = false
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        testKeyboard = false
         sessionManager = SessionManager.defaultManager
 
         ParseCrashReporting.enable()
@@ -37,11 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
         
-        if testKeyboard {
-            frame.origin.y = CGRectGetHeight(screen.bounds) - KeyboardHeight - SectionPickerViewHeight
-            frame.size.height = KeyboardHeight
-        }
-        
         window = UIWindow(frame: frame)
         
         var userNotificationTypes = UIUserNotificationType.Alert |
@@ -52,14 +45,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
 
-        if testKeyboard {
-            mainController = KeyboardViewController()
+        if sessionManager.isUserLoggedIn() {
+            mainController = TabBarController(sessionManager: sessionManager)
         } else {
-            mainController = UINavigationController(rootViewController: SignUpLoginWalkthroughViewController()) 
-            
-            if shouldHomeViewBeShown() {
-                mainController = TabBarController(sessionManager: sessionManager)
-            }
+            mainController = UINavigationController(rootViewController: SignUpLoginWalkthroughViewController())
         }
         
         if let window = self.window {
@@ -93,11 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         PFPush.handlePush(userInfo)
-    }
-    
-    func shouldHomeViewBeShown() -> Bool {
-        var visitedHomeView = NSUserDefaults.standardUserDefaults().boolForKey("visitedHomeView")
-        return visitedHomeView
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {

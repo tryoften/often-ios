@@ -43,8 +43,6 @@ class Track: Object {
     dynamic var previewURL: String? = ""
     var lyricCount: Int = 200
     
-    var dict = [String: AnyObject]()
-    
     override static func primaryKey() -> String? {
         return "id"
     }
@@ -52,7 +50,6 @@ class Track: Object {
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         
         if let dictionary = keyedValues as? [String: AnyObject] {
-            dict = dictionary
 
             name = (dictionary["name"] ?? dictionary["track_name"]) as! String
             artistName = dictionary["artist_name"] as! String
@@ -87,11 +84,7 @@ class Track: Object {
             }
         }
     }
-    
-    func toDictionary() -> [String: AnyObject] {
-        return dict
-    }
-    
+
     func getShareOptions() -> [ShareOption : NSURL] {
         var options = [ShareOption : NSURL]()
         

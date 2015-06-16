@@ -72,7 +72,7 @@ class TrackService: Service {
                         "id": key
                     ])
                     
-                    track.setValuesForKeysWithDictionary(data)
+//                    track.setValuesForKeysWithDictionary(data)
                     self.tracks[key] = track
                 }
             }

@@ -122,7 +122,6 @@
 		81592FA81B0FA6CE0092EA8F /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
 		81592FAB1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FAA1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift */; };
 		81592FAC1B0FC5450092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FAA1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift */; };
-		816CE0971A99A32700D718E1 /* LoginFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816CE0961A99A32700D718E1 /* LoginFormViewController.swift */; };
 		816EB9711AE5EBA8000620E2 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816EB9701AE5EBA8000620E2 /* delay.swift */; };
 		816EB9721AE5EBB1000620E2 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816EB9701AE5EBA8000620E2 /* delay.swift */; };
 		816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE58F1A86B19700E42C17 /* FacebookButton.swift */; };
@@ -381,7 +380,6 @@
 		81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SwiftAutoLayout.xcodeproj; sourceTree = "<group>"; };
 		81331E231A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
-		8138A13B1B2F6A2100F93DA2 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserService.swift; path = Sources/UserService.swift; sourceTree = "<group>"; };
 		813C82A01AE3031700925206 /* lyrics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lyrics.json; sourceTree = "<group>"; };
 		81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormTableViewCell.swift; sourceTree = "<group>"; };
 		81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-outlined.ttf"; sourceTree = "<group>"; };
@@ -397,7 +395,6 @@
 		81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSectionHeaderView.swift; sourceTree = "<group>"; };
 		81592FA41B0FA5BD0092EA8F /* PrimaryToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrimaryToolbarView.swift; path = Sources/PrimaryToolbarView.swift; sourceTree = "<group>"; };
 		81592FAA1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistPickerCollectionViewLayout.swift; sourceTree = "<group>"; };
-		816CE0961A99A32700D718E1 /* LoginFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginFormViewController.swift; sourceTree = "<group>"; };
 		816EB9701AE5EBA8000620E2 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		816FE58F1A86B19700E42C17 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-regular.ttf"; sourceTree = "<group>"; };
@@ -646,7 +643,6 @@
 				81E897D91A32A17F005C7CD9 /* TrackService.swift */,
 				81C010771AE8A47C008F3296 /* KeyboardService.swift */,
 				811B1E111B1F9D8F00618E1A /* Service.swift */,
-				8138A13B1B2F6A2100F93DA2 /* UserService.swift */,
 			);
 			name = Services;
 			path = CustomKeyboard;
@@ -751,10 +747,9 @@
 		816FE5A11A86E66900E42C17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3B9AD7AD1B2F514400727E79 /* Walkthrough ViewControllers */,
 				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
-				3B9AD7AD1B2F514400727E79 /* Walkthrough ViewControllers */,
-				816CE0961A99A32700D718E1 /* LoginFormViewController.swift */,
 				81592F991B0FA55A0092EA8F /* TabBarController.swift */,
 				69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */,
 				69F2B5E01B27842E004FCD19 /* TrendingCollectionViewController.swift */,
@@ -1385,7 +1380,6 @@
 				81592FAC1B0FC5450092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */,
 				69BA82081B2FA9D000233789 /* BrowseViewModel.swift in Sources */,
 				81592F9F1B0FA57E0092EA8F /* UserProfileViewModel.swift in Sources */,
-				816CE0971A99A32700D718E1 /* LoginFormViewController.swift in Sources */,
 				811B1E181B1FBE5200618E1A /* Owner.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */,

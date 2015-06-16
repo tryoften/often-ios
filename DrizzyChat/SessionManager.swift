@@ -24,8 +24,7 @@ class SessionManager: NSObject {
     let permissions = [
         "public_profile",
         "user_actions.music",
-        "user_likes",
-        "cover"
+        "user_likes"
     ]
     
     init(firebase: Firebase = Firebase(url: BaseURL)) {
@@ -75,6 +74,10 @@ class SessionManager: NSObject {
     func fetchArtists() {
         
     }
+    
+    func isUserLoggedIn() -> Bool {
+        return !(PFUser.currentUser() == nil)
+    }
 
     private func processAuthData(authData: FAuthData?) {
         if (authData != nil) {
@@ -84,9 +87,24 @@ class SessionManager: NSObject {
             self.userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                 // TODO(luc): create user model with data and send event
                 if snapshot.exists() {
-                    if let value = snapshot.value as? [String: AnyObject] {
-                        self.currentUser = User(value: value)
-                        self.broadcastUserLoginEvent()
+                    if let id = snapshot.key,
+                        let value = snapshot.value as? [String: AnyObject] {
+                            let user = User()
+                            user.id = id
+                            
+                            if  let name = value["name"] as? String,
+                                let profileImageSmall = value["profile_pic_small"] as? String,
+                                let profileImageLarge = value["profile_pic_large"] as? String,
+                                let email = value["email"] as? String {
+                                    user.fullName = name
+                                    user.profileImageLarge = profileImageLarge
+                                    user.profileImageSmall = profileImageSmall
+                                    user.username = email
+                                    user.email = email
+                            }
+                            
+                            self.currentUser = user
+                            self.broadcastUserLoginEvent()
                     }
                 } else {
                     self.getUserInfo({ (data, err) in
@@ -125,27 +143,19 @@ class SessionManager: NSObject {
     }
 
     private func openSession() {
-        FBSession.openActiveSessionWithReadPermissions(permissions, allowLoginUI: true,
-            completionHandler: { session, state, error in
-                
-                if error != nil {
-                    println("Facebook login failed. Error \(error)")
-                } else if state == FBSessionState.Open {
-                    println("Session: \(session)")
-                    let accessToken = session.accessTokenData.accessToken
+        PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
+            let accessToken = FBSession.activeSession().accessTokenData.accessToken
+            println(accessToken)
+            self.firebase.authWithOAuthProvider("facebook", token: accessToken,
+                withCompletionBlock: { error, authData in
                     
-                    self.firebase.authWithOAuthProvider("facebook", token: accessToken,
-                        withCompletionBlock: { error, authData in
-                            
-                            if error != nil {
-                                println("Login failed. \(error)")
-                            } else {
-                                println("Logged in! \(authData)")
-                            }
-                    })
-                    
-                }
-                
+                    if error != nil {
+                        println("Login failed. \(error)")
+                    } else {
+                        println("Logged in! \(authData)")
+                    }
+            })
+            
         })
     }
     
