@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class LyricPickerTableViewController: UITableViewController, UITableViewDelegate, SectionPickerViewDelegate,
     LyricTableViewCellDelegate, LyricFilterBarDelegate {
@@ -76,6 +77,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! LyricTableViewCell
+        let realm = Realm()
         
         var lyrics = currentCategory?.lyrics
         
@@ -87,9 +89,11 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             if lyric.track == nil {
                 
                 self.viewModel.getTrackForLyric(lyric, completion: { track in
-                    lyric.track = track
-                    cell.shareVC!.lyric = lyric
-                    cell.metadataView.track = track
+                    realm.write {
+                        lyric.track = track
+                        cell.shareVC!.lyric = lyric
+                        cell.metadataView.track = track
+                    }
                 })
             }
         }

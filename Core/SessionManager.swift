@@ -98,7 +98,6 @@ class SessionManager: NSObject {
                                 self.writeRealm.add(self.currentUser!, update: true)
                             }
                         }
-
                     })
                 }
             })
