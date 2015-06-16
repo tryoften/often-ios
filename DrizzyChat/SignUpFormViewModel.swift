@@ -29,7 +29,7 @@ class SignUpFormViewModel: NSObject {
         var errorMessage: String?
         
         if !(count(fullName) >= 1) {
-            errorMessage = "Please enter a  name"
+            errorMessage = "Please enter a name"
         } else if !isValidEmail(email) {
             errorMessage = "Please enter a valid email address"
         } else if !(count(password) >= 1) {

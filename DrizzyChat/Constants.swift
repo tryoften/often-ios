@@ -31,11 +31,14 @@ let BlackColor = UIColor(fromHexString: "#121314")
 let MediumLightGrey = UIColor(fromHexString: "#1c1c1c")
 let MainBackgroundColor = UIColor(fromHexString: "")
 let MainTextColor = UIColor(fromHexString: "#777777")
-
-
+let SubtitleGreyColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 0.74)
+let LightBlackColor = UIColor(fromHexString: "#303030")
+//Font
 let BaseFont = UIFont(name: "OpenSans-Light", size: 20)
-let MediumRegularFont = UIFont(name: "OpenSans", size: 18)
+let MediumRegularFont = UIFont(name: "OpenSans-Regular", size: 18)
 let SubtitleFont = UIFont(name: "OpenSans", size: 12)
+let ButtonFont = UIFont(name: "OpenSans", size: 15)
+let TitleFont = UIFont(name: "Oswald-Regular", size: 19)
 
 // Navbar
 let NavbarDefaultBackgroundColor = MediumLightGrey
@@ -98,6 +101,12 @@ let ArtistCollectionViewCellTitleFont = UIFont(name: "Lato-Regular", size: 16)
 let ArtistCollectionViewCellSubtitleFont = UIFont(name: "Lato-Regular", size: 10)
 let ArtistCollectionViewCellWidth: CGFloat = 135
 let ArtistCollectionViewCellImageViewLeftMargin: CGFloat = 32
+
+let BrowseCollectionViewCellBackgroudColor = UIColor(fromHexString: "#f7f7f7")
+let BrowseCollectionViewCellTrackNameFont = UIFont(name: "Lato-Regular", size: 14.0)
+let BrowseCollectionViewCellLyricCountFont = UIFont(name: "Lato-Regular", size: 9.0)
+let BrowseCollectionViewCellWidth: CGFloat = CGFloat(UIScreen.mainScreen().bounds.width)
+let BrowseCollectionViewCellHeight: CGFloat = CGFloat(63)
 
 // Main App
 

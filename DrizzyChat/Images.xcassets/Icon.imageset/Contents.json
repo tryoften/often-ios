@@ -2,18 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "80 - October - Spotlight.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "120 - October - iPhone App Icon.png"
+      "filename" : "Icon-60@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "152 - October - iPad App Icon.png"
+      "filename" : "Icon-60@3x.png"
     }
   ],
   "info" : {

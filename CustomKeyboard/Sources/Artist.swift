@@ -9,4 +9,5 @@
 import RealmSwift
 
 class Artist: Owner {
+    var lyricCount: Int = 200
 }

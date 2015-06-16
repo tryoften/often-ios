@@ -12,6 +12,7 @@ class SessionManager: NSObject {
     
     var firebase: Firebase
     var keyboardService: KeyboardService?
+    var trackService: TrackService?
     var userRef: Firebase?
     var currentUser: User?
     var userDefaults: NSUserDefaults
@@ -34,6 +35,18 @@ class SessionManager: NSObject {
         
         super.init()
         
+        
+        var artistService = ArtistService(root: self.firebase)
+        artistService.requestData { done in
+            
+        }
+        
+        var trackService = TrackService(root: self.firebase)
+        trackService.requestData { done in
+            
+        }
+        
+        
         self.firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
         }
@@ -49,7 +62,20 @@ class SessionManager: NSObject {
             // TODO(luc): throw an error if the current user is not set
         }
     }
+
+    func fetchTracks() {
+        self.trackService = TrackService(root: firebase)
+        self.trackService?.requestData({ data in
+            self.broadcastDidFetchTracksEvent()
+        })
+        
+        self.trackService?.getTracksForArtistId("-Jo284H6WX4QySExfJ5U")
+    }
     
+    func fetchArtists() {
+        
+    }
+
     private func processAuthData(authData: FAuthData?) {
         if (authData != nil) {
             var uid = authData?.providerData["id"] as! String
@@ -86,6 +112,14 @@ class SessionManager: NSObject {
         if let keyboardService = self.keyboardService {
             for observer in observers {
                 observer.sessionManagerDidFetchKeyboards(self, keyboards: keyboardService.keyboards)
+            }
+        }
+    }
+    
+    private func broadcastDidFetchTracksEvent(){
+        if let trackService = self.trackService {
+            for observer in observers {
+                observer.sessionManagerDidFetchTracks(self, tracks: trackService.tracks)
             }
         }
     }
@@ -191,4 +225,6 @@ class SessionManager: NSObject {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User)
     func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard])
+    func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track])
+    func sessionManagerDidFetchArtists(sessionManager: SessionManager, artists: [String : Artist])
 }

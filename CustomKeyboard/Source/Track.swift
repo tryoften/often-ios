@@ -41,51 +41,54 @@ class Track: Object {
     dynamic var rapgeniusURL: String? = ""
     dynamic var youtubeURL: String? = ""
     dynamic var previewURL: String? = ""
+    var lyricCount: Int = 200
     
-    private var dict: [String: String] = [String: String]()
+    var dict = [String: AnyObject]()
     
     override static func primaryKey() -> String? {
         return "id"
     }
     
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
-        var dictionary = keyedValues as! [String: String]
-        self.dict = dictionary
+        
+        if let dictionary = keyedValues as? [String: AnyObject] {
+            dict = dictionary
 
-        name = (dictionary["name"] ?? dictionary["track_name"])!
-        artistName = dictionary["artist_name"]!
-        artistId = (dictionary["artist_id"] ?? dictionary["artist_sp_id"])!
-        
-        if let albumCoverImageString = dictionary["album_cover_image_small"] {
-            albumCoverImage = albumCoverImageString
-        }
-        
-        if let albumCoverImageLargeString = dictionary["album_cover_image_large"] {
-            albumCoverImageLarge = albumCoverImageLargeString
-        }
-        
-        if let spotifyURLString = dictionary["track_spotify_url"] {
-            spotifyURL = spotifyURLString
-        }
-        
-        if let soundcloudURLString = dictionary["track_soundcloud_url"] {
-            soundcloudURL = soundcloudURLString
-        }
-        
-        if let rapgeniusURLString = dictionary["track_rapgenius_url"] {
-            rapgeniusURL = rapgeniusURLString
-        }
-        
-        if let youtubeURLString = dictionary["track_youtube_url"] {
-            youtubeURL = youtubeURLString
-        }
-        
-        if let previewURLString = dictionary["track_preview_url"] {
-            previewURL = previewURLString
+            name = (dictionary["name"] ?? dictionary["track_name"]) as! String
+            artistName = dictionary["artist_name"] as! String
+            artistId = (dictionary["artist_id"] ?? dictionary["artist_sp_id"]) as! String
+            
+            if let albumCoverImageString = dictionary["album_cover_image_small"] as? String {
+                albumCoverImage = albumCoverImageString
+            }
+            
+            if let albumCoverImageLargeString = dictionary["album_cover_image_large"] as? String {
+                albumCoverImageLarge = albumCoverImageLargeString
+            }
+            
+            if let spotifyURLString = dictionary["track_spotify_url"] as? String {
+                spotifyURL = spotifyURLString
+            }
+            
+            if let soundcloudURLString = dictionary["track_soundcloud_url"] as? String {
+                soundcloudURL = soundcloudURLString
+            }
+            
+            if let rapgeniusURLString = dictionary["track_rapgenius_url"] as? String {
+                rapgeniusURL = rapgeniusURLString
+            }
+            
+            if let youtubeURLString = dictionary["track_youtube_url"] as? String {
+                youtubeURL = youtubeURLString
+            }
+            
+            if let previewURLString = dictionary["track_preview_url"] as? String {
+                previewURL = previewURLString
+            }
         }
     }
     
-    func toDictionary() -> [String: String] {
+    func toDictionary() -> [String: AnyObject] {
         return dict
     }
     

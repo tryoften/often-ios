@@ -15,37 +15,40 @@ class SignUpPhoneNumberView: UIView {
     var subtitleLabel: UILabel!
     
     override init(frame: CGRect) {
-        
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
-        titleLabel.font = BaseFont
+        titleLabel.font = UIFont(name: "OpenSans", size: 14)
+        titleLabel.textColor = UIColor(fromHexString: "#202020")
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        titleLabel.text = "WHAT YOUR NUMBER #?"
+        titleLabel.text = "what's you number #?".uppercaseString
         
         phoneNumberTxtField = UITextField()
         phoneNumberTxtField.textAlignment = .Center
-        phoneNumberTxtField.font = BaseFont
+        phoneNumberTxtField.font = UIFont(name: "OpenSans", size: 14)
+        phoneNumberTxtField.placeholder = "###"
         phoneNumberTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         spacer = UIView()
         spacer.setTranslatesAutoresizingMaskIntoConstraints(false)
-        spacer.backgroundColor = UIColor.blackColor()
+        spacer.backgroundColor = BlackColor
         
         subtitleLabel = UILabel()
         subtitleLabel.textAlignment = .Center
-        subtitleLabel.font = BaseFont
+        subtitleLabel.font = SubtitleFont
+        subtitleLabel.textColor = SubtitleGreyColor
         subtitleLabel.numberOfLines = 0
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        subtitleLabel.text = "vsnclkxdmkl"
+        subtitleLabel.text = "Add your phone so number artists can stay in touch when they release new music, have show in your city or release  exclusive content."
         
         super.init(frame: frame)
+        
         backgroundColor = UIColor.whiteColor()
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(spacer)
-        addSubview(phoneNumberTxtField)        
+        addSubview(phoneNumberTxtField)
+        
         setupLayout()
-
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -54,28 +57,26 @@ class SignUpPhoneNumberView: UIView {
     
     func setupLayout() {
         addConstraints([
-            
-            titleLabel.al_top == al_top + 170,
+            titleLabel.al_top == al_top + 180,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_centerX == al_centerX,
             
-            phoneNumberTxtField.al_top == titleLabel.al_bottom + 20,
-            phoneNumberTxtField.al_width == 100,
-            phoneNumberTxtField.al_height == 44,
+            phoneNumberTxtField.al_top == titleLabel.al_bottom + 6,
+            phoneNumberTxtField.al_left == al_left + 20,
+            phoneNumberTxtField.al_right == al_right - 20,
             phoneNumberTxtField.al_centerX == al_centerX,
             
             spacer.al_top == phoneNumberTxtField.al_bottom + 8,
             spacer.al_height == 1,
-            spacer.al_width == 60,
+            spacer.al_width == 40,
             spacer.al_centerX == al_centerX,
             
-            subtitleLabel.al_top == spacer.al_bottom + 60,
-            subtitleLabel.al_left == al_left,
-            subtitleLabel.al_right == al_right,
+            subtitleLabel.al_top == spacer.al_bottom + 75,
+            subtitleLabel.al_left == al_left + 32,
+            subtitleLabel.al_right == al_right - 32,
             subtitleLabel.al_height == 80,
             ])
     }
-    
     
 }
