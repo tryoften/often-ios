@@ -7,6 +7,12 @@
 //
 
 import Foundation
+/**
+TextField:
+
+- has the ability to change left insets of the textfield
+
+*/
 
 class FlexibleBoundsTextField : UITextField {
     var leftMargin : CGFloat = 0
