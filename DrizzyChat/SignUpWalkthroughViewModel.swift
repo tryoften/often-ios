@@ -8,7 +8,14 @@
 
 import Foundation
 
-class SignUpWalkthroughViewModel: NSObject {
+/**
+Service:
+
+- Create a user
+
+*/
+
+class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     var phoneNumber: String
     var fullName: String
     var email: String
@@ -17,16 +24,24 @@ class SignUpWalkthroughViewModel: NSObject {
     var artistsList: [Artist]
     var artistService: ArtistService
     var delegate: WalkthroughViewModelDelegate?
+    var sessionManager: SessionManager
+   
+    init(sessionManager: SessionManager){
+        self.sessionManager = sessionManager
+        phoneNumber = ""
+        fullName = ""
+        email = ""
+        password = ""
+        artistSelectedList = [String]()
+        artistsList = [Artist]()
+        artistService = ArtistService(root: Firebase(url: BaseURL))
+        super.init()
+        self.sessionManager.addSessionObserver(self)
+        
+    }
     
-     init(artistService: ArtistService) {
-        self.phoneNumber = ""
-        self.fullName = ""
-        self.email = ""
-        self.password = ""
-        self.artistSelectedList = [String]()
-        self.artistsList = [Artist]()
-        self.artistService = artistService
-
+    deinit {
+        sessionManager.removeSessionObserver(self)
     }
     
     func getListOfArtists() {
@@ -38,7 +53,23 @@ class SignUpWalkthroughViewModel: NSObject {
         }
     }
     
-    func submitNewUser(completion: (success: Bool, error: NSError?) -> ()) {
+    func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
+        
+    }
+    
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
+        
+    }
+    
+    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard]) {
+        
+    }
+    
+    func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track]) {
+    }
+    
+    func sessionManagerDidFetchArtists(sessionManager: SessionManager, artists: [String : Artist]) {
+        
     }
 }
 

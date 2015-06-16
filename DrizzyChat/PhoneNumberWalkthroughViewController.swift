@@ -14,8 +14,6 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = SignUpWalkthroughViewModel(artistService: artistService)
-        
         addPhoneNumberPage = SignUpPhoneNumberView()
         addPhoneNumberPage.setTranslatesAutoresizingMaskIntoConstraints(false)
         addPhoneNumberPage.phoneNumberTxtField.delegate = self
@@ -106,9 +104,9 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
     
     func checkCharacterCountOfTextField() {
         if (count(addPhoneNumberPage.phoneNumberTxtField.text) >= 2) {
-            navigationItem.rightBarButtonItem?.title = "next".uppercaseString
+            navButton.title  = "next".uppercaseString
         } else {
-            navigationItem.rightBarButtonItem?.title = "skip".uppercaseString
+            navButton.title = "skip".uppercaseString
         }
     }
     
