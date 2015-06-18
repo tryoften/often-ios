@@ -22,13 +22,15 @@ class ArtistService: NSObject {
         firebase.observeEventType(.Value, withBlock: { (snapshot) -> Void in
             if let artistsData = snapshot.value as? [String: NSDictionary] {
                 for (owner, data) in artistsData {
-                    var artist = Artist(value: data)
+                    var artistData = data.mutableCopy() as! NSMutableDictionary
+                    artistData["keyboardId"] = artistData["keyboard"]
+                    var artist = Artist(value: artistData)
                     artist.id = owner
                     artist.imageURLLarge = data["image_large"] as! String
                     self.artistsList[owner] = artist
                 }
     
-                if self.artistsList.count >= 1{
+                if self.artistsList.count >= 1 {
                     completion(artistsList: self.artistsList)
                 }
             }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SelectArtistWalkthroughViewController: WalkthroughViewController,UITableViewDataSource, UITableViewDelegate, WalkthroughViewModelDelegate {
+class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableViewDataSource, UITableViewDelegate {
     var tableView: UITableView!
     let kCellIdentifier = "signUpAddArtistsTableViewCell"
     var selectedArtistes = [NSNumber]()
@@ -128,11 +128,16 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController,UITableVi
     
     override func didTapNavButton() {
         for objects in selectedArtistes {
-            viewModel.artistSelectedList?.append(viewModel.artistsList[objects.integerValue].id)
+            let keyboardId = viewModel.artistsList[objects.integerValue].keyboardId
+            if (keyboardId != "") {
+                viewModel.artistSelectedList?.append(keyboardId)
+            }
         }
         println(viewModel.artistSelectedList!)
         if ArtistsSelectedListIsValid(viewModel.artistSelectedList!) {
-            println("go to make screen")
+            viewModel.sessionManager.setKeyboardsOnCurrentUser(viewModel.artistSelectedList!, completion: { (user, error) in
+                self.presentViewController(TabBarController(), animated: true, completion: nil)
+            })
         } else {
             println("need to pick at lest one")
             return

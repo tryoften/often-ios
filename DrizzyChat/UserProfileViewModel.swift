@@ -31,7 +31,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         
     }
 
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
         self.sessionManager.fetchKeyboards()
         self.delegate?.userProfileViewModelDidLoginUser(self, user: user)
     }

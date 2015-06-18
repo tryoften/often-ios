@@ -8,7 +8,8 @@
 
 import UIKit
 
-class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate {
+class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate,
+    WalkthroughViewModelDelegate {
     var viewModel: SignUpWalkthroughViewModel
     var sessionManager: SessionManager
     var navButton : UIBarButtonItem!
@@ -19,7 +20,7 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         viewModel = SignUpWalkthroughViewModel(sessionManager: sessionManager)
         
         super.init(nibName: nil, bundle: nil)
-        
+        viewModel.delegate = self
     }
     
     required init(coder aDecoder: NSCoder) {
