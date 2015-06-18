@@ -9,27 +9,28 @@
 import Foundation
 
 class LoginView: UIView {
-    var emailTxtField : UITextField!
-    var passwordTxtField : UITextField!
-    var emailTxtSpacer: UIView!
-    var passwordSpacer: UIView!
-    var orSpacerOne: UIView!
-    var orSpacerTwo: UIView!
-    var orLabel: UILabel!
+    var emailTxtField : FlexibleBoundsTextField
+    var passwordTxtField : FlexibleBoundsTextField
+    var emailTxtSpacer: UIView
+    var passwordSpacer: UIView
+    var orSpacerOne: UIView
+    var orSpacerTwo: UIView
+    var orLabel: UILabel
     var facebookButton: FacebookButton
     
      override init(frame: CGRect) {
         var passwordIconImageView = UIImageView();
         passwordIconImageView.image = UIImage(named: "PasswordIcon")
-        passwordIconImageView.frame = CGRectMake(0, 0, 25, 25)
+        passwordIconImageView.frame = CGRectMake(0, 0, 20, 20)
         passwordIconImageView.contentMode = .ScaleAspectFit
         
         var emailIconImageView = UIImageView();
         emailIconImageView.image = UIImage(named: "ProfileIcon")
-        emailIconImageView.frame = CGRectMake(0, 0, 25, 25)
+        emailIconImageView.frame = CGRectMake(0, 0, 20, 20)
         emailIconImageView.contentMode = .ScaleAspectFit
         
-        emailTxtField = UITextField()
+        emailTxtField = FlexibleBoundsTextField()
+        emailTxtField.leftMargin = 40.0
         emailTxtField.textAlignment = .Left
         emailTxtField.font = UIFont(name: "OpenSans", size: 14)
         emailTxtField.placeholder = "email".uppercaseString
@@ -37,7 +38,8 @@ class LoginView: UIView {
         emailTxtField.leftViewMode = .Always
         emailTxtField.leftView = emailIconImageView
         
-        passwordTxtField = UITextField()
+        passwordTxtField = FlexibleBoundsTextField()
+        passwordTxtField.leftMargin = 40.0
         passwordTxtField.textAlignment = .Left
         passwordTxtField.font = UIFont(name: "OpenSans", size: 14)
         passwordTxtField.placeholder = "password".uppercaseString
@@ -51,10 +53,11 @@ class LoginView: UIView {
         
         facebookButton = FacebookButton.button()
         facebookButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        facebookButton.setTitle("Login w/ Facebook".uppercaseString, forState: .Normal)
         
         orLabel = UILabel()
         orLabel.textAlignment = .Center
-        orLabel.font = SubtitleFont
+        orLabel.font = UIFont(name: "OpenSans-Italic", size: 12)
         orLabel.textColor = SubtitleGreyColor
         orLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         orLabel.text = "Or"
@@ -92,9 +95,9 @@ class LoginView: UIView {
     
     func setupLayout() {
         addConstraints([
-            emailTxtField.al_top == al_top + 50,
+            emailTxtField.al_top == al_top,
             emailTxtField.al_right == al_right,
-            emailTxtField.al_left == al_left,
+            emailTxtField.al_left == al_left + 20,
             emailTxtField.al_height == 44,
             
             emailTxtSpacer.al_top == emailTxtField.al_bottom,
@@ -104,7 +107,7 @@ class LoginView: UIView {
             
             passwordTxtField.al_top == emailTxtSpacer.al_bottom,
             passwordTxtField.al_right == al_right,
-            passwordTxtField.al_left == al_left,
+            passwordTxtField.al_left == al_left + 20,
             passwordTxtField.al_height == 44,
             
             passwordSpacer.al_top == passwordTxtField.al_bottom,
@@ -112,23 +115,23 @@ class LoginView: UIView {
             passwordSpacer.al_left == al_left,
             passwordSpacer.al_height == 0.5,
             
-            orLabel.al_top == passwordSpacer.al_bottom + 170,
+            orLabel.al_top == passwordSpacer.al_bottom + 160,
             orLabel.al_width == 40,
             orLabel.al_centerX == al_centerX,
             orLabel.al_height == 40,
 
-            orSpacerOne.al_top == passwordSpacer.al_bottom + 190,
-            orSpacerOne.al_right == orLabel.al_left - 20,
-            orSpacerOne.al_left == al_left + 20,
-            orSpacerOne.al_height == 2,
+            orSpacerOne.al_top == passwordSpacer.al_bottom + 180,
+            orSpacerOne.al_right == orLabel.al_left,
+            orSpacerOne.al_left == al_left + 50,
+            orSpacerOne.al_height == 1,
             
-            orSpacerTwo.al_top == passwordSpacer.al_bottom + 190,
-            orSpacerTwo.al_right == al_right - 20,
-            orSpacerTwo.al_left == orLabel.al_right + 20,
-            orSpacerTwo.al_height == 2,
+            orSpacerTwo.al_top == passwordSpacer.al_bottom + 180,
+            orSpacerTwo.al_right == al_right - 50,
+            orSpacerTwo.al_left == orLabel.al_right,
+            orSpacerTwo.al_height == 1,
             
             facebookButton.al_height == 60,
-            facebookButton.al_top == orLabel.al_bottom + 10,
+            facebookButton.al_top == orLabel.al_bottom + 5,
             facebookButton.al_left == al_left + 10,
             facebookButton.al_right == al_right - 10,
             ])

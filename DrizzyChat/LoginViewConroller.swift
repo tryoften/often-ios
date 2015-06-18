@@ -8,29 +8,35 @@
 
 import Foundation
 
-class LoginViewController : UIViewController, UITextFieldDelegate {
+class LoginViewController : WalkthroughViewController {
     var loginView: LoginView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         loginView = LoginView()
         loginView.setTranslatesAutoresizingMaskIntoConstraints(false)
         loginView.facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
-        title = "login"
+        
+        setupNavBar("")
         
         view.addSubview(loginView)
     }
     
     func didTapFacebookButton() {
-        SessionManager.defaultManager.login()
+        sessionManager.login()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        setupLayout()
         
         navigationController?.navigationBar.hidden = false
+        
+        title = "login".uppercaseString
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
         delay(0.05) {
             loginView.emailTxtField.becomeFirstResponder()
@@ -41,7 +47,7 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
         return true;
     }
 
-    func setupLayout() {
+    override func setupLayout() {
         
         var constraints: [NSLayoutConstraint] = [
             loginView.al_top == view.al_top,
@@ -53,6 +59,16 @@ class LoginViewController : UIViewController, UITextFieldDelegate {
         view.addConstraints(constraints)
     }
 
-    
+    func walkthroughViewModelDidLoginUser(walkthroughViewModel: SignUpWalkthroughViewModel, user: User, isNewUser: Bool) {
+        var presentedViewController: UIViewController
+        if isNewUser {
+            presentedViewController = SelectArtistWalkthroughViewController()
+            navigationController?.pushViewController(presentedViewController, animated: true)
+        } else {
+            presentedViewController = TabBarController()
+            self.presentViewController(presentedViewController, animated: true, completion: nil)
+        }
 
+        viewModel.delegate = nil
+    }
 }

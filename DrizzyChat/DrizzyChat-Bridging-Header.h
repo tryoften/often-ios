@@ -12,7 +12,6 @@
 #import "SwiftAutoLayout.h"
 #import "UIColor+HEXString.h"
 #import <Canvas/Canvas.h>
-//#import <Facebook-iOS-SDK/FacebookSDK.h>
 #import <FlurrySDK/Flurry.h>
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>

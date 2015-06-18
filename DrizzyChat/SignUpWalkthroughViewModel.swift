@@ -8,7 +8,14 @@
 
 import Foundation
 
-class SignUpWalkthroughViewModel: NSObject {
+/**
+Service:
+
+- Create a user
+
+*/
+
+class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     var phoneNumber: String
     var fullName: String
     var email: String
@@ -17,16 +24,24 @@ class SignUpWalkthroughViewModel: NSObject {
     var artistsList: [Artist]
     var artistService: ArtistService
     var delegate: WalkthroughViewModelDelegate?
+    var sessionManager: SessionManager
+   
+    init(sessionManager: SessionManager){
+        self.sessionManager = sessionManager
+        phoneNumber = ""
+        fullName = ""
+        email = ""
+        password = ""
+        artistSelectedList = [String]()
+        artistsList = [Artist]()
+        artistService = ArtistService(root: Firebase(url: BaseURL))
+        super.init()
+        self.sessionManager.addSessionObserver(self)
+        
+    }
     
-     init(artistService: ArtistService) {
-        self.phoneNumber = ""
-        self.fullName = ""
-        self.email = ""
-        self.password = ""
-        self.artistSelectedList = [String]()
-        self.artistsList = [Artist]()
-        self.artistService = artistService
-
+    deinit {
+        sessionManager.removeSessionObserver(self)
     }
     
     func getListOfArtists() {
@@ -34,14 +49,31 @@ class SignUpWalkthroughViewModel: NSObject {
             self.artistsList = artistsList.values.array
             println(self.artistsList.count)
             
-            self.delegate?.walkthroughViewModelDidLoadArtistsList(self, keyboardList: self.artistsList)
+            self.delegate?.walkthroughViewModelDidLoadArtistsList?(self, keyboardList: self.artistsList)
         }
     }
     
-    func submitNewUser(completion: (success: Bool, error: NSError?) -> ()) {
+    func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
+        
+    }
+    
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
+        delegate?.walkthroughViewModelDidLoginUser?(self, user: user, isNewUser: isNewUser)
+    }
+    
+    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard]) {
+        
+    }
+    
+    func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track]) {
+    }
+    
+    func sessionManagerDidFetchArtists(sessionManager: SessionManager, artists: [String : Artist]) {
+        
     }
 }
 
-protocol WalkthroughViewModelDelegate {
-    func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist])
+@objc protocol WalkthroughViewModelDelegate {
+    optional func walkthroughViewModelDidLoginUser(walkthroughViewModel: SignUpWalkthroughViewModel, user: User, isNewUser: Bool)
+    optional func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist])
 }

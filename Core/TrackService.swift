@@ -28,7 +28,7 @@ class TrackService: Service {
         requestData(artistId: String): takes in an artist ID and returns all of the tracks for that
         artists in self.tracks as a [String : Track]
     */
-    func requestData(completion: ([String : Track])-> Void) {
+    func requestData(completion: ([String : Track]) -> Void) {
         ref.observeEventType(.Value, withBlock: { snapshot in
             // [artist ID : [image kind : image URL]]
             if let artistsData = snapshot.value as? [String : [String : AnyObject]] {

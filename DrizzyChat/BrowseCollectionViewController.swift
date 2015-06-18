@@ -76,7 +76,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         if let trackvar = self.viewModel.tracksList {
             return trackvar.count
         }
-        return 0
+        return 10
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -91,11 +91,6 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         } else {
             cell.trackNameLabel.text = "Pyramids"
         }
-//        if let trackName = viewModel.trackNameAtIndex(indexPath.row) {
-//            cell.trackNameLabel.text = trackName
-//        } else {
-//            cell.trackNameLabel.text = "No Track Name"
-//        }
         
         if let lyricCount = viewModel.lyricCountAtIndex(indexPath.row) {
             cell.lyricCountLabel.text = "\(lyricCount) Lyrics"

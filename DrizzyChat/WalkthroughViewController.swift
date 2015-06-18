@@ -8,15 +8,28 @@
 
 import UIKit
 
-class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate {
-    var viewModel: SignUpWalkthroughViewModel!
-    var artistService: ArtistService!
-    let firebaseRoot = Firebase(url: BaseURL)
-
+class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate,
+    WalkthroughViewModelDelegate {
+    var viewModel: SignUpWalkthroughViewModel
+    var sessionManager: SessionManager
+    var navButton : UIBarButtonItem!
+    
+    init (sessionManager: SessionManager = SessionManager.defaultManager) {
+        self.sessionManager = sessionManager
+        self.navButton = UIBarButtonItem()
+        viewModel = SignUpWalkthroughViewModel(sessionManager: sessionManager)
+        
+        super.init(nibName: nil, bundle: nil)
+        viewModel.delegate = self
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        artistService = ArtistService(root: firebaseRoot)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -24,7 +37,7 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     }
     
     func setupNavBar (titlePushViewButton: String) {
-        let navButton = UIBarButtonItem(title: titlePushViewButton.uppercaseString, style: .Plain, target: self, action: "didTapNavButton")
+        navButton = UIBarButtonItem(title: titlePushViewButton.uppercaseString, style: .Plain, target: self, action: "didTapNavButton")
         let fixedSpaceItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
         let backButton = UIButton(frame: CGRectMake(0, 0, 20, 16))
         let backImage = UIImage(named: "BackButton")
