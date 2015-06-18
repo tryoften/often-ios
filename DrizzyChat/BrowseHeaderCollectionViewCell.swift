@@ -25,10 +25,11 @@ class BrowseHeaderCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         artistImage = UIImageView(frame: self.bounds)
-        artistImage.contentMode = .ScaleAspectFit
+        artistImage.contentMode = .ScaleAspectFill
         artistImage.clipsToBounds = true
         
         contentView.addSubview(artistImage)
+        clipsToBounds = true
         
         setLayout()
     }
@@ -40,7 +41,9 @@ class BrowseHeaderCollectionViewCell: UICollectionViewCell {
     func setLayout() {
         addConstraints([
             artistImage.al_centerX == al_centerX,
-            artistImage.al_centerY == al_centerY
+            artistImage.al_centerY == al_centerY,
+            artistImage.al_width == al_width,
+            artistImage.al_height == al_height
         ])
     }
 }

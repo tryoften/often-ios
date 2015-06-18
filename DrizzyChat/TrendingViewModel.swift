@@ -18,19 +18,17 @@ import UIKit
 */
 
 class TrendingViewModel: NSObject, SessionManagerObserver {
-    var sessionManager: SessionManager
+    
     var delegate: TrendingViewModelDelegate?
     var artistsList: [Artist]?
     
     init(sessionManager: SessionManager){
-        self.sessionManager = sessionManager
         super.init()
-        self.sessionManager.addSessionObserver(self)
         sessionManager.fetchArtists()
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
-        sessionManager.login()
+        
     }
     
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {

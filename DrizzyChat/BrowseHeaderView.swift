@@ -24,57 +24,59 @@ import UIKit
 let BrowseHeaderViewCellIdentifier = "headerCell"
 
 class BrowseHeaderView: UICollectionReusableView {
-    var coverPhoto: UIImageView
-    var nameLabel: UILabel
-    var addArtistButton: UIButton
     var screenWidth: CGFloat
-    var artistBrowseCollectionView: UICollectionView?
+    var browsePicker: BrowseHeaderCollectionViewController
+    var coverPhoto: UIImageView
+    var artistNameLabel: UILabel
     
     override init(frame: CGRect) {
+        browsePicker = BrowseHeaderCollectionViewController(collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout())
+        browsePicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         screenWidth = UIScreen.mainScreen().bounds.width
         
-        artistBrowseCollectionView = UICollectionView(frame: CGRectMake(0, 100, screenWidth, 250), collectionViewLayout: ArtistBrowseCollectionViewFlowLayout().provideCollectionFlowLayout())
-        artistBrowseCollectionView!.backgroundColor = UIColor.whiteColor()
-        artistBrowseCollectionView!.setTranslatesAutoresizingMaskIntoConstraints(false)
-        artistBrowseCollectionView!.registerClass(BrowseHeaderCollectionViewCell.self, forCellWithReuseIdentifier: BrowseHeaderViewCellIdentifier)
-        
         coverPhoto = UIImageView()
-        coverPhoto.frame = CGRectMake(0, 0, screenWidth, 450)
-        coverPhoto.contentMode = .ScaleAspectFill
-        coverPhoto.translatesAutoresizingMaskIntoConstraints()
-        coverPhoto.clipsToBounds = true
+        coverPhoto.setTranslatesAutoresizingMaskIntoConstraints(false)
         coverPhoto.image = UIImage(named: "blurred-header")
         
-        nameLabel = UILabel()
-        nameLabel.textAlignment = .Center
-        nameLabel.font = UIFont(name: "OpenSans", size: 24.0)
-        nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        /// may create own class for this button
-        addArtistButton = UIButton()
-        addArtistButton.backgroundColor = UIColor.yellowColor()
-        addArtistButton.titleLabel?.textAlignment = .Center
-        addArtistButton.titleLabel?.text = "Add Artist"
+        artistNameLabel = UILabel()
+        artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        artistNameLabel.font = UIFont(name: "Oswald-Light", size: 18.0)
+        artistNameLabel.textColor = UIColor(fromHexString: "#d3d3d3")
+        artistNameLabel.textAlignment = .Center
+        artistNameLabel.text = "FRANK OCEAN"
         
         super.init(frame: frame)
         
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
-        
+
         addSubview(coverPhoto)
-        addSubview(nameLabel)
-        addSubview(artistBrowseCollectionView!)
+        addSubview(browsePicker.view)
+        addSubview(artistNameLabel)
         
-        setLayout()
+        clipsToBounds = true
+
+        setupLayout()
     }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setLayout() {
+    func setupLayout() {
         addConstraints([
-            coverPhoto.al_left == al_left
+            browsePicker.view.al_top == al_top,
+            browsePicker.view.al_left == al_left,
+            browsePicker.view.al_width == al_width,
+            browsePicker.view.al_height == al_height,
             
+            coverPhoto.al_top == al_top,
+            coverPhoto.al_left == al_left,
+            coverPhoto.al_width == al_width,
+            coverPhoto.al_height == al_height,
+            
+            artistNameLabel.al_bottom == al_bottom - 10,
+            artistNameLabel.al_centerX == al_centerX
         ])
     }
 }

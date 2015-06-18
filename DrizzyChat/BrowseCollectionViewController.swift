@@ -15,7 +15,7 @@ import UIKit
     Collection views use the same data source and delegate
 */
 
-class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate {
+class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate {
 
     var viewModel: BrowseViewModel
     var headerView: BrowseHeaderView?
@@ -57,7 +57,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         var screenWidth = UIScreen.mainScreen().bounds.size.width
         var flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 200)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 450)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 350)
         flowLayout.headerReferenceSize = CGSizeMake(screenWidth, 50)
         flowLayout.itemSize = CGSizeMake(screenWidth, 70) /// height of the cell
         flowLayout.disableStickyHeaders = false /// allow sticky header for dragging down the table view
@@ -73,51 +73,39 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.collectionView {
-            if let trackvar = self.viewModel.tracksList {
-                return trackvar.count
-            }
-        } else if collectionView == headerView?.artistBrowseCollectionView {
-            return 5
+        if let trackvar = self.viewModel.tracksList {
+            return trackvar.count
         }
-        
         return 0
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if collectionView == self.collectionView {
-            /// if loading for track list - load this cell
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! BrowseCollectionViewCell
-            cell.backgroundColor = UIColor.whiteColor()
-            
-            if let trackName = viewModel.trackNameAtIndex(indexPath.row) {
-                cell.trackNameLabel.text = trackName
-            } else {
-                cell.trackNameLabel.text = "No Track Name"
-            }
-            
-            if let lyricCount = viewModel.lyricCountAtIndex(indexPath.row) {
-                cell.lyricCountLabel.text = "\(lyricCount) Lyrics"
-            }
-            
-            cell.disclosureIndicator.image = UIImage(named: "arrow")
-            cell.rankLabel.text = "\(indexPath.row + 1)"
-            
-            return cell
-            
-        } else if collectionView == headerView?.artistBrowseCollectionView {
-            /// if loading for the header view - load this cell
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(BrowseHeaderViewCellIdentifier, forIndexPath: indexPath) as! BrowseHeaderCollectionViewCell
-            
-            cell.artistImage.image = UIImage(named: "frank")
-            
-            return cell
-            
+        /// if loading for track list - load this cell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! BrowseCollectionViewCell
+        cell.backgroundColor = UIColor.whiteColor()
+
+        if indexPath.row % 2 == 0 {
+            cell.trackNameLabel.text = "Lost"
+        } else if indexPath.row % 3 == 0 {
+            cell.trackNameLabel.text = "Monks"
         } else {
-            let cell = UICollectionViewCell()
-            return cell
-            
+            cell.trackNameLabel.text = "Pyramids"
         }
+//        if let trackName = viewModel.trackNameAtIndex(indexPath.row) {
+//            cell.trackNameLabel.text = trackName
+//        } else {
+//            cell.trackNameLabel.text = "No Track Name"
+//        }
+        
+        if let lyricCount = viewModel.lyricCountAtIndex(indexPath.row) {
+            cell.lyricCountLabel.text = "\(lyricCount) Lyrics"
+        }
+        
+        cell.disclosureIndicator.image = UIImage(named: "arrow")
+        cell.rankLabel.text = "\(indexPath.row + 1)"
+        
+        return cell
+            
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -125,10 +113,9 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! BrowseHeaderView
             
             headerView = cell
-            headerView?.artistBrowseCollectionView?.dataSource = self
-            headerView?.artistBrowseCollectionView?.reloadData()
             
             return cell
+            
         } else if kind == UICollectionElementKindSectionHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! BrowseSectionHeaderView
             
@@ -143,21 +130,14 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        if collectionView == headerView?.artistBrowseCollectionView {
-            return 20 as CGFloat
-        } else {
-             return 0.0 as CGFloat
-        }
+        return 0.0 as CGFloat
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
         
-        if collectionView == headerView?.artistBrowseCollectionView {
-            return CGSizeMake(40.0, 40.0)
-        } else {
-            return CGSizeMake(screenWidth, 39.5)
-        }
+        return CGSizeMake(screenWidth, 39.5)
+        
     }
     
     func browseViewModelDidLoadTracks() {

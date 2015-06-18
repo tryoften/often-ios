@@ -54,7 +54,10 @@
 		3BAAB1E61B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */; };
 		3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */; };
 		3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */; };
+		690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */; };
 		696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */; };
+		697D00531B3090DB00402A9F /* TrendingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */; };
+		697D00551B30A06200402A9F /* TrendingLyricViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */; };
 		69BA82021B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82011B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift */; };
 		69BA82061B2FA9B000233789 /* SignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82051B2FA9B000233789 /* SignUpFormViewModel.swift */; };
 		69BA82081B2FA9D000233789 /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82071B2FA9D000233789 /* BrowseViewModel.swift */; };
@@ -67,7 +70,6 @@
 		69BA821C1B2FB55F00233789 /* Realm.framework in Copy Dynamic Frameworks */ = {isa = PBXBuildFile; fileRef = 818309761B1F6B4B005BB221 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */; };
 		69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */; };
-		69F2B5E11B27842E004FCD19 /* TrendingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F2B5E01B27842E004FCD19 /* TrendingCollectionViewController.swift */; };
 		69F2B5E71B2786F6004FCD19 /* TrendingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F2B5E61B2786F6004FCD19 /* TrendingHeaderView.swift */; };
 		69F2B5EB1B278826004FCD19 /* TrendingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */; };
 		810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
@@ -340,9 +342,11 @@
 		3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpAddArtistsTableViewCell.swift; sourceTree = "<group>"; };
 		3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPhoneNumberView.swift; sourceTree = "<group>"; };
 		3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameView.swift; sourceTree = "<group>"; };
+		690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewController.swift; sourceTree = "<group>"; };
 		696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
+		697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingCollectionViewController.swift; path = ../../../../.Trash/TrendingCollectionViewController.swift; sourceTree = "<group>"; };
+		697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingLyricViewCell.swift; sourceTree = "<group>"; };
 		69BA82011B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistBrowseCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		69BA82031B2FA99500233789 /* TrendingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingHeaderView.swift; sourceTree = "<group>"; };
 		69BA82051B2FA9B000233789 /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
 		69BA82071B2FA9D000233789 /* BrowseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewModel.swift; sourceTree = "<group>"; };
 		69BA82091B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -352,9 +356,7 @@
 		69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewCell.swift; sourceTree = "<group>"; };
 		69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSectionHeaderView.swift; sourceTree = "<group>"; };
 		69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderView.swift; sourceTree = "<group>"; };
-		69F2B5E01B27842E004FCD19 /* TrendingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingCollectionViewController.swift; sourceTree = "<group>"; };
 		69F2B5E61B2786F6004FCD19 /* TrendingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingHeaderView.swift; sourceTree = "<group>"; };
-		69F2B5E81B27870F004FCD19 /* TrendingSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingSectionHeaderView.swift; sourceTree = "<group>"; };
 		69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingCollectionViewCell.swift; sourceTree = "<group>"; };
 		6A7739D64C1EC7752556F914 /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -575,6 +577,28 @@
 			name = "Walkthrough ViewControllers";
 			sourceTree = "<group>";
 		};
+		697D00491B3080F000402A9F /* TrendingViews */ = {
+			isa = PBXGroup;
+			children = (
+				69F2B5E61B2786F6004FCD19 /* TrendingHeaderView.swift */,
+				69BA820E1B2FABB800233789 /* TrendingSectionHeaderView.swift */,
+				69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */,
+				697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */,
+			);
+			name = TrendingViews;
+			sourceTree = "<group>";
+		};
+		697D004D1B30812100402A9F /* BrowseViews */ = {
+			isa = PBXGroup;
+			children = (
+				696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */,
+				69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */,
+				69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */,
+				69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */,
+			);
+			name = BrowseViews;
+			sourceTree = "<group>";
+		};
 		69BA81FD1B2FA84A00233789 /* View Layouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,8 +775,9 @@
 				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				81592F991B0FA55A0092EA8F /* TabBarController.swift */,
+				690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */,
 				69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */,
-				69F2B5E01B27842E004FCD19 /* TrendingCollectionViewController.swift */,
+				697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */,
 				81592F9C1B0FA5750092EA8F /* UserProfileViewController.swift */,
 			);
 			name = "View Controllers";
@@ -764,17 +789,10 @@
 				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
 				81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */,
 				81B6D5861A956E680089767B /* LoginIndicatorView.swift */,
-				696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */,
-				69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */,
-				69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */,
-				69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */,
-				69F2B5E61B2786F6004FCD19 /* TrendingHeaderView.swift */,
-				69F2B5E81B27870F004FCD19 /* TrendingSectionHeaderView.swift */,
-				69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */,
 				81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */,
 				81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */,
-				69BA82031B2FA99500233789 /* TrendingHeaderView.swift */,
-				69BA820E1B2FABB800233789 /* TrendingSectionHeaderView.swift */,
+				697D004D1B30812100402A9F /* BrowseViews */,
+				697D00491B3080F000402A9F /* TrendingViews */,
 				3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */,
 			);
 			name = Views;
@@ -1387,8 +1405,8 @@
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
 				69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */,
 				69BA82021B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift in Sources */,
-				69F2B5E11B27842E004FCD19 /* TrendingCollectionViewController.swift in Sources */,
 				81331E141A17FA88003E4609 /* Category.swift in Sources */,
+				697D00551B30A06200402A9F /* TrendingLyricViewCell.swift in Sources */,
 				81592FA21B0FA5870092EA8F /* UserProfileHeaderView.swift in Sources */,
 				3BAAB1E01B1D003F00EA1925 /* CategoriesPanelView.swift in Sources */,
 				3B9AD7A81B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift in Sources */,
@@ -1401,6 +1419,7 @@
 				3B9AD7AF1B2F5FF500727E79 /* LoginViewConroller.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				811B1E121B1F9D8F00618E1A /* Service.swift in Sources */,
+				690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */,
 				3BAAB1E21B1E1B0D00EA1925 /* TermsAndPrivacyView.swift in Sources */,
 				3B9AD7A21B2F4D4A00727E79 /* LoginView.swift in Sources */,
 				817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
@@ -1431,6 +1450,7 @@
 				3B9AD79D1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift in Sources */,
 				817618F71AEA146900C7D9CB /* Artist.swift in Sources */,
 				69F2B5EB1B278826004FCD19 /* TrendingCollectionViewCell.swift in Sources */,
+				697D00531B3090DB00402A9F /* TrendingCollectionViewController.swift in Sources */,
 				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				81592F941B0FA5070092EA8F /* SessionManager.swift in Sources */,

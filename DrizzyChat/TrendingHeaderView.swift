@@ -21,19 +21,20 @@ import UIKit
 */
 
 class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
-    @IBOutlet var featuredButton: UIButton?
-    @IBOutlet var scrollView: UIScrollView?
-    @IBOutlet var pageControl: UIPageControl?
-    @IBOutlet var nameLabel: UILabel?
-    @IBOutlet var topLabel: UILabel?
-    @IBOutlet var artistsButton: UIButton?
-    @IBOutlet var lyricsButton: UIButton?
-    @IBOutlet var tabView: UIView?
-    @IBOutlet var tintView: UIView?
-    
+    var featuredButton: UIButton?
+    var scrollView: UIScrollView?
+    var pageControl: UIPageControl?
+    var nameLabel: UILabel?
+    var topLabel: UILabel?
+    var artistsButton: UIButton?
+    var lyricsButton: UIButton?
+    var tabView: UIView?
+    var tintView: UIView?
     var screenWidth: CGFloat
     var pageCount: Int
     var pagesScrollViewSize: CGSize
+    var lyricDelegate: lyricTabDelegate?
+    var artistDelegate: artistTabDelegate?
     
     /// testing
     var pageImages: [UIImage] = [
@@ -294,19 +295,27 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         ])
     }
     
-    @IBAction func featuredTapped(sender: UIButton) {
+    func featuredTapped(sender: UIButton) {
         println("Featured Tapped")
     }
     
-    @IBAction func artistsTapped(sender: UIButton) {
-        println("Artists Tapped")
+    func artistsTapped(sender: UIButton) {
         artistsButton?.setTitleColor(UIColor(fromHexString: "#FFB316"), forState: UIControlState.Normal)
         lyricsButton?.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+        self.artistDelegate?.artistDidTap()
     }
     
-    @IBAction func lyricsTapped(sender: UIButton) {
-        println("Lyrics Tapped")
+    func lyricsTapped(sender: UIButton) {
         artistsButton?.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
         lyricsButton?.setTitleColor(UIColor(fromHexString: "#FFB316"), forState: UIControlState.Normal)
+        self.lyricDelegate?.lyricDidTap()
     }
+}
+
+protocol lyricTabDelegate {
+    func lyricDidTap()
+}
+
+protocol artistTabDelegate {
+    func artistDidTap()
 }
