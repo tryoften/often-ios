@@ -215,7 +215,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     // MARK: LyricFilterBarDelegate
-    
+
     func lyricFilterBarShouldShowKeyboard(lyricFilterBar: LyricFilterBar, showKeyboard: Bool) {
     }
     

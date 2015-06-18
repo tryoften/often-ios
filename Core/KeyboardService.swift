@@ -14,6 +14,7 @@ class KeyboardService: Service {
     var userId: String?
     var keyboardsRef: Firebase
     var keyboards: [String: Keyboard]
+    var notificationToken: NotificationToken?
 
     init(userId: String?, root: Firebase, realm: Realm = Realm()) {
         self.userId = userId
@@ -24,9 +25,15 @@ class KeyboardService: Service {
             self.keyboardsRef = root.childByAppendingPath("keyboards")
         }
         
-        self.keyboards = [String: Keyboard]()
-        
+        keyboards = [String: Keyboard]()
+
         super.init(root: root, realm: realm)
+    }
+    
+    deinit {
+        if let token = notificationToken {
+            realm.removeNotification(token)
+        }
     }
     
     func deleteKeyboardWithId(keyboardId: String) {
@@ -40,9 +47,8 @@ class KeyboardService: Service {
     */
     func fetchLocalData(completion: (Bool) -> Void) {
         // We have to create a new realm for reading on the main thread
-        let realm = Realm()
         
-        realm.addNotificationBlock { (notification, realm) in
+        notificationToken = realm.addNotificationBlock { (notification, realm) in
             self.createKeyboardModels(completion)
         }
         
@@ -68,42 +74,48 @@ class KeyboardService: Service {
         delegate?.serviceDataDidLoad(self)
         completion(true)
     }
-
-    /**
-    Listens for changes on the server (firebase) database and updates
-    the local (realm) database, then notifies the delegate and calls the completion callback
     
-    :param: completion callback that gets called when data has loaded
+    /**
     */
-    override func fetchRemoteData(completion: (Bool) -> Void) {
-        keyboardsRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
-            
-            if let keyboardsData = snapshot.value as? [String: AnyObject] {
-                let keyboardCount = keyboardsData.count
-                var index = 0
+    func fetchDataForKeyboardIds(keyboardIds: [String], completion: ([Keyboard]) -> ()) {
+        var index = 0
+        var keyboardCount = keyboardIds.count
+
+        for keyboardId in keyboardIds {
+            self.processKeyboardData(keyboardId, completion: { (keyboard, success) in
+                keyboard.index = index++
+                self.keyboards[keyboard.id] = keyboard
                 
-                for (key, val) in keyboardsData {
-                    self.processKeyboardData(key, data: val, completion: { (keyboard, success) in
-                        keyboard.index = index++
-                        self.keyboards[keyboard.id] = keyboard
-                        
-                        if index + 1 >= keyboardCount {
-                            if self.userId != nil {
-                                self.realm.write {
-                                    self.realm.add(self.keyboards.values.array, update: true)
-                                }
-                            }
-                            dispatch_async(dispatch_get_main_queue(), {
-                                self.delegate?.serviceDataDidLoad(self)
-                                completion(true)
-                            })
+                if index + 1 >= keyboardCount {
+                    if self.userId != nil {
+                        self.realm.write {
+                            self.realm.add(self.keyboards.values.array, update: true)
                         }
+                    }
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.delegate?.serviceDataDidLoad(self)
+                        completion(self.keyboards.values.array)
                     })
                 }
+            })
+        }
+    }
+
+    /**
+        Listens for changes on the server (firebase) database and updates
+        the local (realm) database, then notifies the delegate and calls the completion callback
+        
+        :param: completion callback that gets called when data has loaded
+    */
+    override func fetchRemoteData(completion: (Bool) -> Void) {
+        keyboardsRef.observeEventType(.Value, withBlock: { snapshot in
+            if let keyboardsData = snapshot.value as? [String: AnyObject] {
+                self.fetchDataForKeyboardIds(keyboardsData.keys.array, completion: { keyboards in
+                    completion(true)
+                })
             }
-            
-            }) { (err) -> Void in
-                completion(false)
+        }) { err in
+            completion(false)
         }
     }
 
@@ -112,10 +124,10 @@ class KeyboardService: Service {
     }
     
     /**
-    Fetches data from the local database first and notifies the delegate
-    simultaneously, kicks off a request to the remote database and refreshes the data of the local one
-    
-    :param: completion callback that gets called when data has loaded
+        Fetches data from the local database first and notifies the delegate
+        simultaneously, kicks off a request to the remote database and refreshes the data of the local one
+        
+        :param: completion callback that gets called when data has loaded
     */
     func requestData(completion: ([String: Keyboard]) -> Void) {
         fetchLocalData { success in
@@ -128,20 +140,19 @@ class KeyboardService: Service {
     }
     
     /**
-    Processes JSON keyboard data and creates models objects
+        Processes JSON keyboard data and creates models objects
 
-    :param: key The key from the key/value store, the keyboard object ID
-    :param: data The JSON data returned from the backend call
-    :param: completion callback which gets called when keyboard objects are done being created
+        :param: keyboardId The id from the key/value store, the keyboard object ID
+        :param: completion callback which gets called when keyboard objects are done being created
     */
-    private func processKeyboardData(key: String, data: AnyObject, completion: (Keyboard, Bool) -> ()) {
-        let keyboardRef = rootURL.childByAppendingPath("keyboards/\(key)")
+    private func processKeyboardData(keyboardId: String, completion: (Keyboard, Bool) -> ()) {
+        let keyboardRef = rootURL.childByAppendingPath("keyboards/\(keyboardId)")
 
         keyboardRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            dispatch_async(self.writeQueue) {
+//            dispatch_async(self.writeQueue) {
                 if let keyboardData = snapshot.value as? [String: AnyObject] {
                     var keyboard = Keyboard()
-                    keyboard.id = key
+                    keyboard.id = keyboardId
                     
                     
                     if let ownerId = keyboardData["owner"] as? String {
@@ -154,16 +165,16 @@ class KeyboardService: Service {
                         })
                     }
                 }
-            }
+//            }
         })
     }
     
     /** 
-    Processes owner (artist) JSON data and adds it to the keyboard
-    
-    :param: keyboard The keyboard model the owner object will be set on
-    :param: ownerId The owner ID
-    :param: completion gets invoked when the owner object is fetched and created
+        Processes owner (artist) JSON data and adds it to the keyboard
+        
+        :param: keyboard The keyboard model the owner object will be set on
+        :param: ownerId The owner ID
+        :param: completion gets invoked when the owner object is fetched and created
     */
     private func processOwnerData(keyboard: Keyboard, ownerId: String, completion: (Bool) -> ()) {
         let ownerRef = rootURL.childByAppendingPath("owners/\(ownerId)")

@@ -9,5 +9,6 @@
 import RealmSwift
 
 class Artist: Owner {
-    var lyricCount: Int = 200
+    dynamic var keyboardId: String = ""
+    dynamic var lyricCount: Int = 200
 }

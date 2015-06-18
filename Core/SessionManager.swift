@@ -17,8 +17,8 @@ class SessionManager: NSObject {
     var currentUser: User?
     var userDefaults: NSUserDefaults
     var currentSession: FBSession?
-    var writeRealm: Realm
-    var readRealm: Realm
+    var realm: Realm
+    var isUserNew: Bool
 
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
@@ -33,8 +33,8 @@ class SessionManager: NSObject {
         firebase = rootFirebase
         observers = NSMutableArray()
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        writeRealm = Realm()
-        readRealm = Realm()
+        realm = Realm()
+        isUserNew = true
         
         super.init()
         
@@ -45,25 +45,127 @@ class SessionManager: NSObject {
     
     func fetchKeyboards() {
         if let currentUser = currentUser {
-            self.keyboardService = KeyboardService(userId: currentUser.id, root: self.firebase)
-            self.keyboardService?.requestData({ data in
-                for (key, keyboard) in data {
-                    currentUser.keyboards.append(keyboard)
-                }
-                self.broadcastDidFetchKeyboardsEvent()
-            })
+            provideKeyboardService(currentUser.id)
         } else {
             // TODO(luc): throw an error if the current user is not set
+        }
+    }
+    
+    func setKeyboardsOnCurrentUser(keyboardIds: [String], completion: (User, NSError?) -> ()) {
+        if let currentUser = self.currentUser {
+            let keyboardService = provideKeyboardService(currentUser.id)
+            var user = realm.objectForPrimaryKey(User.self, key: currentUser.id)
+            keyboardService.fetchDataForKeyboardIds(keyboardIds, completion: { keyboards in
+                for keyboardId in keyboardIds {
+                    keyboardService.keyboardsRef.childByAppendingPath(keyboardId).setValue(true)
+                }
+                let keyboards = List<Keyboard>()
+                for keyboard in keyboardService.keyboards.values.array {
+                    keyboards.append(keyboard)
+                }
+                if let user = user {
+                    user.keyboards.extend(keyboards)
+                    // Persist to local database
+                    self.realm.write {
+                        self.realm.add(user, update: true)
+                    }
+                }
+                completion(self.currentUser!, nil)
+            })
         }
     }
 
     func isUserLoggedIn() -> Bool {
         return !(PFUser.currentUser() == nil)
     }
+    
+    func signUpUser(data: [String: String]) {
+        if let email = data["email"],
+            let username = data["username"],
+            let password = data["password"] {
+                
+                var user = PFUser()
+                user.email = email
+                user.username = email
+                user.password = password
+                
+                if let phone = data["phone"] {
+                    user["phone"] = phone
+                }
+                
+                user.signUpInBackgroundWithBlock { (success, error) in
+                    if error == nil {
+                        self.loginWithUsername(email, password: password)
+                    } else {
+                        
+                    }
+                }
+        }
+    }
+    
+    func openSession() {
+        let accessToken = FBSession.activeSession().accessTokenData.accessToken
+        self.firebase.authWithOAuthProvider("facebook", token: accessToken,
+            withCompletionBlock: { error, authData in
+                if error != nil {
+                    println("Login failed. \(error)")
+                } else {
+                    println("Logged in! \(authData)")
+                }
+        })
+    }
+    
+    func login() {
+        PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
+            self.openSession()
+        })
+    }
+    
+    func loginWithUsername(username: String, password: String) {
+        PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
+            self.openSession()
+        }
+    }
+    
+    func logout() {
+        PFUser.logOut()
+    }
+    
+    func addSessionObserver(observer: SessionManagerObserver) {
+        self.observers.addObject(observer)
+    }
+    
+    func removeSessionObserver(observer: SessionManagerObserver) {
+        self.observers.removeObject(observer)
+    }
+    
+    // MARK: Private methods
+    
+    private func provideKeyboardService(userId: String) -> KeyboardService {
+        if let keyboardService = self.keyboardService {
+            return keyboardService
+        }
 
+        var keyboardService = KeyboardService(userId: userId, root: self.firebase)
+        keyboardService.requestData({ data in
+            self.broadcastDidFetchKeyboardsEvent()
+        })
+        self.keyboardService = keyboardService
+        return keyboardService
+    }
+    
     private func processAuthData(authData: FAuthData?) {
-        if (authData != nil) {
-            var uid = authData?.providerData["id"] as! String
+        let persistUser: (User) -> Void = { user in
+            self.currentUser = user
+            let realm = Realm()
+            realm.write {
+                realm.add(user, update: true)
+            }
+            self.broadcastUserLoginEvent()
+        }
+        
+        if let authData = authData,
+            let uid = authData.providerData["id"] as? String {
             
             userRef = firebase.childByAppendingPath("users/\(uid)")
             userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
@@ -84,32 +186,33 @@ class SessionManager: NSObject {
                                     user.username = email
                                     user.email = email
                             }
-                            
-                            self.currentUser = user
-                            self.broadcastUserLoginEvent()
+                            self.isUserNew = false
+                            persistUser(user)
                     }
                 } else {
-                    self.getUserInfo({ (data, err) in
-                        self.userRef?.setValue(data)
-                        self.currentUser = User(value: data as! [String : AnyObject])
-                        self.broadcastUserLoginEvent()
-                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                            self.writeRealm.write {
-                                self.writeRealm.add(self.currentUser!, update: true)
-                            }
+                    self.getFacebookUserInfo({ (data, err) in
+                        if err != nil {
+                            UIAlertView(title: "Facebook user failed", message: "We were unable to get your user info, please try again", delegate: nil, cancelButtonTitle: "Ok").show()
+                            
+                        } else {
+                            self.userRef?.setValue(data)
+                            self.isUserNew = true
+                            persistUser(User(value: data as! [String : AnyObject]))
                         }
                     })
                 }
             })
-
+            
         } else {
             
         }
     }
     
     private func broadcastUserLoginEvent() {
-        for observer in observers {
-            observer.sessionManagerDidLoginUser(self, user: self.currentUser!)
+        if let currentUser = currentUser {
+            for observer in observers {
+                observer.sessionManagerDidLoginUser(self, user: currentUser, isNewUser: isUserNew)
+            }
         }
     }
     
@@ -120,46 +223,8 @@ class SessionManager: NSObject {
             }
         }
     }
-
-    private func openSession() {
-        PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
-            let accessToken = FBSession.activeSession().accessTokenData.accessToken
-            self.firebase.authWithOAuthProvider("facebook", token: accessToken,
-                withCompletionBlock: { error, authData in
-                    if error != nil {
-                        println("Login failed. \(error)")
-                    } else {
-                        println("Logged in! \(authData)")
-                    }
-            })
-        })
-    }
     
-    func signUpUser(data: [String: String]) {
-        if let email = data["email"],
-            let username = data["username"],
-            let password = data["password"] {
-                
-                var user = PFUser()
-                user.email = email
-                user.username = email
-                user.password = password
-                
-                if let phone = data["phone"] {
-                    user["phone"] = phone
-                }
-                
-                user.signUpInBackgroundWithBlock { (success, error) in
-                    if error == nil {
-                        
-                    } else {
-                        
-                    }
-                }
-        }
-    }
-    
-    func getUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
+    private func getFacebookUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
         var request = FBRequest.requestForMe()
         request.startWithCompletionHandler({ (connection, result, error) in
             
@@ -182,32 +247,10 @@ class SessionManager: NSObject {
             
         })
     }
-    
-    func login() {
-        openSession()
-    }
-    
-    func loginWithEmail(email: String, password: String) {
-        PFUser.logInWithUsernameInBackground(email, password: password) { (user, error) in
-            
-        }
-    }
-    
-    func logout() {
-        PFUser.logOut()
-    }
-    
-    func addSessionObserver(observer: SessionManagerObserver) {
-        self.observers.addObject(observer)
-    }
-    
-    func removeSessionObserver(observer: SessionManagerObserver) {
-        self.observers.removeObject(observer)
-    }
 }
 
 @objc protocol SessionManagerObserver {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User)
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
     func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard])
 }

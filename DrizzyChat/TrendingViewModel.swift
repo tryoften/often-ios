@@ -36,7 +36,7 @@ class TrendingViewModel: NSObject, SessionManagerObserver {
         
     }
     
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
         
     }
     

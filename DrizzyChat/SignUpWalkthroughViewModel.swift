@@ -49,7 +49,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
             self.artistsList = artistsList.values.array
             println(self.artistsList.count)
             
-            self.delegate?.walkthroughViewModelDidLoadArtistsList(self, keyboardList: self.artistsList)
+            self.delegate?.walkthroughViewModelDidLoadArtistsList?(self, keyboardList: self.artistsList)
         }
     }
     
@@ -57,8 +57,8 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
         
     }
     
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
-        
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
+        delegate?.walkthroughViewModelDidLoginUser?(self, user: user, isNewUser: isNewUser)
     }
     
     func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard]) {
@@ -73,6 +73,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     }
 }
 
-protocol WalkthroughViewModelDelegate {
-    func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist])
+@objc protocol WalkthroughViewModelDelegate {
+    optional func walkthroughViewModelDidLoginUser(walkthroughViewModel: SignUpWalkthroughViewModel, user: User, isNewUser: Bool)
+    optional func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist])
 }

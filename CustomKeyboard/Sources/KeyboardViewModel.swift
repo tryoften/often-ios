@@ -23,7 +23,6 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate {
         }
     }
     
-    
     override init() {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
 

@@ -56,7 +56,6 @@
 		5F50FC2DA9F65D8AF03CAD67 /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */; };
 		696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */; };
 		69BA82021B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82011B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift */; };
-		69BA82061B2FA9B000233789 /* SignUpFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82051B2FA9B000233789 /* SignUpFormViewModel.swift */; };
 		69BA82081B2FA9D000233789 /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82071B2FA9D000233789 /* BrowseViewModel.swift */; };
 		69BA820A1B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82091B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift */; };
 		69BA820B1B2FAAA800233789 /* BrowseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */; };
@@ -228,6 +227,7 @@
 		81B19EAC1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
 		81B19EBA1B30B6CC00D3575C /* RealmSwift.framework in Copy Dynamic Frameworks */ = {isa = PBXBuildFile; fileRef = 818309851B1F7917005BB221 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		81B19EBB1B30B6CC00D3575C /* Realm.framework in Copy Dynamic Frameworks */ = {isa = PBXBuildFile; fileRef = 818309761B1F6B4B005BB221 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81B19EC41B30DFB700D3575C /* FlexibleBoundsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EC31B30DFB700D3575C /* FlexibleBoundsTextField.swift */; };
 		81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */; };
 		81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D5861A956E680089767B /* LoginIndicatorView.swift */; };
@@ -333,7 +333,6 @@
 		3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
-		3BAAB1DE1B1CFEB100EA1925 /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
 		3BAAB1E11B1E1B0D00EA1925 /* TermsAndPrivacyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndPrivacyView.swift; sourceTree = "<group>"; };
 		3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpAddArtistsTableViewCell.swift; sourceTree = "<group>"; };
 		3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPhoneNumberView.swift; sourceTree = "<group>"; };
@@ -341,7 +340,6 @@
 		696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		69BA82011B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistBrowseCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		69BA82031B2FA99500233789 /* TrendingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingHeaderView.swift; sourceTree = "<group>"; };
-		69BA82051B2FA9B000233789 /* SignUpFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormViewModel.swift; sourceTree = "<group>"; };
 		69BA82071B2FA9D000233789 /* BrowseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewModel.swift; sourceTree = "<group>"; };
 		69BA82091B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		69BA820C1B2FABA700233789 /* TrendingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingViewModel.swift; sourceTree = "<group>"; };
@@ -453,6 +451,7 @@
 		81B19E8D1B30A66700D3575C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		81B19E8F1B30A71500D3575C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		81B19EAA1B30AD9900D3575C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Core/User.swift; sourceTree = "<group>"; };
+		81B19EC31B30DFB700D3575C /* FlexibleBoundsTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleBoundsTextField.swift; sourceTree = "<group>"; };
 		81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StandardKeyboardViewController.swift; path = Sources/StandardKeyboardViewController.swift; sourceTree = "<group>"; };
 		81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricFilterBar.swift; path = Sources/LyricFilterBar.swift; sourceTree = "<group>"; };
 		81B6D5861A956E680089767B /* LoginIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginIndicatorView.swift; sourceTree = "<group>"; };
@@ -563,7 +562,7 @@
 			name = "SignUpWalkthrough Views";
 			sourceTree = "<group>";
 		};
-		3B9AD7AD1B2F514400727E79 /* Walkthrough ViewControllers */ = {
+		3B9AD7AD1B2F514400727E79 /* Walkthrough View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				3B9AD7A31B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift */,
@@ -573,7 +572,7 @@
 				3B9AD7AB1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift */,
 				3B9AD7AE1B2F5FF500727E79 /* LoginViewConroller.swift */,
 			);
-			name = "Walkthrough ViewControllers";
+			name = "Walkthrough View Controllers";
 			sourceTree = "<group>";
 		};
 		69BA81FD1B2FA84A00233789 /* View Layouts */ = {
@@ -703,9 +702,7 @@
 			isa = PBXGroup;
 			children = (
 				69BA82071B2FA9D000233789 /* BrowseViewModel.swift */,
-				69BA82051B2FA9B000233789 /* SignUpFormViewModel.swift */,
 				81592F9E1B0FA57E0092EA8F /* UserProfileViewModel.swift */,
-				3BAAB1DE1B1CFEB100EA1925 /* SignUpFormViewModel.swift */,
 				3B82E6CF1B1F722000ABA660 /* SignUpWalkthroughViewModel.swift */,
 				69BA820C1B2FABA700233789 /* TrendingViewModel.swift */,
 			);
@@ -750,7 +747,7 @@
 		816FE5A11A86E66900E42C17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3B9AD7AD1B2F514400727E79 /* Walkthrough ViewControllers */,
+				3B9AD7AD1B2F514400727E79 /* Walkthrough View Controllers */,
 				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				81592F991B0FA55A0092EA8F /* TabBarController.swift */,
@@ -764,6 +761,7 @@
 		816FE5A21A86E67100E42C17 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				81B19EC31B30DFB700D3575C /* FlexibleBoundsTextField.swift */,
 				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
 				81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */,
 				81B6D5861A956E680089767B /* LoginIndicatorView.swift */,
@@ -1426,7 +1424,6 @@
 				81B19E971B30AD5500D3575C /* Service.swift in Sources */,
 				81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
-				69BA82061B2FA9B000233789 /* SignUpFormViewModel.swift in Sources */,
 				81B19E961B30AD5500D3575C /* KeyboardService.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
 				69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */,
@@ -1435,6 +1432,7 @@
 				69F2B5EB1B278826004FCD19 /* TrendingCollectionViewCell.swift in Sources */,
 				81B19E9E1B30AD5A00D3575C /* Track.swift in Sources */,
 				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
+				81B19EC41B30DFB700D3575C /* FlexibleBoundsTextField.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				3B9AD7AA1B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift in Sources */,
 				3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */,
