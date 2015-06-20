@@ -13,8 +13,6 @@ class TrackService: Service {
     var ref: Firebase
     var tracks: [String: Track]
     var isDataLoaded: Bool
-    
-    let artistId = "-JoBAZJLJUQMdJXiCgch"
 
     override init(root: Firebase, realm: Realm = Realm()) {
         tracksRef = root.childByAppendingPath("contents")
@@ -34,21 +32,18 @@ class TrackService: Service {
             if let artistsData = snapshot.value as? [String : [String : AnyObject]] {
                 for (key, data) in artistsData {
                     //images and then track dictionary
-                    if let artistData = data as? [String : AnyObject],
-                    let artistId = key as? String {
-                        self.ref = self.ref.childByAppendingPath("\(artistId)/tracks")
-                        self.ref.observeEventType(.Value, withBlock: { snapshot in
-                            if let tracksData = snapshot.value as? [String : [String : String]] {
-                                for(key, data) in tracksData {
-                                    if let trackData = data as? [String : String],
-                                        let trackId = key as? String {
-                                        let currentTrack = Track(value: trackData)
-                                    }
-                                }
+                    let artistId = key
+                    self.ref = self.ref.childByAppendingPath("\(artistId)/tracks")
+                    self.ref.observeEventType(.Value, withBlock: { snapshot in
+                        if let tracksData = snapshot.value as? [String : [String : String]] {
+                            for(key, data) in tracksData {
+                                let track = Track(value: data)
+                                self.tracks[key] = track
                             }
-                        })
-                    }
-                    completion(self.tracks)
+                        }
+                        completion(self.tracks)
+                    })
+
                 }
             }
         })
@@ -80,9 +75,23 @@ class TrackService: Service {
     }
     
     func getTrackForLyric(lyric: Lyric, completion: (track: Track) -> ()) {
+        
+        // Read from in-memory cache
+        if let track = tracks[lyric.trackId] {
+            completion(track: track)
+            return
+        }
+        
+        // Read track from local database first
+        if let track = realm.objectForPrimaryKey(Track.self, key: lyric.trackId) {
+            tracks[track.id] = track
+            completion(track: track)
+            return
+        }
+        
+        // Fetch track data from firebase
         tracksRef.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
             
-            println("\(snapshot.value)")
             if let trackData = snapshot.value as? [String: String] {
                 
                 let track = Track()
@@ -90,17 +99,16 @@ class TrackService: Service {
                 track.setValuesForKeysWithDictionary(trackData)
 
                 self.tracks[track.id] = track
-                lyric.track = track
-                lyric.trackId = track.id
-                
-                self.realm.write {
+                if lyric.track == nil {
+                    
+                    self.realm.beginWrite()
+                    lyric.track = track
+                    lyric.trackId = track.id
                     self.realm.add(lyric, update: true)
-                    self.realm.add(track, update: true)
-                }
-                
-                dispatch_async(dispatch_get_main_queue()) {
+                    self.realm.commitWrite()
                     completion(track: track)
                 }
+                
             }
         })
     }

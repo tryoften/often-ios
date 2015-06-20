@@ -34,7 +34,6 @@ class SwitchArtistButton: UIButton {
         addSubview(circleView)
     
         circleView.layer.addSublayer(circleLayer)
-        backgroundColor = UIColor.blackColor()
         artistImageView.layer.cornerRadius = (SectionPickerViewSwitchArtistHeight) / 2
         artistImageView.clipsToBounds = true
         backgroundColor = UIColor.clearColor()

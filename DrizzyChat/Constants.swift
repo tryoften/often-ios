@@ -8,11 +8,13 @@
 
 import Foundation
 
-var BaseURL = "https://multi-keyboards.firebaseio.com/"
+let BaseURL = "https://multi-keyboards.firebaseio.com/"
 #if DEBUG
 let CategoryServiceEndpoint = "https://brilliant-fire-154.firebaseio.com/"
+
 #else
 let CategoryServiceEndpoint = "https://blinding-fire-1400.firebaseio.com/" // production
+//let BaseURL = "https://multi-keyboards.firebaseio.com/"
 #endif
 
 let AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"

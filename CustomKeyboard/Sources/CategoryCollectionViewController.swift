@@ -100,16 +100,16 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let category = categories[indexPath.row] as Category
-        
-        currentCategory = category
-        toggleDrawer()
-        
-        SEGAnalytics.sharedAnalytics().track("Category_Selected", properties: [
-            "category_name": category.name,
-            "category_id": category.id
-            ])
+        if let category = categories[indexPath.row] as? Category {
+            currentCategory = category
+            toggleDrawer()
+            
+            SEGAnalytics.sharedAnalytics().track("Category_Selected", properties: [
+                "category_name": category.name,
+                "category_id": category.id
+                ])
 
-        pickerView.delegate?.didSelectSection(pickerView, category: category)
+            pickerView.delegate?.didSelectSection(pickerView, category: category)
+        }
     }
 }

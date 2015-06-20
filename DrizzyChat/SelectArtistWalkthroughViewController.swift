@@ -21,6 +21,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         tableView.dataSource = self
         tableView.rowHeight = 70
         tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        tableView.allowsSelection = false
         
         viewModel.delegate = self
         viewModel.getListOfArtists()

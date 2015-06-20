@@ -74,7 +74,8 @@ class UserProfileHeaderView: UICollectionReusableView {
     func setupLayout() {
         addConstraints([
             coverPhotoView.al_width == al_width,
-            coverPhotoView.al_height == 180,
+            coverPhotoView.al_bottom == al_bottom - 100,
+            coverPhotoView.al_height >= 80,
             coverPhotoView.al_left == al_left,
             coverPhotoView.al_top == al_top,
 

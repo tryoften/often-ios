@@ -32,18 +32,16 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         dispatch_once(&KeyboardViewController.onceToken) {
             Firebase.defaultConfig().persistenceEnabled = true
+            let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+            let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+            RLMRealm.setDefaultRealmPath(realmPath)
         }
-
-        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
-        let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
-        RLMRealm.setDefaultRealmPath(realmPath)
 
         viewModel = KeyboardViewModel()
         var firebaseRoot = Firebase(url: BaseURL)
         lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot))
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
         viewModel.delegate = self
     }
 
@@ -81,6 +79,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         view.addSubview(seperatorView)
         
         bootstrap()
+
+        setupLayout()
+        setupAppearance()
+        layoutArtistPickerView()
+        layoutSectionPickerView()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -88,11 +91,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         heightConstraint.priority = 800
         
         view.addConstraint(heightConstraint)
-        
-        setupLayout()
-        setupAppearance()
-        layoutArtistPickerView()
-        layoutSectionPickerView()
     }
     
     func bootstrap() {

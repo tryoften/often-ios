@@ -9,6 +9,8 @@
 import UIKit
 import Realm
 
+private var TestKeyboard: Bool = false
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -51,7 +53,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             mainController = UINavigationController(rootViewController: SignUpLoginWalkthroughViewController(sessionManager:sessionManager))
         }
         
+        
         if let window = self.window {
+            if TestKeyboard {
+                var frame = window.frame
+                frame.origin.y = frame.size.height - KeyboardHeight
+                frame.size.height = KeyboardHeight
+                window.frame = frame
+                window.clipsToBounds = true
+                mainController = KeyboardViewController(nibName: nil, bundle: nil)
+                if let inputView = mainController.inputView {
+                    inputView.frame = frame
+                }
+            }
             window.rootViewController = mainController
             window.makeKeyAndVisible()
         }

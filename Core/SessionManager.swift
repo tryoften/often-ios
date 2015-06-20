@@ -26,7 +26,8 @@ class SessionManager: NSObject {
     let permissions = [
         "public_profile",
         "user_actions.music",
-        "user_likes"
+        "user_likes",
+        "email"
     ]
     
     init(rootFirebase: Firebase = Firebase(url: BaseURL)) {
@@ -45,7 +46,10 @@ class SessionManager: NSObject {
     
     func fetchKeyboards() {
         if let currentUser = currentUser {
-            provideKeyboardService(currentUser.id)
+            let keyboardService = provideKeyboardService(currentUser.id)
+            keyboardService.requestData({ data in
+                self.broadcastDidFetchKeyboardsEvent()
+            })
         } else {
             // TODO(luc): throw an error if the current user is not set
         }
@@ -54,23 +58,17 @@ class SessionManager: NSObject {
     func setKeyboardsOnCurrentUser(keyboardIds: [String], completion: (User, NSError?) -> ()) {
         if let currentUser = self.currentUser {
             let keyboardService = provideKeyboardService(currentUser.id)
-            var user = realm.objectForPrimaryKey(User.self, key: currentUser.id)
+
             keyboardService.fetchDataForKeyboardIds(keyboardIds, completion: { keyboards in
                 for keyboardId in keyboardIds {
                     keyboardService.keyboardsRef.childByAppendingPath(keyboardId).setValue(true)
                 }
-                let keyboards = List<Keyboard>()
-                for keyboard in keyboardService.keyboards.values.array {
-                    keyboards.append(keyboard)
+
+                self.realm.write {
+                    self.realm.add(currentUser, update: true)
                 }
-                if let user = user {
-                    user.keyboards.extend(keyboards)
-                    // Persist to local database
-                    self.realm.write {
-                        self.realm.add(user, update: true)
-                    }
-                }
-                completion(self.currentUser!, nil)
+
+                completion(currentUser, nil)
             })
         }
     }
@@ -146,20 +144,20 @@ class SessionManager: NSObject {
             return keyboardService
         }
 
-        var keyboardService = KeyboardService(userId: userId, root: self.firebase)
-        keyboardService.requestData({ data in
-            self.broadcastDidFetchKeyboardsEvent()
-        })
+        var keyboardService = KeyboardService(userId: userId, root: self.firebase, realm: self.realm)
         self.keyboardService = keyboardService
+
         return keyboardService
     }
     
     private func processAuthData(authData: FAuthData?) {
         let persistUser: (User) -> Void = { user in
             self.currentUser = user
-            let realm = Realm()
-            realm.write {
-                realm.add(user, update: true)
+            
+            if !self.isUserNew {
+                self.realm.write {
+                    self.realm.add(user, update: true)
+                }
             }
             self.broadcastUserLoginEvent()
         }
