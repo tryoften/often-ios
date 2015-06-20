@@ -15,7 +15,7 @@ import UIKit
     Collection views use the same data source and delegate
 */
 
-class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate {
+class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate {
 
     var viewModel: BrowseViewModel
     var headerView: BrowseHeaderView?
@@ -27,11 +27,13 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         super.init(collectionViewLayout: BrowseCollectionViewController.getLayout())
         self.viewModel.delegate = self
     }
-
+    
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
         
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,30 +49,35 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             /// Need to register another class for the collection view that is the Artist Art
         }
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         /// Dispose of any resources that can be recreated.
     }
 
+    
     class func getLayout() -> UICollectionViewLayout {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
         var flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 200)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 350)
-        flowLayout.headerReferenceSize = CGSizeMake(screenWidth, 50)
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 50)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 450)
         flowLayout.itemSize = CGSizeMake(screenWidth, 70) /// height of the cell
+        flowLayout.parallaxHeaderAlwaysOnTop = true        
         flowLayout.disableStickyHeaders = false /// allow sticky header for dragging down the table view
         return flowLayout
     }
+    
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let trackvar = self.viewModel.tracksList {
@@ -78,22 +85,18 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         }
         return 10
     }
+    
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         /// if loading for track list - load this cell
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! BrowseCollectionViewCell
         cell.backgroundColor = UIColor.whiteColor()
 
-        if indexPath.row % 2 == 0 {
-            cell.trackNameLabel.text = "Lost"
-        } else if indexPath.row % 3 == 0 {
-            cell.trackNameLabel.text = "Monks"
-        } else {
-            cell.trackNameLabel.text = "Pyramids"
-        }
+        cell.trackNameLabel.text = viewModel.tracks[viewModel.currentArtist]
         
         if let lyricCount = viewModel.lyricCountAtIndex(indexPath.row) {
-            cell.lyricCountLabel.text = "\(lyricCount) Lyrics"
+            // cell.lyricCountLabel.text = "\(lyricCount) Lyrics"
+            cell.lyricCountLabel.text = "23 Lyrics"
         }
         
         cell.disclosureIndicator.image = UIImage(named: "arrow")
@@ -103,11 +106,21 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             
     }
     
+    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! BrowseHeaderView
             
             headerView = cell
+            
+            headerView?.browsePicker.delegate = self
+            // headerView?.coverPhoto.image = images[1]!.blurredImageWithRadius(50, iterations: 5, tintColor: UIColor.blackColor())
+            headerView?.browsePicker.collectionView?.reloadData()
+
+            if let contentSize = headerView?.browsePicker.collectionView!.contentSize {
+                println("Content size: \(contentSize)")
+                headerView?.browsePicker.scrollView.contentSize = CGSizeMake(250 * 5, 250)
+            }
             
             return cell
             
@@ -124,9 +137,11 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         return UICollectionReusableView()
     }
     
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0.0 as CGFloat
     }
+    
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
@@ -135,19 +150,31 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         
     }
     
+    
     func browseViewModelDidLoadTracks() {
         
     }
     
-    /// to call if the user pages to another artist
+    
+    /**
+        Everytime the user finishes swiping on the header view, the tracks, header, and 
+        artist name should be updated here.
+    
+        The call should be based on the content offset of whether or not the
+        user moved into the next artist's view. 
+    
+    */
     func headerDidSwipe() {
-        /**
-            param may be a UIGesture
-            if left, page to that side
-            vice-versa for right
+        viewModel.currentArtist++
         
-        */
+        UIView.animateWithDuration(3.7, animations: {
+           self.headerView?.coverPhoto.image = self.viewModel.images[self.viewModel.currentArtist]!.blurredImageWithRadius(30, iterations: 9, tintColor: UIColor.blackColor())
+            self.headerView?.artistNameLabel.text = self.viewModel.artistNames[self.viewModel.currentArtist]
+        })
+        
+        collectionView?.reloadData()
     }
+    
     
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track]) {
         collectionView?.reloadData()
