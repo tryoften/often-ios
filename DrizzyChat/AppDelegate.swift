@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if sessionManager.isUserLoggedIn() {
             mainController = TabBarController(sessionManager: sessionManager)
         } else {
-            mainController = UINavigationController(rootViewController: SignUpLoginWalkthroughViewController(sessionManager:sessionManager))
+            mainController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController(sessionManager:sessionManager))
         }
         
         

@@ -73,6 +73,8 @@
 		810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
+		8111D5AB1B36184900B14EEE /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111D5AA1B36184900B14EEE /* SettingsTableViewController.swift */; };
+		8111D5AD1B361EE500B14EEE /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111D5AC1B361EE500B14EEE /* BaseNavigationController.swift */; };
 		81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
 		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
@@ -356,6 +358,8 @@
 		69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingCollectionViewCell.swift; sourceTree = "<group>"; };
 		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8111D5AA1B36184900B14EEE /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		8111D5AC1B361EE500B14EEE /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
@@ -777,6 +781,8 @@
 				69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */,
 				697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */,
 				81592F9C1B0FA5750092EA8F /* UserProfileViewController.swift */,
+				8111D5AA1B36184900B14EEE /* SettingsTableViewController.swift */,
+				8111D5AC1B361EE500B14EEE /* BaseNavigationController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1394,6 +1400,7 @@
 				81592FA71B0FA64D0092EA8F /* LyricPickerTableViewController.swift in Sources */,
 				69BA820D1B2FABA700233789 /* TrendingViewModel.swift in Sources */,
 				69BA820F1B2FABB800233789 /* TrendingSectionHeaderView.swift in Sources */,
+				8111D5AD1B361EE500B14EEE /* BaseNavigationController.swift in Sources */,
 				81B19E951B30AD5500D3575C /* TrackService.swift in Sources */,
 				810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */,
 				81592F9A1B0FA55A0092EA8F /* TabBarController.swift in Sources */,
@@ -1430,6 +1437,7 @@
 				3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */,
 				817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
 				3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */,
+				8111D5AB1B36184900B14EEE /* SettingsTableViewController.swift in Sources */,
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
 				3B9AD7A61B2F4F3D00727E79 /* SignUpNameWalkthroughViewController.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
