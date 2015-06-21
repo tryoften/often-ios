@@ -246,16 +246,11 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     func linesForCharacterCount(lyric: String) -> Int {
         var charCount = count(lyric)
         
-        println("Character Count: \(charCount)")
-        
         if charCount <= 57 {
-            println("Returned: 1")
             return 1
         } else if charCount <= 100 {
-            println("Returned: 2")
             return 2
         } else {
-            println("Returned: 3")
             return 3 /// needs to be elipsed
         }
     }
