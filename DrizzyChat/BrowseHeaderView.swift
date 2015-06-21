@@ -28,6 +28,8 @@ class BrowseHeaderView: UICollectionReusableView {
     var browsePicker: BrowseHeaderCollectionViewController
     var coverPhoto: UIImageView
     var artistNameLabel: UILabel
+    var addArtistButton: UIButton
+    var topLabel: UILabel
     
     override init(frame: CGRect) {
         browsePicker = BrowseHeaderCollectionViewController(collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout())
@@ -37,14 +39,29 @@ class BrowseHeaderView: UICollectionReusableView {
         
         coverPhoto = UIImageView()
         coverPhoto.setTranslatesAutoresizingMaskIntoConstraints(false)
-        coverPhoto.image = UIImage(named: "blurred-header")
+        coverPhoto.contentMode = .ScaleAspectFill
         
         artistNameLabel = UILabel()
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        artistNameLabel.font = UIFont(name: "Oswald-Light", size: 18.0)
+        artistNameLabel.font = UIFont(name: "Oswald-Light", size: 22.0)
         artistNameLabel.textColor = UIColor(fromHexString: "#d3d3d3")
         artistNameLabel.textAlignment = .Center
-        artistNameLabel.text = "FRANK OCEAN"
+        artistNameLabel.text = "F R A N K  O C E A N"
+        
+        addArtistButton = UIButton()
+        addArtistButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        addArtistButton.backgroundColor = UIColor(fromHexString: "#F9B341")
+        addArtistButton.titleLabel?.font = UIFont(name: "OpenSans", size: 9.0)
+        addArtistButton.setTitle("ADD ARTIST", forState: UIControlState.Normal)
+        addArtistButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        
+        topLabel = UILabel()
+        topLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        topLabel.textAlignment = .Center
+        topLabel.font = UIFont(name: "OpenSans", size: 18.0)
+        topLabel.text = "ADD ARTIST"
+        topLabel.textColor = UIColor.whiteColor()
+        topLabel.alpha = 0
         
         super.init(frame: frame)
         
@@ -53,6 +70,8 @@ class BrowseHeaderView: UICollectionReusableView {
         addSubview(coverPhoto)
         addSubview(browsePicker.view)
         addSubview(artistNameLabel)
+        addSubview(addArtistButton)
+        addSubview(topLabel)
         
         clipsToBounds = true
 
@@ -63,8 +82,30 @@ class BrowseHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes!) {
+        if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
+            UIView.animateWithDuration(0.4, animations: {
+                if attributes.progressiveness <= 0.15 {
+                    self.topLabel.alpha = 1
+                    
+                } else if attributes.progressiveness <= 0.90 {
+                    self.artistNameLabel.alpha = 0
+                    self.addArtistButton.alpha = 0
+                    
+                } else {
+                    self.topLabel.alpha = 0
+                    self.artistNameLabel.alpha = 1
+                    self.addArtistButton.alpha = 1
+                }
+            })
+        }
+    }
+    
     func setupLayout() {
         addConstraints([
+            topLabel.al_top == al_top + 10,
+            topLabel.al_centerX == al_centerX,
+            
             browsePicker.view.al_top == al_top,
             browsePicker.view.al_left == al_left,
             browsePicker.view.al_width == al_width,
@@ -75,8 +116,13 @@ class BrowseHeaderView: UICollectionReusableView {
             coverPhoto.al_width == al_width,
             coverPhoto.al_height == al_height,
             
-            artistNameLabel.al_bottom == al_bottom - 10,
-            artistNameLabel.al_centerX == al_centerX
+            artistNameLabel.al_bottom == al_bottom - 50,
+            artistNameLabel.al_centerX == al_centerX,
+            
+            addArtistButton.al_top == artistNameLabel.al_bottom + 10,
+            addArtistButton.al_centerX == al_centerX,
+            addArtistButton.al_width == 70,
+            addArtistButton.al_height == 20
         ])
     }
 }
