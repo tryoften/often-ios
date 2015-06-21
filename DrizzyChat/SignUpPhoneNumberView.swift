@@ -25,7 +25,7 @@ class SignUpPhoneNumberView: UIView {
         phoneNumberTxtField = UITextField()
         phoneNumberTxtField.textAlignment = .Center
         phoneNumberTxtField.font = UIFont(name: "OpenSans", size: 14)
-        phoneNumberTxtField.placeholder = "###"
+        phoneNumberTxtField.placeholder = "###-###-####"
         phoneNumberTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         spacer = UIView()
@@ -76,7 +76,7 @@ class SignUpPhoneNumberView: UIView {
             subtitleLabel.al_left == al_left + 32,
             subtitleLabel.al_right == al_right - 32,
             subtitleLabel.al_height == 80,
-            ])
+        ])
     }
     
 }

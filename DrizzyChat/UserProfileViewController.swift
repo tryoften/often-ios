@@ -30,6 +30,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBarHidden = true
         viewModel.requestData(completion: nil)
 
         if let collectionView = collectionView {
@@ -37,7 +38,6 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-            
             if let height = tabBarController?.tabBar.bounds.size.height {
                 var contentInset = collectionView.contentInset
                 contentInset.bottom = height + 20
@@ -55,6 +55,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         flowLayout.itemSize = CGSizeMake(screenWidth, 240)
         flowLayout.disableStickyHeaders = false
         flowLayout.parallaxHeaderAlwaysOnTop = false
+
         return flowLayout
     }
     
@@ -111,6 +112,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         if kind == CSStickyHeaderParallaxHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! UserProfileHeaderView
             cell.profileImageView.image = UIImage(named: "placeholder")
+            cell.settingsButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
             headerView = cell
             return cell
         } else if kind == UICollectionElementKindSectionHeader {
@@ -143,8 +145,12 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         }
     }
     
-    // MARK: UserProfileViewModelDelegate
+    func didTapSettingsButton() {
+        let settingsVC = SettingsTableViewController()
+        navigationController?.pushViewController(settingsVC, animated: true)
+    }
     
+    // MARK: UserProfileViewModelDelegate
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
         if let headerView = headerView {
             headerView.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge), placeholderImage: UIImage(named: "placeholder"))

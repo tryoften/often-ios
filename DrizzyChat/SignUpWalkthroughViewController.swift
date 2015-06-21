@@ -19,6 +19,7 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
         loginSignUpPage.setTranslatesAutoresizingMaskIntoConstraints(false)
         loginSignUpPage.signUpButton.addTarget(self, action: "didTapSignUpButton", forControlEvents: .TouchUpInside)
         loginSignUpPage.loginButton.addTarget(self, action: "didTapLoginButton", forControlEvents: .TouchUpInside)
+        loginSignUpPage.facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
         
         view.addSubview(loginSignUpPage)
     }
@@ -52,10 +53,14 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
         navigationController?.pushViewController(phoneNumbervc, animated: true)
     }
     
-    func didTapLoginButton () {
+    func didTapLoginButton() {
         let loginvc = LoginViewController()
         
         navigationController?.pushViewController(loginvc, animated: true)
+    }
+    
+    func didTapFacebookButton() {
+        sessionManager.login()
     }
 }
 
