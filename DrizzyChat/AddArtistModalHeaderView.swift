@@ -1,42 +1,25 @@
 //
-//  BrowseHeaderView.swift
+//  AddArtistModalHeaderView.swift
 //  Drizzy
 //
-//  Created by Komran Ghahremani on 5/27/15.
+//  Created by Komran Ghahremani on 6/21/15.
 //  Copyright (c) 2015 Luc Success. All rights reserved.
 //
 
 import UIKit
 
-/**
-    Views:
-    - coverPhoto -> Background that contains the current artist art image as blurred
-    - nameLabel -> displays the name of the current artist
-    - addArtistButton -> button that adds the current artist's keyboard to the user's list of keyboards
-
-    Sizes:
-    - full header: 447
-    - inter-card spacing: 40
-    - cards:
-
- */
-
-let BrowseHeaderViewCellIdentifier = "headerCell"
-
-class BrowseHeaderView: UICollectionReusableView {
+class AddArtistModalHeaderView: UICollectionReusableView {
     var screenWidth: CGFloat
-    var browsePicker: BrowseHeaderCollectionViewController
+    var artistImage: UIImageView
     var coverPhoto: UIImageView
     var coverPhotoTintView: UIView
     var artistNameLabel: UILabel
     var addArtistButton: UIButton
     var topLabel: UILabel
-    var delegate:  AddArtistButtonModalDelegate?
+    var closeButton: UIButton
+    var delegate: CloseButtonDelegate?
     
     override init(frame: CGRect) {
-        browsePicker = BrowseHeaderCollectionViewController(collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout())
-        browsePicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
         screenWidth = UIScreen.mainScreen().bounds.width
         
         coverPhoto = UIImageView()
@@ -46,6 +29,17 @@ class BrowseHeaderView: UICollectionReusableView {
         coverPhotoTintView = UIView()
         coverPhotoTintView.setTranslatesAutoresizingMaskIntoConstraints(false)
         coverPhotoTintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        
+        closeButton = UIButton()
+        closeButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        closeButton.setTitle("Close", forState: UIControlState.Normal)
+        closeButton.titleLabel?.font = UIFont(name: "OpenSans", size: 15.0)
+        closeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        
+        artistImage = UIImageView()
+        artistImage.setTranslatesAutoresizingMaskIntoConstraints(false)
+        artistImage.image = UIImage(named: "frank")
+        artistImage.contentMode = .ScaleAspectFill
         
         artistNameLabel = UILabel()
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -72,21 +66,23 @@ class BrowseHeaderView: UICollectionReusableView {
         super.init(frame: frame)
         
         addArtistButton.addTarget(self, action: "addArtistTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        closeButton.addTarget(self, action: "closeTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
-
+        
         addSubview(coverPhoto)
         addSubview(coverPhotoTintView)
-        addSubview(browsePicker.view)
+        addSubview(closeButton)
+        addSubview(artistImage)
         addSubview(artistNameLabel)
         addSubview(addArtistButton)
         addSubview(topLabel)
         
         clipsToBounds = true
-
+        
         setupLayout()
     }
-
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -97,21 +93,22 @@ class BrowseHeaderView: UICollectionReusableView {
                 if attributes.progressiveness <= 0.15 {
                     self.topLabel.alpha = 1
                     
-                } else if attributes.progressiveness <= 0.90 {
+                } else if attributes.progressiveness <= 0.40 {
                     self.artistNameLabel.alpha = 0
                     self.addArtistButton.alpha = 0
-                    
+                    self.artistImage.alpha = 0
                 } else {
                     self.topLabel.alpha = 0
                     self.artistNameLabel.alpha = 1
                     self.addArtistButton.alpha = 1
+                    self.artistImage.alpha = 1
                 }
             })
         }
     }
     
-    func addArtistTapped(sender: UIButton) {
-        delegate?.addArtistButtonDidTap()
+    func closeTapped(sender: UIButton) {
+        delegate?.closeTapped()
     }
     
     func setupLayout() {
@@ -119,10 +116,10 @@ class BrowseHeaderView: UICollectionReusableView {
             topLabel.al_top == al_top + 10,
             topLabel.al_centerX == al_centerX,
             
-            browsePicker.view.al_top == al_top,
-            browsePicker.view.al_left == al_left,
-            browsePicker.view.al_width == al_width,
-            browsePicker.view.al_height == al_height,
+            artistImage.al_width == 200,
+            artistImage.al_height == 200,
+            artistImage.al_centerX == al_centerX,
+            artistImage.al_bottom == artistNameLabel.al_top - 20,
             
             coverPhoto.al_top == al_top,
             coverPhoto.al_left == al_left,
@@ -140,12 +137,16 @@ class BrowseHeaderView: UICollectionReusableView {
             addArtistButton.al_top == artistNameLabel.al_bottom + 10,
             addArtistButton.al_centerX == al_centerX,
             addArtistButton.al_width == 70,
-            addArtistButton.al_height == 20
+            addArtistButton.al_height == 20,
+            
+            closeButton.al_width == 50,
+            closeButton.al_height == 10,
+            closeButton.al_right == al_right - 10,
+            closeButton.al_top == al_top + 15
         ])
     }
 }
 
-protocol AddArtistButtonModalDelegate {
-    func addArtistButtonDidTap()
+protocol CloseButtonDelegate {
+    func closeTapped()
 }
-

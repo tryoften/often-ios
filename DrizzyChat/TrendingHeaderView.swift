@@ -33,8 +33,8 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     var screenWidth: CGFloat
     var pageCount: Int
     var pagesScrollViewSize: CGSize
-    var lyricDelegate: lyricTabDelegate?
-    var artistDelegate: artistTabDelegate?
+    var lyricDelegate: LyricTabDelegate?
+    var artistDelegate: ArtistTabDelegate?
     
     /// testing
     var pageImages: [UIImage] = [
@@ -297,6 +297,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     
     func featuredTapped(sender: UIButton) {
         println("Featured Tapped")
+        
     }
     
     func artistsTapped(sender: UIButton) {
@@ -312,10 +313,10 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     }
 }
 
-protocol lyricTabDelegate {
+protocol LyricTabDelegate {
     func lyricDidTap()
 }
 
-protocol artistTabDelegate {
+protocol ArtistTabDelegate {
     func artistDidTap()
 }

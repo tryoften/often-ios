@@ -15,7 +15,7 @@ import UIKit
     Collection views use the same data source and delegate
 */
 
-class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate {
+class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate, AddArtistButtonModalDelegate {
 
     var viewModel: BrowseViewModel
     var headerView: BrowseHeaderView?
@@ -114,7 +114,8 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             headerView = cell
             
             headerView?.browsePicker.delegate = self
-            // headerView?.coverPhoto.image = images[1]!.blurredImageWithRadius(50, iterations: 5, tintColor: UIColor.blackColor())
+            headerView?.delegate = self
+            self.headerView?.coverPhoto.image = self.viewModel.images[self.viewModel.currentArtist]!.blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
             headerView?.browsePicker.collectionView?.reloadData()
 
             if let contentSize = headerView?.browsePicker.collectionView!.contentSize {
@@ -166,18 +167,22 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     */
     func headerDidSwipe() {
         viewModel.currentArtist++
-        
-        UIView.animateWithDuration(3.7, animations: {
-           self.headerView?.coverPhoto.image = self.viewModel.images[self.viewModel.currentArtist]!.blurredImageWithRadius(30, iterations: 9, tintColor: UIColor.blackColor())
-            self.headerView?.artistNameLabel.text = self.viewModel.artistNames[self.viewModel.currentArtist]
-        })
-        
+        headerView?.artistNameLabel.text = viewModel.artistNames[viewModel.currentArtist]
         collectionView?.reloadData()
     }
     
     
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track]) {
         collectionView?.reloadData()
+    }
+    
+    /**
+        
+    */
+    func addArtistButtonDidTap() {
+        // Present the Add Artist Modal
+        let addArtistModal: AddArtistModalCollectionViewController = AddArtistModalCollectionViewController(viewModel: viewModel)
+        self.presentViewController(addArtistModal, animated: true, completion: nil)
     }
 }
 
