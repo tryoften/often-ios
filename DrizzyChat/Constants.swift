@@ -108,6 +108,8 @@ let BrowseCollectionViewCellLyricCountFont = UIFont(name: "Lato-Regular", size: 
 let BrowseCollectionViewCellWidth: CGFloat = CGFloat(UIScreen.mainScreen().bounds.width)
 let BrowseCollectionViewCellHeight: CGFloat = CGFloat(63)
 
+let BrowseHeaderCollectionViewPadding: CGFloat = 75.0
+
 // Main App
 
 let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 15)
