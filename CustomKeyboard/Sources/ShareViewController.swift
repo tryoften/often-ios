@@ -104,7 +104,7 @@ class ShareViewController: UIViewController {
         if let track = lyric?.track {
             
             // Spotify button
-            if track.spotifyURL != nil {
+            if track.spotifyURL != nil && !track.spotifyURL!.isEmpty {
                 let button = UIButton(frame: CGRectZero)
                 button.titleLabel!.font = UIFont(name: "SSSocialRegular", size: 32)
                 button.setTitle("\u{f6b1}", forState: .Normal)
@@ -115,7 +115,7 @@ class ShareViewController: UIViewController {
             }
             
             // Soundcloud button
-            if track.soundcloudURL != nil {
+            if track.soundcloudURL != nil && !track.soundcloudURL!.isEmpty {
                 let button = UIButton(frame: CGRectZero)
                 button.titleLabel!.font = UIFont(name: "SSSocialCircle", size: 32)
                 button.setTitle("\u{f6b3}", forState: .Normal)
@@ -125,7 +125,7 @@ class ShareViewController: UIViewController {
                 buttons.append(button)
             }
             
-            if track.youtubeURL != nil {
+            if track.youtubeURL != nil && !track.youtubeURL!.isEmpty {
                 let button = UIButton(frame: CGRectZero)
                 button.titleLabel!.font = UIFont(name: "SSSocialCircle", size: 32)
                 button.setTitle("\u{f630}", forState: .Normal)

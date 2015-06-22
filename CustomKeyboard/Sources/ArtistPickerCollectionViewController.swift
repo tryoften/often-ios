@@ -102,8 +102,16 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         
         cell.titleLabel.text = keyboard.artist?.name
         cell.subtitleLabel.text = "\(keyboard.categories.count) categories".uppercaseString
+        cell.imageView.alpha = 0.0
         if let imageURLLarge = keyboard.artist?.imageURLLarge {
-            cell.imageView.setImageWithURL(NSURL(string: imageURLLarge))
+            cell.imageView.setImageWithURLRequest(NSURLRequest(URL: NSURL(string: imageURLLarge)!), placeholderImage: UIImage(), success: { (req, res, image) in
+                UIView.animateWithDuration(0.3) {
+                    cell.imageView.image = image
+                    cell.imageView.alpha = 1.0
+                }
+            }, failure: { (req, res, err) in
+                
+            })
         }
         cell.deleteButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: .TouchUpInside)
 

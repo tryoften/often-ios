@@ -8,7 +8,7 @@
 
 import Foundation
 
-var BaseURL = "https://multi-keyboards.firebaseio.com/"
+let BaseURL = "https://drizzy-db-dev.firebaseio.com/"
 #if DEBUG
 let CategoryServiceEndpoint = "https://brilliant-fire-154.firebaseio.com/"
 #else

@@ -13,6 +13,7 @@ class Category: Object {
     dynamic var name: String = ""
     var ownerId: String = ""
     var lyrics = List<Lyric>()
+    dynamic var keyboard: Keyboard?
     var highlightColor: UIColor!
     
     override static func primaryKey() -> String? {

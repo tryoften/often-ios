@@ -30,6 +30,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBarHidden = true
         viewModel.requestData(completion: nil)
 
         if let collectionView = collectionView {
@@ -37,17 +38,24 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+            if let height = tabBarController?.tabBar.bounds.size.height {
+                var contentInset = collectionView.contentInset
+                contentInset.bottom = height + 20
+                collectionView.contentInset = contentInset
+            }
         }
     }
     
     class func getLayout() -> UICollectionViewLayout {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
         var flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 200)
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 110)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 314)
         flowLayout.headerReferenceSize = CGSizeMake(screenWidth, 50)
         flowLayout.itemSize = CGSizeMake(screenWidth, 240)
-        flowLayout.disableStickyHeaders = true
+        flowLayout.disableStickyHeaders = false
+        flowLayout.parallaxHeaderAlwaysOnTop = false
+
         return flowLayout
     }
     
@@ -103,7 +111,8 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! UserProfileHeaderView
-            
+            cell.profileImageView.image = UIImage(named: "placeholder")
+            cell.settingsButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
             headerView = cell
             return cell
         } else if kind == UICollectionElementKindSectionHeader {
@@ -136,21 +145,17 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         }
     }
     
-    // MARK: UserProfileViewModelDelegate
+    func didTapSettingsButton() {
+        let settingsVC = SettingsTableViewController()
+        navigationController?.pushViewController(settingsVC, animated: true)
+    }
     
+    // MARK: UserProfileViewModelDelegate
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
         if let headerView = headerView {
-            headerView.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge))
+            headerView.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge), placeholderImage: UIImage(named: "placeholder"))
             headerView.nameLabel.text = user.fullName.uppercaseString
-            
-            let coverImageURL = user.profileImageLarge
-        
-            headerView.coverPhotoView.setImageWithURLRequest(NSURLRequest(URL: NSURL(string: coverImageURL)!), placeholderImage: UIImage(), success: { (req, res, image) in
-                let blurredImage = image.blurredImageWithRadius(8, iterations: 2, tintColor: UIColor.blackColor())
-                headerView.coverPhotoView.image = blurredImage
-                }, failure: { (req, res, err) in
-                    
-            })
+            headerView.coverPhotoView.image = UIImage(named: "user-profile-bg-\(arc4random_uniform(4) + 1)")
         }
     }
     
