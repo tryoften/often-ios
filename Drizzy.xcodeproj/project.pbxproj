@@ -55,6 +55,8 @@
 		3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */; };
 		5F50FC2DA9F65D8AF03CAD67 /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */; };
 		690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */; };
+		6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */; };
+		6929EB6E1B3750B600D1BD1C /* AddArtistModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */; };
 		696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */; };
 		697D00531B3090DB00402A9F /* TrendingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */; };
 		697D00551B30A06200402A9F /* TrendingLyricViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */; };
@@ -342,6 +344,8 @@
 		3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPhoneNumberView.swift; sourceTree = "<group>"; };
 		3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameView.swift; sourceTree = "<group>"; };
 		690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewController.swift; sourceTree = "<group>"; };
+		6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalCollectionViewController.swift; sourceTree = "<group>"; };
+		6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalHeaderView.swift; sourceTree = "<group>"; };
 		696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingCollectionViewController.swift; sourceTree = "<group>"; };
 		697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingLyricViewCell.swift; sourceTree = "<group>"; };
@@ -581,6 +585,14 @@
 			name = "Walkthrough View Controllers";
 			sourceTree = "<group>";
 		};
+		6929EB711B37641100D1BD1C /* AddArtistModalViews */ = {
+			isa = PBXGroup;
+			children = (
+				6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */,
+			);
+			name = AddArtistModalViews;
+			sourceTree = "<group>";
+		};
 		697D00491B3080F000402A9F /* TrendingViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,6 +789,7 @@
 				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				81592F991B0FA55A0092EA8F /* TabBarController.swift */,
+				6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */,
 				690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */,
 				69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */,
 				697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */,
@@ -796,6 +809,7 @@
 				81B6D5861A956E680089767B /* LoginIndicatorView.swift */,
 				81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */,
 				81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */,
+				6929EB711B37641100D1BD1C /* AddArtistModalViews */,
 				697D004D1B30812100402A9F /* BrowseViews */,
 				697D00491B3080F000402A9F /* TrendingViews */,
 				3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */,
@@ -1424,6 +1438,7 @@
 				81592FA31B0FA5870092EA8F /* UserProfileSectionHeaderView.swift in Sources */,
 				3B9AD79D1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift in Sources */,
 				69F2B5EB1B278826004FCD19 /* TrendingCollectionViewCell.swift in Sources */,
+				6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */,
 				697D00531B3090DB00402A9F /* TrendingCollectionViewController.swift in Sources */,
 				81B19E9E1B30AD5A00D3575C /* Track.swift in Sources */,
 				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
@@ -1437,7 +1452,11 @@
 				3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */,
 				817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
 				3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */,
+<<<<<<< HEAD
+				6929EB6E1B3750B600D1BD1C /* AddArtistModalHeaderView.swift in Sources */,
+=======
 				8111D5AB1B36184900B14EEE /* SettingsTableViewController.swift in Sources */,
+>>>>>>> master
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
 				3B9AD7A61B2F4F3D00727E79 /* SignUpNameWalkthroughViewController.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,

@@ -18,11 +18,12 @@ let reuseIdentifier = "Cell"
 
 */
 
-class TrendingCollectionViewController: UICollectionViewController, TrendingViewModelDelegate, UIScrollViewDelegate, lyricTabDelegate, artistTabDelegate {
+class TrendingCollectionViewController: UICollectionViewController, TrendingViewModelDelegate, UIScrollViewDelegate, LyricTabDelegate, ArtistTabDelegate {
     var viewModel: TrendingViewModel
     var headerView: TrendingHeaderView?
     var sectionHeaderView: TrendingSectionHeaderView?
     var toggle: Bool = true
+    var labelHeight: CGFloat = 65
     
     // Testing arrays
     
@@ -137,7 +138,11 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             
             cell.rankLabel?.text = "\(indexPath.row + 1)"
             cell.lyricView?.text = lyrics[indexPath.row]
+            cell.lyricView?.sizeToFit()
+            labelHeight = cell.lyricView!.frame.height + cell.artistLabel!.frame.height + 20
+            
             cell.artistLabel?.text = artists[indexPath.row]
+
             
             if indexPath.row % 2 == 0 {
                 cell.trendIndicator.image = UIImage(named: "up")
@@ -196,13 +201,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         if toggle == true {
             return CGSizeMake(screenWidth, 65)
         } else {
-            if linesForCharacterCount(lyrics[indexPath.row]) == 1 {
-                return CGSizeMake(screenWidth, 45)
-            } else if linesForCharacterCount(lyrics[indexPath.row]) == 2 {
-                return CGSizeMake(screenWidth, 65)
-            } else {
-                return CGSizeMake(screenWidth, 65)
-            }
+            return CGSizeMake(screenWidth, 65)
         }
     }
 
@@ -235,23 +234,5 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     
     // MARK: Dynamic Cell
     
-    /**
-        Pass in a lyric and this method will return how many lines it will take up in the 
-        collection view cell. We can use this to choose the correct size for the cell.
     
-        :param: lyric string of lyric to be counted
-    
-        :returns: Integer of line count for the string parameter
-    */
-    func linesForCharacterCount(lyric: String) -> Int {
-        var charCount = count(lyric)
-        
-        if charCount <= 57 {
-            return 1
-        } else if charCount <= 100 {
-            return 2
-        } else {
-            return 3 /// needs to be elipsed
-        }
-    }
 }

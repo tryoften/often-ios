@@ -101,7 +101,7 @@ class TrendingCollectionViewCell: UICollectionViewCell {
             nameLabel.al_top == al_top + 14,
             
             subLabel.al_top == nameLabel.al_bottom,
-            subLabel.al_left == trendIndicator.al_right + 27,
+            subLabel.al_left == nameLabel.al_left,
             
             disclosureIndicator.al_right == al_right - 13,
             disclosureIndicator.al_top == al_top + 23,
