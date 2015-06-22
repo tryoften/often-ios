@@ -12,14 +12,26 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     WalkthroughViewModelDelegate {
     var viewModel: SignUpWalkthroughViewModel
     var sessionManager: SessionManager
-    var navButton : UIBarButtonItem!
+    var navButton: UIBarButtonItem!
+    var nextButton: UIButton
+    var bottomConstraint: NSLayoutConstraint!
     
     init (sessionManager: SessionManager = SessionManager.defaultManager) {
         self.sessionManager = sessionManager
         viewModel = SignUpWalkthroughViewModel(sessionManager: sessionManager)
         
+        nextButton = UIButton()
+        nextButton.hidden = true
+        nextButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        nextButton.titleLabel!.font = ButtonFont
+        nextButton.backgroundColor = UIColor(fromHexString: "#2CD2B4")
+        nextButton.setTitle("continue".uppercaseString, forState: .Normal)
+        
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
+
+        view.addSubview(nextButton)
+        bottomConstraint = nextButton.al_bottom == view.al_bottom
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -32,11 +44,22 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         setupLayout()
+        
+        self.an_subscribeKeyboardWithAnimations({ (keyboardRect, duration, isShowing) in
+            self.bottomConstraint.constant = isShowing ? keyboardRect.size.height : 0
+        }, completion: { finished in
+            
+        })
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)        
+        self.an_unsubscribeKeyboard()
     }
     
     func didTapNavButton() {}
-    func setupLayout() {}
     
     func setupNavBar(titlePushViewButton: String) {
         navButton = UIBarButtonItem(title: titlePushViewButton.uppercaseString, style: .Plain, target: self, action: "didTapNavButton")
@@ -44,8 +67,8 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         let backButton = UIButton(frame: CGRectMake(0, 0, 20, 16))
         let backImage = UIImage(named: "BackButton")
         let backButtonItem = UIBarButtonItem(customView: backButton)
-        let textAttributes = [NSFontAttributeName:ButtonFont!,NSForegroundColorAttributeName: UIColor.whiteColor()]
-        let textAttributeForButtons = [NSFontAttributeName:ButtonFont!,NSForegroundColorAttributeName: UIColor(fromHexString: "#FFFFFF")]
+        let textAttributes = [NSFontAttributeName:ButtonFont!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        let textAttributeForButtons = [NSFontAttributeName:ButtonFont!, NSForegroundColorAttributeName: UIColor(fromHexString: "#FFFFFF")]
         
         fixedSpaceItem.width = 10
         
@@ -61,12 +84,22 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         navigationItem.rightBarButtonItem?.tintColor = BlackColor
     }
     
+    func setupLayout() {
+
+        view.addConstraints([
+            nextButton.al_width == view.al_width,
+            nextButton.al_left == view.al_left,
+            nextButton.al_height == 50,
+            bottomConstraint
+        ])
+    }
+    
     func popBack() {
         navigationController?.popViewControllerAnimated(true)
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true;
+        return true
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

@@ -37,12 +37,14 @@ class SignUpPasswordView: UIView {
         passwordTxtFieldOne.font = UIFont(name: "OpenSans", size: 14)
         passwordTxtFieldOne.placeholder = "enter your password"
         passwordTxtFieldOne.setTranslatesAutoresizingMaskIntoConstraints(false)
+        passwordTxtFieldOne.secureTextEntry = true
         
         confirmPasswordTxtField = UITextField()
         confirmPasswordTxtField.textAlignment = .Center
         confirmPasswordTxtField.font = UIFont(name: "OpenSans", size: 14)
         confirmPasswordTxtField.placeholder = "re-enter your password"
         confirmPasswordTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        confirmPasswordTxtField.secureTextEntry = true
         
         spacer = UIView()
         spacer.setTranslatesAutoresizingMaskIntoConstraints(false)

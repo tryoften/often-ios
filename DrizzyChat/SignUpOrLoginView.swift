@@ -51,7 +51,7 @@ class SignUpOrLoginView: UIView {
         subtitleLabel = UILabel()
         subtitleLabel.textAlignment = .Center
         subtitleLabel.textColor = SubtitleGreyColor
-        subtitleLabel.font = SubtitleFont
+        subtitleLabel.font = HomeViewSubtitle
         subtitleLabel.numberOfLines = 0
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         subtitleLabel.text = "October lets you share lyrics & songs from any of your favorite artists via text, email, or existing social apps... all right from your keyboard."

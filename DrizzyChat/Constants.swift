@@ -117,3 +117,4 @@ let FacebookButtonNormalBackgroundColor = BlueColor
 let FacebookButtonHighlightedBackgroundColor = UIColor(fromHexString: "#4d75c7")
 
 let HomeViewBackgroundColor = UIColor(fromHexString: "#f7f7f7")
+let HomeViewSubtitle = UIFont(name: "OpenSans", size: 14)
