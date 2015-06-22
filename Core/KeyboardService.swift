@@ -128,7 +128,7 @@ class KeyboardService: Service {
         }
 
         fetchRemoteData { success in
-            
+            completion(self.keyboards)
         }
     }
     

@@ -102,20 +102,25 @@ class SessionManager: NSObject {
     }
     
     func openSession() {
-        let accessToken = FBSession.activeSession().accessTokenData.accessToken
-        self.firebase.authWithOAuthProvider("facebook", token: accessToken,
-            withCompletionBlock: { error, authData in
-                if error != nil {
-                    println("Login failed. \(error)")
-                } else {
-                    println("Logged in! \(authData)")
-                }
-        })
+        if let accessToken = FBSession.activeSession().accessTokenData.accessToken {
+            firebase.authWithOAuthProvider("facebook", token: accessToken,
+                withCompletionBlock: { error, authData in
+                    if error != nil {
+                        println("Login failed. \(error)")
+                    } else {
+                        println("Logged in! \(authData)")
+                    }
+            })
+        }
     }
     
     func login() {
         PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
-            self.openSession()
+            if error == nil {
+                self.openSession()
+            } else {
+                UIAlertView(title: "Facebook user failed", message: "We were unable to log you in, please try again", delegate: nil, cancelButtonTitle: "Ok").show()
+            }
         })
     }
     
@@ -127,6 +132,7 @@ class SessionManager: NSObject {
     
     func logout() {
         PFUser.logOut()
+        firebase.unauth()
     }
     
     func addSessionObserver(observer: SessionManagerObserver) {
@@ -199,6 +205,8 @@ class SessionManager: NSObject {
                         }
                     })
                 }
+                }, withCancelBlock: { error in
+                    
             })
             
         } else {

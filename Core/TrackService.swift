@@ -95,7 +95,7 @@ class TrackService: Service {
             if let trackData = snapshot.value as? [String: String] {
                 
                 let track = Track()
-                track.id = snapshot.key
+                track.id = trackData["track_id"] ?? snapshot.key
                 track.setValuesForKeysWithDictionary(trackData)
 
                 self.tracks[track.id] = track

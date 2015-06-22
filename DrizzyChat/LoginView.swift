@@ -46,6 +46,7 @@ class LoginView: UIView {
         passwordTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         passwordTxtField.leftViewMode = .Always
         passwordTxtField.leftView = passwordIconImageView
+        passwordTxtField.secureTextEntry = true
         
         emailTxtSpacer = UIView()
         emailTxtSpacer.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -76,7 +77,7 @@ class LoginView: UIView {
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor(fromHexString: "#F7F7F7")
         addSubview(emailTxtField)
         addSubview(passwordTxtField)
         addSubview(emailTxtSpacer)
@@ -95,7 +96,7 @@ class LoginView: UIView {
     
     func setupLayout() {
         addConstraints([
-            emailTxtField.al_top == al_top,
+            emailTxtField.al_top == al_top + 20,
             emailTxtField.al_right == al_right,
             emailTxtField.al_left == al_left + 20,
             emailTxtField.al_height == 44,
