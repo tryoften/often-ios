@@ -11,8 +11,11 @@ import UIKit
 let BrowseHeaderReuseIdentifier = "Cell"
 
 class BrowseHeaderCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
-    var scrollView: UIScrollView
+    let scrollView: UIScrollView
     var delegate: BrowseHeaderSwipeDelegate?
+    
+    let itemWidth: CGFloat
+    let padding: CGFloat
     
     var artists = [
         UIImage(named: "frank"),
@@ -31,20 +34,29 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
     ]
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
-        scrollView = UIScrollView(frame: CGRectMake(40, 65, 250, 250))
+        padding = BrowseHeaderCollectionViewPadding
+        itemWidth = UIScreen.mainScreen().bounds.width - (padding * 2)
+        
+        let width: CGFloat = itemWidth + (padding / 2)
+        scrollView = UIScrollView(frame: CGRectMake(0, 0, width, width))
         scrollView.pagingEnabled = true
         scrollView.hidden = true
-        
+        scrollView.contentSize = CGSizeMake(width * CGFloat(artists.count), width)
+
         super.init(collectionViewLayout: layout)
-        
+
         scrollView.delegate = self
         view.addSubview(scrollView)
         
         setLayout()
     }
     
-    required convenience init(coder aDecoder: NSCoder) {
-        self.init(collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout())
+    required convenience init(coder aDecoder: NSCoder) {        
+        self.init()
+    }
+    
+    required convenience init() {
+        self.init(collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout(UIScreen.mainScreen().bounds.width - (BrowseHeaderCollectionViewPadding * 2), padding: BrowseHeaderCollectionViewPadding))
     }
     
     override func viewDidLoad() {
@@ -52,15 +64,10 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
         
         super.viewDidLoad()
         
-        /**
-            (self.view.frame.size.width - screenWidth)/2
-            (self.view.frame.size.width - screenWidth)/2
-        */
-        
         if let collectionView = self.collectionView {
             collectionView.alwaysBounceHorizontal = false
             
-            collectionView.contentInset = UIEdgeInsetsMake(0, (self.view.frame.size.width - screenWidth)/2, 0, (self.view.frame.size.width - screenWidth)/2)
+            collectionView.contentInset = UIEdgeInsetsMake(0, (self.view.frame.size.width - screenWidth) / 2, 0, (self.view.frame.size.width - screenWidth) / 2)
             collectionView.addGestureRecognizer(scrollView.panGestureRecognizer)
             collectionView.panGestureRecognizer.enabled = false
             
@@ -71,6 +78,11 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
         } else {
             println("Collection view nil")
         }
+    }
+    
+    func getCurrentPage() -> Int {
+        var width = scrollView.frame.size.width
+        return Int(floor((scrollView.contentOffset.x + (0.5 * width)) / width))
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,6 +111,7 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
     }
     
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        println("Current page: \(getCurrentPage())")
         delegate?.headerDidSwipe()
     }
     
@@ -111,10 +124,6 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
     }
     
     func setLayout() {
-        view.addConstraints([
-            scrollView.al_top == view.al_top + 45,
-            scrollView.al_left == view.al_left + 65
-        ])
     }
 }
 
