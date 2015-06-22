@@ -21,6 +21,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     var headerView: BrowseHeaderView?
     var sectionHeaderView: BrowseSectionHeaderView?
     var artistCollectionView: UICollectionView?
+    var modalTintView: UIView?
     
     init(viewModel: BrowseViewModel) {
         self.viewModel = viewModel
@@ -166,7 +167,9 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     
     */
     func headerDidSwipe() {
-        viewModel.currentArtist++
+        if viewModel.currentArtist < 4 {
+            viewModel.currentArtist++
+        }
         headerView?.artistNameLabel.text = viewModel.artistNames[viewModel.currentArtist]
         collectionView?.reloadData()
     }
@@ -181,8 +184,11 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     */
     func addArtistButtonDidTap() {
         // Present the Add Artist Modal
+        
+        
         let addArtistModal: AddArtistModalCollectionViewController = AddArtistModalCollectionViewController(viewModel: viewModel)
         self.presentViewController(addArtistModal, animated: true, completion: nil)
+        
     }
 }
 

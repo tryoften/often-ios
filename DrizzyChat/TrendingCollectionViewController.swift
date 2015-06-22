@@ -30,9 +30,9 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     var lyrics = [
         "Admitted the shit spitted, just burn like six furnaces.",
         "They say signs of the end is near; I wonder…can I walk a righteous path holding a beer?",
-        "I don’t know what’s better: getting laid or getting paid. I just know when I’m getting one, the other’s getting away.",
+        "I don’t know what’s better: getting laid or getting paid. I just",
         "If I wasn’t in the rap game, I’d probably have a key knee-deep in the crack game. Because the streets is a short stop: Either you’re slinging crack rock or you got a wicked jump shot.",
-        "If I don’t got two balls and a middle finger to throw up, I’m takin off both shoes and stickin each middle toe up.",
+        "If I don’t got two balls and a middle finger to throw",
         "They got money for wars, but can’t feed the poor.",
         "Some seek fame cause they need validation, Some say hating is confused admiration.",
         "Guess who back in the motherfuckin house with a fat dick for your motherfuckin mouth.",
@@ -138,11 +138,8 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             
             cell.rankLabel?.text = "\(indexPath.row + 1)"
             cell.lyricView?.text = lyrics[indexPath.row]
-            cell.lyricView?.sizeToFit()
-            labelHeight = cell.lyricView!.frame.height + cell.artistLabel!.frame.height + 20
-            
+            println("\(count(lyrics[2]))")
             cell.artistLabel?.text = artists[indexPath.row]
-
             
             if indexPath.row % 2 == 0 {
                 cell.trendIndicator.image = UIImage(named: "up")
@@ -151,7 +148,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             } else {
                 cell.trendIndicator.image = nil
             }
-
 
             return cell
         }
@@ -201,7 +197,13 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         if toggle == true {
             return CGSizeMake(screenWidth, 65)
         } else {
-            return CGSizeMake(screenWidth, 65)
+            if lineCountForLyric(lyrics[indexPath.row]) == 1 {
+                return CGSizeMake(screenWidth, 45)
+            } else if lineCountForLyric(lyrics[indexPath.row]) == 2 {
+                return CGSizeMake(screenWidth, 65)
+            } else {
+                return CGSizeMake(screenWidth, 65)
+            }
         }
     }
 
@@ -234,5 +236,32 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     
     // MARK: Dynamic Cell
     
-    
+    /**
+        iPhone 5: 320 - 45
+        iPhone 6: 360 - 53
+        iPhone 6+: 375 - 64
+    */
+    func lineCountForLyric(lyric: String) -> Int {
+        var screenWidth = UIScreen.mainScreen().bounds.width
+        
+        if screenWidth == 320 {
+            if count(lyric) <= 45 {
+                return 1
+            } else {
+                return 2
+            }
+        } else if screenWidth == 375 {
+            if count(lyric) <= 53 {
+                return 1
+            } else {
+                return 2
+            }
+        } else {
+            if count(lyric) <= 64 {
+                return 1
+            } else {
+                return 2
+            }
+        }
+    }
 }
