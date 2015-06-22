@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SettingsTableViewController: UITableViewController {
 
@@ -52,8 +53,15 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var sessionManager = SessionManager.defaultManager
         sessionManager.logout()
+        let realm = Realm()
         
-        presentViewController(SignUpLoginWalkthroughViewController(sessionManager: sessionManager), animated: true, completion: nil)
+        realm.write {
+            realm.deleteAll()
+        }
+        
+        var navigationController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController())
+        
+        presentViewController(navigationController, animated: true, completion: nil)
     }
 
 }

@@ -581,6 +581,7 @@
 				3B9AD7A91B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift */,
 				3B9AD7AB1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift */,
 				3B9AD7AE1B2F5FF500727E79 /* LoginViewController.swift */,
+				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
 			);
 			name = "Walkthrough View Controllers";
 			sourceTree = "<group>";
@@ -786,7 +787,6 @@
 			isa = PBXGroup;
 			children = (
 				3B9AD7AD1B2F514400727E79 /* Walkthrough View Controllers */,
-				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				81592F991B0FA55A0092EA8F /* TabBarController.swift */,
 				6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */,

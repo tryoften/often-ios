@@ -55,6 +55,7 @@ PODS:
   - Reveal-iOS-SDK (1.5.1)
   - TOMSMorphingLabel (0.5.1)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
+  - UIViewController+KeyboardAnimation (1.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -70,6 +71,7 @@ DEPENDENCIES:
   - ParseFacebookUtils (~> 1.7)
   - Reveal-iOS-SDK
   - TOMSMorphingLabel (~> 0.5)
+  - UIViewController+KeyboardAnimation (~> 1.2)
 
 EXTERNAL SOURCES:
   Analytics:
@@ -99,5 +101,6 @@ SPEC CHECKSUMS:
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
   TOMSMorphingLabel: 3e88a2bf5257f8993ebc51fb3109187a0bfb2c4d
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
+  UIViewController+KeyboardAnimation: 5beaa558cabe3353c37fdd5476c68dac8dc507d5
 
 COCOAPODS: 0.37.2
