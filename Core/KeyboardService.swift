@@ -11,20 +11,15 @@ import RealmSwift
 /// Service that provides and manages keyboard models along with categories.
 /// It stores the data both locally and remotely
 class KeyboardService: Service {
-    var userId: String?
+    let userId: String
     var keyboardsRef: Firebase
     var keyboards: [String: Keyboard]
     var notificationToken: NotificationToken?
 
-    init(userId: String?, root: Firebase, realm: Realm = Realm()) {
+    init(userId: String, root: Firebase, realm: Realm = Realm()) {
         self.userId = userId
         
-        if let userId = userId {
-            keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
-        } else {
-            keyboardsRef = root.childByAppendingPath("keyboards")
-        }
-        
+        keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
         keyboards = [String: Keyboard]()
 
         super.init(root: root, realm: realm)
@@ -36,8 +31,22 @@ class KeyboardService: Service {
         }
     }
     
-    func deleteKeyboardWithId(keyboardId: String) {
-        self.keyboardsRef.childByAppendingPath(keyboardId).removeValue()
+    /**
+        Deletes a keyboard model with the given id
+        
+        :param: keyboardId the id of the keyboard to delete
+        :param: completion callback when the delete operation has been successfully persisted on the backend
+    */
+    func deleteKeyboardWithId(keyboardId: String, completion: (NSError?) -> ()) {
+        keyboards.removeValueForKey(keyboardId)
+        if let keyboard = realm.objectForPrimaryKey(Keyboard.self, key: keyboardId),
+            let artist = keyboard.artist {
+            realm.delete(artist)
+            realm.delete(keyboard)
+        }
+        self.keyboardsRef.childByAppendingPath(keyboardId).removeValueWithCompletionBlock { (err, keyboardRef) in
+            completion(nil)
+        }
     }
     
     /**
@@ -80,10 +89,8 @@ class KeyboardService: Service {
                 self.keyboards[keyboard.id] = keyboard
                 
                 if index + 1 >= keyboardCount {
-                    if let userId = self.userId {
-                        self.realm.write {
-                            self.realm.add(self.keyboards.values.array, update: true)
-                        }
+                    self.realm.write {
+                        self.realm.add(self.keyboards.values.array, update: true)
                     }
                     dispatch_async(dispatch_get_main_queue(), {
                         self.delegate?.serviceDataDidLoad(self)
@@ -185,7 +192,6 @@ class KeyboardService: Service {
                     artist.imageURLLarge = urlLarge
                     
                     keyboard.artist = artist
-                    
                     completion(true)
             }
         })
@@ -228,5 +234,4 @@ class KeyboardService: Service {
     }
 }
 
-protocol KeyboardServiceDelegate: ServiceDelegate {
-}
+protocol KeyboardServiceDelegate: ServiceDelegate {}

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KeyboardViewModel: NSObject, KeyboardServiceDelegate {
+class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollectionViewDataSource {
     var keyboardService: KeyboardService
     var delegate: KeyboardViewModelDelegate?
     var userDefaults: NSUserDefaults
@@ -30,7 +30,8 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate {
             keyboardService = KeyboardService(userId: userId,
                 root: Firebase(url: BaseURL))
         } else {
-            keyboardService = KeyboardService(userId: nil, root: Firebase(url: BaseURL))
+            // TODO(luc): get annonymous ID for the current session
+            keyboardService = KeyboardService(userId: "annonymous", root: Firebase(url: BaseURL))
         }
 
         super.init()
@@ -56,6 +57,26 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate {
             delegate?.keyboardViewModelCurrentKeyboardDidChange(self, keyboard: currentKeyboard!)
         }
         delegate?.keyboardViewModelDidLoadData(self, data: keyboards.values.array)
+    }
+    
+    // MARK: ArtistPickerCollectionViewDataSource
+    func numberOfItemsInArtistPicker(artistPicker: ArtistPickerCollectionViewController) -> Int {
+        return keyboards.count
+    }
+
+    func artistPickerItemAtIndex(artistPicker: ArtistPickerCollectionViewController, index: Int) -> Keyboard? {
+        if index < keyboards.count {
+            return keyboards[index]
+        }
+        return nil
+    }
+
+    func artistPickerShouldHaveCloseButton(artistPicker: ArtistPickerCollectionViewController) -> Bool {
+        return true
+    }
+    
+    func artistPickerItemAtIndexIsSelected(artistPicker: ArtistPickerCollectionViewController, index: Int) -> Bool {
+        return false
     }
 }
 

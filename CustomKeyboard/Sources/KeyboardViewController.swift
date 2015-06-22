@@ -166,27 +166,18 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         view.addConstraints(constraints)
     }
     
-    func didTapCloseButton() {
-        UIView.animateWithDuration(0.4,
-            delay: 0.1,
-            usingSpringWithDamping: 1.0,
-            initialSpringVelocity: 0.1,
-            options: .CurveEaseIn,
-            animations: {
-                self.layoutArtistPickerView()
-                self.layoutSectionPickerView()
-            },
-            completion: nil)
+    func didTapSwitchArtistButton() {
+        openPanel()
     }
     
-    func didTapSwitchArtistButton() {
-        
+    func openPanel() {
         if artistPicker == nil {
-            artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewLayout.provideCollectionViewLayout())
+            artistPicker = ArtistPickerCollectionViewController()
             artistPicker!.delegate = self
             artistPicker!.viewModel = viewModel
-            artistPicker!.keyboards = viewModel.keyboards
-            artistPicker!.closeButton.addTarget(self, action: "didTapCloseButton", forControlEvents: .TouchUpInside)
+            
+            let edgeInsets = UIEdgeInsets(top: 5.0, left: 35.0, bottom: 5.0, right: 5.0)
+
             view.addSubview(artistPicker!.view)
             layoutArtistPickerView(hidden: true)
             
@@ -211,6 +202,19 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                 var sectionPickerViewFrame = self.sectionPickerView.frame
                 sectionPickerViewFrame.origin.y = CGRectGetHeight(self.view.frame)
                 self.sectionPickerView.frame = sectionPickerViewFrame
+            },
+            completion: nil)
+    }
+    
+    func closePanel() {
+        UIView.animateWithDuration(0.4,
+            delay: 0.1,
+            usingSpringWithDamping: 1.0,
+            initialSpringVelocity: 0.1,
+            options: .CurveEaseIn,
+            animations: {
+                self.layoutArtistPickerView()
+                self.layoutSectionPickerView()
             },
             completion: nil)
     }
@@ -376,7 +380,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     // MARK: KeyboardViewModelDelegate
     
     func keyboardViewModelDidLoadData(keyboardViewModel: KeyboardViewModel, data: [Keyboard]) {
-        self.artistPicker?.keyboards = self.viewModel.keyboards
+        self.artistPicker?.collectionView?.reloadData()
     }
 
     func keyboardViewModelCurrentKeyboardDidChange(keyboardViewModel: KeyboardViewModel, keyboard: Keyboard) {
@@ -392,6 +396,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
         NSUserDefaults.standardUserDefaults().setValue(keyboard.id, forKey: "currentKeyboard")
         viewModel.currentKeyboard = keyboard
-        didTapCloseButton()
+        closePanel()
+    }
+    
+    func artistPickerCollectionViewDidClosePanel(artistPicker: ArtistPickerCollectionViewController) {
+        closePanel()
     }
 }
