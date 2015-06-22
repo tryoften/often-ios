@@ -92,11 +92,18 @@ class TrackService: Service {
         // Fetch track data from firebase
         tracksRef.childByAppendingPath(lyric.id).observeSingleEventOfType(.Value, withBlock: { snapshot in
             
-            if let trackData = snapshot.value as? [String: String] {
+            if let trackData = snapshot.value as? [String: String],
+                let trackId = trackData["track_id"] ?? snapshot.key {
                 
-                let track = Track()
-                track.id = trackData["track_id"] ?? snapshot.key
-                track.setValuesForKeysWithDictionary(trackData)
+                var track: Track
+
+                if let trackModel = self.realm.objectForPrimaryKey(Track.self, key: trackId) {
+                    track = trackModel
+                } else {
+                    track = Track()
+                    track.id = trackId
+                    track.setValuesForKeysWithDictionary(trackData)
+                }
 
                 self.tracks[track.id] = track
                 if lyric.track == nil {

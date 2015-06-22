@@ -594,7 +594,7 @@
 			name = AddArtistModalViews;
 			sourceTree = "<group>";
 		};
-		697D00491B3080F000402A9F /* TrendingViews */ = {
+		697D00491B3080F000402A9F /* Trending Views */ = {
 			isa = PBXGroup;
 			children = (
 				69F2B5E61B2786F6004FCD19 /* TrendingHeaderView.swift */,
@@ -602,10 +602,10 @@
 				69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */,
 				697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */,
 			);
-			name = TrendingViews;
+			name = "Trending Views";
 			sourceTree = "<group>";
 		};
-		697D004D1B30812100402A9F /* BrowseViews */ = {
+		697D004D1B30812100402A9F /* Browse Views */ = {
 			isa = PBXGroup;
 			children = (
 				696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */,
@@ -613,7 +613,7 @@
 				69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */,
 				69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */,
 			);
-			name = BrowseViews;
+			name = "Browse Views";
 			sourceTree = "<group>";
 		};
 		69BA81FD1B2FA84A00233789 /* View Layouts */ = {
@@ -810,8 +810,8 @@
 				81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */,
 				81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */,
 				6929EB711B37641100D1BD1C /* AddArtistModalViews */,
-				697D004D1B30812100402A9F /* BrowseViews */,
-				697D00491B3080F000402A9F /* TrendingViews */,
+				697D004D1B30812100402A9F /* Browse Views */,
+				697D00491B3080F000402A9F /* Trending Views */,
 				3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */,
 			);
 			name = Views;
