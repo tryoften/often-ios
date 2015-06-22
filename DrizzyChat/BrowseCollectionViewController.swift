@@ -166,7 +166,9 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     
     */
     func headerDidSwipe() {
-        viewModel.currentArtist++
+        if viewModel.currentArtist < 4 {
+            viewModel.currentArtist++
+        }
         headerView?.artistNameLabel.text = viewModel.artistNames[viewModel.currentArtist]
         collectionView?.reloadData()
     }
