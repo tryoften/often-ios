@@ -10,14 +10,13 @@ import UIKit
 
 let AddArtistModalReuseIdentifier = "addArtistCell"
 
-class AddArtistModalCollectionViewController: UICollectionViewController, CloseButtonDelegate {
-    var viewModel: BrowseViewModel
+class AddArtistModalCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    var viewModel: BrowseViewModel?
     var headerView: AddArtistModalHeaderView?
     var sectionHeaderView: BrowseSectionHeaderView?
     
-    init(viewModel: BrowseViewModel) {
-        self.viewModel = viewModel
-        super.init(collectionViewLayout: AddArtistModalCollectionViewController.getLayout())
+    override init(collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(collectionViewLayout: layout)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -29,9 +28,10 @@ class AddArtistModalCollectionViewController: UICollectionViewController, CloseB
         
         if let collectionView = collectionView {
             collectionView.showsVerticalScrollIndicator = false
+            collectionView.backgroundColor = UIColor.clearColor()
             collectionView.registerClass(AddArtistModalHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowseSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
-            collectionView.registerClass(BrowseCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+            collectionView.registerClass(BrowseCollectionViewCell.self, forCellWithReuseIdentifier: "addArtistCell")
         }
     }
 
@@ -51,18 +51,14 @@ class AddArtistModalCollectionViewController: UICollectionViewController, CloseB
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! BrowseCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("addArtistCell", forIndexPath: indexPath) as! BrowseCollectionViewCell
+        
         cell.backgroundColor = UIColor.whiteColor()
         
-        cell.trackNameLabel.text = viewModel.tracks[viewModel.currentArtist]
-        
-        if let lyricCount = viewModel.lyricCountAtIndex(indexPath.row) {
-            // cell.lyricCountLabel.text = "\(lyricCount) Lyrics"
-            cell.lyricCountLabel.text = "23 Lyrics"
-        }
-        
-        cell.disclosureIndicator.image = UIImage(named: "arrow")
         cell.rankLabel.text = "\(indexPath.row + 1)"
+        cell.trackNameLabel.text = "Lost"
+        cell.lyricCountLabel.text = "23 Lyrics"
+        cell.disclosureIndicator.image = UIImage(named: "arrow")
         
         return cell
     }
@@ -71,31 +67,17 @@ class AddArtistModalCollectionViewController: UICollectionViewController, CloseB
         return true
     }
     
-    class func getLayout() -> UICollectionViewLayout {
-        var screenWidth = UIScreen.mainScreen().bounds.size.width
-        var flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 50)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 380)
-        flowLayout.parallaxHeaderAlwaysOnTop = true
-        flowLayout.disableStickyHeaders = false /// allow sticky header for dragging down the table view
-        flowLayout.itemSize = CGSizeMake(screenWidth, 70) /// height of the cell
-        return flowLayout
-    }
-    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! AddArtistModalHeaderView
             
             headerView = cell
-            self.headerView?.coverPhoto.image = self.viewModel.images[0]!.blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
-            headerView?.delegate = self
+            headerView?.coverPhoto.image = UIImage(named: "frank")!.blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
             
             return cell
             
         } else if kind == UICollectionElementKindSectionHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! BrowseSectionHeaderView
-            
-            /// add action to segue into the view for tha specific track with all of its lyrics displayed
             
             sectionHeaderView = cell
             
@@ -107,9 +89,5 @@ class AddArtistModalCollectionViewController: UICollectionViewController, CloseB
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0.0 as CGFloat
-    }
-    
-    func closeTapped() {
-        dismissViewControllerAnimated(true, completion: nil)
     }
 }

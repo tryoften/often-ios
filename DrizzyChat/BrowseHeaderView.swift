@@ -31,7 +31,6 @@ class BrowseHeaderView: UICollectionReusableView {
     var artistNameLabel: UILabel
     var addArtistButton: UIButton
     var topLabel: UILabel
-    var delegate:  AddArtistButtonModalDelegate?
     
     override init(frame: CGRect) {
         browsePicker = BrowseHeaderCollectionViewController(collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout())
@@ -110,8 +109,11 @@ class BrowseHeaderView: UICollectionReusableView {
         }
     }
     
+    /**
+        Add the artist and present an alert view
+    */
     func addArtistTapped(sender: UIButton) {
-        delegate?.addArtistButtonDidTap()
+        println("Add Artist Tapped.")
     }
     
     func setupLayout() {
