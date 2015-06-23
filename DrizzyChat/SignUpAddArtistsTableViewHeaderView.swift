@@ -44,7 +44,7 @@ class SignUpAddArtistsTableViewHeaderView: UIView {
             
             spacer.al_right == al_right,
             spacer.al_left == al_left,
-            spacer.al_height == 1,
+            spacer.al_height == 0.6,
             spacer.al_bottom == al_bottom
             
             ])

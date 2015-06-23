@@ -18,8 +18,6 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController  {
         addNamePage.setTranslatesAutoresizingMaskIntoConstraints(false)
         addNamePage.fullNameTxtField.delegate = self
         
-        setupNavBar("next")
-        
         view.addSubview(addNamePage)
     }
     
@@ -50,6 +48,22 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController  {
         view.addConstraints(constraints)
     }
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+        checkCharacterCountOfTextField()
+        
+        return true
+    }
+    
+    func checkCharacterCountOfTextField() {
+        if (count(addNamePage.fullNameTxtField.text) >= 2) {
+            nextButton.hidden = false
+            addNamePage.termsAndPrivacyView.hidden = true
+        } else {
+            nextButton.hidden = true
+            addNamePage.termsAndPrivacyView.hidden = false
+        }
+    }
+    
     override func didTapNavButton() {
         if NameIsValid(addNamePage.fullNameTxtField.text) {
             viewModel.fullName = addNamePage.fullNameTxtField.text
@@ -59,8 +73,7 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController  {
             return
         }
         
-        let Emailvc = SignUpEmailWalkthroughViewController()
-        Emailvc.viewModel = viewModel
+        let Emailvc = SignUpEmailWalkthroughViewController(viewModel: self.viewModel)
         
         navigationController?.pushViewController(Emailvc, animated: true)
     }

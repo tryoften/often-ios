@@ -14,6 +14,8 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        viewModel.delegate = self
         
         loginSignUpPage = SignUpOrLoginView()
         loginSignUpPage.setTranslatesAutoresizingMaskIntoConstraints(false)

@@ -80,7 +80,7 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
     }
 
     convenience required init(coder aDecoder: NSCoder) {
-        self.init(style: UITableViewCellStyle.Default, reuseIdentifier: "signUpAddArtistsTableViewCell")
+        self.init(style: UITableViewCellStyle.Default, reuseIdentifier: AddArtistsTableViewCellReuseIdentifier)
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

@@ -30,9 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Flurry.startSession(FlurryClientKey)
         
-        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
-        let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
-        RLMRealm.setDefaultRealmPath(realmPath)
+        if let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) {
+            let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+            RLMRealm.setDefaultRealmPath(realmPath)
+        }
 
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
