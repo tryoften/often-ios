@@ -76,7 +76,7 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
             selectionButton.al_width == 40,
             selectionButton.al_height == 40,
             selectionButton.al_right == al_right - 5,
-            ])
+        ])
     }
 
     convenience required init(coder aDecoder: NSCoder) {

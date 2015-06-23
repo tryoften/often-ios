@@ -32,7 +32,8 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         
         navigationController?.navigationBarHidden = true
         viewModel.requestData(completion: nil)
-
+        
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show()
 
@@ -163,12 +164,12 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     }
     
     func userProfileViewModelDidLoadKeyboardList(userProfileViewModel: UserProfileViewModel, keyboardList: [Keyboard]) {
-        PKHUD.sharedHUD.hideAnimated()
         if let headerView = headerView {
             headerView.keyboardCountLabel.text = "\(keyboardList.count) cards".uppercaseString
         }
         if let artistPicker = keyboardManagerViewController {
             artistPicker.keyboards = keyboardList
         }
+        PKHUD.sharedHUD.hideAnimated()
     }
 }

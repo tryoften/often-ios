@@ -113,9 +113,9 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
             }
         }
         
-        cell.lyricsCountLabel!.text = lyricCount.stringValue
+        cell.lyricsCountLabel!.text = "\(lyricCount) lyrics"
         cell.artistNameLabel!.text = viewModel.artistsList[indexPath.row].name
-        cell.artistImageView.setImageWithURL(NSURL(string: viewModel.artistsList[indexPath.row].imageURLLarge), placeholderImage: UIImage(named: "ArtistPicture")!)
+        cell.artistImageView.setImageWithURL(NSURL(string: viewModel.artistsList[indexPath.row].imageURLLarge), placeholderImage: UIImage(named: "placeholder")!)
         cell.selectionButton.addTarget(self, action: "didTapSelectButton:", forControlEvents: .TouchUpInside)
         cell.selectionButton.tag = indexPath.row
         
@@ -141,9 +141,6 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     }
     
     override func didTapNavButton() {
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
-        PKHUD.sharedHUD.show()
-
         for objects in selectedArtistes {
             let keyboardId = viewModel.artistsList[objects.integerValue].keyboardId
             if (keyboardId != "") {
