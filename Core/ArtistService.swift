@@ -27,6 +27,7 @@ class ArtistService: NSObject {
                     var artist = Artist(value: artistData)
                     artist.id = owner
                     artist.imageURLLarge = data["image_large"] as! String
+                    artist.lyricCount = data["lyrics_count"] as! Int
                     self.artistsList[owner] = artist
                 }
     
