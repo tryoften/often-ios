@@ -27,6 +27,10 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         self.sessionManager.login()
     }
     
+    func deleteKeyboardWithId(keyboardId: String, completion: (NSError?) -> ()) {
+        sessionManager.keyboardService?.deleteKeyboardWithId(keyboardId, completion: completion)
+    }
+    
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
         
     }

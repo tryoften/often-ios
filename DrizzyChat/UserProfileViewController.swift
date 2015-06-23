@@ -10,6 +10,7 @@ import UIKit
 
 class UserProfileViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,
     ArtistPickerCollectionViewDataSource,
+    ArtistPickerCollectionViewControllerDelegate,
     UserProfileViewModelDelegate {
     
     var viewModel: UserProfileViewModel
@@ -190,5 +191,15 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     
     func artistPickerItemAtIndexIsSelected(artistPicker: ArtistPickerCollectionViewController, index: Int) -> Bool {
         return false
+    }
+    
+    func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
+        
+    }
+
+    func artistPickerCollectionViewControllerDidDeleteKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard, index: Int) {
+        viewModel.deleteKeyboardWithId(keyboard.id, completion: { (err) -> () in
+            
+        })
     }
 }

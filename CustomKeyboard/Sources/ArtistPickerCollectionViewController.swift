@@ -167,6 +167,8 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
                 if isDeletionModeOn {
                     self.endDeleteMode(indexPath: indexPath)
                 }
+
+                delegate?.artistPickerCollectionViewControllerDidDeleteKeyboard?(self, keyboard: keyboard, index: indexPath.row)
         }
     }
     
@@ -190,7 +192,6 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         for cell in collectionView?.visibleCells() as! [ArtistCollectionViewCell] {
             cell.applyLayoutAttributes(attributes)
         }
-        delegate?.artistPickerCollectionViewControllerDidDeleteItemsAtIndex?(self, index: indexPath.row)
     }
 
     // MARK: UICollectionViewFlowLayoutDelegate
@@ -217,7 +218,7 @@ class ArtistPickerCollectionViewLayoutAttributes: UICollectionViewLayoutAttribut
 
 @objc protocol ArtistPickerCollectionViewControllerDelegate {
     func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard)
-    optional func artistPickerCollectionViewControllerDidDeleteItemsAtIndex(artistPicker: ArtistPickerCollectionViewController, index: Int)
+    optional func artistPickerCollectionViewControllerDidDeleteKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard, index: Int)
     optional func artistPickerCollectionViewDidClosePanel(artistPicker: ArtistPickerCollectionViewController)
 }
 
