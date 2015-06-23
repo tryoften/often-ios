@@ -114,8 +114,9 @@ class SessionManager: NSObject {
         }
     }
     
-    func login() {
+    func login(completion: ((PFUser?, NSError?) -> ())? = nil) {
         PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
+            completion?(user, error)
             if error == nil {
                 self.openSession()
             }

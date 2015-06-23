@@ -38,6 +38,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         title = "add artists".uppercaseString
         
         navigationController?.navigationBar.hidden = false
+        PKHUD.sharedHUD.hideAnimated()
     }
     
     override func setupLayout() {
@@ -140,6 +141,9 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     }
     
     override func didTapNavButton() {
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
+
         for objects in selectedArtistes {
             let keyboardId = viewModel.artistsList[objects.integerValue].keyboardId
             if (keyboardId != "") {

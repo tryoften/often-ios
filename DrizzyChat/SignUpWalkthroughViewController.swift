@@ -60,7 +60,12 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
     }
     
     func didTapFacebookButton() {
-        sessionManager.login()
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
+        loginSignUpPage.facebookButton.enabled = false
+        
+        sessionManager.login { (user, error) in
+        }
     }
     
     func walkthroughViewModelDidLoginUser(walkthroughViewModel: SignUpWalkthroughViewModel, user: User, isNewUser: Bool) {
