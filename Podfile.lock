@@ -28,14 +28,14 @@ PODS:
     - FlurrySDK (= 4.4.0)
   - Analytics/Segmentio (1.11.3):
     - Analytics/Core-iOS
-  - Bolts (1.1.5):
-    - Bolts/AppLinks (= 1.1.5)
-    - Bolts/Tasks (= 1.1.5)
-  - Bolts/AppLinks (1.1.5):
+  - Bolts (1.2.0):
+    - Bolts/AppLinks (= 1.2.0)
+    - Bolts/Tasks (= 1.2.0)
+  - Bolts/AppLinks (1.2.0):
     - Bolts/Tasks
-  - Bolts/Tasks (1.1.5)
+  - Bolts/Tasks (1.2.0)
   - Canvas (0.1.2)
-  - CSStickyHeaderFlowLayout (0.2.5)
+  - CSStickyHeaderFlowLayout (0.2.7)
   - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
   - Firebase (2.3.1)
@@ -87,9 +87,9 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
-  Bolts: aac24961496d504aa56fc267cde95162a71bac39
+  Bolts: d176cb1e0012175589e389a9db49b85e27787576
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
-  CSStickyHeaderFlowLayout: 75e439a59c23f609091d9a784c7b5db7de583f1f
+  CSStickyHeaderFlowLayout: 739445e36fd96ab2cee9b9826a902396567fb6a5
   Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
   Firebase: 462795adf92029ddb97777660627f5dd4fd59876
   FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946
@@ -103,4 +103,4 @@ SPEC CHECKSUMS:
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
   UIViewController+KeyboardAnimation: 5beaa558cabe3353c37fdd5476c68dac8dc507d5
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.37.1

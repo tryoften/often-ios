@@ -107,9 +107,11 @@ let BrowseCollectionViewCellTrackNameFont = UIFont(name: "Lato-Regular", size: 1
 let BrowseCollectionViewCellLyricCountFont = UIFont(name: "Lato-Regular", size: 9.0)
 let BrowseCollectionViewCellWidth: CGFloat = CGFloat(UIScreen.mainScreen().bounds.width)
 let BrowseCollectionViewCellHeight: CGFloat = CGFloat(63)
+let BrowseHeaderCollectionViewPadding: CGFloat = 75.0
 
 //walkthrough
 let AddArtistsTableViewCellReuseIdentifier = "signUpAddArtistsTableViewCell"
+
 
 // Main App
 

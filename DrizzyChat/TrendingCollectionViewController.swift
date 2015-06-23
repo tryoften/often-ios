@@ -18,7 +18,7 @@ let reuseIdentifier = "Cell"
 
 */
 
-class TrendingCollectionViewController: UICollectionViewController, TrendingViewModelDelegate, UIScrollViewDelegate, LyricTabDelegate, ArtistTabDelegate {
+class TrendingCollectionViewController: UICollectionViewController, TrendingViewModelDelegate, UIScrollViewDelegate, LyricTabDelegate, ArtistTabDelegate, AddArtistButtonModalDelegate {
     var viewModel: TrendingViewModel
     var headerView: TrendingHeaderView?
     var sectionHeaderView: TrendingSectionHeaderView?
@@ -30,9 +30,9 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     var lyrics = [
         "Admitted the shit spitted, just burn like six furnaces.",
         "They say signs of the end is near; I wonder…can I walk a righteous path holding a beer?",
-        "I don’t know what’s better: getting laid or getting paid. I just know when I’m getting one, the other’s getting away.",
-        "If I wasn’t in the rap game, I’d probably have a key knee-deep in the crack game. Because the streets is a short stop: Either you’re slinging crack rock or you got a wicked jump shot.",
-        "If I don’t got two balls and a middle finger to throw up, I’m takin off both shoes and stickin each middle toe up.",
+        "I don’t know what’s better: getting laid or getting paid. I just",
+        "If I wasn’t in the rap game, I’d probably have a key knee-deep in the crack game.",
+        "If I don’t got two balls and a middle finger to throw",
         "They got money for wars, but can’t feed the poor.",
         "Some seek fame cause they need validation, Some say hating is confused admiration.",
         "Guess who back in the motherfuckin house with a fat dick for your motherfuckin mouth.",
@@ -137,12 +137,42 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             cell.backgroundColor = UIColor.whiteColor()
             
             cell.rankLabel?.text = "\(indexPath.row + 1)"
-            cell.lyricView?.text = lyrics[indexPath.row]
-            cell.lyricView?.sizeToFit()
-            labelHeight = cell.lyricView!.frame.height + cell.artistLabel!.frame.height + 20
             
-            cell.artistLabel?.text = artists[indexPath.row]
+            var screenWidth = UIScreen.mainScreen().bounds.width
+            
+            if screenWidth == 320 {
+                if count(lyrics[indexPath.row]) >= 81 {
+                    var lyric = lyrics[indexPath.row]
+                    let stringLength = count(lyric)
+                    let substringIndex = stringLength - 3
+                    var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                    cell.lyricView?.text = "\(newLyric)..."
+                } else {
+                    cell.lyricView?.text = lyrics[indexPath.row]
+                }
+            } else if screenWidth == 375 {
+                if count(lyrics[indexPath.row]) >= 104 {
+                    var lyric = lyrics[indexPath.row]
+                    let stringLength = count(lyric)
+                    let substringIndex = stringLength - 3
+                    var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                    cell.lyricView?.text = "\(newLyric)..."
+                } else {
+                    cell.lyricView?.text = lyrics[indexPath.row]
+                }
+            } else {
+                if count(lyrics[indexPath.row]) >= 118 {
+                    var lyric = lyrics[indexPath.row]
+                    let stringLength = count(lyric)
+                    let substringIndex = stringLength - 3
+                    var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                    cell.lyricView?.text = "\(newLyric)..."
+                } else {
+                    cell.lyricView?.text = lyrics[indexPath.row]
+                }
+            }
 
+            cell.artistLabel?.text = artists[indexPath.row]
             
             if indexPath.row % 2 == 0 {
                 cell.trendIndicator.image = UIImage(named: "up")
@@ -151,7 +181,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             } else {
                 cell.trendIndicator.image = nil
             }
-
 
             return cell
         }
@@ -167,6 +196,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             headerView = cell
             headerView?.lyricDelegate = self
             headerView?.artistDelegate = self
+            headerView?.addArtistDelegate = self
             
             return cell
         } else if kind == UICollectionElementKindSectionHeader {
@@ -201,10 +231,19 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         if toggle == true {
             return CGSizeMake(screenWidth, 65)
         } else {
-            return CGSizeMake(screenWidth, 65)
+            if lineCountForLyric(lyrics[indexPath.row]) == 1 {
+                return CGSizeMake(screenWidth, 45)
+            } else if lineCountForLyric(lyrics[indexPath.row]) == 2 {
+                return CGSizeMake(screenWidth, 65)
+            } else {
+                return CGSizeMake(screenWidth, 65)
+            }
         }
     }
 
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        addArtistButtonDidTap()
+    }
     
     // MARK: Protocol + Delegation methods
     
@@ -232,7 +271,44 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         collectionView?.reloadData()
     }
     
+    /**
+    
+    */
+    func addArtistButtonDidTap() {
+        // Present the Add Artist Modal
+        var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController(nibName: nil, bundle: nil)
+        addArtistModal.modalPresentationStyle = UIModalPresentationStyle.Custom
+        self.presentViewController(addArtistModal, animated: true, completion: nil)
+    }
+    
     // MARK: Dynamic Cell
     
-    
+    /**
+        iPhone 5: 320 screen width - 45 one line
+        iPhone 6: 360 screen width - 53 one line
+        iPhone 6+: 375 screen width - 64 one line
+    */
+    func lineCountForLyric(lyric: String) -> Int {
+        var screenWidth = UIScreen.mainScreen().bounds.width
+        
+        if screenWidth == 320 {
+            if count(lyric) <= 45 {
+                return 1
+            } else {
+                return 2
+            }
+        } else if screenWidth == 375 {
+            if count(lyric) <= 55 {
+                return 1
+            } else {
+                return 2
+            }
+        } else {
+            if count(lyric) <= 64 {
+                return 1
+            } else {
+                return 2
+            }
+        }
+    }
 }

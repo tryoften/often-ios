@@ -62,6 +62,19 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
     func didTapFacebookButton() {
         sessionManager.login()
     }
+    
+    func walkthroughViewModelDidLoginUser(walkthroughViewModel: SignUpWalkthroughViewModel, user: User, isNewUser: Bool) {
+        var presentedViewController: UIViewController
+        if isNewUser {
+            presentedViewController = SelectArtistWalkthroughViewController()
+            navigationController?.pushViewController(presentedViewController, animated: true)
+        } else {
+            presentedViewController = TabBarController()
+            self.presentViewController(presentedViewController, animated: true, completion: nil)
+        }
+        
+        viewModel.delegate = nil
+    }
 }
 
 

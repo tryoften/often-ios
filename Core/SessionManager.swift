@@ -118,8 +118,6 @@ class SessionManager: NSObject {
         PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
             if error == nil {
                 self.openSession()
-            } else {
-                UIAlertView(title: "Facebook user failed", message: "We were unable to log you in, please try again", delegate: nil, cancelButtonTitle: "Ok").show()
             }
         })
     }
@@ -195,10 +193,7 @@ class SessionManager: NSObject {
                     }
                 } else {
                     self.getFacebookUserInfo({ (data, err) in
-                        if err != nil {
-                            UIAlertView(title: "Facebook user failed", message: "We were unable to get your user info, please try again", delegate: nil, cancelButtonTitle: "Ok").show()
-                            
-                        } else {
+                        if err == nil {
                             self.userRef?.setValue(data)
                             self.isUserNew = true
                             persistUser(User(value: data as! [String : AnyObject]))
@@ -235,7 +230,6 @@ class SessionManager: NSObject {
         request.startWithCompletionHandler({ (connection, result, error) in
             
             if error == nil {
-                println("\(result)")
                 var data = (result as! NSDictionary).mutableCopy() as! NSMutableDictionary
                 var userId = data["id"] as! String
                 var profilePicURLTemplate = "https://graph.facebook.com/%@/picture?type=%@"
