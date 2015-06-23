@@ -35,6 +35,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     var pagesScrollViewSize: CGSize
     var lyricDelegate: LyricTabDelegate?
     var artistDelegate: ArtistTabDelegate?
+    var addArtistDelegate:  AddArtistButtonModalDelegate?
     
     /// testing
     var pageImages: [UIImage] = [
