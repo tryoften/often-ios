@@ -10,17 +10,25 @@ import Foundation
 
 class SignUpEmailView: UIView {
     var titleLabel: UILabel!
-    var emailTxtField : UITextField!
-    var spacer : UIView!
-    var termsAndPrivacyView : TermsAndPrivacyView
+    var emailTxtField: UITextField!
+    var spacer: UIView!
+    var termsAndPrivacyView: TermsAndPrivacyView
     
     override init(frame: CGRect) {
+        let titleString = "What's your Email?"
+        let titleRange = NSMakeRange(0, count(titleString))
+        let title = NSMutableAttributedString(string: titleString)
+        
+        title.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 18)!, range: titleRange)
+        title.addAttribute(NSKernAttributeName, value: 1.5, range: titleRange)
+        
+        
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
-        titleLabel.font = UIFont(name: "OpenSans", size: 14)
         titleLabel.textColor = UIColor(fromHexString: "#202020")
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        titleLabel.text = "what's your email?".uppercaseString
+        titleLabel.text = titleString
+        titleLabel.attributedText = title
         
         emailTxtField = UITextField()
         emailTxtField.textAlignment = .Center
@@ -52,7 +60,7 @@ class SignUpEmailView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 150,
+            titleLabel.al_top == al_top + 135,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_centerX == al_centerX,
@@ -63,11 +71,11 @@ class SignUpEmailView: UIView {
             emailTxtField.al_centerX == al_centerX,
             
             spacer.al_top == emailTxtField.al_bottom + 8,
-            spacer.al_height == 0.7,
+            spacer.al_height == 0.6,
             spacer.al_width == 40,
             spacer.al_centerX == al_centerX,
             
-            termsAndPrivacyView.al_top == spacer.al_bottom + 75,
+            termsAndPrivacyView.al_top == spacer.al_bottom + 80,
             termsAndPrivacyView.al_left == al_left + 32,
             termsAndPrivacyView.al_right == al_right - 32,
             ])

@@ -19,7 +19,6 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
         addEmailPage.emailTxtField.delegate = self
         addEmailPage.emailTxtField.keyboardType = .EmailAddress
         
-        setupNavBar("next")
         
         view.addSubview(addEmailPage)
     }
@@ -45,6 +44,21 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
         view.addConstraints(constraints)
     }
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+        checkCharacterCountOfTextField()
+        return true
+    }
+    
+    func checkCharacterCountOfTextField() {
+        if (count(addEmailPage.emailTxtField.text) >= 2) {
+            nextButton.hidden = false
+            addEmailPage.termsAndPrivacyView.hidden = true
+        } else {
+            nextButton.hidden = true
+            addEmailPage.termsAndPrivacyView.hidden = false
+        }
+    }
+    
     override func didTapNavButton() {
         if EmailIsValid(addEmailPage.emailTxtField.text) {
             viewModel.email = addEmailPage.emailTxtField.text
@@ -54,8 +68,7 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
             return
         }
         
-        let Passwordvc = SignUpPassWordWalkthroughViewController()
-        Passwordvc.viewModel = viewModel
+        let Passwordvc = SignUpPassWordWalkthroughViewController(viewModel:self.viewModel)
         
         navigationController?.pushViewController(Passwordvc, animated: true)
     }

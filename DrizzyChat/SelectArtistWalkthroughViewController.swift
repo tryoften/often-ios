@@ -10,7 +10,6 @@ import Foundation
 
 class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableViewDataSource, UITableViewDelegate {
     var tableView: UITableView!
-    let kCellIdentifier = "signUpAddArtistsTableViewCell"
     var selectedArtistes = [NSNumber]()
     
     override func viewDidLoad() {
@@ -26,7 +25,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         viewModel.delegate = self
         viewModel.getListOfArtists()
         
-        tableView.registerClass(SignUpAddArtistsTableViewCell.classForCoder(), forCellReuseIdentifier: kCellIdentifier)
+        tableView.registerClass(SignUpAddArtistsTableViewCell.classForCoder(), forCellReuseIdentifier: AddArtistsTableViewCellReuseIdentifier)
         
         setupNavBar("done")
         
@@ -49,7 +48,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         
         view.addConstraints(constraints)
     }
-    
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.artistsList.count
     }
@@ -90,7 +89,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : SignUpAddArtistsTableViewCell = SignUpAddArtistsTableViewCell(style: .Default, reuseIdentifier: kCellIdentifier)
+        let cell : SignUpAddArtistsTableViewCell = SignUpAddArtistsTableViewCell(style: .Default, reuseIdentifier: AddArtistsTableViewCellReuseIdentifier)
         
         let lyricCount = viewModel.artistsList[indexPath.row].lyricCount as NSNumber
         
@@ -147,6 +146,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     }
     
     func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist]) {
+        
         tableView.reloadData()
     }
     
