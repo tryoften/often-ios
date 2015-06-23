@@ -19,7 +19,6 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
         addPhoneNumberPage.phoneNumberTxtField.delegate = self
         addPhoneNumberPage.phoneNumberTxtField.keyboardType = .PhonePad
         
-        setupNavBar("skip")
         
         view.addSubview(addPhoneNumberPage)
     }
@@ -104,13 +103,15 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
     
     func checkCharacterCountOfTextField() {
         if (count(addPhoneNumberPage.phoneNumberTxtField.text) >= 2) {
-            navButton.title  = "next".uppercaseString
+            nextButton.hidden = false
+            addPhoneNumberPage.subtitleLabel.hidden = true
         } else {
-            navButton.title = "skip".uppercaseString
+            nextButton.hidden = true
+            addPhoneNumberPage.subtitleLabel.hidden = false
         }
     }
     
-    override func didTapNavButton() {
+     override func didTapNavButton() {
         if count(addPhoneNumberPage.phoneNumberTxtField.text) != 0 {
             
             if PhoneIsValid(addPhoneNumberPage.phoneNumberTxtField.text) {
@@ -122,8 +123,7 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
             }
         }
         
-        let Namevc = SignUpNameWalkthroughViewController()
-        Namevc.viewModel = viewModel
+        let Namevc = SignUpNameWalkthroughViewController(viewModel:self.viewModel)
         
         navigationController?.pushViewController(Namevc, animated: true)
     }

@@ -18,7 +18,6 @@ class LoginViewController : WalkthroughViewController {
         loginView.setTranslatesAutoresizingMaskIntoConstraints(false)
         loginView.facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
         
-        setupNavBar("")
         
         view.addSubview(loginView)
     }

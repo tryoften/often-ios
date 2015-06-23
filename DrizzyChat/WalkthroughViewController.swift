@@ -11,9 +11,9 @@ import UIKit
 class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate,
     WalkthroughViewModelDelegate {
     var viewModel: SignUpWalkthroughViewModel
-    var sessionManager: SessionManager
+    var sessionManager: SessionManager!
     var navButton: UIBarButtonItem!
-    var nextButton: UIButton
+    var nextButton: UIButton!
     var bottomConstraint: NSLayoutConstraint!
     
     init (sessionManager: SessionManager = SessionManager.defaultManager) {
@@ -28,8 +28,27 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         nextButton.setTitle("continue".uppercaseString, forState: .Normal)
         
         super.init(nibName: nil, bundle: nil)
-        viewModel.delegate = self
-
+        
+        nextButton.addTarget(self, action: "didTapNavButton", forControlEvents: .TouchUpInside)
+        
+        view.addSubview(nextButton)
+        bottomConstraint = nextButton.al_bottom == view.al_bottom
+    }
+    
+    init (viewModel:SignUpWalkthroughViewModel) {
+        self.viewModel = viewModel
+        
+        nextButton = UIButton()
+        nextButton.hidden = true
+        nextButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        nextButton.titleLabel!.font = ButtonFont
+        nextButton.backgroundColor = UIColor(fromHexString: "#2CD2B4")
+        nextButton.setTitle("continue".uppercaseString, forState: .Normal)
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        nextButton.addTarget(self, action: "didTapNavButton", forControlEvents: .TouchUpInside)
+        
         view.addSubview(nextButton)
         bottomConstraint = nextButton.al_bottom == view.al_bottom
     }
@@ -41,6 +60,8 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupBackButton()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -48,7 +69,12 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         setupLayout()
         
         self.an_subscribeKeyboardWithAnimations({ (keyboardRect, duration, isShowing) in
-            self.bottomConstraint.constant = isShowing ? keyboardRect.size.height : 0
+            self.bottomConstraint.constant = isShowing ? -keyboardRect.size.height : 0
+            UIView.transitionWithView(self.nextButton, duration: 6.0, options: .CurveEaseIn, animations: { () -> Void in
+                
+            }, completion: { finished in
+                
+            })
         }, completion: { finished in
             
         })
@@ -61,6 +87,19 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     
     func didTapNavButton() {}
     
+    func setupBackButton() {
+        let backButton = UIButton(frame: CGRectMake(0, 0, 20, 16))
+        let backImage = UIImage(named: "BackButton")
+        let backButtonItem = UIBarButtonItem(customView: backButton)
+        
+        backButton.setBackgroundImage(backImage, forState: .Normal)
+        backButton.imageView?.contentMode = .ScaleAspectFit
+        backButton.addTarget(self, action: "popBack", forControlEvents: .TouchUpInside)
+        
+        navigationItem.leftBarButtonItem = backButtonItem
+        navigationItem.title = "sign up".uppercaseString
+    }
+
     func setupNavBar(titlePushViewButton: String) {
         navButton = UIBarButtonItem(title: titlePushViewButton.uppercaseString, style: .Plain, target: self, action: "didTapNavButton")
         let fixedSpaceItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)

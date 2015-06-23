@@ -103,4 +103,4 @@ SPEC CHECKSUMS:
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
   UIViewController+KeyboardAnimation: 5beaa558cabe3353c37fdd5476c68dac8dc507d5
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.37.1

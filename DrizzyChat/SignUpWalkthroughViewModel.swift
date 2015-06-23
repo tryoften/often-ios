@@ -20,6 +20,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     var fullName: String
     var email: String
     var password: String
+    var confirmPassword: String
     var artistSelectedList: [String]?
     var artistsList: [Artist]
     var artistService: ArtistService
@@ -32,6 +33,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
         fullName = ""
         email = ""
         password = ""
+        confirmPassword = ""
         artistSelectedList = [String]()
         artistsList = [Artist]()
         artistService = ArtistService(root: Firebase(url: BaseURL))
@@ -47,6 +49,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     func getListOfArtists() {
         artistService.requestData { (artistsList) -> Void in
             self.artistsList = artistsList.values.array
+            
             println(self.artistsList.count)
             
             self.delegate?.walkthroughViewModelDidLoadArtistsList?(self, keyboardList: self.artistsList)
