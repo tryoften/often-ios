@@ -21,12 +21,13 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         tableView.dataSource = self
         tableView.rowHeight = 70
         tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        tableView.allowsSelection = false
         
         viewModel.delegate = self
         viewModel.getListOfArtists()
         
         tableView.registerClass(SignUpAddArtistsTableViewCell.classForCoder(), forCellReuseIdentifier: kCellIdentifier)
-        
+
         setupNavBar("done")
         
         view.addSubview(tableView)
@@ -36,6 +37,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         super.viewWillAppear(animated)
         title = "add artists".uppercaseString
         
+        navigationController?.navigationBar.hidden = false
     }
     
     override func setupLayout() {
@@ -47,6 +49,17 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         ]
         
         view.addConstraints(constraints)
+    }
+    
+    func setupNavbar() {
+        navigationController?.navigationBar.sizeThatFits(CGSizeMake(UIScreen.mainScreen().bounds.size.width, 54))
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationController?.navigationBar.barTintColor = BlackColor
+        navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.backIndicatorImage = UIImage()
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName:ButtonFont!,NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

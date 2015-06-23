@@ -33,7 +33,7 @@ class BrowseHeaderView: UICollectionReusableView {
     var topLabel: UILabel
     
     override init(frame: CGRect) {
-        browsePicker = BrowseHeaderCollectionViewController(collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout())
+        browsePicker = BrowseHeaderCollectionViewController()
         browsePicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         screenWidth = UIScreen.mainScreen().bounds.width
@@ -121,10 +121,10 @@ class BrowseHeaderView: UICollectionReusableView {
             topLabel.al_top == al_top + 10,
             topLabel.al_centerX == al_centerX,
             
-            browsePicker.view.al_top == al_top,
+            browsePicker.view.al_top == al_top + 20,
             browsePicker.view.al_left == al_left,
             browsePicker.view.al_width == al_width,
-            browsePicker.view.al_height == al_height,
+            browsePicker.view.al_bottom == al_bottom - 100,
             
             coverPhoto.al_top == al_top,
             coverPhoto.al_left == al_left,
@@ -136,7 +136,7 @@ class BrowseHeaderView: UICollectionReusableView {
             coverPhotoTintView.al_left == coverPhoto.al_left,
             coverPhotoTintView.al_top == coverPhoto.al_top,
             
-            artistNameLabel.al_bottom == al_bottom - 50,
+            artistNameLabel.al_top == browsePicker.view.al_bottom - 30,
             artistNameLabel.al_centerX == al_centerX,
             
             addArtistButton.al_top == artistNameLabel.al_bottom + 10,

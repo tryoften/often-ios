@@ -85,17 +85,10 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         selectedCell = cell
         
         if let lyric = lyrics?[indexPath.row] {
-        
-            if lyric.track == nil {
-                
-                self.viewModel.getTrackForLyric(lyric, completion: { track in
-                    realm.write {
-                        lyric.track = track
-                        cell.shareVC!.lyric = lyric
-                        cell.metadataView.track = track
-                    }
-                })
-            }
+            self.viewModel.getTrackForLyric(lyric, completion: { track in
+                cell.shareVC!.lyric = lyric
+                cell.metadataView.track = track
+            })
         }
         
         animatingCell = true

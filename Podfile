@@ -18,6 +18,7 @@ target 'Drizzy' do
   pod 'Parse', :podspec => 'Parse.podspec.json'
   pod 'ParseFacebookUtils', '~> 1.7'
   pod 'ParseCrashReporting', '~> 1.7'
+  pod 'UIViewController+KeyboardAnimation', '~> 1.2'
 end
 
 target 'DrizzyTests' do

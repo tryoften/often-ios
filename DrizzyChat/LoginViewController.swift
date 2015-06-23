@@ -41,6 +41,7 @@ class LoginViewController : WalkthroughViewController {
         delay(0.05) {
             loginView.emailTxtField.becomeFirstResponder()
         }
+        
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -50,8 +51,8 @@ class LoginViewController : WalkthroughViewController {
     override func setupLayout() {
         
         var constraints: [NSLayoutConstraint] = [
-            loginView.al_top == view.al_top,
             loginView.al_bottom == view.al_bottom,
+            loginView.al_top == view.al_top,
             loginView.al_left == view.al_left,
             loginView.al_right == view.al_right,
         ]

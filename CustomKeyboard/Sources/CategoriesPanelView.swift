@@ -41,6 +41,7 @@ class CategoriesPanelView: UIView {
         nextKeyboardButton.backgroundColor = NextKeyboardButtonBackgroundColor
         
         currentCategoryView = UIView()
+        currentCategoryView.accessibilityLabel = "currentCategoryView"
         currentCategoryView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         currentHighlightColorView = UIView()
@@ -162,7 +163,6 @@ class CategoriesPanelView: UIView {
     func open() {
         UIView.animateWithDuration(0.2, animations: {
             var frame = self.frame
-            frame.size.height = self.superview!.bounds.height
             frame.origin.y = 0
             self.frame = frame
             self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
@@ -172,10 +172,10 @@ class CategoriesPanelView: UIView {
     }
     
     func close() {
+        println("superview frame: \(self.superview!.frame)")
         UIView.animateWithDuration(0.2, animations: {
             var frame = self.frame
-            frame.size.height = SectionPickerViewHeight
-            frame.origin.y = self.superview!.bounds.height - SectionPickerViewHeight
+            frame.origin.y = self.superview!.frame.height - SectionPickerViewHeight
             self.frame = frame
             self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(0)
             self.layoutIfNeeded()

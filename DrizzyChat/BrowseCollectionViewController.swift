@@ -33,7 +33,6 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-        
     }
     
     
@@ -47,8 +46,6 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             collectionView.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowseSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(BrowseCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-            
-            /// Need to register another class for the collection view that is the Artist Art
         }
     }
     
@@ -117,18 +114,11 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             headerView?.browsePicker.delegate = self
             self.headerView?.coverPhoto.image = self.viewModel.images[self.viewModel.currentArtist]!.blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
             headerView?.browsePicker.collectionView?.reloadData()
-
-            if let contentSize = headerView?.browsePicker.collectionView!.contentSize {
-                println("Content size: \(contentSize)")
-                headerView?.browsePicker.scrollView.contentSize = CGSizeMake(250 * 5, 250)
-            }
             
             return cell
             
         } else if kind == UICollectionElementKindSectionHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! BrowseSectionHeaderView
-            
-            /// add action to segue into the view for tha specific track with all of its lyrics displayed
             
             sectionHeaderView = cell
             

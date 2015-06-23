@@ -20,9 +20,9 @@ class KeyboardService: Service {
         self.userId = userId
         
         if let userId = userId {
-            self.keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
+            keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
         } else {
-            self.keyboardsRef = root.childByAppendingPath("keyboards")
+            keyboardsRef = root.childByAppendingPath("keyboards")
         }
         
         keyboards = [String: Keyboard]()
@@ -41,34 +41,27 @@ class KeyboardService: Service {
     }
     
     /**
-    Fetches data from the local database and creates models
-    
-    :param: completion callback that gets called when data has loaded
+        Fetches data from the local database and creates models
+        
+        :param: completion callback that gets called when data has loaded
     */
     func fetchLocalData(completion: (Bool) -> Void) {
         // We have to create a new realm for reading on the main thread
         
         notificationToken = realm.addNotificationBlock { (notification, realm) in
-            self.createKeyboardModels(completion)
+            println("Realm DB changed: \(notification)")
         }
         
         createKeyboardModels(completion)
     }
     
     /**
-    Creates keyboard models from the default realm
+        Creates keyboard models from the default realm
     */
     private func createKeyboardModels(completion: (Bool) -> Void) {
         let keyboards = realm.objects(Keyboard)
-        
         for keyboard in keyboards {
             self.keyboards[keyboard.id] = keyboard
-            
-            for category in keyboard.categories {
-                if let artist = keyboard.artist {
-                    category.ownerId = artist.id
-                }
-            }
         }
         
         delegate?.serviceDataDidLoad(self)
@@ -87,7 +80,7 @@ class KeyboardService: Service {
                 self.keyboards[keyboard.id] = keyboard
                 
                 if index + 1 >= keyboardCount {
-                    if self.userId != nil {
+                    if let userId = self.userId {
                         self.realm.write {
                             self.realm.add(self.keyboards.values.array, update: true)
                         }
@@ -135,7 +128,7 @@ class KeyboardService: Service {
         }
 
         fetchRemoteData { success in
-            
+            completion(self.keyboards)
         }
     }
     
@@ -149,23 +142,21 @@ class KeyboardService: Service {
         let keyboardRef = rootURL.childByAppendingPath("keyboards/\(keyboardId)")
 
         keyboardRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-//            dispatch_async(self.writeQueue) {
-                if let keyboardData = snapshot.value as? [String: AnyObject] {
-                    var keyboard = Keyboard()
-                    keyboard.id = keyboardId
-                    
-                    
-                    if let ownerId = keyboardData["owner"] as? String {
-                        if let categories = keyboardData["categories"] as? [String: AnyObject] {
-                            self.processCategoriesData(keyboard, ownerId: ownerId, data: categories)
-                        }
-                        
-                        self.processOwnerData(keyboard, ownerId: ownerId, completion: { success in
-                            completion(keyboard, true)
-                        })
+            if let keyboardData = snapshot.value as? [String: AnyObject] {
+                var keyboard = Keyboard()
+                keyboard.id = keyboardId
+                
+                
+                if let ownerId = keyboardData["owner"] as? String {
+                    if let categories = keyboardData["categories"] as? [String: AnyObject] {
+                        self.processCategoriesData(keyboard, ownerId: ownerId, data: categories)
                     }
+                    
+                    self.processOwnerData(keyboard, ownerId: ownerId, completion: { success in
+                        completion(keyboard, true)
+                    })
                 }
-//            }
+            }
         })
     }
     
@@ -228,6 +219,7 @@ class KeyboardService: Service {
                 category.id = categoryKey
                 category.name = name
                 category.lyrics = lyrics
+                category.keyboard = keyboard
                 categories.append(category)
             }
         }

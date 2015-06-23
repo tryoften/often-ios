@@ -46,7 +46,7 @@ class TabBarController: UITabBarController {
         ])
         
         var viewModel = UserProfileViewModel(sessionManager: sessionManager)
-        var userProfileVC = UserProfileViewController(viewModel: viewModel)
+        var userProfileVC = BaseNavigationController(rootViewController: UserProfileViewController(viewModel: viewModel))
 
         var addKeyboardsVC = BrowseCollectionViewController(viewModel: BrowseViewModel())
         var trendingVC = TrendingCollectionViewController(viewModel: TrendingViewModel(sessionManager: sessionManager))
@@ -62,8 +62,6 @@ class TabBarController: UITabBarController {
         trendingVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "TrendingIcon"), tag: 2)
         trendingVC.tabBarItem.imageInsets = iconInsets
         
-        
-        
         viewControllers = [
             userProfileVC,
             addKeyboardsVC,
@@ -77,13 +75,10 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }

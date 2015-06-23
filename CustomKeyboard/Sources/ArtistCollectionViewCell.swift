@@ -9,6 +9,7 @@
 import UIKit
 
 class ArtistCollectionViewCell: UICollectionViewCell {
+    private var placeholderImageView: UIImageView
     var imageView: UIImageView
     var titleLabel: UILabel
     var subtitleLabel: UILabel
@@ -32,6 +33,10 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     }
     
     override init(frame: CGRect) {
+        placeholderImageView = UIImageView()
+        placeholderImageView.image = UIImage(named: "placeholder")
+        placeholderImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         imageView = UIImageView()
         imageView.backgroundColor = UIColor.blackColor()
         imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -59,7 +64,8 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         deleteButton.hidden = true
 
         var width = ArtistCollectionViewCellWidth - ArtistCollectionViewCellImageViewLeftMargin * 2
-
+        
+        addCircularMaskToView(placeholderImageView, width)
         addCircularMaskToView(imageView, width)
         
         width = width + 12
@@ -77,6 +83,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundColor = ArtistCollectionViewCellBackgroundColor
+        addSubview(placeholderImageView)
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
@@ -102,6 +109,11 @@ class ArtistCollectionViewCell: UICollectionViewCell {
             imageView.al_height == imageView.al_width,
             imageView.al_centerX == al_centerX,
             imageView.al_centerY == al_centerY - 30,
+            
+            placeholderImageView.al_width == imageView.al_width,
+            placeholderImageView.al_height == imageView.al_height,
+            placeholderImageView.al_centerX == imageView.al_centerX,
+            placeholderImageView.al_centerY == imageView.al_centerY,
             
             circleView.al_centerX == imageView.al_centerX,
             circleView.al_centerY == imageView.al_centerY,

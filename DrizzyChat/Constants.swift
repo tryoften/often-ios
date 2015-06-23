@@ -8,7 +8,7 @@
 
 import Foundation
 
-var BaseURL = "https://multi-keyboards.firebaseio.com/"
+let BaseURL = "https://drizzy-db-dev.firebaseio.com/"
 #if DEBUG
 let CategoryServiceEndpoint = "https://brilliant-fire-154.firebaseio.com/"
 #else
@@ -108,6 +108,8 @@ let BrowseCollectionViewCellLyricCountFont = UIFont(name: "Lato-Regular", size: 
 let BrowseCollectionViewCellWidth: CGFloat = CGFloat(UIScreen.mainScreen().bounds.width)
 let BrowseCollectionViewCellHeight: CGFloat = CGFloat(63)
 
+let BrowseHeaderCollectionViewPadding: CGFloat = 75.0
+
 // Main App
 
 let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 15)
@@ -117,3 +119,4 @@ let FacebookButtonNormalBackgroundColor = BlueColor
 let FacebookButtonHighlightedBackgroundColor = UIColor(fromHexString: "#4d75c7")
 
 let HomeViewBackgroundColor = UIColor(fromHexString: "#f7f7f7")
+let HomeViewSubtitle = UIFont(name: "OpenSans", size: 14)

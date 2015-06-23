@@ -10,13 +10,13 @@ import UIKit
 
 class BrowseCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
-    class func provideCollectionFlowLayout() -> UICollectionViewFlowLayout {
+    class func provideCollectionFlowLayout(itemWidth: CGFloat, padding: CGFloat) -> UICollectionViewFlowLayout {        
         var viewLayout = BrowseCollectionViewFlowLayout()
         viewLayout.scrollDirection = .Horizontal
-        viewLayout.minimumInteritemSpacing = 40.0 /// The minimum spacing to use between items in the same row
-        viewLayout.minimumLineSpacing = 0.0 /// The minimum spacing to use between lines of items in the grid
-        viewLayout.sectionInset = UIEdgeInsets(top: 0.0, left: 60.0, bottom: 0.0, right: 60.0)
-        viewLayout.itemSize = CGSize(width: 250.0, height: 250.0)
+        viewLayout.minimumInteritemSpacing = padding / 2 /// The minimum spacing to use between items in the same row
+        viewLayout.minimumLineSpacing = padding / 2 /// The minimum spacing to use between lines of items in the grid
+        viewLayout.sectionInset = UIEdgeInsets(top: 0, left: padding, bottom: 0.0, right: padding)
+        viewLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         return viewLayout
     }
     
