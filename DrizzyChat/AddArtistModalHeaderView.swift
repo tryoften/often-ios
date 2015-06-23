@@ -16,7 +16,6 @@ class AddArtistModalHeaderView: UICollectionReusableView {
     var artistNameLabel: UILabel
     var addArtistButton: UIButton
     var topLabel: UILabel
-    var closeButton: UIButton
     var delegate: CloseButtonDelegate?
     
     override init(frame: CGRect) {
@@ -29,12 +28,6 @@ class AddArtistModalHeaderView: UICollectionReusableView {
         coverPhotoTintView = UIView()
         coverPhotoTintView.setTranslatesAutoresizingMaskIntoConstraints(false)
         coverPhotoTintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-        
-        closeButton = UIButton()
-        closeButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        closeButton.setTitle("Close", forState: UIControlState.Normal)
-        closeButton.titleLabel?.font = UIFont(name: "OpenSans", size: 15.0)
-        closeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         
         artistImage = UIImageView()
         artistImage.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -66,13 +59,11 @@ class AddArtistModalHeaderView: UICollectionReusableView {
         super.init(frame: frame)
         
         addArtistButton.addTarget(self, action: "addArtistTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        closeButton.addTarget(self, action: "closeTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
         addSubview(coverPhoto)
         addSubview(coverPhotoTintView)
-        addSubview(closeButton)
         addSubview(artistImage)
         addSubview(artistNameLabel)
         addSubview(addArtistButton)
@@ -107,8 +98,8 @@ class AddArtistModalHeaderView: UICollectionReusableView {
         }
     }
     
-    func closeTapped(sender: UIButton) {
-        delegate?.closeTapped()
+    func addArtistTapped(sender: UIButton) {
+        println("Add Artist Tapped")
     }
     
     func setupLayout() {
@@ -116,8 +107,8 @@ class AddArtistModalHeaderView: UICollectionReusableView {
             topLabel.al_top == al_top + 10,
             topLabel.al_centerX == al_centerX,
             
-            artistImage.al_width == 200,
-            artistImage.al_height == 200,
+            artistImage.al_width == 250,
+            artistImage.al_height == 250,
             artistImage.al_centerX == al_centerX,
             artistImage.al_bottom == artistNameLabel.al_top - 20,
             
@@ -137,12 +128,7 @@ class AddArtistModalHeaderView: UICollectionReusableView {
             addArtistButton.al_top == artistNameLabel.al_bottom + 10,
             addArtistButton.al_centerX == al_centerX,
             addArtistButton.al_width == 70,
-            addArtistButton.al_height == 20,
-            
-            closeButton.al_width == 50,
-            closeButton.al_height == 10,
-            closeButton.al_right == al_right - 10,
-            closeButton.al_top == al_top + 15
+            addArtistButton.al_height == 20
         ])
     }
 }

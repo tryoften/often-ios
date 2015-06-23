@@ -18,7 +18,7 @@ import UIKit
 class BrowseSectionHeaderView: UICollectionReusableView {
     
     let songsLabel: UILabel
-    @IBOutlet var lineBreak: UIView?
+    var lineBreak: UIView?
     
     override init(frame: CGRect) {
         songsLabel = UILabel()
