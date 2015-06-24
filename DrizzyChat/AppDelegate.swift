@@ -63,10 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 frame.size.height = KeyboardHeight
                 window.frame = frame
                 window.clipsToBounds = true
-                mainController = KeyboardViewController(nibName: nil, bundle: nil)
-                if let inputView = mainController.inputView {
-                    inputView.frame = frame
-                }
+                mainController = KeyboardViewController(debug: true)
             }
             window.rootViewController = mainController
             window.makeKeyAndVisible()

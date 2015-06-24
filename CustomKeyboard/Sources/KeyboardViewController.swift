@@ -27,16 +27,18 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var allowFullAccessMessage: UILabel!
     var currentlyInjectedLyric: Lyric?
     var lyricInserted = false
+    static var debugKeyboard = false
     static var onceToken: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        dispatch_once(&KeyboardViewController.onceToken) {
-            Firebase.defaultConfig().persistenceEnabled = true
-            let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
-            let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
-            RLMRealm.setDefaultRealmPath(realmPath)
+        if !KeyboardViewController.debugKeyboard {
+            dispatch_once(&KeyboardViewController.onceToken) {
+                let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+                let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+                RLMRealm.setDefaultRealmPath(realmPath)
+            }
         }
-
+        
         viewModel = KeyboardViewModel()
         var firebaseRoot = Firebase(url: BaseURL)
         lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot))
@@ -47,6 +49,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    convenience init(debug: Bool = false) {
+        KeyboardViewController.debugKeyboard = debug
+        self.init(nibName: nil, bundle: nil)
     }
 
     override func updateViewConstraints() {
@@ -87,10 +94,13 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     override func viewWillAppear(animated: Bool) {
-        heightConstraint =  NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: KeyboardHeight)
-        heightConstraint.priority = 800
+        heightConstraint = view.al_height == KeyboardHeight
+        heightConstraint.priority = 1000
         
         view.addConstraint(heightConstraint)
+        var viewFrame = view.frame
+        viewFrame.size.height = KeyboardHeight
+        view.frame = viewFrame
     }
     
     func bootstrap() {
@@ -100,14 +110,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
 
         Flurry.startSession(FlurryClientKey)
-        
-        self.getCurrentUser()
+
         self.viewModel.requestData()
     }
-    
-    func getCurrentUser() {
-    }
-    
+
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         layoutSectionPickerView()
     }
@@ -172,11 +178,9 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func openPanel() {
         if artistPicker == nil {
-            artistPicker = ArtistPickerCollectionViewController()
+            artistPicker = ArtistPickerCollectionViewController(edgeInsets: UIEdgeInsets(top: 5.0, left: 35.0, bottom: 5.0, right: 5.0))
             artistPicker!.delegate = self
-            artistPicker!.viewModel = viewModel
-            
-            let edgeInsets = UIEdgeInsets(top: 5.0, left: 35.0, bottom: 5.0, right: 5.0)
+            artistPicker!.dataSource = viewModel
 
             view.addSubview(artistPicker!.view)
             layoutArtistPickerView(hidden: true)
@@ -355,7 +359,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     // MARK: LyricPickerDelegate
-    func didPickLyric(lyricPicker: LyricPickerTableViewController,shareVC: ShareViewController, lyric: Lyric?) {
+    func didPickLyric(lyricPicker: LyricPickerTableViewController, shareVC: ShareViewController, lyric: Lyric?) {
         shareVC.delegate = self
         currentlyInjectedLyric = lyric
         insertLyric(lyric!, selectedOptions: nil)

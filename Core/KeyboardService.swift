@@ -39,11 +39,13 @@ class KeyboardService: Service {
     */
     func deleteKeyboardWithId(keyboardId: String, completion: (NSError?) -> ()) {
         keyboards.removeValueForKey(keyboardId)
+        realm.beginWrite()
         if let keyboard = realm.objectForPrimaryKey(Keyboard.self, key: keyboardId),
             let artist = keyboard.artist {
             realm.delete(artist)
             realm.delete(keyboard)
         }
+        realm.commitWrite()
         self.keyboardsRef.childByAppendingPath(keyboardId).removeValueWithCompletionBlock { (err, keyboardRef) in
             completion(nil)
         }
@@ -111,6 +113,7 @@ class KeyboardService: Service {
         keyboardsRef.observeEventType(.Value, withBlock: { snapshot in
             if let keyboardsData = snapshot.value as? [String: AnyObject] {
                 self.fetchDataForKeyboardIds(keyboardsData.keys.array, completion: { keyboards in
+                    
                     completion(true)
                 })
             }
@@ -131,12 +134,16 @@ class KeyboardService: Service {
     */
     func requestData(completion: ([String: Keyboard]) -> Void) {
         fetchLocalData { success in
-            completion(self.keyboards)
+            if self.keyboards.isEmpty {
+                self.fetchRemoteData { success in
+                    completion(self.keyboards)
+                }
+            } else {
+                completion(self.keyboards)
+            }
         }
 
-        fetchRemoteData { success in
-            completion(self.keyboards)
-        }
+
     }
     
     /**

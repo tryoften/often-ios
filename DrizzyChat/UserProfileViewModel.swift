@@ -9,9 +9,15 @@
 import UIKit
 
 class UserProfileViewModel: NSObject, SessionManagerObserver {
+    weak var delegate: UserProfileViewModelDelegate?
     var sessionManager: SessionManager
     var keyboardsList: [Keyboard]?
-    weak var delegate: UserProfileViewModelDelegate?
+    var numberOfKeyboards: Int {
+        if let keyboardService = sessionManager.keyboardService {
+        return keyboardService.keyboards.count
+        }
+        return 0
+    }
     
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
@@ -27,8 +33,16 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         self.sessionManager.login()
     }
     
+    func keyboardAtIndex(index: Int) -> Keyboard? {
+        if let keyboard = sessionManager.keyboardService?.keyboards.values.array[index] {
+            return keyboard
+        }
+        return nil
+    }
+    
     func deleteKeyboardWithId(keyboardId: String, completion: (NSError?) -> ()) {
         sessionManager.keyboardService?.deleteKeyboardWithId(keyboardId, completion: completion)
+        keyboardsList = sessionManager.keyboardService?.keyboards.values.array
     }
     
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {

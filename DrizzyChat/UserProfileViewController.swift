@@ -152,6 +152,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     private func provideArtistPicker() -> ArtistPickerCollectionViewController {
         var artistPicker = ArtistPickerCollectionViewController(edgeInsets: UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 15.0))
         artistPicker.dataSource = self
+        artistPicker.delegate = self
         keyboardManagerViewController = artistPicker
         artistPicker.view.backgroundColor = UIColor.clearColor()
 
@@ -179,19 +180,11 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     
     // MARK: ArtistPickerCollectionViewDataSource
     func numberOfItemsInArtistPicker(artistPicker: ArtistPickerCollectionViewController) -> Int {
-        if let keyboards = viewModel.keyboardsList {
-            return keyboards.count
-        }
-        return 0
+        return viewModel.numberOfKeyboards
     }
     
     func artistPickerItemAtIndex(artistPicker: ArtistPickerCollectionViewController, index: Int) -> Keyboard? {
-        if let keyboards = viewModel.keyboardsList {
-            if index < keyboards.count {
-                return keyboards[index]
-            }
-        }
-        return nil
+        return viewModel.keyboardAtIndex(index)
     }
     
     func artistPickerShouldHaveCloseButton(artistPicker: ArtistPickerCollectionViewController) -> Bool {

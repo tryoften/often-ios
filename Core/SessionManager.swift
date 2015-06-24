@@ -19,7 +19,7 @@ class SessionManager: NSObject {
     var currentSession: FBSession?
     var realm: Realm
     var isUserNew: Bool
-    var sentLoginEvent = false
+    var userIsLoggingIn = false
 
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
@@ -75,7 +75,7 @@ class SessionManager: NSObject {
     }
 
     func isUserLoggedIn() -> Bool {
-        return !(PFUser.currentUser() == nil)
+        return userDefaults.objectForKey("userId") != nil
     }
     
     func signUpUser(data: [String: String]) {
@@ -116,6 +116,7 @@ class SessionManager: NSObject {
     }
     
     func login(completion: ((PFUser?, NSError?) -> ())? = nil) {
+        userIsLoggingIn = true
         PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
             completion?(user, error)
             if error == nil {
@@ -125,6 +126,7 @@ class SessionManager: NSObject {
     }
     
     func loginWithUsername(username: String, password: String) {
+        userIsLoggingIn = true
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
             self.openSession()
         }
@@ -134,6 +136,7 @@ class SessionManager: NSObject {
         PFUser.logOut()
         firebase.unauth()
         observers.removeAllObjects()
+        userDefaults.setValue(nil, forKey: "userId")
         
         let realm = Realm()
         realm.write {
@@ -165,15 +168,17 @@ class SessionManager: NSObject {
     private func processAuthData(authData: FAuthData?) {
         let persistUser: (User) -> Void = { user in
             self.currentUser = user
+            self.userDefaults.setObject(user.id, forKey: "userId")
             
             if !self.isUserNew {
                 self.realm.write {
                     self.realm.add(user, update: true)
                 }
             }
-            if !self.sentLoginEvent {
+
+            if self.userIsLoggingIn {
                 self.broadcastUserLoginEvent()
-                self.sentLoginEvent = true
+                self.userIsLoggingIn = false
             }
         }
         
@@ -251,7 +256,6 @@ class SessionManager: NSObject {
                 data["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
                 
                 self.userDefaults.setObject(userId, forKey: "userId")
-                self.userDefaults.setObject(data, forKey: "user")
                 
                 completion(data, nil)
             } else {

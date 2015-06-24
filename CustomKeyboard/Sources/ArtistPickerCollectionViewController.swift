@@ -13,9 +13,8 @@ let ArtistCollectionViewCellReuseIdentifier = "ArtistCollectionViewCell"
 class ArtistPickerCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,
     ArtistPickerCollectionViewLayoutDelegate {
 
-    var viewModel: KeyboardViewModel?
-    var dataSource: ArtistPickerCollectionViewDataSource?
-    var delegate: ArtistPickerCollectionViewControllerDelegate?
+    weak var dataSource: ArtistPickerCollectionViewDataSource?
+    weak var delegate: ArtistPickerCollectionViewControllerDelegate?
     var selectedCell: ArtistCollectionViewCell?
     var isDeletionModeOn: Bool = false {
         willSet(newValue) {
@@ -162,13 +161,16 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         if let cell = target.superview as? ArtistCollectionViewCell,
             let indexPath = collectionView?.indexPathForCell(cell),
             let keyboard = dataSource?.artistPickerItemAtIndex(self, index: indexPath.row) {
-                collectionView?.deleteItemsAtIndexPaths([indexPath])
+                collectionView?.performBatchUpdates({
+                    self.collectionView?.deleteItemsAtIndexPaths([indexPath])
+                    
+                    self.delegate?.artistPickerCollectionViewControllerDidDeleteKeyboard?(self, keyboard: keyboard, index: indexPath.row)
+                    
+                    if self.isDeletionModeOn {
+                        self.endDeleteMode(indexPath: indexPath)
+                    }
                 
-                if isDeletionModeOn {
-                    self.endDeleteMode(indexPath: indexPath)
-                }
-
-                delegate?.artistPickerCollectionViewControllerDidDeleteKeyboard?(self, keyboard: keyboard, index: indexPath.row)
+                }, completion: nil)
         }
     }
     
@@ -216,13 +218,13 @@ class ArtistPickerCollectionViewLayoutAttributes: UICollectionViewLayoutAttribut
     }
 }
 
-@objc protocol ArtistPickerCollectionViewControllerDelegate {
+@objc protocol ArtistPickerCollectionViewControllerDelegate: class {
     func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard)
     optional func artistPickerCollectionViewControllerDidDeleteKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard, index: Int)
     optional func artistPickerCollectionViewDidClosePanel(artistPicker: ArtistPickerCollectionViewController)
 }
 
-protocol ArtistPickerCollectionViewDataSource {
+protocol ArtistPickerCollectionViewDataSource: class {
     func numberOfItemsInArtistPicker(artistPicker: ArtistPickerCollectionViewController) -> Int
     func artistPickerItemAtIndex(artistPicker: ArtistPickerCollectionViewController, index: Int) -> Keyboard?
     func artistPickerShouldHaveCloseButton(artistPicker: ArtistPickerCollectionViewController) -> Bool
