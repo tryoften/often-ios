@@ -61,7 +61,6 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         super.viewDidLoad()
         
         setupBackButton()
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -70,11 +69,7 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         
         self.an_subscribeKeyboardWithAnimations({ (keyboardRect, duration, isShowing) in
             self.bottomConstraint.constant = isShowing ? -keyboardRect.size.height : 0
-            UIView.transitionWithView(self.nextButton, duration: 6.0, options: .CurveEaseIn, animations: { () -> Void in
-                
-            }, completion: { finished in
-                
-            })
+            
         }, completion: { finished in
             
         })
