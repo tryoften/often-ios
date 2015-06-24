@@ -19,6 +19,7 @@ target 'Drizzy' do
   pod 'ParseFacebookUtils', '~> 1.7'
   pod 'ParseCrashReporting', '~> 1.7'
   pod 'UIViewController+KeyboardAnimation', '~> 1.2'
+  pod 'Realm+JSON', '~> 0.2'
 end
 
 target 'DrizzyTests' do

@@ -43,8 +43,9 @@ class SignUpPostAddArtistsLoaderViewController: WalkthroughViewController {
             
             }, completion: {
                 (finished: Bool) in
-                self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x + 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
-                self.animationCard()
+                self.presentViewController(TabBarController(), animated: true, completion: nil)
+//                self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x + 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
+//                self.animationCard()
         })
     }
     

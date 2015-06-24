@@ -128,7 +128,7 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     func walkthroughViewModelDidLoginUser(walkthroughViewModel: SignUpWalkthroughViewModel, user: User, isNewUser: Bool) {
         var presentedViewController: UIViewController
         if isNewUser {
-            presentedViewController = SelectArtistWalkthroughViewController(viewModel: viewModel)
+            presentedViewController = SignUpPreAddArtistsLoaderViewController(viewModel: viewModel)
             navigationController?.pushViewController(presentedViewController, animated: true)
         } else {
             presentedViewController = TabBarController()

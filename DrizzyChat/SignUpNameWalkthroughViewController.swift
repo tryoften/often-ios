@@ -66,7 +66,7 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController  {
     
     override func didTapNavButton() {
         if NameIsValid(addNamePage.fullNameTxtField.text) {
-            viewModel.fullName = addNamePage.fullNameTxtField.text
+            viewModel.user.fullName = addNamePage.fullNameTxtField.text
         }
         else {
             println("enter name")

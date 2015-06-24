@@ -78,9 +78,9 @@ class SignUpConfirmPassWordWalkthroughViewController: WalkthroughViewController 
             println("need more chars")
             return
         }
-        let selectArtistvc = SelectArtistWalkthroughViewController(viewModel: self.viewModel)
+        let preSelectArtistvc = SignUpPreAddArtistsLoaderViewController(viewModel: self.viewModel)
         
-        navigationController?.pushViewController(selectArtistvc, animated: true)
+        navigationController?.pushViewController(preSelectArtistvc, animated: true)
     }
     override func textFieldShouldReturn(textField: UITextField) -> Bool {
         didTapNavButton()

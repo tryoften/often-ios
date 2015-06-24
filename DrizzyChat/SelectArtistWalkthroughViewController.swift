@@ -22,7 +22,6 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         tableView.allowsSelection = false
         
-        viewModel.delegate = self
         viewModel.getListOfArtists()
         
         tableView.registerClass(SignUpAddArtistsTableViewCell.classForCoder(), forCellReuseIdentifier: AddArtistsTableViewCellReuseIdentifier)
@@ -38,7 +37,6 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         title = "add artists".uppercaseString
         
         navigationController?.navigationBar.hidden = false
-        PKHUD.sharedHUD.hideAnimated()
     }
     
     override func setupLayout() {
@@ -150,7 +148,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         println(viewModel.artistSelectedList!)
         if ArtistsSelectedListIsValid(viewModel.artistSelectedList!) {
             viewModel.sessionManager.setKeyboardsOnCurrentUser(viewModel.artistSelectedList!, completion: { (user, error) in
-                self.presentViewController(TabBarController(), animated: true, completion: nil)
+                let postSelectArtistvc = SignUpPostAddArtistsLoaderViewController(viewModel: self.viewModel)
+                self.navigationController?.pushViewController(postSelectArtistvc, animated: true)
             })
         } else {
             println("need to pick at lest one")

@@ -115,7 +115,7 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
         if count(addPhoneNumberPage.phoneNumberTxtField.text) != 0 {
             
             if PhoneIsValid(addPhoneNumberPage.phoneNumberTxtField.text) {
-                viewModel.phoneNumber = addPhoneNumberPage.phoneNumberTxtField.text
+                viewModel.user.phone = addPhoneNumberPage.phoneNumberTxtField.text
             }
             else {
                 println("redo you phonenumber")

@@ -600,6 +600,7 @@
 				3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */,
 				3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */,
 				3B9AD79C1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift */,
+				3BCAE3A21B39C4AC00DFF63F /* SignUpConfirmPassword.swift */,
 				3B9AD7A11B2F4D4A00727E79 /* LoginView.swift */,
 				3BCAE3AC1B39CA1700DFF63F /* SignUpAddArtistsLoaderView.swift */,
 				3BCAE3B21B3A3CB200DFF63F /* SignUpPostAddArtistsLoaderView.swift */,
@@ -610,16 +611,16 @@
 		3B9AD7AD1B2F514400727E79 /* Walkthrough View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
+				3B9AD7AE1B2F5FF500727E79 /* LoginViewController.swift */,
+				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
 				3B9AD7A31B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift */,
 				3B9AD7A51B2F4F3D00727E79 /* SignUpNameWalkthroughViewController.swift */,
 				3B9AD7A71B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift */,
 				3B9AD7A91B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift */,
-				3BCAE3A21B39C4AC00DFF63F /* SignUpConfirmPassword.swift */,
 				3BCAE39C1B39C44400DFF63F /* SignUpConfirmPasswordViewController.swift */,
-				3B9AD7AB1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift */,
-				3B9AD7AE1B2F5FF500727E79 /* LoginViewController.swift */,
-				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
 				3BCAE3AE1B39D3A400DFF63F /* SignUpPreAddArtistsLoaderViewController.swift */,
+				3B9AD7AB1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift */,
 				3BCAE3B61B3A3DB600DFF63F /* SignUpPostAddArtistLoaderViewController.swift */,
 			);
 			name = "Walkthrough View Controllers";
@@ -828,7 +829,6 @@
 			isa = PBXGroup;
 			children = (
 				3B9AD7AD1B2F514400727E79 /* Walkthrough View Controllers */,
-				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				81592F991B0FA55A0092EA8F /* TabBarController.swift */,
 				690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */,
 				69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */,

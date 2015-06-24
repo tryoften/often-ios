@@ -61,7 +61,7 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
     
     override func didTapNavButton() {
         if EmailIsValid(addEmailPage.emailTxtField.text) {
-            viewModel.email = addEmailPage.emailTxtField.text
+            viewModel.user.email = addEmailPage.emailTxtField.text
         }
         else {
             println("enter email")
