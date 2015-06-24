@@ -28,12 +28,20 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     convenience required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        viewModel.delegate = nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBarHidden = true
         viewModel.requestData(completion: nil)
+        
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = UIColor.whiteColor()
@@ -166,6 +174,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         if let artistPicker = keyboardManagerViewController {
             artistPicker.collectionView?.reloadData()
         }
+        PKHUD.sharedHUD.hideAnimated()
     }
     
     // MARK: ArtistPickerCollectionViewDataSource

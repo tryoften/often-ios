@@ -18,13 +18,12 @@ class LoginViewController : WalkthroughViewController {
         loginView.setTranslatesAutoresizingMaskIntoConstraints(false)
         loginView.facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
         
-        setupNavBar("")
         
         view.addSubview(loginView)
     }
     
     func didTapFacebookButton() {
-        sessionManager.login()
+        viewModel.sessionManager.login()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -57,18 +56,5 @@ class LoginViewController : WalkthroughViewController {
         ]
         
         view.addConstraints(constraints)
-    }
-
-    func walkthroughViewModelDidLoginUser(walkthroughViewModel: SignUpWalkthroughViewModel, user: User, isNewUser: Bool) {
-        var presentedViewController: UIViewController
-        if isNewUser {
-            presentedViewController = SelectArtistWalkthroughViewController()
-            navigationController?.pushViewController(presentedViewController, animated: true)
-        } else {
-            presentedViewController = TabBarController()
-            self.presentViewController(presentedViewController, animated: true, completion: nil)
-        }
-
-        viewModel.delegate = nil
     }
 }

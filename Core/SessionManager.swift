@@ -19,6 +19,7 @@ class SessionManager: NSObject {
     var currentSession: FBSession?
     var realm: Realm
     var isUserNew: Bool
+    var sentLoginEvent = false
 
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
@@ -114,12 +115,11 @@ class SessionManager: NSObject {
         }
     }
     
-    func login() {
+    func login(completion: ((PFUser?, NSError?) -> ())? = nil) {
         PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
+            completion?(user, error)
             if error == nil {
                 self.openSession()
-            } else {
-                UIAlertView(title: "Facebook user failed", message: "We were unable to log you in, please try again", delegate: nil, cancelButtonTitle: "Ok").show()
             }
         })
     }
@@ -133,6 +133,12 @@ class SessionManager: NSObject {
     func logout() {
         PFUser.logOut()
         firebase.unauth()
+        observers.removeAllObjects()
+        
+        let realm = Realm()
+        realm.write {
+            realm.deleteAll()
+        }
     }
     
     func addSessionObserver(observer: SessionManagerObserver) {
@@ -165,7 +171,10 @@ class SessionManager: NSObject {
                     self.realm.add(user, update: true)
                 }
             }
-            self.broadcastUserLoginEvent()
+            if !self.sentLoginEvent {
+                self.broadcastUserLoginEvent()
+                self.sentLoginEvent = true
+            }
         }
         
         if let authData = authData,
@@ -195,10 +204,7 @@ class SessionManager: NSObject {
                     }
                 } else {
                     self.getFacebookUserInfo({ (data, err) in
-                        if err != nil {
-                            UIAlertView(title: "Facebook user failed", message: "We were unable to get your user info, please try again", delegate: nil, cancelButtonTitle: "Ok").show()
-                            
-                        } else {
+                        if err == nil {
                             self.userRef?.setValue(data)
                             self.isUserNew = true
                             persistUser(User(value: data as! [String : AnyObject]))
@@ -217,7 +223,9 @@ class SessionManager: NSObject {
     private func broadcastUserLoginEvent() {
         if let currentUser = currentUser {
             for observer in observers {
-                observer.sessionManagerDidLoginUser(self, user: currentUser, isNewUser: isUserNew)
+                if observer.respondsToSelector("sessionManagerDidLoginUser:user:isNewUser:") {
+                    observer.sessionManagerDidLoginUser(self, user: currentUser, isNewUser: isUserNew)
+                }
             }
         }
     }
@@ -235,7 +243,6 @@ class SessionManager: NSObject {
         request.startWithCompletionHandler({ (connection, result, error) in
             
             if error == nil {
-                println("\(result)")
                 var data = (result as! NSDictionary).mutableCopy() as! NSMutableDictionary
                 var userId = data["id"] as! String
                 var profilePicURLTemplate = "https://graph.facebook.com/%@/picture?type=%@"
@@ -255,7 +262,7 @@ class SessionManager: NSObject {
     }
 }
 
-@objc protocol SessionManagerObserver {
+@objc protocol SessionManagerObserver: class {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
     func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard])

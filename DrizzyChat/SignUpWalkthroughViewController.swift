@@ -30,6 +30,10 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
         navigationController?.navigationBar.hidden = true
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
     override func setupLayout() {
      super.setupLayout()
         
@@ -42,30 +46,26 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
         
         view.addConstraints(constraints)
     }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
+
     func didTapSignUpButton() {
-        let phoneNumbervc = PhoneNumberWalkthroughViewController()
-        
+        let phoneNumbervc = PhoneNumberWalkthroughViewController(viewModel: viewModel)
         navigationController?.pushViewController(phoneNumbervc, animated: true)
     }
     
     func didTapLoginButton() {
-        let loginvc = LoginViewController()
-        
+        let loginvc = LoginViewController(viewModel: viewModel)
         navigationController?.pushViewController(loginvc, animated: true)
     }
     
     func didTapFacebookButton() {
-        sessionManager.login()
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
+        loginSignUpPage.facebookButton.enabled = false
+        
+        viewModel.sessionManager.login { (user, error) in
+        }
     }
 }
-
-
-
 
 
 class TermAndPrivacyWebView: UIViewController {

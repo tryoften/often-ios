@@ -18,8 +18,7 @@ import UIKit
 */
 
 class TrendingViewModel: NSObject, SessionManagerObserver {
-    
-    var delegate: TrendingViewModelDelegate?
+    weak var delegate: TrendingViewModelDelegate?
     var artistsList: [Artist]?
     
     init(sessionManager: SessionManager){
@@ -52,6 +51,6 @@ class TrendingViewModel: NSObject, SessionManagerObserver {
     }
 }
 
-protocol TrendingViewModelDelegate {
+protocol TrendingViewModelDelegate: class {
     func trendingViewModelDidLoadTrackList(browseViewModel: TrendingViewModel, artists: [Artist])
 }

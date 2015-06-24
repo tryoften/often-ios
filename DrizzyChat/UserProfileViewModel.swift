@@ -11,7 +11,7 @@ import UIKit
 class UserProfileViewModel: NSObject, SessionManagerObserver {
     var sessionManager: SessionManager
     var keyboardsList: [Keyboard]?
-    var delegate: UserProfileViewModelDelegate?
+    weak var delegate: UserProfileViewModelDelegate?
     
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
@@ -54,7 +54,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
 }
 
-protocol UserProfileViewModelDelegate {
+protocol UserProfileViewModelDelegate: class {
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User)
     func userProfileViewModelDidLoadKeyboardList(userProfileViewModel: UserProfileViewModel, keyboardList: [Keyboard])
 }

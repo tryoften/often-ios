@@ -10,7 +10,6 @@ import Foundation
 
 class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableViewDataSource, UITableViewDelegate {
     var tableView: UITableView!
-    let kCellIdentifier = "signUpAddArtistsTableViewCell"
     var selectedArtistes = [NSNumber]()
     
     override func viewDidLoad() {
@@ -26,8 +25,9 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         viewModel.delegate = self
         viewModel.getListOfArtists()
         
-        tableView.registerClass(SignUpAddArtistsTableViewCell.classForCoder(), forCellReuseIdentifier: kCellIdentifier)
+        tableView.registerClass(SignUpAddArtistsTableViewCell.classForCoder(), forCellReuseIdentifier: AddArtistsTableViewCellReuseIdentifier)
         
+
         setupNavBar("done")
         
         view.addSubview(tableView)
@@ -37,6 +37,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         super.viewWillAppear(animated)
         title = "add artists".uppercaseString
         
+        navigationController?.navigationBar.hidden = false
+        PKHUD.sharedHUD.hideAnimated()
     }
     
     override func setupLayout() {
@@ -48,6 +50,17 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         ]
         
         view.addConstraints(constraints)
+    }
+    
+    func setupNavbar() {
+        navigationController?.navigationBar.sizeThatFits(CGSizeMake(UIScreen.mainScreen().bounds.size.width, 54))
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationController?.navigationBar.barTintColor = BlackColor
+        navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.backIndicatorImage = UIImage()
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName:ButtonFont!,NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,7 +103,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : SignUpAddArtistsTableViewCell = SignUpAddArtistsTableViewCell(style: .Default, reuseIdentifier: kCellIdentifier)
+        let cell : SignUpAddArtistsTableViewCell = SignUpAddArtistsTableViewCell(style: .Default, reuseIdentifier: AddArtistsTableViewCellReuseIdentifier)
         
         let lyricCount = viewModel.artistsList[indexPath.row].lyricCount as NSNumber
         
@@ -100,9 +113,9 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
             }
         }
         
-        cell.lyricsCountLabel!.text = lyricCount.stringValue
+        cell.lyricsCountLabel!.text = "\(lyricCount) lyrics"
         cell.artistNameLabel!.text = viewModel.artistsList[indexPath.row].name
-        cell.artistImageView.setImageWithURL(NSURL(string: viewModel.artistsList[indexPath.row].imageURLLarge), placeholderImage: UIImage(named: "ArtistPicture")!)
+        cell.artistImageView.setImageWithURL(NSURL(string: viewModel.artistsList[indexPath.row].imageURLLarge), placeholderImage: UIImage(named: "placeholder")!)
         cell.selectionButton.addTarget(self, action: "didTapSelectButton:", forControlEvents: .TouchUpInside)
         cell.selectionButton.tag = indexPath.row
         
@@ -147,6 +160,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     }
     
     func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist]) {
+        
         tableView.reloadData()
     }
     

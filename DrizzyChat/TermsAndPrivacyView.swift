@@ -15,12 +15,20 @@ class TermsAndPrivacyView: UIView {
     var privacyPolicyButton: UIButton!
     
      override init(frame: CGRect) {
+        let termAndServiceLabelText = "By signin up to October you agree to our "
+        let termAndServiceLabelTextRange = NSMakeRange(0, count(termAndServiceLabelText))
+        let termAndServiceLabelTitle = NSMutableAttributedString(string: termAndServiceLabelText)
+        
+        termAndServiceLabelTitle.addAttribute(NSFontAttributeName, value: SubtitleFont!, range: termAndServiceLabelTextRange)
+        termAndServiceLabelTitle.addAttribute(NSKernAttributeName, value: 1.0, range: termAndServiceLabelTextRange)
+        
         termAndServiceLabel = UILabel()
         termAndServiceLabel.textAlignment = .Center
         termAndServiceLabel.font = SubtitleFont
         termAndServiceLabel.textColor = SubtitleGreyColor
         termAndServiceLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        termAndServiceLabel.text = "By signin up to October you agree to our "
+        termAndServiceLabel.text = termAndServiceLabelText
+        termAndServiceLabel.attributedText = termAndServiceLabelTitle
         
         andLabel = UILabel()
         andLabel.textAlignment = .Center
@@ -31,7 +39,7 @@ class TermsAndPrivacyView: UIView {
         
         termsofServiceButton = UIButton()
         termsofServiceButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        termsofServiceButton.setTitle("Terms of Service", forState: .Normal)
+        termsofServiceButton.setTitle("Terms of use", forState: .Normal)
         termsofServiceButton.titleLabel!.font = SubtitleFont
         termsofServiceButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
         
@@ -70,7 +78,7 @@ class TermsAndPrivacyView: UIView {
             andLabel.al_height == 17,
             
             termsofServiceButton.al_top == termAndServiceLabel.al_bottom,
-            termsofServiceButton.al_width == 95,
+            termsofServiceButton.al_width == 80,
             termsofServiceButton.al_right == andLabel.al_left,
             termsofServiceButton.al_height == andLabel.al_height,
             

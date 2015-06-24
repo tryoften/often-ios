@@ -14,7 +14,7 @@ class TrendingLyricViewCell: UICollectionViewCell {
     var artistLabel: UILabel? /// yellow name of the artist (previously the @handle)
     var trendIndicator: UIImageView! /// green or red arrow depending on performance
     var lineBreakView: UIView! /// line break 1 pixel high to fake a line break
-    
+    var touchView: UIView
     
     override init(frame: CGRect) {
         rankLabel = UILabel()
@@ -28,6 +28,7 @@ class TrendingLyricViewCell: UICollectionViewCell {
         lyricView?.editable = false
         lyricView?.scrollEnabled = false
         lyricView?.showsHorizontalScrollIndicator = false
+        lyricView?.editable = false
         
         artistLabel = UILabel()
         artistLabel?.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -42,6 +43,10 @@ class TrendingLyricViewCell: UICollectionViewCell {
         lineBreakView.setTranslatesAutoresizingMaskIntoConstraints(false)
         lineBreakView.backgroundColor = UIColor(fromHexString: "#d3d3d3")
         
+        touchView = UIView()
+        touchView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        touchView.backgroundColor = UIColor.clearColor()
+        
         super.init(frame: frame)
         
         backgroundColor = UIColor(fromHexString: "#ffffff")
@@ -51,6 +56,7 @@ class TrendingLyricViewCell: UICollectionViewCell {
         addSubview(artistLabel!)
         addSubview(trendIndicator!)
         addSubview(lineBreakView!)
+        addSubview(touchView)
         
         setLayout()
     }
@@ -84,7 +90,12 @@ class TrendingLyricViewCell: UICollectionViewCell {
             lineBreakView.al_bottom == al_bottom,
             lineBreakView.al_width == 335,
             lineBreakView.al_height == 1/2,
-            lineBreakView.al_left == al_left + 20
+            lineBreakView.al_left == al_left + 20,
+            
+            touchView.al_width == al_width,
+            touchView.al_height == al_height,
+            touchView.al_left == al_left,
+            touchView.al_top == al_top
         ]
         addConstraints(constraints)
     }

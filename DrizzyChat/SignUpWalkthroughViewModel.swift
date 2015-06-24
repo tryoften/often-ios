@@ -20,24 +20,25 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     var fullName: String
     var email: String
     var password: String
+    var confirmPassword: String
     var artistSelectedList: [String]?
     var artistsList: [Artist]
     var artistService: ArtistService
-    var delegate: WalkthroughViewModelDelegate?
     var sessionManager: SessionManager
+    weak var delegate: WalkthroughViewModelDelegate?
    
-    init(sessionManager: SessionManager){
+    init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
         phoneNumber = ""
         fullName = ""
         email = ""
         password = ""
+        confirmPassword = ""
         artistSelectedList = [String]()
         artistsList = [Artist]()
         artistService = ArtistService(root: Firebase(url: BaseURL))
         super.init()
         self.sessionManager.addSessionObserver(self)
-        
     }
     
     deinit {
@@ -47,6 +48,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     func getListOfArtists() {
         artistService.requestData { (artistsList) -> Void in
             self.artistsList = artistsList.values.array
+            
             println(self.artistsList.count)
             
             self.delegate?.walkthroughViewModelDidLoadArtistsList?(self, keyboardList: self.artistsList)
@@ -73,7 +75,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     }
 }
 
-@objc protocol WalkthroughViewModelDelegate {
+@objc protocol WalkthroughViewModelDelegate: class {
     optional func walkthroughViewModelDidLoginUser(walkthroughViewModel: SignUpWalkthroughViewModel, user: User, isNewUser: Bool)
     optional func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist])
 }

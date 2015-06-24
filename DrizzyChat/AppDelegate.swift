@@ -30,9 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Flurry.startSession(FlurryClientKey)
         
-        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
-        let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
-        RLMRealm.setDefaultRealmPath(realmPath)
+        if let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) {
+            let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+            RLMRealm.setDefaultRealmPath(realmPath)
+        }
 
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
@@ -50,7 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if sessionManager.isUserLoggedIn() {
             mainController = TabBarController(sessionManager: sessionManager)
         } else {
-            mainController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController(sessionManager:sessionManager))
+            let viewModel = SignUpWalkthroughViewModel(sessionManager: sessionManager)
+            mainController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController(viewModel: viewModel))
         }
         
         
