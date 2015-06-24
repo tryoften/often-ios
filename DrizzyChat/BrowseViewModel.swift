@@ -22,7 +22,7 @@ import UIKit
 */
 
 class BrowseViewModel: NSObject {
-    var delegate: BrowseViewModelDelegate?
+    weak var delegate: BrowseViewModelDelegate?
     var tracksList: [Track]?
     var currentArtist: Int = 0
     
@@ -109,6 +109,6 @@ class BrowseViewModel: NSObject {
 
 }
 
-protocol BrowseViewModelDelegate {
+protocol BrowseViewModelDelegate: class {
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track])
 }

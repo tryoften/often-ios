@@ -51,7 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if sessionManager.isUserLoggedIn() {
             mainController = TabBarController(sessionManager: sessionManager)
         } else {
-            mainController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController(sessionManager:sessionManager))
+            let viewModel = SignUpWalkthroughViewModel(sessionManager: sessionManager)
+            mainController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController(viewModel: viewModel))
         }
         
         

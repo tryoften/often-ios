@@ -11,31 +11,11 @@ import UIKit
 class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFieldDelegate,
     WalkthroughViewModelDelegate {
     var viewModel: SignUpWalkthroughViewModel
-    var sessionManager: SessionManager!
     var navButton: UIBarButtonItem!
-    var nextButton: UIButton!
+    var nextButton: UIButton
     var bottomConstraint: NSLayoutConstraint!
-    
-    init (sessionManager: SessionManager = SessionManager.defaultManager) {
-        self.sessionManager = sessionManager
-        viewModel = SignUpWalkthroughViewModel(sessionManager: sessionManager)
-        
-        nextButton = UIButton()
-        nextButton.hidden = true
-        nextButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nextButton.titleLabel!.font = ButtonFont
-        nextButton.backgroundColor = UIColor(fromHexString: "#2CD2B4")
-        nextButton.setTitle("continue".uppercaseString, forState: .Normal)
-        
-        super.init(nibName: nil, bundle: nil)
-        
-        nextButton.addTarget(self, action: "didTapNavButton", forControlEvents: .TouchUpInside)
-        
-        view.addSubview(nextButton)
-        bottomConstraint = nextButton.al_bottom == view.al_bottom
-    }
-    
-    init (viewModel:SignUpWalkthroughViewModel) {
+
+    init (viewModel: SignUpWalkthroughViewModel) {
         self.viewModel = viewModel
         
         nextButton = UIButton()
@@ -44,11 +24,11 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         nextButton.titleLabel!.font = ButtonFont
         nextButton.backgroundColor = UIColor(fromHexString: "#2CD2B4")
         nextButton.setTitle("continue".uppercaseString, forState: .Normal)
-        
+
         super.init(nibName: nil, bundle: nil)
         
+        self.viewModel.delegate = self
         nextButton.addTarget(self, action: "didTapNavButton", forControlEvents: .TouchUpInside)
-        
         view.addSubview(nextButton)
         bottomConstraint = nextButton.al_bottom == view.al_bottom
     }
@@ -59,9 +39,11 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupBackButton()
-        
+    }
+    
+    deinit {
+        viewModel.delegate = nil
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -145,5 +127,16 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         didTapNavButton()
         
         return true
+    }
+    
+    func walkthroughViewModelDidLoginUser(walkthroughViewModel: SignUpWalkthroughViewModel, user: User, isNewUser: Bool) {
+        var presentedViewController: UIViewController
+        if isNewUser {
+            presentedViewController = SelectArtistWalkthroughViewController(viewModel: viewModel)
+            navigationController?.pushViewController(presentedViewController, animated: true)
+        } else {
+            presentedViewController = TabBarController()
+            self.presentViewController(presentedViewController, animated: true, completion: nil)
+        }
     }
 }

@@ -19,8 +19,8 @@ class BaseNavigationController: UINavigationController {
         super.didReceiveMemoryWarning()
     }
 
-    func setupNavbar() {        
-        navigationBar.sizeThatFits(CGSizeMake(UIScreen.mainScreen().bounds.size.width, 54))
+    func setupNavbar() {
+        navigationBar.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 54)
         navigationBar.tintColor = UIColor.whiteColor()
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         navigationBar.barTintColor = BlackColor

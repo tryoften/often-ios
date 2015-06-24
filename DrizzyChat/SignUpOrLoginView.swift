@@ -81,7 +81,7 @@ class SignUpOrLoginView: UIView {
         
         loginButton = UIButton()
         loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        loginButton.backgroundColor = UIColor.blackColor()
+        loginButton.backgroundColor = BlackColor
         loginButton.setTitle("login".uppercaseString, forState: .Normal)
         loginButton.titleLabel!.font = ButtonFont
         loginButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
