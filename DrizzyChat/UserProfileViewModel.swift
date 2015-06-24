@@ -11,10 +11,10 @@ import UIKit
 class UserProfileViewModel: NSObject, SessionManagerObserver {
     weak var delegate: UserProfileViewModelDelegate?
     var sessionManager: SessionManager
-    var keyboardsList: [Keyboard]?
+
     var numberOfKeyboards: Int {
         if let keyboardService = sessionManager.keyboardService {
-        return keyboardService.keyboards.count
+            return keyboardService.keyboards.count
         }
         return 0
     }
@@ -34,7 +34,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
     
     func keyboardAtIndex(index: Int) -> Keyboard? {
-        if let keyboard = sessionManager.keyboardService?.keyboards.values.array[index] {
+        if let keyboard = sessionManager.keyboardService?.keyboards[index] {
             return keyboard
         }
         return nil
@@ -42,7 +42,6 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     
     func deleteKeyboardWithId(keyboardId: String, completion: (NSError?) -> ()) {
         sessionManager.keyboardService?.deleteKeyboardWithId(keyboardId, completion: completion)
-        keyboardsList = sessionManager.keyboardService?.keyboards.values.array
     }
     
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
@@ -50,13 +49,12 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
 
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
-        self.sessionManager.fetchKeyboards()
-        self.delegate?.userProfileViewModelDidLoginUser(self, user: user)
+        sessionManager.fetchKeyboards()
+        delegate?.userProfileViewModelDidLoginUser(self, user: user)
     }
     
-    func sessionManagerDidFetchKeyboards(sessionManager: SessionManager, keyboards: [String: Keyboard]) {
-        self.keyboardsList = keyboards.values.array
-        self.delegate?.userProfileViewModelDidLoadKeyboardList(self, keyboardList: self.keyboardsList!)
+    func sessionManagerDidFetchKeyboards(sessionManager: SessionManager, keyboards: [Keyboard]) {
+        delegate?.userProfileViewModelDidLoadKeyboardList(self, keyboardList: keyboards)
     }
     
     func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track]) {

@@ -169,6 +169,7 @@ class SessionManager: NSObject {
         let persistUser: (User) -> Void = { user in
             self.currentUser = user
             self.userDefaults.setObject(user.id, forKey: "userId")
+            self.userDefaults.synchronize()
             
             if !self.isUserNew {
                 self.realm.write {
@@ -256,7 +257,8 @@ class SessionManager: NSObject {
                 data["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
                 
                 self.userDefaults.setObject(userId, forKey: "userId")
-                
+                self.userDefaults.synchronize()
+
                 completion(data, nil)
             } else {
                 completion(nil, error)
@@ -269,5 +271,5 @@ class SessionManager: NSObject {
 @objc protocol SessionManagerObserver: class {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
-    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard])
+    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [Keyboard])
 }

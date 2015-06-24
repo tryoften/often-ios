@@ -31,15 +31,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     static var onceToken: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        if !KeyboardViewController.debugKeyboard {
-            dispatch_once(&KeyboardViewController.onceToken) {
-                let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
-                let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
-                RLMRealm.setDefaultRealmPath(realmPath)
-            }
-        }
-        
-        viewModel = KeyboardViewModel()
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+        RLMRealm.setDefaultRealmPath(realmPath)
+
+        viewModel = KeyboardViewModel(realmPath: realmPath)
         var firebaseRoot = Firebase(url: BaseURL)
         lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot))
         

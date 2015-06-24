@@ -13,14 +13,14 @@ import RealmSwift
 class KeyboardService: Service {
     let userId: String
     var keyboardsRef: Firebase
-    var keyboards: [String: Keyboard]
+    var keyboards: [Keyboard]
     var notificationToken: NotificationToken?
 
     init(userId: String, root: Firebase, realm: Realm = Realm()) {
         self.userId = userId
         
         keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
-        keyboards = [String: Keyboard]()
+        keyboards = [Keyboard]()
 
         super.init(root: root, realm: realm)
     }
@@ -31,6 +31,11 @@ class KeyboardService: Service {
         }
     }
     
+    func keyboardWithId(keyboardId: String) -> Keyboard? {
+        let keyboard = keyboards.filter {$0.id == keyboardId}
+        return keyboard.isEmpty ? nil : keyboard.first
+    }
+    
     /**
         Deletes a keyboard model with the given id
         
@@ -38,7 +43,7 @@ class KeyboardService: Service {
         :param: completion callback when the delete operation has been successfully persisted on the backend
     */
     func deleteKeyboardWithId(keyboardId: String, completion: (NSError?) -> ()) {
-        keyboards.removeValueForKey(keyboardId)
+        keyboards = keyboards.filter { return ($0.id == keyboardId) ? false : true }
         realm.beginWrite()
         if let keyboard = realm.objectForPrimaryKey(Keyboard.self, key: keyboardId),
             let artist = keyboard.artist {
@@ -70,11 +75,7 @@ class KeyboardService: Service {
         Creates keyboard models from the default realm
     */
     private func createKeyboardModels(completion: (Bool) -> Void) {
-        let keyboards = realm.objects(Keyboard)
-        for keyboard in keyboards {
-            self.keyboards[keyboard.id] = keyboard
-        }
-        
+        keyboards = sorted(realm.objects(Keyboard)) {$0.artistName < $1.artistName}
         delegate?.serviceDataDidLoad(self)
         completion(true)
     }
@@ -84,19 +85,22 @@ class KeyboardService: Service {
     func fetchDataForKeyboardIds(keyboardIds: [String], completion: ([Keyboard]) -> ()) {
         var index = 0
         var keyboardCount = keyboardIds.count
+        var keyboardList = [Keyboard]()
 
         for keyboardId in keyboardIds {
             self.processKeyboardData(keyboardId, completion: { (keyboard, success) in
                 keyboard.index = index++
-                self.keyboards[keyboard.id] = keyboard
-                
+                keyboardList.append(keyboard)
+        
                 if index + 1 >= keyboardCount {
+                    self.keyboards = sorted(keyboardList) { $0.artistName < $1.artistName }
+
                     self.realm.write {
-                        self.realm.add(self.keyboards.values.array, update: true)
+                        self.realm.add(self.keyboards, update: true)
                     }
                     dispatch_async(dispatch_get_main_queue(), {
                         self.delegate?.serviceDataDidLoad(self)
-                        completion(self.keyboards.values.array)
+                        completion(self.keyboards)
                     })
                 }
             })
@@ -113,7 +117,6 @@ class KeyboardService: Service {
         keyboardsRef.observeEventType(.Value, withBlock: { snapshot in
             if let keyboardsData = snapshot.value as? [String: AnyObject] {
                 self.fetchDataForKeyboardIds(keyboardsData.keys.array, completion: { keyboards in
-                    
                     completion(true)
                 })
             }
@@ -132,7 +135,7 @@ class KeyboardService: Service {
         
         :param: completion callback that gets called when data has loaded
     */
-    func requestData(completion: ([String: Keyboard]) -> Void) {
+    func requestData(completion: ([Keyboard]) -> Void) {
         fetchLocalData { success in
             if self.keyboards.isEmpty {
                 self.fetchRemoteData { success in
@@ -142,8 +145,6 @@ class KeyboardService: Service {
                 completion(self.keyboards)
             }
         }
-
-
     }
     
     /**
@@ -159,7 +160,6 @@ class KeyboardService: Service {
             if let keyboardData = snapshot.value as? [String: AnyObject] {
                 var keyboard = Keyboard()
                 keyboard.id = keyboardId
-                
                 
                 if let ownerId = keyboardData["owner"] as? String {
                     if let categories = keyboardData["categories"] as? [String: AnyObject] {
@@ -199,6 +199,7 @@ class KeyboardService: Service {
                     artist.imageURLLarge = urlLarge
                     
                     keyboard.artist = artist
+                    keyboard.artistName = artist.name
                     completion(true)
             }
         })
