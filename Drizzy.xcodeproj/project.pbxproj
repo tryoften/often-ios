@@ -248,6 +248,14 @@
 		81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
 		81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
+		81D4BF201B38F6DA006430AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81D4BF171B38F6DA006430AB /* Images.xcassets */; };
+		81D4BF211B38F6DA006430AB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81D4BF181B38F6DA006430AB /* Info.plist */; };
+		81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1A1B38F6DA006430AB /* PKHUD.swift */; };
+		81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1B1B38F6DA006430AB /* PKHUDAssets.swift */; };
+		81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1C1B38F6DA006430AB /* PKHUDContentView.swift */; };
+		81D4BF251B38F6DA006430AB /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1D1B38F6DA006430AB /* Window.swift */; };
+		81D4BF261B38F6DA006430AB /* WindowRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1E1B38F6DA006430AB /* WindowRootViewController.swift */; };
+		81D4BF371B39D25C006430AB /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF161B38F6DA006430AB /* FrameView.swift */; };
 		81DB4ED31A945251004EE28C /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DB4ED21A945251004EE28C /* backspace.png */; };
 		81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */ = {isa = PBXBuildFile; fileRef = 81DC114A1AF05CF400412BD2 /* SwiftyJSON */; };
 		81DC50AA1A9C2C5A00E2AA9B /* tutorial-video.mov in Resources */ = {isa = PBXBuildFile; fileRef = 81DC50A91A9C2C5A00E2AA9B /* tutorial-video.mov */; };
@@ -485,6 +493,15 @@
 		81C010701AE89631008F3296 /* ArtistService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistService.swift; path = Core/ArtistService.swift; sourceTree = "<group>"; };
 		81C010751AE89956008F3296 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Core/Artist.swift; sourceTree = "<group>"; };
 		81C010771AE8A47C008F3296 /* KeyboardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardService.swift; path = Core/KeyboardService.swift; sourceTree = "<group>"; };
+		81D4BF161B38F6DA006430AB /* FrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
+		81D4BF171B38F6DA006430AB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		81D4BF181B38F6DA006430AB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81D4BF191B38F6DA006430AB /* PKHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKHUD.h; sourceTree = "<group>"; };
+		81D4BF1A1B38F6DA006430AB /* PKHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUD.swift; sourceTree = "<group>"; };
+		81D4BF1B1B38F6DA006430AB /* PKHUDAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDAssets.swift; sourceTree = "<group>"; };
+		81D4BF1C1B38F6DA006430AB /* PKHUDContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDContentView.swift; sourceTree = "<group>"; };
+		81D4BF1D1B38F6DA006430AB /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		81D4BF1E1B38F6DA006430AB /* WindowRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowRootViewController.swift; sourceTree = "<group>"; };
 		81DB4ED21A945251004EE28C /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
 		81DC114A1AF05CF400412BD2 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftyJSON; sourceTree = "<group>"; };
 		81DC50A91A9C2C5A00E2AA9B /* tutorial-video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "tutorial-video.mov"; sourceTree = "<group>"; };
@@ -716,6 +733,7 @@
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				81D4BF151B38F6DA006430AB /* PKHUD */,
 				81DC114A1AF05CF400412BD2 /* SwiftyJSON */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
 			);
@@ -1036,6 +1054,23 @@
 			name = "VIew Models";
 			sourceTree = "<group>";
 		};
+		81D4BF151B38F6DA006430AB /* PKHUD */ = {
+			isa = PBXGroup;
+			children = (
+				81D4BF161B38F6DA006430AB /* FrameView.swift */,
+				81D4BF171B38F6DA006430AB /* Images.xcassets */,
+				81D4BF181B38F6DA006430AB /* Info.plist */,
+				81D4BF191B38F6DA006430AB /* PKHUD.h */,
+				81D4BF1A1B38F6DA006430AB /* PKHUD.swift */,
+				81D4BF1B1B38F6DA006430AB /* PKHUDAssets.swift */,
+				81D4BF1C1B38F6DA006430AB /* PKHUDContentView.swift */,
+				81D4BF1D1B38F6DA006430AB /* Window.swift */,
+				81D4BF1E1B38F6DA006430AB /* WindowRootViewController.swift */,
+			);
+			name = PKHUD;
+			path = PKHUD/PKHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1210,7 +1245,9 @@
 				81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */,
 				8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
 				81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */,
+				81D4BF211B38F6DA006430AB /* Info.plist in Resources */,
 				8180E6591A147A78007FA1CF /* Lato-Black.ttf in Resources */,
+				81D4BF201B38F6DA006430AB /* Images.xcassets in Resources */,
 				8180E65D1A147A78007FA1CF /* Lato-Bold.ttf in Resources */,
 				3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				81DC50AA1A9C2C5A00E2AA9B /* tutorial-video.mov in Resources */,
@@ -1416,6 +1453,7 @@
 				3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */,
 				3B9AD7A41B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift in Sources */,
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
+				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
 				81B19E941B30AD5500D3575C /* ArtistService.swift in Sources */,
 				69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */,
 				69BA82021B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift in Sources */,
@@ -1427,6 +1465,7 @@
 				3B9AD7A81B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift in Sources */,
 				69BA82101B2FABE200233789 /* BrowseCollectionViewCell.swift in Sources */,
 				81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */,
+				81D4BF371B39D25C006430AB /* FrameView.swift in Sources */,
 				817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				69BA820A1B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift in Sources */,
 				3BCAE3B71B3A3DB600DFF63F /* SignUpPostAddArtistLoaderViewController.swift in Sources */,
@@ -1441,6 +1480,7 @@
 				817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				69F2B5E71B2786F6004FCD19 /* TrendingHeaderView.swift in Sources */,
 				81592FA71B0FA64D0092EA8F /* LyricPickerTableViewController.swift in Sources */,
+				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
 				69BA820D1B2FABA700233789 /* TrendingViewModel.swift in Sources */,
 				69BA820F1B2FABB800233789 /* TrendingSectionHeaderView.swift in Sources */,
 				8111D5AD1B361EE500B14EEE /* BaseNavigationController.swift in Sources */,
@@ -1479,6 +1519,7 @@
 				3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */,
 				3BAAB1E61B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift in Sources */,
 				817618EE1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
+				81D4BF261B38F6DA006430AB /* WindowRootViewController.swift in Sources */,
 				8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */,
 				3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */,
 				817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
@@ -1489,6 +1530,8 @@
 				81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */,
 				3B9AD7A61B2F4F3D00727E79 /* SignUpNameWalkthroughViewController.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
+				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
+				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -33,7 +33,7 @@ class SignUpNameView: UIView {
         fullNameTxtField = UITextField()
         fullNameTxtField.textAlignment = .Center
         fullNameTxtField.font = UIFont(name: "OpenSans", size: 14)
-        fullNameTxtField.placeholder = "username here"
+        fullNameTxtField.placeholder = "enter your name here"
         fullNameTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         spacer = UIView()

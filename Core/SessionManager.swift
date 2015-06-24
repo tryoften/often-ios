@@ -19,6 +19,7 @@ class SessionManager: NSObject {
     var currentSession: FBSession?
     var realm: Realm
     var isUserNew: Bool
+    var sentLoginEvent = false
 
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
@@ -114,8 +115,9 @@ class SessionManager: NSObject {
         }
     }
     
-    func login() {
+    func login(completion: ((PFUser?, NSError?) -> ())? = nil) {
         PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
+            completion?(user, error)
             if error == nil {
                 self.openSession()
             }
@@ -131,6 +133,12 @@ class SessionManager: NSObject {
     func logout() {
         PFUser.logOut()
         firebase.unauth()
+        observers.removeAllObjects()
+        
+        let realm = Realm()
+        realm.write {
+            realm.deleteAll()
+        }
     }
     
     func addSessionObserver(observer: SessionManagerObserver) {
@@ -163,7 +171,10 @@ class SessionManager: NSObject {
                     self.realm.add(user, update: true)
                 }
             }
-            self.broadcastUserLoginEvent()
+            if !self.sentLoginEvent {
+                self.broadcastUserLoginEvent()
+                self.sentLoginEvent = true
+            }
         }
         
         if let authData = authData,
@@ -212,7 +223,9 @@ class SessionManager: NSObject {
     private func broadcastUserLoginEvent() {
         if let currentUser = currentUser {
             for observer in observers {
-                observer.sessionManagerDidLoginUser(self, user: currentUser, isNewUser: isUserNew)
+                if observer.respondsToSelector("sessionManagerDidLoginUser:user:isNewUser:") {
+                    observer.sessionManagerDidLoginUser(self, user: currentUser, isNewUser: isUserNew)
+                }
             }
         }
     }
@@ -249,7 +262,7 @@ class SessionManager: NSObject {
     }
 }
 
-@objc protocol SessionManagerObserver {
+@objc protocol SessionManagerObserver: class {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
     func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard])

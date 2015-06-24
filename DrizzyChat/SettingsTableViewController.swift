@@ -53,15 +53,11 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var sessionManager = SessionManager.defaultManager
         sessionManager.logout()
-        let realm = Realm()
         
-        realm.write {
-            realm.deleteAll()
-        }
+        var viewModel = SignUpWalkthroughViewModel(sessionManager: sessionManager)
+        var navigationController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController(viewModel: viewModel))
         
-        var navigationController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController())
-        
-        presentViewController(navigationController, animated: true, completion: nil)
+        self.view.window?.rootViewController = navigationController
     }
 
 }

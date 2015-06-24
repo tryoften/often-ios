@@ -7,3 +7,6 @@
 [submodule "Vendors/Quick"]
 	path = Vendors/Quick
 	url = git@github.com:Quick/Quick.git
+[submodule "Vendors/PKHUD"]
+	path = Vendors/PKHUD
+	url = git@github.com:pkluz/PKHUD.git
