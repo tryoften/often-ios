@@ -16,7 +16,6 @@ import UIKit
     - Each artist needs to be displayed with its Lyric and Track Count
 
 */
-
 class TrendingViewModel: NSObject, SessionManagerObserver {
     weak var delegate: TrendingViewModelDelegate?
     var artistsList: [Artist]?
@@ -37,7 +36,7 @@ class TrendingViewModel: NSObject, SessionManagerObserver {
         
     }
     
-    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard]) {
+    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [Keyboard]) {
         
     }
     

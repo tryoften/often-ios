@@ -9,6 +9,8 @@
 import UIKit
 
 class UserProfileViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,
+    ArtistPickerCollectionViewDataSource,
+    ArtistPickerCollectionViewControllerDelegate,
     UserProfileViewModelDelegate {
     
     var viewModel: UserProfileViewModel
@@ -93,18 +95,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         cell.backgroundColor = UIColor.whiteColor()
 
         if indexPath.section == 0 && indexPath.row == 0 {
-            var artistPicker = ArtistPickerCollectionViewController(collectionViewLayout: ArtistPickerCollectionViewLayout.provideCollectionViewLayout())
-            keyboardManagerViewController = artistPicker
-            artistPicker.closeButton.removeFromSuperview()
-            artistPicker.view.backgroundColor = UIColor.clearColor()
-            
-            var layout = ArtistPickerCollectionViewLayout.provideCollectionViewLayout()
-            layout.sectionInset = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 15.0)
-            artistPicker.collectionView?.setCollectionViewLayout(layout, animated: false)
-
-            if let keyboardList = viewModel.keyboardsList {
-                artistPicker.keyboards = keyboardList
-            }
+            let artistPicker = provideArtistPicker()
 
             cell.contentView.addSubview(artistPicker.view)
             artistPicker.view.frame = cell.bounds
@@ -158,6 +149,16 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         navigationController?.pushViewController(settingsVC, animated: true)
     }
     
+    private func provideArtistPicker() -> ArtistPickerCollectionViewController {
+        var artistPicker = ArtistPickerCollectionViewController(edgeInsets: UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 15.0))
+        artistPicker.dataSource = self
+        artistPicker.delegate = self
+        keyboardManagerViewController = artistPicker
+        artistPicker.view.backgroundColor = UIColor.clearColor()
+
+        return artistPicker
+    }
+    
     // MARK: UserProfileViewModelDelegate
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
         if let headerView = headerView {
@@ -172,8 +173,35 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             headerView.keyboardCountLabel.text = "\(keyboardList.count) cards".uppercaseString
         }
         if let artistPicker = keyboardManagerViewController {
-            artistPicker.keyboards = keyboardList
+            artistPicker.collectionView?.reloadData()
         }
         PKHUD.sharedHUD.hideAnimated()
+    }
+    
+    // MARK: ArtistPickerCollectionViewDataSource
+    func numberOfItemsInArtistPicker(artistPicker: ArtistPickerCollectionViewController) -> Int {
+        return viewModel.numberOfKeyboards
+    }
+    
+    func artistPickerItemAtIndex(artistPicker: ArtistPickerCollectionViewController, index: Int) -> Keyboard? {
+        return viewModel.keyboardAtIndex(index)
+    }
+    
+    func artistPickerShouldHaveCloseButton(artistPicker: ArtistPickerCollectionViewController) -> Bool {
+        return false
+    }
+    
+    func artistPickerItemAtIndexIsSelected(artistPicker: ArtistPickerCollectionViewController, index: Int) -> Bool {
+        return false
+    }
+    
+    func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
+        
+    }
+
+    func artistPickerCollectionViewControllerDidDeleteKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard, index: Int) {
+        viewModel.deleteKeyboardWithId(keyboard.id, completion: { (err) -> () in
+            
+        })
     }
 }

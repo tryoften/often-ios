@@ -59,7 +59,7 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
             
             editButton.al_right == al_right - 15,
             editButton.al_centerY == al_centerY
-            ])
+        ])
     }
 
     required init(coder aDecoder: NSCoder) {

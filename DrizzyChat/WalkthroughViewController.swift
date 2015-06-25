@@ -106,7 +106,6 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     }
     
     func setupLayout() {
-
         view.addConstraints([
             nextButton.al_width == view.al_width,
             nextButton.al_left == view.al_left,
@@ -137,6 +136,9 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         } else {
             presentedViewController = TabBarController()
             self.presentViewController(presentedViewController, animated: true, completion: nil)
+            
+            // Need to call this in order to prevent this method from getting called again
+            viewModel.delegate = nil
         }
     }
 }
