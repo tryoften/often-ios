@@ -8,6 +8,8 @@
 
 import RealmSwift
 
+let CurrentKeyboardUserDefaultsKey = "currentKeyboard"
+
 /// Service that provides and manages keyboard models along with categories.
 /// It stores the data both locally and remotely
 class KeyboardService: Service {
@@ -15,14 +17,23 @@ class KeyboardService: Service {
     var keyboardsRef: Firebase
     var keyboards: [Keyboard]
     var notificationToken: NotificationToken?
+    var userDefaults: NSUserDefaults
+    var currentKeyboardId: String? {
+        didSet {
+            userDefaults.setValue(currentKeyboardId, forKey: CurrentKeyboardUserDefaultsKey)
+            userDefaults.synchronize()
+        }
+    }
 
     init(userId: String, root: Firebase, realm: Realm = Realm()) {
         self.userId = userId
         
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
         keyboards = [Keyboard]()
 
         super.init(root: root, realm: realm)
+        currentKeyboardId = userDefaults.stringForKey(CurrentKeyboardUserDefaultsKey)
     }
     
     deinit {
@@ -63,7 +74,6 @@ class KeyboardService: Service {
     */
     func fetchLocalData(completion: (Bool) -> Void) {
         // We have to create a new realm for reading on the main thread
-        
         notificationToken = realm.addNotificationBlock { (notification, realm) in
             println("Realm DB changed: \(notification)")
         }
@@ -123,10 +133,6 @@ class KeyboardService: Service {
         }) { err in
             completion(false)
         }
-    }
-
-    override func fetchData() {
-        
     }
     
     /**

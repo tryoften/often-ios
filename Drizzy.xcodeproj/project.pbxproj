@@ -96,6 +96,7 @@
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
+		8134B0F31B3C7A5C001B9C5E /* HUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */; };
 		813C82A11AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
 		813C82A21AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
 		81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */; };
@@ -403,6 +404,7 @@
 		81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SwiftAutoLayout.xcodeproj; sourceTree = "<group>"; };
 		81331E231A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
+		8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDProgressView.swift; sourceTree = "<group>"; };
 		813C82A01AE3031700925206 /* lyrics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lyrics.json; sourceTree = "<group>"; };
 		81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormTableViewCell.swift; sourceTree = "<group>"; };
 		81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-outlined.ttf"; sourceTree = "<group>"; };
@@ -846,6 +848,7 @@
 				697D004D1B30812100402A9F /* Browse Views */,
 				697D00491B3080F000402A9F /* Trending Views */,
 				3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */,
+				8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1441,6 +1444,7 @@
 				81B19EA01B30AD5A00D3575C /* Keyboard.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				3BCAE39D1B39C44400DFF63F /* SignUpConfirmPasswordViewController.swift in Sources */,
+				8134B0F31B3C7A5C001B9C5E /* HUDProgressView.swift in Sources */,
 				3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */,
 				3B9AD7A41B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift in Sources */,
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
