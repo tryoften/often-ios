@@ -84,5 +84,9 @@ class TabBarController: UITabBarController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
 
 }

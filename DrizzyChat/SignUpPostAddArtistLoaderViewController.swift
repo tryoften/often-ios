@@ -11,7 +11,7 @@ import Foundation
 
 class SignUpPostAddArtistsLoaderViewController: WalkthroughViewController {
     var loaderPage: SignUpPostAddArtistsLoaderView!
-    var indexOfAnimation = 0
+    var indexOfAnimationCompletion = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +41,12 @@ class SignUpPostAddArtistsLoaderViewController: WalkthroughViewController {
     func animationCard() {
         UIView.animateWithDuration(8, delay: 0, options: .CurveEaseIn, animations: {
             self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x - 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
-            self.indexOfAnimation++
+            
+            self.indexOfAnimationCompletion++
             
             }, completion: {
                 (finished: Bool) in
-                if self.indexOfAnimation < 1 {
+                if self.indexOfAnimationCompletion < 1 {
                     self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x + 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
                     
                     self.animationCard()

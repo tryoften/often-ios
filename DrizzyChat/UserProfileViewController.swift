@@ -53,6 +53,8 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
                 collectionView.contentInset = contentInset
             }
         }
+        
+        PKHUD.sharedHUD.hide(afterDelay: 3.0)
     }
     
     class func getLayout() -> UICollectionViewLayout {
