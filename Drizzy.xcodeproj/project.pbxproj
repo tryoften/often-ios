@@ -791,6 +791,7 @@
 		816FE5A11A86E66900E42C17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */,
 				3B9AD7AD1B2F514400727E79 /* Walkthrough View Controllers */,
 				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
 				81592F991B0FA55A0092EA8F /* TabBarController.swift */,
@@ -816,10 +817,8 @@
 				81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */,
 				81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */,
 				6929EB711B37641100D1BD1C /* Add Artist Views */,
-				6929EB711B37641100D1BD1C /* AddArtistModalViews */,
 				697D004D1B30812100402A9F /* Browse Views */,
 				697D00491B3080F000402A9F /* Trending Views */,
-				3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */,
 			);
 			name = Views;
 			sourceTree = "<group>";

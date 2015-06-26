@@ -23,7 +23,7 @@ import UIKit
 
 let BrowseHeaderViewCellIdentifier = "headerCell"
 
-class BrowseHeaderView: UICollectionReusableView {
+class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     var screenWidth: CGFloat
     var browsePicker: BrowseHeaderCollectionViewController
     var coverPhoto: UIImageView
@@ -114,6 +114,12 @@ class BrowseHeaderView: UICollectionReusableView {
     */
     func addArtistTapped(sender: UIButton) {
         println("Add Artist Tapped.")
+    }
+    
+    func headerDidChange(artist: Artist) {
+        artistNameLabel.text = artist.name
+        coverPhoto.setImageWithURL(NSURL(string: artist.imageURLLarge))
+        coverPhoto.image?.blurredImageWithRadius(30, iterations: 9, tintColor: UIColor.blackColor())
     }
     
     func setupLayout() {
