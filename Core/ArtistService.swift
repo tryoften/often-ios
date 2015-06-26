@@ -118,7 +118,6 @@ class ArtistService: Service {
                     artist.name = data["name"] as! String
                     artist.imageURLLarge = data["image_large"] as! String
                     artist.lyricCount = data["lyrics_count"] as! Int
-                    
                     self.artists[artist.id] = artist
                     
                     
@@ -138,7 +137,6 @@ class ArtistService: Service {
                             self.realm.add(self.artists.values.array, update: true)
                         }
                     }
-
                 }
                 
                 if self.artists.count >= 1 {

@@ -19,6 +19,7 @@ class SessionManager: NSObject {
     var currentSession: FBSession?
     var realm: Realm
     var isUserNew: Bool
+    var userIsLoggingIn = false
 
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
@@ -74,7 +75,7 @@ class SessionManager: NSObject {
     }
 
     func isUserLoggedIn() -> Bool {
-        return !(PFUser.currentUser() == nil)
+        return userDefaults.objectForKey("userId") != nil
     }
     
     func signUpUser(data: [String: String]) {
@@ -114,8 +115,10 @@ class SessionManager: NSObject {
         }
     }
     
-    func login() {
+    func login(completion: ((PFUser?, NSError?) -> ())? = nil) {
+        userIsLoggingIn = true
         PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
+            completion?(user, error)
             if error == nil {
                 self.openSession()
             }
@@ -123,6 +126,7 @@ class SessionManager: NSObject {
     }
     
     func loginWithUsername(username: String, password: String) {
+        userIsLoggingIn = true
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
             self.openSession()
         }
@@ -131,6 +135,13 @@ class SessionManager: NSObject {
     func logout() {
         PFUser.logOut()
         firebase.unauth()
+        observers.removeAllObjects()
+        userDefaults.setValue(nil, forKey: "userId")
+        
+        let realm = Realm()
+        realm.write {
+            realm.deleteAll()
+        }
     }
     
     func addSessionObserver(observer: SessionManagerObserver) {
@@ -157,13 +168,19 @@ class SessionManager: NSObject {
     private func processAuthData(authData: FAuthData?) {
         let persistUser: (User) -> Void = { user in
             self.currentUser = user
+            self.userDefaults.setObject(user.id, forKey: "userId")
+            self.userDefaults.synchronize()
             
             if !self.isUserNew {
                 self.realm.write {
                     self.realm.add(user, update: true)
                 }
             }
-            self.broadcastUserLoginEvent()
+
+            if self.userIsLoggingIn {
+                self.broadcastUserLoginEvent()
+                self.userIsLoggingIn = false
+            }
         }
         
         if let authData = authData,
@@ -212,7 +229,9 @@ class SessionManager: NSObject {
     private func broadcastUserLoginEvent() {
         if let currentUser = currentUser {
             for observer in observers {
-                observer.sessionManagerDidLoginUser(self, user: currentUser, isNewUser: isUserNew)
+                if observer.respondsToSelector("sessionManagerDidLoginUser:user:isNewUser:") {
+                    observer.sessionManagerDidLoginUser(self, user: currentUser, isNewUser: isUserNew)
+                }
             }
         }
     }
@@ -238,8 +257,8 @@ class SessionManager: NSObject {
                 data["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
                 
                 self.userDefaults.setObject(userId, forKey: "userId")
-                self.userDefaults.setObject(data, forKey: "user")
-                
+                self.userDefaults.synchronize()
+
                 completion(data, nil)
             } else {
                 completion(nil, error)
@@ -249,8 +268,8 @@ class SessionManager: NSObject {
     }
 }
 
-@objc protocol SessionManagerObserver {
+@objc protocol SessionManagerObserver: class {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
-    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard])
+    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [Keyboard])
 }

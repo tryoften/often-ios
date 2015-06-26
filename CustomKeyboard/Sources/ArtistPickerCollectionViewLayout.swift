@@ -14,7 +14,7 @@ class ArtistPickerCollectionViewLayout: UICollectionViewFlowLayout {
         viewLayout.scrollDirection = .Horizontal
         viewLayout.minimumInteritemSpacing = 5.0
         viewLayout.minimumLineSpacing = 5.0
-        viewLayout.sectionInset = UIEdgeInsets(top: 5.0, left: 35.0, bottom: 5.0, right: 5.0)
+        viewLayout.sectionInset = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
         return viewLayout
     }
     

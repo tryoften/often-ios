@@ -24,7 +24,7 @@ import UIKit
 class BrowseViewModel: NSObject {
     var rootRef: Firebase
     var artistService: ArtistService
-    var delegate: BrowseViewModelDelegate?
+    weak var delegate: BrowseViewModelDelegate?
     var tracksList: [Track]?
     var artists: [String : Artist]
     var artistsList: [Artist]
@@ -92,6 +92,6 @@ class BrowseViewModel: NSObject {
 
 }
 
-protocol BrowseViewModelDelegate {
+protocol BrowseViewModelDelegate: class {
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track])
 }

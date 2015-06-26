@@ -10,6 +10,7 @@ import RealmSwift
 
 class Keyboard: Object {
     dynamic var id: String = ""
+    dynamic var artistName: String = ""
     dynamic var index: Int = -1
     dynamic var currentCategoryId: String = ""
     dynamic var artist: Artist?

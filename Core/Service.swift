@@ -13,7 +13,7 @@ class Service {
     var rootURL: Firebase
     let realm: Realm
     let writeQueue: dispatch_queue_t
-    var delegate: ServiceDelegate?
+    weak var delegate: ServiceDelegate?
 
     init(root: Firebase, realm: Realm = Realm()) {
         self.rootURL = root
@@ -26,7 +26,7 @@ class Service {
     func fetchData() {}
 }
 
-protocol ServiceDelegate {
+protocol ServiceDelegate: class {
     /// Gets called after the service is done loading into the service
     func serviceDataDidLoad(service: Service)
 }

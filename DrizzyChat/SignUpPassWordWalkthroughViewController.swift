@@ -16,14 +16,9 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
         
         addPasswordPage = SignUpPasswordView()
         addPasswordPage.setTranslatesAutoresizingMaskIntoConstraints(false)
-        addPasswordPage.passwordTxtFieldOne.delegate = self
-        addPasswordPage.passwordTxtFieldOne.returnKeyType = .Next
-        addPasswordPage.confirmPasswordTxtField.delegate = self
-        addPasswordPage.confirmPasswordTxtField.hidden = true
-        addPasswordPage.titleLabelTwo.hidden = true
-        addPasswordPage.spacerTwo.hidden = true
+        addPasswordPage.passwordTxtField.delegate = self
+        addPasswordPage.passwordTxtField.returnKeyType = .Next
         
-        setupNavBar("next")
         
         view.addSubview(addPasswordPage)
     }
@@ -34,11 +29,28 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
         navigationController?.navigationBar.hidden = false
     }
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+        checkCharacterCountOfTextField()
+        
+        return true
+    }
+    
+    func checkCharacterCountOfTextField() {
+        if (count(addPasswordPage.passwordTxtField.text) >= 2) {
+            nextButton.hidden = false
+            addPasswordPage.termsAndPrivacyView.hidden = true
+        } else {
+            nextButton.hidden = true
+            addPasswordPage.termsAndPrivacyView.hidden = false
+        }
+    }
+    
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         delay(0.05) {
-            addPasswordPage.passwordTxtFieldOne.becomeFirstResponder()
+            addPasswordPage.passwordTxtField.becomeFirstResponder()
         }
     }
     
@@ -56,32 +68,21 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
     }
     
     override func didTapNavButton() {
-        if PasswordIsValid(addPasswordPage.passwordTxtFieldOne.text) {
-            if arePasswordMatchingValid(addPasswordPage.passwordTxtFieldOne.text, addPasswordPage.confirmPasswordTxtField.text) {
-                viewModel.password = addPasswordPage.passwordTxtFieldOne.text
-            } else {
-                println("passwords dont match")
-                return
-            }
+        if PasswordIsValid(addPasswordPage.passwordTxtField.text) {
+            
+                viewModel.password = addPasswordPage.passwordTxtField.text
             
         } else {
             println("need more chars")
             return
         }
-        let selectArtistvc = SelectArtistWalkthroughViewController()
-        selectArtistvc.viewModel = viewModel
+        let selectArtistvc = SignUpConfirmPassWordWalkthroughViewController(viewModel: self.viewModel)
         
         navigationController?.pushViewController(selectArtistvc, animated: true)
     }
     override func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if textField.returnKeyType == .Next {
-            addPasswordPage.confirmPasswordTxtField.hidden = false
-            addPasswordPage.titleLabelTwo.hidden = false
-            addPasswordPage.spacerTwo.hidden = false
-            addPasswordPage.confirmPasswordTxtField.becomeFirstResponder()
-        } else {
             didTapNavButton()
-        }
+        
         return true
     }
 }

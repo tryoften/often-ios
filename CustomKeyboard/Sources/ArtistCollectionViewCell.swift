@@ -91,7 +91,8 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         addSubview(deleteButton)
 
         layer.cornerRadius = 5.0
-        
+        selected = false
+
         setupLayout()
     }
 

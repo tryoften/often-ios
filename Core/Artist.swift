@@ -10,9 +10,9 @@ import RealmSwift
 
 class Artist: Owner {
     dynamic var keyboardId: String = ""
-    dynamic var lyricCount: Int = 200
     dynamic var artistId: String = ""
     dynamic var index: Int = -1
+    dynamic var lyricCount: Int = 0
     let tracks = List<Track>()
     
     var tracksList: [Track] {
