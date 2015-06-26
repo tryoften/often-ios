@@ -161,8 +161,10 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         println(viewModel.artistSelectedList!)
         if ArtistsSelectedListIsValid(viewModel.artistSelectedList!) {
             viewModel.sessionManager.setKeyboardsOnCurrentUser(viewModel.artistSelectedList!, completion: { (user, error) in
-                let postSelectArtistvc = SignUpPostAddArtistsLoaderViewController(viewModel: self.viewModel)
-                self.navigationController?.pushViewController(postSelectArtistvc, animated: true)
+                if error == nil {
+                    let postSelectArtistvc = SignUpPostAddArtistsLoaderViewController(viewModel: self.viewModel)
+                    self.navigationController?.pushViewController(postSelectArtistvc, animated: true)
+                }
             })
         } else {
             println("need to pick at lest one")
