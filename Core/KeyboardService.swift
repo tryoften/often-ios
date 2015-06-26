@@ -101,10 +101,11 @@ class KeyboardService: Service {
 
         for keyboardId in keyboardIds {
             self.processKeyboardData(keyboardId, completion: { (keyboard, success) in
-                keyboard.index = index++
+                keyboard.index = index
                 keyboardList.append(keyboard)
-        
-                if index + 1 >= keyboardCount {
+                
+                index++
+                if index == keyboardCount {
                     self.keyboards = sorted(keyboardList) { $0.artistName < $1.artistName }
 
                     self.realm.write {

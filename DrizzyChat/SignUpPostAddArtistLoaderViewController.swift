@@ -11,6 +11,7 @@ import Foundation
 
 class SignUpPostAddArtistsLoaderViewController: WalkthroughViewController {
     var loaderPage: SignUpPostAddArtistsLoaderView!
+    var indexOfAnimation = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,24 +33,29 @@ class SignUpPostAddArtistsLoaderViewController: WalkthroughViewController {
             self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x - 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
             }, completion: {
                 (finished: Bool) in
-                println( self.loaderPage.cardImageView.center.x)
+                
                 self.animationCard()
         });
-        
     }
+    
     func animationCard() {
-        UIView.animateWithDuration(10, delay: 0, options: .CurveEaseIn, animations: {
+        UIView.animateWithDuration(8, delay: 0, options: .CurveEaseIn, animations: {
             self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x - 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
+            self.indexOfAnimation++
             
             }, completion: {
                 (finished: Bool) in
-                self.presentViewController(TabBarController(), animated: true, completion: nil)
-//                self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x + 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
-//                self.animationCard()
+                if self.indexOfAnimation < 1 {
+                    self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x + 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
+                    
+                    self.animationCard()
+                } else {
+                    self.presentViewController(TabBarController(), animated: true, completion: nil)
+                }
+                
         })
+        
     }
-    
-    
     override func setupLayout() {
         super.setupLayout()
         
