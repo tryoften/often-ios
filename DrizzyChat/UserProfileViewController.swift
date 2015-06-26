@@ -40,8 +40,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         viewModel.requestData(completion: nil)
         
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
-        PKHUD.sharedHUD.show()
+        HUDProgressView.show()
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = UIColor.whiteColor()
@@ -196,7 +195,34 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     }
     
     func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
+        viewModel.setKeyboardAsDefault(keyboard.id)
         
+        var statusView = PKHUDStatusView(title: "\(keyboard.artistName)", subtitle:"set as default card", image: PKHUDAssets.checkmarkImage)
+        statusView.frame = CGRect(origin: CGPointZero, size: CGSizeMake(250, 250))
+        statusView.imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        statusView.imageView.addConstraints([
+            statusView.imageView.al_width == statusView.imageView.al_height
+        ])
+        statusView.imageView.contentMode = .ScaleAspectFit
+        statusView.imageView.alpha = 1.0
+        statusView.titleLabel.font = BaseFont
+        statusView.subtitleLabel.font = SubtitleFont
+        let imageURLLarge = NSURL(string: keyboard.artist!.imageURLLarge)!
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            let request = NSURLRequest(URL: imageURLLarge)
+            statusView.imageView.setImageWithURLRequest(request, placeholderImage: UIImage(named: "placeholder"), success: { (req, res, image) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    statusView.imageView.image = image
+                    
+                    PKHUD.sharedHUD.contentView = statusView
+                    PKHUD.sharedHUD.show()
+                    PKHUD.sharedHUD.hide(afterDelay: 1.0)
+                }
+            }, failure: { (req, res, err) in
+            
+            })
+        }
     }
 
     func artistPickerCollectionViewControllerDidDeleteKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard, index: Int) {

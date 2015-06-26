@@ -121,6 +121,14 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         return cell
     }
     
+    override func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        if let dataSource = dataSource {
+            if dataSource.artistPickerItemAtIndexIsSelected(self, index: indexPath.row) {
+                scrollToCellAtIndex(indexPath.row)
+            }
+        }
+    }
+    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if let keyboard = dataSource?.artistPickerItemAtIndex(self, index: indexPath.row) {
             delegate?.artistPickerCollectionViewControllerDidSelectKeyboard(self, keyboard: keyboard)

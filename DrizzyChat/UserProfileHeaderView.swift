@@ -84,7 +84,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             coverPhotoTintView.al_left == coverPhotoView.al_left,
             coverPhotoTintView.al_top == coverPhotoView.al_top,
 
-            profileImageView.al_width == 150,
+            profileImageView.al_width == 120,
             profileImageView.al_height == profileImageView.al_width,
             profileImageView.al_centerX == al_centerX,
             profileImageView.al_bottom == al_bottom - 75,

@@ -59,7 +59,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     func serviceDataDidLoad(service: Service) {
         let keyboards = keyboardService.keyboards
         if keyboards.count > 0 {
-            if let lastKeyboardId = NSUserDefaults.standardUserDefaults().objectForKey("currentKeyboard") as? String,
+            if let lastKeyboardId = keyboardService.currentKeyboardId,
                 lastKeyboard = keyboardService.keyboardWithId(lastKeyboardId) {
                 currentKeyboard = lastKeyboard
             } else {
@@ -88,6 +88,10 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     }
     
     func artistPickerItemAtIndexIsSelected(artistPicker: ArtistPickerCollectionViewController, index: Int) -> Bool {
+        if let currentKeyboardId = keyboardService.currentKeyboardId {
+            var keyboard = keyboards[index]
+            return keyboard.id == currentKeyboardId
+        }
         return false
     }
 }
