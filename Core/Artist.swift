@@ -10,5 +10,17 @@ import RealmSwift
 
 class Artist: Owner {
     dynamic var keyboardId: String = ""
+    dynamic var artistId: String = ""
+    dynamic var index: Int = -1
     dynamic var lyricCount: Int = 0
+    let tracks = List<Track>()
+    
+    var tracksList: [Track] {
+        var list : [Track] = []
+        var i = 0
+        for item in tracks {
+            list.append(item)
+        }
+        return list
+    }
 }

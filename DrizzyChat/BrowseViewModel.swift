@@ -22,34 +22,27 @@ import UIKit
 */
 
 class BrowseViewModel: NSObject {
+    var rootRef: Firebase
+    var artistService: ArtistService
     weak var delegate: BrowseViewModelDelegate?
     var tracksList: [Track]?
-    var currentArtist: Int = 0
+    var artists: [String : Artist]
+    var artistsList: [Artist]
+    var currentArtist: Artist
     
-    // Dummy data
-    var images = [
-        UIImage(named: "frank"),
-        UIImage(named: "snoop"),
-        UIImage(named: "nicki-minaj"),
-        UIImage(named: "drake"),
-        UIImage(named: "eminem")
-    ]
-    
-    var artistNames = [
-        "F R A N K  O C E A N",
-        "S N O O P  D O G G",
-        "N I C K I  M I N A J",
-        "D R A K E",
-        "E M I N E M"
-    ]
-    
-    var tracks = [
-        "Super Rich Kids",
-        "Pump Pump",
-        "Anaconda",
-        "Company",
-        "Superman"
-    ]
+    override init() {
+        rootRef = Firebase(url: BaseURL)
+        artistService = ArtistService(root: rootRef)
+        artists = [String : Artist]()
+        artistsList = [Artist]()
+        currentArtist = Artist()
+        
+        super.init()
+        
+        requestData(completion: { done in
+            
+        })
+    }
 
     
     /**
@@ -57,7 +50,10 @@ class BrowseViewModel: NSObject {
     
     */
     func requestData(completion: ((Bool) -> ())? = nil) {
-        
+        artistService.requestData({ artistData in
+            self.artists = artistData
+            self.artistsList = artistData.values.array
+        })
     }
     
     
@@ -74,20 +70,7 @@ class BrowseViewModel: NSObject {
                 return tracksList[index].name
             }
         }
-
         return "No Track Name"
-    }
-    
-    
-    /**
-        Pass in the ID for the artist from the header and get back all of the tracks
-        for that artist. Stores all of the tracks in the tracksList array.
-    
-        :param: id the string from the header that represents an owner/artist
-    
-    */
-    func getTracksForArtistID(id: String) {
-        
     }
     
     

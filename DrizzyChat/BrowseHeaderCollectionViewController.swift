@@ -12,43 +12,31 @@ let BrowseHeaderReuseIdentifier = "Cell"
 
 class BrowseHeaderCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     let scrollView: UIScrollView
+    var viewModel: BrowseViewModel?
     var delegate: BrowseHeaderSwipeDelegate?
+    var headerDelegate: HeaderUpdateDelegate?
+    var viewControllerDelegate: BrowseHeaderCollectionViewControllerDelegate?
+    var updateTracksDelegate: UpdateTracksFromHeaderDelegate?
+    var dataSource: BrowseHeaderCollectionViewDataSource?
     
     let itemWidth: CGFloat
+    let width: CGFloat
     let padding: CGFloat
-    
-    var artists = [
-        UIImage(named: "frank"),
-        UIImage(named: "snoop"),
-        UIImage(named: "nicki-minaj"),
-        UIImage(named: "drake"),
-        UIImage(named: "eminem")
-    ]
-    
-    var artistNames = [
-        "Frank Ocean",
-        "Snoop Dogg",
-        "Nicki Minaj",
-        "Drake",
-        "Eminem"
-    ]
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         padding = BrowseHeaderCollectionViewPadding
         itemWidth = UIScreen.mainScreen().bounds.width - (padding * 2)
+        width = itemWidth + (padding / 2)
         
-        let width: CGFloat = itemWidth + (padding / 2)
         scrollView = UIScrollView(frame: CGRectMake(0, 0, width, width))
         scrollView.pagingEnabled = true
         scrollView.hidden = true
-        scrollView.contentSize = CGSizeMake(width * CGFloat(artists.count), width)
 
         super.init(collectionViewLayout: layout)
 
         scrollView.delegate = self
         view.addSubview(scrollView)
-        
-        setLayout()
+
     }
     
     required convenience init(coder aDecoder: NSCoder) {        
@@ -66,7 +54,6 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
         
         if let collectionView = self.collectionView {
             collectionView.alwaysBounceHorizontal = false
-            
             collectionView.contentInset = UIEdgeInsetsMake(0, (self.view.frame.size.width - screenWidth) / 2, 0, (self.view.frame.size.width - screenWidth) / 2)
             collectionView.addGestureRecognizer(scrollView.panGestureRecognizer)
             collectionView.panGestureRecognizer.enabled = false
@@ -76,7 +63,7 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
             
             collectionView.registerClass(BrowseHeaderCollectionViewCell.self, forCellWithReuseIdentifier: "browseCell")
         } else {
-            println("Collection view nil")
+            println("Collection View is Nil")
         }
     }
     
@@ -98,21 +85,34 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return artists.count
+        scrollView.contentSize = CGSizeMake(width * CGFloat(dataSource!.numberOfItemsInBrowsePicker(self)), width)
+        return dataSource!.numberOfItemsInBrowsePicker(self)
     }
 
+    /**
+        Use The delegate to get the right information for the cell
+    
+        - Artist Name
+        - ID
+        - Image Large
+    */
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("browseCell", forIndexPath: indexPath) as! BrowseHeaderCollectionViewCell
         
-        cell.artistImage.image = artists[indexPath.row]
-        
+        if let artist = dataSource?.artistForIndexPath(self, index: indexPath.row) {
+            cell.artistImage.setImageWithURL(NSURL(string: artist.imageURLLarge))
+            
+        }
         
         return cell
     }
     
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         println("Current page: \(getCurrentPage())")
-        delegate?.headerDidSwipe()
+        
+        delegate?.headerDidSwipe(getCurrentPage())
+        headerDelegate?.headerDidChange(dataSource!.artistForIndexPath(self, index: getCurrentPage())!)
+        updateTracksDelegate?.updateTracksForArtist(dataSource!.artistForIndexPath(self, index: getCurrentPage())!)
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -122,15 +122,25 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
             collectionView!.contentOffset = contentOffset
         }
     }
-    
-    func setLayout() {
-    }
+}
+
+protocol BrowseHeaderCollectionViewDataSource {
+    func numberOfItemsInBrowsePicker(browsePicker: BrowseHeaderCollectionViewController) -> Int
+    func artistForIndexPath(browsePicker: BrowseHeaderCollectionViewController, index: Int) -> Artist?
+}
+
+protocol BrowseHeaderCollectionViewControllerDelegate {
+    func headerDidLoadArtists()
 }
 
 protocol BrowseHeaderSwipeDelegate {
-    func headerDidSwipe()
+    func headerDidSwipe(currentPage: Int)
 }
 
-protocol BrowseHeaderCoverPhotoDelegate {
-    func updateCoverPhoto()
+protocol UpdateTracksFromHeaderDelegate {
+    func updateTracksForArtist(artist: Artist)
+}
+
+protocol HeaderUpdateDelegate {
+    func headerDidChange(artist: Artist)
 }

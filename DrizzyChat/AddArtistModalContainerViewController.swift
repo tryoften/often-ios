@@ -93,19 +93,18 @@ class AddArtistModalContainerViewController: UIViewController {
         ])
     }
     
-    //to handle the pan gesture recognizer
-    func panHandler(sender: UIPanGestureRecognizer){
+    
+    func panHandler(sender: UIPanGestureRecognizer) {
         
         var center: CGPoint = view.center
         center.y = mainView.center.y // middle of the screen
         
-        if(sender.state == UIGestureRecognizerState.Began){
+        if (sender.state == UIGestureRecognizerState.Began) {
             self.lastLocation = mainView.center
         }
         
-        if(mainView.center.x < 60 || self.mainView.center.x > 262){
-            //pass()
-            snap = UISnapBehavior(item: mainView, snapToPoint: center) //snap back to center
+        if (mainView.center.x < 60 || self.mainView.center.x > 262) {
+            snap = UISnapBehavior(item: mainView, snapToPoint: center) // snap back to center
             snap.damping = 1.0
             animator.addBehavior(snap)
         }
@@ -122,9 +121,7 @@ class AddArtistModalContainerViewController: UIViewController {
             snap.damping = 1.0
             animator.addBehavior(snap)
         }
-        
         mainView.center = CGPointMake(self.lastLocation.x + translation.x, self.lastLocation.y)
-        
         
     }
 }
