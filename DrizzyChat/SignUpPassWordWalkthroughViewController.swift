@@ -19,13 +19,11 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
         addPasswordPage.passwordTxtField.delegate = self
         addPasswordPage.passwordTxtField.returnKeyType = .Next
         
-        
         view.addSubview(addPasswordPage)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationController?.navigationBar.hidden = false
     }
     
@@ -36,15 +34,28 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
     }
     
     func checkCharacterCountOfTextField() {
-        if (count(addPasswordPage.passwordTxtField.text) >= 2) {
-            nextButton.hidden = false
-            addPasswordPage.termsAndPrivacyView.hidden = true
-        } else {
-            nextButton.hidden = true
-            addPasswordPage.termsAndPrivacyView.hidden = false
-        }
+        var characterCount = count(addPasswordPage.passwordTxtField.text)
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            if self.didAnimateUp && characterCount >= 1 {
+                self.nextButton.hidden = false
+                self.nextButton.frame.origin.y -= 50
+                self.didAnimateUp = false
+                self.addPasswordPage.termsAndPrivacyView.hidden = true
+            } else if self.didAnimateUp == false && characterCount <= 1 {
+                self.nextButton.frame.origin.y += 50
+                self.didAnimateUp = true
+                self.addPasswordPage.termsAndPrivacyView.hidden = false
+                self.hideButton = true
+            }
+            }, completion: {
+                (finished: Bool) in
+                if self.hideButton {
+                    self.nextButton.hidden = true
+                    self.hideButton = false
+                }
+        })
     }
-    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -70,7 +81,7 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
     override func didTapNavButton() {
         if PasswordIsValid(addPasswordPage.passwordTxtField.text) {
             
-                viewModel.password = addPasswordPage.passwordTxtField.text
+            viewModel.password = addPasswordPage.passwordTxtField.text
             
         } else {
             println("need more chars")
@@ -79,10 +90,5 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
         let selectArtistvc = SignUpConfirmPassWordWalkthroughViewController(viewModel: self.viewModel)
         
         navigationController?.pushViewController(selectArtistvc, animated: true)
-    }
-    override func textFieldShouldReturn(textField: UITextField) -> Bool {
-            didTapNavButton()
-        
-        return true
     }
 }

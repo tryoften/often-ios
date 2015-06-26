@@ -13,7 +13,8 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let titleString = "Hey \(self.viewModel.user.fullName)"
+        
+        let titleString = "Hey \(self.viewModel.user.name)"
         let titleRange = NSMakeRange(0, count(titleString))
         let title = NSMutableAttributedString(string: titleString)
         
@@ -23,10 +24,8 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
         loaderPage = SignUpAddArtistsLoaderView()
         loaderPage.setTranslatesAutoresizingMaskIntoConstraints(false)
         loaderPage.titleLabel.attributedText = title
-        
+    
         view.addSubview(loaderPage)
-        
-        nextButton.hidden = false
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -41,11 +40,12 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
             self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x - 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
             }, completion: {
                 (finished: Bool) in
-                println( self.loaderPage.cardImageView.center.x)
+                
                 self.animationCard()
         });
         
         }
+    
     func animationCard() {
         UIView.animateWithDuration(10, delay: 0, options: .CurveEaseIn, animations: {
             self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x - 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
@@ -54,9 +54,21 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
                 (finished: Bool) in
                 self.loaderPage.cardImageView.center = CGPointMake(self.loaderPage.cardImageView.center.x + 3*UIScreen.mainScreen().bounds.size.width, self.loaderPage.cardImageView.center.y)
                 self.animationCard()
+                
         })
+        
     }
     
+    func flyUpNextButton() {
+        UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveLinear, animations: {
+            self.nextButton.hidden = false
+            self.nextButton.frame.origin.y -= 50
+            self.didAnimateUp = true
+            self.hideButton = true
+            }, completion: {
+                (finished: Bool) in
+        })
+    }
     
     override func setupLayout() {
         super.setupLayout()
@@ -73,6 +85,10 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        delay(0.1) {
+            self.flyUpNextButton()
+        }
     }
     
      override func didTapNavButton() {

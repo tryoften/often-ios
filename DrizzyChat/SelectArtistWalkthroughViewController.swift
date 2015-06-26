@@ -26,8 +26,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         
         tableView.registerClass(SignUpAddArtistsTableViewCell.classForCoder(), forCellReuseIdentifier: AddArtistsTableViewCellReuseIdentifier)
         
-
-        setupNavBar("done")
+        let backButton = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: navigationController, action: nil)
+        navigationItem.leftBarButtonItem = backButton
         
         view.addSubview(tableView)
     }
@@ -40,6 +40,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     }
     
     override func setupLayout() {
+        super.setupLayout()
+
         var constraints: [NSLayoutConstraint] = [
             tableView.al_top == view.al_top,
             tableView.al_bottom == view.al_bottom,
@@ -48,17 +50,6 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         ]
         
         view.addConstraints(constraints)
-    }
-    
-    func setupNavbar() {
-        navigationController?.navigationBar.sizeThatFits(CGSizeMake(UIScreen.mainScreen().bounds.size.width, 54))
-        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        navigationController?.navigationBar.barTintColor = BlackColor
-        navigationController?.navigationBar.translucent = false
-        navigationController?.navigationBar.backIndicatorImage = UIImage()
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage()
-        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName:ButtonFont!,NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,7 +67,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         //TODO: make a view for this
         var recommendedLabel = UILabel()
-        let titleString = "recommended".uppercaseString
+        let titleString = "choose at least 3".uppercaseString
         let titleRange = NSMakeRange(0, count(titleString))
         let title = NSMutableAttributedString(string: titleString)
         let headerView = UIView()
@@ -122,6 +113,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     
     func didTapSelectButton(sender : UIButton) {
         let buttonTag = NSNumber(integer: sender.tag)
+        var insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         sender.selected = !sender.selected
         
@@ -136,8 +128,29 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
                 }
             }
         }
+        
+        UIView.animateWithDuration(1, delay: 0, options: .CurveLinear, animations: {
+            if self.selectedArtistes.count >= 3 && self.didAnimateUp  {
+                self.nextButton.hidden = false
+                self.nextButton.frame.origin.y -= 0
+                insets = UIEdgeInsets(top: 0, left: 0, bottom: self.nextButton.frame.height, right: 0)
+                self.tableView.contentInset = insets
+                self.didAnimateUp = false
+            } else if self.selectedArtistes.count <= 2 && self.didAnimateUp == false  {
+                self.nextButton.frame.origin.y += 0
+                self.didAnimateUp = true
+                self.tableView.contentInset = insets
+                self.hideButton = true
+            }
+            }, completion: {
+                (finished: Bool) in
+                if self.hideButton {
+                    self.nextButton.hidden = true
+                    self.hideButton = false
+                }
+        })
     }
-    
+
     override func didTapNavButton() {
         for objects in selectedArtistes {
             let keyboardId = viewModel.artistsList[objects.integerValue].keyboardId

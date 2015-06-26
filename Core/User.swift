@@ -8,9 +8,10 @@
 
 import RealmSwift
 
+
 class User: Object {
     dynamic var id: String = ""
-    dynamic var fullName: String = ""
+    dynamic var name: String = ""
     dynamic var profileImageSmall: String = ""
     dynamic var profileImageLarge: String = ""
     dynamic var username: String = ""

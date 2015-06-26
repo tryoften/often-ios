@@ -19,7 +19,6 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
         addPhoneNumberPage.phoneNumberTxtField.delegate = self
         addPhoneNumberPage.phoneNumberTxtField.keyboardType = .PhonePad
         
-        
         view.addSubview(addPhoneNumberPage)
     }
     
@@ -35,6 +34,8 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
         delay(0.05) {
             addPhoneNumberPage.phoneNumberTxtField.becomeFirstResponder()
         }
+        
+        println("next button \(nextButton.frame)")
     }
     
     override func setupLayout() {
@@ -51,29 +52,24 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
-        checkCharacterCountOfTextField()
-        
-        if textField == addPhoneNumberPage.phoneNumberTxtField {
+        if(textField == addPhoneNumberPage.phoneNumberTxtField){
             var newString = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: string)
             var components = newString.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
             var decimalString = "".join(components) as NSString
             var length = decimalString.length
-            var hasLeadingOne = length > 0 && decimalString.characterAtIndex(0) == (1 as unichar)
+            var lastCount = count(addPhoneNumberPage.phoneNumberTxtField.text)
             
-            if length == 0 || (length > 10 && !hasLeadingOne) || length > 11 {
+            if length == 0 || lastCount == 12 {
                 var newLength = (textField.text as NSString).length + (string as NSString).length - range.length as Int
                 
+                checkCharacterCountOfTextField()
                 return (newLength > 10) ? false : true
             }
             
             var index = 0 as Int
             var formattedString = NSMutableString()
             
-            if hasLeadingOne {
-                formattedString.appendString("1 ")
-                index += 1
-            }
-            
+
             if (length - index) > 3 {
                 var areaCode = decimalString.substringWithRange(NSMakeRange(index, 3))
                 
@@ -88,27 +84,39 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
                 index += 3
             }
             
+            
             var remainder = decimalString.substringFromIndex(index)
             
             formattedString.appendString(remainder)
             textField.text = formattedString as String
-            
             return false
-        }
-            
-        else {
-            return true
+        } else {
+        return true
         }
     }
     
     func checkCharacterCountOfTextField() {
-        if (count(addPhoneNumberPage.phoneNumberTxtField.text) >= 2) {
-            nextButton.hidden = false
-            addPhoneNumberPage.subtitleLabel.hidden = true
-        } else {
-            nextButton.hidden = true
-            addPhoneNumberPage.subtitleLabel.hidden = false
-        }
+        var characterCount = count(addPhoneNumberPage.phoneNumberTxtField.text)
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            if self.didAnimateUp && characterCount >= 1 {
+                self.nextButton.hidden = false
+                self.nextButton.frame.origin.y -= 50
+                self.didAnimateUp = false
+                self.addPhoneNumberPage.subtitleLabel.hidden = true
+            } else if self.didAnimateUp == false && characterCount <= 1 {
+                self.nextButton.frame.origin.y += 50
+                self.didAnimateUp = true
+                self.addPhoneNumberPage.subtitleLabel.hidden = false
+                self.hideButton = true
+            }
+            }, completion: {
+                (finished: Bool) in
+                if self.hideButton {
+                    self.nextButton.hidden = true
+                    self.hideButton = false
+                }
+        })
     }
     
      override func didTapNavButton() {
@@ -124,7 +132,6 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
         }
         
         let Namevc = SignUpNameWalkthroughViewController(viewModel:self.viewModel)
-        
         navigationController?.pushViewController(Namevc, animated: true)
     }
 }

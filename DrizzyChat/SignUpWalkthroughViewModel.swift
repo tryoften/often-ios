@@ -54,8 +54,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     }
     
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
-        //self.user = user
-        println(user)
+        self.user = user
         delegate?.walkthroughViewModelDidLoginUser?(self, user: user, isNewUser: isNewUser)
     }
     
