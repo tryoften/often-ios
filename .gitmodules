@@ -9,4 +9,4 @@
 	url = git@github.com:Quick/Quick.git
 [submodule "Vendors/PKHUD"]
 	path = Vendors/PKHUD
-	url = git@github.com:pkluz/PKHUD.git
+	url = git@github.com:October-Labs/PKHUD.git
