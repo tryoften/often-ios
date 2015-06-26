@@ -16,8 +16,9 @@ class LoginViewController : WalkthroughViewController {
 
         loginView = LoginView()
         loginView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        loginView.emailTxtField.delegate = self
+        loginView.passwordTxtField.delegate = self
         loginView.facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
-        
         
         view.addSubview(loginView)
     }
@@ -33,6 +34,12 @@ class LoginViewController : WalkthroughViewController {
         title = "login".uppercaseString
     }
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+        checkCharacterCountOfTextField()
+        
+        return true
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -42,11 +49,42 @@ class LoginViewController : WalkthroughViewController {
         
     }
     
+    func checkCharacterCountOfTextField() {
+        var characterCount = count(loginView.passwordTxtField.text)
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            if self.didAnimateUp && characterCount >= 3 {
+                self.nextButton.hidden = false
+                self.nextButton.frame.origin.y -= 50
+                self.didAnimateUp = false
+                self.loginView.facebookButton.hidden = true
+                self.loginView.orLabel.hidden = true
+                self.loginView.orSpacerOne.hidden = true
+                self.loginView.orSpacerTwo.hidden = true
+            } else if self.didAnimateUp == false && characterCount <= 3 {
+                self.nextButton.frame.origin.y += 50
+                self.didAnimateUp = true
+                self.loginView.orLabel.hidden = false
+                self.loginView.orSpacerOne.hidden = false
+                self.loginView.orSpacerTwo.hidden = false
+                self.loginView.facebookButton.hidden = false
+                self.hideButton = true
+            }
+            }, completion: {
+                (finished: Bool) in
+                if self.hideButton {
+                    self.nextButton.hidden = true
+                    self.hideButton = false
+                }
+        })
+    }
+
     override func prefersStatusBarHidden() -> Bool {
         return true;
     }
 
     override func setupLayout() {
+        super.setupLayout()
         
         var constraints: [NSLayoutConstraint] = [
             loginView.al_bottom == view.al_bottom,

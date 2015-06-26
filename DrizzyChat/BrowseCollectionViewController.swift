@@ -15,7 +15,7 @@ import UIKit
     Collection views use the same data source and delegate
 */
 
-class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate {
+class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate, BrowseHeaderCollectionViewDataSource, UpdateTracksFromHeaderDelegate {
 
     var viewModel: BrowseViewModel
     var headerView: BrowseHeaderView?
@@ -23,6 +23,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     var artistCollectionView: UICollectionView?
     var modalTintView: UIView?
     var addArtistModal: UIView?
+    var artistsSet: Bool = false
     
     init(viewModel: BrowseViewModel) {
         self.viewModel = viewModel
@@ -35,13 +36,13 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewModel.requestData(completion: nil)
         
         if let collectionView = collectionView {
+            collectionView.backgroundColor = UIColor.whiteColor()
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowseSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
@@ -79,29 +80,26 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let trackvar = self.viewModel.tracksList {
-            return trackvar.count
+        if artistsSet == true {
+            return self.viewModel.currentArtist.tracksList.count
+        } else {
+            return 0
         }
-        return 10
     }
     
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! BrowseCollectionViewCell
         cell.backgroundColor = UIColor.whiteColor()
+        
+        let track = viewModel.currentArtist.tracks[indexPath.row]
 
-        cell.trackNameLabel.text = viewModel.tracks[viewModel.currentArtist]
-        
-        if let lyricCount = viewModel.lyricCountAtIndex(indexPath.row) {
-            // cell.lyricCountLabel.text = "\(lyricCount) Lyrics"
-            cell.lyricCountLabel.text = "23 Lyrics"
-        }
-        
-        cell.disclosureIndicator.image = UIImage(named: "arrow")
         cell.rankLabel.text = "\(indexPath.row + 1)"
+        cell.trackNameLabel.text = track.name
+        cell.lyricCountLabel.text = "\(track.lyricCount) lyrics"
+        cell.disclosureIndicator.image = UIImage(named: "arrow")
         
         return cell
-            
     }
     
     
@@ -111,9 +109,18 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             
             headerView = cell
             
-            headerView?.browsePicker.delegate = self
-            self.headerView?.coverPhoto.image = self.viewModel.images[self.viewModel.currentArtist]!.blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
-            headerView?.browsePicker.collectionView?.reloadData()
+            
+            // Blur that I had blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
+            
+            if let headerViewController = headerView?.browsePicker {
+                headerViewController.delegate = self
+                headerViewController.dataSource = self
+                headerViewController.headerDelegate = headerView
+                headerViewController.updateTracksDelegate = self
+            }
+            
+            self.headerView?.coverPhoto.setImageWithURL(NSURL(string: viewModel.currentArtist.imageURLLarge))
+            self.headerView?.browsePicker.collectionView?.reloadData()
             
             return cell
             
@@ -136,16 +143,12 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
-        
         return CGSizeMake(screenWidth, 39.5)
         
     }
     
     
-    func browseViewModelDidLoadTracks() {
-        
-    }
-    
+    // MARK: BrowseHeaderSwipeDelegate
     
     /**
         Everytime the user finishes swiping on the header view, the tracks, header, and 
@@ -155,16 +158,39 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         user moved into the next artist's view. 
     
     */
-    func headerDidSwipe() {
-        if viewModel.currentArtist < 4 {
-            viewModel.currentArtist++
+    func headerDidSwipe(currentPage: Int) {
+        if let headerView = headerView {
+            headerView.artistNameLabel.text = viewModel.currentArtist.name
         }
-        headerView?.artistNameLabel.text = viewModel.artistNames[viewModel.currentArtist]
+        
+        viewModel.currentArtist = viewModel.artists[currentPage]
         collectionView?.reloadData()
     }
     
     
+    // MARK: BrowseViewModelDelegate
+    
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track]) {
+        collectionView?.reloadData()
+    }
+
+    
+    // MARK: BrowseHeaderCollectionViewDataSource
+    
+    func numberOfItemsInBrowsePicker(browsePicker: BrowseHeaderCollectionViewController) -> Int {
+        return viewModel.artists.count
+    }
+    
+    func artistForIndexPath(browsePicker: BrowseHeaderCollectionViewController, index: Int) -> Artist? {
+        return viewModel.artists[index]
+    }
+    
+    //MARK: UpdateTracksFromHeaderDelegate
+    
+    func updateTracksForArtist(artist: Artist) {
+        viewModel.currentArtist = artist
+        println(artist.tracks)
+        artistsSet = true
         collectionView?.reloadData()
     }
 }

@@ -20,7 +20,6 @@ class BaseNavigationController: UINavigationController {
     }
 
     func setupNavbar() {
-        navigationBar.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 54)
         navigationBar.tintColor = UIColor.whiteColor()
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         navigationBar.barTintColor = BlackColor
@@ -28,5 +27,6 @@ class BaseNavigationController: UINavigationController {
         navigationBar.backIndicatorImage = UIImage()
         navigationBar.backIndicatorTransitionMaskImage = UIImage()
         navigationBar.titleTextAttributes = [NSFontAttributeName:ButtonFont!,NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
     }
 }

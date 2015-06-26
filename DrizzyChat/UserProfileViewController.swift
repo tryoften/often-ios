@@ -49,7 +49,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
             if let height = tabBarController?.tabBar.bounds.size.height {
                 var contentInset = collectionView.contentInset
-                contentInset.bottom = height + 20
+                contentInset.bottom = height
                 collectionView.contentInset = contentInset
             }
         }
@@ -162,7 +162,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
         if let headerView = headerView {
             headerView.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge), placeholderImage: UIImage(named: "placeholder"))
-            headerView.nameLabel.text = user.fullName.uppercaseString
+            headerView.nameLabel.text = user.name.uppercaseString
             headerView.coverPhotoView.image = UIImage(named: "user-profile-bg-\(arc4random_uniform(4) + 1)")
         }
     }

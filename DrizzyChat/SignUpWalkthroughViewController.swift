@@ -15,6 +15,8 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        nextButton.hidden = true
+        
         loginSignUpPage = SignUpOrLoginView()
         loginSignUpPage.setTranslatesAutoresizingMaskIntoConstraints(false)
         loginSignUpPage.signUpButton.addTarget(self, action: "didTapSignUpButton", forControlEvents: .TouchUpInside)
@@ -66,39 +68,3 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
         }
     }
 }
-
-
-class TermAndPrivacyWebView: UIViewController {
-    var webView: WKWebView!
-    
-  override func viewDidLoad() {
-    super.viewDidLoad()
-        webView = WKWebView()
-        webView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        let url = NSURL(string:"http://www.appcoda.com")
-        let request = NSURLRequest(URL:url!)
-        webView.loadRequest(request)
-        
-        view.addSubview(webView)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        setupLayout()
-    }
-    
-     func setupLayout() {
-        var constraints: [NSLayoutConstraint] = [
-            webView.al_top == view.al_top,
-            webView.al_bottom == view.al_bottom,
-            webView.al_left == view.al_left,
-            webView.al_right == view.al_right,
-        ]
-        
-        view.addConstraints(constraints)
-    }
-
-}
-
-

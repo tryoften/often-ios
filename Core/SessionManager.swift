@@ -199,7 +199,7 @@ class SessionManager: NSObject {
                                 let profileImageSmall = value["profile_pic_small"] as? String,
                                 let profileImageLarge = value["profile_pic_large"] as? String,
                                 let email = value["email"] as? String {
-                                    user.fullName = name
+                                    user.name = name
                                     user.profileImageLarge = profileImageLarge
                                     user.profileImageSmall = profileImageSmall
                                     user.username = email

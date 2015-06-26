@@ -14,12 +14,14 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     var navButton: UIBarButtonItem!
     var nextButton: UIButton
     var bottomConstraint: NSLayoutConstraint!
-
+    var didAnimateUp = true
+    var hideButton = false
+    
     init (viewModel: SignUpWalkthroughViewModel) {
         self.viewModel = viewModel
         
         nextButton = UIButton()
-        nextButton.hidden = true
+        self.nextButton.hidden = true
         nextButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         nextButton.titleLabel!.font = ButtonFont
         nextButton.backgroundColor = UIColor(fromHexString: "#2CD2B4")
@@ -51,12 +53,7 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         setupLayout()
         
         self.an_subscribeKeyboardWithAnimations({ (keyboardRect, duration, isShowing) in
-            self.bottomConstraint.constant = isShowing ? -keyboardRect.size.height : 0
-            UIView.transitionWithView(self.nextButton, duration: 6.0, options: .CurveEaseIn, animations: { () -> Void in
-                
-            }, completion: { finished in
-                
-            })
+            self.bottomConstraint.constant = (isShowing ? -CGRectGetHeight(keyboardRect) : 0) + 50
         }, completion: { finished in
             
         })
@@ -80,29 +77,6 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         
         navigationItem.leftBarButtonItem = backButtonItem
         navigationItem.title = "sign up".uppercaseString
-    }
-
-    func setupNavBar(titlePushViewButton: String) {
-        navButton = UIBarButtonItem(title: titlePushViewButton.uppercaseString, style: .Plain, target: self, action: "didTapNavButton")
-        let fixedSpaceItem = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-        let backButton = UIButton(frame: CGRectMake(0, 0, 20, 16))
-        let backImage = UIImage(named: "BackButton")
-        let backButtonItem = UIBarButtonItem(customView: backButton)
-        let textAttributes = [NSFontAttributeName:ButtonFont!, NSForegroundColorAttributeName: UIColor.whiteColor()]
-        let textAttributeForButtons = [NSFontAttributeName:ButtonFont!, NSForegroundColorAttributeName: UIColor(fromHexString: "#FFFFFF")]
-        
-        fixedSpaceItem.width = 10
-        
-        backButton.setBackgroundImage(backImage, forState: .Normal)
-        backButton.imageView?.contentMode = .ScaleAspectFit
-        backButton.addTarget(self, action: "popBack", forControlEvents: .TouchUpInside)
-        
-        navButton.setTitleTextAttributes(textAttributeForButtons, forState: .Normal)
-        
-        navigationItem.rightBarButtonItems = [fixedSpaceItem,navButton]
-        navigationItem.leftBarButtonItem = backButtonItem
-        navigationItem.title = "sign up".uppercaseString
-        navigationItem.rightBarButtonItem?.tintColor = BlackColor
     }
     
     func setupLayout() {
@@ -131,7 +105,7 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     func walkthroughViewModelDidLoginUser(walkthroughViewModel: SignUpWalkthroughViewModel, user: User, isNewUser: Bool) {
         var presentedViewController: UIViewController
         if isNewUser {
-            presentedViewController = SelectArtistWalkthroughViewController(viewModel: viewModel)
+            presentedViewController = SignUpPreAddArtistsLoaderViewController(viewModel: viewModel)
             navigationController?.pushViewController(presentedViewController, animated: true)
         } else {
             presentedViewController = TabBarController()
