@@ -52,6 +52,7 @@ class SignUpPostAddArtistsLoaderViewController: WalkthroughViewController {
                     self.animationCard()
                 } else {
                     self.presentViewController(TabBarController(), animated: true, completion: nil)
+                    self.viewModel.delegate = nil
                 }
                 
         })
