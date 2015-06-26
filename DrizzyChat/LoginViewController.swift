@@ -31,7 +31,6 @@ class LoginViewController : WalkthroughViewController {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.hidden = false
-        
         title = "login".uppercaseString
     }
     

@@ -19,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+        RLMRealm.setDefaultRealmPath(realmPath)
+        
         sessionManager = SessionManager.defaultManager
 
         ParseCrashReporting.enable()
@@ -29,12 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBAppEvents.activateApp()
         
         Flurry.startSession(FlurryClientKey)
-        
-        if let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) {
-            let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
-            RLMRealm.setDefaultRealmPath(realmPath)
-        }
-
+    
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
         
@@ -63,10 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 frame.size.height = KeyboardHeight
                 window.frame = frame
                 window.clipsToBounds = true
-                mainController = KeyboardViewController(nibName: nil, bundle: nil)
-                if let inputView = mainController.inputView {
-                    inputView.frame = frame
-                }
+                mainController = KeyboardViewController(debug: true)
             }
             window.rootViewController = mainController
             window.makeKeyAndVisible()

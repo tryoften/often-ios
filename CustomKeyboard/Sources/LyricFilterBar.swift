@@ -164,7 +164,7 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
     }
     
     convenience required init(coder aDecoder: NSCoder) {
-        self.init(aTableView: UITableView(), aTargetViewController: KeyboardViewController())
+        self.init(aTableView: UITableView(), aTargetViewController: KeyboardViewController(debug: false))
     }
     
     // MARK: UISearchBarDelegate

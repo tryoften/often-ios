@@ -9,9 +9,15 @@
 import UIKit
 
 class UserProfileViewModel: NSObject, SessionManagerObserver {
-    var sessionManager: SessionManager
-    var keyboardsList: [Keyboard]?
     weak var delegate: UserProfileViewModelDelegate?
+    var sessionManager: SessionManager
+
+    var numberOfKeyboards: Int {
+        if let keyboardService = sessionManager.keyboardService {
+            return keyboardService.keyboards.count
+        }
+        return 0
+    }
     
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
@@ -27,18 +33,28 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         self.sessionManager.login()
     }
     
+    func keyboardAtIndex(index: Int) -> Keyboard? {
+        if let keyboard = sessionManager.keyboardService?.keyboards[index] {
+            return keyboard
+        }
+        return nil
+    }
+    
+    func deleteKeyboardWithId(keyboardId: String, completion: (NSError?) -> ()) {
+        sessionManager.keyboardService?.deleteKeyboardWithId(keyboardId, completion: completion)
+    }
+    
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
         
     }
 
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
-        self.sessionManager.fetchKeyboards()
-        self.delegate?.userProfileViewModelDidLoginUser(self, user: user)
+        sessionManager.fetchKeyboards()
+        delegate?.userProfileViewModelDidLoginUser(self, user: user)
     }
     
-    func sessionManagerDidFetchKeyboards(sessionManager: SessionManager, keyboards: [String: Keyboard]) {
-        self.keyboardsList = keyboards.values.array
-        self.delegate?.userProfileViewModelDidLoadKeyboardList(self, keyboardList: self.keyboardsList!)
+    func sessionManagerDidFetchKeyboards(sessionManager: SessionManager, keyboards: [Keyboard]) {
+        delegate?.userProfileViewModelDidLoadKeyboardList(self, keyboardList: keyboards)
     }
     
     func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track]) {

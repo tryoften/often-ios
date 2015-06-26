@@ -58,14 +58,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
         delegate?.walkthroughViewModelDidLoginUser?(self, user: user, isNewUser: isNewUser)
     }
     
-    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [String: Keyboard]) {
-        
-    }
-    
-    func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track]) {
-    }
-    
-    func sessionManagerDidFetchArtists(sessionManager: SessionManager, artists: [String : Artist]) {
+    func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [Keyboard]) {
         
     }
 }
