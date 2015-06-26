@@ -91,10 +91,12 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! BrowseCollectionViewCell
         cell.backgroundColor = UIColor.whiteColor()
+        
+        let track = viewModel.currentArtist.tracks[indexPath.row]
 
         cell.rankLabel.text = "\(indexPath.row + 1)"
-        cell.trackNameLabel.text = viewModel.currentArtist.tracks[indexPath.row].name
-        cell.lyricCountLabel.text = "Lyrics: \(viewModel.currentArtist.tracks[indexPath.row].lyricCount)"
+        cell.trackNameLabel.text = track.name
+        cell.lyricCountLabel.text = "\(track.lyricCount) lyrics"
         cell.disclosureIndicator.image = UIImage(named: "arrow")
         
         return cell
@@ -161,7 +163,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             headerView.artistNameLabel.text = viewModel.currentArtist.name
         }
         
-        viewModel.currentArtist = viewModel.artistsList[currentPage]
+        viewModel.currentArtist = viewModel.artists[currentPage]
         collectionView?.reloadData()
     }
     
@@ -180,7 +182,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     func artistForIndexPath(browsePicker: BrowseHeaderCollectionViewController, index: Int) -> Artist? {
-        return viewModel.artistsList[index]
+        return viewModel.artists[index]
     }
     
     //MARK: UpdateTracksFromHeaderDelegate

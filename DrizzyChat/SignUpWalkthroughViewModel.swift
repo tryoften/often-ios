@@ -41,7 +41,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     
     func getListOfArtists() {
         artistService.requestData { (artistsList) -> Void in
-            self.artistsList = artistsList.values.array
+            self.artistsList = artistsList
             
             println(self.artistsList.count)
             
@@ -49,7 +49,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
         }
     }
     
-    func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
+    func sessionDidOpen(sessqionManager: SessionManager, session: FBSession) {
         
     }
     

@@ -26,15 +26,13 @@ class BrowseViewModel: NSObject {
     var artistService: ArtistService
     weak var delegate: BrowseViewModelDelegate?
     var tracksList: [Track]?
-    var artists: [String : Artist]
-    var artistsList: [Artist]
+    var artists: [Artist]
     var currentArtist: Artist
     
     override init() {
         rootRef = Firebase(url: BaseURL)
         artistService = ArtistService(root: rootRef)
-        artists = [String : Artist]()
-        artistsList = [Artist]()
+        artists = [Artist]()
         currentArtist = Artist()
         
         super.init()
@@ -52,7 +50,6 @@ class BrowseViewModel: NSObject {
     func requestData(completion: ((Bool) -> ())? = nil) {
         artistService.requestData({ artistData in
             self.artists = artistData
-            self.artistsList = artistData.values.array
         })
     }
     
@@ -61,7 +58,6 @@ class BrowseViewModel: NSObject {
         Get the track name in the tracksList for a specific index
     
         :param: index index of the track name you want to get
-    
         :returns: String of the track name for the index passed in
     */
     func trackNameAtIndex(index: Int) -> String? {
@@ -78,7 +74,6 @@ class BrowseViewModel: NSObject {
         Get the lyric count for a specific index in the tracksList
     
         :param: index index of the lyric count you want to get
-    
         :returns: Integer that is the lyric count for that index passed in
     */
     func lyricCountAtIndex(index: Int) -> Int? {

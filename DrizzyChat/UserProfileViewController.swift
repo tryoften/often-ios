@@ -50,7 +50,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
             if let height = tabBarController?.tabBar.bounds.size.height {
                 var contentInset = collectionView.contentInset
-                contentInset.bottom = height + 20
+                contentInset.bottom = height
                 collectionView.contentInset = contentInset
             }
         }

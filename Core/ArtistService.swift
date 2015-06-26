@@ -11,19 +11,19 @@ import RealmSwift
 
 class ArtistService: Service {
     var artistsRef: Firebase
-    var artists: [String: Artist]
+    var artists: [Artist]
     
     override init(root: Firebase, realm: Realm = Realm()) {
         artistsRef = root.childByAppendingPath("owners")
-        artists = [String: Artist]()
+        artists = [Artist]()
         
         super.init(root: root, realm: realm)
     }
     
     /**
-    Fetches data from the local database and creates models
-    
-    :param: completion callback that gets called when data has loaded
+        Fetches data from the local database and creates models
+        
+        :param: completion callback that gets called when data has loaded
     */
     func fetchLocalData(completion: (Bool) -> Void) {
         createArtistModels(completion)
@@ -33,11 +33,7 @@ class ArtistService: Service {
         Creates keyboard models from the default realm
     */
     private func createArtistModels(completion: (Bool) -> Void) {
-        let artists = realm.objects(Artist)
-        for artist in artists {
-            self.artists[artist.id] = artist
-        }
-        
+        artists = sorted(realm.objects(Artist)) {$0.name < $1.name}
         delegate?.serviceDataDidLoad(self)
         completion(true)
     }
@@ -48,20 +44,23 @@ class ArtistService: Service {
     func fetchDataForArtistIds(artistIds: [String], completion: ([Artist]) -> ()) {
         var index = 0
         var artistCount = artistIds.count
+        var artistList =  [Artist]()
         
         for artistId in artistIds {
             self.processArtistData(artistId, completion: { (artist, success) in
                 artist.index = index++
-                self.artists[artist.artistId] = artist
+                artistList.append(artist)
                 
                 if index + 1 >= artistCount {
+                    self.artists = sorted(artistList) { $0.name < $1.name }
+                    
                     self.realm.write {
-                        self.realm.add(self.artists.values.array, update: true)
+                        self.realm.add(self.artists, update: true)
                     }
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         self.delegate?.serviceDataDidLoad(self)
-                        completion(self.artists.values.array)
+                        completion(self.artists)
                     })
                 }
             })
@@ -92,62 +91,18 @@ class ArtistService: Service {
     
     :param: completion callback that gets called when data has loaded
     */
-//    func requestData(completion: ([String: Artist]) -> Void) {
-//        fetchLocalData { success in
-//            completion(self.artists)
-//        }
-//        
-//        fetchRemoteData { success in
-//            completion(self.artists)
-//        }
-//    }
-
-    
-    func requestData(completion: (artistsList:[String: Artist]) -> Void) {
-        let tracks = List<Track>()
-        var index = 0
-        
-        artistsRef.observeEventType(.Value, withBlock: { (snapshot) -> Void in
-            println(snapshot.value)
-            if let artistsData = snapshot.value as? [String: NSDictionary] {
-                for (owner, data) in artistsData {
-                    var artistData = data.mutableCopy() as! NSMutableDictionary
-                    artistData["keyboardId"] = artistData["keyboard"]
-                    var artist = Artist()
-                    artist.id = owner
-                    artist.name = data["name"] as! String
-                    artist.imageURLLarge = data["image_large"] as! String
-                    artist.lyricCount = data["lyrics_count"] as! Int
-                    self.artists[artist.id] = artist
-                    
-                    
-                    var tracks = List<Track>()
-                    for (key, value) in data["tracks"] as! [String : AnyObject]{
-                        // var trackData = value.mutableCopy() as! NSDictionary
-                        var track = Track()
-                        track.setValuesForKeysWithDictionary(value as! [NSObject : AnyObject])
-                        tracks.append(track)
-                    }
-                    artist.tracks.extend(tracks)
-                    println(artist)
-                    self.artists[artist.id] = artist
-                    
-                    if index + 1 >= artistsData.count {
-                        self.realm.write {
-                            self.realm.add(self.artists.values.array, update: true)
-                        }
-                    }
+    func requestData(completion: ([Artist]) -> Void) {
+        fetchLocalData { success in
+            if self.artists.isEmpty {
+                self.fetchRemoteData { success in
+                    completion(self.artists)
                 }
-                
-                if self.artists.count >= 1 {
-                    completion(artistsList: self.artists)
-                }
+            } else {
+                completion(self.artists)
             }
-            
-        })
+        }
     }
-    
-    
+
     /**
         Retrieve a specific artist from the dictionary of artists that we get from the requestData method
         by passing in that artist's ID.
@@ -157,9 +112,9 @@ class ArtistService: Service {
         :returns: The Artist object that corresponds to the ID in the artistsList dictionary or nil because of an invalid ID
     */
     func getArtistForId(id: String) -> Artist? {
-        for (key, value) in artists {
-            if key == id {
-                return value
+        for artist in artists {
+            if artist.id == id {
+                return artist
             }
         }
         return nil
@@ -172,38 +127,38 @@ class ArtistService: Service {
     :param: artistId The id from the key/value store, the artist object ID
     :param: completion callback which gets called when artist objects are done being created
     */
-    private func processArtistData(artistId: String, completion: (Artist, Bool) -> ()) {
-        let artistRef = rootURL.childByAppendingPath("owner/\(artistId)")
+    func processArtistData(artistId: String, completion: (Artist, Bool) -> ()) {
+        let artistRef = rootURL.childByAppendingPath("owners/\(artistId)")
         
         artistRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            if let artistData = snapshot.value as? [String: AnyObject] {
+            if let data = snapshot.value as? [String: AnyObject] {
                 var artist = Artist()
-                artist.id = artistId
+                artist.id = snapshot.key
+                artist.name = data["name"] as! String
+                artist.imageURLSmall = data["image_small"] as! String
+                artist.imageURLLarge = data["image_large"] as! String
+                artist.lyricCount = data["lyrics_count"] as! Int
+                artist.keyboardId = data["keyboard"] as! String
                 
-                
-                if let tracks = artistData["tracks"] as? [String : [String : AnyObject]] {
-                    self.processTrackData(artist, tracks: tracks, completion: { success in
-                        
-                    })
+                if let tracks = data["tracks"] as? [String : [String: AnyObject]] {
+                    self.processTracksData(artist, data: tracks)
                 }
+                completion(artist, true)
             }
         })
     }
     
-    private func processTrackData(artist: Artist, tracks: [String : [String : AnyObject]], completion: (Bool) -> ()) {
-        let trackRef = rootURL.childByAppendingPath("/\(artist.id)/tracks")
-        println(trackRef)
+    private func processTracksData(artist: Artist, data: [String : [String : AnyObject]]) {
+        let tracks = List<Track>()
         
-        trackRef.observeEventType(.Value, withBlock: { snapshot in
-            if let artistData = snapshot.value as? [String : [String : AnyObject]] {
-                for(key, data) in artistData {
-                    var track = Track(value: [
-                    "id": key
-                    ])
-                    artist.tracks.append(track)
-                }
-            }
-        })
+        for (trackId, trackData)in data {
+            var track = Track()
+            track.id = trackId
+            track.setValuesForKeysWithDictionary(trackData)
+            tracks.append(track)
+        }
+        
+        artist.tracks.extend(tracks)
     }    
 }
 

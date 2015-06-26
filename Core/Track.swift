@@ -41,7 +41,7 @@ class Track: Object {
     dynamic var rapgeniusURL: String? = ""
     dynamic var youtubeURL: String? = ""
     dynamic var previewURL: String? = ""
-    var lyricCount: Int = 200
+    dynamic var lyricCount: Int = 0
     
     override static func primaryKey() -> String? {
         return "id"
@@ -54,6 +54,8 @@ class Track: Object {
             name = (dictionary["name"] ?? dictionary["track_name"]) as! String
             artistName = dictionary["artist_name"] as! String
             artistId = (dictionary["artist_id"] ?? dictionary["artist_sp_id"]) as! String
+            lyricCount = dictionary["lyrics_count"] as! Int
+            
             
             if let albumCoverImageString = dictionary["album_cover_image_small"] as? String {
                 albumCoverImage = albumCoverImageString

@@ -15,9 +15,11 @@ class KeyboardService: Service {
     var keyboardsRef: Firebase
     var keyboards: [Keyboard]
     var notificationToken: NotificationToken?
+    var artistService: ArtistService
 
-    init(userId: String, root: Firebase, realm: Realm = Realm()) {
+    init(userId: String, root: Firebase, realm: Realm = Realm(), artistService: ArtistService = ArtistService(root: Firebase(url: BaseURL))) {
         self.userId = userId
+        self.artistService = artistService
         
         keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
         keyboards = [Keyboard]()
@@ -166,41 +168,13 @@ class KeyboardService: Service {
                         self.processCategoriesData(keyboard, ownerId: ownerId, data: categories)
                     }
                     
-                    self.processOwnerData(keyboard, ownerId: ownerId, completion: { success in
+                    self.artistService.processArtistData(ownerId) { (artist, success) in
+                        keyboard.artist = artist
+                        keyboard.artistName = artist.name
+                        
                         completion(keyboard, true)
-                    })
+                    }
                 }
-            }
-        })
-    }
-    
-    /** 
-        Processes owner (artist) JSON data and adds it to the keyboard
-        
-        :param: keyboard The keyboard model the owner object will be set on
-        :param: ownerId The owner ID
-        :param: completion gets invoked when the owner object is fetched and created
-    */
-    private func processOwnerData(keyboard: Keyboard, ownerId: String, completion: (Bool) -> ()) {
-        let ownerRef = rootURL.childByAppendingPath("owners/\(ownerId)")
-
-        ownerRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            if let artistData = snapshot.value as? [String: AnyObject],
-                id = snapshot.key,
-                name = artistData["name"] as? String {
-                    var data = artistData
-                    data["id"] = id
-                    
-                    var urlSmall: String = (artistData["image_small"] ?? "") as! String
-                    var urlLarge: String = (artistData["image_large"] ?? "") as! String
-                    
-                    let artist = Artist(value: data)
-                    artist.imageURLSmall = urlSmall
-                    artist.imageURLLarge = urlLarge
-                    
-                    keyboard.artist = artist
-                    keyboard.artistName = artist.name
-                    completion(true)
             }
         })
     }
@@ -210,7 +184,6 @@ class KeyboardService: Service {
     */
     private func processCategoriesData(keyboard: Keyboard, ownerId: String, data: [String: AnyObject]) {
         let categories = List<Category>()
-        let realm = Realm()
 
         for (categoryKey, categoryData) in data {
 
