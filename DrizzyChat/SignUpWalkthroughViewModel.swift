@@ -16,11 +16,8 @@ Service:
 */
 
 class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
-    var phoneNumber: String
-    var fullName: String
-    var email: String
+    var user: User
     var password: String
-    var confirmPassword: String
     var artistSelectedList: [String]?
     var artistsList: [Artist]
     var artistService: ArtistService
@@ -29,11 +26,8 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
    
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
-        phoneNumber = ""
-        fullName = ""
-        email = ""
+        user = User()
         password = ""
-        confirmPassword = ""
         artistSelectedList = [String]()
         artistsList = [Artist]()
         artistService = ArtistService(root: Firebase(url: BaseURL))
@@ -60,6 +54,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
     }
     
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
+        self.user = user
         delegate?.walkthroughViewModelDidLoginUser?(self, user: user, isNewUser: isNewUser)
     }
     

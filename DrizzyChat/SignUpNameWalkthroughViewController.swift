@@ -11,12 +11,14 @@ import Foundation
 class SignUpNameWalkthroughViewController: WalkthroughViewController  {
     var addNamePage: SignUpNameView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addNamePage = SignUpNameView()
         addNamePage.setTranslatesAutoresizingMaskIntoConstraints(false)
         addNamePage.fullNameTxtField.delegate = self
+        self.nextButton.hidden = true
         
         view.addSubview(addNamePage)
     }
@@ -55,18 +57,32 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController  {
     }
     
     func checkCharacterCountOfTextField() {
-        if (count(addNamePage.fullNameTxtField.text) >= 2) {
-            nextButton.hidden = false
-            addNamePage.termsAndPrivacyView.hidden = true
-        } else {
-            nextButton.hidden = true
-            addNamePage.termsAndPrivacyView.hidden = false
-        }
+        var characterCount = count(addNamePage.fullNameTxtField.text)
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            if self.didAnimateUp && characterCount >= 2 {
+                self.nextButton.hidden = false
+                self.nextButton.frame.origin.y -= 50
+                self.didAnimateUp = false
+                self.addNamePage.termsAndPrivacyView.hidden = true
+            } else if self.didAnimateUp == false && characterCount < 2 {
+                self.nextButton.frame.origin.y += 50
+                self.didAnimateUp = true
+                self.addNamePage.termsAndPrivacyView.hidden = false
+                self.hideButton = true
+            }
+            }, completion: {
+                (finished: Bool) in
+                if self.hideButton {
+                    self.nextButton.hidden = true
+                    self.hideButton = false
+                }
+        })
     }
-    
+
     override func didTapNavButton() {
         if NameIsValid(addNamePage.fullNameTxtField.text) {
-            viewModel.fullName = addNamePage.fullNameTxtField.text
+            viewModel.user.name = addNamePage.fullNameTxtField.text
         }
         else {
             println("enter name")
@@ -74,7 +90,6 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController  {
         }
         
         let Emailvc = SignUpEmailWalkthroughViewController(viewModel: self.viewModel)
-        
         navigationController?.pushViewController(Emailvc, animated: true)
     }
     

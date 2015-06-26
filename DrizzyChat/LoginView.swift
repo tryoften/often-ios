@@ -15,6 +15,7 @@ class LoginView: UIView {
     var passwordSpacer: UIView
     var orSpacerOne: UIView
     var orSpacerTwo: UIView
+    var whiteBackground: UIView
     var orLabel: UILabel
     var facebookButton: FacebookButton
     
@@ -37,6 +38,7 @@ class LoginView: UIView {
         emailTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         emailTxtField.leftViewMode = .Always
         emailTxtField.leftView = emailIconImageView
+        emailTxtField.backgroundColor = UIColor.whiteColor()
         
         passwordTxtField = FlexibleBoundsTextField()
         passwordTxtField.leftMargin = 40.0
@@ -47,6 +49,7 @@ class LoginView: UIView {
         passwordTxtField.leftViewMode = .Always
         passwordTxtField.leftView = passwordIconImageView
         passwordTxtField.secureTextEntry = true
+        passwordTxtField.backgroundColor = UIColor.whiteColor()
         
         emailTxtSpacer = UIView()
         emailTxtSpacer.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -75,16 +78,21 @@ class LoginView: UIView {
         orSpacerTwo.setTranslatesAutoresizingMaskIntoConstraints(false)
         orSpacerTwo.backgroundColor = UIColor(fromHexString: "#E4E4E4")
         
+        whiteBackground = UIView()
+        whiteBackground.setTranslatesAutoresizingMaskIntoConstraints(false)
+        whiteBackground.backgroundColor = UIColor.whiteColor()
+        
         super.init(frame: frame)
         
         backgroundColor = UIColor(fromHexString: "#F7F7F7")
-        addSubview(emailTxtField)
-        addSubview(passwordTxtField)
-        addSubview(emailTxtSpacer)
+        whiteBackground.addSubview(emailTxtField)
+        whiteBackground.addSubview(passwordTxtField)
+        whiteBackground.addSubview(emailTxtSpacer)
         addSubview(orLabel)
-        addSubview(passwordSpacer)
-        addSubview(orSpacerOne)
-        addSubview(orSpacerTwo)
+        whiteBackground.addSubview(passwordSpacer)
+        whiteBackground.addSubview(orSpacerOne)
+        whiteBackground.addSubview(orSpacerTwo)
+        addSubview(whiteBackground)
         addSubview(facebookButton)
         
         setupLayout()
@@ -102,8 +110,8 @@ class LoginView: UIView {
             emailTxtField.al_height == 44,
             
             emailTxtSpacer.al_top == emailTxtField.al_bottom,
-            emailTxtSpacer.al_right == al_right,
-            emailTxtSpacer.al_left == al_left,
+            emailTxtSpacer.al_right == al_right - 20,
+            emailTxtSpacer.al_left == al_left + 20,
             emailTxtSpacer.al_height == 0.5,
             
             passwordTxtField.al_top == emailTxtSpacer.al_bottom,
@@ -112,24 +120,29 @@ class LoginView: UIView {
             passwordTxtField.al_height == 44,
             
             passwordSpacer.al_top == passwordTxtField.al_bottom,
-            passwordSpacer.al_right == al_right,
-            passwordSpacer.al_left == al_left,
+            passwordSpacer.al_right == al_right + 20,
+            passwordSpacer.al_left == al_left - 20,
             passwordSpacer.al_height == 0.5,
             
-            orLabel.al_top == passwordSpacer.al_bottom + 160,
+            orLabel.al_top == whiteBackground.al_bottom + 140,
             orLabel.al_width == 40,
             orLabel.al_centerX == al_centerX,
             orLabel.al_height == 40,
 
-            orSpacerOne.al_top == passwordSpacer.al_bottom + 180,
-            orSpacerOne.al_right == orLabel.al_left,
+            orSpacerOne.al_top == whiteBackground.al_bottom + 160,
+            orSpacerOne.al_right == orLabel.al_left - 20,
             orSpacerOne.al_left == al_left + 50,
             orSpacerOne.al_height == 1,
             
-            orSpacerTwo.al_top == passwordSpacer.al_bottom + 180,
+            orSpacerTwo.al_top == whiteBackground.al_bottom + 160,
             orSpacerTwo.al_right == al_right - 50,
             orSpacerTwo.al_left == orLabel.al_right,
             orSpacerTwo.al_height == 1,
+            
+            whiteBackground.al_top == al_top + 20,
+            whiteBackground.al_right == al_right,
+            whiteBackground.al_left == al_left,
+            whiteBackground.al_height == 88,
             
             facebookButton.al_height == 60,
             facebookButton.al_top == orLabel.al_bottom + 5,

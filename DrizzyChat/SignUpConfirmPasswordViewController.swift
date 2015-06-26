@@ -56,13 +56,27 @@ class SignUpConfirmPassWordWalkthroughViewController: WalkthroughViewController 
     }
     
     func checkCharacterCountOfTextField() {
-        if (count(addPasswordPage.confirmPasswordTxtField.text) >= 2) {
-            nextButton.hidden = false
-            addPasswordPage.termsAndPrivacyView.hidden = true
-        } else {
-            nextButton.hidden = true
-            addPasswordPage.termsAndPrivacyView.hidden = false
-        }
+        var characterCount = count(addPasswordPage.confirmPasswordTxtField.text)
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            if self.didAnimateUp && characterCount >= 1 {
+                self.nextButton.hidden = false
+                self.nextButton.frame.origin.y -= 50
+                self.didAnimateUp = false
+                self.addPasswordPage.termsAndPrivacyView.hidden = true
+            } else if self.didAnimateUp == false && characterCount <= 1 {
+                self.nextButton.frame.origin.y += 50
+                self.didAnimateUp = true
+                self.addPasswordPage.termsAndPrivacyView.hidden = false
+                self.hideButton = true
+            }
+            }, completion: {
+                (finished: Bool) in
+                if self.hideButton {
+                    self.nextButton.hidden = true
+                    self.hideButton = false
+                }
+        })
     }
     
     override func didTapNavButton() {
@@ -78,13 +92,7 @@ class SignUpConfirmPassWordWalkthroughViewController: WalkthroughViewController 
             println("need more chars")
             return
         }
-        let selectArtistvc = SelectArtistWalkthroughViewController(viewModel: self.viewModel)
-        
-        navigationController?.pushViewController(selectArtistvc, animated: true)
-    }
-    override func textFieldShouldReturn(textField: UITextField) -> Bool {
-        didTapNavButton()
-        
-        return true
+        let preSelectArtistvc = SignUpPreAddArtistsLoaderViewController(viewModel: self.viewModel)
+        navigationController?.pushViewController(preSelectArtistvc, animated: true)
     }
 }

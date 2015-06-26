@@ -19,7 +19,6 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
         addEmailPage.emailTxtField.delegate = self
         addEmailPage.emailTxtField.keyboardType = .EmailAddress
         
-        
         view.addSubview(addEmailPage)
     }
     
@@ -50,18 +49,32 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
     }
     
     func checkCharacterCountOfTextField() {
-        if (count(addEmailPage.emailTxtField.text) >= 2) {
-            nextButton.hidden = false
-            addEmailPage.termsAndPrivacyView.hidden = true
-        } else {
-            nextButton.hidden = true
-            addEmailPage.termsAndPrivacyView.hidden = false
-        }
+        var characterCount = count(addEmailPage.emailTxtField.text)
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            if self.didAnimateUp && characterCount >= 1 {
+                self.nextButton.hidden = false
+                self.nextButton.frame.origin.y -= 50
+                self.didAnimateUp = false
+                self.addEmailPage.termsAndPrivacyView.hidden = true
+            } else if self.didAnimateUp == false && characterCount <= 1 {
+                self.nextButton.frame.origin.y += 50
+                self.didAnimateUp = true
+                self.addEmailPage.termsAndPrivacyView.hidden = false
+                self.hideButton = true
+            }
+            }, completion: {
+                (finished: Bool) in
+                if self.hideButton {
+                    self.nextButton.hidden = true
+                    self.hideButton = false
+                }
+        })
     }
     
     override func didTapNavButton() {
         if EmailIsValid(addEmailPage.emailTxtField.text) {
-            viewModel.email = addEmailPage.emailTxtField.text
+            viewModel.user.email = addEmailPage.emailTxtField.text
         }
         else {
             println("enter email")
@@ -69,7 +82,6 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
         }
         
         let Passwordvc = SignUpPassWordWalkthroughViewController(viewModel:self.viewModel)
-        
         navigationController?.pushViewController(Passwordvc, animated: true)
     }
 }
