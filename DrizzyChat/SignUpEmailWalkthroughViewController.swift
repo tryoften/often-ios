@@ -80,7 +80,6 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
             println("enter email")
             return
         }
-        
         let Passwordvc = SignUpPassWordWalkthroughViewController(viewModel:self.viewModel)
         navigationController?.pushViewController(Passwordvc, animated: true)
     }

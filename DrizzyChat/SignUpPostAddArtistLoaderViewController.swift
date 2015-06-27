@@ -35,7 +35,8 @@ class SignUpPostAddArtistsLoaderViewController: WalkthroughViewController {
                 (finished: Bool) in
                 
                 self.animationCard()
-        });
+        })
+        
     }
     
     func animationCard() {
@@ -58,6 +59,7 @@ class SignUpPostAddArtistsLoaderViewController: WalkthroughViewController {
         })
         
     }
+    
     override func setupLayout() {
         super.setupLayout()
         
