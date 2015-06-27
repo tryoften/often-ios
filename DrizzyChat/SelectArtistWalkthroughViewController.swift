@@ -113,7 +113,6 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     
     func didTapSelectButton(sender : UIButton) {
         let buttonTag = NSNumber(integer: sender.tag)
-        var insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         sender.selected = !sender.selected
         
@@ -129,15 +128,21 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
             }
         }
         
-        UIView.animateWithDuration(1, delay: 0, options: .CurveLinear, animations: {
+        slideUpNextButton()
+    }
+    
+    func slideUpNextButton() {
+        var insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
             if self.selectedArtistes.count >= 3 && self.didAnimateUp  {
                 self.nextButton.hidden = false
-                self.nextButton.frame.origin.y -= 0
+                self.nextButton.frame.origin.y -= 50
                 insets = UIEdgeInsets(top: 0, left: 0, bottom: self.nextButton.frame.height, right: 0)
                 self.tableView.contentInset = insets
                 self.didAnimateUp = false
             } else if self.selectedArtistes.count <= 2 && self.didAnimateUp == false  {
-                self.nextButton.frame.origin.y += 0
+                self.nextButton.frame.origin.y += 50
                 self.didAnimateUp = true
                 self.tableView.contentInset = insets
                 self.hideButton = true
@@ -158,7 +163,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
                 viewModel.artistSelectedList?.append(keyboardId)
             }
         }
-        println(viewModel.artistSelectedList!)
+        
         if ArtistsSelectedListIsValid(viewModel.artistSelectedList!) {
             viewModel.sessionManager.setKeyboardsOnCurrentUser(viewModel.artistSelectedList!, completion: { (user, error) in
                 if error == nil {

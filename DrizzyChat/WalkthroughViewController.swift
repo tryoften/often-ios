@@ -32,7 +32,7 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         self.viewModel.delegate = self
         nextButton.addTarget(self, action: "didTapNavButton", forControlEvents: .TouchUpInside)
         view.addSubview(nextButton)
-        bottomConstraint = nextButton.al_bottom == view.al_bottom
+        bottomConstraint = nextButton.al_bottom == view.al_bottom + 50
     }
     
     required init(coder aDecoder: NSCoder) {
