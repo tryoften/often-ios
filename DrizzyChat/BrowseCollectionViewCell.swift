@@ -50,7 +50,7 @@ class BrowseCollectionViewCell: UICollectionViewCell {
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#ffffff")
+        backgroundColor = UIColor.whiteColor()
         
         contentView.addSubview(rankLabel)
         contentView.addSubview(trackNameLabel)

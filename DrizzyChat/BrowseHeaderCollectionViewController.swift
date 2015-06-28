@@ -36,7 +36,6 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
 
         scrollView.delegate = self
         view.addSubview(scrollView)
-
     }
     
     required convenience init(coder aDecoder: NSCoder) {        
@@ -75,6 +74,15 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    func didScrollToPage(pageIndex: Int) {
+        delegate?.headerDidSwipe(pageIndex)
+        
+        if let artist = dataSource?.artistForIndexPath(self, index: pageIndex) {
+            headerDelegate?.headerDidChange(artist)
+            updateTracksDelegate?.updateTracksForArtist(artist)
+        }
+    }
 
     
     // MARK: UICollectionViewDataSource
@@ -85,8 +93,12 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        scrollView.contentSize = CGSizeMake(width * CGFloat(dataSource!.numberOfItemsInBrowsePicker(self)), width)
-        return dataSource!.numberOfItemsInBrowsePicker(self)
+        if let dataSource = dataSource {
+            let numberOfItems = dataSource.numberOfItemsInBrowsePicker(self)
+            scrollView.contentSize = CGSizeMake(width * CGFloat(numberOfItems), width)
+            return numberOfItems
+        }
+        return 0
     }
 
     /**
@@ -101,7 +113,6 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
         
         if let artist = dataSource?.artistForIndexPath(self, index: indexPath.row) {
             cell.artistImage.setImageWithURL(NSURL(string: artist.imageURLLarge))
-            
         }
         
         return cell
@@ -109,10 +120,7 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
     
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         println("Current page: \(getCurrentPage())")
-        
-        delegate?.headerDidSwipe(getCurrentPage())
-        headerDelegate?.headerDidChange(dataSource!.artistForIndexPath(self, index: getCurrentPage())!)
-        updateTracksDelegate?.updateTracksForArtist(dataSource!.artistForIndexPath(self, index: getCurrentPage())!)
+        didScrollToPage(getCurrentPage())
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {

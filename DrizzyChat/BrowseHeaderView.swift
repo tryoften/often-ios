@@ -46,12 +46,12 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         coverPhotoTintView.setTranslatesAutoresizingMaskIntoConstraints(false)
         coverPhotoTintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         
-        artistNameLabel = UILabel()
+        artistNameLabel = TOMSMorphingLabel()
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistNameLabel.font = UIFont(name: "Oswald-Light", size: 22.0)
         artistNameLabel.textColor = UIColor(fromHexString: "#d3d3d3")
         artistNameLabel.textAlignment = .Center
-        artistNameLabel.text = "F R A N K  O C E A N"
+        artistNameLabel.text = ""
         
         addArtistButton = UIButton()
         addArtistButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -117,7 +117,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     }
     
     func headerDidChange(artist: Artist) {
-        artistNameLabel.text = artist.name
+        artistNameLabel.text = artist.name.uppercaseString
         coverPhoto.setImageWithURL(NSURL(string: artist.imageURLLarge))
         coverPhoto.image?.blurredImageWithRadius(30, iterations: 9, tintColor: UIColor.blackColor())
     }
