@@ -25,21 +25,17 @@ class BrowseViewModel: NSObject {
     var rootRef: Firebase
     var artistService: ArtistService
     weak var delegate: BrowseViewModelDelegate?
-    var tracksList: [Track]?
     var artists: [Artist]
-    var currentArtist: Artist
+    var currentArtist: Artist?
+    var isDataLoaded: Bool
     
     override init() {
         rootRef = Firebase(url: BaseURL)
         artistService = ArtistService(root: rootRef)
         artists = [Artist]()
-        currentArtist = Artist()
+        isDataLoaded = false
         
         super.init()
-        
-        requestData(completion: { done in
-            
-        })
     }
 
     
@@ -49,10 +45,31 @@ class BrowseViewModel: NSObject {
     */
     func requestData(completion: ((Bool) -> ())? = nil) {
         artistService.requestData({ artistData in
+            self.isDataLoaded = true
             self.artists = artistData
+            if !self.artists.isEmpty {
+                self.currentArtist = self.artists[0]
+            }
+            self.delegate?.browseViewModelDidLoadData(self, artists: self.artists)
         })
     }
     
+    
+    func numberOfTracks() -> Int {
+        if let tracksList = currentArtist?.tracksList {
+            return tracksList.count
+        }
+        return 0
+    }
+    
+    func trackAtIndex(index: Int) -> Track? {
+        if let currentArtist = currentArtist {
+            if index < currentArtist.tracksList.count {
+                return currentArtist.tracksList[index]
+            }
+        }
+        return nil
+    }
     
     /**
         Get the track name in the tracksList for a specific index
@@ -61,7 +78,7 @@ class BrowseViewModel: NSObject {
         :returns: String of the track name for the index passed in
     */
     func trackNameAtIndex(index: Int) -> String? {
-        if let tracksList = tracksList {
+        if let tracksList = currentArtist?.tracksList {
             if index < tracksList.count {
                 return tracksList[index].name
             }
@@ -77,7 +94,7 @@ class BrowseViewModel: NSObject {
         :returns: Integer that is the lyric count for that index passed in
     */
     func lyricCountAtIndex(index: Int) -> Int? {
-        if let tracksList = tracksList {
+        if let tracksList = currentArtist?.tracksList {
             if index < tracksList.count {
                 return tracksList[index].lyricCount
             }
@@ -88,5 +105,6 @@ class BrowseViewModel: NSObject {
 }
 
 protocol BrowseViewModelDelegate: class {
+    func browseViewModelDidLoadData(browseViewModel: BrowseViewModel, artists: [Artist])
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track])
 }
