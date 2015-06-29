@@ -69,6 +69,6 @@ class SignUpAddArtistsLoaderView: UIView {
             
             cardImageView.al_top == subtitleLabel.al_bottom + 20,
             cardImageView.al_left == al_right,
-            ])
+        ])
     }
 }
