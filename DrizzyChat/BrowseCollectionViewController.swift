@@ -15,7 +15,7 @@ import UIKit
     Collection views use the same data source and delegate
 */
 
-class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate, BrowseHeaderCollectionViewDataSource {
+class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate, BrowseHeaderCollectionViewDataSource, BrowseHeaderViewDelegate {
 
     var viewModel: BrowseViewModel
     var headerView: BrowseHeaderView?
@@ -100,9 +100,10 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! BrowseHeaderView
             
             if headerView == nil {
+                headerView = cell
+                cell.delegate = self
                 cell.browsePicker.delegate = self
                 cell.browsePicker.dataSource = self
-                headerView = cell
             }
             return headerView!
         } else if kind == UICollectionElementKindSectionHeader {
@@ -138,19 +139,28 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         user moved into the next artist's view.
     */
     func headerDidSwipe(currentPage: Int) {
-        viewModel.currentArtist = viewModel.artists[currentPage]
-        if let headerView = headerView,
-            let artist = viewModel.currentArtist {
-            headerView.artistNameLabel.text = artist.name.uppercaseString
+        if currentPage < viewModel.artists.count {
+            viewModel.currentArtist = viewModel.artists[currentPage]
+            if let headerView = headerView,
+                let artist = viewModel.currentArtist {
+                headerView.artistNameLabel.text = artist.name.uppercaseString
+                headerView.addArtistButton.selected = viewModel.userHasKeyboardForArtist(artist)
+            }
         }
         
         collectionView?.reloadSections(NSIndexSet(index: 0))
     }
     
+    // MARK: BrowseHeaderViewDelegate
+    func browseHeaderViewDidTapAddArtistButton(browseHeaderView: BrowseHeaderView, selected: Bool) {
+        viewModel.toggleAddingKeyboardforCurrentArtist { added in
+            
+        }
+    }
     
     // MARK: BrowseViewModelDelegate
     func browseViewModelDidLoadData(browseViewModel: BrowseViewModel, artists: [Artist]) {
-
+        collectionView?.reloadData()
     }
     
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track]) {

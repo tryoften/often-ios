@@ -24,22 +24,20 @@ import UIKit
 let BrowseHeaderViewCellIdentifier = "headerCell"
 
 class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
-    var screenWidth: CGFloat
+    weak var delegate: BrowseHeaderViewDelegate?
     var browsePicker: BrowseHeaderCollectionViewController
     var previousBackgroundView: UIImageView
     var currentBackgroundView: UIImageView
     var nextBackgroundView: UIImageView
     var tintView: UIView
     var artistNameLabel: UILabel
-    var addArtistButton: UIButton
+    var addArtistButton: AddArtistButton
     var topLabel: UILabel
     var currentImageURLs: [String: String]?
     
     override init(frame: CGRect) {
         browsePicker = BrowseHeaderCollectionViewController()
         browsePicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        screenWidth = UIScreen.mainScreen().bounds.width
 
         previousBackgroundView = UIImageView()
         previousBackgroundView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -66,12 +64,8 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         artistNameLabel.textColor = UIColor(fromHexString: "#d3d3d3")
         artistNameLabel.textAlignment = .Center
         
-        addArtistButton = UIButton()
+        addArtistButton = AddArtistButton()
         addArtistButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        addArtistButton.backgroundColor = UIColor(fromHexString: "#F9B341")
-        addArtistButton.titleLabel?.font = UIFont(name: "OpenSans", size: 9.0)
-        addArtistButton.setTitle("ADD ARTIST", forState: UIControlState.Normal)
-        addArtistButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         
         topLabel = UILabel()
         topLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -129,7 +123,8 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         Add the artist and present an alert view
     */
     func addArtistTapped(sender: UIButton) {
-        println("Add Artist Tapped.")
+        addArtistButton.selected = !addArtistButton.selected
+        delegate?.browseHeaderViewDidTapAddArtistButton(self, selected: addArtistButton.selected)
     }
     
     // MARK: HeaderUpdateDelegate
@@ -153,6 +148,8 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     }
     
     func headerDidPan(browseHeader: BrowseHeaderCollectionViewController, displayedArtist: Artist?, delta: CGFloat) {
+        
+        //TODO(luc): don't reset name on each call, pretty expensive
         if let displayedArtist = displayedArtist {
             artistNameLabel.text = displayedArtist.name.uppercaseString
         }
@@ -251,7 +248,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     }
 }
 
-protocol AddArtistButtonModalDelegate {
-    func addArtistButtonDidTap()
+protocol BrowseHeaderViewDelegate: class {
+    func browseHeaderViewDidTapAddArtistButton(browseHeaderView: BrowseHeaderView, selected: Bool)
 }
 

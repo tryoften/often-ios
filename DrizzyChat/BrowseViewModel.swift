@@ -38,7 +38,6 @@ class BrowseViewModel: NSObject {
         super.init()
     }
 
-    
     /**
         Load the artistsList array with all of the Artist objects
     
@@ -69,6 +68,28 @@ class BrowseViewModel: NSObject {
             }
         }
         return nil
+    }
+    
+    func userHasKeyboardForArtist(artist: Artist) -> Bool {
+        if let currentUser = SessionManager.defaultManager.currentUser {
+            return currentUser.hasKeyboardForArtist(artist)
+        }
+        return false
+    }
+    
+    func toggleAddingKeyboardforCurrentArtist(completion: (added: Bool) -> ()) {
+        if let keyboardService = SessionManager.defaultManager.keyboardService,
+            let artist = currentArtist {
+                if userHasKeyboardForArtist(artist) {
+                    keyboardService.deleteKeyboardWithId(artist.keyboardId, completion: { error in
+                        completion(added: false)
+                    })
+                } else {
+                    keyboardService.addKeyboardWithId(artist.keyboardId, completion: { (keyboard, success) in
+                        completion(added: true)
+                    })
+                }
+        }
     }
     
     /**

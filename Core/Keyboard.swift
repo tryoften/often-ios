@@ -14,6 +14,7 @@ class Keyboard: Object {
     dynamic var index: Int = -1
     dynamic var currentCategoryId: String = ""
     dynamic var artist: Artist?
+    dynamic var user: User?
     let categories = List<Category>()
     
     override static func primaryKey() -> String? {

@@ -37,10 +37,12 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         super.viewDidLoad()
         
         navigationController?.navigationBarHidden = true
-        viewModel.requestData(completion: nil)
         
+        viewModel.requestData(completion: nil)
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
         HUDProgressView.show()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardServiceDidAddKeyboard:", name: "keyboard:added", object: nil)
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = UIColor.whiteColor()
@@ -158,6 +160,12 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         artistPicker.view.backgroundColor = UIColor.clearColor()
 
         return artistPicker
+    }
+    
+    func keyboardServiceDidAddKeyboard(notification: NSNotification) {
+        if let artistPicker = keyboardManagerViewController {
+            artistPicker.collectionView?.reloadData()
+        }
     }
     
     // MARK: UserProfileViewModelDelegate
