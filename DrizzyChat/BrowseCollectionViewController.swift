@@ -15,7 +15,7 @@ import UIKit
     Collection views use the same data source and delegate
 */
 
-class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate, BrowseHeaderCollectionViewDataSource, UpdateTracksFromHeaderDelegate {
+class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate, BrowseHeaderCollectionViewDataSource {
 
     var viewModel: BrowseViewModel
     var headerView: BrowseHeaderView?
@@ -100,15 +100,9 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! BrowseHeaderView
             
             if headerView == nil {
-                // Blur that I had blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
-                let headerViewController = cell.browsePicker
-                headerViewController.delegate = self
-                headerViewController.dataSource = self
-                headerViewController.headerDelegate = headerView
-                headerViewController.updateTracksDelegate = self
+                cell.browsePicker.delegate = self
+                cell.browsePicker.dataSource = self
                 headerView = cell
-                headerView?.browsePicker.collectionView?.reloadData()
-                headerView?.browsePicker.didScrollToPage(0)
             }
             return headerView!
         } else if kind == UICollectionElementKindSectionHeader {
@@ -121,7 +115,6 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         
         return UICollectionReusableView()
     }
-    
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0.0 as CGFloat
@@ -171,12 +164,10 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     func artistForIndexPath(browsePicker: BrowseHeaderCollectionViewController, index: Int) -> Artist? {
+        if index < 0 || index >= viewModel.artists.count {
+            return nil
+        }
         return viewModel.artists[index]
-    }
-    
-    //MARK: UpdateTracksFromHeaderDelegate
-    
-    func updateTracksForArtist(artist: Artist) {
     }
 }
 
