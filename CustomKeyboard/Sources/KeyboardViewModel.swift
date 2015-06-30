@@ -36,13 +36,17 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         } else {
             realm = Realm()
         }
-
-        if let userId = userDefaults.objectForKey("userId") as? String {
-            keyboardService = KeyboardService(userId: userId,
+        
+        
+        if let userId = userDefaults.objectForKey("userId") as? String,
+            let user = realm.objectForPrimaryKey(User.self, key: userId){
+            keyboardService = KeyboardService(user: user,
                 root: Firebase(url: BaseURL), realm: realm)
         } else {
             // TODO(luc): get annonymous ID for the current session
-            keyboardService = KeyboardService(userId: "annonymous", root: Firebase(url: BaseURL), realm: realm)
+            let user = User()
+            user.id = "anon"
+            keyboardService = KeyboardService(user: user, root: Firebase(url: BaseURL), realm: realm)
         }
 
         super.init()

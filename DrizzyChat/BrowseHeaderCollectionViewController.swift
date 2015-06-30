@@ -139,7 +139,6 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
         let xOffset = contentOffset.x
         let delta = (xOffset - startingOffset) / width
 
-        println("startingOffset: \(startingOffset), delta Offset: \(delta), xOffset: \(xOffset)")
         headerDelegate?.headerDidPan(self, displayedArtist: dataSource?.artistForIndexPath(self, index: getCurrentPage()), delta: delta)
         
         if scrollView == self.scrollView {

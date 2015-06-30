@@ -18,7 +18,7 @@ let reuseIdentifier = "Cell"
 
 */
 
-class TrendingCollectionViewController: UICollectionViewController, TrendingViewModelDelegate, UIScrollViewDelegate, LyricTabDelegate, ArtistTabDelegate, AddArtistButtonModalDelegate {
+class TrendingCollectionViewController: UICollectionViewController, TrendingViewModelDelegate, UIScrollViewDelegate, LyricTabDelegate, ArtistTabDelegate {
     var viewModel: TrendingViewModel
     var headerView: TrendingHeaderView?
     var sectionHeaderView: TrendingSectionHeaderView?
@@ -196,7 +196,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             headerView = cell
             headerView?.lyricDelegate = self
             headerView?.artistDelegate = self
-            headerView?.addArtistDelegate = self
             
             return cell
         } else if kind == UICollectionElementKindSectionHeader {

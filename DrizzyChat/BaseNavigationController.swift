@@ -29,4 +29,8 @@ class BaseNavigationController: UINavigationController {
         navigationBar.titleTextAttributes = [NSFontAttributeName:ButtonFont!,NSForegroundColorAttributeName: UIColor.whiteColor()]
         
     }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
 }
