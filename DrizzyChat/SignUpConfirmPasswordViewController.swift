@@ -83,6 +83,7 @@ class SignUpConfirmPassWordWalkthroughViewController: WalkthroughViewController 
         if PasswordIsValid(addPasswordPage.confirmPasswordTxtField.text) {
             if arePasswordMatchingValid(viewModel.password, addPasswordPage.confirmPasswordTxtField.text) {
                 viewModel.password = addPasswordPage.confirmPasswordTxtField.text
+                viewModel.signUpUser()
             } else {
                 println("password didnt match")
                 return

@@ -20,7 +20,7 @@ class SessionManager: NSObject {
     var realm: Realm
     var isUserNew: Bool
     var userIsLoggingIn = false
-
+    
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
     
@@ -78,15 +78,18 @@ class SessionManager: NSObject {
         return userDefaults.objectForKey("userId") != nil
     }
     
-    func signUpUser(data: [String: String]) {
+    func signUpUser(data: [String: String],completion: (NSError?) -> ()) {
         if let email = data["email"],
             let username = data["username"],
-            let password = data["password"] {
+            let password = data["password"],
+            let fullName = data["name"]{
                 
                 var user = PFUser()
                 user.email = email
                 user.username = email
                 user.password = password
+                user["fullName"] = fullName
+                user["isFacebook"] = false
                 
                 if let phone = data["phone"] {
                     user["phone"] = phone
@@ -95,23 +98,38 @@ class SessionManager: NSObject {
                 user.signUpInBackgroundWithBlock { (success, error) in
                     if error == nil {
                         self.loginWithUsername(email, password: password)
+                        completion(nil)
                     } else {
-                        
+                        completion(error)
                     }
                 }
         }
     }
     
-    func openSession() {
-        if let accessToken = FBSession.activeSession().accessTokenData.accessToken {
-            firebase.authWithOAuthProvider("facebook", token: accessToken,
-                withCompletionBlock: { error, authData in
+    func openSession(username: String?, password: String?) {
+            if username != nil && password != nil {
+                firebase.createUser(username, password: password, withValueCompletionBlock: { error, result -> Void in
                     if error != nil {
                         println("Login failed. \(error)")
                     } else {
-                        println("Logged in! \(authData)")
+                        println("Logged in! \(result)")
+                        self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
+                            println(authData.providerData)
+                        })
                     }
-            })
+
+                })
+            } else {
+            if let accessToken = FBSession.activeSession().accessTokenData.accessToken {
+                firebase.authWithOAuthProvider("facebook", token: accessToken,
+                    withCompletionBlock: { error, authData in
+                        if error != nil {
+                            println("Login failed. \(error)")
+                        } else {
+                            println( "Login failed. \(authData)")
+                        }
+                })
+            }
         }
     }
     
@@ -120,7 +138,7 @@ class SessionManager: NSObject {
         PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
             completion?(user, error)
             if error == nil {
-                self.openSession()
+                self.openSession(nil,password: nil)
             }
         })
     }
@@ -128,7 +146,7 @@ class SessionManager: NSObject {
     func loginWithUsername(username: String, password: String) {
         userIsLoggingIn = true
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
-            self.openSession()
+            self.openSession(username,password:password)
         }
     }
     
@@ -176,7 +194,7 @@ class SessionManager: NSObject {
                     self.realm.add(user, update: true)
                 }
             }
-
+            
             if self.userIsLoggingIn {
                 self.broadcastUserLoginEvent()
                 self.userIsLoggingIn = false
@@ -184,43 +202,68 @@ class SessionManager: NSObject {
         }
         
         if let authData = authData,
-            let uid = authData.providerData["id"] as? String {
-            
-            userRef = firebase.childByAppendingPath("users/\(uid)")
-            userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
-                // TODO(luc): create user model with data and send event
-                if snapshot.exists() {
-                    if let id = snapshot.key,
-                        let value = snapshot.value as? [String: AnyObject] {
-                            let user = User()
-                            user.id = id
+            let uid = PFUser.currentUser()?.objectId! {
+                
+                userRef = firebase.childByAppendingPath("users/\(uid)")
+                userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+                    // TODO(luc): create user model with data and send event
+                    if snapshot.exists() {
+                        if let id = snapshot.key,
+                            let value = snapshot.value as? [String: AnyObject] {
+                                let user = User()
+                                user.id = id
+                                
+                                if  let name = value["name"] as? String,
+                                    let profileImageSmall = value["profile_pic_small"] as? String,
+                                    let profileImageLarge = value["profile_pic_large"] as? String,
+                                    let email = value["email"] as? String {
+                                        user.name = name
+                                        user.profileImageLarge = profileImageLarge
+                                        user.profileImageSmall = profileImageSmall
+                                        user.username = email
+                                        user.email = email
+                                }
+                                self.isUserNew = false
+                                persistUser(user)
+                        }
+                    } else {
+                        if let email = authData.providerData["email"] as? String {
                             
-                            if  let name = value["name"] as? String,
-                                let profileImageSmall = value["profile_pic_small"] as? String,
-                                let profileImageLarge = value["profile_pic_large"] as? String,
-                                let email = value["email"] as? String {
-                                    user.name = name
-                                    user.profileImageLarge = profileImageLarge
-                                    user.profileImageSmall = profileImageSmall
-                                    user.username = email
-                                    user.email = email
-                            }
-                            self.isUserNew = false
-                            persistUser(user)
-                    }
-                } else {
-                    self.getFacebookUserInfo({ (data, err) in
-                        if err == nil {
+                            var data = [String : String]()
+                            
+                            data["id"] = PFUser.currentUser()?.objectId
+                            data["provider"] = authData.uid
+                            data["email"] = PFUser.currentUser()?.email
+                            data["phone"] = PFUser.currentUser()?.objectForKey("phone") as? String
+                            data["username"] = PFUser.currentUser()?.username
+                            data["name"] = PFUser.currentUser()?.objectForKey("fullName") as? String
+                            
+                            self.userDefaults.setObject(PFUser.currentUser()?.objectId, forKey: "userId")
+                            self.userDefaults.synchronize()
+                            
                             self.userRef?.setValue(data)
                             self.isUserNew = true
-                            persistUser(User(value: data as! [String : AnyObject]))
+                            persistUser(User(value: data))
+                            
+                            
+                        } else {
+                            self.getFacebookUserInfo({ (data, err) in
+                                if err == nil {
+                                    var newData = data as! [String : AnyObject]
+                                    newData["provider"] = authData.uid
+                                    newData["id"] = PFUser.currentUser()?.objectId
+                                    
+                                    self.userRef?.setValue(newData)
+                                    self.isUserNew = true
+                                    persistUser(User(value: newData))
+                                }
+                            })
                         }
-                    })
-                }
-                }, withCancelBlock: { error in
-                    
-            })
-            
+                    }
+                    }, withCancelBlock: { error in
+                        
+                })
+                
         } else {
             
         }
@@ -256,7 +299,8 @@ class SessionManager: NSObject {
                 data["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
                 data["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
                 
-                self.userDefaults.setObject(userId, forKey: "userId")
+                
+                self.userDefaults.setObject(PFUser.currentUser()?.objectId, forKey: "userId")
                 self.userDefaults.synchronize()
 
                 completion(data, nil)
@@ -273,3 +317,4 @@ class SessionManager: NSObject {
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
     func sessionManagerDidFetchKeyboards(sessionsManager: SessionManager, keyboards: [Keyboard])
 }
+
