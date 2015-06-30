@@ -138,6 +138,17 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     func didTapEditButton() {
         if let artistPickerVC = artistPickerViewController {
             artistPickerVC.isDeletionModeOn = !artistPickerVC.isDeletionModeOn
+            updateEditButton()
+        }
+    }
+    
+    func didTapSettingsButton() {
+        let settingsVC = SettingsTableViewController()
+        navigationController?.pushViewController(settingsVC, animated: true)
+    }
+    
+    private func updateEditButton() {
+        if let artistPickerVC = artistPickerViewController {
             
             if let sectionHeaderView = sectionHeaderView {
                 if artistPickerVC.isDeletionModeOn {
@@ -147,11 +158,6 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
                 }
             }
         }
-    }
-    
-    func didTapSettingsButton() {
-        let settingsVC = SettingsTableViewController()
-        navigationController?.pushViewController(settingsVC, animated: true)
     }
     
     private func provideArtistPicker() -> ArtistPickerCollectionViewController {
@@ -249,7 +255,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
 
     func artistPickerCollectionViewControllerDidDeleteKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard, index: Int) {
         viewModel.deleteKeyboardWithId(keyboard.id, completion: { (err) -> () in
-            
+            self.updateEditButton()
         })
     }
 }

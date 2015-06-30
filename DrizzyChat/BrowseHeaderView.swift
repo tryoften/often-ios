@@ -101,21 +101,9 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     }
     
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes!) {
+        
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
-            UIView.animateWithDuration(0.4, animations: {
-                if attributes.progressiveness <= 0.15 {
-                    self.topLabel.alpha = 1
-                    
-                } else if attributes.progressiveness <= 0.90 {
-                    self.artistNameLabel.alpha = 0
-                    self.addArtistButton.alpha = 0
-                    
-                } else {
-                    self.topLabel.alpha = 0
-                    self.artistNameLabel.alpha = 1
-                    self.addArtistButton.alpha = 1
-                }
-            })
+            println("progressiveness: \(attributes.progressiveness)")
         }
     }
     

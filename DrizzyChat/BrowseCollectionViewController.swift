@@ -43,6 +43,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             collectionView.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowseSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(BrowseCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+            collectionView.contentInset = UIEdgeInsetsMake(0, 0, CGRectGetHeight(tabBarController!.tabBar.frame) + 10, 0)
         }
         
         viewModel.requestData()
