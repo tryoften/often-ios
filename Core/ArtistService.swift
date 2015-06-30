@@ -94,11 +94,16 @@ class ArtistService: Service {
     */
     func requestData(completion: ([Artist]) -> Void) {
         fetchLocalData { success in
-            completion(self.artists)
+            if success {
+                completion(self.artists)
+            }
+            
         }
         
         fetchRemoteData { success in
-            completion(self.artists)
+            if success {
+                completion(self.artists)
+            }
         }
     }
 

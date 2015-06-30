@@ -51,7 +51,7 @@ class BrowseCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundColor = UIColor.whiteColor()
-        
+
         contentView.addSubview(rankLabel)
         contentView.addSubview(trackNameLabel)
         contentView.addSubview(lyricCountLabel)

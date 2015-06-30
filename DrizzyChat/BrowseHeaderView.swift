@@ -30,7 +30,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     var currentBackgroundView: UIImageView
     var nextBackgroundView: UIImageView
     var tintView: UIView
-    var artistNameLabel: UILabel
+    var artistNameLabel: TOMSMorphingLabel
     var addArtistButton: AddArtistButton
     var topLabel: UILabel
     var currentImageURLs: [String: String]?
@@ -56,12 +56,12 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         
         tintView = UIView()
         tintView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        tintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        tintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
         
         artistNameLabel = TOMSMorphingLabel()
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        artistNameLabel.font = UIFont(name: "Oswald-Light", size: 22.0)
-        artistNameLabel.textColor = UIColor(fromHexString: "#d3d3d3")
+        artistNameLabel.font = UIFont(name: "Oswald-Light", size: 24.0)
+        artistNameLabel.textColor = UIColor.whiteColor()
         artistNameLabel.textAlignment = .Center
         
         addArtistButton = AddArtistButton()
@@ -103,6 +103,16 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes!) {
         
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
+            let progressiveness = attributes.progressiveness
+            
+            UIView.animateWithDuration(0.3) {
+                if progressiveness <= 0.8 {
+                    self.browsePicker.view.alpha = progressiveness - 0.3
+                } else {
+                    self.browsePicker.view.alpha = 1.0
+                }
+            }
+            
             println("progressiveness: \(attributes.progressiveness)")
         }
     }
@@ -118,7 +128,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     // MARK: HeaderUpdateDelegate
     
     func headerDidChange(artist: Artist, previousArtist: Artist?, nextArtist: Artist?) {
-        artistNameLabel.text = artist.name.uppercaseString
+        artistNameLabel.text = artist.displayName
 
         var URLs = [String: String]()
         
@@ -136,11 +146,6 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     }
     
     func headerDidPan(browseHeader: BrowseHeaderCollectionViewController, displayedArtist: Artist?, delta: CGFloat) {
-        
-        //TODO(luc): don't reset name on each call, pretty expensive
-        if let displayedArtist = displayedArtist {
-            artistNameLabel.text = displayedArtist.name.uppercaseString
-        }
         
         var absDelta = abs(delta)
         
@@ -196,7 +201,20 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     }
     
     func setupLayout() {
+        let device = UIDevice.currentDevice()
+        let artistNameLabelTopConstraintValue: CGFloat
+        
+        if device.modelName == "iPhone 6 Plus" {
+            artistNameLabelTopConstraintValue = 10.0
+        } else if device.modelName.hasPrefix("iPhone 5") { // iPhone 5 & 5s
+            artistNameLabelTopConstraintValue = 30.0
+        } else {
+            artistNameLabelTopConstraintValue = 30.0
+        }
+        
         addConstraints([
+            al_height <= 450,
+
             topLabel.al_top == al_top + 10,
             topLabel.al_centerX == al_centerX,
             
@@ -204,6 +222,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
             browsePicker.view.al_left == al_left,
             browsePicker.view.al_width == al_width,
             browsePicker.view.al_bottom == al_bottom - 100,
+            browsePicker.view.al_height <= 370,
 
             previousBackgroundView.al_top == al_top,
             previousBackgroundView.al_left == al_left,
@@ -225,7 +244,8 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
             tintView.al_left == currentBackgroundView.al_left,
             tintView.al_top == currentBackgroundView.al_top,
             
-            artistNameLabel.al_top == browsePicker.view.al_bottom - 30,
+            artistNameLabel.al_top == browsePicker.view.al_bottom - artistNameLabelTopConstraintValue,
+            artistNameLabel.al_top >= al_top + 20,
             artistNameLabel.al_centerX == al_centerX,
             
             addArtistButton.al_top == artistNameLabel.al_bottom + 10,

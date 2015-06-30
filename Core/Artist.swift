@@ -14,6 +14,14 @@ class Artist: Owner {
     dynamic var lyricCount: Int = 0
     let tracks = List<Track>()
     
+    var displayName: String {
+        var string = ""
+        for letter in name {
+            string += "\(letter) "
+        }
+        return string.uppercaseString
+    }
+    
     var tracksList: [Track] {
         var list: [Track] = []
         for item in tracks {

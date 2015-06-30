@@ -56,9 +56,9 @@ class BrowseViewModel: NSObject {
     
     func numberOfTracks() -> Int {
         if let tracksList = currentArtist?.tracksList {
-            return tracksList.count
+            return tracksList.count + 10
         }
-        return 0
+        return 0 + 10
     }
     
     func trackAtIndex(index: Int) -> Track? {
@@ -67,7 +67,9 @@ class BrowseViewModel: NSObject {
                 return currentArtist.tracksList[index]
             }
         }
-        return nil
+        var track = Track()
+        track.name = "Random track"
+        return track
     }
     
     func userHasKeyboardForArtist(artist: Artist) -> Bool {

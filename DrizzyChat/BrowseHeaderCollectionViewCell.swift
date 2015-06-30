@@ -34,7 +34,12 @@ class BrowseHeaderCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(placeholderImage)
         contentView.addSubview(artistImage)
-        clipsToBounds = true
+        
+        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowOffset = CGSizeMake(0, 5)
+        layer.shadowOpacity = 0.54
+        layer.shadowRadius = 8.0
+        clipsToBounds = false
         
         setupLayout()
     }

@@ -58,7 +58,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     class func getLayout() -> UICollectionViewLayout {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
         var flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 50)
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 110)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 450)
         flowLayout.itemSize = CGSizeMake(screenWidth, 70) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = true        
@@ -144,7 +144,9 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             viewModel.currentArtist = viewModel.artists[currentPage]
             if let headerView = headerView,
                 let artist = viewModel.currentArtist {
-                headerView.artistNameLabel.text = artist.name.uppercaseString
+                headerView.artistNameLabel.text = artist.displayName
+                
+//                headerView.artistNameLabel.text = NSString(string: artist.displayName) as String
                 headerView.addArtistButton.selected = viewModel.userHasKeyboardForArtist(artist)
             }
         }
