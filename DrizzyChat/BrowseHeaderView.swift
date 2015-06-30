@@ -10,7 +10,7 @@ import UIKit
 
 /**
     Views:
-    - coverPhoto -> Background that contains the current artist art image as blurred
+    - currentBackgroundView -> Background that contains the current artist art image as blurred
     - nameLabel -> displays the name of the current artist
     - addArtistButton -> button that adds the current artist's keyboard to the user's list of keyboards
 
@@ -26,32 +26,45 @@ let BrowseHeaderViewCellIdentifier = "headerCell"
 class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     var screenWidth: CGFloat
     var browsePicker: BrowseHeaderCollectionViewController
-    var coverPhoto: UIImageView
-    var coverPhotoTintView: UIView
+    var previousBackgroundView: UIImageView
+    var currentBackgroundView: UIImageView
+    var nextBackgroundView: UIImageView
+    var tintView: UIView
     var artistNameLabel: UILabel
     var addArtistButton: UIButton
     var topLabel: UILabel
+    var currentImageURLs: [String: String]?
     
     override init(frame: CGRect) {
         browsePicker = BrowseHeaderCollectionViewController()
         browsePicker.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         screenWidth = UIScreen.mainScreen().bounds.width
+
+        previousBackgroundView = UIImageView()
+        previousBackgroundView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        previousBackgroundView.contentMode = .ScaleAspectFill
+        previousBackgroundView.accessibilityLabel = "previous background"
         
-        coverPhoto = UIImageView()
-        coverPhoto.setTranslatesAutoresizingMaskIntoConstraints(false)
-        coverPhoto.contentMode = .ScaleAspectFill
+        currentBackgroundView = UIImageView()
+        currentBackgroundView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        currentBackgroundView.contentMode = .ScaleAspectFill
+        currentBackgroundView.accessibilityLabel = "current background"
+
+        nextBackgroundView = UIImageView()
+        nextBackgroundView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        nextBackgroundView.contentMode = .ScaleAspectFill
+        nextBackgroundView.accessibilityLabel = "next background"
         
-        coverPhotoTintView = UIView()
-        coverPhotoTintView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        coverPhotoTintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        tintView = UIView()
+        tintView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        tintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         
-        artistNameLabel = UILabel()
+        artistNameLabel = TOMSMorphingLabel()
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistNameLabel.font = UIFont(name: "Oswald-Light", size: 22.0)
         artistNameLabel.textColor = UIColor(fromHexString: "#d3d3d3")
         artistNameLabel.textAlignment = .Center
-        artistNameLabel.text = "F R A N K  O C E A N"
         
         addArtistButton = UIButton()
         addArtistButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -69,13 +82,16 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         topLabel.alpha = 0
         
         super.init(frame: frame)
-        
+
+        browsePicker.headerDelegate = self
         addArtistButton.addTarget(self, action: "addArtistTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
 
-        addSubview(coverPhoto)
-        addSubview(coverPhotoTintView)
+        addSubview(previousBackgroundView)
+        addSubview(nextBackgroundView)
+        addSubview(currentBackgroundView)
+        addSubview(tintView)
         addSubview(browsePicker.view)
         addSubview(artistNameLabel)
         addSubview(addArtistButton)
@@ -116,10 +132,82 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         println("Add Artist Tapped.")
     }
     
-    func headerDidChange(artist: Artist) {
-        artistNameLabel.text = artist.name
-        coverPhoto.setImageWithURL(NSURL(string: artist.imageURLLarge))
-        coverPhoto.image?.blurredImageWithRadius(30, iterations: 9, tintColor: UIColor.blackColor())
+    // MARK: HeaderUpdateDelegate
+    
+    func headerDidChange(artist: Artist, previousArtist: Artist?, nextArtist: Artist?) {
+        artistNameLabel.text = artist.name.uppercaseString
+
+        var URLs = [String: String]()
+        
+        if let previousArtist = previousArtist {
+            URLs["previous"] = previousArtist.imageURLLarge
+        }
+        
+        if let nextArtist = nextArtist {
+            URLs["next"] = nextArtist.imageURLLarge
+        }
+        
+        URLs["current"] = artist.imageURLLarge
+        
+        setBackgroundImages(URLs)
+    }
+    
+    func headerDidPan(browseHeader: BrowseHeaderCollectionViewController, displayedArtist: Artist?, delta: CGFloat) {
+        if let displayedArtist = displayedArtist {
+            artistNameLabel.text = displayedArtist.name.uppercaseString
+        }
+        
+        var absDelta = abs(delta)
+        
+        if delta < 0 {
+            previousBackgroundView.alpha = absDelta
+            nextBackgroundView.alpha = 0
+        } else if delta > 0 {
+            nextBackgroundView.alpha = absDelta
+            previousBackgroundView.alpha = 0
+        }
+
+        currentBackgroundView.alpha = 1 - absDelta
+    }
+
+    func setBackgroundImages(imageURLs: [String: String]) {
+        
+        let currentImagesIsSet = !(currentImageURLs == nil)
+        
+        // if swiping to the right
+        if currentImagesIsSet && currentImageURLs!["next"] == imageURLs["current"] {
+            previousBackgroundView.image = currentBackgroundView.image
+            currentBackgroundView.image = nextBackgroundView.image
+        }
+        
+        // if swiping to the left
+        else if currentImagesIsSet && currentImageURLs!["previous"] == imageURLs["current"] {
+            nextBackgroundView.image = currentBackgroundView.image
+            currentBackgroundView.image = previousBackgroundView.image
+        }
+        
+        // if view just loaded
+        else {
+            let currentImageURL = NSURL(string: imageURLs["current"]!)
+            currentBackgroundView.setImageWithAnimation(currentImageURL!, blurRadius: 30)
+        
+        }
+        
+        if let previousURLString = imageURLs["previous"] {
+            let previousImageURL = NSURL(string: previousURLString)
+            previousBackgroundView.setImageWithAnimation(previousImageURL!, blurRadius: 30)
+        }
+        
+        if let nextURLString = imageURLs["next"] {
+            let nextImageURL = NSURL(string: nextURLString)
+            nextBackgroundView.setImageWithAnimation(nextImageURL!, blurRadius: 30)
+        }
+
+        currentImageURLs = imageURLs
+        
+        previousBackgroundView.alpha = 0
+        currentBackgroundView.alpha = 1
+        nextBackgroundView.alpha = 0
     }
     
     func setupLayout() {
@@ -131,16 +219,26 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
             browsePicker.view.al_left == al_left,
             browsePicker.view.al_width == al_width,
             browsePicker.view.al_bottom == al_bottom - 100,
+
+            previousBackgroundView.al_top == al_top,
+            previousBackgroundView.al_left == al_left,
+            previousBackgroundView.al_width == al_width,
+            previousBackgroundView.al_height == al_height,
+
+            currentBackgroundView.al_top == al_top,
+            currentBackgroundView.al_left == al_left,
+            currentBackgroundView.al_width == al_width,
+            currentBackgroundView.al_height == al_height,
+
+            nextBackgroundView.al_top == al_top,
+            nextBackgroundView.al_left == al_left,
+            nextBackgroundView.al_width == al_width,
+            nextBackgroundView.al_height == al_height,
             
-            coverPhoto.al_top == al_top,
-            coverPhoto.al_left == al_left,
-            coverPhoto.al_width == al_width,
-            coverPhoto.al_height == al_height,
-            
-            coverPhotoTintView.al_width == coverPhoto.al_width,
-            coverPhotoTintView.al_height == coverPhoto.al_height,
-            coverPhotoTintView.al_left == coverPhoto.al_left,
-            coverPhotoTintView.al_top == coverPhoto.al_top,
+            tintView.al_width == currentBackgroundView.al_width,
+            tintView.al_height == currentBackgroundView.al_height,
+            tintView.al_left == currentBackgroundView.al_left,
+            tintView.al_top == currentBackgroundView.al_top,
             
             artistNameLabel.al_top == browsePicker.view.al_bottom - 30,
             artistNameLabel.al_centerX == al_centerX,

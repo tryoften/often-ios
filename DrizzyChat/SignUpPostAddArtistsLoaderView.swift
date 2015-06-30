@@ -84,6 +84,6 @@ class SignUpPostAddArtistsLoaderView: UIView {
             disclaimerLabel.al_right == al_right - 20,
             disclaimerLabel.al_centerX == al_centerX,
             disclaimerLabel.al_bottom == al_bottom - 10,
-            ])
+        ])
     }
 }

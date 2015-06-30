@@ -95,6 +95,7 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
                 if dataSource.artistPickerItemAtIndexIsSelected(self, index: indexPath.row) {
                     selectedCell = cell
                     cell.selected = true
+                    scrollToCellAtIndex(indexPath.row)
                 } else {
                     cell.selected = false
                 }
@@ -104,29 +105,14 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
             
             cell.titleLabel.text = keyboard.artist?.name
             cell.subtitleLabel.text = "\(keyboard.categories.count) categories".uppercaseString
-            cell.imageView.alpha = 0.0
+            
             if let imageURLLarge = keyboard.artist?.imageURLLarge {
-                cell.imageView.setImageWithURLRequest(NSURLRequest(URL: NSURL(string: imageURLLarge)!), placeholderImage: UIImage(), success: { (req, res, image) in
-                    UIView.animateWithDuration(0.3) {
-                        cell.imageView.image = image
-                        cell.imageView.alpha = 1.0
-                    }
-                    }, failure: { (req, res, err) in
-                        
-                })
+                cell.imageView.setImageWithAnimation(NSURL(string: imageURLLarge)!, completion: nil)
             }
             cell.deleteButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: .TouchUpInside)
         }
 
         return cell
-    }
-    
-    override func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        if let dataSource = dataSource {
-            if dataSource.artistPickerItemAtIndexIsSelected(self, index: indexPath.row) {
-                scrollToCellAtIndex(indexPath.row)
-            }
-        }
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

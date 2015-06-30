@@ -13,11 +13,16 @@ let BrowseHeaderReuseIdentifier = "Cell"
 class BrowseHeaderCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     let scrollView: UIScrollView
     var viewModel: BrowseViewModel?
-    var delegate: BrowseHeaderSwipeDelegate?
-    var headerDelegate: HeaderUpdateDelegate?
-    var viewControllerDelegate: BrowseHeaderCollectionViewControllerDelegate?
-    var updateTracksDelegate: UpdateTracksFromHeaderDelegate?
-    var dataSource: BrowseHeaderCollectionViewDataSource?
+    weak var delegate: BrowseHeaderSwipeDelegate?
+    weak var headerDelegate: HeaderUpdateDelegate?
+    weak var viewControllerDelegate: BrowseHeaderCollectionViewControllerDelegate?
+    var currentPage: Int
+    var dataSource: BrowseHeaderCollectionViewDataSource? {
+        didSet {
+            collectionView?.reloadData()
+            didScrollToPage(0)
+        }
+    }
     
     let itemWidth: CGFloat
     let width: CGFloat
@@ -27,6 +32,7 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
         padding = BrowseHeaderCollectionViewPadding
         itemWidth = UIScreen.mainScreen().bounds.width - (padding * 2)
         width = itemWidth + (padding / 2)
+        currentPage = 0
         
         scrollView = UIScrollView(frame: CGRectMake(0, 0, width, width))
         scrollView.pagingEnabled = true
@@ -36,7 +42,6 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
 
         scrollView.delegate = self
         view.addSubview(scrollView)
-
     }
     
     required convenience init(coder aDecoder: NSCoder) {        
@@ -75,8 +80,18 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
     
+    func didScrollToPage(pageIndex: Int) {
+        delegate?.headerDidSwipe(pageIndex)
+        
+        if let artist = dataSource?.artistForIndexPath(self, index: pageIndex) {
+            let previousArtist = dataSource?.artistForIndexPath(self, index: pageIndex - 1)
+            let nextArtist = dataSource?.artistForIndexPath(self, index: pageIndex + 1)
+
+            headerDelegate?.headerDidChange(artist, previousArtist: previousArtist, nextArtist: nextArtist)
+        }
+    }
+
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -85,8 +100,12 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        scrollView.contentSize = CGSizeMake(width * CGFloat(dataSource!.numberOfItemsInBrowsePicker(self)), width)
-        return dataSource!.numberOfItemsInBrowsePicker(self)
+        if let dataSource = dataSource {
+            let numberOfItems = dataSource.numberOfItemsInBrowsePicker(self)
+            scrollView.contentSize = CGSizeMake(width * CGFloat(numberOfItems), width)
+            return numberOfItems
+        }
+        return 0
     }
 
     /**
@@ -100,47 +119,50 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("browseCell", forIndexPath: indexPath) as! BrowseHeaderCollectionViewCell
         
         if let artist = dataSource?.artistForIndexPath(self, index: indexPath.row) {
-            cell.artistImage.setImageWithURL(NSURL(string: artist.imageURLLarge))
-            
+            cell.setImageWithURLString(artist.imageURLLarge)
         }
         
         return cell
     }
     
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        println("Current page: \(getCurrentPage())")
-        
-        delegate?.headerDidSwipe(getCurrentPage())
-        headerDelegate?.headerDidChange(dataSource!.artistForIndexPath(self, index: getCurrentPage())!)
-        updateTracksDelegate?.updateTracksForArtist(dataSource!.artistForIndexPath(self, index: getCurrentPage())!)
+        if currentPage != getCurrentPage() {
+            currentPage = getCurrentPage()
+            didScrollToPage(currentPage)
+            println("Current page: \(currentPage)")
+        }
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
+        let startingOffset = CGFloat(currentPage) * width
+        var contentOffset: CGPoint = scrollView.contentOffset
+        let xOffset = contentOffset.x
+        let delta = (xOffset - startingOffset) / width
+
+        println("startingOffset: \(startingOffset), delta Offset: \(delta), xOffset: \(xOffset)")
+        headerDelegate?.headerDidPan(self, displayedArtist: dataSource?.artistForIndexPath(self, index: getCurrentPage()), delta: delta)
+        
         if scrollView == self.scrollView {
-            var contentOffset: CGPoint = scrollView.contentOffset
             contentOffset.x = contentOffset.x - collectionView!.contentInset.left
             collectionView!.contentOffset = contentOffset
         }
     }
 }
 
-protocol BrowseHeaderCollectionViewDataSource {
+protocol BrowseHeaderCollectionViewDataSource: class {
     func numberOfItemsInBrowsePicker(browsePicker: BrowseHeaderCollectionViewController) -> Int
     func artistForIndexPath(browsePicker: BrowseHeaderCollectionViewController, index: Int) -> Artist?
 }
 
-protocol BrowseHeaderCollectionViewControllerDelegate {
+protocol BrowseHeaderCollectionViewControllerDelegate: class {
     func headerDidLoadArtists()
 }
 
-protocol BrowseHeaderSwipeDelegate {
+protocol BrowseHeaderSwipeDelegate: class {
     func headerDidSwipe(currentPage: Int)
 }
 
-protocol UpdateTracksFromHeaderDelegate {
-    func updateTracksForArtist(artist: Artist)
-}
-
-protocol HeaderUpdateDelegate {
-    func headerDidChange(artist: Artist)
+protocol HeaderUpdateDelegate: class {
+    func headerDidChange(artist: Artist, previousArtist: Artist?, nextArtist: Artist?)
+    func headerDidPan(browseHeader: BrowseHeaderCollectionViewController, displayedArtist: Artist?, delta: CGFloat)
 }
