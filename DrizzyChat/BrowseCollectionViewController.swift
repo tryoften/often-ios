@@ -161,6 +161,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     // MARK: BrowseViewModelDelegate
     func browseViewModelDidLoadData(browseViewModel: BrowseViewModel, artists: [Artist]) {
         collectionView?.reloadData()
+        headerView?.browsePicker.collectionView?.reloadData()
     }
     
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track]) {

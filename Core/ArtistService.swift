@@ -77,6 +77,7 @@ class ArtistService: Service {
         artistsRef.observeEventType(.Value, withBlock: { snapshot in
             if let artistsData = snapshot.value as? [String: AnyObject] {
                 self.fetchDataForArtistIds(artistsData.keys.array, completion: { keyboards in
+                    self.delegate?.serviceDataDidLoad(self)
                     completion(true)
                 })
             }
@@ -93,13 +94,11 @@ class ArtistService: Service {
     */
     func requestData(completion: ([Artist]) -> Void) {
         fetchLocalData { success in
-            if self.artists.isEmpty {
-                self.fetchRemoteData { success in
-                    completion(self.artists)
-                }
-            } else {
-                completion(self.artists)
-            }
+            completion(self.artists)
+        }
+        
+        fetchRemoteData { success in
+            completion(self.artists)
         }
     }
 

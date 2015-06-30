@@ -42,7 +42,9 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
         HUDProgressView.show()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardServiceDidAddKeyboard:", name: "keyboard:added", object: nil)
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "keyboardServiceDidAddKeyboard:", name: "keyboard:added", object: nil)
+        notificationCenter.addObserver(self, selector: "keyboardServiceDidRemoveKeyboard:", name: "keyboard:removed", object: nil)
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = UIColor.whiteColor()
@@ -163,8 +165,18 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     }
     
     func keyboardServiceDidAddKeyboard(notification: NSNotification) {
-        if let artistPicker = keyboardManagerViewController {
-            artistPicker.collectionView?.reloadData()
+        if let artistPicker = keyboardManagerViewController,
+            let userInfo = notification.userInfo,
+            let index = userInfo["index"] as? Int {
+                artistPicker.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
+        }
+    }
+    
+    func keyboardServiceDidRemoveKeyboard(notification: NSNotification) {
+        if let artistPicker = keyboardManagerViewController,
+            let userInfo = notification.userInfo,
+            let index = userInfo["index"] as? Int {
+            artistPicker.collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
         }
     }
     

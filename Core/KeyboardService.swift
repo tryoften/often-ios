@@ -64,7 +64,7 @@ class KeyboardService: Service {
             }
             completion(keyboard, success)
             NSNotificationCenter.defaultCenter().postNotificationName("keyboard:added", object: self, userInfo: [
-                "keyboard": keyboard
+                "index": keyboard.index
             ])
         })
     }
@@ -77,15 +77,19 @@ class KeyboardService: Service {
     */
     func deleteKeyboardWithId(keyboardId: String, completion: (NSError?) -> ()) {
         keyboards = keyboards.filter { return ($0.id == keyboardId) ? false : true }
+        realm.beginWrite()
         for var i = 0; i < keyboards.count; i++ {
             keyboards[i].index = i
         }
-        realm.beginWrite()
         if let keyboard = realm.objectForPrimaryKey(Keyboard.self, key: keyboardId),
             let artist = keyboard.artist {
+            NSNotificationCenter.defaultCenter().postNotificationName("keyboard:removed", object: self, userInfo: [
+                "index": keyboard.index
+            ])
             realm.delete(keyboard)
         }
         realm.commitWrite()
+        
         self.keyboardsRef.childByAppendingPath(keyboardId).removeValueWithCompletionBlock { (err, keyboardRef) in
             completion(nil)
         }
