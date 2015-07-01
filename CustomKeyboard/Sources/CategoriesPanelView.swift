@@ -15,12 +15,14 @@ class CategoriesPanelView: UIView {
     var toggleDrawerButton: UIButton
     var switchArtistButton: SwitchArtistButton
     var currentCategoryView: UIView
-    var currentHighlightColorView: UIView
     var currentCategoryLabel: TOMSMorphingLabel
+    var messageBarView: MessageBarView
+    var shareButton: UIButton
     var drawerOpened: Bool = false
     var collectionViewEnabled: Bool = true
     var delegate: SectionPickerViewDelegate?
     var selectedBgView: UIView
+    var toolbarView: UIView
 
     convenience required init(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
@@ -40,13 +42,18 @@ class CategoriesPanelView: UIView {
         nextKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         nextKeyboardButton.backgroundColor = NextKeyboardButtonBackgroundColor
         
+        toolbarView = UIView()
+        toolbarView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        toolbarView.backgroundColor = BlackColor
+        
+        shareButton = UIButton()
+        shareButton.setImage(UIImage(named: "ShareApp"), forState: .Normal)
+        shareButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        shareButton.backgroundColor = BlackColor
+        
         currentCategoryView = UIView()
         currentCategoryView.accessibilityLabel = "currentCategoryView"
         currentCategoryView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        currentHighlightColorView = UIView()
-        currentHighlightColorView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        currentHighlightColorView.hidden = true
         
         toggleDrawerButton = UIButton()
         toggleDrawerButton.titleLabel!.font = NextKeyboardButtonFont
@@ -56,6 +63,10 @@ class CategoriesPanelView: UIView {
         
         switchArtistButton = SwitchArtistButton()
         switchArtistButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        messageBarView = MessageBarView()
+        messageBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        messageBarView.alpha = 0
         
         currentCategoryLabel = TOMSMorphingLabel()
         currentCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
@@ -73,11 +84,14 @@ class CategoriesPanelView: UIView {
         currentCategoryView.addSubview(toggleDrawerButton)
         currentCategoryView.addSubview(currentCategoryLabel)
 
+        addSubview(messageBarView)
+        addSubview(toolbarView)
         addSubview(categoriesCollectionView)
-        addSubview(nextKeyboardButton)
-        addSubview(currentCategoryView)
-        addSubview(currentHighlightColorView)
-        addSubview(switchArtistButton)
+        addSubview(shareButton)
+        
+        toolbarView.addSubview(nextKeyboardButton)
+        toolbarView.addSubview(currentCategoryView)
+        toolbarView.addSubview(switchArtistButton)
 
         setupLayout()
     }
@@ -87,7 +101,7 @@ class CategoriesPanelView: UIView {
         viewLayout.scrollDirection = .Horizontal
         viewLayout.minimumInteritemSpacing = 5
         viewLayout.minimumLineSpacing = 5
-        viewLayout.sectionInset = UIEdgeInsets(top: 0.0, left: 5.0, bottom: 5.0, right: 5.0)
+        viewLayout.sectionInset = UIEdgeInsets(top: 0.0, left: 35.0, bottom: 5.0, right: 5.0)
         return viewLayout
     }
     
@@ -107,9 +121,15 @@ class CategoriesPanelView: UIView {
         collectionViewTopConstraint.priority = 800
         
         let constraints: [NSLayoutConstraint] = [
+            // toolbar
+            toolbarView.al_left == al_left,
+            toolbarView.al_right == al_right,
+            toolbarView.al_top == al_top,
+            toolbarView.al_height == SectionPickerViewHeight,
+            
             // keyboard button
-            keyboardButton.al_left == al_left,
-            keyboardButton.al_top == al_top,
+            keyboardButton.al_left == toolbarView.al_left,
+            keyboardButton.al_top == toolbarView.al_top,
             keyboardButton.al_height == SectionPickerViewHeight,
             keyboardButton.al_width == SectionPickerViewHeight,
             
@@ -121,14 +141,9 @@ class CategoriesPanelView: UIView {
             
             // current category view
             currentCategoryView.al_left == switchArtistButton.al_left + SectionPickerViewHeight + 10.0,
-            currentCategoryView.al_right == al_right,
+            currentCategoryView.al_right == toolbarView.al_right,
             currentCategoryView.al_height == SectionPickerViewHeight,
-            currentCategoryView.al_top == al_top,
-            
-            // current highlight color view
-            currentHighlightColorView.al_width == al_width,
-            currentHighlightColorView.al_top == al_top - 4.5,
-            currentHighlightColorView.al_height == 4.5,
+            currentCategoryView.al_top == toolbarView.al_top,
             
             // toggle drawer
             toggleDrawer.al_right == currentCategoryView.al_right,
@@ -146,7 +161,17 @@ class CategoriesPanelView: UIView {
             collectionViewTopConstraint,
             collectionView.al_left == al_left,
             collectionView.al_right == al_right,
-            collectionView.al_bottom == al_bottom
+            collectionView.al_bottom == al_bottom,
+            
+            shareButton.al_left == al_left,
+            shareButton.al_width == 30,
+            shareButton.al_top == keyboardButton.al_bottom,
+            shareButton.al_bottom == al_bottom,
+            
+            messageBarView.al_top == toolbarView.al_top,
+            messageBarView.al_height == 30,
+            messageBarView.al_left == toolbarView.al_left,
+            messageBarView.al_width == toolbarView.al_width
         ]
         
         addConstraints(constraints)
@@ -161,26 +186,36 @@ class CategoriesPanelView: UIView {
     }
     
     func open() {
-        UIView.animateWithDuration(0.2, animations: {
+        categoriesCollectionView.reloadData()
+        
+        UIView.animateWithDuration(0.25) {
             var frame = self.frame
             frame.origin.y = 0
             self.frame = frame
             self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
-            self.layoutIfNeeded()
-            return
-        }, completion: nil)
+        }
     }
     
     func close() {
-        println("superview frame: \(self.superview!.frame)")
-        UIView.animateWithDuration(0.2, animations: {
+        UIView.animateWithDuration(0.25) {
             var frame = self.frame
             frame.origin.y = self.superview!.frame.height - SectionPickerViewHeight
             self.frame = frame
-            self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(0)
-            self.layoutIfNeeded()
-            return
-        }, completion: nil)
+            self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(CGFloat(0))
+        }
+    }
+    
+    func showMessageBar() {
+        messageBarView.alpha = 1.0
+        UIView.animateWithDuration(0.3) {
+            self.messageBarView.frame.origin.y -= 30
+        }
+    }
+    
+    func hideMessageBar() {
+        UIView.animateWithDuration(0.3) {
+            self.messageBarView.frame.origin.y += 30
+        }
     }
 }
 

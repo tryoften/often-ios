@@ -13,7 +13,11 @@ let ArtistCollectionViewCellReuseIdentifier = "ArtistCollectionViewCell"
 class ArtistPickerCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,
     ArtistPickerCollectionViewLayoutDelegate {
 
-    weak var dataSource: ArtistPickerCollectionViewDataSource?
+    weak var dataSource: ArtistPickerCollectionViewDataSource? {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
     weak var delegate: ArtistPickerCollectionViewControllerDelegate?
     var selectedCell: ArtistCollectionViewCell?
     var isDeletionModeOn: Bool = false {

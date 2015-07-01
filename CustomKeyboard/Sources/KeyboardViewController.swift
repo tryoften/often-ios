@@ -31,13 +31,9 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     static var onceToken: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
-        let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
-        RLMRealm.setDefaultRealmPath(realmPath)
-
-        viewModel = KeyboardViewModel(realmPath: realmPath)
+        viewModel = KeyboardViewModel()
         var firebaseRoot = Firebase(url: BaseURL)
-        lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot))
+        lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot, realm: viewModel.realm))
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         viewModel.delegate = self
@@ -97,6 +93,12 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var viewFrame = view.frame
         viewFrame.size.height = KeyboardHeight
         view.frame = viewFrame
+        
+        if !viewModel.isFullAccessEnabled {
+            sectionPickerView.showMessageBar()
+        } else {
+            sectionPickerView.hideMessageBar()
+        }
     }
     
     func bootstrap() {
@@ -189,7 +191,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                 artistPicker.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
             }
         }
-        
+        categoryPicker.drawerOpened = false
         sectionPickerView.close()
         UIView.animateWithDuration(0.3,
             delay: 0,

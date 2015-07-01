@@ -47,6 +47,8 @@ class SessionManager: NSObject {
         if let userId = userDefaults.stringForKey("userId") {
             currentUser = realm.objectForPrimaryKey(User.self, key: userId)
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeDatabasetoDisk", name: "database:persist", object: nil)
     }
     
     func fetchKeyboards() {
@@ -86,6 +88,15 @@ class SessionManager: NSObject {
         return userDefaults.objectForKey("userId") != nil
     }
     
+    func writeDatabasetoDisk() {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+            let path = directory.path!.stringByAppendingPathComponent("keyboard.realm")
+            let realm = Realm()
+            realm.writeCopyToPath(path, encryptionKey: nil)
+        }
+    }
+    
     func signUpUser(data: [String: String]) {
         if let email = data["email"],
             let username = data["username"],
@@ -111,7 +122,8 @@ class SessionManager: NSObject {
     }
     
     func openSession() {
-        if let accessToken = FBSession.activeSession().accessTokenData.accessToken {
+        if let activeSession = FBSession.activeSession(),
+            accessToken = activeSession.accessTokenData.accessToken {
             firebase.authWithOAuthProvider("facebook", token: accessToken,
                 withCompletionBlock: { error, authData in
                     if error != nil {

@@ -23,27 +23,33 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             }
         }
     }
+    var realm: Realm
+    var isFullAccessEnabled: Bool
     
-    init(realmPath: String? = nil) {
+    override init() {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        isFullAccessEnabled = false
+        
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        var realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+        //        RLMRealm.setDefaultRealmPath(realmPath)
+        
+        var fileManager = NSFileManager.defaultManager()
+        isFullAccessEnabled = fileManager.isWritableFileAtPath(realmPath)
 
-        var realm: Realm
-        if let realmPath = realmPath {
-            var fileManager = NSFileManager.defaultManager()
-            println("readable: \(fileManager.isReadableFileAtPath(realmPath))")
-            println("writable: \(fileManager.isWritableFileAtPath(realmPath))")
-            realm = Realm(path: realmPath, readOnly: false, encryptionKey: nil, error: nil)!
+        if isFullAccessEnabled {
+            
         } else {
-            realm = Realm()
+            // TODO(luc): setup read-only realm DB
         }
         
-        
+        realm = Realm(path: realmPath)
         if let userId = userDefaults.objectForKey("userId") as? String,
-            let user = realm.objectForPrimaryKey(User.self, key: userId){
+            let user = realm.objectForPrimaryKey(User.self, key: userId) {
             keyboardService = KeyboardService(user: user,
                 root: Firebase(url: BaseURL), realm: realm)
         } else {
-            // TODO(luc): get annonymous ID for the current session
+            // TODO(luc): get anonymous ID for the current session
             let user = User()
             user.id = "anon"
             keyboardService = KeyboardService(user: user, root: Firebase(url: BaseURL), realm: realm)

@@ -19,7 +19,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         didSet {
             if let category = currentCategory {
                 pickerView.currentCategoryLabel.text = category.name
-                pickerView.currentHighlightColorView.backgroundColor = category.highlightColor
             }
         }
     }
@@ -74,7 +73,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     // MARK: UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        println("Categories: \(categories)")
         return categories.count
     }
     
