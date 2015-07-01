@@ -13,6 +13,7 @@ class TabBarController: UITabBarController {
     var backgroundView: UIView
     var barBorderView: UIView
     var sessionManager: SessionManager
+    var installKeyboardButton: UIButton
 
     init (sessionManager: SessionManager = SessionManager.defaultManager) {
         self.sessionManager = sessionManager
@@ -23,15 +24,26 @@ class TabBarController: UITabBarController {
         barBorderView = UIView()
         barBorderView.setTranslatesAutoresizingMaskIntoConstraints(false)
         barBorderView.backgroundColor = UIColor(fromHexString: "#f9b341")
-
+        
+        installKeyboardButton = UIButton()
+        installKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        installKeyboardButton.backgroundColor = UIColor(fromHexString: "#2CD2B4")
+        installKeyboardButton.setTitle("install keyboard".uppercaseString, forState: UIControlState.Normal)
+        installKeyboardButton.titleLabel?.font = ButtonFont
+        installKeyboardButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        installKeyboardButton.hidden = true
+    
         super.init(nibName: nil, bundle: nil)
         
         backgroundView.backgroundColor = UIColor.blackColor()
+        
+        installKeyboardButton.addTarget(self, action: "didTapInstallKeyboardButton", forControlEvents: .TouchUpInside)
 
         tabBar.barStyle = .Black
         tabBar.tintColor = UIColor(fromHexString: "#f9b341")
         tabBar.addSubview(backgroundView)
         tabBar.addSubview(barBorderView)
+        view.addSubview(installKeyboardButton)
         
         view.addConstraints([
             barBorderView.al_width == tabBar.al_width,
@@ -42,7 +54,12 @@ class TabBarController: UITabBarController {
             backgroundView.al_width == tabBar.al_width,
             backgroundView.al_top == barBorderView.al_bottom,
             backgroundView.al_left == tabBar.al_left,
-            backgroundView.al_height == tabBar.al_height
+            backgroundView.al_height == tabBar.al_height,
+            
+            installKeyboardButton.al_left == view.al_left,
+            installKeyboardButton.al_right == view.al_right,
+            installKeyboardButton.al_height == 55,
+            installKeyboardButton.al_bottom == view.al_bottom
         ])
         
         var viewModel = UserProfileViewModel(sessionManager: sessionManager)
@@ -81,6 +98,11 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
+        
+        if sessionManager.userDefaults.objectForKey("keyboardInstall") != nil {
+            tabBar.hidden = true
+            installKeyboardButton.hidden = false
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -89,6 +111,12 @@ class TabBarController: UITabBarController {
     
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func didTapInstallKeyboardButton() {
+        var keyboardWalkthrough: KeyboardInstallationWalkthrough = KeyboardInstallationWalkthrough(nibName: nil, bundle: nil)
+        keyboardWalkthrough.modalPresentationStyle = UIModalPresentationStyle.Custom
+        self.presentViewController(keyboardWalkthrough, animated: true, completion: nil)
     }
 
 }

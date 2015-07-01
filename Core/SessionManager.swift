@@ -20,7 +20,6 @@ class SessionManager: NSObject {
     var realm: Realm
     var isUserNew: Bool
     var userIsLoggingIn = false
-    var facebookLoggedIn = false
     
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
@@ -123,7 +122,7 @@ class SessionManager: NSObject {
     }
     
     func openSession(username: String?, password: String?) {
-        if username != nil && password != nil {
+        if let username = username, let password = password {
             self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
                 if error != nil {
                     println("logged in")
@@ -222,7 +221,7 @@ class SessionManager: NSObject {
         }
         
         if let authData = authData,
-            let uid = PFUser.currentUser()?.objectId! {
+            let uid = PFUser.currentUser()?.objectId {
                 
                 userRef = firebase.childByAppendingPath("users/\(uid)")
                 userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
