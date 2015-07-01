@@ -16,12 +16,19 @@ import UIKit
     - Each artist needs to be displayed with its Lyric and Track Count
 
 */
-class TrendingViewModel: NSObject, SessionManagerObserver {
+class TrendingViewModel: NSObject, SessionManagerObserver, ServiceDelegate {
     weak var delegate: TrendingViewModelDelegate?
     var artistsList: [Artist]?
+    var lyricsList: [Lyric]?
+    var ref: Firebase = Firebase(url: BaseURL)
+    var trendingService: TrendingService
+    var artistTrendingList: [Artist]?
+    var lyricTrendingList: [Lyric]?
     
     init(sessionManager: SessionManager){
+        trendingService = TrendingService(root: ref)
         super.init()
+        trendingService.delegate = self
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
@@ -48,8 +55,26 @@ class TrendingViewModel: NSObject, SessionManagerObserver {
         artistsList = artists.values.array
         self.delegate?.trendingViewModelDidLoadTrackList(self, artists: artistsList!)
     }
+    
+    // MARK: ServiceDelegate
+    
+    func serviceDataDidLoad(service: Service) {
+        
+    }
+    
+    func artistsDidUpdate(artists: [Artist]) {
+        artistsList = artists
+        delegate?.artistsDidUpdate(self.artistsList!)
+    }
+    
+    func lyricsDidUpdate(lyrics: [Lyric]) {
+        lyricsList = lyrics
+        delegate?.lyricsDidUpdate(self.lyricsList!)
+    }
 }
 
 protocol TrendingViewModelDelegate: class {
     func trendingViewModelDidLoadTrackList(browseViewModel: TrendingViewModel, artists: [Artist])
+    func artistsDidUpdate(artists: [Artist])
+    func lyricsDidUpdate(lyrics: [Lyric])
 }

@@ -16,9 +16,16 @@ class Lyric: Object {
     dynamic var trackId: String = ""
     dynamic var artistId: String = ""
     dynamic var track: Track?
+    dynamic var arrow: String = ""
+    dynamic var owner: String = ""
+    dynamic var score: Int = 0
     
     override static func primaryKey() -> String? {
         return "id"
+    }
+    
+    override static func ignoredProperties() -> [String] {
+        return ["arrow", "owner"]
     }
 }
 
