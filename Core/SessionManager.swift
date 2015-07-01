@@ -44,11 +44,15 @@ class SessionManager: NSObject {
         self.firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
         }
+        
+        if let userId = userDefaults.stringForKey("userId") {
+            currentUser = realm.objectForPrimaryKey(User.self, key: userId)
+        }
     }
     
     func fetchKeyboards() {
         if let currentUser = currentUser {
-            let keyboardService = provideKeyboardService(currentUser.id)
+            let keyboardService = provideKeyboardService(currentUser)
             keyboardService.requestData({ data in
                 self.broadcastDidFetchKeyboardsEvent()
             })
@@ -59,14 +63,18 @@ class SessionManager: NSObject {
     
     func setKeyboardsOnCurrentUser(keyboardIds: [String], completion: (User, NSError?) -> ()) {
         if let currentUser = self.currentUser {
-            let keyboardService = provideKeyboardService(currentUser.id)
+            let keyboardService = provideKeyboardService(currentUser)
 
             keyboardService.fetchDataForKeyboardIds(keyboardIds, completion: { keyboards in
                 for keyboardId in keyboardIds {
                     keyboardService.keyboardsRef.childByAppendingPath(keyboardId).setValue(true)
                 }
-
+                
                 self.realm.write {
+                    for keyboard in keyboards {
+                        keyboard.user = currentUser
+                    }
+                    self.realm.add(keyboards, update: true)
                     self.realm.add(currentUser, update: true)
                 }
 
@@ -175,12 +183,12 @@ class SessionManager: NSObject {
     
     // MARK: Private methods
     
-    private func provideKeyboardService(userId: String) -> KeyboardService {
+    private func provideKeyboardService(user: User) -> KeyboardService {
         if let keyboardService = self.keyboardService {
             return keyboardService
         }
 
-        var keyboardService = KeyboardService(userId: userId, root: self.firebase, realm: self.realm)
+        var keyboardService = KeyboardService(user: user, root: self.firebase, realm: self.realm)
         self.keyboardService = keyboardService
 
         return keyboardService

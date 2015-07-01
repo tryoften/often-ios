@@ -38,7 +38,6 @@ class BrowseViewModel: NSObject {
         super.init()
     }
 
-    
     /**
         Load the artistsList array with all of the Artist objects
     
@@ -57,9 +56,9 @@ class BrowseViewModel: NSObject {
     
     func numberOfTracks() -> Int {
         if let tracksList = currentArtist?.tracksList {
-            return tracksList.count
+            return tracksList.count + 10
         }
-        return 0
+        return 0 + 10
     }
     
     func trackAtIndex(index: Int) -> Track? {
@@ -68,7 +67,31 @@ class BrowseViewModel: NSObject {
                 return currentArtist.tracksList[index]
             }
         }
-        return nil
+        var track = Track()
+        track.name = "Random track"
+        return track
+    }
+    
+    func userHasKeyboardForArtist(artist: Artist) -> Bool {
+        if let currentUser = SessionManager.defaultManager.currentUser {
+            return currentUser.hasKeyboardForArtist(artist)
+        }
+        return false
+    }
+    
+    func toggleAddingKeyboardforCurrentArtist(completion: (added: Bool) -> ()) {
+        if let keyboardService = SessionManager.defaultManager.keyboardService,
+            let artist = currentArtist {
+                if userHasKeyboardForArtist(artist) {
+                    keyboardService.deleteKeyboardWithId(artist.keyboardId, completion: { error in
+                        completion(added: false)
+                    })
+                } else {
+                    keyboardService.addKeyboardWithId(artist.keyboardId, completion: { (keyboard, success) in
+                        completion(added: true)
+                    })
+                }
+        }
     }
     
     /**

@@ -155,16 +155,11 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         if let cell = target.superview as? ArtistCollectionViewCell,
             let indexPath = collectionView?.indexPathForCell(cell),
             let keyboard = dataSource?.artistPickerItemAtIndex(self, index: indexPath.row) {
-                collectionView?.performBatchUpdates({
-                    self.collectionView?.deleteItemsAtIndexPaths([indexPath])
-                    
-                    self.delegate?.artistPickerCollectionViewControllerDidDeleteKeyboard?(self, keyboard: keyboard, index: indexPath.row)
-                    
-                    if self.isDeletionModeOn {
-                        self.endDeleteMode(indexPath: indexPath)
-                    }
+                self.delegate?.artistPickerCollectionViewControllerDidDeleteKeyboard?(self, keyboard: keyboard, index: indexPath.row)
                 
-                }, completion: nil)
+                if self.isDeletionModeOn {
+                    self.endDeleteMode(indexPath: indexPath)
+                }
         }
     }
     

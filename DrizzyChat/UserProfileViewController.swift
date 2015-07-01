@@ -38,8 +38,13 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         
         navigationController?.navigationBarHidden = true
         
+        viewModel.requestData(completion: nil)
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
         HUDProgressView.show()
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "keyboardServiceDidAddKeyboard:", name: "keyboard:added", object: nil)
+        notificationCenter.addObserver(self, selector: "keyboardServiceDidRemoveKeyboard:", name: "keyboard:removed", object: nil)
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = UIColor.whiteColor()
@@ -135,6 +140,17 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     func didTapEditButton() {
         if let artistPickerVC = artistPickerViewController {
             artistPickerVC.isDeletionModeOn = !artistPickerVC.isDeletionModeOn
+            updateEditButton()
+        }
+    }
+    
+    func didTapSettingsButton() {
+        let settingsVC = SettingsTableViewController()
+        navigationController?.pushViewController(settingsVC, animated: true)
+    }
+    
+    private func updateEditButton() {
+        if let artistPickerVC = artistPickerViewController {
             
             if let sectionHeaderView = sectionHeaderView {
                 if artistPickerVC.isDeletionModeOn {
@@ -146,11 +162,6 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         }
     }
     
-    func didTapSettingsButton() {
-        let settingsVC = SettingsTableViewController()
-        navigationController?.pushViewController(settingsVC, animated: true)
-    }
-    
     private func provideArtistPicker() -> ArtistPickerCollectionViewController {
         var artistPicker = ArtistPickerCollectionViewController(edgeInsets: UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 15.0))
         artistPicker.dataSource = self
@@ -159,6 +170,22 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         artistPicker.view.backgroundColor = UIColor.clearColor()
 
         return artistPicker
+    }
+    
+    func keyboardServiceDidAddKeyboard(notification: NSNotification) {
+        if let artistPicker = keyboardManagerViewController,
+            let userInfo = notification.userInfo,
+            let index = userInfo["index"] as? Int {
+                artistPicker.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
+        }
+    }
+    
+    func keyboardServiceDidRemoveKeyboard(notification: NSNotification) {
+        if let artistPicker = keyboardManagerViewController,
+            let userInfo = notification.userInfo,
+            let index = userInfo["index"] as? Int {
+            artistPicker.collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
+        }
     }
     
     // MARK: UserProfileViewModelDelegate
@@ -230,7 +257,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
 
     func artistPickerCollectionViewControllerDidDeleteKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard, index: Int) {
         viewModel.deleteKeyboardWithId(keyboard.id, completion: { (err) -> () in
-            
+            self.updateEditButton()
         })
     }
 }

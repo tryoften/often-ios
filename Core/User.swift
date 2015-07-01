@@ -8,7 +8,6 @@
 
 import RealmSwift
 
-
 class User: Object {
     dynamic var id: String = ""
     dynamic var name: String = ""
@@ -18,7 +17,9 @@ class User: Object {
     dynamic var email: String = ""
     dynamic var phone: String = ""
     dynamic var backgroundImage: String = ""
-    let keyboards = List<Keyboard>()
+    var keyboards: [Keyboard] {
+        return linkingObjects(Keyboard.self, forProperty: "user")
+    }
     
     override static func primaryKey() -> String? {
         return "id"
@@ -54,6 +55,17 @@ class User: Object {
                 phone = phoneString
             }
             
+        }
+        
+        func hasKeyboardForArtist(artist: Artist) -> Bool {
+            for keyboard in keyboards {
+                if let keyboardOwner = keyboard.artist {
+                    if artist.id == keyboardOwner.id {
+                        return true
+                    }
+                }
+            }
+            return false
         }
     }
 }

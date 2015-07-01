@@ -15,7 +15,7 @@ import UIKit
     Collection views use the same data source and delegate
 */
 
-class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate, BrowseHeaderCollectionViewDataSource {
+class BrowseCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, BrowseViewModelDelegate, BrowseCollectionViewLayoutDelegate, BrowseHeaderSwipeDelegate, BrowseHeaderCollectionViewDataSource, BrowseHeaderViewDelegate {
 
     var viewModel: BrowseViewModel
     var headerView: BrowseHeaderView?
@@ -43,6 +43,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             collectionView.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowseSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(BrowseCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+            collectionView.contentInset = UIEdgeInsetsMake(0, 0, CGRectGetHeight(tabBarController!.tabBar.frame) + 10, 0)
         }
         
         viewModel.requestData()
@@ -57,7 +58,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     class func getLayout() -> UICollectionViewLayout {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
         var flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 50)
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 110)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 450)
         flowLayout.itemSize = CGSizeMake(screenWidth, 70) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = true        
@@ -100,9 +101,10 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! BrowseHeaderView
             
             if headerView == nil {
+                headerView = cell
+                cell.delegate = self
                 cell.browsePicker.delegate = self
                 cell.browsePicker.dataSource = self
-                headerView = cell
             }
             return headerView!
         } else if kind == UICollectionElementKindSectionHeader {
@@ -138,19 +140,31 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         user moved into the next artist's view.
     */
     func headerDidSwipe(currentPage: Int) {
-        viewModel.currentArtist = viewModel.artists[currentPage]
-        if let headerView = headerView,
-            let artist = viewModel.currentArtist {
-            headerView.artistNameLabel.text = artist.name.uppercaseString
+        if currentPage < viewModel.artists.count {
+            viewModel.currentArtist = viewModel.artists[currentPage]
+            if let headerView = headerView,
+                let artist = viewModel.currentArtist {
+                headerView.artistNameLabel.text = artist.displayName
+                
+//                headerView.artistNameLabel.text = NSString(string: artist.displayName) as String
+                headerView.addArtistButton.selected = viewModel.userHasKeyboardForArtist(artist)
+            }
         }
         
         collectionView?.reloadSections(NSIndexSet(index: 0))
     }
     
+    // MARK: BrowseHeaderViewDelegate
+    func browseHeaderViewDidTapAddArtistButton(browseHeaderView: BrowseHeaderView, selected: Bool) {
+        viewModel.toggleAddingKeyboardforCurrentArtist { added in
+            
+        }
+    }
     
     // MARK: BrowseViewModelDelegate
     func browseViewModelDidLoadData(browseViewModel: BrowseViewModel, artists: [Artist]) {
-
+        collectionView?.reloadData()
+        headerView?.browsePicker.collectionView?.reloadData()
     }
     
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track]) {
