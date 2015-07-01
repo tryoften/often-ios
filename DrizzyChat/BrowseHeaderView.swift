@@ -146,7 +146,6 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     }
     
     func headerDidPan(browseHeader: BrowseHeaderCollectionViewController, displayedArtist: Artist?, delta: CGFloat) {
-        
         var absDelta = abs(delta)
         
         if delta < 0 {
