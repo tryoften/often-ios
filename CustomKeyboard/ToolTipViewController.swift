@@ -13,6 +13,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     
     var closeButton: UIButton
     var closeButtonDelegate: ToolTipCloseButtonDelegate?
+    var delegate: ToolTipViewControllerDelegate?
     var pageWidth: CGFloat
     var scrollView: UIScrollView
     var pageControl: UIPageControl
@@ -22,8 +23,11 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     var pageTexts: [String]
     var pageViews: [ToolTip]
     
+    var currentPage: Int {
+       return Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
+    }
+    
     init(viewModel: KeyboardViewModel) {
-        
         pageWidth = UIScreen.mainScreen().bounds.width - 20
         self.viewModel = viewModel
         
@@ -35,10 +39,10 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         ]
         
         pageTexts = [
-            "Access artists by tapping their profile picture!",
-            "Artist Categories can be reached by tapping the arrow",
-            "Easily go right back to your regular keyboard by tapping the Globe icon",
-            "To get the latest content, allow Full-Access fam! Learn more in your profile settings"
+            "Access artists by tapping\n their profile picture!",
+            "Artist Categories can be reached\n by tapping the arrow",
+            "Easily go right back to your regular\n keyboard by tapping the Globe icon",
+            "To get the latest content, allow Full-Access\n fam! Learn more in your profile settings"
         ]
     
         pageViews = [ToolTip]()
@@ -47,12 +51,14 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         scrollView = UIScrollView()
         scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
         scrollView.pagingEnabled = true
-        scrollView.backgroundColor = UIColor.blackColor()
+        scrollView.layer.cornerRadius = 3.0
+        scrollView.backgroundColor = UIColor(fromHexString: "#121314")
         scrollView.showsHorizontalScrollIndicator = false
         
         pageControl = UIPageControl()
         pageControl.setTranslatesAutoresizingMaskIntoConstraints(false)
         pageControl.currentPage = 0
+        
         
         pagesScrollViewSize = scrollView.frame.size
         pageCount = 4
@@ -60,6 +66,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         closeButton = UIButton()
         closeButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         closeButton.setImage(UIImage(named: "close artists"), forState: UIControlState.Normal)
+        closeButton.alpha = 0.0
         
         super.init(nibName: nil, bundle: nil)
         
@@ -105,7 +112,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         let page = Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
         
         // Update the page control
-        pageControl.currentPage = page
+        //pageControl.currentPage = page
 
         /// Load pages in our range
         for index in 0...pageCount - 1 {
@@ -114,35 +121,45 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func loadPage(page: Int) {
-        var tooltip = ToolTip()
-        tooltip.setTranslatesAutoresizingMaskIntoConstraints(false)
-        tooltip.imageView.image = pageImages[page]
-        tooltip.textView.text = pageTexts[page]
-        scrollView.addSubview(tooltip)
+        var toolTip = ToolTip()
+        delegate = toolTip
+        toolTip.setTranslatesAutoresizingMaskIntoConstraints(false)
+        toolTip.imageView.image = toolTip.pageImages[page]
+        toolTip.textView.text = pageTexts[page]
+        toolTip.currentPage = page
+        toolTip.setupLayout()
+        scrollView.addSubview(toolTip)
         
         scrollView.addConstraints([
-            tooltip.al_top == scrollView.al_top,
-            tooltip.al_height == scrollView.al_height,
-            tooltip.al_width == scrollView.al_width,
-            tooltip.al_left == scrollView.al_left + pageWidth * CGFloat(page)
+            toolTip.al_top == scrollView.al_top,
+            toolTip.al_height == scrollView.al_height,
+            toolTip.al_width == scrollView.al_width,
+            toolTip.al_left == scrollView.al_left + pageWidth * CGFloat(page)
         ])
         
-        pageViews.append(tooltip)
+        pageViews.append(toolTip)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         /// Load the pages that are now on screen
-        loadVisiblePages()
-    }
-    
-    func closeTapped() {
-        closeButtonDelegate?.toolTipCloseButtonDidTap()
+        pageControl.currentPage = currentPage
+        
+        if currentPage > 2 {
+            UIView.animateWithDuration(0.5, animations: {
+                self.closeButton.alpha = 1.0
+            })
+        } else {
+            UIView.animateWithDuration(0.5, animations: {
+                self.closeButton.alpha = 0.0
+            })
+        }
     }
     
     func setupLayout() {
         view.addConstraints([
             pageControl.al_centerX == scrollView.al_centerX,
-            pageControl.al_bottom == scrollView.al_bottom - 5,
+            pageControl.al_bottom == scrollView.al_bottom - 18,
+            pageControl.al_height == 5,
             
             scrollView.al_top == view.al_top + 10,
             scrollView.al_width == view.al_width - 20,
@@ -159,3 +176,6 @@ protocol ToolTipCloseButtonDelegate {
     func toolTipCloseButtonDidTap()
 }
 
+protocol ToolTipViewControllerDelegate {
+    func delegateCurrentPage(currentPage: Int)
+}

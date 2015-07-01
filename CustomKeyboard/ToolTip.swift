@@ -8,9 +8,17 @@
 
 import UIKit
 
-class ToolTip: UIView {
+class ToolTip: UIView, ToolTipViewControllerDelegate {
     var imageView: UIImageView
-    var textView: UITextView
+    var textView: UILabel
+    var currentPage: Int?
+    
+    var pageImages = [
+        UIImage(named: "artists")!,
+        UIImage(named: "categories")!,
+        UIImage(named: "letters")!,
+        UIImage(named: "full access")!
+    ]
     
     override init(frame: CGRect) {
         imageView = UIImageView()
@@ -18,10 +26,11 @@ class ToolTip: UIView {
         imageView.contentMode = .ScaleAspectFit
         imageView.clipsToBounds = true
         
-        textView = UITextView()
+        textView = UILabel()
         textView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        textView.editable = false
+        textView.userInteractionEnabled = false
         textView.textAlignment = .Center
+        textView.numberOfLines = 2
         textView.backgroundColor = UIColor.clearColor()
         textView.textColor = UIColor.whiteColor()
         textView.font = UIFont(name: "OpenSans", size: 13.0)
@@ -34,23 +43,54 @@ class ToolTip: UIView {
         addSubview(imageView)
         addSubview(textView)
         
-        setupLayout()
+        //setupLayout()
     }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func delegateCurrentPage(currentPage: Int) {
+        self.currentPage = currentPage
+    }
+    
     func setupLayout() {
-        let constraints: [NSLayoutConstraint] = [
-            imageView.al_bottom == textView.al_top,
-            imageView.al_centerX == al_centerX,
-            
-            textView.al_centerX == al_centerX,
-            textView.al_width == 250,
-            textView.al_height == 45,
-            textView.al_bottom == al_bottom - 40
-        ]
-        addConstraints(constraints)
+        if currentPage == 0 {
+            println("0")
+            let constraints: [NSLayoutConstraint] = [
+                imageView.al_bottom == textView.al_top + 1,
+                imageView.al_centerX == al_centerX,
+                
+                textView.al_centerX == al_centerX,
+                textView.al_width == 300,
+                textView.al_height == 50,
+                textView.al_bottom == al_bottom - 35
+            ]
+            addConstraints(constraints)
+        } else if currentPage == 3 {
+            println("3")
+            let constraints: [NSLayoutConstraint] = [
+                imageView.al_bottom == textView.al_top - 15,
+                imageView.al_centerX == al_centerX,
+                
+                textView.al_centerX == al_centerX,
+                textView.al_width == 300,
+                textView.al_height == 50,
+                textView.al_bottom == al_bottom - 35
+            ]
+            addConstraints(constraints)
+        } else {
+            println("1 or 2")
+            let constraints: [NSLayoutConstraint] = [
+                imageView.al_bottom == textView.al_top - 3,
+                imageView.al_centerX == al_centerX,
+                
+                textView.al_centerX == al_centerX,
+                textView.al_width == 300,
+                textView.al_height == 50,
+                textView.al_bottom == al_bottom - 35
+            ]
+            addConstraints(constraints)
+        }
     }
 }
