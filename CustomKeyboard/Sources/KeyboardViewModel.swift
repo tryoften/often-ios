@@ -9,10 +9,13 @@
 import UIKit
 import RealmSwift
 
+private var toolTipLogicOn = false // true: see real tool tip logic | false: see tool tips every time
+
 class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollectionViewDataSource {
     var keyboardService: KeyboardService
     var delegate: KeyboardViewModelDelegate?
     var userDefaults: NSUserDefaults
+    var hasSeenToolTips: Bool?
     var keyboards: [Keyboard] {
         return keyboardService.keyboards
     }
@@ -26,7 +29,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     
     init(realmPath: String? = nil) {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-
+        
         var realm: Realm
         if let realmPath = realmPath {
             var fileManager = NSFileManager.defaultManager()
@@ -47,6 +50,17 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
 
         super.init()
         keyboardService.delegate = self
+        
+        
+        // Tool Tips
+        
+        if toolTipLogicOn == true {
+            if getHasSeenToolTips() == nil || getHasSeenToolTips() == false {
+                setHasSeenToolTips(false) // If never been set or default false then they haven't seen it - init to false
+            }
+        } else {
+            setHasSeenToolTips(false)
+        }
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
@@ -70,6 +84,35 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         }
         delegate?.keyboardViewModelDidLoadData(self, data: keyboards)
     }
+    
+    func artistsDidUpdate(artists: [Artist]) {
+    
+    }
+    
+    func lyricsDidUpdate(lyrics: [Lyric]) {
+        
+    }
+    
+    // MARK: Tool Tip Methods
+    
+    /**
+        Checks whether the current user has seen the Tool Tips for the keyboard
+    
+        :Returns: Boolean of whether or not the user has seen the Tool Tips - Nil if never set
+    */
+    func getHasSeenToolTips() -> Bool? {
+        return userDefaults.objectForKey("toolTips") as? Bool
+    }
+    
+    /**
+        Set object for whether or not the user has seen the Tool Tips
+    
+        :param: bool What boolean you want to set the object to
+    */
+    func setHasSeenToolTips(bool: Bool) {
+        userDefaults.setObject(bool, forKey: "toolTips")
+    }
+    
     
     // MARK: ArtistPickerCollectionViewDataSource
     func numberOfItemsInArtistPicker(artistPicker: ArtistPickerCollectionViewController) -> Int {

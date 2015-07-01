@@ -13,9 +13,10 @@ class AddArtistModalContainerViewController: UIViewController {
     var screenWidth = UIScreen.mainScreen().bounds.width
     var screenHeight = UIScreen.mainScreen().bounds.height
     var closeButton: UIButton
+    var currentArtist: Artist? // set before presentation
     var addArtistModal: AddArtistModalCollectionViewController?
     
-    var lastLocation: CGPoint! //pan gesture relativity
+    var lastLocation: CGPoint! // pan gesture relativity
     var originalPoint: CGPoint! // snap back
     var snap: UISnapBehavior!
     var animator: UIDynamicAnimator!
@@ -82,7 +83,13 @@ class AddArtistModalContainerViewController: UIViewController {
     }
     
     func closeTapped() {
-        dismissViewControllerAnimated(true, completion: nil)
+        UIView.animateWithDuration(1.2, animations: {
+            self.view.alpha = 0
+        })
+        
+        delay(2.0, {
+            self.dismissViewControllerAnimated(false, completion: nil)
+        })
     }
     
     func setupLayout() {
@@ -103,11 +110,10 @@ class AddArtistModalContainerViewController: UIViewController {
             self.lastLocation = mainView.center
         }
         
-        if (mainView.center.x < 60 || self.mainView.center.x > 262) {
-            snap = UISnapBehavior(item: mainView, snapToPoint: center) // snap back to center
-            snap.damping = 1.0
-            animator.addBehavior(snap)
+        if (mainView.center.x < 15 || self.mainView.center.x > 275) {
+            
         }
+        
         
         
         if (snap != nil) {

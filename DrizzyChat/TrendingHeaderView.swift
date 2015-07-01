@@ -20,10 +20,15 @@ import UIKit
     (TODO): need to figure out formatting for the artist name (Perhaps, parsing + all caps)
 */
 
-class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
-    var featuredButton: UIButton?
+class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, TrendingHeaderDelegate {
     var scrollView: UIScrollView?
     var pageControl: UIPageControl?
+    var pageCount: Int
+    var pagesScrollViewSize: CGSize
+    var pageImages: [UIImage]
+    var pageViews: [UIImageView?]
+    
+    var featuredButton: UIButton?
     var nameLabel: UILabel?
     var topLabel: UILabel?
     var artistsButton: UIButton?
@@ -31,25 +36,20 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     var tabView: UIView?
     var tintView: UIView?
     var screenWidth: CGFloat
-    var pageCount: Int
-    var pagesScrollViewSize: CGSize
+    var headerLoadedOnce = false
+    
     var lyricDelegate: LyricTabDelegate?
     var artistDelegate: ArtistTabDelegate?
     var addArtistDelegate:  AddArtistButtonModalDelegate?
-    
-    /// testing
-    var pageImages: [UIImage] = [
-        UIImage(named: "rome-fortune")!,
-        UIImage(named: "chance-the-rapper")!,
-        UIImage(named: "meek-mill")!
-    ]
-    
-    var pageViews: [UIImageView?] = []
+    var featuredArtists: [Artist]
     
     override init(frame: CGRect) {
         screenWidth = UIScreen.mainScreen().bounds.width
         
-        pageCount = pageImages.count
+        pageImages = [UIImage]()
+        pageViews = [UIImageView?]()
+        
+        pageCount = 0
         
         scrollView = UIScrollView(frame: CGRectZero)
         scrollView?.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -59,7 +59,8 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         pageControl = UIPageControl()
         pageControl?.setTranslatesAutoresizingMaskIntoConstraints(false)
         pageControl?.currentPage = 0
-        pageControl?.numberOfPages = pageCount
+        
+        pagesScrollViewSize = scrollView!.frame.size
         
         tintView = UIView()
         tintView?.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -69,14 +70,6 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         tabView = UIView()
         tabView?.setTranslatesAutoresizingMaskIntoConstraints(false)
         tabView?.backgroundColor = UIColor.blackColor()
-        
-        for _ in 0..<pageCount {
-            pageViews.append(nil)
-        }
-        
-        pagesScrollViewSize = scrollView!.frame.size
-        scrollView?.contentSize = CGSize(width: screenWidth * CGFloat(pageImages.count),
-            height: pagesScrollViewSize.height)
         
         topLabel = UILabel()
         topLabel?.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -112,6 +105,8 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         lyricsButton?.titleLabel?.font = UIFont(name: "OpenSans", size: 14.0)
         lyricsButton?.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
         
+        featuredArtists = [Artist]()
+        
         super.init(frame: frame)
         
         featuredButton?.addTarget(self, action: "featuredTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -145,6 +140,19 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         loadVisiblePages()
     }
     
+    func setupPages() {
+        pageCount = pageImages.count
+        
+        pageControl?.numberOfPages = pageCount
+        
+        for _ in 0..<pageCount {
+            pageViews.append(nil)
+        }
+        
+        scrollView?.contentSize = CGSize(width: screenWidth * CGFloat(pageImages.count),
+            height: pagesScrollViewSize.height)
+    }
+    
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes!) {
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             UIView.animateWithDuration(0.4, animations: {
@@ -158,7 +166,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
                     
                 } else if attributes.progressiveness > 1 {
                     /// blur the scroll view's current image with the progressiveness
-                } else {2
+                } else {
                     self.topLabel?.alpha = 0
                     self.nameLabel?.alpha = 1
                     self.featuredButton?.alpha = 1
@@ -175,13 +183,8 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         
         // Update the page control
         pageControl!.currentPage = page
-        if page == 0 {
-            nameLabel?.text = "R O M E  F O R T U N E"
-        } else if page == 1 {
-            nameLabel?.text = "C H A N C E  T H E  R A P P E R"
-        } else if page == 2 {
-            nameLabel?.text = "M E E K  M I L L"
-        }
+        
+        nameLabel?.text = featuredArtists[page].name
         
         /// Which page to load
         let firstPage = page - 1
@@ -311,6 +314,24 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         artistsButton?.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
         lyricsButton?.setTitleColor(UIColor(fromHexString: "#FFB316"), forState: UIControlState.Normal)
         self.lyricDelegate?.lyricDidTap()
+    }
+    
+    
+    // MARK: TrendingHeaderDelegate
+    
+    func featuredArtistsDidLoad(artists: [Artist]) {
+        if headerLoadedOnce == false {
+            featuredArtists = artists
+            for artist in featuredArtists {
+                var url = NSURL(string: artist.imageURLLarge)
+                var data = NSData(contentsOfURL: url!)
+                var image = UIImage(data: data!)
+                pageImages.append(image!)
+            }
+            headerLoadedOnce = true
+        }
+        
+        setupPages()
     }
 }
 

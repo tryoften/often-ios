@@ -154,6 +154,6 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
 }
 
 protocol AddArtistButtonModalDelegate {
-    func addArtistButtonDidTap()
+    func addArtistButtonDidTap(artistTappedIndex: Int)
 }
 

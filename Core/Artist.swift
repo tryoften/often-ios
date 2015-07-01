@@ -12,6 +12,9 @@ class Artist: Owner {
     dynamic var keyboardId: String = ""
     dynamic var index: Int = -1
     dynamic var lyricCount: Int = 0
+    dynamic var tracksCount: Int = 0
+    dynamic var arrow = ""
+    dynamic var score: Int = 0
     let tracks = List<Track>()
     
     var tracksList: [Track] {
@@ -20,5 +23,9 @@ class Artist: Owner {
             list.append(item)
         }
         return list
+    }
+    
+    override static func ignoredProperties() -> [String] {
+        return ["arrow"]
     }
 }
