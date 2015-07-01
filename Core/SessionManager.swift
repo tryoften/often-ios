@@ -20,6 +20,7 @@ class SessionManager: NSObject {
     var realm: Realm
     var isUserNew: Bool
     var userIsLoggingIn = false
+    var facebookLoggedIn = false
     
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
@@ -126,11 +127,13 @@ class SessionManager: NSObject {
                         if error != nil {
                             println("Login failed. \(error)")
                         } else {
-                            println( "Login failed. \(authData)")
+                            println( "Login failed. \(authData.providerData)")
                         }
                 })
             }
         }
+        userDefaults.setValue(true, forKey: "openSession")
+        
     }
     
     func login(completion: ((PFUser?, NSError?) -> ())? = nil) {
@@ -210,24 +213,14 @@ class SessionManager: NSObject {
                     if snapshot.exists() {
                         if let id = snapshot.key,
                             let value = snapshot.value as? [String: AnyObject] {
-                                let user = User()
-                                user.id = id
-                                
-                                if  let name = value["name"] as? String,
-                                    let profileImageSmall = value["profile_pic_small"] as? String,
-                                    let profileImageLarge = value["profile_pic_large"] as? String,
-                                    let email = value["email"] as? String {
-                                        user.name = name
-                                        user.profileImageLarge = profileImageLarge
-                                        user.profileImageSmall = profileImageSmall
-                                        user.username = email
-                                        user.email = email
-                                }
-                                self.isUserNew = false
+                                var user = User()
+                                user.setValuesForKeysWithDictionary(value)
                                 persistUser(user)
                         }
                     } else {
-                        if let email = authData.providerData["email"] as? String {
+                        var checkString = "facebook"
+                        
+                        if authData.uid.rangeOfString(checkString) == nil {
                             
                             var data = [String : String]()
                             
@@ -237,13 +230,16 @@ class SessionManager: NSObject {
                             data["phone"] = PFUser.currentUser()?.objectForKey("phone") as? String
                             data["username"] = PFUser.currentUser()?.username
                             data["name"] = PFUser.currentUser()?.objectForKey("fullName") as? String
+                            data["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
                             
                             self.userDefaults.setObject(PFUser.currentUser()?.objectId, forKey: "userId")
                             self.userDefaults.synchronize()
                             
                             self.userRef?.setValue(data)
                             self.isUserNew = true
-                            persistUser(User(value: data))
+                            var user = User()
+                            user.setValuesForKeysWithDictionary(data)
+                            persistUser(user)
                             
                             
                         } else {
@@ -255,7 +251,9 @@ class SessionManager: NSObject {
                                     
                                     self.userRef?.setValue(newData)
                                     self.isUserNew = true
-                                    persistUser(User(value: newData))
+                                    var user = User()
+                                    user.setValuesForKeysWithDictionary(newData)
+                                    persistUser(user)
                                 }
                             })
                         }
@@ -298,6 +296,7 @@ class SessionManager: NSObject {
                 
                 data["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
                 data["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
+                data["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
                 
                 
                 self.userDefaults.setObject(PFUser.currentUser()?.objectId, forKey: "userId")

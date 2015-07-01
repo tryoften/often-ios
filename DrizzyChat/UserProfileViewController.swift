@@ -37,7 +37,6 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         super.viewDidLoad()
         
         navigationController?.navigationBarHidden = true
-        viewModel.requestData(completion: nil)
         
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
         HUDProgressView.show()
@@ -53,6 +52,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
                 collectionView.contentInset = contentInset
             }
         }
+//        viewModel.requestData(completion: nil)
         
         PKHUD.sharedHUD.hide(afterDelay: 3.0)
     }
@@ -114,6 +114,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             cell.profileImageView.image = UIImage(named: "placeholder")
             cell.settingsButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
             headerView = cell
+            viewModel.requestData(completion: nil)
             return cell
         } else if kind == UICollectionElementKindSectionHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
@@ -165,7 +166,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         if let headerView = headerView {
             headerView.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge), placeholderImage: UIImage(named: "placeholder"))
             headerView.nameLabel.text = user.name.uppercaseString
-            headerView.coverPhotoView.image = UIImage(named: "user-profile-bg-\(arc4random_uniform(4) + 1)")
+            headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
         }
     }
     
