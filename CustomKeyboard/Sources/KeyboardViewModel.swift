@@ -13,6 +13,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     var keyboardService: KeyboardService
     var delegate: KeyboardViewModelDelegate?
     var userDefaults: NSUserDefaults
+    var hasSeenToolTips: Bool?
     var keyboards: [Keyboard] {
         return keyboardService.keyboards
     }
@@ -23,10 +24,18 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             }
         }
     }
+    var hasSeenTooltip: Bool {
+        get {
+            return userDefaults.boolForKey("toolTips")
+        }
+        set(value) {
+            userDefaults.setBool(value, forKey: "toolTips")
+        }
+    }
     
     init(realmPath: String? = nil) {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-
+        
         var realm: Realm
         if let realmPath = realmPath {
             var fileManager = NSFileManager.defaultManager()
@@ -73,6 +82,14 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             delegate?.keyboardViewModelCurrentKeyboardDidChange(self, keyboard: currentKeyboard!)
         }
         delegate?.keyboardViewModelDidLoadData(self, data: keyboards)
+    }
+    
+    func artistsDidUpdate(artists: [Artist]) {
+    
+    }
+    
+    func lyricsDidUpdate(lyrics: [Lyric]) {
+        
     }
     
     // MARK: ArtistPickerCollectionViewDataSource

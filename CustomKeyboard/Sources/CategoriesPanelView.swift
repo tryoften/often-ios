@@ -161,6 +161,7 @@ class CategoriesPanelView: UIView {
     }
     
     func open() {
+        categoriesCollectionView.reloadData()
         UIView.animateWithDuration(0.2, animations: {
             var frame = self.frame
             frame.origin.y = 0
