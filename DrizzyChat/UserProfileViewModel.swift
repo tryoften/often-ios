@@ -30,7 +30,13 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
 
     func requestData(completion: ((Bool) -> ())? = nil) {
-        sessionManager.login()
+        if sessionManager.userDefaults.objectForKey("openSession") != nil {
+            sessionManager.fetchKeyboards()
+            delegate?.userProfileViewModelDidLoginUser(self, user: sessionManager.currentUser!)
+        
+        } else {
+         sessionManager.login()
+        }
     }
     
     func setKeyboardAsDefault(keyboardId: String) {

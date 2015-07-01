@@ -35,7 +35,7 @@ class SignUpPostAddArtistsLoaderView: UIView {
         subtitleLabel.textColor = SubtitleGreyColor
         subtitleLabel.numberOfLines = 0
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        subtitleLabel.text = "Adding card to your keyboard now..."
+        subtitleLabel.text = "Adding cards to your keyboard now..."
         
         disclaimerLabel = UILabel()
         disclaimerLabel.textAlignment = .Center
