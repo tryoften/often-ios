@@ -170,6 +170,10 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             closeButton.al_right == view.al_right - 20
         ])
     }
+    
+    func closeTapped() {
+        closeButtonDelegate?.toolTipCloseButtonDidTap()
+    }
 }
 
 protocol ToolTipCloseButtonDelegate {

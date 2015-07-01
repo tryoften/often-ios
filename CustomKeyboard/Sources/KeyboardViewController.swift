@@ -60,7 +60,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if viewModel.getHasSeenToolTips() == false {
+        if !viewModel.hasSeenTooltip {
             toolTipViewController = ToolTipViewController(viewModel: viewModel)
             toolTipViewController?.closeButtonDelegate = self
             toolTipViewController!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -85,7 +85,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         sectionPickerView.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         sectionPickerView.switchArtistButton.addTarget(self, action: "didTapSwitchArtistButton", forControlEvents: .TouchUpInside)
     
-        if viewModel.getHasSeenToolTips() == false {
+        if !viewModel.hasSeenTooltip {
             view.addSubview(toolTipViewController!.view)
         } else {
             view.addSubview(lyricPicker!.view)
@@ -164,7 +164,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         Depending on whether or not the user has seen the tool tips
     */
     func setupLayout() {
-        if viewModel.getHasSeenToolTips() == false {
+        if !viewModel.hasSeenTooltip {
             if let viewController = self.toolTipViewController?.view {
                 var constraints: [NSLayoutConstraint] = [
                     
@@ -440,8 +440,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func toolTipCloseButtonDidTap() {
         println("Close Button Tapped")
-        viewModel.setHasSeenToolTips(true)
-        toolTipViewController?.dismissViewControllerAnimated(true, completion: nil)
+        viewModel.hasSeenTooltip = true
+        toolTipViewController!.view.removeFromSuperview()
         viewDidLoad()
     }
 }
