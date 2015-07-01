@@ -8,23 +8,34 @@
 
 import RealmSwift
 
+let CurrentKeyboardUserDefaultsKey = "currentKeyboard"
+
 /// Service that provides and manages keyboard models along with categories.
 /// It stores the data both locally and remotely
 class KeyboardService: Service {
-    let userId: String
+    let user: User
     var keyboardsRef: Firebase
     var keyboards: [Keyboard]
     var notificationToken: NotificationToken?
+    var userDefaults: NSUserDefaults
+    var currentKeyboardId: String? {
+        didSet {
+            userDefaults.setValue(currentKeyboardId, forKey: CurrentKeyboardUserDefaultsKey)
+            userDefaults.synchronize()
+        }
+    }
     var artistService: ArtistService
 
-    init(userId: String, root: Firebase, realm: Realm = Realm(), artistService: ArtistService = ArtistService(root: Firebase(url: BaseURL))) {
-        self.userId = userId
+    init(user: User, root: Firebase, realm: Realm = Realm(), artistService: ArtistService = ArtistService(root: Firebase(url: BaseURL))) {
+        self.user = user
         self.artistService = artistService
         
-        keyboardsRef = root.childByAppendingPath("users/\(userId)/keyboards")
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        keyboardsRef = root.childByAppendingPath("users/\(user.id)/keyboards")
         keyboards = [Keyboard]()
 
         super.init(root: root, realm: realm)
+        currentKeyboardId = userDefaults.stringForKey(CurrentKeyboardUserDefaultsKey)
     }
     
     deinit {
@@ -38,6 +49,26 @@ class KeyboardService: Service {
         return keyboard.isEmpty ? nil : keyboard.first
     }
     
+    func addKeyboardWithId(keyboardId: String, completion: (Keyboard, Bool) -> ()) {
+        processKeyboardData(keyboardId, completion: { (keyboard, success) in
+
+            self.keyboardsRef.childByAppendingPath(keyboard.id).setValue(true)
+            self.realm.write {
+                keyboard.user = self.user
+                self.keyboards.append(keyboard)
+                self.keyboards = sorted(self.keyboards) {$0.artistName < $1.artistName}
+                for var i = 0; i < self.keyboards.count; i++ {
+                    self.keyboards[i].index = i
+                }
+                self.realm.add(keyboard, update: true)
+            }
+            completion(keyboard, success)
+            NSNotificationCenter.defaultCenter().postNotificationName("keyboard:added", object: self, userInfo: [
+                "index": keyboard.index
+            ])
+        })
+    }
+    
     /**
         Deletes a keyboard model with the given id
         
@@ -47,12 +78,18 @@ class KeyboardService: Service {
     func deleteKeyboardWithId(keyboardId: String, completion: (NSError?) -> ()) {
         keyboards = keyboards.filter { return ($0.id == keyboardId) ? false : true }
         realm.beginWrite()
+        for var i = 0; i < keyboards.count; i++ {
+            keyboards[i].index = i
+        }
         if let keyboard = realm.objectForPrimaryKey(Keyboard.self, key: keyboardId),
             let artist = keyboard.artist {
-            realm.delete(artist)
+            NSNotificationCenter.defaultCenter().postNotificationName("keyboard:removed", object: self, userInfo: [
+                "index": keyboard.index
+            ])
             realm.delete(keyboard)
         }
         realm.commitWrite()
+        
         self.keyboardsRef.childByAppendingPath(keyboardId).removeValueWithCompletionBlock { (err, keyboardRef) in
             completion(nil)
         }
@@ -65,7 +102,6 @@ class KeyboardService: Service {
     */
     func fetchLocalData(completion: (Bool) -> Void) {
         // We have to create a new realm for reading on the main thread
-        
         notificationToken = realm.addNotificationBlock { (notification, realm) in
             println("Realm DB changed: \(notification)")
         }
@@ -91,15 +127,18 @@ class KeyboardService: Service {
 
         for keyboardId in keyboardIds {
             self.processKeyboardData(keyboardId, completion: { (keyboard, success) in
-                keyboard.index = index++
+                keyboard.index = index
+                keyboard.user = self.user
                 keyboardList.append(keyboard)
-        
-                if index + 1 >= keyboardCount {
+                
+                index++
+                if index == keyboardCount {
                     self.keyboards = sorted(keyboardList) { $0.artistName < $1.artistName }
-
+                    
                     self.realm.write {
-                        self.realm.add(self.keyboards, update: true)
+                        self.realm.add(keyboardList, update: true)
                     }
+
                     dispatch_async(dispatch_get_main_queue(), {
                         self.delegate?.serviceDataDidLoad(self)
                         completion(self.keyboards)
@@ -125,10 +164,6 @@ class KeyboardService: Service {
         }) { err in
             completion(false)
         }
-    }
-
-    override func fetchData() {
-        
     }
     
     /**

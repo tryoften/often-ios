@@ -30,7 +30,7 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         navigationController?.navigationBar.hidden = true
         
         PKHUD.sharedHUD.hideAnimated()
@@ -59,7 +59,7 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
         
     }
     
-    func flyUpNextButton() {
+    func slideUpNextButton() {
         UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveLinear, animations: {
             self.nextButton.hidden = false
             self.nextButton.frame.origin.y -= 50
@@ -86,9 +86,11 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        delay(0.1) {
-            self.flyUpNextButton()
-        }
+        delay(0.1, {
+            self.slideUpNextButton()
+        })
+        
+     
     }
     
      override func didTapNavButton() {

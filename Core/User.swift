@@ -8,7 +8,6 @@
 
 import RealmSwift
 
-
 class User: Object {
     dynamic var id: String = ""
     dynamic var name: String = ""
@@ -17,9 +16,58 @@ class User: Object {
     dynamic var username: String = ""
     dynamic var email: String = ""
     dynamic var phone: String = ""
-    let keyboards = List<Keyboard>()
+    dynamic var backgroundImage: String = ""
+    var keyboards: [Keyboard] {
+        return linkingObjects(Keyboard.self, forProperty: "user")
+    }
     
     override static func primaryKey() -> String? {
         return "id"
     }
+    
+    func hasKeyboardForArtist(artist: Artist) -> Bool {
+        for keyboard in keyboards {
+            if let keyboardOwner = keyboard.artist {
+                if artist.id == keyboardOwner.id {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
+        
+        if let dictionary = keyedValues as? [String: AnyObject] {
+            
+            name = dictionary["name"] as! String
+            id = dictionary["id"] as! String
+            username = dictionary["email"] as! String
+            email = dictionary["email"] as! String
+            backgroundImage = dictionary["backgroundImage"] as! String
+            
+            
+            if let profileImageSmallString = dictionary["profileImageSmall"] as? String {
+                profileImageSmall = profileImageSmallString
+            }
+            if let profileImageSmallString = dictionary["profile_pic_small"] as? String {
+                profileImageSmall = profileImageSmallString
+            }
+            
+            if let profileImageLargeString = dictionary["profileImageLarge"] as? String {
+                profileImageLarge = profileImageLargeString
+            }
+            
+            if let profileImageLargeString = dictionary["profile_pic_large"] as? String {
+                profileImageLarge = profileImageLargeString
+            }
+            
+            if let phoneString = dictionary["phone"] as? String {
+                phone = phoneString
+            }
+            
+        }
+    }
+    
+     
 }

@@ -9,7 +9,7 @@
 import UIKit
 import Realm
 
-private var TestKeyboard: Bool = true
+private var TestKeyboard: Bool = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

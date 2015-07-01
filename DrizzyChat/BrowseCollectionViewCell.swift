@@ -50,28 +50,28 @@ class BrowseCollectionViewCell: UICollectionViewCell {
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#ffffff")
-        
+        backgroundColor = UIColor.whiteColor()
+
         contentView.addSubview(rankLabel)
         contentView.addSubview(trackNameLabel)
         contentView.addSubview(lyricCountLabel)
         contentView.addSubview(disclosureIndicator)
         contentView.addSubview(lineBreakView)
         
-        var viewsDict = ["rank":rankLabel,
-                        "trackName":trackNameLabel,
+        var viewsDict = ["rank": rankLabel,
+                        "trackName": trackNameLabel,
                         "lyricCount": lyricCountLabel,
-                        "disclosureIndicator":disclosureIndicator,
-                        "lineBreak":lineBreakView]
+                        "disclosureIndicator": disclosureIndicator,
+                        "lineBreak": lineBreakView]
         
-        setLayout()
+        setupLayout()
     }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setLayout() {
+    func setupLayout() {
         let constraints: [NSLayoutConstraint] = [
             rankLabel.al_width == 30,
             rankLabel.al_height == 30,

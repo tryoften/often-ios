@@ -54,7 +54,7 @@ class SignUpOrLoginView: UIView {
         subtitleLabel.font = HomeViewSubtitle
         subtitleLabel.numberOfLines = 0
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        subtitleLabel.text = "October lets you share lyrics & songs from any of your favorite artists via text, email, or existing social apps... all right from your keyboard."
+        subtitleLabel.text = "Share lyrics & songs from any of your favorite artists right from your keyboard."
         
         facebookButton = FacebookButton.button()
         facebookButton.setTranslatesAutoresizingMaskIntoConstraints(false)

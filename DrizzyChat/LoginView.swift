@@ -148,7 +148,7 @@ class LoginView: UIView {
             facebookButton.al_top == orLabel.al_bottom + 5,
             facebookButton.al_left == al_left + 10,
             facebookButton.al_right == al_right - 10,
-            ])
+        ])
     }
 
 }

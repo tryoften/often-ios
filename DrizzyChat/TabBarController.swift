@@ -79,10 +79,16 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 
 }

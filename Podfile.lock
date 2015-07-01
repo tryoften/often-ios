@@ -38,7 +38,7 @@ PODS:
   - CSStickyHeaderFlowLayout (0.2.7)
   - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
-  - Firebase (2.3.1)
+  - Firebase (2.3.2)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
@@ -91,7 +91,7 @@ SPEC CHECKSUMS:
   Canvas: eb861e3b555d032648146c8ffda1a5dea40059ca
   CSStickyHeaderFlowLayout: 739445e36fd96ab2cee9b9826a902396567fb6a5
   Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
-  Firebase: 462795adf92029ddb97777660627f5dd4fd59876
+  Firebase: 02fbeacfe19970856c872321788194524f21ffed
   FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946
   FXBlurView: c6d23f3d35af2c6282296a2930f61c6e2c788d01
   MMLayershots: ce67f35806c9c32ba722cd309571a4ff236a244d

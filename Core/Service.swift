@@ -23,7 +23,6 @@ class Service {
     
     func fetchLocalData() {}
     func fetchRemoteData(completion: (Bool) -> Void) {}
-    func fetchData() {}
 }
 
 protocol ServiceDelegate: class {

@@ -30,7 +30,17 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
 
     func requestData(completion: ((Bool) -> ())? = nil) {
-        self.sessionManager.login()
+        if sessionManager.userDefaults.objectForKey("openSession") != nil {
+            sessionManager.fetchKeyboards()
+            delegate?.userProfileViewModelDidLoginUser(self, user: sessionManager.currentUser!)
+        
+        } else {
+         sessionManager.login()
+        }
+    }
+    
+    func setKeyboardAsDefault(keyboardId: String) {
+        sessionManager.keyboardService?.currentKeyboardId = keyboardId
     }
     
     func keyboardAtIndex(index: Int) -> Keyboard? {
@@ -55,14 +65,6 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     
     func sessionManagerDidFetchKeyboards(sessionManager: SessionManager, keyboards: [Keyboard]) {
         delegate?.userProfileViewModelDidLoadKeyboardList(self, keyboardList: keyboards)
-    }
-    
-    func sessionManagerDidFetchTracks(sessionManager: SessionManager, tracks: [String : Track]) {
-        
-    }
-    
-    func sessionManagerDidFetchArtists(sessionManager: SessionManager, artists: [String : Artist]) {
-        
     }
 }
 

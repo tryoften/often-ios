@@ -95,6 +95,7 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
                 if dataSource.artistPickerItemAtIndexIsSelected(self, index: indexPath.row) {
                     selectedCell = cell
                     cell.selected = true
+                    scrollToCellAtIndex(indexPath.row)
                 } else {
                     cell.selected = false
                 }
@@ -104,16 +105,9 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
             
             cell.titleLabel.text = keyboard.artist?.name
             cell.subtitleLabel.text = "\(keyboard.categories.count) categories".uppercaseString
-            cell.imageView.alpha = 0.0
+            
             if let imageURLLarge = keyboard.artist?.imageURLLarge {
-                cell.imageView.setImageWithURLRequest(NSURLRequest(URL: NSURL(string: imageURLLarge)!), placeholderImage: UIImage(), success: { (req, res, image) in
-                    UIView.animateWithDuration(0.3) {
-                        cell.imageView.image = image
-                        cell.imageView.alpha = 1.0
-                    }
-                    }, failure: { (req, res, err) in
-                        
-                })
+                cell.imageView.setImageWithAnimation(NSURL(string: imageURLLarge)!, completion: nil)
             }
             cell.deleteButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: .TouchUpInside)
         }
@@ -161,16 +155,11 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         if let cell = target.superview as? ArtistCollectionViewCell,
             let indexPath = collectionView?.indexPathForCell(cell),
             let keyboard = dataSource?.artistPickerItemAtIndex(self, index: indexPath.row) {
-                collectionView?.performBatchUpdates({
-                    self.collectionView?.deleteItemsAtIndexPaths([indexPath])
-                    
-                    self.delegate?.artistPickerCollectionViewControllerDidDeleteKeyboard?(self, keyboard: keyboard, index: indexPath.row)
-                    
-                    if self.isDeletionModeOn {
-                        self.endDeleteMode(indexPath: indexPath)
-                    }
+                self.delegate?.artistPickerCollectionViewControllerDidDeleteKeyboard?(self, keyboard: keyboard, index: indexPath.row)
                 
-                }, completion: nil)
+                if self.isDeletionModeOn {
+                    self.endDeleteMode(indexPath: indexPath)
+                }
         }
     }
     

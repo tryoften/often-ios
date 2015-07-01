@@ -39,7 +39,7 @@ class SignUpAddArtistsLoaderView: UIView {
         cardImageView = UIImageView()
         cardImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         cardImageView.contentMode = .ScaleAspectFit
-        cardImageView.image = UIImage(named: "OutlineCards")
+        cardImageView.image = UIImage(named: "outlinecards")
         
         super.init(frame: frame)
         
@@ -69,6 +69,6 @@ class SignUpAddArtistsLoaderView: UIView {
             
             cardImageView.al_top == subtitleLabel.al_bottom + 20,
             cardImageView.al_left == al_right,
-            ])
+        ])
     }
 }

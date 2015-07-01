@@ -37,11 +37,14 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         super.viewDidLoad()
         
         navigationController?.navigationBarHidden = true
-        viewModel.requestData(completion: nil)
         
+        viewModel.requestData(completion: nil)
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
-        PKHUD.sharedHUD.show()
+        HUDProgressView.show()
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "keyboardServiceDidAddKeyboard:", name: "keyboard:added", object: nil)
+        notificationCenter.addObserver(self, selector: "keyboardServiceDidRemoveKeyboard:", name: "keyboard:removed", object: nil)
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = UIColor.whiteColor()
@@ -54,6 +57,9 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
                 collectionView.contentInset = contentInset
             }
         }
+//        viewModel.requestData(completion: nil)
+        
+        PKHUD.sharedHUD.hide(afterDelay: 3.0)
     }
     
     class func getLayout() -> UICollectionViewLayout {
@@ -113,6 +119,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             cell.profileImageView.image = UIImage(named: "placeholder")
             cell.settingsButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
             headerView = cell
+            viewModel.requestData(completion: nil)
             return cell
         } else if kind == UICollectionElementKindSectionHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
@@ -133,6 +140,17 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     func didTapEditButton() {
         if let artistPickerVC = artistPickerViewController {
             artistPickerVC.isDeletionModeOn = !artistPickerVC.isDeletionModeOn
+            updateEditButton()
+        }
+    }
+    
+    func didTapSettingsButton() {
+        let settingsVC = SettingsTableViewController()
+        navigationController?.pushViewController(settingsVC, animated: true)
+    }
+    
+    private func updateEditButton() {
+        if let artistPickerVC = artistPickerViewController {
             
             if let sectionHeaderView = sectionHeaderView {
                 if artistPickerVC.isDeletionModeOn {
@@ -142,11 +160,6 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
                 }
             }
         }
-    }
-    
-    func didTapSettingsButton() {
-        let settingsVC = SettingsTableViewController()
-        navigationController?.pushViewController(settingsVC, animated: true)
     }
     
     private func provideArtistPicker() -> ArtistPickerCollectionViewController {
@@ -159,12 +172,28 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         return artistPicker
     }
     
+    func keyboardServiceDidAddKeyboard(notification: NSNotification) {
+        if let artistPicker = keyboardManagerViewController,
+            let userInfo = notification.userInfo,
+            let index = userInfo["index"] as? Int {
+                artistPicker.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
+        }
+    }
+    
+    func keyboardServiceDidRemoveKeyboard(notification: NSNotification) {
+        if let artistPicker = keyboardManagerViewController,
+            let userInfo = notification.userInfo,
+            let index = userInfo["index"] as? Int {
+            artistPicker.collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
+        }
+    }
+    
     // MARK: UserProfileViewModelDelegate
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
         if let headerView = headerView {
             headerView.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge), placeholderImage: UIImage(named: "placeholder"))
             headerView.nameLabel.text = user.name.uppercaseString
-            headerView.coverPhotoView.image = UIImage(named: "user-profile-bg-\(arc4random_uniform(4) + 1)")
+            headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
         }
     }
     
@@ -196,12 +225,39 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     }
     
     func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
+        viewModel.setKeyboardAsDefault(keyboard.id)
         
+        var statusView = PKHUDStatusView(title: "\(keyboard.artistName)", subtitle:"set as default card", image: PKHUDAssets.checkmarkImage)
+        statusView.frame = CGRect(origin: CGPointZero, size: CGSizeMake(250, 250))
+        statusView.imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        statusView.imageView.addConstraints([
+            statusView.imageView.al_width == statusView.imageView.al_height
+        ])
+        statusView.imageView.contentMode = .ScaleAspectFit
+        statusView.imageView.alpha = 1.0
+        statusView.titleLabel.font = BaseFont
+        statusView.subtitleLabel.font = SubtitleFont
+        let imageURLLarge = NSURL(string: keyboard.artist!.imageURLLarge)!
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            let request = NSURLRequest(URL: imageURLLarge)
+            statusView.imageView.setImageWithURLRequest(request, placeholderImage: UIImage(named: "placeholder"), success: { (req, res, image) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    statusView.imageView.image = image
+                    
+                    PKHUD.sharedHUD.contentView = statusView
+                    PKHUD.sharedHUD.show()
+                    PKHUD.sharedHUD.hide(afterDelay: 1.0)
+                }
+            }, failure: { (req, res, err) in
+            
+            })
+        }
     }
 
     func artistPickerCollectionViewControllerDidDeleteKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard, index: Int) {
         viewModel.deleteKeyboardWithId(keyboard.id, completion: { (err) -> () in
-            
+            self.updateEditButton()
         })
     }
 }

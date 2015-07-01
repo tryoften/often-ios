@@ -40,7 +40,6 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
     
     var lyricDelegate: LyricTabDelegate?
     var artistDelegate: ArtistTabDelegate?
-    var addArtistDelegate:  AddArtistButtonModalDelegate?
     var featuredArtists: [Artist]
     
     override init(frame: CGRect) {
@@ -79,7 +78,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         topLabel?.textColor = UIColor.whiteColor()
         topLabel?.alpha = 0
         
-        nameLabel = UILabel()
+        nameLabel = TOMSMorphingLabel()
         nameLabel?.textAlignment = .Center
         nameLabel?.font = UIFont(name: "Oswald-Light", size: 24.0)
         nameLabel?.textColor = UIColor.whiteColor()
