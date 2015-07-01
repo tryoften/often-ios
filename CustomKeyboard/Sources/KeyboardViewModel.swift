@@ -13,6 +13,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     var keyboardService: KeyboardService
     var delegate: KeyboardViewModelDelegate?
     var userDefaults: NSUserDefaults
+    var hasSeenToolTips: Bool?
     var keyboards: [Keyboard] {
         return keyboardService.keyboards
     }
@@ -25,6 +26,14 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     }
     var realm: Realm
     var isFullAccessEnabled: Bool
+    var hasSeenTooltip: Bool {
+        get {
+            return userDefaults.boolForKey("toolTips")
+        }
+        set(value) {
+            userDefaults.setBool(value, forKey: "toolTips")
+        }
+    }
     
     override init() {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
@@ -79,6 +88,14 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             delegate?.keyboardViewModelCurrentKeyboardDidChange(self, keyboard: currentKeyboard!)
         }
         delegate?.keyboardViewModelDidLoadData(self, data: keyboards)
+    }
+    
+    func artistsDidUpdate(artists: [Artist]) {
+    
+    }
+    
+    func lyricsDidUpdate(lyrics: [Lyric]) {
+        
     }
     
     // MARK: ArtistPickerCollectionViewDataSource

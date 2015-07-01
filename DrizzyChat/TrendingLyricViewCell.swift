@@ -15,6 +15,7 @@ class TrendingLyricViewCell: UICollectionViewCell {
     var trendIndicator: UIImageView! /// green or red arrow depending on performance
     var lineBreakView: UIView! /// line break 1 pixel high to fake a line break
     var touchView: UIView
+    var lyricViewNumLines: CGFloat
     
     override init(frame: CGRect) {
         rankLabel = UILabel()
@@ -47,6 +48,8 @@ class TrendingLyricViewCell: UICollectionViewCell {
         touchView.setTranslatesAutoresizingMaskIntoConstraints(false)
         touchView.backgroundColor = UIColor.clearColor()
         
+        lyricViewNumLines = 0.0
+        
         super.init(frame: frame)
         
         backgroundColor = UIColor(fromHexString: "#ffffff")
@@ -59,10 +62,17 @@ class TrendingLyricViewCell: UICollectionViewCell {
         addSubview(touchView)
         
         setLayout()
+        
+        setNumLines()
     }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setNumLines() {
+        lyricViewNumLines = lyricView!.contentSize.height / lyricView!.font.lineHeight
+        println(lyricViewNumLines)
     }
     
     func setLayout() {

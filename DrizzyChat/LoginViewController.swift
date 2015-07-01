@@ -95,4 +95,12 @@ class LoginViewController : WalkthroughViewController {
         
         view.addConstraints(constraints)
     }
+    
+    override func didTapNavButton() {
+        if EmailIsValid(loginView.emailTxtField.text) && PasswordIsValid(loginView.emailTxtField.text) {
+            viewModel.sessionManager.loginWithUsername(loginView.emailTxtField.text, password: loginView.passwordTxtField.text)
+        } else {
+            println("check it out the text field")
+        }
+    }
 }

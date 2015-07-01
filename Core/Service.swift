@@ -28,4 +28,6 @@ class Service {
 protocol ServiceDelegate: class {
     /// Gets called after the service is done loading into the service
     func serviceDataDidLoad(service: Service)
+    func artistsDidUpdate(artists: [Artist])
+    func lyricsDidUpdate(lyrics: [Lyric])
 }

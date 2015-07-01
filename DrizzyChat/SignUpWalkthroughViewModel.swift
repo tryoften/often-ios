@@ -49,6 +49,44 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
         }
     }
     
+    func signUpUser(completion: ((Bool) -> ())) {
+        var userData = [String: String]()
+        if PhoneIsValid(user.phone) {
+            userData["phone"] = user.phone
+        } else {
+            println("missing phone number")
+            return
+        }
+        if EmailIsValid(user.email) {
+            userData["email"] = user.email
+            userData["username"] = user.email
+        } else {
+            println("missing email address")
+            return
+        }
+        if NameIsValid(user.name) {
+          userData["name"] = user.name
+        }  else {
+            println("missing full name")
+            return
+        }
+        if PasswordIsValid(password) {
+            userData["password"] = password
+        } else {
+            println("missing password")
+            return
+        }
+        sessionManager.signUpUser(userData, completion: { (error) -> () in
+            if error == nil {
+                println("all good in the hood")
+                completion(true)
+            } else {
+                println("no good mang")
+                 completion(false)
+            }
+        })
+    }
+    
     func sessionDidOpen(sessqionManager: SessionManager, session: FBSession) {
         
     }
