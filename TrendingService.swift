@@ -60,18 +60,23 @@ class TrendingService: Service {
                             self.artists = artists
                         }
                     }
+                    println(data)
                     
                     for (artistId, artistData) in data  {
-                        var artist = Artist()
-                        artist.id = artistId
-                        artist.name = artistData["owner_name"] as! String
-                        artist.score = artistData["score"] as! Int
-                        artist.lyricCount = artistData["lyrics_count"] as! Int
-                        artist.tracksCount = artistData["tracks_count"] as! Int
-                        
-                        appendArtist(artist)
+                        if let name = artistData["owner_name"] as? String,
+                            let score = artistData["score"] as? Int,
+                            let lyricCount = artistData["lyrics_count"] as? Int,
+                            let tracksCount = artistData["tracks_count"] as? Int {
+                                var artist = Artist()
+                                artist.id = artistId
+                                artist.name = name
+                                artist.score = score
+                                artist.lyricCount = lyricCount
+                                artist.tracksCount = tracksCount
+                                
+                                appendArtist(artist)
+                        }
                     }
-                    println(data)
                     self.delegate?.artistsDidUpdate(self.artists)
                 }
         })
@@ -96,13 +101,18 @@ class TrendingService: Service {
                     }
                     
                     for (lyricId, lyricData) in data {
-                        let lyric = Lyric()
-                        lyric.id = lyricId
-                        lyric.score = lyricData["score"] as! Int
-                        lyric.owner = lyricData["owner_name"] as! String
-                        lyric.text = lyricData["text"] as! String
-                        
-                        appendLyric(lyric)
+                        if let score = lyricData["score"] as? Int,
+                            let id = lyricId as? String,
+                            let owner = lyricData["owner_name"] as? String,
+                            let text = lyricData["text"] as? String {
+                            
+                            let lyric = Lyric()
+                            lyric.id = lyricId
+                            lyric.score = score
+                            lyric.owner = owner
+                            lyric.text = text
+                            appendLyric(lyric)
+                        }
                     }
                     println(data)
                     self.delegate?.lyricsDidUpdate(self.lyrics)
