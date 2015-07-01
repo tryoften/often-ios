@@ -82,7 +82,7 @@ class SessionManager: NSObject {
             })
         }
     }
-
+    
     func isUserLoggedIn() -> Bool {
         return userDefaults.objectForKey("userId") != nil
     }
@@ -106,7 +106,14 @@ class SessionManager: NSObject {
                 
                 user.signUpInBackgroundWithBlock { (success, error) in
                     if error == nil {
-                        self.loginWithUsername(email, password: password)
+                        self.firebase.createUser(username, password: password, withValueCompletionBlock: { error, result -> Void in
+                            if error != nil {
+                                println("Login failed. \(error)")
+                            } else {
+                                println("Logged in! \(result)")
+                                self.openSession(username,password:password)
+                            }
+                        })
                         completion(nil)
                     } else {
                         completion(error)
@@ -116,19 +123,15 @@ class SessionManager: NSObject {
     }
     
     func openSession(username: String?, password: String?) {
-            if username != nil && password != nil {
-                firebase.createUser(username, password: password, withValueCompletionBlock: { error, result -> Void in
-                    if error != nil {
-                        println("Login failed. \(error)")
-                    } else {
-                        println("Logged in! \(result)")
-                        self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
-                            println(authData.providerData)
-                        })
-                    }
-
-                })
-            } else {
+        if username != nil && password != nil {
+            self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
+                if error != nil {
+                    println("logged in")
+                } else {
+                    println(error)
+                }
+            })
+        } else {
             if let accessToken = FBSession.activeSession().accessTokenData.accessToken {
                 firebase.authWithOAuthProvider("facebook", token: accessToken,
                     withCompletionBlock: { error, authData in
@@ -156,8 +159,13 @@ class SessionManager: NSObject {
     
     func loginWithUsername(username: String, password: String) {
         userIsLoggingIn = true
+
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
-            self.openSession(username,password:password)
+            if user != nil {
+                self.openSession(username,password:password)
+            } else {
+                println(error)
+            }
         }
     }
     
@@ -166,6 +174,7 @@ class SessionManager: NSObject {
         firebase.unauth()
         observers.removeAllObjects()
         userDefaults.setValue(nil, forKey: "userId")
+        userDefaults.setValue(nil, forKey: "openSession")
         
         let realm = Realm()
         realm.write {
@@ -223,6 +232,7 @@ class SessionManager: NSObject {
                             let value = snapshot.value as? [String: AnyObject] {
                                 var user = User()
                                 user.setValuesForKeysWithDictionary(value)
+                                self.isUserNew = false
                                 persistUser(user)
                         }
                     } else {

@@ -49,7 +49,7 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
         }
     }
     
-    func signUpUser() {
+    func signUpUser(completion: ((Bool) -> ())) {
         var userData = [String: String]()
         if PhoneIsValid(user.phone) {
             userData["phone"] = user.phone
@@ -79,8 +79,10 @@ class SignUpWalkthroughViewModel: NSObject, SessionManagerObserver {
         sessionManager.signUpUser(userData, completion: { (error) -> () in
             if error == nil {
                 println("all good in the hood")
+                completion(true)
             } else {
                 println("no good mang")
+                 completion(false)
             }
         })
     }

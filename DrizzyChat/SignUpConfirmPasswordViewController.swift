@@ -83,7 +83,17 @@ class SignUpConfirmPassWordWalkthroughViewController: WalkthroughViewController 
         if PasswordIsValid(addPasswordPage.confirmPasswordTxtField.text) {
             if arePasswordMatchingValid(viewModel.password, addPasswordPage.confirmPasswordTxtField.text) {
                 viewModel.password = addPasswordPage.confirmPasswordTxtField.text
-                viewModel.signUpUser()
+                viewModel.signUpUser({ success -> () in
+                    if success {
+                        let preSelectArtistvc = SignUpPreAddArtistsLoaderViewController(viewModel: self.viewModel)
+                        self.navigationController?.pushViewController(preSelectArtistvc, animated: true)
+
+                    } else {
+                        println("error")
+                        return
+                    }
+                    
+                })
             } else {
                 println("password didnt match")
                 return
@@ -93,7 +103,6 @@ class SignUpConfirmPassWordWalkthroughViewController: WalkthroughViewController 
             println("need more chars")
             return
         }
-        let preSelectArtistvc = SignUpPreAddArtistsLoaderViewController(viewModel: self.viewModel)
-        navigationController?.pushViewController(preSelectArtistvc, animated: true)
+        
     }
 }

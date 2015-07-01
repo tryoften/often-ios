@@ -25,6 +25,17 @@ class User: Object {
         return "id"
     }
     
+    func hasKeyboardForArtist(artist: Artist) -> Bool {
+        for keyboard in keyboards {
+            if let keyboardOwner = keyboard.artist {
+                if artist.id == keyboardOwner.id {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         
         if let dictionary = keyedValues as? [String: AnyObject] {
@@ -56,16 +67,7 @@ class User: Object {
             }
             
         }
-        
-        func hasKeyboardForArtist(artist: Artist) -> Bool {
-            for keyboard in keyboards {
-                if let keyboardOwner = keyboard.artist {
-                    if artist.id == keyboardOwner.id {
-                        return true
-                    }
-                }
-            }
-            return false
-        }
     }
+    
+     
 }
