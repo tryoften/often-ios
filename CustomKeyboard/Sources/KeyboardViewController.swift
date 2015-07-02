@@ -285,32 +285,16 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             }
         }
     }
-    
-    func deleteLyricFromDocument(lyric: Lyric) {
-        let proxy = textDocumentProxy as! UITextDocumentProxy
-        proxy.adjustTextPositionByCharacterOffset(count(proxy.documentContextAfterInput.utf16))
-        
-        var range = proxy.documentContextBeforeInput.rangeOfString(lyric.text)
-        
-        if range != nil {
-            
-        }
-    }
-    
+
     func clearInput() {
         let proxy = textDocumentProxy as! UITextDocumentProxy
-
+        
+        //move cursor to end of text
         if let afterInputText = proxy.documentContextAfterInput {
             proxy.adjustTextPositionByCharacterOffset(count(afterInputText.utf16))
         }
         
         if let beforeInputText = lastInsertedString {
-            for var i = 0, len = count(beforeInputText.utf16); i < len; i++ {
-                proxy.deleteBackward()
-            }
-        }
-
-        if let beforeInputText = proxy.documentContextBeforeInput {
             for var i = 0, len = count(beforeInputText.utf16); i < len; i++ {
                 proxy.deleteBackward()
             }
@@ -322,28 +306,29 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var text = ""
         var optionKeys = [String]()
         
-        if let options = selectedOptions {
+        if var options = selectedOptions {
             
             if (options.indexForKey(.Lyric) != nil) {
-                text = lyric.text + "\n"
+                text = lyric.text
+                options.removeValueForKey(.Lyric)
+            }
+            
+            if (!text.isEmpty && !options.isEmpty) {
+                text += "\n"
             }
             
             for (option, url) in options {
                 optionKeys.append(option.description)
-                if option == .Lyric {
-                    continue
+                if (!text.isEmpty) {
+                    text += "\n"
                 }
-                text = text + "\n" + shareStringForOption(option, url: url)
+                text = shareStringForOption(option, url: url)
             }
         } else {
             text = lyric.text
         }
         
-        SEGAnalytics.sharedAnalytics().track("Lyric_Inserted", properties: [
-            "lyric_id": lyric.id,
-            "lyric_text": lyric.text,
-            "share_options": optionKeys
-        ])
+        viewModel.logLyricInsertedEvent(lyric)
         
         clearInput()
         proxy.insertText(text)
@@ -402,6 +387,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL]) {
+        clearInput()
         insertLyric(shareViewController.lyric!, selectedOptions:options)
     }
     

@@ -15,6 +15,8 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     var delegate: KeyboardViewModelDelegate?
     var userDefaults: NSUserDefaults
     var hasSeenToolTips: Bool?
+    var eventsRef: Firebase
+    var user: User
     var keyboards: [Keyboard] {
         return keyboardService.keyboards
     }
@@ -40,6 +42,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         
         isFullAccessEnabled = false
         
+        let root = Firebase(url: BaseURL)
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
         var realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
         
@@ -57,20 +60,40 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         }
         
         RLMRealm.setDefaultRealmPath(realmPath)
+        
 
         if let userId = userDefaults.objectForKey("userId") as? String,
             let user = realm.objectForPrimaryKey(User.self, key: userId) {
+            self.user = user
             keyboardService = KeyboardService(user: user,
-                root: Firebase(url: BaseURL), realm: realm)
+                root: root, realm: realm)
         } else {
             // TODO(luc): get anonymous ID for the current session
             let user = User()
             user.id = "anon"
+            self.user = user
             keyboardService = KeyboardService(user: user, root: Firebase(url: BaseURL), realm: realm)
         }
+        
+        eventsRef = root.childByAppendingPath("events/lyrics_inserted")
 
         super.init()
+        if isFullAccessEnabled {
+            authenticate()
+        }
         keyboardService.delegate = self
+    }
+    
+    func authenticate() {
+        if let authData = userDefaults.objectForKey("authData") as? [String: String] {
+            self.keyboardService.rootURL.authWithCustomToken(authData["token"], withCompletionBlock: { (error, data) -> Void in
+                println(data)
+            })
+        } else {
+            self.keyboardService.rootURL.authAnonymouslyWithCompletionBlock({ (err, data) -> Void in
+                println(data)
+            })
+        }
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
@@ -125,6 +148,21 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             return keyboard.id == currentKeyboardId
         }
         return false
+    }
+    
+    func logLyricInsertedEvent(lyric: Lyric) {
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        
+        var data = [
+            "lyric_id": lyric.id,
+            "owner_id": lyric.artistId,
+            "user_id": user.id,
+            "timestamp": dateFormatter.stringFromDate(NSDate.new())
+        ]
+
+        eventsRef.childByAutoId().setValue(data)
+        SEGAnalytics.sharedAnalytics().track("Lyric_Inserted", properties: data)
     }
 }
 
