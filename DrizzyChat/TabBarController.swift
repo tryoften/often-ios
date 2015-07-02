@@ -114,7 +114,7 @@ class TabBarController: UITabBarController {
     }
     
     func didTapInstallKeyboardButton() {
-        var keyboardWalkthrough: KeyboardInstallationWalkthrough = KeyboardInstallationWalkthrough(nibName: nil, bundle: nil)
+        var keyboardWalkthrough = KeyboardInstallationWalkthroughViewController(nibName: nil, bundle: nil)
         keyboardWalkthrough.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(keyboardWalkthrough, animated: true, completion: nil)
     }

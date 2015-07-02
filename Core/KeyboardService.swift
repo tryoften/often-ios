@@ -31,6 +31,8 @@ class KeyboardService: Service {
         self.artistService = artistService
         
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        userDefaults.setValue(nil, forKey: "keyboardInstall")
+        
         keyboardsRef = root.childByAppendingPath("users/\(user.id)/keyboards")
         keyboards = [Keyboard]()
 

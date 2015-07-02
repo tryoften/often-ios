@@ -60,6 +60,7 @@
 		3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */; };
 		3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */; };
 		3BFBB8BA1B446FBE008706C2 /* KeyboardInstallationWalkthrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBB8B91B446FBE008706C2 /* KeyboardInstallationWalkthrough.swift */; };
+		3BFBB8C31B44BF3D008706C2 /* KeyboardWalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBB8C21B44BF3D008706C2 /* KeyboardWalkthroughView.swift */; };
 		5F50FC2DA9F65D8AF03CAD67 /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */; };
 		690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */; };
 		6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */; };
@@ -108,7 +109,6 @@
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
-		81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		8134B0F31B3C7A5C001B9C5E /* HUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */; };
 		813C82A11AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
 		813C82A21AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
@@ -380,6 +380,7 @@
 		3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPhoneNumberView.swift; sourceTree = "<group>"; };
 		3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameView.swift; sourceTree = "<group>"; };
 		3BFBB8B91B446FBE008706C2 /* KeyboardInstallationWalkthrough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstallationWalkthrough.swift; sourceTree = "<group>"; };
+		3BFBB8C21B44BF3D008706C2 /* KeyboardWalkthroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardWalkthroughView.swift; path = ../CustomKeyboard/KeyboardWalkthroughView.swift; sourceTree = "<group>"; };
 		690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewController.swift; sourceTree = "<group>"; };
 		6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalCollectionViewController.swift; sourceTree = "<group>"; };
 		6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalHeaderView.swift; sourceTree = "<group>"; };
@@ -872,6 +873,7 @@
 		816FE5A21A86E67100E42C17 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3BFBB8C21B44BF3D008706C2 /* KeyboardWalkthroughView.swift */,
 				81B19EC31B30DFB700D3575C /* FlexibleBoundsTextField.swift */,
 				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
 				81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */,
@@ -1482,6 +1484,7 @@
 				69BA82081B2FA9D000233789 /* BrowseViewModel.swift in Sources */,
 				81592F9F1B0FA57E0092EA8F /* UserProfileViewModel.swift in Sources */,
 				81B19EA01B30AD5A00D3575C /* Keyboard.swift in Sources */,
+				3BFBB8C31B44BF3D008706C2 /* KeyboardWalkthroughView.swift in Sources */,
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				3BCAE39D1B39C44400DFF63F /* SignUpConfirmPasswordViewController.swift in Sources */,
 				8134B0F31B3C7A5C001B9C5E /* HUDProgressView.swift in Sources */,
