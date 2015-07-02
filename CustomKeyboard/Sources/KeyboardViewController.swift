@@ -55,18 +55,17 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
+        lyricPicker = LyricPickerTableViewController()
+        lyricPicker!.delegate = self
+        lyricPicker!.viewModel = lyricPickerViewModel
+        lyricPicker!.keyboardViewController = self
+        lyricPicker!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         if !viewModel.hasSeenTooltip {
             toolTipViewController = ToolTipViewController(viewModel: viewModel)
             toolTipViewController?.closeButtonDelegate = self
             toolTipViewController!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
-            
-        } else {
-            lyricPicker = LyricPickerTableViewController()
-            lyricPicker!.delegate = self
-            lyricPicker!.viewModel = lyricPickerViewModel
-            lyricPicker!.keyboardViewController = self
-            lyricPicker!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         }
         
         seperatorView = UIView(frame: CGRectZero)
@@ -81,10 +80,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         sectionPickerView.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         sectionPickerView.switchArtistButton.addTarget(self, action: "didTapSwitchArtistButton", forControlEvents: .TouchUpInside)
     
+        view.addSubview(lyricPicker!.view)
+        
         if !viewModel.hasSeenTooltip {
             view.addSubview(toolTipViewController!.view)
-        } else {
-            view.addSubview(lyricPicker!.view)
         }
         
         view.addSubview(sectionPickerView!)
@@ -166,33 +165,27 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         Depending on whether or not the user has seen the tool tips
     */
     func setupLayout() {
+        if let viewController = self.lyricPicker?.view {
+            var constraints: [NSLayoutConstraint] = [
+                
+                seperatorView.al_height == 1.0,
+                seperatorView.al_width == view.al_width,
+                seperatorView.al_top == view.al_top,
+                seperatorView.al_left == view.al_left,
+                
+                // Lyric Picker
+                viewController.al_top == view.al_top,
+                viewController.al_left == view.al_left,
+                viewController.al_right == view.al_right,
+                viewController.al_bottom == view.al_bottom
+            ]
+            view.addConstraints(constraints)
+        }
+
         if !viewModel.hasSeenTooltip {
             if let viewController = self.toolTipViewController?.view {
                 var constraints: [NSLayoutConstraint] = [
-                    
-                    seperatorView.al_height == 1.0,
-                    seperatorView.al_width == view.al_width,
-                    seperatorView.al_top == view.al_top,
-                    seperatorView.al_left == view.al_left,
-                    
                     // Tool Tips
-                    viewController.al_top == view.al_top,
-                    viewController.al_left == view.al_left,
-                    viewController.al_right == view.al_right,
-                    viewController.al_bottom == view.al_bottom
-                ]
-                view.addConstraints(constraints)
-            }
-        } else {
-            if let viewController = self.lyricPicker?.view {
-                var constraints: [NSLayoutConstraint] = [
-                    
-                    seperatorView.al_height == 1.0,
-                    seperatorView.al_width == view.al_width,
-                    seperatorView.al_top == view.al_top,
-                    seperatorView.al_left == view.al_left,
-                    
-                    // Lyric Picker
                     viewController.al_top == view.al_top,
                     viewController.al_left == view.al_left,
                     viewController.al_right == view.al_right,
@@ -443,8 +436,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     func toolTipCloseButtonDidTap() {
         println("Close Button Tapped")
         viewModel.hasSeenTooltip = true
-        toolTipViewController!.view.removeFromSuperview()
-        viewDidLoad()
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.toolTipViewController!.view.alpha = 0.0
+        }, completion: { done in
+            self.toolTipViewController!.view.removeFromSuperview()
+        })
+        
+        
     }
 }
 
