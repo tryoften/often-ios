@@ -186,6 +186,7 @@ class SessionManager: NSObject {
         observers.removeAllObjects()
         userDefaults.setValue(nil, forKey: "userId")
         userDefaults.setValue(nil, forKey: "openSession")
+        userDefaults.setValue(nil, forKey: "authData")
         
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
         
@@ -234,6 +235,12 @@ class SessionManager: NSObject {
         if let authData = authData,
             let uid = PFUser.currentUser()?.objectId {
                 
+                userDefaults.setObject([
+                    "uid": authData.uid,
+                    "provider": authData.provider,
+                    "token": authData.token
+                ], forKey: "authData")
+                
                 userRef = firebase.childByAppendingPath("users/\(uid)")
                 userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                     // TODO(luc): create user model with data and send event
@@ -265,6 +272,7 @@ class SessionManager: NSObject {
                             
                             self.userRef?.setValue(data)
                             self.isUserNew = true
+                            
                             var user = User()
                             user.setValuesForKeysWithDictionary(data)
                             persistUser(user)
