@@ -22,7 +22,6 @@ class ButtonView: UIView {
 class SignUpOrLoginView: UIView {
     var titleLabel: UILabel!
     var subtitleLabel: UILabel!
-    var divider: UIView!
     var buttonView: ButtonView!
     var facebookButton: FacebookButton
     var artistsBgImageView: UIImageView
@@ -33,7 +32,7 @@ class SignUpOrLoginView: UIView {
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
-        titleLabel.font = TitleFont
+        titleLabel.font = UIFont(name: "Oswald-Regular", size: 22)
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         var titleString = "October".uppercaseString
@@ -43,10 +42,6 @@ class SignUpOrLoginView: UIView {
         title.addAttribute(NSFontAttributeName, value: titleLabel.font!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 3.2, range: titleRange)
         titleLabel.attributedText = title
-        
-        divider = UIView()
-        divider.setTranslatesAutoresizingMaskIntoConstraints(false)
-        divider.backgroundColor = BlackColor
         
         subtitleLabel = UILabel()
         subtitleLabel.textAlignment = .Center
@@ -88,10 +83,9 @@ class SignUpOrLoginView: UIView {
     
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor(fromHexString: "#F7F7F7")
         addSubview(titleLabel)
         addSubview(subtitleLabel)
-        addSubview(divider)
         addSubview(artistsBgImageView)
         addSubview(facebookButton)
         addSubview(buttonView)
@@ -109,19 +103,15 @@ class SignUpOrLoginView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 55,
+            titleLabel.al_top == al_top + 37,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
+            titleLabel.al_height == 30,
             
-            divider.al_top == titleLabel.al_bottom + 10,
-            divider.al_height == 1,
-            divider.al_width == 38,
-            divider.al_centerX == al_centerX,
-            
-            subtitleLabel.al_top == divider.al_bottom,
+            subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_left == al_left + 20,
             subtitleLabel.al_right == al_right - 20,
-            subtitleLabel.al_height == 70,
+            subtitleLabel.al_height == 60,
             
             signUpButton.al_top == buttonView.al_top,
             signUpButton.al_left == buttonView.al_left,
@@ -144,13 +134,13 @@ class SignUpOrLoginView: UIView {
             buttonView.al_bottom == al_bottom,
             
             facebookButton.al_height == 60,
-            facebookButton.al_bottom == buttonView.al_top - 10,
-            facebookButton.al_left == al_left + 10,
-            facebookButton.al_right == al_right - 10,
+            facebookButton.al_bottom == buttonView.al_top,
+            facebookButton.al_left == al_left,
+            facebookButton.al_right == al_right,
             
             artistsBgImageView.al_width == al_width,
             artistsBgImageView.al_top == subtitleLabel.al_bottom + 10,
-            artistsBgImageView.al_bottom == facebookButton.al_top + 16,
+            artistsBgImageView.al_bottom == facebookButton.al_top - 20,
             artistsBgImageView.al_left == al_left
         ])
     }

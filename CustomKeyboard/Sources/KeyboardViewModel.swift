@@ -48,19 +48,17 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         
         var fileManager = NSFileManager.defaultManager()
         isFullAccessEnabled = fileManager.isWritableFileAtPath(realmPath)
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         
         if !isFullAccessEnabled {
             //TODO(luc): check if that file exists, if it doesn't, use the bundled DB
             realmPath = directory.path!.stringByAppendingPathComponent("keyboard.realm")
             realm = Realm(path: realmPath, readOnly: true, encryptionKey: nil, error: nil)!
-            userDefaults = NSUserDefaults()
         } else {
             realm = Realm(path: realmPath)
-            userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         }
         
         RLMRealm.setDefaultRealmPath(realmPath)
-        
 
         if let userId = userDefaults.objectForKey("userId") as? String,
             let user = realm.objectForPrimaryKey(User.self, key: userId) {
@@ -74,8 +72,9 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             self.user = user
             keyboardService = KeyboardService(user: user, root: Firebase(url: BaseURL), realm: realm)
         }
-        
+
         eventsRef = root.childByAppendingPath("events/lyrics_inserted")
+        userDefaults.setValue(nil, forKey: "keyboardInstall")
 
         super.init()
         if isFullAccessEnabled {
