@@ -77,8 +77,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! LyricTableViewCell
-        let realm = Realm()
-        
         var lyrics = currentCategory?.lyrics
         
         selectedRow = indexPath

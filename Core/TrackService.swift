@@ -66,8 +66,7 @@ class TrackService: Service {
                     var track = Track(value: [
                         "id": key
                     ])
-                    
-//                    track.setValuesForKeysWithDictionary(data)
+
                     self.tracks[key] = track
                 }
             }
@@ -94,28 +93,26 @@ class TrackService: Service {
             
             if let trackData = snapshot.value as? [String: String],
                 let trackId = trackData["track_id"] ?? snapshot.key {
-                
-                var track: Track
-
-                if let trackModel = self.realm.objectForPrimaryKey(Track.self, key: trackId) {
-                    track = trackModel
-                } else {
-                    track = Track()
-                    track.id = trackId
-                    track.setValuesForKeysWithDictionary(trackData)
-                }
-
-                self.tracks[track.id] = track
-                if lyric.track == nil {
+                    var track: Track
+                    if let trackModel = self.realm.objectForPrimaryKey(Track.self, key: trackId) {
+                        track = trackModel
+                    } else {
+                        track = Track()
+                        track.id = trackId
+                        track.setValuesForKeysWithDictionary(trackData)
+                    }
                     
-                    self.realm.beginWrite()
-                    lyric.track = track
-                    lyric.trackId = track.id
-                    self.realm.add(lyric, update: true)
-                    self.realm.commitWrite()
+                    self.tracks[track.id] = track
+                    
+                    if lyric.track == nil && !self.realm.readOnly {
+                        self.realm.write {
+                            lyric.trackId = trackId
+                            lyric.track = track
+                            self.realm.add(lyric, update: true)
+                        }
+                    }
+                    
                     completion(track: track)
-                }
-                
             }
         })
     }

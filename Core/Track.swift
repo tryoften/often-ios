@@ -54,8 +54,10 @@ class Track: Object {
             name = (dictionary["name"] ?? dictionary["track_name"]) as! String
             artistName = dictionary["artist_name"] as! String
             artistId = (dictionary["artist_id"] ?? dictionary["artist_sp_id"]) as! String
-            lyricCount = dictionary["lyrics_count"] as! Int
             
+            if let lyricCount = dictionary["lyrics_count"] as? Int {
+                self.lyricCount = lyricCount
+            }
             
             if let albumCoverImageString = dictionary["album_cover_image_small"] as? String {
                 albumCoverImage = albumCoverImageString
