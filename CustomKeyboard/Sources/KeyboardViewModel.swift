@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Realm
 
 class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollectionViewDataSource {
     var keyboardService: KeyboardService
@@ -36,23 +37,27 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     }
     
     override init() {
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        
         isFullAccessEnabled = false
         
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
         var realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
-        //        RLMRealm.setDefaultRealmPath(realmPath)
         
         var fileManager = NSFileManager.defaultManager()
         isFullAccessEnabled = fileManager.isWritableFileAtPath(realmPath)
-
-        if isFullAccessEnabled {
-            
+        
+        if !isFullAccessEnabled {
+            //TODO(luc): check if that file exists, if it doesn't, use the bundled DB
+            realmPath = directory.path!.stringByAppendingPathComponent("keyboard.realm")
+            realm = Realm(path: realmPath, readOnly: true, encryptionKey: nil, error: nil)!
+            userDefaults = NSUserDefaults()
         } else {
-            // TODO(luc): setup read-only realm DB
+            realm = Realm(path: realmPath)
+            userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         }
         
-        realm = Realm(path: realmPath)
+        RLMRealm.setDefaultRealmPath(realmPath)
+
         if let userId = userDefaults.objectForKey("userId") as? String,
             let user = realm.objectForPrimaryKey(User.self, key: userId) {
             keyboardService = KeyboardService(user: user,

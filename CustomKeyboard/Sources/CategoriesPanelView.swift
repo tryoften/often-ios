@@ -17,6 +17,7 @@ class CategoriesPanelView: UIView {
     var currentCategoryView: UIView
     var currentCategoryLabel: TOMSMorphingLabel
     var messageBarView: MessageBarView
+    var messageBarViewTopConstraint: NSLayoutConstraint
     var shareButton: UIButton
     var drawerOpened: Bool = false
     var collectionViewEnabled: Bool = true
@@ -76,6 +77,8 @@ class CategoriesPanelView: UIView {
         
         selectedBgView = UIView(frame: CGRectZero)
         selectedBgView.backgroundColor = SectionPickerViewCellHighlightedBackgroundColor
+        
+        messageBarViewTopConstraint = messageBarView.al_top == toolbarView.al_top
         
         super.init(frame: frame)
 
@@ -168,8 +171,8 @@ class CategoriesPanelView: UIView {
             shareButton.al_top == keyboardButton.al_bottom,
             shareButton.al_bottom == al_bottom,
             
-            messageBarView.al_top == toolbarView.al_top,
-            messageBarView.al_height == 30,
+            messageBarViewTopConstraint,
+            messageBarView.al_height == 40,
             messageBarView.al_left == toolbarView.al_left,
             messageBarView.al_width == toolbarView.al_width
         ]
@@ -208,13 +211,13 @@ class CategoriesPanelView: UIView {
     func showMessageBar() {
         messageBarView.alpha = 1.0
         UIView.animateWithDuration(0.3) {
-            self.messageBarView.frame.origin.y -= 30
+            self.messageBarViewTopConstraint.constant = -40
         }
     }
     
     func hideMessageBar() {
         UIView.animateWithDuration(0.3) {
-            self.messageBarView.frame.origin.y += 30
+            self.messageBarViewTopConstraint.constant = 0
         }
     }
 }

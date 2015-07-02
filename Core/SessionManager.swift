@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import Realm
 
 class SessionManager: NSObject {
     
@@ -173,7 +174,7 @@ class SessionManager: NSObject {
 
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
             if user != nil {
-                self.openSession(username,password:password)
+                self.openSession(username, password: password)
             } else {
                 println(error)
             }
@@ -187,10 +188,9 @@ class SessionManager: NSObject {
         userDefaults.setValue(nil, forKey: "userId")
         userDefaults.setValue(nil, forKey: "openSession")
         
-        let realm = Realm()
-        realm.write {
-            realm.deleteAll()
-        }
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        
+        NSFileManager.defaultManager().removeItemAtPath(directory.path!, error: nil)
     }
     
     func addSessionObserver(observer: SessionManagerObserver) {

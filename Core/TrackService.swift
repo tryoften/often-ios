@@ -93,29 +93,26 @@ class TrackService: Service {
             
             if let trackData = snapshot.value as? [String: String],
                 let trackId = trackData["track_id"] ?? snapshot.key {
+                    var track: Track
+                    if let trackModel = self.realm.objectForPrimaryKey(Track.self, key: trackId) {
+                        track = trackModel
+                    } else {
+                        track = Track()
+                        track.id = trackId
+                        track.setValuesForKeysWithDictionary(trackData)
+                    }
                     
-                    self.realm.write {
-
-                        var track: Track
-                        if let trackModel = self.realm.objectForPrimaryKey(Track.self, key: trackId) {
-                            track = trackModel
-                        } else {
-                            track = Track()
-                            track.id = trackId
-                            track.setValuesForKeysWithDictionary(trackData)
-                        }
-                        
-                        self.tracks[track.id] = track
-            
-                        if lyric.track == nil {
+                    self.tracks[track.id] = track
+                    
+                    if lyric.track == nil && !self.realm.readOnly {
+                        self.realm.write {
                             lyric.trackId = trackId
                             lyric.track = track
                             self.realm.add(lyric, update: true)
                         }
-                        
-                        completion(track: track)
                     }
                     
+                    completion(track: track)
             }
         })
     }

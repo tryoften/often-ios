@@ -74,7 +74,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         topLabel?.setTranslatesAutoresizingMaskIntoConstraints(false)
         topLabel?.textAlignment = .Center
         topLabel?.font = UIFont(name: "OpenSans", size: 18.0)
-        topLabel?.text = "TRENDING"
+        topLabel?.text = "T R E N D I N G"
         topLabel?.textColor = UIColor.whiteColor()
         topLabel?.alpha = 0
         
@@ -83,7 +83,6 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         nameLabel?.font = UIFont(name: "Oswald-Light", size: 24.0)
         nameLabel?.textColor = UIColor.whiteColor()
         nameLabel?.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nameLabel?.text = "R O M E  F O R T U N E"
         
         featuredButton = UIButton(frame: CGRectMake(0.0, 0.0, 85.0, 10.0))
         featuredButton?.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -182,8 +181,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         
         // Update the page control
         pageControl!.currentPage = page
-        
-        nameLabel?.text = featuredArtists[page].name
+        nameLabel?.text = featuredArtists[page].displayName
         
         /// Which page to load
         let firstPage = page - 1

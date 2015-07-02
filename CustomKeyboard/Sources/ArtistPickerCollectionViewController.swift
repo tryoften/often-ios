@@ -16,6 +16,9 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
     weak var dataSource: ArtistPickerCollectionViewDataSource? {
         didSet {
             collectionView?.reloadData()
+            delay(0.2) {
+                self.centerOnDefaultCard()
+            }
         }
     }
     weak var delegate: ArtistPickerCollectionViewControllerDelegate?
@@ -76,6 +79,17 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func centerOnDefaultCard() {
+        if let dataSource = dataSource {
+            let count = dataSource.numberOfItemsInArtistPicker(self)
+            for i in 0..<count {
+                if dataSource.artistPickerItemAtIndexIsSelected(self, index: i) {
+                    scrollToCellAtIndex(i)
+                }
+            }
+        }
+    }
 
     // MARK: UICollectionViewDataSource
 
@@ -99,7 +113,6 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
                 if dataSource.artistPickerItemAtIndexIsSelected(self, index: indexPath.row) {
                     selectedCell = cell
                     cell.selected = true
-                    scrollToCellAtIndex(indexPath.row)
                 } else {
                     cell.selected = false
                 }
