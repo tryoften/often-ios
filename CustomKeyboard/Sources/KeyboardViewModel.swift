@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Realm
 
 class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollectionViewDataSource {
     var keyboardService: KeyboardService
@@ -24,6 +25,8 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             }
         }
     }
+    var realm: Realm
+    var isFullAccessEnabled: Bool
     var hasSeenTooltip: Bool {
         get {
             return userDefaults.boolForKey("toolTips")
@@ -33,26 +36,34 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         }
     }
     
-    init(realmPath: String? = nil) {
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+    override init() {
         
-        var realm: Realm
-        if let realmPath = realmPath {
-            var fileManager = NSFileManager.defaultManager()
-            println("readable: \(fileManager.isReadableFileAtPath(realmPath))")
-            println("writable: \(fileManager.isWritableFileAtPath(realmPath))")
-            realm = Realm(path: realmPath, readOnly: false, encryptionKey: nil, error: nil)!
+        isFullAccessEnabled = false
+        
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        var realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+        
+        var fileManager = NSFileManager.defaultManager()
+        isFullAccessEnabled = fileManager.isWritableFileAtPath(realmPath)
+        
+        if !isFullAccessEnabled {
+            //TODO(luc): check if that file exists, if it doesn't, use the bundled DB
+            realmPath = directory.path!.stringByAppendingPathComponent("keyboard.realm")
+            realm = Realm(path: realmPath, readOnly: true, encryptionKey: nil, error: nil)!
+            userDefaults = NSUserDefaults()
         } else {
-            realm = Realm()
+            realm = Realm(path: realmPath)
+            userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         }
         
-        
+        RLMRealm.setDefaultRealmPath(realmPath)
+
         if let userId = userDefaults.objectForKey("userId") as? String,
-            let user = realm.objectForPrimaryKey(User.self, key: userId){
+            let user = realm.objectForPrimaryKey(User.self, key: userId) {
             keyboardService = KeyboardService(user: user,
                 root: Firebase(url: BaseURL), realm: realm)
         } else {
-            // TODO(luc): get annonymous ID for the current session
+            // TODO(luc): get anonymous ID for the current session
             let user = User()
             user.id = "anon"
             keyboardService = KeyboardService(user: user, root: Firebase(url: BaseURL), realm: realm)

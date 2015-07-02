@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Luc Success. All rights reserved.
 //
 
-import UIKit
+import RealmSwift
 
 class LyricPickerViewModel: NSObject {
     

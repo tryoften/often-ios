@@ -26,9 +26,14 @@ class KeyboardService: Service {
     }
     var artistService: ArtistService
 
-    init(user: User, root: Firebase, realm: Realm = Realm(), artistService: ArtistService = ArtistService(root: Firebase(url: BaseURL))) {
+    init(user: User, root: Firebase, realm: Realm = Realm(), artistService: ArtistService? = nil) {
         self.user = user
-        self.artistService = artistService
+        
+        if let artistService = artistService {
+            self.artistService = artistService
+        } else {
+            self.artistService = ArtistService(root: Firebase(url: BaseURL), realm: realm)
+        }
         
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         userDefaults.setValue(nil, forKey: "keyboardInstall")
@@ -104,8 +109,10 @@ class KeyboardService: Service {
     */
     func fetchLocalData(completion: (Bool) -> Void) {
         // We have to create a new realm for reading on the main thread
-        notificationToken = realm.addNotificationBlock { (notification, realm) in
-            println("Realm DB changed: \(notification)")
+        if !realm.readOnly {
+            notificationToken = realm.addNotificationBlock { (notification, realm) in
+                println("Realm DB changed: \(notification)")
+            }
         }
         
         createKeyboardModels(completion)
