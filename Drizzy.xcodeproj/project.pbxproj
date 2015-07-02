@@ -258,6 +258,8 @@
 		81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
 		81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
+		81D43AFD1B43A15000453BBF /* MessageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D43AFC1B43A15000453BBF /* MessageBarView.swift */; };
+		81D43AFE1B43A15000453BBF /* MessageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D43AFC1B43A15000453BBF /* MessageBarView.swift */; };
 		81D4BF201B38F6DA006430AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81D4BF171B38F6DA006430AB /* Images.xcassets */; };
 		81D4BF211B38F6DA006430AB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81D4BF181B38F6DA006430AB /* Info.plist */; };
 		81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1A1B38F6DA006430AB /* PKHUD.swift */; };
@@ -512,6 +514,7 @@
 		81C010701AE89631008F3296 /* ArtistService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistService.swift; path = Core/ArtistService.swift; sourceTree = "<group>"; };
 		81C010751AE89956008F3296 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Core/Artist.swift; sourceTree = "<group>"; };
 		81C010771AE8A47C008F3296 /* KeyboardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardService.swift; path = Core/KeyboardService.swift; sourceTree = "<group>"; };
+		81D43AFC1B43A15000453BBF /* MessageBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageBarView.swift; sourceTree = "<group>"; };
 		81D4BF161B38F6DA006430AB /* FrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
 		81D4BF171B38F6DA006430AB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		81D4BF181B38F6DA006430AB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1035,6 +1038,7 @@
 				699606211B41E20C004102BC /* ToolTip.swift */,
 				817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */,
 				81592FA41B0FA5BD0092EA8F /* PrimaryToolbarView.swift */,
+				81D43AFC1B43A15000453BBF /* MessageBarView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1483,6 +1487,7 @@
 				3BCAE39D1B39C44400DFF63F /* SignUpConfirmPasswordViewController.swift in Sources */,
 				8134B0F31B3C7A5C001B9C5E /* HUDProgressView.swift in Sources */,
 				3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */,
+				81D43AFD1B43A15000453BBF /* MessageBarView.swift in Sources */,
 				699606291B422336004102BC /* ToolTipViewController.swift in Sources */,
 				3B9AD7A41B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift in Sources */,
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
@@ -1620,6 +1625,7 @@
 				81B19EA41B30AD5B00D3575C /* Track.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
+				81D43AFE1B43A15000453BBF /* MessageBarView.swift in Sources */,
 				81B19EA71B30AD5B00D3575C /* Owner.swift in Sources */,
 				81B19EA51B30AD5B00D3575C /* Artist.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,

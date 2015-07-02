@@ -23,6 +23,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     var artistCollectionView: UICollectionView?
     var modalTintView: UIView?
     var addArtistModal: UIView?
+    var currentArtistCell: BrowseHeaderCollectionViewCell?
     
     init(viewModel: BrowseViewModel) {
         self.viewModel = viewModel
@@ -145,9 +146,8 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             if let headerView = headerView,
                 let artist = viewModel.currentArtist {
                 headerView.artistNameLabel.text = artist.displayName
-                
-//                headerView.artistNameLabel.text = NSString(string: artist.displayName) as String
                 headerView.addArtistButton.selected = viewModel.userHasKeyboardForArtist(artist)
+                currentArtistCell = headerView.browsePicker.collectionView?.cellForItemAtIndexPath(NSIndexPath(forItem: currentPage, inSection: 0)) as? BrowseHeaderCollectionViewCell
             }
         }
         
@@ -158,6 +158,14 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     func browseHeaderViewDidTapAddArtistButton(browseHeaderView: BrowseHeaderView, selected: Bool) {
         viewModel.toggleAddingKeyboardforCurrentArtist { added in
             
+        }
+        
+        if let cell = currentArtistCell {
+            if selected {
+                cell.showAddedConfirmView()
+            } else {
+                cell.showRemovedConfirmView()
+            }
         }
     }
     

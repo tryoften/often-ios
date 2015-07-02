@@ -19,7 +19,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         didSet {
             if let category = currentCategory {
                 pickerView.currentCategoryLabel.text = category.name
-                pickerView.currentHighlightColorView.backgroundColor = category.highlightColor
             }
         }
     }
@@ -49,6 +48,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         tapRecognizer = UITapGestureRecognizer(target: self, action: toggleSelector)
         pickerView.toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
         pickerView.currentCategoryLabel.addGestureRecognizer(tapRecognizer)
+        pickerView.messageBarView.closeButton.addTarget(self, action: "didTapCloseButton", forControlEvents: .TouchUpInside)
         
         var viewLayout = CategoriesPanelView.provideCollectionViewLayout(pickerView.bounds)
         pickerView.categoriesCollectionView.setCollectionViewLayout(viewLayout, animated: false)
@@ -74,7 +74,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     // MARK: UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        println("Categories: \(categories)")
         return categories.count
     }
     
@@ -111,5 +110,9 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
 
             pickerView.delegate?.didSelectSection(pickerView, category: category)
         }
+    }
+    
+    func didTapCloseButton() {
+        pickerView.hideMessageBar()
     }
 }

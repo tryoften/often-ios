@@ -221,11 +221,15 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     }
     
     func artistPickerItemAtIndexIsSelected(artistPicker: ArtistPickerCollectionViewController, index: Int) -> Bool {
+        if let currentKeyboardId = viewModel.defaultKeyboardId,
+            keyboard = viewModel.keyboardAtIndex(index) {
+            return keyboard.id == currentKeyboardId
+        }
         return false
     }
     
     func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
-        viewModel.setKeyboardAsDefault(keyboard.id)
+        viewModel.defaultKeyboardId = keyboard.id
         
         var statusView = PKHUDStatusView(title: "\(keyboard.artistName)", subtitle:"set as default card", image: PKHUDAssets.checkmarkImage)
         statusView.frame = CGRect(origin: CGPointZero, size: CGSizeMake(250, 250))

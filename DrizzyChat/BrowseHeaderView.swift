@@ -112,8 +112,6 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
                     self.browsePicker.view.alpha = 1.0
                 }
             }
-            
-            println("progressiveness: \(attributes.progressiveness)")
         }
     }
     
@@ -146,7 +144,6 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     }
     
     func headerDidPan(browseHeader: BrowseHeaderCollectionViewController, displayedArtist: Artist?, delta: CGFloat) {
-        
         var absDelta = abs(delta)
         
         if delta < 0 {
@@ -247,6 +244,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
             artistNameLabel.al_top == browsePicker.view.al_bottom - artistNameLabelTopConstraintValue,
             artistNameLabel.al_top >= al_top + 20,
             artistNameLabel.al_centerX == al_centerX,
+            artistNameLabel.al_width == al_width - 40,
             
             addArtistButton.al_top == artistNameLabel.al_bottom + 10,
             addArtistButton.al_centerX == al_centerX,

@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import Realm
 
 class SessionManager: NSObject {
     
@@ -48,6 +49,8 @@ class SessionManager: NSObject {
         if let userId = userDefaults.stringForKey("userId") {
             currentUser = realm.objectForPrimaryKey(User.self, key: userId)
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeDatabasetoDisk", name: "database:persist", object: nil)
     }
     
     func fetchKeyboards() {
@@ -87,7 +90,16 @@ class SessionManager: NSObject {
         return userDefaults.objectForKey("userId") != nil
     }
     
-    func signUpUser(data: [String: String],completion: (NSError?) -> ()) {
+    func writeDatabasetoDisk() {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+            let path = directory.path!.stringByAppendingPathComponent("keyboard.realm")
+            let realm = Realm()
+            realm.writeCopyToPath(path, encryptionKey: nil)
+        }
+    }
+    
+    func signUpUser(data: [String: String], completion: (NSError?) -> ()) {
         if let email = data["email"],
             let username = data["username"],
             let password = data["password"],
@@ -121,7 +133,7 @@ class SessionManager: NSObject {
                 }
         }
     }
-    
+
     func openSession(username: String?, password: String?) {
         if username != nil && password != nil {
             self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
@@ -162,7 +174,7 @@ class SessionManager: NSObject {
 
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
             if user != nil {
-                self.openSession(username,password:password)
+                self.openSession(username, password: password)
             } else {
                 println(error)
             }
@@ -176,10 +188,9 @@ class SessionManager: NSObject {
         userDefaults.setValue(nil, forKey: "userId")
         userDefaults.setValue(nil, forKey: "openSession")
         
-        let realm = Realm()
-        realm.write {
-            realm.deleteAll()
-        }
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        
+        NSFileManager.defaultManager().removeItemAtPath(directory.path!, error: nil)
     }
     
     func addSessionObserver(observer: SessionManagerObserver) {

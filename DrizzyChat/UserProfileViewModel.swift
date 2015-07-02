@@ -11,6 +11,15 @@ import UIKit
 class UserProfileViewModel: NSObject, SessionManagerObserver {
     weak var delegate: UserProfileViewModelDelegate?
     var sessionManager: SessionManager
+    var defaultKeyboardId: String? {
+        set(value) {
+            sessionManager.keyboardService?.currentKeyboardId = value
+        }
+        
+        get {
+            return sessionManager.keyboardService?.currentKeyboardId
+        }
+    }
 
     var numberOfKeyboards: Int {
         if let keyboardService = sessionManager.keyboardService {
@@ -37,10 +46,6 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         } else {
          sessionManager.login()
         }
-    }
-    
-    func setKeyboardAsDefault(keyboardId: String) {
-        sessionManager.keyboardService?.currentKeyboardId = keyboardId
     }
     
     func keyboardAtIndex(index: Int) -> Keyboard? {
