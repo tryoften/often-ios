@@ -144,7 +144,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     }
     
     func didTapSettingsButton() {
-        let settingsVC = SettingsTableViewController()
+        let settingsVC = SettingsTableViewController(nibName: nil, bundle: nil)
         navigationController?.pushViewController(settingsVC, animated: true)
     }
     

@@ -136,11 +136,15 @@ class TrendingService: Service {
                 // next retrieve the featured artist data and populate [featuredArtists]
                 if let featuredData = trendingData["featured_artists"] as? [[String : String]] {
                     for var i = 0; i < featuredData.count; i++ {
-                        var featuredArtist = Artist()
-                        featuredArtist.id = featuredData[i]["owner_id"]!
-                        featuredArtist.name = featuredData[i]["owner_name"]!
-                        featuredArtist.imageURLLarge = featuredData[i]["owner_image_large"]!
-                        self.featuredArtists.append(featuredArtist)
+                        if let id = featuredData[i]["owner_id"],
+                            let name = featuredData[i]["owner_name"],
+                            let imageLarge = featuredData[i]["owner_image_large"] {
+                                var featuredArtist = Artist()
+                                featuredArtist.id = id
+                                featuredArtist.name = name
+                                featuredArtist.imageURLLarge = imageLarge
+                                self.featuredArtists.append(featuredArtist)
+                        }
                     }
                 }
                 

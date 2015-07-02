@@ -61,6 +61,7 @@
 		3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */; };
 		5F50FC2DA9F65D8AF03CAD67 /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */; };
 		690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */; };
+		691569411B44CE55006E13BC /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691569401B44CE55006E13BC /* SettingsTableViewCell.swift */; };
 		6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */; };
 		6929EB6E1B3750B600D1BD1C /* AddArtistModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */; };
 		696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */; };
@@ -380,6 +381,7 @@
 		3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPhoneNumberView.swift; sourceTree = "<group>"; };
 		3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameView.swift; sourceTree = "<group>"; };
 		690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewController.swift; sourceTree = "<group>"; };
+		691569401B44CE55006E13BC /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalCollectionViewController.swift; sourceTree = "<group>"; };
 		6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalHeaderView.swift; sourceTree = "<group>"; };
 		696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -882,6 +884,7 @@
 				697D004D1B30812100402A9F /* Browse Views */,
 				697D00491B3080F000402A9F /* Trending Views */,
 				8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */,
+				691569401B44CE55006E13BC /* SettingsTableViewCell.swift */,
 				81EBFC8D1B40FF75005C6E76 /* AddArtistButton.swift */,
 			);
 			name = Views;
@@ -1472,6 +1475,7 @@
 				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
 				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
+				691569411B44CE55006E13BC /* SettingsTableViewCell.swift in Sources */,
 				69B8CBB81B38A59A00F0BB84 /* AddArtistModalCollectionViewFlowLayout.swift in Sources */,
 				3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */,
 				3B9AD7AC1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift in Sources */,
