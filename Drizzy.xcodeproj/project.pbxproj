@@ -107,7 +107,6 @@
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
-		81331E5D1A19484A003E4609 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		8134B0F31B3C7A5C001B9C5E /* HUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */; };
 		813C82A11AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
 		813C82A21AE3031700925206 /* lyrics.json in Resources */ = {isa = PBXBuildFile; fileRef = 813C82A01AE3031700925206 /* lyrics.json */; };
@@ -975,7 +974,7 @@
 			children = (
 				813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */,
 				81592FA91B0FB7B00092EA8F /* View Layouts */,
-				81B6D58D1A95B07B0089767B /* VIew Models */,
+				81B6D58D1A95B07B0089767B /* View Models */,
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
 				8180E67D1A147F7D007FA1CF /* Views */,
 				8180E6461A1477F2007FA1CF /* Resources */,
@@ -1078,13 +1077,13 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		81B6D58D1A95B07B0089767B /* VIew Models */ = {
+		81B6D58D1A95B07B0089767B /* View Models */ = {
 			isa = PBXGroup;
 			children = (
 				81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */,
 				817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */,
 			);
-			name = "VIew Models";
+			name = "View Models";
 			sourceTree = "<group>";
 		};
 		81D4BF151B38F6DA006430AB /* PKHUD */ = {

@@ -18,6 +18,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
     var artistPickerViewController: ArtistPickerCollectionViewController?
+    var emptyState: UIImageView?
     
     init(viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
@@ -37,8 +38,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         super.viewDidLoad()
         
         navigationController?.navigationBarHidden = true
-        
-        viewModel.requestData(completion: nil)
+
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
         HUDProgressView.show()
         
@@ -57,7 +57,6 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
                 collectionView.contentInset = contentInset
             }
         }
-//        viewModel.requestData(completion: nil)
         
         PKHUD.sharedHUD.hide(afterDelay: 3.0)
     }
@@ -172,6 +171,32 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         return artistPicker
     }
     
+    private func showEmptyState() {
+        if emptyState == nil {
+            emptyState = UIImageView(image: UIImage(named: "UserProfileEmptyState"))
+            emptyState?.setTranslatesAutoresizingMaskIntoConstraints(false)
+            emptyState!.hidden = true
+            if let keyboardManagerView = keyboardManagerViewController?.view {
+                keyboardManagerView.addSubview(emptyState!)
+                keyboardManagerView.addConstraints([
+                    emptyState!.al_top == keyboardManagerView.al_top,
+                    emptyState!.al_left == keyboardManagerView.al_left + 10,
+                    emptyState!.al_right == keyboardManagerView.al_right,
+                    emptyState!.al_bottom == keyboardManagerView.al_bottom
+                ])
+            }
+        }
+        emptyState!.hidden = false
+        keyboardManagerViewController?.collectionView?.hidden = true
+        sectionHeaderView?.editButton.hidden = true
+    }
+    
+    private func hideEmptyState() {
+        emptyState?.hidden = true
+        keyboardManagerViewController?.collectionView?.hidden = false
+        sectionHeaderView?.editButton.hidden = false
+    }
+    
     func keyboardServiceDidAddKeyboard(notification: NSNotification) {
         if let artistPicker = keyboardManagerViewController,
             let userInfo = notification.userInfo,
@@ -201,8 +226,15 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         if let headerView = headerView {
             headerView.keyboardCountLabel.text = "\(keyboardList.count) cards".uppercaseString
         }
-        if let artistPicker = keyboardManagerViewController {
-            artistPicker.collectionView?.reloadData()
+        
+        if keyboardList.isEmpty {
+            //TODO(luc): show empty state
+            showEmptyState()
+        } else {
+            if let artistPicker = keyboardManagerViewController {
+                hideEmptyState()
+                artistPicker.collectionView?.reloadData()
+            }
         }
         PKHUD.sharedHUD.hideAnimated()
     }
@@ -231,7 +263,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
         viewModel.defaultKeyboardId = keyboard.id
         
-        var statusView = PKHUDStatusView(title: "\(keyboard.artistName)", subtitle:"set as default card", image: PKHUDAssets.checkmarkImage)
+        var statusView = PKHUDStatusView(title: "\(keyboard.artistName)", subtitle:"set as default card in your keyboard", image: PKHUDAssets.checkmarkImage)
         statusView.frame = CGRect(origin: CGPointZero, size: CGSizeMake(250, 250))
         statusView.imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         statusView.imageView.addConstraints([
@@ -262,6 +294,11 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     func artistPickerCollectionViewControllerDidDeleteKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard, index: Int) {
         viewModel.deleteKeyboardWithId(keyboard.id, completion: { (err) -> () in
             self.updateEditButton()
+            if self.viewModel.numberOfKeyboards == 0 {
+                self.showEmptyState()
+            } else {
+                self.hideEmptyState()
+            }
         })
     }
 }
