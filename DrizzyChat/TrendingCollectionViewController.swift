@@ -119,14 +119,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             cell.rankLabel.text = "\(indexPath.row + 1)"
             cell.nameLabel.text = artists[indexPath.row].name
             cell.subLabel.text = "\(artists[indexPath.row].tracksCount) Songs, \(artists[indexPath.row].lyricCount) Lyrics"
-            
-//            if artists[indexPath.row].arrow == "up" {
-//                cell.trendIndicator.image = UIImage(named: "up")
-//            } else if artists[indexPath.row].arrow == "down" {
-//                cell.trendIndicator.image = UIImage(named: "down")
-//            } else {
-//                cell.trendIndicator.image = nil
-//            }
 
             if indexPath.row % 3 == 0 {
                 cell.trendIndicator.image = UIImage(named: "up")
@@ -345,7 +337,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     */
     func lyricDidTap() {
         toggle = false
-        // collectionView?.reloadData()
         
         // Consider putting in a different place
         if let artistList = viewModel.artistsList {
@@ -369,7 +360,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     
     func artistDidTap() {
         toggle = true
-        // collectionView?.reloadData()
         
         // Consider putting in a different place
         if let artistList = viewModel.artistsList {
