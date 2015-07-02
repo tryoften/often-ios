@@ -26,14 +26,8 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     var toggle: Bool = true
     var labelHeight: CGFloat = 65
     
-    var lyrics: [Lyric]
-    var artists: [Artist]
-    
     init(viewModel: TrendingViewModel) {
         self.viewModel = viewModel
-        
-        lyrics = [Lyric]() // take out later
-        artists = [Artist]() // take out later
         
         super.init(collectionViewLayout: TrendingCollectionViewController.getLayout())
         
@@ -52,24 +46,15 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         if let collectionView = collectionView {
             collectionView.showsVerticalScrollIndicator = false
             collectionView.backgroundColor = UIColor.blackColor()
+            collectionView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 50.0, 0.0)
             collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
             collectionView.registerClass(TrendingHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(TrendingSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(TrendingCollectionViewCell.self, forCellWithReuseIdentifier: "artistCell")
             collectionView.registerClass(TrendingLyricViewCell.self, forCellWithReuseIdentifier: "lyricCell")
-            collectionView.registerClass(TrendingOneLineLyricCellCollectionViewCell.self, forCellWithReuseIdentifier: "OneLineCell")
-        }
-        
-        // Consider putting in a different place
-        if let artistList = viewModel.artistsList {
-            artists = artistList
-        }
-        
-        if let lyricList = viewModel.lyricsList {
-            lyrics = lyricList
+            collectionView.registerClass(TrendingOneLineLyricViewCell.self, forCellWithReuseIdentifier: "oneLineCell")
         }
     }
-    
     
     class func getLayout() -> UICollectionViewLayout {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
@@ -98,13 +83,13 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     }
     
     
+    // MARK: CollectionView
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // return viewModel.artistsList!.count (for later) when lyrics is returning data
-        
         if toggle == true {
-            return artists.count
+            return viewModel.artistsList.count
         } else if toggle == false {
-            return self.lyrics.count
+            return viewModel.lyricsList.count
         } else {
             return 0
         }
@@ -117,8 +102,8 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             cell.backgroundColor = UIColor.whiteColor()
             
             cell.rankLabel.text = "\(indexPath.row + 1)"
-            cell.nameLabel.text = artists[indexPath.row].name
-            cell.subLabel.text = "\(artists[indexPath.row].tracksCount) Songs, \(artists[indexPath.row].lyricCount) Lyrics"
+            cell.nameLabel.text = viewModel.artistsList[indexPath.row].name
+            cell.subLabel.text = "\(viewModel.artistsList[indexPath.row].tracksCount) Songs, \(viewModel.artistsList[indexPath.row].lyricCount) Lyrics"
 
             if indexPath.row % 3 == 0 {
                 cell.trendIndicator.image = UIImage(named: "up")
@@ -131,7 +116,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             return cell
         } else {
             
-            let lineCount = lineCountForLyric(lyrics[indexPath.row].text)
+            let lineCount = lineCountForLyric(viewModel.lyricsList[indexPath.row].text)
             
             if lineCount == 2 {
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier("lyricCell", forIndexPath: indexPath) as! TrendingLyricViewCell
@@ -142,42 +127,42 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                 
                 var screenWidth = UIScreen.mainScreen().bounds.width
                 
-                let charCount = count(lyrics[indexPath.row].text)
-                cell.lyricViewNumLines = lineCountForLyric(lyrics[indexPath.row].text)
+                let charCount = count(viewModel.lyricsList[indexPath.row].text)
+                cell.lyricViewNumLines = lineCountForLyric(viewModel.lyricsList[indexPath.row].text)
                 
                 if screenWidth == 320 {
                     if charCount >= 81 {
-                        var lyric = lyrics[indexPath.row].text
+                        var lyric = viewModel.lyricsList[indexPath.row].text
                         let stringLength = count(lyric)
                         let substringIndex = stringLength - 3
                         var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
                         cell.lyricView.text = "\(newLyric)..."
                     } else {
-                        cell.lyricView.text = lyrics[indexPath.row].text
+                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
                     }
                 } else if screenWidth == 375 {
                     if charCount >= 104 {
-                        var lyric = lyrics[indexPath.row].text
+                        var lyric = viewModel.lyricsList[indexPath.row].text
                         let stringLength = count(lyric)
                         let substringIndex = stringLength - 3
                         var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
                         cell.lyricView.text = "\(newLyric)..."
                     } else {
-                        cell.lyricView.text = lyrics[indexPath.row].text
+                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
                     }
                 } else {
                     if charCount >= 118 {
-                        var lyric = lyrics[indexPath.row].text
+                        var lyric = viewModel.lyricsList[indexPath.row].text
                         let stringLength = count(lyric)
                         let substringIndex = stringLength - 3
                         var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
                         cell.lyricView.text = "\(newLyric)..."
                     } else {
-                        cell.lyricView.text = lyrics[indexPath.row].text
+                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
                     }
                 }
                 
-                cell.artistLabel.text = lyrics[indexPath.row].owner
+                cell.artistLabel.text = viewModel.lyricsList[indexPath.row].owner
                 
                 if indexPath.row % 2 == 0 {
                     cell.trendIndicator.image = UIImage(named: "up")
@@ -191,7 +176,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                 
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("OneLineCell", forIndexPath: indexPath) as! TrendingOneLineLyricCellCollectionViewCell
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("oneLineCell", forIndexPath: indexPath) as! TrendingOneLineLyricViewCell
                 
                 cell.backgroundColor = UIColor.whiteColor()
                 
@@ -199,42 +184,42 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                 
                 var screenWidth = UIScreen.mainScreen().bounds.width
                 
-                let charCount = count(lyrics[indexPath.row].text)
-                cell.lyricViewNumLines = lineCountForLyric(lyrics[indexPath.row].text)
+                let charCount = count(viewModel.lyricsList[indexPath.row].text)
+                cell.lyricViewNumLines = lineCountForLyric(viewModel.lyricsList[indexPath.row].text)
                 
                 if screenWidth == 320 {
                     if charCount >= 81 {
-                        var lyric = lyrics[indexPath.row].text
+                        var lyric = viewModel.lyricsList[indexPath.row].text
                         let stringLength = count(lyric)
                         let substringIndex = stringLength - 3
                         var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
                         cell.lyricView.text = "\(newLyric)..."
                     } else {
-                        cell.lyricView.text = lyrics[indexPath.row].text
+                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
                     }
                 } else if screenWidth == 375 {
                     if charCount >= 104 {
-                        var lyric = lyrics[indexPath.row].text
+                        var lyric = viewModel.lyricsList[indexPath.row].text
                         let stringLength = count(lyric)
                         let substringIndex = stringLength - 3
                         var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
                         cell.lyricView.text = "\(newLyric)..."
                     } else {
-                        cell.lyricView.text = lyrics[indexPath.row].text
+                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
                     }
                 } else {
                     if charCount >= 118 {
-                        var lyric = lyrics[indexPath.row].text
+                        var lyric = viewModel.lyricsList[indexPath.row].text
                         let stringLength = count(lyric)
                         let substringIndex = stringLength - 3
                         var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
                         cell.lyricView.text = "\(newLyric)..."
                     } else {
-                        cell.lyricView.text = lyrics[indexPath.row].text
+                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
                     }
                 }
                 
-                cell.artistLabel.text = lyrics[indexPath.row].owner
+                cell.artistLabel.text = viewModel.lyricsList[indexPath.row].owner
                 
                 if indexPath.row % 2 == 0 {
                     cell.trendIndicator.image = UIImage(named: "up")
@@ -244,14 +229,12 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                     cell.trendIndicator.image = nil
                 }
                 
-                cell.setLayout()
+                cell.setupOneLineLayout()
                 
                 return cell
             }
         }
     }
-    
-    
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
@@ -297,10 +280,11 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        addArtistButtonDidTap(indexPath.row)
+        trendingCellDidTap(indexPath.row)
     }
     
-    // MARK: Protocol + Delegation methods
+    
+    // MARK: TrendingViewModelDelegate
     
     func trendingViewModelDidLoadTrackList(browseViewModel: TrendingViewModel, artists: [Artist]) {
         
@@ -326,29 +310,20 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         }
     }
     
-    /**
-        Lyric tab was selected in the header view
     
-        Need to pull the correct data for the lyrics and then switch collection views
+    /**
+        Tab selected in the header view
+    
+        Need to pull the correct data for the content and then switch collection views
         with the correct cells and data and then reload the collection view
     
-        The toggle boolean is true for Artists and false for Lyrics
+        Artists: true | Lyrics: false
     
     */
     func lyricDidTap() {
         toggle = false
         
-        // Consider putting in a different place
-        if let artistList = viewModel.artistsList {
-            artists = artistList
-        }
-        
-        if let lyricList = viewModel.lyricsList {
-            lyrics = lyricList
-        }
-        
         if let collectionView = collectionView {
-            // collectionView.reloadData()
             collectionView.reloadSections(NSIndexSet(index: 0))
         } else {
             println("No reload")
@@ -361,17 +336,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     func artistDidTap() {
         toggle = true
         
-        // Consider putting in a different place
-        if let artistList = viewModel.artistsList {
-            artists = artistList
-        }
-        
-        if let lyricList = viewModel.lyricsList {
-            lyrics = lyricList
-        }
-        
         if let collectionView = collectionView {
-            // collectionView.reloadData()
             collectionView.reloadSections(NSIndexSet(index: 0))
         } else {
             println("No reload")
@@ -380,17 +345,21 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         viewDidLoad()
     }
     
+    
     /**
+        If a cell is tapped in the trending view then pull up the modal for that artist
+    
+        :param: artistTappedIndex Pass in the artist to display in the modal
     
     */
-    func addArtistButtonDidTap(artistTappedIndex: Int) {
-        // Present the Add Artist Modal
-        
+    func trendingCellDidTap(artistTappedIndex: Int) {
         var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController(nibName: nil, bundle: nil)
         addArtistModal.currentArtist = viewModel.trendingService.artists[artistTappedIndex]
         addArtistModal.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(addArtistModal, animated: true, completion: nil)
+        
     }
+    
     
     // MARK: Dynamic Cell
     
