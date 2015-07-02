@@ -61,7 +61,6 @@
 		3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */; };
 		5F50FC2DA9F65D8AF03CAD67 /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */; };
 		690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */; };
-		6915693C1B44BA7B006E13BC /* TrendingOneLineLyricCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6915693B1B44BA7B006E13BC /* TrendingOneLineLyricCellCollectionViewCell.swift */; };
 		691569411B44CE55006E13BC /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691569401B44CE55006E13BC /* SettingsTableViewCell.swift */; };
 		6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */; };
 		6929EB6E1B3750B600D1BD1C /* AddArtistModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */; };
@@ -382,7 +381,6 @@
 		3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPhoneNumberView.swift; sourceTree = "<group>"; };
 		3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameView.swift; sourceTree = "<group>"; };
 		690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewController.swift; sourceTree = "<group>"; };
-		6915693B1B44BA7B006E13BC /* TrendingOneLineLyricCellCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingOneLineLyricCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		691569401B44CE55006E13BC /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalCollectionViewController.swift; sourceTree = "<group>"; };
 		6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalHeaderView.swift; sourceTree = "<group>"; };
@@ -668,7 +666,6 @@
 				69BA820E1B2FABB800233789 /* TrendingSectionHeaderView.swift */,
 				69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */,
 				697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */,
-				6915693B1B44BA7B006E13BC /* TrendingOneLineLyricCellCollectionViewCell.swift */,
 			);
 			name = "Trending Views";
 			sourceTree = "<group>";
@@ -1572,7 +1569,6 @@
 				3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */,
 				69A31A101B3DC7AF00A402A1 /* TrendingService.swift in Sources */,
 				817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
-				6915693C1B44BA7B006E13BC /* TrendingOneLineLyricCellCollectionViewCell.swift in Sources */,
 				3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */,
 				3BCAE3B31B3A3CB200DFF63F /* SignUpPostAddArtistsLoaderView.swift in Sources */,
 				699606281B422331004102BC /* LyricPickerTableViewController.swift in Sources */,
