@@ -43,7 +43,6 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
         addSubview(imageView)
         addSubview(textView)
         
-        //setupLayout()
     }
 
     required init(coder aDecoder: NSCoder) {
