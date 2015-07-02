@@ -30,12 +30,13 @@ enum Trend {
 }
 
 class TrendingCollectionViewCell: UICollectionViewCell {
-    var rankLabel: UILabel! /// number rank on the left of the cell
-    var nameLabel: UILabel! /// Track name label
-    var subLabel: UILabel! /// label for lyric Count "Lyrics: n"
-    var disclosureIndicator: UIImageView! /// arrow image
-    var lineBreakView: UIView! /// line break 1 pixel high to fake a line break
-    var trendIndicator: UIImageView! /// green or red arrow depending on performance
+    var rankLabel: UILabel /// number rank on the left of the cell
+    var nameLabel: UILabel /// Track name label
+    var subLabel: UILabel /// label for lyric Count "Lyrics: n"
+    var disclosureIndicator: UIImageView /// arrow image
+    var lineBreakView: UIView /// line break 1 pixel high to fake a line break
+    var trendIndicator: UIImageView /// green or red arrow depending on performance
+    
     
     override init(frame: CGRect) {
         rankLabel = UILabel()

@@ -57,6 +57,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             collectionView.registerClass(TrendingSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(TrendingCollectionViewCell.self, forCellWithReuseIdentifier: "artistCell")
             collectionView.registerClass(TrendingLyricViewCell.self, forCellWithReuseIdentifier: "lyricCell")
+            collectionView.registerClass(TrendingOneLineLyricCellCollectionViewCell.self, forCellWithReuseIdentifier: "OneLineCell")
         }
         
         // Consider putting in a different place
@@ -117,14 +118,19 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             
             cell.rankLabel.text = "\(indexPath.row + 1)"
             cell.nameLabel.text = artists[indexPath.row].name
-                // artists[indexPath.row].name
             cell.subLabel.text = "\(artists[indexPath.row].tracksCount) Songs, \(artists[indexPath.row].lyricCount) Lyrics"
-                // String(artists[indexPath.row].lyricCount)
-            cell.disclosureIndicator.image = UIImage(named: "arrow")
             
-            if artists[indexPath.row].arrow == "up" {
+//            if artists[indexPath.row].arrow == "up" {
+//                cell.trendIndicator.image = UIImage(named: "up")
+//            } else if artists[indexPath.row].arrow == "down" {
+//                cell.trendIndicator.image = UIImage(named: "down")
+//            } else {
+//                cell.trendIndicator.image = nil
+//            }
+
+            if indexPath.row % 3 == 0 {
                 cell.trendIndicator.image = UIImage(named: "up")
-            } else if artists[indexPath.row].arrow == "down" {
+            } else if indexPath.row % 2 == 0 {
                 cell.trendIndicator.image = UIImage(named: "down")
             } else {
                 cell.trendIndicator.image = nil
@@ -132,59 +138,125 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("lyricCell", forIndexPath: indexPath) as! TrendingLyricViewCell
             
-            cell.backgroundColor = UIColor.whiteColor()
+            let lineCount = lineCountForLyric(lyrics[indexPath.row].text)
             
-            cell.rankLabel?.text = "\(indexPath.row + 1)"
-            
-            var screenWidth = UIScreen.mainScreen().bounds.width
-            
-            if screenWidth == 320 {
-                if count(lyrics[indexPath.row].text) >= 81 {
-                    var lyric = lyrics[indexPath.row].text
-                    let stringLength = count(lyric)
-                    let substringIndex = stringLength - 3
-                    var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                    cell.lyricView?.text = "\(newLyric)..."
+            if lineCount == 2 {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("lyricCell", forIndexPath: indexPath) as! TrendingLyricViewCell
+                
+                cell.backgroundColor = UIColor.whiteColor()
+                
+                cell.rankLabel.text = "\(indexPath.row + 1)"
+                
+                var screenWidth = UIScreen.mainScreen().bounds.width
+                
+                let charCount = count(lyrics[indexPath.row].text)
+                cell.lyricViewNumLines = lineCountForLyric(lyrics[indexPath.row].text)
+                
+                if screenWidth == 320 {
+                    if charCount >= 81 {
+                        var lyric = lyrics[indexPath.row].text
+                        let stringLength = count(lyric)
+                        let substringIndex = stringLength - 3
+                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                        cell.lyricView.text = "\(newLyric)..."
+                    } else {
+                        cell.lyricView.text = lyrics[indexPath.row].text
+                    }
+                } else if screenWidth == 375 {
+                    if charCount >= 104 {
+                        var lyric = lyrics[indexPath.row].text
+                        let stringLength = count(lyric)
+                        let substringIndex = stringLength - 3
+                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                        cell.lyricView.text = "\(newLyric)..."
+                    } else {
+                        cell.lyricView.text = lyrics[indexPath.row].text
+                    }
                 } else {
-                    cell.lyricView?.text = lyrics[indexPath.row].text
+                    if charCount >= 118 {
+                        var lyric = lyrics[indexPath.row].text
+                        let stringLength = count(lyric)
+                        let substringIndex = stringLength - 3
+                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                        cell.lyricView.text = "\(newLyric)..."
+                    } else {
+                        cell.lyricView.text = lyrics[indexPath.row].text
+                    }
                 }
-            } else if screenWidth == 375 {
-                if count(lyrics[indexPath.row].text) >= 104 {
-                    var lyric = lyrics[indexPath.row].text
-                    let stringLength = count(lyric)
-                    let substringIndex = stringLength - 3
-                    var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                    cell.lyricView?.text = "\(newLyric)..."
+                
+                cell.artistLabel.text = lyrics[indexPath.row].owner
+                
+                if indexPath.row % 2 == 0 {
+                    cell.trendIndicator.image = UIImage(named: "up")
+                } else if indexPath.row % 3 == 0 {
+                    cell.trendIndicator.image = UIImage(named: "down")
                 } else {
-                    cell.lyricView?.text = lyrics[indexPath.row].text
+                    cell.trendIndicator.image = nil
                 }
+                
+                cell.setLayout()
+                
+                return cell
             } else {
-                if count(lyrics[indexPath.row].text) >= 118 {
-                    var lyric = lyrics[indexPath.row].text
-                    let stringLength = count(lyric)
-                    let substringIndex = stringLength - 3
-                    var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                    cell.lyricView?.text = "\(newLyric)..."
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier("OneLineCell", forIndexPath: indexPath) as! TrendingOneLineLyricCellCollectionViewCell
+                
+                cell.backgroundColor = UIColor.whiteColor()
+                
+                cell.rankLabel.text = "\(indexPath.row + 1)"
+                
+                var screenWidth = UIScreen.mainScreen().bounds.width
+                
+                let charCount = count(lyrics[indexPath.row].text)
+                cell.lyricViewNumLines = lineCountForLyric(lyrics[indexPath.row].text)
+                
+                if screenWidth == 320 {
+                    if charCount >= 81 {
+                        var lyric = lyrics[indexPath.row].text
+                        let stringLength = count(lyric)
+                        let substringIndex = stringLength - 3
+                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                        cell.lyricView.text = "\(newLyric)..."
+                    } else {
+                        cell.lyricView.text = lyrics[indexPath.row].text
+                    }
+                } else if screenWidth == 375 {
+                    if charCount >= 104 {
+                        var lyric = lyrics[indexPath.row].text
+                        let stringLength = count(lyric)
+                        let substringIndex = stringLength - 3
+                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                        cell.lyricView.text = "\(newLyric)..."
+                    } else {
+                        cell.lyricView.text = lyrics[indexPath.row].text
+                    }
                 } else {
-                    cell.lyricView?.text = lyrics[indexPath.row].text
+                    if charCount >= 118 {
+                        var lyric = lyrics[indexPath.row].text
+                        let stringLength = count(lyric)
+                        let substringIndex = stringLength - 3
+                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                        cell.lyricView.text = "\(newLyric)..."
+                    } else {
+                        cell.lyricView.text = lyrics[indexPath.row].text
+                    }
                 }
+                
+                cell.artistLabel.text = lyrics[indexPath.row].owner
+                
+                if indexPath.row % 2 == 0 {
+                    cell.trendIndicator.image = UIImage(named: "up")
+                } else if indexPath.row % 3 == 0 {
+                    cell.trendIndicator.image = UIImage(named: "down")
+                } else {
+                    cell.trendIndicator.image = nil
+                }
+                
+                cell.setLayout()
+                
+                return cell
             }
-
-            cell.artistLabel?.text = lyrics[indexPath.row].owner
-            
-            if indexPath.row % 2 == 0 {
-                cell.trendIndicator.image = UIImage(named: "up")
-            } else if indexPath.row % 3 == 0 {
-                cell.trendIndicator.image = UIImage(named: "down")
-            } else {
-                cell.trendIndicator.image = nil
-            }
-
-            return cell
         }
-
     }
     
     
@@ -229,17 +301,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         
         var screenWidth = UIScreen.mainScreen().bounds.width
         
-        if toggle == true {
-            return CGSizeMake(screenWidth, 65)
-        } else {
-            if lineCountForLyric(lyrics[indexPath.row].text) == 1 {
-                return CGSizeMake(screenWidth, 65)
-            } else if lineCountForLyric(lyrics[indexPath.row].text) == 2 {
-                return CGSizeMake(screenWidth, 65)
-            } else {
-                return CGSizeMake(screenWidth, 65)
-            }
-        }
+        return CGSizeMake(screenWidth, 65)
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -253,7 +315,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     }
     
     func artistsDidUpdate(artists: [Artist]) {
-        println("Made it to Artists")
+        println("Artist Update Received")
         
         if let collectionView = collectionView {
             collectionView.reloadData()
@@ -263,8 +325,13 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     }
     
     func lyricsDidUpdate(lyrics: [Lyric]) {
-        println("Made it to Lyrics")
-        self.collectionView?.reloadData()
+        println("Lyric Update Received")
+        
+        if let collectionView = collectionView {
+            collectionView.reloadData()
+        } else {
+            println("No reload")
+        }
     }
     
     /**
@@ -278,14 +345,48 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     */
     func lyricDidTap() {
         toggle = false
-        collectionView?.reloadData()
+        // collectionView?.reloadData()
+        
+        // Consider putting in a different place
+        if let artistList = viewModel.artistsList {
+            artists = artistList
+        }
+        
+        if let lyricList = viewModel.lyricsList {
+            lyrics = lyricList
+        }
+        
+        if let collectionView = collectionView {
+            // collectionView.reloadData()
+            collectionView.reloadSections(NSIndexSet(index: 0))
+        } else {
+            println("No reload")
+        }
+        
         viewDidLoad()
     }
     
     
     func artistDidTap() {
         toggle = true
-        collectionView?.reloadData()
+        // collectionView?.reloadData()
+        
+        // Consider putting in a different place
+        if let artistList = viewModel.artistsList {
+            artists = artistList
+        }
+        
+        if let lyricList = viewModel.lyricsList {
+            lyrics = lyricList
+        }
+        
+        if let collectionView = collectionView {
+            // collectionView.reloadData()
+            collectionView.reloadSections(NSIndexSet(index: 0))
+        } else {
+            println("No reload")
+        }
+        
         viewDidLoad()
     }
     
@@ -318,7 +419,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                 return 2
             }
         } else if screenWidth == 375 {
-            if count(lyric) <= 55 {
+            if count(lyric) <= 50 {
                 return 1
             } else {
                 return 2

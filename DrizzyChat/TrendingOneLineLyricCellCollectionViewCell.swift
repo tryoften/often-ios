@@ -1,14 +1,14 @@
 //
-//  TrendingLyricViewCell.swift
+//  TrendingOneLineLyricCellCollectionViewCell.swift
 //  Drizzy
 //
-//  Created by Komran Ghahremani on 6/16/15.
+//  Created by Komran Ghahremani on 7/1/15.
 //  Copyright (c) 2015 Luc Success. All rights reserved.
 //
 
 import UIKit
 
-class TrendingLyricViewCell: UICollectionViewCell {
+class TrendingOneLineLyricCellCollectionViewCell: UICollectionViewCell {
     var rankLabel: UILabel /// number rank on the left of the cell
     var lyricView: UITextView /// to display the lyric
     var artistLabel: UILabel /// yellow name of the artist (previously the @handle)
@@ -63,7 +63,7 @@ class TrendingLyricViewCell: UICollectionViewCell {
         
         setLayout()
     }
-
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -83,10 +83,10 @@ class TrendingLyricViewCell: UICollectionViewCell {
             
             lyricView.al_left == trendIndicator.al_right + 17,
             lyricView.al_right == al_right - 10,
-            lyricView.al_top == al_top,
+            lyricView.al_top == al_top + 9,
             lyricView.al_height == 50,
             
-            artistLabel.al_bottom == al_bottom - 9,
+            artistLabel.al_bottom == al_bottom - 17,
             artistLabel.al_left == trendIndicator.al_right + 22,
             artistLabel.al_width == 100,
             artistLabel.al_height == 15,
