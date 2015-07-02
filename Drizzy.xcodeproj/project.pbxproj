@@ -63,7 +63,6 @@
 		3BFBB8C31B44BF3D008706C2 /* KeyboardWalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBB8C21B44BF3D008706C2 /* KeyboardWalkthroughView.swift */; };
 		5F50FC2DA9F65D8AF03CAD67 /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */; };
 		690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */; };
-		6915693C1B44BA7B006E13BC /* TrendingOneLineLyricCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6915693B1B44BA7B006E13BC /* TrendingOneLineLyricCellCollectionViewCell.swift */; };
 		691569411B44CE55006E13BC /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691569401B44CE55006E13BC /* SettingsTableViewCell.swift */; };
 		6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */; };
 		6929EB6E1B3750B600D1BD1C /* AddArtistModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */; };
@@ -386,7 +385,6 @@
 		3BFBB8B91B446FBE008706C2 /* KeyboardInstallationWalkthrough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstallationWalkthrough.swift; sourceTree = "<group>"; };
 		3BFBB8C21B44BF3D008706C2 /* KeyboardWalkthroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardWalkthroughView.swift; path = ../CustomKeyboard/KeyboardWalkthroughView.swift; sourceTree = "<group>"; };
 		690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewController.swift; sourceTree = "<group>"; };
-		6915693B1B44BA7B006E13BC /* TrendingOneLineLyricCellCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingOneLineLyricCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		691569401B44CE55006E13BC /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalCollectionViewController.swift; sourceTree = "<group>"; };
 		6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalHeaderView.swift; sourceTree = "<group>"; };
@@ -672,7 +670,6 @@
 				69BA820E1B2FABB800233789 /* TrendingSectionHeaderView.swift */,
 				69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */,
 				697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */,
-				6915693B1B44BA7B006E13BC /* TrendingOneLineLyricCellCollectionViewCell.swift */,
 			);
 			name = "Trending Views";
 			sourceTree = "<group>";

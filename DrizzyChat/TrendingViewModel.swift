@@ -18,8 +18,8 @@ import UIKit
 */
 class TrendingViewModel: NSObject, SessionManagerObserver, ServiceDelegate {
     weak var delegate: TrendingViewModelDelegate?
-    var artistsList: [Artist]?
-    var lyricsList: [Lyric]?
+    var artistsList: [Artist]
+    var lyricsList: [Lyric]
     var ref: Firebase = Firebase(url: BaseURL)
     var trendingService: TrendingService
     var artistTrendingList: [Artist]?
@@ -27,6 +27,9 @@ class TrendingViewModel: NSObject, SessionManagerObserver, ServiceDelegate {
     
     init(sessionManager: SessionManager){
         trendingService = TrendingService(root: ref)
+        artistsList = [Artist]()
+        lyricsList = [Lyric]()
+        
         super.init()
         trendingService.delegate = self
     }
@@ -53,7 +56,7 @@ class TrendingViewModel: NSObject, SessionManagerObserver, ServiceDelegate {
     
     func sessionManagerDidFetchArtists(sessionManager: SessionManager, artists: [String : Artist]) {
         artistsList = artists.values.array
-        self.delegate?.trendingViewModelDidLoadTrackList(self, artists: artistsList!)
+        self.delegate?.trendingViewModelDidLoadTrackList(self, artists: artistsList)
     }
     
     // MARK: ServiceDelegate
@@ -64,12 +67,12 @@ class TrendingViewModel: NSObject, SessionManagerObserver, ServiceDelegate {
     
     func artistsDidUpdate(artists: [Artist]) {
         artistsList = artists
-        delegate?.artistsDidUpdate(self.artistsList!)
+        delegate?.artistsDidUpdate(self.artistsList)
     }
     
     func lyricsDidUpdate(lyrics: [Lyric]) {
         lyricsList = lyrics
-        delegate?.lyricsDidUpdate(self.lyricsList!)
+        delegate?.lyricsDidUpdate(self.lyricsList)
     }
 }
 
