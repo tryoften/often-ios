@@ -68,7 +68,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             user.id = "anon"
             keyboardService = KeyboardService(user: user, root: Firebase(url: BaseURL), realm: realm)
         }
-
+        userDefaults.setValue(nil, forKey: "keyboardInstall")
         super.init()
         keyboardService.delegate = self
     }

@@ -59,7 +59,6 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         pageControl.setTranslatesAutoresizingMaskIntoConstraints(false)
         pageControl.currentPage = 0
         
-        
         pagesScrollViewSize = scrollView.frame.size
         pageCount = 4
         

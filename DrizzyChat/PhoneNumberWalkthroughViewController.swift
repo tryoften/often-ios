@@ -58,14 +58,15 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
             var decimalString = "".join(components) as NSString
             var length = decimalString.length
             var lastCount = count(addPhoneNumberPage.phoneNumberTxtField.text)
+            var newLength = (textField.text as NSString).length + (string as NSString).length - range.length as Int
             
-            if length == 0 || lastCount == 12 {
-                var newLength = (textField.text as NSString).length + (string as NSString).length - range.length as Int
+            
+            if newLength >= 10 {
                 
                 checkCharacterCountOfTextField()
-                return (newLength > 10) ? false : true
+                return (newLength == lastCount) ? false : true
             }
-            
+        
             var index = 0 as Int
             var formattedString = NSMutableString()
             
@@ -86,9 +87,9 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
             
             
             var remainder = decimalString.substringFromIndex(index)
-            
             formattedString.appendString(remainder)
             textField.text = formattedString as String
+            
             return false
         } else {
         return true
