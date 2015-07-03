@@ -19,7 +19,7 @@ class LoginIndicatorView: UIView {
         
         nameLabel = UILabel(frame: CGRectZero)
         nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nameLabel.font = UIFont(name: "Lato-Regular", size: 16)
+        nameLabel.font = UIFont(name: "OpenSans", size: 16)
         nameLabel.textAlignment = .Center
 
         super.init(frame: frame)

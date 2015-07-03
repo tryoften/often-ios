@@ -54,7 +54,7 @@ let LyricTableViewCellHighlightedBackgroundColor = UIColor.whiteColor()
 
 // The color of the background that incapsulates the text
 let LyricTableViewCellTextViewBackgroundColor = LightGrey
-let LyricTableViewCellMainTitleFont = UIFont(name: "Lato-Regular", size: 15)
+let LyricTableViewCellMainTitleFont = UIFont(name: "OpenSans", size: 15)
 let LyricTableViewCellHeight: CGFloat = 75
 let LyricTableViewCellInfoHeight: CGFloat = 50.0
 let LyricTableViewCellInfoBackgroundColor = MediumGrey
@@ -79,8 +79,8 @@ let NextKeyboardButtonFont = UIFont(name: "font_icons8", size:16)
 
 let CategoriesCollectionViewBackgroundColor = BlackColor
 let CategoryCollectionViewCellBackgroundColor = UIColor(fromHexString: "#1c1c1c")
-let CategoryCollectionViewCellTitleFont = UIFont(name: "Lato-Regular", size: 18)
-let CategoryCollectionViewCellSubtitleFont = UIFont(name: "Lato-Regular", size: 10)
+let CategoryCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 18)
+let CategoryCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 10)
 let CategoryCollectionViewCellSubtitleTextColor = UIColor(fromHexString: "#aeb5b8")
 let CategoryCollectionViewCellReuseIdentifier = "CategoryCollectionViewCell"
 let CategoryCollectionViewCellHighlightColors = [
@@ -97,14 +97,14 @@ let ArtistCollectionViewCloseButtonBackgroundColor = UIColor(fromHexString: "#12
 let ArtistCollectionViewCellBackgroundColor = UIColor(fromHexString: "#121314")
 let ArtistCollectionViewCellTitleTextColor = UIColor.whiteColor()
 let ArtistCollectionViewCellSubtitleTextColor = CategoryCollectionViewCellSubtitleTextColor
-let ArtistCollectionViewCellTitleFont = UIFont(name: "Lato-Regular", size: 16)
-let ArtistCollectionViewCellSubtitleFont = UIFont(name: "Lato-Regular", size: 10)
+let ArtistCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 16)
+let ArtistCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 10)
 let ArtistCollectionViewCellWidth: CGFloat = 135
 let ArtistCollectionViewCellImageViewLeftMargin: CGFloat = 32
 
 let BrowseCollectionViewCellBackgroudColor = UIColor(fromHexString: "#f7f7f7")
-let BrowseCollectionViewCellTrackNameFont = UIFont(name: "Lato-Regular", size: 14.0)
-let BrowseCollectionViewCellLyricCountFont = UIFont(name: "Lato-Regular", size: 9.0)
+let BrowseCollectionViewCellTrackNameFont = UIFont(name: "OpenSans", size: 14.0)
+let BrowseCollectionViewCellLyricCountFont = UIFont(name: "OpenSans", size: 9.0)
 let BrowseCollectionViewCellWidth: CGFloat = CGFloat(UIScreen.mainScreen().bounds.width)
 let BrowseCollectionViewCellHeight: CGFloat = CGFloat(63)
 let BrowseHeaderCollectionViewPadding: CGFloat = 75.0

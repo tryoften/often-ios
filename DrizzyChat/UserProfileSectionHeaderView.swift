@@ -25,7 +25,7 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         let range = NSRange(location: 0, length: count(headerText))
         let attributedString = NSMutableAttributedString(string: headerText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.2), range: range)
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Lato-Regular", size: 15)!, range: range)
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 15)!, range: range)
         
         titleLabel.attributedText = attributedString
         
@@ -33,7 +33,7 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         editButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         editButton.setTitle("Edit".uppercaseString, forState: .Normal)
         editButton.setTitleColor(UIColor(fromHexString: "#868686"), forState: .Normal)
-        editButton.titleLabel!.font = UIFont(name: "Lato-Regular", size: 15)
+        editButton.titleLabel!.font = UIFont(name: "OpenSans", size: 15)
         editButton.titleLabel?.textAlignment = .Right
         
         super.init(frame: frame)
