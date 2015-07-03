@@ -26,6 +26,8 @@ class SignUpPostAddArtistsLoaderViewController: WalkthroughViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        viewModel.sessionManager.userDefaults.setValue(true, forKey: "keyboardInstall")
+        
         navigationController?.navigationBar.hidden = true
         
         UIView.animateWithDuration(0, delay: 0, options: .CurveEaseIn, animations: {

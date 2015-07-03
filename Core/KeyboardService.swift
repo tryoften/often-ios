@@ -131,6 +131,15 @@ class KeyboardService: Service {
         var index = 0
         var keyboardCount = keyboardIds.count
         var keyboardList = [Keyboard]()
+        var callback: () -> () = {
+            self.delegate?.serviceDataDidLoad(self)
+            completion(self.keyboards)
+        }
+        
+        if keyboardIds.isEmpty {
+            callback()
+            return
+        }
 
         for keyboardId in keyboardIds {
             self.processKeyboardData(keyboardId, completion: { (keyboard, success) in
@@ -146,10 +155,7 @@ class KeyboardService: Service {
                         self.realm.add(keyboardList, update: true)
                     }
 
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.delegate?.serviceDataDidLoad(self)
-                        completion(self.keyboards)
-                    })
+                    callback()
                 }
             })
         }
@@ -167,6 +173,9 @@ class KeyboardService: Service {
                 self.fetchDataForKeyboardIds(keyboardsData.keys.array, completion: { keyboards in
                     completion(true)
                 })
+            } else {
+                // no keyboards
+                completion(true)
             }
         }) { err in
             completion(false)
