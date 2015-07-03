@@ -76,7 +76,7 @@ class StandardKeyboardViewController: UIViewController {
         button.frame = CGRectMake(0, 0, 20, 20)
         button.setTitle(title, forState: .Normal)
         button.sizeToFit()
-        button.titleLabel?.font = UIFont(name: "Lato-Regular", size: 18)
+        button.titleLabel?.font = UIFont(name: "OpenSans", size: 18)
         button.setTranslatesAutoresizingMaskIntoConstraints(false)
         button.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
         button.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)

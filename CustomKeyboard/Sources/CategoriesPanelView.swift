@@ -73,7 +73,7 @@ class CategoriesPanelView: UIView {
         currentCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
         currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         currentCategoryLabel.userInteractionEnabled = true
-        currentCategoryLabel.font = UIFont(name: "Lato-Regular", size: 19)
+        currentCategoryLabel.font = UIFont(name: "OpenSans", size: 19)
         
         selectedBgView = UIView(frame: CGRectZero)
         selectedBgView.backgroundColor = SectionPickerViewCellHighlightedBackgroundColor

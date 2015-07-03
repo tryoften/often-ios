@@ -16,7 +16,7 @@ class MessageBarView: UIView {
     override init(frame: CGRect) {
         
         messageLabel = UILabel()
-        messageLabel.font = UIFont(name: "Lato-Regular", size: 12)
+        messageLabel.font = UIFont(name: "OpenSans", size: 12)
         messageLabel.text = "For the latest content, please allow Full Access!"
         
         closeButton = UIButton()

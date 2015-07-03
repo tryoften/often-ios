@@ -40,12 +40,12 @@ class UserProfileHeaderView: UICollectionReusableView {
 
         nameLabel = UILabel()
         nameLabel.textAlignment = .Center
-        nameLabel.font = UIFont(name: "Lato-Regular", size: 14)
+        nameLabel.font = UIFont(name: "OpenSans", size: 14)
         nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         keyboardCountLabel = UILabel()
         keyboardCountLabel.textAlignment = .Center
-        keyboardCountLabel.font = UIFont(name: "Lato-Regular", size: 10)
+        keyboardCountLabel.font = UIFont(name: "OpenSans", size: 10)
         keyboardCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         settingsButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton

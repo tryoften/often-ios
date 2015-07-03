@@ -37,7 +37,7 @@ class SignUpFormTableViewCell: UITableViewCell {
         
         textField = UITextField()
         textField.setTranslatesAutoresizingMaskIntoConstraints(false)
-        textField.font = UIFont(name: "Lato-Regular", size: 16)
+        textField.font = UIFont(name: "OpenSans", size: 16)
         contentView.addSubview(textField)
         
         backgroundColor = UIColor.whiteColor()

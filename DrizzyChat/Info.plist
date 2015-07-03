@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3277</string>
+	<string>3283</string>
 	<key>FacebookAppID</key>
 	<string>874453295910366</string>
 	<key>FacebookDisplayName</key>
@@ -42,11 +42,8 @@
 		<string>ss-glyphish-filled.ttf</string>
 		<string>ss-glyphish-outlined.ttf</string>
 		<string>ss-social-regular.ttf</string>
-		<string>Lato-Regular.ttf</string>
 		<string>ss-social-circle.ttf</string>
 		<string>font_icons8.ttf</string>
-		<string>Lato-Light.ttf</string>
-		<string>Lato-Black.ttf</string>
 		<string>OpenSans-ExtraBold.ttf</string>
 		<string>OpenSans-Bold.ttf</string>
 		<string>OpenSans-Semibold.ttf</string>

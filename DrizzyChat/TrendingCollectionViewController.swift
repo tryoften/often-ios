@@ -45,7 +45,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         // Register cell classes
         if let collectionView = collectionView {
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.backgroundColor = UIColor.blackColor()
+            collectionView.backgroundColor = UIColor.whiteColor()
             collectionView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 50.0, 0.0)
             collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
             collectionView.registerClass(TrendingHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")

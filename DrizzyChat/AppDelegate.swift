@@ -38,14 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var frame = screen.bounds
         
         window = UIWindow(frame: frame)
-        
-        var userNotificationTypes = UIUserNotificationType.Alert |
-            UIUserNotificationType.Badge |
-            UIUserNotificationType.Sound
-        var settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
-        
-        application.registerUserNotificationSettings(settings)
-        application.registerForRemoteNotifications()
 
         if sessionManager.isUserLoggedIn() {
             mainController = TabBarController(sessionManager: sessionManager)
