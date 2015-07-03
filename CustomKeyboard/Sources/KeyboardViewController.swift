@@ -55,18 +55,17 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
+        lyricPicker = LyricPickerTableViewController()
+        lyricPicker!.delegate = self
+        lyricPicker!.viewModel = lyricPickerViewModel
+        lyricPicker!.keyboardViewController = self
+        lyricPicker!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         if !viewModel.hasSeenTooltip {
             toolTipViewController = ToolTipViewController(viewModel: viewModel)
             toolTipViewController?.closeButtonDelegate = self
             toolTipViewController!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
-            
-        } else {
-            lyricPicker = LyricPickerTableViewController()
-            lyricPicker!.delegate = self
-            lyricPicker!.viewModel = lyricPickerViewModel
-            lyricPicker!.keyboardViewController = self
-            lyricPicker!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         }
         
         seperatorView = UIView(frame: CGRectZero)
@@ -81,10 +80,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         sectionPickerView.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         sectionPickerView.switchArtistButton.addTarget(self, action: "didTapSwitchArtistButton", forControlEvents: .TouchUpInside)
     
+        view.addSubview(lyricPicker!.view)
+        
         if !viewModel.hasSeenTooltip {
             view.addSubview(toolTipViewController!.view)
-        } else {
-            view.addSubview(lyricPicker!.view)
         }
         
         view.addSubview(sectionPickerView!)
@@ -166,33 +165,27 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         Depending on whether or not the user has seen the tool tips
     */
     func setupLayout() {
+        if let viewController = self.lyricPicker?.view {
+            var constraints: [NSLayoutConstraint] = [
+                
+                seperatorView.al_height == 1.0,
+                seperatorView.al_width == view.al_width,
+                seperatorView.al_top == view.al_top,
+                seperatorView.al_left == view.al_left,
+                
+                // Lyric Picker
+                viewController.al_top == view.al_top,
+                viewController.al_left == view.al_left,
+                viewController.al_right == view.al_right,
+                viewController.al_bottom == view.al_bottom
+            ]
+            view.addConstraints(constraints)
+        }
+
         if !viewModel.hasSeenTooltip {
             if let viewController = self.toolTipViewController?.view {
                 var constraints: [NSLayoutConstraint] = [
-                    
-                    seperatorView.al_height == 1.0,
-                    seperatorView.al_width == view.al_width,
-                    seperatorView.al_top == view.al_top,
-                    seperatorView.al_left == view.al_left,
-                    
                     // Tool Tips
-                    viewController.al_top == view.al_top,
-                    viewController.al_left == view.al_left,
-                    viewController.al_right == view.al_right,
-                    viewController.al_bottom == view.al_bottom
-                ]
-                view.addConstraints(constraints)
-            }
-        } else {
-            if let viewController = self.lyricPicker?.view {
-                var constraints: [NSLayoutConstraint] = [
-                    
-                    seperatorView.al_height == 1.0,
-                    seperatorView.al_width == view.al_width,
-                    seperatorView.al_top == view.al_top,
-                    seperatorView.al_left == view.al_left,
-                    
-                    // Lyric Picker
                     viewController.al_top == view.al_top,
                     viewController.al_left == view.al_left,
                     viewController.al_right == view.al_right,
@@ -292,32 +285,16 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
             }
         }
     }
-    
-    func deleteLyricFromDocument(lyric: Lyric) {
-        let proxy = textDocumentProxy as! UITextDocumentProxy
-        proxy.adjustTextPositionByCharacterOffset(count(proxy.documentContextAfterInput.utf16))
-        
-        var range = proxy.documentContextBeforeInput.rangeOfString(lyric.text)
-        
-        if range != nil {
-            
-        }
-    }
-    
+
     func clearInput() {
         let proxy = textDocumentProxy as! UITextDocumentProxy
-
+        
+        //move cursor to end of text
         if let afterInputText = proxy.documentContextAfterInput {
             proxy.adjustTextPositionByCharacterOffset(count(afterInputText.utf16))
         }
         
         if let beforeInputText = lastInsertedString {
-            for var i = 0, len = count(beforeInputText.utf16); i < len; i++ {
-                proxy.deleteBackward()
-            }
-        }
-
-        if let beforeInputText = proxy.documentContextBeforeInput {
             for var i = 0, len = count(beforeInputText.utf16); i < len; i++ {
                 proxy.deleteBackward()
             }
@@ -329,28 +306,29 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var text = ""
         var optionKeys = [String]()
         
-        if let options = selectedOptions {
+        if var options = selectedOptions {
             
             if (options.indexForKey(.Lyric) != nil) {
-                text = lyric.text + "\n"
+                text = lyric.text
+                options.removeValueForKey(.Lyric)
+            }
+            
+            if (!text.isEmpty && !options.isEmpty) {
+                text += "\n"
             }
             
             for (option, url) in options {
                 optionKeys.append(option.description)
-                if option == .Lyric {
-                    continue
+                if (!text.isEmpty) {
+                    text += "\n"
                 }
-                text = text + "\n" + shareStringForOption(option, url: url)
+                text = shareStringForOption(option, url: url)
             }
         } else {
             text = lyric.text
         }
         
-        SEGAnalytics.sharedAnalytics().track("Lyric_Inserted", properties: [
-            "lyric_id": lyric.id,
-            "lyric_text": lyric.text,
-            "share_options": optionKeys
-        ])
+        viewModel.logLyricInsertedEvent(lyric)
         
         clearInput()
         proxy.insertText(text)
@@ -409,6 +387,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL]) {
+        clearInput()
         insertLyric(shareViewController.lyric!, selectedOptions:options)
     }
     
@@ -443,8 +422,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     func toolTipCloseButtonDidTap() {
         println("Close Button Tapped")
         viewModel.hasSeenTooltip = true
-        toolTipViewController!.view.removeFromSuperview()
-        viewDidLoad()
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.toolTipViewController!.view.alpha = 0.0
+        }, completion: { done in
+            self.toolTipViewController!.view.removeFromSuperview()
+        })
+        
+        
     }
 }
 

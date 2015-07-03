@@ -173,10 +173,6 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
             let indexPath = collectionView?.indexPathForCell(cell),
             let keyboard = dataSource?.artistPickerItemAtIndex(self, index: indexPath.row) {
                 self.delegate?.artistPickerCollectionViewControllerDidDeleteKeyboard?(self, keyboard: keyboard, index: indexPath.row)
-                
-                if self.isDeletionModeOn {
-                    self.endDeleteMode(indexPath: indexPath)
-                }
         }
     }
     

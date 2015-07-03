@@ -983,7 +983,7 @@
 			children = (
 				813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */,
 				81592FA91B0FB7B00092EA8F /* View Layouts */,
-				81B6D58D1A95B07B0089767B /* VIew Models */,
+				81B6D58D1A95B07B0089767B /* View Models */,
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
 				8180E67D1A147F7D007FA1CF /* Views */,
 				8180E6461A1477F2007FA1CF /* Resources */,
@@ -1086,13 +1086,13 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		81B6D58D1A95B07B0089767B /* VIew Models */ = {
+		81B6D58D1A95B07B0089767B /* View Models */ = {
 			isa = PBXGroup;
 			children = (
 				81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */,
 				817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */,
 			);
-			name = "VIew Models";
+			name = "View Models";
 			sourceTree = "<group>";
 		};
 		81D4BF151B38F6DA006430AB /* PKHUD */ = {
