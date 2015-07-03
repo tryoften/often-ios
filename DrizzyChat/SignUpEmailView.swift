@@ -59,8 +59,23 @@ class SignUpEmailView: UIView {
     }
     
     func setupLayout() {
+        let device = UIDevice.currentDevice()
+        let subtitleTopConstraintValue: CGFloat
+        let titleTopConstraintValue: CGFloat
+        
+        if device.modelName == "iPhone 6 Plus" {
+            subtitleTopConstraintValue = 150.0
+            titleTopConstraintValue = 135
+        } else if device.modelName.hasPrefix("iPhone 5") { // iPhone 5 & 5s
+            subtitleTopConstraintValue = 70.0
+            titleTopConstraintValue = 70
+        } else {
+            subtitleTopConstraintValue = 80
+            titleTopConstraintValue = 135
+        }
+        
         addConstraints([
-            titleLabel.al_top == al_top + 135,
+            titleLabel.al_top == al_top + titleTopConstraintValue,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_centerX == al_centerX,
@@ -75,7 +90,7 @@ class SignUpEmailView: UIView {
             spacer.al_width == 40,
             spacer.al_centerX == al_centerX,
             
-            termsAndPrivacyView.al_top == spacer.al_bottom + 80,
+            termsAndPrivacyView.al_top == spacer.al_bottom + subtitleTopConstraintValue,
             termsAndPrivacyView.al_left == al_left + 32,
             termsAndPrivacyView.al_right == al_right - 32,
             ])

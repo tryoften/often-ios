@@ -103,6 +103,21 @@ class LoginView: UIView {
      }
     
     func setupLayout() {
+        let device = UIDevice.currentDevice()
+        let orTopConstraintValue: CGFloat
+        let orSpacerTopConstraintValue: CGFloat
+        
+        if device.modelName == "iPhone 6 Plus" {
+            orTopConstraintValue = 180
+            orSpacerTopConstraintValue = 200
+        } else if device.modelName.hasPrefix("iPhone 5") { // iPhone 5 & 5s
+            orTopConstraintValue = 50
+            orSpacerTopConstraintValue = 70
+        } else {
+            orTopConstraintValue = 140
+            orSpacerTopConstraintValue = 160
+        }
+        
         addConstraints([
             emailTxtField.al_top == al_top + 20,
             emailTxtField.al_right == al_right,
@@ -124,17 +139,17 @@ class LoginView: UIView {
             passwordSpacer.al_left == al_left - 20,
             passwordSpacer.al_height == 0.5,
             
-            orLabel.al_top == whiteBackground.al_bottom + 140,
+            orLabel.al_top == whiteBackground.al_bottom + orTopConstraintValue,
             orLabel.al_width == 40,
             orLabel.al_centerX == al_centerX,
             orLabel.al_height == 40,
 
-            orSpacerOne.al_top == whiteBackground.al_bottom + 160,
+            orSpacerOne.al_top == whiteBackground.al_bottom + orSpacerTopConstraintValue,
             orSpacerOne.al_right == orLabel.al_left - 20,
             orSpacerOne.al_left == al_left + 50,
             orSpacerOne.al_height == 1,
             
-            orSpacerTwo.al_top == whiteBackground.al_bottom + 160,
+            orSpacerTwo.al_top == whiteBackground.al_bottom + orSpacerTopConstraintValue,
             orSpacerTwo.al_right == al_right - 50,
             orSpacerTwo.al_left == orLabel.al_right,
             orSpacerTwo.al_height == 1,
