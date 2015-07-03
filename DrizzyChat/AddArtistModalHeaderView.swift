@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddArtistModalHeaderView: UICollectionReusableView {
+class AddArtistModalHeaderView: UICollectionReusableView, AddArtistModalHeaderDelegate {
     var screenWidth: CGFloat
     var artistImage: UIImageView
     var coverPhoto: UIImageView
@@ -102,6 +102,12 @@ class AddArtistModalHeaderView: UICollectionReusableView {
         println("Add Artist Tapped")
     }
     
+    func currentArtistDidLoad(artist: Artist) {
+        artistNameLabel.text = artist.name
+        artistImage.setImageWithURL(NSURL(string: artist.imageURLLarge))
+        coverPhoto.image = UIImage(named: "frank")!.blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
+    }
+    
     func setupLayout() {
         addConstraints([
             topLabel.al_top == al_top + 10,
@@ -135,4 +141,8 @@ class AddArtistModalHeaderView: UICollectionReusableView {
 
 protocol CloseButtonDelegate {
     func closeTapped()
+}
+
+protocol AddArtistModalHeaderDelegate {
+    func currentArtistDidLoad(artist: Artist)
 }

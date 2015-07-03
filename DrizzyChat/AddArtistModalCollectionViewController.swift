@@ -15,8 +15,10 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
     var headerView: AddArtistModalHeaderView?
     var sectionHeaderView: BrowseSectionHeaderView?
     var currentArtist: Artist?
+    var artistDelegate: AddArtistModalHeaderDelegate?
     
-    override init(collectionViewLayout layout: UICollectionViewLayout) {
+    init(collectionViewLayout layout: UICollectionViewLayout, artist: Artist) {
+        currentArtist = artist
         super.init(collectionViewLayout: layout)
     }
 
@@ -73,8 +75,8 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! AddArtistModalHeaderView
             
             headerView = cell
-            // set the artist header here 
-            headerView?.coverPhoto.image = UIImage(named: "frank")!.blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
+            artistDelegate = headerView
+            artistDelegate?.currentArtistDidLoad(currentArtist!)
             
             return cell
             
@@ -92,4 +94,6 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0.0 as CGFloat
     }
+    
+    
 }

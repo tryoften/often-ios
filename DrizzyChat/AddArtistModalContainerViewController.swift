@@ -16,12 +16,13 @@ class AddArtistModalContainerViewController: UIViewController {
     var currentArtist: Artist? // set before presentation
     var addArtistModal: AddArtistModalCollectionViewController?
     
-    var lastLocation: CGPoint! // pan gesture relativity
-    var originalPoint: CGPoint! // snap back
-    var snap: UISnapBehavior!
-    var animator: UIDynamicAnimator!
+    var lastLocation: CGPoint? // pan gesture relativity
+    var originalPoint: CGPoint? // snap back
+    var snap: UISnapBehavior?
+    var animator: UIDynamicAnimator?
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    init(artist: Artist) {
+        currentArtist = artist
         
         mainView = UIView(frame: CGRectMake(15, 15, screenWidth - 30, screenHeight - 120))
         mainView.backgroundColor = UIColor.clearColor()
@@ -35,21 +36,21 @@ class AddArtistModalContainerViewController: UIViewController {
         closeButton.titleLabel?.font = UIFont(name: "OpenSans-Bold", size: 15.0)
         closeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        super.init(nibName: nil, bundle: nil)
         
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         
         closeButton.addTarget(self, action: "closeTapped", forControlEvents: UIControlEvents.TouchUpInside)
         
-        addArtistModal = AddArtistModalCollectionViewController(collectionViewLayout: provideCollectionFlowLayout())
+        addArtistModal = AddArtistModalCollectionViewController(collectionViewLayout: provideCollectionFlowLayout(), artist: currentArtist!)
+        
+        mainView.addSubview(addArtistModal!.view)
+        addArtistModal?.view.layer.cornerRadius = 5.0
+        addArtistModal?.view.frame = mainView.bounds
         
         var panRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "panHandler:")
         animator = UIDynamicAnimator(referenceView: view)
         mainView.addGestureRecognizer(panRecognizer)
-        
-        mainView.addSubview(addArtistModal!.view)
-        addArtistModal!.view.layer.cornerRadius = 5.0
-        addArtistModal!.view.frame = mainView.bounds
         
         view.addSubview(closeButton)
         view.addSubview(mainView)
@@ -75,6 +76,7 @@ class AddArtistModalContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addArtistModal?.currentArtist = currentArtist
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,10 +85,16 @@ class AddArtistModalContainerViewController: UIViewController {
     }
     
     func closeTapped() {
-        UIView.animateWithDuration(1.2, animations: {
+        UIView.animateWithDuration(0.5, animations: {
+            let centerX = self.closeButton.center.x
+            self.closeButton.center = CGPointMake(centerX, 750)
+        })
+
+        
+        UIView.animateWithDuration(0.2, animations: {
             self.view.alpha = 0
         })
-        
+    
         delay(2.0, {
             self.dismissViewControllerAnimated(false, completion: nil)
         })
@@ -110,24 +118,32 @@ class AddArtistModalContainerViewController: UIViewController {
             self.lastLocation = mainView.center
         }
         
-        if (mainView.center.x < 15 || self.mainView.center.x > 275) {
-            
+        if (mainView.center.x < 15) {
+            UIView.animateWithDuration(0.2, animations: {
+                self.mainView.transform = CGAffineTransformMakeRotation((15.0 * CGFloat(M_PI)) / 180.0)
+            })
+        }
+        
+        if self.mainView.center.x > UIScreen.mainScreen().bounds.width + 20 {
+            UIView.animateWithDuration(0.2, animations: {
+                self.animator?.removeBehavior(self.snap)
+                self.mainView.transform = CGAffineTransformMakeRotation((350.0 * CGFloat(M_PI)) / 180.0)
+            })
         }
         
         
-        
         if (snap != nil) {
-            animator.removeBehavior(snap)
+            animator?.removeBehavior(snap)
         }
         
         var translation: CGPoint = sender.translationInView(self.view)
         
         if(sender.state == UIGestureRecognizerState.Ended){
             snap = UISnapBehavior(item: mainView, snapToPoint: center)
-            snap.damping = 1.0
-            animator.addBehavior(snap)
+            snap?.damping = 1.0
+            animator?.addBehavior(snap)
         }
-        mainView.center = CGPointMake(self.lastLocation.x + translation.x, self.lastLocation.y)
+        mainView.center = CGPointMake(self.lastLocation!.x + translation.x, self.lastLocation!.y)
         
     }
 }

@@ -64,6 +64,7 @@
 		5F50FC2DA9F65D8AF03CAD67 /* libPods-CustomKeyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */; };
 		690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */; };
 		691569411B44CE55006E13BC /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691569401B44CE55006E13BC /* SettingsTableViewCell.swift */; };
+		6915694E1B45D469006E13BC /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6915694D1B45D469006E13BC /* SettingsWebViewController.swift */; };
 		6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */; };
 		6929EB6E1B3750B600D1BD1C /* AddArtistModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */; };
 		696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */; };
@@ -386,6 +387,7 @@
 		3BFBB8C21B44BF3D008706C2 /* KeyboardWalkthroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardWalkthroughView.swift; path = ../CustomKeyboard/KeyboardWalkthroughView.swift; sourceTree = "<group>"; };
 		690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewController.swift; sourceTree = "<group>"; };
 		691569401B44CE55006E13BC /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		6915694D1B45D469006E13BC /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
 		6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalCollectionViewController.swift; sourceTree = "<group>"; };
 		6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalHeaderView.swift; sourceTree = "<group>"; };
 		696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -868,6 +870,7 @@
 				697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */,
 				69B8CBB51B3886EB00F0BB84 /* AddArtistModalContainerViewController.swift */,
 				6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */,
+				6915694D1B45D469006E13BC /* SettingsWebViewController.swift */,
 				81592F9C1B0FA5750092EA8F /* UserProfileViewController.swift */,
 				8111D5AA1B36184900B14EEE /* SettingsTableViewController.swift */,
 				8111D5AC1B361EE500B14EEE /* BaseNavigationController.swift */,
@@ -1564,6 +1567,7 @@
 				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
 				3BCAE3AF1B39D3A400DFF63F /* SignUpPreAddArtistsLoaderViewController.swift in Sources */,
 				81B19EC41B30DFB700D3575C /* FlexibleBoundsTextField.swift in Sources */,
+				6915694E1B45D469006E13BC /* SettingsWebViewController.swift in Sources */,
 				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				3B9AD7AA1B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift in Sources */,

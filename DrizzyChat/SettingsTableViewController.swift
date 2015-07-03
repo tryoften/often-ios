@@ -112,6 +112,8 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
                 self.view.window?.rootViewController = navigationController
             default:
                 println("cell tapped")
+                let vc = SettingsWebViewController(website: "https://www.google.com/?gws_rd=ssl")
+                presentViewController(vc, animated: true, completion: nil)
         }
     }
 

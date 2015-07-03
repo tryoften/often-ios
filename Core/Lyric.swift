@@ -18,6 +18,7 @@ class Lyric: Object {
     dynamic var track: Track?
     dynamic var arrow: String = ""
     dynamic var owner: String = ""
+    dynamic var ownerImageLarge: String = ""
     dynamic var score: Int = 0
     
     override static func primaryKey() -> String? {

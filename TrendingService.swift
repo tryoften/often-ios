@@ -42,6 +42,8 @@ class TrendingService: Service {
         :param: callback function for completion maybe -- but need 3?
     */
     func requestData() {
+        
+        /// get the artists for the trending view
         trendingRef.childByAppendingPath("artists")
             .queryOrderedByChild("score")
             .queryLimitedToLast(10)
@@ -81,6 +83,7 @@ class TrendingService: Service {
                 }
         })
         
+        /// get the lyrics for the trending view
         trendingRef.childByAppendingPath("lyrics")
             .queryOrderedByChild("score")
             .queryLimitedToLast(10)
@@ -111,6 +114,7 @@ class TrendingService: Service {
                             lyric.score = score
                             lyric.owner = owner
                             lyric.text = text
+                                
                             appendLyric(lyric)
                         }
                     }
@@ -118,21 +122,12 @@ class TrendingService: Service {
                     self.delegate?.lyricsDidUpdate(self.lyrics)
                 }
             })
-
+        
+        /// get the featured artists for the trending view
         trendingRef.observeEventType(.Value, withBlock: { snapshot in
             //println(snapshot.value)
             // snapshot of the trending branch
             if let trendingData = snapshot.value as? [String : AnyObject] {
-                // next retrieve the artist data and populate [artists]
-                if let artistsData = trendingData["artists"] as? [[String : String]] {
-                    for var i = 0; i < artistsData.count; i++ {
-                        var artist = Artist()
-                        artist.id = artistsData[i]["owner_id"]!
-                        artist.arrow = artistsData[i]["arrow"]!
-                        self.artists.append(artist)
-                    }
-                }
-                
                 // next retrieve the featured artist data and populate [featuredArtists]
                 if let featuredData = trendingData["featured_artists"] as? [[String : String]] {
                     for var i = 0; i < featuredData.count; i++ {
@@ -145,21 +140,6 @@ class TrendingService: Service {
                                 featuredArtist.imageURLLarge = imageLarge
                                 self.featuredArtists.append(featuredArtist)
                         }
-                    }
-                }
-                
-                // retrieve the lyrics
-                if let lyricsData = trendingData["lyrics"] as? [[String : AnyObject]] {
-                    for var i = 0; i < lyricsData.count; i++ {
-                        var lyric = Lyric()
-                        lyric.text = lyricsData[i]["lyric_text"] as! String
-                        lyric.artistId = lyricsData[i]["owner_id"] as! String
-                        lyric.arrow = lyricsData[i]["arrow"] as! String
-                        lyric.owner = lyricsData[i]["owner_name"] as! String
-                        
-                        // need to put in lyrics and track count
-                        
-                        self.lyrics.append(lyric)
                     }
                 }
             }
