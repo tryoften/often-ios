@@ -29,6 +29,7 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
         tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         tableView.backgroundColor = UIColor.clearColor()
+        tableView.scrollEnabled = false
         
         navigationBar = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 50))
         navigationBar.backgroundColor = UIColor.blackColor()
@@ -39,7 +40,7 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
         navBarLabel.backgroundColor = UIColor.clearColor()
         navBarLabel.textAlignment = .Center
         navBarLabel.text = "SETTINGS"
-        navBarLabel.font = UIFont(name: "OpenSans", size: 14.0)
+        navBarLabel.font = UIFont(name: "OpenSans", size: 15.0)
         
         backButton = UIButton()
         backButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -89,7 +90,7 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 75.0
+        return 70.0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

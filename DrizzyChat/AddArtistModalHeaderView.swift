@@ -32,7 +32,7 @@ class AddArtistModalHeaderView: UICollectionReusableView, AddArtistModalHeaderDe
         artistImage = UIImageView()
         artistImage.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistImage.image = UIImage(named: "frank")
-        artistImage.contentMode = .ScaleAspectFill
+        artistImage.contentMode = .ScaleAspectFit
         
         artistNameLabel = UILabel()
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
