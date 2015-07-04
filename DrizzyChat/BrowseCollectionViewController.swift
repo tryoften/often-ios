@@ -143,15 +143,34 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     func headerDidSwipe(currentPage: Int) {
         if currentPage < viewModel.artists.count {
             viewModel.currentArtist = viewModel.artists[currentPage]
-            if let headerView = headerView,
-                let artist = viewModel.currentArtist {
-                headerView.artistNameLabel.text = artist.displayName
-                headerView.addArtistButton.selected = viewModel.userHasKeyboardForArtist(artist)
-                currentArtistCell = headerView.browsePicker.collectionView?.cellForItemAtIndexPath(NSIndexPath(forItem: currentPage, inSection: 0)) as? BrowseHeaderCollectionViewCell
-            }
+            updateHeaderView(currentPage, updateBackground: false)
         }
         
         collectionView?.reloadSections(NSIndexSet(index: 0))
+    }
+    
+    func updateHeaderView(currentPage: Int, updateBackground: Bool = true) {
+        if let headerView = headerView,
+            let artist = viewModel.currentArtist {
+                headerView.artistNameLabel.text = artist.displayName
+                headerView.addArtistButton.selected = viewModel.userHasKeyboardForArtist(artist)
+                
+                if updateBackground {
+                    var previousArtist: Artist? = nil
+                    var nextArtist: Artist? = nil
+                    
+                    if (currentPage - 1) >= 0 {
+                        previousArtist = viewModel.artists[currentPage - 1]
+                    }
+                    
+                    if (currentPage + 1) < viewModel.artists.count {
+                        nextArtist = viewModel.artists[currentPage + 1]
+                    }
+                    
+                    headerView.headerDidChange(artist, previousArtist: previousArtist, nextArtist: nextArtist)
+                }
+                currentArtistCell = headerView.browsePicker.collectionView?.cellForItemAtIndexPath(NSIndexPath(forItem: currentPage, inSection: 0)) as? BrowseHeaderCollectionViewCell
+        }
     }
     
     // MARK: BrowseHeaderViewDelegate
@@ -173,6 +192,11 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     func browseViewModelDidLoadData(browseViewModel: BrowseViewModel, artists: [Artist]) {
         collectionView?.reloadData()
         headerView?.browsePicker.collectionView?.reloadData()
+        if let currentPage = headerView?.browsePicker.getCurrentPage() {
+            updateHeaderView(currentPage, updateBackground: true)
+        } else {
+            updateHeaderView(0, updateBackground: true)
+        }
     }
     
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track]) {

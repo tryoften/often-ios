@@ -59,6 +59,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         tintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
         
         artistNameLabel = TOMSMorphingLabel()
+        artistNameLabel.animationDuration = 0.35
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistNameLabel.font = UIFont(name: "Oswald-Light", size: 24.0)
         artistNameLabel.textColor = UIColor.whiteColor()
@@ -107,7 +108,8 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
             
             UIView.animateWithDuration(0.3) {
                 if progressiveness <= 0.8 {
-                    self.browsePicker.view.alpha = progressiveness - 0.3
+                    var val = progressiveness - 0.3
+                    self.browsePicker.view.alpha = val
                 } else {
                     self.browsePicker.view.alpha = 1.0
                 }
@@ -126,8 +128,6 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     // MARK: HeaderUpdateDelegate
     
     func headerDidChange(artist: Artist, previousArtist: Artist?, nextArtist: Artist?) {
-        artistNameLabel.text = artist.displayName
-
         var URLs = [String: String]()
         
         if let previousArtist = previousArtist {
@@ -144,6 +144,10 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     }
     
     func headerDidPan(browseHeader: BrowseHeaderCollectionViewController, displayedArtist: Artist?, delta: CGFloat) {
+        if let artist = displayedArtist {
+            artistNameLabel.text = artist.displayName
+        }
+
         var absDelta = abs(delta)
         
         if delta < 0 {

@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
+
         
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
@@ -58,14 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             window.rootViewController = mainController
             window.makeKeyAndVisible()
-        }
-        
-        for family in UIFont.familyNames() {
-            println("\(family)")
-
-            for name in UIFont.fontNamesForFamilyName(family as! String) {
-                println("  \(name)")
-            }
         }
         
         return true

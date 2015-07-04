@@ -54,7 +54,7 @@ let LyricTableViewCellHighlightedBackgroundColor = UIColor.whiteColor()
 
 // The color of the background that incapsulates the text
 let LyricTableViewCellTextViewBackgroundColor = LightGrey
-let LyricTableViewCellMainTitleFont = UIFont(name: "OpenSans", size: 15)
+let LyricTableViewCellMainTitleFont = UIFont(name: "OpenSans", size: 14)
 let LyricTableViewCellHeight: CGFloat = 75
 let LyricTableViewCellInfoHeight: CGFloat = 50.0
 let LyricTableViewCellInfoBackgroundColor = MediumGrey

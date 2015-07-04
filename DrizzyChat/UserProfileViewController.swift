@@ -304,6 +304,18 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             
             })
         }
+        
+        var data: [String: AnyObject] = [
+            "keyboard_id": keyboard.id,
+            "owner_name": keyboard.artistName,
+            "index": keyboard.index
+        ]
+        
+        if let artist = keyboard.artist {
+            data["owner_id"] = artist.id
+        }
+
+        SEGAnalytics.sharedAnalytics().track("user-profile:card-tapped", properties: data)
     }
 
     func artistPickerCollectionViewControllerDidDeleteKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard, index: Int) {
