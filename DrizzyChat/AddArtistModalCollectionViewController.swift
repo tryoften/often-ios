@@ -10,11 +10,16 @@ import UIKit
 
 let AddArtistModalReuseIdentifier = "addArtistCell"
 
-class AddArtistModalCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class AddArtistModalCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout,
+    AddArtistModalHeaderViewDelegate {
     var viewModel: BrowseViewModel?
     var headerView: AddArtistModalHeaderView?
     var sectionHeaderView: BrowseSectionHeaderView?
-    var currentArtist: Artist?
+    var currentArtist: Artist? {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
@@ -29,7 +34,7 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
         
         if let collectionView = collectionView {
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.backgroundColor = UIColor.clearColor()
+            collectionView.backgroundColor = UIColor.whiteColor()
             collectionView.registerClass(AddArtistModalHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowseSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(BrowseCollectionViewCell.self, forCellWithReuseIdentifier: "addArtistCell")
@@ -48,18 +53,22 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
+        if let artist = currentArtist {
+            return artist.tracks.count
+        }
+        return 0
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("addArtistCell", forIndexPath: indexPath) as! BrowseCollectionViewCell
         
-        cell.backgroundColor = UIColor.whiteColor()
-        
-        cell.rankLabel.text = "\(indexPath.row + 1)"
-        cell.trackNameLabel.text = "Lost"
-        cell.lyricCountLabel.text = "23 Lyrics"
-        cell.disclosureIndicator.image = UIImage(named: "arrow")
+        if let artist = currentArtist {
+            let track = artist.tracks[indexPath.row]
+            
+            cell.rankLabel.text = "\(indexPath.row + 1)"
+            cell.trackNameLabel.text = track.name
+            cell.lyricCountLabel.text = "\(track.lyricCount) Lyrics"
+        }
         
         return cell
     }
@@ -69,13 +78,22 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
         if kind == CSStickyHeaderParallaxHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! AddArtistModalHeaderView
             
             headerView = cell
-            // set the artist header here 
-            headerView?.coverPhoto.image = UIImage(named: "frank")!.blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
+            headerView!.delegate = self
             
+            if let artist = currentArtist {
+                var userHasKeyboard = SessionManager.defaultManager.keyboardService?.keyboardWithId(artist.keyboardId) != nil
+                // set the artist header here
+                var imageURL = NSURL(string: artist.imageURLLarge)!
+                headerView?.coverPhoto.setImageWithAnimation(imageURL, blurRadius: 80, completion: nil)
+                headerView?.artistImage.setImageWithAnimation(imageURL, blurRadius: 0, completion: nil)
+                headerView?.artistNameLabel.text = artist.displayName
+                headerView?.addArtistButton.selected = userHasKeyboard
+            }
             return cell
             
         } else if kind == UICollectionElementKindSectionHeader {
@@ -91,5 +109,20 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0.0 as CGFloat
+    }
+    
+    func addArtistModalHeaderViewDidTapAddArtistButton(addArtistModalHeaderView: AddArtistModalHeaderView, selected: Bool) {
+        if let keyboardService = SessionManager.defaultManager.keyboardService,
+            let artist = currentArtist {
+                if selected {
+                    keyboardService.addKeyboardWithId(artist.keyboardId, completion: { (keyboard, success) in
+                        
+                    })
+                } else {
+                    keyboardService.deleteKeyboardWithId(artist.keyboardId, completion: { err in
+                        
+                    })
+                }
+        }
     }
 }

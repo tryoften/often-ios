@@ -14,7 +14,8 @@ class AddArtistModalContainerViewController: UIViewController {
     var screenHeight = UIScreen.mainScreen().bounds.height
     var closeButton: UIButton
     var currentArtist: Artist? // set before presentation
-    var addArtistModal: AddArtistModalCollectionViewController?
+    var addArtistModal: AddArtistModalCollectionViewController!
+    var sessionManager: SessionManager
     
     var lastLocation: CGPoint! // pan gesture relativity
     var originalPoint: CGPoint! // snap back
@@ -35,21 +36,23 @@ class AddArtistModalContainerViewController: UIViewController {
         closeButton.titleLabel?.font = UIFont(name: "OpenSans-Bold", size: 15.0)
         closeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         
+        sessionManager = SessionManager.defaultManager
+        
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        addArtistModal = AddArtistModalCollectionViewController(collectionViewLayout: provideCollectionFlowLayout())
         
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         
         closeButton.addTarget(self, action: "closeTapped", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        addArtistModal = AddArtistModalCollectionViewController(collectionViewLayout: provideCollectionFlowLayout())
-        
+
         var panRecognizer: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "panHandler:")
         animator = UIDynamicAnimator(referenceView: view)
         mainView.addGestureRecognizer(panRecognizer)
         
-        mainView.addSubview(addArtistModal!.view)
-        addArtistModal!.view.layer.cornerRadius = 5.0
-        addArtistModal!.view.frame = mainView.bounds
+        mainView.addSubview(addArtistModal.view)
+        addArtistModal.view.layer.cornerRadius = 5.0
+        addArtistModal.view.frame = mainView.bounds
         
         view.addSubview(closeButton)
         view.addSubview(mainView)
@@ -82,14 +85,24 @@ class AddArtistModalContainerViewController: UIViewController {
         
     }
     
+    func setArtistId(artistId: String) {
+        if let artistService = sessionManager.keyboardService?.artistService {
+            if let artist = artistService.getArtistForId(artistId) {
+                addArtistModal.currentArtist = artist
+            } else {
+                artistService.processArtistData(artistId, completion: { (artist, success) in
+                    self.addArtistModal.currentArtist = artist
+                })
+            }
+        }
+    }
+    
     func closeTapped() {
-        UIView.animateWithDuration(1.2, animations: {
+        UIView.animateWithDuration(0.3, animations: {
             self.view.alpha = 0
         })
         
-        delay(2.0, {
-            self.dismissViewControllerAnimated(false, completion: nil)
-        })
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func setupLayout() {

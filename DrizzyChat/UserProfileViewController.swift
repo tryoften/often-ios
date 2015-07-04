@@ -101,7 +101,8 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         }
         for i in 0..<viewModel.numberOfKeyboards {
             if let keyboard = viewModel.keyboardAtIndex(i) {
-                installation.addUniqueObject(keyboard.id, forKey: "channels")
+                let id = keyboard.id.stringByReplacingOccurrencesOfString("-", withString: "", options: .AnchoredSearch, range: nil)
+                installation.addUniqueObject(id, forKey: "channels")
             }
         }
         installation.saveInBackgroundWithBlock(nil)
@@ -235,7 +236,8 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             let userInfo = notification.userInfo,
             let index = userInfo["index"] as? Int,
             let keyboardId = userInfo["keyboardId"] as? String {
-                installation.addUniqueObject(keyboardId, forKey: "channels")
+                let id = keyboardId.stringByReplacingOccurrencesOfString("-", withString: "", options: .AnchoredSearch, range: nil)
+                installation.addUniqueObject(id, forKey: "channels")
                 installation.saveInBackgroundWithBlock(nil)
                 artistPicker.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
         }
@@ -246,7 +248,8 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             let userInfo = notification.userInfo,
             let index = userInfo["index"] as? Int,
             let keyboardId = userInfo["keyboardId"] as? String {
-            installation.removeObjectForKey(keyboardId)
+                let id = keyboardId.stringByReplacingOccurrencesOfString("-", withString: "", options: .AnchoredSearch, range: nil)
+            installation.removeObjectForKey(id)
             installation.saveInBackgroundWithBlock(nil)
             artistPicker.collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
         }

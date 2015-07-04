@@ -90,7 +90,6 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             cell.rankLabel.text = "\(indexPath.row + 1)"
             cell.trackNameLabel.text = track.name
             cell.lyricCountLabel.text = "\(track.lyricCount) lyrics"
-            cell.disclosureIndicator.image = UIImage(named: "arrow")
         }
         
         return cell
