@@ -32,20 +32,28 @@ class SessionManager: NSObject {
         "email"
     ]
     
-    init(rootFirebase: Firebase = Firebase(url: BaseURL)) {
-        firebase = rootFirebase
+    override init() {
         observers = NSMutableArray()
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         realm = Realm()
         isUserNew = true
         
+        var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
+        SEGAnalytics.setupWithConfiguration(configuration)
+        SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
+        Flurry.startSession(FlurryClientKey)
+        Firebase.defaultConfig().persistenceEnabled = true
+        println(Firebase.defaultConfig().debugDescription)
+        firebase = Firebase(url: BaseURL)
+
         super.init()
         
-        self.firebase.observeAuthEventWithBlock { authData in
+        firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
         }
         
         if let userId = userDefaults.stringForKey("userId") {
+            SEGAnalytics.sharedAnalytics().identify(userId)
             currentUser = realm.objectForPrimaryKey(User.self, key: userId)
         }
         

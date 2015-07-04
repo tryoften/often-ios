@@ -171,6 +171,7 @@ class KeyboardService: Service {
         keyboardsRef.observeEventType(.Value, withBlock: { snapshot in
             if let keyboardsData = snapshot.value as? [String: AnyObject] {
                 self.fetchDataForKeyboardIds(keyboardsData.keys.array, completion: { keyboards in
+                    self.delegate?.serviceDataDidLoad(self)
                     completion(true)
                 })
             } else {

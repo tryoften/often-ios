@@ -63,6 +63,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         if let userId = userDefaults.objectForKey("userId") as? String,
             let user = realm.objectForPrimaryKey(User.self, key: userId) {
             self.user = user
+            SEGAnalytics.sharedAnalytics().identify(userId)
             keyboardService = KeyboardService(user: user,
                 root: root, realm: realm)
         } else {
@@ -92,6 +93,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         } else {
             self.keyboardService.rootURL.authAnonymouslyWithCompletionBlock({ (err, data) -> Void in
                 println(data)
+                SEGAnalytics.sharedAnalytics().identify(data.uid)
             })
         }
     }
@@ -162,7 +164,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         ]
 
         eventsRef.childByAutoId().setValue(data)
-        SEGAnalytics.sharedAnalytics().track("Lyric_Inserted", properties: data)
+        SEGAnalytics.sharedAnalytics().track("keyboard:lyricSent", properties: data)
     }
 }
 

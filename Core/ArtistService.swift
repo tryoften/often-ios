@@ -94,16 +94,13 @@ class ArtistService: Service {
     :param: completion callback that gets called when data has loaded
     */
     func requestData(completion: ([Artist]) -> Void) {
-        fetchLocalData { success in
-            if success {
-                completion(self.artists)
-            }
-            
-        }
-        
         fetchRemoteData { success in
             if success {
                 completion(self.artists)
+            } else {
+                self.fetchLocalData { success in
+                    completion(self.artists)
+                }
             }
         }
     }

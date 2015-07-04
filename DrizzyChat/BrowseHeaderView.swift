@@ -251,9 +251,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
             artistNameLabel.al_width == al_width - 40,
             
             addArtistButton.al_top == artistNameLabel.al_bottom + 10,
-            addArtistButton.al_centerX == al_centerX,
-            addArtistButton.al_width == 70,
-            addArtistButton.al_height == 20
+            addArtistButton.al_centerX == al_centerX
         ])
     }
 }
