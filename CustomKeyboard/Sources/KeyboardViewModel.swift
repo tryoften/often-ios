@@ -59,6 +59,8 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         }
         
         RLMRealm.setDefaultRealmPath(realmPath)
+        var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
+        SEGAnalytics.setupWithConfiguration(configuration)
 
         if let userId = userDefaults.objectForKey("userId") as? String,
             let user = realm.objectForPrimaryKey(User.self, key: userId) {
@@ -73,6 +75,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             self.user = user
             keyboardService = KeyboardService(user: user, root: Firebase(url: BaseURL), realm: realm)
         }
+        SEGAnalytics.sharedAnalytics().screen("keyboard:loaded")
 
         eventsRef = root.childByAppendingPath("events/lyrics_inserted")
         userDefaults.setBool(true, forKey: "keyboardInstall")

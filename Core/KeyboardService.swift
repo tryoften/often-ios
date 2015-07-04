@@ -58,6 +58,7 @@ class KeyboardService: Service {
         processKeyboardData(keyboardId, completion: { (keyboard, success) in
 
             self.keyboardsRef.childByAppendingPath(keyboard.id).setValue(true)
+ 
             self.realm.write {
                 keyboard.user = self.user
                 self.keyboards.append(keyboard)
@@ -69,6 +70,7 @@ class KeyboardService: Service {
             }
             completion(keyboard, success)
             NSNotificationCenter.defaultCenter().postNotificationName("keyboard:added", object: self, userInfo: [
+                "keyboardId": keyboard.id,
                 "index": keyboard.index
             ])
         })
@@ -89,6 +91,7 @@ class KeyboardService: Service {
         if let keyboard = realm.objectForPrimaryKey(Keyboard.self, key: keyboardId),
             let artist = keyboard.artist {
             NSNotificationCenter.defaultCenter().postNotificationName("keyboard:removed", object: self, userInfo: [
+                "keyboardId": keyboard.id,
                 "index": keyboard.index
             ])
             realm.delete(keyboard)

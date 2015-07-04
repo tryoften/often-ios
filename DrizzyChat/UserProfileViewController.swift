@@ -19,9 +19,11 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     var sectionHeaderView: UserProfileSectionHeaderView?
     var artistPickerViewController: ArtistPickerCollectionViewController?
     var emptyState: UIImageView?
+    var installation: PFInstallation
     
     init(viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
+        installation = PFInstallation.currentInstallation()
         super.init(collectionViewLayout: UserProfileViewController.getLayout())
         self.viewModel.delegate = self
     }
@@ -39,7 +41,6 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        registerPushNotifications()
         HUDProgressView.show()
         
         navigationController?.navigationBarHidden = true
@@ -48,6 +49,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardServiceDidAddKeyboard:", name: "keyboard:added", object: nil)
         notificationCenter.addObserver(self, selector: "keyboardServiceDidRemoveKeyboard:", name: "keyboard:removed", object: nil)
+        notificationCenter.addObserver(self, selector: "subscribeKeyboardsAsChannels", name: "pushNotificationsEnabled", object: nil)
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = UIColor.whiteColor()
@@ -62,6 +64,10 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         }
         
         PKHUD.sharedHUD.hide(afterDelay: 3.0)
+        
+        delay(1.0) {
+            self.registerPushNotifications()
+        }
     }
     
     class func getLayout() -> UICollectionViewLayout {
@@ -87,6 +93,18 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         var application = UIApplication.sharedApplication()
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
+    }
+    
+    func subscribeKeyboardsAsChannels() {
+        if let currentUser = viewModel.sessionManager.currentUser {
+            installation.addUniqueObject(currentUser.id, forKey: "userId")
+        }
+        for i in 0..<viewModel.numberOfKeyboards {
+            if let keyboard = viewModel.keyboardAtIndex(i) {
+                installation.addUniqueObject(keyboard.id, forKey: "channels")
+            }
+        }
+        installation.saveInBackgroundWithBlock(nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -215,7 +233,10 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     func keyboardServiceDidAddKeyboard(notification: NSNotification) {
         if let artistPicker = keyboardManagerViewController,
             let userInfo = notification.userInfo,
-            let index = userInfo["index"] as? Int {
+            let index = userInfo["index"] as? Int,
+            let keyboardId = userInfo["keyboardId"] as? String {
+                installation.addUniqueObject(keyboardId, forKey: "channels")
+                installation.saveInBackgroundWithBlock(nil)
                 artistPicker.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
         }
     }
@@ -223,7 +244,10 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     func keyboardServiceDidRemoveKeyboard(notification: NSNotification) {
         if let artistPicker = keyboardManagerViewController,
             let userInfo = notification.userInfo,
-            let index = userInfo["index"] as? Int {
+            let index = userInfo["index"] as? Int,
+            let keyboardId = userInfo["keyboardId"] as? String {
+            installation.removeObjectForKey(keyboardId)
+            installation.saveInBackgroundWithBlock(nil)
             artistPicker.collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
         }
     }

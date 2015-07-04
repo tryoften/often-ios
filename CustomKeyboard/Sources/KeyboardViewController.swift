@@ -114,9 +114,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func bootstrap() {
-        var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
-        SEGAnalytics.setupWithConfiguration(configuration)
-        SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
 
         Flurry.startSession(FlurryClientKey)

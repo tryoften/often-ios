@@ -89,7 +89,7 @@ class TabBarController: UITabBarController {
     }
     
     deinit {
-        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -98,7 +98,6 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
     }
 
