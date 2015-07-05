@@ -353,7 +353,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     
     */
     func trendingCellDidTap(artistTappedIndex: Int) {
-        var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController(nibName: nil, bundle: nil)
+        var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController()
         addArtistModal.setArtistId(viewModel.trendingService.artists[artistTappedIndex].id)
         addArtistModal.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(addArtistModal, animated: true, completion: nil)

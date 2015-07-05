@@ -14,6 +14,7 @@ class SessionManager: NSObject {
     
     var firebase: Firebase
     var keyboardService: KeyboardService?
+    var artistService: ArtistService
     var userRef: Firebase?
     var currentUser: User?
     var userDefaults: NSUserDefaults
@@ -43,8 +44,9 @@ class SessionManager: NSObject {
         SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
         Flurry.startSession(FlurryClientKey)
         Firebase.defaultConfig().persistenceEnabled = true
-        println(Firebase.defaultConfig().debugDescription)
+
         firebase = Firebase(url: BaseURL)
+        artistService = ArtistService(root: firebase, realm: realm)
 
         super.init()
         
@@ -209,6 +211,17 @@ class SessionManager: NSObject {
         self.observers.removeObject(observer)
     }
     
+    func provideKeyboardService() -> KeyboardService? {
+        if let user = currentUser {
+            return provideKeyboardService(user)
+        }
+        return nil
+    }
+    
+    func provideArtistService() -> ArtistService? {
+        return nil
+    }
+    
     // MARK: Private methods
     
     private func provideKeyboardService(user: User) -> KeyboardService {
@@ -216,11 +229,13 @@ class SessionManager: NSObject {
             return keyboardService
         }
 
-        var keyboardService = KeyboardService(user: user, root: self.firebase, realm: self.realm)
+        var keyboardService = KeyboardService(user: user, root: self.firebase, realm: self.realm, artistService: artistService)
         self.keyboardService = keyboardService
 
         return keyboardService
     }
+    
+    
     
     private func processAuthData(authData: FAuthData?) {
         let persistUser: (User) -> Void = { user in
