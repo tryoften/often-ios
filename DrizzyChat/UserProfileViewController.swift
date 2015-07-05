@@ -32,16 +32,19 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     
     deinit {
         viewModel.delegate = nil
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.removeObserver(self)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBarHidden = true
 
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
+        registerPushNotifications()
         HUDProgressView.show()
         
+        navigationController?.navigationBarHidden = true
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
+
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: "keyboardServiceDidAddKeyboard:", name: "keyboard:added", object: nil)
         notificationCenter.addObserver(self, selector: "keyboardServiceDidRemoveKeyboard:", name: "keyboard:removed", object: nil)
@@ -72,6 +75,18 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         flowLayout.parallaxHeaderAlwaysOnTop = false
 
         return flowLayout
+    }
+    
+    func registerPushNotifications() {
+        var userNotificationTypes =
+        UIUserNotificationType.Alert |
+            UIUserNotificationType.Badge |
+            UIUserNotificationType.Sound
+        var settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        
+        var application = UIApplication.sharedApplication()
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
     }
     
     override func viewDidAppear(animated: Bool) {

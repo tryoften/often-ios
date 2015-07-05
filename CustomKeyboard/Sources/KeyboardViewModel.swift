@@ -74,7 +74,8 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         }
 
         eventsRef = root.childByAppendingPath("events/lyrics_inserted")
-        userDefaults.setValue(nil, forKey: "keyboardInstall")
+        userDefaults.setBool(true, forKey: "keyboardInstall")
+        userDefaults.synchronize()
 
         super.init()
         if isFullAccessEnabled {

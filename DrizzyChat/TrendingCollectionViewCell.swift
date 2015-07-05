@@ -66,8 +66,8 @@ class TrendingCollectionViewCell: UICollectionViewCell {
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#ffffff")
-        
+        backgroundColor = UIColor.whiteColor()
+
         addSubview(rankLabel)
         addSubview(trendIndicator)
         addSubview(nameLabel)

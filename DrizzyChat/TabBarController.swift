@@ -84,6 +84,8 @@ class TabBarController: UITabBarController {
             addKeyboardsVC,
             trendingVC
         ]
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayInstallKeyboard", name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
     deinit {
@@ -98,11 +100,20 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
-        
-        if sessionManager.userDefaults.objectForKey("keyboardInstall") != nil {
+    }
+
+    func displayInstallKeyboard() {
+        if !sessionManager.userDefaults.boolForKey("keyboardInstall") {
             tabBar.hidden = true
             installKeyboardButton.hidden = false
+        } else {
+            tabBar.hidden = false
+            installKeyboardButton.hidden = true
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        displayInstallKeyboard()
     }
 
     override func didReceiveMemoryWarning() {
