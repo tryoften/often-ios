@@ -40,6 +40,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
     
     var lyricDelegate: LyricTabDelegate?
     var artistDelegate: ArtistTabDelegate?
+    var featuredDelegate: FeaturedButtonDelegate?
     var featuredArtists: [Artist]
     
     override init(frame: CGRect) {
@@ -74,7 +75,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         topLabel?.setTranslatesAutoresizingMaskIntoConstraints(false)
         topLabel?.textAlignment = .Center
         topLabel?.font = UIFont(name: "OpenSans", size: 18.0)
-        topLabel?.text = "T R E N D I N G"
+        topLabel?.text = "TRENDING"
         topLabel?.textColor = UIColor.whiteColor()
         topLabel?.alpha = 0
         
@@ -153,24 +154,21 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
     
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes!) {
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
-            UIView.animateWithDuration(0.4, animations: {
-                if attributes.progressiveness <= 0.55 {
-                    self.topLabel?.alpha = 1
-                    self.nameLabel?.alpha = 0
-                    self.featuredButton?.alpha = 0
-                    
-                } else if attributes.progressiveness <= 0.8 {
-                    self.pageControl?.alpha = 0
-                    
-                } else if attributes.progressiveness > 1 {
-                    /// blur the scroll view's current image with the progressiveness
+            let progressiveness = attributes.progressiveness
+            UIView.animateWithDuration(0.3) {
+                if progressiveness <= 0.8 {
+                    var val = progressiveness - 0.1
+                    self.topLabel?.alpha = 1 - val
+                    self.nameLabel?.alpha = val
+                    self.featuredButton?.alpha = val
+                    self.pageControl?.alpha = val
                 } else {
                     self.topLabel?.alpha = 0
                     self.nameLabel?.alpha = 1
                     self.featuredButton?.alpha = 1
                     self.pageControl?.alpha = 1
                 }
-            })
+            }
         }
     }
     
@@ -297,8 +295,8 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
     }
     
     func featuredTapped(sender: UIButton) {
-        println("Featured Tapped")
-        
+        let page = Int(floor((scrollView!.contentOffset.x * 2.0 + screenWidth) / (screenWidth * 2.0)))
+        featuredDelegate?.featuredButtonDidTap(featuredArtists[page].id)
     }
     
     func artistsTapped(sender: UIButton) {
@@ -330,6 +328,10 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         
         setupPages()
     }
+}
+
+protocol FeaturedButtonDelegate {
+    func featuredButtonDidTap(artistId: String)
 }
 
 protocol LyricTabDelegate {

@@ -18,7 +18,7 @@ let reuseIdentifier = "Cell"
 
 */
 
-class TrendingCollectionViewController: UICollectionViewController, TrendingViewModelDelegate, UIScrollViewDelegate, LyricTabDelegate, ArtistTabDelegate {
+class TrendingCollectionViewController: UICollectionViewController, TrendingViewModelDelegate, UIScrollViewDelegate, LyricTabDelegate, ArtistTabDelegate, FeaturedButtonDelegate {
     var viewModel: TrendingViewModel
     var headerView: TrendingHeaderView?
     var sectionHeaderView: TrendingSectionHeaderView?
@@ -126,6 +126,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                 cell.backgroundColor = UIColor.whiteColor()
                 
                 cell.rankLabel.text = "\(indexPath.row + 1)"
+                cell.artistLabel.text = viewModel.lyricsList[indexPath.row].owner
                 
                 var screenWidth = UIScreen.mainScreen().bounds.width
                 
@@ -151,6 +152,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                 cell.backgroundColor = UIColor.whiteColor()
                 
                 cell.rankLabel.text = "\(indexPath.row + 1)"
+                cell.artistLabel.text = viewModel.lyricsList[indexPath.row].owner
                 
                 var screenWidth = UIScreen.mainScreen().bounds.width
                 
@@ -211,6 +213,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             headerView = cell
             headerView?.lyricDelegate = self
             headerView?.artistDelegate = self
+            headerView?.featuredDelegate = self
             trendingHeaderDelegate = headerView
             trendingHeaderDelegate?.featuredArtistsDidLoad(viewModel.trendingService.featuredArtists)
             
@@ -330,10 +333,23 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     */
     func trendingCellDidTap(artistTappedIndex: Int) {
         var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController()
-        addArtistModal.setArtistId(viewModel.trendingService.artists[artistTappedIndex].id)
+        
+        if toggle == true {
+            addArtistModal.setArtistId(viewModel.trendingService.artists[artistTappedIndex].id)
+        } else {
+            addArtistModal.setArtistId(viewModel.trendingService.lyrics[artistTappedIndex].artistId)
+        }
+    
         addArtistModal.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(addArtistModal, animated: true, completion: nil)
         
+    }
+    
+    func featuredButtonDidTap(artistId: String) {
+        var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController()
+        addArtistModal.setArtistId(artistId)
+        addArtistModal.modalPresentationStyle = UIModalPresentationStyle.Custom
+        self.presentViewController(addArtistModal, animated: true, completion: nil)
     }
     
     
