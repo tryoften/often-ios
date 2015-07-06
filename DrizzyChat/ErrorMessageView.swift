@@ -35,7 +35,7 @@ class ErrorMessageView: UIView {
         addConstraints([
             errorMessageLabel.al_top == al_top ,
             errorMessageLabel.al_left == al_left + 10,
-            errorMessageLabel.al_right == al_right,
+            errorMessageLabel.al_right == al_right - 10,
             errorMessageLabel.al_bottom == al_bottom
             ])
     }

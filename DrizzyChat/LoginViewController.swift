@@ -20,7 +20,7 @@ class LoginViewController : WalkthroughViewController {
         loginView.passwordTxtField.delegate = self
         loginView.facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
         
-        errorView.errorMessageLabel.text = "email login & password didn't match".uppercaseString
+        errorView.errorMessageLabel.text = "email login & password are incorrect".uppercaseString
         
         view.addSubview(loginView)
     }
