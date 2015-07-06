@@ -15,19 +15,12 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     var drawerOpened: Bool = false
     var startingPoint: CGPoint?
     var pickerView: CategoriesPanelView!
-    var currentCategory: Category? {
-        didSet {
-            if let category = currentCategory {
-                pickerView.currentCategoryLabel.text = category.name
-            }
-        }
-    }
-
+    var currentCategory: Category?
     var categories: [Category] = [] {
         didSet {
             if (categories.count > 1) {
                 currentCategory = categories[0]
-                pickerView.delegate?.didSelectSection(pickerView, category: currentCategory!)
+                pickerView.delegate?.didSelectSection(pickerView, category: currentCategory!, index: 0)
                 pickerView.categoriesCollectionView.reloadData()
                 pickerView.categoriesCollectionView.setNeedsLayout()
             }
@@ -113,7 +106,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             }
             SEGAnalytics.sharedAnalytics().track("keyboard:categorySelected", properties: data)
 
-            pickerView.delegate?.didSelectSection(pickerView, category: category)
+            pickerView.delegate?.didSelectSection(pickerView, category: category, index: indexPath.row)
         }
     }
     

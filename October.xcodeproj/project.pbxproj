@@ -106,6 +106,8 @@
 		8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
 		8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
 		812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
+		812E3EDB1B4A14EC00C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */; };
+		812E3EDC1B4A158900C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */; };
 		81331E2B1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
@@ -373,6 +375,7 @@
 		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Core/Track.swift; sourceTree = "<group>"; };
 		812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
+		812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricPickerTableSectionHeaderView.swift; path = DrizzyChat/LyricPickerTableSectionHeaderView.swift; sourceTree = SOURCE_ROOT; };
 		813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
 		813138881B13ADA3001AF9AC /* Drizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Drizzy.entitlements; path = ../Drizzy.entitlements; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Core/Category.swift; sourceTree = "<group>"; };
@@ -949,6 +952,7 @@
 				817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */,
 				81592FA41B0FA5BD0092EA8F /* PrimaryToolbarView.swift */,
 				81D43AFC1B43A15000453BBF /* MessageBarView.swift */,
+				812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1321,6 +1325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */,
+				812E3EDC1B4A158900C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */,
 				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
 				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
@@ -1471,6 +1476,7 @@
 				81B19EA41B30AD5B00D3575C /* Track.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
+				812E3EDB1B4A14EC00C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */,
 				81D43AFE1B43A15000453BBF /* MessageBarView.swift in Sources */,
 				81B19EA71B30AD5B00D3575C /* Owner.swift in Sources */,
 				81B19EA51B30AD5B00D3575C /* Artist.swift in Sources */,

@@ -38,6 +38,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         viewModel.delegate = self
+        
+        for family in UIFont.familyNames() {
+            println("\(family)")
+            
+            for name in UIFont.fontNamesForFamilyName(family as! String) {
+                println("  \(name)")
+            }
+        }
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -56,10 +64,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        lyricPicker = LyricPickerTableViewController()
+        lyricPicker = LyricPickerTableViewController(viewModel: lyricPickerViewModel)
         lyricPicker!.delegate = self
-        lyricPicker!.viewModel = lyricPickerViewModel
-        lyricPicker!.keyboardViewController = self
         lyricPicker!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         if !viewModel.hasSeenTooltip {
@@ -115,7 +121,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func bootstrap() {
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
-
         Flurry.startSession(FlurryClientKey)
 
         self.viewModel.requestData()
@@ -277,8 +282,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         if lyricInserted && !proxy.hasText() {
             if let lyric = currentlyInjectedLyric {
                 viewModel.logLyricInsertedEvent(lyric)
-            } else {
-                analytics.track("Lyric_Inserted")
             }
         }
     }
@@ -394,10 +397,26 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     func keyboardViewModelCurrentKeyboardDidChange(keyboardViewModel: KeyboardViewModel, keyboard: Keyboard) {
         categoryPicker.categories = keyboard.categoryList
+        lyricPickerViewModel.categories = keyboard.categoryList
+        categoryPicker.pickerView.currentCategoryLabel.text = keyboard.artistName
+
         artistPicker?.scrollToCellAtIndex(keyboard.index)
         if let imageURLSmall = keyboard.artist?.imageURLSmall {
             sectionPickerView.switchArtistButton.artistImageView.setImageWithURL(NSURL(string: imageURLSmall))
         }
+        
+        if let lyricPicker = self.lyricPicker {
+            lyricPicker.tableView.alpha = 0.0
+            lyricPicker.tableView.layer.transform = CATransform3DMakeScale(0.90, 0.90, 0.90)
+            
+            lyricPicker.tableView.reloadData()
+            
+            UIView.animateWithDuration(0.3, animations: {
+                lyricPicker.tableView.alpha = 1.0
+                lyricPicker.tableView.layer.transform = CATransform3DIdentity
+            })
+        }
+        
         var dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         

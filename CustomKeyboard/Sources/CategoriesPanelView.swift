@@ -223,5 +223,5 @@ class CategoriesPanelView: UIView {
 }
 
 protocol SectionPickerViewDelegate {
-    func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category)
+    func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category, index: Int)
 }
