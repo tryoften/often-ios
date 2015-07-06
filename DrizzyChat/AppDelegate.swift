@@ -27,11 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
-        
+
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
         FBAppEvents.activateApp()
-        
         Flurry.startSession(FlurryClientKey)
     
         var screen = UIScreen.mainScreen()
@@ -45,8 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let viewModel = SignUpWalkthroughViewModel(sessionManager: sessionManager)
             mainController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController(viewModel: viewModel))
         }
-        
-        
+
         if let window = self.window {
             if TestKeyboard {
                 var frame = window.frame
@@ -60,23 +58,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.makeKeyAndVisible()
         }
         
-        for family in UIFont.familyNames() {
-            println("\(family)")
-
-            for name in UIFont.fontNamesForFamilyName(family as! String) {
-                println("  \(name)")
-            }
-        }
-        
         return true
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         var currentInstallation = PFInstallation.currentInstallation()
         currentInstallation.setDeviceTokenFromData(deviceToken)
-        currentInstallation.addUniqueObject("Lyrics", forKey: "channels")
         currentInstallation.saveInBackgroundWithBlock({ saved in
-            
+            NSNotificationCenter.defaultCenter().postNotificationName("pushNotificationsEnabled", object: self)
         })
     }
     

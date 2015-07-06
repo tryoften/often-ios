@@ -56,9 +56,9 @@ class BrowseViewModel: NSObject {
     
     func numberOfTracks() -> Int {
         if let tracksList = currentArtist?.tracksList {
-            return tracksList.count + 10
+            return tracksList.count
         }
-        return 0 + 10
+        return 0
     }
     
     func trackAtIndex(index: Int) -> Track? {

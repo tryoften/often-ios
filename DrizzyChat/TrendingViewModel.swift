@@ -25,7 +25,7 @@ class TrendingViewModel: NSObject, SessionManagerObserver, ServiceDelegate {
     var artistTrendingList: [Artist]?
     var lyricTrendingList: [Lyric]?
     
-    init(sessionManager: SessionManager){
+    init(sessionManager: SessionManager) {
         trendingService = TrendingService(root: ref)
         artistsList = [Artist]()
         lyricsList = [Lyric]()

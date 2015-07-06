@@ -55,10 +55,10 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
     
     func toggleDrawer() {
-        SEGAnalytics.sharedAnalytics().track("Drawer_Toggled")
         if (!pickerView.drawerOpened) {
             pickerView.open()
-            Flurry.logEvent("Drawer_Toggled", timed: true)
+            Flurry.logEvent("keyboard:categoryPanelOpened", timed: true)
+            SEGAnalytics.sharedAnalytics().track("keyboard:categoryPanelOpened")
         } else {
             pickerView.close()
             var params = [String: String]()
@@ -66,7 +66,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             if let currentCategory = currentCategory {
                 params["current_category_id"] = currentCategory.id
             }
-            Flurry.endTimedEvent("Drawer_Toggled", withParameters: params)
+            Flurry.endTimedEvent("keyboard:categoryPanelClosed", withParameters: params)
         }
         pickerView.drawerOpened = !pickerView.drawerOpened
     }
@@ -103,10 +103,15 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             currentCategory = category
             toggleDrawer()
             
-            SEGAnalytics.sharedAnalytics().track("Category_Selected", properties: [
+            var data: [String: AnyObject] = [
                 "category_name": category.name,
                 "category_id": category.id
-                ])
+            ]
+            
+            if let keyboard = category.keyboard {
+                data["keyboard_id"] = keyboard.id
+            }
+            SEGAnalytics.sharedAnalytics().track("keyboard:categorySelected", properties: data)
 
             pickerView.delegate?.didSelectSection(pickerView, category: category)
         }

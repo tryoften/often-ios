@@ -69,7 +69,6 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(fromHexString: "#202020")
-        
         tableView.registerClass(SettingsTableViewCell.self, forCellReuseIdentifier: "settingsCell")
     }
 
@@ -102,7 +101,9 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
-            case 5:
+        case 0:
+            break
+        case 5:
                 var sessionManager = SessionManager.defaultManager
                 sessionManager.logout()
                 

@@ -41,6 +41,7 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
         super.init(collectionViewLayout: layout)
 
         scrollView.delegate = self
+        view.clipsToBounds = false
         view.addSubview(scrollView)
     }
     
@@ -83,11 +84,10 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
     
     func didScrollToPage(pageIndex: Int) {
         delegate?.headerDidSwipe(pageIndex)
-        
         if let artist = dataSource?.artistForIndexPath(self, index: pageIndex) {
             let previousArtist = dataSource?.artistForIndexPath(self, index: pageIndex - 1)
             let nextArtist = dataSource?.artistForIndexPath(self, index: pageIndex + 1)
-
+            
             headerDelegate?.headerDidChange(artist, previousArtist: previousArtist, nextArtist: nextArtist)
         }
     }

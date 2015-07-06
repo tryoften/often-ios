@@ -114,9 +114,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func bootstrap() {
-        var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
-        SEGAnalytics.setupWithConfiguration(configuration)
-        SEGAnalytics.sharedAnalytics().screen("Keyboard_Loaded")
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
 
         Flurry.startSession(FlurryClientKey)
@@ -133,11 +130,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func setupAppearance() {
         var textAttributes = [
-            NSFontAttributeName: UIFont(name: "Lato-Light", size: 15)!
+            NSFontAttributeName: UIFont(name: "OpenSans", size: 15)!
         ]
         UIBarButtonItem.appearance().setTitleTextAttributes(textAttributes, forState: .Normal)
         UITextField.appearance().tintColor = UIColor.blackColor()
-        UITextField.appearance().font = UIFont(name: "Lato-Light", size: 13)!
+        UITextField.appearance().font = UIFont(name: "OpenSans", size: 13)!
     }
     
     func isOpenAccessGranted() -> Bool {
@@ -232,6 +229,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                 self.sectionPickerView.frame = sectionPickerViewFrame
             },
             completion: nil)
+        SEGAnalytics.sharedAnalytics().track("keyboard:categoryPanelOpened")
     }
     
     func closePanel() {
@@ -245,6 +243,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                 self.layoutSectionPickerView()
             },
             completion: nil)
+        SEGAnalytics.sharedAnalytics().track("keyboard:categoryPanelClosed")
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -257,6 +256,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         let proxy = textDocumentProxy as! UITextDocumentProxy
         
         if !proxy.hasText() {
+            
             return
         }
         
@@ -276,12 +276,9 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         // When the lyric is flushed and sent to the proper context
         if lyricInserted && !proxy.hasText() {
             if let lyric = currentlyInjectedLyric {
-                analytics.track("Lyric_committed", properties: [
-                    "lyric_id": lyric.id,
-                    "lyric_text": lyric.text,
-                ])
+                viewModel.logLyricInsertedEvent(lyric)
             } else {
-                analytics.track("Lyric_committed")
+                analytics.track("Lyric_Inserted")
             }
         }
     }
@@ -327,8 +324,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         } else {
             text = lyric.text
         }
-        
-        viewModel.logLyricInsertedEvent(lyric)
         
         clearInput()
         proxy.insertText(text)
@@ -403,6 +398,20 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         if let imageURLSmall = keyboard.artist?.imageURLSmall {
             sectionPickerView.switchArtistButton.artistImageView.setImageWithURL(NSURL(string: imageURLSmall))
         }
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        
+        var data = [
+            "keyboard_id": keyboard.id,
+            "owner_name": keyboard.artistName,
+            "timestamp": dateFormatter.stringFromDate(NSDate.new())
+        ]
+        
+        if let artist = keyboard.artist {
+            data["owner_id"] = artist.id
+        }
+
+        SEGAnalytics.sharedAnalytics().track("keyboard:cardChanged", properties: data)
     }
     
     // MARK: ArtistPickerCollectionViewControllerDelegate
