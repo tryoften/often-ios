@@ -21,8 +21,7 @@ class MessageBarView: UIView {
         
         closeButton = UIButton()
         closeButton.setImage(UIImage(named: "close"), forState: .Normal)
-        
-        
+
         super.init(frame: frame)
         
         backgroundColor = UIColor(fromHexString: "#F9B341")

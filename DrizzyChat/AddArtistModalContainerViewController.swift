@@ -13,21 +13,16 @@ class AddArtistModalContainerViewController: UIViewController {
     var screenWidth = UIScreen.mainScreen().bounds.width
     var screenHeight = UIScreen.mainScreen().bounds.height
     var closeButton: UIButton
-    var currentArtist: Artist
-    var currentLyric: Lyric
-    var currentToggle: Bool
-    var addArtistModal: AddArtistModalCollectionViewController?
+    var currentArtist: Artist? // set before presentation
+    var addArtistModal: AddArtistModalCollectionViewController!
+    var sessionManager: SessionManager
     
     var lastLocation: CGPoint? // pan gesture relativity
     var originalPoint: CGPoint? // snap back
     var snap: UISnapBehavior?
     var animator: UIDynamicAnimator?
     
-    init(artist: Artist, lyric: Lyric, toggle: Bool) {
-        currentArtist = artist
-        currentLyric = lyric
-        currentToggle = toggle
-        
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         mainView = UIView(frame: CGRectMake(15, 15, screenWidth - 30, screenHeight - 120))
         mainView.backgroundColor = UIColor.clearColor()
         mainView.layer.cornerRadius = 5.0
@@ -39,14 +34,18 @@ class AddArtistModalContainerViewController: UIViewController {
         closeButton.setTitle("CLOSE", forState: UIControlState.Normal)
         closeButton.titleLabel?.font = UIFont(name: "OpenSans-Bold", size: 15.0)
         closeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+
+        sessionManager = SessionManager.defaultManager
         
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        addArtistModal = AddArtistModalCollectionViewController(collectionViewLayout: provideCollectionFlowLayout())
         
         view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         
         closeButton.addTarget(self, action: "closeTapped", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        addArtistModal = AddArtistModalCollectionViewController(collectionViewLayout: provideCollectionFlowLayout(), artist: currentArtist, lyric: currentLyric, toggle: currentToggle)
+
+        addArtistModal = AddArtistModalCollectionViewController(collectionViewLayout: provideCollectionFlowLayout())
         
         mainView.addSubview(addArtistModal!.view)
         addArtistModal?.view.layer.cornerRadius = 5.0
@@ -72,6 +71,10 @@ class AddArtistModalContainerViewController: UIViewController {
         flowLayout.disableStickyHeaders = false /// allow sticky header for dragging down the table view
         return flowLayout
     }
+    
+    required convenience init() {
+        self.init(nibName: nil, bundle: nil)
+    }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -88,18 +91,28 @@ class AddArtistModalContainerViewController: UIViewController {
         
     }
     
+    func setArtistId(artistId: String) {
+        let artistService = sessionManager.artistService
+        if let artist = artistService.getArtistForId(artistId) {
+            addArtistModal.currentArtist = artist
+        } else {
+            artistService.processArtistData(artistId, completion: { (artist, success) in
+                self.addArtistModal.currentArtist = artist
+            })
+        }
+    }
+    
     func closeTapped() {
         UIView.animateWithDuration(0.5, animations: {
             let centerX = self.closeButton.center.x
             self.closeButton.center = CGPointMake(centerX, 750)
         })
 
-        
         UIView.animateWithDuration(0.2, animations: {
             self.view.alpha = 0
         })
     
-        delay(2.0, {
+        delay(0.5, {
             self.dismissViewControllerAnimated(false, completion: nil)
         })
     }
@@ -112,6 +125,9 @@ class AddArtistModalContainerViewController: UIViewController {
         ])
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
     
     func panHandler(sender: UIPanGestureRecognizer) {
         

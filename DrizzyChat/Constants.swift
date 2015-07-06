@@ -54,7 +54,7 @@ let LyricTableViewCellHighlightedBackgroundColor = UIColor.whiteColor()
 
 // The color of the background that incapsulates the text
 let LyricTableViewCellTextViewBackgroundColor = LightGrey
-let LyricTableViewCellMainTitleFont = UIFont(name: "OpenSans", size: 15)
+let LyricTableViewCellMainTitleFont = UIFont(name: "OpenSans", size: 14)
 let LyricTableViewCellHeight: CGFloat = 75
 let LyricTableViewCellInfoHeight: CGFloat = 50.0
 let LyricTableViewCellInfoBackgroundColor = MediumGrey
@@ -79,7 +79,7 @@ let NextKeyboardButtonFont = UIFont(name: "font_icons8", size:16)
 
 let CategoriesCollectionViewBackgroundColor = BlackColor
 let CategoryCollectionViewCellBackgroundColor = UIColor(fromHexString: "#1c1c1c")
-let CategoryCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 18)
+let CategoryCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 16)
 let CategoryCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 10)
 let CategoryCollectionViewCellSubtitleTextColor = UIColor(fromHexString: "#aeb5b8")
 let CategoryCollectionViewCellReuseIdentifier = "CategoryCollectionViewCell"

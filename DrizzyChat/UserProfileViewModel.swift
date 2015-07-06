@@ -49,8 +49,10 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
     
     func keyboardAtIndex(index: Int) -> Keyboard? {
-        if let keyboard = sessionManager.keyboardService?.keyboards[index] {
-            return keyboard
+        if let keyboards = sessionManager.keyboardService?.keyboards {
+            if index < keyboards.count {
+                return keyboards[index]
+            }
         }
         return nil
     }

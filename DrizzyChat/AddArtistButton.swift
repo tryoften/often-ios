@@ -12,23 +12,31 @@ class AddArtistButton: UIButton {
     
     override var selected: Bool {
         didSet {
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDuration(0.3)
             if selected {
-                setTitle("ADDED", forState: .Normal)
-                backgroundColor = UIColor.whiteColor()
+                setTitle("REMOVE ARTIST", forState: .Normal)
+                setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                backgroundColor = UIColor.clearColor()
+                layer.borderColor = UIColor.whiteColor().CGColor
             } else {
                 setTitle("ADD ARTIST", forState: .Normal)
+                setTitleColor(UIColor.blackColor(), forState: .Normal)
                 backgroundColor = UIColor(fromHexString: "#F9B341")
+                layer.borderColor = backgroundColor?.CGColor
             }
             layoutIfNeeded()
+            UIView.commitAnimations()
         }
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
        
-        titleLabel?.font = UIFont(name: "OpenSans", size: 9.0)
-        setTitleColor(UIColor.blackColor(), forState: .Normal)
+        titleLabel?.font = UIFont(name: "OpenSans", size: 12.0)
+        contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        layer.borderWidth = 1
+
         selected = false
     }
 

@@ -27,11 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
-        
+
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
         FBAppEvents.activateApp()
-        
         Flurry.startSession(FlurryClientKey)
     
         var screen = UIScreen.mainScreen()
@@ -45,8 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let viewModel = SignUpWalkthroughViewModel(sessionManager: sessionManager)
             mainController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController(viewModel: viewModel))
         }
-        
-        
+
         if let window = self.window {
             if TestKeyboard {
                 var frame = window.frame
@@ -60,11 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.makeKeyAndVisible()
         }
         
-        for family in UIFont.familyNames() {
-            println("\(family)")
-
-            for name in UIFont.fontNamesForFamilyName(family as! String) {
-                println("  \(name)")
+        if let notificationPayload = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            // Create a pointer to the Photo object
+            if let artistId = notificationPayload["artistId"] as? String {
+                showAddArtistModalViewForArtistId(artistId)
             }
         }
         
@@ -74,9 +71,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         var currentInstallation = PFInstallation.currentInstallation()
         currentInstallation.setDeviceTokenFromData(deviceToken)
-        currentInstallation.addUniqueObject("Lyrics", forKey: "channels")
         currentInstallation.saveInBackgroundWithBlock({ saved in
-            
+            NSNotificationCenter.defaultCenter().postNotificationName("pushNotificationsEnabled", object: self)
         })
     }
     
@@ -86,6 +82,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         PFPush.handlePush(userInfo)
+        if let artistId = userInfo["artistId"] as? String {
+            showAddArtistModalViewForArtistId(artistId)
+        }
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
@@ -112,6 +111,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func showAddArtistModalViewForArtistId(artistId: String) {
+        let artistModalVC = AddArtistModalContainerViewController()
+        
+        artistModalVC.setArtistId(artistId)
+        artistModalVC.modalPresentationStyle = UIModalPresentationStyle.Custom
+        mainController.presentViewController(artistModalVC, animated: true, completion: nil)
     }
 }
 
