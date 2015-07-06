@@ -261,7 +261,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         let proxy = textDocumentProxy as! UITextDocumentProxy
         
         if !proxy.hasText() {
-            
             return
         }
         
@@ -306,10 +305,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var text = ""
         var optionKeys = [String]()
         
+        if proxy.hasText() {
+            text += ". "
+        }
+        
         if var options = selectedOptions {
             
             if (options.indexForKey(.Lyric) != nil) {
-                text = lyric.text
+                text += lyric.text
                 options.removeValueForKey(.Lyric)
             }
             
@@ -322,10 +325,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                 if (!text.isEmpty) {
                     text += "\n"
                 }
-                text = shareStringForOption(option, url: url)
+                text += shareStringForOption(option, url: url)
             }
         } else {
-            text = lyric.text
+            text += lyric.text
         }
         
         clearInput()

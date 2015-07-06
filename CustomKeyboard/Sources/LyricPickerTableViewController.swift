@@ -171,8 +171,21 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     func scrollToNearestRow() {
         var point = tableView.contentOffset
         point.y = point.y + LyricTableViewCellHeight / 2
-        var indexPath = tableView.indexPathForRowAtPoint(point)
-        tableView.scrollToRowAtIndexPath(indexPath!, atScrollPosition: .Top, animated: true)
+        
+        if let indexPath = tableView.indexPathForRowAtPoint(point) {
+            if isRowPresentInTableView(indexPath) {
+                tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            }
+        }
+    }
+    
+    func isRowPresentInTableView(indexPath: NSIndexPath) -> Bool {
+        if indexPath.section < tableView.numberOfSections() {
+            if indexPath.row < tableView.numberOfRowsInSection(indexPath.section) {
+                return true
+            }
+        }
+        return false
     }
     
     // MARK: SectionPickerViewDelegate
