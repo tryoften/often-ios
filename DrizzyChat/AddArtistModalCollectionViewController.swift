@@ -15,18 +15,11 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
     var viewModel: BrowseViewModel?
     var headerView: AddArtistModalHeaderView?
     var sectionHeaderView: BrowseSectionHeaderView?
+
     var currentArtist: Artist? {
         didSet {
             collectionView?.reloadData()
         }
-    }
-    
-    override init(collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(collectionViewLayout: layout)
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -110,7 +103,7 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0.0 as CGFloat
     }
-    
+
     func addArtistModalHeaderViewDidTapAddArtistButton(addArtistModalHeaderView: AddArtistModalHeaderView, selected: Bool) {
         if let keyboardService = SessionManager.defaultManager.keyboardService,
             let artist = currentArtist {

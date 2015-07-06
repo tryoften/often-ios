@@ -9,10 +9,10 @@
 import Foundation
 
 class SignUpPhoneNumberView: UIView {
-    var titleLabel: UILabel!
-    var phoneNumberTxtField: UITextField!
-    var spacer: UIView!
-    var subtitleLabel: UILabel!
+    var titleLabel: UILabel
+    var phoneNumberTxtField: UITextField
+    var spacer: UIView
+    var subtitleLabel: UILabel
     
     override init(frame: CGRect) {
         let titleString = "Welcome to October!"
@@ -46,7 +46,7 @@ class SignUpPhoneNumberView: UIView {
         subtitleLabel.textColor = SubtitleGreyColor
         subtitleLabel.numberOfLines = 0
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        subtitleLabel.text = "To make sure you’re really really real, we gotta text you a confirmation code fam"
+        subtitleLabel.text = "Leave your # to get updates on the latest news, lyrics & artists. We hate spam too, don’t worry fam :)"
         
         super.init(frame: frame)
         
@@ -64,8 +64,23 @@ class SignUpPhoneNumberView: UIView {
     }
     
     func setupLayout() {
+        let device = UIDevice.currentDevice()
+        let subtitleTopConstraintValue: CGFloat
+        let titleTopConstraintValue: CGFloat
+        
+        if device.modelName == "iPhone 6 Plus" {
+            subtitleTopConstraintValue = 150.0
+            titleTopConstraintValue = 135
+        } else if device.modelName.hasPrefix("iPhone 5") { // iPhone 5 & 5s
+            subtitleTopConstraintValue = 70.0
+            titleTopConstraintValue = 70
+        } else {
+            subtitleTopConstraintValue = 110
+            titleTopConstraintValue = 135
+        }
+        
         addConstraints([
-            titleLabel.al_top == al_top + 135,
+            titleLabel.al_top == al_top + titleTopConstraintValue,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_centerX == al_centerX,
@@ -80,7 +95,7 @@ class SignUpPhoneNumberView: UIView {
             spacer.al_width == 40,
             spacer.al_centerX == al_centerX,
             
-            subtitleLabel.al_top == spacer.al_bottom + 110,
+            subtitleLabel.al_top == spacer.al_bottom + subtitleTopConstraintValue,
             subtitleLabel.al_left == al_left + 32,
             subtitleLabel.al_right == al_right - 32,
             subtitleLabel.al_height == 80,
