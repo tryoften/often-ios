@@ -14,11 +14,16 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
     var viewModel: BrowseViewModel?
     var headerView: AddArtistModalHeaderView?
     var sectionHeaderView: BrowseSectionHeaderView?
-    var currentArtist: Artist?
+    var currentArtist: Artist
+    var currentLyric: Lyric
+    var currentToggle: Bool
     var artistDelegate: AddArtistModalHeaderDelegate?
     
-    init(collectionViewLayout layout: UICollectionViewLayout, artist: Artist) {
+    init(collectionViewLayout layout: UICollectionViewLayout, artist: Artist, lyric: Lyric, toggle: Bool) {
         currentArtist = artist
+        currentLyric = lyric
+        currentToggle = toggle
+        
         super.init(collectionViewLayout: layout)
     }
 
@@ -76,7 +81,7 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
             
             headerView = cell
             artistDelegate = headerView
-            artistDelegate?.currentArtistDidLoad(currentArtist!)
+            artistDelegate?.currentArtistDidLoad(currentArtist, lyric: currentLyric, toggle: currentToggle)
             
             return cell
             

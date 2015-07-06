@@ -13,7 +13,9 @@ class AddArtistModalContainerViewController: UIViewController {
     var screenWidth = UIScreen.mainScreen().bounds.width
     var screenHeight = UIScreen.mainScreen().bounds.height
     var closeButton: UIButton
-    var currentArtist: Artist? // set before presentation
+    var currentArtist: Artist
+    var currentLyric: Lyric
+    var currentToggle: Bool
     var addArtistModal: AddArtistModalCollectionViewController?
     
     var lastLocation: CGPoint? // pan gesture relativity
@@ -21,8 +23,10 @@ class AddArtistModalContainerViewController: UIViewController {
     var snap: UISnapBehavior?
     var animator: UIDynamicAnimator?
     
-    init(artist: Artist) {
+    init(artist: Artist, lyric: Lyric, toggle: Bool) {
         currentArtist = artist
+        currentLyric = lyric
+        currentToggle = toggle
         
         mainView = UIView(frame: CGRectMake(15, 15, screenWidth - 30, screenHeight - 120))
         mainView.backgroundColor = UIColor.clearColor()
@@ -42,7 +46,7 @@ class AddArtistModalContainerViewController: UIViewController {
         
         closeButton.addTarget(self, action: "closeTapped", forControlEvents: UIControlEvents.TouchUpInside)
         
-        addArtistModal = AddArtistModalCollectionViewController(collectionViewLayout: provideCollectionFlowLayout(), artist: currentArtist!)
+        addArtistModal = AddArtistModalCollectionViewController(collectionViewLayout: provideCollectionFlowLayout(), artist: currentArtist, lyric: currentLyric, toggle: currentToggle)
         
         mainView.addSubview(addArtistModal!.view)
         addArtistModal?.view.layer.cornerRadius = 5.0

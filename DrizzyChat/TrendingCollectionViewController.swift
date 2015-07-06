@@ -339,12 +339,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         Flurry.logEvent("Trending_Tap", withParameters: data)
         
         // Present the modal for the Artist that the user selected
-        var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController(artist: viewModel.trendingService.artists[artistTappedIndex])
-        if toggle == true {
-            addArtistModal.currentArtist = viewModel.trendingService.artists[artistTappedIndex]
-        } else {
-            addArtistModal.currentArtist = viewModel.trendingService.lyrics[artistTappedIndex]
-        }
+        var addArtistModal = AddArtistModalContainerViewController(artist: viewModel.trendingService.artists[artistTappedIndex], lyric: viewModel.trendingService.lyrics[artistTappedIndex], toggle: toggle)
         addArtistModal.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(addArtistModal, animated: true, completion: nil)
         
