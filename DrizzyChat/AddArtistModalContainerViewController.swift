@@ -71,6 +71,10 @@ class AddArtistModalContainerViewController: UIViewController {
         flowLayout.disableStickyHeaders = false /// allow sticky header for dragging down the table view
         return flowLayout
     }
+    
+    required convenience init() {
+        self.init(nibName: nil, bundle: nil)
+    }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -88,14 +92,13 @@ class AddArtistModalContainerViewController: UIViewController {
     }
     
     func setArtistId(artistId: String) {
-        if let artistService = sessionManager.keyboardService?.artistService {
-            if let artist = artistService.getArtistForId(artistId) {
-                addArtistModal.currentArtist = artist
-            } else {
-                artistService.processArtistData(artistId, completion: { (artist, success) in
-                    self.addArtistModal.currentArtist = artist
-                })
-            }
+        let artistService = sessionManager.artistService
+        if let artist = artistService.getArtistForId(artistId) {
+            addArtistModal.currentArtist = artist
+        } else {
+            artistService.processArtistData(artistId, completion: { (artist, success) in
+                self.addArtistModal.currentArtist = artist
+            })
         }
     }
     
@@ -122,6 +125,9 @@ class AddArtistModalContainerViewController: UIViewController {
         ])
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
     
     func panHandler(sender: UIPanGestureRecognizer) {
         

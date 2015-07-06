@@ -101,7 +101,9 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         }
         for i in 0..<viewModel.numberOfKeyboards {
             if let keyboard = viewModel.keyboardAtIndex(i) {
-                let id = keyboard.id.stringByReplacingOccurrencesOfString("-", withString: "", options: .AnchoredSearch, range: nil)
+                
+                let index = advance(keyboard.id.startIndex, 1)
+                let id = keyboard.id[index..<keyboard.id.endIndex]
                 installation.addUniqueObject(id, forKey: "channels")
             }
         }
@@ -236,7 +238,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             let userInfo = notification.userInfo,
             let index = userInfo["index"] as? Int,
             let keyboardId = userInfo["keyboardId"] as? String {
-                let id = keyboardId.stringByReplacingOccurrencesOfString("-", withString: "", options: .AnchoredSearch, range: nil)
+                let id = keyboardId[advance(keyboardId.startIndex, 1)..<keyboardId.endIndex]
                 installation.addUniqueObject(id, forKey: "channels")
                 installation.saveInBackgroundWithBlock(nil)
                 artistPicker.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
@@ -248,10 +250,10 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             let userInfo = notification.userInfo,
             let index = userInfo["index"] as? Int,
             let keyboardId = userInfo["keyboardId"] as? String {
-                let id = keyboardId.stringByReplacingOccurrencesOfString("-", withString: "", options: .AnchoredSearch, range: nil)
-            installation.removeObjectForKey(id)
-            installation.saveInBackgroundWithBlock(nil)
-            artistPicker.collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
+                let id = keyboardId[advance(keyboardId.startIndex, 1)..<keyboardId.endIndex]
+                installation.removeObjectForKey(id)
+                installation.saveInBackgroundWithBlock(nil)
+                artistPicker.collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
         }
     }
     

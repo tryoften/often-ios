@@ -58,6 +58,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.makeKeyAndVisible()
         }
         
+        if let notificationPayload = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            // Create a pointer to the Photo object
+            if let artistId = notificationPayload["artistId"] as? String {
+                showAddArtistModalViewForArtistId(artistId)
+            }
+        }
+        
         return true
     }
     
@@ -75,6 +82,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         PFPush.handlePush(userInfo)
+        if let artistId = userInfo["artistId"] as? String {
+            showAddArtistModalViewForArtistId(artistId)
+        }
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
@@ -101,6 +111,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func showAddArtistModalViewForArtistId(artistId: String) {
+        let artistModalVC = AddArtistModalContainerViewController()
+        
+        artistModalVC.setArtistId(artistId)
+        artistModalVC.modalPresentationStyle = UIModalPresentationStyle.Custom
+        mainController.presentViewController(artistModalVC, animated: true, completion: nil)
     }
 }
 
