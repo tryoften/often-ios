@@ -162,8 +162,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                     }
                 }
                 
-                cell.artistLabel.text = viewModel.lyricsList[indexPath.row].owner
-                
                 if indexPath.row % 2 == 0 {
                     cell.trendIndicator.image = UIImage(named: "up")
                 } else if indexPath.row % 3 == 0 {
@@ -218,8 +216,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                         cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
                     }
                 }
-                
-                cell.artistLabel.text = viewModel.lyricsList[indexPath.row].owner
                 
                 if indexPath.row % 2 == 0 {
                     cell.trendIndicator.image = UIImage(named: "up")
@@ -355,6 +351,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     func trendingCellDidTap(artistTappedIndex: Int) {
         var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController()
         addArtistModal.setArtistId(viewModel.trendingService.artists[artistTappedIndex].id)
+
         addArtistModal.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(addArtistModal, animated: true, completion: nil)
         
