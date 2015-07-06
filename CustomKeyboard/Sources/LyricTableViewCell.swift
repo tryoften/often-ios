@@ -96,22 +96,19 @@ class LyricTableViewCell: UITableViewCell {
     func setupLayout() {
         let shareView = shareVC.view
         
-        contentView.bounds = CGRectMake(0, 0, 99999, 99999)
-        
         addConstraints([
             lyricView.al_width == contentView.al_width,
             lyricView.al_top == contentView.al_top,
             lyricView.al_left == contentView.al_left,
             lyricView.al_height == LyricTableViewCellHeight,
             
-            lyricLabel.al_left == lyricView.al_left + 10.0,
-            lyricLabel.al_right == lyricView.al_right - 10.0,
-            lyricLabel.al_top == lyricView.al_top + 10.0,
-            lyricLabel.al_bottom == lyricView.al_bottom - 10.0,
+            lyricLabel.al_left == lyricView.al_left + 2.0,
+            lyricLabel.al_right == lyricView.al_right - 2.0,
+            lyricLabel.al_top == lyricView.al_top + 2.0,
+            lyricLabel.al_bottom == lyricView.al_bottom - 2.0,
             
             infoView.al_top == lyricView.al_bottom,
             infoView.al_bottom == contentView.al_bottom,
-          
             infoView.al_width == contentView.al_width,
             infoView.al_left == contentView.al_left,
             
@@ -120,14 +117,14 @@ class LyricTableViewCell: UITableViewCell {
             seperatorView.al_left == contentView.al_left,
             seperatorView.al_height == 1.0,
             
-            metadataView.al_height == infoView.al_height / 2,
+            metadataView.al_bottom == shareView.al_top,
             metadataView.al_width <= infoView.al_width,
             metadataView.al_top == infoView.al_top,
             metadataView.al_left == infoView.al_left,
             metadataView.al_right == infoView.al_right,
             
             shareView.al_width == infoView.al_width,
-            shareView.al_top == metadataView.al_bottom,
+            shareView.al_height == 45,
             shareView.al_left == infoView.al_left,
             shareView.al_bottom == infoView.al_bottom
         ])
