@@ -102,10 +102,10 @@ class LyricTableViewCell: UITableViewCell {
             lyricView.al_left == contentView.al_left,
             lyricView.al_height == LyricTableViewCellHeight,
             
-            lyricLabel.al_left == lyricView.al_left + 2.0,
-            lyricLabel.al_right == lyricView.al_right - 2.0,
-            lyricLabel.al_top == lyricView.al_top + 2.0,
-            lyricLabel.al_bottom == lyricView.al_bottom - 2.0,
+            lyricLabel.al_left == lyricView.al_left + 10.0,
+            lyricLabel.al_right == lyricView.al_right - 10.0,
+            lyricLabel.al_top == lyricView.al_top + 10.0,
+            lyricLabel.al_bottom == lyricView.al_bottom - 10.0,
             
             infoView.al_top == lyricView.al_bottom,
             infoView.al_bottom == contentView.al_bottom,
