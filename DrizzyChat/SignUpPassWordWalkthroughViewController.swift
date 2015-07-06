@@ -19,6 +19,7 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
         addPasswordPage.passwordTxtField.delegate = self
         addPasswordPage.passwordTxtField.returnKeyType = .Next
         
+        errorView.errorMessageLabel.text = "passwords must have at least 8 characters".uppercaseString
         view.addSubview(addPasswordPage)
     }
     
@@ -80,15 +81,14 @@ class SignUpPassWordWalkthroughViewController: WalkthroughViewController  {
     
     override func didTapNavButton() {
         if PasswordIsValid(addPasswordPage.passwordTxtField.text) {
-            
             viewModel.password = addPasswordPage.passwordTxtField.text
             
+            let selectArtistvc = SignUpConfirmPassWordWalkthroughViewController(viewModel: self.viewModel)
+            navigationController?.pushViewController(selectArtistvc, animated: true)
+            
         } else {
-            println("need more chars")
+            errorFound()
             return
         }
-        let selectArtistvc = SignUpConfirmPassWordWalkthroughViewController(viewModel: self.viewModel)
-        
-        navigationController?.pushViewController(selectArtistvc, animated: true)
     }
 }

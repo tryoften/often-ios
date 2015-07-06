@@ -23,6 +23,8 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
         loginSignUpPage.loginButton.addTarget(self, action: "didTapLoginButton", forControlEvents: .TouchUpInside)
         loginSignUpPage.facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
         
+        errorView.errorMessageLabel.text = "an error ocurred. please try again later".uppercaseString
+        
         view.addSubview(loginSignUpPage)
     }
     
@@ -65,6 +67,11 @@ class SignUpLoginWalkthroughViewController: WalkthroughViewController {
         loginSignUpPage.facebookButton.enabled = false
         
         viewModel.sessionManager.login { (user, error) in
+            if error != nil {
+                HUDProgressView.hide()
+                self.errorFound()
+                self.loginSignUpPage.facebookButton.enabled = true
+            }
         }
     }
 }

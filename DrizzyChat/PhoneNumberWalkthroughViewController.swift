@@ -19,6 +19,8 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
         addPhoneNumberPage.phoneNumberTxtField.delegate = self
         addPhoneNumberPage.phoneNumberTxtField.keyboardType = .PhonePad
         
+        errorView.errorMessageLabel.text = "please enter a valid phone number".uppercaseString
+        
         view.addSubview(addPhoneNumberPage)
     }
     
@@ -127,7 +129,7 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
                 viewModel.user.phone = addPhoneNumberPage.phoneNumberTxtField.text
             }
             else {
-                println("redo you phonenumber")
+                errorFound()
                 return
             }
         }
