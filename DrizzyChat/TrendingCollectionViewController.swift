@@ -25,8 +25,10 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     var trendingHeaderDelegate: TrendingHeaderDelegate?
     var toggle: Bool = true
     var labelHeight: CGFloat = 65
+    let device = UIDevice.currentDevice()
     
     init(viewModel: TrendingViewModel) {
+        
         self.viewModel = viewModel
         
         super.init(collectionViewLayout: TrendingCollectionViewController.getLayout())
@@ -130,37 +132,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                 let charCount = count(viewModel.lyricsList[indexPath.row].text)
                 cell.lyricViewNumLines = lineCountForLyric(viewModel.lyricsList[indexPath.row].text)
                 
-                if screenWidth == 320 {
-                    if charCount >= 81 {
-                        var lyric = viewModel.lyricsList[indexPath.row].text
-                        let stringLength = count(lyric)
-                        let substringIndex = stringLength - 3
-                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                        cell.lyricView.text = "\(newLyric)..."
-                    } else {
-                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
-                    }
-                } else if screenWidth == 375 {
-                    if charCount >= 104 {
-                        var lyric = viewModel.lyricsList[indexPath.row].text
-                        let stringLength = count(lyric)
-                        let substringIndex = stringLength - 3
-                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                        cell.lyricView.text = "\(newLyric)..."
-                    } else {
-                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
-                    }
-                } else {
-                    if charCount >= 118 {
-                        var lyric = viewModel.lyricsList[indexPath.row].text
-                        let stringLength = count(lyric)
-                        let substringIndex = stringLength - 3
-                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                        cell.lyricView.text = "\(newLyric)..."
-                    } else {
-                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
-                    }
-                }
+                cell.lyricView.text = addElipses(indexPath.row)
                 
                 if indexPath.row % 2 == 0 {
                     cell.trendIndicator.image = UIImage(named: "up")
@@ -294,6 +266,8 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         } else {
             println("No reload")
         }
+        
+        Flurry.logEvent("Trending_Artist_Update")
     }
     
     func lyricsDidUpdate(lyrics: [Lyric]) {
@@ -304,6 +278,8 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         } else {
             println("No reload")
         }
+        
+        Flurry.logEvent("Trending_Lyric_Update")
     }
     
     
@@ -326,6 +302,8 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         }
         
         viewDidLoad()
+        
+        Flurry.logEvent("Toggle_Lyric")
     }
     
     
@@ -339,6 +317,8 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         }
         
         viewDidLoad()
+        
+        Flurry.logEvent("Toggle_Artist")
     }
     
     
@@ -351,7 +331,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     func trendingCellDidTap(artistTappedIndex: Int) {
         var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController()
         addArtistModal.setArtistId(viewModel.trendingService.artists[artistTappedIndex].id)
-
         addArtistModal.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(addArtistModal, animated: true, completion: nil)
         
@@ -361,30 +340,65 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     // MARK: Dynamic Cell
     
     /**
-        iPhone 5: 320 screen width - 45 one line
-        iPhone 6: 360 screen width - 53 one line
-        iPhone 6+: 375 screen width - 64 one line
+        iPhone 5: 320 screen width - 40 one line
+        iPhone 6: 360 screen width - 48 one line
+        iPhone 6+: 375 screen width - 55 one line
     */
     func lineCountForLyric(lyric: String) -> Int {
-        var screenWidth = UIScreen.mainScreen().bounds.width
-        
-        if screenWidth == 320 {
-            if count(lyric) <= 45 {
+        if device.modelName == "iPhone 6 Plus" {
+            if count(lyric) <= 55 {
                 return 1
             } else {
                 return 2
             }
-        } else if screenWidth == 375 {
-            if count(lyric) <= 50 {
+        } else if device.modelName.hasPrefix("iPhone 5") {
+            if count(lyric) <= 40 {
                 return 1
             } else {
                 return 2
             }
         } else {
-            if count(lyric) <= 64 {
+            if count(lyric) <= 48 {
                 return 1
             } else {
                 return 2
+            }
+        }
+    }
+    
+    /**
+        Takes in a lyric and if longer than two lines, it returns the same string truncated with 
+        elipses at the end of the string
+    
+        :param: lyric A String that contains the lyric text to potentially be truncated
+    
+        :Returns: The properly truncated or not truncated String
+    */
+    func addElipses(index: Int) -> String {
+        var lyric = viewModel.lyricsList[index].text
+        let charCount = count(lyric)
+        let substringIndex = charCount - 3
+        
+        if device.modelName.hasPrefix("iPhone 5") {
+            if charCount >= 81 {
+                var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                return newLyric
+            } else {
+                return lyric
+            }
+        } else if device.modelName == "iPhone 6" {
+            if charCount >= 104 {
+                var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                return newLyric
+            } else {
+                return lyric
+            }
+        } else {
+            if charCount >= 118 {
+                var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
+                return newLyric
+            } else {
+                return lyric
             }
         }
     }

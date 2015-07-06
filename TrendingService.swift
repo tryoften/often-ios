@@ -68,13 +68,15 @@ class TrendingService: Service {
                         if let name = artistData["owner_name"] as? String,
                             let score = artistData["score"] as? Int,
                             let lyricCount = artistData["lyrics_count"] as? Int,
-                            let tracksCount = artistData["tracks_count"] as? Int {
+                            let tracksCount = artistData["tracks_count"] as? Int,
+                            let imageLarge = artistData["image_large"] as? String {
                                 var artist = Artist()
                                 artist.id = artistId
                                 artist.name = name
                                 artist.score = score
                                 artist.lyricCount = lyricCount
                                 artist.tracksCount = tracksCount
+                                artist.imageURLLarge = imageLarge
                                 
                                 appendArtist(artist)
                         }

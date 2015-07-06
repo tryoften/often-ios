@@ -99,9 +99,13 @@ class AddArtistModalHeaderView: UICollectionReusableView, AddArtistModalHeaderDe
         delegate?.addArtistModalHeaderViewDidTapAddArtistButton(self, selected: addArtistButton.selected)
     }
     
-    func currentArtistDidLoad(artist: Artist) {
-        artistNameLabel.text = artist.name
-        artistImage.setImageWithURL(NSURL(string: artist.imageURLLarge))
+    func currentArtistDidLoad(artist: Artist, lyric: Lyric, toggle: Bool) {
+        if toggle == true {
+            artistNameLabel.text = artist.name
+            artistImage.setImageWithURL(NSURL(string: artist.imageURLLarge))
+        } else {
+            
+        }
         coverPhoto.image = UIImage(named: "frank")!.blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
     }
     
@@ -140,5 +144,5 @@ protocol AddArtistModalHeaderViewDelegate: class {
 }
 
 protocol AddArtistModalHeaderDelegate {
-    func currentArtistDidLoad(artist: Artist)
+    func currentArtistDidLoad(artist: Artist, lyric: Lyric, toggle: Bool)
 }
