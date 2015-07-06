@@ -112,6 +112,10 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        var installation = PFInstallation.currentInstallation()
+        installation.badge = 0
+        installation.saveInBackgroundWithBlock(nil)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -315,7 +319,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         ])
         statusView.imageView.contentMode = .ScaleAspectFit
         statusView.imageView.alpha = 1.0
-        statusView.titleLabel.font = BaseFont
+        statusView.titleLabel.font = UIFont(name: "OpenSans-Semibold", size: 20)
         statusView.subtitleLabel.font = SubtitleFont
         let imageURLLarge = NSURL(string: keyboard.artist!.imageURLLarge)!
         

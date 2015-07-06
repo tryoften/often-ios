@@ -385,7 +385,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL]) {
-        clearInput()
         insertLyric(shareViewController.lyric!, selectedOptions:options)
     }
     

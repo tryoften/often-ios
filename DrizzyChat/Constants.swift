@@ -44,7 +44,7 @@ let TitleFont = UIFont(name: "Oswald-Regular", size: 19)
 let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
-let KeyboardHeight: CGFloat = 240
+let KeyboardHeight: CGFloat = 260
 let KeyboardTableViewBackgroundColor = LightGrey
 let KeyboardTableSeperatorColor = DarkGrey
 let KeyboardTableCoverArtViewBackgroundColor = DarkGrey
@@ -79,7 +79,7 @@ let NextKeyboardButtonFont = UIFont(name: "font_icons8", size:16)
 
 let CategoriesCollectionViewBackgroundColor = BlackColor
 let CategoryCollectionViewCellBackgroundColor = UIColor(fromHexString: "#1c1c1c")
-let CategoryCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 16)
+let CategoryCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 15)
 let CategoryCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 10)
 let CategoryCollectionViewCellSubtitleTextColor = UIColor(fromHexString: "#aeb5b8")
 let CategoryCollectionViewCellReuseIdentifier = "CategoryCollectionViewCell"

@@ -9,7 +9,6 @@
 import UIKit
 
 class LyricTableViewCell: UITableViewCell {
-
     var infoView: UIView!
     var lyricView: UIView!
     var lyricLabel: UILabel!
@@ -22,13 +21,6 @@ class LyricTableViewCell: UITableViewCell {
         didSet {
             lyricLabel?.text = lyric?.text
         }
-    }
-    
-    var height: CGFloat {
-        if selected {
-            return 181
-        }
-        return LyricTableViewCellHeight
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

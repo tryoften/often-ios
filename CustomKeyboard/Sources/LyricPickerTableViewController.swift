@@ -70,8 +70,9 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         
         if let category = viewModel.categoryAtIndex(section) {
             let title = viewModel.sectionTitleAtIndex(section)
-            headerView?.titleLabel.text = title.uppercaseString
-            headerView?.highlightColorView.backgroundColor = category.highlightColor.colorWithAlphaComponent(0.9)
+            headerView?.title = title
+            headerView?.lyricsCount = category.lyricsCount
+            headerView?.highlightColorView.backgroundColor = category.highlightColor
         }
         
         return headerView
@@ -139,7 +140,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         }
         
         if indexPath == selectedRow {
-            return KeyboardHeight - SectionPickerViewHeight
+            return KeyboardHeight - SectionPickerViewHeight - 25.0
         }
         return LyricTableViewCellHeight
     }
