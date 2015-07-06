@@ -279,7 +279,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var proxy = textDocumentProxy as! UITextDocumentProxy
         var analytics = SEGAnalytics.sharedAnalytics()
         // When the lyric is flushed and sent to the proper context
-        if lyricInserted && !proxy.hasText() {
+        if !proxy.hasText() {
             if let lyric = currentlyInjectedLyric {
                 viewModel.logLyricInsertedEvent(lyric)
             }
