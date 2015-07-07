@@ -27,7 +27,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var seperatorView: UIView!
     var lastInsertedString: String?
     var fixedFilterBarView: UIView!
-    var allowFullAccessMessage: UILabel!
     var currentlyInjectedLyric: Lyric?
     var lyricInserted = false
     static var debugKeyboard = false
@@ -124,7 +123,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     func bootstrap() {
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
         Flurry.startSession(FlurryClientKey)
-        Fabric.with([Crashlytics()])
 
         self.viewModel.requestData()
     }

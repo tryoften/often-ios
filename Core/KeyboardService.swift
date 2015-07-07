@@ -24,6 +24,7 @@ class KeyboardService: Service {
             userDefaults.synchronize()
         }
     }
+
     var artistService: ArtistService
 
     init(user: User, root: Firebase, realm: Realm = Realm(), artistService: ArtistService? = nil) {
@@ -34,7 +35,6 @@ class KeyboardService: Service {
         } else {
             self.artistService = ArtistService(root: Firebase(url: BaseURL), realm: realm)
         }
-        
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         keyboardsRef = root.childByAppendingPath("users/\(user.id)/keyboards")
         keyboards = [Keyboard]()

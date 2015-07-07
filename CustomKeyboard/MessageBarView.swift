@@ -18,16 +18,16 @@ class MessageBarView: UIView {
         messageLabel = UILabel()
         messageLabel.font = UIFont(name: "OpenSans", size: 12)
         messageLabel.text = "For the latest content, please allow Full Access!"
+        messageLabel.userInteractionEnabled = false
         
         closeButton = UIButton()
         closeButton.setImage(UIImage(named: "close"), forState: .Normal)
 
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#F9B341")
-        addSubview(closeButton)
+        backgroundColor = UIColor(fromHexString: "#F9B341").colorWithAlphaComponent(0.95)
         addSubview(messageLabel)
-        
+        addSubview(closeButton)
     }
     
     override func layoutSubviews() {

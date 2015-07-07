@@ -28,12 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         sessionManager = SessionManager.defaultManager
 
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
-
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
         FBAppEvents.activateApp()
         Flurry.startSession(FlurryClientKey)
-        
         Fabric.with([Crashlytics()])
     
         var screen = UIScreen.mainScreen()

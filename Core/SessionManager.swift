@@ -9,6 +9,7 @@
 import Foundation
 import RealmSwift
 import Realm
+import Crashlytics
 
 class SessionManager: NSObject {
     
@@ -57,6 +58,12 @@ class SessionManager: NSObject {
         if let userId = userDefaults.stringForKey("userId") {
             SEGAnalytics.sharedAnalytics().identify(userId)
             currentUser = realm.objectForPrimaryKey(User.self, key: userId)
+            var crashlytics = Crashlytics.sharedInstance()
+            crashlytics.setUserIdentifier(userId)
+            if let user = currentUser {
+                crashlytics.setUserName(user.username)
+                crashlytics.setUserEmail(user.email)
+            }
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeDatabasetoDisk", name: "database:persist", object: nil)

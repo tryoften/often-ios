@@ -81,6 +81,7 @@ class TrackService: Service {
             return
         }
         
+        println(lyric)
         // Read track from local database first
         if let track = realm.objectForPrimaryKey(Track.self, key: lyric.trackId) {
             tracks[track.id] = track
