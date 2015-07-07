@@ -20,6 +20,8 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController  {
         addNamePage.fullNameTxtField.delegate = self
         self.nextButton.hidden = true
         
+        errorView.errorMessageLabel.text = "please your enter name".uppercaseString
+        
         view.addSubview(addNamePage)
     }
     
@@ -83,14 +85,13 @@ class SignUpNameWalkthroughViewController: WalkthroughViewController  {
     override func didTapNavButton() {
         if NameIsValid(addNamePage.fullNameTxtField.text) {
             viewModel.user.name = addNamePage.fullNameTxtField.text
+            let Emailvc = SignUpEmailWalkthroughViewController(viewModel: self.viewModel)
+            navigationController?.pushViewController(Emailvc, animated: true)
         }
         else {
-            println("enter name")
+            errorFound()
             return
         }
-        
-        let Emailvc = SignUpEmailWalkthroughViewController(viewModel: self.viewModel)
-        navigationController?.pushViewController(Emailvc, animated: true)
     }
     
 }

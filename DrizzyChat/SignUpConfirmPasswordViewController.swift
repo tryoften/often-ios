@@ -19,6 +19,8 @@ class SignUpConfirmPassWordWalkthroughViewController: WalkthroughViewController 
         addPasswordPage.confirmPasswordTxtField.delegate = self
         addPasswordPage.confirmPasswordTxtField.returnKeyType = .Next
         
+        errorView.errorMessageLabel.text = "passwords didnt match".uppercaseString
+        
         view.addSubview(addPasswordPage)
     }
     
@@ -89,18 +91,18 @@ class SignUpConfirmPassWordWalkthroughViewController: WalkthroughViewController 
                         self.navigationController?.pushViewController(preSelectArtistvc, animated: true)
 
                     } else {
-                        println("error")
+                        self.errorFound()
                         return
                     }
                     
                 })
             } else {
-                println("password didnt match")
+                self.errorFound()
                 return
             }
             
         } else {
-            println("need more chars")
+            self.errorFound()
             return
         }
         
