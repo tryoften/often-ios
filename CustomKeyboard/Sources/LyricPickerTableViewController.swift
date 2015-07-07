@@ -122,7 +122,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-
         selectedRow = nil
         selectedCell = nil
         
@@ -135,7 +134,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             || interfaceOrientation == .LandscapeRight {
 
             if indexPath == selectedRow {
-                return 95
+                return 167
             }
         }
         
@@ -143,6 +142,13 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             return KeyboardHeight - SectionPickerViewHeight - 25.0
         }
         return LyricTableViewCellHeight
+    }
+    
+    override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        if toInterfaceOrientation == .LandscapeLeft
+            || toInterfaceOrientation == .LandscapeRight {
+                tableView.reloadData()
+        }
     }
     
     // MARK: UIScrollViewDelegate

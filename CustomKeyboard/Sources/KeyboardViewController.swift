@@ -128,9 +128,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         layoutSectionPickerView()
+        layoutArtistPickerView()
     }
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         layoutSectionPickerView()
+        layoutArtistPickerView()
     }
     
     func setupAppearance() {
@@ -305,6 +307,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var text = ""
         var optionKeys = [String]()
         
+        clearInput()
+        
         if proxy.hasText() {
             text += ". "
         }
@@ -330,8 +334,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         } else {
             text += lyric.text
         }
-        
-        clearInput()
+
         proxy.insertText(text)
         lastInsertedString = text
     }
