@@ -57,8 +57,7 @@ class ArtistService: Service {
                     self.realm.write {
                         self.realm.add(self.artists, update: true)
                     }
-                    
-                NSNotificationCenter.defaultCenter().postNotificationName("database:persist", object: nil)
+
                     dispatch_async(dispatch_get_main_queue(), {
                         self.delegate?.serviceDataDidLoad(self)
                         completion(self.artists)

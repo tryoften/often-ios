@@ -27,9 +27,9 @@ class TabBarController: UITabBarController {
         
         installKeyboardButton = UIButton()
         installKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        installKeyboardButton.backgroundColor = UIColor(fromHexString: "#2CD2B4")
-        installKeyboardButton.setTitle("install keyboard".uppercaseString, forState: UIControlState.Normal)
-        installKeyboardButton.titleLabel?.font = ButtonFont
+        installKeyboardButton.backgroundColor = UIColor(fromHexString: "#4167e1")
+        installKeyboardButton.setTitle("install & go to keyboard".uppercaseString, forState: UIControlState.Normal)
+        installKeyboardButton.titleLabel?.font = ErrorMessageFont
         installKeyboardButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         installKeyboardButton.hidden = true
     
@@ -58,8 +58,8 @@ class TabBarController: UITabBarController {
             
             installKeyboardButton.al_left == view.al_left,
             installKeyboardButton.al_right == view.al_right,
-            installKeyboardButton.al_height == 55,
-            installKeyboardButton.al_bottom == view.al_bottom
+            installKeyboardButton.al_height == 40,
+            installKeyboardButton.al_bottom == view.al_bottom - 51
         ])
         
         var viewModel = UserProfileViewModel(sessionManager: sessionManager)
@@ -102,13 +102,16 @@ class TabBarController: UITabBarController {
     }
 
     func displayInstallKeyboard() {
-        if !sessionManager.userDefaults.boolForKey("keyboardInstall") {
-            tabBar.hidden = true
-            installKeyboardButton.hidden = false
-        } else {
-            tabBar.hidden = false
-            installKeyboardButton.hidden = true
-        }
+        var shouldShowInstallKeyboardButton = !sessionManager.userDefaults.boolForKey("keyboardInstall")
+        
+        UIView.animateWithDuration(0.3, delay: 0.5, options: nil, animations: {
+            if shouldShowInstallKeyboardButton {
+                self.installKeyboardButton.hidden = false
+            } else {
+                self.installKeyboardButton.hidden = true
+            }
+        }, completion: nil)
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -124,6 +127,7 @@ class TabBarController: UITabBarController {
     }
     
     func didTapInstallKeyboardButton() {
+        SEGAnalytics.sharedAnalytics().track("app:installKeyboardButtonTapped")
         var keyboardWalkthrough = KeyboardInstallationWalkthroughViewController(nibName: nil, bundle: nil)
         keyboardWalkthrough.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(keyboardWalkthrough, animated: true, completion: nil)

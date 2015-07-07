@@ -47,6 +47,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             collectionView.contentInset = UIEdgeInsetsMake(0, 0, CGRectGetHeight(tabBarController!.tabBar.frame) + 10, 0)
         }
         
+        HUDProgressView.show()
         viewModel.requestData()
     }
     
@@ -196,6 +197,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         } else {
             updateHeaderView(0, updateBackground: true)
         }
+        HUDProgressView.hide()
     }
     
     func browseViewModelDidLoadTrackList(browseViewModel: BrowseViewModel, tracks: [Track]) {

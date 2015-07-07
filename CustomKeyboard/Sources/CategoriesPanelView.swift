@@ -9,7 +9,6 @@
 import UIKit
 
 class CategoriesPanelView: UIView {
-
     var categoriesCollectionView: UICollectionView
     var nextKeyboardButton: UIButton
     var toggleDrawerButton: UIButton
@@ -209,16 +208,27 @@ class CategoriesPanelView: UIView {
     }
     
     func showMessageBar() {
-        messageBarView.alpha = 1.0
+        self.messageBarViewTopConstraint.constant = -40
         UIView.animateWithDuration(0.3) {
-            self.messageBarViewTopConstraint.constant = -40
+            self.messageBarView.alpha = 1.0
+            self.messageBarView.layoutIfNeeded()
         }
     }
     
     func hideMessageBar() {
+        self.messageBarViewTopConstraint.constant = 0
         UIView.animateWithDuration(0.3) {
-            self.messageBarViewTopConstraint.constant = 0
+            self.messageBarView.alpha = 0.0
+            self.messageBarView.layoutIfNeeded()
         }
+    }
+    
+    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        if CGRectContainsPoint(messageBarView.frame, point) ||
+         CGRectContainsPoint(frame, point) {
+            return true
+        }
+        return super.pointInside(point, withEvent: event)
     }
 }
 

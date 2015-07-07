@@ -8,6 +8,8 @@
 
 import UIKit
 import Realm
+import Fabric
+import Crashlytics
 
 let EnableFullAccessMessage = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to do his thing"
 
@@ -25,7 +27,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var seperatorView: UIView!
     var lastInsertedString: String?
     var fixedFilterBarView: UIView!
-    var allowFullAccessMessage: UILabel!
     var currentlyInjectedLyric: Lyric?
     var lyricInserted = false
     static var debugKeyboard = false
@@ -223,33 +224,20 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
         categoryPicker.drawerOpened = false
         sectionPickerView.close()
-        UIView.animateWithDuration(0.3,
-            delay: 0,
-            usingSpringWithDamping: 1.0,
-            initialSpringVelocity: 0.1,
-            options: .CurveEaseOut,
-            animations: {
-                self.layoutArtistPickerView(hidden: false)
-                
-                var sectionPickerViewFrame = self.sectionPickerView.frame
-                sectionPickerViewFrame.origin.y = CGRectGetHeight(self.view.frame)
-                self.sectionPickerView.frame = sectionPickerViewFrame
-            },
-            completion: nil)
+        UIView.animateWithDuration(0.3) {
+            self.layoutArtistPickerView(hidden: false)
+            var sectionPickerViewFrame = self.sectionPickerView.frame
+            sectionPickerViewFrame.origin.y = CGRectGetHeight(self.view.frame)
+            self.sectionPickerView.frame = sectionPickerViewFrame
+        }
         SEGAnalytics.sharedAnalytics().track("keyboard:categoryPanelOpened")
     }
     
     func closePanel() {
-        UIView.animateWithDuration(0.4,
-            delay: 0.1,
-            usingSpringWithDamping: 1.0,
-            initialSpringVelocity: 0.1,
-            options: .CurveEaseIn,
-            animations: {
-                self.layoutArtistPickerView()
-                self.layoutSectionPickerView()
-            },
-            completion: nil)
+        UIView.animateWithDuration(0.4) {
+            self.layoutArtistPickerView()
+            self.layoutSectionPickerView()
+        }
         SEGAnalytics.sharedAnalytics().track("keyboard:categoryPanelClosed")
     }
 

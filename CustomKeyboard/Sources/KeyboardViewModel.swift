@@ -9,6 +9,8 @@
 import UIKit
 import RealmSwift
 import Realm
+import Fabric
+import Crashlytics
 
 class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollectionViewDataSource {
     var keyboardService: KeyboardService
@@ -61,14 +63,19 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         RLMRealm.setDefaultRealmPath(realmPath)
         var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
-        ParseCrashReporting.enable()
+        
+        Fabric.with([Crashlytics()])
 
         if let userId = userDefaults.objectForKey("userId") as? String,
             let user = realm.objectForPrimaryKey(User.self, key: userId) {
-            self.user = user
-            SEGAnalytics.sharedAnalytics().identify(userId)
-            keyboardService = KeyboardService(user: user,
-                root: root, realm: realm)
+                self.user = user
+                SEGAnalytics.sharedAnalytics().identify(userId)
+                keyboardService = KeyboardService(user: user,
+                    root: root, realm: realm)
+                var crashlytics = Crashlytics.sharedInstance()
+                crashlytics.setUserIdentifier(userId)
+                crashlytics.setUserName(user.username)
+                crashlytics.setUserEmail(user.email)
         } else {
             // TODO(luc): get anonymous ID for the current session
             let user = User()

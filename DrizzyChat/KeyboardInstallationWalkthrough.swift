@@ -154,6 +154,10 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         pager.currentPage = currentPage
         gotItButton.hidden = true
         
+        SEGAnalytics.sharedAnalytics().track("app:installKeyboardSwipeToPage", properties: [
+            "page": currentPage
+        ])
+        
         if currentPage == 4 {
             gotItButton.hidden = false
         }

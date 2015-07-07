@@ -73,14 +73,14 @@ class TrackService: Service {
         })
     }
     
-    func getTrackForLyric(lyric: Lyric, completion: (track: Track) -> ()) {
+    func getTrackForLyric(lyric: Lyric, persist: Bool, completion: (track: Track) -> ()) {
         
         // Read from in-memory cache
         if let track = tracks[lyric.trackId] {
             completion(track: track)
             return
         }
-        
+
         // Read track from local database first
         if let track = realm.objectForPrimaryKey(Track.self, key: lyric.trackId) {
             tracks[track.id] = track
@@ -105,10 +105,16 @@ class TrackService: Service {
                     self.tracks[track.id] = track
                     
                     if lyric.track == nil && !self.realm.readOnly {
-                        self.realm.write {
+                        if persist {
+                            self.realm.write {
+                                lyric.trackId = trackId
+                                lyric.track = track
+                                self.realm.add(lyric, update: true)
+                            }
+                        }
+                        else {
                             lyric.trackId = trackId
                             lyric.track = track
-                            self.realm.add(lyric, update: true)
                         }
                     }
                     
