@@ -56,6 +56,8 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             collectionView.registerClass(TrendingLyricViewCell.self, forCellWithReuseIdentifier: "lyricCell")
             collectionView.registerClass(TrendingOneLineLyricViewCell.self, forCellWithReuseIdentifier: "oneLineCell")
         }
+        
+        viewModel.requestData(completion: nil)
     }
     
     class func getLayout() -> UICollectionViewLayout {
@@ -215,7 +217,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             headerView?.artistDelegate = self
             headerView?.featuredDelegate = self
             trendingHeaderDelegate = headerView
-            trendingHeaderDelegate?.featuredArtistsDidLoad(viewModel.trendingService.featuredArtists)
             
             return cell
         } else if kind == UICollectionElementKindSectionHeader {
@@ -258,7 +259,10 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     // MARK: TrendingViewModelDelegate
     
     func trendingViewModelDidLoadTrackList(browseViewModel: TrendingViewModel, artists: [Artist]) {
-        
+    }
+    
+    func trendingViewModelDidLoadFeaturedArtists(browseViewModel: TrendingViewModel, artist: [Artist]) {
+        trendingHeaderDelegate?.featuredArtistsDidLoad(viewModel.trendingService.featuredArtists)
     }
     
     func artistsDidUpdate(artists: [Artist]) {

@@ -354,7 +354,7 @@
 		697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingLyricViewCell.swift; sourceTree = "<group>"; };
 		6996061F1B41A53F004102BC /* ToolTipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewController.swift; sourceTree = "<group>"; };
 		699606211B41E20C004102BC /* ToolTip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
-		69A31A0F1B3DC7AF00A402A1 /* TrendingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingService.swift; sourceTree = "<group>"; };
+		69A31A0F1B3DC7AF00A402A1 /* TrendingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingService.swift; path = DrizzyChat/TrendingService.swift; sourceTree = "<group>"; };
 		69B8CBB51B3886EB00F0BB84 /* AddArtistModalContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalContainerViewController.swift; sourceTree = "<group>"; };
 		69B8CBB71B38A59A00F0BB84 /* AddArtistModalCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		69BA82011B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistBrowseCollectionViewFlowLayout.swift; sourceTree = "<group>"; };

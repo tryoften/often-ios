@@ -109,7 +109,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         
         super.init(frame: frame)
         
-        tapRecognizer = UITapGestureRecognizer(target: self, action: "featuredHeaderTapped:")
+        tapRecognizer = UITapGestureRecognizer(target: self, action: "featuredTapped:")
         scrollView.addGestureRecognizer(tapRecognizer!)
         
         featuredButton.addTarget(self, action: "featuredTapped:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -140,7 +140,10 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        loadVisiblePages()
+
+        if !featuredArtists.isEmpty {
+            loadVisiblePages()
+        }
     }
     
     func setupPages() {
@@ -255,7 +258,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
     
     func setLayout() {
         addConstraints([
-            topLabel.al_top == al_top + 10,
+            topLabel.al_centerY == scrollView.al_centerY,
             topLabel.al_centerX == al_centerX,
             
             nameLabel.al_centerY == scrollView.al_centerY,
@@ -300,12 +303,9 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
     
     func featuredTapped(sender: UIButton) {
         let page = Int(floor((scrollView.contentOffset.x * 2.0 + screenWidth) / (screenWidth * 2.0)))
-        featuredDelegate?.featuredButtonDidTap(featuredArtists[page].id)
-    }
-    
-    func featuredHeaderTapped(sender: UIPanGestureRecognizer) {
-        let page = Int(floor((scrollView.contentOffset.x * 2.0 + screenWidth) / (screenWidth * 2.0)))
-        featuredDelegate?.featuredButtonDidTap(featuredArtists[page].id)
+        if page < featuredArtists.count {
+            featuredDelegate?.featuredButtonDidTap(featuredArtists[page].id)
+        }
     }
     
     func artistsTapped(sender: UIButton) {

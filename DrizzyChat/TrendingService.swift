@@ -30,8 +30,6 @@ class TrendingService: Service {
         }
         
         super.init(root: root)
-        
-        requestData()
     } 
     
     
@@ -145,6 +143,7 @@ class TrendingService: Service {
                                 self.featuredArtists.append(featuredArtist)
                         }
                     }
+                    self.delegate?.serviceDataDidLoad(self)
                 }
             }
         })
