@@ -141,8 +141,8 @@ class KeyboardService: Service {
             if !self.dataLoaded {
                 self.dataLoaded = true
                 self.delegate?.serviceDataDidLoad(self)
-                completion(self.keyboards)
             }
+            completion(self.keyboards)
         }
         
         if keyboardIds.isEmpty {
@@ -183,8 +183,8 @@ class KeyboardService: Service {
                     if !self.dataLoaded {
                         self.dataLoaded = true
                         self.delegate?.serviceDataDidLoad(self)
-                        completion(true)
                     }
+                    completion(true)
                 })
             } else {
                 // no keyboards
