@@ -138,17 +138,33 @@ class AddArtistModalContainerViewController: UIViewController {
             self.lastLocation = mainView.center
         }
         
-        if (mainView.center.x < 15) {
+        if (mainView.center.x < 30) {
             UIView.animateWithDuration(0.2, animations: {
-                self.mainView.transform = CGAffineTransformMakeRotation((15.0 * CGFloat(M_PI)) / 180.0)
+                self.mainView.transform = CGAffineTransformMakeRotation((345.0 * CGFloat(M_PI)) / 180.0)
+            })
+            
+            UIView.animateWithDuration(0.2, animations: {
+                self.view.alpha = 0.0
+            })
+            
+            delay(0.1, {
+                self.dismissViewControllerAnimated(false, completion: nil)
             })
         }
         
-        if self.mainView.center.x > UIScreen.mainScreen().bounds.width + 20 {
+        if self.mainView.center.x > UIScreen.mainScreen().bounds.width - 10 {
             UIView.animateWithDuration(0.2, animations: {
-                self.animator?.removeBehavior(self.snap)
-                self.mainView.transform = CGAffineTransformMakeRotation((350.0 * CGFloat(M_PI)) / 180.0)
+                self.mainView.transform = CGAffineTransformMakeRotation((15.0 * CGFloat(M_PI)) / 180.0)
             })
+            
+            UIView.animateWithDuration(0.2, animations: {
+                self.view.alpha = 0.0
+            })
+            
+            delay(0.1, {
+                self.dismissViewControllerAnimated(false, completion: nil)
+            })
+
         }
         
         
