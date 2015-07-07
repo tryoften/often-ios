@@ -16,6 +16,7 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     var bottomConstraint: NSLayoutConstraint!
     var didAnimateUp = true
     var hideButton = false
+    var errorView: ErrorMessageView
     
     init (viewModel: SignUpWalkthroughViewModel) {
         self.viewModel = viewModel
@@ -26,12 +27,20 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         nextButton.titleLabel!.font = ButtonFont
         nextButton.backgroundColor = UIColor(fromHexString: "#2CD2B4")
         nextButton.setTitle("continue".uppercaseString, forState: .Normal)
+        
+        errorView = ErrorMessageView()
+        errorView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        errorView.hidden = true
+
 
         super.init(nibName: nil, bundle: nil)
         
         self.viewModel.delegate = self
         nextButton.addTarget(self, action: "didTapNavButton", forControlEvents: .TouchUpInside)
+        
         view.addSubview(nextButton)
+        view.addSubview(errorView)
+        
         bottomConstraint = nextButton.al_bottom == view.al_bottom + 50
     }
     
@@ -79,12 +88,36 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         navigationItem.title = "sign up".uppercaseString
     }
     
+    func errorFound() {
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            self.errorView.hidden = false
+            self.errorView.frame.origin.y += 50
+            
+            }, completion: {
+                (finished: Bool) in
+                UIView.animateWithDuration(0.3, delay: 5.0, options: .CurveLinear, animations: {
+                    
+                    self.errorView.frame.origin.y -= 50
+                    
+                    }, completion: {
+                        (finished: Bool) in
+                        self.errorView.hidden = true
+                })
+        })
+        
+    }
+    
     func setupLayout() {
         view.addConstraints([
             nextButton.al_width == view.al_width,
             nextButton.al_left == view.al_left,
             nextButton.al_height == 50,
-            bottomConstraint
+            bottomConstraint,
+            
+            errorView.al_width == view.al_width,
+            errorView.al_left == view.al_left,
+            errorView.al_height == 40,
+            errorView.al_top == view.al_top - 50
         ])
     }
     

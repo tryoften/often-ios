@@ -14,6 +14,8 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        HUDProgressView.hide()
+        
         let titleString = "Hey \(self.viewModel.user.name)"
         let titleRange = NSMakeRange(0, count(titleString))
         let title = NSMutableAttributedString(string: titleString)

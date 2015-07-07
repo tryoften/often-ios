@@ -20,11 +20,24 @@ class LoginViewController : WalkthroughViewController {
         loginView.passwordTxtField.delegate = self
         loginView.facebookButton.addTarget(self, action: "didTapFacebookButton", forControlEvents: .TouchUpInside)
         
+        errorView.errorMessageLabel.text = "email login & password are incorrect".uppercaseString
+        
         view.addSubview(loginView)
     }
     
     func didTapFacebookButton() {
-        viewModel.sessionManager.login()
+        HUDProgressView.show()
+        loginView.facebookButton.enabled = false
+        errorView.errorMessageLabel.text = "an error ocurred. please try again later".uppercaseString
+        
+        viewModel.sessionManager.login { (user, error) -> () in
+            if error != nil {
+                HUDProgressView.hide()
+                self.errorFound()
+                self.loginView.facebookButton.enabled = true
+            }
+
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -100,7 +113,7 @@ class LoginViewController : WalkthroughViewController {
         if EmailIsValid(loginView.emailTxtField.text) && PasswordIsValid(loginView.emailTxtField.text) {
             viewModel.sessionManager.loginWithUsername(loginView.emailTxtField.text, password: loginView.passwordTxtField.text)
         } else {
-            println("check it out the text field")
+            errorFound()
         }
     }
 }
