@@ -15,11 +15,13 @@ class Service {
     let writeQueue: dispatch_queue_t
     weak var delegate: ServiceDelegate?
     var isInternetReachable: Bool
+    var dataLoaded: Bool
 
     init(root: Firebase, realm: Realm = Realm()) {
         self.rootURL = root
         self.realm = realm
         self.writeQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        self.dataLoaded = false
         
         var reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
         isInternetReachable = reachabilitymanager.reachable

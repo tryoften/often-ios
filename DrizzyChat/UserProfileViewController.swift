@@ -112,6 +112,10 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        var installation = PFInstallation.currentInstallation()
+        installation.badge = 0
+        installation.saveInBackgroundWithBlock(nil)
     }
     
     override func viewDidDisappear(animated: Bool) {

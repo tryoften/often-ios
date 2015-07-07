@@ -124,6 +124,9 @@ class KeyboardService: Service {
     */
     private func createKeyboardModels(completion: (Bool) -> Void) {
         keyboards = sorted(realm.objects(Keyboard)) {$0.artistName < $1.artistName}
+        if !keyboards.isEmpty {
+            dataLoaded = true
+        }
         delegate?.serviceDataDidLoad(self)
         completion(true)
     }
@@ -135,7 +138,10 @@ class KeyboardService: Service {
         var keyboardCount = keyboardIds.count
         var keyboardList = [Keyboard]()
         var callback: () -> () = {
-            self.delegate?.serviceDataDidLoad(self)
+            if !self.dataLoaded {
+                self.dataLoaded = true
+                self.delegate?.serviceDataDidLoad(self)
+            }
             completion(self.keyboards)
         }
         
@@ -174,7 +180,10 @@ class KeyboardService: Service {
         keyboardsRef.observeEventType(.Value, withBlock: { snapshot in
             if let keyboardsData = snapshot.value as? [String: AnyObject] {
                 self.fetchDataForKeyboardIds(keyboardsData.keys.array, completion: { keyboards in
-                    self.delegate?.serviceDataDidLoad(self)
+                    if !self.dataLoaded {
+                        self.dataLoaded = true
+                        self.delegate?.serviceDataDidLoad(self)
+                    }
                     completion(true)
                 })
             } else {
@@ -200,6 +209,9 @@ class KeyboardService: Service {
                 }
             } else {
                 completion(self.keyboards)
+                self.fetchRemoteData { success in
+                    completion(self.keyboards)
+                }
             }
         }
     }

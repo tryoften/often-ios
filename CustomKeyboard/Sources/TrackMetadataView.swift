@@ -19,7 +19,6 @@ func addCircularMaskToView(view: UIView, width: CGFloat) -> CAShapeLayer {
 }
 
 class TrackMetadataView: UIView {
-    
     var title: NSAttributedString
     var contentView: UIView
     var titleLabel: UILabel
@@ -47,6 +46,9 @@ class TrackMetadataView: UIView {
         coverArtView.setTranslatesAutoresizingMaskIntoConstraints(false)
         coverArtView.backgroundColor = UIColor(fromHexString: "#d8d8d8")
         coverArtView.clipsToBounds = true
+        coverArtView.image = UIImage(named: "placeholder")
+        coverArtView.layer.borderWidth = 2.0
+        coverArtView.layer.borderColor = UIColor.whiteColor().CGColor
         
         titleLabel = UILabel(frame: CGRectZero)
         titleLabel.textColor = MainTextColor
@@ -69,29 +71,25 @@ class TrackMetadataView: UIView {
         contentView.addSubview(titleLabel)
         
         setupLayout()
-        addCircularMaskToView(coverArtView, CoverArtViewImageWidth)
     }
     
     func setupLayout() {
         
         titleLabelConstraints = [
-            .Left: titleLabel.al_left == contentView.al_left,
+            .Left: titleLabel.al_left == coverArtView.al_right + 10,
             .Right: titleLabel.al_right == contentView.al_right,
             .CenterY: titleLabel.al_centerY == contentView.al_centerY
         ]
         
         coverArtViewConstraints = [
-            .Width: coverArtView.al_width == 0.0,
+            .Width: coverArtView.al_width == CoverArtViewImageWidth,
             .Height: coverArtView.al_height == coverArtView.al_width,
             .Left: coverArtView.al_left == contentView.al_left,
-            .Right: coverArtView.al_right == contentView.al_left,
             .CenterY: coverArtView.al_centerY == contentView.al_centerY
         ]
         
         coverArtViewConstraints[.Left]?.priority = 800
-        contentViewWidthConstraint = contentView.al_width == titleLabel.al_width
 
-        addConstraint(contentViewWidthConstraint!)
         addConstraints(titleLabelConstraints.values.array)
         addConstraints(coverArtViewConstraints.values.array)
 
@@ -110,10 +108,6 @@ class TrackMetadataView: UIView {
     }
     
     func resetConstraints() {
-        self.coverArtViewConstraints[.Width]!.constant = 0.0
-        self.coverArtViewConstraints[.Right]!.constant = 0.0
-        self.titleLabelConstraints[.Left]!.constant = 0.0
-        self.contentViewWidthConstraint!.constant = 0.0
     }
     
     func updateMetadata() {
@@ -122,18 +116,8 @@ class TrackMetadataView: UIView {
                 coverArtView.setImageWithURLRequest(NSURLRequest(URL: NSURL(string: url)!), placeholderImage: UIImage(), success: { (req, res, image) -> Void in
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.coverArtView.alpha = 0.0
                         self.coverArtView.image = image
-                        self.titleLabel.textAlignment = .Left
-                        
-                        UIView.animateWithDuration(0.3, animations: {
-                            self.coverArtView.alpha = 1.0
-                            
-                            self.contentViewWidthConstraint!.constant = CGFloat(CoverArtViewImageWidth)
-                            self.coverArtViewConstraints[.Width]!.constant = CGFloat(CoverArtViewImageWidth)
-                            self.coverArtViewConstraints[.Right]!.constant = CGFloat(CoverArtViewImageWidth)
-                            self.titleLabelConstraints[.Left]!.constant = CGFloat(CoverArtViewImageWidth) + 10.0
-                        })
+                        self.titleLabel.textAlignment = .Center
                     })
 
                 }, failure: { (req, res, error) -> Void in
@@ -142,13 +126,12 @@ class TrackMetadataView: UIView {
                         
                         UIView.animateWithDuration(0.3, animations: {
                             self.titleLabel.textAlignment = .Center
-                            self.resetConstraints()
                         })
                         
                     })
                 })
             }
-            titleLabel.text = NSString(format: "\"%@\" - %@", track.name, track.artistName) as String
+            titleLabel.text = String(format: "\"%@\" - %@", track.name, track.artistName)
         }
     }
 }

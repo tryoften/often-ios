@@ -8,7 +8,7 @@
 
 import UIKit
 
-func addSeperatorNextTo(button: UIButton, leftSide: Bool) -> UIView {
+func addSeperatorNextTo(button: UIView, leftSide: Bool) -> UIView {
     var seperator = UIView(frame: CGRectZero)
     seperator.setTranslatesAutoresizingMaskIntoConstraints(false)
     seperator.backgroundColor = UIColor(fromHexString: "#d8d8d8")
@@ -46,7 +46,6 @@ func addSeperatorBelow(view: UIView) -> UIView {
 }
 
 class ShareViewController: UIViewController {
-    
     var lyric: Lyric? {
         didSet {
             addShareButtons()
@@ -60,6 +59,7 @@ class ShareViewController: UIViewController {
     var youtubeButton: UIButton?
     var lyricButton: UIButton?
     var buttons: [UIButton]!
+    var buttonViews: [UIView]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,12 +82,16 @@ class ShareViewController: UIViewController {
         ])
         
         buttons = []
+        buttonViews = []
     }
     
     func addShareButtons() {
         
         func setupButton(button: UIButton, selectedColor: UIColor) {
-            button.setTitleColor(UIColor(fromHexString: "#cecece"), forState: .Normal)
+            let buttonColor = UIColor(fromHexString: "#cecece")
+            button.layer.cornerRadius = 2.0
+            button.clipsToBounds = true
+            button.setTitleColor(buttonColor, forState: .Normal)
             button.setTitleColor(selectedColor, forState: .Highlighted)
             button.setTitleColor(selectedColor, forState: .Selected)
             button.setTitleColor(selectedColor, forState: .Highlighted | .Selected)
@@ -99,78 +103,102 @@ class ShareViewController: UIViewController {
         for button in buttons {
             button.removeFromSuperview()
         }
+        for container in buttonViews {
+            container.removeFromSuperview()
+        }
         buttons = []
+        buttonViews = []
         
         if let track = lyric?.track {
             
             // Spotify button
             if track.spotifyURL != nil && !track.spotifyURL!.isEmpty {
+                let buttonView = UIView()
+                buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
                 let button = UIButton(frame: CGRectZero)
                 button.titleLabel!.font = UIFont(name: "SSSocialRegular", size: 32)
                 button.setTitle("\u{f6b1}", forState: .Normal)
                 setupButton(button, UIColor(fromHexString: "#b8c81f"))
-                
+                buttonView.addSubview(button)
+
                 spotifyButton = button
                 buttons.append(button)
+                buttonViews.append(buttonView)
             }
             
             // Soundcloud button
             if track.soundcloudURL != nil && !track.soundcloudURL!.isEmpty {
+                let buttonView = UIView()
+                buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
                 let button = UIButton(frame: CGRectZero)
                 button.titleLabel!.font = UIFont(name: "SSSocialCircle", size: 32)
                 button.setTitle("\u{f6b3}", forState: .Normal)
                 setupButton(button, UIColor(fromHexString: "#ed7233"))
-                
+                buttonView.addSubview(button)
+
                 soundcloudButton = button
                 buttons.append(button)
+                buttonViews.append(buttonView)
             }
             
             if track.youtubeURL != nil && !track.youtubeURL!.isEmpty {
+                let buttonView = UIView()
+                buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
                 let button = UIButton(frame: CGRectZero)
                 button.titleLabel!.font = UIFont(name: "SSSocialCircle", size: 32)
                 button.setTitle("\u{f630}", forState: .Normal)
                 setupButton(button, UIColor(fromHexString: "#ce594b"))
-                
+                buttonView.backgroundColor = UIColor.blackColor()
+                buttonView.addSubview(button)
+
                 youtubeButton = button
                 buttons.append(button)
+                buttonViews.append(buttonView)
             }
         }
         
         if lyric?.text != nil {
+            let buttonView = UIView()
+            buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
             let button = UIButton(frame: CGRectZero)
             button.imageView?.contentMode = .ScaleAspectFit
             button.setImage(UIImage(named: "ShareLyricOff"), forState: .Normal)
             button.setImage(UIImage(named: "ShareLyricOn"), forState: .Highlighted)
             button.setImage(UIImage(named: "ShareLyricOn"), forState: .Selected)
             setupButton(button, UIColor(fromHexString: "#ffae36"))
-            button.contentEdgeInsets = UIEdgeInsets(top: 11.0, left: 0, bottom: 11.0, right: 0)
+            button.contentEdgeInsets = UIEdgeInsets(top: -8.0, left: 0, bottom: -8.0, right: 0)
             button.selected = true
+            buttonView.addSubview(button)
             
             lyricButton = button
             buttons.append(button)
+            buttonViews.append(buttonView)
         }
 
         var prevButton: ALView?
-        for (index, button) in enumerate(buttons) {
-            let buttonAL = button as ALView
-            view.addSubview(button)
-            let seperator = addSeperatorNextTo(button, false)
-            let seperatorAL = seperator as ALView
+        for (index, container) in enumerate(buttonViews) {
+            view.addSubview(container)
+            let seperator = addSeperatorNextTo(container, false)
+            let button = buttons[index]
             
             view.addConstraints([
-                buttonAL.al_height == view.al_height,
-                buttonAL.al_width == view.al_width / CGFloat(buttons.count),
-                buttonAL.al_top == view.al_top
+                container.al_height == view.al_height,
+                container.al_width == view.al_width / CGFloat(buttonViews.count),
+                container.al_top == view.al_top,
+                button.al_top == container.al_top + 5,
+                button.al_bottom == container.al_bottom - 5,
+                button.al_left == container.al_left + 5,
+                button.al_right == container.al_right - 5
             ])
             
             if let previousButton = prevButton {
-                view.addConstraint(buttonAL.al_left == previousButton.al_right)
+                view.addConstraint(container.al_left == previousButton.al_right)
             } else {
-                let constraint = buttonAL.al_left == view.al_left
+                let constraint = container.al_left == view.al_left
                 constraint.priority = 750
                 view.addConstraint(constraint)
             }
-            prevButton = buttonAL
+            prevButton = container
         }
     }
     

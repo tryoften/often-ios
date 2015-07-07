@@ -10,27 +10,34 @@ import UIKit
 import RealmSwift
 
 class LyricPickerTableViewController: UITableViewController, UITableViewDelegate, SectionPickerViewDelegate,
-    LyricTableViewCellDelegate, LyricFilterBarDelegate {
-    
-    var keyboardViewController: KeyboardViewController!
-    var delegate: LyricPickerDelegate?
-    var viewModel: LyricPickerViewModel!
-    var labelFont: UIFont?
-    var currentCategory: Category?
+    LyricTableViewCellDelegate, LyricFilterBarDelegate, LyricPickerViewModelDelegate {
+
+    weak var delegate: LyricPickerDelegate?
+    var viewModel: LyricPickerViewModel
     var selectedRows = [Int: Bool]()
     var selectedRow: NSIndexPath?
     var selectedCell: LyricTableViewCell?
     var animatingCell: Bool!
-    var searchModeOn :Bool!
+    var searchModeOn: Bool!
+    
+    init(viewModel: LyricPickerViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel.delegate = self
+    }
+
+    required init!(coder aDecoder: NSCoder!) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        labelFont = BaseFont
         animatingCell = false
         searchModeOn = false
 
         tableView.backgroundColor = KeyboardTableViewBackgroundColor
         tableView.registerClass(LyricTableViewCell.self, forCellReuseIdentifier: LyricTableViewCellIdentifier)
+        tableView.registerClass(LyricPickerTableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "sectionHeader")
         tableView.separatorStyle = .None
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
@@ -51,38 +58,48 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
 
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return viewModel.numberOfSections()
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        if let category = currentCategory {
-            return category.lyrics.count
+        return viewModel.numberOfLyricsInSection(section)
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("sectionHeader") as? LyricPickerTableSectionHeaderView
+        
+        if let category = viewModel.categoryAtIndex(section) {
+            let title = viewModel.sectionTitleAtIndex(section)
+            headerView?.title = title
+            headerView?.lyricsCount = category.lyricsCount
+            headerView?.highlightColorView.backgroundColor = category.highlightColor
         }
-        return 0
+        
+        return headerView
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 25.0
     }
 
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(LyricTableViewCellIdentifier, forIndexPath: indexPath) as! LyricTableViewCell
         
-        var lyrics = currentCategory?.lyrics
-        var lyric = lyrics![indexPath.row]
-        
-        cell.lyric = lyric
-        cell.delegate = self
+        if let lyric = viewModel.lyricAtIndexInSection(indexPath.row, section: indexPath.section) {
+            cell.lyric = lyric
+            cell.delegate = self
+        }
 
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! LyricTableViewCell
-        var lyrics = currentCategory?.lyrics
         
         selectedRow = indexPath
         selectedCell = cell
         
-        if let lyric = lyrics?[indexPath.row] {
+        if let lyric = viewModel.lyricAtIndexInSection(indexPath.row, section: indexPath.section) {
             self.viewModel.getTrackForLyric(lyric, completion: { track in
                 cell.shareVC!.lyric = lyric
                 cell.metadataView.track = track
@@ -105,7 +122,6 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-
         selectedRow = nil
         selectedCell = nil
         
@@ -118,14 +134,21 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
             || interfaceOrientation == .LandscapeRight {
 
             if indexPath == selectedRow {
-                return 120
+                return 167
             }
         }
         
         if indexPath == selectedRow {
-            return KeyboardHeight - SectionPickerViewHeight
+            return KeyboardHeight - SectionPickerViewHeight - 25.0
         }
         return LyricTableViewCellHeight
+    }
+    
+    override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        if toInterfaceOrientation == .LandscapeLeft
+            || toInterfaceOrientation == .LandscapeRight {
+                tableView.reloadData()
+        }
     }
     
     // MARK: UIScrollViewDelegate
@@ -154,33 +177,34 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     func scrollToNearestRow() {
         var point = tableView.contentOffset
         point.y = point.y + LyricTableViewCellHeight / 2
-        var indexPath = tableView.indexPathForRowAtPoint(point)
-        tableView.scrollToRowAtIndexPath(indexPath!, atScrollPosition: .Top, animated: true)
+        
+        if let indexPath = tableView.indexPathForRowAtPoint(point) {
+            if isRowPresentInTableView(indexPath) {
+                tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            }
+        }
+    }
+    
+    func isRowPresentInTableView(indexPath: NSIndexPath) -> Bool {
+        if indexPath.section < tableView.numberOfSections() {
+            if indexPath.row < tableView.numberOfRowsInSection(indexPath.section) {
+                return true
+            }
+        }
+        return false
     }
     
     // MARK: SectionPickerViewDelegate
     
-    func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category) {
-        currentCategory = category
+    func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category, index: Int) {
         selectedRow = nil
         selectedCell = nil
-
-        dispatch_async(dispatch_get_main_queue(), {
-            self.tableView.alpha = 0.0
-            self.tableView.layer.transform = CATransform3DMakeScale(0.90, 0.90, 0.90)
-            
-            self.tableView.reloadData()
-            UIView.animateWithDuration(0.3, animations: {
-                self.tableView.alpha = 1.0
-                self.tableView.layer.transform = CATransform3DIdentity
-            })
-            
-            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-            
-            if self.tableView.numberOfSections() > 0 && self.tableView.numberOfRowsInSection(0) > 0 {
-                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
-            }
-        })
+        
+        let indexPath = NSIndexPath(forRow: 0, inSection: index)
+        
+        if self.tableView.numberOfSections() > 0 && self.tableView.numberOfRowsInSection(0) > 0 {
+            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+        }
     }
 
     // MARK: LyricTableViewCellDelegate
@@ -211,14 +235,18 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     }
     
     func lyricFilterBarStateDidChange(lyricFilterBar: LyricFilterBar, hidden: Bool) {
-
-        
     }
     
     func lyricFilterBarTextDidChange(lyricFilterBar: LyricFilterBar, searchText: String) {
     }
+    
+    // MARK: LyricPickerViewModelDelegate
+    
+    func lyricPickerViewModelDidLoadData(viewModel: LyricPickerViewModel, categories: [Category]) {
+        tableView.reloadData()
+    }
 }
 
-protocol LyricPickerDelegate {
+protocol LyricPickerDelegate: class {
     func didPickLyric(lyricPicker: LyricPickerTableViewController,shareVC: ShareViewController, lyric: Lyric?)
 }
