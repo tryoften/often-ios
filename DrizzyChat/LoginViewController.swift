@@ -116,7 +116,11 @@ class LoginViewController : WalkthroughViewController {
     
     override func didTapNavButton() {
         if EmailIsValid(loginView.emailTxtField.text) && PasswordIsValid(loginView.emailTxtField.text) {
-            viewModel.sessionManager.loginWithUsername(loginView.emailTxtField.text, password: loginView.passwordTxtField.text)
+            viewModel.sessionManager.loginWithUsername(loginView.emailTxtField.text, password: loginView.passwordTxtField.text, completion: { (error) -> () in
+                if error != nil {
+                    self.errorFound()
+                }
+            })
         } else {
             errorFound()
         }
