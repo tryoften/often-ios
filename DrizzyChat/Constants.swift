@@ -8,13 +8,7 @@
 
 import Foundation
 
-let BaseURL = "https://drizzy-db-dev.firebaseio.com/"
-#if DEBUG
-let CategoryServiceEndpoint = "https://brilliant-fire-154.firebaseio.com/"
-#else
-let CategoryServiceEndpoint = "https://blinding-fire-1400.firebaseio.com/" // production
-#endif
-
+let BaseURL = "https://multi-keyboards.firebaseio.com/"
 let AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let ParseAppID = "L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G"
 let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"
@@ -44,7 +38,7 @@ let TitleFont = UIFont(name: "Oswald-Regular", size: 19)
 let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
-let KeyboardHeight: CGFloat = 240
+let KeyboardHeight: CGFloat = 250
 let KeyboardTableViewBackgroundColor = LightGrey
 let KeyboardTableSeperatorColor = DarkGrey
 let KeyboardTableCoverArtViewBackgroundColor = DarkGrey
@@ -79,7 +73,7 @@ let NextKeyboardButtonFont = UIFont(name: "font_icons8", size:16)
 
 let CategoriesCollectionViewBackgroundColor = BlackColor
 let CategoryCollectionViewCellBackgroundColor = UIColor(fromHexString: "#1c1c1c")
-let CategoryCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 16)
+let CategoryCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 15)
 let CategoryCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 10)
 let CategoryCollectionViewCellSubtitleTextColor = UIColor(fromHexString: "#aeb5b8")
 let CategoryCollectionViewCellReuseIdentifier = "CategoryCollectionViewCell"

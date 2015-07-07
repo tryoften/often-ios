@@ -78,6 +78,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(scrollView)
         view.addSubview(pageControl)
         view.addSubview(closeButton)
+        // view.addSubview(caretImageView)
         
         setupLayout()
         
@@ -166,12 +167,30 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             scrollView.al_left == view.al_left + 10,
             
             closeButton.al_top == view.al_top + 15,
-            closeButton.al_right == view.al_right - 20
+            closeButton.al_right == view.al_right - 20,
+            closeButton.al_height == 25,
+            closeButton.al_width == 25
         ])
     }
     
     func closeTapped() {
         closeButtonDelegate?.toolTipCloseButtonDidTap()
+    }
+}
+
+class CaretView: UIView {
+    override func drawRect(rect: CGRect) {
+        let context = UIGraphicsGetCurrentContext()
+        drawPlayPathTo(context, boundedBy: rect)
+    }
+    
+    func drawPlayPathTo(context: CGContextRef, boundedBy rect: CGRect) {
+        CGContextSetFillColorWithColor(context, UIColor.blackColor().CGColor)
+        CGContextMoveToPoint(context, rect.width / 4, rect.height / 4)
+        CGContextAddLineToPoint(context, rect.width * 3 / 4, rect.height / 4)
+        CGContextAddLineToPoint(context, rect.width / 2, rect.height * 3 / 4)
+        CGContextAddLineToPoint(context, rect.width / 4, rect.height / 4)
+        CGContextFillPath(context)
     }
 }
 

@@ -133,19 +133,24 @@ class ArtistService: Service {
         let artistRef = rootURL.childByAppendingPath("owners/\(artistId)")
         
         artistRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
-            if let data = snapshot.value as? [String: AnyObject] {
-                var artist = Artist()
-                artist.id = snapshot.key
-                artist.name = data["name"] as! String
-                artist.imageURLSmall = data["image_small"] as! String
-                artist.imageURLLarge = data["image_large"] as! String
-                artist.lyricCount = data["lyrics_count"] as! Int
-                artist.keyboardId = data["keyboard"] as! String
-                
-                if let tracks = data["tracks"] as? [String : [String: AnyObject]] {
-                    self.processTracksData(artist, data: tracks)
-                }
-                completion(artist, true)
+            if let data = snapshot.value as? [String: AnyObject],
+                let name = data["name"] as? String,
+                let imageSmall = data["image_small"] as? String,
+                let imageLarge = data["image_large"] as? String,
+                let lyricCount = data["lyrics_count"] as? Int,
+                let keyboardId = data["keyboard"] as? String {
+                    var artist = Artist()
+                    artist.id = snapshot.key
+                    artist.name = name
+                    artist.imageURLSmall = imageSmall
+                    artist.imageURLLarge = imageLarge
+                    artist.lyricCount = lyricCount
+                    artist.keyboardId = keyboardId
+                    
+                    if let tracks = data["tracks"] as? [String : [String: AnyObject]] {
+                        self.processTracksData(artist, data: tracks)
+                    }
+                    completion(artist, true)
             }
         })
     }

@@ -40,7 +40,7 @@ class UserProfileHeaderView: UICollectionReusableView {
 
         nameLabel = UILabel()
         nameLabel.textAlignment = .Center
-        nameLabel.font = UIFont(name: "OpenSans", size: 14)
+        nameLabel.font = UIFont(name: "OpenSans-Semibold", size: 14)
         nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         keyboardCountLabel = UILabel()

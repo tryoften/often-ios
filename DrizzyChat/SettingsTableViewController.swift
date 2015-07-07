@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import MessageUI
 
-class SettingsTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SettingsTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate {
     var tableView: UITableView
     var navigationBar: UIView
     var navBarLabel: UILabel
@@ -103,7 +104,16 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case 0:
-            break
+            let vc = KeyboardInstallationWalkthroughViewController()
+            presentViewController(vc, animated: true, completion: nil)
+        case 1:
+            let vc = SettingsWebViewController(website: "http://onoctober.com/faq")
+            presentViewController(vc, animated: true, completion: nil)
+        case 3:
+            launchEmail(self)
+        case 4:
+            let vc = SettingsWebViewController(website: "http://onoctober.com/licensing")
+            presentViewController(vc, animated: true, completion: nil)
         case 5:
                 var sessionManager = SessionManager.defaultManager
                 sessionManager.logout()
@@ -113,7 +123,6 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
                 
                 self.view.window?.rootViewController = navigationController
             default:
-                println("cell tapped")
                 let vc = SettingsWebViewController(website: "https://www.google.com/?gws_rd=ssl")
                 presentViewController(vc, animated: true, completion: nil)
         }
@@ -121,6 +130,36 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
 
     func backButtonTapped() {
         navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func launchEmail(sender: AnyObject) {
+        
+        var emailTitle = "Feedback"
+        var messageBody = "Man this app sucks"
+        var toRecipents = ["feedback@drizzyapp.com", "regy@drizzyapp.com"]
+        var mc: MFMailComposeViewController = MFMailComposeViewController()
+        mc.mailComposeDelegate = self
+        mc.setSubject(emailTitle)
+        mc.setMessageBody(messageBody, isHTML: false)
+        mc.setToRecipients(toRecipents)
+        
+        self.presentViewController(mc, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError) {
+        switch result.value {
+        case MFMailComposeResultCancelled.value:
+            println("Mail cancelled")
+        case MFMailComposeResultSaved.value:
+            println("Mail saved")
+        case MFMailComposeResultSent.value:
+            println("Mail sent")
+        case MFMailComposeResultFailed.value:
+            println("Mail sent failure: %@", [error.localizedDescription])
+        default:
+            break
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func setupLayout() {

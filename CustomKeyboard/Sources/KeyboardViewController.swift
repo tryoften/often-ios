@@ -38,6 +38,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         viewModel.delegate = self
+        
+        for family in UIFont.familyNames() {
+            println("\(family)")
+            
+            for name in UIFont.fontNamesForFamilyName(family as! String) {
+                println("  \(name)")
+            }
+        }
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -56,10 +64,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        lyricPicker = LyricPickerTableViewController()
+        lyricPicker = LyricPickerTableViewController(viewModel: lyricPickerViewModel)
         lyricPicker!.delegate = self
-        lyricPicker!.viewModel = lyricPickerViewModel
-        lyricPicker!.keyboardViewController = self
         lyricPicker!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         if !viewModel.hasSeenTooltip {
@@ -115,7 +121,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     
     func bootstrap() {
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
-
         Flurry.startSession(FlurryClientKey)
 
         self.viewModel.requestData()
@@ -123,9 +128,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         layoutSectionPickerView()
+        layoutArtistPickerView()
     }
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         layoutSectionPickerView()
+        layoutArtistPickerView()
     }
     
     func setupAppearance() {
@@ -256,7 +263,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         let proxy = textDocumentProxy as! UITextDocumentProxy
         
         if !proxy.hasText() {
-            
             return
         }
         
@@ -274,11 +280,9 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var proxy = textDocumentProxy as! UITextDocumentProxy
         var analytics = SEGAnalytics.sharedAnalytics()
         // When the lyric is flushed and sent to the proper context
-        if lyricInserted && !proxy.hasText() {
+        if !proxy.hasText() {
             if let lyric = currentlyInjectedLyric {
                 viewModel.logLyricInsertedEvent(lyric)
-            } else {
-                analytics.track("Lyric_Inserted")
             }
         }
     }
@@ -303,10 +307,16 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         var text = ""
         var optionKeys = [String]()
         
+        clearInput()
+        
+        if proxy.hasText() {
+            text += ". "
+        }
+        
         if var options = selectedOptions {
             
             if (options.indexForKey(.Lyric) != nil) {
-                text = lyric.text
+                text += lyric.text
                 options.removeValueForKey(.Lyric)
             }
             
@@ -319,13 +329,12 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
                 if (!text.isEmpty) {
                     text += "\n"
                 }
-                text = shareStringForOption(option, url: url)
+                text += shareStringForOption(option, url: url)
             }
         } else {
-            text = lyric.text
+            text += lyric.text
         }
-        
-        clearInput()
+
         proxy.insertText(text)
         lastInsertedString = text
     }
@@ -382,7 +391,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL]) {
-        clearInput()
         insertLyric(shareViewController.lyric!, selectedOptions:options)
     }
     
@@ -394,10 +402,26 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     func keyboardViewModelCurrentKeyboardDidChange(keyboardViewModel: KeyboardViewModel, keyboard: Keyboard) {
         categoryPicker.categories = keyboard.categoryList
+        lyricPickerViewModel.categories = keyboard.categoryList
+        categoryPicker.pickerView.currentCategoryLabel.text = keyboard.artistName
+
         artistPicker?.scrollToCellAtIndex(keyboard.index)
         if let imageURLSmall = keyboard.artist?.imageURLSmall {
             sectionPickerView.switchArtistButton.artistImageView.setImageWithURL(NSURL(string: imageURLSmall))
         }
+        
+        if let lyricPicker = self.lyricPicker {
+            lyricPicker.tableView.alpha = 0.0
+            lyricPicker.tableView.layer.transform = CATransform3DMakeScale(0.90, 0.90, 0.90)
+            
+            lyricPicker.tableView.reloadData()
+            
+            UIView.animateWithDuration(0.3, animations: {
+                lyricPicker.tableView.alpha = 1.0
+                lyricPicker.tableView.layer.transform = CATransform3DIdentity
+            })
+        }
+        
         var dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         

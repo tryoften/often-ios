@@ -73,7 +73,7 @@ class CategoriesPanelView: UIView {
         currentCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
         currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         currentCategoryLabel.userInteractionEnabled = true
-        currentCategoryLabel.font = UIFont(name: "OpenSans", size: 19)
+        currentCategoryLabel.font = UIFont(name: "OpenSans", size: 17)
         
         selectedBgView = UIView(frame: CGRectZero)
         selectedBgView.backgroundColor = SectionPickerViewCellHighlightedBackgroundColor
@@ -223,5 +223,5 @@ class CategoriesPanelView: UIView {
 }
 
 protocol SectionPickerViewDelegate {
-    func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category)
+    func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category, index: Int)
 }

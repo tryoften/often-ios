@@ -30,6 +30,7 @@ target 'CustomKeyboard' do
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'TOMSMorphingLabel', '~> 0.5'
   pod 'FXBlurView', '~> 1.6'
+  pod 'ParseCrashReporting', '~> 1.7'
 end
 
 

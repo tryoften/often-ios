@@ -108,12 +108,16 @@ class TrendingService: Service {
                     for (lyricId, lyricData) in data {
                         if let score = lyricData["score"] as? Int,
                             let id = lyricId as? String,
-                            let text = lyricData["text"] as? String {
+                            let text = lyricData["text"] as? String,
+                            let owner = lyricData["owner_name"] as? String,
+                            let ownerId = lyricData["owner_id"] as? String {
                             
                             let lyric = Lyric()
                             lyric.id = lyricId
                             lyric.score = score
                             lyric.text = text
+                            lyric.owner = owner
+                            lyric.artistId = ownerId
                                 
                             appendLyric(lyric)
                         }

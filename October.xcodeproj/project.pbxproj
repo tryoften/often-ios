@@ -89,7 +89,6 @@
 		69BA820D1B2FABA700233789 /* TrendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA820C1B2FABA700233789 /* TrendingViewModel.swift */; };
 		69BA820F1B2FABB800233789 /* TrendingSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA820E1B2FABB800233789 /* TrendingSectionHeaderView.swift */; };
 		69BA82101B2FABE200233789 /* BrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */; };
-		69D51DBD1B3CDE0B00B2714D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69D51DBC1B3CDE0B00B2714D /* Info.plist */; };
 		69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */; };
 		69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */; };
 		69F2B5E71B2786F6004FCD19 /* TrendingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F2B5E61B2786F6004FCD19 /* TrendingHeaderView.swift */; };
@@ -109,6 +108,8 @@
 		8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
 		8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
 		812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
+		812E3EDB1B4A14EC00C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */; };
+		812E3EDC1B4A158900C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */; };
 		81331E2B1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
@@ -381,6 +382,7 @@
 		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Core/Track.swift; sourceTree = "<group>"; };
 		812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
+		812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricPickerTableSectionHeaderView.swift; path = DrizzyChat/LyricPickerTableSectionHeaderView.swift; sourceTree = SOURCE_ROOT; };
 		813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
 		813138881B13ADA3001AF9AC /* Drizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Drizzy.entitlements; path = ../Drizzy.entitlements; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Core/Category.swift; sourceTree = "<group>"; };
@@ -964,6 +966,7 @@
 				817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */,
 				81592FA41B0FA5BD0092EA8F /* PrimaryToolbarView.swift */,
 				81D43AFC1B43A15000453BBF /* MessageBarView.swift */,
+				812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1061,7 +1064,7 @@
 				194ABAC59D0290C32B9EF891 /* Check Pods Manifest.lock */,
 				8180E62D1A142199007FA1CF /* Sources */,
 				8180E62E1A142199007FA1CF /* Frameworks */,
-				81C8EE301A3B7E8E00EBAA78 /* ShellScript */,
+				812E3EEC1B4B232300C0F3BE /* Update Bundle Version */,
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
 			);
@@ -1081,7 +1084,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "October Labs Inc.";
 				TargetAttributes = {
 					8180E6071A142157007FA1CF = {
@@ -1174,7 +1177,6 @@
 				81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */,
 				8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
 				81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */,
-				69D51DBD1B3CDE0B00B2714D /* Info.plist in Resources */,
 				81D4BF201B38F6DA006430AB /* Images.xcassets in Resources */,
 				3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				3BAAB1A91B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
@@ -1272,7 +1274,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		819A375B1A9806900041F5E0 /* Update Bundle Version */ = {
+		812E3EEC1B4B232300C0F3BE /* Update Bundle Version */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
 			files = (
@@ -1286,18 +1288,19 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
 		};
-		81C8EE301A3B7E8E00EBAA78 /* ShellScript */ = {
+		819A375B1A9806900041F5E0 /* Update Bundle Version */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Update Bundle Version";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "touch ./DrizzyChat/AppDelegate.swift";
+			shellScript = "#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
 		};
 		81D43B631B46FF2600453BBF /* Realm Strip from Framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1336,6 +1339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */,
+				812E3EDC1B4A158900C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */,
 				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
 				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
@@ -1489,6 +1493,7 @@
 				81B19EA41B30AD5B00D3575C /* Track.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
+				812E3EDB1B4A14EC00C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */,
 				81D43AFE1B43A15000453BBF /* MessageBarView.swift in Sources */,
 				81B19EA71B30AD5B00D3575C /* Owner.swift in Sources */,
 				81B19EA51B30AD5B00D3575C /* Artist.swift in Sources */,
@@ -1574,9 +1579,10 @@
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = October;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ea8f6f88-c0ce-4c83-902e-dd6390a3ea7b";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1609,8 +1615,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ea8f6f88-c0ce-4c83-902e-dd6390a3ea7b";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
@@ -1683,6 +1690,7 @@
 				INFOPLIST_FILE = DrizzyChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = October;
 				PROVISIONING_PROFILE = "";
