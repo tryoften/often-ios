@@ -42,6 +42,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         pickerView.toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
         pickerView.currentCategoryLabel.addGestureRecognizer(tapRecognizer)
         pickerView.messageBarView.closeButton.addTarget(self, action: "didTapCloseButton", forControlEvents: .TouchUpInside)
+        pickerView.shareButton.addTarget(self, action: "didTapShareButton", forControlEvents: .TouchUpInside)
         
         var viewLayout = CategoriesPanelView.provideCollectionViewLayout(pickerView.bounds)
         pickerView.categoriesCollectionView.setCollectionViewLayout(viewLayout, animated: false)
@@ -105,9 +106,16 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
                 data["keyboard_id"] = keyboard.id
             }
             SEGAnalytics.sharedAnalytics().track("keyboard:categorySelected", properties: data)
-
             pickerView.delegate?.didSelectSection(pickerView, category: category, index: indexPath.row)
         }
+    }
+    
+    func didTapShareButton() {
+        let shareText = "I'm using October, a new lyric keyboard. Check it out! http://octbr.co/app"
+        let proxy = keyboardViewController.textDocumentProxy as! UITextDocumentProxy
+        keyboardViewController.lastInsertedString = shareText
+        keyboardViewController.clearInput()
+        proxy.insertText(shareText)
     }
     
     func didTapCloseButton() {
