@@ -44,7 +44,12 @@ class LoginViewController : WalkthroughViewController {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.hidden = false
-        title = "login".uppercaseString
+        
+        var navBar = NavBarTitleView(frame: CGRectMake(0,0, 100, 40))
+        navBar.navBarTitle.text = "login".uppercaseString
+        navigationItem.titleView = navBar
+
+        
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{

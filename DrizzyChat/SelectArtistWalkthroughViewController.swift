@@ -34,7 +34,9 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        title = "add artists".uppercaseString
+        var navBar = NavBarTitleView(frame: CGRectMake(0,0, 150, 40))
+        navBar.navBarTitle.text =  "add artists".uppercaseString
+        navigationItem.titleView = navBar
         
         navigationController?.navigationBar.hidden = false
     }

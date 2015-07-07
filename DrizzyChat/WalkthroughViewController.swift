@@ -17,22 +17,21 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
     var didAnimateUp = true
     var hideButton = false
     var errorView: ErrorMessageView
-    
+
     init (viewModel: SignUpWalkthroughViewModel) {
         self.viewModel = viewModel
         
         nextButton = UIButton()
         self.nextButton.hidden = true
         nextButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nextButton.titleLabel!.font = ButtonFont
+        nextButton.titleLabel!.font = UIFont(name: "OpenSans-Semibold", size: 15)
         nextButton.backgroundColor = UIColor(fromHexString: "#2CD2B4")
         nextButton.setTitle("continue".uppercaseString, forState: .Normal)
         
         errorView = ErrorMessageView()
         errorView.setTranslatesAutoresizingMaskIntoConstraints(false)
         errorView.hidden = true
-
-
+        
         super.init(nibName: nil, bundle: nil)
         
         self.viewModel.delegate = self
@@ -66,6 +65,10 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         }, completion: { finished in
             
         })
+        var navBar = NavBarTitleView(frame: CGRectMake(0,0, 100, 40))
+        navBar.navBarTitle.text = "sign up".uppercaseString
+        navigationItem.titleView = navBar
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -85,7 +88,6 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         backButton.addTarget(self, action: "popBack", forControlEvents: .TouchUpInside)
         
         navigationItem.leftBarButtonItem = backButtonItem
-        navigationItem.title = "sign up".uppercaseString
     }
     
     func errorFound() {

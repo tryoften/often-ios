@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B0F15581B4B220400FC73FC /* ErrorMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0F15571B4B220400FC73FC /* ErrorMessageView.swift */; };
+		3B0F155A1B4B5F1400FC73FC /* NavBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0F15591B4B5F1400FC73FC /* NavBarTitleView.swift */; };
 		3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */; };
 		3B4D9A961B14169300643EF8 /* SignUpEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */; };
 		3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */; };
@@ -299,6 +300,7 @@
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
 		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B0F15571B4B220400FC73FC /* ErrorMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessageView.swift; sourceTree = "<group>"; };
+		3B0F15591B4B5F1400FC73FC /* NavBarTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarTitleView.swift; sourceTree = "<group>"; };
 		3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWalkthroughViewController.swift; sourceTree = "<group>"; };
 		3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpEmailView.swift; sourceTree = "<group>"; };
 		3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPasswordView.swift; sourceTree = "<group>"; };
@@ -817,6 +819,7 @@
 				81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */,
 				81B6D5861A956E680089767B /* LoginIndicatorView.swift */,
 				3B0F15571B4B220400FC73FC /* ErrorMessageView.swift */,
+				3B0F15591B4B5F1400FC73FC /* NavBarTitleView.swift */,
 				81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */,
 				81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */,
 				3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */,
@@ -1377,6 +1380,7 @@
 				3B82E6D01B1F722000ABA660 /* SignUpWalkthroughViewModel.swift in Sources */,
 				3B9AD7AF1B2F5FF500727E79 /* LoginViewController.swift in Sources */,
 				6996062B1B42235A004102BC /* ToolTip.swift in Sources */,
+				3B0F155A1B4B5F1400FC73FC /* NavBarTitleView.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */,
 				3BAAB1E21B1E1B0D00EA1925 /* TermsAndPrivacyView.swift in Sources */,
