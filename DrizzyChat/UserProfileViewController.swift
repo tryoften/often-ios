@@ -311,16 +311,21 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
         viewModel.defaultKeyboardId = keyboard.id
         
-        var statusView = PKHUDStatusView(title: "\(keyboard.artistName)", subtitle:"set as default card in your keyboard", image: PKHUDAssets.checkmarkImage)
-        statusView.frame = CGRect(origin: CGPointZero, size: CGSizeMake(250, 250))
+        var statusView = PKHUDStatusView(title: "\(keyboard.artistName.uppercaseString)", subtitle:"set as default card in your keyboard", image: PKHUDAssets.checkmarkImage)
+        statusView.frame = CGRect(origin: CGPointZero, size: CGSizeMake(300, 325))
         statusView.imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        statusView.imageView.addConstraints([
-            statusView.imageView.al_width == statusView.imageView.al_height
-        ])
         statusView.imageView.contentMode = .ScaleAspectFit
+        statusView.imageView.clipsToBounds = true
         statusView.imageView.alpha = 1.0
-        statusView.titleLabel.font = UIFont(name: "OpenSans-Semibold", size: 20)
-        statusView.subtitleLabel.font = SubtitleFont
+        statusView.backgroundColor = UIColor.whiteColor()
+        statusView.imageView.layer.shadowColor = UIColor.blackColor().CGColor
+        statusView.imageView.layer.shadowOffset = CGSizeMake(0, 3)
+        statusView.imageView.layer.shadowOpacity = 0.54
+        statusView.imageView.layer.shadowRadius = 8.0
+        statusView.titleLabel.font = UIFont(name: "Oswald-Light", size: 24.0)
+        statusView.titleLabel.backgroundColor = UIColor.clearColor()
+        statusView.subtitleLabel.font = UIFont(name: "OpenSans", size: 12.0)
+        statusView.subtitleLabel.backgroundColor = UIColor.clearColor()
         let imageURLLarge = NSURL(string: keyboard.artist!.imageURLLarge)!
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
