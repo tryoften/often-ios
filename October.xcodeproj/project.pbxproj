@@ -109,6 +109,10 @@
 		812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
 		812E3EDB1B4A14EC00C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */; };
 		812E3EDC1B4A158900C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */; };
+		812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F091B4BBA6A00C0F3BE /* Fabric.framework */; };
+		812E3F0C1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F091B4BBA6A00C0F3BE /* Fabric.framework */; };
+		812E3F0D1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */; };
+		812E3F0E1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */; };
 		81331E2B1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
@@ -381,6 +385,8 @@
 		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Core/Track.swift; sourceTree = "<group>"; };
 		812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
 		812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricPickerTableSectionHeaderView.swift; path = DrizzyChat/LyricPickerTableSectionHeaderView.swift; sourceTree = SOURCE_ROOT; };
+		812E3F091B4BBA6A00C0F3BE /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
 		813138881B13ADA3001AF9AC /* Drizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Drizzy.entitlements; path = ../Drizzy.entitlements; sourceTree = "<group>"; };
 		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Core/Category.swift; sourceTree = "<group>"; };
@@ -491,9 +497,11 @@
 			files = (
 				81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794EEB1A81E66D009D4A71 /* libsqlite3.dylib in Frameworks */,
+				812E3F0D1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */,
 				81D43B371B46E49800453BBF /* RealmSwift.framework in Frameworks */,
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
 				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
+				812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
 				81794EE11A81E649009D4A71 /* Security.framework in Frameworks */,
 				81794EDF1A81E642009D4A71 /* QuartzCore.framework in Frameworks */,
@@ -516,10 +524,12 @@
 				81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */,
 				81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */,
+				812E3F0C1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
 				81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */,
 				81794EFE1A81ECD5009D4A71 /* Security.framework in Frameworks */,
 				81794EFD1A81ECCD009D4A71 /* QuartzCore.framework in Frameworks */,
 				81794EFC1A81ECC6009D4A71 /* MobileCoreServices.framework in Frameworks */,
+				812E3F0E1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */,
 				81794EFB1A81ECBF009D4A71 /* CoreLocation.framework in Frameworks */,
 				81794EFA1A81EC8C009D4A71 /* libz.dylib in Frameworks */,
 				81794EF91A81EC85009D4A71 /* libsqlite3.dylib in Frameworks */,
@@ -637,6 +647,8 @@
 				81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */,
 				81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */,
 				81794EE81A81E666009D4A71 /* libz.dylib */,
+				812E3F091B4BBA6A00C0F3BE /* Fabric.framework */,
+				812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */,
 				81D43B331B46E49800453BBF /* Realm.framework */,
 				81D43B341B46E49800453BBF /* RealmSwift.framework */,
 				81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */,
@@ -1043,6 +1055,7 @@
 				45728D1C2D72036A77085D41 /* Copy Pods Resources */,
 				81D43B2C1B46CA8400453BBF /* Embed Frameworks */,
 				81D43B631B46FF2600453BBF /* Realm Strip from Framework */,
+				812E3F021B4BB95100C0F3BE /* Upload symbols to crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1284,6 +1297,20 @@
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
+		};
+		812E3F021B4BB95100C0F3BE /* Upload symbols to crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload symbols to crashlytics";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run e4598140f72849daf847791f325b1eabae27a254 d6286229dfcfc4a30ec93ce38e1237bd5168d469296be7842aa314720d358417";
 		};
 		819A375B1A9806900041F5E0 /* Update Bundle Version */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1578,7 +1605,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = October;
-				PROVISIONING_PROFILE = "ea8f6f88-c0ce-4c83-902e-dd6390a3ea7b";
+				PROVISIONING_PROFILE = "ce04956f-7455-41b3-b8a5-d9a01b126be0";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1613,7 +1640,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ea8f6f88-c0ce-4c83-902e-dd6390a3ea7b";
+				PROVISIONING_PROFILE = "581808f2-7e4d-463f-b24e-67abadadedaa";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
