@@ -186,14 +186,14 @@ class SessionManager: NSObject {
         })
     }
     
-    func loginWithUsername(username: String, password: String) {
+    func loginWithUsername(username: String, password: String,completion: (NSError?) -> ()) {
         userIsLoggingIn = true
 
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
             if user != nil {
                 self.openSession(username, password: password)
             } else {
-                println(error)
+                completion(error)
             }
         }
     }

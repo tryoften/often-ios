@@ -26,6 +26,8 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
         loaderPage = SignUpAddArtistsLoaderView()
         loaderPage.setTranslatesAutoresizingMaskIntoConstraints(false)
         loaderPage.titleLabel.attributedText = title
+        
+        nextButton.setTitle("get started".uppercaseString, forState: .Normal)
     
         view.addSubview(loaderPage)
     }

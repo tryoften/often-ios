@@ -145,7 +145,7 @@ class LoginView: UIView {
             orLabel.al_height == 40,
 
             orSpacerOne.al_top == whiteBackground.al_bottom + orSpacerTopConstraintValue,
-            orSpacerOne.al_right == orLabel.al_left - 20,
+            orSpacerOne.al_right == orLabel.al_left,
             orSpacerOne.al_left == al_left + 50,
             orSpacerOne.al_height == 1,
             

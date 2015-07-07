@@ -36,8 +36,14 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
         delay(0.05) {
             addPhoneNumberPage.phoneNumberTxtField.becomeFirstResponder()
         }
-        
-        println("next button \(nextButton.frame)")
+        setUpSkipButton()
+    }
+    
+    func setUpSkipButton() {
+        let skipButton = UIBarButtonItem(title: "skip".uppercaseString, style: .Plain, target: self, action: "nextView")
+        skipButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 13)!], forState: .Normal)
+        navigationItem.rightBarButtonItem = skipButton
+
     }
     
     override func setupLayout() {
@@ -127,6 +133,9 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
             
             if PhoneIsValid(addPhoneNumberPage.phoneNumberTxtField.text) {
                 viewModel.user.phone = addPhoneNumberPage.phoneNumberTxtField.text
+                
+                let Namevc = SignUpNameWalkthroughViewController(viewModel:self.viewModel)
+                navigationController?.pushViewController(Namevc, animated: true)
             }
             else {
                 errorFound()
@@ -134,7 +143,10 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
             }
         }
         
-        let Namevc = SignUpNameWalkthroughViewController(viewModel:self.viewModel)
-        navigationController?.pushViewController(Namevc, animated: true)
+    }
+    
+    func nextView() {
+    let Namevc = SignUpNameWalkthroughViewController(viewModel:self.viewModel)
+    navigationController?.pushViewController(Namevc, animated: true)
     }
 }
