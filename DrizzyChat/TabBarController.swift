@@ -27,9 +27,9 @@ class TabBarController: UITabBarController {
         
         installKeyboardButton = UIButton()
         installKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        installKeyboardButton.backgroundColor = UIColor(fromHexString: "#2CD2B4").colorWithAlphaComponent(0.95)
-        installKeyboardButton.setTitle("install keyboard".uppercaseString, forState: UIControlState.Normal)
-        installKeyboardButton.titleLabel?.font = ButtonFont
+        installKeyboardButton.backgroundColor = UIColor(fromHexString: "#4167e1")
+        installKeyboardButton.setTitle("install & go to keyboard".uppercaseString, forState: UIControlState.Normal)
+        installKeyboardButton.titleLabel?.font = ErrorMessageFont
         installKeyboardButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         installKeyboardButton.hidden = true
     
@@ -58,8 +58,8 @@ class TabBarController: UITabBarController {
             
             installKeyboardButton.al_left == view.al_left,
             installKeyboardButton.al_right == view.al_right,
-            installKeyboardButton.al_height == 55,
-            installKeyboardButton.al_bottom == view.al_bottom - 50
+            installKeyboardButton.al_height == 40,
+            installKeyboardButton.al_bottom == view.al_bottom - 51
         ])
         
         var viewModel = UserProfileViewModel(sessionManager: sessionManager)
@@ -110,7 +110,6 @@ class TabBarController: UITabBarController {
             } else {
                 self.installKeyboardButton.hidden = true
             }
-            
         }, completion: nil)
 
     }

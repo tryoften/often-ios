@@ -34,6 +34,7 @@ let MediumRegularFont = UIFont(name: "OpenSans-Regular", size: 18)
 let SubtitleFont = UIFont(name: "OpenSans", size: 12)
 let ButtonFont = UIFont(name: "OpenSans", size: 15)
 let TitleFont = UIFont(name: "Oswald-Regular", size: 19)
+let ErrorMessageFont = UIFont(name: "OpenSans-Semibold", size: 10)
 
 // Navbar
 let NavbarDefaultBackgroundColor = MediumLightGrey

@@ -151,6 +151,7 @@ class SessionManager: NSObject {
     }
 
     func openSession(username: String?, password: String?) {
+        
         if let username = username, let password = password {
             self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
                 if error != nil {
@@ -271,7 +272,7 @@ class SessionManager: NSObject {
                     "token": authData.token
                 ], forKey: "authData")
                 
-                userRef = firebase.childByAppendingPath("users/\(uid)")
+                userRef = firebase.childByAppendingPath("users/\(authData.uid)")
                 userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                     // TODO(luc): create user model with data and send event
                     if snapshot.exists() {
@@ -279,6 +280,7 @@ class SessionManager: NSObject {
                             let value = snapshot.value as? [String: AnyObject] {
                                 var user = User()
                                 user.setValuesForKeysWithDictionary(value)
+                                user.id = authData.uid
                                 self.isUserNew = false
                                 persistUser(user)
                         }
@@ -289,15 +291,15 @@ class SessionManager: NSObject {
                             
                             var data = [String : String]()
                             
-                            data["id"] = PFUser.currentUser()?.objectId
-                            data["provider"] = authData.uid
+                            data["id"] = authData.uid
                             data["email"] = PFUser.currentUser()?.email
                             data["phone"] = PFUser.currentUser()?.objectForKey("phone") as? String
                             data["username"] = PFUser.currentUser()?.username
                             data["name"] = PFUser.currentUser()?.objectForKey("fullName") as? String
                             data["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
+                            data["parseId"] = uid
                             
-                            self.userDefaults.setObject(PFUser.currentUser()?.objectId, forKey: "userId")
+                            self.userDefaults.setObject(authData.uid, forKey: "userId")
                             self.userDefaults.synchronize()
                             
                             self.userRef?.setValue(data)

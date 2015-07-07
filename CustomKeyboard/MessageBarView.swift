@@ -17,7 +17,7 @@ class MessageBarView: UIView {
         
         messageLabel = UILabel()
         messageLabel.font = UIFont(name: "OpenSans", size: 12)
-        messageLabel.text = "For the latest content, please allow Full Access!"
+        messageLabel.text = "For the best experience, please allow Full Access!"
         messageLabel.userInteractionEnabled = false
         
         closeButton = UIButton()

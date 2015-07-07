@@ -378,7 +378,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                 return 2
             }
         } else {
-            if count(lyric) <= 48 {
+            if count(lyric) <= 50 {
                 return 1
             } else {
                 return 2

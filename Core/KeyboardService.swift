@@ -24,7 +24,8 @@ class KeyboardService: Service {
             userDefaults.synchronize()
         }
     }
-
+    
+    var trackService: TrackService
     var artistService: ArtistService
 
     init(user: User, root: Firebase, realm: Realm = Realm(), artistService: ArtistService? = nil) {
@@ -38,6 +39,7 @@ class KeyboardService: Service {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         keyboardsRef = root.childByAppendingPath("users/\(user.id)/keyboards")
         keyboards = [Keyboard]()
+        trackService = TrackService(root: root, realm: realm)
 
         super.init(root: root, realm: realm)
         currentKeyboardId = userDefaults.stringForKey(CurrentKeyboardUserDefaultsKey)
@@ -67,12 +69,12 @@ class KeyboardService: Service {
                     self.keyboards[i].index = i
                 }
                 self.realm.add(keyboard, update: true)
+                completion(keyboard, success)
+                NSNotificationCenter.defaultCenter().postNotificationName("keyboard:added", object: self, userInfo: [
+                    "keyboardId": keyboard.id,
+                    "index": keyboard.index
+                ])
             }
-            completion(keyboard, success)
-            NSNotificationCenter.defaultCenter().postNotificationName("keyboard:added", object: self, userInfo: [
-                "keyboardId": keyboard.id,
-                "index": keyboard.index
-            ])
         })
     }
     
@@ -163,7 +165,7 @@ class KeyboardService: Service {
                     self.realm.write {
                         self.realm.add(keyboardList, update: true)
                     }
-
+                    NSNotificationCenter.defaultCenter().postNotificationName("database:persist", object: nil)
                     callback()
                 }
             })
@@ -234,7 +236,7 @@ class KeyboardService: Service {
                     if let categories = keyboardData["categories"] as? [String: AnyObject] {
                         self.processCategoriesData(keyboard, ownerId: ownerId, data: categories)
                     }
-                    
+
                     self.artistService.processArtistData(ownerId) { (artist, success) in
                         keyboard.artist = artist
                         keyboard.artistName = artist.name
@@ -260,13 +262,16 @@ class KeyboardService: Service {
                 var lyrics = List<Lyric>()
                 
                 for (lyricKey: String, lyricText: String) in lyricsData {
-                    lyrics.append(Lyric(value: [
+                    let lyric = Lyric(value: [
                         "id": lyricKey,
                         "text": lyricText,
                         "categoryId": categoryKey,
                         "artistId": ownerId,
                         "trackId": ""
-                    ]))
+                    ])
+                    trackService.getTrackForLyric(lyric, persist: false, completion: { track in
+                    })
+                    lyrics.append(lyric)
                 }
 
                 var category = Category()

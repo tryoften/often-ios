@@ -19,7 +19,7 @@ class LyricPickerViewModel: NSObject {
     }
     
     func getTrackForLyric(lyric: Lyric, completion: (track: Track) -> ()) {
-        trackService.getTrackForLyric(lyric, completion: completion)
+        trackService.getTrackForLyric(lyric, persist: true, completion: completion)
     }
     
     func indexForCategory(category: Category) -> Int {
