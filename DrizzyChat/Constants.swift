@@ -8,13 +8,7 @@
 
 import Foundation
 
-let BaseURL = "https://drizzy-db-dev.firebaseio.com/"
-#if DEBUG
-let CategoryServiceEndpoint = "https://brilliant-fire-154.firebaseio.com/"
-#else
-let CategoryServiceEndpoint = "https://blinding-fire-1400.firebaseio.com/" // production
-#endif
-
+let BaseURL = "https://multi-keyboards.firebaseio.com/"
 let AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let ParseAppID = "L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G"
 let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"
