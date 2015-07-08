@@ -54,40 +54,29 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
     }
     
     func setupLayout() {
+        addConstraints([
+            textView.al_centerX == al_centerX,
+            textView.al_width == 300,
+            textView.al_height == 50,
+            textView.al_bottom == al_bottom - 35
+        ])
+
         if currentPage == 0 {
-            println("0")
             let constraints: [NSLayoutConstraint] = [
                 imageView.al_bottom == textView.al_top + 1,
-                imageView.al_centerX == al_centerX,
-                
-                textView.al_centerX == al_centerX,
-                textView.al_width == 300,
-                textView.al_height == 50,
-                textView.al_bottom == al_bottom - 35
+                imageView.al_centerX == al_centerX
             ]
             addConstraints(constraints)
         } else if currentPage == 3 {
-            println("3")
             let constraints: [NSLayoutConstraint] = [
                 imageView.al_bottom == textView.al_top - 15,
-                imageView.al_centerX == al_centerX,
-                
-                textView.al_centerX == al_centerX,
-                textView.al_width == 300,
-                textView.al_height == 50,
-                textView.al_bottom == al_bottom - 35
+                imageView.al_centerX == al_centerX
             ]
             addConstraints(constraints)
         } else {
-            println("1 or 2")
             let constraints: [NSLayoutConstraint] = [
                 imageView.al_bottom == textView.al_top - 3,
-                imageView.al_centerX == al_centerX,
-                
-                textView.al_centerX == al_centerX,
-                textView.al_width == 300,
-                textView.al_height == 50,
-                textView.al_bottom == al_bottom - 35
+                imageView.al_centerX == al_centerX
             ]
             addConstraints(constraints)
         }
