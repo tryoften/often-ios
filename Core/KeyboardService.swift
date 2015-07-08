@@ -18,6 +18,7 @@ class KeyboardService: Service {
     var keyboards: [Keyboard]
     var notificationToken: NotificationToken?
     var userDefaults: NSUserDefaults
+    var isUpdatingKeyboards: Bool
     var currentKeyboardId: String? {
         didSet {
             userDefaults.setValue(currentKeyboardId, forKey: CurrentKeyboardUserDefaultsKey)
@@ -40,6 +41,7 @@ class KeyboardService: Service {
         keyboardsRef = root.childByAppendingPath("users/\(user.id)/keyboards")
         keyboards = [Keyboard]()
         trackService = TrackService(root: root, realm: realm)
+        isUpdatingKeyboards = false
 
         super.init(root: root, realm: realm)
         currentKeyboardId = userDefaults.stringForKey(CurrentKeyboardUserDefaultsKey)
@@ -54,24 +56,28 @@ class KeyboardService: Service {
     }
     
     func addKeyboardWithId(keyboardId: String, completion: (Keyboard, Bool) -> ()) {
+        if isUpdatingKeyboards {
+            return
+        }
+        isUpdatingKeyboards = true
         processKeyboardData(keyboardId, completion: { (keyboard, success) in
-
             self.keyboardsRef.childByAppendingPath(keyboard.id).setValue(true)
- 
-            self.realm.write {
-                keyboard.user = self.user
-                self.keyboards.append(keyboard)
-                self.keyboards = sorted(self.keyboards) {$0.artistName < $1.artistName}
-                for var i = 0; i < self.keyboards.count; i++ {
-                    self.keyboards[i].index = i
-                }
-                self.realm.add(keyboard, update: true)
-                completion(keyboard, success)
-                NSNotificationCenter.defaultCenter().postNotificationName("keyboard:added", object: self, userInfo: [
-                    "keyboardId": keyboard.id,
-                    "index": keyboard.index
-                ])
+            
+            self.realm.beginWrite()
+            keyboard.user = self.user
+            self.keyboards.append(keyboard)
+            self.keyboards = sorted(self.keyboards) {$0.artistName < $1.artistName}
+            for var i = 0; i < self.keyboards.count; i++ {
+                self.keyboards[i].index = i
             }
+            self.realm.add(keyboard, update: true)
+            completion(keyboard, success)
+            NSNotificationCenter.defaultCenter().postNotificationName("keyboard:added", object: self, userInfo: [
+                "keyboardId": keyboard.id,
+                "index": keyboard.index
+            ])
+            self.isUpdatingKeyboards = false
+            self.realm.commitWrite()
         })
     }
     
@@ -82,18 +88,27 @@ class KeyboardService: Service {
         :param: completion callback when the delete operation has been successfully persisted on the backend
     */
     func deleteKeyboardWithId(keyboardId: String, completion: (NSError?) -> ()) {
+        if isUpdatingKeyboards {
+            return
+        }
+        isUpdatingKeyboards = true
+        let keyboard = keyboardWithId(keyboardId)
         keyboards = keyboards.filter { return ($0.id == keyboardId) ? false : true }
         realm.beginWrite()
         for var i = 0; i < keyboards.count; i++ {
             keyboards[i].index = i
         }
-        if let keyboard = realm.objectForPrimaryKey(Keyboard.self, key: keyboardId),
+        
+        if let keyboard = keyboard,
             let artist = keyboard.artist {
-            NSNotificationCenter.defaultCenter().postNotificationName("keyboard:removed", object: self, userInfo: [
-                "keyboardId": keyboard.id,
-                "index": keyboard.index
-            ])
-            realm.delete(keyboard)
+                NSNotificationCenter.defaultCenter().postNotificationName("keyboard:removed", object: self, userInfo: [
+                    "keyboardId": keyboard.id,
+                    "index": keyboard.index
+                    ])
+                if !keyboard.invalidated {
+                    realm.delete(keyboard)
+                }
+                self.isUpdatingKeyboards = false
         }
         realm.commitWrite()
         
@@ -195,6 +210,7 @@ class KeyboardService: Service {
         :param: completion callback that gets called when data has loaded
     */
     func requestData(completion: ([Keyboard]) -> Void) {
+        // TODO(luc): change this block to fetch data from firebase first then sync local database and update UI
         fetchLocalData { success in
             if self.keyboards.isEmpty {
                 self.fetchRemoteData { success in
@@ -202,8 +218,7 @@ class KeyboardService: Service {
                 }
             } else {
                 completion(self.keyboards)
-                self.fetchRemoteData { success in
-                }
+
             }
         }
     }

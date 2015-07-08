@@ -245,6 +245,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
                 let id = keyboardId[advance(keyboardId.startIndex, 1)..<keyboardId.endIndex]
                 installation.addUniqueObject(id, forKey: "channels")
                 installation.saveInBackgroundWithBlock(nil)
+
                 artistPicker.collectionView?.insertItemsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)])
         }
     }
