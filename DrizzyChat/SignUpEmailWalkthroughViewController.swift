@@ -76,9 +76,15 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
     
     override func didTapNavButton() {
         if EmailIsValid(addEmailPage.emailTxtField.text) {
-            viewModel.user.email = addEmailPage.emailTxtField.text
-            let Passwordvc = SignUpPassWordWalkthroughViewController(viewModel:self.viewModel)
-            navigationController?.pushViewController(Passwordvc, animated: true)
+//            errorView.errorMessageLabel.text = "this email already exists".uppercaseString
+            if EmailIsNew(addEmailPage.emailTxtField.text){
+                viewModel.user.email = addEmailPage.emailTxtField.text
+                let Passwordvc = SignUpPassWordWalkthroughViewController(viewModel:self.viewModel)
+                navigationController?.pushViewController(Passwordvc, animated: true)
+            } else {
+                errorFound()
+                return
+            }
         }
         else {
             errorFound()
