@@ -126,6 +126,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     func addArtistTapped(sender: UIButton) {
         addArtistButton.selected = !addArtistButton.selected
         addArtistButton.enabled = false
+        addArtistButton.userInteractionEnabled = false
         delegate?.browseHeaderViewDidTapAddArtistButton(self, selected: addArtistButton.selected)
     }
     

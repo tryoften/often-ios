@@ -264,7 +264,9 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     
     func trendingViewModelDidLoadFeaturedArtists(browseViewModel: TrendingViewModel, artist: [Artist]) {
         trendingHeaderDelegate?.featuredArtistsDidLoad(viewModel.trendingService.featuredArtists)
-        HUDProgressView.hide()
+        delay(0.2) {
+            HUDProgressView.hide()
+        }
     }
     
     func artistsDidUpdate(artists: [Artist]) {
@@ -309,9 +311,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         } else {
             println("No reload")
         }
-        
-        viewDidLoad()
-        
         Flurry.logEvent("Toggle_Lyric")
     }
     
@@ -324,9 +323,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         } else {
             println("No reload")
         }
-        
-        viewDidLoad()
-        
         Flurry.logEvent("Toggle_Artist")
     }
     

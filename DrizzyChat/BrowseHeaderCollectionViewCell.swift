@@ -60,6 +60,11 @@ class BrowseHeaderCollectionViewCell: UICollectionViewCell {
         artistImage.image = nil
     }
     
+    func showLoadingScreenView() {
+        confirmView.image = UIImage.animatedImageNamed("october-loader-greyscale-", duration: 1.1)
+        confirmView.alpha = 1.0
+    }
+    
     func showAddedConfirmView() {
         confirmView.image = UIImage(named: "checkmark")
         confirmView.alpha = 1.0

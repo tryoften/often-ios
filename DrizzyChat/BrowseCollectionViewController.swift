@@ -175,13 +175,19 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
     
     // MARK: BrowseHeaderViewDelegate
     func browseHeaderViewDidTapAddArtistButton(browseHeaderView: BrowseHeaderView, selected: Bool) {
-        viewModel.toggleAddingKeyboardforCurrentArtist { added in
-            self.headerView?.addArtistButton.enabled = true
-            if let cell = self.currentArtistCell {
-                if selected {
-                    cell.showAddedConfirmView()
-                } else {
-                    cell.showRemovedConfirmView()
+        if let cell = self.currentArtistCell {
+            cell.showLoadingScreenView()
+            self.headerView?.addArtistButton.enabled = false
+            self.headerView?.addArtistButton.userInteractionEnabled = false
+            viewModel.toggleAddingKeyboardforCurrentArtist { added in
+                delay(0.3) {
+                    self.headerView?.addArtistButton.enabled = true
+                    self.headerView?.addArtistButton.userInteractionEnabled = true
+                    if selected {
+                        cell.showAddedConfirmView()
+                    } else {
+                        cell.showRemovedConfirmView()
+                    }
                 }
             }
         }
