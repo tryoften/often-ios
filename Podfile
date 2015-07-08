@@ -19,7 +19,6 @@ target 'October' do
   pod 'Facebook-iOS-SDK', '~> 3.0'
   pod 'Parse', :podspec => 'Parse.podspec.json'
   pod 'ParseFacebookUtils', '~> 1.7'
-  pod 'ParseCrashReporting', '~> 1.7'
   pod 'UIViewController+KeyboardAnimation', '~> 1.2'
 end
 
@@ -29,8 +28,6 @@ target 'CustomKeyboard' do
   pod 'AFNetworking', '~> 2.0'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'TOMSMorphingLabel', '~> 0.5'
-  pod 'FXBlurView', '~> 1.6'
-  pod 'ParseCrashReporting', '~> 1.7'
 end
 
 

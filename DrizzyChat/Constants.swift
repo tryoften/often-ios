@@ -15,6 +15,7 @@ let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"
 let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 let AnalyticsWriteKey = "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI"
 let AppSuiteName = "group.com.drizzy.drizzy"
+let CrashlyticsAPIKey = "e4598140f72849daf847791f325b1eabae27a254"
 
 // Colors
 let BlueColor = UIColor(fromHexString: "#4575BF")
@@ -33,6 +34,7 @@ let MediumRegularFont = UIFont(name: "OpenSans-Regular", size: 18)
 let SubtitleFont = UIFont(name: "OpenSans", size: 12)
 let ButtonFont = UIFont(name: "OpenSans", size: 15)
 let TitleFont = UIFont(name: "Oswald-Regular", size: 19)
+let ErrorMessageFont = UIFont(name: "OpenSans-Semibold", size: 10)
 
 // Navbar
 let NavbarDefaultBackgroundColor = MediumLightGrey

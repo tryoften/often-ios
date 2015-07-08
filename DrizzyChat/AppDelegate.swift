@@ -8,6 +8,8 @@
 
 import UIKit
 import Realm
+import Fabric
+import Crashlytics
 
 private var TestKeyboard: Bool = false
 
@@ -25,13 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         sessionManager = SessionManager.defaultManager
 
-        ParseCrashReporting.enable()
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
-
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
         FBAppEvents.activateApp()
         Flurry.startSession(FlurryClientKey)
+        Fabric.with([Crashlytics()])
     
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
@@ -99,6 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        NSNotificationCenter.defaultCenter().postNotificationName("database:persist", object: self)
     }
 
     func applicationWillEnterForeground(application: UIApplication) {

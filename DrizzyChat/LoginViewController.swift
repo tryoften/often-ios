@@ -28,7 +28,7 @@ class LoginViewController : WalkthroughViewController {
     func didTapFacebookButton() {
         HUDProgressView.show()
         loginView.facebookButton.enabled = false
-        errorView.errorMessageLabel.text = "an error ocurred. please try again later".uppercaseString
+        errorView.errorMessageLabel.text = "an error occurred. please try again".uppercaseString
         
         viewModel.sessionManager.login { (user, error) -> () in
             if error != nil {

@@ -15,7 +15,7 @@ class SwitchArtistButton: UIButton {
     var circleView: UIView
 
     override init(frame: CGRect) {
-        artistImageView = UIImageView()
+        artistImageView = UIImageView(image: UIImage(named: "placeholder"))
         artistImageView.contentMode = .ScaleAspectFill
         
         circleView = UIView()

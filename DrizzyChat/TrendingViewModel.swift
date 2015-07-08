@@ -35,7 +35,7 @@ class TrendingViewModel: NSObject, SessionManagerObserver, ServiceDelegate {
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
-        
+        trendingService.requestData()
     }
     
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
@@ -62,7 +62,7 @@ class TrendingViewModel: NSObject, SessionManagerObserver, ServiceDelegate {
     // MARK: ServiceDelegate
     
     func serviceDataDidLoad(service: Service) {
-        
+        self.delegate?.trendingViewModelDidLoadFeaturedArtists(self, artist: trendingService.featuredArtists)
     }
     
     func artistsDidUpdate(artists: [Artist]) {
@@ -77,6 +77,7 @@ class TrendingViewModel: NSObject, SessionManagerObserver, ServiceDelegate {
 }
 
 protocol TrendingViewModelDelegate: class {
+    func trendingViewModelDidLoadFeaturedArtists(browseViewModel: TrendingViewModel, artist: [Artist])
     func trendingViewModelDidLoadTrackList(browseViewModel: TrendingViewModel, artists: [Artist])
     func artistsDidUpdate(artists: [Artist])
     func lyricsDidUpdate(lyrics: [Lyric])

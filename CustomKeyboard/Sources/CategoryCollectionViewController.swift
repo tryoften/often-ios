@@ -42,6 +42,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         pickerView.toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
         pickerView.currentCategoryLabel.addGestureRecognizer(tapRecognizer)
         pickerView.messageBarView.closeButton.addTarget(self, action: "didTapCloseButton", forControlEvents: .TouchUpInside)
+        pickerView.messageBarView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "didTapCloseButton"))
         pickerView.shareButton.addTarget(self, action: "didTapShareButton", forControlEvents: .TouchUpInside)
         
         var viewLayout = CategoriesPanelView.provideCollectionViewLayout(pickerView.bounds)
