@@ -41,7 +41,9 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     func requestData(completion: ((Bool) -> ())? = nil) {
         if sessionManager.userDefaults.objectForKey("openSession") != nil {
             sessionManager.fetchKeyboards()
-            delegate?.userProfileViewModelDidLoginUser(self, user: sessionManager.currentUser!)
+            if let currentUser = sessionManager.currentUser {
+                delegate?.userProfileViewModelDidLoginUser(self, user: currentUser)
+            }
         
         } else {
          sessionManager.login()
