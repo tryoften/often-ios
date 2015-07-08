@@ -23,7 +23,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     var headerView: TrendingHeaderView?
     var sectionHeaderView: TrendingSectionHeaderView?
     var trendingHeaderDelegate: TrendingHeaderDelegate?
-    var toggle: Bool = true
+    var toggle: Bool = false
     var labelHeight: CGFloat = 65
     let device = UIDevice.currentDevice()
     

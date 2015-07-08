@@ -97,13 +97,14 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         artistsButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistsButton.setTitle("ARTISTS", forState: UIControlState.Normal)
         artistsButton.titleLabel?.font = UIFont(name: "OpenSans", size: 14.0)
-        artistsButton.setTitleColor(UIColor(fromHexString: "#FFB316"), forState: UIControlState.Normal)
+        artistsButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+        
         
         lyricsButton = UIButton()
         lyricsButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         lyricsButton.setTitle("LYRICS", forState: UIControlState.Normal)
         lyricsButton.titleLabel?.font = UIFont(name: "OpenSans", size: 14.0)
-        lyricsButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+        lyricsButton.setTitleColor(UIColor(fromHexString: "#FFB316"), forState: UIControlState.Normal)
         
         featuredArtists = [Artist]()
         
