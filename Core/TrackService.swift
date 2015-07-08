@@ -105,16 +105,10 @@ class TrackService: Service {
                     self.tracks[track.id] = track
                     
                     if lyric.track == nil && !self.realm.readOnly {
-                        if persist {
-                            self.realm.write {
-                                lyric.trackId = trackId
-                                lyric.track = track
-                                self.realm.add(lyric, update: true)
-                            }
-                        }
-                        else {
+                        self.realm.write {
                             lyric.trackId = trackId
                             lyric.track = track
+                            self.realm.add(lyric, update: true)
                         }
                     }
                     

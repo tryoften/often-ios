@@ -46,9 +46,6 @@ class KeyboardService: Service {
     }
     
     deinit {
-        if let token = notificationToken {
-            realm.removeNotification(token)
-        }
     }
     
     func keyboardWithId(keyboardId: String) -> Keyboard? {
@@ -112,12 +109,6 @@ class KeyboardService: Service {
     */
     func fetchLocalData(completion: (Bool) -> Void) {
         // We have to create a new realm for reading on the main thread
-        if !realm.readOnly {
-            notificationToken = realm.addNotificationBlock { (notification, realm) in
-                println("Realm DB changed: \(notification)")
-            }
-        }
-        
         createKeyboardModels(completion)
     }
     
@@ -212,7 +203,6 @@ class KeyboardService: Service {
             } else {
                 completion(self.keyboards)
                 self.fetchRemoteData { success in
-                    completion(self.keyboards)
                 }
             }
         }
@@ -269,8 +259,6 @@ class KeyboardService: Service {
                         "artistId": ownerId,
                         "trackId": ""
                     ])
-                    trackService.getTrackForLyric(lyric, persist: false, completion: { track in
-                    })
                     lyrics.append(lyric)
                 }
 

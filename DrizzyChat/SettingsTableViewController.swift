@@ -107,12 +107,12 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
             let vc = KeyboardInstallationWalkthroughViewController()
             presentViewController(vc, animated: true, completion: nil)
         case 1:
-            let vc = SettingsWebViewController(website: "http://onoctober.com/faq")
+            let vc = SettingsWebViewController(website: "http://onoctober.com/faq.html")
             presentViewController(vc, animated: true, completion: nil)
         case 3:
             launchEmail(self)
         case 4:
-            let vc = SettingsWebViewController(website: "http://onoctober.com/licensing")
+            let vc = SettingsWebViewController(website: "http://onoctober.com/licensing.html")
             presentViewController(vc, animated: true, completion: nil)
         case 5:
                 var sessionManager = SessionManager.defaultManager
