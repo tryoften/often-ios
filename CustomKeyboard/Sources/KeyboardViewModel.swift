@@ -173,8 +173,8 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             "user_id": user.id,
             "timestamp": dateFormatter.stringFromDate(NSDate.new())
         ]
-
-        eventsRef.childByAutoId().setValue(data)
+        
+        eventsRef.childByAutoId().updateChildValues(data)
         SEGAnalytics.sharedAnalytics().track("keyboard:lyricSent", properties: data)
     }
 }

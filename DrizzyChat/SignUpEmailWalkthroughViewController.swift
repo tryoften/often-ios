@@ -19,7 +19,7 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
         addEmailPage.emailTxtField.delegate = self
         addEmailPage.emailTxtField.keyboardType = .EmailAddress
         
-        errorView.errorMessageLabel.text = "please enter a valid email".uppercaseString
+        errorView.errorMessageLabel.text = "enter is invalid or taken".uppercaseString
         
         view.addSubview(addEmailPage)
     }
@@ -76,7 +76,6 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
     
     override func didTapNavButton() {
         if EmailIsValid(addEmailPage.emailTxtField.text) {
-            errorView.errorMessageLabel.text = "this email already exists".uppercaseString
             if EmailIsNew(addEmailPage.emailTxtField.text) {
                 viewModel.user.email = addEmailPage.emailTxtField.text
                 let Passwordvc = SignUpPassWordWalkthroughViewController(viewModel:self.viewModel)
