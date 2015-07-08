@@ -39,17 +39,31 @@ class User: Object {
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         
         if let dictionary = keyedValues as? [String: AnyObject] {
+
+            if let nameString = dictionary["name"] as? String {
+                name = nameString
+            }
             
-            name = dictionary["name"] as! String
-            id = dictionary["id"] as! String
-            username = dictionary["email"] as! String
-            email = dictionary["email"] as! String
-            backgroundImage = dictionary["backgroundImage"] as! String
+            if let idString = dictionary["id"] as? String {
+                id = idString
+            }
             
+            if let usernameString = dictionary["email"] as? String {
+                username = usernameString
+            }
+            
+            if let emailString = dictionary["email"] as? String {
+                email = emailString
+            }
+            
+            if let backgroundImageString =  dictionary["backgroundImage"] as? String {
+                backgroundImage = backgroundImageString
+            }
             
             if let profileImageSmallString = dictionary["profileImageSmall"] as? String {
                 profileImageSmall = profileImageSmallString
             }
+            
             if let profileImageSmallString = dictionary["profile_pic_small"] as? String {
                 profileImageSmall = profileImageSmallString
             }

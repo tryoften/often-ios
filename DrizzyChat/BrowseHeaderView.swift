@@ -30,7 +30,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     var currentBackgroundView: UIImageView
     var nextBackgroundView: UIImageView
     var tintView: UIView
-    var artistNameLabel: TOMSMorphingLabel
+    var artistNameLabel: UILabel
     var addArtistButton: AddArtistButton
     var topLabel: UILabel
     var currentImageURLs: [String: String]?
@@ -58,8 +58,11 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         tintView.setTranslatesAutoresizingMaskIntoConstraints(false)
         tintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
         
-        artistNameLabel = TOMSMorphingLabel()
-        artistNameLabel.animationDuration = 0.35
+        if UIDevice.currentDevice().modelName.hasPrefix("iPhone 6") {
+            artistNameLabel = TOMSMorphingLabel()
+        } else {
+            artistNameLabel = UILabel()
+        }
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistNameLabel.font = UIFont(name: "Oswald-Light", size: 24.0)
         artistNameLabel.textColor = UIColor.whiteColor()
@@ -122,6 +125,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
     */
     func addArtistTapped(sender: UIButton) {
         addArtistButton.selected = !addArtistButton.selected
+        addArtistButton.enabled = false
         delegate?.browseHeaderViewDidTapAddArtistButton(self, selected: addArtistButton.selected)
     }
     
