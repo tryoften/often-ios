@@ -179,7 +179,10 @@ class AddArtistModalContainerViewController: UIViewController {
             snap?.damping = 1.0
             animator?.addBehavior(snap)
         }
-        mainView.center = CGPointMake(self.lastLocation!.x + translation.x, self.lastLocation!.y)
+        
+        if let lastLocation = self.lastLocation {
+            mainView.center = CGPointMake(lastLocation.x + translation.x, lastLocation.y)
+        }
         
     }
 }

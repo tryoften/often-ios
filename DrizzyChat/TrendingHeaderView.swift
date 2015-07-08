@@ -327,10 +327,13 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         if headerLoadedOnce == false {
             featuredArtists = artists
             for artist in featuredArtists {
-                var url = NSURL(string: artist.imageURLLarge)
-                var data = NSData(contentsOfURL: url!)
-                var image = UIImage(data: data!)
-                pageImages.append(image!)
+                if let url = NSURL(string: artist.imageURLLarge),
+                    let data = NSData(contentsOfURL: url),
+                    let image = UIImage(data: data) {
+                        pageImages.append(image)
+                } else {
+                    pageImages.append(UIImage(named: "placeholder")!)
+                }
             }
             headerLoadedOnce = true
         }

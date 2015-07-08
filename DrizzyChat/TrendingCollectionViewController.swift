@@ -43,6 +43,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        HUDProgressView.show()
 
         // Register cell classes
         if let collectionView = collectionView {
@@ -56,7 +57,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             collectionView.registerClass(TrendingLyricViewCell.self, forCellWithReuseIdentifier: "lyricCell")
             collectionView.registerClass(TrendingOneLineLyricViewCell.self, forCellWithReuseIdentifier: "oneLineCell")
         }
-        
+
         viewModel.requestData(completion: nil)
     }
     
@@ -263,6 +264,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     
     func trendingViewModelDidLoadFeaturedArtists(browseViewModel: TrendingViewModel, artist: [Artist]) {
         trendingHeaderDelegate?.featuredArtistsDidLoad(viewModel.trendingService.featuredArtists)
+        HUDProgressView.hide()
     }
     
     func artistsDidUpdate(artists: [Artist]) {

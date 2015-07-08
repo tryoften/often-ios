@@ -118,7 +118,7 @@ class ShareViewController: UIViewController {
                 let button = UIButton(frame: CGRectZero)
                 button.titleLabel!.font = UIFont(name: "SSSocialRegular", size: 32)
                 button.setTitle("\u{f6b1}", forState: .Normal)
-                setupButton(button, UIColor(fromHexString: "#b8c81f"))
+                setupButton(button, UIColor(fromHexString: "#38D95A"))
                 buttonView.addSubview(button)
 
                 spotifyButton = button

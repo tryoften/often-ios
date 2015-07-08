@@ -72,7 +72,7 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
         }
     
         collectionView?.showsHorizontalScrollIndicator = false
-        collectionView!.registerClass(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: ArtistCollectionViewCellReuseIdentifier)
+        collectionView?.registerClass(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: ArtistCollectionViewCellReuseIdentifier)
     }
 
     override func didReceiveMemoryWarning() {

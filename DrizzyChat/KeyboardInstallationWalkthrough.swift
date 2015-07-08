@@ -61,8 +61,8 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         ]
         
         pagesubTitle = [
-            "Start by opening Setting on your iPhone and tapping on \"General\". From here, you'll tap \"Keyboard\".",
-            "Next, tap \"Keyboards\". Here you'll see all your currently installed keyboards. Tap \"Add New Keyboard\".",
+            "Start by opening Settings on your iPhone and tapping on \"General\". From here, you'll tap \"Keyboard\".",
+            "Next, tap \"Keyboards\". You'll see all your currently installed keyboards. Tap \"Add New Keyboard\".",
             "Here we'll choose \"October\" under Third-Party Keyboards. After you've added it, tap on October.",
             "Full access allows us to automatically update lyrics & songs in your keyboard. We never save or read any info! See FAQ in settings for more details.",
             "Open up you favorite app, tap and hold the \"Globe\". You can revist this tutorial anytime in settings."

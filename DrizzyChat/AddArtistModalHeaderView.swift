@@ -106,7 +106,6 @@ class AddArtistModalHeaderView: UICollectionReusableView, AddArtistModalHeaderDe
         } else {
             
         }
-        coverPhoto.image = UIImage(named: "frank")!.blurredImageWithRadius(100, iterations: 4, tintColor: UIColor.blackColor())
     }
     
     func setupLayout() {
