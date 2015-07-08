@@ -163,6 +163,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         } else if kind == UICollectionElementKindSectionHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
             
+            // TODO(luc):
             cell.editButton.addTarget(self, action: "didTapEditButton", forControlEvents: .TouchUpInside)
             sectionHeaderView = cell
 

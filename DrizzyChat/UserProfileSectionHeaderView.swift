@@ -41,7 +41,6 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         backgroundColor = UIColor.whiteColor()
         addSubview(seperatorView)
         addSubview(titleLabel)
-        addSubview(editButton)
         
         setupLayout()
     }
@@ -55,10 +54,7 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
             
             titleLabel.al_centerY == al_centerY,
             titleLabel.al_width == al_width / 2,
-            titleLabel.al_left == al_left + 15,
-            
-            editButton.al_right == al_right - 15,
-            editButton.al_centerY == al_centerY
+            titleLabel.al_left == al_left + 15
         ])
     }
 
