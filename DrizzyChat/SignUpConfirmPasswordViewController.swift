@@ -89,7 +89,7 @@ class SignUpConfirmPassWordWalkthroughViewController: WalkthroughViewController 
                     if success {
                         let preSelectArtistvc = SignUpPreAddArtistsLoaderViewController(viewModel: self.viewModel)
                         self.navigationController?.pushViewController(preSelectArtistvc, animated: true)
-
+                        
                     } else {
                         self.errorFound()
                         return
