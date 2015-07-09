@@ -19,7 +19,7 @@ class SignUpEmailWalkthroughViewController: WalkthroughViewController  {
         addEmailPage.emailTxtField.delegate = self
         addEmailPage.emailTxtField.keyboardType = .EmailAddress
         
-        errorView.errorMessageLabel.text = "please enter a valid email".uppercaseString
+        errorView.errorMessageLabel.text = "enter is invalid or taken".uppercaseString
         
         view.addSubview(addEmailPage)
     }
