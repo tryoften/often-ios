@@ -9,9 +9,9 @@
 import Foundation
 
 class SignUpConfirmPasswordView: UIView {
-    var titleLabel: UILabel!
-    var confirmPasswordTxtField: UITextField!
-    var spacer: UIView!
+    var titleLabel: UILabel
+    var confirmPasswordTxtField: UITextField
+    var spacer: UIView
     var termsAndPrivacyView: TermsAndPrivacyView
     
     override init(frame: CGRect) {
@@ -43,6 +43,7 @@ class SignUpConfirmPasswordView: UIView {
         
         termsAndPrivacyView = TermsAndPrivacyView()
         termsAndPrivacyView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         super.init(frame: frame)
         
         backgroundColor = UIColor.whiteColor()
