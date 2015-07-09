@@ -164,37 +164,7 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
                 let charCount = count(viewModel.lyricsList[indexPath.row].text)
                 cell.lyricViewNumLines = lineCountForLyric(viewModel.lyricsList[indexPath.row].text)
                 
-                if screenWidth == 320 {
-                    if charCount >= 81 {
-                        var lyric = viewModel.lyricsList[indexPath.row].text
-                        let stringLength = count(lyric)
-                        let substringIndex = stringLength - 3
-                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                        cell.lyricView.text = "\(newLyric)..."
-                    } else {
-                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
-                    }
-                } else if screenWidth == 375 {
-                    if charCount >= 104 {
-                        var lyric = viewModel.lyricsList[indexPath.row].text
-                        let stringLength = count(lyric)
-                        let substringIndex = stringLength - 3
-                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                        cell.lyricView.text = "\(newLyric)..."
-                    } else {
-                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
-                    }
-                } else {
-                    if charCount >= 118 {
-                        var lyric = viewModel.lyricsList[indexPath.row].text
-                        let stringLength = count(lyric)
-                        let substringIndex = stringLength - 3
-                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                        cell.lyricView.text = "\(newLyric)..."
-                    } else {
-                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
-                    }
-                }
+                cell.lyricView.text = addElipses(indexPath.row)
                 
                 if indexPath.row % 2 == 0 {
                     cell.trendIndicator.image = UIImage(named: "up")
@@ -216,16 +186,17 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! TrendingHeaderView
             
             headerView = cell
-            headerView?.lyricDelegate = self
-            headerView?.artistDelegate = self
-            headerView?.featuredDelegate = self
-            trendingHeaderDelegate = headerView
             
+            if let headerView = headerView {
+                headerView.lyricDelegate = self
+                headerView.artistDelegate = self
+                headerView.featuredDelegate = self
+                trendingHeaderDelegate = headerView
+            }
             return cell
+            
         } else if kind == UICollectionElementKindSectionHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! TrendingSectionHeaderView
-            
-            // add action to segue into the view for tha specific track with all of its lyrics displayed
             
             sectionHeaderView = cell
             
@@ -279,8 +250,6 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
         } else {
             println("No reload")
         }
-        
-        Flurry.logEvent("Trending_Artist_Update")
     }
     
     func lyricsDidUpdate(lyrics: [Lyric]) {
@@ -291,8 +260,6 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
         } else {
             println("No reload")
         }
-        
-        Flurry.logEvent("Trending_Lyric_Update")
     }
     
     
@@ -301,8 +268,6 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
     
         Need to pull the correct data for the content and then switch collection views
         with the correct cells and data and then reload the collection view
-    
-        Artists: true | Lyrics: false
     
     */
     func lyricDidTap() {
@@ -313,7 +278,6 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
         } else {
             println("No reload")
         }
-        Flurry.logEvent("Toggle_Lyric")
     }
     
     
@@ -325,7 +289,6 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
         } else {
             println("No reload")
         }
-        Flurry.logEvent("Toggle_Artist")
     }
     
     
@@ -350,7 +313,7 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
     }
     
     func featuredButtonDidTap(artistId: String) {
-        var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController()
+        var addArtistModal = AddArtistModalContainerViewController()
         addArtistModal.setArtistId(artistId)
         addArtistModal.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(addArtistModal, animated: true, completion: nil)
