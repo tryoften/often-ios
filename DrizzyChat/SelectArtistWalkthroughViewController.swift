@@ -30,6 +30,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         navigationItem.leftBarButtonItem = backButton
         
         view.addSubview(tableView)
+        
+        HUDProgressView.show()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -179,8 +181,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     }
     
     func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist]) {
-        
         tableView.reloadData()
+        HUDProgressView.hide()
     }
     
 }
