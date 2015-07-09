@@ -25,6 +25,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
         RLMRealm.setDefaultRealmPath(realmPath)
         
+        RLMRealm.setSchemaVersion(1, forRealmAtPath: RLMRealm.defaultRealmPath()) { migration, oldSchemaVersion in
+            if oldSchemaVersion < 1 {
+                migration.enumerateObjects(Keyboard.className(), block: { oldObject, newObject in
+                    newObject["index"] = oldObject["index"]
+                    
+                })
+            }
+        }
+        
         sessionManager = SessionManager.defaultManager
 
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)

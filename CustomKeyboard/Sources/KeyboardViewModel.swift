@@ -20,7 +20,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     var eventsRef: Firebase
     var user: User
     var keyboards: [Keyboard] {
-        return keyboardService.keyboards
+        return keyboardService.sortedKeyboards
     }
     var currentKeyboard: Keyboard? {
         didSet {
@@ -52,6 +52,15 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         isFullAccessEnabled = fileManager.isWritableFileAtPath(realmPath)
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         
+        RLMRealm.setDefaultRealmSchemaVersion(1) { migration, oldSchemaVersion in
+            if oldSchemaVersion < 1 {
+                migration.enumerateObjects(Keyboard.className(), block: { oldObject, newObject in
+                    newObject["index"] = oldObject["index"]
+                    
+                })
+            }
+        }
+
         if !isFullAccessEnabled {
             //TODO(luc): check if that file exists, if it doesn't, use the bundled DB
             realmPath = directory.path!.stringByAppendingPathComponent("keyboard.realm")
@@ -117,7 +126,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     
     // MARK: KeyboardServiceDelegate
     func serviceDataDidLoad(service: Service) {
-        let keyboards = keyboardService.keyboards
+        let keyboards = keyboardService.sortedKeyboards
         if keyboards.count > 0 {
             if let lastKeyboardId = keyboardService.currentKeyboardId,
                 lastKeyboard = keyboardService.keyboardWithId(lastKeyboardId) {

@@ -58,7 +58,8 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         tintView.setTranslatesAutoresizingMaskIntoConstraints(false)
         tintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
         
-        if UIDevice.currentDevice().modelName.hasPrefix("iPhone 6") {
+        let model = UIDevice.currentDevice().modelName
+        if model.hasPrefix("iPhone 6") || model.hasPrefix("Simulator") {
             artistNameLabel = TOMSMorphingLabel()
         } else {
             artistNameLabel = UILabel()
