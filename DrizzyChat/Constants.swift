@@ -105,7 +105,21 @@ let BrowseCollectionViewCellWidth: CGFloat = CGFloat(UIScreen.mainScreen().bound
 let BrowseCollectionViewCellHeight: CGFloat = CGFloat(63)
 let BrowseHeaderCollectionViewPadding: CGFloat = 75.0
 
-//walkthrough
+//walkthroughFonts
+let WalkthroughNavBarTitleFont = UIFont(name: "OpenSans-Semibold", size: 18)
+let WalkthroughTitleFont = UIFont(name: "Oswald-Regular", size: 22)
+let WalkthroughTextFieldFont = UIFont(name: "OpenSans", size: 14)
+let WalkthroughTableViewCellSubtitleFont = UIFont(name: "OpenSans", size: 10)
+let WalkthroughSpacerFront = UIFont(name: "OpenSans-Italic", size: 12)
+
+//walkthroughColors
+let WalkthroughErrorMessageBackgroundColor = UIColor(fromHexString: "#E85769")
+let WalkthroughNavBarTitleFontColor = UIColor.whiteColor()
+let WalkthroughTitleFontColor = UIColor(fromHexString: "#202020")
+let WalkthroughSubTitleFontColor = UIColor(fromHexString: "#121314")
+let WalkthroughBackgroungColor = UIColor(fromHexString: "#F7F7F7")
+let WalkthroughEmailSpaceBackgroundColor = UIColor(fromHexString: "#E4E4E4")
+
 let AddArtistsTableViewCellReuseIdentifier = "signUpAddArtistsTableViewCell"
 
 

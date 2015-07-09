@@ -33,7 +33,7 @@ class LoginView: UIView {
         emailTxtField = FlexibleBoundsTextField()
         emailTxtField.leftMargin = 40.0
         emailTxtField.textAlignment = .Left
-        emailTxtField.font = UIFont(name: "OpenSans", size: 14)
+        emailTxtField.font = WalkthroughTextFieldFont
         emailTxtField.placeholder = "email".uppercaseString
         emailTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         emailTxtField.leftViewMode = .Always
@@ -43,7 +43,7 @@ class LoginView: UIView {
         passwordTxtField = FlexibleBoundsTextField()
         passwordTxtField.leftMargin = 40.0
         passwordTxtField.textAlignment = .Left
-        passwordTxtField.font = UIFont(name: "OpenSans", size: 14)
+        passwordTxtField.font = WalkthroughTextFieldFont
         passwordTxtField.placeholder = "password".uppercaseString
         passwordTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         passwordTxtField.leftViewMode = .Always
@@ -53,7 +53,7 @@ class LoginView: UIView {
         
         emailTxtSpacer = UIView()
         emailTxtSpacer.setTranslatesAutoresizingMaskIntoConstraints(false)
-        emailTxtSpacer.backgroundColor = UIColor(fromHexString: "#E4E4E4")
+        emailTxtSpacer.backgroundColor = WalkthroughEmailSpaceBackgroundColor
         
         facebookButton = FacebookButton.button()
         facebookButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -61,22 +61,22 @@ class LoginView: UIView {
         
         orLabel = UILabel()
         orLabel.textAlignment = .Center
-        orLabel.font = UIFont(name: "OpenSans-Italic", size: 12)
+        orLabel.font = WalkthroughSpacerFront
         orLabel.textColor = SubtitleGreyColor
         orLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         orLabel.text = "Or"
         
         passwordSpacer = UIView()
         passwordSpacer.setTranslatesAutoresizingMaskIntoConstraints(false)
-        passwordSpacer.backgroundColor = UIColor(fromHexString: "#E4E4E4")
+        passwordSpacer.backgroundColor = WalkthroughEmailSpaceBackgroundColor
         
         orSpacerOne = UIView()
         orSpacerOne.setTranslatesAutoresizingMaskIntoConstraints(false)
-        orSpacerOne.backgroundColor = UIColor(fromHexString: "#E4E4E4")
+        orSpacerOne.backgroundColor = WalkthroughEmailSpaceBackgroundColor
         
         orSpacerTwo = UIView()
         orSpacerTwo.setTranslatesAutoresizingMaskIntoConstraints(false)
-        orSpacerTwo.backgroundColor = UIColor(fromHexString: "#E4E4E4")
+        orSpacerTwo.backgroundColor = WalkthroughEmailSpaceBackgroundColor
         
         whiteBackground = UIView()
         whiteBackground.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -84,7 +84,7 @@ class LoginView: UIView {
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#F7F7F7")
+        backgroundColor = WalkthroughBackgroungColor
         whiteBackground.addSubview(emailTxtField)
         whiteBackground.addSubview(passwordTxtField)
         whiteBackground.addSubview(emailTxtSpacer)

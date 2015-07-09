@@ -25,14 +25,14 @@ class SignUpConfirmPasswordView: UIView {
         
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
-        titleLabel.textColor = UIColor(fromHexString: "#202020")
+        titleLabel.textColor = WalkthroughTitleFontColor
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.text = titleString
         titleLabel.attributedText = title
         
         confirmPasswordTxtField = UITextField()
         confirmPasswordTxtField.textAlignment = .Center
-        confirmPasswordTxtField.font = UIFont(name: "OpenSans", size: 14)
+        confirmPasswordTxtField.font = WalkthroughTextFieldFont
         confirmPasswordTxtField.placeholder = "enter your password"
         confirmPasswordTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         confirmPasswordTxtField.secureTextEntry = true

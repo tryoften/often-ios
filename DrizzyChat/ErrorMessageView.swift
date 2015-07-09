@@ -20,7 +20,7 @@ class ErrorMessageView: UIView {
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#E85769")
+        backgroundColor = WalkthroughErrorMessageBackgroundColor
         
         addSubview(errorMessageLabel)
         

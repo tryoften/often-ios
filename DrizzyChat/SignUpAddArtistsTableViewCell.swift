@@ -25,14 +25,14 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         
         artistNameLabel = UILabel()
         artistNameLabel.textAlignment = .Left
-        artistNameLabel.font = UIFont(name: "OpenSans", size: 14)
-        artistNameLabel.textColor = UIColor(fromHexString: "#202020")
+        artistNameLabel.font = WalkthroughTextFieldFont
+        artistNameLabel.textColor = WalkthroughTitleFontColor
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         
         lyricsCountLabel = UILabel()
         lyricsCountLabel.textAlignment = .Left
-        lyricsCountLabel.font = UIFont(name: "OpenSans", size: 10)
+        lyricsCountLabel.font = WalkthroughTableViewCellSubtitleFont
         lyricsCountLabel.textColor = SubtitleGreyColor
         lyricsCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         

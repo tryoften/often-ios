@@ -32,7 +32,7 @@ class SignUpOrLoginView: UIView {
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
-        titleLabel.font = UIFont(name: "Oswald-Regular", size: 22)
+        titleLabel.font = WalkthroughTitleFont
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         var titleString = "October".uppercaseString
@@ -83,7 +83,7 @@ class SignUpOrLoginView: UIView {
     
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#F7F7F7")
+        backgroundColor = WalkthroughBackgroungColor
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(artistsBgImageView)

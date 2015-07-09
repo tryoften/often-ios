@@ -18,13 +18,13 @@ class SignUpAddArtistsLoaderView: UIView {
         let titleRange = NSMakeRange(0, count(titleString))
         let title = NSMutableAttributedString(string: titleString)
         
-        title.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 18)!, range: titleRange)
+        title.addAttribute(NSFontAttributeName, value: WalkthroughNavBarTitleFont!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 1.5, range: titleRange)
         
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
-        titleLabel.textColor = UIColor(fromHexString: "#202020")
-        titleLabel.font = UIFont(name: "OpenSans-Semibold", size: 18)
+        titleLabel.textColor = WalkthroughTitleFontColor
+        titleLabel.font = WalkthroughNavBarTitleFont
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.attributedText = title
         
