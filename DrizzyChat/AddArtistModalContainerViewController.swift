@@ -66,9 +66,9 @@ class AddArtistModalContainerViewController: UIViewController {
         var flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(mainView.bounds.width, 50)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(mainView.bounds.width, 400)
-        flowLayout.itemSize = CGSizeMake(mainView.bounds.width, 70) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false /// allow sticky header for dragging down the table view
+        flowLayout.itemSize = CGSizeMake(mainView.bounds.width, 70) /// height of the cell
         return flowLayout
     }
     
@@ -132,12 +132,13 @@ class AddArtistModalContainerViewController: UIViewController {
     func panHandler(sender: UIPanGestureRecognizer) {
         
         var center: CGPoint = view.center
-        center.y = mainView.center.y // middle of the screen
+        center.y = mainView.center.y // middle of the modal
         
         if (sender.state == UIGestureRecognizerState.Began) {
             self.lastLocation = mainView.center
         }
         
+        // if the modal moves to the left or right to much dismiss the modal
         if (mainView.center.x < 30) {
             UIView.animateWithDuration(0.2, animations: {
                 self.mainView.transform = CGAffineTransformMakeRotation((345.0 * CGFloat(M_PI)) / 180.0)
@@ -150,9 +151,7 @@ class AddArtistModalContainerViewController: UIViewController {
             delay(0.1, {
                 self.dismissViewControllerAnimated(false, completion: nil)
             })
-        }
-        
-        if self.mainView.center.x > UIScreen.mainScreen().bounds.width - 10 {
+        } else if self.mainView.center.x > UIScreen.mainScreen().bounds.width - 10 {
             UIView.animateWithDuration(0.2, animations: {
                 self.mainView.transform = CGAffineTransformMakeRotation((15.0 * CGFloat(M_PI)) / 180.0)
             })
@@ -164,10 +163,9 @@ class AddArtistModalContainerViewController: UIViewController {
             delay(0.1, {
                 self.dismissViewControllerAnimated(false, completion: nil)
             })
-
         }
         
-        
+        // if the modal wasn't dragged far out enough then snap back to the center where it was
         if (snap != nil) {
             animator?.removeBehavior(snap)
         }

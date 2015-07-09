@@ -17,7 +17,6 @@ import UIKit
     - Artist Name
     - Featured Button
 
-    (TODO): need to figure out formatting for the artist name (Perhaps, parsing + all caps)
 */
 
 class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, TrendingHeaderDelegate {
