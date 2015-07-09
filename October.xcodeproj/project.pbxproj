@@ -1609,7 +1609,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = October;
-				PROVISIONING_PROFILE = "ce04956f-7455-41b3-b8a5-d9a01b126be0";
+				PROVISIONING_PROFILE = "1d61c69d-4dbc-41e5-80a4-9ae12d128939";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1644,7 +1644,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "581808f2-7e4d-463f-b24e-67abadadedaa";
+				PROVISIONING_PROFILE = "a41da941-4d8b-40c4-91e4-dd8875fb7c50";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
