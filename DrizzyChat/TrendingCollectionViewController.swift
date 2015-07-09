@@ -10,20 +10,17 @@ import UIKit
 
 let reuseIdentifier = "Cell"
 
-/**
-    TrendingCollectionViewController:
-    
-    Will display either a list of Trending artists or tracks
-    Should have both loaded before allowing the user to tab between
-
-*/
+enum Toggle {
+    case Artists
+    case Lyrics
+}
 
 class TrendingCollectionViewController: UICollectionViewController, TrendingViewModelDelegate, UIScrollViewDelegate, LyricTabDelegate, ArtistTabDelegate, FeaturedButtonDelegate {
     var viewModel: TrendingViewModel
     var headerView: TrendingHeaderView?
     var sectionHeaderView: TrendingSectionHeaderView?
     var trendingHeaderDelegate: TrendingHeaderDelegate?
-    var toggle: Bool = false
+    var toggle: Toggle = Toggle.Lyrics
     var labelHeight: CGFloat = 65
     let device = UIDevice.currentDevice()
     
@@ -91,9 +88,9 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     // MARK: CollectionView
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if toggle == true {
+        if toggle == Toggle.Artists {
             return viewModel.artistsList.count
-        } else if toggle == false {
+        } else if toggle == Toggle.Lyrics {
             return viewModel.lyricsList.count
         } else {
             return 0
@@ -101,7 +98,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if toggle == true {
+        if toggle == Toggle.Artists {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("artistCell", forIndexPath: indexPath) as! TrendingCollectionViewCell
             
             cell.backgroundColor = UIColor.whiteColor()
@@ -304,7 +301,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     
     */
     func lyricDidTap() {
-        toggle = false
+        toggle = Toggle.Lyrics
         
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
@@ -316,7 +313,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     
     
     func artistDidTap() {
-        toggle = true
+        toggle = Toggle.Artists
         
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
@@ -336,7 +333,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     func trendingCellDidTap(artistTappedIndex: Int) {
         var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController()
         
-        if toggle == true {
+        if toggle == Toggle.Artists {
             addArtistModal.setArtistId(viewModel.trendingService.artists[artistTappedIndex].id)
         } else {
             addArtistModal.setArtistId(viewModel.trendingService.lyrics[artistTappedIndex].artistId)
