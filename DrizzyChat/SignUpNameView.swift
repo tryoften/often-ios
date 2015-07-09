@@ -9,9 +9,9 @@
 import Foundation
 
 class SignUpNameView: UIView {
-    var titleLabel: UILabel!
-    var fullNameTxtField: UITextField!
-    var spacer: UIView!
+    var titleLabel: UILabel
+    var fullNameTxtField: UITextField
+    var spacer: UIView
     var termsAndPrivacyView: TermsAndPrivacyView
     
      override init(frame: CGRect) {
