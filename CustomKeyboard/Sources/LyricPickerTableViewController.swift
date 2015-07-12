@@ -29,6 +29,10 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     required init!(coder aDecoder: NSCoder!) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        viewModel.delegate = nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

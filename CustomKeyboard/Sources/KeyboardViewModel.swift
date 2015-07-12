@@ -13,8 +13,8 @@ import Fabric
 import Crashlytics
 
 class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollectionViewDataSource {
+    weak var delegate: KeyboardViewModelDelegate?
     var keyboardService: KeyboardService
-    var delegate: KeyboardViewModelDelegate?
     var userDefaults: NSUserDefaults
     var hasSeenToolTips: Bool?
     var eventsRef: Firebase
@@ -29,7 +29,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             }
         }
     }
-    var realm: Realm
+    var realm: Realm!
     var isFullAccessEnabled: Bool
     var hasSeenTooltip: Bool {
         get {
@@ -39,6 +39,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             userDefaults.setBool(value, forKey: "toolTips")
         }
     }
+    static let sharedInstance = KeyboardViewModel()
     
     override init() {
         
@@ -51,8 +52,8 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         var fileManager = NSFileManager.defaultManager()
         isFullAccessEnabled = fileManager.isWritableFileAtPath(realmPath)
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        
-        RLMRealm.setDefaultRealmSchemaVersion(1) { migration, oldSchemaVersion in
+   
+        RLMRealm.setSchemaVersion(1, forRealmAtPath: realmPath) { migration, oldSchemaVersion in
             if oldSchemaVersion < 1 {
                 migration.enumerateObjects(Keyboard.className(), block: { oldObject, newObject in
                     newObject["index"] = oldObject["index"]
@@ -103,6 +104,12 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             authenticate()
         }
         keyboardService.delegate = self
+    }
+    
+    deinit {
+        realm.invalidate()
+        realm = nil
+        keyboardService.delegate = nil
     }
     
     func authenticate() {
@@ -188,7 +195,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     }
 }
 
-protocol KeyboardViewModelDelegate {
+protocol KeyboardViewModelDelegate: class {
     func keyboardViewModelDidLoadData(keyboardViewModel: KeyboardViewModel, data: [Keyboard])
     func keyboardViewModelCurrentKeyboardDidChange(keyboardViewModel: KeyboardViewModel, keyboard: Keyboard)
 }
