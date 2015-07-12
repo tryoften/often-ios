@@ -16,12 +16,20 @@ class TrendingService: Service {
     var featuredArtists: [Artist]
     var artistService: ArtistService
     
+    // test
+    var oldArray: [Lyric]
+    var firstRound: Bool
+    
     init(root: Firebase, artistService: ArtistService? = nil) {
         artists = [Artist]()
         lyrics = [Lyric]()
         featuredArtists = [Artist]()
         trendingRef = root.childByAppendingPath("trending")
         featuredRef = root.childByAppendingPath("/trending/featured_artists/")
+        
+        //test
+        oldArray = [Lyric]()
+        firstRound = true
 
         if let artistService = artistService {
             self.artistService = artistService
@@ -121,6 +129,13 @@ class TrendingService: Service {
                         }
                     }
                     println(data)
+                    
+                    if self.firstRound == false {
+                        self.hashDiff(self.oldArray, newArray: self.lyrics)
+                    } else {
+                        self.firstRound = false
+                    }
+                    
                     self.delegate?.lyricsDidUpdate(self.lyrics)
                 }
             })
@@ -147,5 +162,35 @@ class TrendingService: Service {
                 }
             }
         })
+    }
+    
+    /**
+        Take in old and new array and for each index in the old array check if the value at that index is
+        at a different position in the new array
+    
+        :param: oldArray Previous array logged from Firebase
+        :param: newArray New array from Firebase event to be checked against old array
+    
+        :returns: Couplet of old v new position if there was a difference
+    */
+    func hashDiff(oldArray: [Lyric], newArray: [Lyric]) -> (Int, Int){
+        if oldArray.count == newArray.count {
+            for var i = 0; i < oldArray.count; i++ {
+                if oldArray[i] == newArray[i] {
+                    return (0,0)
+                } else {
+                    for var j = 0; j < newArray.count; j++ {
+                        if oldArray[i] == newArray[j] {
+                            println("Couplet: \(i),\(j)")
+                            return (i,j)
+                        }
+                    }
+                }
+            }
+        } else {
+            println("Old and New array not the same length")
+        }
+    
+        return (1,1)
     }
 }
