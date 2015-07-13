@@ -38,9 +38,9 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
     var headerLoadedOnce = false
     var tapRecognizer: UITapGestureRecognizer?
     
-    var lyricDelegate: LyricTabDelegate?
-    var artistDelegate: ArtistTabDelegate?
-    var featuredDelegate: FeaturedButtonDelegate?
+    weak var lyricDelegate: LyricTabDelegate?
+    weak var artistDelegate: ArtistTabDelegate?
+    weak var featuredDelegate: FeaturedButtonDelegate?
     var featuredArtists: [Artist]
     
     override init(frame: CGRect) {
@@ -347,14 +347,14 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
     }
 }
 
-protocol FeaturedButtonDelegate {
+protocol FeaturedButtonDelegate: class {
     func featuredButtonDidTap(artistId: String)
 }
 
-protocol LyricTabDelegate {
+protocol LyricTabDelegate: class {
     func lyricDidTap()
 }
 
-protocol ArtistTabDelegate {
+protocol ArtistTabDelegate: class {
     func artistDidTap()
 }

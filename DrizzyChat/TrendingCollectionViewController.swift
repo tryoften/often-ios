@@ -21,11 +21,11 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
         case Lyrics
     }
     
-    var collectionType: TrendingCollectionType = TrendingCollectionType.Lyrics
+    var collectionType: TrendingCollectionType = .Lyrics
     var viewModel: TrendingViewModel
     var headerView: TrendingHeaderView?
     var sectionHeaderView: TrendingSectionHeaderView?
-    var trendingHeaderDelegate: TrendingHeaderDelegate?
+    weak var trendingHeaderDelegate: TrendingHeaderDelegate?
     var labelHeight: CGFloat = 65
     let device = UIDevice.currentDevice()
     
@@ -93,9 +93,9 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
     // MARK: CollectionView
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionType == TrendingCollectionType.Artists {
+        if collectionType == .Artists {
             return viewModel.artistsList.count
-        } else if collectionType == TrendingCollectionType.Lyrics {
+        } else if collectionType == .Lyrics {
             return viewModel.lyricsList.count
         } else {
             return 0
@@ -103,7 +103,7 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if collectionType == TrendingCollectionType.Artists {
+        if collectionType == .Artists {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("artistCell", forIndexPath: indexPath) as! TrendingCollectionViewCell
             
             cell.backgroundColor = UIColor.whiteColor()
@@ -271,7 +271,7 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
     
     */
     func lyricDidTap() {
-        collectionType = TrendingCollectionType.Lyrics
+        collectionType = .Lyrics
         
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
@@ -282,7 +282,7 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
     
     
     func artistDidTap() {
-        collectionType = TrendingCollectionType.Artists
+        collectionType = .Artists
         
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
@@ -301,7 +301,7 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
     func trendingCellDidTap(artistTappedIndex: Int) {
         var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController()
         
-        if collectionType == TrendingCollectionType.Artists {
+        if collectionType == .Artists {
             addArtistModal.setArtistId(viewModel.trendingService.artists[artistTappedIndex].id)
         } else {
             addArtistModal.setArtistId(viewModel.trendingService.lyrics[artistTappedIndex].artistId)
@@ -387,6 +387,6 @@ class TrendingCollectionViewController: UICollectionViewController, UIScrollView
     }
 }
 
-protocol TrendingHeaderDelegate {
+protocol TrendingHeaderDelegate: class {
     func featuredArtistsDidLoad(artists: [Artist])
 }
