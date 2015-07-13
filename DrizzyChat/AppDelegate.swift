@@ -21,9 +21,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
-        let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
-        RLMRealm.setDefaultRealmPath(realmPath)
+        if !TestKeyboard {
+            let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+            let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
+            RLMRealm.setDefaultRealmPath(realmPath)
+            
+            RLMRealm.setSchemaVersion(1, forRealmAtPath: RLMRealm.defaultRealmPath()) { migration, oldSchemaVersion in
+                if oldSchemaVersion < 1 {
+                    migration.enumerateObjects(Keyboard.className(), block: { oldObject, newObject in
+                        newObject["index"] = oldObject["index"]
+                        
+                    })
+                }
+            }
+        }
         
         sessionManager = SessionManager.defaultManager
 

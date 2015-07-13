@@ -9,18 +9,18 @@
 import UIKit
 
 class CategoriesPanelView: UIView {
+    weak var delegate: SectionPickerViewDelegate?
     var categoriesCollectionView: UICollectionView
     var nextKeyboardButton: UIButton
     var toggleDrawerButton: UIButton
     var switchArtistButton: SwitchArtistButton
     var currentCategoryView: UIView
-    var currentCategoryLabel: TOMSMorphingLabel
+    var currentCategoryLabel: UILabel
     var messageBarView: MessageBarView
     var messageBarViewTopConstraint: NSLayoutConstraint
     var shareButton: UIButton
     var drawerOpened: Bool = false
     var collectionViewEnabled: Bool = true
-    var delegate: SectionPickerViewDelegate?
     var selectedBgView: UIView
     var toolbarView: UIView
 
@@ -68,7 +68,7 @@ class CategoriesPanelView: UIView {
         messageBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
         messageBarView.alpha = 0
         
-        currentCategoryLabel = TOMSMorphingLabel()
+        currentCategoryLabel = UILabel()
         currentCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
         currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         currentCategoryLabel.userInteractionEnabled = true
@@ -232,6 +232,6 @@ class CategoriesPanelView: UIView {
     }
 }
 
-protocol SectionPickerViewDelegate {
+protocol SectionPickerViewDelegate: class {
     func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category, index: Int)
 }

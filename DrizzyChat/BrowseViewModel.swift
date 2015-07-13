@@ -73,8 +73,9 @@ class BrowseViewModel: NSObject {
     }
     
     func userHasKeyboardForArtist(artist: Artist) -> Bool {
-        if let currentUser = SessionManager.defaultManager.currentUser {
-            return currentUser.hasKeyboardForArtist(artist)
+        let keyboardService = SessionManager.defaultManager.keyboardService
+        if let keyboard = keyboardService?.keyboards[artist.keyboardId] {
+            return true
         }
         return false
     }

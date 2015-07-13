@@ -13,14 +13,14 @@ import Fabric
 import Crashlytics
 
 class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollectionViewDataSource {
+    weak var delegate: KeyboardViewModelDelegate?
     var keyboardService: KeyboardService
-    var delegate: KeyboardViewModelDelegate?
     var userDefaults: NSUserDefaults
     var hasSeenToolTips: Bool?
     var eventsRef: Firebase
     var user: User
     var keyboards: [Keyboard] {
-        return keyboardService.keyboards
+        return keyboardService.sortedKeyboards
     }
     var currentKeyboard: Keyboard? {
         didSet {
@@ -29,7 +29,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             }
         }
     }
-    var realm: Realm
+    var realm: Realm!
     var isFullAccessEnabled: Bool
     var hasSeenTooltip: Bool {
         get {
@@ -39,18 +39,30 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
             userDefaults.setBool(value, forKey: "toolTips")
         }
     }
+    static let sharedInstance = KeyboardViewModel()
     
     override init() {
         
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         isFullAccessEnabled = false
         
         let root = Firebase(url: BaseURL)
+        
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
         var realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
         
         var fileManager = NSFileManager.defaultManager()
         isFullAccessEnabled = fileManager.isWritableFileAtPath(realmPath)
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        
+        
+        RLMRealm.setSchemaVersion(1, forRealmAtPath: realmPath) { migration, oldSchemaVersion in
+            if oldSchemaVersion < 1 {
+                migration.enumerateObjects(Keyboard.className(), block: { oldObject, newObject in
+                    newObject["index"] = oldObject["index"]
+                    
+                })
+            }
+        }
         
         if !isFullAccessEnabled {
             //TODO(luc): check if that file exists, if it doesn't, use the bundled DB
@@ -59,8 +71,8 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         } else {
             realm = Realm(path: realmPath)
         }
-        
         RLMRealm.setDefaultRealmPath(realmPath)
+
         var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         
@@ -95,6 +107,12 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         }
         keyboardService.delegate = self
     }
+
+    deinit {
+        realm.invalidate()
+        realm = nil
+        keyboardService.delegate = nil
+    }
     
     func authenticate() {
         if let authData = userDefaults.objectForKey("authData") as? [String: String] {
@@ -117,7 +135,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     
     // MARK: KeyboardServiceDelegate
     func serviceDataDidLoad(service: Service) {
-        let keyboards = keyboardService.keyboards
+        let keyboards = keyboardService.sortedKeyboards
         if keyboards.count > 0 {
             if let lastKeyboardId = keyboardService.currentKeyboardId,
                 lastKeyboard = keyboardService.keyboardWithId(lastKeyboardId) {
@@ -179,7 +197,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     }
 }
 
-protocol KeyboardViewModelDelegate {
+protocol KeyboardViewModelDelegate: class {
     func keyboardViewModelDidLoadData(keyboardViewModel: KeyboardViewModel, data: [Keyboard])
     func keyboardViewModelCurrentKeyboardDidChange(keyboardViewModel: KeyboardViewModel, keyboard: Keyboard)
 }
