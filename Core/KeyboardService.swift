@@ -38,19 +38,25 @@ class KeyboardService: Service {
     var trackService: TrackService
     var artistService: ArtistService
 
-    init(user: User, root: Firebase, realm: Realm = Realm(), artistService: ArtistService? = nil) {
+    init(user: User, root: Firebase, realm: Realm = Realm(), artistService: ArtistService? = nil, trackService: TrackService? = nil) {
         self.user = user
         
         if let artistService = artistService {
             self.artistService = artistService
         } else {
-            self.artistService = ArtistService(root: Firebase(url: BaseURL), realm: realm)
+            self.artistService = ArtistService(root: root, realm: realm)
         }
+        
+        if let trackService = trackService {
+            self.trackService = trackService
+        } else {
+            self.trackService = TrackService(root: root, realm: realm)
+        }
+
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         keyboardsRef = root.childByAppendingPath("users/\(user.id)/keyboards")
         keyboards = [String: Keyboard]()
         sortedKeyboards = [Keyboard]()
-        trackService = TrackService(root: root, realm: realm)
         isUpdatingKeyboards = false
 
         super.init(root: root, realm: realm)
