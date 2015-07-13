@@ -52,7 +52,7 @@ class ShareViewController: UIViewController {
         }
     }
     
-    var delegate: ShareViewControllerDelegate?
+    weak var delegate: ShareViewControllerDelegate?
     var seperatorView: UIView!
     var spotifyButton: UIButton?
     var soundcloudButton: UIButton?
@@ -269,7 +269,7 @@ class ShareViewController: UIViewController {
     }
 }
 
-protocol ShareViewControllerDelegate {
+protocol ShareViewControllerDelegate: class {
     func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL])
     func shareViewControllerDidCancel(shareViewController: ShareViewController)
 }

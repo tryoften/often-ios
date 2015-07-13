@@ -119,11 +119,12 @@
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		8134B0F31B3C7A5C001B9C5E /* HUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */; };
-		81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */; };
 		81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
 		81413DBD1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
 		81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
 		81413DC01A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
+		8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
+		8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
@@ -220,7 +221,6 @@
 		81B19EC41B30DFB700D3575C /* FlexibleBoundsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EC31B30DFB700D3575C /* FlexibleBoundsTextField.swift */; };
 		81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */; };
-		81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D5861A956E680089767B /* LoginIndicatorView.swift */; };
 		81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
 		81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
@@ -401,9 +401,9 @@
 		81331E231A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
 		8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDProgressView.swift; sourceTree = "<group>"; };
-		81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormTableViewCell.swift; sourceTree = "<group>"; };
 		81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-outlined.ttf"; sourceTree = "<group>"; };
 		81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-filled.ttf"; sourceTree = "<group>"; };
+		8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextProcessingManager.swift; path = Sources/TextProcessingManager.swift; sourceTree = "<group>"; };
 		81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceList.swift"; sourceTree = "<group>"; };
 		81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoriesPanelView.swift; path = Sources/CategoriesPanelView.swift; sourceTree = "<group>"; };
 		81592F931B0FA5070092EA8F /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Core/SessionManager.swift; sourceTree = "<group>"; };
@@ -459,7 +459,6 @@
 		81B19EC31B30DFB700D3575C /* FlexibleBoundsTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleBoundsTextField.swift; sourceTree = "<group>"; };
 		81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StandardKeyboardViewController.swift; path = Sources/StandardKeyboardViewController.swift; sourceTree = "<group>"; };
 		81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricFilterBar.swift; path = Sources/LyricFilterBar.swift; sourceTree = "<group>"; };
-		81B6D5861A956E680089767B /* LoginIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginIndicatorView.swift; sourceTree = "<group>"; };
 		81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricPickerViewModel.swift; path = Sources/LyricPickerViewModel.swift; sourceTree = "<group>"; };
 		81C010701AE89631008F3296 /* ArtistService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistService.swift; path = Core/ArtistService.swift; sourceTree = "<group>"; };
 		81C010751AE89956008F3296 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Core/Artist.swift; sourceTree = "<group>"; };
@@ -769,6 +768,14 @@
 			name = "View Models";
 			sourceTree = "<group>";
 		};
+		8142F79B1B534F180061AE90 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
 		81592F921B0FA4F10092EA8F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -830,8 +837,6 @@
 				3BFBB8C21B44BF3D008706C2 /* KeyboardWalkthroughView.swift */,
 				81B19EC31B30DFB700D3575C /* FlexibleBoundsTextField.swift */,
 				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
-				81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */,
-				81B6D5861A956E680089767B /* LoginIndicatorView.swift */,
 				3B0F15571B4B220400FC73FC /* ErrorMessageView.swift */,
 				3B0F15591B4B5F1400FC73FC /* NavBarTitleView.swift */,
 				81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */,
@@ -931,6 +936,7 @@
 		8180E6321A142199007FA1CF /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				8142F79B1B534F180061AE90 /* Managers */,
 				813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */,
 				81592FA91B0FB7B00092EA8F /* View Layouts */,
 				81B6D58D1A95B07B0089767B /* View Models */,
@@ -1054,7 +1060,6 @@
 				8180E6051A142157007FA1CF /* Frameworks */,
 				8180E6061A142157007FA1CF /* Resources */,
 				8180E63D1A142199007FA1CF /* Embed App Extensions */,
-				819A375B1A9806900041F5E0 /* Update Bundle Version */,
 				45728D1C2D72036A77085D41 /* Copy Pods Resources */,
 				81D43B2C1B46CA8400453BBF /* Embed Frameworks */,
 				81D43B631B46FF2600453BBF /* Realm Strip from Framework */,
@@ -1077,7 +1082,6 @@
 				194ABAC59D0290C32B9EF891 /* Check Pods Manifest.lock */,
 				8180E62D1A142199007FA1CF /* Sources */,
 				8180E62E1A142199007FA1CF /* Frameworks */,
-				812E3EEC1B4B232300C0F3BE /* Update Bundle Version */,
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
 			);
@@ -1287,20 +1291,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		812E3EEC1B4B232300C0F3BE /* Update Bundle Version */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Update Bundle Version";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
-		};
 		812E3F021B4BB95100C0F3BE /* Upload symbols to crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1314,20 +1304,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run e4598140f72849daf847791f325b1eabae27a254 d6286229dfcfc4a30ec93ce38e1237bd5168d469296be7842aa314720d358417";
-		};
-		819A375B1A9806900041F5E0 /* Update Bundle Version */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Update Bundle Version";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "#!/bin/bash\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"";
 		};
 		81D43B631B46FF2600453BBF /* Realm Strip from Framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1402,7 +1378,6 @@
 				81B19EA91B30AD5D00D3575C /* SessionManager.swift in Sources */,
 				3B9AD7A81B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift in Sources */,
 				69BA82101B2FABE200233789 /* BrowseCollectionViewCell.swift in Sources */,
-				81413DA01A903FCD00926E7C /* SignUpFormTableViewCell.swift in Sources */,
 				81D4BF371B39D25C006430AB /* FrameView.swift in Sources */,
 				3BDB0F3C1B3B9E7800E89066 /* SignUpNameWalkthroughViewController.swift in Sources */,
 				817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
@@ -1440,9 +1415,9 @@
 				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
 				81B19E971B30AD5500D3575C /* Service.swift in Sources */,
 				3BCAE3AD1B39CA1700DFF63F /* SignUpAddArtistsLoaderView.swift in Sources */,
-				81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				81B19E961B30AD5500D3575C /* KeyboardService.swift in Sources */,
+				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
 				69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */,
 				81592FA31B0FA5870092EA8F /* UserProfileSectionHeaderView.swift in Sources */,
@@ -1513,6 +1488,7 @@
 				817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
+				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81B19EA61B30AD5B00D3575C /* Keyboard.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81B19EA21B30AD5B00D3575C /* Category.swift in Sources */,
@@ -1564,7 +1540,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
+					"DEBUG=0",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -1577,9 +1553,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "";
 				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -1596,9 +1573,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
-					"/Users/luc/Downloads/realm-swift-0.93.1/ios",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TARGET_IS_APP=1",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
 					"$(inherited)",
 					"COCOAPODS=1",
 					"TARGET_IS_APP=1",
@@ -1643,12 +1624,124 @@
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a41da941-4d8b-40c4-91e4-dd8875fb7c50";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 			};
 			name = Release;
+		};
+		812E3F1B1B4DE6AD00C0F3BE /* Crashlytics */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=0",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "";
+				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Crashlytics;
+		};
+		812E3F1C1B4DE6AD00C0F3BE /* Crashlytics */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Drizzy.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Firebase",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TARGET_IS_APP=1",
+				);
+				INFOPLIST_FILE = DrizzyChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
+				PRODUCT_NAME = October;
+				PROVISIONING_PROFILE = "873ab381-0986-4865-abc1-cc7f84ea258c";
+				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Crashlytics;
+		};
+		812E3F1D1B4DE6AD00C0F3BE /* Crashlytics */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CustomKeyboard/CustomKeyboard.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
+					"$(PROJECT_DIR)/Pods/Firebase",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/CustomKeyboard/Sources/CustomKeyboardPrefixHeader.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"TARGET_IS_EXTENSION=1",
+				);
+				INFOPLIST_FILE = CustomKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5a62fb9c-c8e0-4cb3-91ce-881cc129d19c";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
+			};
+			name = Crashlytics;
 		};
 		8180E6251A142158007FA1CF /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1688,6 +1781,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1707,7 +1801,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
-					"/Users/luc/Downloads/realm-swift-0.93.1/ios",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1753,6 +1846,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -1767,6 +1861,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8180E6251A142158007FA1CF /* Debug */,
+				812E3F1B1B4DE6AD00C0F3BE /* Crashlytics */,
 				6952626F1B4AEADD00D4C6FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1776,6 +1871,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8180E6281A142158007FA1CF /* Debug */,
+				812E3F1C1B4DE6AD00C0F3BE /* Crashlytics */,
 				695262701B4AEADD00D4C6FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1785,6 +1881,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8180E63B1A142199007FA1CF /* Debug */,
+				812E3F1D1B4DE6AD00C0F3BE /* Crashlytics */,
 				695262711B4AEADD00D4C6FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

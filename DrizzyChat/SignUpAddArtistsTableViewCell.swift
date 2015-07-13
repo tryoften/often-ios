@@ -9,14 +9,12 @@
 import Foundation
 
 class SignUpAddArtistsTableViewCell: UITableViewCell {
-    var artistNameLabel : UILabel!
-    var lyricsCountLabel : UILabel!
-    var artistImageView : UIImageView!
-    var selectionButton : UIButton!
+    var artistNameLabel : UILabel
+    var lyricsCountLabel : UILabel
+    var artistImageView : UIImageView
+    var selectionButton : UIButton
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         artistImageView = UIImageView()
         artistImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistImageView.contentMode = .ScaleAspectFill
@@ -43,6 +41,8 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         selectionButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         selectionButton.setImage(UIImage(named: "Unselected"), forState: .Normal)
         selectionButton.setImage(UIImage(named: "SelectedButton"), forState: .Selected)
+        
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = UIColor.whiteColor()
         contentView.addSubview(artistImageView)

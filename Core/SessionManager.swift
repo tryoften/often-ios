@@ -348,7 +348,7 @@ class SessionManager: NSObject {
     private func broadcastDidFetchKeyboardsEvent() {
         if let keyboardService = self.keyboardService {
             for observer in observers {
-                observer.sessionManagerDidFetchKeyboards(self, keyboards: keyboardService.keyboards)
+                observer.sessionManagerDidFetchKeyboards(self, keyboards: keyboardService.sortedKeyboards)
             }
         }
     }

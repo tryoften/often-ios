@@ -20,11 +20,11 @@ import UIKit
 
 class BrowseCollectionViewCell: UICollectionViewCell {
     
-    var rankLabel: UILabel! /// number rank on the left of the cell
-    var trackNameLabel: UILabel! /// Track name label
-    var lyricCountLabel: UILabel! /// label for lyric Count "Lyrics: n"
-    var disclosureIndicator: UIImageView! /// arrow image
-    var lineBreakView: UIView! /// line break 1 pixel high to fake a line break
+    var rankLabel: UILabel /// number rank on the left of the cell
+    var trackNameLabel: UILabel /// Track name label
+    var lyricCountLabel: UILabel /// label for lyric Count "Lyrics: n"
+    var disclosureIndicator: UIImageView /// arrow image
+    var lineBreakView: UIView /// line break 1 pixel high to fake a line break
     
     override init(frame: CGRect) {
         rankLabel = UILabel()
