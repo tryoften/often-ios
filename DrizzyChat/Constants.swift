@@ -8,7 +8,11 @@
 
 import Foundation
 
-let BaseURL = "https://multi-keyboards.firebaseio.com/"
+#if DEBUG
+    let BaseURL = "https://drizzy-db-dev.firebaseio.com/"
+#else
+    let BaseURL = "https://multi-keyboards.firebaseio.com/"
+#endif
 let AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let ParseAppID = "L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G"
 let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"

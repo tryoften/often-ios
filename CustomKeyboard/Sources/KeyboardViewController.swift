@@ -13,8 +13,11 @@ import Crashlytics
 
 let EnableFullAccessMessage = "Ayo! enable \"Full Access\" in Settings\nfor Drizzy to do his thing"
 
-class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareViewControllerDelegate, KeyboardViewModelDelegate,
-    ArtistPickerCollectionViewControllerDelegate, ToolTipCloseButtonDelegate {
+class KeyboardViewController: UIInputViewController,
+    KeyboardViewModelDelegate,
+    TextProcessingManagerDelegate,
+    ArtistPickerCollectionViewControllerDelegate,
+    ToolTipCloseButtonDelegate {
 
     var lyricPicker: LyricPickerTableViewController?
     var categoryPicker: CategoryCollectionViewController!
@@ -25,28 +28,17 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var lyricPickerViewModel: LyricPickerViewModel!
     var sectionPickerView: CategoriesPanelView!
     var seperatorView: UIView!
-    var lastInsertedString: String?
-    var fixedFilterBarView: UIView!
-    var currentlyInjectedLyric: Lyric?
-    var lyricInserted = false
+    var textProcessor: TextProcessingManager!
     static var debugKeyboard = false
-    static var onceToken: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        viewModel = KeyboardViewModel()
-        var firebaseRoot = Firebase(url: BaseURL)
-        lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot, realm: viewModel.realm))
-        
+        viewModel = KeyboardViewModel.sharedInstance
+        lyricPickerViewModel = LyricPickerViewModel(trackService: viewModel.keyboardService.trackService)
+    
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        viewModel.delegate = self
         
-        for family in UIFont.familyNames() {
-            println("\(family)")
-            
-            for name in UIFont.fontNamesForFamilyName(family as! String) {
-                println("  \(name)")
-            }
-        }
+        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy as! UITextDocumentProxy)
+        viewModel.delegate = self
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -57,6 +49,13 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         KeyboardViewController.debugKeyboard = debug
         self.init(nibName: nil, bundle: nil)
     }
+    
+    deinit {
+        viewModel.delegate = nil
+        lyricPicker = nil
+        artistPicker = nil
+        categoryPicker = nil
+    }
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -64,9 +63,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.whiteColor()
     
         lyricPicker = LyricPickerTableViewController(viewModel: lyricPickerViewModel)
-        lyricPicker!.delegate = self
+        lyricPicker!.delegate = textProcessor
         lyricPicker!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         if !viewModel.hasSeenTooltip {
@@ -96,12 +97,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
         
-        bootstrap()
-
         setupLayout()
         setupAppearance()
         layoutArtistPickerView()
         layoutSectionPickerView()
+        bootstrap()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -118,13 +118,24 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         } else {
             sectionPickerView.hideMessageBar()
         }
+        layoutSectionPickerView()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        layoutSectionPickerView()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        artistPicker = nil
+        lyricPicker = nil
     }
     
     func bootstrap() {
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
         Flurry.startSession(FlurryClientKey)
 
-        self.viewModel.requestData()
+        viewModel.requestData()
     }
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
@@ -134,6 +145,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         layoutSectionPickerView()
         layoutArtistPickerView()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        println("received memory warning")
     }
     
     func setupAppearance() {
@@ -240,111 +256,21 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
         SEGAnalytics.sharedAnalytics().track("keyboard:categoryPanelClosed")
     }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        layoutSectionPickerView()
-    }
-
+    
     override func textWillChange(textInput: UITextInput) {
-        // The app is about to change the document's contents. Perform any preparation here.
-        let proxy = textDocumentProxy as! UITextDocumentProxy
-        
-        if !proxy.hasText() {
-            return
-        }
-        
-        var context = proxy.documentContextBeforeInput
-        
-        println("context: \(context)")
-        
-        if let injectedLyric = currentlyInjectedLyric {
-            // Whether the current context is the currently selected lyric on not
-            lyricInserted = injectedLyric == context
-        }
+        textProcessor.textWillChange(textInput)
     }
-
+    
     override func textDidChange(textInput: UITextInput) {
-        var proxy = textDocumentProxy as! UITextDocumentProxy
-        var analytics = SEGAnalytics.sharedAnalytics()
-        // When the lyric is flushed and sent to the proper context
-        if !proxy.hasText() {
-            if let lyric = currentlyInjectedLyric {
-                viewModel.logLyricInsertedEvent(lyric)
-            }
-        }
+        textProcessor.textDidChange(textInput)
     }
 
-    func clearInput() {
-        let proxy = textDocumentProxy as! UITextDocumentProxy
-        
-        //move cursor to end of text
-        if let afterInputText = proxy.documentContextAfterInput {
-            proxy.adjustTextPositionByCharacterOffset(count(afterInputText.utf16))
-        }
-        
-        if let beforeInputText = lastInsertedString {
-            for var i = 0, len = count(beforeInputText.utf16); i < len; i++ {
-                proxy.deleteBackward()
-            }
-        }
+    override func selectionWillChange(textInput: UITextInput) {
+        textProcessor.selectionWillChange(textInput)
     }
     
-    func insertLyric(lyric: Lyric, selectedOptions: [ShareOption: NSURL]?) {
-        let proxy = textDocumentProxy as! UIKeyInput
-        var text = ""
-        var optionKeys = [String]()
-        
-        clearInput()
-        
-        if proxy.hasText() {
-            text += ". "
-        }
-        
-        if var options = selectedOptions {
-            
-            if (options.indexForKey(.Lyric) != nil) {
-                text += lyric.text
-                options.removeValueForKey(.Lyric)
-            }
-            
-            if (!text.isEmpty && !options.isEmpty) {
-                text += "\n"
-            }
-            
-            for (option, url) in options {
-                optionKeys.append(option.description)
-                if (!text.isEmpty) {
-                    text += "\n"
-                }
-                text += shareStringForOption(option, url: url)
-            }
-        } else {
-            text += lyric.text
-        }
-
-        proxy.insertText(text)
-        lastInsertedString = text
-    }
-    
-    func shareStringForOption(option: ShareOption, url: NSURL) -> String {
-        var shareString = ""
-    
-        switch option {
-            case .Spotify:
-                shareString = "Spotify: "
-                break
-            case .Soundcloud:
-                shareString = "Soundcloud: "
-                break
-            case .YouTube:
-                shareString = "YouTube: "
-                break
-            default:
-                break
-        }
-        
-        return shareString + url.absoluteString!
+    override func selectionDidChange(textInput: UITextInput) {
+        textProcessor.selectionDidChange(textInput)
     }
 
     // MARK: LyricFilterBarPromotable
@@ -359,31 +285,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }
     }
     
-    // MARK: LyricPickerDelegate
-    func didPickLyric(lyricPicker: LyricPickerTableViewController, shareVC: ShareViewController, lyric: Lyric?) {
-        shareVC.delegate = self
-        currentlyInjectedLyric = lyric
-        insertLyric(lyric!, selectedOptions: nil)
-    }
-    
-    // MARK: ShareViewControllerDelegate
-
-    func shareViewControllerDidCancel(shareVC: ShareViewController) {
-        let proxy = textDocumentProxy as! UIKeyInput
-        
-        for var i = 0, len = count(shareVC.lyric!.text.utf16); i < len; i++ {
-            proxy.deleteBackward()
-        }
-        
-        shareVC.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func shareViewControllerDidToggleShareOptions(shareViewController: ShareViewController, options: [ShareOption: NSURL]) {
-        insertLyric(shareViewController.lyric!, selectedOptions:options)
-    }
-    
     // MARK: KeyboardViewModelDelegate
-    
     func keyboardViewModelDidLoadData(keyboardViewModel: KeyboardViewModel, data: [Keyboard]) {
         self.artistPicker?.collectionView?.reloadData()
     }
@@ -427,7 +329,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     // MARK: ArtistPickerCollectionViewControllerDelegate
-    
     func artistPickerCollectionViewControllerDidSelectKeyboard(artistPicker: ArtistPickerCollectionViewController, keyboard: Keyboard) {
         NSUserDefaults.standardUserDefaults().setValue(keyboard.id, forKey: "currentKeyboard")
         viewModel.currentKeyboard = keyboard
@@ -439,7 +340,6 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     // MARK: ToolTipCloseButtonDelegate
-    
     func toolTipCloseButtonDidTap() {
         println("Close Button Tapped")
         viewModel.hasSeenTooltip = true
@@ -449,8 +349,14 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         }, completion: { done in
             self.toolTipViewController!.view.removeFromSuperview()
         })
-        
-        
+    }
+    
+    
+    // MARK: TextProcessingManagerDelegate
+    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
+        if let lyric = textProcessingManager.currentlyInjectedLyric {
+            viewModel.logLyricInsertedEvent(lyric)
+        }
     }
 }
 

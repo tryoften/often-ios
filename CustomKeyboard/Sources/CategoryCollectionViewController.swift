@@ -8,9 +8,9 @@
 
 import UIKit
 
-class CategoryCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
-    var keyboardViewController: KeyboardViewController!
+class CategoryCollectionViewController: UIViewController,
+    UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    weak var keyboardViewController: KeyboardViewController!
     var tapRecognizer: UITapGestureRecognizer!
     var drawerOpened: Bool = false
     var startingPoint: CGPoint?
@@ -114,8 +114,8 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     func didTapShareButton() {
         let shareText = "I'm using October, a new lyric keyboard. Check it out! http://octbr.co/app"
         let proxy = keyboardViewController.textDocumentProxy as! UITextDocumentProxy
-        keyboardViewController.lastInsertedString = shareText
-        keyboardViewController.clearInput()
+        keyboardViewController.textProcessor.lastInsertedString = shareText
+        keyboardViewController.textProcessor.clearInput()
         proxy.insertText(shareText)
     }
     

@@ -16,7 +16,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
     var viewModel: LyricPickerViewModel
     var selectedRows = [Int: Bool]()
     var selectedRow: NSIndexPath?
-    var selectedCell: LyricTableViewCell?
+    weak var selectedCell: LyricTableViewCell?
     var animatingCell: Bool!
     var searchModeOn: Bool!
     
@@ -28,6 +28,10 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
 
     required init!(coder aDecoder: NSCoder!) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        viewModel.delegate = nil
     }
 
     override func viewDidLoad() {
@@ -101,8 +105,7 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
         
         if let lyric = viewModel.lyricAtIndexInSection(indexPath.row, section: indexPath.section) {
             self.viewModel.getTrackForLyric(lyric, completion: { track in
-                cell.shareVC!.lyric = lyric
-                cell.metadataView.track = track
+                cell.track = track
             })
         }
         
@@ -248,5 +251,5 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
 }
 
 protocol LyricPickerDelegate: class {
-    func didPickLyric(lyricPicker: LyricPickerTableViewController,shareVC: ShareViewController, lyric: Lyric?)
+    func didPickLyric(lyricPicker: LyricPickerTableViewController, shareVC: ShareViewController?, lyric: Lyric?)
 }

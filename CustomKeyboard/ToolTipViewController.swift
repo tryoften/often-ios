@@ -12,8 +12,8 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     var viewModel: KeyboardViewModel
     
     var closeButton: UIButton
-    var closeButtonDelegate: ToolTipCloseButtonDelegate?
-    var delegate: ToolTipViewControllerDelegate?
+    weak var closeButtonDelegate: ToolTipCloseButtonDelegate?
+    weak var delegate: ToolTipViewControllerDelegate?
     var pageWidth: CGFloat
     var scrollView: UIScrollView
     var pageControl: UIPageControl
@@ -194,10 +194,10 @@ class CaretView: UIView {
     }
 }
 
-protocol ToolTipCloseButtonDelegate {
+protocol ToolTipCloseButtonDelegate: class {
     func toolTipCloseButtonDidTap()
 }
 
-protocol ToolTipViewControllerDelegate {
+protocol ToolTipViewControllerDelegate: class {
     func delegateCurrentPage(currentPage: Int)
 }
