@@ -22,7 +22,7 @@ class Keyboard: Object {
     }
     
     override static func ignoredProperties() -> [String] {
-        return ["categoryList"]
+        return ["categoryList", "index"]
     }
     
     var categoryList: [Category] {

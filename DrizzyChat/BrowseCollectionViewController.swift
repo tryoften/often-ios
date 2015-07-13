@@ -145,7 +145,8 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
             viewModel.currentArtist = viewModel.artists[currentPage]
             updateHeaderView(currentPage, updateBackground: false)
         }
-        
+        headerView?.addArtistButton.enabled = true
+        headerView?.addArtistButton.userInteractionEnabled = true
         collectionView?.reloadSections(NSIndexSet(index: 0))
     }
     

@@ -78,6 +78,12 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+        if let cells = collectionView?.visibleCells() as? [ArtistCollectionViewCell] {
+            for cell in cells {
+                cell.imageView.image = nil
+            }
+        }
     }
     
     func centerOnDefaultCard() {
@@ -123,8 +129,8 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
             cell.titleLabel.text = keyboard.artist?.name
             cell.subtitleLabel.text = "\(keyboard.categories.count) categories".uppercaseString
             
-            if let imageURLLarge = keyboard.artist?.imageURLLarge {
-                cell.imageView.setImageWithAnimation(NSURL(string: imageURLLarge)!, completion: nil)
+            if let imageURL = keyboard.artist?.imageURLSmall {
+                cell.imageView.setImageWithAnimation(NSURL(string: imageURL)!, completion: nil)
             }
             cell.deleteButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: .TouchUpInside)
         }
@@ -154,8 +160,6 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
             var xPosition = CGFloat(index) * (ArtistCollectionViewCellWidth + 5.0)
                 - (collectionView.frame.size.width - ArtistCollectionViewCellWidth) / 2
                 + (collectionViewLayout as! UICollectionViewFlowLayout).sectionInset.left
-            
-            println("Section left inset: \((collectionViewLayout as! UICollectionViewFlowLayout).sectionInset)")
             
             let cellCount = CGFloat(self.collectionView(collectionView, numberOfItemsInSection: 0))
             xPosition = max(0, min(xPosition, collectionView.contentSize.width))
