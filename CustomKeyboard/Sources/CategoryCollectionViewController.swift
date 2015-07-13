@@ -9,8 +9,7 @@
 import UIKit
 
 class CategoryCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
-    var keyboardViewController: KeyboardViewController!
+    weak var keyboardViewController: KeyboardViewController!
     var tapRecognizer: UITapGestureRecognizer!
     var drawerOpened: Bool = false
     var startingPoint: CGPoint?

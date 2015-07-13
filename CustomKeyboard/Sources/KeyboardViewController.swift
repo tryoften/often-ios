@@ -29,12 +29,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     var currentlyInjectedLyric: Lyric?
     var lyricInserted = false
     static var debugKeyboard = false
-    static var onceToken: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         viewModel = KeyboardViewModel.sharedInstance
-        var firebaseRoot = Firebase(url: BaseURL)
-        lyricPickerViewModel = LyricPickerViewModel(trackService: TrackService(root: firebaseRoot, realm: viewModel.realm))
+        lyricPickerViewModel = LyricPickerViewModel(trackService: viewModel.keyboardService.trackService)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         viewModel.delegate = self
@@ -53,6 +51,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         viewModel.delegate = nil
         lyricPicker = nil
         artistPicker = nil
+        categoryPicker = nil
     }
 
     override func updateViewConstraints() {
@@ -61,6 +60,8 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.whiteColor()
     
         lyricPicker = LyricPickerTableViewController(viewModel: lyricPickerViewModel)
         lyricPicker!.delegate = self
@@ -93,12 +94,11 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         view.addSubview(sectionPickerView!)
         view.addSubview(seperatorView)
         
-        bootstrap()
-
         setupLayout()
         setupAppearance()
         layoutArtistPickerView()
         layoutSectionPickerView()
+        bootstrap()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -115,6 +115,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         } else {
             sectionPickerView.hideMessageBar()
         }
+        layoutSectionPickerView()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -131,7 +132,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
         AFNetworkReachabilityManager.sharedManager().startMonitoring()
         Flurry.startSession(FlurryClientKey)
 
-        self.viewModel.requestData()
+        viewModel.requestData()
     }
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
@@ -144,6 +145,7 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
         println("received memory warning")
     }
     
@@ -366,8 +368,10 @@ class KeyboardViewController: UIInputViewController, LyricPickerDelegate, ShareV
     }
     
     // MARK: LyricPickerDelegate
-    func didPickLyric(lyricPicker: LyricPickerTableViewController, shareVC: ShareViewController, lyric: Lyric?) {
-        shareVC.delegate = self
+    func didPickLyric(lyricPicker: LyricPickerTableViewController, shareVC: ShareViewController?, lyric: Lyric?) {
+        if let shareVC = shareVC {
+            shareVC.delegate = self
+        }
         currentlyInjectedLyric = lyric
         insertLyric(lyric!, selectedOptions: nil)
     }

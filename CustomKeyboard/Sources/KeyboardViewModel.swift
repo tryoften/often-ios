@@ -43,16 +43,18 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
     
     override init() {
         
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         isFullAccessEnabled = false
         
         let root = Firebase(url: BaseURL)
+        
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
         var realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
         
         var fileManager = NSFileManager.defaultManager()
         isFullAccessEnabled = fileManager.isWritableFileAtPath(realmPath)
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-   
+        
+        
         RLMRealm.setSchemaVersion(1, forRealmAtPath: realmPath) { migration, oldSchemaVersion in
             if oldSchemaVersion < 1 {
                 migration.enumerateObjects(Keyboard.className(), block: { oldObject, newObject in
@@ -61,7 +63,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
                 })
             }
         }
-
+        
         if !isFullAccessEnabled {
             //TODO(luc): check if that file exists, if it doesn't, use the bundled DB
             realmPath = directory.path!.stringByAppendingPathComponent("keyboard.realm")
@@ -69,8 +71,8 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         } else {
             realm = Realm(path: realmPath)
         }
-        
         RLMRealm.setDefaultRealmPath(realmPath)
+
         var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         
@@ -105,7 +107,7 @@ class KeyboardViewModel: NSObject, KeyboardServiceDelegate, ArtistPickerCollecti
         }
         keyboardService.delegate = self
     }
-    
+
     deinit {
         realm.invalidate()
         realm = nil
