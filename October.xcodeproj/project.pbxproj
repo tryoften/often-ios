@@ -124,6 +124,8 @@
 		81413DBD1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
 		81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
 		81413DC01A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
+		8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
+		8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
@@ -404,6 +406,7 @@
 		81413D9F1A903FCD00926E7C /* SignUpFormTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpFormTableViewCell.swift; sourceTree = "<group>"; };
 		81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-outlined.ttf"; sourceTree = "<group>"; };
 		81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-filled.ttf"; sourceTree = "<group>"; };
+		8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextProcessingManager.swift; path = Sources/TextProcessingManager.swift; sourceTree = "<group>"; };
 		81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceList.swift"; sourceTree = "<group>"; };
 		81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoriesPanelView.swift; path = Sources/CategoriesPanelView.swift; sourceTree = "<group>"; };
 		81592F931B0FA5070092EA8F /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Core/SessionManager.swift; sourceTree = "<group>"; };
@@ -769,6 +772,14 @@
 			name = "View Models";
 			sourceTree = "<group>";
 		};
+		8142F79B1B534F180061AE90 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
 		81592F921B0FA4F10092EA8F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -931,6 +942,7 @@
 		8180E6321A142199007FA1CF /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				8142F79B1B534F180061AE90 /* Managers */,
 				813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */,
 				81592FA91B0FB7B00092EA8F /* View Layouts */,
 				81B6D58D1A95B07B0089767B /* View Models */,
@@ -1413,6 +1425,7 @@
 				81B6D5871A956E680089767B /* LoginIndicatorView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				81B19E961B30AD5500D3575C /* KeyboardService.swift in Sources */,
+				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
 				69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */,
 				81592FA31B0FA5870092EA8F /* UserProfileSectionHeaderView.swift in Sources */,
@@ -1483,6 +1496,7 @@
 				817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
+				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81B19EA61B30AD5B00D3575C /* Keyboard.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81B19EA21B30AD5B00D3575C /* Category.swift in Sources */,
