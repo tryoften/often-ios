@@ -27,7 +27,6 @@ class LyricTableViewCell: UITableViewCell {
     
     var track: Track? {
         didSet {
-            addInfoView()
             if let loadingIndicatorView = loadingIndicatorView,
                 let shareVC = shareVC,
                 let metadataView = metadataView {
@@ -83,6 +82,7 @@ class LyricTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         if selected {
+            addInfoView()
             delegate?.lyricTableViewCellDidSelect(self)
         }
 
