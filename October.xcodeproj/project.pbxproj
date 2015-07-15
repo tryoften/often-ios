@@ -75,7 +75,7 @@
 		699606251B421513004102BC /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6996061F1B41A53F004102BC /* ToolTipViewController.swift */; };
 		699606261B42152E004102BC /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699606211B41E20C004102BC /* ToolTip.swift */; };
 		699606271B422315004102BC /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
-		699606281B422331004102BC /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
+		699606281B422331004102BC /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* ContentTableViewController.swift */; };
 		699606291B422336004102BC /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6996061F1B41A53F004102BC /* ToolTipViewController.swift */; };
 		6996062A1B42233B004102BC /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
 		6996062B1B42235A004102BC /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699606211B41E20C004102BC /* ToolTip.swift */; };
@@ -152,6 +152,8 @@
 		817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */; };
 		817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */; };
 		81761A001AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */; };
+		8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
+		8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
 		81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED21A81E607009D4A71 /* Accounts.framework */; };
 		81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED41A81E613009D4A71 /* CFNetwork.framework */; };
 		81794ED71A81E621009D4A71 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED61A81E621009D4A71 /* AudioToolbox.framework */; };
@@ -184,7 +186,7 @@
 		8180E6151A142157007FA1CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		8180E6391A142199007FA1CF /* CustomKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* CustomKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */; };
+		8180E6441A142EA4007FA1CF /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* ContentTableViewController.swift */; };
 		8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
 		8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
 		81840FB81B4331C1003531B1 /* UIDevice+modelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81840FB71B4331C1003531B1 /* UIDevice+modelName.swift */; };
@@ -423,6 +425,7 @@
 		817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistPickerCollectionViewController.swift; path = Sources/ArtistPickerCollectionViewController.swift; sourceTree = "<group>"; };
 		817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionViewCell.swift; path = Sources/ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionCloseButton.swift; path = Sources/ArtistCollectionCloseButton.swift; sourceTree = "<group>"; };
+		8179387D1B55859D0064B0CF /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKey.swift; path = Sources/KeyboardKey.swift; sourceTree = "<group>"; };
 		81794ED21A81E607009D4A71 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		81794ED41A81E613009D4A71 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		81794ED61A81E621009D4A71 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -446,7 +449,7 @@
 		8180E6311A142199007FA1CF /* CustomKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CustomKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6341A142199007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E6351A142199007FA1CF /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = Sources/KeyboardViewController.swift; sourceTree = "<group>"; };
-		8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricPickerTableViewController.swift; path = Sources/LyricPickerTableViewController.swift; sourceTree = "<group>"; };
+		8180E6421A142EA4007FA1CF /* ContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentTableViewController.swift; path = Sources/ContentTableViewController.swift; sourceTree = "<group>"; };
 		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Sources/LyricTableViewCell.swift; sourceTree = "<group>"; };
 		81840FB71B4331C1003531B1 /* UIDevice+modelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+modelName.swift"; sourceTree = "<group>"; };
 		81A1A4D31A196D6200D566B8 /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
@@ -861,6 +864,14 @@
 			name = Buttons;
 			sourceTree = "<group>";
 		};
+		8179387C1B5582520064B0CF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8179387D1B55859D0064B0CF /* KeyboardKey.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		8180E5FF1A142157007FA1CF = {
 			isa = PBXGroup;
 			children = (
@@ -936,6 +947,7 @@
 		8180E6321A142199007FA1CF /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				8179387C1B5582520064B0CF /* Models */,
 				8142F79B1B534F180061AE90 /* Managers */,
 				813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */,
 				81592FA91B0FB7B00092EA8F /* View Layouts */,
@@ -992,7 +1004,7 @@
 		81AD7FBC1A2818BC00C616F4 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8180E6421A142EA4007FA1CF /* LyricPickerTableViewController.swift */,
+				8180E6421A142EA4007FA1CF /* ContentTableViewController.swift */,
 				8180E6351A142199007FA1CF /* KeyboardViewController.swift */,
 				81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */,
 				6996061F1B41A53F004102BC /* ToolTipViewController.swift */,
@@ -1379,6 +1391,7 @@
 				3B9AD7A81B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift in Sources */,
 				69BA82101B2FABE200233789 /* BrowseCollectionViewCell.swift in Sources */,
 				81D4BF371B39D25C006430AB /* FrameView.swift in Sources */,
+				8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				3BDB0F3C1B3B9E7800E89066 /* SignUpNameWalkthroughViewController.swift in Sources */,
 				817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				69BA820A1B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift in Sources */,
@@ -1446,7 +1459,7 @@
 				3B0F15581B4B220400FC73FC /* ErrorMessageView.swift in Sources */,
 				3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */,
 				3BCAE3B31B3A3CB200DFF63F /* SignUpPostAddArtistsLoaderView.swift in Sources */,
-				699606281B422331004102BC /* LyricPickerTableViewController.swift in Sources */,
+				699606281B422331004102BC /* ContentTableViewController.swift in Sources */,
 				6929EB6E1B3750B600D1BD1C /* AddArtistModalHeaderView.swift in Sources */,
 				8111D5AB1B36184900B14EEE /* SettingsTableViewController.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
@@ -1460,6 +1473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				699606251B421513004102BC /* ToolTipViewController.swift in Sources */,
+				8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */,
 				81B19E9B1B30AD5500D3575C /* Service.swift in Sources */,
 				81592F911B0FA4740092EA8F /* CategoriesPanelView.swift in Sources */,
@@ -1468,7 +1482,7 @@
 				81840FB91B4331C1003531B1 /* UIDevice+modelName.swift in Sources */,
 				81592FA51B0FA5BD0092EA8F /* PrimaryToolbarView.swift in Sources */,
 				81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */,
-				8180E6441A142EA4007FA1CF /* LyricPickerTableViewController.swift in Sources */,
+				8180E6441A142EA4007FA1CF /* ContentTableViewController.swift in Sources */,
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				81B19E981B30AD5500D3575C /* ArtistService.swift in Sources */,
 				81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */,

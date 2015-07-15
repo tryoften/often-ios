@@ -19,7 +19,7 @@ class KeyboardViewController: UIInputViewController,
     ArtistPickerCollectionViewControllerDelegate,
     ToolTipCloseButtonDelegate {
 
-    var lyricPicker: LyricPickerTableViewController?
+    var lyricPicker: ContentTableViewController?
     var categoryPicker: CategoryCollectionViewController!
     var artistPicker: ArtistPickerCollectionViewController?
     var toolTipViewController: ToolTipViewController?
@@ -66,7 +66,7 @@ class KeyboardViewController: UIInputViewController,
         
         view.backgroundColor = UIColor.whiteColor()
     
-        lyricPicker = LyricPickerTableViewController(viewModel: lyricPickerViewModel)
+        lyricPicker = ContentTableViewController(viewModel: lyricPickerViewModel)
         lyricPicker!.delegate = textProcessor
         lyricPicker!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -87,6 +87,7 @@ class KeyboardViewController: UIInputViewController,
         sectionPickerView.delegate = lyricPicker
         sectionPickerView.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
         sectionPickerView.switchArtistButton.addTarget(self, action: "didTapSwitchArtistButton", forControlEvents: .TouchUpInside)
+        sectionPickerView.openStandardKeyboardButton.addTarget(self, action: "didTapOpenStandardKeyboardButton", forControlEvents: .TouchUpInside)
     
         view.addSubview(lyricPicker!.view)
         
@@ -219,6 +220,12 @@ class KeyboardViewController: UIInputViewController,
     
     func didTapSwitchArtistButton() {
         openPanel()
+    }
+    
+    func didTapOpenStandardKeyboardButton() {
+        var keyboardVC = StandardKeyboardViewController()
+        keyboardVC.textProcessor = textProcessor
+        presentViewController(keyboardVC, animated: true, completion: nil)
     }
     
     func openPanel() {
