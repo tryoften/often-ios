@@ -90,22 +90,22 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         featuredButton.setTitle("FEATURED", forState: UIControlState.Normal)
         featuredButton.titleLabel?.font = TrendingHeaderViewFeaturedButtonTextFont
         featuredButton.backgroundColor = TrendingHeaderViewFeaturedButtonBackgroundColor
-        featuredButton.setTitleColor(TrendingHeaderViewFeaturedButtonFontColor, forState: UIControlState.Normal)
+        featuredButton.setTitleColor(TrendingHeaderViewFeaturedButtonFontColor, forState: .Normal)
         
         artistsButton = UIButton()
         artistsButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        artistsButton.setTitle("ARTISTS", forState: UIControlState.Normal)
+        artistsButton.setTitle("ARTISTS", forState: .Normal)
         artistsButton.titleLabel?.font = TrendingHeaderViewArtistsButtonTextFont
-        artistsButton.setTitleColor(TrendingHeaderViewArtistsButtonFontColor, forState: UIControlState.Normal)
-        artistsButton.setTitleColor(TrendingHeaderViewArtistsButtonSelectedFontColor, forState: UIControlState.Selected)
+        artistsButton.setTitleColor(TrendingHeaderViewArtistsButtonFontColor, forState: .Normal)
+        artistsButton.setTitleColor(TrendingHeaderViewArtistsButtonSelectedFontColor, forState: .Selected)
         
         
         lyricsButton = UIButton()
         lyricsButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lyricsButton.setTitle("LYRICS", forState: UIControlState.Normal)
+        lyricsButton.setTitle("LYRICS", forState: .Normal)
         lyricsButton.titleLabel?.font = TrendingHeaderViewLyricsButtonTextFont
         lyricsButton.setTitleColor(TrendingHeaderViewLyricsButtonNormalFontColor, forState: .Normal)
-        lyricsButton.setTitleColor(TrendingHeaderViewLyricsButtonSelectedFontColor, forState: UIControlState.Selected)
+        lyricsButton.setTitleColor(TrendingHeaderViewLyricsButtonSelectedFontColor, forState: .Selected)
         lyricsButton.selected = true
         
         featuredArtists = [Artist]()
@@ -115,7 +115,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         tapRecognizer = UITapGestureRecognizer(target: self, action: "featuredTapped:")
         scrollView.addGestureRecognizer(tapRecognizer!)
         
-        featuredButton.addTarget(self, action: "featuredTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        featuredButton.addTarget(self, action: "featuredTapped:", forControlEvents: .TouchUpInside)
         artistsButton.addTarget(self, action: "artistsTapped:", forControlEvents: .TouchUpInside)
         lyricsButton.addTarget(self, action: "lyricsTapped:", forControlEvents: .TouchUpInside)
         
