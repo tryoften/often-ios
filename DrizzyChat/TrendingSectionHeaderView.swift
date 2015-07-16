@@ -30,11 +30,11 @@ class TrendingSectionHeaderView: UICollectionReusableView {
         
         bottomLineBreak = UIView()
         bottomLineBreak.setTranslatesAutoresizingMaskIntoConstraints(false)
-        bottomLineBreak.backgroundColor = TrendingSectionHeaderViewBottomLineBreakBackgroundColor
+        bottomLineBreak.backgroundColor = LightGrey
         
         super.init(frame: frame)
         
-        backgroundColor = TrendingSectionHeaderViewBackgroundColor
+        backgroundColor = WhiteColor
         
         addSubview(trendingLabel)
         addSubview(bottomLineBreak)

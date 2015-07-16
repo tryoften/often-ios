@@ -52,7 +52,7 @@ class SignUpPostAddArtistsLoaderView: UIView {
         
         super.init(frame: frame)
         
-        backgroundColor = SignUpBackgroundColor
+        backgroundColor = WhiteColor
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(cardImageView)

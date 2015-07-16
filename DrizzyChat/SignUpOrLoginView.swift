@@ -64,7 +64,7 @@ class SignUpOrLoginView: UIView {
         signUpButton.backgroundColor = BlackColor
         signUpButton.setTitle("sign up".uppercaseString, forState: .Normal)
         signUpButton.titleLabel!.font = ButtonFont
-        signUpButton.setTitleColor(SignUpButtonFontColor, forState: .Normal)
+        signUpButton.setTitleColor(WhiteColor, forState: .Normal)
         
         buttonDivider = UIView()
         buttonDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -72,18 +72,18 @@ class SignUpOrLoginView: UIView {
         
         buttonView = ButtonView()
         buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        buttonView.backgroundColor = SignUpSpacerColor
+        buttonView.backgroundColor = SystemBlackColor
         
         loginButton = UIButton()
         loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         loginButton.backgroundColor = BlackColor
         loginButton.setTitle("login".uppercaseString, forState: .Normal)
         loginButton.titleLabel!.font = ButtonFont
-        loginButton.setTitleColor(SignUpButtonFontColor, forState: .Normal)
+        loginButton.setTitleColor(WhiteColor, forState: .Normal)
     
         super.init(frame: frame)
         
-        backgroundColor = WalkthroughBackgroungColor
+        backgroundColor = VeryLightGray
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(artistsBgImageView)

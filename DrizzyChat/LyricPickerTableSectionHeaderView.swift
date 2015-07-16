@@ -56,7 +56,7 @@ class LyricPickerTableSectionHeaderView: UITableViewHeaderFooterView {
         contentView.addSubview(titleLabel)
         contentView.addSubview(highlightColorView)
         contentView.addSubview(lyricCountLabel)
-        contentView.backgroundColor = UIColor(fromHexString: "#f7f7f7").colorWithAlphaComponent(0.9)
+        contentView.backgroundColor = VeryLightGray.colorWithAlphaComponent(0.9)
         setupLayout()
     }
 

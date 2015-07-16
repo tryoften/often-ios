@@ -69,13 +69,13 @@ class CategoriesPanelView: UIView {
         messageBarView.alpha = 0
         
         currentCategoryLabel = UILabel()
-        currentCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
+        currentCategoryLabel.textColor = WhiteColor
         currentCategoryLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         currentCategoryLabel.userInteractionEnabled = true
         currentCategoryLabel.font = UIFont(name: "OpenSans", size: 17)
         
         selectedBgView = UIView(frame: CGRectZero)
-        selectedBgView.backgroundColor = SectionPickerViewCellHighlightedBackgroundColor
+        selectedBgView.backgroundColor = SystemBlackColor
         
         messageBarViewTopConstraint = messageBarView.al_top == toolbarView.al_top
         

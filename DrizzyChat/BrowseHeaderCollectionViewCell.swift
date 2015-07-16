@@ -43,7 +43,7 @@ class BrowseHeaderCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(artistImage)
         contentView.addSubview(confirmView)
 
-        layer.shadowColor = BrowseHeaderCollectionViewCellLayerShadowColor.CGColor
+        layer.shadowColor = SystemBlackColor.CGColor
         layer.shadowOffset = CGSizeMake(0, 5)
         layer.shadowOpacity = 0.54
         layer.shadowRadius = 8.0

@@ -19,7 +19,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         backgroundColor = CategoryCollectionViewCellBackgroundColor
         
         titleLabel = UILabel()
-        titleLabel.textColor = CategoryCollectionViewCellTitleLabelTextColor
+        titleLabel.textColor = WhiteColor
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.font = CategoryCollectionViewCellTitleFont
         titleLabel.textAlignment = .Center

@@ -32,7 +32,7 @@ class FacebookButton: UIButton {
         fbButton.setTitle("Sign Up with Facebook".uppercaseString, forState: .Normal)
         fbButton.imageView?.contentMode = .ScaleAspectFit
         fbButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        fbButton.titleLabel?.textColor = FacebookButtonTitleTextColor
+        fbButton.titleLabel?.textColor = WhiteColor
         fbButton.titleLabel?.font = FacebookButtonTitleFont
         
         return fbButton as! FacebookButton

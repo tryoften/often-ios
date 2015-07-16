@@ -39,13 +39,13 @@ class SignUpPasswordView: UIView {
         
         spacer = UIView()
         spacer.setTranslatesAutoresizingMaskIntoConstraints(false)
-        spacer.backgroundColor = SignUpSpacerColor
+        spacer.backgroundColor = SystemBlackColor
         
         termsAndPrivacyView = TermsAndPrivacyView()
         termsAndPrivacyView.setTranslatesAutoresizingMaskIntoConstraints(false)
         super.init(frame: frame)
         
-        backgroundColor = SignUpBackgroundColor
+        backgroundColor = WhiteColor
         addSubview(titleLabel)
         addSubview(passwordTxtField)
         addSubview(spacer)

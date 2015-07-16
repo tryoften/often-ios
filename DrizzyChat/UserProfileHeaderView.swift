@@ -30,13 +30,13 @@ class UserProfileHeaderView: UICollectionReusableView {
         profileImageView = UIImageView()
         profileImageView.contentMode = .ScaleAspectFill
         profileImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        profileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
+        profileImageView.layer.borderColor = WhiteColor.CGColor
         profileImageView.layer.borderWidth = 3
         profileImageView.clipsToBounds = true
         
         metadataView = UIView()
         metadataView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        metadataView.backgroundColor = UserProfileHeaderViewMetadataViewBackgroundColor
+        metadataView.backgroundColor = WhiteColor
 
         nameLabel = UILabel()
         nameLabel.textAlignment = .Center
@@ -53,7 +53,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         settingsButton.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         super.init(frame: frame)
-        backgroundColor = UserProfileHeaderViewBackgroundColor
+        backgroundColor = WhiteColor
 
         addSubview(coverPhotoView)
         addSubview(coverPhotoTintView)
