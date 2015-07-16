@@ -248,7 +248,7 @@ let TrendingHeaderViewFeaturedButtonFontColor = UIColor.blackColor()
 let TrendingHeaderViewArtistsButtonTextFont = UIFont(name: "OpenSans", size: 14.0)
 let TrendingHeaderViewArtistsButtonFontColor = UIColor.lightGrayColor()
 let TrendingHeaderViewLyricsButtonTextFont = UIFont(name: "OpenSans", size: 14.0)
-let TrendingHeaderViewLyricsButtonFontColor = UIColor(fromHexString: "#FFB316")
+let TrendingHeaderViewLyricsButtonSelectedFontColor = UIColor(fromHexString: "#FFB316")
 
 // Main App
 let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 15)

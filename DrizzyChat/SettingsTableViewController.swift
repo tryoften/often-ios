@@ -59,7 +59,6 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
         navigationBar.addSubview(backButton)
         view.addSubview(tableView)
         
-        
         setupLayout()
     }
 
@@ -135,7 +134,7 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
     func launchEmail(sender: AnyObject) {
         
         var emailTitle = "Feedback"
-        var messageBody = "Man this app sucks"
+        var messageBody = ""
         var toRecipents = ["feedback@drizzyapp.com", "regy@drizzyapp.com"]
         var mc: MFMailComposeViewController = MFMailComposeViewController()
         mc.mailComposeDelegate = self

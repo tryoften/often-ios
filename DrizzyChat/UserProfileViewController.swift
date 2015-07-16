@@ -315,19 +315,23 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         
         var statusView = PKHUDStatusView(title: "\(keyboard.artistName.uppercaseString)", subtitle:"set as default card in your keyboard", image: PKHUDAssets.checkmarkImage)
         statusView.frame = CGRect(origin: CGPointZero, size: CGSizeMake(300, 325))
+        statusView.backgroundColor = UIColor.whiteColor()
+        
         statusView.imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         statusView.imageView.contentMode = .ScaleAspectFit
         statusView.imageView.clipsToBounds = true
         statusView.imageView.alpha = 1.0
-        statusView.backgroundColor = UIColor.whiteColor()
         statusView.imageView.layer.shadowColor = UIColor.blackColor().CGColor
         statusView.imageView.layer.shadowOffset = CGSizeMake(0, 3)
         statusView.imageView.layer.shadowOpacity = 0.54
         statusView.imageView.layer.shadowRadius = 8.0
+        
         statusView.titleLabel.font = UIFont(name: "Oswald-Light", size: 24.0)
         statusView.titleLabel.backgroundColor = UIColor.clearColor()
+        
         statusView.subtitleLabel.font = UIFont(name: "OpenSans", size: 12.0)
         statusView.subtitleLabel.backgroundColor = UIColor.clearColor()
+        
         let imageURLLarge = NSURL(string: keyboard.artist!.imageURLLarge)!
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {

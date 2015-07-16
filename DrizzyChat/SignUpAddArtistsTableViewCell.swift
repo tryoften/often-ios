@@ -15,6 +15,7 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
     var selectionButton : UIButton
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        
         artistImageView = UIImageView()
         artistImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistImageView.contentMode = .ScaleAspectFill
@@ -45,6 +46,7 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = SignUpAddArtistsLoaderViewBackgroundColor
+
         contentView.addSubview(artistImageView)
         contentView.addSubview(artistNameLabel)
         contentView.addSubview(lyricsCountLabel)

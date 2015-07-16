@@ -22,14 +22,14 @@ import UIKit
 
 */
 
-/// To determine the correct arrow image to display in the cell
-enum Trend {
-    case Up
-    case Down
-    case Neutral
-}
-
 class TrendingCollectionViewCell: UICollectionViewCell {
+    
+    enum TrendBehavior {
+        case Up
+        case Down
+        case Neutral
+    }
+    
     var rankLabel: UILabel /// number rank on the left of the cell
     var nameLabel: UILabel /// Track name label
     var subLabel: UILabel /// label for lyric Count "Lyrics: n"
