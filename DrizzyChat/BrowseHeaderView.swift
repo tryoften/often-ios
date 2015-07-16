@@ -66,7 +66,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         }
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistNameLabel.font = BrowseHeaderViewArtistNameLabelFont
-        artistNameLabel.textColor = BrowseHeaderViewArtistNameLabelColor
+        artistNameLabel.textColor = WhiteColor
         artistNameLabel.textAlignment = .Center
         
         addArtistButton = AddArtistButton()
@@ -77,7 +77,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         topLabel.textAlignment = .Center
         topLabel.font = BrowseHeaderViewArtistTopLabelFont
         topLabel.text = "ADD ARTIST"
-        topLabel.textColor = BrowseHeaderViewArtistTopLabelColor
+        topLabel.textColor = WhiteColor
         topLabel.alpha = 0
         
         super.init(frame: frame)
@@ -85,7 +85,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         browsePicker.headerDelegate = self
         addArtistButton.addTarget(self, action: "addArtistTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        backgroundColor = BrowseHeaderViewBackgroundColor
+        backgroundColor = VeryLightGray
 
         addSubview(previousBackgroundView)
         addSubview(nextBackgroundView)

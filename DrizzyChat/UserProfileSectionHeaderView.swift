@@ -38,7 +38,7 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         
         super.init(frame: frame)
 
-        backgroundColor = UserProfileSectionHeaderViewBackgroundColor
+        backgroundColor = WhiteColor
         addSubview(seperatorView)
         addSubview(titleLabel)
         

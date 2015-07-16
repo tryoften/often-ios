@@ -18,7 +18,7 @@ class ArtistCollectionCloseButton: UIButton {
         
         setImage(UIImage(named: "close artists"), forState: .Normal)
 
-        backgroundColor = ArtistCollectionViewCloseButtonBackgroundColor
+        backgroundColor = BlackColor
     }
     
     convenience required init(coder aDecoder: NSCoder) {

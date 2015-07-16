@@ -88,7 +88,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         spacer.frame = CGRectMake(0, 34, tableView.frame.size.width, 1)
         spacer.backgroundColor = SelectArtistWalkthroughViewControllerSpacerColor
         
-        headerView.backgroundColor = SelectArtistWalkthroughViewControllerHeaderViewColor
+        headerView.backgroundColor = WhiteColor
         headerView.addSubview(recommendedLabel)
         headerView.addSubview(spacer)
         

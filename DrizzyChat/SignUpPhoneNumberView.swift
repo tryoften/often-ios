@@ -50,7 +50,7 @@ class SignUpPhoneNumberView: UIView {
         
         super.init(frame: frame)
         
-        backgroundColor = SignUpBackgroundColor
+        backgroundColor = WhiteColor
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(spacer)

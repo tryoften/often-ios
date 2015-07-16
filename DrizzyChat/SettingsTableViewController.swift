@@ -29,16 +29,16 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
         tableView = UITableView()
         tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        tableView.backgroundColor = SettingsTableViewCellBackgroundColor
+        tableView.backgroundColor = ClearColor
         tableView.scrollEnabled = false
         
         navigationBar = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 50))
-        navigationBar.backgroundColor = SettingsTableViewControllerNavBarBackgroundColor
+        navigationBar.backgroundColor = SystemBlackColor
         
         navBarLabel = UILabel()
         navBarLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        navBarLabel.textColor = SettingsTableViewControllerNavBarLabelFontColor
-        navBarLabel.backgroundColor = SettingsTableViewControllerNavBarLabelBackgroundColor
+        navBarLabel.textColor = WhiteColor
+        navBarLabel.backgroundColor = ClearColor
         navBarLabel.textAlignment = .Center
         navBarLabel.text = "SETTINGS"
         navBarLabel.font = SettingsTableViewControllerNavBarLabelFont

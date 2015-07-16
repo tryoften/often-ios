@@ -38,7 +38,7 @@ class LoginView: UIView {
         emailTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         emailTxtField.leftViewMode = .Always
         emailTxtField.leftView = emailIconImageView
-        emailTxtField.backgroundColor = LoginViewTextFieldBackgroundColor
+        emailTxtField.backgroundColor = WhiteColor
         
         passwordTxtField = FlexibleBoundsTextField()
         passwordTxtField.leftMargin = 40.0
@@ -49,11 +49,11 @@ class LoginView: UIView {
         passwordTxtField.leftViewMode = .Always
         passwordTxtField.leftView = passwordIconImageView
         passwordTxtField.secureTextEntry = true
-        passwordTxtField.backgroundColor = LoginViewTextFieldBackgroundColor
+        passwordTxtField.backgroundColor = WhiteColor
         
         emailTxtSpacer = UIView()
         emailTxtSpacer.setTranslatesAutoresizingMaskIntoConstraints(false)
-        emailTxtSpacer.backgroundColor = WalkthroughEmailSpaceBackgroundColor
+        emailTxtSpacer.backgroundColor = WalkthroughEmailSpacerBackgroundColor
         
         facebookButton = FacebookButton.button()
         facebookButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -68,23 +68,23 @@ class LoginView: UIView {
         
         passwordSpacer = UIView()
         passwordSpacer.setTranslatesAutoresizingMaskIntoConstraints(false)
-        passwordSpacer.backgroundColor = WalkthroughEmailSpaceBackgroundColor
+        passwordSpacer.backgroundColor = WalkthroughEmailSpacerBackgroundColor
         
         orSpacerOne = UIView()
         orSpacerOne.setTranslatesAutoresizingMaskIntoConstraints(false)
-        orSpacerOne.backgroundColor = WalkthroughEmailSpaceBackgroundColor
+        orSpacerOne.backgroundColor = WalkthroughEmailSpacerBackgroundColor
         
         orSpacerTwo = UIView()
         orSpacerTwo.setTranslatesAutoresizingMaskIntoConstraints(false)
-        orSpacerTwo.backgroundColor = WalkthroughEmailSpaceBackgroundColor
+        orSpacerTwo.backgroundColor = WalkthroughEmailSpacerBackgroundColor
         
         whiteBackground = UIView()
         whiteBackground.setTranslatesAutoresizingMaskIntoConstraints(false)
-        whiteBackground.backgroundColor = LoginViewTextFieldBackgroundColor
+        whiteBackground.backgroundColor = WhiteColor
         
         super.init(frame: frame)
         
-        backgroundColor = WalkthroughBackgroungColor
+        backgroundColor = VeryLightGray
         whiteBackground.addSubview(emailTxtField)
         whiteBackground.addSubview(passwordTxtField)
         whiteBackground.addSubview(emailTxtSpacer)

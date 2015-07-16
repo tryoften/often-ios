@@ -27,7 +27,7 @@ class SignUpAddArtistsTableViewHeaderView: UIView {
         
         super.init(frame: frame)
         
-        backgroundColor = SelectArtistWalkthroughViewControllerHeaderViewColor
+        backgroundColor = WhiteColor
         addSubview(recommendedLabel)
         addSubview(spacer)
         
