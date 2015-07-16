@@ -23,11 +23,11 @@ class SignUpAddArtistsTableViewHeaderView: UIView {
         recommendedLabel.attributedText = title
         recommendedLabel.font = UIFont(name: "OpenSans", size: 9)
         
-        spacer.backgroundColor = UIColor(fromHexString: "#E4E4E4")
+        spacer.backgroundColor = SelectArtistWalkthroughViewControllerSpacerColor
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = SelectArtistWalkthroughViewControllerHeaderViewColor
         addSubview(recommendedLabel)
         addSubview(spacer)
         

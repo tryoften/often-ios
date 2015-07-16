@@ -38,7 +38,7 @@ class LoginView: UIView {
         emailTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         emailTxtField.leftViewMode = .Always
         emailTxtField.leftView = emailIconImageView
-        emailTxtField.backgroundColor = UIColor.whiteColor()
+        emailTxtField.backgroundColor = LoginViewTextFieldBackgroundColor
         
         passwordTxtField = FlexibleBoundsTextField()
         passwordTxtField.leftMargin = 40.0
@@ -49,7 +49,7 @@ class LoginView: UIView {
         passwordTxtField.leftViewMode = .Always
         passwordTxtField.leftView = passwordIconImageView
         passwordTxtField.secureTextEntry = true
-        passwordTxtField.backgroundColor = UIColor.whiteColor()
+        passwordTxtField.backgroundColor = LoginViewTextFieldBackgroundColor
         
         emailTxtSpacer = UIView()
         emailTxtSpacer.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -80,7 +80,7 @@ class LoginView: UIView {
         
         whiteBackground = UIView()
         whiteBackground.setTranslatesAutoresizingMaskIntoConstraints(false)
-        whiteBackground.backgroundColor = UIColor.whiteColor()
+        whiteBackground.backgroundColor = LoginViewTextFieldBackgroundColor
         
         super.init(frame: frame)
         

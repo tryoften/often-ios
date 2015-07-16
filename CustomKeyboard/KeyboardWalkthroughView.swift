@@ -48,7 +48,7 @@ class KeyboardWalkthroughView: UIView {
         currentPage = 0
         
         super.init(frame: frame)
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = KeyboardWalkthroughViewBackgroundColor
         
         addSubview(iphoneImageView)
         addSubview(titleLabel)

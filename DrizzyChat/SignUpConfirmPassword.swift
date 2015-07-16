@@ -19,7 +19,7 @@ class SignUpConfirmPasswordView: UIView {
         let titleRange = NSMakeRange(0, count(titleString))
         let title = NSMutableAttributedString(string: titleString)
         
-        title.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 18)!, range: titleRange)
+        title.addAttribute(NSFontAttributeName, value: SignUpConfirmPasswordViewTitleLabelFont!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 1.5, range: titleRange)
         
         
@@ -39,14 +39,14 @@ class SignUpConfirmPasswordView: UIView {
         
         spacer = UIView()
         spacer.setTranslatesAutoresizingMaskIntoConstraints(false)
-        spacer.backgroundColor = UIColor.blackColor()
+        spacer.backgroundColor = SignUpSpacerColor
         
         termsAndPrivacyView = TermsAndPrivacyView()
         termsAndPrivacyView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = SignUpBackgroundColor
         addSubview(titleLabel)
         addSubview(confirmPasswordTxtField)
         addSubview(spacer)

@@ -41,18 +41,17 @@ class TermsAndPrivacyView: UIView {
         termsofServiceButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         termsofServiceButton.setTitle("Terms of use", forState: .Normal)
         termsofServiceButton.titleLabel!.font = SubtitleFont
-        termsofServiceButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        termsofServiceButton.setTitleColor(TermsAndPrivacyViewButtonColor, forState: .Normal)
         
         privacyPolicyButton = UIButton()
         privacyPolicyButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         privacyPolicyButton.setTitle("Privacy Policy", forState: .Normal)
-        privacyPolicyButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
         privacyPolicyButton.titleLabel!.font = SubtitleFont
-        privacyPolicyButton.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        privacyPolicyButton.setTitleColor(TermsAndPrivacyViewButtonColor, forState: .Normal)
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = SignUpBackgroundColor
         addSubview(termAndServiceLabel)
         addSubview(andLabel)
         addSubview(termsofServiceButton)

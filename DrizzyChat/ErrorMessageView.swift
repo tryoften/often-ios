@@ -14,7 +14,7 @@ class ErrorMessageView: UIView {
     override init(frame: CGRect) {
         errorMessageLabel = UILabel()
         errorMessageLabel.font = ErrorMessageFont
-        errorMessageLabel.textColor = UIColor.whiteColor()
+        errorMessageLabel.textColor = ErrorMessageFontColor
         errorMessageLabel.textAlignment = .Center
         errorMessageLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         

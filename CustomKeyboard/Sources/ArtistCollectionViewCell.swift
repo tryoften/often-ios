@@ -22,10 +22,10 @@ class ArtistCollectionViewCell: UICollectionViewCell {
             UIView.animateWithDuration(0.3, animations: {
                 if (self.selected) {
                     self.circleLayer.lineWidth = 2.0
-                    self.circleLayer.strokeColor = UIColor(fromHexString: "#f19720").CGColor
+                    self.circleLayer.strokeColor = ArtistCollectionViewCellCircleLayerColor.CGColor
                 } else {
                     self.circleLayer.lineWidth = 0.0
-                    self.circleLayer.strokeColor = UIColor.clearColor().CGColor
+                    self.circleLayer.strokeColor = AddArtistModalCollectionModalBackgroundColor.CGColor
                 }
             })
 
@@ -38,7 +38,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         placeholderImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         imageView = UIImageView()
-        imageView.backgroundColor = UIColor.blackColor()
+        imageView.backgroundColor = ArtistCollectionViewImageViewBackgroundColor
         imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         imageView.contentMode = .ScaleAspectFill
         
@@ -55,7 +55,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         subtitleLabel.textAlignment = .Center
         
         deleteButton = UIButton()
-        deleteButton.backgroundColor = UIColor(fromHexString: "#f19720")
+        deleteButton.backgroundColor = ArtistCollectionViewDeleteButtonColor
         deleteButton.setImage(UIImage(named: "close artists"), forState: .Normal)
         deleteButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         deleteButton.layer.cornerRadius = 25 / 2
@@ -76,8 +76,8 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         var circularPath = UIBezierPath(roundedRect: CGRectMake(0, 0, width, width), cornerRadius: CGFloat(width / 2))
         circleLayer.path = circularPath.CGPath
         circleLayer.lineWidth = 0
-        circleLayer.strokeColor = UIColor.clearColor().CGColor
-        circleLayer.fillColor = UIColor.clearColor().CGColor
+        circleLayer.strokeColor = ArtistCollectionViewCellCircleLayerColorStrokeAndFillColor.CGColor
+        circleLayer.fillColor = ArtistCollectionViewCellCircleLayerColorStrokeAndFillColor.CGColor
         circleView.layer.addSublayer(circleLayer)
 
         super.init(frame: frame)

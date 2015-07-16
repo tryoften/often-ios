@@ -55,8 +55,8 @@ class ArtistPickerCollectionViewController: UICollectionViewController, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 0.73)
-        collectionView?.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = ArtistPickerCollectionViewControllerBackgroundColor
+        collectionView?.backgroundColor = ArtistPickerCollectionViewCellBackgroundColor
         
         if let dataSource = dataSource {
             if dataSource.artistPickerShouldHaveCloseButton(self) {

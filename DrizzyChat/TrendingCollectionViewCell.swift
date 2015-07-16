@@ -42,7 +42,7 @@ class TrendingCollectionViewCell: UICollectionViewCell {
         rankLabel = UILabel()
         rankLabel.textAlignment = .Right
         rankLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        rankLabel.font = UIFont(name: "OpenSans", size: 16.0)
+        rankLabel.font = TrendingCollectionViewCellRankLabelFont
         
         trendIndicator = UIImageView()
         trendIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -50,11 +50,11 @@ class TrendingCollectionViewCell: UICollectionViewCell {
         
         nameLabel = UILabel()
         nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nameLabel.font = UIFont(name: "OpenSans", size: 14.0)
+        nameLabel.font = TrendingCollectionViewCellNameLabelFont
         
         subLabel = UILabel()
         subLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        subLabel.font = UIFont(name: "OpenSans", size: 9.0)
+        subLabel.font = TrendingCollectionViewCellSubLabelFont
         
         disclosureIndicator = UIImageView()
         disclosureIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -62,11 +62,11 @@ class TrendingCollectionViewCell: UICollectionViewCell {
         
         lineBreakView = UIView()
         lineBreakView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lineBreakView.backgroundColor = UIColor(fromHexString: "#d3d3d3")
+        lineBreakView.backgroundColor = TrendingCollectionViewCellLineBreakColor
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = TrendingCollectionViewCellBackgroundColor
 
         addSubview(rankLabel)
         addSubview(trendIndicator)

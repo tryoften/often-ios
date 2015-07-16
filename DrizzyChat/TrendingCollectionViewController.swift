@@ -48,7 +48,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         // Register cell classes
         if let collectionView = collectionView {
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.backgroundColor = UIColor.whiteColor()
+            collectionView.backgroundColor = TrendingCollectionViewCellBackgroundColor
             collectionView.contentInset = UIEdgeInsetsMake(0.0, 0.0, 50.0, 0.0)
             collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
             collectionView.registerClass(TrendingHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
@@ -104,7 +104,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         if toggle == true {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("artistCell", forIndexPath: indexPath) as! TrendingCollectionViewCell
             
-            cell.backgroundColor = UIColor.whiteColor()
+            cell.backgroundColor = TrendingCollectionViewCellBackgroundColor
             
             cell.rankLabel.text = "\(indexPath.row + 1)"
             cell.nameLabel.text = viewModel.artistsList[indexPath.row].name
@@ -126,7 +126,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             if lineCount == 2 {
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier("lyricCell", forIndexPath: indexPath) as! TrendingLyricViewCell
                 
-                cell.backgroundColor = UIColor.whiteColor()
+                cell.backgroundColor = TrendingCollectionViewCellBackgroundColor
                 
                 cell.rankLabel.text = "\(indexPath.row + 1)"
                 cell.artistLabel.text = viewModel.lyricsList[indexPath.row].owner
@@ -152,7 +152,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             } else {
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier("oneLineCell", forIndexPath: indexPath) as! TrendingOneLineLyricViewCell
                 
-                cell.backgroundColor = UIColor.whiteColor()
+                cell.backgroundColor = TrendingCollectionViewCellBackgroundColor
                 
                 cell.rankLabel.text = "\(indexPath.row + 1)"
                 cell.artistLabel.text = viewModel.lyricsList[indexPath.row].owner

@@ -18,7 +18,7 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         artistImageView = UIImageView()
         artistImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistImageView.contentMode = .ScaleAspectFill
-        artistImageView.backgroundColor = UIColor.blueColor()
+        artistImageView.backgroundColor = SignUpAddArtistsTableViewCellImageViewBackgroundColor
         artistImageView.layer.cornerRadius  = 20
         artistImageView.layer.masksToBounds = true
         
@@ -44,7 +44,7 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = SignUpAddArtistsLoaderViewBackgroundColor
         contentView.addSubview(artistImageView)
         contentView.addSubview(artistNameLabel)
         contentView.addSubview(lyricsCountLabel)
