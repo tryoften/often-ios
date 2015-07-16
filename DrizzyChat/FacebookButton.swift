@@ -33,7 +33,7 @@ class FacebookButton: UIButton {
         fbButton.imageView?.contentMode = .ScaleAspectFit
         fbButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         fbButton.titleLabel?.textColor = FacebookButtonTitleTextColor
-        fbButton.titleLabel?.font = UIFont(name: "OpenSans", size: 14)
+        fbButton.titleLabel?.font = FacebookButtonTitleFont
         
         return fbButton as! FacebookButton
     }

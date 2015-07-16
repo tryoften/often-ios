@@ -78,7 +78,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         var spacer = UIView()
         
         recommendedLabel.frame = CGRectMake(20, 8, tableView.frame.size.width, 20)
-        recommendedLabel.font = UIFont(name: "OpenSans", size: 9)
+        recommendedLabel.font = SelectArtistWalkthroughViewControllerRecommendedLabelFont
         
         title.addAttribute(NSFontAttributeName, value: recommendedLabel.font!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 1.0, range: titleRange)

@@ -21,7 +21,7 @@ class SignUpAddArtistsTableViewHeaderView: UIView {
         let title = NSMutableAttributedString(string: titleString)
         
         recommendedLabel.attributedText = title
-        recommendedLabel.font = UIFont(name: "OpenSans", size: 9)
+        recommendedLabel.font = SelectArtistWalkthroughViewControllerRecommendedLabelFont
         
         spacer.backgroundColor = SelectArtistWalkthroughViewControllerSpacerColor
         

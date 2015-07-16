@@ -97,14 +97,14 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         artistsButton.setTitle("ARTISTS", forState: UIControlState.Normal)
         artistsButton.titleLabel?.font = TrendingHeaderViewArtistsButtonTextFont
         artistsButton.setTitleColor(TrendingHeaderViewArtistsButtonFontColor, forState: UIControlState.Normal)
-        artistsButton.setTitleColor(UIColor(fromHexString: "#FFB316"), forState: UIControlState.Selected)
+        artistsButton.setTitleColor(TrendingHeaderViewArtistsButtonSelectedFontColor, forState: UIControlState.Selected)
         
         
         lyricsButton = UIButton()
         lyricsButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         lyricsButton.setTitle("LYRICS", forState: UIControlState.Normal)
         lyricsButton.titleLabel?.font = TrendingHeaderViewLyricsButtonTextFont
-        lyricsButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+        lyricsButton.setTitleColor(TrendingHeaderViewLyricsButtonNormalFontColor, forState: .Normal)
         lyricsButton.setTitleColor(TrendingHeaderViewLyricsButtonSelectedFontColor, forState: UIControlState.Selected)
         lyricsButton.selected = true
         
@@ -116,8 +116,8 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         scrollView.addGestureRecognizer(tapRecognizer!)
         
         featuredButton.addTarget(self, action: "featuredTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        artistsButton.addTarget(self, action: "artistsTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        lyricsButton.addTarget(self, action: "lyricsTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        artistsButton.addTarget(self, action: "artistsTapped:", forControlEvents: .TouchUpInside)
+        lyricsButton.addTarget(self, action: "lyricsTapped:", forControlEvents: .TouchUpInside)
         
         scrollView.delegate = self
         

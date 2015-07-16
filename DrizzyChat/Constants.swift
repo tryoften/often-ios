@@ -154,6 +154,9 @@ let ArtistPickerCollectionViewControllerBackgroundColor = UIColor(red: 20/255, g
 let ArtistPickerCollectionViewCellBackgroundColor = UIColor.clearColor()
 
 //Browse Collection View Cell
+let BrowseCollectionViewCellRankLabelFont = UIFont(name: "OpenSans", size: 16.0)
+let BrowseCollectionViewCellTrackNameLabelFont = UIFont(name: "OpenSans", size: 14.0)
+let BrowseCollectionViewCellLyricCountLabelFont = UIFont(name: "OpenSans", size: 9.0)
 let BrowseCollectionCellLineBreakViewColor = UIColor(fromHexString: "#d3d3d3")
 let BrowseCollectionViewCellBackgroundColor = UIColor.whiteColor()
 let BrowseHeaderCollectionViewCellConfirmViewColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
@@ -178,6 +181,12 @@ let NavigationBarColor = UIColor.whiteColor()
 //Category Collection View Cell
 let CategoryCollectionViewCellTitleLabelTextColor = UIColor.whiteColor()
 
+//PhoneNumberWalkthroughViewController
+let PhoneNumberWalkthroughViewControllerSkipButtonFont = UIFont(name: "OpenSans-Semibold", size: 13)
+
+//SignUpPreAddArtistsLoaderViewController
+let SignUpPreAddArtistsLoaderViewControllerTitleLabelFont = UIFont(name: "OpenSans-Semibold", size: 18)
+
 //Keyboard Installation Walkthrough ViewController
 let KeyboardInstallationWalkthroughViewControllerBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
 let KeyboardInstallationWalkthroughViewControllerToolbarColor = UIColor.blackColor()
@@ -195,12 +204,14 @@ let LoginViewTextFieldBackgroundColor = UIColor.whiteColor()
 //Select Artist Walkthrough ViewController
 let SelectArtistWalkthroughViewControllerSpacerColor = UIColor(fromHexString: "#E4E4E4")
 let SelectArtistWalkthroughViewControllerHeaderViewColor = UIColor.whiteColor()
+let SelectArtistWalkthroughViewControllerRecommendedLabelFont = UIFont(name: "OpenSans", size: 9)
 
 //SignUp Confirm Password View
 let SignUpBackgroundColor = UIColor.whiteColor()
 let SignUpConfirmPasswordViewTitleLabelFont = UIFont(name: "OpenSans-Semibold", size: 18)
 let SignUpSpacerColor = UIColor.blackColor()
 let SignUpButtonFontColor = UIColor.whiteColor()
+
 //Settings TableViewCell
 let SettingsTableViewCellLabelViewTextColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.74)
 let SettingsTableViewCellLabelViewTextFont = UIFont(name: "OpenSans", size: 14.0)
@@ -236,6 +247,8 @@ let TrendingCollectionViewCellSubLabelFont = UIFont(name: "OpenSans", size: 9.0)
 let TrendingCollectionViewCellLineBreakColor = UIColor(fromHexString: "#d3d3d3")
 let TrendingCollectionViewCellBackgroundColor = UIColor.whiteColor()
 let TrendingHeaderViewTintViewBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.18)
+
+//Trending Header View
 let TrendingHeaderViewBackgroundColor = UIColor.blackColor()
 let TrendingHeaderViewTopLabelFont = UIFont(name: "OpenSans", size: 18.0)
 let TrendingHeaderViewTopLabelBackgroundColor = UIColor.whiteColor()
@@ -247,11 +260,55 @@ let TrendingHeaderViewFeaturedButtonBackgroundColor = UIColor.whiteColor()
 let TrendingHeaderViewFeaturedButtonFontColor = UIColor.blackColor()
 let TrendingHeaderViewArtistsButtonTextFont = UIFont(name: "OpenSans", size: 14.0)
 let TrendingHeaderViewArtistsButtonFontColor = UIColor.lightGrayColor()
+let TrendingHeaderViewArtistsButtonSelectedFontColor = UIColor(fromHexString: "#FFB316")
 let TrendingHeaderViewLyricsButtonTextFont = UIFont(name: "OpenSans", size: 14.0)
+let TrendingHeaderViewLyricsButtonNormalFontColor = UIColor.lightGrayColor()
 let TrendingHeaderViewLyricsButtonSelectedFontColor = UIColor(fromHexString: "#FFB316")
 
+//Trending Lyric View Cell
+let TrendingLyricViewCellBackgroundColor = UIColor(fromHexString: "#ffffff")
+let TrendingLyricViewCellRankLabelFont = UIFont(name: "OpenSans", size: 16.0)
+let TrendingLyricViewCellLyricTextViewlFont = UIFont(name: "OpenSans", size: 12.0)
+let TrendingLyricViewCellArtistLabelFont = UIFont(name: "OpenSans", size: 10.0)
+let TrendingLyricViewCellArtistLabelTextColor = UIColor.orangeColor()
+let TrendingLyricViewCellLineBreakViewBackgroundColor = UIColor(fromHexString: "#d3d3d3")
+let TrendingLyricViewCellTouchViewBackgroundColor = UIColor.clearColor()
+
+//Trending Section Header View
+let TrendingSectionHeaderViewBackgroundColor = UIColor(fromHexString: "#ffffff")
+let TrendingSectionHeaderViewTrendingLabelFont = UIFont(name: "OpenSans", size: 10.0)
+let TrendingSectionHeaderViewBottomLineBreakBackgroundColor = UIColor(fromHexString: "#d3d3d3")
+
+//User Profile Header View
+let UserProfileHeaderViewBackgroundColor = UIColor.whiteColor()
+let UserProfileHeaderViewCoverPhotoTintViewBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+let UserProfileHeaderViewProfileImageViewBackgroundColor = UIColor.whiteColor().CGColor
+let UserProfileHeaderViewMetadataViewBackgroundColor = UIColor.whiteColor()
+let UserProfileHeaderViewNameLabelFont = UIFont(name: "OpenSans-Semibold", size: 14)
+let UserProfileHeaderViewKeyboardCountLabelFont = UIFont(name: "OpenSans", size: 10)
+
+//User Profile Section Header View
+let UserProfileSectionHeaderViewBackgroundColor = UIColor.whiteColor()
+let UserProfileSectionHeaderViewSeperatorViewBackgroundColor = UIColor(fromHexString: "#f1f1f1")
+let UserProfileSectionHeaderViewTitleLabelFont = UIFont(name: "OpenSans", size: 15)
+let UserProfileSectionHeaderViewEditButtonFont = UIFont(name: "OpenSans", size: 15)
+let UserProfileSectionHeaderViewEditButtonFontColor = UIColor(fromHexString: "#868686")
+
+//UserProfileViewController
+let UserProfileViewControllerCollectionViewBackgroundColor = UIColor.whiteColor()
+let UserProfileViewControllerCellBackgroundColor = UIColor.whiteColor()
+let UserProfileViewControllerArtistPickerViewBackgroundColor = UIColor.clearColor()
+let UserProfileViewControllerStatusViewBackgroundColor = UIColor.whiteColor()
+let UserProfileViewControllerStatusViewImageViewShadowColor = UIColor.blackColor().CGColor
+let UserProfileViewControllerStatusViewTitleLabelFont = UIFont(name: "Oswald-Light", size: 24.0)
+let UserProfileViewControllerStatusViewTitleLabelBackgroundColor = UIColor.clearColor()
+let UserProfileViewControllerStatusViewSubTitleLabelFont = UIFont(name: "OpenSans", size: 12.0)
+let UserProfileViewControllerStatusViewSubTitleLabelBackgroundColor = UIColor.clearColor()
+//WalkthroughViewController
+let WalkthroughViewControllerNextButtonFont = UIFont(name: "OpenSans-Semibold", size: 15)
+let WalkthroughViewControllerNextButtonBackgroundColor = UIColor(fromHexString: "#2CD2B4")
 // Main App
-let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 15)
+let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 14)
 let FacebookButtonTitleTextColor = UIColor.whiteColor()
 let FacebookButtonIconFont = UIFont(name: "SSSocialRegular", size: 24)
 let FacebookButtonNormalBackgroundColor = BlueColor
