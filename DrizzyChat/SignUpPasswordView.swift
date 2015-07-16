@@ -9,9 +9,9 @@
 import Foundation
 
 class SignUpPasswordView: UIView {
-    var titleLabel: UILabel
-    var passwordTxtField: UITextField
-    var spacer: UIView
+    var titleLabel: UILabel!
+    var passwordTxtField: UITextField!
+    var spacer: UIView!
     var termsAndPrivacyView: TermsAndPrivacyView
     
     override init(frame: CGRect) {

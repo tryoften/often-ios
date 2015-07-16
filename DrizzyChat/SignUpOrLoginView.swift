@@ -20,14 +20,14 @@ class ButtonView: UIView {
 }
 
 class SignUpOrLoginView: UIView {
-    var titleLabel: UILabel
-    var subtitleLabel: UILabel
-    var buttonView: ButtonView
+    var titleLabel: UILabel!
+    var subtitleLabel: UILabel!
+    var buttonView: ButtonView!
     var facebookButton: FacebookButton
     var artistsBgImageView: UIImageView
-    var signUpButton: UIButton
-    var buttonDivider: UIView
-    var loginButton: UIButton
+    var signUpButton: UIButton!
+    var buttonDivider: UIView!
+    var loginButton: UIButton!
     
     override init(frame: CGRect) {
         titleLabel = UILabel()

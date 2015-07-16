@@ -9,9 +9,9 @@
 import Foundation
 
 class SignUpEmailView: UIView {
-    var titleLabel: UILabel
-    var emailTxtField: UITextField
-    var spacer: UIView
+    var titleLabel: UILabel!
+    var emailTxtField: UITextField!
+    var spacer: UIView!
     var termsAndPrivacyView: TermsAndPrivacyView
     
     override init(frame: CGRect) {

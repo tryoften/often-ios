@@ -45,6 +45,9 @@ PODS:
   - FXBlurView (1.6.3)
   - MMLayershots (0.2.6)
   - Parse (1.7.4)
+  - ParseCrashReporting (1.7.4):
+    - Bolts/Tasks (>= 1.1.5)
+    - Parse (~> 1.7.4)
   - ParseFacebookUtils (1.7.4):
     - Bolts/Tasks (>= 1.1.5)
     - Facebook-iOS-SDK (~> 3.23)
@@ -64,6 +67,7 @@ DEPENDENCIES:
   - FXBlurView (~> 1.6)
   - MMLayershots
   - Parse (from `Parse.podspec.json`)
+  - ParseCrashReporting (~> 1.7)
   - ParseFacebookUtils (~> 1.7)
   - Reveal-iOS-SDK
   - TOMSMorphingLabel (~> 0.5)
@@ -92,6 +96,7 @@ SPEC CHECKSUMS:
   FXBlurView: c6d23f3d35af2c6282296a2930f61c6e2c788d01
   MMLayershots: ce67f35806c9c32ba722cd309571a4ff236a244d
   Parse: ba553bf1ea90160c60ba302a193881ad8acc1d9f
+  ParseCrashReporting: 0cff3a2720d6e977fff1bdd64e6d3ea94528e170
   ParseFacebookUtils: 7115990b291ae95b920fde413272828d0eb0d963
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
   TOMSMorphingLabel: 3e88a2bf5257f8993ebc51fb3109187a0bfb2c4d

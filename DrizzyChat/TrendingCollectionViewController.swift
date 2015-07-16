@@ -10,20 +10,22 @@ import UIKit
 
 let reuseIdentifier = "Cell"
 
-/**
-    TrendingCollectionViewController:
+class TrendingCollectionViewController: UICollectionViewController, UIScrollViewDelegate,
+    TrendingViewModelDelegate,
+    LyricTabDelegate,
+    ArtistTabDelegate,
+    FeaturedButtonDelegate {
     
-    Will display either a list of Trending artists or tracks
-    Should have both loaded before allowing the user to tab between
-
-*/
-
-class TrendingCollectionViewController: UICollectionViewController, TrendingViewModelDelegate, UIScrollViewDelegate, LyricTabDelegate, ArtistTabDelegate, FeaturedButtonDelegate {
+    enum TrendingCollectionType {
+        case Artists
+        case Lyrics
+    }
+    
+    var collectionType: TrendingCollectionType = .Lyrics
     var viewModel: TrendingViewModel
     var headerView: TrendingHeaderView?
     var sectionHeaderView: TrendingSectionHeaderView?
-    var trendingHeaderDelegate: TrendingHeaderDelegate?
-    var toggle: Bool = false
+    weak var trendingHeaderDelegate: TrendingHeaderDelegate?
     var labelHeight: CGFloat = 65
     let device = UIDevice.currentDevice()
     
@@ -91,9 +93,9 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     // MARK: CollectionView
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if toggle == true {
+        if collectionType == .Artists {
             return viewModel.artistsList.count
-        } else if toggle == false {
+        } else if collectionType == .Lyrics {
             return viewModel.lyricsList.count
         } else {
             return 0
@@ -101,7 +103,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if toggle == true {
+        if collectionType == .Artists {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier("artistCell", forIndexPath: indexPath) as! TrendingCollectionViewCell
             
             cell.backgroundColor = UIColor.whiteColor()
@@ -162,37 +164,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
                 let charCount = count(viewModel.lyricsList[indexPath.row].text)
                 cell.lyricViewNumLines = lineCountForLyric(viewModel.lyricsList[indexPath.row].text)
                 
-                if screenWidth == 320 {
-                    if charCount >= 81 {
-                        var lyric = viewModel.lyricsList[indexPath.row].text
-                        let stringLength = count(lyric)
-                        let substringIndex = stringLength - 3
-                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                        cell.lyricView.text = "\(newLyric)..."
-                    } else {
-                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
-                    }
-                } else if screenWidth == 375 {
-                    if charCount >= 104 {
-                        var lyric = viewModel.lyricsList[indexPath.row].text
-                        let stringLength = count(lyric)
-                        let substringIndex = stringLength - 3
-                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                        cell.lyricView.text = "\(newLyric)..."
-                    } else {
-                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
-                    }
-                } else {
-                    if charCount >= 118 {
-                        var lyric = viewModel.lyricsList[indexPath.row].text
-                        let stringLength = count(lyric)
-                        let substringIndex = stringLength - 3
-                        var newLyric = lyric.substringToIndex(advance(lyric.startIndex, substringIndex))
-                        cell.lyricView.text = "\(newLyric)..."
-                    } else {
-                        cell.lyricView.text = viewModel.lyricsList[indexPath.row].text
-                    }
-                }
+                cell.lyricView.text = addElipses(indexPath.row)
                 
                 if indexPath.row % 2 == 0 {
                     cell.trendIndicator.image = UIImage(named: "up")
@@ -214,16 +186,17 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! TrendingHeaderView
             
             headerView = cell
-            headerView?.lyricDelegate = self
-            headerView?.artistDelegate = self
-            headerView?.featuredDelegate = self
-            trendingHeaderDelegate = headerView
             
+            if let headerView = headerView {
+                headerView.lyricDelegate = self
+                headerView.artistDelegate = self
+                headerView.featuredDelegate = self
+                trendingHeaderDelegate = headerView
+            }
             return cell
+            
         } else if kind == UICollectionElementKindSectionHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! TrendingSectionHeaderView
-            
-            // add action to segue into the view for tha specific track with all of its lyrics displayed
             
             sectionHeaderView = cell
             
@@ -277,8 +250,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         } else {
             println("No reload")
         }
-        
-        Flurry.logEvent("Trending_Artist_Update")
     }
     
     func lyricsDidUpdate(lyrics: [Lyric]) {
@@ -289,8 +260,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         } else {
             println("No reload")
         }
-        
-        Flurry.logEvent("Trending_Lyric_Update")
     }
     
     
@@ -300,30 +269,26 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
         Need to pull the correct data for the content and then switch collection views
         with the correct cells and data and then reload the collection view
     
-        Artists: true | Lyrics: false
-    
     */
     func lyricDidTap() {
-        toggle = false
+        collectionType = .Lyrics
         
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
         } else {
             println("No reload")
         }
-        Flurry.logEvent("Toggle_Lyric")
     }
     
     
     func artistDidTap() {
-        toggle = true
+        collectionType = .Artists
         
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
         } else {
             println("No reload")
         }
-        Flurry.logEvent("Toggle_Artist")
     }
     
     
@@ -336,7 +301,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     func trendingCellDidTap(artistTappedIndex: Int) {
         var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController()
         
-        if toggle == true {
+        if collectionType == .Artists {
             addArtistModal.setArtistId(viewModel.trendingService.artists[artistTappedIndex].id)
         } else {
             addArtistModal.setArtistId(viewModel.trendingService.lyrics[artistTappedIndex].artistId)
@@ -348,7 +313,7 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     }
     
     func featuredButtonDidTap(artistId: String) {
-        var addArtistModal: AddArtistModalContainerViewController = AddArtistModalContainerViewController()
+        var addArtistModal = AddArtistModalContainerViewController()
         addArtistModal.setArtistId(artistId)
         addArtistModal.modalPresentationStyle = UIModalPresentationStyle.Custom
         self.presentViewController(addArtistModal, animated: true, completion: nil)
@@ -422,6 +387,6 @@ class TrendingCollectionViewController: UICollectionViewController, TrendingView
     }
 }
 
-protocol TrendingHeaderDelegate {
+protocol TrendingHeaderDelegate: class {
     func featuredArtistsDidLoad(artists: [Artist])
 }

@@ -9,8 +9,8 @@
 import Foundation
 
 class SignUpAddArtistsTableViewHeaderView: UIView {
-    var recommendedLabel : UILabel
-    var spacer : UIView
+    var recommendedLabel : UILabel!
+    var spacer : UIView!
     
     override init(frame: CGRect) {
         recommendedLabel = UILabel()

@@ -9,10 +9,10 @@
 import Foundation
 
 class TermsAndPrivacyView: UIView {
-    var termAndServiceLabel: UILabel
-    var andLabel: UILabel
-    var termsofServiceButton: UIButton
-    var privacyPolicyButton: UIButton
+    var termAndServiceLabel: UILabel!
+    var andLabel: UILabel!
+    var termsofServiceButton: UIButton!
+    var privacyPolicyButton: UIButton!
     
      override init(frame: CGRect) {
         let termAndServiceLabelText = "By signin up to October you agree to our "

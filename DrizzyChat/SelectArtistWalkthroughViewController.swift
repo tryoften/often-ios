@@ -30,8 +30,6 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         navigationItem.leftBarButtonItem = backButton
         
         view.addSubview(tableView)
-        
-        HUDProgressView.show()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -106,8 +104,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
             }
         }
         
-        cell.lyricsCountLabel.text = "\(lyricCount) lyrics"
-        cell.artistNameLabel.text = viewModel.artistsList[indexPath.row].name
+        cell.lyricsCountLabel!.text = "\(lyricCount) lyrics"
+        cell.artistNameLabel!.text = viewModel.artistsList[indexPath.row].name
         cell.artistImageView.setImageWithURL(NSURL(string: viewModel.artistsList[indexPath.row].imageURLLarge), placeholderImage: UIImage(named: "placeholder")!)
         cell.selectionButton.addTarget(self, action: "didTapSelectButton:", forControlEvents: .TouchUpInside)
         cell.selectionButton.tag = indexPath.row
@@ -181,8 +179,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     }
     
     func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist]) {
+        
         tableView.reloadData()
-        HUDProgressView.hide()
     }
     
 }
