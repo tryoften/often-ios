@@ -30,6 +30,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         navigationItem.leftBarButtonItem = backButton
         
         view.addSubview(tableView)
+        
+        HUDProgressView.show()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -76,7 +78,7 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         var spacer = UIView()
         
         recommendedLabel.frame = CGRectMake(20, 8, tableView.frame.size.width, 20)
-        recommendedLabel.font = UIFont(name: "OpenSans", size: 9)
+        recommendedLabel.font = SelectArtistWalkthroughViewControllerRecommendedLabelFont
         
         title.addAttribute(NSFontAttributeName, value: recommendedLabel.font!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 1.0, range: titleRange)
@@ -84,9 +86,9 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
         recommendedLabel.attributedText = title
         
         spacer.frame = CGRectMake(0, 34, tableView.frame.size.width, 1)
-        spacer.backgroundColor = UIColor(fromHexString: "#E4E4E4")
+        spacer.backgroundColor = SelectArtistWalkthroughViewControllerSpacerColor
         
-        headerView.backgroundColor = UIColor.whiteColor()
+        headerView.backgroundColor = SelectArtistWalkthroughViewControllerHeaderViewColor
         headerView.addSubview(recommendedLabel)
         headerView.addSubview(spacer)
         
@@ -104,8 +106,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
             }
         }
         
-        cell.lyricsCountLabel!.text = "\(lyricCount) lyrics"
-        cell.artistNameLabel!.text = viewModel.artistsList[indexPath.row].name
+        cell.lyricsCountLabel.text = "\(lyricCount) lyrics"
+        cell.artistNameLabel.text = viewModel.artistsList[indexPath.row].name
         cell.artistImageView.setImageWithURL(NSURL(string: viewModel.artistsList[indexPath.row].imageURLLarge), placeholderImage: UIImage(named: "placeholder")!)
         cell.selectionButton.addTarget(self, action: "didTapSelectButton:", forControlEvents: .TouchUpInside)
         cell.selectionButton.tag = indexPath.row
@@ -179,8 +181,8 @@ class SelectArtistWalkthroughViewController: WalkthroughViewController, UITableV
     }
     
     func walkthroughViewModelDidLoadArtistsList(signUpWalkthroughViewModel: SignUpWalkthroughViewModel, keyboardList: [Artist]) {
-        
         tableView.reloadData()
+        HUDProgressView.hide()
     }
     
 }

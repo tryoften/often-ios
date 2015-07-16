@@ -9,8 +9,8 @@
 import Foundation
 
 class SignUpAddArtistsTableViewHeaderView: UIView {
-    var recommendedLabel : UILabel!
-    var spacer : UIView!
+    var recommendedLabel : UILabel
+    var spacer : UIView
     
     override init(frame: CGRect) {
         recommendedLabel = UILabel()
@@ -21,13 +21,13 @@ class SignUpAddArtistsTableViewHeaderView: UIView {
         let title = NSMutableAttributedString(string: titleString)
         
         recommendedLabel.attributedText = title
-        recommendedLabel.font = UIFont(name: "OpenSans", size: 9)
+        recommendedLabel.font = SelectArtistWalkthroughViewControllerRecommendedLabelFont
         
-        spacer.backgroundColor = UIColor(fromHexString: "#E4E4E4")
+        spacer.backgroundColor = SelectArtistWalkthroughViewControllerSpacerColor
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = SelectArtistWalkthroughViewControllerHeaderViewColor
         addSubview(recommendedLabel)
         addSubview(spacer)
         

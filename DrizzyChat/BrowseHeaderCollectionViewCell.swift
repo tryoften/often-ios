@@ -33,7 +33,7 @@ class BrowseHeaderCollectionViewCell: UICollectionViewCell {
         
         confirmView = UIImageView()
         confirmView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        confirmView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+        confirmView.backgroundColor = BrowseHeaderCollectionViewCellConfirmViewColor
         confirmView.alpha = 0
         confirmView.contentMode = .Center
         
@@ -43,7 +43,7 @@ class BrowseHeaderCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(artistImage)
         contentView.addSubview(confirmView)
 
-        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowColor = BrowseHeaderCollectionViewCellLayerShadowColor.CGColor
         layer.shadowOffset = CGSizeMake(0, 5)
         layer.shadowOpacity = 0.54
         layer.shadowRadius = 8.0

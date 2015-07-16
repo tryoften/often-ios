@@ -33,7 +33,7 @@ class KeyboardWalkthroughView: UIView {
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
         titleLabel.font = WalkthroughTitleLabelFront
-        titleLabel.textColor = UIColor(fromHexString: "#202020")
+        titleLabel.textColor = WalkthroughTitleFontColor
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.text = "lastly, install october"
         
@@ -41,14 +41,14 @@ class KeyboardWalkthroughView: UIView {
         subtitleLabel.textAlignment = .Center
         subtitleLabel.font = WalkthroughSubTitleLabelFront
         subtitleLabel.alpha = 0.54
-        subtitleLabel.textColor = UIColor(fromHexString: "#121314")
+        subtitleLabel.textColor = WalkthroughSubTitleFontColor
         subtitleLabel.numberOfLines = 0
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
        
         currentPage = 0
         
         super.init(frame: frame)
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = KeyboardWalkthroughViewBackgroundColor
         
         addSubview(iphoneImageView)
         addSubview(titleLabel)
