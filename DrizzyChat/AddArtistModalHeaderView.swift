@@ -27,7 +27,7 @@ class AddArtistModalHeaderView: UICollectionReusableView, AddArtistModalHeaderDe
         
         coverPhotoTintView = UIView()
         coverPhotoTintView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        coverPhotoTintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        coverPhotoTintView.backgroundColor = AddArtistModalCollectionModalMainViewBackgroundColor
         
         artistImage = UIImageView()
         artistImage.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -36,8 +36,8 @@ class AddArtistModalHeaderView: UICollectionReusableView, AddArtistModalHeaderDe
         
         artistNameLabel = UILabel()
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        artistNameLabel.font = UIFont(name: "Oswald-Light", size: 22.0)
-        artistNameLabel.textColor = UIColor(fromHexString: "#d3d3d3")
+        artistNameLabel.font = AddArtistModalCollectionNameLabelFont
+        artistNameLabel.textColor = AddArtistModalCollectionNameLabelColor
         artistNameLabel.textAlignment = .Center
         artistNameLabel.text = ""
         
@@ -47,16 +47,16 @@ class AddArtistModalHeaderView: UICollectionReusableView, AddArtistModalHeaderDe
         topLabel = UILabel()
         topLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         topLabel.textAlignment = .Center
-        topLabel.font = UIFont(name: "OpenSans", size: 18.0)
+        topLabel.font = AddArtistModalCollectionTopLabelFont
         topLabel.text = "ADD ARTIST"
-        topLabel.textColor = UIColor.whiteColor()
+        topLabel.textColor = AddArtistModalCollectionBackgroundColor
         topLabel.alpha = 0
         
         super.init(frame: frame)
         
         addArtistButton.addTarget(self, action: "addArtistTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        backgroundColor = AddArtistModalHeaderViewBackgroundColor
         
         addSubview(coverPhoto)
         addSubview(coverPhotoTintView)

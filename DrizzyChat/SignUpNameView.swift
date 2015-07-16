@@ -9,9 +9,9 @@
 import Foundation
 
 class SignUpNameView: UIView {
-    var titleLabel: UILabel!
-    var fullNameTxtField: UITextField!
-    var spacer: UIView!
+    var titleLabel: UILabel
+    var fullNameTxtField: UITextField
+    var spacer: UIView
     var termsAndPrivacyView: TermsAndPrivacyView
     
      override init(frame: CGRect) {
@@ -19,33 +19,33 @@ class SignUpNameView: UIView {
         let titleRange = NSMakeRange(0, count(titleString))
         let title = NSMutableAttributedString(string: titleString)
         
-        title.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 18)!, range: titleRange)
+        title.addAttribute(NSFontAttributeName, value: WalkthroughNavBarTitleFont!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 1.5, range: titleRange)
         
         
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
-        titleLabel.textColor = UIColor(fromHexString: "#202020")
+        titleLabel.textColor = WalkthroughTitleFontColor
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.text = titleString
         titleLabel.attributedText = title
         
         fullNameTxtField = UITextField()
         fullNameTxtField.textAlignment = .Center
-        fullNameTxtField.font = UIFont(name: "OpenSans", size: 14)
+        fullNameTxtField.font = WalkthroughTextFieldFont
         fullNameTxtField.placeholder = "enter your name here"
         fullNameTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         spacer = UIView()
         spacer.setTranslatesAutoresizingMaskIntoConstraints(false)
-        spacer.backgroundColor = UIColor.blackColor()
+        spacer.backgroundColor = SignUpSpacerColor
         
         termsAndPrivacyView = TermsAndPrivacyView()
         termsAndPrivacyView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = SignUpBackgroundColor
         addSubview(titleLabel)
         addSubview(fullNameTxtField)
         addSubview(spacer)

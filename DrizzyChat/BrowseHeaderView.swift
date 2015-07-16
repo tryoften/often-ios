@@ -56,7 +56,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         
         tintView = UIView()
         tintView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        tintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25)
+        tintView.backgroundColor = BrowseHeaderViewTintViewColor
         
         let model = UIDevice.currentDevice().modelName
         if model.hasPrefix("iPhone 6") || model.hasPrefix("Simulator") {
@@ -65,8 +65,8 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
             artistNameLabel = UILabel()
         }
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        artistNameLabel.font = UIFont(name: "Oswald-Light", size: 24.0)
-        artistNameLabel.textColor = UIColor.whiteColor()
+        artistNameLabel.font = BrowseHeaderViewArtistNameLabelFont
+        artistNameLabel.textColor = BrowseHeaderViewArtistNameLabelColor
         artistNameLabel.textAlignment = .Center
         
         addArtistButton = AddArtistButton()
@@ -75,9 +75,9 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         topLabel = UILabel()
         topLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         topLabel.textAlignment = .Center
-        topLabel.font = UIFont(name: "OpenSans", size: 18.0)
+        topLabel.font = BrowseHeaderViewArtistTopLabelFont
         topLabel.text = "ADD ARTIST"
-        topLabel.textColor = UIColor.whiteColor()
+        topLabel.textColor = BrowseHeaderViewArtistTopLabelColor
         topLabel.alpha = 0
         
         super.init(frame: frame)
@@ -85,7 +85,7 @@ class BrowseHeaderView: UICollectionReusableView, HeaderUpdateDelegate {
         browsePicker.headerDelegate = self
         addArtistButton.addTarget(self, action: "addArtistTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        backgroundColor = BrowseHeaderViewBackgroundColor
 
         addSubview(previousBackgroundView)
         addSubview(nextBackgroundView)

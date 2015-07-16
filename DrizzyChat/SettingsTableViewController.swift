@@ -29,19 +29,19 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
         tableView = UITableView()
         tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        tableView.backgroundColor = UIColor.clearColor()
+        tableView.backgroundColor = SettingsTableViewCellBackgroundColor
         tableView.scrollEnabled = false
         
         navigationBar = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 50))
-        navigationBar.backgroundColor = UIColor.blackColor()
+        navigationBar.backgroundColor = SettingsTableViewControllerNavBarBackgroundColor
         
         navBarLabel = UILabel()
         navBarLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        navBarLabel.textColor = UIColor.whiteColor()
-        navBarLabel.backgroundColor = UIColor.clearColor()
+        navBarLabel.textColor = SettingsTableViewControllerNavBarLabelFontColor
+        navBarLabel.backgroundColor = SettingsTableViewControllerNavBarLabelBackgroundColor
         navBarLabel.textAlignment = .Center
         navBarLabel.text = "SETTINGS"
-        navBarLabel.font = UIFont(name: "OpenSans", size: 15.0)
+        navBarLabel.font = SettingsTableViewControllerNavBarLabelFont
         
         backButton = UIButton()
         backButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -69,7 +69,7 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(fromHexString: "#202020")
+        view.backgroundColor = SettingsTableViewControllerBackgroundColor
         tableView.registerClass(SettingsTableViewCell.self, forCellReuseIdentifier: "settingsCell")
     }
 

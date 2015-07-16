@@ -30,15 +30,15 @@ class BrowseCollectionViewCell: UICollectionViewCell {
         rankLabel = UILabel()
         rankLabel.textAlignment = .Center
         rankLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        rankLabel.font = UIFont(name: "OpenSans", size: 16.0)
+        rankLabel.font = BrowseCollectionViewCellRankLabelFont
         
         trackNameLabel = UILabel()
         trackNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        trackNameLabel.font = UIFont(name: "OpenSans", size: 14.0)
+        trackNameLabel.font = BrowseCollectionViewCellTrackNameLabelFont
         
         lyricCountLabel = UILabel()
         lyricCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lyricCountLabel.font = UIFont(name: "OpenSans", size: 9.0)
+        lyricCountLabel.font = BrowseCollectionViewCellLyricCountLabelFont
         
         disclosureIndicator = UIImageView()
         disclosureIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -46,11 +46,11 @@ class BrowseCollectionViewCell: UICollectionViewCell {
         
         lineBreakView = UIView()
         lineBreakView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lineBreakView.backgroundColor = UIColor(fromHexString: "#d3d3d3")
+        lineBreakView.backgroundColor = BrowseCollectionCellLineBreakViewColor
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = BrowseCollectionViewCellBackgroundColor
 
         contentView.addSubview(rankLabel)
         contentView.addSubview(trackNameLabel)

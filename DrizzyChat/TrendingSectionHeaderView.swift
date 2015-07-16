@@ -25,16 +25,16 @@ class TrendingSectionHeaderView: UICollectionReusableView {
         
         trendingLabel = UILabel()
         trendingLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        trendingLabel.font = UIFont(name: "OpenSans", size: 10.0)
+        trendingLabel.font = TrendingSectionHeaderViewTrendingLabelFont
         trendingLabel.text = "TRENDING"
         
         bottomLineBreak = UIView()
         bottomLineBreak.setTranslatesAutoresizingMaskIntoConstraints(false)
-        bottomLineBreak.backgroundColor = UIColor(fromHexString: "#d3d3d3")
+        bottomLineBreak.backgroundColor = TrendingSectionHeaderViewBottomLineBreakBackgroundColor
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#ffffff")
+        backgroundColor = TrendingSectionHeaderViewBackgroundColor
         
         addSubview(trendingLabel)
         addSubview(bottomLineBreak)

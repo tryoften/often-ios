@@ -24,16 +24,16 @@ class AddArtistModalContainerViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         mainView = UIView(frame: CGRectMake(15, 15, screenWidth - 30, screenHeight - 120))
-        mainView.backgroundColor = UIColor.clearColor()
+        mainView.backgroundColor = AddArtistModalCollectionModalBackgroundColor
         mainView.layer.cornerRadius = 5.0
         mainView.clipsToBounds = true
         
         closeButton = UIButton()
         closeButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        closeButton.backgroundColor = UIColor.blackColor()
+        closeButton.backgroundColor = AddArtistModalCollectionCloseButtonColor
         closeButton.setTitle("CLOSE", forState: UIControlState.Normal)
-        closeButton.titleLabel?.font = UIFont(name: "OpenSans-Bold", size: 15.0)
-        closeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        closeButton.titleLabel?.font = AddArtistModalCollectionCloseButtonFont
+        closeButton.setTitleColor(AddArtistModalCollectionBackgroundColor, forState: UIControlState.Normal)
 
         sessionManager = SessionManager.defaultManager
         
@@ -41,7 +41,7 @@ class AddArtistModalContainerViewController: UIViewController {
         
         addArtistModal = AddArtistModalCollectionViewController(collectionViewLayout: provideCollectionFlowLayout())
         
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        view.backgroundColor = AddArtistModalCollectionModalMainViewBackgroundColor
         
         closeButton.addTarget(self, action: "closeTapped", forControlEvents: UIControlEvents.TouchUpInside)
 

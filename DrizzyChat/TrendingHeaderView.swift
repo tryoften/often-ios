@@ -65,47 +65,47 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         tintView = UIView()
         tintView.setTranslatesAutoresizingMaskIntoConstraints(false)
         tintView.userInteractionEnabled = false
-        tintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.18)
+        tintView.backgroundColor = TrendingHeaderViewTintViewBackgroundColor
         
         tabView = UIView()
         tabView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        tabView.backgroundColor = UIColor.blackColor()
+        tabView.backgroundColor = TrendingHeaderViewTabViewBackgroundColor
         
         topLabel = UILabel()
         topLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         topLabel.textAlignment = .Center
-        topLabel.font = UIFont(name: "OpenSans", size: 18.0)
+        topLabel.font = TrendingHeaderViewTopLabelFont
         topLabel.text = "TRENDING"
-        topLabel.textColor = UIColor.whiteColor()
+        topLabel.textColor = TrendingHeaderViewTopLabelBackgroundColor
         topLabel.alpha = 0
         
         nameLabel = TOMSMorphingLabel()
         nameLabel.textAlignment = .Center
-        nameLabel.font = UIFont(name: "Oswald-Light", size: 24.0)
-        nameLabel.textColor = UIColor.whiteColor()
+        nameLabel.font = TrendingHeaderViewNameLabelTextFont
+        nameLabel.textColor = TrendingHeaderViewNameLabelTextColor
         nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         featuredButton = UIButton(frame: CGRectMake(0.0, 0.0, 85.0, 10.0))
         featuredButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         featuredButton.setTitle("FEATURED", forState: UIControlState.Normal)
-        featuredButton.titleLabel?.font = UIFont(name: "OpenSans", size: 10.0)
-        featuredButton.backgroundColor = UIColor.whiteColor()
-        featuredButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        featuredButton.titleLabel?.font = TrendingHeaderViewFeaturedButtonTextFont
+        featuredButton.backgroundColor = TrendingHeaderViewFeaturedButtonBackgroundColor
+        featuredButton.setTitleColor(TrendingHeaderViewFeaturedButtonFontColor, forState: .Normal)
         
         artistsButton = UIButton()
         artistsButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        artistsButton.setTitle("ARTISTS", forState: UIControlState.Normal)
-        artistsButton.titleLabel?.font = UIFont(name: "OpenSans", size: 14.0)
-        artistsButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
-        artistsButton.setTitleColor(UIColor(fromHexString: "#FFB316"), forState: UIControlState.Selected)
+        artistsButton.setTitle("ARTISTS", forState: .Normal)
+        artistsButton.titleLabel?.font = TrendingHeaderViewArtistsButtonTextFont
+        artistsButton.setTitleColor(TrendingHeaderViewArtistsButtonFontColor, forState: .Normal)
+        artistsButton.setTitleColor(TrendingHeaderViewArtistsButtonSelectedFontColor, forState: .Selected)
         
         
         lyricsButton = UIButton()
         lyricsButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lyricsButton.setTitle("LYRICS", forState: UIControlState.Normal)
-        lyricsButton.titleLabel?.font = UIFont(name: "OpenSans", size: 14.0)
-        lyricsButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
-        lyricsButton.setTitleColor(UIColor(fromHexString: "#FFB316"), forState: UIControlState.Selected)
+        lyricsButton.setTitle("LYRICS", forState: .Normal)
+        lyricsButton.titleLabel?.font = TrendingHeaderViewLyricsButtonTextFont
+        lyricsButton.setTitleColor(TrendingHeaderViewLyricsButtonNormalFontColor, forState: .Normal)
+        lyricsButton.setTitleColor(TrendingHeaderViewLyricsButtonSelectedFontColor, forState: .Selected)
         lyricsButton.selected = true
         
         featuredArtists = [Artist]()
@@ -115,13 +115,13 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         tapRecognizer = UITapGestureRecognizer(target: self, action: "featuredTapped:")
         scrollView.addGestureRecognizer(tapRecognizer!)
         
-        featuredButton.addTarget(self, action: "featuredTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        artistsButton.addTarget(self, action: "artistsTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        lyricsButton.addTarget(self, action: "lyricsTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        featuredButton.addTarget(self, action: "featuredTapped:", forControlEvents: .TouchUpInside)
+        artistsButton.addTarget(self, action: "artistsTapped:", forControlEvents: .TouchUpInside)
+        lyricsButton.addTarget(self, action: "lyricsTapped:", forControlEvents: .TouchUpInside)
         
         scrollView.delegate = self
         
-        backgroundColor = UIColor.blackColor()
+        backgroundColor = TrendingHeaderViewBackgroundColor
         clipsToBounds = true
         
         addSubview(scrollView)

@@ -20,7 +20,7 @@ class SignUpPreAddArtistsLoaderViewController: WalkthroughViewController {
         let titleRange = NSMakeRange(0, count(titleString))
         let title = NSMutableAttributedString(string: titleString)
         
-        title.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 18)!, range: titleRange)
+        title.addAttribute(NSFontAttributeName, value: SignUpPreAddArtistsLoaderViewControllerTitleLabelFont!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 1.5, range: titleRange)
         
         loaderPage = SignUpAddArtistsLoaderView()

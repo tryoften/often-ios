@@ -25,27 +25,27 @@ class UserProfileHeaderView: UICollectionReusableView {
 
         coverPhotoTintView = UIView()
         coverPhotoTintView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        coverPhotoTintView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        coverPhotoTintView.backgroundColor = UserProfileHeaderViewCoverPhotoTintViewBackgroundColor
 
         profileImageView = UIImageView()
         profileImageView.contentMode = .ScaleAspectFill
         profileImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        profileImageView.layer.borderColor = UIColor.whiteColor().CGColor
+        profileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
         profileImageView.layer.borderWidth = 3
         profileImageView.clipsToBounds = true
         
         metadataView = UIView()
         metadataView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        metadataView.backgroundColor = UIColor.whiteColor()
+        metadataView.backgroundColor = UserProfileHeaderViewMetadataViewBackgroundColor
 
         nameLabel = UILabel()
         nameLabel.textAlignment = .Center
-        nameLabel.font = UIFont(name: "OpenSans-Semibold", size: 14)
+        nameLabel.font = UserProfileHeaderViewNameLabelFont
         nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         keyboardCountLabel = UILabel()
         keyboardCountLabel.textAlignment = .Center
-        keyboardCountLabel.font = UIFont(name: "OpenSans", size: 10)
+        keyboardCountLabel.font = UserProfileHeaderViewKeyboardCountLabelFont
         keyboardCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         settingsButton = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
@@ -53,7 +53,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         settingsButton.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         super.init(frame: frame)
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UserProfileHeaderViewBackgroundColor
 
         addSubview(coverPhotoView)
         addSubview(coverPhotoTintView)
