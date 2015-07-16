@@ -225,7 +225,7 @@ class KeyboardViewController: UIInputViewController,
     func didTapOpenStandardKeyboardButton() {
         var keyboardVC = StandardKeyboardViewController()
         keyboardVC.textProcessor = textProcessor
-        presentViewController(keyboardVC, animated: true, completion: nil)
+        presentViewController(keyboardVC, animated: false, completion: nil)
     }
     
     func openPanel() {

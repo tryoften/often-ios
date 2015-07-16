@@ -67,7 +67,7 @@ class CategoriesPanelView: UIView {
         
         openStandardKeyboardButton = UIButton()
         openStandardKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        openStandardKeyboardButton.setImage(UIImage(named: "StandardKeyboard"), forState: .Normal)
+        openStandardKeyboardButton.setImage(UIImage(named: "IconWhite"), forState: .Normal)
         openStandardKeyboardButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 8, bottom: 8, right: 8)
         
         messageBarView = MessageBarView()

@@ -17,33 +17,56 @@ class StandardKeyboardViewController: UIViewController {
     var keyButtons: [KeyboardKeyButton]!
     var searchBar: UITextField!
     var lettercase: Lettercase!
-    
-    let characterMap: [ [KeyboardKey] ] = [
-        [.letter(.Q), .letter(.W), .letter(.E), .letter(.R), .letter(.T), .letter(.Y), .letter(.U), .letter(.I), .letter(.O), .letter(.P)],
-        [.letter(.A), .letter(.S), .letter(.D), .letter(.F), .letter(.G), .letter(.H), .letter(.J), .letter(.K), .letter(.L)],
-        [.modifier(.CapsLock), .letter(.Z), .letter(.X), .letter(.C), .letter(.V), .letter(.B), .letter(.N), .letter(.M), .modifier(.Backspace)],
-        [.modifier(.NumericKeypad), .modifier(.SwitchKeyboard), .modifier(.GoToBrowse), .modifier(.Space), .modifier(.Enter)]
-    ]
+    var characterMap: [ [KeyboardKey] ]! {
+        didSet {
+            for row in rowViews {
+                row.removeFromSuperview()
+            }
+            rowViews = []
+            keyButtons = []
+            setupKeyboardLayout()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         lettercase = .Lowercase
-        
+
         keyButtons = []
         keysContainerView = UIView()
         keysContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
         view.backgroundColor = UIColor(fromHexString: "#202020")
         
         searchBar = UITextField()
-        searchBar.backgroundColor = UIColor(fromHexString: "#121314")
+        searchBar.backgroundColor = UIColor.whiteColor()
         searchBar.setTranslatesAutoresizingMaskIntoConstraints(false)
         searchBar.placeholder = "Search"
-        searchBar.textColor = UIColor.whiteColor()
-        searchBar.font = UIFont(name: "OpenSans", size: 16)
-        searchBar.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        searchBar.textColor = UIColor.blackColor()
+        searchBar.font = UIFont(name: "OpenSans", size: 14)
+        searchBar.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.blackColor()])
         searchBar.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+        
+        view.addSubview(keysContainerView)
+        view.addSubview(searchBar)
+        
+        view.addConstraints([
+            searchBar.al_top == view.al_top,
+            searchBar.al_left == view.al_left,
+            searchBar.al_right == view.al_right,
+            searchBar.al_bottom == keysContainerView.al_top,
 
+            keysContainerView.al_height == 210,
+            keysContainerView.al_bottom == view.al_bottom,
+            keysContainerView.al_left == view.al_left,
+            keysContainerView.al_right == view.al_right
+        ])
+        
+        rowViews = []
+        characterMap = EnglishKeyboardMap
+    }
+    
+    func setupKeyboardLayout() {
         let screenBoundsWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
         keyWidth = screenBoundsWidth / CGFloat(characterMap[0].count)
         
@@ -57,9 +80,6 @@ class StandardKeyboardViewController: UIViewController {
         keysContainerView.addSubview(row3)
         keysContainerView.addSubview(row4)
         
-        view.addSubview(keysContainerView)
-        view.addSubview(searchBar)
-        
         row1.setTranslatesAutoresizingMaskIntoConstraints(false)
         row2.setTranslatesAutoresizingMaskIntoConstraints(false)
         row3.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -67,18 +87,6 @@ class StandardKeyboardViewController: UIViewController {
         
         rowViews = [row1, row2, row3, row4]
         addConstraintsToInputView(keysContainerView, rowViews: rowViews)
-        
-        view.addConstraints([
-            searchBar.al_top == view.al_top,
-            searchBar.al_left == view.al_left,
-            searchBar.al_right == view.al_right,
-            searchBar.al_bottom == keysContainerView.al_top,
-
-            keysContainerView.al_height == 210,
-            keysContainerView.al_bottom == view.al_bottom,
-            keysContainerView.al_left == view.al_left,
-            keysContainerView.al_right == view.al_right
-        ])
     }
     
     func createRowOfButtons(keys: [KeyboardKey], margin: CGFloat) -> UIView {
@@ -89,6 +97,7 @@ class StandardKeyboardViewController: UIViewController {
         for key in keys {
             let button = createButtonWithKey(key)
             button.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: "didTouchDownOnKey:", forControlEvents: .TouchDown)
             buttons.append(button)
             keyboardRowView.addSubview(button)
         }
@@ -113,11 +122,9 @@ class StandardKeyboardViewController: UIViewController {
         let button = sender as! KeyboardKeyButton
         var proxy = textProcessor.proxy
         
+        button.highlighted = false
         button.selected = !button.selected
-        
-        var animationClass: CSAnimation.Type = CSAnimation.classForAnimationType("pop") as! CSAnimation.Type
-        animationClass.performAnimationOnView(button, duration: 0.2, delay: 0.0)
-        
+
         switch(button.key) {
         case .letter(let character):
             var str = String(character.rawValue)
@@ -125,6 +132,10 @@ class StandardKeyboardViewController: UIViewController {
                 str = str.lowercaseString
             }
             proxy.insertText(str)
+        case .digit(let number):
+            proxy.insertText(String(number.rawValue))
+        case .special(let character):
+            proxy.insertText(String(character.rawValue))
         case .modifier(.CapsLock):
             lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
             
@@ -132,13 +143,34 @@ class StandardKeyboardViewController: UIViewController {
                 keyButton.lettercase = lettercase
             }
         case .modifier(.Backspace):
-            proxy.deleteBackward()
+            break
+//            proxy.deleteBackward()
+        case .modifier(.AlphabeticKeypad):
+            characterMap = EnglishKeyboardMap
+            break
+        case .modifier(.SpecialKeypad):
+            characterMap = SpecialCharacterKeyboardMap
         case .modifier(.Space):
             proxy.insertText(" ")
         case .modifier(.Enter):
             proxy.insertText("\n")
         case .modifier(.GoToBrowse):
-            dismissViewControllerAnimated(true, completion: nil)
+            dismissViewControllerAnimated(false, completion: nil)
+        default:
+            break
+        }
+    }
+    
+    func didTouchDownOnKey(sender: AnyObject?) {
+        
+        let button = sender as! KeyboardKeyButton
+        let proxy = textProcessor.proxy
+        
+        button.highlighted = true
+        
+        switch(button.key) {
+        case .modifier(.Backspace):
+            proxy.deleteBackward()
         default:
             break
         }
@@ -167,7 +199,7 @@ class StandardKeyboardViewController: UIViewController {
                 var rightMargin = margin
                 if buttonIsModifierKey {
                     rightMargin = 0
-                    let widthConstraint = button.al_width == keyWidth * 1.5 - 1
+                    let widthConstraint = button.al_width == keyWidth * 1.5
                     widthConstraint.priority = 1000
                     button.addConstraint(widthConstraint)
                 }
@@ -175,7 +207,7 @@ class StandardKeyboardViewController: UIViewController {
             }
             else {
                 let nextButton = buttons[index+1]
-                rightConstraint = button.al_right == nextButton.al_left + 1
+                rightConstraint = button.al_right == nextButton.al_left
             }
             
             // Left Constraint
@@ -184,7 +216,7 @@ class StandardKeyboardViewController: UIViewController {
 
                 if buttonIsModifierKey {
                     leftMargin = 0
-                    let widthConstraint = button.al_width == keyWidth * 1.5 - 1
+                    let widthConstraint = button.al_width == keyWidth * 1.5
                     widthConstraint.priority = 1000
                     button.addConstraint(widthConstraint)
                 } else {
@@ -199,7 +231,7 @@ class StandardKeyboardViewController: UIViewController {
                 widthConstraint.priority = 900
                 mainView.addConstraint(widthConstraint)
                 
-                leftConstraint = button.al_left == prevButton.al_right + 1
+                leftConstraint = button.al_left == prevButton.al_right
             }
             
             mainView.addConstraints([
@@ -229,7 +261,7 @@ class StandardKeyboardViewController: UIViewController {
             ]
         
             switch(key) {
-            case .modifier(.NumericKeypad):
+            case .modifier(.SpecialKeypad), .modifier(.AlphabeticKeypad):
                 constraints += [
                     button.al_width == button.al_height,
                     button.al_left == keyboardRowView.al_left
@@ -268,9 +300,9 @@ class StandardKeyboardViewController: UIViewController {
     func addConstraintsToInputView(inputView: UIView, rowViews: [UIView]){
         
         for (index, rowView) in enumerate(rowViews) {
-            var rightSideConstraint = rowView.al_right == inputView.al_right - 1
-            var leftConstraint = rowView.al_left == inputView.al_left + 1
-            
+            var rightSideConstraint = rowView.al_right == inputView.al_right
+            var leftConstraint = rowView.al_left == inputView.al_left
+
             inputView.addConstraints([leftConstraint, rightSideConstraint])
             
             var topConstraint: NSLayoutConstraint
@@ -285,7 +317,7 @@ class StandardKeyboardViewController: UIViewController {
                 let firstRow = rowViews[0]
                 var heightConstraint = rowView.al_height == firstRow.al_height
                 
-                heightConstraint.priority = 800
+                heightConstraint.priority = 1000
                 inputView.addConstraint(heightConstraint)
             }
             inputView.addConstraint(topConstraint)
@@ -303,117 +335,5 @@ class StandardKeyboardViewController: UIViewController {
             inputView.addConstraint(bottomConstraint)
         }
         
-    }
-}
-
-class KeyboardKeyButton: UIButton {
-    let key: KeyboardKey
-    let width: CGFloat
-    
-    var lettercase: Lettercase {
-        didSet {
-            setupKey()
-        }
-    }
-    
-    override var selected: Bool {
-        didSet {
-            switch(key) {
-            case .modifier(.CapsLock):
-                if selected {
-                    lettercase = .Uppercase
-                    layer.borderColor = UIColor(fromHexString: "#F9B341").CGColor
-                } else {
-                    lettercase = .Lowercase
-                    layer.borderColor = UIColor(fromHexString: "#202020").CGColor
-                }
-            default:
-                break
-            }
-        }
-    }
-    
-    init(key: KeyboardKey, width: CGFloat) {
-        self.key = key
-        self.width = width
-        lettercase = .Lowercase
-
-        super.init(frame: CGRectZero)
-        
-        titleLabel?.font = UIFont(name: "OpenSans", size: 20)
-        setTranslatesAutoresizingMaskIntoConstraints(false)
-        backgroundColor = UIColor(fromHexString: "#2A2A2A")
-        setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        layer.borderWidth = 2
-        layer.cornerRadius = 5
-        layer.borderColor = UIColor(fromHexString: "#202020").CGColor
-        setupKey()
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupKey() {
-        switch(key) {
-        case .letter(let character):
-            var str = String(character.rawValue)
-            if lettercase == .Lowercase {
-                str = str.lowercaseString
-            }
-            setTitle(str, forState: .Normal)
-        case .modifier(let modifier):
-            switch(modifier) {
-            case .Backspace:
-                backgroundColor = UIColor.clearColor()
-                setImage(UIImage(named: "Backspace"), forState: .Normal)
-                imageView?.contentMode = .ScaleAspectFit
-                imageEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
-                break
-            case .CapsLock:
-                backgroundColor = UIColor.clearColor()
-                setImage(UIImage(named: "CapsLock"), forState: .Normal)
-                imageView?.contentMode = .ScaleAspectFit
-                imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                
-                break
-            case .SwitchKeyboard:
-                titleLabel!.font = NextKeyboardButtonFont
-                setTitle("\u{f114}", forState: .Normal)
-                backgroundColor = UIColor(fromHexString: "#2A2A2A")
-                setTitleColor(UIColor.whiteColor(), forState: .Normal)
-                addConstraints([
-                    al_width == width + 15
-                ])
-                break
-            case .NumericKeypad:
-                imageView?.contentMode = .ScaleAspectFit
-                imageEdgeInsets = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 13)
-                setImage(UIImage(named: "NumericKeypad"), forState: .Normal)
-                backgroundColor = UIColor.clearColor()
-                addConstraints([
-                    al_width == width + 15
-                ])
-                break
-            case .GoToBrowse:
-                imageView?.contentMode = .ScaleAspectFit
-                setImage(UIImage(named: "IconWhite"), forState: .Normal)
-                imageEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-                addConstraint(al_width == width + 15)
-                break
-            case .Space:
-                setTitle("Space".uppercaseString, forState: .Normal)
-                titleLabel?.font = UIFont(name: "OpenSans", size: 14)
-                break
-            case .Enter:
-                setTitle("Search".uppercaseString, forState: .Normal)
-                setTitleColor(UIColor.blackColor(), forState: .Normal)
-                titleLabel?.font = UIFont(name: "OpenSans", size: 14)
-                backgroundColor = UIColor.whiteColor()
-                break
-            default:
-                break
-            }
-        }
     }
 }
