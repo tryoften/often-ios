@@ -11,7 +11,7 @@ import Realm
 import Fabric
 import Crashlytics
 
-private var TestKeyboard: Bool = false
+private var TestKeyboard: Bool = true
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

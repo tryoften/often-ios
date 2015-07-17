@@ -54,9 +54,9 @@ class StandardKeyboardViewController: UIViewController {
             searchBar.al_top == view.al_top,
             searchBar.al_left == view.al_left,
             searchBar.al_right == view.al_right,
-            searchBar.al_bottom == keysContainerView.al_top,
+            searchBar.al_height == 50,
 
-            keysContainerView.al_height == 210,
+            keysContainerView.al_top == searchBar.al_bottom,
             keysContainerView.al_bottom == view.al_bottom,
             keysContainerView.al_left == view.al_left,
             keysContainerView.al_right == view.al_right
@@ -142,6 +142,8 @@ class StandardKeyboardViewController: UIViewController {
             for keyButton in keyButtons {
                 keyButton.lettercase = lettercase
             }
+        case .modifier(.SwitchKeyboard):
+            NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
         case .modifier(.Backspace):
             break
 //            proxy.deleteBackward()
@@ -162,7 +164,6 @@ class StandardKeyboardViewController: UIViewController {
     }
     
     func didTouchDownOnKey(sender: AnyObject?) {
-        
         let button = sender as! KeyboardKeyButton
         let proxy = textProcessor.proxy
         

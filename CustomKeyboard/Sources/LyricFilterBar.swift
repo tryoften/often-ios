@@ -175,14 +175,12 @@ class LyricFilterBar: UIView, UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         delegate?.lyricFilterBarShouldShowKeyboard(self, showKeyboard: true)
-        targetViewController.promote(true, animated: true)
         searchBar.becomeFirstResponder()
         searchBar.setShowsCancelButton(true, animated: true)
     }
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
         delegate?.lyricFilterBarShouldShowKeyboard(self, showKeyboard: false)
-        targetViewController.promote(false, animated: true)
         searchBar.endEditing(true)
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)

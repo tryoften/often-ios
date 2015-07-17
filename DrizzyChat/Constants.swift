@@ -50,7 +50,7 @@ let TitleFont = UIFont(name: "Oswald-Regular", size: 19)
 let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
-let KeyboardHeight: CGFloat = 250
+let KeyboardHeight: CGFloat = 280
 let KeyboardTableSeperatorColor = DarkGrey
 let KeyboardTableCoverArtViewBackgroundColor = DarkGrey
 
