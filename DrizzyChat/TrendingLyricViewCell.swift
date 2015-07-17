@@ -42,17 +42,17 @@ class TrendingLyricViewCell: UICollectionViewCell {
         
         lineBreakView = UIView()
         lineBreakView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lineBreakView.backgroundColor = LightGrey
+        lineBreakView.backgroundColor = TrendingLyricViewCellLineBreakViewBackgroundColor
         
         touchView = UIView()
         touchView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        touchView.backgroundColor = ClearColor
+        touchView.backgroundColor = TrendingLyricViewCellTouchViewBackgroundColor
         
         lyricViewNumLines = 0
         
         super.init(frame: frame)
         
-        backgroundColor = WhiteColor
+        backgroundColor = TrendingLyricViewCellBackgroundColor
         
         addSubview(rankLabel)
         addSubview(lyricView)

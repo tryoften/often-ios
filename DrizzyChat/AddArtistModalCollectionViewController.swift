@@ -27,7 +27,7 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
         
         if let collectionView = collectionView {
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.backgroundColor = WhiteColor
+            collectionView.backgroundColor = AddArtistModalCollectionBackgroundColor
             collectionView.registerClass(AddArtistModalHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowseSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(BrowseCollectionViewCell.self, forCellWithReuseIdentifier: "addArtistCell")

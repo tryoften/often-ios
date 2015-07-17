@@ -46,11 +46,11 @@ class BrowseCollectionViewCell: UICollectionViewCell {
         
         lineBreakView = UIView()
         lineBreakView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lineBreakView.backgroundColor = LightGrey
+        lineBreakView.backgroundColor = BrowseCollectionCellLineBreakViewColor
         
         super.init(frame: frame)
         
-        backgroundColor = WhiteColor
+        backgroundColor = BrowseCollectionViewCellBackgroundColor
 
         contentView.addSubview(rankLabel)
         contentView.addSubview(trackNameLabel)

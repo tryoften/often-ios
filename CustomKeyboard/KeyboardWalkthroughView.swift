@@ -41,14 +41,14 @@ class KeyboardWalkthroughView: UIView {
         subtitleLabel.textAlignment = .Center
         subtitleLabel.font = WalkthroughSubTitleLabelFront
         subtitleLabel.alpha = 0.54
-        subtitleLabel.textColor = BlackColor
+        subtitleLabel.textColor = WalkthroughSubTitleFontColor
         subtitleLabel.numberOfLines = 0
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
        
         currentPage = 0
         
         super.init(frame: frame)
-        backgroundColor = WhiteColor
+        backgroundColor = KeyboardWalkthroughViewBackgroundColor
         
         addSubview(iphoneImageView)
         addSubview(titleLabel)

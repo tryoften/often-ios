@@ -52,7 +52,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         notificationCenter.addObserver(self, selector: "subscribeKeyboardsAsChannels", name: "pushNotificationsEnabled", object: nil)
 
         if let collectionView = collectionView {
-            collectionView.backgroundColor = WhiteColor
+            collectionView.backgroundColor = UserProfileViewControllerCollectionViewBackgroundColor
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -137,7 +137,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! UICollectionViewCell
         
-        cell.backgroundColor = WhiteColor
+        cell.backgroundColor = UserProfileViewControllerCellBackgroundColor
 
         if indexPath.section == 0 && indexPath.row == 0 {
             let artistPicker = provideArtistPicker()
@@ -207,7 +207,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         artistPicker.dataSource = self
         artistPicker.delegate = self
         keyboardManagerViewController = artistPicker
-        artistPicker.view.backgroundColor = ClearColor
+        artistPicker.view.backgroundColor = UserProfileViewControllerArtistPickerViewBackgroundColor
 
         return artistPicker
     }
@@ -315,22 +315,22 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         
         var statusView = PKHUDStatusView(title: "\(keyboard.artistName.uppercaseString)", subtitle:"set as default card in your keyboard", image: PKHUDAssets.checkmarkImage)
         statusView.frame = CGRect(origin: CGPointZero, size: CGSizeMake(300, 325))
-        statusView.backgroundColor = WhiteColor
+        statusView.backgroundColor = UserProfileViewControllerStatusViewBackgroundColor
         
         statusView.imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         statusView.imageView.contentMode = .ScaleAspectFit
         statusView.imageView.clipsToBounds = true
         statusView.imageView.alpha = 1.0
-        statusView.imageView.layer.shadowColor = SystemBlackColor.CGColor
+        statusView.imageView.layer.shadowColor = UserProfileViewControllerStatusViewImageViewShadowColor
         statusView.imageView.layer.shadowOffset = CGSizeMake(0, 3)
         statusView.imageView.layer.shadowOpacity = 0.54
         statusView.imageView.layer.shadowRadius = 8.0
         
         statusView.titleLabel.font = UserProfileViewControllerStatusViewTitleLabelFont
-        statusView.titleLabel.backgroundColor = ClearColor
+        statusView.titleLabel.backgroundColor = UserProfileViewControllerStatusViewTitleLabelBackgroundColor
         
         statusView.subtitleLabel.font = UserProfileViewControllerStatusViewSubTitleLabelFont
-        statusView.subtitleLabel.backgroundColor = ClearColor
+        statusView.subtitleLabel.backgroundColor = UserProfileViewControllerStatusViewSubTitleLabelBackgroundColor
         
         let imageURLLarge = NSURL(string: keyboard.artist!.imageURLLarge)!
         

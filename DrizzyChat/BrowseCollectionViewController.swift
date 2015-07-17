@@ -39,7 +39,7 @@ class BrowseCollectionViewController: UICollectionViewController, UICollectionVi
         super.viewDidLoad()
         
         if let collectionView = collectionView {
-            collectionView.backgroundColor = WhiteColor
+            collectionView.backgroundColor = BrowseCollectionViewCellBackgroundColor
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowseSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
