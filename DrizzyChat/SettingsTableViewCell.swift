@@ -15,12 +15,12 @@ class SettingsTableViewCell: UITableViewCell {
         labelView = UILabel()
         labelView.setTranslatesAutoresizingMaskIntoConstraints(false)
         labelView.textAlignment = .Center
-        labelView.font = UIFont(name: "OpenSans", size: 14.0)
-        labelView.textColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.74)
+        labelView.font = SettingsTableViewCellLabelViewTextFont
+        labelView.textColor = SettingsTableViewCellLabelViewTextColor
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = ClearColor
         selectionStyle = UITableViewCellSelectionStyle.None
         
         addSubview(labelView)

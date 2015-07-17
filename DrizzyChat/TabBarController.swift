@@ -23,24 +23,24 @@ class TabBarController: UITabBarController {
         
         barBorderView = UIView()
         barBorderView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        barBorderView.backgroundColor = UIColor(fromHexString: "#f9b341")
+        barBorderView.backgroundColor = TabBarControllerBarBorderViewBackgroundColor
         
         installKeyboardButton = UIButton()
         installKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        installKeyboardButton.backgroundColor = UIColor(fromHexString: "#4167e1")
+        installKeyboardButton.backgroundColor = TabBarControllerInstallKeyboardButtonBackgroundColor
         installKeyboardButton.setTitle("install & go to keyboard".uppercaseString, forState: UIControlState.Normal)
         installKeyboardButton.titleLabel?.font = ErrorMessageFont
-        installKeyboardButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        installKeyboardButton.setTitleColor(WhiteColor, forState: UIControlState.Normal)
         installKeyboardButton.hidden = true
     
         super.init(nibName: nil, bundle: nil)
         
-        backgroundView.backgroundColor = UIColor.blackColor()
+        backgroundView.backgroundColor = SystemBlackColor
         
         installKeyboardButton.addTarget(self, action: "didTapInstallKeyboardButton", forControlEvents: .TouchUpInside)
 
         tabBar.barStyle = .Black
-        tabBar.tintColor = UIColor(fromHexString: "#f9b341")
+        tabBar.tintColor = TabBarControllerTabBarBackgroundColor
         tabBar.addSubview(backgroundView)
         tabBar.addSubview(barBorderView)
         view.addSubview(installKeyboardButton)

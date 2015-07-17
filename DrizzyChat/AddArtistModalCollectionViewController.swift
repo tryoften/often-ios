@@ -27,7 +27,7 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
         
         if let collectionView = collectionView {
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.backgroundColor = UIColor.whiteColor()
+            collectionView.backgroundColor = WhiteColor
             collectionView.registerClass(AddArtistModalHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowseSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(BrowseCollectionViewCell.self, forCellWithReuseIdentifier: "addArtistCell")
@@ -76,16 +76,25 @@ class AddArtistModalCollectionViewController: UICollectionViewController, UIColl
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! AddArtistModalHeaderView
             
             headerView = cell
-            headerView!.delegate = self
+            
+            if let headerView = headerView {
+                headerView.delegate = self
+            } else {
+                println("Add Artist modal header delegate not set")
+            }
             
             if let artist = currentArtist {
                 var userHasKeyboard = SessionManager.defaultManager.keyboardService?.keyboardWithId(artist.keyboardId) != nil
-                // set the artist header here
                 var imageURL = NSURL(string: artist.imageURLLarge)!
-                headerView?.coverPhoto.setImageWithAnimation(imageURL, blurRadius: 80, completion: nil)
-                headerView?.artistImage.setImageWithAnimation(imageURL, blurRadius: 0, completion: nil)
-                headerView?.artistNameLabel.text = artist.displayName
-                headerView?.addArtistButton.selected = userHasKeyboard
+                
+                if let headerView = headerView {
+                    headerView.coverPhoto.setImageWithAnimation(imageURL, blurRadius: 80, completion: nil)
+                    headerView.artistImage.setImageWithAnimation(imageURL, blurRadius: 0, completion: nil)
+                    headerView.artistNameLabel.text = artist.displayName
+                    headerView.addArtistButton.selected = userHasKeyboard
+                } else {
+                    println("Modal artist header not set")
+                }
             }
             return cell
             

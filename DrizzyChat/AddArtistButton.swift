@@ -16,13 +16,13 @@ class AddArtistButton: UIButton {
             UIView.setAnimationDuration(0.3)
             if selected {
                 setTitle("REMOVE ARTIST", forState: .Normal)
-                setTitleColor(UIColor.whiteColor(), forState: .Normal)
-                backgroundColor = UIColor.clearColor()
-                layer.borderColor = UIColor.whiteColor().CGColor
+                setTitleColor(WhiteColor, forState: .Normal)
+                backgroundColor = ClearColor
+                layer.borderColor = WhiteColor.CGColor
             } else {
                 setTitle("ADD ARTIST", forState: .Normal)
-                setTitleColor(UIColor.blackColor(), forState: .Normal)
-                backgroundColor = UIColor(fromHexString: "#F9B341")
+                setTitleColor(SystemBlackColor, forState: .Normal)
+                backgroundColor = AddArtistsButtonBackgroundColor
                 layer.borderColor = backgroundColor?.CGColor
             }
             layoutIfNeeded()
@@ -33,7 +33,7 @@ class AddArtistButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
        
-        titleLabel?.font = UIFont(name: "OpenSans", size: 12.0)
+        titleLabel?.font = AddArtistsButtonFont
         contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         layer.borderWidth = 1
 

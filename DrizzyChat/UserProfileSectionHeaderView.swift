@@ -16,7 +16,7 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         seperatorView = UIView()
         seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        seperatorView.backgroundColor = UIColor(fromHexString: "#f1f1f1")
+        seperatorView.backgroundColor = UserProfileSectionHeaderViewSeperatorViewBackgroundColor
         
         titleLabel = UILabel()
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -25,20 +25,20 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         let range = NSRange(location: 0, length: count(headerText))
         let attributedString = NSMutableAttributedString(string: headerText)
         attributedString.addAttribute(NSKernAttributeName, value: CGFloat(1.2), range: range)
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 15)!, range: range)
+        attributedString.addAttribute(NSFontAttributeName, value: UserProfileSectionHeaderViewTitleLabelFont!, range: range)
         
         titleLabel.attributedText = attributedString
         
         editButton = UIButton()
         editButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         editButton.setTitle("Edit".uppercaseString, forState: .Normal)
-        editButton.setTitleColor(UIColor(fromHexString: "#868686"), forState: .Normal)
-        editButton.titleLabel!.font = UIFont(name: "OpenSans", size: 15)
+        editButton.setTitleColor(UserProfileSectionHeaderViewEditButtonFontColor, forState: .Normal)
+        editButton.titleLabel!.font = UserProfileSectionHeaderViewEditButtonFont
         editButton.titleLabel?.textAlignment = .Right
         
         super.init(frame: frame)
 
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = WhiteColor
         addSubview(seperatorView)
         addSubview(titleLabel)
         

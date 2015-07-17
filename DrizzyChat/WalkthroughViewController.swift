@@ -24,8 +24,8 @@ class WalkthroughViewController: UIViewController, UITableViewDelegate, UITextFi
         nextButton = UIButton()
         self.nextButton.hidden = true
         nextButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nextButton.titleLabel!.font = UIFont(name: "OpenSans-Semibold", size: 15)
-        nextButton.backgroundColor = UIColor(fromHexString: "#2CD2B4")
+        nextButton.titleLabel!.font = WalkthroughViewControllerNextButtonFont
+        nextButton.backgroundColor = WalkthroughViewControllerNextButtonBackgroundColor
         nextButton.setTitle("continue".uppercaseString, forState: .Normal)
         
         errorView = ErrorMessageView()

@@ -23,16 +23,16 @@ class BrowseSectionHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         songsLabel = UILabel()
         songsLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        songsLabel.font = UIFont(name: "OpenSans", size: 10.0)
+        songsLabel.font = BrowseSectionHeaderViewSongsLabelFont
         songsLabel.text = "SONGS"
         
         lineBreak = UIView()
         lineBreak?.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lineBreak?.backgroundColor = UIColor(fromHexString: "#d3d3d3")
+        lineBreak?.backgroundColor = LightGrey
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#ffffff")
+        backgroundColor = WhiteColor
         
         addSubview(songsLabel)
         addSubview(lineBreak!)

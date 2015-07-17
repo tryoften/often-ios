@@ -15,7 +15,7 @@ class TrendingService: Service {
     var lyrics: [Lyric]
     var featuredArtists: [Artist]
     var artistService: ArtistService
-    
+
     init(root: Firebase, artistService: ArtistService? = nil) {
         artists = [Artist]()
         lyrics = [Lyric]()

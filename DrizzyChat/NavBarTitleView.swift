@@ -13,8 +13,8 @@ class NavBarTitleView: UIView {
     
     override init(frame: CGRect) {
         navBarTitle = UILabel()
-        navBarTitle.font = UIFont(name: "OpenSans-Semibold", size: 18)
-        navBarTitle.textColor = UIColor.whiteColor()
+        navBarTitle.font = WalkthroughNavBarTitleFont
+        navBarTitle.textColor = WhiteColor
         navBarTitle.textAlignment = .Center
         navBarTitle.setTranslatesAutoresizingMaskIntoConstraints(false)
         

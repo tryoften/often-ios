@@ -16,28 +16,28 @@ import UIKit
 */
 
 class TrendingSectionHeaderView: UICollectionReusableView {
-    var trendingLabel: UILabel?
-    var bottomLineBreak: UIView?
-    var screenWidth: CGFloat?
+    var trendingLabel: UILabel
+    var bottomLineBreak: UIView
+    var screenWidth: CGFloat
     
     override init(frame: CGRect) {
         screenWidth = UIScreen.mainScreen().bounds.width
         
         trendingLabel = UILabel()
-        trendingLabel?.setTranslatesAutoresizingMaskIntoConstraints(false)
-        trendingLabel?.font = UIFont(name: "OpenSans", size: 10.0)
-        trendingLabel?.text = "TRENDING"
+        trendingLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        trendingLabel.font = TrendingSectionHeaderViewTrendingLabelFont
+        trendingLabel.text = "TRENDING"
         
         bottomLineBreak = UIView()
-        bottomLineBreak?.setTranslatesAutoresizingMaskIntoConstraints(false)
-        bottomLineBreak?.backgroundColor = UIColor(fromHexString: "#d3d3d3")
+        bottomLineBreak.setTranslatesAutoresizingMaskIntoConstraints(false)
+        bottomLineBreak.backgroundColor = LightGrey
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#ffffff")
+        backgroundColor = WhiteColor
         
-        addSubview(trendingLabel!)
-        addSubview(bottomLineBreak!)
+        addSubview(trendingLabel)
+        addSubview(bottomLineBreak)
         
         setLayout()
     }
@@ -48,12 +48,12 @@ class TrendingSectionHeaderView: UICollectionReusableView {
     
     func setLayout() {
         addConstraints([
-            trendingLabel!.al_bottom == al_bottom - 12,
-            trendingLabel!.al_left == al_left + 17,
+            trendingLabel.al_bottom == al_bottom - 12,
+            trendingLabel.al_left == al_left + 17,
             
-            bottomLineBreak!.al_bottom == al_bottom,
-            bottomLineBreak!.al_width == UIScreen.mainScreen().bounds.width,
-            bottomLineBreak!.al_height == 1/2
+            bottomLineBreak.al_bottom == al_bottom,
+            bottomLineBreak.al_width == UIScreen.mainScreen().bounds.width,
+            bottomLineBreak.al_height == 1/2
         ])
     }
 }

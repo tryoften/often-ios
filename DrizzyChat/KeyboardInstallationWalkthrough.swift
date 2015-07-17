@@ -27,13 +27,13 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         
         toolbar = UIView()
         toolbar.setTranslatesAutoresizingMaskIntoConstraints(false)
-        toolbar.backgroundColor = UIColor.blackColor()
+        toolbar.backgroundColor = SystemBlackColor
         
         scrollView = UIScrollView()
         scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
         scrollView.pagingEnabled = true
         scrollView.layer.cornerRadius = 3.0
-        scrollView.backgroundColor = UIColor.whiteColor()
+        scrollView.backgroundColor = WhiteColor
         scrollView.showsHorizontalScrollIndicator = false
         
         pageWidth = screenWidth - 40
@@ -70,22 +70,22 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         
         pager = UIPageControl()
         pager.setTranslatesAutoresizingMaskIntoConstraints(false)
-        pager.pageIndicatorTintColor = UIColor.grayColor()
-        pager.currentPageIndicatorTintColor = UIColor.whiteColor()
+        pager.pageIndicatorTintColor = SystemGrayColor
+        pager.currentPageIndicatorTintColor = WhiteColor
         
         
         gotItButton = UIButton()
         gotItButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         gotItButton.setTitle("got it".uppercaseString, forState: UIControlState.Normal)
         gotItButton.titleLabel?.font = ButtonFont
-        gotItButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        gotItButton.setTitleColor(WhiteColor, forState: UIControlState.Normal)
         gotItButton.hidden = true
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         scrollView.delegate = self
     
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        view.backgroundColor = KeyboardInstallationWalkthroughViewControllerBackgroundColor
         
         gotItButton.addTarget(self, action: "didTapGotItButton", forControlEvents: .TouchUpInside)
         

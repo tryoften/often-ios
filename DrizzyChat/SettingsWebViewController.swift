@@ -16,7 +16,7 @@ class SettingsWebViewController: UIViewController {
     init(website: String) {
         navigationBar = UIView()
         navigationBar.setTranslatesAutoresizingMaskIntoConstraints(false)
-        navigationBar.backgroundColor = UIColor.blackColor()
+        navigationBar.backgroundColor = SystemBlackColor
 
         closeButton = UIButton()
         closeButton.setTranslatesAutoresizingMaskIntoConstraints(false)

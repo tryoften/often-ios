@@ -41,7 +41,7 @@ class PhoneNumberWalkthroughViewController: WalkthroughViewController {
     
     func setUpSkipButton() {
         let skipButton = UIBarButtonItem(title: "skip".uppercaseString, style: .Plain, target: self, action: "nextView")
-        skipButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 13)!], forState: .Normal)
+        skipButton.setTitleTextAttributes([NSFontAttributeName: PhoneNumberWalkthroughViewControllerSkipButtonFont!], forState: .Normal)
         navigationItem.rightBarButtonItem = skipButton
 
     }

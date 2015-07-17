@@ -20,25 +20,25 @@ import UIKit
 
 class BrowseCollectionViewCell: UICollectionViewCell {
     
-    var rankLabel: UILabel /// number rank on the left of the cell
-    var trackNameLabel: UILabel /// Track name label
-    var lyricCountLabel: UILabel /// label for lyric Count "Lyrics: n"
-    var disclosureIndicator: UIImageView /// arrow image
-    var lineBreakView: UIView /// line break 1 pixel high to fake a line break
+    var rankLabel: UILabel! /// number rank on the left of the cell
+    var trackNameLabel: UILabel! /// Track name label
+    var lyricCountLabel: UILabel! /// label for lyric Count "Lyrics: n"
+    var disclosureIndicator: UIImageView! /// arrow image
+    var lineBreakView: UIView! /// line break 1 pixel high to fake a line break
     
     override init(frame: CGRect) {
         rankLabel = UILabel()
         rankLabel.textAlignment = .Center
         rankLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        rankLabel.font = UIFont(name: "OpenSans", size: 16.0)
+        rankLabel.font = BrowseCollectionViewCellRankLabelFont
         
         trackNameLabel = UILabel()
         trackNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        trackNameLabel.font = UIFont(name: "OpenSans", size: 14.0)
+        trackNameLabel.font = BrowseCollectionViewCellTrackNameLabelFont
         
         lyricCountLabel = UILabel()
         lyricCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lyricCountLabel.font = UIFont(name: "OpenSans", size: 9.0)
+        lyricCountLabel.font = BrowseCollectionViewCellLyricCountLabelFont
         
         disclosureIndicator = UIImageView()
         disclosureIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -46,11 +46,11 @@ class BrowseCollectionViewCell: UICollectionViewCell {
         
         lineBreakView = UIView()
         lineBreakView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lineBreakView.backgroundColor = UIColor(fromHexString: "#d3d3d3")
+        lineBreakView.backgroundColor = LightGrey
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = WhiteColor
 
         contentView.addSubview(rankLabel)
         contentView.addSubview(trackNameLabel)

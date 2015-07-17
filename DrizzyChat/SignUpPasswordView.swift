@@ -19,33 +19,33 @@ class SignUpPasswordView: UIView {
         let titleRange = NSMakeRange(0, count(titleString))
         let title = NSMutableAttributedString(string: titleString)
         
-        title.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 18)!, range: titleRange)
+        title.addAttribute(NSFontAttributeName, value: WalkthroughNavBarTitleFont!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 1.5, range: titleRange)
         
         
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
-        titleLabel.textColor = UIColor(fromHexString: "#202020")
+        titleLabel.textColor = WalkthroughTitleFontColor
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.text = titleString
         titleLabel.attributedText = title
         
         passwordTxtField = UITextField()
         passwordTxtField.textAlignment = .Center
-        passwordTxtField.font = UIFont(name: "OpenSans", size: 14)
+        passwordTxtField.font = WalkthroughTextFieldFont
         passwordTxtField.placeholder = "enter your password"
         passwordTxtField.setTranslatesAutoresizingMaskIntoConstraints(false)
         passwordTxtField.secureTextEntry = true
         
         spacer = UIView()
         spacer.setTranslatesAutoresizingMaskIntoConstraints(false)
-        spacer.backgroundColor = UIColor.blackColor()
+        spacer.backgroundColor = SystemBlackColor
         
         termsAndPrivacyView = TermsAndPrivacyView()
         termsAndPrivacyView.setTranslatesAutoresizingMaskIntoConstraints(false)
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = WhiteColor
         addSubview(titleLabel)
         addSubview(passwordTxtField)
         addSubview(spacer)

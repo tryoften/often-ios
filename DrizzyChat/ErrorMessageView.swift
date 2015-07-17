@@ -14,13 +14,13 @@ class ErrorMessageView: UIView {
     override init(frame: CGRect) {
         errorMessageLabel = UILabel()
         errorMessageLabel.font = ErrorMessageFont
-        errorMessageLabel.textColor = UIColor.whiteColor()
+        errorMessageLabel.textColor = WhiteColor
         errorMessageLabel.textAlignment = .Center
         errorMessageLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#E85769")
+        backgroundColor = WalkthroughErrorMessageBackgroundColor
         
         addSubview(errorMessageLabel)
         

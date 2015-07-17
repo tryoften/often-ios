@@ -32,7 +32,7 @@ class SignUpOrLoginView: UIView {
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.textAlignment = .Center
-        titleLabel.font = UIFont(name: "Oswald-Regular", size: 22)
+        titleLabel.font = WalkthroughTitleFont
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         var titleString = "October".uppercaseString
@@ -64,7 +64,7 @@ class SignUpOrLoginView: UIView {
         signUpButton.backgroundColor = BlackColor
         signUpButton.setTitle("sign up".uppercaseString, forState: .Normal)
         signUpButton.titleLabel!.font = ButtonFont
-        signUpButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        signUpButton.setTitleColor(WhiteColor, forState: .Normal)
         
         buttonDivider = UIView()
         buttonDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -72,18 +72,18 @@ class SignUpOrLoginView: UIView {
         
         buttonView = ButtonView()
         buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        buttonView.backgroundColor = UIColor.blackColor()
+        buttonView.backgroundColor = SystemBlackColor
         
         loginButton = UIButton()
         loginButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         loginButton.backgroundColor = BlackColor
         loginButton.setTitle("login".uppercaseString, forState: .Normal)
         loginButton.titleLabel!.font = ButtonFont
-        loginButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        loginButton.setTitleColor(WhiteColor, forState: .Normal)
     
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#F7F7F7")
+        backgroundColor = VeryLightGray
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(artistsBgImageView)

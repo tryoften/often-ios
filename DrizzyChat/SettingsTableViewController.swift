@@ -29,19 +29,19 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
         tableView = UITableView()
         tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        tableView.backgroundColor = UIColor.clearColor()
+        tableView.backgroundColor = ClearColor
         tableView.scrollEnabled = false
         
         navigationBar = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 50))
-        navigationBar.backgroundColor = UIColor.blackColor()
+        navigationBar.backgroundColor = SystemBlackColor
         
         navBarLabel = UILabel()
         navBarLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        navBarLabel.textColor = UIColor.whiteColor()
-        navBarLabel.backgroundColor = UIColor.clearColor()
+        navBarLabel.textColor = WhiteColor
+        navBarLabel.backgroundColor = ClearColor
         navBarLabel.textAlignment = .Center
         navBarLabel.text = "SETTINGS"
-        navBarLabel.font = UIFont(name: "OpenSans", size: 15.0)
+        navBarLabel.font = SettingsTableViewControllerNavBarLabelFont
         
         backButton = UIButton()
         backButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -59,7 +59,6 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
         navigationBar.addSubview(backButton)
         view.addSubview(tableView)
         
-        
         setupLayout()
     }
 
@@ -70,7 +69,7 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(fromHexString: "#202020")
+        view.backgroundColor = SettingsTableViewControllerBackgroundColor
         tableView.registerClass(SettingsTableViewCell.self, forCellReuseIdentifier: "settingsCell")
     }
 
@@ -135,7 +134,7 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
     func launchEmail(sender: AnyObject) {
         
         var emailTitle = "Feedback"
-        var messageBody = "Man this app sucks"
+        var messageBody = ""
         var toRecipents = ["feedback@drizzyapp.com", "regy@drizzyapp.com"]
         var mc: MFMailComposeViewController = MFMailComposeViewController()
         mc.mailComposeDelegate = self

@@ -15,24 +15,25 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
     var selectionButton : UIButton
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        
         artistImageView = UIImageView()
         artistImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistImageView.contentMode = .ScaleAspectFill
-        artistImageView.backgroundColor = UIColor.blueColor()
+        artistImageView.backgroundColor = SignUpAddArtistsTableViewCellImageViewBackgroundColor
         artistImageView.layer.cornerRadius  = 20
         artistImageView.layer.masksToBounds = true
         
         
         artistNameLabel = UILabel()
         artistNameLabel.textAlignment = .Left
-        artistNameLabel.font = UIFont(name: "OpenSans", size: 14)
-        artistNameLabel.textColor = UIColor(fromHexString: "#202020")
+        artistNameLabel.font = WalkthroughTextFieldFont
+        artistNameLabel.textColor = WalkthroughTitleFontColor
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         
         lyricsCountLabel = UILabel()
         lyricsCountLabel.textAlignment = .Left
-        lyricsCountLabel.font = UIFont(name: "OpenSans", size: 10)
+        lyricsCountLabel.font = WalkthroughTableViewCellSubtitleFont
         lyricsCountLabel.textColor = SubtitleGreyColor
         lyricsCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -44,7 +45,8 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = WhiteColor
+
         contentView.addSubview(artistImageView)
         contentView.addSubview(artistNameLabel)
         contentView.addSubview(lyricsCountLabel)

@@ -21,11 +21,11 @@ class TrendingLyricViewCell: UICollectionViewCell {
         rankLabel = UILabel()
         rankLabel.textAlignment = .Right
         rankLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        rankLabel.font = UIFont(name: "OpenSans", size: 16.0)
+        rankLabel.font = TrendingLyricViewCellRankLabelFont
         
         lyricView = UITextView()
         lyricView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lyricView.font = UIFont(name: "OpenSans", size: 12.0)
+        lyricView.font = TrendingLyricViewCellLyricTextViewlFont
         lyricView.editable = false
         lyricView.scrollEnabled = false
         lyricView.showsHorizontalScrollIndicator = false
@@ -33,8 +33,8 @@ class TrendingLyricViewCell: UICollectionViewCell {
         
         artistLabel = UILabel()
         artistLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        artistLabel.font = UIFont(name: "OpenSans", size: 10.0)
-        artistLabel.textColor = UIColor.orangeColor()
+        artistLabel.font = TrendingLyricViewCellArtistLabelFont
+        artistLabel.textColor = TrendingLyricViewCellArtistLabelTextColor
         
         trendIndicator = UIImageView()
         trendIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -42,17 +42,17 @@ class TrendingLyricViewCell: UICollectionViewCell {
         
         lineBreakView = UIView()
         lineBreakView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lineBreakView.backgroundColor = UIColor(fromHexString: "#d3d3d3")
+        lineBreakView.backgroundColor = LightGrey
         
         touchView = UIView()
         touchView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        touchView.backgroundColor = UIColor.clearColor()
+        touchView.backgroundColor = ClearColor
         
         lyricViewNumLines = 0
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#ffffff")
+        backgroundColor = WhiteColor
         
         addSubview(rankLabel)
         addSubview(lyricView)

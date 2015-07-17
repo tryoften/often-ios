@@ -39,7 +39,7 @@ class ContentTableViewController: UITableViewController, UITableViewDelegate, Se
         animatingCell = false
         searchModeOn = false
 
-        tableView.backgroundColor = KeyboardTableViewBackgroundColor
+        tableView.backgroundColor = VeryLightGray
         tableView.registerClass(LyricTableViewCell.self, forCellReuseIdentifier: LyricTableViewCellIdentifier)
         tableView.registerClass(LyricPickerTableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "sectionHeader")
         tableView.separatorStyle = .None
