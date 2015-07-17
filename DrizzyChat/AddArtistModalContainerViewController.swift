@@ -24,16 +24,16 @@ class AddArtistModalContainerViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         mainView = UIView(frame: CGRectMake(15, 15, screenWidth - 30, screenHeight - 120))
-        mainView.backgroundColor = ClearColor
+        mainView.backgroundColor = AddArtistModalCollectionModalBackgroundColor
         mainView.layer.cornerRadius = 5.0
         mainView.clipsToBounds = true
         
         closeButton = UIButton()
         closeButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        closeButton.backgroundColor = SystemBlackColor
+        closeButton.backgroundColor = AddArtistModalCollectionCloseButtonColor
         closeButton.setTitle("CLOSE", forState: UIControlState.Normal)
         closeButton.titleLabel?.font = AddArtistModalCollectionCloseButtonFont
-        closeButton.setTitleColor(WhiteColor, forState: UIControlState.Normal)
+        closeButton.setTitleColor(AddArtistModalCollectionBackgroundColor, forState: UIControlState.Normal)
 
         sessionManager = SessionManager.defaultManager
         

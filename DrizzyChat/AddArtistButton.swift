@@ -16,12 +16,12 @@ class AddArtistButton: UIButton {
             UIView.setAnimationDuration(0.3)
             if selected {
                 setTitle("REMOVE ARTIST", forState: .Normal)
-                setTitleColor(WhiteColor, forState: .Normal)
-                backgroundColor = ClearColor
-                layer.borderColor = WhiteColor.CGColor
+                setTitleColor(RemoveArtistsButtonTitleColor, forState: .Normal)
+                backgroundColor = RemoveArtistsButtonBackgroundColor
+                layer.borderColor = RemoveArtistsButtonBorderColor
             } else {
                 setTitle("ADD ARTIST", forState: .Normal)
-                setTitleColor(SystemBlackColor, forState: .Normal)
+                setTitleColor(AddArtistsButtonTitleColor, forState: .Normal)
                 backgroundColor = AddArtistsButtonBackgroundColor
                 layer.borderColor = backgroundColor?.CGColor
             }
