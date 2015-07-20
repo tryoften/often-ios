@@ -1,0 +1,24 @@
+//
+//  VenmoMessageAmountViewController.swift
+//  Surf
+//
+//  Created by Luc Succes on 7/19/15.
+//  Copyright (c) 2015 Surf Inc. All rights reserved.
+//
+
+import UIKit
+
+class VenmoMessageAmountViewController: ServiceProviderSupplementaryViewController {
+    override var supplementaryViewHeight: CGFloat {
+        return 50.0
+    }
+    
+    var messageTextField: UITextField!
+    var amountTextField: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        messageTextField = UITextField()
+    }
+}

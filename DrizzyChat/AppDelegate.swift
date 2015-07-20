@@ -15,6 +15,7 @@ private var TestKeyboard: Bool = true
 
 let appClientID = "2784"
 let appSecret = "M9KM33YyReByzfn9dV9rnLK6pLTepB46"
+var accessToken = ""
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -53,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         Venmo.startWithAppId(appClientID, secret: appSecret, name: "Smurf")
         
-        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile"]) { (success, error) -> Void in
+        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
             if success {
                 println("Permissions Success!")
             } else {
@@ -66,8 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
         }
-        
-        self.venmoService.authorizeUserAndGetAccessToken(appClientID)
     
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
@@ -84,8 +83,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let window = self.window {
             if TestKeyboard {
                 var frame = window.frame
-                frame.origin.y = frame.size.height - KeyboardHeight
-                frame.size.height = KeyboardHeight
+                frame.origin.y = frame.size.height / 2
+                frame.size.height = frame.size.height / 2
                 window.frame = frame
                 window.clipsToBounds = true
                 mainController = KeyboardViewController(debug: true)
@@ -130,6 +129,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if Venmo.sharedInstance().handleOpenURL(url) {
+            var urlString: String = url.absoluteString!
+            var index = 0
+            
+            for var i = 0; i < count(urlString); i++ {
+                if urlString[i] == "=" {
+                    index = i
+                }
+            }
+            
+            accessToken = urlString.substringFromIndex(index + 1)
+        
+            var session = Venmo.sharedInstance().session
+            session.accessToken
+            
+            println(session.accessToken)
+            
+            venmoService.getCurrentUserInformation(session.accessToken)
+            // venmoService.getCurrentUserListOfFriend(<#accessToken: String#>, id: <#String#>)
+            
             return true
         }
         
@@ -168,3 +186,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension String {
+    subscript(index:Int) -> Character{
+        return self[advance(self.startIndex, index)]
+    }
+    
+    func substringFromIndex(index:Int) -> String {
+        return self.substringFromIndex(advance(self.startIndex, index))
+    }
+}

@@ -65,8 +65,6 @@ class SessionManager: NSObject {
                 crashlytics.setUserEmail(user.email)
             }
         }
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeDatabasetoDisk", name: "database:persist", object: nil)
     }
     
     func fetchKeyboards() {

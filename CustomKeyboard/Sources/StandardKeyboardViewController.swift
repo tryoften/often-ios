@@ -8,14 +8,15 @@
 
 import UIKit
 
-class StandardKeyboardViewController: UIViewController {
+class StandardKeyboardViewController: UIViewController, TextProcessingManagerDelegate {
     
     var textProcessor: TextProcessingManager!
     var rowViews: [UIView]!
     var keyWidth: CGFloat!
     var keysContainerView: UIView!
     var keyButtons: [KeyboardKeyButton]!
-    var searchBar: UITextField!
+    var inputViewConstraints: [NSLayoutConstraint]?
+    var searchBar: SearchBarController!
     var lettercase: Lettercase!
     var characterMap: [ [KeyboardKey] ]! {
         didSet {
@@ -25,6 +26,7 @@ class StandardKeyboardViewController: UIViewController {
             rowViews = []
             keyButtons = []
             setupKeyboardLayout()
+            view.layoutIfNeeded()
         }
     }
 
@@ -32,31 +34,35 @@ class StandardKeyboardViewController: UIViewController {
         super.viewDidLoad()
 
         lettercase = .Lowercase
-
+        rowViews = []
         keyButtons = []
         keysContainerView = UIView()
         keysContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view.backgroundColor = UIColor(fromHexString: "#202020")
+        keysContainerView.backgroundColor = UIColor(fromHexString: "#202020")
         
-        searchBar = UITextField()
-        searchBar.backgroundColor = UIColor.whiteColor()
-        searchBar.setTranslatesAutoresizingMaskIntoConstraints(false)
-        searchBar.placeholder = "Search"
-        searchBar.textColor = UIColor.blackColor()
-        searchBar.font = UIFont(name: "OpenSans", size: 14)
-        searchBar.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.blackColor()])
-        searchBar.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+        searchBar = SearchBarController(nibName: nil, bundle: nil)
+        searchBar.textProcessor = textProcessor
+        searchBar.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
+        textProcessor.delegate = self
+        
+        view.addSubview(searchBar.view)
         view.addSubview(keysContainerView)
-        view.addSubview(searchBar)
         
         view.addConstraints([
-            searchBar.al_top == view.al_top,
-            searchBar.al_left == view.al_left,
-            searchBar.al_right == view.al_right,
-            searchBar.al_height == 50,
-
-            keysContainerView.al_top == searchBar.al_bottom,
+            searchBar.view.al_top == view.al_top,
+            searchBar.view.al_left == view.al_left,
+            searchBar.view.al_right == view.al_right,
+            {
+                let constraint =  self.keysContainerView.al_top == self.searchBar.view.al_bottom
+                constraint.priority = 999
+                return constraint
+            }(),
+            {
+                let constraint = self.keysContainerView.al_height <= 215
+                constraint.priority = 800
+                return constraint
+            }(),
             keysContainerView.al_bottom == view.al_bottom,
             keysContainerView.al_left == view.al_left,
             keysContainerView.al_right == view.al_right
@@ -71,21 +77,25 @@ class StandardKeyboardViewController: UIViewController {
         keyWidth = screenBoundsWidth / CGFloat(characterMap[0].count)
         
         var row1 = createRowOfButtons(characterMap[0], margin: 0)
-        var row2 = createRowOfButtons(characterMap[1], margin: screenBoundsWidth - keyWidth * CGFloat(characterMap[1].count))
-        var row3 = createRowOfButtons(characterMap[2], margin: screenBoundsWidth - keyWidth * CGFloat(characterMap[2].count))
-        var row4 = setupLastInputRow(characterMap[3])
-        
-        keysContainerView.addSubview(row1)
-        keysContainerView.addSubview(row2)
-        keysContainerView.addSubview(row3)
-        keysContainerView.addSubview(row4)
-        
         row1.setTranslatesAutoresizingMaskIntoConstraints(false)
-        row2.setTranslatesAutoresizingMaskIntoConstraints(false)
-        row3.setTranslatesAutoresizingMaskIntoConstraints(false)
-        row4.setTranslatesAutoresizingMaskIntoConstraints(false)
+        keysContainerView.addSubview(row1)
+        rowViews.append(row1)
         
-        rowViews = [row1, row2, row3, row4]
+        var row2 = createRowOfButtons(characterMap[1], margin: screenBoundsWidth - keyWidth * CGFloat(characterMap[1].count))
+        row2.setTranslatesAutoresizingMaskIntoConstraints(false)
+        keysContainerView.addSubview(row2)
+        rowViews.append(row2)
+        
+        var row3 = createRowOfButtons(characterMap[2], margin: screenBoundsWidth - keyWidth * CGFloat(characterMap[2].count))
+        row3.setTranslatesAutoresizingMaskIntoConstraints(false)
+        keysContainerView.addSubview(row3)
+        rowViews.append(row3)
+        
+        var row4 = setupLastInputRow(characterMap[3])
+        row4.setTranslatesAutoresizingMaskIntoConstraints(false)
+        keysContainerView.addSubview(row4)
+        rowViews.append(row4)
+        
         addConstraintsToInputView(keysContainerView, rowViews: rowViews)
     }
     
@@ -120,7 +130,6 @@ class StandardKeyboardViewController: UIViewController {
     func didTapButton(sender: AnyObject?) {
         
         let button = sender as! KeyboardKeyButton
-        var proxy = textProcessor.proxy
         
         button.highlighted = false
         button.selected = !button.selected
@@ -131,11 +140,11 @@ class StandardKeyboardViewController: UIViewController {
             if lettercase! == .Lowercase {
                 str = str.lowercaseString
             }
-            proxy.insertText(str)
+            textProcessor.insertText(str)
         case .digit(let number):
-            proxy.insertText(String(number.rawValue))
+            textProcessor.insertText(String(number.rawValue))
         case .special(let character):
-            proxy.insertText(String(character.rawValue))
+            textProcessor.insertText(String(character.rawValue))
         case .modifier(.CapsLock):
             lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
             
@@ -146,16 +155,15 @@ class StandardKeyboardViewController: UIViewController {
             NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
         case .modifier(.Backspace):
             break
-//            proxy.deleteBackward()
         case .modifier(.AlphabeticKeypad):
             characterMap = EnglishKeyboardMap
             break
         case .modifier(.SpecialKeypad):
             characterMap = SpecialCharacterKeyboardMap
         case .modifier(.Space):
-            proxy.insertText(" ")
+            textProcessor.insertText(" ")
         case .modifier(.Enter):
-            proxy.insertText("\n")
+            textProcessor.insertText("\n")
         case .modifier(.GoToBrowse):
             dismissViewControllerAnimated(false, completion: nil)
         default:
@@ -163,21 +171,28 @@ class StandardKeyboardViewController: UIViewController {
         }
     }
     
+    // MARK: TextProcessingManagerDelegate
+    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
+    }
+    
+    func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType) {
+        searchBar.activeServiceProviderType = serviceProviderType
+    }
+    
     func didTouchDownOnKey(sender: AnyObject?) {
         let button = sender as! KeyboardKeyButton
-        let proxy = textProcessor.proxy
         
         button.highlighted = true
         
         switch(button.key) {
         case .modifier(.Backspace):
-            proxy.deleteBackward()
+            textProcessor.deleteBackward()
         default:
             break
         }
     }
     
-    func addIndividualButtonConstraints(buttons: [KeyboardKeyButton], mainView: UIView, margin: CGFloat){
+    func addIndividualButtonConstraints(buttons: [KeyboardKeyButton], mainView: UIView, margin: CGFloat) {
         
         for (index, button) in enumerate(buttons) {
             
@@ -279,6 +294,12 @@ class StandardKeyboardViewController: UIViewController {
                     button.al_left == prevButton!.al_right
                 ]
                 break
+            case .special(.Hashtag):
+                constraints += [
+                    button.al_width == keyWidth,
+                    button.al_left == prevButton!.al_right
+                ]
+                break
             case .modifier(.Enter):
                 constraints += [
                     prevButton!.al_right == button.al_left,
@@ -294,34 +315,38 @@ class StandardKeyboardViewController: UIViewController {
             prevButton = button
         }
         keyButtons.extend(buttons)
-        
+      
         return keyboardRowView
     }
     
-    func addConstraintsToInputView(inputView: UIView, rowViews: [UIView]){
+    func addConstraintsToInputView(inputView: UIView, rowViews: [UIView]) {
+        if let constraints = inputViewConstraints {
+            inputView.removeConstraints(constraints)
+        }
+        
+        inputViewConstraints = []
         
         for (index, rowView) in enumerate(rowViews) {
             var rightSideConstraint = rowView.al_right == inputView.al_right
             var leftConstraint = rowView.al_left == inputView.al_left
-
-            inputView.addConstraints([leftConstraint, rightSideConstraint])
+            
+            inputViewConstraints! += [leftConstraint, rightSideConstraint]
             
             var topConstraint: NSLayoutConstraint
             
             if index == 0 {
-                topConstraint = rowView.al_top == inputView.al_top
+                topConstraint = rowView.al_top == inputView.al_top + 5
             } else {
-                
-                let prevRow = rowViews[index-1]
+                let prevRow = rowViews[index - 1]
                 topConstraint = rowView.al_top == prevRow.al_bottom
     
                 let firstRow = rowViews[0]
                 var heightConstraint = rowView.al_height == firstRow.al_height
                 
-                heightConstraint.priority = 1000
+                heightConstraint.priority = 899
                 inputView.addConstraint(heightConstraint)
             }
-            inputView.addConstraint(topConstraint)
+            inputViewConstraints!.append(topConstraint)
             
             var bottomConstraint: NSLayoutConstraint
             
@@ -333,8 +358,9 @@ class StandardKeyboardViewController: UIViewController {
                 bottomConstraint = rowView.al_bottom == nextRow.al_top
             }
             
-            inputView.addConstraint(bottomConstraint)
+            inputViewConstraints!.append(bottomConstraint)
         }
         
+        inputView.addConstraints(inputViewConstraints!)
     }
 }

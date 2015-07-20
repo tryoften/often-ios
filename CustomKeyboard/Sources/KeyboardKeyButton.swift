@@ -11,6 +11,7 @@ import UIKit
 class KeyboardKeyButton: UIButton {
     let key: KeyboardKey
     let width: CGFloat
+    let backgroundView: UIView
     
     var lettercase: Lettercase {
         didSet {
@@ -24,10 +25,8 @@ class KeyboardKeyButton: UIButton {
             case .modifier(.CapsLock):
                 if selected {
                     lettercase = .Uppercase
-                    layer.borderColor = UIColor(fromHexString: "#F9B341").CGColor
                 } else {
                     lettercase = .Lowercase
-                    layer.borderColor = UIColor(fromHexString: "#202020").CGColor
                 }
             default:
                 break
@@ -38,13 +37,15 @@ class KeyboardKeyButton: UIButton {
     override var highlighted: Bool {
         didSet {
             switch(key) {
+            case .special(.Hashtag):
+                break
             case .modifier(let modifier):
                 break
             default:
                 if highlighted {
-                    backgroundColor = UIColor(fromHexString: "#3A3A3A")
+                    backgroundView.backgroundColor = UIColor(fromHexString: "#3A3A3A")
                 } else {
-                    backgroundColor = UIColor(fromHexString: "#2A2A2A")
+                    backgroundView.backgroundColor = UIColor(fromHexString: "#2A2A2A")
                 }
             }
         }
@@ -54,23 +55,36 @@ class KeyboardKeyButton: UIButton {
         self.key = key
         self.width = width
         lettercase = .Lowercase
+        backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor(fromHexString: "#2A2A2A")
+        backgroundView.userInteractionEnabled = false
+        backgroundView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         super.init(frame: CGRectZero)
+        insertSubview(backgroundView, belowSubview: imageView!)
         
         titleLabel?.font = UIFont(name: "OpenSans", size: 20)
         setTranslatesAutoresizingMaskIntoConstraints(false)
-        backgroundColor = UIColor(fromHexString: "#2A2A2A")
+        backgroundColor = UIColor.clearColor()
         setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        layer.borderWidth = 3
-        layer.cornerRadius = 5
-        layer.borderColor = UIColor(fromHexString: "#202020").CGColor
+        backgroundView.layer.cornerRadius = 2
         setupKey()
+        setupLayout()
     }
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupLayout() {
+        addConstraints([
+            backgroundView.al_top == al_top + 3,
+            backgroundView.al_bottom == al_bottom - 3,
+            backgroundView.al_left == al_left + 3,
+            backgroundView.al_right == al_right - 3
+        ])
+    }
+
     func setupKey() {
         switch(key) {
         case .letter(let character):
@@ -83,17 +97,25 @@ class KeyboardKeyButton: UIButton {
             setTitle(String(number.rawValue), forState: .Normal)
         case .special(let character):
             setTitle(String(character.rawValue), forState: .Normal)
+            switch(character) {
+            case .Hashtag:
+                backgroundView.backgroundColor = TealColor
+                setTitleColor(BlackColor, forState: .Normal)
+            default:
+                break
+            }
         case .modifier(let modifier):
             switch(modifier) {
             case .Backspace:
-                backgroundColor = UIColor.clearColor()
+                backgroundView.backgroundColor = UIColor.clearColor()
                 setImage(UIImage(named: "Backspace"), forState: .Normal)
                 imageView?.contentMode = .ScaleAspectFit
                 imageEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
                 break
             case .CapsLock:
-                backgroundColor = UIColor.clearColor()
+                backgroundView.backgroundColor = UIColor.clearColor()
                 setImage(UIImage(named: "CapsLock"), forState: .Normal)
+                setImage(UIImage(named: "CapsLockEnabled"), forState: .Selected)
                 imageView?.contentMode = .ScaleAspectFit
                 imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 
@@ -101,23 +123,23 @@ class KeyboardKeyButton: UIButton {
             case .SwitchKeyboard:
                 titleLabel!.font = NextKeyboardButtonFont
                 setTitle("\u{f114}", forState: .Normal)
-                backgroundColor = UIColor(fromHexString: "#2A2A2A")
+                backgroundView.backgroundColor = UIColor(fromHexString: "#2A2A2A")
                 setTitleColor(UIColor.whiteColor(), forState: .Normal)
                 addConstraints([
                     al_width == width + 5
-                    ])
+                ])
                 break
             case .SpecialKeypad:
                 imageView?.contentMode = .ScaleAspectFit
                 imageEdgeInsets = UIEdgeInsets(top: 0, left: 13, bottom: 0, right: 13)
                 setImage(UIImage(named: "NumericKeypad"), forState: .Normal)
-                backgroundColor = UIColor.clearColor()
+                backgroundView.backgroundColor = UIColor.clearColor()
                 addConstraints([
                     al_width == width + 5
-                    ])
+                ])
                 break
             case .AlphabeticKeypad:
-                backgroundColor = UIColor.clearColor()
+                backgroundView.backgroundColor = UIColor.clearColor()
                 titleLabel?.font = UIFont(name: "OpenSans", size: 12)
                 setTitle("ABC", forState: .Normal)
             case .NextSpecialKeypad:
@@ -136,7 +158,7 @@ class KeyboardKeyButton: UIButton {
                 setTitle("Enter".uppercaseString, forState: .Normal)
                 setTitleColor(UIColor.blackColor(), forState: .Normal)
                 titleLabel?.font = UIFont(name: "OpenSans", size: 14)
-                backgroundColor = UIColor.whiteColor()
+                backgroundView.backgroundColor = UIColor.whiteColor()
                 break
             default:
                 break

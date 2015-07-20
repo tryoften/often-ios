@@ -25,13 +25,19 @@ let CrashlyticsAPIKey = "e4598140f72849daf847791f325b1eabae27a254"
 let BlueColor = UIColor(fromHexString: "#4575BF")
 let DarkGrey = UIColor(fromHexString: "#d8d8d8")
 let MediumGrey = UIColor(fromHexString: "#eeeeee")
-let LightGrey = UIColor(fromHexString: "#f7f7f7")
+let VeryLightGray = UIColor(fromHexString: "#f7f7f7")
 let BlackColor = UIColor(fromHexString: "#121314")
 let MediumLightGrey = UIColor(fromHexString: "#1c1c1c")
 let MainBackgroundColor = UIColor(fromHexString: "")
 let MainTextColor = UIColor(fromHexString: "#777777")
 let SubtitleGreyColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 0.74)
 let LightBlackColor = UIColor(fromHexString: "#303030")
+let LightGrey = UIColor(fromHexString: "#d3d3d3")
+let WhiteColor = UIColor.whiteColor()
+let TealColor = UIColor(fromHexString: "#14E09E")
+let SystemBlackColor = UIColor.blackColor()
+let SystemGrayColor = UIColor.grayColor()
+let ClearColor = UIColor.clearColor()
 //Font
 let BaseFont = UIFont(name: "OpenSans-Light", size: 20)
 let MediumRegularFont = UIFont(name: "OpenSans-Regular", size: 18)
@@ -44,8 +50,9 @@ let TitleFont = UIFont(name: "Oswald-Regular", size: 19)
 let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
-let KeyboardHeight: CGFloat = 250
+let KeyboardHeight: CGFloat = 255
 let KeyboardTableViewBackgroundColor = LightGrey
+
 let KeyboardTableSeperatorColor = DarkGrey
 let KeyboardTableCoverArtViewBackgroundColor = DarkGrey
 

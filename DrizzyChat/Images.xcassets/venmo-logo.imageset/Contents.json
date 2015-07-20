@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "close artists copy.png"
+      "filename" : "Bitmap.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "close artists copy@2x.png"
+      "filename" : "Bitmap@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "close artists copy@3x.png"
+      "filename" : "Bitmap@3x.png"
     }
   ],
   "info" : {
