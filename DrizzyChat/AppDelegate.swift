@@ -11,14 +11,18 @@ import Realm
 import Fabric
 import Crashlytics
 
-private var TestKeyboard: Bool = false
+private var TestKeyboard: Bool = true
+
+let appClientID = "2784"
+let appSecret = "M9KM33YyReByzfn9dV9rnLK6pLTepB46"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
     var sessionManager: SessionManager!
-
+    var venmoService: VenmoService!
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         if !TestKeyboard {
@@ -44,6 +48,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBAppEvents.activateApp()
         Flurry.startSession(FlurryClientKey)
         Fabric.with([Crashlytics()])
+        
+        venmoService = VenmoService()
+    
+        Venmo.startWithAppId(appClientID, secret: appSecret, name: "Smurf")
+        
+        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile"]) { (success, error) -> Void in
+            if success {
+                println("Permissions Success!")
+            } else {
+                println("Permissions Fail")
+            }
+        }
+        
+        if Venmo.isVenmoAppInstalled() {
+            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
+        } else {
+            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
+        }
+        
+        self.venmoService.authorizeUserAndGetAccessToken(appClientID)
     
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
@@ -100,7 +124,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-        return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session())
+        
+        if FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session()) {
+            return true
+        }
+        
+        if Venmo.sharedInstance().handleOpenURL(url) {
+            return true
+        }
+        
+        return false
     }
 
     func applicationWillResignActive(application: UIApplication) {

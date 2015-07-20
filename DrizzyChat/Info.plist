@@ -7,11 +7,11 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.drizzy.drizzy</string>
+	<string>com.surf.surf</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>October</string>
+	<string>Surf</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -20,6 +20,14 @@
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>venmo2784</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>venmo2784</string>
+		</dict>
 		<dict>
 			<key>CFBundleURLName</key>
 			<string></string>
@@ -30,7 +38,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3307</string>
+	<string>3312</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

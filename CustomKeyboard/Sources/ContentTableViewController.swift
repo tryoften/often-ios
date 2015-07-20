@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class LyricPickerTableViewController: UITableViewController, UITableViewDelegate, SectionPickerViewDelegate,
+class ContentTableViewController: UITableViewController, UITableViewDelegate, SectionPickerViewDelegate,
     LyricTableViewCellDelegate, LyricFilterBarDelegate, LyricPickerViewModelDelegate {
 
     weak var delegate: LyricPickerDelegate?
@@ -251,5 +251,5 @@ class LyricPickerTableViewController: UITableViewController, UITableViewDelegate
 }
 
 protocol LyricPickerDelegate: class {
-    func didPickLyric(lyricPicker: LyricPickerTableViewController, shareVC: ShareViewController?, lyric: Lyric?)
+    func didPickLyric(lyricPicker: ContentTableViewController, shareVC: ShareViewController?, lyric: Lyric?)
 }

@@ -18,7 +18,7 @@ let ParseAppID = "L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G"
 let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"
 let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 let AnalyticsWriteKey = "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI"
-let AppSuiteName = "group.com.drizzy.drizzy"
+let AppSuiteName = "group.com.surf.surf"
 let CrashlyticsAPIKey = "e4598140f72849daf847791f325b1eabae27a254"
 
 // Colors

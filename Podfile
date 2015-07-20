@@ -4,9 +4,9 @@ platform :ios, '8.0'
 inhibit_all_warnings!
 #source 'https://github.com/CocoaPods/Specs.git'
 
-xcodeproj 'October.xcodeproj'
+xcodeproj 'Surf.xcodeproj'
 
-target 'October' do
+target 'Surf' do
   pod 'Firebase', '>= 2.0.2'
   pod 'Canvas', '~> 0.1'
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
@@ -20,9 +20,10 @@ target 'October' do
   pod 'Parse', :podspec => 'Parse.podspec.json'
   pod 'ParseFacebookUtils', '~> 1.7'
   pod 'UIViewController+KeyboardAnimation', '~> 1.2'
+  pod 'Venmo-iOS-SDK', '~>1.3'
 end
 
-target 'CustomKeyboard' do
+target 'Keyboard' do
   pod 'Firebase', '>= 2.0.2'
   pod 'Canvas', '~> 0.1'
   pod 'AFNetworking', '~> 2.0'
@@ -33,7 +34,7 @@ end
 
 post_install do |add_app_extension_macro|
     add_app_extension_macro.project.targets.each do |target|
-        if target.name.include?("Pods-CustomKeyboard")
+        if target.name.include?("Pods-Keyboard")
             target.build_configurations.each do |config|
                 config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'AF_APP_EXTENSIONS=1']
             end

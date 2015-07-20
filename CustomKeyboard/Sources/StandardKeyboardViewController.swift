@@ -10,32 +10,75 @@ import UIKit
 
 class StandardKeyboardViewController: UIViewController {
     
-    var parentKeyboardViewController: KeyboardViewController!
+    var textProcessor: TextProcessingManager!
     var rowViews: [UIView]!
     var keyWidth: CGFloat!
+    var keysContainerView: UIView!
+    var keyButtons: [KeyboardKeyButton]!
+    var searchBar: UITextField!
+    var lettercase: Lettercase!
+    var characterMap: [ [KeyboardKey] ]! {
+        didSet {
+            for row in rowViews {
+                row.removeFromSuperview()
+            }
+            rowViews = []
+            keyButtons = []
+            setupKeyboardLayout()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = UIColor.whiteColor()
-        
-        let buttonTitles1 = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]
-        let buttonTitles2 = ["A", "S", "D", "F", "G", "H", "J", "K", "L"]
-        let buttonTitles3 = ["CP", "Z", "X", "C", "V", "B", "N", "M", "BP"]
-        let buttonTitles4 = ["CHG", "SPACE", "RETURN"]
 
+        lettercase = .Lowercase
+
+        keyButtons = []
+        keysContainerView = UIView()
+        keysContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.backgroundColor = UIColor(fromHexString: "#202020")
+        
+        searchBar = UITextField()
+        searchBar.backgroundColor = UIColor.whiteColor()
+        searchBar.setTranslatesAutoresizingMaskIntoConstraints(false)
+        searchBar.placeholder = "Search"
+        searchBar.textColor = UIColor.blackColor()
+        searchBar.font = UIFont(name: "OpenSans", size: 14)
+        searchBar.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.blackColor()])
+        searchBar.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
+        
+        view.addSubview(keysContainerView)
+        view.addSubview(searchBar)
+        
+        view.addConstraints([
+            searchBar.al_top == view.al_top,
+            searchBar.al_left == view.al_left,
+            searchBar.al_right == view.al_right,
+            searchBar.al_height == 50,
+
+            keysContainerView.al_top == searchBar.al_bottom,
+            keysContainerView.al_bottom == view.al_bottom,
+            keysContainerView.al_left == view.al_left,
+            keysContainerView.al_right == view.al_right
+        ])
+        
+        rowViews = []
+        characterMap = EnglishKeyboardMap
+    }
+    
+    func setupKeyboardLayout() {
         let screenBoundsWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
-        keyWidth = screenBoundsWidth / CGFloat(buttonTitles1.count)
+        keyWidth = screenBoundsWidth / CGFloat(characterMap[0].count)
         
-        var row1 = createRowOfButtons(buttonTitles1, margin: 0)
-        var row2 = createRowOfButtons(buttonTitles2, margin: screenBoundsWidth - keyWidth * CGFloat(buttonTitles2.count))
-        var row3 = createRowOfButtons(buttonTitles3, margin: screenBoundsWidth - keyWidth * CGFloat(buttonTitles3.count))
-        var row4 = setupLastInputRow(buttonTitles4)
+        var row1 = createRowOfButtons(characterMap[0], margin: 0)
+        var row2 = createRowOfButtons(characterMap[1], margin: screenBoundsWidth - keyWidth * CGFloat(characterMap[1].count))
+        var row3 = createRowOfButtons(characterMap[2], margin: screenBoundsWidth - keyWidth * CGFloat(characterMap[2].count))
+        var row4 = setupLastInputRow(characterMap[3])
         
-        self.view.addSubview(row1)
-        self.view.addSubview(row2)
-        self.view.addSubview(row3)
-        self.view.addSubview(row4)
+        keysContainerView.addSubview(row1)
+        keysContainerView.addSubview(row2)
+        keysContainerView.addSubview(row3)
+        keysContainerView.addSubview(row4)
         
         row1.setTranslatesAutoresizingMaskIntoConstraints(false)
         row2.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -43,22 +86,23 @@ class StandardKeyboardViewController: UIViewController {
         row4.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         rowViews = [row1, row2, row3, row4]
+        addConstraintsToInputView(keysContainerView, rowViews: rowViews)
     }
     
-    func createRowOfButtons(buttonTitles: [NSString], margin: CGFloat) -> UIView {
-        
-        var buttons = [UIButton]()
+    func createRowOfButtons(keys: [KeyboardKey], margin: CGFloat) -> UIView {
+        var buttons = [KeyboardKeyButton]()
         var keyboardRowView = UIView(frame: CGRectZero)
         keyboardRowView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        addSeperatorBelow(keyboardRowView)
 
-        for buttonTitle in buttonTitles{
-            
-            let button = createButtonWithTitle(buttonTitle as String)
+        for key in keys {
+            let button = createButtonWithKey(key)
+            button.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: "didTouchDownOnKey:", forControlEvents: .TouchDown)
             buttons.append(button)
             keyboardRowView.addSubview(button)
         }
         
+        keyButtons.extend(buttons)
         addIndividualButtonConstraints(buttons, mainView: keyboardRowView, margin: margin/CGFloat(2))
         
         return keyboardRowView
@@ -69,99 +113,128 @@ class StandardKeyboardViewController: UIViewController {
         // Dispose of any resources that can be recreated
     }
     
-    
-    func createButtonWithTitle(title: String) -> UIButton {
-        
-        let button = UIButton.buttonWithType(.System) as! UIButton
-        button.frame = CGRectMake(0, 0, 20, 20)
-        button.setTitle(title, forState: .Normal)
-        button.sizeToFit()
-        button.titleLabel?.font = UIFont(name: "OpenSans", size: 18)
-        button.setTranslatesAutoresizingMaskIntoConstraints(false)
-        button.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
-        button.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        button.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-        
-        return button
+    func createButtonWithKey(key: KeyboardKey) -> KeyboardKeyButton {
+        return KeyboardKeyButton(key: key, width: keyWidth)
     }
     
     func didTapButton(sender: AnyObject?) {
         
-        let button = sender as! UIButton
-        var proxy = parentKeyboardViewController.textDocumentProxy as! UITextDocumentProxy
+        let button = sender as! KeyboardKeyButton
+        var proxy = textProcessor.proxy
         
-        var animationClass: CSAnimation.Type = CSAnimation.classForAnimationType("pop") as! CSAnimation.Type
-        animationClass.performAnimationOnView(button, duration: 0.2, delay: 0.0)
+        button.highlighted = false
+        button.selected = !button.selected
 
-        if let title = button.titleForState(.Normal) {
-            switch title {
-            case "BP" :
-                proxy.deleteBackward()
-            case "RETURN" :
-                proxy.insertText("\n")
-            case "SPACE" :
-                proxy.insertText(" ")
-            case "CHG" :
-                self.parentKeyboardViewController.advanceToNextInputMode()
-            default :
-                proxy.insertText(title.lowercaseString)
+        switch(button.key) {
+        case .letter(let character):
+            var str = String(character.rawValue)
+            if lettercase! == .Lowercase {
+                str = str.lowercaseString
             }
+            proxy.insertText(str)
+        case .digit(let number):
+            proxy.insertText(String(number.rawValue))
+        case .special(let character):
+            proxy.insertText(String(character.rawValue))
+        case .modifier(.CapsLock):
+            lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
+            
+            for keyButton in keyButtons {
+                keyButton.lettercase = lettercase
+            }
+        case .modifier(.SwitchKeyboard):
+            NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
+        case .modifier(.Backspace):
+            break
+//            proxy.deleteBackward()
+        case .modifier(.AlphabeticKeypad):
+            characterMap = EnglishKeyboardMap
+            break
+        case .modifier(.SpecialKeypad):
+            characterMap = SpecialCharacterKeyboardMap
+        case .modifier(.Space):
+            proxy.insertText(" ")
+        case .modifier(.Enter):
+            proxy.insertText("\n")
+        case .modifier(.GoToBrowse):
+            dismissViewControllerAnimated(false, completion: nil)
+        default:
+            break
         }
     }
     
-    func addIndividualButtonConstraints(buttons: [UIButton], mainView: UIView, margin: CGFloat){
+    func didTouchDownOnKey(sender: AnyObject?) {
+        let button = sender as! KeyboardKeyButton
+        let proxy = textProcessor.proxy
+        
+        button.highlighted = true
+        
+        switch(button.key) {
+        case .modifier(.Backspace):
+            proxy.deleteBackward()
+        default:
+            break
+        }
+    }
+    
+    func addIndividualButtonConstraints(buttons: [KeyboardKeyButton], mainView: UIView, margin: CGFloat){
         
         for (index, button) in enumerate(buttons) {
             
-            var topConstraint = button.al_top == mainView.al_top
+            var topConstraint = button.al_top == mainView.al_top + 1
             var bottomConstraint = button.al_bottom == mainView.al_bottom - 1
-            var leftConstraint : NSLayoutConstraint!
-            var rightConstraint : NSLayoutConstraint!
+            var leftConstraint: NSLayoutConstraint!
+            var rightConstraint: NSLayoutConstraint!
             
-            
+            let buttonIsModifierKey: Bool
+            switch(button.key) {
+            case .modifier(let character):
+                buttonIsModifierKey = true
+            default:
+                buttonIsModifierKey = false
+                break
+            }
+
             // Right Constraint
             if index == buttons.count - 1 {
                 var rightMargin = margin
-                if count(button.titleLabel!.text!) > 1 {
+                if buttonIsModifierKey {
                     rightMargin = 0
-                    button.addConstraint(button.al_width == keyWidth * 1.5 - 1)
+                    let widthConstraint = button.al_width == keyWidth * 1.5
+                    widthConstraint.priority = 1000
+                    button.addConstraint(widthConstraint)
                 }
                 rightConstraint = button.al_right == mainView.al_right - rightMargin
             }
             else {
                 let nextButton = buttons[index+1]
-                rightConstraint = button.al_right == nextButton.al_left - 1
+                rightConstraint = button.al_right == nextButton.al_left
             }
             
             // Left Constraint
             if index == 0 {
                 var leftMargin = margin
-                if count(button.titleLabel!.text!) > 1 {
+
+                if buttonIsModifierKey {
                     leftMargin = 0
-                    button.addConstraint(button.al_width == keyWidth * 1.5 - 1)
+                    let widthConstraint = button.al_width == keyWidth * 1.5
+                    widthConstraint.priority = 1000
+                    button.addConstraint(widthConstraint)
+                } else {
+                    button.addConstraint(button.al_width == keyWidth)
                 }
                 leftConstraint = button.al_left == mainView.al_left + leftMargin
-                
-                if leftMargin != 0 {
-                    addSeperatorNextTo(button, true)
-                }
             }
             else {
                 let prevButton = buttons[index-1]
                 var widthConstraint: NSLayoutConstraint!
-                
-                if count(buttons[0].titleLabel!.text!) > 1 {
-                    widthConstraint = button.al_width == buttons[1].al_width
-                } else {
-                    widthConstraint = button.al_width == buttons[0].al_width
-                }
-                widthConstraint.priority = 800
+                widthConstraint = button.al_width == keyWidth
+                widthConstraint.priority = 900
                 mainView.addConstraint(widthConstraint)
                 
-                leftConstraint = button.al_left == prevButton.al_right + 1
+                leftConstraint = button.al_left == prevButton.al_right
             }
             
-            addSeperatorNextTo(button, false)
             mainView.addConstraints([
                 topConstraint, bottomConstraint,
                 rightConstraint, leftConstraint
@@ -169,47 +242,58 @@ class StandardKeyboardViewController: UIViewController {
         }
     }
     
-    func setupLastInputRow(buttonTitles: [String]) -> UIView {
-        var buttons = [UIButton]()
+    func setupLastInputRow(keys: [KeyboardKey]) -> UIView {
+        var buttons = [KeyboardKeyButton]()
         var keyboardRowView = UIView(frame: CGRectZero)
         keyboardRowView.setTranslatesAutoresizingMaskIntoConstraints(false)
         var prevButton: UIButton?
         
-        for buttonTitle in buttonTitles {
+        for key in keys {
             var constraints = [NSLayoutConstraint]()
-            let button = createButtonWithTitle(buttonTitle)
+            let button = createButtonWithKey(key)
+            button.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
             button.setTranslatesAutoresizingMaskIntoConstraints(false)
             buttons.append(button)
             keyboardRowView.addSubview(button)
             
             constraints += [
-                button.al_height == keyboardRowView.al_height,
-                button.al_top == keyboardRowView.al_top
+                button.al_top == keyboardRowView.al_top,
+                button.al_bottom == keyboardRowView.al_bottom - 5
             ]
         
-            if buttonTitle == "CHG" {
+            switch(key) {
+            case .modifier(.SpecialKeypad), .modifier(.AlphabeticKeypad):
                 constraints += [
-                    button.al_width == keyWidth,
+                    button.al_width == button.al_height,
                     button.al_left == keyboardRowView.al_left
                 ]
-                addSeperatorNextTo(button, false)
-            } else if buttonTitle == "SPACE" {
+                break
+            case .modifier(.SwitchKeyboard), .modifier(.GoToBrowse):
+                constraints += [
+                    button.al_width == button.al_height,
+                    button.al_left == prevButton!.al_right
+                ]
+                break
+            case .modifier(.Space):
                 constraints += [
                     button.al_left == prevButton!.al_right
                 ]
-                addSeperatorNextTo(button, false)
-            } else if buttonTitle == "RETURN" {
+                break
+            case .modifier(.Enter):
                 constraints += [
+                    prevButton!.al_right == button.al_left,
                     button.al_right == keyboardRowView.al_right,
                     button.al_width == keyWidth * 2,
-                    buttons[1].al_right == button.al_left
                 ]
+                break
+            default:
+                break
             }
             
             keyboardRowView.addConstraints(constraints)
             prevButton = button
         }
-        
+        keyButtons.extend(buttons)
         
         return keyboardRowView
     }
@@ -217,9 +301,9 @@ class StandardKeyboardViewController: UIViewController {
     func addConstraintsToInputView(inputView: UIView, rowViews: [UIView]){
         
         for (index, rowView) in enumerate(rowViews) {
-            var rightSideConstraint = rowView.al_right == inputView.al_right - 1
-            var leftConstraint = rowView.al_left == inputView.al_left + 1
-            
+            var rightSideConstraint = rowView.al_right == inputView.al_right
+            var leftConstraint = rowView.al_left == inputView.al_left
+
             inputView.addConstraints([leftConstraint, rightSideConstraint])
             
             var topConstraint: NSLayoutConstraint
@@ -232,9 +316,9 @@ class StandardKeyboardViewController: UIViewController {
                 topConstraint = rowView.al_top == prevRow.al_bottom
     
                 let firstRow = rowViews[0]
-                var heightConstraint = firstRow.al_height == rowView.al_height
+                var heightConstraint = rowView.al_height == firstRow.al_height
                 
-                heightConstraint.priority = 800
+                heightConstraint.priority = 1000
                 inputView.addConstraint(heightConstraint)
             }
             inputView.addConstraint(topConstraint)
@@ -253,6 +337,4 @@ class StandardKeyboardViewController: UIViewController {
         }
         
     }
-
-
 }

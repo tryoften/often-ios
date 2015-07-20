@@ -126,7 +126,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate, LyricPickerDelegate,
     }
 
     // MARK: LyricPickerDelegate
-    func didPickLyric(lyricPicker: LyricPickerTableViewController, shareVC: ShareViewController?, lyric: Lyric?) {
+    func didPickLyric(lyricPicker: ContentTableViewController, shareVC: ShareViewController?, lyric: Lyric?) {
         if let shareVC = shareVC {
             shareVC.delegate = self
         }

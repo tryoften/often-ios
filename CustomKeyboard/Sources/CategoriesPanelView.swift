@@ -14,6 +14,7 @@ class CategoriesPanelView: UIView {
     var nextKeyboardButton: UIButton
     var toggleDrawerButton: UIButton
     var switchArtistButton: SwitchArtistButton
+    var openStandardKeyboardButton: UIButton
     var currentCategoryView: UIView
     var currentCategoryLabel: UILabel
     var messageBarView: MessageBarView
@@ -64,6 +65,11 @@ class CategoriesPanelView: UIView {
         switchArtistButton = SwitchArtistButton()
         switchArtistButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         
+        openStandardKeyboardButton = UIButton()
+        openStandardKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        openStandardKeyboardButton.setImage(UIImage(named: "IconWhite"), forState: .Normal)
+        openStandardKeyboardButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 8, bottom: 8, right: 8)
+        
         messageBarView = MessageBarView()
         messageBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
         messageBarView.alpha = 0
@@ -92,6 +98,7 @@ class CategoriesPanelView: UIView {
         addSubview(shareButton)
         
         toolbarView.addSubview(nextKeyboardButton)
+        toolbarView.addSubview(openStandardKeyboardButton)
         toolbarView.addSubview(currentCategoryView)
         toolbarView.addSubview(switchArtistButton)
 
@@ -116,7 +123,7 @@ class CategoriesPanelView: UIView {
         var currentCategoryLabelLeftConstraint = currentCategoryLabel.al_left == switchArtistButton.al_right + 30.0
         currentCategoryLabelLeftConstraint.priority = 800
         
-        var switchArtistButtonLeftConstraint = switchArtistButton.al_left == keyboardButton.al_right + 15
+        var switchArtistButtonLeftConstraint = switchArtistButton.al_left == openStandardKeyboardButton.al_right + 15
         switchArtistButtonLeftConstraint.priority = 800
         
         var collectionViewTopConstraint = collectionView.al_top == keyboardButton.al_bottom
@@ -140,6 +147,11 @@ class CategoriesPanelView: UIView {
             switchArtistButton.al_centerY == keyboardButton.al_centerY,
             switchArtistButton.al_height == SectionPickerViewSwitchArtistHeight,
             switchArtistButton.al_width == switchArtistButton.al_height,
+
+            openStandardKeyboardButton.al_left == keyboardButton.al_right,
+            openStandardKeyboardButton.al_centerY == keyboardButton.al_centerY,
+            openStandardKeyboardButton.al_width == 32,
+            openStandardKeyboardButton.al_height == 25,
             
             // current category view
             currentCategoryView.al_left == switchArtistButton.al_left + SectionPickerViewHeight + 10.0,
