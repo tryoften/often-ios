@@ -14,17 +14,16 @@ class SearchBar: UIView {
     var providerButton: ServiceProviderSearchBarButton? {
         didSet {
             if let button = providerButton {
-                addSubview(button)
-                if let textInputLeftConstraint = textInputLeftConstraint {
-                    removeConstraint(textInputLeftConstraint)
-                }
-                textInputLeftConstraint = textInput.al_left == button.al_right + 5
+                insertSubview(button, belowSubview: textInput)
                 addConstraints([
                     button.al_left == al_left + 5,
                     button.al_top == al_top + 5,
-                    textInputLeftConstraint!
+                    button.al_bottom == al_bottom - 5,
                 ])
-                UIView.animateWithDuration(0.3) {
+                textInput.leftView = nil
+                self.layoutIfNeeded()
+                self.textInputLeftConstraint?.constant = CGRectGetWidth(button.frame) + 10
+                UIView.animateWithDuration(0.2) {
                     self.layoutIfNeeded()
                 }
             } else {

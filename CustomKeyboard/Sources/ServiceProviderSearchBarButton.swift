@@ -15,15 +15,9 @@ class ServiceProviderSearchBarButton: UIButton {
             setImage(providerLogoImage, forState: .Normal)
         }
     }
-    private var providerLogoImageView: UIImageView
 
     override init(frame: CGRect) {
         deleteButton = UIImageView(image: UIImage(named: "close"))
-        deleteButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-
-        providerLogoImageView = UIImageView()
-        providerLogoImageView.contentMode = .ScaleAspectFit
-        providerLogoImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
 
         super.init(frame: frame)
         
@@ -31,31 +25,20 @@ class ServiceProviderSearchBarButton: UIButton {
         imageView?.contentMode = .ScaleAspectFit
         
         addSubview(deleteButton)
-        addSubview(providerLogoImageView)
         
         contentEdgeInsets = UIEdgeInsets(top: 3, left: 15, bottom: 3, right: 3)
-
         layer.cornerRadius = 3.0
         backgroundColor = UIColor(fromHexString: "#4D97D2")
-        setupLayout()
     }
 
     required convenience init(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
     
-    func setupLayout() {
-        addConstraints([
-            al_height == 30,
+    override func layoutSubviews() {
+        super.layoutSubviews()
 
-            deleteButton.al_width == 8,
-            deleteButton.al_height == 8,
-            deleteButton.al_centerY == al_centerY,
-            deleteButton.al_left == al_left + 8,
-            
-            providerLogoImageView.al_left == al_left + 5,
-            providerLogoImageView.al_height == al_height - 8,
-            providerLogoImageView.al_centerY == al_centerY
-        ])
+        let topMargin = CGRectGetHeight(frame) / 2 - 4.0
+        deleteButton.frame = CGRectMake(8.0, topMargin, 8.0, 8.0)
     }
 }

@@ -15,6 +15,7 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
     var keyWidth: CGFloat!
     var keysContainerView: UIView!
     var keyButtons: [KeyboardKeyButton]!
+    var inputViewConstraints: [NSLayoutConstraint]?
     var searchBar: SearchBarController!
     var lettercase: Lettercase!
     var characterMap: [ [KeyboardKey] ]! {
@@ -25,7 +26,7 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
             rowViews = []
             keyButtons = []
             setupKeyboardLayout()
-            keysContainerView.setNeedsLayout()
+            view.layoutIfNeeded()
         }
     }
 
@@ -33,7 +34,6 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         super.viewDidLoad()
 
         lettercase = .Lowercase
-
         rowViews = []
         keyButtons = []
         keysContainerView = UIView()
@@ -49,16 +49,20 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         view.addSubview(searchBar.view)
         view.addSubview(keysContainerView)
         
-        let constraint =  keysContainerView.al_top == searchBar.view.al_bottom
-        constraint.priority = 999
-        
         view.addConstraints([
             searchBar.view.al_top == view.al_top,
             searchBar.view.al_left == view.al_left,
             searchBar.view.al_right == view.al_right,
-            searchBar.view.al_height == 40,
-
-            constraint,
+            {
+                let constraint =  self.keysContainerView.al_top == self.searchBar.view.al_bottom
+                constraint.priority = 999
+                return constraint
+            }(),
+            {
+                let constraint = self.keysContainerView.al_height <= 215
+                constraint.priority = 800
+                return constraint
+            }(),
             keysContainerView.al_bottom == view.al_bottom,
             keysContainerView.al_left == view.al_left,
             keysContainerView.al_right == view.al_right
@@ -165,8 +169,6 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         default:
             break
         }
-        
-//        UIDevice.currentDevice().playInputClick()
     }
     
     // MARK: TextProcessingManagerDelegate
@@ -175,7 +177,6 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
     
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType) {
         searchBar.activeServiceProviderType = serviceProviderType
-        textProcessingManager.insertText(" ")
     }
     
     func didTouchDownOnKey(sender: AnyObject?) {
@@ -318,13 +319,18 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         return keyboardRowView
     }
     
-    func addConstraintsToInputView(inputView: UIView, rowViews: [UIView]){
+    func addConstraintsToInputView(inputView: UIView, rowViews: [UIView]) {
+        if let constraints = inputViewConstraints {
+            inputView.removeConstraints(constraints)
+        }
+        
+        inputViewConstraints = []
         
         for (index, rowView) in enumerate(rowViews) {
             var rightSideConstraint = rowView.al_right == inputView.al_right
             var leftConstraint = rowView.al_left == inputView.al_left
-
-            inputView.addConstraints([leftConstraint, rightSideConstraint])
+            
+            inputViewConstraints! += [leftConstraint, rightSideConstraint]
             
             var topConstraint: NSLayoutConstraint
             
@@ -340,7 +346,7 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
                 heightConstraint.priority = 899
                 inputView.addConstraint(heightConstraint)
             }
-            inputView.addConstraint(topConstraint)
+            inputViewConstraints!.append(topConstraint)
             
             var bottomConstraint: NSLayoutConstraint
             
@@ -352,7 +358,9 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
                 bottomConstraint = rowView.al_bottom == nextRow.al_top
             }
             
-            inputView.addConstraint(bottomConstraint)
+            inputViewConstraints!.append(bottomConstraint)
         }
+        
+        inputView.addConstraints(inputViewConstraints!)
     }
 }

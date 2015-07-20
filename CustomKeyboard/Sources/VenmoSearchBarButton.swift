@@ -13,8 +13,9 @@ class VenmoSearchBarButton: ServiceProviderSearchBarButton {
         super.init(frame: frame)
         
         backgroundColor = UIColor(fromHexString: "#4D97D2")
-        providerLogoImage = UIImage(named: "venmo-logo")
-        addConstraint(al_width == 110)
+        addConstraint(al_width == 90)
+        contentEdgeInsets = UIEdgeInsets(top: 6, left: 15, bottom: 6, right: 3)
+        setImage(UIImage(named: "venmo-logo"), forState: .Normal)
     }
     
     required convenience init(coder aDecoder: NSCoder) {

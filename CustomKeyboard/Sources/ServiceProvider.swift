@@ -13,15 +13,13 @@ enum ServiceProviderType: String {
     case Foursquare = "foursquare"
 }
 
-class ServiceProviderSupplementaryViewController: UIViewController {
-    
-}
-
 class ServiceProvider {
     let type: ServiceProviderType
+    let textProcessor: TextProcessingManager
     
-    init(providerType: ServiceProviderType) {
+    init(providerType: ServiceProviderType, textProcessor: TextProcessingManager) {
         type = providerType
+        self.textProcessor = textProcessor
     }
     
     func provideSupplementaryViewController() -> ServiceProviderSupplementaryViewController? {

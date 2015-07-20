@@ -10,54 +10,88 @@ import UIKit
 
 class SearchBarController: UIViewController, UITextFieldDelegate {
     var searchBarView: SearchBar!
-    var searchTapGestureRecognizer: UITapGestureRecognizer!
+    var supplementaryViewContainer: UIView!
+    var supplementaryViewHeightConstraint: NSLayoutConstraint!
     var textProcessor: TextProcessingManager?
     var activeServiceProviderType: ServiceProviderType? {
         didSet {
+            var button: ServiceProviderSearchBarButton?
             switch(activeServiceProviderType!) {
             case .Venmo:
-                activeServiceProvider = VenmoServiceProvider(providerType: activeServiceProviderType!)
-                let button = activeServiceProvider!.provideSearchBarButton()
-                searchBarView.textInput.leftView = button
-                UIView.animateWithDuration(0.3) {
-                    self.searchBarView.textInput.layoutIfNeeded()
-                }
+                activeServiceProvider = VenmoServiceProvider(providerType: activeServiceProviderType!, textProcessor: textProcessor!)
+                button = activeServiceProvider!.provideSearchBarButton()
                 break
             case .Foursquare:
                 break
             default:
                 break
             }
+            searchBarView.providerButton = button
         }
     }
-    private var activeServiceProvider: ServiceProvider?
+    var tags: [ServiceProviderSearchBarButton]?
+
+    private var activeServiceProvider: ServiceProvider? {
+        didSet {
+            if let supplementaryViewController = activeServiceProvider?.provideSupplementaryViewController() {
+                activeSupplementaryViewController = supplementaryViewController
+                supplementaryViewContainer.addSubview(supplementaryViewController.view)
+                supplementaryViewHeightConstraint.constant = supplementaryViewController.supplementaryViewHeight
+                
+                searchBarView.textInput.placeholder = supplementaryViewController.searchBarPlaceholderText
+                NSNotificationCenter.defaultCenter().postNotificationName("resizeKeyboard", object: self, userInfo: [
+                    "height": KeyboardHeight + supplementaryViewController.supplementaryViewHeight
+                ])
+            }
+        }
+    }
+    private var activeSupplementaryViewController: ServiceProviderSupplementaryViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchTapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTapSearchBar:")
-        searchBarView.addGestureRecognizer(searchTapGestureRecognizer)
+        searchBarView = SearchBar()
+        searchBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
         searchBarView.textInput.delegate = self
         searchBarView.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
+        
+        supplementaryViewContainer = UIView()
+        supplementaryViewContainer.backgroundColor = VeryLightGray
+        supplementaryViewContainer.setTranslatesAutoresizingMaskIntoConstraints(false)
+        supplementaryViewHeightConstraint = supplementaryViewContainer.al_height == 0
+        
+        view.addSubview(searchBarView)
+        view.addSubview(supplementaryViewContainer)
+        view.addConstraints([
+            searchBarView.al_top == view.al_top,
+            searchBarView.al_width == view.al_width,
+            searchBarView.al_left == view.al_left,
+            searchBarView.al_height == 40,
+
+            supplementaryViewContainer.al_top == searchBarView.al_bottom,
+            supplementaryViewContainer.al_bottom == view.al_bottom,
+            supplementaryViewContainer.al_left == view.al_left,
+            supplementaryViewContainer.al_width == view.al_width,
+            supplementaryViewHeightConstraint
+        ])
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    override func loadView() {
-        view = SearchBar()
-        searchBarView = view as! SearchBar
-    }
-    
-    func didTapSearchBar(gestureRecogniser: UIGestureRecognizer) {
-        var point = gestureRecogniser.locationInView(searchBarView)
-    }
-    
+
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         if let touch = touches.first as? UITouch {
             if touch.view == searchBarView {
                 searchBarView.textInput.resignFirstResponder()
             }
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if let activeSupplementaryViewController = activeSupplementaryViewController {
+            activeSupplementaryViewController.view.frame = supplementaryViewContainer.bounds
         }
     }
     

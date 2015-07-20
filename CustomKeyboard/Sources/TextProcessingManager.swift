@@ -40,7 +40,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate, LyricPickerDelegate,
                     
                     if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
                         println(serviceProviderType)
-                        for i in 0..<count(firstToken) {
+                        for i in 0...count(firstToken) {
                             proxy.deleteBackward()
                         }
                         delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)

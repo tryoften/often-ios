@@ -260,6 +260,12 @@
 		81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */; };
 		81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */; };
 		81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */; };
+		81FFAF471B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */; };
+		81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */; };
+		81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF491B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift */; };
+		81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF491B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift */; };
+		81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */; };
+		81FFAF4E1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -509,6 +515,9 @@
 		81EBFC8D1B40FF75005C6E76 /* AddArtistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistButton.swift; sourceTree = "<group>"; };
 		81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoServiceProvider.swift; path = Sources/VenmoServiceProvider.swift; sourceTree = "<group>"; };
 		81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoSearchBarButton.swift; path = Sources/VenmoSearchBarButton.swift; sourceTree = "<group>"; };
+		81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsViewController.swift; path = Sources/VenmoContactsViewController.swift; sourceTree = "<group>"; };
+		81FFAF491B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoMessageAmountViewController.swift; path = Sources/VenmoMessageAmountViewController.swift; sourceTree = "<group>"; };
+		81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceProviderSupplementaryViewController.swift; sourceTree = "<group>"; };
 		881DAADCE950D0B0D3A901F8 /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		90CC34E177E03E45A67CAEEB /* Pods-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.release.xcconfig"; path = "Pods/Target Support Files/Pods-Core/Pods-Core.release.xcconfig"; sourceTree = "<group>"; };
 		928E8AB5169157015D98D681 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -918,6 +927,7 @@
 			isa = PBXGroup;
 			children = (
 				817938FF1B5BFEB30064B0CF /* ServiceProvider.swift */,
+				81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */,
 				817939031B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift */,
 				81FFAF421B5C5A7500E2ABAC /* Venmo */,
 			);
@@ -1120,6 +1130,8 @@
 			children = (
 				81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */,
 				81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */,
+				81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */,
+				81FFAF491B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift */,
 			);
 			name = Venmo;
 			sourceTree = "<group>";
@@ -1419,6 +1431,7 @@
 			files = (
 				3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */,
 				812E3EDC1B4A158900C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */,
+				81FFAF471B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
 				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
@@ -1446,6 +1459,7 @@
 				3B9AD7A41B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift in Sources */,
 				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
 				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
+				81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
 				81B19E941B30AD5500D3575C /* ArtistService.swift in Sources */,
 				69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */,
 				69BA82021B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift in Sources */,
@@ -1504,6 +1518,7 @@
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
 				69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */,
+				81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				81592FA31B0FA5870092EA8F /* UserProfileSectionHeaderView.swift in Sources */,
 				3B9AD79D1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift in Sources */,
 				69F2B5EB1B278826004FCD19 /* TrendingCollectionViewCell.swift in Sources */,
@@ -1557,12 +1572,15 @@
 				81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */,
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				8180E6441A142EA4007FA1CF /* ContentTableViewController.swift in Sources */,
+				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				81B19E981B30AD5500D3575C /* ArtistService.swift in Sources */,
 				81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */,
 				81B19EA31B30AD5B00D3575C /* Lyric.swift in Sources */,
 				81761A001AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
+				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				817619FA1AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
+				81FFAF4E1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
 				8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				81B19E991B30AD5500D3575C /* TrackService.swift in Sources */,
 				81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,

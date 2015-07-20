@@ -37,6 +37,7 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
         standardKeyboardVC.textProcessor = textProcessor
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: "switchKeyboard", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resizeKeyboard:", name: "resizeKeyboard", object: nil)
 
         standardKeyboardVC.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         inputView.addSubview(standardKeyboardVC.view)
@@ -45,12 +46,13 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
         
         if KeyboardViewController.debugKeyboard {
             var viewFrame = view.frame
+            viewFrame.origin.y = 0
             viewFrame.size.height = KeyboardHeight
             view.frame = viewFrame
         } else {
-            inputView.setTranslatesAutoresizingMaskIntoConstraints(false)
+            view.setTranslatesAutoresizingMaskIntoConstraints(false)
         }
-        
+
         setupLayout()
     }
 
@@ -79,11 +81,9 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
         
         heightConstraint = inputView.al_height == KeyboardHeight
         heightConstraint.priority = 1000
-        let screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
         
         inputView.addConstraints([
-            inputView.al_width == screenWidth,
-            heightConstraint
+            heightConstraint,
         ])
     }
     
@@ -98,6 +98,16 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
     
     func switchKeyboard() {
         advanceToNextInputMode()
+    }
+    
+    func resizeKeyboard(notification: NSNotification) {
+        if let userInfo = notification.userInfo,
+            height = userInfo["height"] as? CGFloat {
+            heightConstraint.constant = height
+//            UIView.animateWithDuration(0.3) {
+                self.view.layoutIfNeeded()
+//            }
+        }
     }
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
