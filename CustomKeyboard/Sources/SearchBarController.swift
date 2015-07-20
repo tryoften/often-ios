@@ -8,28 +8,69 @@
 
 import UIKit
 
-class SearchBarController: UIViewController {
+class SearchBarController: UIViewController, UITextFieldDelegate {
+    var searchBarView: SearchBar!
+    var searchTapGestureRecognizer: UITapGestureRecognizer!
+    var textProcessor: TextProcessingManager?
+    var activeServiceProviderType: ServiceProviderType? {
+        didSet {
+            switch(activeServiceProviderType!) {
+            case .Venmo:
+                activeServiceProvider = VenmoServiceProvider(providerType: activeServiceProviderType!)
+                let button = activeServiceProvider!.provideSearchBarButton()
+                searchBarView.textInput.leftView = button
+                UIView.animateWithDuration(0.3) {
+                    self.searchBarView.textInput.layoutIfNeeded()
+                }
+                break
+            case .Foursquare:
+                break
+            default:
+                break
+            }
+        }
+    }
+    private var activeServiceProvider: ServiceProvider?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        searchTapGestureRecognizer = UITapGestureRecognizer(target: self, action: "didTapSearchBar:")
+        searchBarView.addGestureRecognizer(searchTapGestureRecognizer)
+        searchBarView.textInput.delegate = self
+        searchBarView.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func loadView() {
+        view = SearchBar()
+        searchBarView = view as! SearchBar
     }
-    */
-
+    
+    func didTapSearchBar(gestureRecogniser: UIGestureRecognizer) {
+        var point = gestureRecogniser.locationInView(searchBarView)
+    }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        if let touch = touches.first as? UITouch {
+            if touch.view == searchBarView {
+                searchBarView.textInput.resignFirstResponder()
+            }
+        }
+    }
+    
+    // MARK: UITextFieldDelegate
+    func textFieldDidBeginEditing(textField: UITextField) {
+        searchBarView.textInput.inputDelegate = textProcessor
+    }
+    
+    func textFieldDidChange() {
+        textProcessor?.textDidChange(searchBarView.textInput)
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+    }
 }

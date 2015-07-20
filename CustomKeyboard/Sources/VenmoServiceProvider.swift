@@ -9,5 +9,7 @@
 import UIKit
 
 class VenmoServiceProvider: ServiceProvider {
-   
+    override func provideSearchBarButton() -> ServiceProviderSearchBarButton {
+        return VenmoSearchBarButton(frame: CGRectZero)
+    }
 }

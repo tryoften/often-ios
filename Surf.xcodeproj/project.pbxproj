@@ -158,6 +158,14 @@
 		8179388B1B5741050064B0CF /* KeyboardMaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938891B5741050064B0CF /* KeyboardMaps.swift */; };
 		817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */; };
 		817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */; };
+		817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938FC1B59A41A0064B0CF /* SearchBar.swift */; };
+		817938FE1B59A41A0064B0CF /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938FC1B59A41A0064B0CF /* SearchBar.swift */; };
+		817939001B5BFEB40064B0CF /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938FF1B5BFEB30064B0CF /* ServiceProvider.swift */; };
+		817939011B5BFEB40064B0CF /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938FF1B5BFEB30064B0CF /* ServiceProvider.swift */; };
+		817939041B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817939031B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift */; };
+		817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817939031B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift */; };
+		817939071B5C29560064B0CF /* SearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817939061B5C29560064B0CF /* SearchBarController.swift */; };
+		817939081B5C29560064B0CF /* SearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817939061B5C29560064B0CF /* SearchBarController.swift */; };
 		81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED21A81E607009D4A71 /* Accounts.framework */; };
 		81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED41A81E613009D4A71 /* CFNetwork.framework */; };
 		81794ED71A81E621009D4A71 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED61A81E621009D4A71 /* AudioToolbox.framework */; };
@@ -248,6 +256,10 @@
 		81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81EBFC8E1B40FF75005C6E76 /* AddArtistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC8D1B40FF75005C6E76 /* AddArtistButton.swift */; };
+		81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */; };
+		81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */; };
+		81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */; };
+		81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -435,6 +447,10 @@
 		8179387D1B55859D0064B0CF /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKey.swift; path = Sources/KeyboardKey.swift; sourceTree = "<group>"; };
 		817938891B5741050064B0CF /* KeyboardMaps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardMaps.swift; path = Sources/KeyboardMaps.swift; sourceTree = "<group>"; };
 		8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKeyButton.swift; path = Sources/KeyboardKeyButton.swift; sourceTree = "<group>"; };
+		817938FC1B59A41A0064B0CF /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBar.swift; path = Sources/SearchBar.swift; sourceTree = "<group>"; };
+		817938FF1B5BFEB30064B0CF /* ServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProvider.swift; path = Sources/ServiceProvider.swift; sourceTree = "<group>"; };
+		817939031B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderSearchBarButton.swift; path = Sources/ServiceProviderSearchBarButton.swift; sourceTree = "<group>"; };
+		817939061B5C29560064B0CF /* SearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarController.swift; path = Sources/SearchBarController.swift; sourceTree = "<group>"; };
 		81794ED21A81E607009D4A71 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		81794ED41A81E613009D4A71 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		81794ED61A81E621009D4A71 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -491,6 +507,8 @@
 		81E897D91A32A17F005C7CD9 /* TrackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackService.swift; path = Core/TrackService.swift; sourceTree = "<group>"; };
 		81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AnimateImage.swift"; sourceTree = "<group>"; };
 		81EBFC8D1B40FF75005C6E76 /* AddArtistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistButton.swift; sourceTree = "<group>"; };
+		81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoServiceProvider.swift; path = Sources/VenmoServiceProvider.swift; sourceTree = "<group>"; };
+		81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoSearchBarButton.swift; path = Sources/VenmoSearchBarButton.swift; sourceTree = "<group>"; };
 		881DAADCE950D0B0D3A901F8 /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		90CC34E177E03E45A67CAEEB /* Pods-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.release.xcconfig"; path = "Pods/Target Support Files/Pods-Core/Pods-Core.release.xcconfig"; sourceTree = "<group>"; };
 		928E8AB5169157015D98D681 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -896,6 +914,16 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		817939021B5BFF110064B0CF /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				817938FF1B5BFEB30064B0CF /* ServiceProvider.swift */,
+				817939031B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift */,
+				81FFAF421B5C5A7500E2ABAC /* Venmo */,
+			);
+			name = Providers;
+			sourceTree = "<group>";
+		};
 		8180E5FF1A142157007FA1CF = {
 			isa = PBXGroup;
 			children = (
@@ -971,6 +999,7 @@
 		8180E6321A142199007FA1CF /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				817939021B5BFF110064B0CF /* Providers */,
 				8179387C1B5582520064B0CF /* Models */,
 				8142F79B1B534F180061AE90 /* Managers */,
 				813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */,
@@ -1021,6 +1050,7 @@
 				81592FA41B0FA5BD0092EA8F /* PrimaryToolbarView.swift */,
 				81D43AFC1B43A15000453BBF /* MessageBarView.swift */,
 				812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */,
+				817938FC1B59A41A0064B0CF /* SearchBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1035,6 +1065,7 @@
 				812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */,
 				81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */,
 				817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */,
+				817939061B5C29560064B0CF /* SearchBarController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1082,6 +1113,15 @@
 			);
 			name = PKHUD;
 			path = PKHUD/PKHUD;
+			sourceTree = "<group>";
+		};
+		81FFAF421B5C5A7500E2ABAC /* Venmo */ = {
+			isa = PBXGroup;
+			children = (
+				81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */,
+				81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */,
+			);
+			name = Venmo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1138,7 +1178,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
-				ORGANIZATIONNAME = "October Labs Inc.";
+				ORGANIZATIONNAME = "Surf Inc.";
 				TargetAttributes = {
 					8180E6071A142157007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
@@ -1382,6 +1422,7 @@
 				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
 				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
 				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
+				817939041B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				691569411B44CE55006E13BC /* SettingsTableViewCell.swift in Sources */,
 				69B8CBB81B38A59A00F0BB84 /* AddArtistModalCollectionViewFlowLayout.swift in Sources */,
 				3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */,
@@ -1398,6 +1439,7 @@
 				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				3BCAE39D1B39C44400DFF63F /* SignUpConfirmPasswordViewController.swift in Sources */,
 				8134B0F31B3C7A5C001B9C5E /* HUDProgressView.swift in Sources */,
+				81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
 				3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */,
 				81D43AFD1B43A15000453BBF /* MessageBarView.swift in Sources */,
 				699606291B422336004102BC /* ToolTipViewController.swift in Sources */,
@@ -1427,10 +1469,12 @@
 				3B0F155A1B4B5F1400FC73FC /* NavBarTitleView.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */,
+				817939071B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				3BAAB1E21B1E1B0D00EA1925 /* TermsAndPrivacyView.swift in Sources */,
 				81B19E9D1B30AD5A00D3575C /* Lyric.swift in Sources */,
 				3BCAE3A41B39C4AC00DFF63F /* SignUpConfirmPassword.swift in Sources */,
 				3B9AD7A21B2F4D4A00727E79 /* LoginView.swift in Sources */,
+				81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				69F2B5E71B2786F6004FCD19 /* TrendingHeaderView.swift in Sources */,
 				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
@@ -1439,6 +1483,7 @@
 				8111D5AD1B361EE500B14EEE /* BaseNavigationController.swift in Sources */,
 				81B19E951B30AD5500D3575C /* TrackService.swift in Sources */,
 				810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */,
+				817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				81592F9A1B0FA55A0092EA8F /* TabBarController.swift in Sources */,
 				81592F9D1B0FA5750092EA8F /* UserProfileViewController.swift in Sources */,
 				8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */,
@@ -1452,6 +1497,7 @@
 				696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */,
 				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
 				81B19E971B30AD5500D3575C /* Service.swift in Sources */,
+				817939001B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				3BCAE3AD1B39CA1700DFF63F /* SignUpAddArtistsLoaderView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				81B19E961B30AD5500D3575C /* KeyboardService.swift in Sources */,
@@ -1503,11 +1549,13 @@
 				812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */,
 				81B19E9B1B30AD5500D3575C /* Service.swift in Sources */,
 				81592F911B0FA4740092EA8F /* CategoriesPanelView.swift in Sources */,
+				817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
 				81840FB91B4331C1003531B1 /* UIDevice+modelName.swift in Sources */,
 				81592FA51B0FA5BD0092EA8F /* PrimaryToolbarView.swift in Sources */,
 				81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */,
+				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				8180E6441A142EA4007FA1CF /* ContentTableViewController.swift in Sources */,
 				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
 				81B19E981B30AD5500D3575C /* ArtistService.swift in Sources */,
@@ -1517,6 +1565,7 @@
 				817619FA1AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				81B19E991B30AD5500D3575C /* TrackService.swift in Sources */,
+				81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */,
@@ -1528,6 +1577,7 @@
 				699606261B42152E004102BC /* ToolTip.swift in Sources */,
 				817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
+				817939011B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81B19EA61B30AD5B00D3575C /* Keyboard.swift in Sources */,
@@ -1537,6 +1587,8 @@
 				81B19EA41B30AD5B00D3575C /* Track.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
+				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
+				817938FE1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				812E3EDB1B4A14EC00C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */,
 				81D43AFE1B43A15000453BBF /* MessageBarView.swift in Sources */,
 				81B19EA71B30AD5B00D3575C /* Owner.swift in Sources */,

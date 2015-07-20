@@ -6,8 +6,69 @@
 //  Copyright (c) 2015 October Labs Inc. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 
 class SearchBar: UIView {
+    var textInput: UITextField
+    var textInputLeftConstraint: NSLayoutConstraint?
+    var providerButton: ServiceProviderSearchBarButton? {
+        didSet {
+            if let button = providerButton {
+                addSubview(button)
+                if let textInputLeftConstraint = textInputLeftConstraint {
+                    removeConstraint(textInputLeftConstraint)
+                }
+                textInputLeftConstraint = textInput.al_left == button.al_right + 5
+                addConstraints([
+                    button.al_left == al_left + 5,
+                    button.al_top == al_top + 5,
+                    textInputLeftConstraint!
+                ])
+                UIView.animateWithDuration(0.3) {
+                    self.layoutIfNeeded()
+                }
+            } else {
+                if oldValue != nil {
+                    
+                }
+            }
+        }
+    }
 
+    override init(frame: CGRect) {
+        textInput = UITextField()
+        textInput.backgroundColor = UIColor.whiteColor()
+        textInput.setTranslatesAutoresizingMaskIntoConstraints(false)
+        textInput.placeholder = "Search"
+        textInput.leftViewMode = .Always
+        textInput.textColor = UIColor.blackColor()
+        textInput.font = UIFont(name: "OpenSans", size: 14)
+        textInput.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.blackColor()])
+        textInput.clearButtonMode = .WhileEditing
+        textInput.clearsOnBeginEditing = true
+        
+        let searchImageView = UIImageView(image: UIImage(named: "search"))
+        searchImageView.frame = CGRectInset(searchImageView.frame, -10, 0)
+        searchImageView.contentMode = .ScaleAspectFit
+        textInput.leftView = searchImageView
+        
+        super.init(frame: frame)
+
+        addSubview(textInput)
+        setupLayout()
+    }
+
+    func setupLayout() {
+        textInputLeftConstraint = textInput.al_left == al_left + 5
+        addConstraints([
+            textInput.al_top == al_top + 5,
+            textInputLeftConstraint!,
+            textInput.al_right == al_right - 5,
+            textInput.al_bottom == al_bottom - 5
+        ])
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

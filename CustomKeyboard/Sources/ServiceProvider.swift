@@ -7,3 +7,28 @@
 //
 
 import Foundation
+
+enum ServiceProviderType: String {
+    case Venmo = "venmo"
+    case Foursquare = "foursquare"
+}
+
+class ServiceProviderSupplementaryViewController: UIViewController {
+    
+}
+
+class ServiceProvider {
+    let type: ServiceProviderType
+    
+    init(providerType: ServiceProviderType) {
+        type = providerType
+    }
+    
+    func provideSupplementaryViewController() -> ServiceProviderSupplementaryViewController? {
+        return nil
+    }
+    
+    func provideSearchBarButton() -> ServiceProviderSearchBarButton {
+        return ServiceProviderSearchBarButton()
+    }
+}

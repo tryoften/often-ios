@@ -11,14 +11,16 @@ import Realm
 import Fabric
 import Crashlytics
 
-class KeyboardViewController: UIInputViewController,
-    TextProcessingManagerDelegate {
+class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
 
     var heightConstraint: NSLayoutConstraint!
     var viewModel: KeyboardViewModel
     var seperatorView: UIView!
     var textProcessor: TextProcessingManager!
     var standardKeyboardVC: StandardKeyboardViewController
+    var enableInputClicksWhenVisible: Bool {
+        return true
+    }
     static var debugKeyboard = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -28,19 +30,27 @@ class KeyboardViewController: UIInputViewController,
         seperatorView = UIView(frame: CGRectZero)
         seperatorView.backgroundColor = KeyboardTableSeperatorColor
         seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
-    
+
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy as! UITextDocumentProxy)
         standardKeyboardVC.textProcessor = textProcessor
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: "switchKeyboard", object: nil)
-        
+
         standardKeyboardVC.view.setTranslatesAutoresizingMaskIntoConstraints(false)
-        view.addSubview(standardKeyboardVC.view)
-        view.addSubview(seperatorView)
- 
-        view.backgroundColor = UIColor.whiteColor()
+        inputView.addSubview(standardKeyboardVC.view)
+        inputView.addSubview(seperatorView)
+        inputView.backgroundColor = UIColor.whiteColor()
+        
+        if KeyboardViewController.debugKeyboard {
+            var viewFrame = view.frame
+            viewFrame.size.height = KeyboardHeight
+            view.frame = viewFrame
+        } else {
+            inputView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        }
+        
         setupLayout()
     }
 
@@ -52,31 +62,33 @@ class KeyboardViewController: UIInputViewController,
         KeyboardViewController.debugKeyboard = debug
         self.init(nibName: nil, bundle: nil)
     }
-    
-    deinit {
-    }
 
     override func updateViewConstraints() {
+        if let heightConstraint = heightConstraint {
+            heightConstraint.constant = KeyboardHeight
+        }
         super.updateViewConstraints()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        heightConstraint = NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: KeyboardHeight)
-        heightConstraint.priority = 1000
-        
-        view.addConstraint(heightConstraint)
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        heightConstraint = inputView.al_height == KeyboardHeight
+        heightConstraint.priority = 1000
+        let screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
+        
+        inputView.addConstraints([
+            inputView.al_width == screenWidth,
+            heightConstraint
+        ])
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
     }
     
     func bootstrap() {
@@ -85,7 +97,7 @@ class KeyboardViewController: UIInputViewController,
     }
     
     func switchKeyboard() {
-        dismissKeyboard()
+        advanceToNextInputMode()
     }
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
@@ -95,17 +107,15 @@ class KeyboardViewController: UIInputViewController,
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        println("received memory warning")
     }
 
     func setupLayout() {
         if let standardKeyboardView = standardKeyboardVC.view {
             var constraints: [NSLayoutConstraint] = [
-                
-//                seperatorView.al_height == 1.0,
-//                seperatorView.al_width == view.al_width,
-//                seperatorView.al_top == view.al_top,
-//                seperatorView.al_left == view.al_left,
+                seperatorView.al_height == 1.0,
+                seperatorView.al_width == view.al_width,
+                seperatorView.al_top == view.al_top,
+                seperatorView.al_left == view.al_left,
                 
                 // Lyric Picker
                 standardKeyboardView.al_top == view.al_top,
@@ -132,11 +142,7 @@ class KeyboardViewController: UIInputViewController,
     override func selectionDidChange(textInput: UITextInput) {
         textProcessor.selectionDidChange(textInput)
     }
-    // MARK: TextProcessingManagerDelegate
-    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
-        if let lyric = textProcessingManager.currentlyInjectedLyric {
-        }
-    }
+
 }
 
 

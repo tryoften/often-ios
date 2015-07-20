@@ -14,7 +14,8 @@ class TextProcessingManager: NSObject, UITextInputDelegate, LyricPickerDelegate,
     var lastInsertedString: String?
     var currentlyInjectedLyric: Lyric?
     var lyricInserted = false
-    
+    var context: String?
+
     init(textDocumentProxy: UITextDocumentProxy) {
         proxy = textDocumentProxy
     }
@@ -24,29 +25,33 @@ class TextProcessingManager: NSObject, UITextInputDelegate, LyricPickerDelegate,
     }
     
     func textWillChange(textInput: UITextInput) {
-        if !proxy.hasText() {
-            return
-        }
-        
-        var context = proxy.documentContextBeforeInput
-        
-        println("context: \(context)")
-        
-        if let injectedLyric = currentlyInjectedLyric {
-            // Whether the current context is the currently selected lyric on not
-            lyricInserted = injectedLyric == context
-        }
     }
     
     func textDidChange(textInput: UITextInput) {
-        var analytics = SEGAnalytics.sharedAnalytics()
-        // When the lyric is flushed and sent to the proper context
-        if !proxy.hasText() {
-            if let lyric = currentlyInjectedLyric {
-                delegate?.textProcessingManagerDidChangeText(self)
+        if let text = proxy.documentContextBeforeInput {
+            let tokens = text.componentsSeparatedByString(" ")
+            
+            if tokens.count > 1 {
+                let firstToken = tokens[0]
+                
+                // check if first token is command call
+                if firstToken.hasPrefix("#") {
+                    let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
+                    
+                    if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
+                        println(serviceProviderType)
+                        for i in 0..<count(firstToken) {
+                            proxy.deleteBackward()
+                        }
+                        delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
+                    }
+                }
             }
         }
+        
+        delegate?.textProcessingManagerDidChangeText(self)
     }
+
     func selectionWillChange(textInput: UITextInput) {
         
     }
@@ -68,6 +73,20 @@ class TextProcessingManager: NSObject, UITextInputDelegate, LyricPickerDelegate,
         }
     }
     
+    func insertText(text: String) {
+        if var context = context {
+            context = context + text
+        } else {
+            context = text
+        }
+        proxy.insertText(text)
+        
+    }
+    
+    func deleteBackward() {
+        proxy.deleteBackward()
+    }
+    
     func shareStringForOption(option: ShareOption, url: NSURL) -> String {
         var shareString = ""
         
@@ -87,7 +106,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate, LyricPickerDelegate,
         
         return shareString + url.absoluteString!
     }
-    
     
     func insertLyric(lyric: Lyric, selectedOptions: [ShareOption: NSURL]?) {
         var text = ""
@@ -148,4 +166,5 @@ class TextProcessingManager: NSObject, UITextInputDelegate, LyricPickerDelegate,
 
 protocol TextProcessingManagerDelegate: class {
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager)
+    func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType)
 }
