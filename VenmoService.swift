@@ -11,13 +11,14 @@ import UIKit
 class VenmoService: NSObject {
     let manager: AFHTTPRequestOperationManager
     var currentUserID = ""
-    var userDefaults: NSUserDefaults
+    var userDefaults: NSUserDefaults!
+    var friends: [VenmoFriend]?
     
     override init() {
         manager = AFHTTPRequestOperationManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(objects: "text/html", "plain/html", "application/json") as Set<NSObject>
         
-        userDefaults = NSUserDefaults()
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)
         super.init()
     }
     
@@ -62,8 +63,9 @@ class VenmoService: NSObject {
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
                 println("Success: \n\(responseObject.description)")
                 
-                if let friendsData = responseObject["data"] as? [String : AnyObject] {
+                if let friendsData = responseObject["data"] as? [AnyObject] {
                     self.userDefaults.setObject(friendsData, forKey: "friends")
+                    self.userDefaults.synchronize()
                 }
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
                 println("Failure: \(error.localizedDescription)")
