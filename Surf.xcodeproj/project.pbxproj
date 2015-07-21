@@ -395,7 +395,7 @@
 		69BA820E1B2FABB800233789 /* TrendingSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingSectionHeaderView.swift; sourceTree = "<group>"; };
 		69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewController.swift; sourceTree = "<group>"; };
 		69D51DBC1B3CDE0B00B2714D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		69E9104B1B59AF1D008BFBD6 /* VenmoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenmoService.swift; sourceTree = "<group>"; };
+		69E9104B1B59AF1D008BFBD6 /* VenmoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoService.swift; path = Sources/VenmoService.swift; sourceTree = "<group>"; };
 		69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewCell.swift; sourceTree = "<group>"; };
 		69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSectionHeaderView.swift; sourceTree = "<group>"; };
 		69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderView.swift; sourceTree = "<group>"; };
@@ -757,7 +757,6 @@
 		81331E061A17E552003E4609 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				69E9104B1B59AF1D008BFBD6 /* VenmoService.swift */,
 				81C010701AE89631008F3296 /* ArtistService.swift */,
 				81E897D91A32A17F005C7CD9 /* TrackService.swift */,
 				81C010771AE8A47C008F3296 /* KeyboardService.swift */,
@@ -1135,6 +1134,7 @@
 		81FFAF421B5C5A7500E2ABAC /* Venmo */ = {
 			isa = PBXGroup;
 			children = (
+				69E9104B1B59AF1D008BFBD6 /* VenmoService.swift */,
 				81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */,
 				81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */,
 				81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */,

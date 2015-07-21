@@ -65,17 +65,8 @@ class VenmoContactsViewController: ServiceProviderSupplementaryViewController {
 }
 
 class VenmoContactsCollectionViewController: UICollectionViewController {
-    var userDefaults: NSUserDefaults
+    var userDefaults: NSUserDefaults = NSUserDefaults(suiteName: AppSuiteName)!
     var friendsData: [VenmoFriend] = []
-    
-    init() {
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         collectionView?.registerClass(VenmoContactsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
