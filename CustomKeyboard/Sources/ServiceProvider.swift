@@ -16,6 +16,7 @@ enum ServiceProviderType: String {
 class ServiceProvider {
     let type: ServiceProviderType
     let textProcessor: TextProcessingManager
+    var searchBarController: SearchBarController?
     
     init(providerType: ServiceProviderType, textProcessor: TextProcessingManager) {
         type = providerType

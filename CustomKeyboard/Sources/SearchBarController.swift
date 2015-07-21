@@ -19,6 +19,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
             switch(activeServiceProviderType!) {
             case .Venmo:
                 activeServiceProvider = VenmoServiceProvider(providerType: activeServiceProviderType!, textProcessor: textProcessor!)
+                activeServiceProvider?.searchBarController = self
                 button = activeServiceProvider!.provideSearchBarButton()
                 break
             case .Foursquare:
@@ -29,23 +30,29 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
             searchBarView.providerButton = button
         }
     }
-    var tags: [ServiceProviderSearchBarButton]?
 
-    private var activeServiceProvider: ServiceProvider? {
+    var activeServiceProvider: ServiceProvider? {
         didSet {
             if let supplementaryViewController = activeServiceProvider?.provideSupplementaryViewController() {
+                supplementaryViewController.searchBarController = self
                 activeSupplementaryViewController = supplementaryViewController
                 supplementaryViewContainer.addSubview(supplementaryViewController.view)
-                supplementaryViewHeightConstraint.constant = supplementaryViewController.supplementaryViewHeight
-                
-                searchBarView.textInput.placeholder = supplementaryViewController.searchBarPlaceholderText
-                NSNotificationCenter.defaultCenter().postNotificationName("resizeKeyboard", object: self, userInfo: [
+
+                NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
                     "height": KeyboardHeight + supplementaryViewController.supplementaryViewHeight
                 ])
             }
         }
     }
-    private var activeSupplementaryViewController: ServiceProviderSupplementaryViewController?
+    var activeSupplementaryViewController: ServiceProviderSupplementaryViewController? {
+        didSet {
+            if let supplementaryViewController = activeSupplementaryViewController {
+                supplementaryViewHeightConstraint.constant = supplementaryViewController.supplementaryViewHeight
+                
+                searchBarView.textInput.placeholder = supplementaryViewController.searchBarPlaceholderText
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +80,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
             supplementaryViewContainer.al_width == view.al_width,
             supplementaryViewHeightConstraint
         ])
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSearchBarButton:", name: VenmoAddSearchBarButtonEvent, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,7 +91,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         if let touch = touches.first as? UITouch {
             if touch.view == searchBarView {
-                searchBarView.textInput.resignFirstResponder()
+                searchBarView.textInput.becomeFirstResponder()
             }
         }
     }
@@ -92,6 +101,13 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         
         if let activeSupplementaryViewController = activeSupplementaryViewController {
             activeSupplementaryViewController.view.frame = supplementaryViewContainer.bounds
+        }
+    }
+    
+    func didReceiveSearchBarButton(notification: NSNotification) {
+        if let userInfo = notification.userInfo,
+            button = userInfo["button"] as? SearchBarButton {
+            searchBarView.addButton(button)
         }
     }
     

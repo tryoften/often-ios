@@ -16,29 +16,19 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
     var keysContainerView: UIView!
     var keyButtons: [KeyboardKeyButton]!
     var inputViewConstraints: [NSLayoutConstraint]?
+    var keysContainerViewConstraints: [NSLayoutConstraint]?
     var searchBar: SearchBarController!
     var lettercase: Lettercase!
     var characterMap: [ [KeyboardKey] ]! {
         didSet {
-            for row in rowViews {
-                row.removeFromSuperview()
-            }
-            rowViews = []
-            keyButtons = []
             setupKeyboardLayout()
-            view.layoutIfNeeded()
+            view.superview?.setNeedsUpdateConstraints()
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        lettercase = .Lowercase
-        rowViews = []
-        keyButtons = []
-        keysContainerView = UIView()
-        keysContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        keysContainerView.backgroundColor = UIColor(fromHexString: "#202020")
+        
         
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBar.textProcessor = textProcessor
@@ -47,32 +37,54 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         textProcessor.delegate = self
         
         view.addSubview(searchBar.view)
-        view.addSubview(keysContainerView)
         
         view.addConstraints([
             searchBar.view.al_top == view.al_top,
             searchBar.view.al_left == view.al_left,
             searchBar.view.al_right == view.al_right,
-            {
-                let constraint =  self.keysContainerView.al_top == self.searchBar.view.al_bottom
-                constraint.priority = 999
-                return constraint
-            }(),
-            {
-                let constraint = self.keysContainerView.al_height <= 215
-                constraint.priority = 800
-                return constraint
-            }(),
-            keysContainerView.al_bottom == view.al_bottom,
-            keysContainerView.al_left == view.al_left,
-            keysContainerView.al_right == view.al_right
         ])
-        
-        rowViews = []
+
         characterMap = EnglishKeyboardMap
     }
     
     func setupKeyboardLayout() {
+        
+        if keysContainerView != nil {
+            for row in rowViews {
+                row.removeFromSuperview()
+            }
+            rowViews = []
+            keyButtons = []
+            view.removeConstraints(keysContainerViewConstraints!)
+            keysContainerView.removeFromSuperview()
+        }
+        
+        lettercase = .Lowercase
+        rowViews = []
+        keyButtons = []
+        keysContainerView = UIView()
+        keysContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        keysContainerView.backgroundColor = UIColor(fromHexString: "#202020")
+        view.addSubview(keysContainerView)
+        
+        keysContainerViewConstraints = [
+            {
+                let constraint =  self.keysContainerView.al_top == self.searchBar.view.al_bottom
+                constraint.priority = 999
+                return constraint
+                }(),
+            {
+                let constraint = self.keysContainerView.al_height == 215
+                constraint.priority = 800
+                return constraint
+                }(),
+            keysContainerView.al_bottom == view.al_bottom,
+            keysContainerView.al_left == view.al_left,
+            keysContainerView.al_right == view.al_right
+        ]
+        
+        view.addConstraints(keysContainerViewConstraints!)
+        
         let screenBoundsWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
         keyWidth = screenBoundsWidth / CGFloat(characterMap[0].count)
         
