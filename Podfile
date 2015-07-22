@@ -20,6 +20,7 @@ target 'Surf' do
   pod 'Parse', :podspec => 'Parse.podspec.json'
   pod 'ParseFacebookUtils', '~> 1.7'
   pod 'UIViewController+KeyboardAnimation', '~> 1.2'
+  pod 'Venmo-iOS-SDK', '~>1.3'
 end
 
 target 'Keyboard' do

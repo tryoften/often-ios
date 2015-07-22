@@ -20,7 +20,7 @@ class SettingsTableViewCell: UITableViewCell {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = ClearColor
+        backgroundColor = SettingsTableViewCellBackgroundColor
         selectionStyle = UITableViewCellSelectionStyle.None
         
         addSubview(labelView)

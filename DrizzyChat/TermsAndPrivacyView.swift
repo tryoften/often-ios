@@ -51,7 +51,7 @@ class TermsAndPrivacyView: UIView {
         
         super.init(frame: frame)
         
-        backgroundColor = WhiteColor
+        backgroundColor = SignUpBackgroundColor
         addSubview(termAndServiceLabel)
         addSubview(andLabel)
         addSubview(termsofServiceButton)

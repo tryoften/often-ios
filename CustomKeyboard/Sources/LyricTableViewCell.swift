@@ -48,7 +48,7 @@ class LyricTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         lyricView = UIView(frame: CGRectZero)
-        lyricView.backgroundColor = VeryLightGray!
+        lyricView.backgroundColor = LyricTableViewCellTextViewBackgroundColor!
         lyricView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         lyricLabel = UILabel(frame: CGRectZero)
@@ -88,9 +88,9 @@ class LyricTableViewCell: UITableViewCell {
 
         UIView.animateWithDuration(0.3, animations: {
             if selected {
-                self.lyricView.backgroundColor = WhiteColor
+                self.lyricView.backgroundColor = LyricTableViewCellHighlightedBackgroundColor
             } else {
-                self.lyricView.backgroundColor = VeryLightGray
+                self.lyricView.backgroundColor = LyricTableViewCellNormalBackgroundColor
             }
         })
 

@@ -38,14 +38,14 @@ class SignUpEmailView: UIView {
         
         spacer = UIView()
         spacer.setTranslatesAutoresizingMaskIntoConstraints(false)
-        spacer.backgroundColor = SystemBlackColor
+        spacer.backgroundColor = SignUpSpacerColor
         
         termsAndPrivacyView = TermsAndPrivacyView()
         termsAndPrivacyView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         super.init(frame: frame)
         
-        backgroundColor = WhiteColor
+        backgroundColor = SignUpBackgroundColor
         addSubview(titleLabel)
         addSubview(emailTxtField)
         addSubview(spacer)

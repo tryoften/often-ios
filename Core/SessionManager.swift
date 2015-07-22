@@ -65,8 +65,6 @@ class SessionManager: NSObject {
                 crashlytics.setUserEmail(user.email)
             }
         }
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeDatabasetoDisk", name: "database:persist", object: nil)
     }
     
     func fetchKeyboards() {
@@ -104,15 +102,6 @@ class SessionManager: NSObject {
     
     func isUserLoggedIn() -> Bool {
         return userDefaults.objectForKey("userId") != nil
-    }
-    
-    func writeDatabasetoDisk() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
-            let path = directory.path!.stringByAppendingPathComponent("keyboard.realm")
-            let realm = Realm()
-            realm.writeCopyToPath(path, encryptionKey: nil)
-        }
     }
     
     func signUpUser(data: [String: String], completion: (NSError?) -> ()) {

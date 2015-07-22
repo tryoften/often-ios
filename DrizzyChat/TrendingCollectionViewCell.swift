@@ -62,11 +62,11 @@ class TrendingCollectionViewCell: UICollectionViewCell {
         
         lineBreakView = UIView()
         lineBreakView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lineBreakView.backgroundColor = LightGrey
+        lineBreakView.backgroundColor = TrendingCollectionViewCellLineBreakColor
         
         super.init(frame: frame)
         
-        backgroundColor = WhiteColor
+        backgroundColor = TrendingCollectionViewCellBackgroundColor
 
         addSubview(rankLabel)
         addSubview(trendIndicator)

@@ -13,12 +13,17 @@ import Crashlytics
 
 private var TestKeyboard: Bool = true
 
+let appClientID = "2784"
+let appSecret = "M9KM33YyReByzfn9dV9rnLK6pLTepB46"
+var accessToken = ""
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
     var sessionManager: SessionManager!
-
+    var venmoService: VenmoService!
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         if !TestKeyboard {
@@ -44,6 +49,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBAppEvents.activateApp()
         Flurry.startSession(FlurryClientKey)
         Fabric.with([Crashlytics()])
+        
+        venmoService = VenmoService()
+    
+        Venmo.startWithAppId(appClientID, secret: appSecret, name: "Smurf")
+        
+        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
+            if success {
+                println("Permissions Success!")
+            } else {
+                println("Permissions Fail")
+            }
+        }
+        
+        if Venmo.isVenmoAppInstalled() {
+            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
+        } else {
+            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
+        }
     
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
@@ -100,7 +123,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-        return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session())
+        
+        if FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session()) {
+            return true
+        }
+        
+        if Venmo.sharedInstance().handleOpenURL(url) {
+            var urlString: String = url.absoluteString!
+            var index = 0
+            
+            for var i = 0; i < count(urlString); i++ {
+                if urlString[i] == "=" {
+                    index = i
+                }
+            }
+            
+            accessToken = urlString.substringFromIndex(index + 1)
+        
+            var session = Venmo.sharedInstance().session
+            session.accessToken
+            
+            println(session.accessToken)
+            
+            venmoService.getCurrentUserInformation(session.accessToken)
+            // venmoService.getCurrentUserListOfFriend(<#accessToken: String#>, id: <#String#>)
+            
+            return true
+        }
+        
+        return false
     }
 
     func applicationWillResignActive(application: UIApplication) {
@@ -135,3 +186,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension String {
+    subscript(index:Int) -> Character{
+        return self[advance(self.startIndex, index)]
+    }
+    
+    func substringFromIndex(index:Int) -> String {
+        return self.substringFromIndex(advance(self.startIndex, index))
+    }
+}
