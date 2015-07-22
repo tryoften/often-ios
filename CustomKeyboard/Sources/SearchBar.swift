@@ -14,18 +14,7 @@ class SearchBar: UIView {
     var providerButton: ServiceProviderSearchBarButton? {
         didSet {
             if let button = providerButton {
-                insertSubview(button, belowSubview: textInput)
-                addConstraints([
-                    button.al_left == al_left + 5,
-                    button.al_top == al_top + 5,
-                    button.al_bottom == al_bottom - 5,
-                ])
-                textInput.leftView = nil
-                self.layoutIfNeeded()
-                self.textInputLeftConstraint?.constant = CGRectGetWidth(button.frame) + 10
-                UIView.animateWithDuration(0.2) {
-                    self.layoutIfNeeded()
-                }
+                addButton(button)
             } else {
                 if oldValue != nil {
                     
@@ -33,6 +22,8 @@ class SearchBar: UIView {
             }
         }
     }
+    
+    private var buttons: [SearchBarButton]
 
     override init(frame: CGRect) {
         textInput = UITextField()
@@ -46,6 +37,8 @@ class SearchBar: UIView {
         textInput.clearButtonMode = .WhileEditing
         textInput.clearsOnBeginEditing = true
         
+        buttons = []
+        
         let searchImageView = UIImageView(image: UIImage(named: "search"))
         searchImageView.frame = CGRectInset(searchImageView.frame, -10, 0)
         searchImageView.contentMode = .ScaleAspectFit
@@ -55,6 +48,34 @@ class SearchBar: UIView {
 
         addSubview(textInput)
         setupLayout()
+    }
+    
+    func addButton(button: SearchBarButton) {
+        var constraints: [NSLayoutConstraint] = []
+        
+        if let lastButton = buttons.last {
+            constraints.append(button.al_left == lastButton.al_right + 10)
+            constraints.append(button.al_top == lastButton.al_top)
+        } else {
+            constraints.append(button.al_left == al_left + 10)
+            constraints.append(button.al_top == al_top + 5)
+        }
+        
+        insertSubview(button, belowSubview: textInput)
+        addConstraints(constraints + [
+            button.al_bottom == al_bottom - 5
+        ])
+        textInput.leftView = nil
+        self.layoutIfNeeded()
+        self.textInputLeftConstraint?.constant = CGRectGetMaxX(button.frame) + 10
+        UIView.animateWithDuration(0.2) {
+            self.layoutIfNeeded()
+        }
+        buttons.append(button)
+    }
+    
+    func removeButton() {
+        
     }
 
     func setupLayout() {

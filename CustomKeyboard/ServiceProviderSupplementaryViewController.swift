@@ -9,6 +9,8 @@
 import UIKit
 
 class ServiceProviderSupplementaryViewController: UIViewController {
+    var searchBarController: SearchBarController?
+
     var supplementaryViewHeight: CGFloat {
         return 0.0
     }

@@ -11,6 +11,9 @@ import Realm
 import Fabric
 import Crashlytics
 
+let ResizeKeyboardEvent = "resizeKeyboard"
+let SwitchKeyboardEvent = "switchKeyboard"
+
 class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
 
     var heightConstraint: NSLayoutConstraint!
@@ -21,6 +24,7 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
     var enableInputClicksWhenVisible: Bool {
         return true
     }
+    var kludge: UIView?
     static var debugKeyboard = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -33,11 +37,12 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
 
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
+        addChildViewController(standardKeyboardVC)
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy as! UITextDocumentProxy)
         standardKeyboardVC.textProcessor = textProcessor
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: "switchKeyboard", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resizeKeyboard:", name: "resizeKeyboard", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
 
         standardKeyboardVC.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         inputView.addSubview(standardKeyboardVC.view)
@@ -50,7 +55,7 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
             viewFrame.size.height = KeyboardHeight
             view.frame = viewFrame
         } else {
-            view.setTranslatesAutoresizingMaskIntoConstraints(false)
+//            view.setTranslatesAutoresizingMaskIntoConstraints(false)
         }
 
         setupLayout()
@@ -83,12 +88,17 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
         heightConstraint.priority = 1000
         
         inputView.addConstraints([
-            heightConstraint,
+            heightConstraint
         ])
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        setupKludge()
     }
     
     func bootstrap() {
@@ -151,6 +161,24 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
     
     override func selectionDidChange(textInput: UITextInput) {
         textProcessor.selectionDidChange(textInput)
+    }
+    
+    // without this here kludge, the height constraint for the keyboard does not work for some reason
+    func setupKludge() {
+        if self.kludge == nil {
+            var kludge = UIView()
+            self.view.addSubview(kludge)
+            kludge.setTranslatesAutoresizingMaskIntoConstraints(false)
+            kludge.hidden = true
+            
+            let a = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
+            let b = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
+            let c = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
+            let d = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
+            self.view.addConstraints([a, b, c, d])
+            
+            self.kludge = kludge
+        }
     }
 
 }
