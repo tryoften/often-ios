@@ -246,6 +246,8 @@
 		81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */; };
 		81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
+		81C017CB1B5FF8B800486F37 /* KeyboardPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C017CA1B5FF8B800486F37 /* KeyboardPageView.swift */; };
+		81C017CC1B5FF8B800486F37 /* KeyboardPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C017CA1B5FF8B800486F37 /* KeyboardPageView.swift */; };
 		81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		81D43AFD1B43A15000453BBF /* MessageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D43AFC1B43A15000453BBF /* MessageBarView.swift */; };
@@ -512,6 +514,7 @@
 		81C010701AE89631008F3296 /* ArtistService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistService.swift; path = Core/ArtistService.swift; sourceTree = "<group>"; };
 		81C010751AE89956008F3296 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Core/Artist.swift; sourceTree = "<group>"; };
 		81C010771AE8A47C008F3296 /* KeyboardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardService.swift; path = Core/KeyboardService.swift; sourceTree = "<group>"; };
+		81C017CA1B5FF8B800486F37 /* KeyboardPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardPageView.swift; path = Sources/KeyboardPageView.swift; sourceTree = "<group>"; };
 		81D43AFC1B43A15000453BBF /* MessageBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageBarView.swift; sourceTree = "<group>"; };
 		81D43B331B46E49800453BBF /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		81D43B341B46E49800453BBF /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
@@ -1085,6 +1088,7 @@
 				81D43AFC1B43A15000453BBF /* MessageBarView.swift */,
 				812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */,
 				817938FC1B59A41A0064B0CF /* SearchBar.swift */,
+				81C017CA1B5FF8B800486F37 /* KeyboardPageView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1564,6 +1568,7 @@
 				6915694E1B45D469006E13BC /* SettingsWebViewController.swift in Sources */,
 				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
+				81C017CB1B5FF8B800486F37 /* KeyboardPageView.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				3B9AD7AA1B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift in Sources */,
 				81EBFC8E1B40FF75005C6E76 /* AddArtistButton.swift in Sources */,
@@ -1630,6 +1635,7 @@
 				81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */,
 				699606261B42152E004102BC /* ToolTip.swift in Sources */,
 				817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
+				81C017CC1B5FF8B800486F37 /* KeyboardPageView.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				817939011B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,

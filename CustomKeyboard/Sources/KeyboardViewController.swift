@@ -16,7 +16,41 @@ let SwitchKeyboardEvent = "switchKeyboard"
 
 class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
 
-    var heightConstraint: NSLayoutConstraint!
+    var heightConstraint: NSLayoutConstraint?
+    var keyboardHeight: CGFloat {
+        get {
+            if let heightConstraint = heightConstraint {
+                return heightConstraint.constant
+            }
+            return 0.0
+        }
+        set(value) {
+            if heightConstraint == nil {
+                if var yConstraints = inputView.constraintsAffectingLayoutForAxis(.Vertical) as? [NSLayoutConstraint] {
+                    println(yConstraints)
+                    for constraint in yConstraints {
+                        if constraint.description.rangeOfString("UIView-Encapsulated-Layout-Height") != nil {
+                            inputView.removeConstraint(constraint)
+                        }
+                    }
+                }
+                
+                self.heightConstraint = inputView.al_height == value
+                self.heightConstraint!.priority = 1000
+                
+                inputView.addConstraints([
+                    self.heightConstraint!
+                ])
+                self.view.layoutIfNeeded()
+            } else {
+                self.heightConstraint!.constant = value
+                self.view.layoutIfNeeded()
+            }
+            UIView.animateWithDuration(0.3) {
+//                self.standardKeyboardVC.view.frame = self.view.bounds
+            }
+        }
+    }
     var viewModel: KeyboardViewModel
     var seperatorView: UIView!
     var textProcessor: TextProcessingManager!
@@ -54,11 +88,14 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
             viewFrame.origin.y = 0
             viewFrame.size.height = KeyboardHeight
             view.frame = viewFrame
-        } else {
-//            view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        }
+        else {
+            view.setTranslatesAutoresizingMaskIntoConstraints(false)
+            view.autoresizingMask = .FlexibleWidth | .FlexibleWidth
         }
 
         setupLayout()
+        setupKludge()
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -83,22 +120,19 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        heightConstraint = inputView.al_height == KeyboardHeight
-        heightConstraint.priority = 1000
-        
-        inputView.addConstraints([
-            heightConstraint
-        ])
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        keyboardHeight = KeyboardHeight
     }
     
     override func viewWillLayoutSubviews() {
+        if view.bounds == CGRectZero {
+            return
+        }
         super.viewWillLayoutSubviews()
-        setupKludge()
+//        keyboardHeight = KeyboardHeight
     }
     
     func bootstrap() {
@@ -113,16 +147,18 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
     func resizeKeyboard(notification: NSNotification) {
         if let userInfo = notification.userInfo,
             height = userInfo["height"] as? CGFloat {
-            heightConstraint.constant = height
-//            UIView.animateWithDuration(0.3) {
+            keyboardHeight = height
+            UIView.animateWithDuration(0.3) {
                 self.view.layoutIfNeeded()
-//            }
+            }
         }
     }
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
     }
+
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        keyboardHeight = KeyboardHeight
     }
     
     override func didReceiveMemoryWarning() {
@@ -143,6 +179,10 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
                 standardKeyboardView.al_right == view.al_right,
                 standardKeyboardView.al_bottom == view.al_bottom
             ]
+            
+            for constraint in constraints {
+                constraint.priority = 1000
+            }
             view.addConstraints(constraints)
         }
     }

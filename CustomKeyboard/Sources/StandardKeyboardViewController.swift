@@ -38,6 +38,9 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         
         view.addSubview(searchBar.view)
         
+        keysContainerView = UIView()
+        view.addSubview(keysContainerView)
+        
         view.addConstraints([
             searchBar.view.al_top == view.al_top,
             searchBar.view.al_left == view.al_left,
@@ -49,23 +52,19 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
     
     func setupKeyboardLayout() {
         
-        if keysContainerView != nil {
+        if rowViews != nil {
             for row in rowViews {
                 row.removeFromSuperview()
             }
-            rowViews = []
-            keyButtons = []
-            view.removeConstraints(keysContainerViewConstraints!)
-            keysContainerView.removeFromSuperview()
+//            rowViews = []
+//            keyButtons = []
         }
         
         lettercase = .Lowercase
         rowViews = []
         keyButtons = []
-        keysContainerView = UIView()
         keysContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
         keysContainerView.backgroundColor = UIColor(fromHexString: "#202020")
-        view.addSubview(keysContainerView)
         
         keysContainerViewConstraints = [
             {
@@ -82,7 +81,7 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
             keysContainerView.al_left == view.al_left,
             keysContainerView.al_right == view.al_right
         ]
-        
+
         view.addConstraints(keysContainerViewConstraints!)
         
         let screenBoundsWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
@@ -375,4 +374,9 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         
         inputView.addConstraints(inputViewConstraints!)
     }
+}
+
+struct KeyboardPage {
+    var name: String
+    var characterMap: [ [KeyboardKey] ]
 }
