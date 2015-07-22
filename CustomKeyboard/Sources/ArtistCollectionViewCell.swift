@@ -25,7 +25,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
                     self.circleLayer.strokeColor = ArtistCollectionViewCellCircleLayerColor.CGColor
                 } else {
                     self.circleLayer.lineWidth = 0.0
-                    self.circleLayer.strokeColor = ClearColor.CGColor
+                    self.circleLayer.strokeColor = AddArtistModalCollectionModalBackgroundColor.CGColor
                 }
             })
 
@@ -38,13 +38,13 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         placeholderImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         imageView = UIImageView()
-        imageView.backgroundColor = SystemBlackColor
+        imageView.backgroundColor = ArtistCollectionViewImageViewBackgroundColor
         imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         imageView.contentMode = .ScaleAspectFill
         
         titleLabel = UILabel()
         titleLabel.font = ArtistCollectionViewCellTitleFont
-        titleLabel.textColor = WhiteColor
+        titleLabel.textColor = ArtistCollectionViewCellTitleTextColor
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         titleLabel.textAlignment = .Center
         
@@ -76,13 +76,13 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         var circularPath = UIBezierPath(roundedRect: CGRectMake(0, 0, width, width), cornerRadius: CGFloat(width / 2))
         circleLayer.path = circularPath.CGPath
         circleLayer.lineWidth = 0
-        circleLayer.strokeColor = ClearColor.CGColor
-        circleLayer.fillColor = ClearColor.CGColor
+        circleLayer.strokeColor = ArtistCollectionViewCellCircleLayerColorStrokeAndFillColor.CGColor
+        circleLayer.fillColor = ArtistCollectionViewCellCircleLayerColorStrokeAndFillColor.CGColor
         circleView.layer.addSublayer(circleLayer)
 
         super.init(frame: frame)
         
-        backgroundColor = BlackColor
+        backgroundColor = ArtistCollectionViewCellBackgroundColor
         addSubview(placeholderImageView)
         addSubview(imageView)
         addSubview(titleLabel)

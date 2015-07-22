@@ -28,11 +28,11 @@ class BrowseSectionHeaderView: UICollectionReusableView {
         
         lineBreak = UIView()
         lineBreak?.setTranslatesAutoresizingMaskIntoConstraints(false)
-        lineBreak?.backgroundColor = LightGrey
+        lineBreak?.backgroundColor = BrowseSectionHeaderViewLineBreakColor
         
         super.init(frame: frame)
         
-        backgroundColor = WhiteColor
+        backgroundColor = BrowseSectionHeaderViewBackgroundColor
         
         addSubview(songsLabel)
         addSubview(lineBreak!)

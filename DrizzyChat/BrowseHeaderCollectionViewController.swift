@@ -64,7 +64,7 @@ class BrowseHeaderCollectionViewController: UICollectionViewController, UICollec
             collectionView.addGestureRecognizer(scrollView.panGestureRecognizer)
             collectionView.panGestureRecognizer.enabled = false
             
-            collectionView.backgroundColor = ClearColor
+            collectionView.backgroundColor = BrowseHeaderCollectionViewControllerBackground
             collectionView.showsHorizontalScrollIndicator = false
             
             collectionView.registerClass(BrowseHeaderCollectionViewCell.self, forCellWithReuseIdentifier: "browseCell")

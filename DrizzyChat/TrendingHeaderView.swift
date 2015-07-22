@@ -69,28 +69,28 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         
         tabView = UIView()
         tabView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        tabView.backgroundColor = SystemBlackColor
+        tabView.backgroundColor = TrendingHeaderViewTabViewBackgroundColor
         
         topLabel = UILabel()
         topLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         topLabel.textAlignment = .Center
         topLabel.font = TrendingHeaderViewTopLabelFont
         topLabel.text = "TRENDING"
-        topLabel.textColor = WhiteColor
+        topLabel.textColor = TrendingHeaderViewTopLabelBackgroundColor
         topLabel.alpha = 0
         
         nameLabel = TOMSMorphingLabel()
         nameLabel.textAlignment = .Center
         nameLabel.font = TrendingHeaderViewNameLabelTextFont
-        nameLabel.textColor = WhiteColor
+        nameLabel.textColor = TrendingHeaderViewNameLabelTextColor
         nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         featuredButton = UIButton(frame: CGRectMake(0.0, 0.0, 85.0, 10.0))
         featuredButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         featuredButton.setTitle("FEATURED", forState: UIControlState.Normal)
         featuredButton.titleLabel?.font = TrendingHeaderViewFeaturedButtonTextFont
-        featuredButton.backgroundColor = WhiteColor
-        featuredButton.setTitleColor(SystemBlackColor, forState: .Normal)
+        featuredButton.backgroundColor = TrendingHeaderViewFeaturedButtonBackgroundColor
+        featuredButton.setTitleColor(TrendingHeaderViewFeaturedButtonFontColor, forState: .Normal)
         
         artistsButton = UIButton()
         artistsButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -121,7 +121,7 @@ class TrendingHeaderView: UICollectionReusableView, UIScrollViewDelegate, Trendi
         
         scrollView.delegate = self
         
-        backgroundColor = SystemBlackColor
+        backgroundColor = TrendingHeaderViewBackgroundColor
         clipsToBounds = true
         
         addSubview(scrollView)

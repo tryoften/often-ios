@@ -45,7 +45,7 @@ class SignUpAddArtistsTableViewCell: UITableViewCell {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        backgroundColor = WhiteColor
+        backgroundColor = SignUpAddArtistsLoaderViewBackgroundColor
 
         contentView.addSubview(artistImageView)
         contentView.addSubview(artistNameLabel)

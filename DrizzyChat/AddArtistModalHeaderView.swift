@@ -37,7 +37,7 @@ class AddArtistModalHeaderView: UICollectionReusableView, AddArtistModalHeaderDe
         artistNameLabel = UILabel()
         artistNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         artistNameLabel.font = AddArtistModalCollectionNameLabelFont
-        artistNameLabel.textColor = LightGrey
+        artistNameLabel.textColor = AddArtistModalCollectionNameLabelColor
         artistNameLabel.textAlignment = .Center
         artistNameLabel.text = ""
         
@@ -49,14 +49,14 @@ class AddArtistModalHeaderView: UICollectionReusableView, AddArtistModalHeaderDe
         topLabel.textAlignment = .Center
         topLabel.font = AddArtistModalCollectionTopLabelFont
         topLabel.text = "ADD ARTIST"
-        topLabel.textColor = WhiteColor
+        topLabel.textColor = AddArtistModalCollectionBackgroundColor
         topLabel.alpha = 0
         
         super.init(frame: frame)
         
         addArtistButton.addTarget(self, action: "addArtistTapped:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        backgroundColor = VeryLightGray
+        backgroundColor = AddArtistModalHeaderViewBackgroundColor
         
         addSubview(coverPhoto)
         addSubview(coverPhotoTintView)

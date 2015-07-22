@@ -14,7 +14,7 @@ class NavBarTitleView: UIView {
     override init(frame: CGRect) {
         navBarTitle = UILabel()
         navBarTitle.font = WalkthroughNavBarTitleFont
-        navBarTitle.textColor = WhiteColor
+        navBarTitle.textColor = WalkthroughNavBarTitleFontColor
         navBarTitle.textAlignment = .Center
         navBarTitle.setTranslatesAutoresizingMaskIntoConstraints(false)
         

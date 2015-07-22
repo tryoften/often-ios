@@ -9,10 +9,23 @@
 import UIKit
 
 class VenmoContactsCollectionViewController: UICollectionViewController {
+    var userDefaults: NSUserDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+    var friendsData: [VenmoFriend] = []
+    
     override func viewDidLoad() {
         collectionView?.registerClass(VenmoContactsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.showsHorizontalScrollIndicator = false
+        
+        if let friendsData = userDefaults.objectForKey("friends") as? [[NSObject : AnyObject]] {
+            for var i = 0; i < friendsData.count; i++ {
+                var friend = VenmoFriend()
+                friend.setValuesForKeysWithDictionary(friendsData[i])
+                self.friendsData.append(friend)
+            }
+        } else {
+            println("Keyboard Friends Fail")
+        }
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -20,14 +33,15 @@ class VenmoContactsCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return friendsData.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! VenmoContactsCollectionViewCell
         
-        cell.contactName.text = "Luc Succes"
-        cell.contactNumber.text = "(555) 555-5555"
+        cell.contactName.text = friendsData[indexPath.row].name
+        cell.contactNumber.text = friendsData[indexPath.row].username
+        cell.contactImageView.setImageWithURL(NSURL(string: friendsData[indexPath.row].profileURL))
         
         return cell
     }
