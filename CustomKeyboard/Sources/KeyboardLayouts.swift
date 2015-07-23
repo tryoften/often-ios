@@ -8,20 +8,34 @@
 
 import Foundation
 
-let EnglishKeyboardMap: [ [KeyboardKey] ] = [
+// CharacterMaps
+private let EnglishKeyboardMap: [KeyboardRow] = [
     [.letter(.Q), .letter(.W), .letter(.E), .letter(.R), .letter(.T), .letter(.Y), .letter(.U), .letter(.I), .letter(.O), .letter(.P)],
     [.letter(.A), .letter(.S), .letter(.D), .letter(.F), .letter(.G), .letter(.H), .letter(.J), .letter(.K), .letter(.L)],
     [.modifier(.CapsLock), .letter(.Z), .letter(.X), .letter(.C), .letter(.V), .letter(.B), .letter(.N), .letter(.M), .modifier(.Backspace)],
     [.modifier(.SpecialKeypad), .modifier(.GoToBrowse), .modifier(.SwitchKeyboard), .modifier(.Space), .special(.Hashtag), .modifier(.Enter)]
 ]
 
-let SpecialCharacterKeyboardMap: [ [KeyboardKey] ] = [
+private let SpecialCharacterKeyboardMap: [KeyboardRow] = [
     [.digit(.One), .digit(.Two), .digit(.Three), .digit(.Four), .digit(.Five), .digit(.Six), .digit(.Seven), .digit(.Eight), .digit(.Nine), .digit(.Zero)],
     [.special(.Hyphen), .special(.Slash), .special(.Colon), .special(.Semicolon), .special(.OpenParenthesis), .special(.CloseParenthesis), .special(.DollarSign), .special(.Ampersand), .special(.At), .special(.Quote)],
     [.modifier(.NextSpecialKeypad), .special(.Period), .special(.Comma), .special(.QuestionMark), .special(.ExclamationMark), .special(.SingleQuote), .modifier(.Backspace)],
     [.modifier(.AlphabeticKeypad), .modifier(.GoToBrowse), .modifier(.SwitchKeyboard), .modifier(.Space), .special(.Hashtag), .modifier(.Enter)]
 ]
 
-let NextSpecialCharacterKeyboardMap: [ [KeyboardKey] ] = [
+private let NextSpecialCharacterKeyboardMap: [KeyboardRow] = [
 
 ]
+
+enum Language: String {
+    case English = "en_US"
+}
+
+let KeyboardLayouts: [Language: KeyboardLayout] = [
+    .English: KeyboardLayout(locale: Language.English.rawValue, pages: [
+        KeyboardPage(id: .Letter, rows: EnglishKeyboardMap),
+        KeyboardPage(id: .Special, rows: SpecialCharacterKeyboardMap)
+    ])
+]
+
+var DefaultKeyboardLayout = KeyboardLayouts[.English]!

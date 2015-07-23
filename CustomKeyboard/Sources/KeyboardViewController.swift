@@ -54,7 +54,7 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
     var viewModel: KeyboardViewModel
     var seperatorView: UIView!
     var textProcessor: TextProcessingManager!
-    var standardKeyboardVC: StandardKeyboardViewController
+    var standardKeyboardVC: StandardKeyboardViewController!
     var enableInputClicksWhenVisible: Bool {
         return true
     }
@@ -63,7 +63,6 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         viewModel = KeyboardViewModel.sharedInstance
-        standardKeyboardVC = StandardKeyboardViewController()
         
         seperatorView = UIView(frame: CGRectZero)
         seperatorView.backgroundColor = KeyboardTableSeperatorColor
@@ -71,9 +70,10 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
 
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        addChildViewController(standardKeyboardVC)
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy as! UITextDocumentProxy)
-        standardKeyboardVC.textProcessor = textProcessor
+        standardKeyboardVC = StandardKeyboardViewController(textProcessor: textProcessor)
+        
+        addChildViewController(standardKeyboardVC)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
