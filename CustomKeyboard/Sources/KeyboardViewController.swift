@@ -51,7 +51,6 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
             }
         }
     }
-    var viewModel: KeyboardViewModel
     var seperatorView: UIView!
     var textProcessor: TextProcessingManager!
     var standardKeyboardVC: StandardKeyboardViewController!
@@ -62,7 +61,6 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
     static var debugKeyboard = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        viewModel = KeyboardViewModel.sharedInstance
         
         seperatorView = UIView(frame: CGRectZero)
         seperatorView.backgroundColor = KeyboardTableSeperatorColor
