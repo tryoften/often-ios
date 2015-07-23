@@ -68,6 +68,9 @@
 		690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */; };
 		691569411B44CE55006E13BC /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691569401B44CE55006E13BC /* SettingsTableViewCell.swift */; };
 		6915694E1B45D469006E13BC /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6915694D1B45D469006E13BC /* SettingsWebViewController.swift */; };
+		6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */; };
+		6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */; };
+		6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */; };
 		6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */; };
 		6929EB6E1B3750B600D1BD1C /* AddArtistModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */; };
 		696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */; };
@@ -388,6 +391,9 @@
 		690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewController.swift; sourceTree = "<group>"; };
 		691569401B44CE55006E13BC /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		6915694D1B45D469006E13BC /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
+		6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewCell.swift; path = Sources/FoursquareLocationCollectionViewCell.swift; sourceTree = "<group>"; };
+		6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewController.swift; path = Sources/FoursquareLocationCollectionViewController.swift; sourceTree = "<group>"; };
+		6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationSectionHeader.swift; path = Sources/FoursquareLocationSectionHeader.swift; sourceTree = "<group>"; };
 		6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalCollectionViewController.swift; sourceTree = "<group>"; };
 		6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalHeaderView.swift; sourceTree = "<group>"; };
 		696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -667,6 +673,16 @@
 				3BCAE3B61B3A3DB600DFF63F /* SignUpPostAddArtistLoaderViewController.swift */,
 			);
 			name = "Walkthrough View Controllers";
+			sourceTree = "<group>";
+		};
+		6921A0361B615B6B00B75CEC /* Foursquare */ = {
+			isa = PBXGroup;
+			children = (
+				6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */,
+				6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */,
+				6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */,
+			);
+			name = Foursquare;
 			sourceTree = "<group>";
 		};
 		6929EB711B37641100D1BD1C /* Add Artist Views */ = {
@@ -959,6 +975,7 @@
 			isa = PBXGroup;
 			children = (
 				810C4AF51B5D7EB6005AABEA /* Base */,
+				6921A0361B615B6B00B75CEC /* Foursquare */,
 				81FFAF421B5C5A7500E2ABAC /* Venmo */,
 			);
 			name = Providers;
@@ -1511,6 +1528,7 @@
 				8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				3BDB0F3C1B3B9E7800E89066 /* SignUpNameWalkthroughViewController.swift in Sources */,
 				817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
+				6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */,
 				69BA820A1B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift in Sources */,
 				3BCAE3B71B3A3DB600DFF63F /* SignUpPostAddArtistLoaderViewController.swift in Sources */,
 				3B82E6D01B1F722000ABA660 /* SignUpWalkthroughViewModel.swift in Sources */,
@@ -1562,6 +1580,7 @@
 				3B9AD79D1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift in Sources */,
 				69F2B5EB1B278826004FCD19 /* TrendingCollectionViewCell.swift in Sources */,
 				6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */,
+				6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */,
 				697D00531B3090DB00402A9F /* TrendingCollectionViewController.swift in Sources */,
 				817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				81B19E9E1B30AD5A00D3575C /* Track.swift in Sources */,
@@ -1583,6 +1602,7 @@
 				8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */,
 				3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */,
 				69A31A101B3DC7AF00A402A1 /* TrendingService.swift in Sources */,
+				6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */,
 				817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
 				3BFBB8BA1B446FBE008706C2 /* KeyboardInstallationWalkthrough.swift in Sources */,
 				3B0F15581B4B220400FC73FC /* ErrorMessageView.swift in Sources */,
