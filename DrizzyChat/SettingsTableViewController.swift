@@ -135,7 +135,7 @@ class SettingsTableViewController: UIViewController, UITableViewDataSource, UITa
         
         var emailTitle = "Feedback"
         var messageBody = ""
-        var toRecipents = ["feedback@drizzyapp.com", "regy@drizzyapp.com"]
+        var toRecipents = ["feedback@drizzyapp.com"]
         var mc: MFMailComposeViewController = MFMailComposeViewController()
         mc.mailComposeDelegate = self
         mc.setSubject(emailTitle)
