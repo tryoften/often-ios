@@ -125,6 +125,8 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
             layoutView.setActivePageViewWithIdentifier(.Letter)
         case .modifier(.SpecialKeypad):
             layoutView.setActivePageViewWithIdentifier(.Special)
+        case .modifier(.NextSpecialKeypad):
+            layoutView.setActivePageViewWithIdentifier(.SecondSpecial)
         case .modifier(.Space):
             textProcessor.insertText(" ")
         case .modifier(.Enter):

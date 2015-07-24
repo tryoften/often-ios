@@ -36,19 +36,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         Venmo.startWithAppId(appClientID, secret: appSecret, name: "Smurf")
         
-        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
-            if success {
-                println("Permissions Success!")
-            } else {
-                println("Permissions Fail")
-            }
-        }
-        
-        if Venmo.isVenmoAppInstalled() {
-            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
-        } else {
-            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
-        }
+//        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
+//            if success {
+//                println("Permissions Success!")
+//            } else {
+//                println("Permissions Fail")
+//            }
+//        }
+//        
+//        if Venmo.isVenmoAppInstalled() {
+//            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
+//        } else {
+//            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
+//        }
     
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds

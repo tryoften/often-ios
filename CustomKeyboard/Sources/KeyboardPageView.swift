@@ -29,7 +29,7 @@ class KeyboardPageView: UIView {
         
         super.init(frame: CGRectZero)
         
-        for row in page.rows[0..<page.rows.count-1] {
+        for row in page.rows[0..<page.rows.count - 1] {
             setupRow(row)
         }
         
@@ -42,74 +42,9 @@ class KeyboardPageView: UIView {
     }
     
     func setupRow(row: KeyboardRow) {
-        
-        var margin = containerWidth - CGFloat(keyWidth) * CGFloat(row.count)
+        var margin = (containerWidth - CGFloat(keyWidth) * CGFloat(row.count)) / 2
         var (rowView, buttons) = createRowOfButtons(row, margin: margin)
         rowViews.append(rowView)
-        
-        for (index, button) in enumerate(buttons) {
-            
-            var topConstraint = button.al_top == rowView.al_top + 1
-            var bottomConstraint = button.al_bottom == rowView.al_bottom - 1
-            var leftConstraint: NSLayoutConstraint!
-            var rightConstraint: NSLayoutConstraint!
-            
-            let buttonIsModifierKey: Bool
-            switch(button.key) {
-            case .modifier(let character):
-                buttonIsModifierKey = true
-            default:
-                buttonIsModifierKey = false
-                break
-            }
-            
-            // Right Constraint
-            if index == buttons.count - 1 {
-                var rightMargin = margin
-                if buttonIsModifierKey {
-                    rightMargin = 0
-                    let widthConstraint = button.al_width == keyWidth * 1.5
-                    widthConstraint.priority = 1000
-                    button.addConstraint(widthConstraint)
-                }
-                rightConstraint = button.al_right == rowView.al_right - rightMargin
-            }
-            else {
-                let nextButton = buttons[index + 1]
-                rightConstraint = button.al_right == nextButton.al_left
-            }
-            
-            // Left Constraint
-            if index == 0 {
-                var leftMargin: CGFloat
-                var widthConstraint: NSLayoutConstraint
-                
-                if buttonIsModifierKey {
-                    leftMargin = 0
-                    widthConstraint = button.al_width == keyWidth * 1.5
-                } else {
-                    leftMargin = margin
-                    widthConstraint = button.al_width == keyWidth
-                }
-                widthConstraint.priority = 900
-                button.addConstraint(widthConstraint)
-                leftConstraint = button.al_left == rowView.al_left + leftMargin
-            }
-            else {
-                let prevButton = buttons[index-1]
-                var widthConstraint: NSLayoutConstraint!
-                widthConstraint = button.al_width == keyWidth
-                widthConstraint.priority = 900
-                button.addConstraint(widthConstraint)
-                leftConstraint = button.al_left == prevButton.al_right
-            }
-            
-            rowView.addConstraints([
-                topConstraint, bottomConstraint,
-                rightConstraint, leftConstraint
-            ])
-        }
-        
         addSubview(rowView)
     }
     
@@ -189,7 +124,7 @@ class KeyboardPageView: UIView {
         
         self.keys += buttons
         
-        addButtonConstraints(buttons, mainView: keyboardRowView, margin: margin/CGFloat(2))
+        addButtonConstraints(buttons, mainView: keyboardRowView, margin: margin)
         
         return (keyboardRowView, buttons)
     }
@@ -260,7 +195,6 @@ class KeyboardPageView: UIView {
     }
     
     func addRowConstraints() {
-        
         var inputViewConstraints: [NSLayoutConstraint] = []
         
         for (index, rowView) in enumerate(rowViews) {

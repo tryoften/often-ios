@@ -24,7 +24,10 @@ private let SpecialCharacterKeyboardMap: [KeyboardRow] = [
 ]
 
 private let NextSpecialCharacterKeyboardMap: [KeyboardRow] = [
-
+    [.special(.OpenBracket), .special(.CloseBracket), .special(.OpenBrace), .special(.CloseBrace), .special(.Hashtag), .special(.Percent), .special(.Caret), .special(.Asterisk), .special(.Plus), .special(.Equal)],
+    [.special(.Underscore), .special(.Backslash), .special(.Line), .special(.Tilda), .special(.LessThan), .special(.GreaterThan), .special(.Euro)],
+    [.modifier(.SpecialKeypad), .special(.Period), .special(.Comma), .special(.QuestionMark), .special(.ExclamationMark), .special(.SingleQuote), .modifier(.Backspace)],
+    [.modifier(.AlphabeticKeypad), .modifier(.GoToBrowse), .modifier(.SwitchKeyboard), .modifier(.Space), .special(.Hashtag), .modifier(.Enter)]
 ]
 
 enum Language: String {
@@ -34,7 +37,8 @@ enum Language: String {
 let KeyboardLayouts: [Language: KeyboardLayout] = [
     .English: KeyboardLayout(locale: Language.English.rawValue, pages: [
         KeyboardPage(id: .Letter, rows: EnglishKeyboardMap),
-        KeyboardPage(id: .Special, rows: SpecialCharacterKeyboardMap)
+        KeyboardPage(id: .Special, rows: SpecialCharacterKeyboardMap),
+        KeyboardPage(id: .SecondSpecial, rows: NextSpecialCharacterKeyboardMap)
     ])
 ]
 
