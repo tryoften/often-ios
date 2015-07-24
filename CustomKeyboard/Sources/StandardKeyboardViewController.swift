@@ -11,7 +11,7 @@ import UIKit
 class StandardKeyboardViewController: UIViewController, TextProcessingManagerDelegate {
     let locale: Language = .English
     var textProcessor: TextProcessingManager!
-    var keysContainerView: UIView!
+    var keysContainerView: TouchRecognizerView!
     var searchBar: SearchBarController!
     var lettercase: Lettercase!
     var layout: KeyboardLayout
@@ -24,7 +24,7 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         searchBar.textProcessor = textProcessor
         searchBar.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        keysContainerView = UIView()
+        keysContainerView = TouchRecognizerView()
         keysContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
         keysContainerView.backgroundColor = UIColor(fromHexString: "#202020")
         
@@ -67,7 +67,6 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
             searchBar.view.al_top == view.al_top,
             searchBar.view.al_left == view.al_left,
             searchBar.view.al_right == view.al_right,
-            
             {
                 let constraint =  self.keysContainerView.al_top == self.searchBar.view.al_bottom
                 constraint.priority = 999
@@ -88,9 +87,13 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
             layoutView.al_right == keysContainerView.al_right
         ])
         
-        for key in layoutView.allKeys {
+        var keys = layoutView.allKeys
+        for key in keys {
             key.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+            key.addTarget(self, action: "didTouchDownOnKey:", forControlEvents: .TouchDown)
+//            key.addTarget(self, action: "backspaceUp:", forControlEvents: .TouchDragExit | .TouchUpOutside | .TouchCancel | .TouchDragOutside)
         }
+        keysContainerView.keys = keys
     }
 
     func didTapButton(sender: AnyObject?) {
