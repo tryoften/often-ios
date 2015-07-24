@@ -78,6 +78,8 @@ class KeyboardKeyButton: UIButton {
     
     func setupLayout() {
         addConstraints([
+            al_height >= 29.5,
+
             backgroundView.al_top == al_top + 3,
             backgroundView.al_bottom == al_bottom - 3,
             backgroundView.al_left == al_left + 3,

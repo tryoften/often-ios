@@ -17,25 +17,11 @@ class User: Object {
     dynamic var email: String = ""
     dynamic var phone: String = ""
     dynamic var backgroundImage: String = ""
-    var keyboards: [Keyboard] {
-        return linkingObjects(Keyboard.self, forProperty: "user")
-    }
     
     override static func primaryKey() -> String? {
         return "id"
     }
     
-    func hasKeyboardForArtist(artist: Artist) -> Bool {
-        for keyboard in keyboards {
-            if let keyboardOwner = keyboard.artist {
-                if artist.id == keyboardOwner.id {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         
         if let dictionary = keyedValues as? [String: AnyObject] {

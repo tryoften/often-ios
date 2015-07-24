@@ -21,28 +21,10 @@ var accessToken = ""
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
-    var sessionManager: SessionManager!
     var venmoService: VenmoService!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        if !TestKeyboard {
-            let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
-            let realmPath = directory.path!.stringByAppendingPathComponent("db.realm")
-            RLMRealm.setDefaultRealmPath(realmPath)
-            
-            RLMRealm.setSchemaVersion(1, forRealmAtPath: RLMRealm.defaultRealmPath()) { migration, oldSchemaVersion in
-                if oldSchemaVersion < 1 {
-                    migration.enumerateObjects(Keyboard.className(), block: { oldObject, newObject in
-                        newObject["index"] = oldObject["index"]
-                        
-                    })
-                }
-            }
-        }
-        
-        sessionManager = SessionManager.defaultManager
-
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
@@ -73,13 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: frame)
 
-        if sessionManager.isUserLoggedIn() {
-            mainController = TabBarController(sessionManager: sessionManager)
-        } else {
-            let viewModel = SignUpWalkthroughViewModel(sessionManager: sessionManager)
-            mainController = BaseNavigationController(rootViewController: SignUpLoginWalkthroughViewController(viewModel: viewModel))
-        }
-
         if let window = self.window {
             if TestKeyboard {
                 var frame = window.frame
@@ -91,13 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             window.rootViewController = mainController
             window.makeKeyAndVisible()
-        }
-        
-        if let notificationPayload = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
-            // Create a pointer to the Photo object
-            if let artistId = notificationPayload["artistId"] as? String {
-                showAddArtistModalViewForArtistId(artistId)
-            }
         }
         
         return true
@@ -113,13 +81,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         println("Registration failed \(error)")
-    }
-
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        PFPush.handlePush(userInfo)
-        if let artistId = userInfo["artistId"] as? String {
-            showAddArtistModalViewForArtistId(artistId)
-        }
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
@@ -175,14 +136,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
-    func showAddArtistModalViewForArtistId(artistId: String) {
-        let artistModalVC = AddArtistModalContainerViewController()
-        
-        artistModalVC.setArtistId(artistId)
-        artistModalVC.modalPresentationStyle = UIModalPresentationStyle.Custom
-        mainController.presentViewController(artistModalVC, animated: true, completion: nil)
     }
 }
 

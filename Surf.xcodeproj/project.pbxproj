@@ -7,21 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B0F15581B4B220400FC73FC /* ErrorMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0F15571B4B220400FC73FC /* ErrorMessageView.swift */; };
-		3B0F155A1B4B5F1400FC73FC /* NavBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0F15591B4B5F1400FC73FC /* NavBarTitleView.swift */; };
-		3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */; };
-		3B4D9A961B14169300643EF8 /* SignUpEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */; };
-		3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */; };
-		3B82E6D01B1F722000ABA660 /* SignUpWalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B82E6CF1B1F722000ABA660 /* SignUpWalkthroughViewModel.swift */; };
-		3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
-		3B9AD79D1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD79C1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift */; };
-		3B9AD7A21B2F4D4A00727E79 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD7A11B2F4D4A00727E79 /* LoginView.swift */; };
-		3B9AD7A41B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD7A31B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift */; };
-		3B9AD7A81B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD7A71B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift */; };
-		3B9AD7AA1B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD7A91B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift */; };
-		3B9AD7AC1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD7AB1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift */; };
-		3B9AD7AF1B2F5FF500727E79 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD7AE1B2F5FF500727E79 /* LoginViewController.swift */; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */; };
@@ -48,58 +34,15 @@
 		3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */; };
 		3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
 		3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
-		3BAAB1E01B1D003F00EA1925 /* CategoriesPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */; };
-		3BAAB1E21B1E1B0D00EA1925 /* TermsAndPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAAB1E11B1E1B0D00EA1925 /* TermsAndPrivacyView.swift */; };
-		3BAAB1E61B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */; };
-		3BCAE39D1B39C44400DFF63F /* SignUpConfirmPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAE39C1B39C44400DFF63F /* SignUpConfirmPasswordViewController.swift */; };
-		3BCAE3A41B39C4AC00DFF63F /* SignUpConfirmPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAE3A21B39C4AC00DFF63F /* SignUpConfirmPassword.swift */; };
-		3BCAE3AD1B39CA1700DFF63F /* SignUpAddArtistsLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAE3AC1B39CA1700DFF63F /* SignUpAddArtistsLoaderView.swift */; };
-		3BCAE3AF1B39D3A400DFF63F /* SignUpPreAddArtistsLoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAE3AE1B39D3A400DFF63F /* SignUpPreAddArtistsLoaderViewController.swift */; };
-		3BCAE3B31B3A3CB200DFF63F /* SignUpPostAddArtistsLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAE3B21B3A3CB200DFF63F /* SignUpPostAddArtistsLoaderView.swift */; };
-		3BCAE3B71B3A3DB600DFF63F /* SignUpPostAddArtistLoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCAE3B61B3A3DB600DFF63F /* SignUpPostAddArtistLoaderViewController.swift */; };
-		3BDB0F3C1B3B9E7800E89066 /* SignUpNameWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDB0F3B1B3B9E7800E89066 /* SignUpNameWalkthroughViewController.swift */; };
-		3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */; };
-		3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */; };
-		3BFBB8BA1B446FBE008706C2 /* KeyboardInstallationWalkthrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBB8B91B446FBE008706C2 /* KeyboardInstallationWalkthrough.swift */; };
-		3BFBB8C31B44BF3D008706C2 /* KeyboardWalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBB8C21B44BF3D008706C2 /* KeyboardWalkthroughView.swift */; };
 		645C5C1B383CD0DCCB770CC7 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD2306F8F79E206D6C9908C /* libPods-Keyboard.a */; };
 		690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
 		690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
-		690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */; };
-		691569411B44CE55006E13BC /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691569401B44CE55006E13BC /* SettingsTableViewCell.swift */; };
-		6915694E1B45D469006E13BC /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6915694D1B45D469006E13BC /* SettingsWebViewController.swift */; };
 		6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */; };
 		6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */; };
 		6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */; };
-		6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */; };
-		6929EB6E1B3750B600D1BD1C /* AddArtistModalHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */; };
-		696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */; };
-		697D00531B3090DB00402A9F /* TrendingCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */; };
-		697D00551B30A06200402A9F /* TrendingLyricViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */; };
-		699606251B421513004102BC /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6996061F1B41A53F004102BC /* ToolTipViewController.swift */; };
-		699606261B42152E004102BC /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699606211B41E20C004102BC /* ToolTip.swift */; };
 		699606271B422315004102BC /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
-		699606281B422331004102BC /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* ContentTableViewController.swift */; };
-		699606291B422336004102BC /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6996061F1B41A53F004102BC /* ToolTipViewController.swift */; };
-		6996062A1B42233B004102BC /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
-		6996062B1B42235A004102BC /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699606211B41E20C004102BC /* ToolTip.swift */; };
-		69A31A101B3DC7AF00A402A1 /* TrendingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A31A0F1B3DC7AF00A402A1 /* TrendingService.swift */; };
-		69B8CBB61B3886EB00F0BB84 /* AddArtistModalContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8CBB51B3886EB00F0BB84 /* AddArtistModalContainerViewController.swift */; };
-		69B8CBB81B38A59A00F0BB84 /* AddArtistModalCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8CBB71B38A59A00F0BB84 /* AddArtistModalCollectionViewFlowLayout.swift */; };
-		69BA82021B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82011B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift */; };
-		69BA82081B2FA9D000233789 /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82071B2FA9D000233789 /* BrowseViewModel.swift */; };
-		69BA820A1B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA82091B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift */; };
-		69BA820B1B2FAAA800233789 /* BrowseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */; };
-		69BA820D1B2FABA700233789 /* TrendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA820C1B2FABA700233789 /* TrendingViewModel.swift */; };
-		69BA820F1B2FABB800233789 /* TrendingSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BA820E1B2FABB800233789 /* TrendingSectionHeaderView.swift */; };
-		69BA82101B2FABE200233789 /* BrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */; };
 		69E9104C1B59AF1D008BFBD6 /* VenmoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E9104B1B59AF1D008BFBD6 /* VenmoService.swift */; };
-		69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */; };
-		69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */; };
-		69F2B5E71B2786F6004FCD19 /* TrendingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F2B5E61B2786F6004FCD19 /* TrendingHeaderView.swift */; };
-		69F2B5EB1B278826004FCD19 /* TrendingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */; };
 		7F9AB2F8E6A45CEA33ECE769 /* libPods-Surf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F78761D830BD3A5F573760 /* libPods-Surf.a */; };
-		810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
 		810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
@@ -113,19 +56,10 @@
 		810C4AFE1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AFC1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift */; };
 		810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AFF1B5DAAF4005AABEA /* VenmoRequestOrPayView.swift */; };
 		810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AFF1B5DAAF4005AABEA /* VenmoRequestOrPayView.swift */; };
-		8111D5AB1B36184900B14EEE /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111D5AA1B36184900B14EEE /* SettingsTableViewController.swift */; };
-		8111D5AD1B361EE500B14EEE /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111D5AC1B361EE500B14EEE /* BaseNavigationController.swift */; };
 		81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
 		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
-		8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
-		8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */; };
-		8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
-		8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8120FB471A648BBC00EA457A /* FuzzySearch.swift */; };
-		812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */; };
-		812E3EDB1B4A14EC00C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */; };
-		812E3EDC1B4A158900C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */; };
 		812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F091B4BBA6A00C0F3BE /* Fabric.framework */; };
 		812E3F0C1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F091B4BBA6A00C0F3BE /* Fabric.framework */; };
 		812E3F0D1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */; };
@@ -134,44 +68,22 @@
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
-		8134B0F31B3C7A5C001B9C5E /* HUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */; };
-		81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
-		81413DBD1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */; };
-		81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
-		81413DC01A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */; };
 		8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
-		8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
-		81592F911B0FA4740092EA8F /* CategoriesPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */; };
-		81592F9A1B0FA55A0092EA8F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F991B0FA55A0092EA8F /* TabBarController.swift */; };
-		81592F9D1B0FA5750092EA8F /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F9C1B0FA5750092EA8F /* UserProfileViewController.swift */; };
-		81592F9F1B0FA57E0092EA8F /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F9E1B0FA57E0092EA8F /* UserProfileViewModel.swift */; };
-		81592FA21B0FA5870092EA8F /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */; };
-		81592FA31B0FA5870092EA8F /* UserProfileSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */; };
-		81592FA51B0FA5BD0092EA8F /* PrimaryToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FA41B0FA5BD0092EA8F /* PrimaryToolbarView.swift */; };
-		81592FAB1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FAA1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift */; };
-		81592FAC1B0FC5450092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592FAA1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift */; };
+		816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588ED1B61676000F7C9F5 /* KeyboardPage.swift */; };
+		816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588ED1B61676000F7C9F5 /* KeyboardPage.swift */; };
+		816588F41B6168B200F7C9F5 /* KeyboardLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588F31B6168B200F7C9F5 /* KeyboardLayoutView.swift */; };
+		816588F51B6168B200F7C9F5 /* KeyboardLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588F31B6168B200F7C9F5 /* KeyboardLayoutView.swift */; };
+		816588F71B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588F61B616A7300F7C9F5 /* KeyboardLayout.swift */; };
+		816588F81B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588F61B616A7300F7C9F5 /* KeyboardLayout.swift */; };
 		816EB9711AE5EBA8000620E2 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816EB9701AE5EBA8000620E2 /* delay.swift */; };
 		816EB9721AE5EBB1000620E2 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816EB9701AE5EBA8000620E2 /* delay.swift */; };
-		816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FE58F1A86B19700E42C17 /* FacebookButton.swift */; };
-		816FE5991A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
-		816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */; };
-		817618EE1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */; };
-		817618EF1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */; };
-		817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */; };
-		817619F71AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */; };
-		817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */; };
-		817619FA1AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */; };
-		817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */; };
-		817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */; };
-		817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */; };
-		81761A001AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */; };
 		8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
 		8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
-		8179388A1B5741050064B0CF /* KeyboardMaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938891B5741050064B0CF /* KeyboardMaps.swift */; };
-		8179388B1B5741050064B0CF /* KeyboardMaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938891B5741050064B0CF /* KeyboardMaps.swift */; };
+		8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938891B5741050064B0CF /* KeyboardLayouts.swift */; };
+		8179388B1B5741050064B0CF /* KeyboardLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938891B5741050064B0CF /* KeyboardLayouts.swift */; };
 		817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */; };
 		817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */; };
 		817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938FC1B59A41A0064B0CF /* SearchBar.swift */; };
@@ -206,56 +118,20 @@
 		81794EFE1A81ECD5009D4A71 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE01A81E649009D4A71 /* Security.framework */; };
 		81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE21A81E651009D4A71 /* Social.framework */; };
 		81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE61A81E660009D4A71 /* SystemConfiguration.framework */; };
-		81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */; };
-		817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */; };
-		817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */; };
 		8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60D1A142157007FA1CF /* AppDelegate.swift */; };
-		8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */; };
 		8180E6151A142157007FA1CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		8180E6391A142199007FA1CF /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8180E6441A142EA4007FA1CF /* ContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6421A142EA4007FA1CF /* ContentTableViewController.swift */; };
-		8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
-		8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */; };
 		81840FB81B4331C1003531B1 /* UIDevice+modelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81840FB71B4331C1003531B1 /* UIDevice+modelName.swift */; };
 		81840FB91B4331C1003531B1 /* UIDevice+modelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81840FB71B4331C1003531B1 /* UIDevice+modelName.swift */; };
-		81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
-		81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81A1A4D31A196D6200D566B8 /* font_icons8.ttf */; };
 		81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
-		81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */; };
-		81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */; };
-		81B19E941B30AD5500D3575C /* ArtistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010701AE89631008F3296 /* ArtistService.swift */; };
-		81B19E951B30AD5500D3575C /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
-		81B19E961B30AD5500D3575C /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010771AE8A47C008F3296 /* KeyboardService.swift */; };
-		81B19E971B30AD5500D3575C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E111B1F9D8F00618E1A /* Service.swift */; };
-		81B19E981B30AD5500D3575C /* ArtistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010701AE89631008F3296 /* ArtistService.swift */; };
-		81B19E991B30AD5500D3575C /* TrackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E897D91A32A17F005C7CD9 /* TrackService.swift */; };
-		81B19E9A1B30AD5500D3575C /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010771AE8A47C008F3296 /* KeyboardService.swift */; };
-		81B19E9B1B30AD5500D3575C /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E111B1F9D8F00618E1A /* Service.swift */; };
-		81B19E9C1B30AD5A00D3575C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
-		81B19E9D1B30AD5A00D3575C /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
-		81B19E9E1B30AD5A00D3575C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
-		81B19E9F1B30AD5A00D3575C /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010751AE89956008F3296 /* Artist.swift */; };
-		81B19EA01B30AD5A00D3575C /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618F31AE9ED4F00C7D9CB /* Keyboard.swift */; };
-		81B19EA11B30AD5A00D3575C /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E171B1FBE5200618E1A /* Owner.swift */; };
-		81B19EA21B30AD5B00D3575C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E041A17E538003E4609 /* Category.swift */; };
-		81B19EA31B30AD5B00D3575C /* Lyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E111A17F9F3003E4609 /* Lyric.swift */; };
-		81B19EA41B30AD5B00D3575C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81240A781A33BCF600E946F8 /* Track.swift */; };
-		81B19EA51B30AD5B00D3575C /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C010751AE89956008F3296 /* Artist.swift */; };
-		81B19EA61B30AD5B00D3575C /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817618F31AE9ED4F00C7D9CB /* Keyboard.swift */; };
-		81B19EA71B30AD5B00D3575C /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811B1E171B1FBE5200618E1A /* Owner.swift */; };
-		81B19EA91B30AD5D00D3575C /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81592F931B0FA5070092EA8F /* SessionManager.swift */; };
 		81B19EAB1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
 		81B19EAC1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
-		81B19EC41B30DFB700D3575C /* FlexibleBoundsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EC31B30DFB700D3575C /* FlexibleBoundsTextField.swift */; };
 		81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */; };
-		81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */; };
-		81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */; };
-		81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */; };
+		81C017CB1B5FF8B800486F37 /* KeyboardPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C017CA1B5FF8B800486F37 /* KeyboardPageView.swift */; };
+		81C017CC1B5FF8B800486F37 /* KeyboardPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C017CA1B5FF8B800486F37 /* KeyboardPageView.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
-		81D43AFD1B43A15000453BBF /* MessageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D43AFC1B43A15000453BBF /* MessageBarView.swift */; };
-		81D43AFE1B43A15000453BBF /* MessageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D43AFC1B43A15000453BBF /* MessageBarView.swift */; };
 		81D43B351B46E49800453BBF /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D43B331B46E49800453BBF /* Realm.framework */; };
 		81D43B361B46E49800453BBF /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81D43B331B46E49800453BBF /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		81D43B371B46E49800453BBF /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D43B341B46E49800453BBF /* RealmSwift.framework */; };
@@ -267,11 +143,9 @@
 		81D4BF251B38F6DA006430AB /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1D1B38F6DA006430AB /* Window.swift */; };
 		81D4BF261B38F6DA006430AB /* WindowRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1E1B38F6DA006430AB /* WindowRootViewController.swift */; };
 		81D4BF371B39D25C006430AB /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF161B38F6DA006430AB /* FrameView.swift */; };
-		81DB4ED31A945251004EE28C /* backspace.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DB4ED21A945251004EE28C /* backspace.png */; };
 		81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */ = {isa = PBXBuildFile; fileRef = 81DC114A1AF05CF400412BD2 /* SwiftyJSON */; };
 		81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
-		81EBFC8E1B40FF75005C6E76 /* AddArtistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC8D1B40FF75005C6E76 /* AddArtistButton.swift */; };
 		81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */; };
 		81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */; };
 		81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */; };
@@ -345,21 +219,7 @@
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
 		18A18D358A8CB3AA1878D360 /* Pods-Surf.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B0F15571B4B220400FC73FC /* ErrorMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessageView.swift; sourceTree = "<group>"; };
-		3B0F15591B4B5F1400FC73FC /* NavBarTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavBarTitleView.swift; sourceTree = "<group>"; };
-		3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWalkthroughViewController.swift; sourceTree = "<group>"; };
-		3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpEmailView.swift; sourceTree = "<group>"; };
-		3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPasswordView.swift; sourceTree = "<group>"; };
-		3B82E6CF1B1F722000ABA660 /* SignUpWalkthroughViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWalkthroughViewModel.swift; sourceTree = "<group>"; };
-		3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpOrLoginView.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
-		3B9AD79C1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpAddArtistsTableViewHeaderView.swift; sourceTree = "<group>"; };
-		3B9AD7A11B2F4D4A00727E79 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		3B9AD7A31B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneNumberWalkthroughViewController.swift; sourceTree = "<group>"; };
-		3B9AD7A71B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpEmailWalkthroughViewController.swift; sourceTree = "<group>"; };
-		3B9AD7A91B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPassWordWalkthroughViewController.swift; sourceTree = "<group>"; };
-		3B9AD7AB1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectArtistWalkthroughViewController.swift; sourceTree = "<group>"; };
-		3B9AD7AE1B2F5FF500727E79 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -373,111 +233,45 @@
 		3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
-		3BAAB1E11B1E1B0D00EA1925 /* TermsAndPrivacyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsAndPrivacyView.swift; sourceTree = "<group>"; };
-		3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpAddArtistsTableViewCell.swift; sourceTree = "<group>"; };
-		3BCAE39C1B39C44400DFF63F /* SignUpConfirmPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpConfirmPasswordViewController.swift; sourceTree = "<group>"; };
-		3BCAE3A21B39C4AC00DFF63F /* SignUpConfirmPassword.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpConfirmPassword.swift; sourceTree = "<group>"; };
-		3BCAE3AC1B39CA1700DFF63F /* SignUpAddArtistsLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpAddArtistsLoaderView.swift; sourceTree = "<group>"; };
-		3BCAE3AE1B39D3A400DFF63F /* SignUpPreAddArtistsLoaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPreAddArtistsLoaderViewController.swift; sourceTree = "<group>"; };
-		3BCAE3B21B3A3CB200DFF63F /* SignUpPostAddArtistsLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPostAddArtistsLoaderView.swift; sourceTree = "<group>"; };
-		3BCAE3B61B3A3DB600DFF63F /* SignUpPostAddArtistLoaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPostAddArtistLoaderViewController.swift; sourceTree = "<group>"; };
-		3BDB0F3B1B3B9E7800E89066 /* SignUpNameWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameWalkthroughViewController.swift; sourceTree = "<group>"; };
-		3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpPhoneNumberView.swift; sourceTree = "<group>"; };
-		3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpNameView.swift; sourceTree = "<group>"; };
-		3BFBB8B91B446FBE008706C2 /* KeyboardInstallationWalkthrough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstallationWalkthrough.swift; sourceTree = "<group>"; };
-		3BFBB8C21B44BF3D008706C2 /* KeyboardWalkthroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardWalkthroughView.swift; path = ../CustomKeyboard/KeyboardWalkthroughView.swift; sourceTree = "<group>"; };
 		45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.release.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.release.xcconfig"; sourceTree = "<group>"; };
 		690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoFriend.swift; path = CustomKeyboard/VenmoFriend.swift; sourceTree = "<group>"; };
-		690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewController.swift; sourceTree = "<group>"; };
-		691569401B44CE55006E13BC /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
-		6915694D1B45D469006E13BC /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
 		6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewCell.swift; path = Sources/FoursquareLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewController.swift; path = Sources/FoursquareLocationCollectionViewController.swift; sourceTree = "<group>"; };
 		6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationSectionHeader.swift; path = Sources/FoursquareLocationSectionHeader.swift; sourceTree = "<group>"; };
-		6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalCollectionViewController.swift; sourceTree = "<group>"; };
-		6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalHeaderView.swift; sourceTree = "<group>"; };
-		696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
-		697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingCollectionViewController.swift; sourceTree = "<group>"; };
-		697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingLyricViewCell.swift; sourceTree = "<group>"; };
-		6996061F1B41A53F004102BC /* ToolTipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipViewController.swift; sourceTree = "<group>"; };
-		699606211B41E20C004102BC /* ToolTip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
-		69A31A0F1B3DC7AF00A402A1 /* TrendingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingService.swift; path = DrizzyChat/TrendingService.swift; sourceTree = "<group>"; };
-		69B8CBB51B3886EB00F0BB84 /* AddArtistModalContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalContainerViewController.swift; sourceTree = "<group>"; };
-		69B8CBB71B38A59A00F0BB84 /* AddArtistModalCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistModalCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		69BA82011B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistBrowseCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		69BA82071B2FA9D000233789 /* BrowseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewModel.swift; sourceTree = "<group>"; };
-		69BA82091B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		69BA820C1B2FABA700233789 /* TrendingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingViewModel.swift; sourceTree = "<group>"; };
-		69BA820E1B2FABB800233789 /* TrendingSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingSectionHeaderView.swift; sourceTree = "<group>"; };
-		69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewController.swift; sourceTree = "<group>"; };
 		69D51DBC1B3CDE0B00B2714D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69E9104B1B59AF1D008BFBD6 /* VenmoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoService.swift; path = Sources/VenmoService.swift; sourceTree = "<group>"; };
-		69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCollectionViewCell.swift; sourceTree = "<group>"; };
-		69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseSectionHeaderView.swift; sourceTree = "<group>"; };
-		69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderView.swift; sourceTree = "<group>"; };
-		69F2B5E61B2786F6004FCD19 /* TrendingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingHeaderView.swift; sourceTree = "<group>"; };
-		69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingCollectionViewCell.swift; sourceTree = "<group>"; };
 		6B6FC3A11B55322AAC249F5E /* libPods-October.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-October.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
 		7DD2306F8F79E206D6C9908C /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewCell.swift; path = Sources/CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		810C4AF21B5D7E95005AABEA /* VenmoSupplementaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenmoSupplementaryViewController.swift; sourceTree = "<group>"; };
 		810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarButton.swift; path = Sources/SearchBarButton.swift; sourceTree = "<group>"; };
 		810C4AF91B5D922B005AABEA /* VenmoContactsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsCollectionViewController.swift; path = Sources/VenmoContactsCollectionViewController.swift; sourceTree = "<group>"; };
 		810C4AFC1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsCollectionViewCell.swift; path = Sources/VenmoContactsCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C4AFF1B5DAAF4005AABEA /* VenmoRequestOrPayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoRequestOrPayView.swift; path = Sources/VenmoRequestOrPayView.swift; sourceTree = "<group>"; };
-		8111D5AA1B36184900B14EEE /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		8111D5AC1B361EE500B14EEE /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
-		8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-circle.ttf"; sourceTree = "<group>"; };
-		811B1E111B1F9D8F00618E1A /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = Core/Service.swift; sourceTree = SOURCE_ROOT; };
-		811B1E171B1FBE5200618E1A /* Owner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Owner.swift; path = Core/Owner.swift; sourceTree = "<group>"; };
 		812029E91AED3AE0005D1D8F /* CustomKeyboardPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomKeyboardPrefixHeader.pch; path = Sources/CustomKeyboardPrefixHeader.pch; sourceTree = "<group>"; };
-		8120FB471A648BBC00EA457A /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
-		81240A781A33BCF600E946F8 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Core/Track.swift; sourceTree = "<group>"; };
-		812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
-		812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricPickerTableSectionHeaderView.swift; path = DrizzyChat/LyricPickerTableSectionHeaderView.swift; sourceTree = SOURCE_ROOT; };
 		812E3F091B4BBA6A00C0F3BE /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
 		813138881B13ADA3001AF9AC /* Drizzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Drizzy.entitlements; path = ../Drizzy.entitlements; sourceTree = "<group>"; };
-		81331E041A17E538003E4609 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Core/Category.swift; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DrizzyChat-Bridging-Header.h"; sourceTree = "<group>"; };
-		81331E111A17F9F3003E4609 /* Lyric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lyric.swift; path = Core/Lyric.swift; sourceTree = "<group>"; };
 		81331E1C1A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E1D1A1806BB003E4609 /* SwiftAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftAutoLayout.h; sourceTree = "<group>"; };
 		81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayout.swift; sourceTree = "<group>"; };
 		81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SwiftAutoLayout.xcodeproj; sourceTree = "<group>"; };
 		81331E231A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
-		8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDProgressView.swift; sourceTree = "<group>"; };
-		81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-outlined.ttf"; sourceTree = "<group>"; };
-		81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-glyphish-filled.ttf"; sourceTree = "<group>"; };
 		8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextProcessingManager.swift; path = Sources/TextProcessingManager.swift; sourceTree = "<group>"; };
 		81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceList.swift"; sourceTree = "<group>"; };
-		81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoriesPanelView.swift; path = Sources/CategoriesPanelView.swift; sourceTree = "<group>"; };
-		81592F931B0FA5070092EA8F /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Core/SessionManager.swift; sourceTree = "<group>"; };
-		81592F991B0FA55A0092EA8F /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		81592F9C1B0FA5750092EA8F /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		81592F9E1B0FA57E0092EA8F /* UserProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
-		81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
-		81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSectionHeaderView.swift; sourceTree = "<group>"; };
-		81592FA41B0FA5BD0092EA8F /* PrimaryToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrimaryToolbarView.swift; path = Sources/PrimaryToolbarView.swift; sourceTree = "<group>"; };
-		81592FAA1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistPickerCollectionViewLayout.swift; path = Sources/ArtistPickerCollectionViewLayout.swift; sourceTree = "<group>"; };
+		816588ED1B61676000F7C9F5 /* KeyboardPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardPage.swift; path = Sources/KeyboardPage.swift; sourceTree = "<group>"; };
+		816588F31B6168B200F7C9F5 /* KeyboardLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardLayoutView.swift; path = Sources/KeyboardLayoutView.swift; sourceTree = "<group>"; };
+		816588F61B616A7300F7C9F5 /* KeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardLayout.swift; path = Sources/KeyboardLayout.swift; sourceTree = "<group>"; };
 		816EB9701AE5EBA8000620E2 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
-		816FE58F1A86B19700E42C17 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
-		816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ss-social-regular.ttf"; sourceTree = "<group>"; };
-		817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewModel.swift; path = Sources/KeyboardViewModel.swift; sourceTree = "<group>"; };
-		817618F31AE9ED4F00C7D9CB /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Keyboard.swift; path = Core/Keyboard.swift; sourceTree = "<group>"; };
-		817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwitchArtistButton.swift; path = Sources/SwitchArtistButton.swift; sourceTree = "<group>"; };
-		817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistPickerCollectionViewController.swift; path = Sources/ArtistPickerCollectionViewController.swift; sourceTree = "<group>"; };
-		817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionViewCell.swift; path = Sources/ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
-		817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistCollectionCloseButton.swift; path = Sources/ArtistCollectionCloseButton.swift; sourceTree = "<group>"; };
 		8179387D1B55859D0064B0CF /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKey.swift; path = Sources/KeyboardKey.swift; sourceTree = "<group>"; };
-		817938891B5741050064B0CF /* KeyboardMaps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardMaps.swift; path = Sources/KeyboardMaps.swift; sourceTree = "<group>"; };
+		817938891B5741050064B0CF /* KeyboardLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardLayouts.swift; path = Sources/KeyboardLayouts.swift; sourceTree = "<group>"; };
 		8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKeyButton.swift; path = Sources/KeyboardKeyButton.swift; sourceTree = "<group>"; };
 		817938FC1B59A41A0064B0CF /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBar.swift; path = Sources/SearchBar.swift; sourceTree = "<group>"; };
 		817938FF1B5BFEB30064B0CF /* ServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProvider.swift; path = Sources/ServiceProvider.swift; sourceTree = "<group>"; };
@@ -495,35 +289,23 @@
 		81794EE61A81E660009D4A71 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		81794EE81A81E666009D4A71 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackMetadataView.swift; path = Sources/TrackMetadataView.swift; sourceTree = "<group>"; };
 		8180E6081A142157007FA1CF /* Surf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Surf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E60C1A142157007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E60D1A142157007FA1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		8180E6141A142157007FA1CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8180E6221A142158007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E6231A142158007FA1CF /* DrizzyChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrizzyChatTests.swift; sourceTree = "<group>"; };
 		8180E6311A142199007FA1CF /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6341A142199007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E6351A142199007FA1CF /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = Sources/KeyboardViewController.swift; sourceTree = "<group>"; };
-		8180E6421A142EA4007FA1CF /* ContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContentTableViewController.swift; path = Sources/ContentTableViewController.swift; sourceTree = "<group>"; };
-		8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricTableViewCell.swift; path = Sources/LyricTableViewCell.swift; sourceTree = "<group>"; };
 		81840FB71B4331C1003531B1 /* UIDevice+modelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+modelName.swift"; sourceTree = "<group>"; };
-		81A1A4D31A196D6200D566B8 /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
 		81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HEXString.h"; sourceTree = "<group>"; };
 		81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEXString.m"; sourceTree = "<group>"; };
-		81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareViewController.swift; path = Sources/ShareViewController.swift; sourceTree = "<group>"; };
 		81B19E8D1B30A66700D3575C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		81B19E8F1B30A71500D3575C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		81B19EAA1B30AD9900D3575C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Core/User.swift; sourceTree = "<group>"; };
-		81B19EC31B30DFB700D3575C /* FlexibleBoundsTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleBoundsTextField.swift; sourceTree = "<group>"; };
 		81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StandardKeyboardViewController.swift; path = Sources/StandardKeyboardViewController.swift; sourceTree = "<group>"; };
-		81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricFilterBar.swift; path = Sources/LyricFilterBar.swift; sourceTree = "<group>"; };
-		81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricPickerViewModel.swift; path = Sources/LyricPickerViewModel.swift; sourceTree = "<group>"; };
-		81C010701AE89631008F3296 /* ArtistService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistService.swift; path = Core/ArtistService.swift; sourceTree = "<group>"; };
-		81C010751AE89956008F3296 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Artist.swift; path = Core/Artist.swift; sourceTree = "<group>"; };
-		81C010771AE8A47C008F3296 /* KeyboardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardService.swift; path = Core/KeyboardService.swift; sourceTree = "<group>"; };
-		81D43AFC1B43A15000453BBF /* MessageBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageBarView.swift; sourceTree = "<group>"; };
+		81C017CA1B5FF8B800486F37 /* KeyboardPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardPageView.swift; path = Sources/KeyboardPageView.swift; sourceTree = "<group>"; };
 		81D43B331B46E49800453BBF /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		81D43B341B46E49800453BBF /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		81D4BF161B38F6DA006430AB /* FrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
@@ -534,11 +316,8 @@
 		81D4BF1C1B38F6DA006430AB /* PKHUDContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKHUDContentView.swift; sourceTree = "<group>"; };
 		81D4BF1D1B38F6DA006430AB /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		81D4BF1E1B38F6DA006430AB /* WindowRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowRootViewController.swift; sourceTree = "<group>"; };
-		81DB4ED21A945251004EE28C /* backspace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backspace.png; sourceTree = "<group>"; };
 		81DC114A1AF05CF400412BD2 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftyJSON; sourceTree = "<group>"; };
-		81E897D91A32A17F005C7CD9 /* TrackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackService.swift; path = Core/TrackService.swift; sourceTree = "<group>"; };
 		81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AnimateImage.swift"; sourceTree = "<group>"; };
-		81EBFC8D1B40FF75005C6E76 /* AddArtistButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddArtistButton.swift; sourceTree = "<group>"; };
 		81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoServiceProvider.swift; path = Sources/VenmoServiceProvider.swift; sourceTree = "<group>"; };
 		81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoSearchBarButton.swift; path = Sources/VenmoSearchBarButton.swift; sourceTree = "<group>"; };
 		81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsViewController.swift; path = Sources/VenmoContactsViewController.swift; sourceTree = "<group>"; };
@@ -638,43 +417,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */ = {
-			isa = PBXGroup;
-			children = (
-				3B83DC261B0C32D000452ECB /* SignUpOrLoginView.swift */,
-				3BDFB2381B0EB16B00D96B23 /* SignUpPhoneNumberView.swift */,
-				3BAAB1E11B1E1B0D00EA1925 /* TermsAndPrivacyView.swift */,
-				3BDFB23D1B0EC0D200D96B23 /* SignUpNameView.swift */,
-				3B4D9A951B14169300643EF8 /* SignUpEmailView.swift */,
-				3B4D9A971B1418C300643EF8 /* SignUpPasswordView.swift */,
-				3BAAB1E51B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift */,
-				3B9AD79C1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift */,
-				3BCAE3A21B39C4AC00DFF63F /* SignUpConfirmPassword.swift */,
-				3B9AD7A11B2F4D4A00727E79 /* LoginView.swift */,
-				3BCAE3AC1B39CA1700DFF63F /* SignUpAddArtistsLoaderView.swift */,
-				3BCAE3B21B3A3CB200DFF63F /* SignUpPostAddArtistsLoaderView.swift */,
-			);
-			name = "SignUpWalkthrough Views";
-			sourceTree = "<group>";
-		};
-		3B9AD7AD1B2F514400727E79 /* Walkthrough View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				8180E60F1A142157007FA1CF /* WalkthroughViewController.swift */,
-				3B9AD7AE1B2F5FF500727E79 /* LoginViewController.swift */,
-				3B4D9A901B13CD0600643EF8 /* SignUpWalkthroughViewController.swift */,
-				3B9AD7A31B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift */,
-				3BDB0F3B1B3B9E7800E89066 /* SignUpNameWalkthroughViewController.swift */,
-				3B9AD7A71B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift */,
-				3B9AD7A91B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift */,
-				3BCAE39C1B39C44400DFF63F /* SignUpConfirmPasswordViewController.swift */,
-				3BCAE3AE1B39D3A400DFF63F /* SignUpPreAddArtistsLoaderViewController.swift */,
-				3B9AD7AB1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift */,
-				3BCAE3B61B3A3DB600DFF63F /* SignUpPostAddArtistLoaderViewController.swift */,
-			);
-			name = "Walkthrough View Controllers";
-			sourceTree = "<group>";
-		};
 		6921A0361B615B6B00B75CEC /* Foursquare */ = {
 			isa = PBXGroup;
 			children = (
@@ -685,42 +427,9 @@
 			name = Foursquare;
 			sourceTree = "<group>";
 		};
-		6929EB711B37641100D1BD1C /* Add Artist Views */ = {
-			isa = PBXGroup;
-			children = (
-				6929EB6D1B3750B600D1BD1C /* AddArtistModalHeaderView.swift */,
-			);
-			name = "Add Artist Views";
-			sourceTree = "<group>";
-		};
-		697D00491B3080F000402A9F /* Trending Views */ = {
-			isa = PBXGroup;
-			children = (
-				69F2B5E61B2786F6004FCD19 /* TrendingHeaderView.swift */,
-				69BA820E1B2FABB800233789 /* TrendingSectionHeaderView.swift */,
-				69F2B5EA1B278826004FCD19 /* TrendingCollectionViewCell.swift */,
-				697D00541B30A06200402A9F /* TrendingLyricViewCell.swift */,
-			);
-			name = "Trending Views";
-			sourceTree = "<group>";
-		};
-		697D004D1B30812100402A9F /* Browse Views */ = {
-			isa = PBXGroup;
-			children = (
-				696327961B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift */,
-				69EE3F2D1B166C360008BC7A /* BrowseHeaderView.swift */,
-				69ED8B541B1A4D730003AD5F /* BrowseSectionHeaderView.swift */,
-				69ED8B4F1B1A4B9E0003AD5F /* BrowseCollectionViewCell.swift */,
-			);
-			name = "Browse Views";
-			sourceTree = "<group>";
-		};
 		69BA81FD1B2FA84A00233789 /* View Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				69BA82011B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift */,
-				69BA82091B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift */,
-				69B8CBB71B38A59A00F0BB84 /* AddArtistModalCollectionViewFlowLayout.swift */,
 			);
 			name = "View Layouts";
 			sourceTree = "<group>";
@@ -784,12 +493,6 @@
 			children = (
 				690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */,
 				81B19EAA1B30AD9900D3575C /* User.swift */,
-				81331E041A17E538003E4609 /* Category.swift */,
-				81331E111A17F9F3003E4609 /* Lyric.swift */,
-				81240A781A33BCF600E946F8 /* Track.swift */,
-				81C010751AE89956008F3296 /* Artist.swift */,
-				817618F31AE9ED4F00C7D9CB /* Keyboard.swift */,
-				811B1E171B1FBE5200618E1A /* Owner.swift */,
 			);
 			name = Models;
 			path = ..;
@@ -798,11 +501,6 @@
 		81331E061A17E552003E4609 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				81C010701AE89631008F3296 /* ArtistService.swift */,
-				81E897D91A32A17F005C7CD9 /* TrackService.swift */,
-				81C010771AE8A47C008F3296 /* KeyboardService.swift */,
-				69A31A0F1B3DC7AF00A402A1 /* TrendingService.swift */,
-				811B1E111B1F9D8F00618E1A /* Service.swift */,
 			);
 			name = Services;
 			sourceTree = SOURCE_ROOT;
@@ -859,10 +557,6 @@
 		81413DB31A91C0A400926E7C /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				69BA82071B2FA9D000233789 /* BrowseViewModel.swift */,
-				81592F9E1B0FA57E0092EA8F /* UserProfileViewModel.swift */,
-				3B82E6CF1B1F722000ABA660 /* SignUpWalkthroughViewModel.swift */,
-				69BA820C1B2FABA700233789 /* TrendingViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -878,17 +572,19 @@
 		81592F921B0FA4F10092EA8F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				81592F931B0FA5070092EA8F /* SessionManager.swift */,
 			);
 			name = Managers;
 			sourceTree = SOURCE_ROOT;
 		};
-		81592FA91B0FB7B00092EA8F /* View Layouts */ = {
+		816588F91B616A8F00F7C9F5 /* Keyboard Layout */ = {
 			isa = PBXGroup;
 			children = (
-				81592FAA1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift */,
+				817938891B5741050064B0CF /* KeyboardLayouts.swift */,
+				8179387D1B55859D0064B0CF /* KeyboardKey.swift */,
+				816588ED1B61676000F7C9F5 /* KeyboardPage.swift */,
+				816588F61B616A7300F7C9F5 /* KeyboardLayout.swift */,
 			);
-			name = "View Layouts";
+			name = "Keyboard Layout";
 			sourceTree = "<group>";
 		};
 		816CE0741A992E7100D718E1 /* Categories */ = {
@@ -914,18 +610,6 @@
 		816FE5A11A86E66900E42C17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3B9AD7AD1B2F514400727E79 /* Walkthrough View Controllers */,
-				81592F991B0FA55A0092EA8F /* TabBarController.swift */,
-				3BFBB8B91B446FBE008706C2 /* KeyboardInstallationWalkthrough.swift */,
-				690E69911B32459200072F08 /* BrowseHeaderCollectionViewController.swift */,
-				69BDF0B91B1AE2FC0021902C /* BrowseCollectionViewController.swift */,
-				697D00521B3090DB00402A9F /* TrendingCollectionViewController.swift */,
-				69B8CBB51B3886EB00F0BB84 /* AddArtistModalContainerViewController.swift */,
-				6929EB6B1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift */,
-				6915694D1B45D469006E13BC /* SettingsWebViewController.swift */,
-				81592F9C1B0FA5750092EA8F /* UserProfileViewController.swift */,
-				8111D5AA1B36184900B14EEE /* SettingsTableViewController.swift */,
-				8111D5AC1B361EE500B14EEE /* BaseNavigationController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -933,20 +617,6 @@
 		816FE5A21A86E67100E42C17 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3BFBB8C21B44BF3D008706C2 /* KeyboardWalkthroughView.swift */,
-				81B19EC31B30DFB700D3575C /* FlexibleBoundsTextField.swift */,
-				816FE58F1A86B19700E42C17 /* FacebookButton.swift */,
-				3B0F15571B4B220400FC73FC /* ErrorMessageView.swift */,
-				3B0F15591B4B5F1400FC73FC /* NavBarTitleView.swift */,
-				81592FA01B0FA5870092EA8F /* UserProfileHeaderView.swift */,
-				81592FA11B0FA5870092EA8F /* UserProfileSectionHeaderView.swift */,
-				3B82E6D41B1F928800ABA660 /* SignUpWalkthrough Views */,
-				6929EB711B37641100D1BD1C /* Add Artist Views */,
-				697D004D1B30812100402A9F /* Browse Views */,
-				697D00491B3080F000402A9F /* Trending Views */,
-				8134B0F21B3C7A5C001B9C5E /* HUDProgressView.swift */,
-				691569401B44CE55006E13BC /* SettingsTableViewCell.swift */,
-				81EBFC8D1B40FF75005C6E76 /* AddArtistButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -954,8 +624,6 @@
 		817619F41AEAF40D00C7D9CB /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				817619F51AEAF42B00C7D9CB /* SwitchArtistButton.swift */,
-				817619FE1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift */,
 				8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */,
 				810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */,
 			);
@@ -965,8 +633,6 @@
 		8179387C1B5582520064B0CF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8179387D1B55859D0064B0CF /* KeyboardKey.swift */,
-				817938891B5741050064B0CF /* KeyboardMaps.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1019,7 +685,6 @@
 				81B35FAE1A7A10B6001A546C /* Resources */,
 				8180E60B1A142157007FA1CF /* Supporting Files */,
 				81331E071A17E8FE003E4609 /* DrizzyChat-Bridging-Header.h */,
-				8120FB471A648BBC00EA457A /* FuzzySearch.swift */,
 				810C40641A21125B00170DB4 /* Constants.swift */,
 				81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */,
 				69D51DBC1B3CDE0B00B2714D /* Info.plist */,
@@ -1056,15 +721,14 @@
 		8180E6321A142199007FA1CF /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				816588F91B616A8F00F7C9F5 /* Keyboard Layout */,
 				817939021B5BFF110064B0CF /* Providers */,
 				8179387C1B5582520064B0CF /* Models */,
 				8142F79B1B534F180061AE90 /* Managers */,
 				813138841B13AD92001AF9AC /* CustomKeyboard.entitlements */,
-				81592FA91B0FB7B00092EA8F /* View Layouts */,
 				81B6D58D1A95B07B0089767B /* View Models */,
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
 				8180E67D1A147F7D007FA1CF /* Views */,
-				8180E6461A1477F2007FA1CF /* Resources */,
 				8180E6331A142199007FA1CF /* Supporting Files */,
 			);
 			name = Keyboard;
@@ -1080,34 +744,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8180E6461A1477F2007FA1CF /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				81DB4ED21A945251004EE28C /* backspace.png */,
-				81413DBE1A930BB500926E7C /* ss-glyphish-filled.ttf */,
-				81413DBB1A930BA200926E7C /* ss-glyphish-outlined.ttf */,
-				816FE5981A86D7A500E42C17 /* ss-social-regular.ttf */,
-				8119AA461A35030700BFC8F1 /* ss-social-circle.ttf */,
-				81A1A4D31A196D6200D566B8 /* font_icons8.ttf */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		8180E67D1A147F7D007FA1CF /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				817619F41AEAF40D00C7D9CB /* Buttons */,
-				8180E67E1A147FBA007FA1CF /* LyricTableViewCell.swift */,
-				817C02AC1A3811E70074DEA8 /* TrackMetadataView.swift */,
-				81B3BE191A5BB48000DA8FFA /* LyricFilterBar.swift */,
-				8105025F1ADB81CD00708248 /* CategoryCollectionViewCell.swift */,
-				81592F901B0FA4740092EA8F /* CategoriesPanelView.swift */,
-				699606211B41E20C004102BC /* ToolTip.swift */,
-				817619FB1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift */,
-				81592FA41B0FA5BD0092EA8F /* PrimaryToolbarView.swift */,
-				81D43AFC1B43A15000453BBF /* MessageBarView.swift */,
-				812E3ED61B4A14E500C0F3BE /* LyricPickerTableSectionHeaderView.swift */,
 				817938FC1B59A41A0064B0CF /* SearchBar.swift */,
+				81C017CA1B5FF8B800486F37 /* KeyboardPageView.swift */,
+				816588F31B6168B200F7C9F5 /* KeyboardLayoutView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1115,13 +758,8 @@
 		81AD7FBC1A2818BC00C616F4 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8180E6421A142EA4007FA1CF /* ContentTableViewController.swift */,
 				8180E6351A142199007FA1CF /* KeyboardViewController.swift */,
-				81AD7FC01A298CFC00C616F4 /* ShareViewController.swift */,
-				6996061F1B41A53F004102BC /* ToolTipViewController.swift */,
-				812D747F1A3E5E480083F655 /* CategoryCollectionViewController.swift */,
 				81B3BDFC1A5BABA400DA8FFA /* StandardKeyboardViewController.swift */,
-				817619F81AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift */,
 				817939061B5C29560064B0CF /* SearchBarController.swift */,
 			);
 			name = "View Controllers";
@@ -1150,8 +788,6 @@
 		81B6D58D1A95B07B0089767B /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				81B6D58E1A95B0980089767B /* LyricPickerViewModel.swift */,
-				817618ED1AE9ECA700C7D9CB /* KeyboardViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -1331,18 +967,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BAAB1A41B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
-				81413DBF1A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */,
-				8119AA471A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
-				81413DBC1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */,
 				81D4BF201B38F6DA006430AB /* Images.xcassets in Resources */,
 				3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				3BAAB1A91B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
-				816FE5991A86D7A500E42C17 /* ss-social-regular.ttf in Resources */,
 				3BAAB1961B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
 				3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
 				3BAAB19A1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				3BAAB1A01B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
-				81A1A4D41A196D6200D566B8 /* font_icons8.ttf in Resources */,
 				3BAAB1AB1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
 				3BAAB19C1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
 				3BAAB19E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
@@ -1361,13 +992,9 @@
 				3BAAB1AA1B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */,
 				3BAAB19D1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
-				816FE59A1A86D7A500E42C17 /* ss-social-regular.ttf in Resources */,
 				3BAAB1991B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				3BAAB19F1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
 				3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
-				81413DC01A930BB500926E7C /* ss-glyphish-filled.ttf in Resources */,
-				81A1A4D51A196D6200D566B8 /* font_icons8.ttf in Resources */,
-				81413DBD1A930BA300926E7C /* ss-glyphish-outlined.ttf in Resources */,
 				3BAAB19B1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				81331E2C1A1806BB003E4609 /* Info.plist in Resources */,
 				3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
@@ -1375,9 +1002,7 @@
 				3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */,
 				3BAAB1951B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
-				81DB4ED31A945251004EE28C /* backspace.png in Resources */,
 				3BAAB1971B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
-				8119AA481A35030700BFC8F1 /* ss-social-circle.ttf in Resources */,
 				3BAAB1A11B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
 				3BAAB1A51B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
 			);
@@ -1481,136 +1106,48 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B4D9A911B13CD0600643EF8 /* SignUpWalkthroughViewController.swift in Sources */,
-				812E3EDC1B4A158900C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */,
 				81FFAF471B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
-				817619F61AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
-				81C1E4741ADCC78900E87FC6 /* CategoryCollectionViewCell.swift in Sources */,
-				8120FB481A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				817939041B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
-				691569411B44CE55006E13BC /* SettingsTableViewCell.swift in Sources */,
-				69B8CBB81B38A59A00F0BB84 /* AddArtistModalCollectionViewFlowLayout.swift in Sources */,
-				3BDFB23E1B0EC0D200D96B23 /* SignUpNameView.swift in Sources */,
-				3B9AD7AC1B2F502000727E79 /* SelectArtistWalkthroughViewController.swift in Sources */,
 				699606271B422315004102BC /* KeyboardViewController.swift in Sources */,
-				69B8CBB61B3886EB00F0BB84 /* AddArtistModalContainerViewController.swift in Sources */,
 				81840FB81B4331C1003531B1 /* UIDevice+modelName.swift in Sources */,
-				8179388A1B5741050064B0CF /* KeyboardMaps.swift in Sources */,
-				81592FAC1B0FC5450092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */,
-				69BA82081B2FA9D000233789 /* BrowseViewModel.swift in Sources */,
-				81592F9F1B0FA57E0092EA8F /* UserProfileViewModel.swift in Sources */,
-				81B19EA01B30AD5A00D3575C /* Keyboard.swift in Sources */,
-				3BFBB8C31B44BF3D008706C2 /* KeyboardWalkthroughView.swift in Sources */,
-				8180E6801A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
-				3BCAE39D1B39C44400DFF63F /* SignUpConfirmPasswordViewController.swift in Sources */,
-				8134B0F31B3C7A5C001B9C5E /* HUDProgressView.swift in Sources */,
+				8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
-				3B83DC271B0C32D000452ECB /* SignUpOrLoginView.swift in Sources */,
-				81D43AFD1B43A15000453BBF /* MessageBarView.swift in Sources */,
-				699606291B422336004102BC /* ToolTipViewController.swift in Sources */,
-				3B9AD7A41B2F4DC700727E79 /* PhoneNumberWalkthroughViewController.swift in Sources */,
-				81AD7FC21A298DED00C616F4 /* ShareViewController.swift in Sources */,
 				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
 				81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
-				81B19E941B30AD5500D3575C /* ArtistService.swift in Sources */,
-				69ED8B551B1A4D730003AD5F /* BrowseSectionHeaderView.swift in Sources */,
-				69BA82021B2FA97000233789 /* ArtistBrowseCollectionViewFlowLayout.swift in Sources */,
-				697D00551B30A06200402A9F /* TrendingLyricViewCell.swift in Sources */,
-				81B19E9F1B30AD5A00D3575C /* Artist.swift in Sources */,
-				81592FA21B0FA5870092EA8F /* UserProfileHeaderView.swift in Sources */,
-				6996062A1B42233B004102BC /* CategoryCollectionViewController.swift in Sources */,
-				3BAAB1E01B1D003F00EA1925 /* CategoriesPanelView.swift in Sources */,
+				816588F41B6168B200F7C9F5 /* KeyboardLayoutView.swift in Sources */,
+				816588F71B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */,
-				81B19EA91B30AD5D00D3575C /* SessionManager.swift in Sources */,
-				3B9AD7A81B2F4F8400727E79 /* SignUpEmailWalkthroughViewController.swift in Sources */,
-				69BA82101B2FABE200233789 /* BrowseCollectionViewCell.swift in Sources */,
 				81D4BF371B39D25C006430AB /* FrameView.swift in Sources */,
 				8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
-				3BDB0F3C1B3B9E7800E89066 /* SignUpNameWalkthroughViewController.swift in Sources */,
-				817619FC1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
 				6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */,
-				69BA820A1B2FAA4B00233789 /* BrowseCollectionViewFlowLayout.swift in Sources */,
-				3BCAE3B71B3A3DB600DFF63F /* SignUpPostAddArtistLoaderViewController.swift in Sources */,
-				3B82E6D01B1F722000ABA660 /* SignUpWalkthroughViewModel.swift in Sources */,
-				3B9AD7AF1B2F5FF500727E79 /* LoginViewController.swift in Sources */,
-				6996062B1B42235A004102BC /* ToolTip.swift in Sources */,
-				3B0F155A1B4B5F1400FC73FC /* NavBarTitleView.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
-				690E69921B32459200072F08 /* BrowseHeaderCollectionViewController.swift in Sources */,
 				817939071B5C29560064B0CF /* SearchBarController.swift in Sources */,
-				3BAAB1E21B1E1B0D00EA1925 /* TermsAndPrivacyView.swift in Sources */,
-				81B19E9D1B30AD5A00D3575C /* Lyric.swift in Sources */,
-				3BCAE3A41B39C4AC00DFF63F /* SignUpConfirmPassword.swift in Sources */,
-				3B9AD7A21B2F4D4A00727E79 /* LoginView.swift in Sources */,
 				81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
-				817619F91AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
-				69F2B5E71B2786F6004FCD19 /* TrendingHeaderView.swift in Sources */,
 				810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
 				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
-				69BA820D1B2FABA700233789 /* TrendingViewModel.swift in Sources */,
-				69BA820F1B2FABB800233789 /* TrendingSectionHeaderView.swift in Sources */,
-				8111D5AD1B361EE500B14EEE /* BaseNavigationController.swift in Sources */,
-				81B19E951B30AD5500D3575C /* TrackService.swift in Sources */,
 				810BDC451A61E4C6002A3E05 /* StandardKeyboardViewController.swift in Sources */,
 				817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */,
-				81592F9A1B0FA55A0092EA8F /* TabBarController.swift in Sources */,
-				81592F9D1B0FA5750092EA8F /* UserProfileViewController.swift in Sources */,
-				8180E6101A142157007FA1CF /* WalkthroughViewController.swift in Sources */,
-				81B19EA11B30AD5A00D3575C /* Owner.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
-				81B19E9C1B30AD5A00D3575C /* Category.swift in Sources */,
-				3B4D9A961B14169300643EF8 /* SignUpEmailView.swift in Sources */,
 				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
-				81798B681A5E235C001A200B /* LyricFilterBar.swift in Sources */,
 				810C4AFD1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */,
-				69BA820B1B2FAAA800233789 /* BrowseCollectionViewController.swift in Sources */,
-				696327971B2000EA007B8361 /* BrowseHeaderCollectionViewCell.swift in Sources */,
 				810C4AFA1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
-				817C02B31A3811EE0074DEA8 /* TrackMetadataView.swift in Sources */,
-				81B19E971B30AD5500D3575C /* Service.swift in Sources */,
 				817939001B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
-				3BCAE3AD1B39CA1700DFF63F /* SignUpAddArtistsLoaderView.swift in Sources */,
+				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
-				81B19E961B30AD5500D3575C /* KeyboardService.swift in Sources */,
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
-				69EE3F2E1B166C360008BC7A /* BrowseHeaderView.swift in Sources */,
 				81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
-				81592FA31B0FA5870092EA8F /* UserProfileSectionHeaderView.swift in Sources */,
-				3B9AD79D1B2E5C0D00727E79 /* SignUpAddArtistsTableViewHeaderView.swift in Sources */,
-				69F2B5EB1B278826004FCD19 /* TrendingCollectionViewCell.swift in Sources */,
-				6929EB6C1B374D8200D1BD1C /* AddArtistModalCollectionViewController.swift in Sources */,
 				6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */,
-				697D00531B3090DB00402A9F /* TrendingCollectionViewController.swift in Sources */,
 				817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
-				81B19E9E1B30AD5A00D3575C /* Track.swift in Sources */,
 				69E9104C1B59AF1D008BFBD6 /* VenmoService.swift in Sources */,
-				816FE5901A86B19700E42C17 /* FacebookButton.swift in Sources */,
-				3BCAE3AF1B39D3A400DFF63F /* SignUpPreAddArtistsLoaderViewController.swift in Sources */,
 				810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
-				81B19EC41B30DFB700D3575C /* FlexibleBoundsTextField.swift in Sources */,
-				6915694E1B45D469006E13BC /* SettingsWebViewController.swift in Sources */,
 				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
+				81C017CB1B5FF8B800486F37 /* KeyboardPageView.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
-				3B9AD7AA1B2F4FC600727E79 /* SignUpPassWordWalkthroughViewController.swift in Sources */,
-				81EBFC8E1B40FF75005C6E76 /* AddArtistButton.swift in Sources */,
 				3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */,
-				3BAAB1E61B1E404000EA1925 /* SignUpAddArtistsTableViewCell.swift in Sources */,
-				817618EE1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
 				81D4BF261B38F6DA006430AB /* WindowRootViewController.swift in Sources */,
-				8157220E1AEDA362009A5C35 /* LyricPickerViewModel.swift in Sources */,
-				3BDFB2391B0EB16B00D96B23 /* SignUpPhoneNumberView.swift in Sources */,
-				69A31A101B3DC7AF00A402A1 /* TrendingService.swift in Sources */,
 				6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */,
-				817619FF1AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
-				3BFBB8BA1B446FBE008706C2 /* KeyboardInstallationWalkthrough.swift in Sources */,
-				3B0F15581B4B220400FC73FC /* ErrorMessageView.swift in Sources */,
-				3B4D9A981B1418C300643EF8 /* SignUpPasswordView.swift in Sources */,
-				3BCAE3B31B3A3CB200DFF63F /* SignUpPostAddArtistsLoaderView.swift in Sources */,
-				699606281B422331004102BC /* ContentTableViewController.swift in Sources */,
-				6929EB6E1B3750B600D1BD1C /* AddArtistModalHeaderView.swift in Sources */,
-				8111D5AB1B36184900B14EEE /* SettingsTableViewController.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
@@ -1621,66 +1158,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				699606251B421513004102BC /* ToolTipViewController.swift in Sources */,
 				810C4AFE1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */,
 				8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
-				812D74811A3E5E480083F655 /* CategoryCollectionViewController.swift in Sources */,
-				81B19E9B1B30AD5500D3575C /* Service.swift in Sources */,
 				690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */,
-				81592F911B0FA4740092EA8F /* CategoriesPanelView.swift in Sources */,
 				817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
-				8180E6811A147FBA007FA1CF /* LyricTableViewCell.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
 				81840FB91B4331C1003531B1 /* UIDevice+modelName.swift in Sources */,
-				81592FA51B0FA5BD0092EA8F /* PrimaryToolbarView.swift in Sources */,
-				81B6D58F1A95B0990089767B /* LyricPickerViewModel.swift in Sources */,
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
-				8180E6441A142EA4007FA1CF /* ContentTableViewController.swift in Sources */,
 				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
-				81AD7FC11A298CFC00C616F4 /* ShareViewController.swift in Sources */,
-				81B19E981B30AD5500D3575C /* ArtistService.swift in Sources */,
 				81B3BDFD1A5BABA400DA8FFA /* StandardKeyboardViewController.swift in Sources */,
-				81B19EA31B30AD5B00D3575C /* Lyric.swift in Sources */,
-				81761A001AEB431000C7D9CB /* ArtistCollectionCloseButton.swift in Sources */,
 				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
-				817619FA1AEAF94800C7D9CB /* ArtistPickerCollectionViewController.swift in Sources */,
 				81FFAF4E1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
-				8120FB491A648BBC00EA457A /* FuzzySearch.swift in Sources */,
 				810C4AF81B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
 				810C4AF41B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
-				81B19E991B30AD5500D3575C /* TrackService.swift in Sources */,
 				81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
-				817C02AD1A3811E70074DEA8 /* TrackMetadataView.swift in Sources */,
+				816588F81B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
-				810502601ADB81CD00708248 /* CategoryCollectionViewCell.swift in Sources */,
 				81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
-				817619F71AEAF42B00C7D9CB /* SwitchArtistButton.swift in Sources */,
-				817618EF1AE9ECA700C7D9CB /* KeyboardViewModel.swift in Sources */,
-				81B19E9A1B30AD5500D3575C /* KeyboardService.swift in Sources */,
-				81B3BE1A1A5BB48000DA8FFA /* LyricFilterBar.swift in Sources */,
-				699606261B42152E004102BC /* ToolTip.swift in Sources */,
-				817619FD1AEAF9CD00C7D9CB /* ArtistCollectionViewCell.swift in Sources */,
+				816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
+				816588F51B6168B200F7C9F5 /* KeyboardLayoutView.swift in Sources */,
+				81C017CC1B5FF8B800486F37 /* KeyboardPageView.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				817939011B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
-				81B19EA61B30AD5B00D3575C /* Keyboard.swift in Sources */,
 				810C4AFB1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
-				81B19EA21B30AD5B00D3575C /* Category.swift in Sources */,
-				81592FAB1B0FB7CE0092EA8F /* ArtistPickerCollectionViewLayout.swift in Sources */,
-				81B19EA41B30AD5B00D3575C /* Track.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
 				810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				817938FE1B59A41A0064B0CF /* SearchBar.swift in Sources */,
-				812E3EDB1B4A14EC00C0F3BE /* LyricPickerTableSectionHeaderView.swift in Sources */,
-				81D43AFE1B43A15000453BBF /* MessageBarView.swift in Sources */,
-				81B19EA71B30AD5B00D3575C /* Owner.swift in Sources */,
-				81B19EA51B30AD5B00D3575C /* Artist.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
-				8179388B1B5741050064B0CF /* KeyboardMaps.swift in Sources */,
+				8179388B1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

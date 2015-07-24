@@ -73,10 +73,6 @@ class SearchBar: UIView {
         }
         buttons.append(button)
     }
-    
-    func removeButton() {
-        
-    }
 
     func setupLayout() {
         textInputLeftConstraint = textInput.al_left == al_left + 5
