@@ -85,24 +85,116 @@ enum SpecialCharacter: Character {
     case Euro = "\u{128}"
 }
 
-enum Modifier {
-    case Space
-    case CapsLock
-    case Backspace
-    case Enter
-    case AlphabeticKeypad
-    case SpecialKeypad
-    case NextSpecialKeypad
-    case SwitchKeyboard
-    case SearchMode
-    case GoToBrowse
+enum Modifier: String {
+    case Space = "Space"
+    case CapsLock = "CapsLock"
+    case Backspace = "Backspace"
+    case Enter = "Enter"
+    case AlphabeticKeypad = "AlphabeticKeypad"
+    case SpecialKeypad = "SpecialKeypad"
+    case NextSpecialKeypad = "NextSpecialKeypad"
+    case SwitchKeyboard = "SwitchKeyboard"
+    case SearchMode = "SearchMode"
+    case GoToBrowse = "GoToBrowse"
 }
 
-enum KeyboardKey {
+enum KeyboardKey: Hashable {
     case digit(Digit)
     case letter(Letter)
     case modifier(Modifier)
     case special(SpecialCharacter)
+    
+    var hashValue: Int {
+        return toInt()
+    }
+    
+    var hasOutput: Bool {
+        switch self {
+        case .modifier(let modifier):
+            return false
+        default:
+            return true
+        }
+    }
+    
+    var isCharacter: Bool {
+        switch self {
+        case .modifier(let modifier):
+            return false
+        default:
+            return true
+        }
+    }
+    
+    var isModifier: Bool {
+        switch self {
+        case .modifier(let modifier):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func toString() -> String {
+        switch(self) {
+        case .digit(let digit):
+            return String(digit.rawValue)
+        case .letter(let letter):
+            return String(letter.rawValue)
+        case .modifier(let string):
+            return String(string.rawValue)
+        case .special(let character):
+            return String(character.rawValue)
+        default:
+            return ""
+        }
+    }
+    
+    func toInt() -> Int {
+        switch(self) {
+        case .digit(let character):
+            return character.hashValue
+        case .letter(let character):
+            return character.hashValue
+        case .modifier(let character):
+            return character.hashValue
+        case .special(let character):
+            return character.hashValue
+        default:
+            break
+        }
+    }
+}
+
+extension KeyboardKey: Printable, DebugPrintable {
+    var description: String {
+        return toString()
+    }
+    
+    var debugDescription: String {
+        return toString()
+    }
+}
+
+func ==(lhs: KeyboardKey, rhs: KeyboardKey) -> Bool {
+    return lhs.toString() == rhs.toString()
+}
+
+enum ShiftState {
+    case Disabled
+    case Enabled
+    case Locked
+    
+    func uppercase() -> Bool {
+        switch self {
+        case Disabled:
+            return false
+        case Enabled:
+            return true
+        case Locked:
+            return true
+        }
+    }
 }
 
 enum Lettercase {

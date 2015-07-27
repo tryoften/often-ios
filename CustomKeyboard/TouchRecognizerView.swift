@@ -11,7 +11,7 @@ import UIKit
 class TouchRecognizerView: UIView {
     
     var touchToView: [UITouch:UIView]
-    var keys: [KeyboardKeyButton]!
+    var keys: [KeyboardKeyButton]! = []
     
     override init(frame: CGRect) {
         self.touchToView = [:]
@@ -69,7 +69,7 @@ class TouchRecognizerView: UIView {
         
         for key in keys {
             let view = key
-            if view.hidden {
+            if view.hidden || !view.enabled {
                 continue
             }
             var newPoint = key.superview!.convertPoint(position, fromView:self)

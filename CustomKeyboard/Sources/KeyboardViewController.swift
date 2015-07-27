@@ -26,39 +26,29 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
         }
         set(value) {
             if heightConstraint == nil {
-                if var yConstraints = inputView.constraintsAffectingLayoutForAxis(.Vertical) as? [NSLayoutConstraint] {
-                    println(yConstraints)
-                    for constraint in yConstraints {
-                        if constraint.description.rangeOfString("UIView-Encapsulated-Layout-Height") != nil {
-                            inputView.removeConstraint(constraint)
-                        }
-                    }
-                }
-                
                 self.heightConstraint = inputView.al_height == value
                 self.heightConstraint!.priority = 1000
                 
-                inputView.addConstraints([
-                    self.heightConstraint!
-                ])
-                self.view.layoutIfNeeded()
+                inputView.addConstraint(self.heightConstraint!)
             } else {
                 self.heightConstraint!.constant = value
-                self.view.layoutIfNeeded()
-            }
-            UIView.animateWithDuration(0.3) {
-//                self.standardKeyboardVC.view.frame = self.view.bounds
             }
         }
     }
     var seperatorView: UIView!
     var textProcessor: TextProcessingManager!
-    var standardKeyboardVC: StandardKeyboardViewController!
+    var standardKeyboardVC: StandardKeyboardViewController! {
+        if self.dynamicType.sharedStandardKeyboardVC == nil {
+            self.dynamicType.sharedStandardKeyboardVC = StandardKeyboardViewController(textProcessor: textProcessor)
+        }
+        return self.dynamicType.sharedStandardKeyboardVC
+    }
     var enableInputClicksWhenVisible: Bool {
         return true
     }
     var kludge: UIView?
     static var debugKeyboard = false
+    static var sharedStandardKeyboardVC: StandardKeyboardViewController?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
@@ -69,7 +59,6 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy as! UITextDocumentProxy)
-        standardKeyboardVC = StandardKeyboardViewController(textProcessor: textProcessor)
         
         addChildViewController(standardKeyboardVC)
         
@@ -130,7 +119,6 @@ class KeyboardViewController: UIInputViewController, UIInputViewAudioFeedback {
             return
         }
         super.viewWillLayoutSubviews()
-//        keyboardHeight = KeyboardHeight
     }
     
     func bootstrap() {

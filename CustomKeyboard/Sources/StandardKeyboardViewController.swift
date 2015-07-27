@@ -8,6 +8,8 @@
 
 import UIKit
 
+let ShiftStateUserDefaultsKey = "kShiftState"
+
 class StandardKeyboardViewController: UIViewController, TextProcessingManagerDelegate {
     let locale: Language = .English
     var textProcessor: TextProcessingManager!
@@ -15,7 +17,21 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
     var searchBar: SearchBarController!
     var lettercase: Lettercase!
     var layout: KeyboardLayout
-    private var layoutView: KeyboardLayoutView
+    var constraintsAdded: Bool = false
+    var currentPage: Int = 0
+    private var layoutEngine: KeyboardLayoutEngine?
+    var shiftState: ShiftState {
+        didSet {
+            switch shiftState {
+            case .Disabled:
+                self.updateKeyCaps(false)
+            case .Enabled:
+                self.updateKeyCaps(true)
+            case .Locked:
+                self.updateKeyCaps(true)
+            }
+        }
+    }
     
     init(textProcessor: TextProcessingManager) {
         self.textProcessor = textProcessor
@@ -28,15 +44,13 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         keysContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
         keysContainerView.backgroundColor = UIColor(fromHexString: "#202020")
         
+        shiftState = .Disabled
+        
         if let defaultLayout = KeyboardLayouts[locale] {
             layout = defaultLayout
         } else {
             layout = DefaultKeyboardLayout
         }
-        
-        layoutView = KeyboardLayoutView(layout: layout)
-        layoutView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        keysContainerView.addSubview(layoutView)
         
         lettercase = .Lowercase
 
@@ -45,6 +59,7 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         textProcessor.delegate = self
         view.addSubview(searchBar.view)
         view.addSubview(keysContainerView)
+        
         
         setupLayout()
     }
@@ -57,43 +72,134 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         super.viewDidLoad()
     }
     
+    var lastLayoutBounds: CGRect?
+    override func viewDidLayoutSubviews() {
+        if view.bounds == CGRectZero {
+            return
+        }
+        
+        setupLayout()
+        
+        let orientationSavvyBounds = CGRectMake(0, 0, self.view.bounds.width, self.heightForOrientation(self.interfaceOrientation, withTopBanner: false))
+        
+        if (lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
+            // do nothing
+        }
+        else {
+            let uppercase = self.shiftState.uppercase()
+            let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
+            
+            self.keysContainerView.frame = orientationSavvyBounds
+            self.layoutEngine?.layoutKeys(self.currentPage, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: self.shiftState)
+            self.lastLayoutBounds = orientationSavvyBounds
+            self.setupKeys()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
     }
     
-    func setupLayout() {
-        view.addConstraints([
-            searchBar.view.al_top == view.al_top,
-            searchBar.view.al_left == view.al_left,
-            searchBar.view.al_right == view.al_right,
-            {
-                let constraint =  self.keysContainerView.al_top == self.searchBar.view.al_bottom
-                constraint.priority = 999
-                return constraint
-                }(),
-            {
-                let constraint = self.keysContainerView.al_height == 215
-                constraint.priority = 800
-                return constraint
-                }(),
-            keysContainerView.al_bottom == view.al_bottom,
-            keysContainerView.al_left == view.al_left,
-            keysContainerView.al_right == view.al_right,
-            
-            layoutView.al_top == keysContainerView.al_top,
-            layoutView.al_bottom == keysContainerView.al_bottom,
-            layoutView.al_left == keysContainerView.al_left,
-            layoutView.al_right == keysContainerView.al_right
-        ])
+    func heightForOrientation(orientation: UIInterfaceOrientation, withTopBanner: Bool) -> CGFloat {
+        let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
         
-        var keys = layoutView.allKeys
-        for key in keys {
-            key.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-            key.addTarget(self, action: "didTouchDownOnKey:", forControlEvents: .TouchDown)
-//            key.addTarget(self, action: "backspaceUp:", forControlEvents: .TouchDragExit | .TouchUpOutside | .TouchCancel | .TouchDragOutside)
+        //TODO: hardcoded stuff
+        let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
+        let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
+        let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
+        let topBannerHeight = 0
+        
+        return CGFloat(orientation.isPortrait ? canonicalPortraitHeight : canonicalLandscapeHeight)
+    }
+    
+    func setupLayout() {
+        if !constraintsAdded {
+            layoutEngine = KeyboardLayoutEngine(model: layout, superview: keysContainerView, layoutConstants: LayoutConstants.self)
+            
+            setPage(0)
+            updateKeyCaps(self.shiftState.uppercase())
+            
+            view.addConstraints([
+                searchBar.view.al_top == view.al_top,
+                searchBar.view.al_left == view.al_left,
+                searchBar.view.al_right == view.al_right,
+                {
+                    let constraint =  self.keysContainerView.al_top == self.searchBar.view.al_bottom
+                    constraint.priority = 999
+                    return constraint
+                    }(),
+                {
+                    let constraint = self.keysContainerView.al_height == 215
+                    constraint.priority = 800
+                    return constraint
+                    }(),
+                keysContainerView.al_bottom == view.al_bottom,
+                keysContainerView.al_left == view.al_left,
+                keysContainerView.al_right == view.al_right
+                ])
+            self.constraintsAdded = true
         }
-        keysContainerView.keys = keys
+    }
+    
+    func setupKeys() {
+        for page in layout.pages {
+            for rowKeys in page.rows { // TODO: quick hack
+                for key in rowKeys {
+                    if let keyView = self.layoutEngine?.viewForKey(key) {
+                        keyView.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+                        
+                        switch key {
+                        case .modifier(.SwitchKeyboard):
+                            keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
+                        case .modifier(.Backspace):
+                            let cancelEvents: UIControlEvents = UIControlEvents.TouchUpInside|UIControlEvents.TouchUpInside|UIControlEvents.TouchDragExit|UIControlEvents.TouchUpOutside|UIControlEvents.TouchCancel|UIControlEvents.TouchDragOutside
+                            
+                            keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
+                        case .modifier(.CapsLock):
+                            keyView.addTarget(self, action: Selector("shiftDown:"), forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: Selector("shiftUp:"), forControlEvents: .TouchUpInside)
+                            keyView.addTarget(self, action: Selector("shiftDoubleTapped:"), forControlEvents: .TouchDownRepeat)
+                        case .modifier(.SpecialKeypad):
+                            keyView.addTarget(self, action: Selector("modeChangeTapped:"), forControlEvents: .TouchDown)
+                        default:
+                            break
+                        }
+                        
+                        if key.isCharacter {
+                            if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad {
+                                keyView.addTarget(self, action: Selector("showPopup:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
+                                keyView.addTarget(keyView, action: Selector("hidePopup"), forControlEvents: .TouchDragExit | .TouchCancel)
+                                keyView.addTarget(self, action: Selector("hidePopupDelay:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside)
+                            }
+                        }
+                        
+                        if key.hasOutput {
+                            keyView.addTarget(self, action: "keyPressedHelper:", forControlEvents: .TouchUpInside)
+                        }
+                        
+                        if key != .modifier(.CapsLock) {
+                            keyView.addTarget(self, action: Selector("highlightKey:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
+                            keyView.addTarget(self, action: Selector("unHighlightKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                        }
+                        
+                        keyView.addTarget(self, action: Selector("playKeySound"), forControlEvents: .TouchDown)
+                    }
+                }
+            }
+        }
+    }
+
+    
+    func setPage(page: Int) {
+        currentPage = page
+        self.layoutEngine?.layoutKeys(page, uppercase: false, characterUppercase: false, shiftState: self.shiftState)
+    }
+    
+    func updateKeyCaps(uppercase: Bool) {
+        let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
+        self.layoutEngine?.updateKeyCaps(false, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: self.shiftState)
     }
 
     func didTapButton(sender: AnyObject?) {
@@ -103,41 +209,33 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
         button.highlighted = false
         button.selected = !button.selected
 
-        switch(button.key) {
-        case .letter(let character):
-            var str = String(character.rawValue)
-            if lettercase! == .Lowercase {
-                str = str.lowercaseString
+        if let key = button.key {
+            switch(key) {
+            case .letter(let character):
+                var str = String(character.rawValue)
+                if lettercase! == .Lowercase {
+                    str = str.lowercaseString
+                }
+                textProcessor.insertText(str)
+            case .digit(let number):
+                textProcessor.insertText(String(number.rawValue))
+            case .special(let character):
+                textProcessor.insertText(String(character.rawValue))
+            case .modifier(.CapsLock):
+                lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
+            case .modifier(.SwitchKeyboard):
+                NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
+            case .modifier(.Backspace):
+                textProcessor.deleteBackward()
+            case .modifier(.Space):
+                textProcessor.insertText(" ")
+            case .modifier(.Enter):
+                textProcessor.insertText("\n")
+            case .modifier(.GoToBrowse):
+                dismissViewControllerAnimated(false, completion: nil)
+            default:
+                break
             }
-            textProcessor.insertText(str)
-        case .digit(let number):
-            textProcessor.insertText(String(number.rawValue))
-        case .special(let character):
-            textProcessor.insertText(String(character.rawValue))
-        case .modifier(.CapsLock):
-            lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
-            
-            for keyButton in layoutView.allKeys {
-                keyButton.lettercase = lettercase
-            }
-        case .modifier(.SwitchKeyboard):
-            NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
-        case .modifier(.Backspace):
-            textProcessor.deleteBackward()
-        case .modifier(.AlphabeticKeypad):
-            layoutView.setActivePageViewWithIdentifier(.Letter)
-        case .modifier(.SpecialKeypad):
-            layoutView.setActivePageViewWithIdentifier(.Special)
-        case .modifier(.NextSpecialKeypad):
-            layoutView.setActivePageViewWithIdentifier(.SecondSpecial)
-        case .modifier(.Space):
-            textProcessor.insertText(" ")
-        case .modifier(.Enter):
-            textProcessor.insertText("\n")
-        case .modifier(.GoToBrowse):
-            dismissViewControllerAnimated(false, completion: nil)
-        default:
-            break
         }
     }
     
@@ -151,15 +249,11 @@ class StandardKeyboardViewController: UIViewController, TextProcessingManagerDel
     
     func didTouchDownOnKey(sender: AnyObject?) {
         let button = sender as! KeyboardKeyButton
+
+    }
+    
+    func advanceTapped(sender: KeyboardKey) {
         
-        button.highlighted = true
-        
-        switch(button.key) {
-        case .modifier(.Backspace):
-            textProcessor.deleteBackward()
-        default:
-            break
-        }
     }
 }
 
