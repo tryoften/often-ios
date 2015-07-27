@@ -11,7 +11,7 @@ import Foundation
 // handles the layout for the keyboard, including key spacing and arrangement
 class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
     
-    class var shouldPoolKeys: Bool { get { return true }}
+    class var shouldPoolKeys: Bool { get { return false }}
     
     var layoutConstants: LayoutConstants.Type
     
@@ -283,7 +283,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
                     keyArray.append(key)
                     self.sizeToKeyMap[key.frame.size] = keyArray
                 }
-//                key.hidden = true
+                key.hidden = true
             }
         }
     }
@@ -516,7 +516,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
         var keysAfterSpace = 0
         var reachedSpace = false
         for (k, key) in enumerate(row) {
-            if key == .modifier(.Space) {
+            if key.isSpace {
                 reachedSpace = true
             }
             else {
@@ -554,7 +554,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
         var currentOrigin = frame.origin.x
         var beforeSpace: Bool = true
         for (k, key) in enumerate(row) {
-            if key == .modifier(.Space) {
+            if key.isSpace {
                 frames.append(CGRectMake(rounded(currentOrigin), frame.origin.y, spaceWidth, frame.height))
                 currentOrigin += (spaceWidth + gapWidth)
                 beforeSpace = false

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 let ShiftStateUserDefaultsKey = "kShiftState"
 let ResizeKeyboardEvent = "resizeKeyboard"
@@ -81,13 +82,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         view.addSubview(searchBar.view)
         view.addSubview(keysContainerView)
         inputView.backgroundColor = UIColor.whiteColor()
-        
-        if KeyboardViewController.debugKeyboard {
-            var viewFrame = view.frame
-            viewFrame.origin.y = 0
-            viewFrame.size.height = KeyboardHeight
-            view.frame = viewFrame
-        }
     }
     
     convenience init(debug: Bool = false) {
@@ -182,6 +176,10 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
     }
     
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        self.keyboardHeight = self.heightForOrientation(toInterfaceOrientation, withTopBanner: true)
+    }
+    
     func switchKeyboard() {
         advanceToNextInputMode()
     }
@@ -240,19 +238,19 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                         keyView.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
                         
                         switch key {
-                        case .modifier(.SwitchKeyboard):
+                        case .modifier(.SwitchKeyboard, let pageId):
                             keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
-                        case .modifier(.Backspace):
+                        case .modifier(.Backspace, let pageId):
                             let cancelEvents: UIControlEvents = UIControlEvents.TouchUpInside|UIControlEvents.TouchUpInside|UIControlEvents.TouchDragExit|UIControlEvents.TouchUpOutside|UIControlEvents.TouchCancel|UIControlEvents.TouchDragOutside
                             
                             keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
                             keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
-                        case .modifier(.CapsLock):
-                            keyView.addTarget(self, action: Selector("shiftDown:"), forControlEvents: .TouchDown)
-                            keyView.addTarget(self, action: Selector("shiftUp:"), forControlEvents: .TouchUpInside)
-                            keyView.addTarget(self, action: Selector("shiftDoubleTapped:"), forControlEvents: .TouchDownRepeat)
-                        case .modifier(.SpecialKeypad):
-                            keyView.addTarget(self, action: Selector("modeChangeTapped:"), forControlEvents: .TouchDown)
+                        case .modifier(.CapsLock, let pageId):
+                            keyView.addTarget(self, action: "shiftDown:", forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
+                            keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
+                        case .changePage(let pageNumber, let pageId):
+                            keyView.addTarget(self, action: "pageChangeTapped:", forControlEvents: .TouchDown)
                         default:
                             break
                         }
@@ -265,16 +263,16 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                             }
                         }
                         
-                        if key.hasOutput {
-                            keyView.addTarget(self, action: "keyPressedHelper:", forControlEvents: .TouchUpInside)
-                        }
+//                        if key.hasOutput {
+//                            keyView.addTarget(self, action: "keyPressedHelper:", forControlEvents: .TouchUpInside)
+//                        }
                         
-                        if key != .modifier(.CapsLock) {
+                        if !key.isModifier {
                             keyView.addTarget(self, action: Selector("highlightKey:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
                             keyView.addTarget(self, action: Selector("unHighlightKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
                         }
                         
-                        keyView.addTarget(self, action: Selector("playKeySound"), forControlEvents: .TouchDown)
+                        keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchDown)
                     }
                 }
             }
@@ -311,22 +309,22 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 textProcessor.insertText(String(number.rawValue))
             case .special(let character):
                 textProcessor.insertText(String(character.rawValue))
-            case .modifier(.CapsLock):
+            case .modifier(.CapsLock, let pageId):
                 lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
-            case .modifier(.SwitchKeyboard):
+            case .modifier(.SwitchKeyboard, let pageId):
                 NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
-            case .modifier(.Backspace):
+            case .modifier(.Backspace, let pageId):
                 textProcessor.deleteBackward()
-            case .modifier(.Space):
+            case .modifier(.Space, let pageId):
                 textProcessor.insertText(" ")
-            case .modifier(.Enter):
+            case .modifier(.Enter, let pageId):
                 textProcessor.insertText("\n")
-            case .modifier(.GoToBrowse):
-                dismissViewControllerAnimated(false, completion: nil)
             default:
                 break
             }
         }
+        
+        playKeySound()
     }
     
     // MARK: TextProcessingManagerDelegate
@@ -336,7 +334,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType) {
         searchBar.activeServiceProviderType = serviceProviderType
     }
-    
+
+    // MARK: Event Handlers
     func didTouchDownOnKey(sender: AnyObject?) {
         let button = sender as! KeyboardKeyButton
         
@@ -345,5 +344,111 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func advanceTapped(sender: KeyboardKey) {
         
     }
+    
+    func pageChangeTapped(sender: AnyObject?) {
+        if let button = sender as? KeyboardKeyButton,
+            key = button.key {
+                switch(key) {
+                case .changePage(let pageNumber, let pageId):
+                    setPage(pageNumber)
+                default:
+                    setPage(0)
+                }
+        }
+        
+    }
+    
+    func highlightKey(sender: AnyObject?) {
+        let button = sender as! KeyboardKeyButton
+        button.highlighted = true
+    }
+    
+    func unHighlightKey(sender: AnyObject?) {
+        let button = sender as! KeyboardKeyButton
+        button.highlighted = false
+    }
+    
+    func playKeySound() {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            AudioServicesPlaySystemSound(1104)
+        })
+    }
+    
+    var keyWithDelayedPopup: KeyboardKeyButton?
+    var popupDelayTimer: NSTimer?
+    
+    func showPopup(sender: AnyObject?) {
+        let button = sender as! KeyboardKeyButton
+        if button == self.keyWithDelayedPopup {
+            self.popupDelayTimer?.invalidate()
+        }
+        button.showPopup()
+    }
+    
+    func hidePopupDelay(sender: AnyObject?) {
+        let button = sender as! KeyboardKeyButton
+        self.popupDelayTimer?.invalidate()
+        
+        if button != self.keyWithDelayedPopup {
+            self.keyWithDelayedPopup?.hidePopup()
+            self.keyWithDelayedPopup = button
+        }
+        
+        if button.popup != nil {
+            self.popupDelayTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("hidePopupCallback"), userInfo: nil, repeats: false)
+        }
+    }
+    
+    func hidePopupCallback() {
+//        self.keyWithDelayedPopup?.hidePopup()
+//        self.keyWithDelayedPopup = nil
+//        self.popupDelayTimer = nil
+    }
+    
+    let backspaceDelay: NSTimeInterval = 0.5
+    let backspaceRepeat: NSTimeInterval = 0.07
+    var backspaceActive: Bool {
+        get {
+            return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
+        }
+    }
+    var backspaceDelayTimer: NSTimer?
+    var backspaceRepeatTimer: NSTimer?
+
+    func cancelBackspaceTimers() {
+        self.backspaceDelayTimer?.invalidate()
+        self.backspaceRepeatTimer?.invalidate()
+        self.backspaceDelayTimer = nil
+        self.backspaceRepeatTimer = nil
+    }
+    
+    func backspaceDown(sender: KeyboardKeyButton?) {
+        self.cancelBackspaceTimers()
+        
+        if let textDocumentProxy = self.textDocumentProxy as? UIKeyInput {
+            textDocumentProxy.deleteBackward()
+        }
+        
+        // trigger for subsequent deletes
+        self.backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
+    }
+    
+    func backspaceUp(sender: KeyboardKeyButton?) {
+        self.cancelBackspaceTimers()
+    }
+    
+    func backspaceDelayCallback() {
+        self.backspaceDelayTimer = nil
+        self.backspaceRepeatTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceRepeat, target: self, selector: Selector("backspaceRepeatCallback"), userInfo: nil, repeats: true)
+    }
+    
+    func backspaceRepeatCallback() {
+        self.playKeySound()
+        
+        if let textDocumentProxy = self.textDocumentProxy as? UIKeyInput {
+            textDocumentProxy.deleteBackward()
+        }
+    }
+
 }
 

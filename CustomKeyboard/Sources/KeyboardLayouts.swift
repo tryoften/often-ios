@@ -12,22 +12,22 @@ import Foundation
 private let EnglishKeyboardMap: [KeyboardRow] = [
     [.letter(.Q), .letter(.W), .letter(.E), .letter(.R), .letter(.T), .letter(.Y), .letter(.U), .letter(.I), .letter(.O), .letter(.P)],
     [.letter(.A), .letter(.S), .letter(.D), .letter(.F), .letter(.G), .letter(.H), .letter(.J), .letter(.K), .letter(.L)],
-    [.modifier(.CapsLock), .letter(.Z), .letter(.X), .letter(.C), .letter(.V), .letter(.B), .letter(.N), .letter(.M), .modifier(.Backspace)],
-    [.modifier(.SpecialKeypad), .modifier(.GoToBrowse), .modifier(.SwitchKeyboard), .modifier(.Space), .special(.Hashtag), .modifier(.Enter)]
+    [.modifier(.CapsLock, .Letter), .letter(.Z), .letter(.X), .letter(.C), .letter(.V), .letter(.B), .letter(.N), .letter(.M), .modifier(.Backspace, .Letter)],
+    [.changePage(1, .Letter), .modifier(.GoToBrowse, .Letter), .modifier(.SwitchKeyboard, .Letter), .modifier(.Space, .Letter), .modifier(.CallService, .Letter), .modifier(.Enter, .Letter)]
 ]
 
 private let SpecialCharacterKeyboardMap: [KeyboardRow] = [
     [.digit(.One), .digit(.Two), .digit(.Three), .digit(.Four), .digit(.Five), .digit(.Six), .digit(.Seven), .digit(.Eight), .digit(.Nine), .digit(.Zero)],
     [.special(.Hyphen), .special(.Slash), .special(.Colon), .special(.Semicolon), .special(.OpenParenthesis), .special(.CloseParenthesis), .special(.DollarSign), .special(.Ampersand), .special(.At), .special(.Quote)],
-    [.modifier(.NextSpecialKeypad), .special(.Period), .special(.Comma), .special(.QuestionMark), .special(.ExclamationMark), .special(.SingleQuote), .modifier(.Backspace)],
-    [.modifier(.AlphabeticKeypad), .modifier(.GoToBrowse), .modifier(.SwitchKeyboard), .modifier(.Space), .special(.Hashtag), .modifier(.Enter)]
+    [.changePage(2, .Special), .special(.Period), .special(.Comma), .special(.QuestionMark), .special(.ExclamationMark), .special(.SingleQuote), .modifier(.Backspace, .Special)],
+    [.changePage(0, .Special), .modifier(.GoToBrowse, .Special), .modifier(.SwitchKeyboard, .Special), .modifier(.Space, .Special), .modifier(.CallService, .Special), .modifier(.Enter, .Special)]
 ]
 
 private let NextSpecialCharacterKeyboardMap: [KeyboardRow] = [
     [.special(.OpenBracket), .special(.CloseBracket), .special(.OpenBrace), .special(.CloseBrace), .special(.Hashtag), .special(.Percent), .special(.Caret), .special(.Asterisk), .special(.Plus), .special(.Equal)],
     [.special(.Underscore), .special(.Backslash), .special(.Line), .special(.Tilda), .special(.LessThan), .special(.GreaterThan), .special(.Euro)],
-    [.modifier(.SpecialKeypad), .special(.Period), .special(.Comma), .special(.QuestionMark), .special(.ExclamationMark), .special(.SingleQuote), .modifier(.Backspace)],
-    [.modifier(.AlphabeticKeypad), .modifier(.GoToBrowse), .modifier(.SwitchKeyboard), .modifier(.Space), .special(.Hashtag), .modifier(.Enter)]
+    [.changePage(1, .SecondSpecial), .special(.Period), .special(.Comma), .special(.QuestionMark), .special(.ExclamationMark), .special(.SingleQuote), .modifier(.Backspace, .SecondSpecial)],
+    [.changePage(0, .SecondSpecial), .modifier(.GoToBrowse, .SecondSpecial), .modifier(.SwitchKeyboard, .SecondSpecial), .modifier(.Space, .SecondSpecial), .modifier(.CallService, .SecondSpecial), .modifier(.Enter, .SecondSpecial)]
 ]
 
 enum Language: String {

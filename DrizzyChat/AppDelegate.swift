@@ -25,11 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
-        PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
-        PFFacebookUtils.initializeFacebook()
-        FBAppEvents.activateApp()
-        Flurry.startSession(FlurryClientKey)
         Fabric.with([Crashlytics()])
         
         venmoService = VenmoService()
@@ -57,11 +52,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let window = self.window {
             if TestKeyboard {
-                var frame = window.frame
-                frame.origin.y = frame.size.height / 2
-                frame.size.height = frame.size.height / 2
-                window.frame = frame
-                window.clipsToBounds = true
+//                var frame = window.frame
+//                frame.origin.y = frame.size.height / 2
+//                frame.size.height = frame.size.height / 2
+//                window.frame = frame
+//                window.clipsToBounds = true
                 mainController = KeyboardViewController(debug: true)
             }
             window.rootViewController = mainController
@@ -72,11 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        var currentInstallation = PFInstallation.currentInstallation()
-        currentInstallation.setDeviceTokenFromData(deviceToken)
-        currentInstallation.saveInBackgroundWithBlock({ saved in
-            NSNotificationCenter.defaultCenter().postNotificationName("pushNotificationsEnabled", object: self)
-        })
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -84,10 +74,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-        
-        if FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session()) {
-            return true
-        }
         
         if Venmo.sharedInstance().handleOpenURL(url) {
             var urlString: String = url.absoluteString!
@@ -131,7 +117,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
     }
 
     func applicationWillTerminate(application: UIApplication) {

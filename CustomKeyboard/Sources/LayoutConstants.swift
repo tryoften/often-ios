@@ -9,7 +9,7 @@
 import Foundation
 
 
-class LayoutConstants: NSObject {
+class LayoutConstants {
     class var landscapeRatio: CGFloat { get { return 2 }}
     
     // side edges increase on 6 in portrait

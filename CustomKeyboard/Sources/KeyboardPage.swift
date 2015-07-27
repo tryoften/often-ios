@@ -10,8 +10,8 @@ import Foundation
 
 typealias KeyboardRow = [KeyboardKey]
 
-enum KeyboardPageIdentifier {
-    case Letter
+enum KeyboardPageIdentifier: Int {
+    case Letter = 0
     case Numeric
     case Special
     case SecondSpecial
