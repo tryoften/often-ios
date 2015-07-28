@@ -10,11 +10,11 @@ import Foundation
 
 typealias KeyboardRow = [KeyboardKey]
 
-enum KeyboardPageIdentifier {
-    case Letter
-    case Numeric
-    case Special
-    case SecondSpecial
+enum KeyboardPageIdentifier: String {
+    case Letter = "letter"
+    case Numeric = "numeric"
+    case Special = "special"
+    case SecondSpecial = "second-special"
 }
 
 struct KeyboardPage {

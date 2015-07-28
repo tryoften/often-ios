@@ -11,14 +11,13 @@ import UIKit
 class TouchRecognizerView: UIView {
     
     var touchToView: [UITouch:UIView]
-    var keys: [KeyboardKeyButton]!
     
     override init(frame: CGRect) {
         self.touchToView = [:]
         
         super.init(frame: frame)
         
-        self.contentMode = UIViewContentMode.Redraw
+        self.contentMode = .Redraw
         self.multipleTouchEnabled = true
         self.userInteractionEnabled = true
         self.opaque = false
@@ -61,31 +60,31 @@ class TouchRecognizerView: UIView {
     
     // TODO: there's a bit of "stickiness" to Apple's implementation
     func findNearestView(position: CGPoint) -> UIView? {
-        if !self.bounds.contains(position) {
+        if !bounds.contains(position) {
             return nil
         }
         
         var closest: (UIView, CGFloat)? = nil
         
-        for key in keys {
-            let view = key
-            if view.hidden {
-                continue
-            }
-            var newPoint = key.superview!.convertPoint(position, fromView:self)
-            view.alpha = 1
-            
-            let distance = distanceBetween(view.frame, point: newPoint)
-            
-            if closest != nil {
-                if distance < closest!.1 {
+        for anyView in self.subviews {
+            if let view = anyView as? UIView {
+                if view.hidden {
+                    continue
+                }
+                
+                view.alpha = 1
+                
+                let distance = distanceBetween(view.frame, point: position)
+                
+                if closest != nil {
+                    if distance < closest!.1 {
+                        closest = (view, distance)
+                    }
+                }
+                else {
                     closest = (view, distance)
                 }
             }
-            else {
-                closest = (view, distance)
-            }
-
         }
     
         if closest != nil {

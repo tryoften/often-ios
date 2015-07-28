@@ -13,3 +13,25 @@ struct KeyboardLayout {
     var locale: String
     var pages: [KeyboardPage]
 }
+
+protocol KeyboardKeyProtocol: class {
+    func frameForPopup(key: KeyboardKeyButton, direction: Direction) -> CGRect
+    func willShowPopup(key: KeyboardKeyButton, direction: Direction) //may be called multiple times during layout
+    func willHidePopup(key: KeyboardKeyButton)
+}
+
+extension CGRect: Hashable {
+    public var hashValue: Int {
+        get {
+            return (origin.x.hashValue ^ origin.y.hashValue ^ size.width.hashValue ^ size.height.hashValue)
+        }
+    }
+}
+
+extension CGSize: Hashable {
+    public var hashValue: Int {
+        get {
+            return (width.hashValue ^ height.hashValue)
+        }
+    }
+}

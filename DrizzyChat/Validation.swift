@@ -20,20 +20,6 @@ func EmailIsValid(testStr:String) -> Bool {
     return emailTest.evaluateWithObject(testStr)
 }
 
-func EmailIsNew(testStr:String) -> Bool {
-    let query = PFUser.query()
-    let username = query!.whereKey("username", equalTo:testStr)
-    
-    if let usersArray = username.findObjects() {
-        if usersArray.count == 0 {
-            return true
-        } else {
-            return false
-        }
-    } else {
-        return true
-    }
-}
 func NameIsValid(testStr:String) -> Bool {
     return count(testStr) >= 1
 }
