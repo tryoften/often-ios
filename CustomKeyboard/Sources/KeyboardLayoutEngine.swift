@@ -11,7 +11,7 @@ import Foundation
 // handles the layout for the keyboard, including key spacing and arrangement
 class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
     
-    class var shouldPoolKeys: Bool { get { return false }}
+    class var shouldPoolKeys: Bool { get { return true }}
     
     var layoutConstants: LayoutConstants.Type
     
@@ -530,7 +530,6 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
         }
         
         assert(keysBeforeSpace <= 3, "invalid number of keys before space (only max 3 currently supported)")
-//        assert(keysAfterSpace == 1, "invalid number of keys after space (only default 1 currently supported)")
         
         let hasButtonInMicButtonPosition = (keysBeforeSpace == 3)
         

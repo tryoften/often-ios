@@ -82,7 +82,9 @@ enum SpecialCharacter: Character {
     case Tilda = "~"
     case LessThan = "<"
     case GreaterThan = ">"
-    case Euro = "\u{128}"
+    case Euro = "€"
+    case PoundSterling = "£"
+    case Dot = "·"
 }
 
 enum Modifier: String {
@@ -99,7 +101,7 @@ enum Modifier: String {
 enum KeyboardKey: Hashable {
     case digit(Digit)
     case letter(Letter)
-    case special(SpecialCharacter)
+    case special(SpecialCharacter, KeyboardPageIdentifier)
     case modifier(Modifier, KeyboardPageIdentifier)
     case changePage(Int, KeyboardPageIdentifier)
     
@@ -156,9 +158,9 @@ enum KeyboardKey: Hashable {
         case .letter(let letter):
             return String(letter.rawValue)
         case .modifier(let string, let pageId):
-            return String(string.rawValue)
-        case .special(let character):
-            return String(character.rawValue)
+            return "\(string.rawValue):\(pageId.rawValue)"
+        case .special(let character, let pageId):
+            return "\(character.rawValue):\(pageId.rawValue)"
         case .changePage(let page, let pageId):
             return "Page: \(page)"
         default:
@@ -174,7 +176,7 @@ enum KeyboardKey: Hashable {
             return character.hashValue
         case .modifier(let character, let pageId):
             return character.hashValue
-        case .special(let character):
+        case .special(let character, let pageId):
             return character.hashValue
         case .changePage(let page, let pageId):
             return page

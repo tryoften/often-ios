@@ -249,6 +249,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                             keyView.addTarget(self, action: "shiftDown:", forControlEvents: .TouchDown)
                             keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
                             keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
+                        case .digit(let number):
+                            break
                         case .changePage(let pageNumber, let pageId):
                             keyView.addTarget(self, action: "pageChangeTapped:", forControlEvents: .TouchDown)
                         default:
@@ -283,6 +285,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func setPage(page: Int) {
         currentPage = page
         self.layoutEngine?.layoutKeys(page, uppercase: false, characterUppercase: false, shiftState: self.shiftState)
+        self.setupKeys()
     }
     
     func updateKeyCaps(uppercase: Bool) {
@@ -307,14 +310,12 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 textProcessor.insertText(str)
             case .digit(let number):
                 textProcessor.insertText(String(number.rawValue))
-            case .special(let character):
+            case .special(let character, let pageId):
                 textProcessor.insertText(String(character.rawValue))
             case .modifier(.CapsLock, let pageId):
                 lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
             case .modifier(.SwitchKeyboard, let pageId):
                 NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
-            case .modifier(.Backspace, let pageId):
-                textProcessor.deleteBackward()
             case .modifier(.Space, let pageId):
                 textProcessor.insertText(" ")
             case .modifier(.Enter, let pageId):
@@ -341,7 +342,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
     }
     
-    func advanceTapped(sender: KeyboardKey) {
+    func advanceTapped(sender: KeyboardKeyButton?) {
         
     }
     
@@ -400,9 +401,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func hidePopupCallback() {
-//        self.keyWithDelayedPopup?.hidePopup()
-//        self.keyWithDelayedPopup = nil
-//        self.popupDelayTimer = nil
+        self.keyWithDelayedPopup?.hidePopup()
+        self.keyWithDelayedPopup = nil
+        self.popupDelayTimer = nil
     }
     
     let backspaceDelay: NSTimeInterval = 0.5
@@ -449,6 +450,79 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             textDocumentProxy.deleteBackward()
         }
     }
+
+    // state tracking during shift tap
+    var shiftWasMultitapped: Bool = false
+    var shiftStartingState: ShiftState?
+    
+    func shiftDown(sender: KeyboardKeyButton?) {
+        self.shiftStartingState = self.shiftState
+        
+        if let shiftStartingState = self.shiftStartingState {
+            if shiftStartingState.uppercase() {
+                // handled by shiftUp
+                return
+            }
+            else {
+                switch self.shiftState {
+                case .Disabled:
+                    self.shiftState = .Enabled
+                case .Enabled:
+                    self.shiftState = .Disabled
+                case .Locked:
+                    self.shiftState = .Disabled
+                }
+                
+//                (sender.shape as? ShiftShape)?.withLock = false
+            }
+        }
+    }
+    
+    func shiftUp(sender: KeyboardKeyButton?) {
+        if self.shiftWasMultitapped {
+            // do nothing
+        }
+        else {
+            if let shiftStartingState = self.shiftStartingState {
+                if !shiftStartingState.uppercase() {
+                    // handled by shiftDown
+                }
+                else {
+                    switch self.shiftState {
+                    case .Disabled:
+                        self.shiftState = .Enabled
+                    case .Enabled:
+                        self.shiftState = .Disabled
+                    case .Locked:
+                        self.shiftState = .Disabled
+                    }
+                    
+//                    (sender.shape as? ShiftShape)?.withLock = false
+                }
+            }
+        }
+        
+        self.shiftStartingState = nil
+        self.shiftWasMultitapped = false
+    }
+    
+    func shiftDoubleTapped(sender: KeyboardKeyButton?) {
+        self.shiftWasMultitapped = true
+        
+        switch self.shiftState {
+        case .Disabled:
+            self.shiftState = .Locked
+        case .Enabled:
+            self.shiftState = .Locked
+        case .Locked:
+            self.shiftState = .Disabled
+        }
+    }
+//    
+//    func updateKeyCaps(uppercase: Bool) {
+//        let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
+//        self.layoutEngine?.updateKeyCaps(false, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: self.shiftState)
+//    }
 
 }
 

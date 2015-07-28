@@ -1,28 +1,91 @@
-//
-//  KeyboardKeyButton.swift
-//  October
-//
-//  Created by Luc Succes on 7/16/15.
-//  Copyright (c) 2015 October Labs Inc. All rights reserved.
-//
+////
+////  KeyboardKeyButton.swift
+////  October
+////
+////  Created by Luc Succes on 7/16/15.
+////  Copyright (c) 2015 October Labs Inc. All rights reserved.
+////
 
 import UIKit
 
-class KeyboardKeyButton: UIButton {
+enum VibrancyType {
+    case LightSpecial
+    case DarkSpecial
+    case DarkRegular
+}
+
+class KeyboardKeyButton: UIControl {
+    
     weak var delegate: KeyboardKeyProtocol?
     
-    var lettercase: Lettercase {
+    var vibrancy: VibrancyType?
+    
+    var text: String {
         didSet {
-            setupKey()
+            self.label.text = text
+            self.label.frame = CGRectMake(self.labelInset, self.labelInset, self.bounds.width - self.labelInset * 2, self.bounds.height - self.labelInset * 2)
+            self.redrawText()
         }
     }
-    
     var key: KeyboardKey? {
         didSet {
             setupKey()
         }
     }
-
+    
+    var color: UIColor { didSet { updateColors() }}
+    var underColor: UIColor { didSet { updateColors() }}
+    var borderColor: UIColor { didSet { updateColors() }}
+    var popupColor: UIColor { didSet { updateColors() }}
+    var drawUnder: Bool { didSet { updateColors() }}
+    var drawOver: Bool { didSet { updateColors() }}
+    var drawBorder: Bool { didSet { updateColors() }}
+    var underOffset: CGFloat { didSet { updateColors() }}
+    
+    var textColor: UIColor { didSet { updateColors() }}
+    var downColor: UIColor? { didSet { updateColors() }}
+    var downUnderColor: UIColor? { didSet { updateColors() }}
+    var downBorderColor: UIColor? { didSet { updateColors() }}
+    var downTextColor: UIColor? { didSet { updateColors() }}
+    
+    var labelInset: CGFloat = 0 {
+        didSet {
+            if oldValue != labelInset {
+                self.label.frame = CGRectMake(self.labelInset, self.labelInset, self.bounds.width - self.labelInset * 2, self.bounds.height - self.labelInset * 2)
+            }
+        }
+    }
+    
+    var shouldRasterize: Bool = false {
+        didSet {
+            for view in [self.displayView, self.borderView, self.underView] {
+                view?.layer.shouldRasterize = shouldRasterize
+                view?.layer.rasterizationScale = UIScreen.mainScreen().scale
+            }
+        }
+    }
+    
+    var popupDirection: Direction?
+    
+    override var enabled: Bool { didSet { updateColors() }}
+    override var selected: Bool {
+        didSet {
+            updateColors()
+        }
+    }
+    override var highlighted: Bool {
+        didSet {
+            updateColors()
+        }
+    }
+    
+    override var frame: CGRect {
+        didSet {
+            self.redrawText()
+        }
+    }
+    
+    var label: UILabel
     var popupLabel: UILabel?
     var shape: Shape? {
         didSet {
@@ -33,121 +96,210 @@ class KeyboardKeyButton: UIButton {
             updateColors()
         }
     }
-    
-    var label: UILabel
-    
-    var text: String {
-        didSet {
-            self.label.text = text
-            self.label.frame = CGRectMake(self.labelInset, self.labelInset, self.bounds.width - self.labelInset * 2, self.bounds.height - self.labelInset * 2)
-        }
-    }
-    var color: UIColor
-    var downColor: UIColor = UIColor(fromHexString: "#121314")
-    var downTextColor: UIColor = UIColor.whiteColor()
-    var popupColor: UIColor = UIColor(fromHexString: "#121314")
-    var underColor: UIColor { didSet { updateColors() }}
-    var borderColor: UIColor { didSet { updateColors() }}
-    var textColor: UIColor
-    var labelInset: CGFloat = 0 {
-        didSet {
-            if oldValue != labelInset {
-                self.label.frame = CGRectMake(self.labelInset, self.labelInset, self.bounds.width - self.labelInset * 2, self.bounds.height - self.labelInset * 2)
-            }
-        }
-    }
+    var iconView: UIImageView
     
     var background: KeyboardKeyBackground
     var popup: KeyboardKeyBackground?
     var connector: KeyboardConnector?
-
-    var popupDirection: Direction?
+    
     var displayView: ShapeView
-    var borderView: ShapeView
-    var underView: ShapeView
+    var borderView: ShapeView?
+    var underView: ShapeView?
     
-    override var enabled: Bool { didSet { updateColors() }}
-    override var selected: Bool {
-        didSet {
-            updateColors()
-        }
-    }
-
-    override var highlighted: Bool {
-        didSet {
-            updateColors()
-            if let key = key {
-                switch(key) {
-                case .modifier(.CallService, let pageId):
-                    background.backgroundColor = TealColor
-                    break
-                case .modifier(let modifier, let pageId):
-                    break
-                default:
-                    break
-//                    if highlighted {
-//                        background.backgroundColor = UIColor(fromHexString: "#3A3A3A")
-//                    } else {
-//                        background.backgroundColor = UIColor(fromHexString: "#2A2A2A")
-//                    }
-                }
-            }
-        }
-    }
+    var shadowView: UIView
+    var shadowLayer: CALayer
     
-    init() {
-        lettercase = .Lowercase
+    init(vibrancy optionalVibrancy: VibrancyType? = .LightSpecial) {
+        self.vibrancy = optionalVibrancy
         
-        color = UIColor(fromHexString: "#2A2A2A")
-        background = KeyboardKeyBackground(cornerRadius: 2, underOffset: 0)
-        background.backgroundColor = color
-        popupColor = color
-        underColor = color
-        borderColor = color
+        self.displayView = ShapeView()
+        self.underView = ShapeView()
+        self.borderView = ShapeView()
         
-        displayView = ShapeView()
-        borderView = ShapeView()
-        underView = ShapeView()
+        self.shadowLayer = CAShapeLayer()
+        self.shadowView = UIView()
         
-        label = UILabel()
-        text = ""
-        textColor = UIColor.whiteColor()
-
+        self.label = UILabel()
+        self.text = ""
+        
+        self.color = UIColor(fromHexString: "#2A2A2A")
+        self.underColor = UIColor(fromHexString: "#2A2A2A")
+        self.borderColor = UIColor(fromHexString: "#2A2A2A")
+        self.popupColor = UIColor(fromHexString: "#121314")
+        self.drawUnder = true
+        self.drawOver = true
+        self.drawBorder = false
+        self.underOffset = 1
+        
+        self.background = KeyboardKeyBackground(cornerRadius: 2, underOffset: self.underOffset)
+        
+        self.textColor = UIColor.whiteColor()
+        self.popupDirection = nil
+        
+        iconView = UIImageView()
+        iconView.contentMode = .ScaleAspectFit
         
         super.init(frame: CGRectZero)
-        addSubview(borderView)
-        addSubview(underView)
-        addSubview(background)
-        background.addSubview(label)
         
-        borderView.lineWidth = CGFloat(0.5)
-        borderView.fillColor = UIColor.clearColor()
+        addSubview(shadowView)
+        self.shadowView.layer.addSublayer(self.shadowLayer)
         
-        label.font = UIFont(name: "OpenSans", size: 20)
-        label.textColor = textColor
-        
-        label.textAlignment = NSTextAlignment.Center
-        label.baselineAdjustment = UIBaselineAdjustment.AlignCenters
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = CGFloat(0.1)
-        label.userInteractionEnabled = false
-        label.numberOfLines = 1
-        
-        backgroundColor = UIColor.clearColor()
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func setTitle(title: String?, forState state: UIControlState) {
-        if let title = title {
-            text = title
+        self.addSubview(self.displayView)
+        if let underView = self.underView {
+            self.addSubview(underView)
         }
+        if let borderView = self.borderView {
+            self.addSubview(borderView)
+        }
+        
+        addSubview(self.background)
+        background.addSubview(self.label)
+        background.addSubview(iconView)
+        
+        let setupViews: Void = {
+            self.displayView.opaque = false
+            self.underView?.opaque = false
+            self.borderView?.opaque = false
+            
+            self.shadowLayer.shadowOpacity = Float(0.2)
+            self.shadowLayer.shadowRadius = 4
+            self.shadowLayer.shadowOffset = CGSizeMake(0, 3)
+            
+            self.borderView?.lineWidth = CGFloat(0.5)
+            self.borderView?.fillColor = UIColor.clearColor()
+            
+            self.label.textAlignment = NSTextAlignment.Center
+            self.label.baselineAdjustment = UIBaselineAdjustment.AlignCenters
+            self.label.font = UIFont(name: "OpenSans", size: 20)
+            self.label.adjustsFontSizeToFitWidth = true
+            self.label.minimumScaleFactor = CGFloat(0.1)
+            self.label.userInteractionEnabled = false
+            self.label.numberOfLines = 1
+            }()
+    }
+    
+        func setupKey() {
+            if let key = key {
+                label.font = UIFont(name: "OpenSans", size: 20)
+                color = UIColor(fromHexString: "#2A2A2A")
+                underColor = UIColor(fromHexString: "#2A2A2A")
+                iconView.image = nil
+                text = ""
+
+                switch(key) {
+                case .letter(let character):
+                    color = UIColor(fromHexString: "#2A2A2A")
+                    var str = String(character.rawValue)
+                    text = str
+                case .digit(let number):
+                    text = String(number.rawValue)
+                case .special(let character, let pageId):
+                    text = String(character.rawValue)
+                case .modifier(let modifier, let pageId):
+                    switch(modifier) {
+                    case .Backspace:
+                        color = UIColor(fromHexString: "#202020")
+                        underColor = UIColor(fromHexString: "#202020")
+                        iconView.image = UIImage(named: "Backspace")
+                        break
+                    case .CapsLock:
+                        color = UIColor(fromHexString: "#202020")
+                        underColor = UIColor(fromHexString: "#202020")
+                        iconView.image = UIImage(named: "CapsLock")
+                        break
+                    case .SwitchKeyboard:
+                        label.font = NextKeyboardButtonFont
+                        text = "\u{f114}"
+                        color = UIColor(fromHexString: "#2A2A2A")
+                        textColor = UIColor.whiteColor()
+                        break
+                    case .GoToBrowse:
+                        iconView.image = UIImage(named: "IconWhite")
+                        break
+                    case .Space:
+                        text = "Space".uppercaseString
+                        label.font = UIFont(name: "OpenSans", size: 14)
+                        break
+                    case .Enter:
+                        text = "Enter".uppercaseString
+                        textColor = UIColor.blackColor()
+                        color = UIColor.whiteColor()
+                        label.font = UIFont(name: "OpenSans", size: 11)
+                        break
+                    case .CallService:
+                        text = "#"
+                        color = TealColor
+                        textColor = BlackColor
+                    default:
+                        break
+                    }
+                case .changePage(let pageNumber, let pageId):
+                    switch(pageNumber) {
+                    case 0:
+                        text = "ABC"
+                    case 1:
+                        text = "123"
+                    case 2:
+                        text = "#+="
+                    default:
+                        break
+                    }
+                    underColor = UIColor(fromHexString: "#202020")
+                    color = UIColor(fromHexString: "#202020")
+                    label.font = UIFont(name: "OpenSans", size: 9)
+                    textColor = UIColor.whiteColor().colorWithAlphaComponent(0.74)
+                default:
+                    break
+                }
+                updateColors()
+            }
+    }
+
+    
+    required init(coder: NSCoder) {
+        fatalError("NSCoding not supported")
+    }
+    
+    override func setNeedsLayout() {
+        return super.setNeedsLayout()
+    }
+    
+    var oldBounds: CGRect?
+    override func layoutSubviews() {
+        self.layoutPopupIfNeeded()
+        
+        var boundingBox = (self.popup != nil ? CGRectUnion(self.bounds, self.popup!.frame) : self.bounds)
+        
+        if self.bounds.width == 0 || self.bounds.height == 0 {
+            return
+        }
+        if oldBounds != nil && CGSizeEqualToSize(boundingBox.size, oldBounds!.size) {
+            return
+        }
+        oldBounds = boundingBox
+        
+        super.layoutSubviews()
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        self.background.frame = self.bounds
+        self.label.frame = CGRectMake(self.labelInset, self.labelInset, self.bounds.width - self.labelInset * 2, self.bounds.height - self.labelInset * 2)
+        
+        self.displayView.frame = boundingBox
+        self.shadowView.frame = boundingBox
+        self.borderView?.frame = boundingBox
+        self.underView?.frame = boundingBox
+        self.iconView.frame = CGRectInset(boundingBox, 10, 10)
+
+        CATransaction.commit()
+        
+        self.refreshViews()
     }
     
     func refreshViews() {
         self.refreshShapes()
+        self.redrawText()
         self.redrawShape()
         self.updateColors()
     }
@@ -198,12 +350,15 @@ class KeyboardKeyButton: UIButton {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
+        if let popup = self.popup {
+            self.shadowLayer.shadowPath = shadowPath.CGPath
+        }
         
-        self.underView.curve = underPath
+        self.underView?.curve = underPath
         self.displayView.curve = testPath
-        self.borderView.curve = edgePath
+        self.borderView?.curve = edgePath
         
-        if let borderLayer = self.borderView.layer as? CAShapeLayer {
+        if let borderLayer = self.borderView?.layer as? CAShapeLayer {
             borderLayer.strokeColor = UIColor.greenColor().CGColor
         }
         
@@ -212,6 +367,8 @@ class KeyboardKeyButton: UIButton {
     
     func layoutPopupIfNeeded() {
         if self.popup != nil && self.popupDirection == nil {
+            self.shadowView.hidden = false
+            self.borderView?.hidden = false
             
             self.popupDirection = Direction.Up
             
@@ -219,9 +376,90 @@ class KeyboardKeyButton: UIButton {
             self.configurePopup(self.popupDirection!)
             
             self.delegate?.willShowPopup(self, direction: self.popupDirection!)
-        } else {
-            self.borderView.hidden = true
         }
+        else {
+            self.shadowView.hidden = true
+            self.borderView?.hidden = true
+        }
+    }
+    
+    func redrawText() {
+    }
+    
+    func redrawShape() {
+        if let shape = self.shape {
+            self.text = ""
+            shape.removeFromSuperview()
+            self.addSubview(shape)
+            
+            let pointOffset: CGFloat = 4
+            let size = CGSizeMake(self.bounds.width - pointOffset - pointOffset, self.bounds.height - pointOffset - pointOffset)
+            shape.frame = CGRectMake(
+                CGFloat((self.bounds.width - size.width) / 2.0),
+                CGFloat((self.bounds.height - size.height) / 2.0),
+                size.width,
+                size.height)
+            
+            shape.setNeedsLayout()
+        }
+    }
+    
+    func updateColors() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        let switchColors = self.highlighted || self.selected
+        
+        if switchColors {
+            if let downColor = self.downColor {
+                self.displayView.fillColor = downColor
+            }
+            else {
+                self.displayView.fillColor = self.color
+            }
+            
+            if let downUnderColor = self.downUnderColor {
+                self.underView?.fillColor = downUnderColor
+            }
+            else {
+                self.underView?.fillColor = self.underColor
+            }
+            
+            if let downBorderColor = self.downBorderColor {
+                self.borderView?.strokeColor = downBorderColor
+            }
+            else {
+                self.borderView?.strokeColor = self.borderColor
+            }
+            
+            if let downTextColor = self.downTextColor {
+                self.label.textColor = downTextColor
+                self.popupLabel?.textColor = downTextColor
+                self.shape?.color = downTextColor
+            }
+            else {
+                self.label.textColor = self.textColor
+                self.popupLabel?.textColor = self.textColor
+                self.shape?.color = self.textColor
+            }
+        }
+        else {
+            self.displayView.fillColor = self.color
+            
+            self.underView?.fillColor = self.underColor
+            
+            self.borderView?.strokeColor = self.borderColor
+            
+            self.label.textColor = self.textColor
+            self.popupLabel?.textColor = self.textColor
+            self.shape?.color = self.textColor
+        }
+        
+        if self.popup != nil {
+            self.displayView.fillColor = self.popupColor
+        }
+        
+        CATransaction.commit()
     }
     
     func layoutPopup(dir: Direction) {
@@ -250,7 +488,7 @@ class KeyboardKeyButton: UIButton {
         let p = self.popup!
         
         self.connector?.removeFromSuperview()
-        self.connector = KeyboardConnector(cornerRadius: 4, underOffset: 0, start: kv, end: p, startConnectable: kv, endConnectable: p, startDirection: direction, endDirection: direction.opposite())
+        self.connector = KeyboardConnector(cornerRadius: 4, underOffset: self.underOffset, start: kv, end: p, startConnectable: kv, endConnectable: p, startDirection: direction, endDirection: direction.opposite())
         self.connector!.layer.zPosition = -1
         self.addSubview(self.connector!)
         
@@ -266,14 +504,14 @@ class KeyboardKeyButton: UIButton {
         if self.popup == nil {
             self.layer.zPosition = 1000
             
-            var popup = KeyboardKeyBackground(cornerRadius: 9.0, underOffset: 0)
+            var popup = KeyboardKeyBackground(cornerRadius: 4.0, underOffset: self.underOffset)
             self.popup = popup
             self.addSubview(popup)
             
             var popupLabel = UILabel()
             popupLabel.textAlignment = self.label.textAlignment
             popupLabel.baselineAdjustment = self.label.baselineAdjustment
-            popupLabel.font = self.label.font.fontWithSize(22 * 2)
+            popupLabel.font = UIFont(name: "OpenSans", size: 44)
             popupLabel.adjustsFontSizeToFitWidth = self.label.adjustsFontSizeToFitWidth
             popupLabel.minimumScaleFactor = CGFloat(0.1)
             popupLabel.userInteractionEnabled = false
@@ -308,262 +546,17 @@ class KeyboardKeyButton: UIButton {
             self.popupDirection = nil
         }
     }
-    
-    func updateColors() {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        
-        let switchColors = self.highlighted || self.selected
-        
-        if switchColors {
-            let downColor = color
-            self.displayView.fillColor = downColor
-            self.underView.fillColor = downColor
-            
-            self.borderView.strokeColor = downColor
-
-            
-            let downTextColor = self.downTextColor
-            self.label.textColor = downTextColor
-            self.popupLabel?.textColor = downTextColor
-            self.shape?.color = downTextColor
-        }
-        else {
-            self.displayView.fillColor = self.color
-            
-            self.underView.fillColor = self.underColor
-            
-            self.borderView.strokeColor = self.borderColor
-            
-            self.label.textColor = self.textColor
-            self.popupLabel?.textColor = self.textColor
-            self.shape?.color = self.textColor
-        }
-        
-        if self.popup != nil {
-            self.displayView.fillColor = color
-        }
-        
-        CATransaction.commit()
-    }
-    
-    var oldBounds: CGRect?
-    override func layoutSubviews() {
-        self.layoutPopupIfNeeded()
-        
-        var boundingBox = (self.popup != nil ? CGRectUnion(self.bounds, self.popup!.frame) : self.bounds)
-        
-        if self.bounds.width == 0 || self.bounds.height == 0 {
-            return
-        }
-        if oldBounds != nil && CGSizeEqualToSize(boundingBox.size, oldBounds!.size) {
-            return
-        }
-        oldBounds = boundingBox
-        
-        super.layoutSubviews()
-        
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        
-        self.background.frame = self.bounds
-        self.label.frame = CGRectMake(self.labelInset, self.labelInset, self.bounds.width - self.labelInset * 2, self.bounds.height - self.labelInset * 2)
-        
-        displayView.frame = boundingBox
-        borderView.frame = boundingBox
-        underView.frame = boundingBox
-        
-        CATransaction.commit()
-        
-        self.refreshViews()
-    }
-    
-    func redrawShape() {
-        if let shape = self.shape {
-            shape.removeFromSuperview()
-            self.addSubview(shape)
-            
-            let pointOffset: CGFloat = 4
-            let size = CGSizeMake(self.bounds.width - pointOffset - pointOffset, self.bounds.height - pointOffset - pointOffset)
-            shape.frame = CGRectMake(
-                CGFloat((self.bounds.width - size.width) / 2.0),
-                CGFloat((self.bounds.height - size.height) / 2.0),
-                size.width,
-                size.height)
-            
-            shape.setNeedsLayout()
-        }
-    }
-    
-    func setupKey() {
-        if let key = key {
-            switch(key) {
-            case .letter(let character):
-                color = UIColor(fromHexString: "#2A2A2A")
-                var str = String(character.rawValue)
-                if lettercase == .Lowercase {
-                    str = str.lowercaseString
-                }
-                setTitle(str, forState: .Normal)
-            case .digit(let number):
-                setTitle(String(number.rawValue), forState: .Normal)
-            case .special(let character):
-                setTitle(String(character.rawValue), forState: .Normal)
-                switch(character) {
-                case .Hashtag:
-                    color = TealColor
-                    textColor = BlackColor
-                default:
-                    break
-                }
-            case .modifier(let modifier, let pageId):
-                switch(modifier) {
-                case .Backspace:
-                    color = UIColor.clearColor()
-                    setImage(UIImage(named: "Backspace"), forState: .Normal)
-                    imageView?.contentMode = .ScaleAspectFit
-                    imageEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
-                    break
-                case .CapsLock:
-                    color = UIColor.clearColor()
-                    setImage(UIImage(named: "CapsLock"), forState: .Normal)
-                    setImage(UIImage(named: "CapsLockEnabled"), forState: .Selected)
-                    imageView?.contentMode = .ScaleAspectFit
-                    imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                    break
-                case .SwitchKeyboard:
-                    label.font = NextKeyboardButtonFont
-                    text = "\u{f114}"
-                    color = UIColor(fromHexString: "#2A2A2A")
-                    textColor = UIColor.whiteColor()
-                    break
-                case .GoToBrowse:
-                    imageView?.contentMode = .ScaleAspectFit
-                    setImage(UIImage(named: "IconWhite"), forState: .Normal)
-                    imageEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-                    break
-                case .Space:
-                    text = "Space".uppercaseString
-                    label.font = UIFont(name: "OpenSans", size: 14)
-                    break
-                case .Enter:
-                    text = "Enter".uppercaseString
-                    textColor = UIColor.blackColor()
-                    label.font = UIFont(name: "OpenSans", size: 14)
-                    background.backgroundColor = UIColor.whiteColor()
-                    break
-                default:
-                    break
-                }
-            case .changePage(let pageNumber, let pageId):
-                switch(pageNumber) {
-                case 0:
-                    setTitle("ABC", forState: .Normal)
-                case 1:
-                    setTitle("123", forState: .Normal)
-                case 2:
-                    setTitle("#+=", forState: .Normal)
-                default:
-                    break
-                }
-
-                color = UIColor.clearColor()
-                label.font = UIFont(name: "OpenSans", size: 9)
-                textColor = UIColor.whiteColor().colorWithAlphaComponent(0.74)
-            default:
-                break
-            }
-            updateColors()
-        }
-    }
 }
 
-class Shape: UIView {
-    var color: UIColor? {
-        didSet {
-            if let color = self.color {
-                self.overflowCanvas.setNeedsDisplay()
-            }
-        }
-    }
-    
-    // in case shapes draw out of bounds, we still want them to show
-    var overflowCanvas: OverflowCanvas!
-    
-    convenience init() {
-        self.init(frame: CGRectZero)
-    }
-    
-    override required init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.opaque = false
-        self.clipsToBounds = false
-        
-        self.overflowCanvas = OverflowCanvas(shape: self)
-        self.addSubview(self.overflowCanvas)
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    var oldBounds: CGRect?
-    override func layoutSubviews() {
-        if self.bounds.width == 0 || self.bounds.height == 0 {
-            return
-        }
-        if oldBounds != nil && CGRectEqualToRect(self.bounds, oldBounds!) {
-            return
-        }
-        oldBounds = self.bounds
-        
-        super.layoutSubviews()
-        
-        let overflowCanvasSizeRatio = CGFloat(1.25)
-        let overflowCanvasSize = CGSizeMake(self.bounds.width * overflowCanvasSizeRatio, self.bounds.height * overflowCanvasSizeRatio)
-        
-        self.overflowCanvas.frame = CGRectMake(
-            CGFloat((self.bounds.width - overflowCanvasSize.width) / 2.0),
-            CGFloat((self.bounds.height - overflowCanvasSize.height) / 2.0),
-            overflowCanvasSize.width,
-            overflowCanvasSize.height)
-        self.overflowCanvas.setNeedsDisplay()
-    }
-    
-    func drawCall(color: UIColor) { /* override me! */ }
-    
-    class OverflowCanvas: UIView {
-        unowned var shape: Shape
-        
-        init(shape: Shape) {
-            self.shape = shape
-            
-            super.init(frame: CGRectZero)
-            
-            self.opaque = false
-        }
-        
-        required init(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        override func drawRect(rect: CGRect) {
-            let ctx = UIGraphicsGetCurrentContext()
-            let csp = CGColorSpaceCreateDeviceRGB()
-            
-            CGContextSaveGState(ctx)
-            
-            let xOffset = (self.bounds.width - self.shape.bounds.width) / CGFloat(2)
-            let yOffset = (self.bounds.height - self.shape.bounds.height) / CGFloat(2)
-            CGContextTranslateCTM(ctx, xOffset, yOffset)
-            
-            self.shape.drawCall(shape.color != nil ? shape.color! : UIColor.blackColor())
-            
-            CGContextRestoreGState(ctx)
-        }
-    }
-}
+/*
+PERFORMANCE NOTES
+
+* CAShapeLayer: convenient and low memory usage, but chunky rotations
+* drawRect: fast, but high memory usage (looks like there's a backing store for each of the 3 views)
+* if I set CAShapeLayer to shouldRasterize, perf is *almost* the same as drawRect, while mem usage is the same as before
+* oddly, 3 CAShapeLayers show the same memory usage as 1 CAShapeLayer — where is the backing store?
+* might want to move to drawRect with combined draw calls for performance reasons — not clear yet
+*/
 
 class ShapeView: UIView {
     
@@ -656,4 +649,10 @@ class ShapeView: UIView {
             }
         }
     }
+    
+    //    override func drawRect(rect: CGRect) {
+    //        if self.shapeLayer == nil {
+    //            self.drawCall(rect)
+    //        }
+    //    }
 }
