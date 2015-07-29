@@ -8,6 +8,10 @@
 
 import UIKit
 
+
+let TextProcessingManagerProxyEvent = "textProcessingManager.setCurrentProxy"
+let TextProcessingManagedResetDefaultProxyEvent = "textProceesingManager.resetDefaultProxy"
+
 class TextProcessingManager: NSObject, UITextInputDelegate {
     weak var delegate: TextProcessingManagerDelegate?
     var currentProxy: UITextDocumentProxy
@@ -19,16 +23,56 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         proxies = [:]
         currentProxy = textDocumentProxy
         proxies["default"] = currentProxy
+        
+        super.init()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSetCurrentProxy:", name: TextProcessingManagerProxyEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveResetDefaultProxy:", name: TextProcessingManagedResetDefaultProxyEvent, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func didReceiveSetCurrentProxy(notification: NSNotification) {
+        if let userInfo = notification.userInfo,
+            let proxy = notification.object as? UITextDocumentProxy,
+            let setDefault = userInfo["setDefault"] as? Bool,
+            let id = userInfo["id"] as? String {
+                proxies[id] = proxy
+                
+                if setDefault {
+                    currentProxy = proxy
+                }
+        }
+    }
+    
+    func didReceiveResetDefaultProxy(notification: NSNotification) {
+        if let proxy = currentProxy as? UIResponder {
+            proxy.resignFirstResponder()
+        }
+        currentProxy = proxies["default"]!
+    }
+    
     func textWillChange(textInput: UITextInput) {
     }
     
     func textDidChange(textInput: UITextInput) {
+    }
+
+    func selectionWillChange(textInput: UITextInput) {
+        
+    }
+
+    func selectionDidChange(textInput: UITextInput) {
+        
+    }
+    
+    func parseTextInCurrentDocumentProxy() {
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
             
@@ -52,14 +96,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         
         delegate?.textProcessingManagerDidChangeText(self)
     }
-
-    func selectionWillChange(textInput: UITextInput) {
-        
-    }
-
-    func selectionDidChange(textInput: UITextInput) {
-        
-    }
     
     func clearInput() {
         //move cursor to end of text
@@ -76,10 +112,12 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     
     func insertText(text: String) {
         currentProxy.insertText(text)
+        parseTextInCurrentDocumentProxy()
     }
     
     func deleteBackward() {
         currentProxy.deleteBackward()
+        parseTextInCurrentDocumentProxy()
     }
     
     func setCurrentProxyWithId(id: String) -> Bool {
