@@ -18,10 +18,12 @@ class VenmoRequestOrPayView: UIView {
         requestButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         requestButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         requestButton.setTitle("Request", forState: .Normal)
+        requestButton.titleLabel!.font = UIFont(name: "OpenSans", size: 16)
 
         payButton = UIButton()
         payButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         payButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        payButton.titleLabel!.font = UIFont(name: "OpenSans", size: 16)
         payButton.setTitle("Pay", forState: .Normal)
         
         seperatorView = UIView()

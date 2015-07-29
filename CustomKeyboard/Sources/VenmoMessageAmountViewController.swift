@@ -9,26 +9,28 @@
 import UIKit
 
 class VenmoMessageAmountViewController: ServiceProviderSupplementaryViewController {
-    private var height: CGFloat = 50.0
+    private var height: CGFloat = 100.0
     override var supplementaryViewHeight: CGFloat {
         return height
     }
     
-    var messageTextField: UITextField!
-    var amountTextField: UITextField!
+    var messageTextField: SearchTextField!
+    var amountTextField: SearchTextField!
     var requestOrPayView: VenmoRequestOrPayView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        messageTextField = UITextField()
+        messageTextField = SearchTextField()
         messageTextField.placeholder = "Message"
         messageTextField.font = SubtitleFont
+        messageTextField.enableCancelButton = false
         messageTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        amountTextField = UITextField()
+        amountTextField = SearchTextField()
         amountTextField.placeholder = "$0.00"
         amountTextField.font = SubtitleFont
+        amountTextField.enableCancelButton = false
         amountTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         amountTextField.addTarget(self, action: "amountTextFieldDidEndEditing", forControlEvents: UIControlEvents.EditingDidEnd)
         
@@ -49,16 +51,20 @@ class VenmoMessageAmountViewController: ServiceProviderSupplementaryViewControll
     func setupLayout() {
         view.addConstraints([
             messageTextField.al_left == view.al_left + 10,
-            messageTextField.al_centerY == view.al_centerY,
-            messageTextField.al_right == amountTextField.al_left - 10,
+            messageTextField.al_top == view.al_top + 10,
+            messageTextField.al_width == view.al_width - 80,
+            {
+                let constraint = self.amountTextField.al_right == self.view.al_right - 10
+                constraint.priority = 1000
+                return constraint
+            }(),
+            amountTextField.al_top == view.al_top + 10,
+            amountTextField.al_left == messageTextField.al_right + 10,
             
-            amountTextField.al_right == view.al_right - 10,
-            amountTextField.al_centerY == view.al_centerY,
-            
-            requestOrPayView.al_top == view.al_top + 50.0,
+            requestOrPayView.al_bottom == view.al_bottom,
             requestOrPayView.al_left == view.al_left,
             requestOrPayView.al_right == view.al_right,
-            requestOrPayView.al_height == 50.0
+            requestOrPayView.al_height == 45.0
         ])
     }
     

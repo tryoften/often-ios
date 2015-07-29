@@ -13,10 +13,6 @@ import Crashlytics
 
 private var TestKeyboard: Bool = true
 
-let appClientID = "2784"
-let appSecret = "M9KM33YyReByzfn9dV9rnLK6pLTepB46"
-var accessToken = ""
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -29,21 +25,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         venmoService = VenmoService()
     
-        Venmo.startWithAppId(appClientID, secret: appSecret, name: "Smurf")
+        Venmo.startWithAppId(VenmoAppID, secret: VenmoAppSecret, name: "SWRV")
+        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
+            if success {
+                println("Permissions Success!")
+            } else {
+                println("Permissions Fail")
+            }
+        }
         
-//        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
-//            if success {
-//                println("Permissions Success!")
-//            } else {
-//                println("Permissions Fail")
-//            }
-//        }
-//        
-//        if Venmo.isVenmoAppInstalled() {
-//            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
-//        } else {
-//            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
-//        }
+        if Venmo.isVenmoAppInstalled() {
+            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
+        } else {
+            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
+        }
     
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
@@ -79,16 +74,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     index = i
                 }
             }
-            
-            accessToken = urlString.substringFromIndex(index + 1)
-        
+
             var session = Venmo.sharedInstance().session
             session.accessToken
             
             println(session.accessToken)
             
             venmoService.getCurrentUserInformation(session.accessToken)
-            // venmoService.getCurrentUserListOfFriend(<#accessToken: String#>, id: <#String#>)
             
             return true
         }

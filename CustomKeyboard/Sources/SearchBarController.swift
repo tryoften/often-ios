@@ -82,7 +82,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
             searchBarView.al_top == view.al_top,
             searchBarView.al_width == view.al_width,
             searchBarView.al_left == view.al_left,
-            searchBarView.al_height == 40,
+            searchBarView.al_height == KeyboardSearchBarHeight,
 
             supplementaryViewContainer.al_top == searchBarView.al_bottom,
             supplementaryViewContainer.al_bottom == view.al_bottom,
@@ -127,6 +127,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidChange() {
+        textProcessor?.parseTextInCurrentDocumentProxy()
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
