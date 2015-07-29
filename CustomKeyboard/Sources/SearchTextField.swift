@@ -110,6 +110,7 @@ class SearchTextField: UIControl, Layouteable {
         text = ""
 
         label = TOMSMorphingLabel()
+        label.animationDuration = 0.2
         label.setTranslatesAutoresizingMaskIntoConstraints(false)
         label.font = UIFont(name: "OpenSans", size: 22)
         

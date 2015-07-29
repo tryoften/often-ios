@@ -1,5 +1,5 @@
 //
-//  KeyboardViewController+KeyboardKeysEventHandlers.swift
+//  KeyboardViewController+EventHandlers.swift
 //  Surf
 //
 //  Created by Kervins Valcourt on 7/28/15.
