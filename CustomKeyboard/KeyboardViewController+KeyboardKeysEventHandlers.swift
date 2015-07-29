@@ -70,13 +70,13 @@ extension KeyboardViewController {
     }
     
     func highlightKey(button: KeyboardKeyButton?) {
-        if let button = button{
+        if let button = button {
             button.highlighted = true
         }
     }
     
     func unHighlightKey(button: KeyboardKeyButton?) {
-        if let button = button{
+        if let button = button {
             button.highlighted = false
         }
     }
@@ -88,7 +88,7 @@ extension KeyboardViewController {
     }
     
     func showPopup(button: KeyboardKeyButton?) {
-        if let button = button{
+        if let button = button {
             if button == keyWithDelayedPopup {
                 popupDelayTimer?.invalidate()
             }
@@ -98,7 +98,7 @@ extension KeyboardViewController {
     }
     
     func hidePopupDelay(button: KeyboardKeyButton?) {
-        if let button = button{
+        if let button = button {
             popupDelayTimer?.invalidate()
             
             if button != keyWithDelayedPopup {
