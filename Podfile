@@ -11,6 +11,7 @@ target 'Surf' do
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
   pod 'AFNetworking', '~> 2.0'
   pod 'Venmo-iOS-SDK', '~>1.3'
+  pod 'TOMSMorphingLabel', '~> 0.5'
 end
 
 target 'Keyboard' do

@@ -69,7 +69,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         searchBar = SearchBarController(nibName: nil, bundle: nil)
-        searchBar.textProcessor = textProcessor
         
         keysContainerView = TouchRecognizerView()
         keysContainerView.backgroundColor = UIColor(fromHexString: "#202020")
@@ -87,8 +86,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         super.init(nibName: nil, bundle: nil)
         
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy as! UITextDocumentProxy)
-        
         textProcessor.delegate = self
+        searchBar.textProcessor = textProcessor
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
@@ -277,12 +276,15 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                                 keyView.addTarget(self, action: Selector("hidePopupDelay:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside)
                             }
                         }
+
                         if !key.isModifier {
                             keyView.addTarget(self, action: Selector("highlightKey:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
                             keyView.addTarget(self, action: Selector("unHighlightKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
                         }
                         
-                        keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchDown)
+                        if key.hasOutput {
+                            keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchDown)
+                        }
                     }
                 }
             }
