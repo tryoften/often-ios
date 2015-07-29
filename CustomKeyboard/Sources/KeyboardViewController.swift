@@ -241,8 +241,11 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                         case .modifier(.SwitchKeyboard, let pageId):
                             keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
                         case .modifier(.Backspace, let pageId):
+                            println("Backspace found")
                             let cancelEvents: UIControlEvents = UIControlEvents.TouchUpInside|UIControlEvents.TouchUpInside|UIControlEvents.TouchDragExit|UIControlEvents.TouchUpOutside|UIControlEvents.TouchCancel|UIControlEvents.TouchDragOutside
+                            let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "backspaceLongPressed:")
                             
+                            keyView.addGestureRecognizer(longPressRecognizer)
                             keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
                             keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
                         case .modifier(.CapsLock, let pageId):
@@ -264,10 +267,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                                 keyView.addTarget(self, action: Selector("hidePopupDelay:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside)
                             }
                         }
-                        
-//                        if key.hasOutput {
-//                            keyView.addTarget(self, action: "keyPressedHelper:", forControlEvents: .TouchUpInside)
-//                        }
                         
                         if !key.isModifier {
                             keyView.addTarget(self, action: Selector("highlightKey:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
@@ -415,21 +414,28 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     var backspaceDelayTimer: NSTimer?
     var backspaceRepeatTimer: NSTimer?
+    var backspaceWordDeleteTimer: NSTimer?
+    var backspaceStartTime: CFAbsoluteTime!
 
     func cancelBackspaceTimers() {
         self.backspaceDelayTimer?.invalidate()
         self.backspaceRepeatTimer?.invalidate()
+        self.backspaceWordDeleteTimer?.invalidate()
         self.backspaceDelayTimer = nil
         self.backspaceRepeatTimer = nil
+        self.backspaceWordDeleteTimer = nil
+        self.backspaceStartTime = nil
     }
     
-    func backspaceDown(sender: KeyboardKeyButton?) {
+    func backspaceDown(button: KeyboardKeyButton?) {
         self.cancelBackspaceTimers()
+        
+        backspaceStartTime = CFAbsoluteTimeGetCurrent()
         
         if let textDocumentProxy = self.textDocumentProxy as? UIKeyInput {
             textDocumentProxy.deleteBackward()
         }
-        
+    
         // trigger for subsequent deletes
         self.backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
     }
@@ -441,13 +447,66 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func backspaceDelayCallback() {
         self.backspaceDelayTimer = nil
         self.backspaceRepeatTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceRepeat, target: self, selector: Selector("backspaceRepeatCallback"), userInfo: nil, repeats: true)
+        println("backspace delay")
     }
     
     func backspaceRepeatCallback() {
         self.playKeySound()
         
-        if let textDocumentProxy = self.textDocumentProxy as? UIKeyInput {
-            textDocumentProxy.deleteBackward()
+        var timeElapsed = CFAbsoluteTimeGetCurrent() - backspaceStartTime
+        
+        if timeElapsed < 2.0 {
+            if let textDocumentProxy = self.textDocumentProxy as? UIKeyInput {
+                textDocumentProxy.deleteBackward()
+            }
+        } else {
+            backspaceLongPressed()
+        }
+    }
+    
+    /**
+        Deleting whole word method. Looks at the number of characters from cursor back to first whitespace 
+        before it not including one that is next to it. Needs to be in loop.
+    
+        :param: recognizer Long Press recognizer to handle for a long backspace press
+    
+    */
+    func backspaceLongPressed() {
+        for _ in 0...40000 {
+            println("Stall")
+        }
+        
+        if let textDocumentProxy = self.textDocumentProxy as? UITextDocumentProxy {
+            if let documentContextBeforeInput = textDocumentProxy.documentContextBeforeInput as NSString? {
+                if documentContextBeforeInput.length > 0 {
+                    var charactersToDelete = 0
+                    switch documentContextBeforeInput {
+                    // If cursor is next to a letter
+                    case let stringLeft where NSCharacterSet.letterCharacterSet().characterIsMember(stringLeft.characterAtIndex(stringLeft.length - 1)):
+                        let range = documentContextBeforeInput.rangeOfCharacterFromSet(NSCharacterSet.letterCharacterSet().invertedSet, options: .BackwardsSearch)
+                        if range.location != NSNotFound {
+                            charactersToDelete = documentContextBeforeInput.length - range.location
+                        } else {
+                            charactersToDelete = documentContextBeforeInput.length
+                        }
+                    // If cursor is next to a whitespace
+                    case let stringLeft where stringLeft.hasSuffix(" "):
+                        let range = documentContextBeforeInput.rangeOfCharacterFromSet(NSCharacterSet.whitespaceCharacterSet().invertedSet, options: .BackwardsSearch)
+                        if range.location != NSNotFound {
+                            charactersToDelete = documentContextBeforeInput.length - range.location - 1
+                        } else {
+                            charactersToDelete = documentContextBeforeInput.length
+                        }
+                    // if there is only one character left
+                    default:
+                        charactersToDelete = 1
+                    }
+                    
+                    for i in 0..<charactersToDelete {
+                        textDocumentProxy.deleteBackward()
+                    }
+                }
+            }
         }
     }
 
@@ -472,8 +531,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 case .Locked:
                     self.shiftState = .Disabled
                 }
-                
-//                (sender.shape as? ShiftShape)?.withLock = false
             }
         }
     }
@@ -496,8 +553,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                     case .Locked:
                         self.shiftState = .Disabled
                     }
-                    
-//                    (sender.shape as? ShiftShape)?.withLock = false
                 }
             }
         }
@@ -518,11 +573,5 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             self.shiftState = .Disabled
         }
     }
-//    
-//    func updateKeyCaps(uppercase: Bool) {
-//        let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
-//        self.layoutEngine?.updateKeyCaps(false, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: self.shiftState)
-//    }
-
 }
 
