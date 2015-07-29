@@ -21,12 +21,14 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>venmo2804</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>venmo2784</string>
+				<string>venmo2804</string>
 			</array>
-			<key>CFBundleURLName</key>
-			<string>venmo2784</string>
 		</dict>
 		<dict>
 			<key>CFBundleURLName</key>

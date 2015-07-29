@@ -28,6 +28,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     let backspaceDelay: NSTimeInterval = 0.5
     let backspaceRepeat: NSTimeInterval = 0.07
     var lastLayoutBounds: CGRect?
+    var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
     var backspaceActive: Bool {
@@ -131,9 +132,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             lastLayoutBounds = orientationSavvyBounds
             setupKeys()
         }
-        
-        searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, 40)
+
         keysContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
+        searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, searchBarHeight)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -181,8 +182,13 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func resizeKeyboard(notification: NSNotification) {
         if let userInfo = notification.userInfo,
             height = userInfo["height"] as? CGFloat {
+                var keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
+                
+                searchBarHeight = height - keysContainerViewHeight
+                
                 keyboardHeight = height
                 UIView.animateWithDuration(0.3) {
+                    self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
                     self.view.layoutIfNeeded()
                 }
         }
