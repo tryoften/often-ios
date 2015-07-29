@@ -59,7 +59,7 @@ extension KeyboardViewController {
     }
     
     func pageChangeTapped(button: KeyboardKeyButton?) {
-        if let key = button!.key {
+        if let button = button, key = button.key {
                 switch(key) {
                 case .changePage(let pageNumber, let pageId):
                     setPage(pageNumber)
@@ -70,11 +70,15 @@ extension KeyboardViewController {
     }
     
     func highlightKey(button: KeyboardKeyButton?) {
-        button!.highlighted = true
+        if let button = button{
+            button.highlighted = true
+        }
     }
     
     func unHighlightKey(button: KeyboardKeyButton?) {
-        button!.highlighted = false
+        if let button = button{
+            button.highlighted = false
+        }
     }
     
     func playKeySound() {
@@ -84,23 +88,27 @@ extension KeyboardViewController {
     }
     
     func showPopup(button: KeyboardKeyButton?) {
-        
-        if button == keyWithDelayedPopup {
-            popupDelayTimer?.invalidate()
+        if let button = button{
+            if button == keyWithDelayedPopup {
+                popupDelayTimer?.invalidate()
+            }
+            
+            button.showPopup()
         }
-        button!.showPopup()
     }
     
     func hidePopupDelay(button: KeyboardKeyButton?) {
-        popupDelayTimer?.invalidate()
-        
-        if button != keyWithDelayedPopup {
-            keyWithDelayedPopup?.hidePopup()
-            keyWithDelayedPopup = button
-        }
-        
-        if button!.popup != nil {
-            popupDelayTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("hidePopupCallback"), userInfo: nil, repeats: false)
+        if let button = button{
+            popupDelayTimer?.invalidate()
+            
+            if button != keyWithDelayedPopup {
+                keyWithDelayedPopup?.hidePopup()
+                keyWithDelayedPopup = button
+            }
+            
+            if button.popup != nil {
+                popupDelayTimer = NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: Selector("hidePopupCallback"), userInfo: nil, repeats: false)
+            }
         }
     }
     
