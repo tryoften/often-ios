@@ -22,9 +22,11 @@ class SearchTextField: UIControl, Layouteable {
         }
     }
     
-    private var label: UILabel
+    private var label: TOMSMorphingLabel
     private var indicator: UIView
+    private var cancelButton: UIButton
     private var labelLeftConstraint: NSLayoutConstraint!
+    private var cancelButtonLeftConstraint: NSLayoutConstraint!
     private var inputPosition: Int
     private var indicatorBlinkingTimer: NSTimer?
     
@@ -35,11 +37,29 @@ class SearchTextField: UIControl, Layouteable {
                 startBlinkingIndicator()
                 sendActionsForControlEvents(UIControlEvents.EditingDidBegin)
                 text = ""
+                label.morphingEnabled = false
+                
+                cancelButtonLeftConstraint.constant = -CGRectGetHeight(cancelButton.frame) - 10
+                
+                UIView.animateWithDuration(0.3) {
+                    self.cancelButton.alpha = 1.0
+                    self.layoutIfNeeded()
+                }
             } else {
                 resignFirstResponder()
                 endBlinkingIndicator()
                 sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
-                placeholder = "\(placeholder)"
+                label.morphingEnabled = true
+                text = ""
+                placeholder = "\(placeholder!)"
+                
+                cancelButtonLeftConstraint.constant = 0
+                
+                UIView.animateWithDuration(0.3) {
+                    self.indicator.alpha = 0.0
+                    self.cancelButton.alpha = 0.0
+                    self.layoutIfNeeded()
+                }
             }
         }
     }
@@ -89,7 +109,7 @@ class SearchTextField: UIControl, Layouteable {
         inputPosition = 0
         text = ""
 
-        label = UILabel()
+        label = TOMSMorphingLabel()
         label.setTranslatesAutoresizingMaskIntoConstraints(false)
         label.font = UIFont(name: "OpenSans", size: 22)
         
@@ -98,14 +118,22 @@ class SearchTextField: UIControl, Layouteable {
         indicator.setTranslatesAutoresizingMaskIntoConstraints(false)
         indicator.alpha = 0.0
         
+        cancelButton = UIButton()
+        cancelButton.setImage(UIImage(named: "close"), forState: .Normal)
+        cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        cancelButton.alpha = 0.0
+        
         super.init(frame: frame)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTap:")
+        cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         addGestureRecognizer(tapGestureRecognizer)
         addSubview(label)
         addSubview(indicator)
+        addSubview(cancelButton)
         
         labelLeftConstraint = label.al_left == al_left
+        cancelButtonLeftConstraint = cancelButton.al_left == al_right
         setupLayout()
     }
 
@@ -151,15 +179,25 @@ class SearchTextField: UIControl, Layouteable {
         indicatorBlinkingTimer?.invalidate()
     }
     
+    func didTapCancelButton() {
+        selected = false
+    }
+    
     func setupLayout() {
         addConstraints([
             labelLeftConstraint,
+            cancelButtonLeftConstraint,
+            
             label.al_centerY == al_centerY,
             label.al_height >= 19.5,
             indicator.al_height == 1.5,
             indicator.al_width == 10,
             indicator.al_left == label.al_right,
-            indicator.al_bottom == label.al_bottom
+            indicator.al_bottom == label.al_bottom,
+            
+            cancelButton.al_height == al_height - 20,
+            cancelButton.al_width == cancelButton.al_height,
+            cancelButton.al_centerY == al_centerY
         ])
     }
 }
@@ -188,7 +226,6 @@ extension SearchTextField: UITextDocumentProxy {
     }
     
     func deleteBackward() {
-        println("delete backward")
         if !text.isEmpty {
             text = text.substringToIndex(advance(text.endIndex, -1))
         }

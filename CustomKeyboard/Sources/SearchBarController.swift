@@ -66,6 +66,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         searchBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
         searchBarView.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
         searchBarView.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
+        searchBarView.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
         if let textProcessor = textProcessor {
             textProcessor.proxies["search"] = searchBarView.textInput
         }
@@ -129,6 +130,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        
+        textProcessor?.setCurrentProxyWithId("default")
     }
 }

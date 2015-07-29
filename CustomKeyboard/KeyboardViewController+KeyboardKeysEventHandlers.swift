@@ -17,11 +17,11 @@ extension KeyboardViewController {
     
     func didTapButton(button: KeyboardKeyButton?) {
         
-        
-        button!.highlighted = false
-        button!.selected = !button!.selected
-        
-        if let key = button!.key {
+        if let button = button, key = button.key {
+            
+            button.highlighted = false
+            button.selected = !button.selected
+            
             switch(key) {
             case .letter(let character):
                 var str = String(character.rawValue)
@@ -33,10 +33,12 @@ extension KeyboardViewController {
                 textProcessor.insertText(String(number.rawValue))
             case .special(let character, let pageId):
                 textProcessor.insertText(String(character.rawValue))
+            case .changePage(let pageIndex, let pageId):
+                break
             case .modifier(.CapsLock, let pageId):
                 lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
-            case .modifier(.SwitchKeyboard, let pageId):
-                NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
+            case .modifier(.CallService, let pageId):
+                textProcessor.insertText("#")
             case .modifier(.Space, let pageId):
                 textProcessor.insertText(" ")
             case .modifier(.Enter, let pageId):
@@ -53,6 +55,7 @@ extension KeyboardViewController {
     }
     
     func advanceTapped(button: KeyboardKeyButton?) {
+        NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
     }
     
     func pageChangeTapped(button: KeyboardKeyButton?) {
@@ -118,7 +121,7 @@ extension KeyboardViewController {
         cancelBackspaceTimers()
         
         if let textDocumentProxy = textDocumentProxy as? UIKeyInput {
-            textDocumentProxy.deleteBackward()
+            textProcessor.deleteBackward()
         }
         
         // trigger for subsequent deletes
@@ -138,7 +141,7 @@ extension KeyboardViewController {
         playKeySound()
         
         if let textDocumentProxy = textDocumentProxy as? UIKeyInput {
-            textDocumentProxy.deleteBackward()
+            textProcessor.deleteBackward()
         }
     }
     
