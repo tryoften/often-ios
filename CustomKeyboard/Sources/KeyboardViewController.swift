@@ -55,7 +55,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         searchBar = SearchBarController(nibName: nil, bundle: nil)
-        searchBar.textProcessor = textProcessor
         
         keysContainerView = TouchRecognizerView()
         keysContainerView.backgroundColor = UIColor(fromHexString: "#202020")
@@ -73,8 +72,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         super.init(nibName: nil, bundle: nil)
         
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy as! UITextDocumentProxy)
-        
         textProcessor.delegate = self
+        searchBar.textProcessor = textProcessor
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
@@ -265,16 +264,14 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                             }
                         }
                         
-//                        if key.hasOutput {
-//                            keyView.addTarget(self, action: "keyPressedHelper:", forControlEvents: .TouchUpInside)
-//                        }
-                        
                         if !key.isModifier {
                             keyView.addTarget(self, action: Selector("highlightKey:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
                             keyView.addTarget(self, action: Selector("unHighlightKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
                         }
                         
-                        keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchDown)
+                        if key.hasOutput {
+                            keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchDown)
+                        }
                     }
                 }
             }
@@ -293,14 +290,13 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         self.layoutEngine?.updateKeyCaps(false, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: self.shiftState)
     }
     
-    func didTapButton(sender: AnyObject?) {
+    func didTapButton(button: KeyboardKeyButton?) {
         
-        let button = sender as! KeyboardKeyButton
-        
-        button.highlighted = false
-        button.selected = !button.selected
-        
-        if let key = button.key {
+        if let button = button, key = button.key {
+            
+            button.highlighted = false
+            button.selected = !button.selected
+            
             switch(key) {
             case .letter(let character):
                 var str = String(character.rawValue)
@@ -312,10 +308,12 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 textProcessor.insertText(String(number.rawValue))
             case .special(let character, let pageId):
                 textProcessor.insertText(String(character.rawValue))
+            case .changePage(let pageIndex, let pageId):
+                break
             case .modifier(.CapsLock, let pageId):
                 lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
-            case .modifier(.SwitchKeyboard, let pageId):
-                NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
+            case .modifier(.CallService, let pageId):
+                textProcessor.insertText("#")
             case .modifier(.Space, let pageId):
                 textProcessor.insertText(" ")
             case .modifier(.Enter, let pageId):
@@ -343,7 +341,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func advanceTapped(sender: KeyboardKeyButton?) {
-        
+        NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
     }
     
     func pageChangeTapped(sender: AnyObject?) {
@@ -427,7 +425,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         self.cancelBackspaceTimers()
         
         if let textDocumentProxy = self.textDocumentProxy as? UIKeyInput {
-            textDocumentProxy.deleteBackward()
+            textProcessor.deleteBackward()
         }
         
         // trigger for subsequent deletes
@@ -447,7 +445,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         self.playKeySound()
         
         if let textDocumentProxy = self.textDocumentProxy as? UIKeyInput {
-            textDocumentProxy.deleteBackward()
+            textProcessor.deleteBackward()
         }
     }
 

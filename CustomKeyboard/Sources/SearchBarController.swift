@@ -12,7 +12,13 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     var searchBarView: SearchBar!
     var supplementaryViewContainer: UIView!
     var supplementaryViewHeightConstraint: NSLayoutConstraint!
-    var textProcessor: TextProcessingManager?
+    var textProcessor: TextProcessingManager? {
+        didSet {
+            primaryTextDocumentProxy = textProcessor?.currentProxy
+        }
+    }
+
+    var primaryTextDocumentProxy: UITextDocumentProxy?
     var activeServiceProviderType: ServiceProviderType? {
         didSet {
             var button: ServiceProviderSearchBarButton?
@@ -58,8 +64,11 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         searchBarView = SearchBar()
         searchBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        searchBarView.textInput.delegate = self
         searchBarView.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
+        searchBarView.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
+        if let textProcessor = textProcessor {
+            textProcessor.proxies["search"] = searchBarView.textInput
+        }
         
         supplementaryViewContainer = UIView()
         supplementaryViewContainer.backgroundColor = VeryLightGray
@@ -113,11 +122,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     
     // MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
-        searchBarView.textInput.inputDelegate = textProcessor
+        textProcessor?.setCurrentProxyWithId("search")
     }
     
     func textFieldDidChange() {
-        textProcessor?.textDidChange(searchBarView.textInput)
     }
     
     func textFieldDidEndEditing(textField: UITextField) {

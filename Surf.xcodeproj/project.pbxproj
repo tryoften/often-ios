@@ -154,6 +154,8 @@
 		81E26D921B65DC4800FC1F2F /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E26D901B65DC4800FC1F2F /* font_icons8.ttf */; };
 		81E26D961B67C29D00FC1F2F /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D951B67C29D00FC1F2F /* Shape.swift */; };
 		81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D951B67C29D00FC1F2F /* Shape.swift */; };
+		81E26D9C1B6812E200FC1F2F /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */; };
+		81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */; };
 		81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */; };
@@ -332,6 +334,7 @@
 		81E26D8D1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardLayoutEngine.swift; path = Sources/KeyboardLayoutEngine.swift; sourceTree = "<group>"; };
 		81E26D901B65DC4800FC1F2F /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
 		81E26D951B67C29D00FC1F2F /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shape.swift; path = Sources/Shape.swift; sourceTree = "<group>"; };
+		81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTextField.swift; path = Sources/SearchTextField.swift; sourceTree = "<group>"; };
 		81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AnimateImage.swift"; sourceTree = "<group>"; };
 		81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoServiceProvider.swift; path = Sources/VenmoServiceProvider.swift; sourceTree = "<group>"; };
 		81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoSearchBarButton.swift; path = Sources/VenmoSearchBarButton.swift; sourceTree = "<group>"; };
@@ -771,6 +774,7 @@
 				81E26D871B65BC8D00FC1F2F /* KeyboardKeyBackground.swift */,
 				81E26D8A1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift */,
 				81E26D951B67C29D00FC1F2F /* Shape.swift */,
+				81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1133,6 +1137,7 @@
 				699606271B422315004102BC /* KeyboardViewController.swift in Sources */,
 				81840FB81B4331C1003531B1 /* UIDevice+modelName.swift in Sources */,
 				81E26D7F1B65B09D00FC1F2F /* LayoutConstants.swift in Sources */,
+				81E26D9C1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
 				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
@@ -1213,6 +1218,7 @@
 				810C4AFB1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
+				81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
