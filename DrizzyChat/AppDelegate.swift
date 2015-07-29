@@ -52,11 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let window = self.window {
             if TestKeyboard {
-//                var frame = window.frame
-//                frame.origin.y = frame.size.height / 2
-//                frame.size.height = frame.size.height / 2
-//                window.frame = frame
-//                window.clipsToBounds = true
                 mainController = KeyboardViewController(debug: true)
             }
             window.rootViewController = mainController

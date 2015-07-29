@@ -142,7 +142,7 @@ class KeyboardKeyButton: UIControl {
         super.init(frame: CGRectZero)
         
         addSubview(shadowView)
-        self.shadowView.layer.addSublayer(self.shadowLayer)
+        shadowView.layer.addSublayer(shadowLayer)
         
         self.addSubview(self.displayView)
         if let underView = self.underView {
@@ -182,6 +182,7 @@ class KeyboardKeyButton: UIControl {
             if let key = key {
                 label.font = UIFont(name: "OpenSans", size: 20)
                 color = UIColor(fromHexString: "#2A2A2A")
+                textColor = UIColor.whiteColor()
                 underColor = UIColor(fromHexString: "#2A2A2A")
                 iconView.image = nil
                 text = ""
@@ -246,7 +247,7 @@ class KeyboardKeyButton: UIControl {
                     }
                     underColor = UIColor(fromHexString: "#202020")
                     color = UIColor(fromHexString: "#202020")
-                    label.font = UIFont(name: "OpenSans", size: 9)
+                    label.font = UIFont(name: "OpenSans", size: 11)
                     textColor = UIColor.whiteColor().colorWithAlphaComponent(0.74)
                 default:
                     break

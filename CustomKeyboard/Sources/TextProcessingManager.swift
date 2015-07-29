@@ -10,13 +10,15 @@ import UIKit
 
 class TextProcessingManager: NSObject, UITextInputDelegate {
     weak var delegate: TextProcessingManagerDelegate?
-    var proxy: UITextDocumentProxy
+    var currentProxy: UITextDocumentProxy
     var lastInsertedString: String?
     var lyricInserted = false
-    var context: String?
+    var proxies: [String: UITextDocumentProxy]
 
     init(textDocumentProxy: UITextDocumentProxy) {
-        proxy = textDocumentProxy
+        proxies = [:]
+        currentProxy = textDocumentProxy
+        proxies["default"] = currentProxy
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -27,7 +29,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func textDidChange(textInput: UITextInput) {
-        if let text = proxy.documentContextBeforeInput {
+        if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
             
             if tokens.count > 1 {
@@ -40,7 +42,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                     if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
                         println(serviceProviderType)
                         for i in 0...count(firstToken) {
-                            proxy.deleteBackward()
+                            currentProxy.deleteBackward()
                         }
                         delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
                     }
@@ -61,31 +63,32 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     
     func clearInput() {
         //move cursor to end of text
-        if let afterInputText = proxy.documentContextAfterInput {
-            proxy.adjustTextPositionByCharacterOffset(count(afterInputText.utf16))
+        if let afterInputText = currentProxy.documentContextAfterInput {
+            currentProxy.adjustTextPositionByCharacterOffset(count(afterInputText.utf16))
         }
         
         if let beforeInputText = lastInsertedString {
             for var i = 0, len = count(beforeInputText.utf16); i < len; i++ {
-                proxy.deleteBackward()
+                currentProxy.deleteBackward()
             }
         }
     }
     
     func insertText(text: String) {
-        if var context = context {
-            context = context + text
-        } else {
-            context = text
-        }
-        proxy.insertText(text)
-        
+        currentProxy.insertText(text)
     }
     
     func deleteBackward() {
-        proxy.deleteBackward()
+        currentProxy.deleteBackward()
     }
     
+    func setCurrentProxyWithId(id: String) -> Bool {
+        if let proxy = proxies[id] {
+            currentProxy = proxy
+            return true
+        }
+        return false
+    }
 }
 
 protocol TextProcessingManagerDelegate: class {

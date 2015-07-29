@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchBar: UIView {
-    var textInput: UITextField
+    var textInput: SearchTextField
     var textInputLeftConstraint: NSLayoutConstraint?
     var providerButton: ServiceProviderSearchBarButton? {
         didSet {
@@ -26,23 +26,18 @@ class SearchBar: UIView {
     private var buttons: [SearchBarButton]
 
     override init(frame: CGRect) {
-        textInput = UITextField()
+        textInput = SearchTextField()
         textInput.backgroundColor = UIColor.whiteColor()
         textInput.setTranslatesAutoresizingMaskIntoConstraints(false)
         textInput.placeholder = "Search"
-        textInput.leftViewMode = .Always
         textInput.textColor = UIColor.blackColor()
         textInput.font = UIFont(name: "OpenSans", size: 14)
-        textInput.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.blackColor()])
-        textInput.clearButtonMode = .WhileEditing
-        textInput.clearsOnBeginEditing = true
-        
-        buttons = []
         
         let searchImageView = UIImageView(image: UIImage(named: "search"))
-        searchImageView.frame = CGRectInset(searchImageView.frame, -10, 0)
         searchImageView.contentMode = .ScaleAspectFit
         textInput.leftView = searchImageView
+        
+        buttons = []
         
         super.init(frame: frame)
 
