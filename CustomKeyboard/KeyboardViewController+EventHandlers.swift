@@ -139,6 +139,7 @@ extension KeyboardViewController {
     
     func backspaceUp(button: KeyboardKeyButton?) {
         cancelBackspaceTimers()
+        firstWordQuickDeleted = false
     }
     
     func backspaceDelayCallback() {
@@ -166,9 +167,11 @@ extension KeyboardViewController {
     
     */
     func backspaceLongPressed() {
-        for _ in 0...40000 {
-            println("Stall")
+        if firstWordQuickDeleted == true {
+            NSThread.sleepForTimeInterval(0.4)
         }
+        
+        firstWordQuickDeleted = true
         
         if let documentContextBeforeInput = textProcessor.currentProxy.documentContextBeforeInput as NSString? {
             if documentContextBeforeInput.length > 0 {
