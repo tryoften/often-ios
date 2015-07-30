@@ -39,6 +39,10 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func didReceiveSetCurrentProxy(notification: NSNotification) {
+        if let proxy = currentProxy as? UIResponder {
+            proxy.resignFirstResponder()
+        }
+
         if let userInfo = notification.userInfo,
             let proxy = notification.object as? UITextDocumentProxy,
             let setDefault = userInfo["setDefault"] as? Bool,
@@ -59,6 +63,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func textWillChange(textInput: UITextInput) {
+        NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagedResetDefaultProxyEvent, object: self, userInfo: nil)
     }
     
     func textDidChange(textInput: UITextInput) {
