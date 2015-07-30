@@ -123,21 +123,23 @@ extension KeyboardViewController {
         backspaceRepeatTimer?.invalidate()
         backspaceDelayTimer = nil
         backspaceRepeatTimer = nil
+        backspaceStartTime = nil
     }
     
     func backspaceDown(button: KeyboardKeyButton?) {
-        cancelBackspaceTimers()
+        self.cancelBackspaceTimers()
         
-        if let textDocumentProxy = textDocumentProxy as? UIKeyInput {
-            textProcessor.deleteBackward()
-        }
+        backspaceStartTime = CFAbsoluteTimeGetCurrent()
+        
+        textProcessor.currentProxy.deleteBackward()
         
         // trigger for subsequent deletes
-        backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
+        self.backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
     }
     
     func backspaceUp(button: KeyboardKeyButton?) {
         cancelBackspaceTimers()
+        firstWordQuickDeleted = false
     }
     
     func backspaceDelayCallback() {
@@ -146,13 +148,63 @@ extension KeyboardViewController {
     }
     
     func backspaceRepeatCallback() {
-        playKeySound()
+        self.playKeySound()
         
-        if let textDocumentProxy = textDocumentProxy as? UIKeyInput {
-            textProcessor.deleteBackward()
+        var timeElapsed = CFAbsoluteTimeGetCurrent() - backspaceStartTime
+        
+        if timeElapsed < 2.0 {
+            textProcessor.currentProxy.deleteBackward()
+        } else {
+            backspaceLongPressed()
         }
     }
+
+    /**
+    Deleting whole word method. Looks at the number of characters from cursor back to first whitespace
+    before it not including one that is next to it. Needs to be in loop.
     
+    :param: recognizer Long Press recognizer to handle for a long backspace press
+    
+    */
+    func backspaceLongPressed() {
+        if firstWordQuickDeleted == true {
+            NSThread.sleepForTimeInterval(0.4)
+        }
+        
+        firstWordQuickDeleted = true
+        
+        if let documentContextBeforeInput = textProcessor.currentProxy.documentContextBeforeInput as NSString? {
+            if documentContextBeforeInput.length > 0 {
+                var charactersToDelete = 0
+                switch documentContextBeforeInput {
+                    // If cursor is next to a letter
+                case let stringLeft where NSCharacterSet.letterCharacterSet().characterIsMember(stringLeft.characterAtIndex(stringLeft.length - 1)):
+                    let range = documentContextBeforeInput.rangeOfCharacterFromSet(NSCharacterSet.letterCharacterSet().invertedSet, options: .BackwardsSearch)
+                    if range.location != NSNotFound {
+                        charactersToDelete = documentContextBeforeInput.length - range.location
+                    } else {
+                        charactersToDelete = documentContextBeforeInput.length
+                    }
+                    // If cursor is next to a whitespace
+                case let stringLeft where stringLeft.hasSuffix(" "):
+                    let range = documentContextBeforeInput.rangeOfCharacterFromSet(NSCharacterSet.whitespaceCharacterSet().invertedSet, options: .BackwardsSearch)
+                    if range.location != NSNotFound {
+                        charactersToDelete = documentContextBeforeInput.length - range.location - 1
+                    } else {
+                        charactersToDelete = documentContextBeforeInput.length
+                    }
+                    // if there is only one character left
+                default:
+                    charactersToDelete = 1
+                }
+                
+                for i in 0..<charactersToDelete {
+                    textProcessor.currentProxy.deleteBackward()
+                }
+            }
+        }
+    }
+
     func shiftDown(button: KeyboardKeyButton?) {
         shiftStartingState = shiftState
         

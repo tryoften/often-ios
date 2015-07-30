@@ -27,6 +27,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var popupDelayTimer: NSTimer?
     let backspaceDelay: NSTimeInterval = 0.5
     let backspaceRepeat: NSTimeInterval = 0.07
+    var backspaceStartTime: CFAbsoluteTime!
+    var firstWordQuickDeleted: Bool = false
     var lastLayoutBounds: CGRect?
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
@@ -253,14 +255,17 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             for rowKeys in page.rows { // TODO: quick hack
                 for key in rowKeys {
                     if let keyView = layoutEngine?.viewForKey(key) {
-                        keyView.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+                        keyView.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
                         
                         switch key {
                         case .modifier(.SwitchKeyboard, let pageId):
                             keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
                         case .modifier(.Backspace, let pageId):
+                            println("Backspace found")
                             let cancelEvents: UIControlEvents = UIControlEvents.TouchUpInside|UIControlEvents.TouchUpInside|UIControlEvents.TouchDragExit|UIControlEvents.TouchUpOutside|UIControlEvents.TouchCancel|UIControlEvents.TouchDragOutside
+                            let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "backspaceLongPressed:")
                             
+                            keyView.addGestureRecognizer(longPressRecognizer)
                             keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
                             keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
                         case .modifier(.CapsLock, let pageId):
