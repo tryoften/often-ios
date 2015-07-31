@@ -20,6 +20,9 @@ let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 let AnalyticsWriteKey = "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI"
 let AppSuiteName = "group.com.surf.surf"
 let CrashlyticsAPIKey = "e4598140f72849daf847791f325b1eabae27a254"
+let VenmoAppSecret = "9Bexp2xAQ2hfN57LDVCBYCzRQXJXrRba"
+let VenmoAccessToken = "dpswtdsGaTL3cpCGZm9XYtwPzkVcDexA"
+let VenmoAppID = "2804"
 
 // Colors
 let BlueColor = UIColor(fromHexString: "#4575BF")
@@ -51,10 +54,12 @@ let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
 let KeyboardHeight: CGFloat = 255
+let KeyboardSearchBarHeight: CGFloat = 40.0
 let KeyboardTableViewBackgroundColor = LightGrey
 
 let KeyboardTableSeperatorColor = DarkGrey
 let KeyboardTableCoverArtViewBackgroundColor = DarkGrey
+
 
 let LyricTableViewCellNormalBackgroundColor = UIColor(fromHexString: "#f7f7f7")
 let LyricTableViewCellHighlightedBackgroundColor = UIColor.whiteColor()

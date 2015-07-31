@@ -27,7 +27,10 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var popupDelayTimer: NSTimer?
     let backspaceDelay: NSTimeInterval = 0.5
     let backspaceRepeat: NSTimeInterval = 0.07
+    var backspaceStartTime: CFAbsoluteTime!
+    var firstWordQuickDeleted: Bool = false
     var lastLayoutBounds: CGRect?
+    var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
     var backspaceActive: Bool {
@@ -146,9 +149,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             lastLayoutBounds = orientationSavvyBounds
             setupKeys()
         }
-        
-        searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, 40)
+
         keysContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
+        searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, searchBarHeight)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -196,8 +199,13 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func resizeKeyboard(notification: NSNotification) {
         if let userInfo = notification.userInfo,
             height = userInfo["height"] as? CGFloat {
+                var keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
+                
+                searchBarHeight = height - keysContainerViewHeight
+                
                 keyboardHeight = height
                 UIView.animateWithDuration(0.3) {
+                    self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
                     self.view.layoutIfNeeded()
                 }
         }
@@ -262,14 +270,17 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             for rowKeys in page.rows { // TODO: quick hack
                 for key in rowKeys {
                     if let keyView = layoutEngine?.viewForKey(key) {
-                        keyView.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
+                        keyView.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
                         
                         switch key {
                         case .modifier(.SwitchKeyboard, let pageId):
                             keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
                         case .modifier(.Backspace, let pageId):
+                            println("Backspace found")
                             let cancelEvents: UIControlEvents = UIControlEvents.TouchUpInside|UIControlEvents.TouchUpInside|UIControlEvents.TouchDragExit|UIControlEvents.TouchUpOutside|UIControlEvents.TouchCancel|UIControlEvents.TouchDragOutside
+                            let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "backspaceLongPressed:")
                             
+                            keyView.addGestureRecognizer(longPressRecognizer)
                             keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
                             keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
                         case .modifier(.CapsLock, let pageId):

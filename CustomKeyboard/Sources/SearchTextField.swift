@@ -19,8 +19,11 @@ class SearchTextField: UIControl, Layouteable {
         didSet {
             label.alpha = 0.65
             label.text = placeholder
+            endBlinkingIndicator()
         }
     }
+    
+    var id: String
     
     private var label: TOMSMorphingLabel
     private var indicator: UIView
@@ -29,6 +32,12 @@ class SearchTextField: UIControl, Layouteable {
     private var cancelButtonLeftConstraint: NSLayoutConstraint!
     private var inputPosition: Int
     private var indicatorBlinkingTimer: NSTimer?
+    var enableCancelButton: Bool {
+        didSet {
+            cancelButton.hidden = !enableCancelButton
+        }
+    }
+    
     
     override var selected: Bool {
         didSet {
@@ -105,11 +114,14 @@ class SearchTextField: UIControl, Layouteable {
     }
     
     override init(frame: CGRect) {
+        enableCancelButton = true
         editing = false
         inputPosition = 0
         text = ""
+        id = ""
 
         label = TOMSMorphingLabel()
+        label.animationDuration = 0.2
         label.setTranslatesAutoresizingMaskIntoConstraints(false)
         label.font = UIFont(name: "OpenSans", size: 22)
         
@@ -120,11 +132,13 @@ class SearchTextField: UIControl, Layouteable {
         
         cancelButton = UIButton()
         cancelButton.setImage(UIImage(named: "close"), forState: .Normal)
+        cancelButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         cancelButton.alpha = 0.0
         
         super.init(frame: frame)
         
+        id = description
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTap:")
         cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         addGestureRecognizer(tapGestureRecognizer)
@@ -142,10 +156,16 @@ class SearchTextField: UIControl, Layouteable {
     }
 
     override func becomeFirstResponder() -> Bool {
+        NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagerProxyEvent, object: self, userInfo: [
+                "id": id,
+                "setDefault": true
+            ])
         return super.becomeFirstResponder()
     }
     
     override func resignFirstResponder() -> Bool {
+        selected = false
+        NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagedResetDefaultProxyEvent, object: self, userInfo: nil)
         return super.resignFirstResponder()
     }
     
@@ -176,6 +196,7 @@ class SearchTextField: UIControl, Layouteable {
     }
     
     func endBlinkingIndicator() {
+        indicator.alpha = 0.0
         indicatorBlinkingTimer?.invalidate()
     }
     
@@ -195,7 +216,7 @@ class SearchTextField: UIControl, Layouteable {
             indicator.al_left == label.al_right,
             indicator.al_bottom == label.al_bottom,
             
-            cancelButton.al_height == al_height - 20,
+            cancelButton.al_height == al_height,
             cancelButton.al_width == cancelButton.al_height,
             cancelButton.al_centerY == al_centerY
         ])
@@ -208,11 +229,11 @@ extension SearchTextField: UITextDocumentProxy {
     }
     
     var documentContextBeforeInput: String! {
-        return text.substringToIndex(advance(text.startIndex, inputPosition))
+        return text
     }
     
     var documentContextAfterInput: String! {
-        return text.substringFromIndex(advance(text.startIndex, inputPosition))
+        return ""
     }
     
     // MARK: UIKeyInput
@@ -223,6 +244,7 @@ extension SearchTextField: UITextDocumentProxy {
     
     func insertText(character: String) {
         text = text.stringByAppendingString(character)
+        sendActionsForControlEvents(UIControlEvents.EditingChanged)
     }
     
     func deleteBackward() {
