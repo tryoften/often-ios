@@ -16,12 +16,7 @@ extension KeyboardViewController {
     }
     
     func didTapButton(button: KeyboardKeyButton?) {
-        
         if let button = button, key = button.key {
-            
-            button.highlighted = false
-            button.selected = !button.selected
-            
             switch(key) {
             case .letter(let character):
                 var str = String(character.rawValue)
@@ -37,6 +32,11 @@ extension KeyboardViewController {
                 break
             case .modifier(.CapsLock, let pageId):
                 lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
+                if lettercase == .Lowercase {
+                    
+                } else {
+                   
+                }
             case .modifier(.CallService, let pageId):
                 textProcessor.insertText("#")
             case .modifier(.Space, let pageId):
@@ -87,6 +87,49 @@ extension KeyboardViewController {
         })
     }
     
+    func didTapSpaceButton(button: KeyboardKeyButton?) {
+        if let button = button {
+            switch(button.key) {
+            default:
+                if currentPage != 0 {
+                    setPage(0)
+                }
+                button.spaceBarSelected = true
+            }
+            
+        }
+    }
+  
+    func didReleaseSpaceButton(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.spaceBarSelected = false
+        }
+    }
+    
+    func didTapCallKey(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.callKeySelected = true
+        }
+    }
+    
+    func didReleaseCallKey(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.callKeySelected = false
+        }
+    }
+
+    func didTapEnterKey(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.enterKeySelected = true
+        }
+    }
+    
+    func didReleaseEnterKey(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.enterKeySelected = false
+        }
+    }
+
     func showPopup(button: KeyboardKeyButton?) {
         if let button = button {
             if button == keyWithDelayedPopup {
@@ -155,50 +198,78 @@ extension KeyboardViewController {
     
     func shiftDown(button: KeyboardKeyButton?) {
         shiftStartingState = shiftState
-        
-        if let shiftStartingState = shiftStartingState {
-            if shiftStartingState.uppercase() {
-                // handled by shiftUp
-                return
-            }
-            else {
-                switch shiftState {
-                case .Disabled:
-                    shiftState = .Enabled
-                case .Enabled:
-                    shiftState = .Disabled
-                case .Locked:
-                    shiftState = .Disabled
-                }
-                
-            }
-        }
-    }
-    
-    func shiftUp(button: KeyboardKeyButton?) {
-        if shiftWasMultitapped {
-            // do nothing
-        }
-        else {
+        if let button = button {
             if let shiftStartingState = shiftStartingState {
-                if !shiftStartingState.uppercase() {
-                    // handled by shiftDown
+                if shiftStartingState.uppercase() {
+                    // handled by shiftUp
+                    return
                 }
                 else {
                     switch shiftState {
                     case .Disabled:
                         shiftState = .Enabled
+                        button.shiftSelected = true
                     case .Enabled:
                         shiftState = .Disabled
+                        button.shiftSelected = false
                     case .Locked:
                         shiftState = .Disabled
+                        button.shiftSelected = false
                     }
                 }
             }
-            
+        }
+        
+    }
+    
+    func shiftUp(button: KeyboardKeyButton?) {
+        if let button = button {
+            if shiftWasMultitapped {
+                // do nothing
+            }
+            else {
+                if let shiftStartingState = shiftStartingState {
+                    if !shiftStartingState.uppercase() {
+                        // handled by shiftDown
+                        changeKeyboardLetterCases(true)
+                    }
+                    else {
+                        changeKeyboardLetterCases(false)
+                        button.shiftSelected = false
+                        switch shiftState {
+                        case .Disabled:
+                            shiftState = .Enabled
+                        case .Enabled:
+                            shiftState = .Disabled
+                        case .Locked:
+                            shiftState = .Disabled
+                        }
+                    }
+                }
+                
+            }
         }
         shiftStartingState = nil
         shiftWasMultitapped = false
+    }
+    
+    func changeKeyboardLetterCases(isCapLoackOn:Bool) {
+        for button in allKeys {
+            if let key = button.key {
+                switch(key) {
+                case .letter (let character):
+                    var str = String(character.rawValue)
+                    if isCapLoackOn {
+                        button.text = str
+                    } else {
+                        button.text = str.lowercaseString
+                    }
+                    break
+                default:
+                    break
+                }
+            }
+        }
     }
     
     func shiftDoubleTapped(button: KeyboardKeyButton?) {

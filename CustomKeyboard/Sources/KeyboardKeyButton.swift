@@ -22,9 +22,9 @@ class KeyboardKeyButton: UIControl {
     
     var text: String {
         didSet {
-            self.label.text = text
-            self.label.frame = CGRectMake(self.labelInset, self.labelInset, self.bounds.width - self.labelInset * 2, self.bounds.height - self.labelInset * 2)
-            self.redrawText()
+            label.text = text
+            label.frame = CGRectMake(labelInset, labelInset, bounds.width - labelInset * 2, bounds.height - labelInset * 2)
+            redrawText()
         }
     }
     var key: KeyboardKey? {
@@ -41,24 +41,20 @@ class KeyboardKeyButton: UIControl {
     var drawOver: Bool { didSet { updateColors() }}
     var drawBorder: Bool { didSet { updateColors() }}
     var underOffset: CGFloat { didSet { updateColors() }}
-    
     var textColor: UIColor { didSet { updateColors() }}
-    var downColor: UIColor? { didSet { updateColors() }}
-    var downUnderColor: UIColor? { didSet { updateColors() }}
-    var downBorderColor: UIColor? { didSet { updateColors() }}
-    var downTextColor: UIColor? { didSet { updateColors() }}
+    
     
     var labelInset: CGFloat = 0 {
         didSet {
             if oldValue != labelInset {
-                self.label.frame = CGRectMake(self.labelInset, self.labelInset, self.bounds.width - self.labelInset * 2, self.bounds.height - self.labelInset * 2)
+                label.frame = CGRectMake(labelInset, labelInset, bounds.width - labelInset * 2, bounds.height - labelInset * 2)
             }
         }
     }
     
     var shouldRasterize: Bool = false {
         didSet {
-            for view in [self.displayView, self.borderView, self.underView] {
+            for view in [displayView, borderView, underView] {
                 view?.layer.shouldRasterize = shouldRasterize
                 view?.layer.rasterizationScale = UIScreen.mainScreen().scale
             }
@@ -66,24 +62,13 @@ class KeyboardKeyButton: UIControl {
     }
     
     var popupDirection: Direction?
-    
+    override var frame: CGRect { didSet { redrawText() }}
     override var enabled: Bool { didSet { updateColors() }}
-    override var selected: Bool {
-        didSet {
-            updateColors()
-        }
-    }
-    override var highlighted: Bool {
-        didSet {
-            updateColors()
-        }
-    }
-    
-    override var frame: CGRect {
-        didSet {
-            self.redrawText()
-        }
-    }
+    override var highlighted: Bool { didSet { updateColors() }}
+    var shiftSelected: Bool { didSet { updateModKeys() }}
+    var spaceBarSelected: Bool { didSet { updateModKeys() }}
+    var callKeySelected: Bool { didSet { updateModKeys() }}
+    var enterKeySelected: Bool { didSet { updateModKeys() }}
     
     var label: UILabel
     var popupLabel: UILabel?
@@ -92,7 +77,7 @@ class KeyboardKeyButton: UIControl {
             if oldValue != nil && shape == nil {
                 oldValue?.removeFromSuperview()
             }
-            self.redrawShape()
+            redrawShape()
             updateColors()
         }
     }
@@ -110,31 +95,35 @@ class KeyboardKeyButton: UIControl {
     var shadowLayer: CALayer
     
     init(vibrancy optionalVibrancy: VibrancyType? = .LightSpecial) {
-        self.vibrancy = optionalVibrancy
+        vibrancy = optionalVibrancy
         
-        self.displayView = ShapeView()
-        self.underView = ShapeView()
-        self.borderView = ShapeView()
+        displayView = ShapeView()
+        underView = ShapeView()
+        borderView = ShapeView()
         
-        self.shadowLayer = CAShapeLayer()
-        self.shadowView = UIView()
+        shadowLayer = CAShapeLayer()
+        shadowView = UIView()
         
-        self.label = UILabel()
-        self.text = ""
+        label = UILabel()
+        text = ""
         
-        self.color = UIColor(fromHexString: "#2A2A2A")
-        self.underColor = UIColor(fromHexString: "#2A2A2A")
-        self.borderColor = UIColor(fromHexString: "#2A2A2A")
-        self.popupColor = UIColor(fromHexString: "#121314")
-        self.drawUnder = true
-        self.drawOver = true
-        self.drawBorder = false
-        self.underOffset = 1
+        color = UIColor(fromHexString: "#2A2A2A")
+        underColor = UIColor(fromHexString: "#2A2A2A")
+        borderColor = UIColor(fromHexString: "#2A2A2A")
+        popupColor = UIColor(fromHexString: "#121314")
+        drawUnder = true
+        drawOver = true
+        drawBorder = false
+        shiftSelected = false
+        spaceBarSelected = false
+        callKeySelected = false
+        enterKeySelected = false
+        underOffset = 1
         
-        self.background = KeyboardKeyBackground(cornerRadius: 2, underOffset: self.underOffset)
+        background = KeyboardKeyBackground(cornerRadius: 2, underOffset: underOffset)
         
-        self.textColor = UIColor.whiteColor()
-        self.popupDirection = nil
+        textColor = UIColor.whiteColor()
+        popupDirection = nil
         
         iconView = UIImageView()
         iconView.contentMode = .ScaleAspectFit
@@ -144,16 +133,16 @@ class KeyboardKeyButton: UIControl {
         addSubview(shadowView)
         shadowView.layer.addSublayer(shadowLayer)
         
-        self.addSubview(self.displayView)
-        if let underView = self.underView {
-            self.addSubview(underView)
+        addSubview(displayView)
+        if let underView = underView {
+            addSubview(underView)
         }
-        if let borderView = self.borderView {
-            self.addSubview(borderView)
+        if let borderView = borderView {
+            addSubview(borderView)
         }
         
-        addSubview(self.background)
-        background.addSubview(self.label)
+        addSubview(background)
+        background.addSubview(label)
         background.addSubview(iconView)
         
         let setupViews: Void = {
@@ -191,7 +180,7 @@ class KeyboardKeyButton: UIControl {
                 case .letter(let character):
                     color = UIColor(fromHexString: "#2A2A2A")
                     var str = String(character.rawValue)
-                    text = str
+                    text = str.lowercaseString
                 case .digit(let number):
                     text = String(number.rawValue)
                 case .special(let character, let pageId):
@@ -201,12 +190,15 @@ class KeyboardKeyButton: UIControl {
                     case .Backspace:
                         color = UIColor(fromHexString: "#202020")
                         underColor = UIColor(fromHexString: "#202020")
-                        iconView.image = UIImage(named: "Backspace")
+                        iconView.image = UIImage(named: "Backspace")!
                         break
                     case .CapsLock:
                         color = UIColor(fromHexString: "#202020")
                         underColor = UIColor(fromHexString: "#202020")
-                        iconView.image = UIImage(named: "CapsLock")
+                        iconView.image = UIImage(named: "CapsLock")!
+                        background.layer.cornerRadius = 2.0
+                        background.layer.borderWidth = 1.0
+                        background.layer.borderColor = color.CGColor
                         break
                     case .SwitchKeyboard:
                         label.font = NextKeyboardButtonFont
@@ -215,7 +207,7 @@ class KeyboardKeyButton: UIControl {
                         textColor = UIColor.whiteColor()
                         break
                     case .GoToBrowse:
-                        iconView.image = UIImage(named: "IconWhite")
+                        iconView.image = UIImage(named: "IconWhite")!
                         break
                     case .Space:
                         text = "Space".uppercaseString
@@ -229,7 +221,7 @@ class KeyboardKeyButton: UIControl {
                         break
                     case .CallService:
                         text = "#"
-                        color = TealColor
+                        color = WhiteColor
                         textColor = BlackColor
                     default:
                         break
@@ -256,7 +248,6 @@ class KeyboardKeyButton: UIControl {
             }
     }
 
-    
     required init(coder: NSCoder) {
         fatalError("NSCoding not supported")
     }
@@ -267,11 +258,11 @@ class KeyboardKeyButton: UIControl {
     
     var oldBounds: CGRect?
     override func layoutSubviews() {
-        self.layoutPopupIfNeeded()
+        layoutPopupIfNeeded()
         
-        var boundingBox = (self.popup != nil ? CGRectUnion(self.bounds, self.popup!.frame) : self.bounds)
+        var boundingBox = (popup != nil ? CGRectUnion(bounds, popup!.frame) : bounds)
         
-        if self.bounds.width == 0 || self.bounds.height == 0 {
+        if bounds.width == 0 || bounds.height == 0 {
             return
         }
         if oldBounds != nil && CGSizeEqualToSize(boundingBox.size, oldBounds!.size) {
@@ -284,34 +275,34 @@ class KeyboardKeyButton: UIControl {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
-        self.background.frame = self.bounds
-        self.label.frame = CGRectMake(self.labelInset, self.labelInset, self.bounds.width - self.labelInset * 2, self.bounds.height - self.labelInset * 2)
+        background.frame = bounds
+        label.frame = CGRectMake(labelInset, labelInset, bounds.width - labelInset * 2, bounds.height - labelInset * 2)
         
-        self.displayView.frame = boundingBox
-        self.shadowView.frame = boundingBox
-        self.borderView?.frame = boundingBox
-        self.underView?.frame = boundingBox
-        self.iconView.frame = CGRectInset(boundingBox, 10, 10)
+        displayView.frame = boundingBox
+        shadowView.frame = boundingBox
+        borderView?.frame = boundingBox
+        underView?.frame = boundingBox
+        iconView.frame = CGRectInset(boundingBox, 10, 10)
 
         CATransaction.commit()
         
-        self.refreshViews()
+        refreshViews()
     }
     
     func refreshViews() {
-        self.refreshShapes()
-        self.redrawText()
-        self.redrawShape()
-        self.updateColors()
+        refreshShapes()
+        redrawText()
+        redrawShape()
+        updateColors()
     }
     
     func refreshShapes() {
         // TODO: dunno why this is necessary
-        self.background.setNeedsLayout()
+        background.setNeedsLayout()
         
-        self.background.layoutIfNeeded()
-        self.popup?.layoutIfNeeded()
-        self.connector?.layoutIfNeeded()
+        background.layoutIfNeeded()
+        popup?.layoutIfNeeded()
+        connector?.layoutIfNeeded()
         
         var testPath = UIBezierPath()
         var edgePath = UIBezierPath()
@@ -336,30 +327,30 @@ class KeyboardKeyButton: UIControl {
             }
         }
         
-        addCurves(self.popup, testPath, edgePath)
-        addCurves(self.connector, testPath, edgePath)
+        addCurves(popup, testPath, edgePath)
+        addCurves(connector, testPath, edgePath)
         
         var shadowPath = UIBezierPath(CGPath: testPath.CGPath)
         
-        addCurves(self.background, testPath, edgePath)
+        addCurves(background, testPath, edgePath)
         
-        var underPath = self.background.underPath
-        var translatedUnitSquare = self.displayView.convertRect(unitSquare, fromView: self.background)
+        var underPath = background.underPath
+        var translatedUnitSquare = displayView.convertRect(unitSquare, fromView: background)
         let transformFromShapeToView = CGAffineTransformMakeTranslation(translatedUnitSquare.origin.x, translatedUnitSquare.origin.y)
         underPath?.applyTransform(transformFromShapeToView)
         
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
-        if let popup = self.popup {
-            self.shadowLayer.shadowPath = shadowPath.CGPath
+        if let popup = popup {
+            shadowLayer.shadowPath = shadowPath.CGPath
         }
         
-        self.underView?.curve = underPath
-        self.displayView.curve = testPath
-        self.borderView?.curve = edgePath
+        underView?.curve = underPath
+        displayView.curve = testPath
+        borderView?.curve = edgePath
         
-        if let borderLayer = self.borderView?.layer as? CAShapeLayer {
+        if let borderLayer = borderView?.layer as? CAShapeLayer {
             borderLayer.strokeColor = UIColor.greenColor().CGColor
         }
         
@@ -367,20 +358,20 @@ class KeyboardKeyButton: UIControl {
     }
     
     func layoutPopupIfNeeded() {
-        if self.popup != nil && self.popupDirection == nil {
-            self.shadowView.hidden = false
-            self.borderView?.hidden = false
+        if popup != nil && popupDirection == nil {
+            shadowView.hidden = false
+            borderView?.hidden = false
             
-            self.popupDirection = Direction.Up
+            popupDirection = Direction.Up
             
-            self.layoutPopup(self.popupDirection!)
-            self.configurePopup(self.popupDirection!)
+            layoutPopup(popupDirection!)
+            configurePopup(popupDirection!)
             
-            self.delegate?.willShowPopup(self, direction: self.popupDirection!)
+            delegate?.willShowPopup(self, direction: popupDirection!)
         }
         else {
-            self.shadowView.hidden = true
-            self.borderView?.hidden = true
+            shadowView.hidden = true
+            borderView?.hidden = true
         }
     }
     
@@ -388,16 +379,16 @@ class KeyboardKeyButton: UIControl {
     }
     
     func redrawShape() {
-        if let shape = self.shape {
-            self.text = ""
+        if let shape = shape {
+            text = ""
             shape.removeFromSuperview()
-            self.addSubview(shape)
+            addSubview(shape)
             
             let pointOffset: CGFloat = 4
-            let size = CGSizeMake(self.bounds.width - pointOffset - pointOffset, self.bounds.height - pointOffset - pointOffset)
+            let size = CGSizeMake(bounds.width - pointOffset - pointOffset, bounds.height - pointOffset - pointOffset)
             shape.frame = CGRectMake(
-                CGFloat((self.bounds.width - size.width) / 2.0),
-                CGFloat((self.bounds.height - size.height) / 2.0),
+                CGFloat((bounds.width - size.width) / 2.0),
+                CGFloat((bounds.height - size.height) / 2.0),
                 size.width,
                 size.height)
             
@@ -405,93 +396,100 @@ class KeyboardKeyButton: UIControl {
         }
     }
     
+    func updateModKeys() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        if let key = key {
+            switch(key) {
+            case .modifier(let modifier, let pageId):
+                switch(modifier) {
+                case .CapsLock:
+                    if shiftSelected {
+                        iconView.image = UIImage(named: "CapsLockEnabled")
+                        borderView?.strokeColor = TealColor
+                        background.layer.borderColor = TealColor.CGColor
+                    } else {
+                        iconView.image = UIImage(named: "CapsLock")
+                        background.layer.borderColor = color.CGColor
+                    }
+                case .Space:
+                    if spaceBarSelected {
+                        displayView.fillColor = BlackColor
+                    } else {
+                        displayView.fillColor = color
+                    }
+                case .CallService:
+                    if callKeySelected {
+                        displayView.fillColor = TealColor
+                    } else {
+                        displayView.fillColor = color
+                    }
+                case .Enter:
+                    if enterKeySelected {
+                        displayView.fillColor = LightGrey
+                    } else {
+                        displayView.fillColor = color
+                    }
+                    break
+                default:
+                    break
+                }
+            default:
+                break
+            }
+            
+        }
+        CATransaction.commit()
+    }
+    
     func updateColors() {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
-        let switchColors = self.highlighted || self.selected
+        displayView.fillColor = color
+        underView?.fillColor = underColor
+        borderView?.strokeColor = borderColor
+        label.textColor = textColor
+        popupLabel?.textColor = textColor
+        shape?.color = textColor
         
-        if switchColors {
-            if let downColor = self.downColor {
-                self.displayView.fillColor = downColor
-            }
-            else {
-                self.displayView.fillColor = self.color
-            }
-            
-            if let downUnderColor = self.downUnderColor {
-                self.underView?.fillColor = downUnderColor
-            }
-            else {
-                self.underView?.fillColor = self.underColor
-            }
-            
-            if let downBorderColor = self.downBorderColor {
-                self.borderView?.strokeColor = downBorderColor
-            }
-            else {
-                self.borderView?.strokeColor = self.borderColor
-            }
-            
-            if let downTextColor = self.downTextColor {
-                self.label.textColor = downTextColor
-                self.popupLabel?.textColor = downTextColor
-                self.shape?.color = downTextColor
-            }
-            else {
-                self.label.textColor = self.textColor
-                self.popupLabel?.textColor = self.textColor
-                self.shape?.color = self.textColor
-            }
-        }
-        else {
-            self.displayView.fillColor = self.color
-            
-            self.underView?.fillColor = self.underColor
-            
-            self.borderView?.strokeColor = self.borderColor
-            
-            self.label.textColor = self.textColor
-            self.popupLabel?.textColor = self.textColor
-            self.shape?.color = self.textColor
-        }
-        
-        if self.popup != nil {
-            self.displayView.fillColor = self.popupColor
+        if popup != nil {
+            displayView.fillColor = popupColor
         }
         
         CATransaction.commit()
     }
     
     func layoutPopup(dir: Direction) {
-        assert(self.popup != nil, "popup not found")
+        assert(popup != nil, "popup not found")
         
-        if let popup = self.popup {
-            if let delegate = self.delegate {
+        if let popup = popup {
+            if let delegate = delegate {
                 let frame = delegate.frameForPopup(self, direction: dir)
                 popup.frame = frame
                 popupLabel?.frame = popup.bounds
             }
             else {
                 popup.frame = CGRectZero
-                popup.center = self.center
+                popup.center = center
             }
         }
     }
     
     func configurePopup(direction: Direction) {
-        assert(self.popup != nil, "popup not found")
+        assert(popup != nil, "popup not found")
         
-        self.background.attach(direction)
-        self.popup!.attach(direction.opposite())
+        background.attach(direction)
+        popup!.attach(direction.opposite())
         
-        let kv = self.background
-        let p = self.popup!
+        let kv = background
+        let p = popup!
         
-        self.connector?.removeFromSuperview()
-        self.connector = KeyboardConnector(cornerRadius: 4, underOffset: self.underOffset, start: kv, end: p, startConnectable: kv, endConnectable: p, startDirection: direction, endDirection: direction.opposite())
-        self.connector!.layer.zPosition = -1
-        self.addSubview(self.connector!)
+        connector?.removeFromSuperview()
+        connector = KeyboardConnector(cornerRadius: 4, underOffset: underOffset, start: kv, end: p, startConnectable: kv, endConnectable: p, startDirection: direction, endDirection: direction.opposite())
+        connector!.layer.zPosition = -1
+        addSubview(connector!)
         
         //        self.drawBorder = true
         
@@ -502,158 +500,49 @@ class KeyboardKeyButton: UIControl {
     }
     
     func showPopup() {
-        if self.popup == nil {
-            self.layer.zPosition = 1000
+        if popup == nil {
+            layer.zPosition = 1000
             
-            var popup = KeyboardKeyBackground(cornerRadius: 4.0, underOffset: self.underOffset)
+            var popup = KeyboardKeyBackground(cornerRadius: 4.0, underOffset: underOffset)
             self.popup = popup
-            self.addSubview(popup)
+            addSubview(popup)
             
             var popupLabel = UILabel()
-            popupLabel.textAlignment = self.label.textAlignment
-            popupLabel.baselineAdjustment = self.label.baselineAdjustment
+            popupLabel.textAlignment = label.textAlignment
+            popupLabel.baselineAdjustment = label.baselineAdjustment
             popupLabel.font = UIFont(name: "OpenSans", size: 44)
-            popupLabel.adjustsFontSizeToFitWidth = self.label.adjustsFontSizeToFitWidth
+            popupLabel.adjustsFontSizeToFitWidth = label.adjustsFontSizeToFitWidth
             popupLabel.minimumScaleFactor = CGFloat(0.1)
             popupLabel.userInteractionEnabled = false
             popupLabel.numberOfLines = 1
             popupLabel.frame = popup.bounds
-            popupLabel.text = self.label.text
+            popupLabel.text = label.text
             popup.addSubview(popupLabel)
             self.popupLabel = popupLabel
             
-            self.label.hidden = true
+            label.hidden = true
         }
     }
     
     func hidePopup() {
-        if self.popup != nil {
-            self.delegate?.willHidePopup(self)
+        if popup != nil {
+            delegate?.willHidePopup(self)
             
-            self.popupLabel?.removeFromSuperview()
-            self.popupLabel = nil
+            popupLabel?.removeFromSuperview()
+            popupLabel = nil
             
-            self.connector?.removeFromSuperview()
-            self.connector = nil
+            connector?.removeFromSuperview()
+            connector = nil
             
-            self.popup?.removeFromSuperview()
-            self.popup = nil
+            popup?.removeFromSuperview()
+            popup = nil
             
-            self.label.hidden = false
-            self.background.attach(nil)
+            label.hidden = false
+            background.attach(nil)
             
-            self.layer.zPosition = 0
+            layer.zPosition = 0
             
-            self.popupDirection = nil
+            popupDirection = nil
         }
     }
-}
-
-/*
-PERFORMANCE NOTES
-
-* CAShapeLayer: convenient and low memory usage, but chunky rotations
-* drawRect: fast, but high memory usage (looks like there's a backing store for each of the 3 views)
-* if I set CAShapeLayer to shouldRasterize, perf is *almost* the same as drawRect, while mem usage is the same as before
-* oddly, 3 CAShapeLayers show the same memory usage as 1 CAShapeLayer — where is the backing store?
-* might want to move to drawRect with combined draw calls for performance reasons — not clear yet
-*/
-
-class ShapeView: UIView {
-    
-    var shapeLayer: CAShapeLayer?
-    
-    override class func layerClass() -> AnyClass {
-        return CAShapeLayer.self
-    }
-    
-    var curve: UIBezierPath? {
-        didSet {
-            if let layer = self.shapeLayer {
-                layer.path = curve?.CGPath
-            }
-            else {
-                self.setNeedsDisplay()
-            }
-        }
-    }
-    
-    var fillColor: UIColor? {
-        didSet {
-            if let layer = self.shapeLayer {
-                layer.fillColor = fillColor?.CGColor
-            }
-            else {
-                self.setNeedsDisplay()
-            }
-        }
-    }
-    
-    var strokeColor: UIColor? {
-        didSet {
-            if let layer = self.shapeLayer {
-                layer.strokeColor = strokeColor?.CGColor
-            }
-            else {
-                self.setNeedsDisplay()
-            }
-        }
-    }
-    
-    var lineWidth: CGFloat? {
-        didSet {
-            if let layer = self.shapeLayer {
-                if let lineWidth = self.lineWidth {
-                    layer.lineWidth = lineWidth
-                }
-            }
-            else {
-                self.setNeedsDisplay()
-            }
-        }
-    }
-    
-    convenience init() {
-        self.init(frame: CGRectZero)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.shapeLayer = self.layer as? CAShapeLayer
-        
-        // optimization: off by default to ensure quick mode transitions; re-enable during rotations
-        //self.layer.shouldRasterize = true
-        //self.layer.rasterizationScale = UIScreen.mainScreen().scale
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func drawCall(rect:CGRect) {
-        if self.shapeLayer == nil {
-            if let curve = self.curve {
-                if let lineWidth = self.lineWidth {
-                    curve.lineWidth = lineWidth
-                }
-                
-                if let fillColor = self.fillColor {
-                    fillColor.setFill()
-                    curve.fill()
-                }
-                
-                if let strokeColor = self.strokeColor {
-                    strokeColor.setStroke()
-                    curve.stroke()
-                }
-            }
-        }
-    }
-    
-    //    override func drawRect(rect: CGRect) {
-    //        if self.shapeLayer == nil {
-    //            self.drawCall(rect)
-    //        }
-    //    }
 }

@@ -66,6 +66,21 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             setHeight(newValue)
         }
     }
+    var allKeys: [KeyboardKeyButton] {
+        get {
+            var keys = [KeyboardKeyButton]()
+            for page in layout.pages {
+                for rowKeys in page.rows {
+                    for key in rowKeys {
+                        if let keyView = layoutEngine?.viewForKey(key) {
+                            keys.append(keyView as KeyboardKeyButton)
+                        }
+                    }
+                }
+            }
+            return keys
+        }
+    }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         searchBar = SearchBarController(nibName: nil, bundle: nil)
@@ -261,6 +276,15 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                             keyView.addTarget(self, action: "shiftDown:", forControlEvents: .TouchDown)
                             keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
                             keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
+                        case .modifier(.Space, let pageId):
+                            keyView.addTarget(self, action: Selector("didTapSpaceButton:"), forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: Selector("didReleaseSpaceButton:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                         case .modifier(.CallService, let pageId):
+                            keyView.addTarget(self, action: Selector("didTapCallKey:"), forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: Selector("didReleaseCallKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                        case .modifier(.Enter, let pageId):
+                            keyView.addTarget(self, action: Selector("didTapEnterKey:"), forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: Selector("didReleaseEnterKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
                         case .digit(let number):
                             break
                         case .changePage(let pageNumber, let pageId):
