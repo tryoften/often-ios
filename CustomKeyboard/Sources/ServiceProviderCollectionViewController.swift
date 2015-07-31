@@ -23,11 +23,6 @@ import UIKit
 
 */
 
-let serviceProviderSongCellReuseIdentifier = "songCell"
-let serviceProviderVideoCellReuseIdentifier = "videoCell"
-let serviceProviderArticleCellReuseIdentifier = "articleCell"
-let serviceProviderTweetCellReuseIdentifier = "tweetCell"
-
 class ServiceProviderCollectionViewController: UICollectionViewController {
     var screenWidth = UIScreen.mainScreen().bounds.width
     var resultsLabel: UILabel
@@ -51,7 +46,7 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
         
         // Register cell classes
         if let collectionView = collectionView {
-            collectionView.registerClass(ServiceProviderSongCollectionViewCell.self, forCellWithReuseIdentifier: serviceProviderSongCellReuseIdentifier)
+            collectionView.registerClass(ServiceProviderCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
         }
     }
     
@@ -89,13 +84,8 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(serviceProviderSongCellReuseIdentifier, forIndexPath: indexPath) as! ServiceProviderSongCollectionViewCell
-        
-        cell.usernameLabel.text = "octobersveryown"
-        cell.trackLabel.text = "Back to Back Freestyle"
-        cell.playsLabel.text = "4,593,284 Plays"
-        cell.dateLabel.text = "July 25, 2015"
-        cell.trackImageView.image = UIImage(named: "")
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! ServiceProviderCollectionViewCell
+    
         
         return cell
     }

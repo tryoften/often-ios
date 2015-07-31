@@ -19,11 +19,11 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
     var rightCornerImageView: UIImageView
     
     var contentImageView: UIImageView
-    var contentImageViewWidth: CGFloat = 0
+    var contentImageViewWidthConstraint: NSLayoutConstraint
     var contentImage: UIImage {
         didSet (value) {
             contentImageView.image = value
-            contentImageViewWidth = 100
+            contentImageViewWidthConstraint = contentImageView.al_width == 100
         }
     }
     
@@ -68,6 +68,8 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
         contentImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         contentImageView.contentMode = .ScaleAspectFit
         
+        contentImageViewWidthConstraint = contentImageView.al_width == 0
+        
         super.init(frame: frame)
         
         addSubview(informationContainerView)
@@ -97,7 +99,6 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
             contentImageView.al_right == al_right,
             contentImageView.al_top == al_top,
             contentImageView.al_bottom == al_bottom,
-            contentImageView.al_width == contentImageViewWidth,
             
             avatarImageView.al_left == informationContainerView.al_left + 5,
             avatarImageView.al_top == informationContainerView.al_top + 5,
