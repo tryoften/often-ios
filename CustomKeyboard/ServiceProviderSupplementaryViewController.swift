@@ -9,7 +9,15 @@
 import UIKit
 
 class ServiceProviderSupplementaryViewController: UIViewController {
-    var searchBarController: SearchBarController?
+    weak var searchBarController: SearchBarController?
+    
+    var height: CGFloat! {
+        didSet {
+            NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
+                "height": height
+            ])
+        }
+    }
 
     var supplementaryViewHeight: CGFloat {
         return 0.0
@@ -20,6 +28,7 @@ class ServiceProviderSupplementaryViewController: UIViewController {
     
     init(textProcessor: TextProcessingManager) {
         super.init(nibName: nil, bundle: nil)
+        height = supplementaryViewHeight
     }
     
     required init(coder aDecoder: NSCoder) {

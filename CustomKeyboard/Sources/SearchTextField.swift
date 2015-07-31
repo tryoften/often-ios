@@ -44,7 +44,9 @@ class SearchTextField: UIControl, Layouteable {
             if selected {
                 becomeFirstResponder()
                 startBlinkingIndicator()
-                sendActionsForControlEvents(UIControlEvents.EditingDidBegin)
+                if !editing {
+                    sendActionsForControlEvents(UIControlEvents.EditingDidBegin)
+                }
                 text = "\(text!)"
                 label.morphingEnabled = false
                 
@@ -54,9 +56,12 @@ class SearchTextField: UIControl, Layouteable {
                     self.cancelButton.alpha = 1.0
                     self.layoutIfNeeded()
                 }
+                editing = true
             } else {
                 endBlinkingIndicator()
-                sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
+                if editing {
+                    sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
+                }
                 label.morphingEnabled = true
                 cancelButtonLeftConstraint.constant = 0
                 if text == "" {
@@ -68,6 +73,7 @@ class SearchTextField: UIControl, Layouteable {
                     self.cancelButton.alpha = 0.0
                     self.layoutIfNeeded()
                 }
+                editing = false
             }
         }
     }
@@ -155,10 +161,12 @@ class SearchTextField: UIControl, Layouteable {
     }
 
     override func becomeFirstResponder() -> Bool {
+        delay(0.5) {
         NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagerProxyEvent, object: self, userInfo: [
-                "id": id,
+                "id": self.id,
                 "setDefault": true
             ])
+        }
         return super.becomeFirstResponder()
     }
     

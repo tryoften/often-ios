@@ -21,19 +21,21 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     var primaryTextDocumentProxy: UITextDocumentProxy?
     var activeServiceProviderType: ServiceProviderType? {
         didSet {
-            var button: ServiceProviderSearchBarButton?
-            switch(activeServiceProviderType!) {
-            case .Venmo:
-                activeServiceProvider = VenmoServiceProvider(providerType: activeServiceProviderType!, textProcessor: textProcessor!)
-                activeServiceProvider?.searchBarController = self
-                button = activeServiceProvider!.provideSearchBarButton()
-                break
-            case .Foursquare:
-                break
-            default:
-                break
+            if let providerType = activeServiceProviderType {
+                var button: ServiceProviderSearchBarButton?
+                switch(providerType) {
+                case .Venmo:
+                    activeServiceProvider = VenmoServiceProvider(providerType: providerType, textProcessor: textProcessor!)
+                    activeServiceProvider?.searchBarController = self
+                    button = activeServiceProvider!.provideSearchBarButton()
+                    break
+                case .Foursquare:
+                    break
+                default:
+                    break
+                }
+                searchBarView.providerButton = button
             }
-            searchBarView.providerButton = button
         }
     }
 
@@ -45,7 +47,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
                 supplementaryViewContainer.addSubview(supplementaryViewController.view)
 
                 NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-                    "height": KeyboardHeight + supplementaryViewController.supplementaryViewHeight
+                    "height": supplementaryViewController.supplementaryViewHeight
                 ])
             }
         }
@@ -56,6 +58,15 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
                 supplementaryViewHeightConstraint.constant = supplementaryViewController.supplementaryViewHeight
                 
                 searchBarView.textInput.placeholder = supplementaryViewController.searchBarPlaceholderText
+            }
+        }
+        
+        willSet(value) {
+            if value == nil {
+                if let supplementaryViewController = activeSupplementaryViewController {
+                    supplementaryViewController.view.removeFromSuperview()
+                    supplementaryViewHeightConstraint.constant = 0
+                }
             }
         }
     }
@@ -76,8 +87,9 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         supplementaryViewContainer.setTranslatesAutoresizingMaskIntoConstraints(false)
         supplementaryViewHeightConstraint = supplementaryViewContainer.al_height == 0
         
-        view.addSubview(searchBarView)
         view.addSubview(supplementaryViewContainer)
+        view.addSubview(searchBarView)
+        
         view.addConstraints([
             searchBarView.al_top == view.al_top,
             searchBarView.al_width == view.al_width,
@@ -92,6 +104,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         ])
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSearchBarButton:", name: VenmoAddSearchBarButtonEvent, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetSearchBar", name: "SearchBarController.resetSearchBar", object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,7 +132,15 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         if let userInfo = notification.userInfo,
             button = userInfo["button"] as? SearchBarButton {
             searchBarView.addButton(button)
+            searchBarView.textInput.leftView = UIView()
         }
+    }
+    
+    func resetSearchBar() {
+        searchBarView.resetSearchBar()
+        activeServiceProviderType = nil
+        activeServiceProvider = nil
+        activeSupplementaryViewController = nil
     }
     
     // MARK: UITextFieldDelegate

@@ -39,14 +39,16 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func didReceiveSetCurrentProxy(notification: NSNotification) {
-        if let proxy = currentProxy as? UIResponder {
-            proxy.resignFirstResponder()
-        }
-
         if let userInfo = notification.userInfo,
             let proxy = notification.object as? UITextDocumentProxy,
             let setDefault = userInfo["setDefault"] as? Bool,
             let id = userInfo["id"] as? String {
+                if let currentProxy = currentProxy as? UIResponder {
+                    if (currentProxy as NSObject) != (proxy as! NSObject) {
+                        currentProxy.resignFirstResponder()
+                    }
+                }
+                
                 proxies[id] = proxy
                 
                 if setDefault {
