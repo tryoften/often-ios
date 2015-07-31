@@ -41,6 +41,7 @@ class SearchBar: UIView {
         
         super.init(frame: frame)
 
+        backgroundColor = UIColor.whiteColor()
         addSubview(textInput)
         setupLayout()
     }
@@ -61,12 +62,40 @@ class SearchBar: UIView {
             button.al_bottom == al_bottom - 5
         ])
         textInput.leftView = nil
-        self.layoutIfNeeded()
-        self.textInputLeftConstraint?.constant = CGRectGetMaxX(button.frame) + 10
+        layoutIfNeeded()
+        buttons.append(button)
+        
+        repositionSearchTextField()
+    }
+    
+    func removeLastButton() {
+        if let lastButton = buttons.last {
+            lastButton.removeFromSuperview()
+            removeConstraints(lastButton.constraints())
+            buttons.removeLast()
+            repositionSearchTextField()
+        }
+    }
+    
+    func resetSearchBar() {
+        for button in buttons {
+            removeConstraints(button.constraints())
+            button.removeFromSuperview()
+        }
+        buttons.removeAll(keepCapacity: true)
+        repositionSearchTextField()
+        textInput.selected = false
+    }
+    
+    func repositionSearchTextField() {
+        if let lastButton = buttons.last {
+            self.textInputLeftConstraint?.constant = CGRectGetMaxX(lastButton.frame) + 10
+        } else {
+            self.textInputLeftConstraint?.constant = 10
+        }
         UIView.animateWithDuration(0.2) {
             self.layoutIfNeeded()
         }
-        buttons.append(button)
     }
 
     func setupLayout() {

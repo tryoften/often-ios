@@ -9,14 +9,15 @@
 import UIKit
 
 class VenmoMessageAmountViewController: ServiceProviderSupplementaryViewController {
-    private var height: CGFloat = 100.0
     override var supplementaryViewHeight: CGFloat {
-        return height
+        return 100.0
     }
     
     var messageTextField: SearchTextField!
     var amountTextField: SearchTextField!
     var requestOrPayView: VenmoRequestOrPayView!
+    var confirmButton: UIButton!
+    var confirmButtonTopConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,14 +33,28 @@ class VenmoMessageAmountViewController: ServiceProviderSupplementaryViewControll
         amountTextField.font = SubtitleFont
         amountTextField.enableCancelButton = false
         amountTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
-        amountTextField.addTarget(self, action: "amountTextFieldDidEndEditing", forControlEvents: UIControlEvents.EditingDidEnd)
+        amountTextField.addTarget(self, action: "amountTextFieldDidEdit", forControlEvents: .EditingChanged)
+        amountTextField.addTarget(self, action: "amountTextFieldDidEndEditing", forControlEvents: .EditingDidEnd)
         
         requestOrPayView = VenmoRequestOrPayView()
         requestOrPayView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        requestOrPayView.requestButton.addTarget(self, action: "didTapRequestButton", forControlEvents: .TouchUpInside)
+        requestOrPayView.payButton.addTarget(self, action: "didTapPayButton", forControlEvents: .TouchUpInside)
+        
+        confirmButton = UIButton()
+        confirmButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        confirmButton.backgroundColor = UIColor(fromHexString: "#7ED321")
+        confirmButton.setTitle("Confirm Payment", forState: .Normal)
+        confirmButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        confirmButton.titleLabel!.font = UIFont(name: "OpenSans-Semibold", size: 16)
+        confirmButton.addTarget(self, action: "didTapConfirmButton", forControlEvents: .TouchUpInside)
+        
+        confirmButtonTopConstraint = confirmButton.al_top == view.al_bottom
         
         view.addSubview(messageTextField)
         view.addSubview(amountTextField)
         view.addSubview(requestOrPayView)
+        view.addSubview(confirmButton)
         
         setupLayout()
     }
@@ -64,8 +79,45 @@ class VenmoMessageAmountViewController: ServiceProviderSupplementaryViewControll
             requestOrPayView.al_bottom == view.al_bottom,
             requestOrPayView.al_left == view.al_left,
             requestOrPayView.al_right == view.al_right,
-            requestOrPayView.al_height == 45.0
+            requestOrPayView.al_height == 45.0,
+            
+            confirmButtonTopConstraint,
+            confirmButton.al_height == requestOrPayView.al_height,
+            confirmButton.al_left == requestOrPayView.al_left,
+            confirmButton.al_width == requestOrPayView.al_width
         ])
+    }
+    
+    func didTapRequestButton() {
+        confirmButtonTopConstraint.constant = -45.0
+        UIView.animateWithDuration(0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func didTapPayButton() {
+        confirmButtonTopConstraint.constant = -45.0
+        UIView.animateWithDuration(0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func didTapConfirmButton() {
+        confirmButton.userInteractionEnabled = false
+        confirmButton.setTitle("Sending Payment...", forState: .Normal)
+        
+        delay(2.0) {
+            self.confirmButton.userInteractionEnabled = true
+            self.confirmButton.setTitle("Payment Successful!!", forState: .Normal)
+            delay(1.0) {
+                self.height = 0.0
+            NSNotificationCenter.defaultCenter().postNotificationName("SearchBarController.resetSearchBar", object: nil)
+            }
+        }
+    }
+    
+    func amountTextFieldDidEdit() {
+        requestOrPayView.active = true
     }
     
     func amountTextFieldDidEndEditing() {

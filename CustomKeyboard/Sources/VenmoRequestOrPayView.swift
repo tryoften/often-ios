@@ -13,26 +13,41 @@ class VenmoRequestOrPayView: UIView {
     var payButton: UIButton
     var seperatorView: UIView
     
+    var active: Bool {
+        didSet {
+            UIView.animateWithDuration(0.3) {
+                if self.active {
+                    self.backgroundColor = UIColor(fromHexString: "#4D97D2")
+                } else {
+                    self.backgroundColor = DarkGrey
+                }
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         requestButton = UIButton()
         requestButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         requestButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         requestButton.setTitle("Request", forState: .Normal)
-        requestButton.titleLabel!.font = UIFont(name: "OpenSans", size: 16)
+        requestButton.titleLabel!.font = UIFont(name: "OpenSans-Semibold", size: 16)
 
         payButton = UIButton()
         payButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         payButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        payButton.titleLabel!.font = UIFont(name: "OpenSans", size: 16)
+        payButton.titleLabel!.font = UIFont(name: "OpenSans-Semibold", size: 16)
         payButton.setTitle("Pay", forState: .Normal)
         
         seperatorView = UIView()
         seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
         seperatorView.backgroundColor = UIColor.whiteColor()
-        
+
+        active = false
+
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#4D97D2")
+        backgroundColor = DarkGrey
+
         addSubview(requestButton)
         addSubview(payButton)
         addSubview(seperatorView)

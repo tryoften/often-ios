@@ -191,7 +191,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
         let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
         let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
-        let topBannerHeight: CGFloat = withTopBanner ? 40.0 : 0.0
+        let topBannerHeight: CGFloat = withTopBanner ? KeyboardSearchBarHeight : 0.0
         
         return CGFloat(orientation.isPortrait ? canonicalPortraitHeight : canonicalLandscapeHeight) + topBannerHeight
     }
@@ -201,9 +201,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             height = userInfo["height"] as? CGFloat {
                 var keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
                 
-                searchBarHeight = height - keysContainerViewHeight
-                
-                keyboardHeight = height
+                searchBarHeight = height + KeyboardSearchBarHeight
+                keyboardHeight = keysContainerViewHeight + searchBarHeight
                 UIView.animateWithDuration(0.3) {
                     self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
                     self.view.layoutIfNeeded()
