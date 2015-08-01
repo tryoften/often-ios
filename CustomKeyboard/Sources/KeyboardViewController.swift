@@ -211,7 +211,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             setupKludge()
             
             updateKeyCaps(shiftState.uppercase())
-            
             constraintsAdded = true
         }
     }
@@ -239,11 +238,12 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             kludge.setTranslatesAutoresizingMaskIntoConstraints(false)
             kludge.hidden = true
             
-            let a = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
-            let b = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
-            let c = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
-            let d = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
-            view.addConstraints([a, b, c, d])
+            view.addConstraints([
+                kludge.al_left == view.al_left,
+                kludge.al_right == view.al_left,
+                kludge.al_top == view.al_top,
+                kludge.al_bottom == view.al_bottom
+            ])
             
             self.kludge = kludge
         }
