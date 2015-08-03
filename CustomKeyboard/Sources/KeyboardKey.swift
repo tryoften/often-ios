@@ -211,6 +211,17 @@ enum ShiftState {
     case Enabled
     case Locked
     
+    func lettercase() -> Lettercase {
+        switch self {
+        case Disabled:
+            return .Lowercase
+        case Enabled:
+            return .Uppercase
+        case Locked:
+            return .Uppercase
+        }
+    }
+    
     func uppercase() -> Bool {
         switch self {
         case Disabled:

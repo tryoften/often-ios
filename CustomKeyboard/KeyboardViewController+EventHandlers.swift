@@ -10,7 +10,8 @@ import UIKit
 import AudioToolbox
 
 extension KeyboardViewController {
-    func updateKeyCaps(uppercase: Bool) {
+    func updateKeyCaps(lettercase: Lettercase) {
+        let uppercase: Bool = lettercase == .Uppercase
         let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
         layoutEngine?.updateKeyCaps(false, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
     }
@@ -20,7 +21,7 @@ extension KeyboardViewController {
             switch(key) {
             case .letter(let character):
                 var str = String(character.rawValue)
-                if lettercase! == .Lowercase {
+                if shiftState.lettercase() == .Lowercase {
                     str = str.lowercaseString
                 }
                 textProcessor.insertText(str)
@@ -31,12 +32,7 @@ extension KeyboardViewController {
             case .changePage(let pageIndex, let pageId):
                 break
             case .modifier(.CapsLock, let pageId):
-                lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
-                if lettercase == .Lowercase {
-                    
-                } else {
-                   
-                }
+                break
             case .modifier(.CallService, let pageId):
                 textProcessor.insertText("#")
             case .modifier(.Space, let pageId):
@@ -60,12 +56,12 @@ extension KeyboardViewController {
     
     func pageChangeTapped(button: KeyboardKeyButton?) {
         if let button = button, key = button.key {
-                switch(key) {
-                case .changePage(let pageNumber, let pageId):
-                    setPage(pageNumber)
-                default:
-                    setPage(0)
-                }
+            switch(key) {
+            case .changePage(let pageNumber, let pageId):
+                setPage(pageNumber)
+            default:
+                setPage(0)
+            }
         }
     }
     
@@ -170,14 +166,12 @@ extension KeyboardViewController {
     }
     
     func backspaceDown(button: KeyboardKeyButton?) {
-        self.cancelBackspaceTimers()
-        
+        cancelBackspaceTimers()
         backspaceStartTime = CFAbsoluteTimeGetCurrent()
-        
         textProcessor.currentProxy.deleteBackward()
         
         // trigger for subsequent deletes
-        self.backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
+        backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
     }
     
     func backspaceUp(button: KeyboardKeyButton?) {
@@ -191,10 +185,9 @@ extension KeyboardViewController {
     }
     
     func backspaceRepeatCallback() {
-        self.playKeySound()
+        playKeySound()
         
         var timeElapsed = CFAbsoluteTimeGetCurrent() - backspaceStartTime
-        
         if timeElapsed < 2.0 {
             textProcessor.currentProxy.deleteBackward()
         } else {
@@ -276,17 +269,9 @@ extension KeyboardViewController {
     
     func shiftUp(button: KeyboardKeyButton?) {
         if let button = button {
-            if shiftWasMultitapped {
-                // do nothing
-            }
-            else {
+            if !shiftWasMultitapped {
                 if let shiftStartingState = shiftStartingState {
-                    if !shiftStartingState.uppercase() {
-                        // handled by shiftDown
-                        changeKeyboardLetterCases(true)
-                    }
-                    else {
-                        changeKeyboardLetterCases(false)
+                    if shiftStartingState.uppercase() {
                         button.shiftSelected = false
                         switch shiftState {
                         case .Disabled:
@@ -298,32 +283,12 @@ extension KeyboardViewController {
                         }
                     }
                 }
-                
             }
         }
         shiftStartingState = nil
         shiftWasMultitapped = false
     }
-    
-    func changeKeyboardLetterCases(isCapLoackOn:Bool) {
-        for button in allKeys {
-            if let key = button.key {
-                switch(key) {
-                case .letter (let character):
-                    var str = String(character.rawValue)
-                    if isCapLoackOn {
-                        button.text = str
-                    } else {
-                        button.text = str.lowercaseString
-                    }
-                    break
-                default:
-                    break
-                }
-            }
-        }
-    }
-    
+
     func shiftDoubleTapped(button: KeyboardKeyButton?) {
         shiftWasMultitapped = true
         
