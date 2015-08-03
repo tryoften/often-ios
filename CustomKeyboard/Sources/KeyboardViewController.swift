@@ -18,7 +18,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var textProcessor: TextProcessingManager!
     var keysContainerView: TouchRecognizerView!
     var searchBar: SearchBarController!
-    var lettercase: Lettercase!
     var layout: KeyboardLayout
     var constraintsAdded: Bool = false
     var currentPage: Int = 0
@@ -45,14 +44,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var shiftStartingState: ShiftState?
     var shiftState: ShiftState {
         didSet {
-            switch shiftState {
-            case .Disabled:
-                updateKeyCaps(false)
-            case .Enabled:
-                updateKeyCaps(true)
-            case .Locked:
-                updateKeyCaps(true)
-            }
+//            updateKeyCaps(shiftState.lettercase())
+            changeKeyboardLetterCases()
         }
     }
     var heightConstraint: NSLayoutConstraint?
@@ -69,6 +62,21 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             setHeight(newValue)
         }
     }
+    var allKeys: [KeyboardKeyButton] {
+        get {
+            var keys = [KeyboardKeyButton]()
+            for page in layout.pages {
+                for rowKeys in page.rows {
+                    for key in rowKeys {
+                        if let keyView = layoutEngine?.viewForKey(key) {
+                            keys.append(keyView as KeyboardKeyButton)
+                        }
+                    }
+                }
+            }
+            return keys
+        }
+    }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         searchBar = SearchBarController(nibName: nil, bundle: nil)
@@ -83,8 +91,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         } else {
             layout = DefaultKeyboardLayout
         }
-        
-        lettercase = .Lowercase
         
         super.init(nibName: nil, bundle: nil)
         
@@ -176,7 +182,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
         let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
         let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
-        let topBannerHeight: CGFloat = withTopBanner ? 40.0 : 0.0
+        let topBannerHeight: CGFloat = withTopBanner ? KeyboardSearchBarHeight : 0.0
         
         return CGFloat(orientation.isPortrait ? canonicalPortraitHeight : canonicalLandscapeHeight) + topBannerHeight
     }
@@ -186,9 +192,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             height = userInfo["height"] as? CGFloat {
                 var keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
                 
-                searchBarHeight = height - keysContainerViewHeight
-                
-                keyboardHeight = height
+                searchBarHeight = height + KeyboardSearchBarHeight
+                keyboardHeight = keysContainerViewHeight + searchBarHeight
                 UIView.animateWithDuration(0.3) {
                     self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
                     self.view.layoutIfNeeded()
@@ -211,8 +216,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             setPage(0)
             setupKludge()
             
-            updateKeyCaps(shiftState.uppercase())
-            
+            updateKeyCaps(shiftState.lettercase())
             constraintsAdded = true
         }
     }
@@ -240,11 +244,12 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             kludge.setTranslatesAutoresizingMaskIntoConstraints(false)
             kludge.hidden = true
             
-            let a = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
-            let b = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
-            let c = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
-            let d = NSLayoutConstraint(item: kludge, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
-            view.addConstraints([a, b, c, d])
+            view.addConstraints([
+                kludge.al_left == view.al_left,
+                kludge.al_right == view.al_left,
+                kludge.al_top == view.al_top,
+                kludge.al_bottom == view.al_bottom
+            ])
             
             self.kludge = kludge
         }
@@ -272,6 +277,15 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                             keyView.addTarget(self, action: "shiftDown:", forControlEvents: .TouchDown)
                             keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
                             keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
+                        case .modifier(.Space, let pageId):
+                            keyView.addTarget(self, action: Selector("didTapSpaceButton:"), forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: Selector("didReleaseSpaceButton:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                         case .modifier(.CallService, let pageId):
+                            keyView.addTarget(self, action: Selector("didTapCallKey:"), forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: Selector("didReleaseCallKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                        case .modifier(.Enter, let pageId):
+                            keyView.addTarget(self, action: Selector("didTapEnterKey:"), forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: Selector("didReleaseEnterKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
                         case .digit(let number):
                             break
                         case .changePage(let pageNumber, let pageId):
@@ -294,7 +308,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                         }
                         
                         if key.hasOutput {
-                            keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
                         }
                     }
                 }
@@ -306,6 +320,25 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         currentPage = page
         layoutEngine?.layoutKeys(page, uppercase: false, characterUppercase: false, shiftState: shiftState)
         setupKeys()
+    }
+
+    func changeKeyboardLetterCases() {
+        for button in allKeys {
+            if let key = button.key {
+                switch(key) {
+                case .letter (let character):
+                    var str = String(character.rawValue)
+                    if shiftState.uppercase() {
+                        button.text = str
+                    } else {
+                        button.text = str.lowercaseString
+                    }
+                    break
+                default:
+                    break
+                }
+            }
+        }
     }
     
     // MARK: TextProcessingManagerDelegate

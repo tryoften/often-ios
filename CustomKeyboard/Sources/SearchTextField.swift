@@ -44,8 +44,10 @@ class SearchTextField: UIControl, Layouteable {
             if selected {
                 becomeFirstResponder()
                 startBlinkingIndicator()
-                sendActionsForControlEvents(UIControlEvents.EditingDidBegin)
-                text = ""
+                if !editing {
+                    sendActionsForControlEvents(UIControlEvents.EditingDidBegin)
+                }
+                text = "\(text!)"
                 label.morphingEnabled = false
                 
                 cancelButtonLeftConstraint.constant = -CGRectGetHeight(cancelButton.frame) - 10
@@ -54,21 +56,24 @@ class SearchTextField: UIControl, Layouteable {
                     self.cancelButton.alpha = 1.0
                     self.layoutIfNeeded()
                 }
+                editing = true
             } else {
-                resignFirstResponder()
                 endBlinkingIndicator()
-                sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
+                if editing {
+                    sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
+                }
                 label.morphingEnabled = true
-                text = ""
-                placeholder = "\(placeholder!)"
-                
                 cancelButtonLeftConstraint.constant = 0
+                if text == "" {
+                    placeholder = "\(placeholder!)"
+                }
                 
                 UIView.animateWithDuration(0.3) {
                     self.indicator.alpha = 0.0
                     self.cancelButton.alpha = 0.0
                     self.layoutIfNeeded()
                 }
+                editing = false
             }
         }
     }
@@ -156,16 +161,17 @@ class SearchTextField: UIControl, Layouteable {
     }
 
     override func becomeFirstResponder() -> Bool {
+        delay(0.5) {
         NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagerProxyEvent, object: self, userInfo: [
-                "id": id,
+                "id": self.id,
                 "setDefault": true
             ])
+        }
         return super.becomeFirstResponder()
     }
     
     override func resignFirstResponder() -> Bool {
         selected = false
-        NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagedResetDefaultProxyEvent, object: self, userInfo: nil)
         return super.resignFirstResponder()
     }
     
@@ -201,6 +207,8 @@ class SearchTextField: UIControl, Layouteable {
     }
     
     func didTapCancelButton() {
+        text = ""
+        placeholder = "\(placeholder!)"
         selected = false
     }
     

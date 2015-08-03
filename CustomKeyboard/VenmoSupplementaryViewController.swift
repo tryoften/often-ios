@@ -72,11 +72,6 @@ class VenmoSupplementaryViewController: ServiceProviderSupplementaryViewControll
                 self.currentStep.removeFromParentViewController()
                 
                 self.currentStep = nextStep
-
-                
-                NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-                    "height": KeyboardHeight + self.currentStep.supplementaryViewHeight
-                    ])
             })
         }
     }

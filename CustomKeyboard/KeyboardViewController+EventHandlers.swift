@@ -10,22 +10,18 @@ import UIKit
 import AudioToolbox
 
 extension KeyboardViewController {
-    func updateKeyCaps(uppercase: Bool) {
+    func updateKeyCaps(lettercase: Lettercase) {
+        let uppercase: Bool = lettercase == .Uppercase
         let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
         layoutEngine?.updateKeyCaps(false, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
     }
     
     func didTapButton(button: KeyboardKeyButton?) {
-        
         if let button = button, key = button.key {
-            
-            button.highlighted = false
-            button.selected = !button.selected
-            
             switch(key) {
             case .letter(let character):
                 var str = String(character.rawValue)
-                if lettercase! == .Lowercase {
+                if shiftState.lettercase() == .Lowercase {
                     str = str.lowercaseString
                 }
                 textProcessor.insertText(str)
@@ -36,7 +32,7 @@ extension KeyboardViewController {
             case .changePage(let pageIndex, let pageId):
                 break
             case .modifier(.CapsLock, let pageId):
-                lettercase = (lettercase == .Lowercase) ? .Uppercase : .Lowercase
+                break
             case .modifier(.CallService, let pageId):
                 textProcessor.insertText("#")
             case .modifier(.Space, let pageId):
@@ -60,23 +56,23 @@ extension KeyboardViewController {
     
     func pageChangeTapped(button: KeyboardKeyButton?) {
         if let button = button, key = button.key {
-                switch(key) {
-                case .changePage(let pageNumber, let pageId):
-                    setPage(pageNumber)
-                default:
-                    setPage(0)
-                }
+            switch(key) {
+            case .changePage(let pageNumber, let pageId):
+                setPage(pageNumber)
+            default:
+                setPage(0)
+            }
         }
     }
     
     func highlightKey(button: KeyboardKeyButton?) {
-        if let button = button{
+        if let button = button {
             button.highlighted = true
         }
     }
     
     func unHighlightKey(button: KeyboardKeyButton?) {
-        if let button = button{
+        if let button = button {
             button.highlighted = false
         }
     }
@@ -87,8 +83,51 @@ extension KeyboardViewController {
         })
     }
     
+    func didTapSpaceButton(button: KeyboardKeyButton?) {
+        if let button = button {
+            switch(button.key) {
+            default:
+                if currentPage != 0 {
+                    setPage(0)
+                }
+                button.spaceBarSelected = true
+            }
+            
+        }
+    }
+  
+    func didReleaseSpaceButton(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.spaceBarSelected = false
+        }
+    }
+    
+    func didTapCallKey(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.callKeySelected = true
+        }
+    }
+    
+    func didReleaseCallKey(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.callKeySelected = false
+        }
+    }
+
+    func didTapEnterKey(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.enterKeySelected = true
+        }
+    }
+    
+    func didReleaseEnterKey(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.enterKeySelected = false
+        }
+    }
+
     func showPopup(button: KeyboardKeyButton?) {
-        if let button = button{
+        if let button = button {
             if button == keyWithDelayedPopup {
                 popupDelayTimer?.invalidate()
             }
@@ -98,7 +137,7 @@ extension KeyboardViewController {
     }
     
     func hidePopupDelay(button: KeyboardKeyButton?) {
-        if let button = button{
+        if let button = button {
             popupDelayTimer?.invalidate()
             
             if button != keyWithDelayedPopup {
@@ -127,14 +166,12 @@ extension KeyboardViewController {
     }
     
     func backspaceDown(button: KeyboardKeyButton?) {
-        self.cancelBackspaceTimers()
-        
+        cancelBackspaceTimers()
         backspaceStartTime = CFAbsoluteTimeGetCurrent()
-        
         textProcessor.currentProxy.deleteBackward()
         
         // trigger for subsequent deletes
-        self.backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
+        backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
     }
     
     func backspaceUp(button: KeyboardKeyButton?) {
@@ -148,10 +185,9 @@ extension KeyboardViewController {
     }
     
     func backspaceRepeatCallback() {
-        self.playKeySound()
+        playKeySound()
         
         var timeElapsed = CFAbsoluteTimeGetCurrent() - backspaceStartTime
-        
         if timeElapsed < 2.0 {
             textProcessor.currentProxy.deleteBackward()
         } else {
@@ -207,52 +243,52 @@ extension KeyboardViewController {
 
     func shiftDown(button: KeyboardKeyButton?) {
         shiftStartingState = shiftState
-        
-        if let shiftStartingState = shiftStartingState {
-            if shiftStartingState.uppercase() {
-                // handled by shiftUp
-                return
-            }
-            else {
-                switch shiftState {
-                case .Disabled:
-                    shiftState = .Enabled
-                case .Enabled:
-                    shiftState = .Disabled
-                case .Locked:
-                    shiftState = .Disabled
-                }
-                
-            }
-        }
-    }
-    
-    func shiftUp(button: KeyboardKeyButton?) {
-        if shiftWasMultitapped {
-            // do nothing
-        }
-        else {
+        if let button = button {
             if let shiftStartingState = shiftStartingState {
-                if !shiftStartingState.uppercase() {
-                    // handled by shiftDown
+                if shiftStartingState.uppercase() {
+                    // handled by shiftUp
+                    return
                 }
                 else {
                     switch shiftState {
                     case .Disabled:
                         shiftState = .Enabled
+                        button.shiftSelected = true
                     case .Enabled:
                         shiftState = .Disabled
+                        button.shiftSelected = false
                     case .Locked:
                         shiftState = .Disabled
+                        button.shiftSelected = false
                     }
                 }
             }
-            
+        }
+        
+    }
+    
+    func shiftUp(button: KeyboardKeyButton?) {
+        if let button = button {
+            if !shiftWasMultitapped {
+                if let shiftStartingState = shiftStartingState {
+                    if shiftStartingState.uppercase() {
+                        button.shiftSelected = false
+                        switch shiftState {
+                        case .Disabled:
+                            shiftState = .Enabled
+                        case .Enabled:
+                            shiftState = .Disabled
+                        case .Locked:
+                            shiftState = .Disabled
+                        }
+                    }
+                }
+            }
         }
         shiftStartingState = nil
         shiftWasMultitapped = false
     }
-    
+
     func shiftDoubleTapped(button: KeyboardKeyButton?) {
         shiftWasMultitapped = true
         

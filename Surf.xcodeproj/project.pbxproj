@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+
+		3B63ED5D1B68354B00E54AFA /* KeyboardViewController+KeyboardKeysEventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+KeyboardKeysEventHandlers.swift */; };
+		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+KeyboardKeysEventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+KeyboardKeysEventHandlers.swift */; };
+		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
+		3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
 		3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
@@ -237,7 +242,12 @@
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
 		18A18D358A8CB3AA1878D360 /* Pods-Surf.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+
+		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+KeyboardKeysEventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardViewController+KeyboardKeysEventHandlers.swift"; sourceTree = "<group>"; };
+		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeView.swift; sourceTree = "<group>"; };
+
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
+
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -657,6 +667,7 @@
 			isa = PBXGroup;
 			children = (
 				8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */,
+				3B63ED651B6AD43A00E54AFA /* ShapeView.swift */,
 				810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */,
 			);
 			name = Buttons;
@@ -1179,6 +1190,7 @@
 				69161CB71B6C064B0083B922 /* ServiceProviderCollectionViewController.swift in Sources */,
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
+				3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
@@ -1238,6 +1250,7 @@
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
+				3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
