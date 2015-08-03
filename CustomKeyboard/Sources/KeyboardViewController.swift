@@ -18,7 +18,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var textProcessor: TextProcessingManager!
     var keysContainerView: TouchRecognizerView!
     var searchBar: SearchBarController!
-    var lettercase: Lettercase!
     var layout: KeyboardLayout
     var constraintsAdded: Bool = false
     var currentPage: Int = 0
@@ -45,14 +44,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var shiftStartingState: ShiftState?
     var shiftState: ShiftState {
         didSet {
-            switch shiftState {
-            case .Disabled:
-                updateKeyCaps(false)
-            case .Enabled:
-                updateKeyCaps(true)
-            case .Locked:
-                updateKeyCaps(true)
-            }
+//            updateKeyCaps(shiftState.lettercase())
+            changeKeyboardLetterCases()
         }
     }
     var heightConstraint: NSLayoutConstraint?
@@ -98,8 +91,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         } else {
             layout = DefaultKeyboardLayout
         }
-        
-        lettercase = .Lowercase
         
         super.init(nibName: nil, bundle: nil)
         
@@ -225,7 +216,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             setPage(0)
             setupKludge()
             
-            updateKeyCaps(shiftState.uppercase())
+            updateKeyCaps(shiftState.lettercase())
             constraintsAdded = true
         }
     }
@@ -317,7 +308,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                         }
                         
                         if key.hasOutput {
-                            keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
                         }
                     }
                 }
@@ -329,6 +320,25 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         currentPage = page
         layoutEngine?.layoutKeys(page, uppercase: false, characterUppercase: false, shiftState: shiftState)
         setupKeys()
+    }
+
+    func changeKeyboardLetterCases() {
+        for button in allKeys {
+            if let key = button.key {
+                switch(key) {
+                case .letter (let character):
+                    var str = String(character.rawValue)
+                    if shiftState.uppercase() {
+                        button.text = str
+                    } else {
+                        button.text = str.lowercaseString
+                    }
+                    break
+                default:
+                    break
+                }
+            }
+        }
     }
     
     // MARK: TextProcessingManagerDelegate
