@@ -44,6 +44,8 @@
 		645C5C1B383CD0DCCB770CC7 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD2306F8F79E206D6C9908C /* libPods-Keyboard.a */; };
 		690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
 		690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
+		69161CB71B6C064B0083B922 /* ServiceProviderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69161CB61B6C064B0083B922 /* ServiceProviderCollectionViewController.swift */; };
+		69161CC01B6C1C390083B922 /* ServiceProviderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69161CBF1B6C1C390083B922 /* ServiceProviderCollectionViewCell.swift */; };
 		6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */; };
 		6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */; };
 		6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */; };
@@ -262,6 +264,8 @@
 		3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
 		45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.release.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.release.xcconfig"; sourceTree = "<group>"; };
 		690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoFriend.swift; path = CustomKeyboard/VenmoFriend.swift; sourceTree = "<group>"; };
+		69161CB61B6C064B0083B922 /* ServiceProviderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderCollectionViewController.swift; path = Sources/ServiceProviderCollectionViewController.swift; sourceTree = "<group>"; };
+		69161CBF1B6C1C390083B922 /* ServiceProviderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderCollectionViewCell.swift; path = Sources/ServiceProviderCollectionViewCell.swift; sourceTree = "<group>"; };
 		6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewCell.swift; path = Sources/FoursquareLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewController.swift; path = Sources/FoursquareLocationCollectionViewController.swift; sourceTree = "<group>"; };
 		6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationSectionHeader.swift; path = Sources/FoursquareLocationSectionHeader.swift; sourceTree = "<group>"; };
@@ -508,6 +512,8 @@
 				817938FF1B5BFEB30064B0CF /* ServiceProvider.swift */,
 				81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */,
 				817939031B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift */,
+				69161CB61B6C064B0083B922 /* ServiceProviderCollectionViewController.swift */,
+				69161CBF1B6C1C390083B922 /* ServiceProviderCollectionViewCell.swift */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -1173,6 +1179,7 @@
 				81E26D8E1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
 				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
+				69161CC01B6C1C390083B922 /* ServiceProviderCollectionViewCell.swift in Sources */,
 				817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
@@ -1180,6 +1187,7 @@
 				816589031B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
 				810C4AFA1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
 				817939001B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
+				69161CB71B6C064B0083B922 /* ServiceProviderCollectionViewController.swift in Sources */,
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */,
