@@ -115,16 +115,34 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                 currentProxy.deleteBackward()
             }
         }
+        
+        if let textFieldDelegate = delegate {
+            textFieldDelegate.textProcessingManagerDidChangeText(self)
+        } else {
+            println("Text Field Delegate not set")
+        }
     }
     
     func insertText(text: String) {
         currentProxy.insertText(text)
         parseTextInCurrentDocumentProxy()
+        
+        if let textFieldDelegate = delegate {
+            textFieldDelegate.textProcessingManagerDidChangeText(self)
+        } else {
+            println("Text Field Delegate not set")
+        }
     }
     
     func deleteBackward() {
         currentProxy.deleteBackward()
         parseTextInCurrentDocumentProxy()
+        
+        if let textFieldDelegate = delegate {
+            textFieldDelegate.textProcessingManagerDidChangeText(self)
+        } else {
+            println("Text Field Delegate not set")
+        }
     }
     
     func setCurrentProxyWithId(id: String) -> Bool {
@@ -134,6 +152,88 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         }
         return false
     }
+    
+    func characterIsPunctuation(character: Character) -> Bool {
+        return (character == ".") || (character == "!") || (character == "?")
+    }
+    
+    func characterIsNewline(character: Character) -> Bool {
+        return (character == "\n") || (character == "\r")
+    }
+    
+    func characterIsWhitespace(character: Character) -> Bool {
+        // there are others, but who cares
+        return (character == " ") || (character == "\n") || (character == "\r") || (character == "\t")
+    }
+    
+    func stringIsWhitespace(string: String?) -> Bool {
+        if string != nil {
+            for char in string! {
+                if !characterIsWhitespace(char) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    
+    func shouldAutoCapitalize() -> Bool {
+        if let autocapitalization = currentProxy.autocapitalizationType {
+            var documentProxy = currentProxy as? UITextDocumentProxy
+            var beforeContext = currentProxy.documentContextBeforeInput
+
+            switch autocapitalization {
+            case .None:
+                return false
+            case .Words:
+                if let beforeContext = documentProxy?.documentContextBeforeInput {
+                    let previousCharacter = beforeContext[beforeContext.endIndex.predecessor()]
+                    return self.characterIsWhitespace(previousCharacter)
+                }
+                else {
+                    return true
+                }
+            case .Sentences:
+                if let beforeContext = documentProxy?.documentContextBeforeInput {
+                    let offset = min(3, count(beforeContext))
+                    var index = beforeContext.endIndex
+
+                    for (var i = 0; i < offset; i += 1) {
+                        index = index.predecessor()
+                        let char = beforeContext[index]
+
+                        if characterIsPunctuation(char) {
+                            if i == 0 {
+                                return false //not enough spaces after punctuation
+                            }
+                            else {
+                                return true //punctuation with at least one space after it
+                            }
+                        }
+                        else {
+                            if !characterIsWhitespace(char) {
+                                return false //hit a foreign character before getting to 3 spaces
+                            }
+                            else if characterIsNewline(char) {
+                                return true //hit start of line
+                            }
+                        }
+                    }
+                    
+                    return true //either got 3 spaces or hit start of line
+                }
+                else {
+                    return true
+                }
+            case .AllCharacters:
+                return true
+            }
+        }
+        else {
+            return false
+        }
+    }
+    
 }
 
 protocol TextProcessingManagerDelegate: class {

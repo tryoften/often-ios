@@ -44,7 +44,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var shiftStartingState: ShiftState?
     var shiftState: ShiftState {
         didSet {
-//            updateKeyCaps(shiftState.lettercase())
             changeKeyboardLetterCases()
         }
     }
@@ -84,7 +83,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         keysContainerView = TouchRecognizerView()
         keysContainerView.backgroundColor = UIColor(fromHexString: "#202020")
         
-        shiftState = .Disabled
+        shiftState = .Enabled
         
         if let defaultLayout = KeyboardLayouts[locale] {
             layout = defaultLayout
@@ -221,6 +220,33 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
     }
     
+    func setCapsIfNeeded() -> Bool {
+        if textProcessor.shouldAutoCapitalize() {
+            switch shiftState {
+            case .Disabled:
+                shiftState = .Enabled
+            case .Enabled:
+                shiftState = .Enabled
+            case .Locked:
+                shiftState = .Locked
+            }
+            
+            return true
+        }
+        else {
+            switch shiftState {
+            case .Disabled:
+                shiftState = .Disabled
+            case .Enabled:
+                shiftState = .Disabled
+            case .Locked:
+                shiftState = .Locked
+            }
+            
+            return false
+        }
+    }
+    
     override func textWillChange(textInput: UITextInput) {
         textProcessor.textWillChange(textInput)
     }
@@ -343,6 +369,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     // MARK: TextProcessingManagerDelegate
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
+        setCapsIfNeeded()
     }
     
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType) {
