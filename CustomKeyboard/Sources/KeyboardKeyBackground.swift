@@ -226,7 +226,6 @@ class KeyboardKeyBackground: UIView, Connectable {
         }
         
         fillPath.closePath()
-        fillPath.fill()
         fillPath.applyTransform(CGAffineTransformMakeTranslation(0, -self.underOffset))
         
         var underPath = { () -> UIBezierPath in
