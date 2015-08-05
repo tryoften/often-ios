@@ -22,8 +22,10 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
     var contentImageViewWidthConstraint: NSLayoutConstraint
     var contentImage: UIImage {
         didSet (value) {
-            contentImageView.image = value
             contentImageViewWidthConstraint = contentImageView.al_width == 100
+            addConstraint(contentImageViewWidthConstraint)
+            contentImageView.image = value
+            layoutIfNeeded()
         }
     }
     
@@ -37,26 +39,28 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
         
         headerLabel = UILabel()
         headerLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        headerLabel.font = UIFont(name: "OpenSans", size: 12.0)
+        headerLabel.font = UIFont(name: "OpenSans", size: 11.0)
         
         mainTextLabel = UILabel()
         mainTextLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         mainTextLabel.font = UIFont(name: "OpenSans", size: 12.0)
+        mainTextLabel.numberOfLines = 2
+        mainTextLabel.backgroundColor = ClearColor
         
         centerSupplementLabel = UILabel()
         centerSupplementLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        centerSupplementLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        centerSupplementLabel.textColor = LightGrey
+        centerSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
+        centerSupplementLabel.textColor = UIColor(fromHexString: "#000000")
         
         leftSupplementLabel = UILabel()
         leftSupplementLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        leftSupplementLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        leftSupplementLabel.textColor = LightGrey
+        leftSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
+        leftSupplementLabel.textColor = UIColor(fromHexString: "#000000")
         
         rightSupplementLabel = UILabel()
         rightSupplementLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        rightSupplementLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        rightSupplementLabel.textColor = LightGrey
+        rightSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
+        rightSupplementLabel.textColor = UIColor(fromHexString: "#000000")
         
         rightCornerImageView = UIImageView()
         rightCornerImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -72,6 +76,8 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
         
         super.init(frame: frame)
         
+        backgroundColor = WhiteColor
+        
         addSubview(informationContainerView)
         addSubview(contentImageView)
         informationContainerView.addSubview(avatarImageView)
@@ -83,6 +89,8 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
         informationContainerView.addSubview(rightCornerImageView)
         
         setupLayout()
+        
+        layoutIfNeeded()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -99,29 +107,36 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
             contentImageView.al_right == al_right,
             contentImageView.al_top == al_top,
             contentImageView.al_bottom == al_bottom,
+            contentImageView.al_left == informationContainerView.al_right,
             
-            avatarImageView.al_left == informationContainerView.al_left + 5,
-            avatarImageView.al_top == informationContainerView.al_top + 5,
-            avatarImageView.al_width == 10,
-            avatarImageView.al_height == 10,
+            avatarImageView.al_left == informationContainerView.al_left + 15,
+            avatarImageView.al_top == informationContainerView.al_top + 10,
+            avatarImageView.al_width == 20,
+            avatarImageView.al_height == 20,
             
-            headerLabel.al_left == avatarImageView.al_right + 2,
-            headerLabel.al_top == informationContainerView.al_top + 5,
+            headerLabel.al_left == avatarImageView.al_right + 5,
+            headerLabel.al_centerY == avatarImageView.al_centerY,
+            headerLabel.al_height == 16,
             
-            mainTextLabel.al_left == informationContainerView.al_left + 5,
-            mainTextLabel.al_top == headerLabel.al_bottom + 5,
+            mainTextLabel.al_left == informationContainerView.al_left + 15,
+            mainTextLabel.al_top == headerLabel.al_bottom + 1,
+            mainTextLabel.al_bottom == leftSupplementLabel.al_top,
+            mainTextLabel.al_right == contentImageView.al_left - 15,
             
-            leftSupplementLabel.al_bottom == informationContainerView.al_bottom + 5,
-            leftSupplementLabel.al_left == informationContainerView.al_left + 5,
+            leftSupplementLabel.al_left == mainTextLabel.al_left,
+            leftSupplementLabel.al_bottom == informationContainerView.al_bottom - 8,
+            leftSupplementLabel.al_height == 15,
             
-            centerSupplementLabel.al_left == leftSupplementLabel.al_right + 5,
-            centerSupplementLabel.al_bottom == informationContainerView.al_bottom + 5,
+            centerSupplementLabel.al_left == leftSupplementLabel.al_right + 15,
+            centerSupplementLabel.al_centerY == leftSupplementLabel.al_centerY,
             
-            rightSupplementLabel.al_left == informationContainerView.al_right - 5,
-            rightSupplementLabel.al_bottom == informationContainerView.al_bottom + 5,
+            rightSupplementLabel.al_right == mainTextLabel.al_right,
+            rightSupplementLabel.al_centerY == leftSupplementLabel.al_centerY,
             
-            rightCornerImageView.al_top == informationContainerView.al_top + 5,
-            rightCornerImageView.al_right == contentImageView.al_left - 5
+            rightCornerImageView.al_top == informationContainerView.al_top + 10,
+            rightCornerImageView.al_right == contentImageView.al_left - 15,
+            rightCornerImageView.al_height == 20,
+            rightCornerImageView.al_width == 20
         ])
     }
 }
