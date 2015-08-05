@@ -20,7 +20,7 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
     
     var contentImageView: UIImageView
     var contentImageViewWidthConstraint: NSLayoutConstraint
-    var contentImage: UIImage {
+    var contentImage: UIImage? {
         didSet (value) {
             contentImageViewWidthConstraint = contentImageView.al_width == 100
             addConstraint(contentImageViewWidthConstraint)
@@ -66,8 +66,6 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
         rightCornerImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         rightCornerImageView.contentMode = .ScaleAspectFit
         
-        contentImage = UIImage()
-        
         contentImageView = UIImageView()
         contentImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         contentImageView.contentMode = .ScaleAspectFit
@@ -95,6 +93,10 @@ class ServiceProviderCollectionViewCell: UICollectionViewCell {
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        
     }
     
     func setupLayout() {

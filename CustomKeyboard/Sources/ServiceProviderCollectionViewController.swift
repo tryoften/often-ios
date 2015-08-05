@@ -63,6 +63,8 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
         return layout
     }
     
+    
+    
     // MARK: UICollectionViewDataSource
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -84,7 +86,7 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
         cell.rightSupplementLabel.text = "July 25, 2015"
         cell.rightCornerImageView.image = UIImage(named: "twitter")
         
-        cell.contentImage = UIImage(named: "ovosound")!
+        cell.contentImage = UIImage(named: "ovosound")
         
         return cell
     }
