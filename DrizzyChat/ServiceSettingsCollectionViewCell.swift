@@ -12,6 +12,13 @@ class ServiceSettingsCollectionViewCell: UICollectionViewCell {
     var serviceLogoImageView: UIImageView
     var serviceSwitch: UISwitch
     var serviceSubtitleLabel: UILabel
+    var settingServicesType: SettingsServicesType = .Venmo
+    
+    enum SettingsServicesType {
+        case Venmo
+        case Spotify
+        case Soundcloud
+    }
     
     override init(frame: CGRect) {
         serviceLogoImageView = UIImageView()
@@ -49,13 +56,25 @@ class ServiceSettingsCollectionViewCell: UICollectionViewCell {
     
     func switchAction() {
         if serviceSwitch.on {
-            serviceSubtitleLabel.text = "Connected!"
-            serviceSubtitleLabel.numberOfLines = 1
-            serviceLogoImageView.image = UIImage(named: "venmo-on")
+            switch settingServicesType {
+            case .Venmo:
+                serviceSubtitleLabel.text = "Connected!"
+                serviceSubtitleLabel.numberOfLines = 1
+                serviceLogoImageView.image = UIImage(named: "venmo-on")
+                break
+            default:
+                break
+            }
         } else {
-            serviceSubtitleLabel.text = "Connect your Venmo account to start sending payments & requests from your keyboard."
-            serviceSubtitleLabel.numberOfLines = 2
-            serviceLogoImageView.image = UIImage(named: "venmo-off")
+            switch settingServicesType {
+            case .Venmo:
+                serviceSubtitleLabel.text = "Connect your Venmo account to start sending payments & requests from your keyboard."
+                serviceSubtitleLabel.numberOfLines = 2
+                serviceLogoImageView.image = UIImage(named: "venmo-off")
+                break
+            default:
+                break
+            }
         }
     }
     

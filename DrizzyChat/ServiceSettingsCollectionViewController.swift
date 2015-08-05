@@ -56,6 +56,7 @@ class ServiceSettingsCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ServiceSettingsViewCell, forIndexPath: indexPath) as! ServiceSettingsCollectionViewCell
     
+        cell.settingServicesType = .Venmo
         cell.serviceLogoImageView.image = UIImage(named: "venmo-off")
         cell.serviceSwitch.on = false
         cell.serviceSubtitleLabel.text = "Connect your Venmo account to start sending payments & requests from your keyboard."
