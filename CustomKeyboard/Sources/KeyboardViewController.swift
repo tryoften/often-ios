@@ -292,7 +292,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                         case .modifier(.SwitchKeyboard, let pageId):
                             keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
                         case .modifier(.Backspace, let pageId):
-                            println("Backspace found")
                             let cancelEvents: UIControlEvents = UIControlEvents.TouchUpInside|UIControlEvents.TouchUpInside|UIControlEvents.TouchDragExit|UIControlEvents.TouchUpOutside|UIControlEvents.TouchCancel|UIControlEvents.TouchDragOutside
                             let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "backspaceLongPressed:")
                             
@@ -304,14 +303,14 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                             keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
                             keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
                         case .modifier(.Space, let pageId):
-                            keyView.addTarget(self, action: Selector("didTapSpaceButton:"), forControlEvents: .TouchDown)
-                            keyView.addTarget(self, action: Selector("didReleaseSpaceButton:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                            keyView.addTarget(self, action: "didTapSpaceButton:", forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: "didReleaseSpaceButton:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
                          case .modifier(.CallService, let pageId):
-                            keyView.addTarget(self, action: Selector("didTapCallKey:"), forControlEvents: .TouchDown)
-                            keyView.addTarget(self, action: Selector("didReleaseCallKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                            keyView.addTarget(self, action: "didTapCallKey:", forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: "didReleaseCallKey:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
                         case .modifier(.Enter, let pageId):
-                            keyView.addTarget(self, action: Selector("didTapEnterKey:"), forControlEvents: .TouchDown)
-                            keyView.addTarget(self, action: Selector("didReleaseEnterKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                            keyView.addTarget(self, action: "didTapEnterKey:", forControlEvents: .TouchDown)
+                            keyView.addTarget(self, action: "didReleaseEnterKey:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
                         case .digit(let number):
                             break
                         case .changePage(let pageNumber, let pageId):
@@ -322,15 +321,15 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                         
                         if key.isCharacter {
                             if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad {
-                                keyView.addTarget(self, action: Selector("showPopup:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
-                                keyView.addTarget(keyView, action: Selector("hidePopup"), forControlEvents: .TouchDragExit | .TouchCancel)
-                                keyView.addTarget(self, action: Selector("hidePopupDelay:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside)
+                                keyView.addTarget(self, action: "showPopup:", forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
+                                keyView.addTarget(keyView, action: "hidePopup", forControlEvents: .TouchDragExit | .TouchCancel)
+                                keyView.addTarget(self, action: "hidePopupDelay:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside)
                             }
                         }
 
                         if !key.isModifier {
-                            keyView.addTarget(self, action: Selector("highlightKey:"), forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
-                            keyView.addTarget(self, action: Selector("unHighlightKey:"), forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                            keyView.addTarget(self, action: "highlightKey:", forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
+                            keyView.addTarget(self, action: "unHighlightKey:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
                         }
                         
                         if key.hasOutput {
@@ -343,6 +342,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func setPage(page: Int) {
+        keysContainerView.resetTrackedViews()
         currentPage = page
         layoutEngine?.layoutKeys(page, uppercase: false, characterUppercase: false, shiftState: shiftState)
         setupKeys()
