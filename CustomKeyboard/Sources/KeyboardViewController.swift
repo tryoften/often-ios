@@ -242,7 +242,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             case .Locked:
                 shiftState = .Locked
             }
-            
+
             return false
         }
     }
@@ -360,6 +360,12 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                         button.text = str.lowercaseString
                     }
                     break
+                case .modifier(.CapsLock, let pageId):
+                    if shiftState.uppercase() {
+                        button.selected = true
+                    } else {
+                        button.selected = false
+                    }
                 default:
                     break
                 }

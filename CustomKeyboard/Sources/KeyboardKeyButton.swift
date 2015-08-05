@@ -65,11 +65,9 @@ class KeyboardKeyButton: UIControl {
     override var frame: CGRect { didSet { redrawText() }}
     override var enabled: Bool { didSet { updateColors() }}
     override var highlighted: Bool { didSet { updateColors() }}
-    var shiftSelected: Bool { didSet { updateModKeys() }}
-    var spaceBarSelected: Bool { didSet { updateModKeys() }}
-    var callKeySelected: Bool { didSet { updateModKeys() }}
-    var enterKeySelected: Bool { didSet { updateModKeys() }}
     
+    override var selected: Bool { didSet { updateModKeys() }}
+  
     var label: UILabel
     var popupLabel: UILabel?
     var shape: Shape? {
@@ -114,10 +112,6 @@ class KeyboardKeyButton: UIControl {
         drawUnder = true
         drawOver = true
         drawBorder = false
-        shiftSelected = false
-        spaceBarSelected = false
-        callKeySelected = false
-        enterKeySelected = false
         underOffset = 1
         
         background = KeyboardKeyBackground(cornerRadius: 2, underOffset: underOffset)
@@ -404,7 +398,7 @@ class KeyboardKeyButton: UIControl {
             case .modifier(let modifier, let pageId):
                 switch(modifier) {
                 case .CapsLock:
-                    if shiftSelected {
+                    if selected {
                         iconView.image = UIImage(named: "CapsLockEnabled")
                         background.layer.borderColor = TealColor.CGColor
                     } else {
@@ -412,24 +406,23 @@ class KeyboardKeyButton: UIControl {
                         iconView.image = UIImage(named: "CapsLock")
                     }
                 case .Space:
-                    if spaceBarSelected {
+                    if selected {
                         displayView.fillColor = BlackColor
                     } else {
                         displayView.fillColor = color
                     }
                 case .CallService:
-                    if callKeySelected {
+                    if selected {
                         displayView.fillColor = TealColor
                     } else {
                         displayView.fillColor = color
                     }
                 case .Enter:
-                    if enterKeySelected {
+                    if selected {
                    displayView.fillColor = LightGrey
                     } else {
                         displayView.fillColor = color
                     }
-                    break
                 default:
                     break
                 }
