@@ -22,7 +22,6 @@ import UIKit
     Tweet Cell
 
 */
-
 class ServiceProviderCollectionViewController: UICollectionViewController {
     var resultsLabel: UILabel
     
@@ -32,8 +31,6 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
         super.init(collectionViewLayout: layout)
         
         view.backgroundColor = LightGrey
-        
-        setupLayout()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -59,9 +56,8 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
     }
     
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
-        var screenWidth = UIScreen.mainScreen().bounds.width
         var layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(screenWidth, 100)
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width, 100)
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 5.0
         layout.minimumLineSpacing = 5.0
@@ -69,12 +65,7 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
         return layout
     }
     
-    func setupLayout() {
-        view.addConstraints([
-            resultsLabel.al_top == view.al_top + 3,
-            resultsLabel.al_left == view.al_left + 3
-            ])
-    }
+    
     
     // MARK: UICollectionViewDataSource
     
@@ -84,12 +75,20 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return 10
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! ServiceProviderCollectionViewCell
-    
+        cell.avatarImageView.image = UIImage(named: "complex")
+        cell.headerLabel.text = "@ComplexMag"
+        cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."
+        cell.leftSupplementLabel.text = "3.1K Retweets"
+        cell.centerSupplementLabel.text = "4.5K Favorites"
+        cell.rightSupplementLabel.text = "July 25, 2015"
+        cell.rightCornerImageView.image = UIImage(named: "twitter")
+        
+        cell.contentImage = UIImage(named: "ovosound")
         
         return cell
     }

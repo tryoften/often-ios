@@ -39,6 +39,8 @@
 		3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
 		3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
 		645C5C1B383CD0DCCB770CC7 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD2306F8F79E206D6C9908C /* libPods-Keyboard.a */; };
+		690AE8AE1B7290F400015730 /* ServiceSettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8AD1B7290F400015730 /* ServiceSettingsCollectionViewController.swift */; };
+		690AE8B31B72919200015730 /* ServiceSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* ServiceSettingsCollectionViewCell.swift */; };
 		690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
 		690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
 		69161CB71B6C064B0083B922 /* ServiceProviderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69161CB61B6C064B0083B922 /* ServiceProviderCollectionViewController.swift */; };
@@ -46,6 +48,8 @@
 		6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */; };
 		6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */; };
 		6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */; };
+		6980EDF31B714AFF00907790 /* ServiceProviderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69161CB61B6C064B0083B922 /* ServiceProviderCollectionViewController.swift */; };
+		6980EDF71B714BE900907790 /* ServiceProviderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69161CBF1B6C1C390083B922 /* ServiceProviderCollectionViewCell.swift */; };
 		699606271B422315004102BC /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		69E9104C1B59AF1D008BFBD6 /* VenmoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E9104B1B59AF1D008BFBD6 /* VenmoService.swift */; };
 		7F9AB2F8E6A45CEA33ECE769 /* libPods-Surf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F78761D830BD3A5F573760 /* libPods-Surf.a */; };
@@ -262,6 +266,8 @@
 		3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
 		45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.release.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.release.xcconfig"; sourceTree = "<group>"; };
+		690AE8AD1B7290F400015730 /* ServiceSettingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSettingsCollectionViewController.swift; sourceTree = "<group>"; };
+		690AE8B21B72919200015730 /* ServiceSettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSettingsCollectionViewCell.swift; sourceTree = "<group>"; };
 		690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoFriend.swift; path = CustomKeyboard/VenmoFriend.swift; sourceTree = "<group>"; };
 		69161CB61B6C064B0083B922 /* ServiceProviderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderCollectionViewController.swift; path = Sources/ServiceProviderCollectionViewController.swift; sourceTree = "<group>"; };
 		69161CBF1B6C1C390083B922 /* ServiceProviderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderCollectionViewCell.swift; path = Sources/ServiceProviderCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -654,6 +660,7 @@
 		816FE5A11A86E66900E42C17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				690AE8AD1B7290F400015730 /* ServiceSettingsCollectionViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -661,6 +668,7 @@
 		816FE5A21A86E67100E42C17 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				690AE8B21B72919200015730 /* ServiceSettingsCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1199,9 +1207,11 @@
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				8176BEA31B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
+				690AE8AE1B7290F400015730 /* ServiceSettingsCollectionViewController.swift in Sources */,
 				81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */,
 				817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
+				690AE8B31B72919200015730 /* ServiceSettingsCollectionViewCell.swift in Sources */,
 				69E9104C1B59AF1D008BFBD6 /* VenmoService.swift in Sources */,
 				810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
 				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
@@ -1254,6 +1264,7 @@
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
+				6980EDF31B714AFF00907790 /* ServiceProviderCollectionViewController.swift in Sources */,
 				810C4AFB1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
@@ -1263,6 +1274,7 @@
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
+				6980EDF71B714BE900907790 /* ServiceProviderCollectionViewCell.swift in Sources */,
 				810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				8176BEA61B72CE1B00E1BDCD /* ServiceProviderCollectionViewCell.swift in Sources */,
 				817938FE1B59A41A0064B0CF /* SearchBar.swift in Sources */,
