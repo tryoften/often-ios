@@ -180,7 +180,7 @@ class KeyboardKeyButton: UIControl {
                 case .letter(let character):
                     color = UIColor(fromHexString: "#2A2A2A")
                     var str = String(character.rawValue)
-                    text = str.lowercaseString
+                    text = str
                 case .digit(let number):
                     text = String(number.rawValue)
                 case .special(let character, let pageId):
@@ -195,10 +195,10 @@ class KeyboardKeyButton: UIControl {
                     case .CapsLock:
                         color = UIColor(fromHexString: "#202020")
                         underColor = UIColor(fromHexString: "#202020")
-                        iconView.image = UIImage(named: "CapsLock")!
+                        iconView.image = UIImage(named: "CapsLockEnabled")!
                         background.layer.cornerRadius = 2.0
                         background.layer.borderWidth = 1.0
-                        background.layer.borderColor = color.CGColor
+                        background.layer.borderColor = TealColor.CGColor
                         break
                     case .SwitchKeyboard:
                         label.font = NextKeyboardButtonFont
@@ -399,7 +399,6 @@ class KeyboardKeyButton: UIControl {
     func updateModKeys() {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        
         if let key = key {
             switch(key) {
             case .modifier(let modifier, let pageId):
@@ -407,11 +406,10 @@ class KeyboardKeyButton: UIControl {
                 case .CapsLock:
                     if shiftSelected {
                         iconView.image = UIImage(named: "CapsLockEnabled")
-                        borderView?.strokeColor = TealColor
                         background.layer.borderColor = TealColor.CGColor
                     } else {
+                        background.layer.borderColor = UIColor.clearColor().CGColor
                         iconView.image = UIImage(named: "CapsLock")
-                        background.layer.borderColor = color.CGColor
                     }
                 case .Space:
                     if spaceBarSelected {
@@ -427,7 +425,7 @@ class KeyboardKeyButton: UIControl {
                     }
                 case .Enter:
                     if enterKeySelected {
-                        displayView.fillColor = LightGrey
+                   displayView.fillColor = LightGrey
                     } else {
                         displayView.fillColor = color
                     }

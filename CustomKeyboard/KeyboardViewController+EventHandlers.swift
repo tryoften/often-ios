@@ -256,10 +256,8 @@ extension KeyboardViewController {
                         button.shiftSelected = true
                     case .Enabled:
                         shiftState = .Disabled
-                        button.shiftSelected = false
                     case .Locked:
                         shiftState = .Disabled
-                        button.shiftSelected = false
                     }
                 }
             }
@@ -290,15 +288,20 @@ extension KeyboardViewController {
     }
 
     func shiftDoubleTapped(button: KeyboardKeyButton?) {
-        shiftWasMultitapped = true
-        
-        switch shiftState {
-        case .Disabled:
-            shiftState = .Locked
-        case .Enabled:
-            shiftState = .Locked
-        case .Locked:
-            shiftState = .Disabled
+        if let button = button {
+            shiftWasMultitapped = true
+
+            switch shiftState {
+            case .Disabled:
+                shiftState = .Locked
+                button.shiftSelected = false
+            case .Enabled:
+                shiftState = .Locked
+                button.shiftSelected = true
+            case .Locked:
+                shiftState = .Disabled
+                button.shiftSelected = false
+            }
         }
     }
 }
