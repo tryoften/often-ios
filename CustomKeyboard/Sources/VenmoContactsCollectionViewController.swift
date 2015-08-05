@@ -8,23 +8,24 @@
 
 import UIKit
 
-class VenmoContactsCollectionViewController: UICollectionViewController {
-    var userDefaults: NSUserDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-    var friendsData: [VenmoFriend] = []
+class VenmoContactsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    var viewModel: VenmoContactsViewModel!
     
     override func viewDidLoad() {
+        viewModel = VenmoContactsViewModel()
+
         collectionView?.registerClass(VenmoContactsCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.showsHorizontalScrollIndicator = false
         
-        if let friendsData = userDefaults.objectForKey("friends") as? [[NSObject : AnyObject]] {
-            for var i = 0; i < friendsData.count; i++ {
-                var friend = VenmoFriend()
-                friend.setValuesForKeysWithDictionary(friendsData[i])
-                self.friendsData.append(friend)
-            }
-        } else {
-            println("Keyboard Friends Fail")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "textDidChange:", name: TextProcessingManagerTextChangedEvent, object: nil)
+    }
+    
+    func textDidChange(notification: NSNotification) {
+        if let userInfo = notification.userInfo,
+            let text = userInfo["text"] as? String {
+                viewModel.filterContacts(text)
+                collectionView?.reloadData()
         }
     }
     
@@ -33,15 +34,17 @@ class VenmoContactsCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return friendsData.count
+        return viewModel.numberOfContacts()
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! VenmoContactsCollectionViewCell
         
-        cell.contactName.text = friendsData[indexPath.row].name
-        cell.contactNumber.text = friendsData[indexPath.row].username
-        cell.contactImageView.setImageWithURL(NSURL(string: friendsData[indexPath.row].profileURL))
+        if let contact = viewModel.contactAtIndex(indexPath.row) {
+            cell.contactName.text = contact.name
+            cell.contactNumber.text = contact.username
+            cell.contactImageView.setImageWithURL(NSURL(string: contact.profileURL))
+        }
         
         return cell
     }
@@ -61,5 +64,18 @@ class VenmoContactsCollectionViewController: UICollectionViewController {
         notificationCenter.postNotificationName(VenmoAddSearchBarButtonEvent, object: nil, userInfo: [
                 "button": searchButton
             ])
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let itemHeight = CGRectGetHeight(collectionView.frame) - 20
+        
+        if let friend = viewModel.contactAtIndex(indexPath.row) {
+            let friendName = NSString(string: friend.name)
+            var textSize = friendName.sizeWithAttributes([NSFontAttributeName: UIFont(name: "OpenSans", size: 11)!])
+            
+            return CGSizeMake(itemHeight + textSize.width + 20, itemHeight)
+        }
+        
+        return CGSizeMake(120, itemHeight)
     }
 }

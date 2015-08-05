@@ -65,6 +65,7 @@ class KeyboardKeyButton: UIControl {
     override var frame: CGRect { didSet { redrawText() }}
     override var enabled: Bool { didSet { updateColors() }}
     override var highlighted: Bool { didSet { updateColors() }}
+    
     var shiftSelected: Bool { didSet { updateModKeys() }}
     var spaceBarSelected: Bool { didSet { updateModKeys() }}
     var callKeySelected: Bool { didSet { updateModKeys() }}
@@ -223,6 +224,7 @@ class KeyboardKeyButton: UIControl {
                         text = "#"
                         color = WhiteColor
                         textColor = BlackColor
+                        background.userInteractionEnabled = true
                     default:
                         break
                     }

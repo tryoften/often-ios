@@ -12,11 +12,13 @@ import AudioToolbox
 let ShiftStateUserDefaultsKey = "kShiftState"
 let ResizeKeyboardEvent = "resizeKeyboard"
 let SwitchKeyboardEvent = "switchKeyboard"
+let CollapseKeyboardEvent = "collapseKeyboard"
 
 class KeyboardViewController: UIInputViewController, TextProcessingManagerDelegate {
     let locale: Language = .English
     var textProcessor: TextProcessingManager!
     var keysContainerView: TouchRecognizerView!
+    var slidePanelContainerView: UIView
     var searchBar: SearchBarController!
     var layout: KeyboardLayout
     var constraintsAdded: Bool = false
@@ -91,6 +93,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             layout = DefaultKeyboardLayout
         }
         
+        slidePanelContainerView = UIView()
+        searchBar.searchResultsContainerView = slidePanelContainerView
+        
         super.init(nibName: nil, bundle: nil)
         
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy as! UITextDocumentProxy)
@@ -99,8 +104,11 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
+        keysContainerView.togglePanelButton.addTarget(self, action: "restoreKeyboard", forControlEvents: .TouchUpInside)
         
         view.addSubview(searchBar.view)
+        view.addSubview(slidePanelContainerView)
         view.addSubview(keysContainerView)
         inputView.backgroundColor = UIColor.whiteColor()
     }
@@ -141,6 +149,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
 
         keysContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
+        slidePanelContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
         searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, searchBarHeight)
     }
     
@@ -197,6 +206,27 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                     self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
                     self.view.layoutIfNeeded()
                 }
+        }
+    }
+    
+    func collapseKeyboard() {
+        keysContainerView.collapsed = true
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn, animations: {
+            var height = CGRectGetHeight(self.view.frame) - 30
+            var keysContainerViewFrame = self.keysContainerView.frame
+            keysContainerViewFrame.origin.y = height
+            self.keysContainerView.frame = keysContainerViewFrame
+        }) { done in
+                
+        }
+    }
+    
+    func restoreKeyboard() {
+        keysContainerView.collapsed = false
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn, animations: {
+            self.keysContainerView.frame.origin = CGPointMake(0, self.view.bounds.height - self.keysContainerView.bounds.height)
+            }) { done in
+                
         }
     }
     
@@ -282,60 +312,66 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func setupKeys() {
-        for page in layout.pages {
-            for rowKeys in page.rows { // TODO: quick hack
-                for key in rowKeys {
-                    if let keyView = layoutEngine?.viewForKey(key) {
-                        keyView.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
-                        
-                        switch key {
-                        case .modifier(.SwitchKeyboard, let pageId):
-                            keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
-                        case .modifier(.Backspace, let pageId):
-                            let cancelEvents: UIControlEvents = UIControlEvents.TouchUpInside|UIControlEvents.TouchUpInside|UIControlEvents.TouchDragExit|UIControlEvents.TouchUpOutside|UIControlEvents.TouchCancel|UIControlEvents.TouchDragOutside
-                            let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "backspaceLongPressed:")
-                            
-                            keyView.addGestureRecognizer(longPressRecognizer)
-                            keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
-                            keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
-                        case .modifier(.CapsLock, let pageId):
-                            keyView.addTarget(self, action: "shiftDown:", forControlEvents: .TouchDown)
-                            keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
-                            keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
-                        case .modifier(.Space, let pageId):
-                            keyView.addTarget(self, action: "didTapSpaceButton:", forControlEvents: .TouchDown)
-                            keyView.addTarget(self, action: "didReleaseSpaceButton:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
-                         case .modifier(.CallService, let pageId):
-                            keyView.addTarget(self, action: "didTapCallKey:", forControlEvents: .TouchDown)
-                            keyView.addTarget(self, action: "didReleaseCallKey:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
-                        case .modifier(.Enter, let pageId):
-                            keyView.addTarget(self, action: "didTapEnterKey:", forControlEvents: .TouchDown)
-                            keyView.addTarget(self, action: "didReleaseEnterKey:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
-                        case .digit(let number):
-                            break
-                        case .changePage(let pageNumber, let pageId):
-                            keyView.addTarget(self, action: "pageChangeTapped:", forControlEvents: .TouchDown)
-                        default:
-                            break
-                        }
-                        
-                        if key.isCharacter {
-                            if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad {
-                                keyView.addTarget(self, action: "showPopup:", forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
-                                keyView.addTarget(keyView, action: "hidePopup", forControlEvents: .TouchDragExit | .TouchCancel)
-                                keyView.addTarget(self, action: "hidePopupDelay:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside)
-                            }
-                        }
-
-                        if !key.isModifier {
-                            keyView.addTarget(self, action: "highlightKey:", forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
-                            keyView.addTarget(self, action: "unHighlightKey:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
-                        }
-                        
-                        if key.hasOutput {
-                            keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-                        }
+        var setupKey: (KeyboardKey) -> (KeyboardKeyButton?) = { key in
+            if let keyView = self.layoutEngine?.viewForKey(key) {
+                keyView.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+                switch key {
+                case .modifier(.SwitchKeyboard, let pageId):
+                    keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
+                case .modifier(.Backspace, let pageId):
+                    let cancelEvents: UIControlEvents = UIControlEvents.TouchUpInside|UIControlEvents.TouchUpInside|UIControlEvents.TouchDragExit|UIControlEvents.TouchUpOutside|UIControlEvents.TouchCancel|UIControlEvents.TouchDragOutside
+                    keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
+                case .modifier(.CapsLock, let pageId):
+                    keyView.addTarget(self, action: "shiftDown:", forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
+                    keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
+                case .modifier(.Space, let pageId):
+                    keyView.addTarget(self, action: "didTapSpaceButton:", forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: "didReleaseSpaceButton:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                case .modifier(.CallService, let pageId):
+                    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "callServiceLongPressed:")
+                    longPressRecognizer.minimumPressDuration = 1.0
+                    keyView.background.addGestureRecognizer(longPressRecognizer)
+                    keyView.userInteractionEnabled = true
+                    
+                    keyView.addTarget(self, action: "didTapCallKey:", forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: "didReleaseCallKey:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                case .modifier(.Enter, let pageId):
+                    keyView.addTarget(self, action: "didTapEnterKey:", forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: "didReleaseEnterKey:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                case .changePage(let pageNumber, let pageId):
+                    keyView.addTarget(self, action: "pageChangeTapped:", forControlEvents: .TouchDown)
+                default:
+                    break
+                }
+                
+                if key.isCharacter {
+                    if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad {
+                        keyView.addTarget(self, action: "showPopup:", forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
+                        keyView.addTarget(keyView, action: "hidePopup", forControlEvents: .TouchDragExit | .TouchCancel)
+                        keyView.addTarget(self, action: "hidePopupDelay:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside)
                     }
+                }
+                
+                if !key.isModifier {
+                    keyView.addTarget(self, action: "highlightKey:", forControlEvents: .TouchDown | .TouchDragInside | .TouchDragEnter)
+                    keyView.addTarget(self, action: "unHighlightKey:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
+                }
+                
+                if key.hasOutput {
+                    keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+                }
+                return keyView
+            }
+            return nil
+        }
+        
+        
+        for page in layout.pages {
+            for rowKeys in page.rows {
+                for key in rowKeys {
+                    setupKey(key)
                 }
             }
         }

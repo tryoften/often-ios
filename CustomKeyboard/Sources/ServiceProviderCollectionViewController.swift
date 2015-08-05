@@ -24,7 +24,6 @@ import UIKit
 */
 
 class ServiceProviderCollectionViewController: UICollectionViewController {
-    var screenWidth = UIScreen.mainScreen().bounds.width
     var resultsLabel: UILabel
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
@@ -41,6 +40,10 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    convenience init() {
+        self.init(collectionViewLayout: ServiceProviderCollectionViewController.provideCollectionViewFlowLayout())
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,7 +58,8 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
+    class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
+        var screenWidth = UIScreen.mainScreen().bounds.width
         var layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSizeMake(screenWidth, 100)
         layout.scrollDirection = .Vertical

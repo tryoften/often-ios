@@ -11,27 +11,45 @@ import UIKit
 class TouchRecognizerView: UIView {
     
     var touchToView: [UITouch:UIView]
+    var togglePanelButton: UIButton
+    var collapsed: Bool {
+        didSet {
+            togglePanelButton.hidden = !collapsed
+        }
+    }
     
     override init(frame: CGRect) {
-        self.touchToView = [:]
+        touchToView = [:]
+        togglePanelButton = UIButton()
+        togglePanelButton.setImage(UIImage(named: "arrowUp"), forState: .Normal)
+        togglePanelButton.imageView?.contentMode = .ScaleAspectFit
+        togglePanelButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
+        togglePanelButton.backgroundColor = UIColor(fromHexString: "#202020")
+        togglePanelButton.hidden = true
+        togglePanelButton.layer.zPosition = 999
+        togglePanelButton.userInteractionEnabled = true
+        collapsed = false
         
         super.init(frame: frame)
         
-        self.contentMode = .Redraw
-        self.multipleTouchEnabled = true
-        self.userInteractionEnabled = true
-        self.opaque = false
+        addSubview(togglePanelButton)
+        contentMode = .Redraw
+        multipleTouchEnabled = true
+        userInteractionEnabled = true
     }
     
     required init(coder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
-    // Why have this useless drawRect? Well, if we just set the backgroundColor to clearColor,
-    // then some weird optimization happens on UIKit's side where tapping down on a transparent pixel will
-    // not actually recognize the touch. Having a manual drawRect fixes this behavior, even though it doesn't
-    // actually do anything.
-    override func drawRect(rect: CGRect) {}
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        var togglePanelButtonFrame = frame
+        togglePanelButtonFrame.origin.y = 0
+        togglePanelButtonFrame.size.height = 30
+        togglePanelButton.frame = togglePanelButtonFrame
+    }
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent!) -> UIView? {
         if self.hidden || self.alpha == 0 || !self.userInteractionEnabled {

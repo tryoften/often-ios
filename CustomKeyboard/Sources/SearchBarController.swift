@@ -17,6 +17,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
             primaryTextDocumentProxy = textProcessor?.currentProxy
         }
     }
+    var searchResultsViewController: ServiceProviderCollectionViewController?
+    var searchResultsContainerView: UIView?
 
     var primaryTextDocumentProxy: UITextDocumentProxy?
     var activeServiceProviderType: ServiceProviderType? {
@@ -34,6 +36,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
                 default:
                     break
                 }
+                button?.addTarget(self, action: "didTapProviderButton:", forControlEvents: .TouchUpInside)
                 searchBarView.providerButton = button
             }
         }
@@ -106,6 +109,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSearchBarButton:", name: VenmoAddSearchBarButtonEvent, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetSearchBar", name: "SearchBarController.resetSearchBar", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -141,11 +146,41 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         activeServiceProviderType = nil
         activeServiceProvider = nil
         activeSupplementaryViewController = nil
+        NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
+            "height": 0
+        ])
+    }
+    
+    func didTapProviderButton(button: ServiceProviderSearchBarButton?) {
+        resetSearchBar()
+        
+    }
+    
+    func didTapEnterButton(button: KeyboardKeyButton?) {
+        if searchBarView.textInput.selected {
+            NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+        }
     }
     
     // MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("search")
+        
+        if searchResultsViewController == nil {
+            searchResultsViewController = ServiceProviderCollectionViewController()
+            let searchResultsView = searchResultsViewController!.view
+            searchResultsView.setTranslatesAutoresizingMaskIntoConstraints(false)
+            
+            if let containerView = searchResultsContainerView {
+                containerView.addSubview(searchResultsView)
+                containerView.addConstraints([
+                    searchResultsView.al_top == containerView.al_top,
+                    searchResultsView.al_left == containerView.al_left,
+                    searchResultsView.al_bottom == containerView.al_bottom,
+                    searchResultsView.al_right == containerView.al_right
+                ])
+            }
+        }
     }
     
     func textFieldDidChange() {

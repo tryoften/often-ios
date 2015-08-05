@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
-		3B63ED5D1B68354B00E54AFA /* KeyboardViewController+KeyboardKeysEventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+KeyboardKeysEventHandlers.swift */; };
-		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+KeyboardKeysEventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+KeyboardKeysEventHandlers.swift */; };
-		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
-		3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
 		3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
+		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
+		3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
@@ -88,6 +85,12 @@
 		816589041B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816589021B62E85700F7C9F5 /* TouchForwardingView.swift */; };
 		816EB9711AE5EBA8000620E2 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816EB9701AE5EBA8000620E2 /* delay.swift */; };
 		816EB9721AE5EBB1000620E2 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816EB9701AE5EBA8000620E2 /* delay.swift */; };
+		8176BEA01B72743000E1BDCD /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */; };
+		8176BEA11B72743000E1BDCD /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */; };
+		8176BEA31B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEA21B728F0300E1BDCD /* VenmoContactsViewModel.swift */; };
+		8176BEA41B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEA21B728F0300E1BDCD /* VenmoContactsViewModel.swift */; };
+		8176BEA51B72CE1900E1BDCD /* ServiceProviderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69161CB61B6C064B0083B922 /* ServiceProviderCollectionViewController.swift */; };
+		8176BEA61B72CE1B00E1BDCD /* ServiceProviderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69161CBF1B6C1C390083B922 /* ServiceProviderCollectionViewCell.swift */; };
 		8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
 		8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
 		8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938891B5741050064B0CF /* KeyboardLayouts.swift */; };
@@ -242,12 +245,8 @@
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
 		18A18D358A8CB3AA1878D360 /* Pods-Surf.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-
-		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+KeyboardKeysEventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardViewController+KeyboardKeysEventHandlers.swift"; sourceTree = "<group>"; };
-		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeView.swift; sourceTree = "<group>"; };
-
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
-
+		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeView.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -301,6 +300,8 @@
 		816588F61B616A7300F7C9F5 /* KeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardLayout.swift; path = Sources/KeyboardLayout.swift; sourceTree = "<group>"; };
 		816589021B62E85700F7C9F5 /* TouchForwardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchForwardingView.swift; sourceTree = "<group>"; };
 		816EB9701AE5EBA8000620E2 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
+		8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
+		8176BEA21B728F0300E1BDCD /* VenmoContactsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsViewModel.swift; path = Sources/VenmoContactsViewModel.swift; sourceTree = "<group>"; };
 		8179387D1B55859D0064B0CF /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKey.swift; path = Sources/KeyboardKey.swift; sourceTree = "<group>"; };
 		817938891B5741050064B0CF /* KeyboardLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardLayouts.swift; path = Sources/KeyboardLayouts.swift; sourceTree = "<group>"; };
 		8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKeyButton.swift; path = Sources/KeyboardKeyButton.swift; sourceTree = "<group>"; };
@@ -320,7 +321,7 @@
 		81794EE61A81E660009D4A71 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		81794EE81A81E666009D4A71 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		8180E6081A142157007FA1CF /* Surf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Surf.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8180E6081A142157007FA1CF /* Often.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Often.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E60C1A142157007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E60D1A142157007FA1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8180E6141A142157007FA1CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -548,6 +549,7 @@
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
 				81D4BF151B38F6DA006430AB /* PKHUD */,
 				81DC114A1AF05CF400412BD2 /* SwiftyJSON */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
@@ -708,7 +710,7 @@
 		8180E6091A142157007FA1CF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8180E6081A142157007FA1CF /* Surf.app */,
+				8180E6081A142157007FA1CF /* Often.app */,
 				8180E6311A142199007FA1CF /* Keyboard.appex */,
 			);
 			name = Products;
@@ -863,6 +865,7 @@
 				69E9104B1B59AF1D008BFBD6 /* VenmoService.swift */,
 				81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */,
 				81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */,
+				8176BEA21B728F0300E1BDCD /* VenmoContactsViewModel.swift */,
 				81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */,
 				81FFAF491B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift */,
 				810C4AF21B5D7E95005AABEA /* VenmoSupplementaryViewController.swift */,
@@ -897,7 +900,7 @@
 			);
 			name = Surf;
 			productName = DrizzyChat;
-			productReference = 8180E6081A142157007FA1CF /* Surf.app */;
+			productReference = 8180E6081A142157007FA1CF /* Often.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8180E6301A142199007FA1CF /* Keyboard */ = {
@@ -1191,8 +1194,10 @@
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */,
+				8176BEA01B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
+				8176BEA31B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
 				81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */,
@@ -1221,6 +1226,8 @@
 			files = (
 				810C4AFE1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */,
 				8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
+				8176BEA41B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
+				8176BEA51B72CE1900E1BDCD /* ServiceProviderCollectionViewController.swift in Sources */,
 				690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */,
 				817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
@@ -1239,6 +1246,7 @@
 				81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
+				8176BEA11B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				817939011B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
@@ -1256,6 +1264,7 @@
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
 				810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
+				8176BEA61B72CE1B00E1BDCD /* ServiceProviderCollectionViewCell.swift in Sources */,
 				817938FE1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
 				8179388B1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
@@ -1348,7 +1357,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
-				PRODUCT_NAME = Surf;
+				PRODUCT_NAME = Often;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1460,7 +1469,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
-				PRODUCT_NAME = Surf;
+				PRODUCT_NAME = Often;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1571,7 +1580,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
-				PRODUCT_NAME = Surf;
+				PRODUCT_NAME = Often;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "DrizzyChat/DrizzyChat-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;

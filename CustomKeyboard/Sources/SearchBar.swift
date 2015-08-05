@@ -85,6 +85,8 @@ class SearchBar: UIView {
         buttons.removeAll(keepCapacity: true)
         repositionSearchTextField()
         textInput.selected = false
+        textInput.text = ""
+        textInput.placeholder = "Search"
     }
     
     func repositionSearchTextField() {
