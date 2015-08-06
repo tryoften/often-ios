@@ -210,6 +210,7 @@ class SearchTextField: UIControl, Layouteable {
         text = ""
         placeholder = "\(placeholder!)"
         selected = false
+        sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
     }
     
     func setupLayout() {

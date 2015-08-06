@@ -60,6 +60,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
             if let supplementaryViewController = activeSupplementaryViewController {
                 supplementaryViewHeightConstraint.constant = supplementaryViewController.supplementaryViewHeight
                 
+                searchBarView.textInput.selected = false
                 searchBarView.textInput.placeholder = supplementaryViewController.searchBarPlaceholderText
             }
         }
