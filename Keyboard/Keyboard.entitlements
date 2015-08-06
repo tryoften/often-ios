@@ -4,11 +4,11 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.surf.surf</string>
+		<string>group.com.tryoften.often</string>
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)com.surf.surf.Keyboard</string>
+		<string>$(AppIdentifierPrefix)com.tryoften.often.Keyboard</string>
 	</array>
 </dict>
 </plist>
