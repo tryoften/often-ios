@@ -9,6 +9,8 @@
 import UIKit
 import AudioToolbox
 
+let KeyboardEnterKeyTappedEvent = "keyboard.enterKey"
+
 extension KeyboardViewController {
     func updateKeyCaps(lettercase: Lettercase) {
         let uppercase: Bool = lettercase == .Uppercase
@@ -45,6 +47,7 @@ extension KeyboardViewController {
         }
         
         playKeySound()
+        setCapsIfNeeded()
     }
     
     func didTouchDownOnKey(button: KeyboardKeyButton?) {
@@ -124,6 +127,8 @@ extension KeyboardViewController {
         if let button = button {
             button.enterKeySelected = false
         }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(KeyboardEnterKeyTappedEvent, object: nil, userInfo: nil)
     }
 
     func showPopup(button: KeyboardKeyButton?) {
@@ -168,7 +173,7 @@ extension KeyboardViewController {
     func backspaceDown(button: KeyboardKeyButton?) {
         cancelBackspaceTimers()
         backspaceStartTime = CFAbsoluteTimeGetCurrent()
-        textProcessor.currentProxy.deleteBackward()
+        textProcessor.deleteBackward()
         
         // trigger for subsequent deletes
         backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
@@ -193,6 +198,10 @@ extension KeyboardViewController {
         } else {
             backspaceLongPressed()
         }
+    }
+    
+    func callServiceLongPressed(gestureRecognizer: UIGestureRecognizer) {
+        collapseKeyboard()
     }
 
     /**

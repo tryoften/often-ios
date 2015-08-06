@@ -55,7 +55,7 @@ class VenmoService: NSObject {
         :param: id USer id from the User information call
     */
     func getCurrentUserListOfFriend(accessToken: String, id: String) {
-        var parameters: NSDictionary = ["accessToken": accessToken]
+        var parameters: NSDictionary = ["accessToken": accessToken, "limit": 500]
         
         manager.GET(
             "https://api.venmo.com/v1/users/\(id)/friends",

@@ -11,6 +11,7 @@ import UIKit
 
 let TextProcessingManagerProxyEvent = "textProcessingManager.setCurrentProxy"
 let TextProcessingManagedResetDefaultProxyEvent = "textProceesingManager.resetDefaultProxy"
+let TextProcessingManagerTextChangedEvent = "textProcesssingManager.textDidChange"
 
 class TextProcessingManager: NSObject, UITextInputDelegate {
     weak var delegate: TextProcessingManagerDelegate?
@@ -116,33 +117,20 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
             }
         }
         
-        if let textFieldDelegate = delegate {
-            textFieldDelegate.textProcessingManagerDidChangeText(self)
-        } else {
-            println("Text Field Delegate not set")
-        }
+        delegate?.textProcessingManagerDidChangeText(self)
+        broadcastTextDidChange()
     }
     
     func insertText(text: String) {
         currentProxy.insertText(text)
         parseTextInCurrentDocumentProxy()
-        
-        if let textFieldDelegate = delegate {
-            textFieldDelegate.textProcessingManagerDidChangeText(self)
-        } else {
-            println("Text Field Delegate not set")
-        }
+        broadcastTextDidChange()
     }
     
     func deleteBackward() {
         currentProxy.deleteBackward()
         parseTextInCurrentDocumentProxy()
-        
-        if let textFieldDelegate = delegate {
-            textFieldDelegate.textProcessingManagerDidChangeText(self)
-        } else {
-            println("Text Field Delegate not set")
-        }
+        broadcastTextDidChange()
     }
     
     func setCurrentProxyWithId(id: String) -> Bool {
@@ -151,6 +139,22 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
             return true
         }
         return false
+    }
+    
+    func broadcastTextDidChange() {
+        var text: String = ""
+        
+        if let beforeInput = currentProxy.documentContextBeforeInput {
+            text += beforeInput
+        }
+        
+        if let afterInput = currentProxy.documentContextAfterInput {
+            text += afterInput
+        }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagerTextChangedEvent, object: self, userInfo: [
+                "text": text
+            ])
     }
     
     func characterIsPunctuation(character: Character) -> Bool {

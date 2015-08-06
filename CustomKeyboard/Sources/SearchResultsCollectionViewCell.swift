@@ -1,5 +1,5 @@
 //
-//  ServiceProviderCollectionViewCell.swift
+//  SearchResultsCollectionViewCell.swift
 //  Surf
 //
 //  Created by Komran Ghahremani on 7/31/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ServiceProviderCollectionViewCell: UICollectionViewCell {
+class SearchResultsCollectionViewCell: UICollectionViewCell {
     var informationContainerView: UIView
     var avatarImageView: UIImageView
     var headerLabel: UILabel
