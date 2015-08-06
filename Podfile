@@ -4,9 +4,9 @@ platform :ios, '8.0'
 inhibit_all_warnings!
 #source 'https://github.com/CocoaPods/Specs.git'
 
-xcodeproj 'Surf.xcodeproj'
+xcodeproj 'Often.xcodeproj'
 
-target 'Surf' do
+target 'Often' do
   pod 'Firebase', '>= 2.0.2'
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
   pod 'AFNetworking', '~> 2.0'
