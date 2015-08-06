@@ -17,7 +17,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
             primaryTextDocumentProxy = textProcessor?.currentProxy
         }
     }
-    var searchResultsViewController: ServiceProviderCollectionViewController?
+    var searchResultsViewController: SearchResultsCollectionViewController?
     var searchResultsContainerView: UIView?
 
     var primaryTextDocumentProxy: UITextDocumentProxy?
@@ -167,7 +167,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         textProcessor?.setCurrentProxyWithId("search")
         
         if searchResultsViewController == nil {
-            searchResultsViewController = ServiceProviderCollectionViewController()
+            searchResultsViewController = SearchResultsCollectionViewController()
             let searchResultsView = searchResultsViewController!.view
             searchResultsView.setTranslatesAutoresizingMaskIntoConstraints(false)
             

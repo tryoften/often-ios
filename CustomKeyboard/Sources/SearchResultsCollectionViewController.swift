@@ -1,5 +1,5 @@
 //
-//  ServiceProviderCollectionViewController.swift
+//  SearchResultsCollectionViewController.swift
 //  Surf
 //
 //  Created by Komran Ghahremani on 7/31/15.
@@ -9,7 +9,7 @@
 import UIKit
 
 /**
-    ServiceProviderCollectionViewController
+    SearchResultsCollectionViewController
 
     Collection view that can display any type of service provider cell because they are all 
     the same size.
@@ -22,7 +22,7 @@ import UIKit
     Tweet Cell
 
 */
-class ServiceProviderCollectionViewController: UICollectionViewController {
+class SearchResultsCollectionViewController: UICollectionViewController {
     var resultsLabel: UILabel
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
@@ -30,7 +30,7 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
         
         super.init(collectionViewLayout: layout)
         
-        view.backgroundColor = LightGrey
+        collectionView?.backgroundColor = WhiteColor
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -38,7 +38,7 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
     }
     
     convenience init() {
-        self.init(collectionViewLayout: ServiceProviderCollectionViewController.provideCollectionViewFlowLayout())
+        self.init(collectionViewLayout: SearchResultsCollectionViewController.provideCollectionViewFlowLayout())
     }
     
     override func viewDidLoad() {
@@ -46,7 +46,7 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
         
         // Register cell classes
         if let collectionView = collectionView {
-            collectionView.registerClass(ServiceProviderCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
+            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
         }
     }
     
@@ -79,7 +79,7 @@ class ServiceProviderCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! ServiceProviderCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
         cell.avatarImageView.image = UIImage(named: "complex")
         cell.headerLabel.text = "@ComplexMag"
         cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."

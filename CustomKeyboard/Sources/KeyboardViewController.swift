@@ -94,6 +94,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
         
         slidePanelContainerView = UIView()
+        slidePanelContainerView.accessibilityIdentifier = "Slide Panel"
         searchBar.searchResultsContainerView = slidePanelContainerView
         
         super.init(nibName: nil, bundle: nil)
@@ -149,7 +150,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
 
         keysContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
-        slidePanelContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
+        slidePanelContainerView.frame = keysContainerView.frame
         searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, searchBarHeight)
     }
     
