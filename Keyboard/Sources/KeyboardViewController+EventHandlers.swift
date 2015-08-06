@@ -45,7 +45,7 @@ extension KeyboardViewController {
                 break
             }
         }
-        
+        handleAutoPeriod(button)
         playKeySound()
         setCapsIfNeeded()
     }
@@ -95,7 +95,6 @@ extension KeyboardViewController {
                 }
                 button.selected = true
             }
-            
         }
     }
   
@@ -312,6 +311,28 @@ extension KeyboardViewController {
                 button.selected = false
             }
         }
+    }
+    
+    func handleAutoPeriod(button: KeyboardKeyButton?){
+        if let button = button, key = button.key {
+            switch(key) {
+            case .modifier(.Space, let pageId):
+                if self.autoPeriodState == .FirstSpace {
+                    if self.textProcessor.charactersAreInCorrectState() {
+                        textProcessor.deleteBackward()
+                        textProcessor.deleteBackward()
+                        textProcessor.insertText(".")
+                        textProcessor.insertText(" ")
+                    }
+                    self.autoPeriodState = .NoSpace
+                } else {
+                    self.autoPeriodState = .FirstSpace
+                }
+            default:
+                break
+            }
+        }
+        
     }
 }
 

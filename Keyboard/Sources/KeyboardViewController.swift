@@ -34,6 +34,11 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
+    enum AutoPeriodState {
+        case NoSpace
+        case FirstSpace
+    }
+    var autoPeriodState: AutoPeriodState = .NoSpace
     var backspaceActive: Bool {
         get {
             return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
@@ -367,7 +372,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             }
             return nil
         }
-        
         
         for page in layout.pages {
             for rowKeys in page.rows {
