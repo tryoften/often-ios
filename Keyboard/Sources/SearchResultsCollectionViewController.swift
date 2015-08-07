@@ -30,7 +30,7 @@ class SearchResultsCollectionViewController: UICollectionViewController {
         
         super.init(collectionViewLayout: layout)
         
-        collectionView?.backgroundColor = WhiteColor
+        collectionView?.backgroundColor = VeryLightGray
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -57,15 +57,13 @@ class SearchResultsCollectionViewController: UICollectionViewController {
     
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
         var layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width, 100)
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 100)
         layout.scrollDirection = .Vertical
-        layout.minimumInteritemSpacing = 5.0
-        layout.minimumLineSpacing = 5.0
-        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 5.0, bottom: 5.0, right: 5.0)
+        layout.minimumInteritemSpacing = 10.0
+        layout.minimumLineSpacing = 10.0
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         return layout
     }
-    
-    
     
     // MARK: UICollectionViewDataSource
     
@@ -86,9 +84,9 @@ class SearchResultsCollectionViewController: UICollectionViewController {
         cell.leftSupplementLabel.text = "3.1K Retweets"
         cell.centerSupplementLabel.text = "4.5K Favorites"
         cell.rightSupplementLabel.text = "July 25, 2015"
-        cell.rightCornerImageView.image = UIImage(named: "twitter")
+        cell.rightCornerImageView.image =  UIImage(named: "twitter")
         
-        cell.contentImage = UIImage(named: "ovosound")
+        cell.contentImage = indexPath.row % 2 == 0 ? UIImage(named: "ovosound") : nil
         
         return cell
     }

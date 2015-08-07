@@ -93,6 +93,8 @@
 		8176BEC61B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEC41B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift */; };
 		8176BECB1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */; };
 		8176BECC1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */; };
+		8176BEE61B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEE51B73F9A100E1BDCD /* KeyboardTheme.swift */; };
+		8176BEE71B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEE51B73F9A100E1BDCD /* KeyboardTheme.swift */; };
 		8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
 		8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
 		8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938891B5741050064B0CF /* KeyboardLayouts.swift */; };
@@ -308,6 +310,7 @@
 		8176BEA21B728F0300E1BDCD /* VenmoContactsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsViewModel.swift; path = Sources/VenmoContactsViewModel.swift; sourceTree = "<group>"; };
 		8176BEC41B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsCollectionViewController.swift; path = Sources/SearchResultsCollectionViewController.swift; sourceTree = "<group>"; };
 		8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsCollectionViewCell.swift; path = Sources/SearchResultsCollectionViewCell.swift; sourceTree = "<group>"; };
+		8176BEE51B73F9A100E1BDCD /* KeyboardTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardTheme.swift; sourceTree = "<group>"; };
 		8179387D1B55859D0064B0CF /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKey.swift; path = Sources/KeyboardKey.swift; sourceTree = "<group>"; };
 		817938891B5741050064B0CF /* KeyboardLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardLayouts.swift; path = Sources/KeyboardLayouts.swift; sourceTree = "<group>"; };
 		8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKeyButton.swift; path = Sources/KeyboardKeyButton.swift; sourceTree = "<group>"; };
@@ -636,6 +639,7 @@
 				816588F61B616A7300F7C9F5 /* KeyboardLayout.swift */,
 				81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */,
 				81E26D8D1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift */,
+				8176BEE51B73F9A100E1BDCD /* KeyboardTheme.swift */,
 			);
 			name = "Keyboard Layout";
 			sourceTree = "<group>";
@@ -1217,6 +1221,7 @@
 				69E9104C1B59AF1D008BFBD6 /* VenmoService.swift in Sources */,
 				8176BECB1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
 				810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
+				8176BEE61B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
 				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
 				81E26D961B67C29D00FC1F2F /* Shape.swift in Sources */,
@@ -1237,6 +1242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8176BEE71B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
 				810C4AFE1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */,
 				8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				8176BEA41B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,

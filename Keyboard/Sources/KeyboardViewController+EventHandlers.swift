@@ -54,7 +54,7 @@ extension KeyboardViewController {
     }
     
     func advanceTapped(button: KeyboardKeyButton?) {
-        NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
     }
     
     func pageChangeTapped(button: KeyboardKeyButton?) {
@@ -88,20 +88,19 @@ extension KeyboardViewController {
     
     func didTapSpaceButton(button: KeyboardKeyButton?) {
         if let button = button {
-            switch(button.key) {
-            default:
-                if currentPage != 0 {
-                    setPage(0)
-                }
-                button.selected = true
-            }
-            
+            button.selected = true
         }
     }
   
     func didReleaseSpaceButton(button: KeyboardKeyButton?) {
         if let button = button {
             button.selected = false
+        }
+        
+        delay(0.0) {
+            if self.currentPage != 0 {
+                self.setPage(0)
+            }
         }
     }
     
