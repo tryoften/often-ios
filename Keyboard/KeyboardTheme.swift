@@ -18,6 +18,7 @@ struct KeyboardTheme {
         keyboardKeyTextColor = dictionary["keyboardKeyTextColor"]!
         shiftKeyBorderColor = dictionary["shiftKeyBorderColor"]!
         enterKeyBackgroundColor = dictionary["enterKeyBackgroundColor"]!
+        spaceKeyHighlightedBackgroundColor = dictionary["spaceKeyHighlightedBackgroundColor"]!
     }
     
     var keyboardBackgroundColor: UIColor
@@ -28,6 +29,7 @@ struct KeyboardTheme {
     var keyboardKeyTextColor: UIColor
     var shiftKeyBorderColor: UIColor
     var enterKeyBackgroundColor: UIColor
+    var spaceKeyHighlightedBackgroundColor: UIColor
 }
 
 let DarkTheme: KeyboardTheme = KeyboardTheme(dictionary: [
@@ -38,7 +40,8 @@ let DarkTheme: KeyboardTheme = KeyboardTheme(dictionary: [
     "keyboardKeyPopupColor": UIColor(fromHexString: "#121314"),
     "keyboardKeyTextColor": UIColor.whiteColor(),
     "shiftKeyBorderColor": TealColor,
-    "enterKeyBackgroundColor": UIColor.whiteColor()
+    "enterKeyBackgroundColor": UIColor.whiteColor(),
+    "spaceKeyHighlightedBackgroundColor": BlackColor
 ])
 
 let WhiteTheme: KeyboardTheme = KeyboardTheme(dictionary: [
@@ -49,7 +52,8 @@ let WhiteTheme: KeyboardTheme = KeyboardTheme(dictionary: [
     "keyboardKeyPopupColor": UIColor.whiteColor(),
     "keyboardKeyTextColor": UIColor.blackColor(),
     "shiftKeyBorderColor": UIColor.blackColor(),
-    "enterKeyBackgroundColor": UIColor.whiteColor()
+    "enterKeyBackgroundColor": UIColor.whiteColor(),
+    "spaceKeyHighlightedBackgroundColor": UIColor(fromHexString: "#EDEDED")
 ])
 
 let DefaultTheme = WhiteTheme

@@ -24,6 +24,11 @@ class Shape: UIView {
         self.init(frame: CGRectZero)
     }
     
+    convenience init(color: UIColor) {
+        self.init(frame: CGRectZero)
+        self.color = color
+    }
+    
     override required init(frame: CGRect) {
         super.init(frame: frame)
         

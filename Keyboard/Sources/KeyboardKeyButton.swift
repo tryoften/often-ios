@@ -172,7 +172,7 @@ class KeyboardKeyButton: UIControl {
                 textColor = theme.keyboardKeyTextColor
                 underColor = theme.keyboardKeyUnderColor
                 background.layer.borderColor = UIColor.clearColor().CGColor
-                
+                shape = nil
                 iconView.image = nil
                 text = ""
                 background.layer.borderColor = ClearColor.CGColor
@@ -191,14 +191,14 @@ class KeyboardKeyButton: UIControl {
                     case .Backspace:
                         color = UIColor.clearColor()
                         underColor = UIColor.clearColor()
-                        iconView.image = UIImage(named: "Backspace")!
+                        shape = BackspaceShape(color: theme.keyboardKeyTextColor)
                         break
                     case .CapsLock:
                         color = UIColor.clearColor()
                         underColor = UIColor.clearColor()
-                        iconView.image = UIImage(named: "CapsLockEnabled")!
+                        shape = ArrowShape(color: theme.keyboardKeyTextColor)
                         background.layer.cornerRadius = 4.0
-                        background.layer.borderWidth = 1.0
+                        background.layer.borderWidth = 1.6
                         background.layer.borderColor = UIColor.clearColor().CGColor
                         break
                     case .SwitchKeyboard:
@@ -405,17 +405,21 @@ class KeyboardKeyButton: UIControl {
             switch(key) {
             case .modifier(let modifier, let pageId):
                 switch(modifier) {
+                case .Backspace:
+                    if selected {
+                        shape = BackspaceShape(color: TealColor)
+                    } else {
+                        shape = BackspaceShape(color: BlackColor)
+                    }
                 case .CapsLock:
                     if selected {
-                        iconView.image = UIImage(named: "CapsLockEnabled")
                         background.layer.borderColor = theme.shiftKeyBorderColor.CGColor
                     } else {
                         background.layer.borderColor = UIColor.clearColor().CGColor
-                        iconView.image = UIImage(named: "CapsLock")
                     }
                 case .Space:
                     if selected {
-                        displayView.fillColor = BlackColor
+                        displayView.fillColor = theme.spaceKeyHighlightedBackgroundColor
                     } else {
                         displayView.fillColor = color
                     }
