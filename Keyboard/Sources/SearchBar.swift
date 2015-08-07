@@ -9,6 +9,8 @@
 import UIKit
 
 class SearchBar: UIView {
+    var topSeperator: UIView
+    var bottomSeperator: UIView
     var textInput: SearchTextField
     var textInputLeftConstraint: NSLayoutConstraint?
     var providerButton: ServiceProviderSearchBarButton? {
@@ -33,6 +35,14 @@ class SearchBar: UIView {
         textInput.textColor = UIColor.blackColor()
         textInput.font = UIFont(name: "OpenSans", size: 14)
         
+        topSeperator = UIView()
+        topSeperator.setTranslatesAutoresizingMaskIntoConstraints(false)
+        topSeperator.backgroundColor = DarkGrey
+        
+        bottomSeperator = UIView()
+        bottomSeperator.setTranslatesAutoresizingMaskIntoConstraints(false)
+        bottomSeperator.backgroundColor = DarkGrey
+        
         let searchImageView = UIImageView(image: UIImage(named: "search"))
         searchImageView.contentMode = .ScaleAspectFit
         textInput.leftView = searchImageView
@@ -43,6 +53,9 @@ class SearchBar: UIView {
 
         backgroundColor = UIColor.whiteColor()
         addSubview(textInput)
+        addSubview(topSeperator)
+        addSubview(bottomSeperator)
+
         setupLayout()
     }
     
@@ -106,7 +119,17 @@ class SearchBar: UIView {
             textInput.al_top == al_top + 5,
             textInputLeftConstraint!,
             textInput.al_right == al_right - 5,
-            textInput.al_bottom == al_bottom - 5
+            textInput.al_bottom == al_bottom - 5,
+
+            topSeperator.al_top == al_top,
+            topSeperator.al_left == al_left,
+            topSeperator.al_width == al_width,
+            topSeperator.al_height == 0.6,
+
+            bottomSeperator.al_bottom == al_bottom,
+            bottomSeperator.al_left == al_left,
+            bottomSeperator.al_width == al_width,
+            bottomSeperator.al_height == 0.6
         ])
     }
 

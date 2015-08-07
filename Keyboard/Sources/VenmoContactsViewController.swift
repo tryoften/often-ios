@@ -17,7 +17,7 @@ class VenmoContactsViewController: ServiceProviderSupplementaryViewController {
     }
     
     override var searchBarPlaceholderText: String {
-        return "Select contact..."
+        return "Filter contacts..."
     }
     
     override func viewDidLoad() {

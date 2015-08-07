@@ -9,12 +9,44 @@
 import UIKit
 
 class SearchTextField: UIControl, Layouteable {
+    weak var delegate: SearchTextFieldDelegate?
+    var id: String
+    var editing: Bool
+    
+    private var labelContainer: UIView
+    private var label: TOMSMorphingLabel
+    private var indicator: UIView
+    private var cancelButton: UIButton
+    private var labelContainerLeftConstraint: NSLayoutConstraint!
+    private var cancelButtonLeftConstraint: NSLayoutConstraint!
+    private var inputPosition: Int
+    private var indicatorBlinkingTimer: NSTimer?
+    
+    var font: UIFont? {
+        didSet {
+            label.font = font
+        }
+    }
+    
+    var textColor: UIColor? {
+        didSet {
+            label.textColor = textColor
+        }
+    }
+    
+    var enableCancelButton: Bool {
+        didSet {
+            cancelButton.hidden = !enableCancelButton
+        }
+    }
+    
     var text: String! {
         didSet {
             label.alpha = 1.0
             label.text = text
         }
     }
+    
     var placeholder: String? {
         didSet {
             label.alpha = 0.65
@@ -22,22 +54,6 @@ class SearchTextField: UIControl, Layouteable {
             endBlinkingIndicator()
         }
     }
-    
-    var id: String
-    
-    private var label: TOMSMorphingLabel
-    private var indicator: UIView
-    private var cancelButton: UIButton
-    private var labelLeftConstraint: NSLayoutConstraint!
-    private var cancelButtonLeftConstraint: NSLayoutConstraint!
-    private var inputPosition: Int
-    private var indicatorBlinkingTimer: NSTimer?
-    var enableCancelButton: Bool {
-        didSet {
-            cancelButton.hidden = !enableCancelButton
-        }
-    }
-    
     
     override var selected: Bool {
         didSet {
@@ -50,7 +66,7 @@ class SearchTextField: UIControl, Layouteable {
                 text = "\(text!)"
                 label.morphingEnabled = false
                 
-                cancelButtonLeftConstraint.constant = -CGRectGetHeight(cancelButton.frame) - 10
+                cancelButtonLeftConstraint.constant = -CGRectGetHeight(cancelButton.frame)
                 
                 UIView.animateWithDuration(0.3) {
                     self.cancelButton.alpha = 1.0
@@ -78,19 +94,16 @@ class SearchTextField: UIControl, Layouteable {
         }
     }
     
-    weak var delegate: SearchTextFieldDelegate?
-    var editing: Bool
-    
     var leftView: UIView? {
         didSet {
             if let leftView = leftView {
-                removeConstraint(labelLeftConstraint)
+                removeConstraint(labelContainerLeftConstraint)
                 leftView.setTranslatesAutoresizingMaskIntoConstraints(false)
-                labelLeftConstraint = label.al_left == leftView.al_right + 10
+                labelContainerLeftConstraint = labelContainer.al_left == leftView.al_right + 10
                 
                 addSubview(leftView)
                 addConstraints([
-                    labelLeftConstraint,
+                    labelContainerLeftConstraint,
 
                     leftView.al_height == al_height - 15,
                     leftView.al_left == al_left + 5,
@@ -105,18 +118,6 @@ class SearchTextField: UIControl, Layouteable {
         }
     }
     var rightView: UIView? // e.g. bookmarks button
-
-    var font: UIFont? {
-        didSet {
-            label.font = font
-        }
-    }
-    
-    var textColor: UIColor? {
-        didSet {
-            label.textColor = textColor
-        }
-    }
     
     override init(frame: CGRect) {
         enableCancelButton = true
@@ -124,6 +125,11 @@ class SearchTextField: UIControl, Layouteable {
         inputPosition = 0
         text = ""
         id = ""
+        
+        labelContainer = UIView()
+        labelContainer.setTranslatesAutoresizingMaskIntoConstraints(false)
+        labelContainer.clipsToBounds = true
+        labelContainer.userInteractionEnabled = false
 
         label = TOMSMorphingLabel()
         label.animationDuration = 0.2
@@ -147,11 +153,13 @@ class SearchTextField: UIControl, Layouteable {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTap:")
         cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         addGestureRecognizer(tapGestureRecognizer)
-        addSubview(label)
+        addSubview(labelContainer)
         addSubview(indicator)
         addSubview(cancelButton)
         
-        labelLeftConstraint = label.al_left == al_left
+        labelContainer.addSubview(label)
+        
+        labelContainerLeftConstraint = labelContainer.al_left == al_left
         cancelButtonLeftConstraint = cancelButton.al_left == al_right
         setupLayout()
     }
@@ -162,7 +170,7 @@ class SearchTextField: UIControl, Layouteable {
 
     override func becomeFirstResponder() -> Bool {
         delay(0.5) {
-        NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagerProxyEvent, object: self, userInfo: [
+            NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagerProxyEvent, object: self, userInfo: [
                 "id": self.id,
                 "setDefault": true
             ])
@@ -210,15 +218,23 @@ class SearchTextField: UIControl, Layouteable {
         text = ""
         placeholder = "\(placeholder!)"
         selected = false
+        sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
+        NSNotificationCenter.defaultCenter().postNotificationName(RestoreKeyboardEvent, object: nil, userInfo: nil)
     }
     
     func setupLayout() {
         addConstraints([
-            labelLeftConstraint,
+            labelContainerLeftConstraint,
             cancelButtonLeftConstraint,
             
-            label.al_centerY == al_centerY,
+            labelContainer.al_height == al_height,
+            labelContainer.al_top == al_top,
+            labelContainer.al_right == cancelButton.al_left,
+            
+            label.al_left == labelContainer.al_left,
+            label.al_centerY == labelContainer.al_centerY,
             label.al_height >= 19.5,
+            
             indicator.al_height == 1.5,
             indicator.al_width == 10,
             indicator.al_left == label.al_right,
