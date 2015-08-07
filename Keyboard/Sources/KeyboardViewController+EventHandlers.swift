@@ -39,13 +39,13 @@ extension KeyboardViewController {
                 textProcessor.insertText("#")
             case .modifier(.Space, let pageId):
                 textProcessor.insertText(" ")
+                handleAutoPeriod(button)
             case .modifier(.Enter, let pageId):
                 textProcessor.insertText("\n")
             default:
                 break
             }
         }
-        handleAutoPeriod(button)
         playKeySound()
         setCapsIfNeeded()
     }
@@ -330,8 +330,8 @@ extension KeyboardViewController {
                         textProcessor.deleteBackward()
                         textProcessor.insertText(".")
                         textProcessor.insertText(" ")
+                        self.autoPeriodState = .NoSpace
                     }
-                    self.autoPeriodState = .NoSpace
                 } else {
                     self.autoPeriodState = .FirstSpace
                 }
