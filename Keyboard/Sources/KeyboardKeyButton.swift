@@ -42,7 +42,6 @@ class KeyboardKeyButton: UIControl {
     var drawBorder: Bool { didSet { updateColors() }}
     var underOffset: CGFloat { didSet { updateColors() }}
     var textColor: UIColor { didSet { updateColors() }}
-
     var labelInset: CGFloat = 0 {
         didSet {
             if oldValue != labelInset {
@@ -176,6 +175,7 @@ class KeyboardKeyButton: UIControl {
                 shape = nil
                 iconView.image = nil
                 text = ""
+                background.layer.borderColor = ClearColor.CGColor
 
                 switch(key) {
                 case .letter(let character):

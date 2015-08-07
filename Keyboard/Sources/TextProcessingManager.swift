@@ -101,7 +101,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                 }
             }
         }
-        
         delegate?.textProcessingManagerDidChangeText(self)
     }
     
@@ -170,6 +169,34 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         return (character == " ") || (character == "\n") || (character == "\r") || (character == "\t")
     }
     
+    func charactersAreInCorrectState() -> Bool {
+        let previousContext = (currentProxy as? UITextDocumentProxy)?.documentContextBeforeInput
+    
+        if previousContext == nil || count(previousContext!) < 3 {
+            return false
+        }
+        
+        var index = previousContext!.endIndex
+        
+        index = index.predecessor()
+        if previousContext![index] != " " {
+            return false
+        }
+        
+        index = index.predecessor()
+        if previousContext![index] != " " {
+            return false
+        }
+        
+        index = index.predecessor()
+        let char = previousContext![index]
+        if characterIsWhitespace(char) || characterIsPunctuation(char) || char == "," {
+            return false
+        }
+        
+        return true
+    }
+
     func stringIsWhitespace(string: String?) -> Bool {
         if string != nil {
             for char in string! {

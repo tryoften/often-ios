@@ -39,13 +39,13 @@ extension KeyboardViewController {
                 textProcessor.insertText("#")
             case .modifier(.Space, let pageId):
                 textProcessor.insertText(" ")
+                handleAutoPeriod(button)
             case .modifier(.Enter, let pageId):
                 textProcessor.insertText("\n")
             default:
                 break
             }
         }
-        
         playKeySound()
         setCapsIfNeeded()
     }
@@ -89,9 +89,16 @@ extension KeyboardViewController {
     func didTapSpaceButton(button: KeyboardKeyButton?) {
         if let button = button {
             button.selected = true
+            
+            switch(button.key) {
+            default:
+                if currentPage != 0 {
+                    setPage(0)
+                }
+            }
         }
     }
-  
+    
     func didReleaseSpaceButton(button: KeyboardKeyButton?) {
         if let button = button {
             button.selected = false
@@ -311,6 +318,28 @@ extension KeyboardViewController {
                 button.selected = false
             }
         }
+    }
+    
+    func handleAutoPeriod(button: KeyboardKeyButton?){
+        if let button = button, key = button.key {
+            switch(key) {
+            case .modifier(.Space, let pageId):
+                if self.autoPeriodState == .FirstSpace {
+                    if self.textProcessor.charactersAreInCorrectState() {
+                        textProcessor.deleteBackward()
+                        textProcessor.deleteBackward()
+                        textProcessor.insertText(". ")
+                        
+                        self.autoPeriodState = .NoSpace
+                    }
+                } else {
+                    self.autoPeriodState = .FirstSpace
+                }
+            default:
+                break
+            }
+        }
+        
     }
 }
 
