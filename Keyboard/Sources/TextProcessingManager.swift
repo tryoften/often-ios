@@ -101,7 +101,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                 }
             }
         }
-        
         delegate?.textProcessingManagerDidChangeText(self)
     }
     
@@ -172,11 +171,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     
     func charactersAreInCorrectState() -> Bool {
         let previousContext = (currentProxy as? UITextDocumentProxy)?.documentContextBeforeInput
-        
-        if previousContext == nil || count(previousContext!) < 3 {
-            return false
-        }
-        
+    
         if previousContext == nil || count(previousContext!) < 3 {
             return false
         }

@@ -88,14 +88,14 @@ extension KeyboardViewController {
     
     func didTapSpaceButton(button: KeyboardKeyButton?) {
         if let button = button {
+            button.selected = true
+            
             switch(button.key) {
             default:
                 if currentPage != 0 {
                     setPage(0)
                 }
-                button.selected = true
             }
-            button.selected = true
         }
     }
     
@@ -328,8 +328,8 @@ extension KeyboardViewController {
                     if self.textProcessor.charactersAreInCorrectState() {
                         textProcessor.deleteBackward()
                         textProcessor.deleteBackward()
-                        textProcessor.insertText(".")
-                        textProcessor.insertText(" ")
+                        textProcessor.insertText(". ")
+                        
                         self.autoPeriodState = .NoSpace
                     }
                 } else {
