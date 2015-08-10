@@ -126,15 +126,15 @@ public class StyleKit : NSObject {
 
         //// search
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 11.97, frame.maxY - 13.42)
+        CGContextTranslateCTM(context, frame.minX + 0.57045 * frame.width, frame.minY + 0.58812 * frame.height)
         CGContextScaleCTM(context, scale, scale)
 
 
 
         //// Path-82 Drawing
         var path82Path = UIBezierPath()
-        path82Path.moveToPoint(CGPointMake(4.81, 4.54))
-        path82Path.addLineToPoint(CGPointMake(13.97, 15.58))
+        path82Path.moveToPoint(CGPointMake(1.45, 1.32))
+        path82Path.addLineToPoint(CGPointMake(8.97, 10.58))
         path82Path.miterLimit = 4;
 
         path82Path.usesEvenOddFillRule = true;
@@ -145,7 +145,7 @@ public class StyleKit : NSObject {
 
 
         //// Oval-77 Drawing
-        var oval77Path = UIBezierPath(ovalInRect: CGRectMake(-13.97, -15.58, 23, 22))
+        var oval77Path = UIBezierPath(ovalInRect: CGRectMake(-13.97, -15.58, 19, 18))
         color.setStroke()
         oval77Path.lineWidth = 3
         oval77Path.stroke()
@@ -238,6 +238,63 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
+    public class func drawClose(#frame: CGRect, color: UIColor, scale: CGFloat) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()
+
+        //// close
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, frame.minX + 0.48651 * frame.width, frame.minY + 0.48646 * frame.height)
+        CGContextScaleCTM(context, scale, scale)
+
+
+
+        //// rightBar Drawing
+        CGContextSaveGState(context)
+
+        var rightBarPath = UIBezierPath()
+        rightBarPath.moveToPoint(CGPointMake(15.97, -11.31))
+        rightBarPath.addLineToPoint(CGPointMake(11.98, -15.08))
+        rightBarPath.addLineToPoint(CGPointMake(-15.97, 11.31))
+        rightBarPath.addLineToPoint(CGPointMake(-11.98, 15.08))
+        rightBarPath.addLineToPoint(CGPointMake(15.97, -11.31))
+        rightBarPath.addLineToPoint(CGPointMake(15.97, -11.31))
+        rightBarPath.closePath()
+        rightBarPath.miterLimit = 4;
+
+        rightBarPath.usesEvenOddFillRule = true;
+
+        color.setFill()
+        rightBarPath.fill()
+
+        CGContextRestoreGState(context)
+
+
+        //// leftBar Drawing
+        CGContextSaveGState(context)
+
+        var leftBarPath = UIBezierPath()
+        leftBarPath.moveToPoint(CGPointMake(-15.97, -11.31))
+        leftBarPath.addLineToPoint(CGPointMake(-11.98, -15.08))
+        leftBarPath.addLineToPoint(CGPointMake(15.97, 11.31))
+        leftBarPath.addLineToPoint(CGPointMake(11.98, 15.08))
+        leftBarPath.addLineToPoint(CGPointMake(-15.97, -11.31))
+        leftBarPath.addLineToPoint(CGPointMake(-15.97, -11.31))
+        leftBarPath.closePath()
+        leftBarPath.miterLimit = 4;
+
+        leftBarPath.usesEvenOddFillRule = true;
+
+        color.setFill()
+        leftBarPath.fill()
+
+        CGContextRestoreGState(context)
+
+
+
+        CGContextRestoreGState(context)
+    }
+
     public class func drawCanvas1() {
     }
 
@@ -291,6 +348,16 @@ public class StyleKit : NSObject {
         UIGraphicsEndImageContext()
 
         return imageOfShare
+    }
+
+    public class func imageOfClose(#frame: CGRect, color: UIColor, scale: CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+            StyleKit.drawClose(frame: frame, color: color, scale: scale)
+
+        let imageOfClose = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return imageOfClose
     }
 
 }

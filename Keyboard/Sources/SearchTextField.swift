@@ -70,7 +70,7 @@ class SearchTextField: UIControl, Layouteable {
                 cancelButtonLeftConstraint.constant = -CGRectGetHeight(cancelButton.frame)
                 
                 if leftView != nil {
-                    leftViewLeftConstraint.constant = 5
+                    leftViewLeftConstraint.constant = 0
                 }
                 
                 UIView.animateWithDuration(0.3) {
@@ -116,7 +116,7 @@ class SearchTextField: UIControl, Layouteable {
                 
                 labelContainerLeftConstraint = labelContainer.al_left == leftView.al_right + 10
                 
-                var leftPadding: CGFloat = 5
+                var leftPadding: CGFloat = 0
                 if centerLeftView {
                     leftPadding = (CGRectGetWidth(frame) - CGRectGetWidth(leftView.frame)) / 2
                 }
@@ -164,9 +164,11 @@ class SearchTextField: UIControl, Layouteable {
         indicator.setTranslatesAutoresizingMaskIntoConstraints(false)
         indicator.alpha = 0.0
         
+        let cancelButtonImageFrame: CGRect = CGRectMake(0, 0, KeyboardSearchBarHeight, KeyboardSearchBarHeight)
+        let cancelButtonImageScale: CGFloat = 0.5
         cancelButton = UIButton()
-        cancelButton.setImage(UIImage(named: "close"), forState: .Normal)
-        cancelButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        cancelButton.setImage(StyleKit.imageOfClose(frame: cancelButtonImageFrame, color: UIColor.blackColor(), scale: cancelButtonImageScale), forState: .Normal)
+        cancelButton.setImage(StyleKit.imageOfClose(frame: cancelButtonImageFrame, color: TealColor, scale: cancelButtonImageScale), forState: .Selected)
         cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         cancelButton.alpha = 0.0
         
@@ -202,7 +204,7 @@ class SearchTextField: UIControl, Layouteable {
         
         if let leftView = leftView {
             if centerLeftView {
-                var leftPadding: CGFloat = 5
+                var leftPadding: CGFloat = 0
                 
                 if !selected {
                     leftPadding = (CGRectGetWidth(frame) - CGRectGetWidth(leftView.frame)) / 2
