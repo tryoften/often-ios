@@ -53,7 +53,7 @@ let DarkTheme: KeyboardTheme = KeyboardTheme(dictionary: [
 let LightTheme: KeyboardTheme = KeyboardTheme(dictionary: [
     "keyboardBackgroundColor": UIColor(fromHexString: "#EDEDED"),
     "keyboardKeyBackgroundColor": UIColor.whiteColor(),
-    "keyboardKeyUnderColor": UIColor.whiteColor(),
+    "keyboardKeyUnderColor": DarkGrey,
     "keyboardKeyBorderColor": UIColor.whiteColor(),
     "keyboardKeyPopupColor": UIColor.whiteColor(),
     "keyboardKeyBackgroundShadowColor": DarkGrey,

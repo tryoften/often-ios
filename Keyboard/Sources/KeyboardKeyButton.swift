@@ -123,11 +123,6 @@ class KeyboardKeyButton: UIControl {
         
         super.init(frame: CGRectZero)
         
-        layer.shadowOffset = CGSizeMake(0, 1)
-        layer.shadowColor = DefaultTheme.keyboardKeyBackgroundShadowColor.CGColor
-        layer.shadowOpacity = 1.0
-        layer.shadowRadius = 2.0
-        
         addSubview(shadowView)
         shadowView.layer.addSublayer(shadowLayer)
         
@@ -148,19 +143,19 @@ class KeyboardKeyButton: UIControl {
             self.underView?.opaque = false
             self.borderView?.opaque = false
             
-            self.shadowLayer.shadowOpacity = Float(0.2)
+            self.shadowLayer.shadowOpacity = 0.6
             self.shadowLayer.shadowRadius = 4
             self.shadowLayer.shadowOffset = CGSizeMake(0, 3)
-            self.shadowLayer.backgroundColor = DarkGrey.CGColor
+            self.shadowLayer.backgroundColor = DefaultTheme.keyboardKeyBackgroundShadowColor.CGColor
             
-            self.borderView?.lineWidth = CGFloat(0.5)
+            self.borderView?.lineWidth = 0.5
             self.borderView?.fillColor = UIColor.clearColor()
             
             self.label.textAlignment = NSTextAlignment.Center
             self.label.baselineAdjustment = UIBaselineAdjustment.AlignCenters
             self.label.font = UIFont(name: "OpenSans", size: 20)
             self.label.adjustsFontSizeToFitWidth = true
-            self.label.minimumScaleFactor = CGFloat(0.1)
+            self.label.minimumScaleFactor = 0.1
             self.label.userInteractionEnabled = false
             self.label.numberOfLines = 1
         }()
