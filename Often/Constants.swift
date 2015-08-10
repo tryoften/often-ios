@@ -54,7 +54,7 @@ let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
 let KeyboardHeight: CGFloat = 255
-let KeyboardSearchBarHeight: CGFloat = 40.0
+let KeyboardSearchBarHeight: CGFloat = 44.0
 let KeyboardTableViewBackgroundColor = LightGrey
 
 let KeyboardTableSeperatorColor = DarkGrey
