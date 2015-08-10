@@ -30,8 +30,8 @@ class TabBarController: UITabBarController {
             backgroundView.al_height == tabBar.al_height
         ])
         
-        var userProfileVC = ServiceSettingsCollectionViewController(collectionViewLayout: ServiceSettingsCollectionViewController.provideCollectionViewLayout())
-        var settingsVC = SettingsViewController()
+        var userProfileVC = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout())
+        var settingsVC = ServiceSettingsCollectionViewController(collectionViewLayout: ServiceSettingsCollectionViewController.provideCollectionViewLayout())
         
         var iconInsets = UIEdgeInsetsMake(3, -3, -3, 3)
         
