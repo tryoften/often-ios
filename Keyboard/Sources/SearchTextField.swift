@@ -196,6 +196,23 @@ class SearchTextField: UIControl, Layouteable {
         searchImageView.contentMode = .ScaleAspectFit
         leftView = searchImageView
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if let leftView = leftView {
+            if centerLeftView {
+                var leftPadding: CGFloat = 5
+                
+                if !selected {
+                    leftPadding = (CGRectGetWidth(frame) - CGRectGetWidth(leftView.frame)) / 2
+                }
+                
+                leftViewLeftConstraint.constant = leftPadding
+                setNeedsLayout()
+            }
+        }
+    }
 
     override func becomeFirstResponder() -> Bool {
         delay(0.5) {

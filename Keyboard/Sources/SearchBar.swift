@@ -11,8 +11,10 @@ import UIKit
 class SearchBar: UIView {
     var topSeperator: UIView
     var bottomSeperator: UIView
+    var middleSeperator: UIView
     var textInput: SearchTextField
     var textInputLeftConstraint: NSLayoutConstraint?
+    var shareButtonLeftConstraint: NSLayoutConstraint!
     var providerButton: ServiceProviderSearchBarButton? {
         didSet {
             if let button = providerButton {
@@ -24,6 +26,8 @@ class SearchBar: UIView {
             }
         }
     }
+
+    var shareButton: UIButton
     
     private var buttons: [SearchBarButton]
 
@@ -42,14 +46,26 @@ class SearchBar: UIView {
         bottomSeperator.setTranslatesAutoresizingMaskIntoConstraints(false)
         bottomSeperator.backgroundColor = DarkGrey
         
+        middleSeperator = UIView()
+        middleSeperator.setTranslatesAutoresizingMaskIntoConstraints(false)
+        middleSeperator.backgroundColor = BlackColor
+        
+        shareButton = UIButton()
+        shareButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         buttons = []
         
         super.init(frame: frame)
+        
+        textInput.addTarget(self, action: "textFieldEditingDidBegin", forControlEvents: .EditingDidBegin)
+        textInput.addTarget(self, action: "textFieldEditingDidEnd", forControlEvents: .EditingDidEnd)
 
         backgroundColor = UIColor.whiteColor()
         addSubview(textInput)
+        addSubview(shareButton)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
+        addSubview(middleSeperator)
 
         setupLayout()
     }
@@ -63,6 +79,27 @@ class SearchBar: UIView {
         
         if textInput.leftView == nil {
             textInput.setDefaultLeftView()
+        }
+        
+        if textInput.selected {
+            shareButtonLeftConstraint.constant = CGRectGetWidth(frame)
+        } else {
+            shareButtonLeftConstraint.constant = CGRectGetWidth(frame) / 2
+        }
+        shareButton.setImage(StyleKit.imageOfShare(frame: CGRectMake(0, 0, CGRectGetHeight(bounds), CGRectGetHeight(bounds)), color: UIColor.blackColor()), forState: .Normal)
+    }
+    
+    func textFieldEditingDidBegin() {
+        shareButtonLeftConstraint.constant = CGRectGetWidth(frame)
+        UIView.animateWithDuration(0.3) {
+            self.layoutIfNeeded()
+        }
+    }
+    
+    func textFieldEditingDidEnd() {
+        shareButtonLeftConstraint.constant = CGRectGetWidth(frame) / 2
+        UIView.animateWithDuration(0.3) {
+            self.layoutIfNeeded()
         }
     }
     
@@ -122,10 +159,12 @@ class SearchBar: UIView {
 
     func setupLayout() {
         textInputLeftConstraint = textInput.al_left == al_left + 5
+        shareButtonLeftConstraint = shareButton.al_left == al_left + CGRectGetWidth(frame) / 2
+
         addConstraints([
             textInput.al_top == al_top + 5,
             textInputLeftConstraint!,
-            textInput.al_right == al_right - 5,
+            textInput.al_right == shareButton.al_left - 5,
             textInput.al_bottom == al_bottom - 5,
 
             topSeperator.al_top == al_top,
@@ -136,7 +175,17 @@ class SearchBar: UIView {
             bottomSeperator.al_bottom == al_bottom,
             bottomSeperator.al_left == al_left,
             bottomSeperator.al_width == al_width,
-            bottomSeperator.al_height == 0.6
+            bottomSeperator.al_height == 0.6,
+            
+            middleSeperator.al_width == 1,
+            middleSeperator.al_left == shareButton.al_left,
+            middleSeperator.al_centerY == al_centerY,
+            middleSeperator.al_height == al_height - 20,
+            
+            shareButton.al_width == al_width / 2,
+            shareButtonLeftConstraint,
+            shareButton.al_top == al_top,
+            shareButton.al_height == al_height
         ])
     }
 

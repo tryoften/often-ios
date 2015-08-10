@@ -26,7 +26,7 @@ public class StyleKit : NSObject {
 
         //// Icon
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.14493 * frame.width, frame.minY + 0.20000 * frame.height)
+        CGContextTranslateCTM(context, frame.minX + 0.14286 * frame.width, frame.minY + 0.20000 * frame.height)
         CGContextScaleCTM(context, 0.5, 0.5)
 
         CGContextSetBlendMode(context, kCGBlendModeMultiply)
@@ -126,7 +126,7 @@ public class StyleKit : NSObject {
 
         //// search
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.49886 * frame.width, frame.minY + 0.48614 * frame.height)
+        CGContextTranslateCTM(context, frame.minX + 11.97, frame.maxY - 13.42)
         CGContextScaleCTM(context, scale, scale)
 
 
@@ -178,6 +178,66 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
+    public class func drawShare(#frame: CGRect, color: UIColor) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()
+
+        //// share
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, frame.minX + 0.37612 * frame.width, frame.minY + 0.29439 * frame.height)
+        CGContextScaleCTM(context, 0.5, 0.5)
+
+
+
+        //// square Drawing
+        var squarePath = UIBezierPath()
+        squarePath.moveToPoint(CGPointMake(7.79, 15.53))
+        squarePath.addLineToPoint(CGPointMake(15.39, 15.45))
+        squarePath.addLineToPoint(CGPointMake(15.39, 30.11))
+        squarePath.addLineToPoint(CGPointMake(0.73, 30.11))
+        squarePath.addLineToPoint(CGPointMake(0.73, 15.45))
+        squarePath.addLineToPoint(CGPointMake(7.79, 15.53))
+        squarePath.closePath()
+        squarePath.miterLimit = 4;
+
+        squarePath.usesEvenOddFillRule = true;
+
+        color.setStroke()
+        squarePath.lineWidth = 3
+        squarePath.stroke()
+
+
+        //// line Drawing
+        var linePath = UIBezierPath()
+        linePath.moveToPoint(CGPointMake(8.08, 1.15))
+        linePath.addLineToPoint(CGPointMake(8.01, 15.97))
+        linePath.miterLimit = 4;
+
+        linePath.usesEvenOddFillRule = true;
+
+        color.setStroke()
+        linePath.lineWidth = 3
+        linePath.stroke()
+
+
+        //// head Drawing
+        var headPath = UIBezierPath()
+        headPath.moveToPoint(CGPointMake(0, 8.08))
+        headPath.addLineToPoint(CGPointMake(7.99, 0))
+        headPath.addLineToPoint(CGPointMake(15.98, 8.07))
+        headPath.miterLimit = 4;
+
+        headPath.usesEvenOddFillRule = true;
+
+        color.setStroke()
+        headPath.lineWidth = 3
+        headPath.stroke()
+
+
+
+        CGContextRestoreGState(context)
+    }
+
     public class func drawCanvas1() {
     }
 
@@ -221,6 +281,16 @@ public class StyleKit : NSObject {
         UIGraphicsEndImageContext()
 
         return imageOfArrowheadup
+    }
+
+    public class func imageOfShare(#frame: CGRect, color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+            StyleKit.drawShare(frame: frame, color: color)
+
+        let imageOfShare = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return imageOfShare
     }
 
 }
