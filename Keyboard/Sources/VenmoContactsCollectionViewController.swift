@@ -26,6 +26,10 @@ class VenmoContactsCollectionViewController: UICollectionViewController, UIColle
             let text = userInfo["text"] as? String {
                 viewModel.filterContacts(text)
                 collectionView?.reloadData()
+                
+                if collectionView?.numberOfItemsInSection(0) > 0 {
+                    collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .Left, animated: false)
+                }
         }
     }
     

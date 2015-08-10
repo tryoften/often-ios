@@ -39,13 +39,13 @@ extension KeyboardViewController {
                 textProcessor.insertText("#")
             case .modifier(.Space, let pageId):
                 textProcessor.insertText(" ")
+                handleAutoPeriod(button)
             case .modifier(.Enter, let pageId):
                 textProcessor.insertText("\n")
             default:
                 break
             }
         }
-        
         playKeySound()
         setCapsIfNeeded()
     }
@@ -54,7 +54,7 @@ extension KeyboardViewController {
     }
     
     func advanceTapped(button: KeyboardKeyButton?) {
-        NSNotificationCenter.defaultCenter().postNotificationName("switchKeyboard", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
     }
     
     func pageChangeTapped(button: KeyboardKeyButton?) {
@@ -88,20 +88,19 @@ extension KeyboardViewController {
     
     func didTapSpaceButton(button: KeyboardKeyButton?) {
         if let button = button {
-            switch(button.key) {
-            default:
-                if currentPage != 0 {
-                    setPage(0)
-                }
-                button.selected = true
-            }
-            
+            button.selected = true
         }
     }
-  
+    
     func didReleaseSpaceButton(button: KeyboardKeyButton?) {
         if let button = button {
             button.selected = false
+        }
+        
+        delay(0.0) {
+            if self.currentPage != 0 {
+                self.setPage(0)
+            }
         }
     }
     
@@ -171,6 +170,10 @@ extension KeyboardViewController {
     }
     
     func backspaceDown(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.selected = true
+        }
+
         cancelBackspaceTimers()
         backspaceStartTime = CFAbsoluteTimeGetCurrent()
         textProcessor.deleteBackward()
@@ -180,6 +183,10 @@ extension KeyboardViewController {
     }
     
     func backspaceUp(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.selected = false
+        }
+        
         cancelBackspaceTimers()
         firstWordQuickDeleted = false
     }
@@ -312,6 +319,28 @@ extension KeyboardViewController {
                 button.selected = false
             }
         }
+    }
+    
+    func handleAutoPeriod(button: KeyboardKeyButton?){
+        if let button = button, key = button.key {
+            switch(key) {
+            case .modifier(.Space, let pageId):
+                if self.autoPeriodState == .FirstSpace {
+                    if self.textProcessor.charactersAreInCorrectState() {
+                        textProcessor.deleteBackward()
+                        textProcessor.deleteBackward()
+                        textProcessor.insertText(". ")
+                        
+                        self.autoPeriodState = .NoSpace
+                    }
+                } else {
+                    self.autoPeriodState = .FirstSpace
+                }
+            default:
+                break
+            }
+        }
+        
     }
 }
 

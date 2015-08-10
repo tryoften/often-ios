@@ -17,8 +17,8 @@ enum VibrancyType {
 class KeyboardKeyButton: UIControl {
     
     weak var delegate: KeyboardKeyProtocol?
-    
     var vibrancy: VibrancyType?
+    var theme: KeyboardTheme
     
     var text: String {
         didSet {
@@ -42,8 +42,6 @@ class KeyboardKeyButton: UIControl {
     var drawBorder: Bool { didSet { updateColors() }}
     var underOffset: CGFloat { didSet { updateColors() }}
     var textColor: UIColor { didSet { updateColors() }}
-    
-    
     var labelInset: CGFloat = 0 {
         didSet {
             if oldValue != labelInset {
@@ -91,8 +89,8 @@ class KeyboardKeyButton: UIControl {
     var shadowView: UIView
     var shadowLayer: CALayer
     
-    init(vibrancy optionalVibrancy: VibrancyType? = .LightSpecial) {
-        vibrancy = optionalVibrancy
+    init(theme: KeyboardTheme = DefaultTheme) {
+        self.theme = theme
         
         displayView = ShapeView()
         underView = ShapeView()
@@ -104,18 +102,19 @@ class KeyboardKeyButton: UIControl {
         label = UILabel()
         text = ""
         
-        color = UIColor(fromHexString: "#2A2A2A")
-        underColor = UIColor(fromHexString: "#2A2A2A")
-        borderColor = UIColor(fromHexString: "#2A2A2A")
-        popupColor = UIColor(fromHexString: "#121314")
+        color = theme.keyboardKeyBackgroundColor
+        underColor = theme.keyboardKeyUnderColor
+        borderColor = theme.keyboardKeyBorderColor
+        popupColor = theme.keyboardKeyPopupColor
+
         drawUnder = true
         drawOver = true
         drawBorder = false
         underOffset = 1
         
-        background = KeyboardKeyBackground(cornerRadius: 2, underOffset: underOffset)
+        background = KeyboardKeyBackground(cornerRadius: 4, underOffset: underOffset)
         
-        textColor = UIColor.whiteColor()
+        textColor = theme.keyboardKeyTextColor
         popupDirection = nil
         
         iconView = UIImageView()
@@ -143,35 +142,39 @@ class KeyboardKeyButton: UIControl {
             self.underView?.opaque = false
             self.borderView?.opaque = false
             
-            self.shadowLayer.shadowOpacity = Float(0.2)
+            self.shadowLayer.shadowOpacity = 0.6
             self.shadowLayer.shadowRadius = 4
             self.shadowLayer.shadowOffset = CGSizeMake(0, 3)
+            self.shadowLayer.backgroundColor = DefaultTheme.keyboardKeyBackgroundShadowColor.CGColor
             
-            self.borderView?.lineWidth = CGFloat(0.5)
+            self.borderView?.lineWidth = 0.5
             self.borderView?.fillColor = UIColor.clearColor()
             
             self.label.textAlignment = NSTextAlignment.Center
             self.label.baselineAdjustment = UIBaselineAdjustment.AlignCenters
             self.label.font = UIFont(name: "OpenSans", size: 20)
             self.label.adjustsFontSizeToFitWidth = true
-            self.label.minimumScaleFactor = CGFloat(0.1)
+            self.label.minimumScaleFactor = 0.1
             self.label.userInteractionEnabled = false
             self.label.numberOfLines = 1
-            }()
+        }()
     }
     
         func setupKey() {
             if let key = key {
-                label.font = UIFont(name: "OpenSans", size: 20)
-                color = UIColor(fromHexString: "#2A2A2A")
-                textColor = UIColor.whiteColor()
-                underColor = UIColor(fromHexString: "#2A2A2A")
+                label.font = UIFont(name: "OpenSans", size: 21)
+                color = theme.keyboardKeyBackgroundColor
+                textColor = theme.keyboardKeyTextColor
+                underColor = theme.keyboardKeyUnderColor
+                background.layer.borderColor = UIColor.clearColor().CGColor
+                shape = nil
                 iconView.image = nil
                 text = ""
+                background.layer.borderColor = ClearColor.CGColor
 
                 switch(key) {
                 case .letter(let character):
-                    color = UIColor(fromHexString: "#2A2A2A")
+                    color = theme.keyboardKeyBackgroundColor
                     var str = String(character.rawValue)
                     text = str
                 case .digit(let number):
@@ -181,35 +184,35 @@ class KeyboardKeyButton: UIControl {
                 case .modifier(let modifier, let pageId):
                     switch(modifier) {
                     case .Backspace:
-                        color = UIColor(fromHexString: "#202020")
-                        underColor = UIColor(fromHexString: "#202020")
-                        iconView.image = UIImage(named: "Backspace")!
+                        color = UIColor.clearColor()
+                        underColor = UIColor.clearColor()
+                        shape = BackspaceShape(color: theme.backspaceKeyTextColor)
                         break
                     case .CapsLock:
-                        color = UIColor(fromHexString: "#202020")
-                        underColor = UIColor(fromHexString: "#202020")
-                        iconView.image = UIImage(named: "CapsLockEnabled")!
-                        background.layer.cornerRadius = 2.0
-                        background.layer.borderWidth = 1.0
-                        background.layer.borderColor = TealColor.CGColor
+                        color = UIColor.clearColor()
+                        underColor = UIColor.clearColor()
+                        shape = ArrowShape(color: theme.keyboardKeyTextColor)
+                        background.layer.cornerRadius = 4.0
+                        background.layer.borderWidth = 1.6
+                        background.layer.borderColor = UIColor.clearColor().CGColor
                         break
                     case .SwitchKeyboard:
                         label.font = NextKeyboardButtonFont
                         text = "\u{f114}"
-                        color = UIColor(fromHexString: "#2A2A2A")
-                        textColor = UIColor.whiteColor()
+                        color = theme.keyboardKeyBackgroundColor
+                        textColor = theme.keyboardKeyTextColor
                         break
                     case .GoToBrowse:
                         iconView.image = UIImage(named: "IconWhite")!
                         break
                     case .Space:
                         text = "Space".uppercaseString
-                        label.font = UIFont(name: "OpenSans", size: 14)
+                        label.font = UIFont(name: "OpenSans-Semibold", size: 12)
                         break
                     case .Enter:
                         text = "Enter".uppercaseString
                         textColor = UIColor.blackColor()
-                        color = UIColor.whiteColor()
+                        color = theme.enterKeyBackgroundColor
                         label.font = UIFont(name: "OpenSans", size: 11)
                         break
                     case .CallService:
@@ -231,10 +234,10 @@ class KeyboardKeyButton: UIControl {
                     default:
                         break
                     }
-                    underColor = UIColor(fromHexString: "#202020")
-                    color = UIColor(fromHexString: "#202020")
-                    label.font = UIFont(name: "OpenSans", size: 11)
-                    textColor = UIColor.whiteColor().colorWithAlphaComponent(0.74)
+                    underColor = UIColor.clearColor()
+                    color = UIColor.clearColor()
+                    label.font = UIFont(name: "OpenSans-Semibold", size: 12)
+                    textColor = theme.keyboardKeyTextColor.colorWithAlphaComponent(0.74)
                 default:
                     break
                 }
@@ -293,7 +296,6 @@ class KeyboardKeyButton: UIControl {
     func refreshShapes() {
         // TODO: dunno why this is necessary
         background.setNeedsLayout()
-        
         background.layoutIfNeeded()
         popup?.layoutIfNeeded()
         connector?.layoutIfNeeded()
@@ -385,7 +387,7 @@ class KeyboardKeyButton: UIControl {
                 CGFloat((bounds.height - size.height) / 2.0),
                 size.width,
                 size.height)
-            
+
             shape.setNeedsLayout()
         }
     }
@@ -397,17 +399,23 @@ class KeyboardKeyButton: UIControl {
             switch(key) {
             case .modifier(let modifier, let pageId):
                 switch(modifier) {
+                case .Backspace:
+                    if selected {
+                        shape?.color = TealColor
+                    } else {
+                        shape?.color = theme.backspaceKeyTextColor
+                    }
                 case .CapsLock:
                     if selected {
-                        iconView.image = UIImage(named: "CapsLockEnabled")
-                        background.layer.borderColor = TealColor.CGColor
+                        background.layer.borderColor = theme.shiftKeyBorderColor.CGColor
+                        shape?.color = theme.shiftKeyBorderColor
                     } else {
                         background.layer.borderColor = UIColor.clearColor().CGColor
-                        iconView.image = UIImage(named: "CapsLock")
+                        shape?.color = theme.keyboardKeyTextColor
                     }
                 case .Space:
                     if selected {
-                        displayView.fillColor = BlackColor
+                        displayView.fillColor = theme.spaceKeyHighlightedBackgroundColor
                     } else {
                         displayView.fillColor = color
                     }
@@ -481,13 +489,6 @@ class KeyboardKeyButton: UIControl {
         connector = KeyboardConnector(cornerRadius: 4, underOffset: underOffset, start: kv, end: p, startConnectable: kv, endConnectable: p, startDirection: direction, endDirection: direction.opposite())
         connector!.layer.zPosition = -1
         addSubview(connector!)
-        
-        //        self.drawBorder = true
-        
-        if direction == Direction.Up {
-            //            self.popup!.drawUnder = false
-            //            self.connector!.drawUnder = false
-        }
     }
     
     func showPopup() {

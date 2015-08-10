@@ -13,6 +13,7 @@ let ShiftStateUserDefaultsKey = "kShiftState"
 let ResizeKeyboardEvent = "resizeKeyboard"
 let SwitchKeyboardEvent = "switchKeyboard"
 let CollapseKeyboardEvent = "collapseKeyboard"
+let RestoreKeyboardEvent = "restoreKeyboard"
 
 class KeyboardViewController: UIInputViewController, TextProcessingManagerDelegate {
     let locale: Language = .English
@@ -34,6 +35,11 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
+    enum AutoPeriodState {
+        case NoSpace
+        case FirstSpace
+    }
+    var autoPeriodState: AutoPeriodState = .NoSpace
     var backspaceActive: Bool {
         get {
             return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
@@ -83,7 +89,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         
         keysContainerView = TouchRecognizerView()
-        keysContainerView.backgroundColor = UIColor(fromHexString: "#202020")
+        keysContainerView.backgroundColor = DefaultTheme.keyboardBackgroundColor
         
         shiftState = .Enabled
         
@@ -106,6 +112,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
         keysContainerView.togglePanelButton.addTarget(self, action: "restoreKeyboard", forControlEvents: .TouchUpInside)
         
         view.addSubview(searchBar.view)
@@ -367,7 +374,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             }
             return nil
         }
-        
         
         for page in layout.pages {
             for rowKeys in page.rows {
