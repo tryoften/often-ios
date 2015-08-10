@@ -28,7 +28,7 @@ class ServiceSettingsCollectionViewCell: UICollectionViewCell {
         serviceSwitch = UISwitch()
         serviceSwitch.setTranslatesAutoresizingMaskIntoConstraints(false)
         serviceSwitch.on = false
-        serviceSwitch.transform = CGAffineTransformMakeScale(0.65, 0.65)
+        serviceSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
         
         serviceSubtitleLabel = UILabel()
         serviceSubtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -85,10 +85,10 @@ class ServiceSettingsCollectionViewCell: UICollectionViewCell {
             serviceSubtitleLabel.al_width == 200,
             
             serviceSwitch.al_centerX == al_centerX,
-            serviceSwitch.al_top == serviceLogoImageView.al_bottom - 10,
+            serviceSwitch.al_top == serviceLogoImageView.al_bottom - 5,
             
             serviceLogoImageView.al_centerX == al_centerX,
-            serviceLogoImageView.al_centerY == al_centerY - 20,
+            serviceLogoImageView.al_centerY == al_centerY - 10,
             serviceLogoImageView.al_width == 100,
             serviceLogoImageView.al_height == 50
         ])
