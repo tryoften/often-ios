@@ -21,6 +21,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - CMDQueryStringSerialization (0.2.0)
+  - CSStickyHeaderFlowLayout (0.2.8)
   - Firebase (2.3.2)
   - Reveal-iOS-SDK (1.5.1)
   - SSKeychain (1.2.3)
@@ -34,6 +35,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - CSStickyHeaderFlowLayout
   - Firebase (>= 2.0.2)
   - Reveal-iOS-SDK
   - TOMSMorphingLabel (~> 0.5)
@@ -42,6 +44,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   CMDQueryStringSerialization: 15f9004212bbc72533bb533f63df79d90a00a7d8
+  CSStickyHeaderFlowLayout: e919dd425fa12bba1155f66d87edfe540eb8f89a
   Firebase: 02fbeacfe19970856c872321788194524f21ffed
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
