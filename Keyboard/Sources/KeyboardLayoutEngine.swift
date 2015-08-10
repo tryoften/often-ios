@@ -40,10 +40,6 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
         return self.viewToModel[key]
     }
     
-    //////////////////////////////////////////////
-    // CALL THESE FOR LAYOUT/APPEARANCE CHANGES //
-    //////////////////////////////////////////////
-    
     func layoutKeys(pageNum: Int, uppercase: Bool, characterUppercase: Bool, shiftState: ShiftState) {
         CATransaction.begin()
         CATransaction.setDisableActions(true)

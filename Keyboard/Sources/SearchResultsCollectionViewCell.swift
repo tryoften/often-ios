@@ -19,12 +19,16 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     var rightCornerImageView: UIImageView
     
     var contentImageView: UIImageView
-    var contentImageViewWidthConstraint: NSLayoutConstraint
+    var contentImageViewWidthConstraint: NSLayoutConstraint?
     var contentImage: UIImage? {
-        didSet (value) {
-            contentImageViewWidthConstraint = contentImageView.al_width == 100
-            addConstraint(contentImageViewWidthConstraint)
-            contentImageView.image = value
+        didSet(value) {
+            if value == nil {
+                contentImageViewWidthConstraint?.constant = 0
+                contentImageView.image = nil
+            } else {
+                contentImageViewWidthConstraint?.constant = 100
+                contentImageView.image = value
+            }
             layoutIfNeeded()
         }
     }
@@ -75,6 +79,11 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundColor = WhiteColor
+        layer.cornerRadius = 3.0
+        layer.shadowColor = LightGrey.CGColor
+        layer.shadowOpacity = 0.7
+        layer.shadowOffset = CGSizeMake(0, 0)
+        layer.shadowRadius = 1.0
         
         addSubview(informationContainerView)
         addSubview(contentImageView)
@@ -100,6 +109,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     }
     
     func setupLayout() {
+        contentImageViewWidthConstraint = contentImageView.al_width == 0
+
         addConstraints([
             informationContainerView.al_left == al_left,
             informationContainerView.al_top == al_top,
@@ -109,7 +120,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
             contentImageView.al_right == al_right,
             contentImageView.al_top == al_top,
             contentImageView.al_bottom == al_bottom,
-            contentImageView.al_left == informationContainerView.al_right,
+            contentImageViewWidthConstraint!,
             
             avatarImageView.al_left == informationContainerView.al_left + 15,
             avatarImageView.al_top == informationContainerView.al_top + 10,

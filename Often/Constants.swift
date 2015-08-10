@@ -18,7 +18,7 @@ let ParseAppID = "L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G"
 let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"
 let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 let AnalyticsWriteKey = "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI"
-let AppSuiteName = "group.com.surf.surf"
+let AppSuiteName = "group.com.tryoften.often"
 let CrashlyticsAPIKey = "e4598140f72849daf847791f325b1eabae27a254"
 let VenmoAppSecret = "9Bexp2xAQ2hfN57LDVCBYCzRQXJXrRba"
 let VenmoAccessToken = "dpswtdsGaTL3cpCGZm9XYtwPzkVcDexA"
@@ -37,7 +37,7 @@ let SubtitleGreyColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha:
 let LightBlackColor = UIColor(fromHexString: "#303030")
 let LightGrey = UIColor(fromHexString: "#d3d3d3")
 let WhiteColor = UIColor.whiteColor()
-let TealColor = UIColor(fromHexString: "21CE99")
+let TealColor = UIColor(fromHexString: "#21CE99")
 let SystemBlackColor = UIColor.blackColor()
 let SystemGrayColor = UIColor.grayColor()
 let ClearColor = UIColor.clearColor()
@@ -54,7 +54,7 @@ let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
 let KeyboardHeight: CGFloat = 255
-let KeyboardSearchBarHeight: CGFloat = 40.0
+let KeyboardSearchBarHeight: CGFloat = 44.0
 let KeyboardTableViewBackgroundColor = LightGrey
 
 let KeyboardTableSeperatorColor = DarkGrey

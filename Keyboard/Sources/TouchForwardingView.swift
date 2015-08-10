@@ -21,10 +21,9 @@ class TouchRecognizerView: UIView {
     override init(frame: CGRect) {
         touchToView = [:]
         togglePanelButton = UIButton()
-        togglePanelButton.setImage(UIImage(named: "arrowUp"), forState: .Normal)
         togglePanelButton.imageView?.contentMode = .ScaleAspectFit
-        togglePanelButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
-        togglePanelButton.backgroundColor = UIColor(fromHexString: "#202020")
+        togglePanelButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 5, bottom: 2, right: 5)
+        togglePanelButton.backgroundColor = DefaultTheme.keyboardBackgroundColor
         togglePanelButton.hidden = true
         togglePanelButton.layer.zPosition = 999
         togglePanelButton.userInteractionEnabled = true
@@ -45,10 +44,17 @@ class TouchRecognizerView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        if frame.size.width == 0 || frame.size.height == 0 {
+            return
+        }
+        
         var togglePanelButtonFrame = frame
         togglePanelButtonFrame.origin.y = 0
         togglePanelButtonFrame.size.height = 30
         togglePanelButton.frame = togglePanelButtonFrame
+        
+        togglePanelButton.setImage(StyleKit.imageOfArrowheadup(frame: togglePanelButtonFrame, color: DefaultTheme.keyboardKeyTextColor, borderWidth: 2.0), forState: .Normal)
+        togglePanelButton.setImage(StyleKit.imageOfArrowheadup(frame: togglePanelButtonFrame, color: TealColor, borderWidth: 2.0), forState: .Selected)
     }
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent!) -> UIView? {

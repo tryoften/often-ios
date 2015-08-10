@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let window = self.window {
             if TestKeyboard {
-                mainController = KeyboardViewController(debug: true)
+                mainController = TabBarController()
             }
             window.rootViewController = mainController
             window.makeKeyAndVisible()
