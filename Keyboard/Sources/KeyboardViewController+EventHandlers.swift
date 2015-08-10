@@ -89,13 +89,6 @@ extension KeyboardViewController {
     func didTapSpaceButton(button: KeyboardKeyButton?) {
         if let button = button {
             button.selected = true
-            
-            switch(button.key) {
-            default:
-                if currentPage != 0 {
-                    setPage(0)
-                }
-            }
         }
     }
     
