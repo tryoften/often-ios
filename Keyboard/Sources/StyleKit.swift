@@ -84,7 +84,7 @@ public class StyleKit : NSObject {
 
         //// icon
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 17, frame.minY + 17.27)
+        CGContextTranslateCTM(context, frame.minX + 0.48571 * frame.width, frame.minY + 0.49335 * frame.height)
         CGContextScaleCTM(context, 0.5, 0.5)
 
 
@@ -295,7 +295,77 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawCanvas1() {
+    public class func drawUser(#frame: CGRect, color: UIColor) {
+
+
+        //// Subframes
+        let userprofile: CGRect = CGRectMake(frame.minX + floor(frame.width * 0.26769 + 0.47) + 0.03, frame.minY + floor(frame.height * 0.13694 + 0.5), floor(frame.width * 0.73778 + 0.37) - floor(frame.width * 0.26769 + 0.47) + 0.1, floor(frame.height * 0.86667 - 0.39) - floor(frame.height * 0.13694 + 0.5) + 0.89)
+
+
+        //// user-profile
+        //// Oval-17 Drawing
+        var oval17Path = UIBezierPath(ovalInRect: CGRectMake(userprofile.minX + floor(userprofile.width * 0.10573 + 0.01) + 0.49, userprofile.minY + floor(userprofile.height * 0.00000 + 0.45) + 0.05, floor(userprofile.width * 0.87493 + 0.16) - floor(userprofile.width * 0.10573 + 0.01) - 0.15, floor(userprofile.height * 0.49506 - 0.39) - floor(userprofile.height * 0.00000 + 0.45) + 0.84))
+        color.setFill()
+        oval17Path.fill()
+        color.setStroke()
+        oval17Path.lineWidth = 1
+        oval17Path.stroke()
+
+
+        //// Path-18 Drawing
+        var path18Path = UIBezierPath()
+        path18Path.moveToPoint(CGPointMake(userprofile.minX + 0.50000 * userprofile.width, userprofile.minY + 1.00000 * userprofile.height))
+        path18Path.addCurveToPoint(CGPointMake(userprofile.minX + 0.00000 * userprofile.width, userprofile.minY + 0.90612 * userprofile.height), controlPoint1: CGPointMake(userprofile.minX + 0.16067 * userprofile.width, userprofile.minY + 1.00000 * userprofile.height), controlPoint2: CGPointMake(userprofile.minX + 0.00000 * userprofile.width, userprofile.minY + 0.90612 * userprofile.height))
+        path18Path.addCurveToPoint(CGPointMake(userprofile.minX + 0.50000 * userprofile.width, userprofile.minY + 0.62945 * userprofile.height), controlPoint1: CGPointMake(userprofile.minX + 0.00000 * userprofile.width, userprofile.minY + 0.90612 * userprofile.height), controlPoint2: CGPointMake(userprofile.minX + 0.06114 * userprofile.width, userprofile.minY + 0.62945 * userprofile.height))
+        path18Path.addCurveToPoint(CGPointMake(userprofile.minX + 1.00000 * userprofile.width, userprofile.minY + 0.90612 * userprofile.height), controlPoint1: CGPointMake(userprofile.minX + 0.93886 * userprofile.width, userprofile.minY + 0.62945 * userprofile.height), controlPoint2: CGPointMake(userprofile.minX + 1.00000 * userprofile.width, userprofile.minY + 0.90612 * userprofile.height))
+        path18Path.addCurveToPoint(CGPointMake(userprofile.minX + 0.50000 * userprofile.width, userprofile.minY + 1.00000 * userprofile.height), controlPoint1: CGPointMake(userprofile.minX + 1.00000 * userprofile.width, userprofile.minY + 0.90612 * userprofile.height), controlPoint2: CGPointMake(userprofile.minX + 0.83933 * userprofile.width, userprofile.minY + 1.00000 * userprofile.height))
+        path18Path.closePath()
+        path18Path.miterLimit = 4;
+
+        path18Path.usesEvenOddFillRule = true;
+
+        color.setFill()
+        path18Path.fill()
+        color.setStroke()
+        path18Path.lineWidth = 1
+        path18Path.stroke()
+    }
+
+    public class func drawSettings(#frame: CGRect, color: UIColor) {
+
+        //// wheel Drawing
+        var wheelPath = UIBezierPath()
+        wheelPath.moveToPoint(CGPointMake(frame.minX + 0.37849 * frame.width, frame.minY + 0.78999 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.50000 * frame.width, frame.minY + 0.92500 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.62056 * frame.width, frame.minY + 0.79105 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.80052 * frame.width, frame.minY + 0.80052 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.79097 * frame.width, frame.minY + 0.61913 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.92500 * frame.width, frame.minY + 0.50000 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.78991 * frame.width, frame.minY + 0.37992 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.80052 * frame.width, frame.minY + 0.19948 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.62151 * frame.width, frame.minY + 0.21001 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.50000 * frame.width, frame.minY + 0.07500 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.37944 * frame.width, frame.minY + 0.20895 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.19948 * frame.width, frame.minY + 0.19948 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.20903 * frame.width, frame.minY + 0.38087 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.07500 * frame.width, frame.minY + 0.50000 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.21009 * frame.width, frame.minY + 0.62008 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.19948 * frame.width, frame.minY + 0.80052 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.37849 * frame.width, frame.minY + 0.78999 * frame.height))
+        wheelPath.addLineToPoint(CGPointMake(frame.minX + 0.37849 * frame.width, frame.minY + 0.78999 * frame.height))
+        wheelPath.closePath()
+        wheelPath.moveToPoint(CGPointMake(frame.minX + 0.50000 * frame.width, frame.minY + 0.62750 * frame.height))
+        wheelPath.addCurveToPoint(CGPointMake(frame.minX + 0.62750 * frame.width, frame.minY + 0.50000 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.57042 * frame.width, frame.minY + 0.62750 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.62750 * frame.width, frame.minY + 0.57042 * frame.height))
+        wheelPath.addCurveToPoint(CGPointMake(frame.minX + 0.50000 * frame.width, frame.minY + 0.37250 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.62750 * frame.width, frame.minY + 0.42958 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.57042 * frame.width, frame.minY + 0.37250 * frame.height))
+        wheelPath.addCurveToPoint(CGPointMake(frame.minX + 0.37250 * frame.width, frame.minY + 0.50000 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.42958 * frame.width, frame.minY + 0.37250 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.37250 * frame.width, frame.minY + 0.42958 * frame.height))
+        wheelPath.addCurveToPoint(CGPointMake(frame.minX + 0.50000 * frame.width, frame.minY + 0.62750 * frame.height), controlPoint1: CGPointMake(frame.minX + 0.37250 * frame.width, frame.minY + 0.57042 * frame.height), controlPoint2: CGPointMake(frame.minX + 0.42958 * frame.width, frame.minY + 0.62750 * frame.height))
+        wheelPath.closePath()
+        wheelPath.miterLimit = 4;
+
+        wheelPath.usesEvenOddFillRule = true;
+
+        color.setFill()
+        wheelPath.fill()
     }
 
     //// Generated Images
@@ -358,6 +428,26 @@ public class StyleKit : NSObject {
         UIGraphicsEndImageContext()
 
         return imageOfClose
+    }
+
+    public class func imageOfUser(#frame: CGRect, color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+            StyleKit.drawUser(frame: frame, color: color)
+
+        let imageOfUser = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return imageOfUser
+    }
+
+    public class func imageOfSettings(#frame: CGRect, color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+            StyleKit.drawSettings(frame: frame, color: color)
+
+        let imageOfSettings = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return imageOfSettings
     }
 
 }

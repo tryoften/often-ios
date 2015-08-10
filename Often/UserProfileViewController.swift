@@ -67,8 +67,6 @@ class UserProfileViewController: UIViewController {
         userInformationContainerView.addSubview(scoreLabel)
         userInformationContainerView.addSubview(scoreNameLabel)
         
-        
-        
         setupLayout()
     }
 
