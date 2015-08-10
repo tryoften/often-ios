@@ -19,6 +19,7 @@ class SearchTextField: UIControl, Layouteable {
     private var cancelButton: UIButton
     private var labelContainerLeftConstraint: NSLayoutConstraint!
     private var cancelButtonLeftConstraint: NSLayoutConstraint!
+    private var leftViewLeftConstraint: NSLayoutConstraint!
     private var inputPosition: Int
     private var indicatorBlinkingTimer: NSTimer?
     
@@ -68,6 +69,10 @@ class SearchTextField: UIControl, Layouteable {
                 
                 cancelButtonLeftConstraint.constant = -CGRectGetHeight(cancelButton.frame)
                 
+                if leftView != nil {
+                    leftViewLeftConstraint.constant = 5
+                }
+                
                 UIView.animateWithDuration(0.3) {
                     self.cancelButton.alpha = 1.0
                     self.layoutIfNeeded()
@@ -80,6 +85,11 @@ class SearchTextField: UIControl, Layouteable {
                 }
                 label.morphingEnabled = true
                 cancelButtonLeftConstraint.constant = 0
+                
+                if let leftView = leftView {
+                    leftViewLeftConstraint.constant = (CGRectGetWidth(frame) - CGRectGetWidth(leftView.frame)) / 2
+                }
+                
                 if text == "" {
                     placeholder = "\(placeholder!)"
                 }
@@ -96,17 +106,27 @@ class SearchTextField: UIControl, Layouteable {
     
     var leftView: UIView? {
         didSet {
+            if oldValue != nil {
+                oldValue?.removeFromSuperview()
+            }
+            
             if let leftView = leftView {
                 removeConstraint(labelContainerLeftConstraint)
                 leftView.setTranslatesAutoresizingMaskIntoConstraints(false)
+                
                 labelContainerLeftConstraint = labelContainer.al_left == leftView.al_right + 10
+                
+                var leftPadding: CGFloat = 5
+                if centerLeftView {
+                    leftPadding = (CGRectGetWidth(frame) - CGRectGetWidth(leftView.frame)) / 2
+                }
+                leftViewLeftConstraint = leftView.al_left == al_left + leftPadding
                 
                 addSubview(leftView)
                 addConstraints([
                     labelContainerLeftConstraint,
-
-                    leftView.al_height == al_height - 15,
-                    leftView.al_left == al_left + 5,
+                    leftViewLeftConstraint,
+                    leftView.al_height == al_height,
                     leftView.al_width == leftView.al_height,
                     leftView.al_centerY == al_centerY
                 ])
@@ -119,8 +139,11 @@ class SearchTextField: UIControl, Layouteable {
     }
     var rightView: UIView? // e.g. bookmarks button
     
+    var centerLeftView: Bool
+    
     override init(frame: CGRect) {
         enableCancelButton = true
+        centerLeftView = false
         editing = false
         inputPosition = 0
         text = ""
@@ -152,13 +175,13 @@ class SearchTextField: UIControl, Layouteable {
         id = description
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTap:")
         cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        
         addGestureRecognizer(tapGestureRecognizer)
         addSubview(labelContainer)
         addSubview(indicator)
         addSubview(cancelButton)
         
         labelContainer.addSubview(label)
-        
         labelContainerLeftConstraint = labelContainer.al_left == al_left
         cancelButtonLeftConstraint = cancelButton.al_left == al_right
         setupLayout()
@@ -166,6 +189,12 @@ class SearchTextField: UIControl, Layouteable {
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setDefaultLeftView() {
+        let searchImageView = UIImageView(image: StyleKit.imageOfSearch(frame: CGRectMake(0, 0, CGRectGetHeight(frame), CGRectGetHeight(frame)), color: UIColor.blackColor(), scale: 0.5))
+        searchImageView.contentMode = .ScaleAspectFit
+        leftView = searchImageView
     }
 
     override func becomeFirstResponder() -> Bool {
@@ -216,7 +245,7 @@ class SearchTextField: UIControl, Layouteable {
     
     func didTapCancelButton() {
         text = ""
-        placeholder = "\(placeholder!)"
+        placeholder = placeholder == nil ? "" : "\(placeholder!)"
         selected = false
         sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
         NSNotificationCenter.defaultCenter().postNotificationName(RestoreKeyboardEvent, object: nil, userInfo: nil)

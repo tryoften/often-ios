@@ -10,6 +10,6 @@ import Foundation
 
 class ArrowShape: Shape {
     override func drawRect(rect: CGRect) {
-        StyleKit.drawArrowup(color: color!, modifierKey: bounds)
+        StyleKit.drawArrowup(color: color!, keySize: bounds)
     }
 }

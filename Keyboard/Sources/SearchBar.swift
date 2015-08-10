@@ -31,7 +31,7 @@ class SearchBar: UIView {
         textInput = SearchTextField()
         textInput.backgroundColor = UIColor.whiteColor()
         textInput.setTranslatesAutoresizingMaskIntoConstraints(false)
-        textInput.placeholder = "Search"
+        textInput.centerLeftView = true
         textInput.textColor = UIColor.blackColor()
         
         topSeperator = UIView()
@@ -41,10 +41,6 @@ class SearchBar: UIView {
         bottomSeperator = UIView()
         bottomSeperator.setTranslatesAutoresizingMaskIntoConstraints(false)
         bottomSeperator.backgroundColor = DarkGrey
-        
-        let searchImageView = UIImageView(image: UIImage(named: "search"))
-        searchImageView.contentMode = .ScaleAspectFit
-        textInput.leftView = searchImageView
         
         buttons = []
         
@@ -56,6 +52,18 @@ class SearchBar: UIView {
         addSubview(bottomSeperator)
 
         setupLayout()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if frame.size.width == 0 || frame.size.height == 0 {
+            return
+        }
+        
+        if textInput.leftView == nil {
+            textInput.setDefaultLeftView()
+        }
     }
     
     func addButton(button: SearchBarButton) {

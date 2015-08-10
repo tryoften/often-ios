@@ -10,6 +10,6 @@ import Foundation
 
 class BackspaceShape: Shape {    
     override func drawRect(rect: CGRect) {
-        StyleKit.drawBackspace(color: color!, modifierKey: bounds)
+        StyleKit.drawBackspace(color: color!, keySize: bounds)
     }
 }
