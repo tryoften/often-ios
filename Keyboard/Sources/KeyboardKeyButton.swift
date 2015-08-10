@@ -124,7 +124,7 @@ class KeyboardKeyButton: UIControl {
         super.init(frame: CGRectZero)
         
         layer.shadowOffset = CGSizeMake(0, 1)
-        layer.shadowColor = DarkGrey.CGColor
+        layer.shadowColor = DefaultTheme.keyboardKeyBackgroundShadowColor.CGColor
         layer.shadowOpacity = 1.0
         layer.shadowRadius = 2.0
         
@@ -168,7 +168,7 @@ class KeyboardKeyButton: UIControl {
     
         func setupKey() {
             if let key = key {
-                label.font = UIFont(name: "OpenSans", size: 20)
+                label.font = UIFont(name: "OpenSans", size: 21)
                 color = theme.keyboardKeyBackgroundColor
                 textColor = theme.keyboardKeyTextColor
                 underColor = theme.keyboardKeyUnderColor
@@ -191,7 +191,7 @@ class KeyboardKeyButton: UIControl {
                     case .Backspace:
                         color = UIColor.clearColor()
                         underColor = UIColor.clearColor()
-                        shape = BackspaceShape(color: theme.keyboardKeyTextColor)
+                        shape = BackspaceShape(color: theme.backspaceKeyTextColor)
                         break
                     case .CapsLock:
                         color = UIColor.clearColor()
@@ -212,7 +212,7 @@ class KeyboardKeyButton: UIControl {
                         break
                     case .Space:
                         text = "Space".uppercaseString
-                        label.font = UIFont(name: "OpenSans", size: 14)
+                        label.font = UIFont(name: "OpenSans-Semibold", size: 12)
                         break
                     case .Enter:
                         text = "Enter".uppercaseString
@@ -239,9 +239,9 @@ class KeyboardKeyButton: UIControl {
                     default:
                         break
                     }
-                    underColor = theme.keyboardKeyUnderColor
-                    color = theme.keyboardKeyBackgroundColor
-                    label.font = UIFont(name: "OpenSans", size: 11)
+                    underColor = UIColor.clearColor()
+                    color = UIColor.clearColor()
+                    label.font = UIFont(name: "OpenSans-Semibold", size: 12)
                     textColor = theme.keyboardKeyTextColor.colorWithAlphaComponent(0.74)
                 default:
                     break
@@ -301,7 +301,6 @@ class KeyboardKeyButton: UIControl {
     func refreshShapes() {
         // TODO: dunno why this is necessary
         background.setNeedsLayout()
-        
         background.layoutIfNeeded()
         popup?.layoutIfNeeded()
         connector?.layoutIfNeeded()
@@ -393,7 +392,7 @@ class KeyboardKeyButton: UIControl {
                 CGFloat((bounds.height - size.height) / 2.0),
                 size.width,
                 size.height)
-            
+
             shape.setNeedsLayout()
         }
     }
@@ -407,15 +406,17 @@ class KeyboardKeyButton: UIControl {
                 switch(modifier) {
                 case .Backspace:
                     if selected {
-                        shape = BackspaceShape(color: TealColor)
+                        shape?.color = TealColor
                     } else {
-                        shape = BackspaceShape(color: BlackColor)
+                        shape?.color = theme.backspaceKeyTextColor
                     }
                 case .CapsLock:
                     if selected {
                         background.layer.borderColor = theme.shiftKeyBorderColor.CGColor
+                        shape?.color = theme.shiftKeyBorderColor
                     } else {
                         background.layer.borderColor = UIColor.clearColor().CGColor
+                        shape?.color = theme.keyboardKeyTextColor
                     }
                 case .Space:
                     if selected {

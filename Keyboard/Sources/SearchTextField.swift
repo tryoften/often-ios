@@ -134,7 +134,7 @@ class SearchTextField: UIControl, Layouteable {
         label = TOMSMorphingLabel()
         label.animationDuration = 0.2
         label.setTranslatesAutoresizingMaskIntoConstraints(false)
-        label.font = UIFont(name: "OpenSans", size: 22)
+        label.font = UIFont(name: "OpenSans-Semibold", size: 12)
         
         indicator = UIView()
         indicator.backgroundColor = UIColor(fromHexString: "#14E09E")
@@ -235,7 +235,7 @@ class SearchTextField: UIControl, Layouteable {
             label.al_centerY == labelContainer.al_centerY,
             label.al_height >= 19.5,
             
-            indicator.al_height == 1.5,
+            indicator.al_height == 2.0,
             indicator.al_width == 10,
             indicator.al_left == label.al_right,
             indicator.al_bottom == label.al_bottom,

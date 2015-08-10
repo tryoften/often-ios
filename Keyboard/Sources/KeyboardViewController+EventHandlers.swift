@@ -170,6 +170,10 @@ extension KeyboardViewController {
     }
     
     func backspaceDown(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.selected = true
+        }
+
         cancelBackspaceTimers()
         backspaceStartTime = CFAbsoluteTimeGetCurrent()
         textProcessor.deleteBackward()
@@ -179,6 +183,10 @@ extension KeyboardViewController {
     }
     
     func backspaceUp(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.selected = false
+        }
+        
         cancelBackspaceTimers()
         firstWordQuickDeleted = false
     }

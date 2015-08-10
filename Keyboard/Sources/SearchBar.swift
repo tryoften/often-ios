@@ -33,7 +33,6 @@ class SearchBar: UIView {
         textInput.setTranslatesAutoresizingMaskIntoConstraints(false)
         textInput.placeholder = "Search"
         textInput.textColor = UIColor.blackColor()
-        textInput.font = UIFont(name: "OpenSans", size: 14)
         
         topSeperator = UIView()
         topSeperator.setTranslatesAutoresizingMaskIntoConstraints(false)
