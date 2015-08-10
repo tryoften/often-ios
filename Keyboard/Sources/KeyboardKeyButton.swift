@@ -142,10 +142,10 @@ class KeyboardKeyButton: UIControl {
             self.underView?.opaque = false
             self.borderView?.opaque = false
             
-            self.shadowLayer.shadowOpacity = 0.6
+            self.shadowLayer.shadowOpacity = 0.3
             self.shadowLayer.shadowRadius = 4
             self.shadowLayer.shadowOffset = CGSizeMake(0, 3)
-            self.shadowLayer.backgroundColor = DefaultTheme.keyboardKeyBackgroundShadowColor.CGColor
+            self.shadowLayer.backgroundColor = DarkGrey.CGColor
             
             self.borderView?.lineWidth = 0.5
             self.borderView?.fillColor = UIColor.clearColor()

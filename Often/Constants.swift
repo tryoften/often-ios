@@ -37,7 +37,7 @@ let SubtitleGreyColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha:
 let LightBlackColor = UIColor(fromHexString: "#303030")
 let LightGrey = UIColor(fromHexString: "#d3d3d3")
 let WhiteColor = UIColor.whiteColor()
-let TealColor = UIColor(fromHexString: "#14E09E")
+let TealColor = UIColor(fromHexString: "#21CE99")
 let SystemBlackColor = UIColor.blackColor()
 let SystemGrayColor = UIColor.grayColor()
 let ClearColor = UIColor.clearColor()
@@ -54,7 +54,7 @@ let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
 let KeyboardHeight: CGFloat = 255
-let KeyboardSearchBarHeight: CGFloat = 40.0
+let KeyboardSearchBarHeight: CGFloat = 44.0
 let KeyboardTableViewBackgroundColor = LightGrey
 
 let KeyboardTableSeperatorColor = DarkGrey

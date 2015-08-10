@@ -11,7 +11,9 @@ import UIKit
 let ServiceSettingsViewCell = "serviceCell"
 
 class ServiceSettingsCollectionViewController: UICollectionViewController {
-
+    var headerView: UserProfileHeaderView?
+    var sectionHeaderView: UserProfileSectionHeaderView?
+    
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
     }
@@ -20,26 +22,36 @@ class ServiceSettingsCollectionViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
-        var layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 80 , 150)
-        layout.scrollDirection = .Vertical
-        layout.minimumInteritemSpacing = 5.0
-        layout.minimumLineSpacing = 10.0
-        layout.sectionInset = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
-        return layout
+    class func provideCollectionViewLayout() -> UICollectionViewLayout {
+        var screenWidth = UIScreen.mainScreen().bounds.size.width
+        var flowLayout = CSStickyHeaderFlowLayout()
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 50)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
+        flowLayout.parallaxHeaderAlwaysOnTop = true
+        flowLayout.disableStickyHeaders = false
+        flowLayout.sectionInset = UIEdgeInsetsMake(25.0, 5.0, 5.0, 5.0)
+        flowLayout.itemSize = CGSizeMake(screenWidth - 30, 218)
+        return flowLayout
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let collectionView = collectionView {
-            collectionView.registerClass(ServiceSettingsCollectionViewCell.self, forCellWithReuseIdentifier: ServiceSettingsViewCell)
+            collectionView.backgroundColor = VeryLightGray
+            collectionView.showsVerticalScrollIndicator = false
+            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "profile-header")
+            collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
+            collectionView.registerClass(ServiceSettingsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 
     // MARK: UICollectionViewDataSource
@@ -50,11 +62,11 @@ class ServiceSettingsCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 4
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ServiceSettingsViewCell, forIndexPath: indexPath) as! ServiceSettingsCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! ServiceSettingsCollectionViewCell
     
         cell.settingServicesType = .Venmo
         cell.serviceLogoImageView.image = UIImage(named: "venmo-off")
@@ -62,5 +74,29 @@ class ServiceSettingsCollectionViewController: UICollectionViewController {
         cell.serviceSubtitleLabel.text = "Connect your Venmo account to start sending payments & requests from your keyboard."
         
         return cell
+    }
+    
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        if kind == CSStickyHeaderParallaxHeader {
+            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "profile-header", forIndexPath: indexPath) as! UserProfileHeaderView
+            
+            if headerView == nil {
+                headerView = cell
+            }
+            
+            return headerView!
+        } else if kind == UICollectionElementKindSectionHeader {
+            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
+            
+            sectionHeaderView = cell
+            
+            return cell
+        }
+        
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 16.0 as CGFloat
     }
 }
