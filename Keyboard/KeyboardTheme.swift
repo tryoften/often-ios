@@ -19,6 +19,8 @@ struct KeyboardTheme {
         shiftKeyBorderColor = dictionary["shiftKeyBorderColor"]!
         enterKeyBackgroundColor = dictionary["enterKeyBackgroundColor"]!
         spaceKeyHighlightedBackgroundColor = dictionary["spaceKeyHighlightedBackgroundColor"]!
+        backspaceKeyTextColor = dictionary["backspaceKeyTextColor"]!
+        keyboardKeyBackgroundShadowColor = dictionary["keyboardKeyBackgroundShadowColor"]!
     }
     
     var keyboardBackgroundColor: UIColor
@@ -27,9 +29,11 @@ struct KeyboardTheme {
     var keyboardKeyBorderColor: UIColor
     var keyboardKeyPopupColor: UIColor
     var keyboardKeyTextColor: UIColor
+    var keyboardKeyBackgroundShadowColor: UIColor
     var shiftKeyBorderColor: UIColor
     var enterKeyBackgroundColor: UIColor
     var spaceKeyHighlightedBackgroundColor: UIColor
+    var backspaceKeyTextColor: UIColor
 }
 
 let DarkTheme: KeyboardTheme = KeyboardTheme(dictionary: [
@@ -38,22 +42,26 @@ let DarkTheme: KeyboardTheme = KeyboardTheme(dictionary: [
     "keyboardKeyUnderColor": UIColor(fromHexString: "#2A2A2A"),
     "keyboardKeyBorderColor": UIColor(fromHexString: "#2A2A2A"),
     "keyboardKeyPopupColor": UIColor(fromHexString: "#121314"),
+    "keyboardKeyBackgroundShadowColor": UIColor.clearColor(),
     "keyboardKeyTextColor": UIColor.whiteColor(),
     "shiftKeyBorderColor": TealColor,
     "enterKeyBackgroundColor": UIColor.whiteColor(),
-    "spaceKeyHighlightedBackgroundColor": BlackColor
+    "spaceKeyHighlightedBackgroundColor": BlackColor,
+    "backspaceKeyTextColor": UIColor.whiteColor()
 ])
 
-let WhiteTheme: KeyboardTheme = KeyboardTheme(dictionary: [
+let LightTheme: KeyboardTheme = KeyboardTheme(dictionary: [
     "keyboardBackgroundColor": UIColor(fromHexString: "#EDEDED"),
     "keyboardKeyBackgroundColor": UIColor.whiteColor(),
-    "keyboardKeyUnderColor": UIColor.whiteColor(),
+    "keyboardKeyUnderColor": DarkGrey,
     "keyboardKeyBorderColor": UIColor.whiteColor(),
     "keyboardKeyPopupColor": UIColor.whiteColor(),
+    "keyboardKeyBackgroundShadowColor": DarkGrey,
     "keyboardKeyTextColor": UIColor.blackColor(),
     "shiftKeyBorderColor": UIColor.blackColor(),
     "enterKeyBackgroundColor": UIColor.whiteColor(),
-    "spaceKeyHighlightedBackgroundColor": UIColor(fromHexString: "#EDEDED")
+    "spaceKeyHighlightedBackgroundColor": UIColor(fromHexString: "#EDEDED"),
+    "backspaceKeyTextColor": UIColor.blackColor()
 ])
 
-let DefaultTheme = WhiteTheme
+let DefaultTheme = LightTheme
