@@ -1,4 +1,4 @@
-//
+    //
 //  KeyboardViewController.swift
 //  Surf
 //
@@ -140,7 +140,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
         
         setupLayout()
-        
+    
         let orientationSavvyBounds = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: false))
         
         if (lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
@@ -184,8 +184,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             heightConstraint?.constant = height
         }
     }
-    
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
@@ -334,6 +333,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                     keyView.addTarget(self, action: "shiftDown:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
                     keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
+                    if self.shiftState == .Enabled {
+                        keyView.selected = true
+                    }
                 case .modifier(.Space, let pageId):
                     keyView.addTarget(self, action: "didTapSpaceButton:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseSpaceButton:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)

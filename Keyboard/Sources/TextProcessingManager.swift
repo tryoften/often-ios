@@ -1,4 +1,4 @@
-//
+ //
 //  TextProcessingManager.swift
 //  October
 //
@@ -175,7 +175,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         if previousContext == nil || count(previousContext!) < 3 {
             return false
         }
-                
+        
         var index = previousContext!.endIndex
         
         index = index.predecessor()
