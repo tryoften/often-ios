@@ -35,10 +35,10 @@ class TabBarController: UITabBarController {
         
         var iconInsets = UIEdgeInsetsMake(3, -3, -3, 3)
         
-        userProfileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "user-icon"), tag: 0)
+        userProfileVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfUser(frame: CGRectMake(0, 0, 30, 30), color: DarkGrey), tag: 0)
         userProfileVC.tabBarItem.imageInsets = iconInsets
         
-        settingsVC.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "settings-icon"), tag: 1)
+        settingsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSettings(frame: CGRectMake(0, 0, 30, 30), color: DarkGrey), tag: 1)
         settingsVC.tabBarItem.imageInsets = iconInsets
 
         viewControllers = [
