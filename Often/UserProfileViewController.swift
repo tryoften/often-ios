@@ -8,112 +8,97 @@
 
 import UIKit
 
-class UserProfileViewController: UIViewController {
-    var userInformationContainerView: UIView
-    var profileImageView: UIImageView
-    var nameLabel: UILabel
-    var descriptionLabel: UILabel
-    var scoreLabel: UILabel
-    var scoreNameLabel: UILabel
+class UserProfileViewController: UICollectionViewController {
+    var headerView: UserProfileHeaderView?
+    var sectionHeaderView: UserProfileSectionHeaderView?
     
-    var tableViewsContainerView: UIView
-    
-    init() {
-        userInformationContainerView = UIView()
-        userInformationContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        profileImageView = UIImageView()
-        profileImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        profileImageView.contentMode = .ScaleAspectFit
-        profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = 30
-        profileImageView.image = UIImage(named: "regy")
-        
-        nameLabel = UILabel()
-        nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nameLabel.font = UIFont(name: "Montserrat", size: 18.0)
-        nameLabel.text = "Regy Perlera"
-        nameLabel.textAlignment = .Center
-        
-        descriptionLabel = UILabel()
-        descriptionLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        descriptionLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        descriptionLabel.text = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
-        descriptionLabel.textAlignment = .Center
-        descriptionLabel.numberOfLines = 3
-        
-        scoreLabel = UILabel()
-        scoreLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        scoreLabel.font = UIFont(name: "Montserrat", size: 18.0)
-        scoreLabel.text = "583"
-        scoreLabel.textAlignment = .Center
-        
-        scoreNameLabel = UILabel()
-        scoreNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        scoreNameLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        scoreNameLabel.text = "Source Cred"
-        scoreNameLabel.textAlignment = .Center
-        
-        tableViewsContainerView = UIView()
-        tableViewsContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        tableViewsContainerView.backgroundColor = TealColor
-        
-        super.init(nibName: nil, bundle: nil)
-        
-        view.addSubview(userInformationContainerView)
-        userInformationContainerView.addSubview(profileImageView)
-        userInformationContainerView.addSubview(nameLabel)
-        userInformationContainerView.addSubview(descriptionLabel)
-        userInformationContainerView.addSubview(scoreLabel)
-        userInformationContainerView.addSubview(scoreNameLabel)
-        
-        setupLayout()
-    }
-
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(collectionViewLayout: UICollectionViewLayout) {
+        super.init(collectionViewLayout: collectionViewLayout)
+    }
+    
+    class func provideCollectionViewLayout() -> UICollectionViewLayout {
+        var screenWidth = UIScreen.mainScreen().bounds.size.width
+        var flowLayout = CSStickyHeaderFlowLayout()
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 50)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
+        flowLayout.parallaxHeaderAlwaysOnTop = true
+        flowLayout.disableStickyHeaders = false
+        flowLayout.sectionInset = UIEdgeInsetsMake(25.0, 5.0, 5.0, 5.0)
+        flowLayout.itemSize = CGSizeMake(screenWidth - 20, 118)
+        return flowLayout
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = WhiteColor
+        if let collectionView = collectionView {
+            collectionView.backgroundColor = VeryLightGray
+            collectionView.showsVerticalScrollIndicator = false
+            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "profile-header")
+            collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
+            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "resultCell")
+        }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func setupLayout() {
-        view.addConstraints([
-            userInformationContainerView.al_left == view.al_left,
-            userInformationContainerView.al_right == view.al_right,
-            userInformationContainerView.al_top == view.al_top,
-            userInformationContainerView.al_bottom == view.al_centerY,
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    // MARK: UICollectionViewDataSource
+    
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
+        
+        cell.avatarImageView.image = UIImage(named: "complex")
+        cell.headerLabel.text = "@ComplexMag"
+        cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."
+        cell.leftSupplementLabel.text = "3.1K Retweets"
+        cell.centerSupplementLabel.text = "4.5K Favorites"
+        cell.rightSupplementLabel.text = "July 25, 2015"
+        cell.rightCornerImageView.image = UIImage(named: "twitter")
+        cell.contentImage = UIImage(named: "ovosound")
+        
+        return cell
+    }
+    
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        if kind == CSStickyHeaderParallaxHeader {
+            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "profile-header", forIndexPath: indexPath) as! UserProfileHeaderView
             
-            profileImageView.al_bottom == nameLabel.al_top - 20,
-            profileImageView.al_centerX == userInformationContainerView.al_centerX,
-            profileImageView.al_height == 60,
-            profileImageView.al_width == 60,
+            if headerView == nil {
+                headerView = cell
+            }
             
-            nameLabel.al_bottom == descriptionLabel.al_top - 9,
-            nameLabel.al_centerX == userInformationContainerView.al_centerX,
+            return headerView!
+        } else if kind == UICollectionElementKindSectionHeader {
+            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
             
-            descriptionLabel.al_bottom == scoreLabel.al_top - 10,
-            descriptionLabel.al_centerX == userInformationContainerView.al_centerX,
-            descriptionLabel.al_width == 200,
+            sectionHeaderView = cell
             
-            scoreLabel.al_bottom == scoreNameLabel.al_top,
-            scoreLabel.al_centerX == userInformationContainerView.al_centerX,
-            scoreLabel.al_height == 30,
-            
-            scoreNameLabel.al_bottom == userInformationContainerView.al_bottom - 50,
-            scoreNameLabel.al_centerX == userInformationContainerView.al_centerX,
-            
-            tableViewsContainerView.al_top == view.al_centerY,
-            tableViewsContainerView.al_left == view.al_left,
-            tableViewsContainerView.al_right == view.al_right,
-            tableViewsContainerView.al_bottom == view.al_bottom
-        ])
+            return cell
+        }
+        
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 5.0 as CGFloat
     }
 }
