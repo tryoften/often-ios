@@ -333,9 +333,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                     keyView.addTarget(self, action: "shiftDown:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
                     keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
-                    if self.shiftState == .Enabled {
-                        keyView.selected = true
-                    }
                 case .modifier(.Space, let pageId):
                     keyView.addTarget(self, action: "didTapSpaceButton:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseSpaceButton:", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchDragOutside | .TouchDragExit | .TouchCancel)
@@ -372,6 +369,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 if key.hasOutput {
                     keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
                 }
+                self.changeKeyboardLetterCases()
                 return keyView
             }
             return nil
