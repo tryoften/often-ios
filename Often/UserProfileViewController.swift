@@ -11,62 +11,13 @@ import UIKit
 class UserProfileViewController: UICollectionViewController {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
-    var tableViewsContainerView: UIView
-    
-    init() {
-        userInformationContainerView = UIView()
-        userInformationContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
-        profileImageView = UIImageView()
-        profileImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        profileImageView.contentMode = .ScaleAspectFit
-        profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = 30
-        profileImageView.image = UIImage(named: "regy")
-        
-        nameLabel = UILabel()
-        nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        nameLabel.font = UIFont(name: "Montserrat", size: 18.0)
-        nameLabel.text = "Regy Perlera"
-        nameLabel.textAlignment = .Center
-        
-        descriptionLabel = UILabel()
-        descriptionLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        descriptionLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        descriptionLabel.text = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
-        descriptionLabel.textAlignment = .Center
-        descriptionLabel.numberOfLines = 3
-        
-        scoreLabel = UILabel()
-        scoreLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        scoreLabel.font = UIFont(name: "Montserrat", size: 18.0)
-        scoreLabel.text = "583"
-        scoreLabel.textAlignment = .Center
-        
-        scoreNameLabel = UILabel()
-        scoreNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        scoreNameLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        scoreNameLabel.text = "Source Cred"
-        scoreNameLabel.textAlignment = .Center
-        
-        tableViewsContainerView = UIView()
-        tableViewsContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        tableViewsContainerView.backgroundColor = TealColor
-        
-        super.init(nibName: nil, bundle: nil)
-        
-        view.addSubview(userInformationContainerView)
-        userInformationContainerView.addSubview(profileImageView)
-        userInformationContainerView.addSubview(nameLabel)
-        userInformationContainerView.addSubview(descriptionLabel)
-        userInformationContainerView.addSubview(scoreLabel)
-        userInformationContainerView.addSubview(scoreNameLabel)
-        
-        setupLayout()
-    }
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(collectionViewLayout: UICollectionViewLayout) {
+        super.init(collectionViewLayout: collectionViewLayout)
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
