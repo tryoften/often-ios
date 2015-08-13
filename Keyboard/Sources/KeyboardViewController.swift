@@ -1,4 +1,4 @@
-//
+    //
 //  KeyboardViewController.swift
 //  Surf
 //
@@ -140,7 +140,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
         
         setupLayout()
-        
+    
         let orientationSavvyBounds = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: false))
         
         if (lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
@@ -184,8 +184,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             heightConstraint?.constant = height
         }
     }
-    
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
@@ -370,6 +369,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 if key.hasOutput {
                     keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
                 }
+                self.changeKeyboardLetterCases()
                 return keyView
             }
             return nil

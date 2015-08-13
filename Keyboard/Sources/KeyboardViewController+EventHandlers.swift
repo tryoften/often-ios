@@ -189,6 +189,7 @@ extension KeyboardViewController {
         
         cancelBackspaceTimers()
         firstWordQuickDeleted = false
+        setCapsIfNeeded()
     }
     
     func backspaceDelayCallback() {
