@@ -23,23 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics()])
         
-        venmoService = VenmoService()
-    
-        Venmo.startWithAppId(VenmoAppID, secret: VenmoAppSecret, name: "SWRV")
-        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
-            if success {
-                println("Permissions Success!")
-            } else {
-                println("Permissions Fail")
-            }
-        }
-        
-        if Venmo.isVenmoAppInstalled() {
-            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
-        } else {
-            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
-        }
-    
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
         
@@ -64,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+         venmoService = VenmoService()
         
         if Venmo.sharedInstance().handleOpenURL(url) {
             var urlString: String = url.absoluteString!

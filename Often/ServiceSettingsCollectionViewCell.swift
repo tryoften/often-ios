@@ -13,6 +13,7 @@ class ServiceSettingsCollectionViewCell: UICollectionViewCell {
     var serviceSwitch: UISwitch
     var serviceSubtitleLabel: UILabel
     var settingServicesType: SettingsServicesType = .Venmo
+    weak var delegate: AddServiceProviderDelegate?
     
     enum SettingsServicesType {
         case Venmo
@@ -61,6 +62,8 @@ class ServiceSettingsCollectionViewCell: UICollectionViewCell {
                 serviceSubtitleLabel.text = "Connected!"
                 serviceSubtitleLabel.numberOfLines = 1
                 serviceLogoImageView.image = UIImage(named: "venmo-on")
+                
+                delegate?.addServiceProviderCellDidTapSwitchButton(self, selected: serviceSwitch.on)
                 break
             default:
                 break
@@ -93,4 +96,8 @@ class ServiceSettingsCollectionViewCell: UICollectionViewCell {
             serviceLogoImageView.al_height == 50
         ])
     }
+}
+
+protocol AddServiceProviderDelegate: class {
+    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: ServiceSettingsCollectionViewCell, selected: Bool)
 }

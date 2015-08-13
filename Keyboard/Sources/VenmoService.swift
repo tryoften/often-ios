@@ -29,8 +29,7 @@ class VenmoService: NSObject {
     */
     func getCurrentUserInformation(accessToken: String) {
         var parameters: NSDictionary = ["accessToken": accessToken]
-        
-        
+    
         manager.GET(
             "https://api.venmo.com/v1/me",
             parameters: parameters,

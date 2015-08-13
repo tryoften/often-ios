@@ -12,6 +12,7 @@
 		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
 		3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
+		3B63EDC41B7BB6D700E54AFA /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDC31B7BB6D700E54AFA /* Service.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
@@ -265,6 +266,7 @@
 		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeyboardViewController+EventHandlers.swift"; path = "Sources/KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
+		3B63EDC31B7BB6D700E54AFA /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 			children = (
 				690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */,
 				81B19EAA1B30AD9900D3575C /* User.swift */,
+				3B63EDC31B7BB6D700E54AFA /* Service.swift */,
 			);
 			name = Models;
 			path = ..;
@@ -1261,6 +1264,7 @@
 				690AE8AE1B7290F400015730 /* ServiceSettingsCollectionViewController.swift in Sources */,
 				81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */,
+				3B63EDC41B7BB6D700E54AFA /* Service.swift in Sources */,
 				817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				690AE8B31B72919200015730 /* ServiceSettingsCollectionViewCell.swift in Sources */,
 				69E9104C1B59AF1D008BFBD6 /* VenmoService.swift in Sources */,

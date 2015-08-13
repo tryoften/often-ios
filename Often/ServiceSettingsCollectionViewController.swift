@@ -10,9 +10,10 @@ import UIKit
 
 let ServiceSettingsViewCell = "serviceCell"
 
-class ServiceSettingsCollectionViewController: UICollectionViewController {
+class ServiceSettingsCollectionViewController: UICollectionViewController, AddServiceProviderDelegate {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
+    var serviceSettingsCell: ServiceSettingsCollectionViewCell?
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
@@ -67,7 +68,9 @@ class ServiceSettingsCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! ServiceSettingsCollectionViewCell
-    
+        serviceSettingsCell = cell
+        serviceSettingsCell?.delegate = self
+        
         cell.settingServicesType = .Venmo
         cell.serviceLogoImageView.image = UIImage(named: "venmo-off")
         cell.serviceSwitch.on = false
@@ -94,6 +97,24 @@ class ServiceSettingsCollectionViewController: UICollectionViewController {
         }
         
         return UICollectionReusableView()
+    }
+    
+    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: ServiceSettingsCollectionViewCell, selected: Bool) {
+        Venmo.startWithAppId(VenmoAppID, secret: VenmoAppSecret, name: "SWRV")
+        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
+            if success {
+                println("Permissions Success!")
+            } else {
+                println("Permissions Fail")
+            }
+        }
+        
+        if Venmo.isVenmoAppInstalled() {
+            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
+        } else {
+            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
+        }
+
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
