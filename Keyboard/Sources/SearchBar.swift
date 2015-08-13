@@ -19,16 +19,15 @@ class SearchBar: UIView {
         didSet {
             if let button = providerButton {
                 addButton(button)
+                textInput.centerLeftView = false
             } else {
-                if oldValue != nil {
-                    
-                }
+                textInput.centerLeftView = true
             }
+            toggleShareButton(animated: true)
         }
     }
 
     var shareButton: UIButton
-    
     private var buttons: [SearchBarButton]
 
     override init(frame: CGRect) {
@@ -81,11 +80,7 @@ class SearchBar: UIView {
             textInput.setDefaultLeftView()
         }
         
-        if textInput.selected {
-            shareButtonLeftConstraint.constant = CGRectGetWidth(frame)
-        } else {
-            shareButtonLeftConstraint.constant = CGRectGetWidth(frame) / 2
-        }
+        toggleShareButton()
         shareButton.setImage(StyleKit.imageOfShare(frame: CGRectMake(0, 0, CGRectGetHeight(bounds), CGRectGetHeight(bounds)), color: UIColor.blackColor()), forState: .Normal)
     }
     
@@ -141,9 +136,12 @@ class SearchBar: UIView {
         }
         buttons.removeAll(keepCapacity: true)
         repositionSearchTextField()
+        providerButton = nil
         textInput.selected = false
         textInput.text = ""
-        textInput.placeholder = "Search"
+        textInput.placeholder = ""
+        textInput.setDefaultLeftView()
+        toggleShareButton(animated: true)
     }
     
     func repositionSearchTextField() {
@@ -155,6 +153,24 @@ class SearchBar: UIView {
         UIView.animateWithDuration(0.2) {
             self.layoutIfNeeded()
         }
+    }
+    
+    func toggleShareButton(animated: Bool = false) {
+        if shouldShowShareButton() {
+            shareButtonLeftConstraint.constant = CGRectGetWidth(frame)
+        } else {
+            shareButtonLeftConstraint.constant = CGRectGetWidth(frame) / 2
+        }
+        
+        if animated {
+            UIView.animateWithDuration(0.3) {
+                self.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func shouldShowShareButton() -> Bool {
+        return textInput.selected || providerButton != nil
     }
 
     func setupLayout() {
