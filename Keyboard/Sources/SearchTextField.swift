@@ -90,7 +90,7 @@ class SearchTextField: UIControl, Layouteable {
                     leftViewLeftConstraint.constant = (CGRectGetWidth(frame) - CGRectGetWidth(leftView.frame)) / 2
                 }
                 
-                if text == "" {
+                if text == "" && placeholder != nil {
                     placeholder = "\(placeholder!)"
                 }
                 
@@ -139,7 +139,15 @@ class SearchTextField: UIControl, Layouteable {
     }
     var rightView: UIView? // e.g. bookmarks button
     
-    var centerLeftView: Bool
+    var centerLeftView: Bool {
+        didSet {
+            if centerLeftView {
+            } else {
+            }
+            var view = leftView
+            leftView = view
+        }
+    }
     
     override init(frame: CGRect) {
         enableCancelButton = true
@@ -191,6 +199,10 @@ class SearchTextField: UIControl, Layouteable {
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func intrinsicContentSize() -> CGSize {
+        return CGSizeMake(CGRectGetWidth(label.frame) + 10, 19.5)
     }
     
     func setDefaultLeftView() {
@@ -277,7 +289,7 @@ class SearchTextField: UIControl, Layouteable {
             
             labelContainer.al_height == al_height,
             labelContainer.al_top == al_top,
-            labelContainer.al_right == cancelButton.al_left,
+            labelContainer.al_right == al_right,
             
             label.al_left == labelContainer.al_left,
             label.al_centerY == labelContainer.al_centerY,

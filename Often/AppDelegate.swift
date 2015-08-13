@@ -11,7 +11,7 @@ import Realm
 import Fabric
 import Crashlytics
 
-private var TestKeyboard: Bool = true
+private var TestKeyboard: Bool = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let window = self.window {
             if TestKeyboard {
+                mainController = KeyboardViewController(nibName: nil, bundle: nil)
+            } else {
                 mainController = TabBarController()
             }
             window.rootViewController = mainController
