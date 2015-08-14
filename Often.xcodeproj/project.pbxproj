@@ -12,7 +12,12 @@
 		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
 		3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
-		3B63EDC41B7BB6D700E54AFA /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDC31B7BB6D700E54AFA /* Service.swift */; };
+		3B63EDC41B7BB6D700E54AFA /* SocialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDC31B7BB6D700E54AFA /* SocialService.swift */; };
+		3B63EDCD1B7D284500E54AFA /* SocialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDC31B7BB6D700E54AFA /* SocialService.swift */; };
+		3B63EDCF1B7D2AD400E54AFA /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDCE1B7D2AD400E54AFA /* Service.swift */; };
+		3B63EDD01B7D2AD400E54AFA /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDCE1B7D2AD400E54AFA /* Service.swift */; };
+		3B63EDD21B7D381D00E54AFA /* SocialServicesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDD11B7D381D00E54AFA /* SocialServicesService.swift */; };
+		3B63EDD31B7D381D00E54AFA /* SocialServicesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDD11B7D381D00E54AFA /* SocialServicesService.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
@@ -266,7 +271,9 @@
 		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeyboardViewController+EventHandlers.swift"; path = "Sources/KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
-		3B63EDC31B7BB6D700E54AFA /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		3B63EDC31B7BB6D700E54AFA /* SocialService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialService.swift; sourceTree = "<group>"; };
+		3B63EDCE1B7D2AD400E54AFA /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		3B63EDD11B7D381D00E54AFA /* SocialServicesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialServicesService.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -569,7 +576,7 @@
 			children = (
 				690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */,
 				81B19EAA1B30AD9900D3575C /* User.swift */,
-				3B63EDC31B7BB6D700E54AFA /* Service.swift */,
+				3B63EDC31B7BB6D700E54AFA /* SocialService.swift */,
 			);
 			name = Models;
 			path = ..;
@@ -578,6 +585,8 @@
 		81331E061A17E552003E4609 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3B63EDCE1B7D2AD400E54AFA /* Service.swift */,
+				3B63EDD11B7D381D00E54AFA /* SocialServicesService.swift */,
 			);
 			name = Services;
 			sourceTree = SOURCE_ROOT;
@@ -1264,16 +1273,18 @@
 				690AE8AE1B7290F400015730 /* ServiceSettingsCollectionViewController.swift in Sources */,
 				81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */,
-				3B63EDC41B7BB6D700E54AFA /* Service.swift in Sources */,
+				3B63EDC41B7BB6D700E54AFA /* SocialService.swift in Sources */,
 				817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				690AE8B31B72919200015730 /* ServiceSettingsCollectionViewCell.swift in Sources */,
 				69E9104C1B59AF1D008BFBD6 /* VenmoService.swift in Sources */,
 				8176BECB1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
+				3B63EDD21B7D381D00E54AFA /* SocialServicesService.swift in Sources */,
 				810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
 				8176BEE61B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
 				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
 				81E26D961B67C29D00FC1F2F /* Shape.swift in Sources */,
+				3B63EDCF1B7D2AD400E54AFA /* Service.swift in Sources */,
 				695FEEA21B73DF160048E5B7 /* SettingsViewController.swift in Sources */,
 				810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				81E26D8B1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
@@ -1303,7 +1314,9 @@
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
 				81840FB91B4331C1003531B1 /* UIDevice+modelName.swift in Sources */,
+				3B63EDD31B7D381D00E54AFA /* SocialServicesService.swift in Sources */,
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
+				3B63EDD01B7D2AD400E54AFA /* Service.swift in Sources */,
 				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				81E26D8C1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
@@ -1339,6 +1352,7 @@
 				810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				817938FE1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
+				3B63EDCD1B7D284500E54AFA /* SocialService.swift in Sources */,
 				8179388B1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				8176BECC1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
 				81E26D861B65B17A00FC1F2F /* Direction.swift in Sources */,
