@@ -9,10 +9,10 @@
 import UIKit
 
 class SearchBarButton: UIButton {
-    var deleteButton: UIView
+    var deleteButton: UIImageView
 
     override init(frame: CGRect) {
-        deleteButton = UIImageView(image: UIImage(named: "close"))
+        deleteButton = UIImageView()
         
         super.init(frame: frame)
         
@@ -37,6 +37,7 @@ class SearchBarButton: UIButton {
         
         let topMargin = CGRectGetHeight(frame) / 2 - 4.0
         deleteButton.frame = CGRectMake(8.0, topMargin, 8.0, 8.0)
+        deleteButton.image = StyleKit.imageOfButtonclose(frame: CGRectMake(0, 0, CGRectGetWidth(deleteButton.frame), CGRectGetHeight(deleteButton.frame)), color: UIColor.blackColor(), scale: 0.6)
     }
 }
 
