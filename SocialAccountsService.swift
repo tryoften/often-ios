@@ -1,5 +1,5 @@
 //
-//  SocialServicesService.swift
+//  SocialAccountsService.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 8/13/15.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-class SocialServicesService: Service {
-    var socialServicesRef: Firebase
-    var socialServices: [SocialService]
-    let socialServicePath = "socialServices"
+class SocialAccountsService: Service {
+    var socialAccountsRef: Firebase
+    var socialAccounts: [SocialAccount]
+    let socialAccountsPath = "socialAccounts"
     
     override init(root: Firebase) {
-        socialServicesRef = root.childByAppendingPath(socialServicePath)
-        socialServices = [SocialService]()
+        socialAccountsRef = root.childByAppendingPath(socialAccountsPath)
+        socialAccounts = [SocialAccount]()
         
         super.init(root: root)
         
@@ -27,16 +27,16 @@ class SocialServicesService: Service {
     :param: completion callback that gets called when data has loaded
     */
     func fetchLocalData(completion: (Bool) -> Void) {
-        createSocialServiceModels(completion)
+        createSocialAccountsModels(completion)
     }
     
     /**
     Creates social service models from the default NSUserDefaults
     */
-    private func createSocialServiceModels(completion: (Bool) -> Void) {
-        if let services = userDefaults.arrayForKey(socialServicePath)
+    private func createSocialAccountsModels(completion: (Bool) -> Void) {
+        if let services = userDefaults.arrayForKey(socialAccountsPath)
         {
-            socialServices = services as! [SocialService]
+            socialAccounts = services as! [SocialAccount]
             delegate?.serviceDataDidLoad(self)
             completion(true)
         }
@@ -49,9 +49,9 @@ class SocialServicesService: Service {
     :param: completion callback that gets called when data has loaded
     */
     override func fetchRemoteData(completion: (Bool) -> Void) {
-        socialServicesRef.observeEventType(.Value, withBlock: { snapshot in
-            if let socialServiceData = snapshot.value as? [String: AnyObject] {
-                self.fetchDataForSocialServiceIds(socialServiceData.keys.array, completion: { keyboards in
+        socialAccountsRef.observeEventType(.Value, withBlock: { snapshot in
+            if let socialAccountData = snapshot.value as? [String: AnyObject] {
+                self.fetchDataForSocialAccountIds(socialAccountData.keys.array, completion: { keyboards in
                     self.delegate?.serviceDataDidLoad(self)
                     completion(true)
                 })
@@ -67,13 +67,13 @@ class SocialServicesService: Service {
     
     :param: completion callback that gets called when data has loaded
     */
-    func requestData(completion: ([SocialService]) -> Void) {
+    func requestData(completion: ([SocialAccount]) -> Void) {
         fetchRemoteData { success in
             if success {
-                completion(self.socialServices)
+                completion(self.socialAccounts)
             } else {
                 self.fetchLocalData { success in
-                    completion(self.socialServices)
+                    completion(self.socialAccounts)
                 }
             }
         }
@@ -82,26 +82,26 @@ class SocialServicesService: Service {
     /**
     
     */
-    func fetchDataForSocialServiceIds(serviceIds: [String], completion: ([SocialService]) -> ()) {
+    func fetchDataForSocialAccountIds(serviceIds: [String], completion: ([SocialAccount]) -> ()) {
         var index = 0
         var serviceCount = serviceIds.count
-        var serviceList =  [SocialService]()
+        var serviceList =  [SocialAccount]()
         
         for serviceId in serviceIds {
-            self.processSocialServicesData(serviceId, completion: { (socialService, success) in
-                socialService.index = index++
-                serviceList.append(socialService)
+            self.processsocialAccountsData(serviceId, completion: { (socialAccount, success) in
+                socialAccount.index = index++
+                serviceList.append(socialAccount)
                 
                 if index + 1 >= serviceCount {
-                    self.socialServices = sorted(serviceList) { $0.name < $1.name }
+                    self.socialAccounts = sorted(serviceList) { $0.name < $1.name }
                     
-                    self.userDefaults.setValue(self.socialServices, forKey: self.socialServicePath)
+                    self.userDefaults.setValue(self.socialAccounts, forKey: self.socialAccountsPath)
                     self.userDefaults.synchronize()
     
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         self.delegate?.serviceDataDidLoad(self)
-                        completion(self.socialServices)
+                        completion(self.socialAccounts)
                     })
                 }
             })
@@ -111,16 +111,16 @@ class SocialServicesService: Service {
     /**
     Processes JSON Artist data and creates models objects
     
-    :param: serviceId The id from the key/value store, the SocialService object ID
+    :param: serviceId The id from the key/value store, the SocialAccount object ID
     :param: completion callback which gets called when service objects are done being created
     */
-    func processSocialServicesData(serviceId: String, completion: (SocialService, Bool) -> ()) {
-        let serviceRef = rootURL.childByAppendingPath("socialServices/\(serviceId)")
+    func processsocialAccountsData(serviceId: String, completion: (SocialAccount, Bool) -> ()) {
+        let serviceRef = rootURL.childByAppendingPath("socialAccounts/\(serviceId)")
         
         serviceRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             if let data = snapshot.value as? [String: AnyObject]
                  {
-                    var service = SocialService()
+                    var service = SocialAccount()
                     service.setValuesForKeysWithDictionary(data)
                     completion(service, true)
             }

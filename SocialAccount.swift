@@ -1,5 +1,5 @@
 //
-//  Service.swift
+//  SocialAccount.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 8/12/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SocialService: NSObject {
+class SocialAccount: NSObject {
     var name = ""
     var token = ""
     var index: Int = -1

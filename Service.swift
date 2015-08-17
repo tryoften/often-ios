@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class Service: NSObject {
+class Service {
     var rootURL: Firebase
     var userDefaults: NSUserDefaults
     weak var delegate: ServiceDelegate?
@@ -23,7 +23,7 @@ class Service: NSObject {
         isInternetReachable = reachabilitymanager.reachable
         
         reachabilitymanager.setReachabilityStatusChangeBlock { status in
-            isInternetReachable = reachabilitymanager.reachable
+            self.isInternetReachable = reachabilitymanager.reachable
         }
         reachabilitymanager.startMonitoring()
     }
@@ -35,5 +35,5 @@ class Service: NSObject {
 protocol ServiceDelegate: class {
     /// Gets called after the service is done loading into the service
     func serviceDataDidLoad(service: Service)
-    func socialServiceDidUpdate(socialService: [SocialService])
+    func socialServiceDidUpdate(socialService: [SocialAccount])
 }
