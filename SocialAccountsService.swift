@@ -88,7 +88,7 @@ class SocialAccountsService: Service {
         var serviceList =  [SocialAccount]()
         
         for serviceId in serviceIds {
-            self.processsocialAccountsData(serviceId, completion: { (socialAccount, success) in
+            self.processSocialAccountsData(serviceId, completion: { (socialAccount, success) in
                 socialAccount.index = index++
                 serviceList.append(socialAccount)
                 
@@ -114,7 +114,7 @@ class SocialAccountsService: Service {
     :param: serviceId The id from the key/value store, the SocialAccount object ID
     :param: completion callback which gets called when service objects are done being created
     */
-    func processsocialAccountsData(serviceId: String, completion: (SocialAccount, Bool) -> ()) {
+    func processSocialAccountsData(serviceId: String, completion: (SocialAccount, Bool) -> ()) {
         let serviceRef = rootURL.childByAppendingPath("socialAccounts/\(serviceId)")
         
         serviceRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
