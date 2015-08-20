@@ -293,7 +293,29 @@ class SessionManager: NSObject {
         }
     }
     
+    func fetchSocialAccount() {
+        if let currentUser = currentUser {
+            let socialAccountService = provideSocialAccountService(currentUser)
+            socialAccountService.requestData({ data in
+                self.broadcastDidFetchSocialAccountsEvent()
+            })
+        } else {
+            // TODO(luc): throw an error if the current user is not set
+        }
+    }
+
 // MARK: Private methods
+    
+    private func provideSocialAccountService(user: User) -> SocialAccountsService {
+        if let socialService = self.socialAccountService {
+            return socialService
+        }
+        
+        var socialAccountService = SocialAccountsService(root: firebase)
+        self.socialAccountService = socialAccountService
+        
+        return socialAccountService
+    }
     
     private func getFacebookUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
         var request = FBRequest.requestForMe()
@@ -323,6 +345,14 @@ class SessionManager: NSObject {
         self.observers.removeObject(observer)
     }
     
+    private func broadcastDidFetchSocialAccountsEvent() {
+        if let socialAccountService = self.socialAccountService {
+            for observer in observers {
+                observer.sessionManagerDidFetchSocialAccounts(self, SocialAccounts: socialAccountService.socialAccounts)
+            }
+        }
+    }
+    
     private func broadcastUserLoginEvent() {
         if let currentUser = currentUser {
             for observer in observers {
@@ -339,7 +369,6 @@ enum LoginType {
     case Facebook
     case Twitter
 }
-
 
 @objc protocol SessionManagerObserver: class {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
