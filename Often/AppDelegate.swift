@@ -22,7 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         Fabric.with([Crashlytics()])
-        
+        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
+        PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
+        PFFacebookUtils.initializeFacebook()
+        PFTwitterUtils.initializeWithConsumerKey(TwitterConsumerKey,  consumerSecret:TwitterConsumerSecret)
+        FBAppEvents.activateApp()
+        Flurry.startSession(FlurryClientKey)
+    
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
         

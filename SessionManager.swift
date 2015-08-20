@@ -62,7 +62,157 @@ class SessionManager: NSObject {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeDatabasetoDisk", name: "database:persist", object: nil)
     }
-   
+    
+    func isUserLoggedIn() -> Bool {
+        return userDefaults.objectForKey("user") != nil
+    }
+    
+    func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {
+        if let email = data["email"],
+            let username = data["username"],
+            let password = data["password"],
+            let fullName = data["name"] {
+                
+                var user = PFUser()
+                user.email = email
+                user.username = email
+                user.password = password
+                user["fullName"] = fullName
+                
+                if let phone = data["phone"] {
+                    user["phone"] = phone
+                }
+                
+                user.signUpInBackgroundWithBlock { (success, error) in
+                    if error == nil {
+                        self.firebase.createUser(username, password: password, withValueCompletionBlock: { error, result -> Void in
+                            if error != nil {
+                                println("Login failed. \(error)")
+                            } else {
+                                println("Logged in! \(result)")
+                                self.openSession(loginType, username: username, password: password)
+                            }
+                        })
+                        completion(nil)
+                    } else {
+                        completion(error)
+                    }
+                }
+        }
+    }
+    
+    func login(loginType: LoginType, completion: ((PFUser?, NSError?) -> ())? = nil) {
+        userIsLoggingIn = true
+        switch loginType {
+        case .Twitter:
+            PFTwitterUtils.logInWithBlock({  (user, error) -> Void in
+                if error == nil {
+                    self.openSession(loginType, username:nil, password: nil, completion: { sessionError in
+                        if sessionError != nil {
+                            completion?(nil, sessionError)
+                        } else {
+                            completion?(user, error)
+                        }
+                    })
+                } else {
+                    completion?(nil, error)
+                }
+            })
+            break
+        case .Facebook:
+            PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
+                if error == nil {
+                    self.openSession(loginType, username:nil, password: nil, completion: { sessionError in
+                        if sessionError != nil {
+                            completion?(nil, sessionError)
+                        } else {
+                            completion?(user, error)
+                        }
+                    })
+                } else {
+                    completion?(nil, error)
+                }
+            })
+            break
+        default:
+            completion?(nil, NSError())
+            break
+        }
+    }
+    
+    func openSession(loginType: LoginType, username: String?, password: String?, completion: ((NSError?) -> ())? = nil) {
+        switch loginType {
+        case .Twitter:
+            let twitterAuthHelper = TwitterAuthHelper(firebaseRef:firebase, apiKey:TwitterConsumerKey)
+            twitterAuthHelper.selectTwitterAccountWithCallback { error, accounts in
+                if error != nil {
+                    // Error retrieving Twitter accounts
+                } else if accounts.count > 1 {
+                    // Select an account. Here we pick the first one for simplicity
+                    let account = accounts[0] as? ACAccount
+                    twitterAuthHelper.authenticateAccount(account, withCallback: { error, authData in
+                        if error != nil {
+                            println("Login failed. \(error)")
+                        } else {
+                            println( "session Opened. \(authData.providerData)")
+                        }
+                        completion?(error)
+                    })
+                } else {
+                    completion?(NSError())
+                }
+            }
+            break
+        case .Email:
+            self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
+                if error != nil {
+                    println("logged in")
+                    completion?(nil)
+                } else {
+                    println(error)
+                    completion?(error)
+                }
+            })
+            break
+        case .Facebook:
+            if let session = FBSession.activeSession() {
+                let accessTokenData = session.accessTokenData
+                
+                if accessTokenData != nil {
+                    let accessToken = accessTokenData.accessToken
+                    firebase.authWithOAuthProvider("facebook", token: accessToken,
+                        withCompletionBlock: { error, authData in
+                            if error != nil {
+                                println("Login failed. \(error)")
+                            } else {
+                                println( "session Opened. \(authData.providerData)")
+                            }
+                            completion?(error)
+                    })
+                } else {
+                    completion?(NSError())
+                }
+            }
+            break
+        default:
+            break
+        }
+        userDefaults.setValue(true, forKey: "openSession")
+    }
+    
+    func logout() {
+        PFUser.logOut()
+        firebase.unauth()
+        observers.removeAllObjects()
+        userDefaults.setValue(nil, forKey: "userId")
+        userDefaults.setValue(nil, forKey: "openSession")
+        userDefaults.setValue(nil, forKey: "authData")
+        
+        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        
+        NSFileManager.defaultManager().removeItemAtPath(directory.path!, error: nil)
+    }
+    
     private func processAuthData(authData: FAuthData?) {
         let persistUser: (User) -> Void = { user in
             self.currentUser = user
@@ -89,7 +239,7 @@ class SessionManager: NSObject {
                 
                 userRef = firebase.childByAppendingPath("users/\(authData.uid)")
                 userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
-                    // TODO(luc): create user model with data and send event
+                    // TODO(kervs): create user model with data and send event
                     if snapshot.exists() {
                         if let id = snapshot.key,
                             let value = snapshot.value as? [String: AnyObject] {
@@ -100,22 +250,16 @@ class SessionManager: NSObject {
                                 persistUser(user)
                         }
                     } else {
-                        var checkString = "facebook"
-                        
-                        if authData.uid.rangeOfString(checkString) == nil {
-                            
+                        if (authData.uid.rangeOfString("twitter") == nil || authData.uid.rangeOfString("facebook") == nil) {
                             var data = [String : String]()
                             
                             data["id"] = authData.uid
                             data["email"] = PFUser.currentUser()?.email
                             data["phone"] = PFUser.currentUser()?.objectForKey("phone") as? String
                             data["username"] = PFUser.currentUser()?.username
+                            data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
                             data["name"] = PFUser.currentUser()?.objectForKey("fullName") as? String
-                            data["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
                             data["parseId"] = uid
-                            
-                            self.userDefaults.setObject(authData.uid, forKey: "userId")
-                            self.userDefaults.synchronize()
                             
                             self.userRef?.setValue(data)
                             self.isUserNew = true
@@ -123,7 +267,6 @@ class SessionManager: NSObject {
                             var user = User()
                             user.setValuesForKeysWithDictionary(data)
                             persistUser(user)
-                            
                             
                         } else {
                             self.getFacebookUserInfo({ (data, err) in
@@ -150,6 +293,8 @@ class SessionManager: NSObject {
         }
     }
     
+// MARK: Private methods
+    
     private func getFacebookUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
         var request = FBRequest.requestForMe()
         request.startWithCompletionHandler({ (connection, result, error) in
@@ -161,7 +306,6 @@ class SessionManager: NSObject {
                 
                 data["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
                 data["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
-                data["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
                 
                 completion(data, nil)
             } else {
@@ -171,8 +315,12 @@ class SessionManager: NSObject {
         })
     }
     
-    func isUserLoggedIn() -> Bool {
-        return userDefaults.objectForKey("user") != nil
+        func addSessionObserver(observer: SessionManagerObserver) {
+        self.observers.addObject(observer)
+    }
+    
+    func removeSessionObserver(observer: SessionManagerObserver) {
+        self.observers.removeObject(observer)
     }
     
     private func broadcastUserLoginEvent() {
@@ -184,6 +332,12 @@ class SessionManager: NSObject {
             }
         }
     }
+}
+
+enum LoginType {
+    case Email
+    case Facebook
+    case Twitter
 }
 
 

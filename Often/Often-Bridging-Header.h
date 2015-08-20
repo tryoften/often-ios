@@ -13,6 +13,7 @@
 #import "UIColor+HEXString.h"
 #import <FlurrySDK/Flurry.h>
 #import <Parse/Parse.h>
+#import "TwitterAuthHelper.h"
 #import <Analytics/SEGAnalytics.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <TOMSMorphingLabel/TOMSMorphingLabel.h>
