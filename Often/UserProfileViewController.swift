@@ -12,12 +12,81 @@ class UserProfileViewController: UICollectionViewController {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
     
+    var setServicesRevealView: UIView
+    var settingsRevealView: UIView
+    var setServiceViewWidthConstraint: NSLayoutConstraint?
+    var settingsViewWidthConstraint: NSLayoutConstraint?
+    
+    var contentFilterTabView: UIView
+    var allFilterButton: UIButton
+    var songsFilterButton: UIButton
+    var videosFilterButton: UIButton
+    var linksFilterButton: UIButton
+    var gifsFilterButton: UIButton
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override init(collectionViewLayout: UICollectionViewLayout) {
+        contentFilterTabView = UIView()
+        contentFilterTabView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contentFilterTabView.backgroundColor = WhiteColor
+        
+        allFilterButton = UIButton()
+        allFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        allFilterButton.setTitle("ALL", forState: .Normal)
+        allFilterButton.setTitleColor(BlackColor, forState: .Selected)
+        allFilterButton.setTitleColor(LightGrey, forState: .Normal)
+        allFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
+        
+        songsFilterButton = UIButton()
+        songsFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        songsFilterButton.setTitle("SONGS", forState: .Normal)
+        songsFilterButton.setTitleColor(BlackColor, forState: .Selected)
+        songsFilterButton.setTitleColor(LightGrey, forState: .Normal)
+        songsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
+        
+        videosFilterButton = UIButton()
+        videosFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        videosFilterButton.setTitle("VIDEOS", forState: .Normal)
+        videosFilterButton.setTitleColor(BlackColor, forState: .Selected)
+        videosFilterButton.setTitleColor(LightGrey, forState: .Normal)
+        videosFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
+        
+        linksFilterButton = UIButton()
+        linksFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        linksFilterButton.setTitle("LINKS", forState: .Normal)
+        linksFilterButton.setTitleColor(BlackColor, forState: .Selected)
+        linksFilterButton.setTitleColor(LightGrey, forState: .Normal)
+        linksFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
+        
+        gifsFilterButton = UIButton()
+        gifsFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        gifsFilterButton.setTitle("GIFS", forState: .Normal)
+        gifsFilterButton.setTitleColor(BlackColor, forState: .Selected)
+        gifsFilterButton.setTitleColor(LightGrey, forState: .Normal)
+        gifsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
+        
+        setServicesRevealView = UIView()
+        setServicesRevealView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        settingsRevealView = UIView()
+        settingsRevealView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        setServiceViewWidthConstraint = setServicesRevealView.al_width == 0
+        settingsViewWidthConstraint = settingsRevealView.al_width == 0
+        
         super.init(collectionViewLayout: collectionViewLayout)
+        
+        view.addSubview(contentFilterTabView)
+        contentFilterTabView.addSubview(allFilterButton)
+        contentFilterTabView.addSubview(songsFilterButton)
+        contentFilterTabView.addSubview(videosFilterButton)
+        contentFilterTabView.addSubview(linksFilterButton)
+        contentFilterTabView.addSubview(gifsFilterButton)
+        
+        setupLayout()
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
@@ -50,6 +119,51 @@ class UserProfileViewController: UICollectionViewController {
     
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+    func setupLayout() {
+        setServiceViewWidthConstraint = setServicesRevealView.al_width == 0
+        settingsViewWidthConstraint = settingsRevealView.al_width == 0
+        
+        view.addConstraints([
+            contentFilterTabView.al_bottom == view.al_bottom,
+            contentFilterTabView.al_left == view.al_left,
+            contentFilterTabView.al_right == view.al_right,
+            contentFilterTabView.al_height == 50,
+            
+            allFilterButton.al_top == contentFilterTabView.al_top,
+            allFilterButton.al_left == contentFilterTabView.al_left,
+            allFilterButton.al_bottom == contentFilterTabView.al_bottom,
+            allFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
+            
+            songsFilterButton.al_left == allFilterButton.al_right,
+            songsFilterButton.al_top == contentFilterTabView.al_top,
+            songsFilterButton.al_bottom == contentFilterTabView.al_bottom,
+            songsFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
+            
+            videosFilterButton.al_left == songsFilterButton.al_right,
+            videosFilterButton.al_top == contentFilterTabView.al_top,
+            videosFilterButton.al_bottom == contentFilterTabView.al_bottom,
+            videosFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
+            
+            linksFilterButton.al_left == videosFilterButton.al_right,
+            linksFilterButton.al_top == contentFilterTabView.al_top,
+            linksFilterButton.al_bottom == contentFilterTabView.al_bottom,
+            linksFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
+            
+            gifsFilterButton.al_left == linksFilterButton.al_right,
+            gifsFilterButton.al_top == contentFilterTabView.al_top,
+            gifsFilterButton.al_bottom == contentFilterTabView.al_bottom,
+            gifsFilterButton.al_right == contentFilterTabView.al_right
+        ])
+    }
+    
+    func revealSetServicesViewDidTap(sender: UIButton) {
+        
+    }
+    
+    func revealSettingsViewDidTap(sender: UIButton) {
+        
     }
     
     // MARK: UICollectionViewDataSource

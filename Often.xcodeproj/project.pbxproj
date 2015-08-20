@@ -48,7 +48,6 @@
 		6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */; };
 		6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */; };
 		6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */; };
-		695FEE9E1B73C8D20048E5B7 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FEE9D1B73C8D20048E5B7 /* TabBarController.swift */; };
 		695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */; };
 		695FEEA21B73DF160048E5B7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FEEA11B73DF160048E5B7 /* SettingsViewController.swift */; };
 		695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
@@ -289,7 +288,6 @@
 		6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewCell.swift; path = Sources/FoursquareLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewController.swift; path = Sources/FoursquareLocationCollectionViewController.swift; sourceTree = "<group>"; };
 		6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationSectionHeader.swift; path = Sources/FoursquareLocationSectionHeader.swift; sourceTree = "<group>"; };
-		695FEE9D1B73C8D20048E5B7 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		695FEEA11B73DF160048E5B7 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
@@ -692,7 +690,6 @@
 			isa = PBXGroup;
 			children = (
 				690AE8AD1B7290F400015730 /* ServiceSettingsCollectionViewController.swift */,
-				695FEE9D1B73C8D20048E5B7 /* TabBarController.swift */,
 				695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */,
 				695FEEA11B73DF160048E5B7 /* SettingsViewController.swift */,
 			);
@@ -1254,7 +1251,6 @@
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */,
-				695FEE9E1B73C8D20048E5B7 /* TabBarController.swift in Sources */,
 				8176BEA01B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				8176BEF01B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,

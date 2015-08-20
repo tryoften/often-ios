@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if TestKeyboard {
                 mainController = KeyboardViewController(nibName: nil, bundle: nil)
             } else {
-                mainController = TabBarController()
+                mainController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout())
             }
             window.rootViewController = mainController
             window.makeKeyAndVisible()
