@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController {
+class UserProfileViewController: UICollectionViewController, UserProfileRevealDelegate {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
     
@@ -70,14 +70,19 @@ class UserProfileViewController: UICollectionViewController {
         
         setServicesRevealView = UIView()
         setServicesRevealView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        setServicesRevealView.backgroundColor = TealColor
         
         settingsRevealView = UIView()
         settingsRevealView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        settingsRevealView.backgroundColor = TealColor
         
         setServiceViewWidthConstraint = setServicesRevealView.al_width == 0
         settingsViewWidthConstraint = settingsRevealView.al_width == 0
         
         super.init(collectionViewLayout: collectionViewLayout)
+        
+        view.addSubview(setServicesRevealView)
+        view.addSubview(settingsRevealView)
         
         view.addSubview(contentFilterTabView)
         contentFilterTabView.addSubview(allFilterButton)
@@ -121,51 +126,6 @@ class UserProfileViewController: UICollectionViewController {
         return true
     }
     
-    func setupLayout() {
-        setServiceViewWidthConstraint = setServicesRevealView.al_width == 0
-        settingsViewWidthConstraint = settingsRevealView.al_width == 0
-        
-        view.addConstraints([
-            contentFilterTabView.al_bottom == view.al_bottom,
-            contentFilterTabView.al_left == view.al_left,
-            contentFilterTabView.al_right == view.al_right,
-            contentFilterTabView.al_height == 50,
-            
-            allFilterButton.al_top == contentFilterTabView.al_top,
-            allFilterButton.al_left == contentFilterTabView.al_left,
-            allFilterButton.al_bottom == contentFilterTabView.al_bottom,
-            allFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
-            
-            songsFilterButton.al_left == allFilterButton.al_right,
-            songsFilterButton.al_top == contentFilterTabView.al_top,
-            songsFilterButton.al_bottom == contentFilterTabView.al_bottom,
-            songsFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
-            
-            videosFilterButton.al_left == songsFilterButton.al_right,
-            videosFilterButton.al_top == contentFilterTabView.al_top,
-            videosFilterButton.al_bottom == contentFilterTabView.al_bottom,
-            videosFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
-            
-            linksFilterButton.al_left == videosFilterButton.al_right,
-            linksFilterButton.al_top == contentFilterTabView.al_top,
-            linksFilterButton.al_bottom == contentFilterTabView.al_bottom,
-            linksFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
-            
-            gifsFilterButton.al_left == linksFilterButton.al_right,
-            gifsFilterButton.al_top == contentFilterTabView.al_top,
-            gifsFilterButton.al_bottom == contentFilterTabView.al_bottom,
-            gifsFilterButton.al_right == contentFilterTabView.al_right
-        ])
-    }
-    
-    func revealSetServicesViewDidTap(sender: UIButton) {
-        
-    }
-    
-    func revealSettingsViewDidTap(sender: UIButton) {
-        
-    }
-    
     // MARK: UICollectionViewDataSource
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -198,6 +158,7 @@ class UserProfileViewController: UICollectionViewController {
             
             if headerView == nil {
                 headerView = cell
+                headerView?.delegate = self
             }
             
             return headerView!
@@ -214,5 +175,64 @@ class UserProfileViewController: UICollectionViewController {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 5.0 as CGFloat
+    }
+    
+    
+    func setupLayout() {
+        setServiceViewWidthConstraint = setServicesRevealView.al_width == 0
+        settingsViewWidthConstraint = settingsRevealView.al_width == 0
+        
+        view.addConstraints([
+            
+            setServicesRevealView.al_left == view.al_left,
+            setServicesRevealView.al_bottom == view.al_bottom,
+            setServicesRevealView.al_top == view.al_top,
+            setServiceViewWidthConstraint!,
+            
+            settingsRevealView.al_right == view.al_right,
+            settingsRevealView.al_top == view.al_top,
+            settingsRevealView.al_bottom == view.al_bottom,
+            settingsViewWidthConstraint!,
+            
+            contentFilterTabView.al_bottom == view.al_bottom,
+            contentFilterTabView.al_left == view.al_left,
+            contentFilterTabView.al_right == view.al_right,
+            contentFilterTabView.al_height == 50,
+            
+            allFilterButton.al_top == contentFilterTabView.al_top,
+            allFilterButton.al_left == contentFilterTabView.al_left,
+            allFilterButton.al_bottom == contentFilterTabView.al_bottom,
+            allFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
+            
+            songsFilterButton.al_left == allFilterButton.al_right,
+            songsFilterButton.al_top == contentFilterTabView.al_top,
+            songsFilterButton.al_bottom == contentFilterTabView.al_bottom,
+            songsFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
+            
+            videosFilterButton.al_left == songsFilterButton.al_right,
+            videosFilterButton.al_top == contentFilterTabView.al_top,
+            videosFilterButton.al_bottom == contentFilterTabView.al_bottom,
+            videosFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
+            
+            linksFilterButton.al_left == videosFilterButton.al_right,
+            linksFilterButton.al_top == contentFilterTabView.al_top,
+            linksFilterButton.al_bottom == contentFilterTabView.al_bottom,
+            linksFilterButton.al_width == UIScreen.mainScreen().bounds.width / 5,
+            
+            gifsFilterButton.al_left == linksFilterButton.al_right,
+            gifsFilterButton.al_top == contentFilterTabView.al_top,
+            gifsFilterButton.al_bottom == contentFilterTabView.al_bottom,
+            gifsFilterButton.al_right == contentFilterTabView.al_right
+        ])
+    }
+    
+    func revealSetServicesViewDidTap() {
+        println("Reveal services tapped")
+        revealController.showViewController(leftViewController)
+    }
+    
+    func revealSettingsViewDidTap() {
+        println("Reveal settings tapped")
+        revealController.showViewController(rightViewController)
     }
 }

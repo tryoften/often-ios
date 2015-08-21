@@ -13,6 +13,13 @@ import Crashlytics
 
 private var TestKeyboard: Bool = false
 
+// PKRevealController
+var revealController: PKRevealController?
+var frontNavigationController: UINavigationController?
+var frontViewController: UserProfileViewController?
+var leftViewController: ServiceSettingsCollectionViewController?
+var rightViewController: SettingsViewController?
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -32,7 +39,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if TestKeyboard {
                 mainController = KeyboardViewController(nibName: nil, bundle: nil)
             } else {
-                mainController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout())
+                // Front view controller must be navigation controller - will hide the nav bar
+                frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout())
+                frontNavigationController = UINavigationController(rootViewController: frontViewController!)
+                frontNavigationController?.setNavigationBarHidden(true, animated: true)
+                
+                // left view controller: Set Services for keyboard
+                // right view controller: App Settings
+                leftViewController = ServiceSettingsCollectionViewController(collectionViewLayout: ServiceSettingsCollectionViewController.provideCollectionViewLayout())
+                rightViewController = SettingsViewController()
+                
+                // instantiate PKRevealController and set as mainController to do revealing
+                revealController = PKRevealController(frontViewController: frontNavigationController, leftViewController: leftViewController, rightViewController: rightViewController)
+                revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: leftViewController)
+                
+                mainController = revealController
             }
             window.rootViewController = mainController
             window.makeKeyAndVisible()

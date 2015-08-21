@@ -20,6 +20,10 @@ class UserProfileHeaderView: UICollectionReusableView {
     var settingsTabLabel: UILabel
     var highlightBarView: UIView
     
+    var delegate: UserProfileRevealDelegate?
+    var setServicesRevealButton: UIButton
+    var settingsRevealButton: UIButton
+    
     override init(frame: CGRect) {
         profileImageView = UIImageView()
         profileImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -72,16 +76,29 @@ class UserProfileHeaderView: UICollectionReusableView {
         highlightBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
         highlightBarView.backgroundColor = TealColor
         
+        setServicesRevealButton = UIButton()
+        setServicesRevealButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        setServicesRevealButton.setImage(UIImage(named: "hamburger"), forState: .Normal)
+        
+        settingsRevealButton = UIButton()
+        settingsRevealButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        settingsRevealButton.setImage(UIImage(named: "settings"), forState: .Normal)
+        
         super.init(frame: frame)
     
         backgroundColor = WhiteColor
         clipsToBounds = true
+        
+        setServicesRevealButton.addTarget(self, action: "setServicesRevealTapped", forControlEvents: .TouchUpInside)
+        settingsRevealButton.addTarget(self, action: "settingsRevealTapped", forControlEvents: .TouchUpInside)
         
         addSubview(profileImageView)
         addSubview(nameLabel)
         addSubview(descriptionLabel)
         addSubview(scoreLabel)
         addSubview(scoreNameLabel)
+        addSubview(setServicesRevealButton)
+        addSubview(settingsRevealButton)
         
         addSubview(tabContainerView)
         tabContainerView.addSubview(servicesTabLabel)
@@ -97,6 +114,16 @@ class UserProfileHeaderView: UICollectionReusableView {
     
     func setupLayout() {
         addConstraints([
+            setServicesRevealButton.al_left == al_left + 20,
+            setServicesRevealButton.al_top == al_top + 16,
+            setServicesRevealButton.al_height == 16,
+            setServicesRevealButton.al_width == 16,
+            
+            settingsRevealButton.al_top == al_top + 15,
+            settingsRevealButton.al_right == al_right - 15,
+            settingsRevealButton.al_height == 22,
+            settingsRevealButton.al_width == 22,
+            
             profileImageView.al_bottom == nameLabel.al_top - 20,
             profileImageView.al_centerX == al_centerX,
             profileImageView.al_height == 60,
@@ -137,4 +164,17 @@ class UserProfileHeaderView: UICollectionReusableView {
             highlightBarView.al_height == 4,
         ])
     }
+    
+    func setServicesRevealTapped() {
+        delegate?.revealSetServicesViewDidTap()
+    }
+    
+    func settingsRevealTapped() {
+        delegate?.revealSettingsViewDidTap()
+    }
+}
+
+protocol UserProfileRevealDelegate {
+    func revealSetServicesViewDidTap()
+    func revealSettingsViewDidTap()
 }
