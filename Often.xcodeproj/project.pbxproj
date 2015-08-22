@@ -18,8 +18,6 @@
 		3B63EDD01B7D2AD400E54AFA /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDCE1B7D2AD400E54AFA /* Service.swift */; };
 		3B63EDD21B7D381D00E54AFA /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDD11B7D381D00E54AFA /* SocialAccountsService.swift */; };
 		3B63EDD31B7D381D00E54AFA /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDD11B7D381D00E54AFA /* SocialAccountsService.swift */; };
-		3B63EDD71B7E7B3E00E54AFA /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDD61B7E7B3E00E54AFA /* UserProfileViewModel.swift */; };
-		3B63EDD81B7E7B3E00E54AFA /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDD61B7E7B3E00E54AFA /* UserProfileViewModel.swift */; };
 		3B63EDDD1B7E860000E54AFA /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDDC1B7E860000E54AFA /* SessionManager.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
@@ -52,6 +50,9 @@
 		3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4E1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */; };
 		3BF60C4F1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */; };
+		3BF60C501B86724100DD6E31 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDDC1B7E860000E54AFA /* SessionManager.swift */; };
+		3BF60C521B8680F600DD6E31 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C511B8680F600DD6E31 /* UserProfileViewModel.swift */; };
+		3BF60C531B8680F600DD6E31 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C511B8680F600DD6E31 /* UserProfileViewModel.swift */; };
 		645C5C1B383CD0DCCB770CC7 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD2306F8F79E206D6C9908C /* libPods-Keyboard.a */; };
 		690AE8AE1B7290F400015730 /* ServiceSettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8AD1B7290F400015730 /* ServiceSettingsCollectionViewController.swift */; };
 		690AE8B31B72919200015730 /* ServiceSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* ServiceSettingsCollectionViewCell.swift */; };
@@ -281,7 +282,6 @@
 		3B63EDC31B7BB6D700E54AFA /* SocialAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccount.swift; sourceTree = "<group>"; };
 		3B63EDCE1B7D2AD400E54AFA /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		3B63EDD11B7D381D00E54AFA /* SocialAccountsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountsService.swift; sourceTree = "<group>"; };
-		3B63EDD61B7E7B3E00E54AFA /* UserProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		3B63EDDC1B7E860000E54AFA /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -300,6 +300,7 @@
 		3BF60C461B83B3F100DD6E31 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		3BF60C4C1B83EDC900DD6E31 /* TwitterAuthHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAuthHelper.h; sourceTree = "<group>"; };
 		3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAuthHelper.m; sourceTree = "<group>"; };
+		3BF60C511B8680F600DD6E31 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.release.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.release.xcconfig"; sourceTree = "<group>"; };
 		526DA3399096D4CF99A8B123 /* libPods-Often.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		690AE8AD1B7290F400015730 /* ServiceSettingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceSettingsCollectionViewController.swift; sourceTree = "<group>"; };
@@ -659,7 +660,7 @@
 		81413DB31A91C0A400926E7C /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				3B63EDD61B7E7B3E00E54AFA /* UserProfileViewModel.swift */,
+				3BF60C511B8680F600DD6E31 /* UserProfileViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -1254,6 +1255,7 @@
 				81E26D7F1B65B09D00FC1F2F /* LayoutConstants.swift in Sources */,
 				81E26D9C1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
+				3BF60C521B8680F600DD6E31 /* UserProfileViewModel.swift in Sources */,
 				81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
 				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
 				81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
@@ -1262,7 +1264,6 @@
 				81E26D851B65B17A00FC1F2F /* Direction.swift in Sources */,
 				690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */,
 				698B87231B75401E001B5B86 /* UserProfileHeaderView.swift in Sources */,
-				3B63EDD71B7E7B3E00E54AFA /* UserProfileViewModel.swift in Sources */,
 				81D4BF371B39D25C006430AB /* FrameView.swift in Sources */,
 				8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */,
@@ -1338,7 +1339,6 @@
 				81840FB91B4331C1003531B1 /* UIDevice+modelName.swift in Sources */,
 				3B63EDD31B7D381D00E54AFA /* SocialAccountsService.swift in Sources */,
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
-				3B63EDD81B7E7B3E00E54AFA /* UserProfileViewModel.swift in Sources */,
 				3B63EDD01B7D2AD400E54AFA /* Service.swift in Sources */,
 				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
@@ -1354,6 +1354,7 @@
 				8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
+				3BF60C531B8680F600DD6E31 /* UserProfileViewModel.swift in Sources */,
 				8176BEA11B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
@@ -1369,6 +1370,7 @@
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
 				3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
+				3BF60C501B86724100DD6E31 /* SessionManager.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				8176BEC61B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
