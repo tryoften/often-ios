@@ -12,11 +12,12 @@ class SocialAccount: NSObject {
     var name = ""
     var token = ""
     var index: Int = -1
-    var id: UInt = 0
+    var id: String = ""
     var activeStatus = false
     var tokenExpirationDate = ""
     var username = ""
     var password = ""
+    var user: User?
     
     
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
@@ -27,7 +28,7 @@ class SocialAccount: NSObject {
                 name = serviceName
             }
             
-            if let id = dictionary["id"] as? UInt {
+            if let id = dictionary["id"] as? String {
                 self.id = id
             }
             if let serviceToken = dictionary["serviceToken"] as? String {

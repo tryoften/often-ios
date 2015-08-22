@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import Crashlytics
 
 class SessionManager: NSObject {
@@ -41,7 +41,6 @@ class SessionManager: NSObject {
         Firebase.defaultConfig().persistenceEnabled = true
         
         firebase = Firebase(url: BaseURL)
-        socialAccountService = SocialAccountsService(root: firebase)
         
         super.init()
         
@@ -52,6 +51,7 @@ class SessionManager: NSObject {
         if let user = userDefaults.objectForKey("user") as? User {
             SEGAnalytics.sharedAnalytics().identify(user.id)
             currentUser = user
+            socialAccountService = SocialAccountsService(user: user, root: firebase)
             var crashlytics = Crashlytics.sharedInstance()
             crashlytics.setUserIdentifier(user.id)
             if let user = currentUser {
@@ -143,6 +143,7 @@ class SessionManager: NSObject {
     func openSession(loginType: LoginType, username: String?, password: String?, completion: ((NSError?) -> ())? = nil) {
         switch loginType {
         case .Twitter:
+            userDefaults.setValue(true, forKey: "twitter")
             let twitterAuthHelper = TwitterAuthHelper(firebaseRef:firebase, apiKey:TwitterConsumerKey)
             twitterAuthHelper.selectTwitterAccountWithCallback { error, accounts in
                 if error != nil {
@@ -164,6 +165,7 @@ class SessionManager: NSObject {
             }
             break
         case .Email:
+            userDefaults.setValue(true, forKey: "email")
             self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
                 if error != nil {
                     println("logged in")
@@ -175,6 +177,7 @@ class SessionManager: NSObject {
             })
             break
         case .Facebook:
+            userDefaults.setValue(true, forKey: "facebook")
             if let session = FBSession.activeSession() {
                 let accessTokenData = session.accessTokenData
                 
@@ -204,7 +207,10 @@ class SessionManager: NSObject {
         PFUser.logOut()
         firebase.unauth()
         observers.removeAllObjects()
-        userDefaults.setValue(nil, forKey: "userId")
+        userDefaults.setValue(nil, forKey: "user")
+        userDefaults.setValue(nil, forKey: "email")
+        userDefaults.setValue(nil, forKey: "facebook")
+        userDefaults.setValue(nil, forKey: "twitter")
         userDefaults.setValue(nil, forKey: "openSession")
         userDefaults.setValue(nil, forKey: "authData")
         
@@ -293,6 +299,20 @@ class SessionManager: NSObject {
         }
     }
     
+    func setSocialAccountOnCurrentUser(socialAccountIds: [String], completion: (User, NSError?) -> ()) {
+        if let currentUser = self.currentUser {
+            let socialAccountService = provideSocialAccountService(currentUser)
+            
+            socialAccountService.fetchDataForSocialAccountIds(socialAccountIds, completion: { socialAccount in
+                for socialAccountId in socialAccountIds {
+                    socialAccountService.socialAccountsRef.childByAppendingPath(socialAccountId).setValue(true)
+                }
+                
+                completion(currentUser, nil)
+            })
+        }
+    }
+
     func fetchSocialAccount() {
         if let currentUser = currentUser {
             let socialAccountService = provideSocialAccountService(currentUser)
@@ -311,7 +331,7 @@ class SessionManager: NSObject {
             return socialService
         }
         
-        var socialAccountService = SocialAccountsService(root: firebase)
+        var socialAccountService = SocialAccountsService(user: user, root:firebase)
         self.socialAccountService = socialAccountService
         
         return socialAccountService
@@ -337,7 +357,7 @@ class SessionManager: NSObject {
         })
     }
     
-        func addSessionObserver(observer: SessionManagerObserver) {
+    func addSessionObserver(observer: SessionManagerObserver) {
         self.observers.addObject(observer)
     }
     
@@ -348,7 +368,7 @@ class SessionManager: NSObject {
     private func broadcastDidFetchSocialAccountsEvent() {
         if let socialAccountService = self.socialAccountService {
             for observer in observers {
-                observer.sessionManagerDidFetchSocialAccounts(self, SocialAccounts: socialAccountService.socialAccounts)
+                observer.sessionManagerDidFetchSocialAccounts(self, SocialAccounts: socialAccountService.sortedSocialAccounts)
             }
         }
     }
