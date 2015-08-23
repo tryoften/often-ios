@@ -7,6 +7,8 @@
 //
 
 import UIKit
+/// Service that provides and manages SocialAccount models along with categories.
+/// It stores the data both locally and remotely
 
 class SocialAccountsService: Service {
     let user: User
@@ -32,7 +34,6 @@ class SocialAccountsService: Service {
         socialAccounts = [String: SocialAccount]()
         
         super.init(root: root)
-        
     }
     
     func socialAccountWithId(socialAccountId: String) -> SocialAccount? {
@@ -115,7 +116,6 @@ class SocialAccountsService: Service {
                     
                     self.userDefaults.setValue(self.sortedSocialAccounts, forKey: self.socialAccountsPath)
                     self.userDefaults.synchronize()
-    
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         self.delegate?.serviceDataDidLoad(self)
@@ -137,10 +137,10 @@ class SocialAccountsService: Service {
         
         serviceRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             if let data = snapshot.value as? [String: AnyObject]
-                 {
-                    var service = SocialAccount()
-                    service.setValuesForKeysWithDictionary(data)
-                    completion(service, true)
+            {
+                var service = SocialAccount()
+                service.setValuesForKeysWithDictionary(data)
+                completion(service, true)
             }
         })
     }
@@ -155,21 +155,23 @@ class SocialAccountsService: Service {
         if isUpdatingSocialAccount {
             return
         }
+        
         isUpdatingSocialAccount = true
+        
         let socialAccount = socialAccounts[socialAccountId]
         socialAccounts.removeValueForKey(socialAccountId)
         
-        
         if let socialAccount = socialAccount {
-                NSNotificationCenter.defaultCenter().postNotificationName("socialAccount:removed", object: self, userInfo: [
-                    "socialAccountId": socialAccount.id,
-                    "index": socialAccount.index
-                    ])
+            NSNotificationCenter.defaultCenter().postNotificationName("socialAccount:removed", object: self, userInfo: [
+                "socialAccountId": socialAccount.id,
+                "index": socialAccount.index
+                ])
+            
             self.userDefaults.setValue(socialAccount, forKey: self.socialAccountsPath)
             self.userDefaults.synchronize()
-                self.isUpdatingSocialAccount = false
+            
+            self.isUpdatingSocialAccount = false
         }
-        
         
         self.socialAccountsRef.childByAppendingPath(socialAccountId).removeValueWithCompletionBlock { (err, socialAccountsRef) in
             completion(nil)
@@ -185,22 +187,29 @@ class SocialAccountsService: Service {
                 ])
             return
         }
+        
         if isUpdatingSocialAccount {
             return
         }
+        
         isUpdatingSocialAccount = true
         processSocialAccountsData(socialAccountId, completion: { (socialAccount, success) in
             self.socialAccountsRef.childByAppendingPath(socialAccount.id).setValue(true)
             
             socialAccount.user = self.user
             self.socialAccounts[socialAccount.id] = socialAccount
+            
             completion(socialAccount, success)
+            
             NSNotificationCenter.defaultCenter().postNotificationName("keyboard:added", object: self, userInfo: [
                 "socialAccountId": socialAccount.id,
                 "index": socialAccount.index
                 ])
+            
             self.isUpdatingSocialAccount = false
             
         })
     }
 }
+
+protocol SocialAccountServiceDelegate: ServiceDelegate {}
