@@ -320,7 +320,7 @@ class SessionManager: NSObject {
                 self.broadcastDidFetchSocialAccountsEvent()
             })
         } else {
-            // TODO(luc): throw an error if the current user is not set
+            // TODO(kervs): throw an error if the current user is not set
         }
     }
 
@@ -368,7 +368,7 @@ class SessionManager: NSObject {
     private func broadcastDidFetchSocialAccountsEvent() {
         if let socialAccountService = self.socialAccountService {
             for observer in observers {
-                observer.sessionManagerDidFetchSocialAccounts(self, SocialAccounts: socialAccountService.sortedSocialAccounts)
+                observer.sessionManagerDidFetchSocialAccounts(self, socialAccounts: socialAccountService.sortedSocialAccounts)
             }
         }
     }
@@ -393,5 +393,5 @@ enum LoginType {
 @objc protocol SessionManagerObserver: class {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, SocialAccounts: [SocialAccount])
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount])
 }
