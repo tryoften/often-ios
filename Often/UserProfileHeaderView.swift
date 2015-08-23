@@ -16,13 +16,15 @@ class UserProfileHeaderView: UICollectionReusableView {
     var scoreNameLabel: UILabel
     
     var tabContainerView: UIView
-    var servicesTabLabel: UILabel
-    var settingsTabLabel: UILabel
+    var favoritesTabButton: UIButton
+    var recentsTabButton: UIButton
     var highlightBarView: UIView
-    
-    var delegate: UserProfileRevealDelegate?
+    var highlightBarPositionConstraints: [NSLayoutConstraint]
+
     var setServicesRevealButton: UIButton
     var settingsRevealButton: UIButton
+
+    var delegate: UserProfileHeaderDelegate?
     
     override init(frame: CGRect) {
         profileImageView = UIImageView()
@@ -60,17 +62,19 @@ class UserProfileHeaderView: UICollectionReusableView {
         tabContainerView = UIView()
         tabContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        servicesTabLabel = UILabel()
-        servicesTabLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        servicesTabLabel.font = UIFont(name: "Montserrat", size: 12.0)
-        servicesTabLabel.text = "SERVICES"
-        servicesTabLabel.textAlignment = .Center
+        favoritesTabButton = UIButton()
+        favoritesTabButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        favoritesTabButton.setTitle("FAVORITES", forState: .Normal)
+        favoritesTabButton.setTitleColor(BlackColor, forState: .Normal)
+        favoritesTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 12.0)
+        favoritesTabButton.titleLabel?.textAlignment = .Center
         
-        settingsTabLabel = UILabel()
-        settingsTabLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        settingsTabLabel.font = UIFont(name: "Montserrat", size: 12.0)
-        settingsTabLabel.text = "SETTINGS"
-        settingsTabLabel.textAlignment = .Center
+        recentsTabButton = UIButton()
+        recentsTabButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        recentsTabButton.setTitle("RECENTS", forState: .Normal)
+        recentsTabButton.setTitleColor(BlackColor, forState: .Normal)
+        recentsTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 12.0)
+        recentsTabButton.titleLabel?.textAlignment = .Center
         
         highlightBarView = UIView()
         highlightBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -84,6 +88,13 @@ class UserProfileHeaderView: UICollectionReusableView {
         settingsRevealButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         settingsRevealButton.setImage(UIImage(named: "settings"), forState: .Normal)
         
+        highlightBarPositionConstraints = [
+            highlightBarView.al_left == tabContainerView.al_left,
+            highlightBarView.al_right == tabContainerView.al_centerX,
+            highlightBarView.al_bottom == tabContainerView.al_bottom,
+            highlightBarView.al_height == 4
+        ]
+        
         super.init(frame: frame)
     
         backgroundColor = WhiteColor
@@ -91,6 +102,8 @@ class UserProfileHeaderView: UICollectionReusableView {
         
         setServicesRevealButton.addTarget(self, action: "setServicesRevealTapped", forControlEvents: .TouchUpInside)
         settingsRevealButton.addTarget(self, action: "settingsRevealTapped", forControlEvents: .TouchUpInside)
+        favoritesTabButton.addTarget(self, action: "favoritesTabTapped", forControlEvents: .TouchUpInside)
+        recentsTabButton.addTarget(self, action: "recentsTabTapped", forControlEvents: .TouchUpInside)
         
         addSubview(profileImageView)
         addSubview(nameLabel)
@@ -101,8 +114,8 @@ class UserProfileHeaderView: UICollectionReusableView {
         addSubview(settingsRevealButton)
         
         addSubview(tabContainerView)
-        tabContainerView.addSubview(servicesTabLabel)
-        tabContainerView.addSubview(settingsTabLabel)
+        tabContainerView.addSubview(favoritesTabButton)
+        tabContainerView.addSubview(recentsTabButton)
         tabContainerView.addSubview(highlightBarView)
         
         setupLayout()
@@ -148,23 +161,21 @@ class UserProfileHeaderView: UICollectionReusableView {
             tabContainerView.al_right == al_right,
             tabContainerView.al_height == 60,
             
-            servicesTabLabel.al_left == tabContainerView.al_left,
-            servicesTabLabel.al_bottom == tabContainerView.al_bottom,
-            servicesTabLabel.al_top == tabContainerView.al_top,
-            servicesTabLabel.al_right == tabContainerView.al_centerX,
+            favoritesTabButton.al_left == tabContainerView.al_left,
+            favoritesTabButton.al_bottom == tabContainerView.al_bottom,
+            favoritesTabButton.al_top == tabContainerView.al_top,
+            favoritesTabButton.al_right == tabContainerView.al_centerX,
             
-            settingsTabLabel.al_bottom == tabContainerView.al_bottom,
-            settingsTabLabel.al_top == tabContainerView.al_top,
-            settingsTabLabel.al_right == tabContainerView.al_right,
-            settingsTabLabel.al_left == tabContainerView.al_centerX,
-            
-            highlightBarView.al_left == tabContainerView.al_left,
-            highlightBarView.al_right == tabContainerView.al_centerX,
-            highlightBarView.al_bottom == tabContainerView.al_bottom,
-            highlightBarView.al_height == 4,
+            recentsTabButton.al_bottom == tabContainerView.al_bottom,
+            recentsTabButton.al_top == tabContainerView.al_top,
+            recentsTabButton.al_right == tabContainerView.al_right,
+            recentsTabButton.al_left == tabContainerView.al_centerX,
         ])
+        
+        addConstraints(highlightBarPositionConstraints)
     }
     
+    // User Profile Header Delegate
     func setServicesRevealTapped() {
         delegate?.revealSetServicesViewDidTap()
     }
@@ -172,9 +183,35 @@ class UserProfileHeaderView: UICollectionReusableView {
     func settingsRevealTapped() {
         delegate?.revealSettingsViewDidTap()
     }
+    
+    func favoritesTabTapped() {
+        removeConstraints(highlightBarPositionConstraints)
+        highlightBarPositionConstraints = [
+            highlightBarView.al_left == tabContainerView.al_left,
+            highlightBarView.al_right == tabContainerView.al_centerX,
+            highlightBarView.al_bottom == tabContainerView.al_bottom,
+            highlightBarView.al_height == 4
+        ]
+        addConstraints(highlightBarPositionConstraints)
+        delegate?.userFavoritesTabSelected()
+    }
+    
+    func recentsTabTapped() {
+        removeConstraints(highlightBarPositionConstraints)
+        highlightBarPositionConstraints = [
+            highlightBarView.al_left == tabContainerView.al_centerX,
+            highlightBarView.al_right == tabContainerView.al_right,
+            highlightBarView.al_bottom == tabContainerView.al_bottom,
+            highlightBarView.al_height == 4
+        ]
+        addConstraints(highlightBarPositionConstraints)
+        delegate?.userRecentsTabSelected()
+    }
 }
 
-protocol UserProfileRevealDelegate {
+protocol UserProfileHeaderDelegate {
     func revealSetServicesViewDidTap()
     func revealSettingsViewDidTap()
+    func userFavoritesTabSelected()
+    func userRecentsTabSelected()
 }

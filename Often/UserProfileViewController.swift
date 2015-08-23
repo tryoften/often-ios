@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController, UserProfileRevealDelegate {
+class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
     
@@ -39,6 +39,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileRevealDe
         allFilterButton.setTitleColor(BlackColor, forState: .Selected)
         allFilterButton.setTitleColor(LightGrey, forState: .Normal)
         allFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
+        allFilterButton.selected = true
         
         songsFilterButton = UIButton()
         songsFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -80,6 +81,12 @@ class UserProfileViewController: UICollectionViewController, UserProfileRevealDe
         settingsViewWidthConstraint = settingsRevealView.al_width == 0
         
         super.init(collectionViewLayout: collectionViewLayout)
+        
+        allFilterButton.addTarget(self, action: "filterButtonTapped:", forControlEvents: .TouchUpInside)
+        songsFilterButton.addTarget(self, action: "filterButtonTapped:", forControlEvents: .TouchUpInside)
+        videosFilterButton.addTarget(self, action: "filterButtonTapped:", forControlEvents: .TouchUpInside)
+        linksFilterButton.addTarget(self, action: "filterButtonTapped:", forControlEvents: .TouchUpInside)
+        gifsFilterButton.addTarget(self, action: "filterButtonTapped:", forControlEvents: .TouchUpInside)
         
         view.addSubview(setServicesRevealView)
         view.addSubview(settingsRevealView)
@@ -226,13 +233,86 @@ class UserProfileViewController: UICollectionViewController, UserProfileRevealDe
         ])
     }
     
+    //Filter Method
+    func filterButtonTapped(button: UIButton) {
+        if let title = button.titleLabel?.text {
+            switch title {
+                case "ALL":
+                    if allFilterButton.selected == true {
+                        //do nothing
+                    } else {
+                        allFilterButton.selected = true
+                        songsFilterButton.selected = false
+                        videosFilterButton.selected = false
+                        linksFilterButton.selected = false
+                        gifsFilterButton.selected = false
+                    }
+                    break
+                case "SONGS":
+                    if songsFilterButton.selected == true {
+                        //do nothing
+                    } else {
+                        allFilterButton.selected = false
+                        songsFilterButton.selected = true
+                        videosFilterButton.selected = false
+                        linksFilterButton.selected = false
+                        gifsFilterButton.selected = false
+                    }
+                    break
+                case "VIDEOS":
+                    if videosFilterButton.selected == true {
+                        //do nothing
+                    } else {
+                        allFilterButton.selected = false
+                        songsFilterButton.selected = false
+                        videosFilterButton.selected = true
+                        linksFilterButton.selected = false
+                        gifsFilterButton.selected = false
+                    }
+                    break
+                case "LINKS":
+                    if linksFilterButton.selected == true {
+                        //do nothing
+                    } else {
+                        allFilterButton.selected = false
+                        songsFilterButton.selected = false
+                        videosFilterButton.selected = false
+                        linksFilterButton.selected = true
+                        gifsFilterButton.selected = false
+                    }
+                    break
+                case "GIFS":
+                    if gifsFilterButton.selected == true {
+                        //do nothing
+                    } else {
+                        allFilterButton.selected = false
+                        songsFilterButton.selected = false
+                        videosFilterButton.selected = false
+                        linksFilterButton.selected = false
+                        gifsFilterButton.selected = true
+                    }
+                    break
+            default:
+                println("Defaulted")
+                break
+            }
+        }
+    }
+    
+    // User profile header delegate
     func revealSetServicesViewDidTap() {
-        println("Reveal services tapped")
         revealController.showViewController(leftViewController)
     }
     
     func revealSettingsViewDidTap() {
-        println("Reveal settings tapped")
         revealController.showViewController(rightViewController)
+    }
+    
+    func userFavoritesTabSelected() {
+        println("Favorites")
+    }
+    
+    func userRecentsTabSelected() {
+        println("Recents")
     }
 }
