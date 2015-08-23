@@ -38,20 +38,38 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         }
     }
     
+    func socialAccountAtIndex(index: Int) -> SocialAccount? {
+        if let socialAccounts = sessionManager.socialAccountService?.sortedSocialAccounts {
+            if index < socialAccounts.count {
+                return socialAccounts[index]
+            }
+        }
+        return nil
+    }
+    
+    func deleteSocialAccountWithId(socialAccountId: String, completion: (NSError?) -> ()) {
+        sessionManager.socialAccountService?.removeSocialAccounteWithId(socialAccountId, completion: completion)
+    }
+
+    
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
         
     }
     
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, SocialAccounts: [SocialAccount]) {
-    
-    }
-    
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
-        
+        sessionManager.fetchSocialAccount()
+        delegate?.userProfileViewModelDidLoginUser(self, user: user)
     }
+    
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount]) {
+        delegate?.userProfileViewModelDidLoadSocialServiceList(self, socialAccountList: socialAccounts)
+    
+    }
+    
+    
 }
 
 protocol UserProfileViewModelDelegate: class {
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User)
-    func userProfileViewModelDidLoadSocialServiceList(userProfileViewModel: UserProfileViewModel, SocialAccountList: [SocialAccount])
+    func userProfileViewModelDidLoadSocialServiceList(userProfileViewModel: UserProfileViewModel, socialAccountList: [SocialAccount])
 }
