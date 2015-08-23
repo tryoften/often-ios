@@ -35,6 +35,13 @@ class SocialAccountsService: Service {
         
     }
     
+    func socialAccountWithId(socialAccountId: String) -> SocialAccount? {
+        if let socialAccount = socialAccounts[socialAccountId] {
+            return socialAccount
+        }
+        return nil
+    }
+    
     /**
     Fetches data from the local database and creates models
     
@@ -93,9 +100,6 @@ class SocialAccountsService: Service {
         }
     }
     
-    /**
-    
-    */
     func fetchDataForSocialAccountIds(serviceIds: [String], completion: ([SocialAccount]) -> ()) {
         var index = 0
         var serviceCount = serviceIds.count
