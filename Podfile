@@ -13,6 +13,7 @@ target 'Often' do
   pod 'Venmo-iOS-SDK', '~>1.3'
   pod 'TOMSMorphingLabel', '~> 0.5'
   pod 'CSStickyHeaderFlowLayout'
+  pod 'PKRevealController'
 end
 
 target 'Keyboard' do
