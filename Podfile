@@ -17,6 +17,7 @@ target 'Often' do
   pod 'ParseFacebookUtils', '~> 1.7'
   pod 'CSStickyHeaderFlowLayout'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
+  pod 'PKRevealController'
 end
 
 target 'Keyboard' do
