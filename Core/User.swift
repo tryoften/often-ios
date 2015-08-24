@@ -26,7 +26,7 @@ class User: Object {
         
         if let dictionary = keyedValues as? [String: AnyObject] {
 
-            if let nameString = dictionary["name"] as? String {
+            if let nameString = dictionary["displayName"] as? String {
                 name = nameString
             }
             
@@ -55,6 +55,10 @@ class User: Object {
             }
             
             if let profileImageLargeString = dictionary["profileImageLarge"] as? String {
+                profileImageLarge = profileImageLargeString
+            }
+            
+            if let profileImageLargeString = dictionary["profileImageURL"] as? String {
                 profileImageLarge = profileImageLargeString
             }
             

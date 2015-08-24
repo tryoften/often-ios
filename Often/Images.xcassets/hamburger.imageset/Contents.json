@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "settings icon - grey - 1x.png"
+      "filename" : "hamburger.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "settings icon - grey - 2x.png"
+      "filename" : "hamburger@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "settings icon - grey - 3x.png"
+      "filename" : "hamburger@3x.png"
     }
   ],
   "info" : {

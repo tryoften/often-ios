@@ -25,14 +25,13 @@ class ServiceSettingsCollectionViewController: UICollectionViewController, AddSe
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         var screenWidth = UIScreen.mainScreen().bounds.size.width
-        var flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 50)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
-        flowLayout.parallaxHeaderAlwaysOnTop = true
-        flowLayout.disableStickyHeaders = false
-        flowLayout.sectionInset = UIEdgeInsetsMake(25.0, 5.0, 5.0, 5.0)
-        flowLayout.itemSize = CGSizeMake(screenWidth - 30, 218)
-        return flowLayout
+        var viewLayout = UICollectionViewFlowLayout()
+        viewLayout.scrollDirection = .Vertical
+//        viewLayout.minimumInteritemSpacing = 5.0
+//        viewLayout.minimumLineSpacing = 5.0
+        viewLayout.sectionInset = UIEdgeInsetsMake(25.0, 5.0, 5.0, 5.0)
+        viewLayout.itemSize = CGSizeMake(screenWidth - 30, 218)
+        return viewLayout
     }
     
     override func viewDidLoad() {
@@ -41,8 +40,6 @@ class ServiceSettingsCollectionViewController: UICollectionViewController, AddSe
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "profile-header")
-            collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(ServiceSettingsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
         }
     }
@@ -77,26 +74,6 @@ class ServiceSettingsCollectionViewController: UICollectionViewController, AddSe
         cell.serviceSubtitleLabel.text = "Connect your Venmo account to start sending payments & requests from your keyboard."
         
         return cell
-    }
-    
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        if kind == CSStickyHeaderParallaxHeader {
-            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "profile-header", forIndexPath: indexPath) as! UserProfileHeaderView
-            
-            if headerView == nil {
-                headerView = cell
-            }
-            
-            return headerView!
-        } else if kind == UICollectionElementKindSectionHeader {
-            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
-            
-            sectionHeaderView = cell
-            
-            return cell
-        }
-        
-        return UICollectionReusableView()
     }
     
     func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: ServiceSettingsCollectionViewCell, selected: Bool) {
