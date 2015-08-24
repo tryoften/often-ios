@@ -14,7 +14,7 @@ class VenmoSearchBarButton: ServiceProviderSearchBarButton {
         
         backgroundColor = UIColor(fromHexString: "#4D97D2")
         addConstraint(al_width == 90)
-        contentEdgeInsets = UIEdgeInsets(top: 6, left: 15, bottom: 6, right: 3)
+        contentEdgeInsets = UIEdgeInsets(top: 6, left: 20, bottom: 6, right: 3)
         setImage(UIImage(named: "venmo-logo"), forState: .Normal)
     }
     

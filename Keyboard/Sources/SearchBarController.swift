@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SearchBarController: UIViewController, UITextFieldDelegate {
+class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewModelDelegate {
+    var viewModel: SearchViewModel!
     var searchBarView: SearchBar!
     var supplementaryViewContainer: UIView!
     var supplementaryViewHeightConstraint: NSLayoutConstraint!
@@ -91,6 +92,9 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         supplementaryViewContainer.setTranslatesAutoresizingMaskIntoConstraints(false)
         supplementaryViewHeightConstraint = supplementaryViewContainer.al_height == 0
         
+        viewModel = SearchViewModel(base: Firebase(url: BaseURL))
+        viewModel.delegate = self
+        
         view.addSubview(supplementaryViewContainer)
         view.addSubview(searchBarView)
         
@@ -158,6 +162,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapEnterButton(button: KeyboardKeyButton?) {
+        var request = SearchRequest(query: searchBarView.textInput.text, userId: "anon", timestamp: NSDate.new().timeIntervalSince1970, isFulfilled: false)
+        viewModel.sendRequest(request)
         if searchBarView.textInput.selected {
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
         }
@@ -190,5 +196,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidEndEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("default")
+    }
+    
+    // MARK: SearchViewModelDelegate
+    func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse) {
+        searchResultsViewController?.response = response
     }
 }
