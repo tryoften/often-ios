@@ -2,54 +2,38 @@
 //  Service.swift
 //  Often
 //
-//  Created by Kervins Valcourt on 8/12/15.
+//  Created by Kervins Valcourt on 8/13/15.
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
 //
-
 import UIKit
 
-class Service: NSObject {
-    var name = ""
-    var token = ""
-    var activeStatus = false
-    var tokenExpirationDate = ""
-    var username = ""
-    var password = ""
+class Service {
+    var rootURL: Firebase
+    var userDefaults: NSUserDefaults
+    weak var delegate: ServiceDelegate?
+    var isInternetReachable: Bool
+    var dataLoaded: Bool
     
-    
-    override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
+    init(root: Firebase) {
+        rootURL = root
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        dataLoaded = false
         
-        if let dictionary = keyedValues as? [String: AnyObject] {
-            
-            if let serviceName = dictionary["serviceName"] as? String {
-                name = serviceName
-            }
-            
-            if let serviceToken = dictionary["serviceToken"] as? String {
-                token = serviceToken
-            }
-            
-            if let active = dictionary["active"] as? Bool {
-                activeStatus = active
-            }
-            
-            if let expirationDate = dictionary["tokenExpirationDate"] as? String {
-                tokenExpirationDate = expirationDate
-            }
-            
-            if let expirationDate = dictionary["tokenExpirationDate"] as? String {
-                tokenExpirationDate = expirationDate
-            }
-            
-            if let usernameString = dictionary["userName"] as? String {
-                username = usernameString
-            }
-            
-            if let passwordString = dictionary["password"] as? String {
-                password = passwordString
-            }
+        var reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+        isInternetReachable = reachabilitymanager.reachable
+        
+        reachabilitymanager.setReachabilityStatusChangeBlock { status in
+            self.isInternetReachable = reachabilitymanager.reachable
         }
+        reachabilitymanager.startMonitoring()
     }
+    
+    func fetchLocalData() {}
+    func fetchRemoteData(completion: (Bool) -> Void) {}
+}
 
-
+protocol ServiceDelegate: class {
+    /// Gets called after the service is done loading into the service
+    func serviceDataDidLoad(service: Service)
+    func socialServiceDidUpdate(socialService: [SocialAccount])
 }

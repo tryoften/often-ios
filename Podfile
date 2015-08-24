@@ -12,7 +12,11 @@ target 'Often' do
   pod 'AFNetworking', '~> 2.0'
   pod 'Venmo-iOS-SDK', '~>1.3'
   pod 'TOMSMorphingLabel', '~> 0.5'
+  pod 'Facebook-iOS-SDK', '~> 3.0'
+  pod 'Parse', :podspec => 'Parse.podspec.json'
+  pod 'ParseFacebookUtils', '~> 1.7'
   pod 'CSStickyHeaderFlowLayout'
+  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'PKRevealController'
 end
 
@@ -20,6 +24,7 @@ target 'Keyboard' do
   pod 'Firebase', '>= 2.0.2'
   pod 'AFNetworking', '~> 2.0'
   pod 'TOMSMorphingLabel', '~> 0.5'
+  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
 end
 
 
