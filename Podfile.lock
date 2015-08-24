@@ -1,23 +1,23 @@
 PODS:
-  - AFNetworking (2.5.4):
-    - AFNetworking/NSURLConnection (= 2.5.4)
-    - AFNetworking/NSURLSession (= 2.5.4)
-    - AFNetworking/Reachability (= 2.5.4)
-    - AFNetworking/Security (= 2.5.4)
-    - AFNetworking/Serialization (= 2.5.4)
-    - AFNetworking/UIKit (= 2.5.4)
-  - AFNetworking/NSURLConnection (2.5.4):
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.4):
+  - AFNetworking/NSURLSession (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.4)
-  - AFNetworking/Security (2.5.4)
-  - AFNetworking/Serialization (2.5.4)
-  - AFNetworking/UIKit (2.5.4):
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Analytics/Core-iOS (1.11.3):
@@ -38,15 +38,19 @@ PODS:
   - CSStickyHeaderFlowLayout (0.2.8)
   - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
-  - Firebase (2.3.2)
+  - Firebase (2.3.3)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
-  - Parse (1.7.4)
-  - ParseFacebookUtils (1.7.4):
-    - Bolts/Tasks (>= 1.1.5)
+  - Parse (1.8.1):
+    - Bolts/Tasks (>= 1.2.0)
+  - ParseFacebookUtils (1.8.1):
+    - Bolts/Tasks (>= 1.2.0)
     - Facebook-iOS-SDK (~> 3.23)
-    - Parse (~> 1.7.4)
+    - Parse (~> 1.8.0)
+  - ParseTwitterUtils (1.8.1):
+    - Bolts/Tasks (>= 1.2.0)
+    - Parse (~> 1.8.0)
   - PKRevealController (2.0.6)
   - Reveal-iOS-SDK (1.5.1)
   - SSKeychain (1.2.3)
@@ -66,7 +70,8 @@ DEPENDENCIES:
   - Facebook-iOS-SDK (~> 3.0)
   - Firebase (>= 2.0.2)
   - Parse (from `Parse.podspec.json`)
-  - ParseFacebookUtils (~> 1.7)
+  - ParseFacebookUtils (~> 1.8)
+  - ParseTwitterUtils (~> 1.8)
   - PKRevealController
   - Reveal-iOS-SDK
   - TOMSMorphingLabel (~> 0.5)
@@ -84,16 +89,17 @@ CHECKOUT OPTIONS:
     :git: https://github.com/October-Labs/analytics-ios.git
 
 SPEC CHECKSUMS:
-  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CMDQueryStringSerialization: 15f9004212bbc72533bb533f63df79d90a00a7d8
   CSStickyHeaderFlowLayout: e919dd425fa12bba1155f66d87edfe540eb8f89a
   Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
-  Firebase: 02fbeacfe19970856c872321788194524f21ffed
+  Firebase: 2db60272f68ce40c7d47e5ae6eddc16977c65d4c
   FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946
-  Parse: ba553bf1ea90160c60ba302a193881ad8acc1d9f
-  ParseFacebookUtils: 7115990b291ae95b920fde413272828d0eb0d963
+  Parse: 2155953b1565494095d5fa5c83b3c77f2c677c09
+  ParseFacebookUtils: f3e670d3f8edd0cfb8429ac39b30959d4ab13f0b
+  ParseTwitterUtils: 80512bea19d3d0950ad04d7300a434f86977feeb
   PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d

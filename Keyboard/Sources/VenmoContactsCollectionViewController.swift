@@ -47,7 +47,7 @@ class VenmoContactsCollectionViewController: UICollectionViewController, UIColle
         if let contact = viewModel.contactAtIndex(indexPath.row) {
             cell.contactName.text = contact.name
             cell.contactNumber.text = contact.username
-            cell.contactImageView.setImageWithURL(NSURL(string: contact.profileURL))
+            cell.contactImageView.setImageWithURL(NSURL(string: contact.profileURL)!)
         }
         
         return cell
