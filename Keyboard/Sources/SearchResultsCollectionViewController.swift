@@ -27,6 +27,7 @@ class SearchResultsCollectionViewController: UICollectionViewController {
     var response: SearchResponse? {
         didSet {
             collectionView?.reloadData()
+            collectionView?.scrollRectToVisible(CGRectZero, animated: true)
         }
     }
     
@@ -62,11 +63,11 @@ class SearchResultsCollectionViewController: UICollectionViewController {
     
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
         var layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 100)
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         layout.scrollDirection = .Vertical
-        layout.minimumInteritemSpacing = 10.0
-        layout.minimumLineSpacing = 10.0
-        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        layout.minimumInteritemSpacing = 7.0
+        layout.minimumLineSpacing = 7.0
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 40.0, right: 10.0)
         return layout
     }
     
@@ -95,9 +96,41 @@ class SearchResultsCollectionViewController: UICollectionViewController {
                 cell.mainTextLabel.text = article.title
                 cell.leftSupplementLabel.text = article.author
                 cell.headerLabel.text = article.sourceName
+                cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
+            case .Track:
+                var track = (result as! TrackSearchResult)
+                cell.mainTextLabel.text = track.name
+                
+                if let imageURL = NSURL(string: track.image) {
+                    var request = NSURLRequest(URL: imageURL)
+                    cell.contentImageView.setImageWithURLRequest(request, placeholderImage: nil, success: { (req, res, image) in
+                        dispatch_async(dispatch_get_main_queue()) {
+                            cell.contentImage = image
+                        }
+                    }, failure: { (req, res, err) in
+                        
+                    })
+                }
+                
+                cell.rightSupplementLabel.text = track.formattedCreatedDate
+                
+                switch(result.source) {
+                case .Spotify:
+                    cell.headerLabel.text = "Spotify"
+                    cell.mainTextLabel.text = "\(track.name)"
+                    cell.leftSupplementLabel.text = track.artistName
+                case .Soundcloud:
+                    cell.headerLabel.text = "Soundcloud"
+                    cell.leftSupplementLabel.text = track.formattedPlays()
+                default:
+                    break
+                }
+                
             default:
                 break
             }
+            
+            cell.sourceLogoView.image = result.iconImageForSource()
 
         }
         

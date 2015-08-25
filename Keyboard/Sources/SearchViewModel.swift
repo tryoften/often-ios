@@ -51,27 +51,20 @@ class SearchViewModel: NSObject {
                                 let rawType = resultData["_type"] as? String,
                                 let id = resultData["_id"] as? String,
                                 let score = resultData["_score"] as? Double,
-                                let source = resultData["source"] as? [String: String],
+                                let source = SearchResultSource(rawValue: provider),
                                 let type = SearchResultType(rawValue: rawType) {
                                     
                                     var result: SearchResult? = nil
                                     
                                     switch(type) {
                                     case .Article:
-                                        if let title = resultData["title"] as? String,
-                                            let author = resultData["author"] as? String,
-                                            let date = resultData["date"] as? String,
-                                            let description = resultData["description"] as? String,
-                                            let link = resultData["link"] as? String {
-                                        result = ArticleSearchResult(id: id, title: title, date: NSDate(), link: link, score: score)
-                                        }
+                                        result = ArticleSearchResult(data: resultData)
                                     case .Music:
                                         break
+                                    case .Track:
+                                        result = TrackSearchResult(resultData: resultData)
                                     case .Album:
-                                        if let name = resultData["name"] as? String,
-                                            let imageLarge = resultData["image_large"] as? String {
-                                            
-                                        }
+                                        break
                                     case .User:
                                         break
                                     case .Video:
@@ -82,12 +75,18 @@ class SearchViewModel: NSObject {
                                         break
                                     }
                                     
+
                                     if let item = result {
-                                        if let sourceId = source["id"] {
-                                            item.sourceId = sourceId
+                                        
+                                        if let index = resultData["_index"] as? String,
+                                            let source = SearchResultSource(rawValue: index) {
+                                                item.source = source
+                                        } else {
+                                            item.source = .Unknown
                                         }
                                         
-                                        if let sourceName = source["name"] {
+                                        if let source = resultData["source"] as? [String: String],
+                                            let sourceName = source["name"] {
                                             item.sourceName = sourceName
                                         }
                                         
