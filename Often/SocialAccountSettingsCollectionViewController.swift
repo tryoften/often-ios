@@ -10,13 +10,17 @@ import UIKit
 
 let ServiceSettingsViewCell = "serviceCell"
 
-class ServiceSettingsCollectionViewController: UICollectionViewController, AddServiceProviderDelegate {
+
+class SocialAccountSettingsCollectionViewController: UICollectionViewController, AddServiceProviderDelegate, SocialAccountSettingsViewModelDelegate  {
     var headerView: UserProfileHeaderView?
+    var viewModel: SocialAccountSettingsViewModel
     var sectionHeaderView: UserProfileSectionHeaderView?
-    var serviceSettingsCell: ServiceSettingsCollectionViewCell?
+    var serviceSettingsCell: SocialAccountSettingsCollectionViewCell?
     
-    override init(collectionViewLayout layout: UICollectionViewLayout) {
+    init(collectionViewLayout layout: UICollectionViewLayout, viewModel: SocialAccountSettingsViewModel) {
+        self.viewModel = viewModel
         super.init(collectionViewLayout: layout)
+        self.viewModel.delegate = self
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -40,7 +44,7 @@ class ServiceSettingsCollectionViewController: UICollectionViewController, AddSe
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(ServiceSettingsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
+            collectionView.registerClass(SocialAccountSettingsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
         }
     }
 
@@ -64,7 +68,7 @@ class ServiceSettingsCollectionViewController: UICollectionViewController, AddSe
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! ServiceSettingsCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SocialAccountSettingsCollectionViewCell
         serviceSettingsCell = cell
         serviceSettingsCell?.delegate = self
         
@@ -76,7 +80,7 @@ class ServiceSettingsCollectionViewController: UICollectionViewController, AddSe
         return cell
     }
     
-    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: ServiceSettingsCollectionViewCell, selected: Bool) {
+    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool) {
         Venmo.startWithAppId(VenmoAppID, secret: VenmoAppSecret, name: "SWRV")
         Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
             if success {
@@ -92,6 +96,16 @@ class ServiceSettingsCollectionViewController: UICollectionViewController, AddSe
             Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
         }
 
+    }
+    
+    func socialAccountSettingsViewModelDidLoginUser(userProfileViewModel: SocialAccountSettingsViewModel, user: User) {
+        
+    }
+    
+    func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccountList: [SocialAccount]) {
+        if !socialAccountList.isEmpty {
+            self.collectionView?.reloadData()
+        }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
