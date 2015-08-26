@@ -24,6 +24,11 @@ import UIKit
 */
 class SearchResultsCollectionViewController: UICollectionViewController {
     var resultsLabel: UILabel
+    var response: SearchResponse? {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         resultsLabel = UILabel()
@@ -73,20 +78,28 @@ class SearchResultsCollectionViewController: UICollectionViewController {
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if let response = response {
+            return response.results.count
+        }
+        return 0
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-        cell.avatarImageView.image = UIImage(named: "complex")
-        cell.headerLabel.text = "@ComplexMag"
-        cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."
-        cell.leftSupplementLabel.text = "3.1K Retweets"
-        cell.centerSupplementLabel.text = "4.5K Favorites"
-        cell.rightSupplementLabel.text = "July 25, 2015"
-        cell.rightCornerImageView.image =  UIImage(named: "twitter")
         
-        cell.contentImage = indexPath.row % 2 == 0 ? UIImage(named: "ovosound") : nil
+        if let result = response?.results[indexPath.row] {
+            
+            switch(result.type) {
+            case .Article:
+                var article = (result as! ArticleSearchResult)
+                cell.mainTextLabel.text = article.title
+                cell.leftSupplementLabel.text = article.author
+                cell.headerLabel.text = article.sourceName
+            default:
+                break
+            }
+
+        }
         
         return cell
     }
