@@ -10,13 +10,16 @@ import UIKit
 
 let ServiceSettingsViewCell = "serviceCell"
 
-class ServiceSettingsCollectionViewController: UICollectionViewController, AddServiceProviderDelegate {
+class ServiceSettingsCollectionViewController: UICollectionViewController, AddServiceProviderDelegate, SocialAccountSettingsViewModelDelegate {
     var headerView: UserProfileHeaderView?
+    var viewModel: SocialAccountSettingsViewModel
     var sectionHeaderView: UserProfileSectionHeaderView?
     var serviceSettingsCell: ServiceSettingsCollectionViewCell?
     
-    override init(collectionViewLayout layout: UICollectionViewLayout) {
+    init(collectionViewLayout layout: UICollectionViewLayout, viewModel: SocialAccountSettingsViewModel) {
+        self.viewModel = viewModel
         super.init(collectionViewLayout: layout)
+        self.viewModel.delegate = self
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -92,6 +95,16 @@ class ServiceSettingsCollectionViewController: UICollectionViewController, AddSe
             Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
         }
 
+    }
+    
+    func socialAccountSettingsViewModelDidLoginUser(userProfileViewModel: SocialAccountSettingsViewModel, user: User) {
+        
+    }
+    
+    func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccountList: [SocialAccount]) {
+        if !socialAccountList.isEmpty {
+            self.collectionView?.reloadData()
+        }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {

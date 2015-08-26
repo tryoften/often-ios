@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate {
+class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate, UserProfileViewModelDelegate {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
     
@@ -16,19 +16,22 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     var settingsRevealView: UIView
     var setServiceViewWidthConstraint: NSLayoutConstraint?
     var settingsViewWidthConstraint: NSLayoutConstraint?
+    var viewModel: UserProfileViewModel
     
-    var contentFilterTabView: UIView
-    var allFilterButton: UIButton
-    var songsFilterButton: UIButton
-    var videosFilterButton: UIButton
-    var linksFilterButton: UIButton
-    var gifsFilterButton: UIButton
+    let contentFilterTabView: UIView
+    let allFilterButton: UIButton
+    let songsFilterButton: UIButton
+    let videosFilterButton: UIButton
+    let linksFilterButton: UIButton
+    let gifsFilterButton: UIButton
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init(collectionViewLayout: UICollectionViewLayout) {
+     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
+        self.viewModel = viewModel
+        
         contentFilterTabView = UIView()
         contentFilterTabView.setTranslatesAutoresizingMaskIntoConstraints(false)
         contentFilterTabView.backgroundColor = WhiteColor
@@ -81,6 +84,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         settingsViewWidthConstraint = settingsRevealView.al_width == 0
         
         super.init(collectionViewLayout: collectionViewLayout)
+        self.viewModel.delegate = self
         
         allFilterButton.addTarget(self, action: "filterButtonTapped:", forControlEvents: .TouchUpInside)
         songsFilterButton.addTarget(self, action: "filterButtonTapped:", forControlEvents: .TouchUpInside)
@@ -297,6 +301,14 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
                 break
             }
         }
+    }
+    
+    func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
+        
+    }
+    
+    func userProfileViewModelDidLoadSocialServiceList(userProfileViewModel: UserProfileViewModel, socialAccountList: [SocialAccount]) {
+        
     }
     
     // User profile header delegate

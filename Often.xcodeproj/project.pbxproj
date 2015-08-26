@@ -17,6 +17,7 @@
 		3B63EDCF1B7D2AD400E54AFA /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDCE1B7D2AD400E54AFA /* Service.swift */; };
 		3B63EDD21B7D381D00E54AFA /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDD11B7D381D00E54AFA /* SocialAccountsService.swift */; };
 		3B63EDDD1B7E860000E54AFA /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDDC1B7E860000E54AFA /* SessionManager.swift */; };
+		3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
@@ -286,6 +287,7 @@
 		3B63EDCE1B7D2AD400E54AFA /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		3B63EDD11B7D381D00E54AFA /* SocialAccountsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountsService.swift; sourceTree = "<group>"; };
 		3B63EDDC1B7E860000E54AFA /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsViewModel.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 			isa = PBXGroup;
 			children = (
 				3BF60C511B8680F600DD6E31 /* UserProfileViewModel.swift */,
+				3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -1263,6 +1266,7 @@
 				81840FB81B4331C1003531B1 /* UIDevice+modelName.swift in Sources */,
 				81E26D7F1B65B09D00FC1F2F /* LayoutConstants.swift in Sources */,
 				81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */,
+				3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */,
 				81E26D9C1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				3BF60C521B8680F600DD6E31 /* UserProfileViewModel.swift in Sources */,
