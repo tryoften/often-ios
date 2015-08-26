@@ -11,7 +11,7 @@ import UIKit
 class SocialAccount: NSObject {
     var name = ""
     var token = ""
-    var type: SocialAccountType
+    //var type: SocialAccountType
     var index: Int = -1
     var id: String = ""
     var activeStatus = false
@@ -20,11 +20,11 @@ class SocialAccount: NSObject {
     var password = ""
     var user: User?
     
-    init (type:SocialAccountType, user: User) {
-        self.type = type
-        self.user = user
-        super.init()
-    }
+//    init (type:SocialAccountType, user: User) {
+//        self.type = type
+//        self.user = user
+//        super.init()
+//    }
     
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         

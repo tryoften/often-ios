@@ -17,8 +17,8 @@ private var TestKeyboard: Bool = false
 var revealController: PKRevealController?
 var frontNavigationController: UINavigationController?
 var frontViewController: UserProfileViewController?
-var leftViewController: ServiceSettingsCollectionViewController?
-var rightViewController: SettingsViewController?
+var leftViewController: SocialAccountSettingsCollectionViewController?
+var rightViewController: AppSettingsViewController?
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -55,8 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 // left view controller: Set Services for keyboard
                 // right view controller: App Settings
-                leftViewController = ServiceSettingsCollectionViewController(collectionViewLayout: ServiceSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-                rightViewController = SettingsViewController()
+                leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
+                rightViewController = AppSettingsViewController()
+
                 
                 // instantiate PKRevealController and set as mainController to do revealing
                 revealController = PKRevealController(frontViewController: frontNavigationController, leftViewController: leftViewController, rightViewController: rightViewController)
