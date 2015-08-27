@@ -23,20 +23,40 @@ import UIKit
 
 */
 class SearchResultsCollectionViewController: UICollectionViewController {
-    var resultsLabel: UILabel
+    var backgroundImageView: UIImageView
+    var cellsAnimated: [NSIndexPath: Bool]
     var response: SearchResponse? {
         didSet {
-            collectionView?.reloadData()
-            collectionView?.scrollRectToVisible(CGRectZero, animated: true)
+            cellsAnimated = [:]
+            
+            if let collectionView = collectionView {
+                collectionView.reloadData()
+                collectionView.scrollRectToVisible(CGRectZero, animated: true)
+            }
+            
+            backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
         }
     }
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
-        resultsLabel = UILabel()
+        backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
+        backgroundImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        backgroundImageView.contentMode = .Center
+        backgroundImageView.contentScaleFactor = 2.5
+        cellsAnimated = [:]
         
         super.init(collectionViewLayout: layout)
         
-        collectionView?.backgroundColor = VeryLightGray
+        view.insertSubview(backgroundImageView, belowSubview: collectionView!)
+        view.backgroundColor = VeryLightGray
+        collectionView?.backgroundColor = UIColor.clearColor()
+        
+        // Register cell classes
+        if let collectionView = collectionView {
+            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
+        }
+        
+        setupLayout()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -45,15 +65,6 @@ class SearchResultsCollectionViewController: UICollectionViewController {
     
     convenience init() {
         self.init(collectionViewLayout: SearchResultsCollectionViewController.provideCollectionViewFlowLayout())
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Register cell classes
-        if let collectionView = collectionView {
-            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -87,31 +98,20 @@ class SearchResultsCollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-        
+
         if let result = response?.results[indexPath.row] {
             
             switch(result.type) {
             case .Article:
-                var article = (result as! ArticleSearchResult)
+                let article = (result as! ArticleSearchResult)
                 cell.mainTextLabel.text = article.title
                 cell.leftSupplementLabel.text = article.author
                 cell.headerLabel.text = article.sourceName
                 cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
+                cell.centerSupplementLabel.text = nil
             case .Track:
-                var track = (result as! TrackSearchResult)
+                let track = (result as! TrackSearchResult)
                 cell.mainTextLabel.text = track.name
-                
-                if let imageURL = NSURL(string: track.image) {
-                    var request = NSURLRequest(URL: imageURL)
-                    cell.contentImageView.setImageWithURLRequest(request, placeholderImage: nil, success: { (req, res, image) in
-                        dispatch_async(dispatch_get_main_queue()) {
-                            cell.contentImage = image
-                        }
-                    }, failure: { (req, res, err) in
-                        
-                    })
-                }
-                
                 cell.rightSupplementLabel.text = track.formattedCreatedDate
                 
                 switch(result.source) {
@@ -121,7 +121,8 @@ class SearchResultsCollectionViewController: UICollectionViewController {
                     cell.leftSupplementLabel.text = track.artistName
                 case .Soundcloud:
                     cell.headerLabel.text = "Soundcloud"
-                    cell.leftSupplementLabel.text = track.formattedPlays()
+                    cell.leftSupplementLabel.text = track.artistName
+                    cell.centerSupplementLabel.text = track.formattedPlays()
                 default:
                     break
                 }
@@ -130,10 +131,47 @@ class SearchResultsCollectionViewController: UICollectionViewController {
                 break
             }
             
+            cell.contentImageView.image = nil
+            if  let image = result.image,
+                let imageURL = NSURL(string: image) {
+                var request = NSURLRequest(URL: imageURL)
+                    cell.contentImageView.setImageWithURLRequest(request, placeholderImage: nil, success: { (req, res, image) in
+                    dispatch_async(dispatch_get_main_queue()) {
+                        cell.contentImage = image
+                    }
+                }, failure: { (req, res, err) in
+                        
+                })
+            }
+            
             cell.sourceLogoView.image = result.iconImageForSource()
+            
+            if (cellsAnimated[indexPath] != true) {
+                cell.alpha = 0.0
+                let finalFrame = cell.frame
+                let translation = collectionView.panGestureRecognizer.translationInView(collectionView)
+                
+                cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
 
+                
+                UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+                    cell.alpha = 1.0
+                    cell.frame = finalFrame
+                    }, completion: nil)
+            }
+            
+            cellsAnimated[indexPath] = true
         }
         
         return cell
+    }
+    
+    func setupLayout() {
+        view.addConstraints([
+            backgroundImageView.al_top == view.al_top,
+            backgroundImageView.al_left == view.al_left,
+            backgroundImageView.al_width == view.al_width,
+            backgroundImageView.al_height == view.al_height - 30
+        ])
     }
 }

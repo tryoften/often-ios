@@ -155,9 +155,16 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             lastLayoutBounds = orientationSavvyBounds
             setupKeys()
         }
-
-        keysContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
-        slidePanelContainerView.frame = keysContainerView.frame
+        
+        if keysContainerView.collapsed {
+            var height = CGRectGetHeight(self.view.frame) - 30
+            var keysContainerViewFrame = keysContainerView.frame
+            keysContainerViewFrame.origin.y = height
+            keysContainerView.frame = keysContainerViewFrame
+        } else {
+            keysContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
+        }
+        slidePanelContainerView.frame = CGRectMake(0, view.bounds.height - keysContainerView.bounds.height, CGRectGetWidth(keysContainerView.frame), CGRectGetHeight(keysContainerView.frame))
         searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, searchBarHeight)
     }
     

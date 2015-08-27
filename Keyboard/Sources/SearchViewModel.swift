@@ -20,7 +20,10 @@ class SearchViewModel: NSObject {
     var requestsRef: Firebase
     var responsesRef: Firebase
     
+    var currentRequest: SearchRequest?
     var currentTime: NSDate
+    
+    var isDataLoaded: Bool
     
     init(base: Firebase) {
         requests = [:]
@@ -30,6 +33,8 @@ class SearchViewModel: NSObject {
         responsesRef = base.childByAppendingPath("responses")
         
         currentTime = NSDate.new()
+        
+        isDataLoaded = false
     }
     
     func sendRequest(request: SearchRequest) {
@@ -38,7 +43,17 @@ class SearchViewModel: NSObject {
             let requestId = requestRef.key
             
             requestRef.setValue(request.toDictionary())
+
             responsesRef.childByAppendingPath(requestId).observeEventType(.Value, withBlock: { snapshot in
+                if (self.currentRequest?.query != request.query) {
+                    self.isDataLoaded = false
+                }
+                // TODO: only show the first result for now
+                if self.isDataLoaded {
+                    return
+                }
+                self.currentRequest = request
+                
                 println("\(snapshot.value)")
                 if let data = snapshot.value as? [String: AnyObject],
                     let id = data["id"] as? String,
@@ -103,6 +118,7 @@ class SearchViewModel: NSObject {
                             self.responses[id] = response
                             self.delegate?.searchViewModelDidReceiveResponse(self, response: response)
                         }
+                        self.isDataLoaded = true
                         
                 }
             })

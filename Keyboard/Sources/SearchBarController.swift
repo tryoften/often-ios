@@ -116,6 +116,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetSearchBar", name: "SearchBarController.resetSearchBar", object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidRestore", name: RestoreKeyboardEvent, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -154,6 +156,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
             "height": 0
         ])
+    }
+    
+    func keyboardDidRestore() {
+        searchResultsViewController?.response = nil
     }
     
     func didTapProviderButton(button: ServiceProviderSearchBarButton?) {

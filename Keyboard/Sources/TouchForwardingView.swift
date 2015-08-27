@@ -10,7 +10,7 @@ import UIKit
 
 class TouchRecognizerView: UIView {
     
-    var touchToView: [UITouch:UIView]
+    var touchToView: [UITouch: UIView]
     var togglePanelButton: UIButton
     var collapsed: Bool {
         didSet {
