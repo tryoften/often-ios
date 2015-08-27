@@ -2,9 +2,6 @@
 //  UserProfileViewModel.swift
 //  Often
 //
-//  Created by Kervins Valcourt on 8/20/15.
-//  Copyright (c) 2015 Surf Inc. All rights reserved.
-//
 
 import Foundation
 
@@ -73,3 +70,4 @@ protocol UserProfileViewModelDelegate: class {
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User)
     func userProfileViewModelDidLoadSocialServiceList(userProfileViewModel: UserProfileViewModel, socialAccountList: [SocialAccount])
 }
+

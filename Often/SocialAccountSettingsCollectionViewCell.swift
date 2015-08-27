@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ServiceSettingsCollectionViewCell: UICollectionViewCell {
+class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
     var serviceLogoImageView: UIImageView
     var serviceSwitch: UISwitch
     var serviceSubtitleLabel: UILabel
@@ -99,5 +99,5 @@ class ServiceSettingsCollectionViewCell: UICollectionViewCell {
 }
 
 protocol AddServiceProviderDelegate: class {
-    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: ServiceSettingsCollectionViewCell, selected: Bool)
+    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool)
 }

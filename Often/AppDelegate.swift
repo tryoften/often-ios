@@ -17,14 +17,15 @@ private var TestKeyboard: Bool = false
 var revealController: PKRevealController?
 var frontNavigationController: UINavigationController?
 var frontViewController: UserProfileViewController?
-var leftViewController: ServiceSettingsCollectionViewController?
-var rightViewController: SettingsViewController?
+var leftViewController: SocialAccountSettingsCollectionViewController?
+var rightViewController: AppSettingsViewController?
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
     var venmoService: VenmoService!
+    let sessionManager = SessionManager.defaultManager
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -45,15 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if TestKeyboard {
                 mainController = KeyboardViewController(nibName: nil, bundle: nil)
             } else {
+                let userProfileViewModel = UserProfileViewModel(sessionManager: sessionManager)
+                let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager)
                 // Front view controller must be navigation controller - will hide the nav bar
-                frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout())
+                frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
                 frontNavigationController = UINavigationController(rootViewController: frontViewController!)
                 frontNavigationController?.setNavigationBarHidden(true, animated: true)
                 
                 // left view controller: Set Services for keyboard
                 // right view controller: App Settings
-                leftViewController = ServiceSettingsCollectionViewController(collectionViewLayout: ServiceSettingsCollectionViewController.provideCollectionViewLayout())
-                rightViewController = SettingsViewController()
+                leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
+                rightViewController = AppSettingsViewController()
+
                 
                 // instantiate PKRevealController and set as mainController to do revealing
                 revealController = PKRevealController(frontViewController: frontNavigationController, leftViewController: leftViewController, rightViewController: rightViewController)

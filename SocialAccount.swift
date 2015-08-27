@@ -11,6 +11,7 @@ import UIKit
 class SocialAccount: NSObject {
     var name = ""
     var token = ""
+    //var type: SocialAccountType
     var index: Int = -1
     var id: String = ""
     var activeStatus = false
@@ -19,6 +20,11 @@ class SocialAccount: NSObject {
     var password = ""
     var user: User?
     
+//    init (type:SocialAccountType, user: User) {
+//        self.type = type
+//        self.user = user
+//        super.init()
+//    }
     
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         
@@ -56,6 +62,14 @@ class SocialAccount: NSObject {
             }
         }
     }
+}
 
-
+enum SocialAccountType: String {
+    case Twitter = "twitter"
+    case Spotify = "spotify"
+    case Youtube = "youtube"
+    case Soundcloud = "soundcloud"
+    case Venmo = "venmo"
+    case Espn = "espn"
+    case Vine = "vine"
 }
