@@ -18,7 +18,7 @@ struct SearchRequest {
         return [
             "query": query,
             "user": userId,
-            "timestamp": "\(timestamp)"
+            "time_made": "\(timestamp)"
         ]
     }
 }

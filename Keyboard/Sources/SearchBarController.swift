@@ -162,7 +162,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func didTapEnterButton(button: KeyboardKeyButton?) {
-        var request = SearchRequest(query: searchBarView.textInput.text, userId: "anon", timestamp: NSDate.new().timeIntervalSince1970, isFulfilled: false)
+        var request = SearchRequest(query: searchBarView.textInput.text, userId: "anon", timestamp: NSDate.new().timeIntervalSince1970 * 1000, isFulfilled: false)
         viewModel.sendRequest(request)
         if searchBarView.textInput.selected {
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
@@ -201,5 +201,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     // MARK: SearchViewModelDelegate
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse) {
         searchResultsViewController?.response = response
+        NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
     }
 }

@@ -19,6 +19,7 @@ target 'Often' do
   pod 'CSStickyHeaderFlowLayout'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'PKRevealController'
+  pod 'DateTools', '~> 1.6'
 end
 
 target 'Keyboard' do
@@ -26,6 +27,7 @@ target 'Keyboard' do
   pod 'AFNetworking', '~> 2.0'
   pod 'TOMSMorphingLabel', '~> 0.5'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
+  pod 'DateTools', '~> 1.6'
 end
 
 
