@@ -22,9 +22,10 @@ import UIKit
     Tweet Cell
 
 */
-class SearchResultsCollectionViewController: UICollectionViewController {
+class SearchResultsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var backgroundImageView: UIImageView
     var cellsAnimated: [NSIndexPath: Bool]
+    var textProcessor: TextProcessingManager?
     var response: SearchResponse? {
         didSet {
             cellsAnimated = [:]
@@ -38,12 +39,14 @@ class SearchResultsCollectionViewController: UICollectionViewController {
         }
     }
     
-    override init(collectionViewLayout layout: UICollectionViewLayout) {
+    init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
         backgroundImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         backgroundImageView.contentMode = .Center
         backgroundImageView.contentScaleFactor = 2.5
         cellsAnimated = [:]
+        
+        self.textProcessor = textProcessor
         
         super.init(collectionViewLayout: layout)
         
@@ -63,8 +66,8 @@ class SearchResultsCollectionViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init() {
-        self.init(collectionViewLayout: SearchResultsCollectionViewController.provideCollectionViewFlowLayout())
+    convenience init(textProcessor: TextProcessingManager?) {
+        self.init(collectionViewLayout: SearchResultsCollectionViewController.provideCollectionViewFlowLayout(), textProcessor: textProcessor)
     }
     
     override func didReceiveMemoryWarning() {
@@ -88,12 +91,26 @@ class SearchResultsCollectionViewController: UICollectionViewController {
         return 1
     }
     
-    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let response = response {
             return response.results.count
         }
         return 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        let width = CGRectGetWidth(view.frame) - 20
+        if let result = response?.results[indexPath.row] {
+            switch (result.type) {
+            case .Track:
+                return CGSizeMake(width, 105)
+            default:
+                break
+            }
+        }
+        
+        return CGSizeMake(width, 105)
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -120,9 +137,8 @@ class SearchResultsCollectionViewController: UICollectionViewController {
                     cell.mainTextLabel.text = "\(track.name)"
                     cell.leftSupplementLabel.text = track.artistName
                 case .Soundcloud:
-                    cell.headerLabel.text = "Soundcloud"
-                    cell.leftSupplementLabel.text = track.artistName
-                    cell.centerSupplementLabel.text = track.formattedPlays()
+                    cell.headerLabel.text = track.artistName
+                    cell.leftSupplementLabel.text = track.formattedPlays()
                 default:
                     break
                 }
@@ -164,6 +180,12 @@ class SearchResultsCollectionViewController: UICollectionViewController {
         }
         
         return cell
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let result = response?.results[indexPath.row] {
+            textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        }
     }
     
     func setupLayout() {

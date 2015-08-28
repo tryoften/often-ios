@@ -118,7 +118,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     }
     
     func setupLayout() {
-        contentImageViewWidthConstraint = contentImageView.al_width == 100
+        contentImageViewWidthConstraint = contentImageView.al_width == al_height
 
         addConstraints([
             informationContainerView.al_left == al_left,

@@ -45,6 +45,10 @@ class SearchResult {
     func iconImageForSource() -> UIImage? {
         return UIImage(named: source.rawValue)
     }
+    
+    func getInsertableText() -> String {
+        return ""
+    }
 }
 
 class ArticleSearchResult: SearchResult {
@@ -78,6 +82,10 @@ class ArticleSearchResult: SearchResult {
         self.id = data["_id"] as! String
         self.type = .Article
         self.score = data["_score"] as? Double ?? 0.0
+    }
+    
+    override func getInsertableText() -> String {
+        return "\(title) - \(link)"
     }
 }
 

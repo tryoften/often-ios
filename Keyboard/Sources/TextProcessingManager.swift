@@ -16,6 +16,7 @@ let TextProcessingManagerTextChangedEvent = "textProcesssingManager.textDidChang
 class TextProcessingManager: NSObject, UITextInputDelegate {
     weak var delegate: TextProcessingManagerDelegate?
     var currentProxy: UITextDocumentProxy
+    var defaultProxy: UITextDocumentProxy
     var lastInsertedString: String?
     var lyricInserted = false
     var proxies: [String: UITextDocumentProxy]
@@ -23,6 +24,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     init(textDocumentProxy: UITextDocumentProxy) {
         proxies = [:]
         currentProxy = textDocumentProxy
+        defaultProxy = textDocumentProxy
         proxies["default"] = currentProxy
         
         super.init()
@@ -118,6 +120,11 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         
         delegate?.textProcessingManagerDidChangeText(self)
         broadcastTextDidChange()
+    }
+    
+    func insertTextInProxy(text: String, proxy: UITextDocumentProxy) {
+        proxy.insertText(text)
+        delegate?.textProcessingManagerDidChangeText(self)
     }
     
     func insertText(text: String) {

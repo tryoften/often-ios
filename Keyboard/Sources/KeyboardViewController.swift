@@ -164,7 +164,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         } else {
             keysContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
         }
-        slidePanelContainerView.frame = CGRectMake(0, view.bounds.height - keysContainerView.bounds.height, CGRectGetWidth(keysContainerView.frame), CGRectGetHeight(keysContainerView.frame))
+        slidePanelContainerView.frame = CGRectMake(0, KeyboardSearchBarHeight, CGRectGetWidth(keysContainerView.frame), CGRectGetHeight(self.view.frame) - KeyboardSearchBarHeight)
         searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, searchBarHeight)
     }
     
