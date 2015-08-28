@@ -29,7 +29,7 @@ class SearchViewModel: NSObject {
         requests = [:]
         responses = [:]
         
-        requestsRef = base.childByAppendingPath("requests")
+        requestsRef = base.childByAppendingPath("queue/tasks")
         responsesRef = base.childByAppendingPath("responses")
         
         currentTime = NSDate.new()
@@ -39,10 +39,12 @@ class SearchViewModel: NSObject {
     
     func sendRequest(request: SearchRequest) {
         if !request.query.isEmpty {
-            let requestRef = requestsRef.childByAutoId()
-            let requestId = requestRef.key
             
-            requestRef.setValue(request.toDictionary())
+            let utf8str = request.query.dataUsingEncoding(NSUTF8StringEncoding)
+            let base64Encoded = utf8str!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            let requestId = base64Encoded
+            let requestRef = requestsRef.childByAppendingPath(requestId)
+            requestRef.setValue(request.toDictionary(requestId))
 
             responsesRef.childByAppendingPath(requestId).observeEventType(.Value, withBlock: { snapshot in
                 if (self.currentRequest?.query != request.query) {

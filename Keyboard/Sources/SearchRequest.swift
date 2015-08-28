@@ -9,13 +9,15 @@
 import UIKit
 
 struct SearchRequest {
+    var id : String
     var query: String
     var userId: String
     var timestamp: NSTimeInterval
     var isFulfilled: Bool = false
     
-    func toDictionary() -> [String: String] {
+    func toDictionary(myId:String) -> [String: String] {
         return [
+            "id": myId,
             "query": query,
             "user": userId,
             "time_made": "\(timestamp)"
