@@ -40,9 +40,14 @@ class SearchResult {
     var score: Double = 0.0
     var sourceName: String = ""
     var source: SearchResultSource = .Unknown
+    var image: String?
     
     func iconImageForSource() -> UIImage? {
         return UIImage(named: source.rawValue)
+    }
+    
+    func getInsertableText() -> String {
+        return ""
     }
 }
 
@@ -55,6 +60,7 @@ class ArticleSearchResult: SearchResult {
     var description: String?
     var summary: String?
     var categories: [String]?
+
     
     init (data: [String: AnyObject]) {
         self.title = data["title"] as! String
@@ -72,9 +78,14 @@ class ArticleSearchResult: SearchResult {
 
         super.init()
         
+        self.image = data["image"] as? String
         self.id = data["_id"] as! String
         self.type = .Article
         self.score = data["_score"] as? Double ?? 0.0
+    }
+    
+    override func getInsertableText() -> String {
+        return "\(title) - \(link)"
     }
 }
 
@@ -83,7 +94,6 @@ class TrackSearchResult: SearchResult {
     var albumName: String = ""
     var artistName: String = ""
     var url: String = ""
-    var image: String = ""
     var plays: Int?
     var created: NSDate?
     var formattedCreatedDate: String {
@@ -130,8 +140,8 @@ class TrackSearchResult: SearchResult {
             self.artistName = artistName
         }
         
-        if let user = resultData["user"] as? [String: String],
-            let username = user["username"] {
+        if let user = resultData["user"] as? [String: AnyObject],
+            let username = user["username"] as? String {
                 self.artistName = username
         }
         

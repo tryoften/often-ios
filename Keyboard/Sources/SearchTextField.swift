@@ -155,6 +155,7 @@ class SearchTextField: UIControl, Layouteable {
         editing = false
         inputPosition = 0
         text = ""
+//        placeholder = "Search..."
         id = ""
         
         labelContainer = UIView()
@@ -327,7 +328,9 @@ extension SearchTextField: UITextDocumentProxy {
     }
     
     func insertText(character: String) {
-        text = text.stringByAppendingString(character)
+        if (character != "\n") {
+            text = text.stringByAppendingString(character)
+        }
         sendActionsForControlEvents(UIControlEvents.EditingChanged)
     }
     

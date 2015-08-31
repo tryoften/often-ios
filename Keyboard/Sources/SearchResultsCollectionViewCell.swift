@@ -18,18 +18,21 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     var rightSupplementLabel: UILabel
     var rightCornerImageView: UIImageView
     
+    var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
     var contentImageViewWidthConstraint: NSLayoutConstraint?
     var contentImage: UIImage? {
         didSet(value) {
+            contentImageView.alpha = 0
             if value == nil {
-                contentImageViewWidthConstraint?.constant = 0
                 contentImageView.image = nil
             } else {
-                contentImageViewWidthConstraint?.constant = 100
                 contentImageView.image = value
             }
-            layoutIfNeeded()
+            
+            UIView.animateWithDuration(0.3) {
+                self.contentImageView.alpha = 1.0
+            }
         }
     }
     
@@ -71,11 +74,17 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         rightCornerImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         rightCornerImageView.contentMode = .ScaleAspectFit
         
+        contentPlaceholderImageView = UIImageView(image: UIImage(named: "placeholder"))
+        contentPlaceholderImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contentPlaceholderImageView.contentMode = .ScaleAspectFill
+        contentPlaceholderImageView.clipsToBounds = true
+        
         contentImageView = UIImageView()
         contentImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        contentImageView.contentMode = .ScaleAspectFit
+        contentImageView.contentMode = .ScaleAspectFill
+        contentImageView.clipsToBounds = true
         
-        contentImageViewWidthConstraint = contentImageView.al_width == 0
+        contentImageViewWidthConstraint = contentImageView.al_width == 100
         
         super.init(frame: frame)
         
@@ -86,8 +95,11 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         layer.shadowOffset = CGSizeMake(0, 1)
         layer.shadowRadius = 2.0
         
-        addSubview(informationContainerView)
-        addSubview(contentImageView)
+        contentView.layer.cornerRadius = 2.0
+        contentView.clipsToBounds = true
+        contentView.addSubview(informationContainerView)
+        contentView.addSubview(contentPlaceholderImageView)
+        contentView.addSubview(contentImageView)
         informationContainerView.addSubview(sourceLogoView)
         informationContainerView.addSubview(headerLabel)
         informationContainerView.addSubview(mainTextLabel)
@@ -105,12 +117,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        contentImage = nil
-    }
-    
     func setupLayout() {
-        contentImageViewWidthConstraint = contentImageView.al_width == 0
+        contentImageViewWidthConstraint = contentImageView.al_width == al_height
 
         addConstraints([
             informationContainerView.al_left == al_left,
@@ -122,6 +130,11 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
             contentImageView.al_top == al_top,
             contentImageView.al_bottom == al_bottom,
             contentImageViewWidthConstraint!,
+            
+            contentPlaceholderImageView.al_right == al_right,
+            contentPlaceholderImageView.al_top == al_top,
+            contentPlaceholderImageView.al_bottom == al_bottom,
+            contentPlaceholderImageView.al_width == contentImageView.al_width,
             
             sourceLogoView.al_left == informationContainerView.al_left + 15,
             sourceLogoView.al_top == informationContainerView.al_top + 10,
