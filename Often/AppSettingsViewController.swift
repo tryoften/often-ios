@@ -32,6 +32,12 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
         "Licenses"
     ]
     
+    enum ProfileSettingsSection: Int {
+        case Account = 0
+        case Actions = 1
+        case About = 2
+    }
+    
     init() {
         containerView = UIView()
         containerView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -66,12 +72,14 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
+        if ProfileSettingsSection.Account.rawValue == section {
             return "Account"
-        } else if section == 1 {
+        } else if ProfileSettingsSection.Actions.rawValue == section {
             return "Actions"
-        } else {
+        } else if ProfileSettingsSection.About.rawValue == section {
             return "About"
+        } else {
+            return ""
         }
     }
     
@@ -80,24 +88,28 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if ProfileSettingsSection.Account.rawValue == section {
             return accountSettings.count
-        } else if section == 1 {
+        } else if ProfileSettingsSection.Actions.rawValue == section {
             return actionsSettings.count
-        } else {
+        } else if ProfileSettingsSection.About.rawValue == section {
             return aboutSettings.count
+        } else {
+            return 0
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("settingCell", forIndexPath: indexPath) as! UITableViewCell
-        
-        if indexPath.section == 0 {
+
+        if indexPath.section == ProfileSettingsSection.Account.rawValue {
             cell.textLabel?.text = accountSettings[indexPath.row]
-        } else if indexPath.section == 1 {
+        } else if indexPath.section == ProfileSettingsSection.Actions.rawValue {
             cell.textLabel?.text = actionsSettings[indexPath.row]
-        } else {
+        } else if indexPath.section == ProfileSettingsSection.About.rawValue {
             cell.textLabel?.text = aboutSettings[indexPath.row]
+        } else {
+            // nothing
         }
         
         return cell
