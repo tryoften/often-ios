@@ -147,17 +147,9 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
                 break
             }
             
-            cell.contentImageView.image = nil
             if  let image = result.image,
                 let imageURL = NSURL(string: image) {
-                var request = NSURLRequest(URL: imageURL)
-                    cell.contentImageView.setImageWithURLRequest(request, placeholderImage: nil, success: { (req, res, image) in
-                    dispatch_async(dispatch_get_main_queue()) {
-                        cell.contentImage = image
-                    }
-                }, failure: { (req, res, err) in
-                        
-                })
+                cell.contentImageView.setImageWithURL(imageURL)
             }
             
             cell.sourceLogoView.image = result.iconImageForSource()

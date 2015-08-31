@@ -86,6 +86,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        Firebase.defaultConfig().persistenceEnabled = true
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         
         keysContainerView = TouchRecognizerView()

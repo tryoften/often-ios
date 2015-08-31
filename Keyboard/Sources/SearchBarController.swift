@@ -189,7 +189,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func didTapEnterButton(button: KeyboardKeyButton?) {
-        var request = SearchRequest(id : "", query: searchBarView.textInput.text, userId: "anon", timestamp: NSDate.new().timeIntervalSince1970 * 1000, isFulfilled: false)
+        let query = searchBarView.textInput.text
+        let request = SearchRequest(id: SearchRequest.idFromQuery(query), query: query, userId: "anon", timestamp: NSDate.new().timeIntervalSince1970 * 1000, isFulfilled: false)
         viewModel.sendRequest(request)
         if searchBarView.textInput.selected {
             searchResultsContainerView?.hidden = false
