@@ -11,6 +11,12 @@ import UIKit
 let SearchSuggestionCellReuseIdentifier = "SearchSuggestionsCell"
 
 class SearchSuggestionsViewController: UITableViewController {
+    var delegate: SearchSuggestionViewControllerDelegate?
+    var suggestions: [String]? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,27 +33,37 @@ class SearchSuggestionsViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 5
+        if let suggestions = suggestions {
+            return suggestions.count
+        }
+        return 0
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(SearchSuggestionCellReuseIdentifier, forIndexPath: indexPath) as! SearchSuggestionTableViewCell
-
-        // Configure the cell...
-        cell.textLabel!.text = "Luc is dope"
+        
+        if let suggestion = suggestions?[indexPath.row] {
+            cell.textLabel!.text = suggestion
+        }
 
         return cell
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let suggestion = suggestions?[indexPath.row] {
+            delegate?.searchSuggestionViewControllerDidTapSuggestion(self, suggestion: suggestion)
+        }
+    }
 
+}
+
+
+protocol SearchSuggestionViewControllerDelegate: class {
+    func searchSuggestionViewControllerDidTapSuggestion(viewController: SearchSuggestionsViewController, suggestion: String)
 }

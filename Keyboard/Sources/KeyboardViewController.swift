@@ -110,16 +110,17 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         textProcessor.delegate = self
         searchBar.textProcessor = textProcessor
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
         keysContainerView.togglePanelButton.addTarget(self, action: "restoreKeyboard", forControlEvents: .TouchUpInside)
         
         view.addSubview(searchBar.view)
         view.addSubview(slidePanelContainerView)
         view.addSubview(keysContainerView)
-        inputView.backgroundColor = UIColor.whiteColor()
+        inputView.backgroundColor = VeryLightGray
     }
     
     convenience init(debug: Bool = false) {

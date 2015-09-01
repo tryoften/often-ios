@@ -15,13 +15,21 @@ struct SearchRequest {
     var timestamp: NSTimeInterval
     var isFulfilled: Bool = false
     
-    func toDictionary() -> [String: String] {
-        return [
+    /* whether the request is for autocomplete suggestions */
+    var autocomplete: Bool = false
+    
+    func toDictionary() -> [String: AnyObject] {
+        var dict: [String: AnyObject] = [
             "id": id,
-            "query": query,
             "user": userId,
-            "time_made": "\(timestamp)"
+            "time_made": "\(timestamp)",
+            "query": [
+                "text": query.lowercaseString,
+                "autocomplete": autocomplete
+            ]
         ]
+        
+        return dict
     }
     
     static func idFromQuery(query: String) -> String {
