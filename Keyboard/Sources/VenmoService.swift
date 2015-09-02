@@ -13,7 +13,8 @@ class VenmoService: NSObject {
     var currentUserID = ""
     var userDefaults: NSUserDefaults!
     var friends: [VenmoFriend]?
-    
+    var venmoAccount: SocialAccount?
+    weak var delegate: VenmoServiceSocialServiceDelegate?
     override init() {
         manager = AFHTTPRequestOperationManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(objects: "text/html", "plain/html", "application/json") as Set<NSObject>
@@ -22,11 +23,43 @@ class VenmoService: NSObject {
         super.init()
     }
     
+    func createRequest() {
+        Venmo.startWithAppId(VenmoAppID, secret: VenmoAppSecret, name: "SWRV")
+        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
+            if success {
+                println("Permissions Success!")
+            } else {
+                println("Permissions Fail")
+            }
+        }
+        
+        if Venmo.isVenmoAppInstalled() {
+            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
+        } else {
+            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
+        }
+
+    }
+    
+    func getCurrentCurrentSessionToken(session: VENSession) {
+        venmoAccount = SocialAccount()
+        venmoAccount?.type = .Venmo
+        venmoAccount?.token = session.accessToken
+        venmoAccount?.activeStatus = true
+        venmoAccount?.tokenExpirationDate = session.expirationDate.description
+        
+        if let venmoAccount = self.venmoAccount {
+            self.delegate?.venmoSocialServiceDidPullToken(self, account: venmoAccount)
+        }
+
+    }
+    
     /**
         Use the access token for the User to get the current users profile information
     
         :param: accessToken Token from the authorization GET call
     */
+
     func getCurrentUserInformation(accessToken: String) {
         var parameters: NSDictionary = ["accessToken": accessToken]
     
@@ -59,11 +92,12 @@ class VenmoService: NSObject {
         manager.GET(
             "https://api.venmo.com/v1/users/\(id)/friends",
             parameters: parameters,
-            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
+            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject) in
                 println("Success: \n\(responseObject.description)")
                 
                 if let friendsData = responseObject["data"] as? [AnyObject] {
-                    self.userDefaults.setObject(friendsData, forKey: "friends")
+                    var data = NSJSONSerialization.dataWithJSONObject(friendsData, options: nil, error: nil)
+                    self.userDefaults.setObject(data, forKey: "friends")
                     self.userDefaults.synchronize()
                 }
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
@@ -98,4 +132,8 @@ class VenmoService: NSObject {
             }
         }
     }
+}
+
+protocol VenmoServiceSocialServiceDelegate: class {
+    func venmoSocialServiceDidPullToken(userProfileViewModel: VenmoService, account: SocialAccount)
 }
