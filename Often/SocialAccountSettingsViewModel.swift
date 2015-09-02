@@ -8,32 +8,35 @@
 
 import Foundation
 
-class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver {
+class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifySocialServiceDelegate, VenmoServiceSocialServiceDelegate, SoundcloudSocialServiceDelegate   {
     weak var delegate: SocialAccountSettingsViewModelDelegate?
     var sessionManager: SessionManager
     var socialAccounts: [SocialAccount]
+    var venmoService: VenmoService
+    var spotifyService: SpotifyService
+    var soundcloudService: SoundcloudService
     
-    init(sessionManager: SessionManager) {
+    init(sessionManager: SessionManager, venmoService: VenmoService, spotifyService: SpotifyService, soundcloudService: SoundcloudService) {
         self.sessionManager = sessionManager
+        self.venmoService = venmoService
+        self.spotifyService = spotifyService
+        self.soundcloudService = soundcloudService
         socialAccounts = [SocialAccount]()
+        
         super.init()
+        
+        self.venmoService.delegate = self
+        self.spotifyService.delegate = self
+        self.soundcloudService.delegate = self
         self.sessionManager.addSessionObserver(self)
+        
     }
     
     deinit {
         sessionManager.removeSessionObserver(self)
     }
     
-    func deleteSocialAccountWithId(socialAccountId: String, completion: (NSError?) -> ()) {
-        sessionManager.socialAccountService?.removeSocialAccounteWithId(socialAccountId, completion: completion)
-    }
-    
-    func addSocialAccountWithId(socialAccountId: String, completion: (Bool?) -> ()) {
-        sessionManager.socialAccountService?.addSocialAccounteWithId(socialAccountId, completion: { (SocialAccount, success)  in
-            completion(success)
-        })
-    }
-    
+      
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
         
     }
@@ -42,13 +45,32 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver {
         sessionManager.fetchSocialAccount()
     }
     
+    func updateLocalSocialAccount () {
+            sessionManager.socialAccountService?.updateLocalSocialAccount(socialAccounts)
+
+    }
+    
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount]) {
         self.socialAccounts = socialAccounts
-        delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccountList: self.socialAccounts)
+        
     }
+    
+    func spotifysocialServiceDidPullToken(userProfileViewModel: SpotifyService, account: SocialAccount) {
+        delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: account)
+      
+    }
+    
+    func venmoSocialServiceDidPullToken(userProfileViewModel: VenmoService, account: SocialAccount) {
+         delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: account)
+    }
+    
+    func soundcloudsocialServiceDidPullToken(userProfileViewModel: SoundcloudService, account: SocialAccount) {
+        delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: account)
+    }
+
 }
 
 protocol SocialAccountSettingsViewModelDelegate: class {
     func socialAccountSettingsViewModelDidLoginUser(userProfileViewModel: SocialAccountSettingsViewModel, user: User)
-    func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccountList: [SocialAccount])
+    func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: SocialAccount)
 }

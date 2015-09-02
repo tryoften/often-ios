@@ -6,22 +6,19 @@
 //  Copyright (c) 2015 Luc Success. All rights reserved.
 //
 
-import RealmSwift
 
-class User: Object {
-    dynamic var id: String = ""
-    dynamic var name: String = ""
-    dynamic var profileImageSmall: String = ""
-    dynamic var profileImageLarge: String = ""
-    dynamic var username: String = ""
-    dynamic var email: String = ""
-    dynamic var phone: String = ""
-    dynamic var backgroundImage: String = ""
+
+class User: NSObject {
+    var id: String = ""
+    var name: String = ""
+    var profileImageSmall: String = ""
+    var profileImageLarge: String = ""
+    var username: String = ""
+    var email: String = ""
+    var phone: String = ""
+    var backgroundImage: String = ""
     
-    override static func primaryKey() -> String? {
-        return "id"
-    }
-    
+       
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         
         if let dictionary = keyedValues as? [String: AnyObject] {

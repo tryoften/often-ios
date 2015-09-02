@@ -60,7 +60,6 @@ class SessionManager: NSObject {
             }
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeDatabasetoDisk", name: "database:persist", object: nil)
     }
     
     func isUserLoggedIn() -> Bool {
@@ -85,12 +84,12 @@ class SessionManager: NSObject {
                 
                 user.signUpInBackgroundWithBlock { (success, error) in
                     if error == nil {
-                        self.firebase.createUser(username, password: password, withValueCompletionBlock: { error, result -> Void in
+                        self.firebase.createUser(email, password: password, withValueCompletionBlock: { error, result -> Void in
                             if error != nil {
                                 println("Login failed. \(error)")
                             } else {
                                 println("Logged in! \(result)")
-                                self.openSession(loginType, username: username, password: password)
+                                self.openSession(loginType, username: email, password: password)
                             }
                         })
                         completion(nil)
@@ -166,13 +165,15 @@ class SessionManager: NSObject {
             break
         case .Email:
             userDefaults.setValue(true, forKey: "email")
-            self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
+            println(username)
+            self.firebase.authUser(username!, password: password!, withCompletionBlock: { error, authData -> Void in
                 if error != nil {
-                    println("logged in")
-                    completion?(nil)
-                } else {
                     println(error)
                     completion?(error)
+                    
+                } else {
+                    println("logged in")
+                    completion?(nil)
                 }
             })
             break
@@ -232,6 +233,7 @@ class SessionManager: NSObject {
                 self.broadcastUserLoginEvent()
                 self.userIsLoggingIn = false
             }
+            self.fetchSocialAccount()
         }
         
         if let authData = authData,
@@ -299,25 +301,21 @@ class SessionManager: NSObject {
         }
     }
     
-    func setSocialAccountOnCurrentUser(socialAccountIds: [String], completion: (User, NSError?) -> ()) {
+    func setSocialAccountOnCurrentUser(socialAccount:SocialAccount, completion: (User, NSError?) -> ()) {
         if let currentUser = self.currentUser {
             let socialAccountService = provideSocialAccountService(currentUser)
-            
-            socialAccountService.fetchDataForSocialAccountIds(socialAccountIds, completion: { socialAccount in
-                for socialAccountId in socialAccountIds {
-                    socialAccountService.socialAccountsRef.childByAppendingPath(socialAccountId).setValue(true)
-                }
-                
-                completion(currentUser, nil)
-            })
+            socialAccountService.updateSocialAccount(socialAccount)
+            completion(currentUser, nil)
         }
     }
 
     func fetchSocialAccount() {
         if let currentUser = currentUser {
             let socialAccountService = provideSocialAccountService(currentUser)
-            socialAccountService.requestData({ data in
-                self.broadcastDidFetchSocialAccountsEvent()
+            socialAccountService.fetchLocalData({ err  in
+                if err {
+                    self.broadcastDidFetchSocialAccountsEvent()
+                }
             })
         } else {
             // TODO(kervs): throw an error if the current user is not set
@@ -368,7 +366,7 @@ class SessionManager: NSObject {
     private func broadcastDidFetchSocialAccountsEvent() {
         if let socialAccountService = self.socialAccountService {
             for observer in observers {
-                observer.sessionManagerDidFetchSocialAccounts(self, socialAccounts: socialAccountService.sortedSocialAccounts)
+                observer.sessionManagerDidFetchSocialAccounts(self, socialAccounts: socialAccountService.socialAccounts!)
             }
         }
     }

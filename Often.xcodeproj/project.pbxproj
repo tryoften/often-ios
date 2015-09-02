@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		389E1868905421FC4027214B /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 526DA3399096D4CF99A8B123 /* libPods-Often.a */; };
+		3B1D6BF41B8F61B0004868E5 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF31B8F61AF004868E5 /* Spotify.framework */; };
+		3B1D6BF51B8F61B0004868E5 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF31B8F61AF004868E5 /* Spotify.framework */; };
+		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
+		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
+		3B1D6BFF1B8F7A49004868E5 /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyService.swift */; };
+		3B1D6C001B8F7A49004868E5 /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyService.swift */; };
 		3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
@@ -45,11 +50,13 @@
 		3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */; };
 		3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
 		3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
+		3BCDA6C91B90FF6D00840095 /* OAuthSwift in Resources */ = {isa = PBXBuildFile; fileRef = 3BCDA6C81B90FF6D00840095 /* OAuthSwift */; };
+		3BCDA6D11B91099D00840095 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BCDA6D01B91099D00840095 /* OAuthSwift.framework */; };
+		3BCDA6D31B910C1F00840095 /* SoundcloudService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA6D21B910C1F00840095 /* SoundcloudService.swift */; };
 		3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4E1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */; };
 		3BF60C4F1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */; };
-		645C5C1B383CD0DCCB770CC7 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD2306F8F79E206D6C9908C /* libPods-Keyboard.a */; };
 		690AE8AE1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */; };
 		690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */; };
 		690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
@@ -66,6 +73,8 @@
 		69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */; };
 		69E7FD8A1B8E0BD7003BC281 /* UserProfileFilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */; };
 		69E9104C1B59AF1D008BFBD6 /* VenmoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E9104B1B59AF1D008BFBD6 /* VenmoService.swift */; };
+		74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */; };
+		8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF21B5D7E95005AABEA /* VenmoSupplementaryViewController.swift */; };
@@ -280,8 +289,12 @@
 		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
 		0AC56B3E820F4111F432C702 /* Pods-Often.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.debug.xcconfig"; sourceTree = "<group>"; };
 		18A18D358A8CB3AA1878D360 /* Pods-Surf.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.crashlytics.xcconfig"; sourceTree = "<group>"; };
+		199C4312257A18D37E7AE2A6 /* libPods-Often.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B1D6BF31B8F61AF004868E5 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
+		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		3B1D6BFE1B8F7A49004868E5 /* SpotifyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeyboardViewController+EventHandlers.swift"; path = "Sources/KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
 		3B63EDC31B7BB6D700E54AFA /* SocialAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccount.swift; sourceTree = "<group>"; };
@@ -303,11 +316,17 @@
 		3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
+		3BCDA6C81B90FF6D00840095 /* OAuthSwift */ = {isa = PBXFileReference; lastKnownFileType = folder; path = OAuthSwift; sourceTree = SOURCE_ROOT; };
+		3BCDA6CA1B91061700840095 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = "OAuthSwift/build/Debug-iphoneos/OAuthSwift.framework"; sourceTree = "<group>"; };
+		3BCDA6CC1B91079300840095 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = "OAuthSwift/build/Debug-iphoneos/OAuthSwift.framework"; sourceTree = "<group>"; };
+		3BCDA6CD1B91079300840095 /* OAuthSwiftOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwiftOSX.framework; path = OAuthSwift/build/Debug/OAuthSwiftOSX.framework; sourceTree = "<group>"; };
+		3BCDA6D01B91099D00840095 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = "OAuthSwift/build/Debug-iphoneos/OAuthSwift.framework"; sourceTree = "<group>"; };
+		3BCDA6D21B910C1F00840095 /* SoundcloudService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundcloudService.swift; sourceTree = "<group>"; };
+		3BCDA6D51B91166E00840095 /* OAuthSwiftOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwiftOSX.framework; path = OAuthSwift/build/Debug/OAuthSwiftOSX.framework; sourceTree = "<group>"; };
 		3BF60C461B83B3F100DD6E31 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		3BF60C4C1B83EDC900DD6E31 /* TwitterAuthHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAuthHelper.h; sourceTree = "<group>"; };
 		3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAuthHelper.m; sourceTree = "<group>"; };
 		45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.release.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.release.xcconfig"; sourceTree = "<group>"; };
-		526DA3399096D4CF99A8B123 /* libPods-Often.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewController.swift; sourceTree = "<group>"; };
 		690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewCell.swift; sourceTree = "<group>"; };
 		690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoFriend.swift; path = Keyboard/Sources/VenmoFriend.swift; sourceTree = "<group>"; };
@@ -325,7 +344,6 @@
 		69E9104B1B59AF1D008BFBD6 /* VenmoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoService.swift; path = Sources/VenmoService.swift; sourceTree = "<group>"; };
 		6B6FC3A11B55322AAC249F5E /* libPods-October.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-October.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
-		7DD2306F8F79E206D6C9908C /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		810C4AF21B5D7E95005AABEA /* VenmoSupplementaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoSupplementaryViewController.swift; path = Sources/VenmoSupplementaryViewController.swift; sourceTree = "<group>"; };
 		810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarButton.swift; path = Sources/SearchBarButton.swift; sourceTree = "<group>"; };
@@ -424,6 +442,7 @@
 		81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsViewController.swift; path = Sources/VenmoContactsViewController.swift; sourceTree = "<group>"; };
 		81FFAF491B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoMessageAmountViewController.swift; path = Sources/VenmoMessageAmountViewController.swift; sourceTree = "<group>"; };
 		81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderSupplementaryViewController.swift; path = Sources/ServiceProviderSupplementaryViewController.swift; sourceTree = "<group>"; };
+		85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		881DAADCE950D0B0D3A901F8 /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		90CC34E177E03E45A67CAEEB /* Pods-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.release.xcconfig"; path = "Pods/Target Support Files/Pods-Core/Pods-Core.release.xcconfig"; sourceTree = "<group>"; };
 		928E8AB5169157015D98D681 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -447,13 +466,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BCDA6D11B91099D00840095 /* OAuthSwift.framework in Frameworks */,
+				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
+				3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */,
 				3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */,
 				81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794EEB1A81E66D009D4A71 /* libsqlite3.dylib in Frameworks */,
 				812E3F0D1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */,
 				81D43B371B46E49800453BBF /* RealmSwift.framework in Frameworks */,
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
-				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
 				81794EE11A81E649009D4A71 /* Security.framework in Frameworks */,
@@ -463,10 +484,11 @@
 				81794ED91A81E62D009D4A71 /* CoreGraphics.framework in Frameworks */,
 				81794ED71A81E621009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */,
+				3B1D6BF41B8F61B0004868E5 /* Spotify.framework in Frameworks */,
 				81D43B351B46E49800453BBF /* Realm.framework in Frameworks */,
 				81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */,
 				81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */,
-				389E1868905421FC4027214B /* libPods-Often.a in Frameworks */,
+				8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,16 +496,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */,
+				3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */,
 				3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */,
 				81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */,
 				81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */,
-				81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				812E3F0C1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
 				81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */,
 				81794EFE1A81ECD5009D4A71 /* Security.framework in Frameworks */,
 				81794EFD1A81ECCD009D4A71 /* QuartzCore.framework in Frameworks */,
 				81794EFC1A81ECC6009D4A71 /* MobileCoreServices.framework in Frameworks */,
 				812E3F0E1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */,
+				3B1D6BF51B8F61B0004868E5 /* Spotify.framework in Frameworks */,
 				81794EFB1A81ECBF009D4A71 /* CoreLocation.framework in Frameworks */,
 				81794EFA1A81EC8C009D4A71 /* libz.dylib in Frameworks */,
 				81794EF91A81EC85009D4A71 /* libsqlite3.dylib in Frameworks */,
@@ -491,7 +515,7 @@
 				81794EF71A81EC6D009D4A71 /* CFNetwork.framework in Frameworks */,
 				81794EF61A81EC62009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794EF51A81EC58009D4A71 /* Accounts.framework in Frameworks */,
-				645C5C1B383CD0DCCB770CC7 /* libPods-Keyboard.a in Frameworks */,
+				74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,6 +548,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		3B1D6BFD1B8F78FA004868E5 /* Spotify */ = {
+			isa = PBXGroup;
+			children = (
+				3B1D6BFE1B8F7A49004868E5 /* SpotifyService.swift */,
+			);
+			name = Spotify;
+			sourceTree = "<group>";
+		};
+		3BCDA5BA1B8FEBD200840095 /* Soundcloud */ = {
+			isa = PBXGroup;
+			children = (
+				3BCDA6D21B910C1F00840095 /* SoundcloudService.swift */,
+			);
+			name = Soundcloud;
+			sourceTree = "<group>";
+		};
 		6921A0361B615B6B00B75CEC /* Foursquare */ = {
 			isa = PBXGroup;
 			children = (
@@ -544,6 +584,13 @@
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3BCDA6D51B91166E00840095 /* OAuthSwiftOSX.framework */,
+				3BCDA6D01B91099D00840095 /* OAuthSwift.framework */,
+				3BCDA6CC1B91079300840095 /* OAuthSwift.framework */,
+				3BCDA6CD1B91079300840095 /* OAuthSwiftOSX.framework */,
+				3BCDA6CA1B91061700840095 /* OAuthSwift.framework */,
+				3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */,
+				3B1D6BF31B8F61AF004868E5 /* Spotify.framework */,
 				3BF60C461B83B3F100DD6E31 /* Twitter.framework */,
 				81B19E8F1B30A71500D3575C /* libicucore.dylib */,
 				81B19E8D1B30A66700D3575C /* libc++.dylib */,
@@ -570,9 +617,9 @@
 				36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */,
 				DE029A1C4A784B9B85DE8FF7 /* libPods-Drizzy.a */,
 				6B6FC3A11B55322AAC249F5E /* libPods-October.a */,
-				7DD2306F8F79E206D6C9908C /* libPods-Keyboard.a */,
 				F5F78761D830BD3A5F573760 /* libPods-Surf.a */,
-				526DA3399096D4CF99A8B123 /* libPods-Often.a */,
+				85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */,
+				199C4312257A18D37E7AE2A6 /* libPods-Often.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -622,6 +669,7 @@
 			children = (
 				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
 				81D4BF151B38F6DA006430AB /* PKHUD */,
+				3BCDA6C81B90FF6D00840095 /* OAuthSwift */,
 				81DC114A1AF05CF400412BD2 /* SwiftyJSON */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
 			);
@@ -783,6 +831,8 @@
 			children = (
 				810C4AF51B5D7EB6005AABEA /* Base */,
 				6921A0361B615B6B00B75CEC /* Foursquare */,
+				3BCDA5BA1B8FEBD200840095 /* Soundcloud */,
+				3B1D6BFD1B8F78FA004868E5 /* Spotify */,
 				81FFAF421B5C5A7500E2ABAC /* Venmo */,
 			);
 			name = Providers;
@@ -870,8 +920,8 @@
 				813138841B13AD92001AF9AC /* Keyboard.entitlements */,
 				81B6D58D1A95B07B0089767B /* View Models */,
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
-				8180E67D1A147F7D007FA1CF /* Views */,
 				8180E6331A142199007FA1CF /* Supporting Files */,
+				8180E67D1A147F7D007FA1CF /* Views */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -1071,6 +1121,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 8180E5FF1A142157007FA1CF;
 			productRefGroup = 8180E6091A142157007FA1CF /* Products */;
@@ -1135,6 +1186,7 @@
 				81E26D911B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
 				3BAAB1A21B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
 				81331E2B1A1806BB003E4609 /* Info.plist in Resources */,
+				3BCDA6C91B90FF6D00840095 /* OAuthSwift in Resources */,
 				3BAAB1981B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1291,6 +1343,7 @@
 				81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				81E26D8E1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
+				3B1D6BFF1B8F7A49004868E5 /* SpotifyService.swift in Sources */,
 				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
 				817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				69E7FD8A1B8E0BD7003BC281 /* UserProfileFilterTabView.swift in Sources */,
@@ -1318,6 +1371,7 @@
 				690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */,
 				69E9104C1B59AF1D008BFBD6 /* VenmoService.swift in Sources */,
 				8176BECB1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
+				3BCDA6D31B910C1F00840095 /* SoundcloudService.swift in Sources */,
 				3B63EDD21B7D381D00E54AFA /* SocialAccountsService.swift in Sources */,
 				3BF60C4E1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */,
 				810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
@@ -1327,7 +1381,6 @@
 				3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
 				81E26D961B67C29D00FC1F2F /* Shape.swift in Sources */,
 				3B63EDCF1B7D2AD400E54AFA /* Service.swift in Sources */,
-				695FEEA21B73DF160048E5B7 /* SettingsViewController.swift in Sources */,
 				810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				81E26D8B1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
@@ -1394,6 +1447,7 @@
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				8176BEC61B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
+				3B1D6C001B8F7A49004868E5 /* SpotifyService.swift in Sources */,
 				810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				817938FE1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
@@ -1475,6 +1529,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1592,6 +1648,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1703,6 +1761,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
