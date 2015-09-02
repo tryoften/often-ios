@@ -39,36 +39,39 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
         switch cellType {
         case .Default:
             titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-            titleLabel.font = UIFont(name: "OpenSans", size: 12.0)
+            titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
             disclosureIndicator = UIImageView()
             disclosureIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
             disclosureIndicator.contentMode = .ScaleAspectFit
+            disclosureIndicator.image = UIImage(named: "disclosureindicator")
             
         case .Nondisclosure:
             titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-            titleLabel.font = UIFont(name: "OpenSans", size: 12.0)
+            titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
             secondaryTextLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
             secondaryTextLabel.textColor = LightGrey
-            secondaryTextLabel.font = UIFont(name: "OpenSans", size: 12.0)
+            secondaryTextLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
         case .Detailed:
             titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-            titleLabel.font = UIFont(name: "OpenSans", size: 12.0)
+            titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
             secondaryTextLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
             secondaryTextLabel.textColor = LightGrey
-            secondaryTextLabel.font = UIFont(name: "OpenSans", size: 12.0)
+            secondaryTextLabel.font = UIFont(name: "OpenSans", size: 14.0)
+            secondaryTextLabel.backgroundColor = ClearColor
             
             disclosureIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
             disclosureIndicator.contentMode = .ScaleAspectFit
             
         case .Switch:
             titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-            titleLabel.font = UIFont(name: "OpenSans", size: 12.0)
+            titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
             settingSwitch.setTranslatesAutoresizingMaskIntoConstraints(false)
+            settingSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
         default:
             println("Cell Type not defined")
         }
@@ -118,41 +121,46 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
         switch cellType {
         case .Default:
             addConstraints([
-                titleLabel.al_left == al_left + 5,
-                titleLabel.al_centerX == al_centerX,
+                titleLabel.al_left == al_left + 20,
+                titleLabel.al_centerY == al_centerY,
                 
-                disclosureIndicator.al_right == al_right - 5,
-                disclosureIndicator.al_centerX == al_centerX
+                disclosureIndicator.al_right == al_right - 55,
+                disclosureIndicator.al_centerY == al_centerY,
+                disclosureIndicator.al_width == 22,
+                disclosureIndicator.al_height == 22
             ])
             
         case .Nondisclosure:
             addConstraints([
-                titleLabel.al_left == al_left + 5,
-                titleLabel.al_centerX == al_centerX,
+                titleLabel.al_left == al_left + 20,
+                titleLabel.al_centerY == al_centerY,
                 
-                secondaryTextLabel.al_right == al_right + 2,
-                secondaryTextLabel.al_centerX == al_centerX
+                secondaryTextLabel.al_right == al_right - 65,
+                secondaryTextLabel.al_centerY == al_centerY
             ])
             
         case .Detailed:
             addConstraints([
-                titleLabel.al_left == al_left + 5,
-                titleLabel.al_centerX == al_centerX,
+                titleLabel.al_left == al_left + 20,
+                titleLabel.al_centerY == al_centerY,
                 
-                disclosureIndicator.al_right == al_right - 5,
-                disclosureIndicator.al_centerX == al_centerX,
+                secondaryTextLabel.al_width == 125,
+                secondaryTextLabel.al_right == disclosureIndicator.al_left,
+                secondaryTextLabel.al_centerY == al_centerY,
                 
-                secondaryTextLabel.al_right == disclosureIndicator.al_left - 2,
-                secondaryTextLabel.al_centerX == al_centerX
+                disclosureIndicator.al_right == al_right - 70,
+                disclosureIndicator.al_centerY == al_centerY,
+                disclosureIndicator.al_width == 22,
+                disclosureIndicator.al_height == 22
             ])
             
         case .Switch:
             addConstraints([
-                titleLabel.al_left == al_left + 5,
-                titleLabel.al_centerX == al_centerX,
+                titleLabel.al_left == al_left + 20,
+                titleLabel.al_centerY == al_centerY,
                 
-                settingSwitch.al_right  == al_right + 2,
-                settingSwitch.al_centerX == al_centerX
+                settingSwitch.al_right  == al_right - 70,
+                settingSwitch.al_centerY == al_centerY
             ])
         default:
             println("Cell Type not defined")

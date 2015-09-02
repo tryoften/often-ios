@@ -49,7 +49,7 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
         if let tableView = tableView {
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "settingCell")
+            tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
             containerView.addSubview(tableView)
         }
         
@@ -99,19 +99,74 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60.0
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("settingCell", forIndexPath: indexPath) as! UITableViewCell
-
-        if indexPath.section == ProfileSettingsSection.Account.rawValue {
-            cell.textLabel?.text = accountSettings[indexPath.row]
-        } else if indexPath.section == ProfileSettingsSection.Actions.rawValue {
-            cell.textLabel?.text = actionsSettings[indexPath.row]
-        } else if indexPath.section == ProfileSettingsSection.About.rawValue {
-            cell.textLabel?.text = aboutSettings[indexPath.row]
-        } else {
-            // nothing
+        if let settingsSection: ProfileSettingsSection = ProfileSettingsSection(rawValue: indexPath.section) {
+            switch settingsSection {
+            case .Account:
+                if indexPath.row == 0 { // name
+                    var cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
+                    cell.titleLabel.text = accountSettings[indexPath.row]
+                    cell.secondaryTextLabel.text = "Regy Perlera"
+                    return cell
+                } else if indexPath.row == 1 { // email
+                    var cell = UserProfileSettingsTableViewCell(type: .Detailed)
+                    cell.titleLabel.text = accountSettings[indexPath.row]
+                    cell.secondaryTextLabel.text = "regy@tryoften.com"
+                    return cell
+                } else if indexPath.row == 2 { // password
+                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    cell.titleLabel.text = accountSettings[indexPath.row]
+                    return cell
+                } else { // push notifications
+                    var cell = UserProfileSettingsTableViewCell(type: .Switch)
+                    cell.titleLabel.text = accountSettings[indexPath.row]
+                    return cell
+                }
+            case .Actions:
+                if indexPath.row == 0 { // How to Install
+                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    cell.titleLabel.text = actionsSettings[indexPath.row]
+                    return cell
+                } else if indexPath.row == 1 { // Rate in App Store
+                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    cell.titleLabel.text = actionsSettings[indexPath.row]
+                    return cell
+                } else { // Support
+                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    cell.titleLabel.text = actionsSettings[indexPath.row]
+                    return cell
+                }
+            case .About:
+                if indexPath.row == 0 { // FAQ
+                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    cell.titleLabel.text = aboutSettings[indexPath.row]
+                    return cell
+                } else if indexPath.row == 1 { // Privacy Policy
+                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    cell.titleLabel.text = aboutSettings[indexPath.row]
+                    return cell
+                } else if indexPath.row == 2 { // Terms of Use
+                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    cell.titleLabel.text = aboutSettings[indexPath.row]
+                    return cell
+                } else { // Licenses
+                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    cell.titleLabel.text = aboutSettings[indexPath.row]
+                    return cell
+                }
+            default:
+                break
+            }
         }
-        
+        let cell = UITableViewCell()
         return cell
     }
     
