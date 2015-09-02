@@ -10,7 +10,7 @@ import UIKit
 
 class SearchResultsCollectionViewCell: UICollectionViewCell {
     var informationContainerView: UIView
-    var avatarImageView: UIImageView
+    var sourceLogoView: UIImageView
     var headerLabel: UILabel
     var mainTextLabel: UILabel
     var leftSupplementLabel: UILabel
@@ -18,18 +18,21 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     var rightSupplementLabel: UILabel
     var rightCornerImageView: UIImageView
     
+    var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
     var contentImageViewWidthConstraint: NSLayoutConstraint?
     var contentImage: UIImage? {
         didSet(value) {
+            contentImageView.alpha = 0
             if value == nil {
-                contentImageViewWidthConstraint?.constant = 0
                 contentImageView.image = nil
             } else {
-                contentImageViewWidthConstraint?.constant = 100
                 contentImageView.image = value
             }
-            layoutIfNeeded()
+            
+            UIView.animateWithDuration(0.3) {
+                self.contentImageView.alpha = 1.0
+            }
         }
     }
     
@@ -37,57 +40,67 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         informationContainerView = UIView()
         informationContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
-        avatarImageView = UIImageView()
-        avatarImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        avatarImageView.contentMode = .ScaleAspectFit
+        sourceLogoView = UIImageView()
+        sourceLogoView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        sourceLogoView.contentMode = .ScaleAspectFit
+        sourceLogoView.layer.cornerRadius = 2.0
+        sourceLogoView.clipsToBounds = true
         
         headerLabel = UILabel()
         headerLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        headerLabel.font = UIFont(name: "OpenSans", size: 11.0)
+        headerLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
         
         mainTextLabel = UILabel()
         mainTextLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        mainTextLabel.font = UIFont(name: "OpenSans", size: 12.0)
+        mainTextLabel.font = UIFont(name: "OpenSans", size: 11.0)
         mainTextLabel.numberOfLines = 2
-        mainTextLabel.backgroundColor = ClearColor
         
         centerSupplementLabel = UILabel()
         centerSupplementLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         centerSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
-        centerSupplementLabel.textColor = UIColor(fromHexString: "#000000")
+        centerSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
         
         leftSupplementLabel = UILabel()
         leftSupplementLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         leftSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
-        leftSupplementLabel.textColor = UIColor(fromHexString: "#000000")
+        leftSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
         
         rightSupplementLabel = UILabel()
         rightSupplementLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         rightSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
-        rightSupplementLabel.textColor = UIColor(fromHexString: "#000000")
+        rightSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
         
         rightCornerImageView = UIImageView()
         rightCornerImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
         rightCornerImageView.contentMode = .ScaleAspectFit
         
+        contentPlaceholderImageView = UIImageView(image: UIImage(named: "placeholder"))
+        contentPlaceholderImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contentPlaceholderImageView.contentMode = .ScaleAspectFill
+        contentPlaceholderImageView.clipsToBounds = true
+        
         contentImageView = UIImageView()
         contentImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        contentImageView.contentMode = .ScaleAspectFit
+        contentImageView.contentMode = .ScaleAspectFill
+        contentImageView.clipsToBounds = true
         
-        contentImageViewWidthConstraint = contentImageView.al_width == 0
+        contentImageViewWidthConstraint = contentImageView.al_width == 100
         
         super.init(frame: frame)
         
         backgroundColor = WhiteColor
-        layer.cornerRadius = 3.0
-        layer.shadowColor = LightGrey.CGColor
-        layer.shadowOpacity = 0.7
-        layer.shadowOffset = CGSizeMake(0, 0)
-        layer.shadowRadius = 1.0
+        layer.cornerRadius = 2.0
+        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowOpacity = 0.17
+        layer.shadowOffset = CGSizeMake(0, 1)
+        layer.shadowRadius = 2.0
         
-        addSubview(informationContainerView)
-        addSubview(contentImageView)
-        informationContainerView.addSubview(avatarImageView)
+        contentView.layer.cornerRadius = 2.0
+        contentView.clipsToBounds = true
+        contentView.addSubview(informationContainerView)
+        contentView.addSubview(contentPlaceholderImageView)
+        contentView.addSubview(contentImageView)
+        informationContainerView.addSubview(sourceLogoView)
         informationContainerView.addSubview(headerLabel)
         informationContainerView.addSubview(mainTextLabel)
         informationContainerView.addSubview(leftSupplementLabel)
@@ -104,12 +117,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        
-    }
-    
     func setupLayout() {
-        contentImageViewWidthConstraint = contentImageView.al_width == 0
+        contentImageViewWidthConstraint = contentImageView.al_width == al_height
 
         addConstraints([
             informationContainerView.al_left == al_left,
@@ -122,22 +131,26 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
             contentImageView.al_bottom == al_bottom,
             contentImageViewWidthConstraint!,
             
-            avatarImageView.al_left == informationContainerView.al_left + 15,
-            avatarImageView.al_top == informationContainerView.al_top + 10,
-            avatarImageView.al_width == 20,
-            avatarImageView.al_height == 20,
+            contentPlaceholderImageView.al_right == al_right,
+            contentPlaceholderImageView.al_top == al_top,
+            contentPlaceholderImageView.al_bottom == al_bottom,
+            contentPlaceholderImageView.al_width == contentImageView.al_width,
             
-            headerLabel.al_left == avatarImageView.al_right + 5,
-            headerLabel.al_centerY == avatarImageView.al_centerY,
+            sourceLogoView.al_left == informationContainerView.al_left + 15,
+            sourceLogoView.al_top == informationContainerView.al_top + 10,
+            sourceLogoView.al_width == 18,
+            sourceLogoView.al_height == 18,
+            
+            headerLabel.al_left == sourceLogoView.al_right + 5,
+            headerLabel.al_centerY == sourceLogoView.al_centerY,
             headerLabel.al_height == 16,
             
             mainTextLabel.al_left == informationContainerView.al_left + 15,
-            mainTextLabel.al_top == headerLabel.al_bottom + 1,
-            mainTextLabel.al_bottom == leftSupplementLabel.al_top,
+            mainTextLabel.al_top == headerLabel.al_bottom + 8,
             mainTextLabel.al_right == contentImageView.al_left - 15,
             
             leftSupplementLabel.al_left == mainTextLabel.al_left,
-            leftSupplementLabel.al_bottom == informationContainerView.al_bottom - 8,
+            leftSupplementLabel.al_bottom == informationContainerView.al_bottom - 10,
             leftSupplementLabel.al_height == 15,
             
             centerSupplementLabel.al_left == leftSupplementLabel.al_right + 15,

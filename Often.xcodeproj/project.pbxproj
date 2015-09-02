@@ -91,6 +91,10 @@
 		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
+		8127A8F01B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; };
+		8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; };
+		8127A8F31B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; };
+		8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; };
 		812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F091B4BBA6A00C0F3BE /* Fabric.framework */; };
 		812E3F0C1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F091B4BBA6A00C0F3BE /* Fabric.framework */; };
 		812E3F0D1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */; };
@@ -353,6 +357,8 @@
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewController.swift; path = Sources/SearchSuggestionsViewController.swift; sourceTree = "<group>"; };
+		8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionTableViewCell.swift; path = Sources/SearchSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		812E3F091B4BBA6A00C0F3BE /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		813138841B13AD92001AF9AC /* Keyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Keyboard.entitlements; sourceTree = "<group>"; };
@@ -947,6 +953,7 @@
 				81E26D951B67C29D00FC1F2F /* Shape.swift */,
 				81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */,
 				8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */,
+				8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -959,6 +966,7 @@
 				8176BEC41B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift */,
 				817939061B5C29560064B0CF /* SearchBarController.swift */,
 				81E26DA51B68901100FC1F2F /* TrendingViewController.swift */,
+				8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1313,6 +1321,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8127A8F01B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */,
+				8127A8F31B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
 				8176BEF31B77FEE200E1BDCD /* StyleKit.swift in Sources */,
 				81FFAF471B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				8176BEED1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
@@ -1401,6 +1411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */,
 				81D60AD11B84BF3200347BCA /* SearchResponse.swift in Sources */,
 				8176BEE71B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
 				810C4AFE1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */,
@@ -1437,6 +1448,7 @@
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
 				810C4AFB1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
+				8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
 				81D60ACE1B84BF2500347BCA /* SearchRequest.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,

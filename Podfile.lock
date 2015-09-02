@@ -36,6 +36,7 @@ PODS:
   - Bolts/Tasks (1.2.0)
   - CMDQueryStringSerialization (0.2.0)
   - CSStickyHeaderFlowLayout (0.2.8)
+  - DateTools (1.6.1)
   - Facebook-iOS-SDK (3.23.2):
     - Bolts (~> 1.0)
   - Firebase (2.3.3)
@@ -67,6 +68,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
   - CSStickyHeaderFlowLayout
+  - DateTools (~> 1.6)
   - Facebook-iOS-SDK (~> 3.0)
   - Firebase (>= 2.0.2)
   - Parse (from `Parse.podspec.json`)
@@ -94,6 +96,7 @@ SPEC CHECKSUMS:
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CMDQueryStringSerialization: 15f9004212bbc72533bb533f63df79d90a00a7d8
   CSStickyHeaderFlowLayout: e919dd425fa12bba1155f66d87edfe540eb8f89a
+  DateTools: 9bcc89e4f2f9004d8a7a2bd1b49269cf78968e65
   Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
   Firebase: 2db60272f68ce40c7d47e5ae6eddc16977c65d4c
   FlurrySDK: 68f1952f3d04a82cfcfbf00ed3435e81317c2946

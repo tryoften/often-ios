@@ -10,7 +10,7 @@ import UIKit
 
 class TouchRecognizerView: UIView {
     
-    var touchToView: [UITouch:UIView]
+    var touchToView: [UITouch: UIView]
     var togglePanelButton: UIButton
     var collapsed: Bool {
         didSet {
@@ -23,10 +23,16 @@ class TouchRecognizerView: UIView {
         togglePanelButton = UIButton()
         togglePanelButton.imageView?.contentMode = .ScaleAspectFit
         togglePanelButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 5, bottom: 2, right: 5)
-        togglePanelButton.backgroundColor = DefaultTheme.keyboardBackgroundColor
+        togglePanelButton.backgroundColor = UIColor.whiteColor()
         togglePanelButton.hidden = true
-        togglePanelButton.layer.zPosition = 999
         togglePanelButton.userInteractionEnabled = true
+        togglePanelButton.layer.zPosition = 999
+        togglePanelButton.layer.cornerRadius = 2.0
+        togglePanelButton.layer.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.19).CGColor
+        togglePanelButton.layer.shadowOpacity = 1.0
+        togglePanelButton.layer.shadowOffset = CGSizeMake(0, 0)
+        togglePanelButton.layer.shadowRadius = 2.0
+
         collapsed = false
         
         super.init(frame: frame)

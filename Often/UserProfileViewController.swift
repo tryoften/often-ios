@@ -106,7 +106,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
         
-        cell.avatarImageView.image = UIImage(named: "complex")
+        cell.sourceLogoView.image = UIImage(named: "complex")
         cell.headerLabel.text = "@ComplexMag"
         cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."
         cell.leftSupplementLabel.text = "3.1K Retweets"
