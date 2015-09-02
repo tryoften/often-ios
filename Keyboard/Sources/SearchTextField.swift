@@ -338,6 +338,7 @@ extension SearchTextField: UITextDocumentProxy {
         if !text.isEmpty {
             text = text.substringToIndex(advance(text.endIndex, -1))
         }
+        sendActionsForControlEvents(UIControlEvents.EditingChanged)
     }
 }
 

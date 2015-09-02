@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewModelDelegate {
+class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewModelDelegate,
+    SearchSuggestionViewControllerDelegate {
     var viewModel: SearchViewModel!
     var searchBarView: SearchBar!
     var supplementaryViewContainer: UIView!
@@ -89,6 +90,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         }
         searchResultsContainerView?.hidden = true
         searchSuggestionsViewController = SearchSuggestionsViewController()
+        searchSuggestionsViewController!.delegate = self
         searchSuggestionsViewController!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         bottomSeperator = UIView()
@@ -190,8 +192,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func didTapEnterButton(button: KeyboardKeyButton?) {
         let query = searchBarView.textInput.text
-        let request = SearchRequest(id: SearchRequest.idFromQuery(query), query: query, userId: "anon", timestamp: NSDate.new().timeIntervalSince1970 * 1000, isFulfilled: false)
-        viewModel.sendRequest(request)
+        viewModel.sendRequestForQuery(query, autocomplete: false)
+        
         if searchBarView.textInput.selected {
             searchResultsContainerView?.hidden = false
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
@@ -225,6 +227,11 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func textFieldDidChange() {
         textProcessor?.parseTextInCurrentDocumentProxy()
+        
+        if viewModel.hasReceivedResponse {
+            let query = searchBarView.textInput.text
+            viewModel.sendRequestForQuery(query, autocomplete: true)
+        }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
@@ -239,5 +246,14 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse) {
         searchResultsViewController?.response = response
         NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+    }
+    
+    func searchViewModelDidReceiveAutocompleteSuggestions(searchViewModel: SearchViewModel, suggestions: [String]?) {
+        searchSuggestionsViewController?.suggestions = suggestions
+    }
+    
+    // MARK: SearchSuggestionsViewControllerDelegate
+    func searchSuggestionViewControllerDidTapSuggestion(viewController: SearchSuggestionsViewController, suggestion: String) {
+        searchBarView.textInput.text = suggestion
     }
 }
