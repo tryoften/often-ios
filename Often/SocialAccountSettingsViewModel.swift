@@ -45,7 +45,23 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifySo
         sessionManager.fetchSocialAccount()
     }
     
-    func updateLocalSocialAccount () {
+    func updateLocalSocialAccount (socialAccountType:SocialAccountType) {
+        switch socialAccountType {
+        case .Spotify:
+            self.socialAccounts[1] = self.spotifyService.spotifyAccount!
+            break
+        case .Soundcloud:
+            self.socialAccounts[2] = self.soundcloudService.soundcloudAccount!
+            break
+        case .Venmo:
+            self.socialAccounts[3] = self.venmoService.venmoAccount!
+            break
+        case .Other:
+            break
+        default:
+            break
+            
+        }
             sessionManager.socialAccountService?.updateLocalSocialAccount(socialAccounts)
 
     }

@@ -39,23 +39,35 @@ class SocialAccountsService: Service {
     }
     
     func updateLocalSocialAccount (socialAccounts: [SocialAccount]) {
-        userDefaults.setObject(socialAccounts, forKey: socialAccountsPath)
+        var dic = [String : NSDictionary]()
+    
+        for accounts in socialAccounts {
+            dic.updateValue([
+                "token": accounts.token,
+                "activeStatus": accounts.activeStatus,
+                "tokenExpirationDate": accounts.tokenExpirationDate,
+                "type" : accounts.type!.rawValue
+                ]
+                , forKey: accounts.type!.rawValue)
+            
+        }
+        
+        userDefaults.setObject(dic, forKey: socialAccountsPath)
         userDefaults.synchronize()
     }
     /**
     Creates social service models from the default NSUserDefaults
     */
     private func createSocialAccountsModels(completion: (Bool) -> Void) {
-        if let services = userDefaults.arrayForKey(socialAccountsPath) as? [SocialAccount]
+        if let services = userDefaults.objectForKey(socialAccountsPath) as? [String : NSDictionary]
         {
-            socialAccounts = services
-            delegate?.serviceDataDidLoad(self)
+            
             completion(true)
         } else {
             createSocialAccount()
-            delegate?.serviceDataDidLoad(self)
             completion(true)
         }
+        delegate?.serviceDataDidLoad(self)
     }
     
     func createSocialAccount() {

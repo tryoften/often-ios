@@ -97,7 +97,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             } else {
                 viewModel.spotifyService.spotifyAccount?.activeStatus = selected
                 viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.spotifyService.spotifyAccount!, completion: { user,err  in
-                    println("we did it")
+                    self.viewModel.updateLocalSocialAccount(.Spotify)
                 })
             }
             break
@@ -110,7 +110,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             } else {
                 viewModel.soundcloudService.soundcloudAccount?.activeStatus = selected
                 viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.soundcloudService.soundcloudAccount!, completion: { user,err  in
-                    println("we did it")
+                    self.viewModel.updateLocalSocialAccount(.Soundcloud)
                 })
                 
             }
@@ -121,7 +121,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             } else {
                 viewModel.venmoService.venmoAccount?.activeStatus = selected
                 viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.venmoService.venmoAccount!, completion: { user,err  in
-                    println("we did it")
+                      self.viewModel.updateLocalSocialAccount(.Venmo)
                 })
             }
             break
@@ -137,6 +137,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
     func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: SocialAccount) {
         self.viewModel.sessionManager.setSocialAccountOnCurrentUser(socialAccount, completion: { user,err  in
             println("we did it")
+            self.viewModel.updateLocalSocialAccount(socialAccount.type!)
         })
     }
     
