@@ -9,9 +9,16 @@
 import Foundation
 import OAuthSwift
 
-class SoundcloudService {
+class SoundcloudService: NSObject {
+    let manager: AFHTTPRequestOperationManager
     var soundcloudAccount: SocialAccount?
     weak var delegate: SoundcloudSocialServiceDelegate?
+    
+    override init() {
+        manager = AFHTTPRequestOperationManager()
+
+        super.init()
+    }
     
     func sendRequest(completion:(NSError?) -> ()) {
         let oauthswift = OAuth2Swift(
@@ -49,6 +56,32 @@ class SoundcloudService {
         if let soundcloudAccount = self.soundcloudAccount {
             self.delegate?.soundcloudsocialServiceDidPullToken(self, account: soundcloudAccount)
         }
+        getSoundcloudUserInfo(session)
+        getSoundcloudUserActivities(session)
+    }
+    
+    func getSoundcloudUserInfo(session: String) {
+        manager.GET(
+            "https://api.soundcloud.com/me?oauth_token=\(session)",
+            parameters: [],
+            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
+                println("Success: \n\(responseObject.description)")
+                
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
+                println("Failure: \(error.localizedDescription)")
+        })
+    }
+    
+    func getSoundcloudUserActivities (session: String) {
+        manager.GET(
+            "https://api.soundcloud.com/me/activities?limit=1&oauth_token=\(session)",
+            parameters: [],
+            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
+                println("Success: \n\(responseObject.description)")
+                
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
+                println("Failure: \(error.localizedDescription)")
+        })
     }
     
 }

@@ -60,7 +60,7 @@ class VenmoService: NSObject {
         :param: accessToken Token from the authorization GET call
     */
 
-    func getCurrentUserInformation(accessToken: String) {
+    func getVenmoUserInformation(accessToken: String) {
         var parameters: NSDictionary = ["accessToken": accessToken]
     
         manager.GET(

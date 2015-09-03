@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if Venmo.sharedInstance().handleOpenURL(url) {
             var session = Venmo.sharedInstance().session
             venmoService.getCurrentCurrentSessionToken(session)
-            venmoService.getCurrentUserInformation(session.accessToken)
+            venmoService.getVenmoUserInformation(session.accessToken)
             return true
         }
         
