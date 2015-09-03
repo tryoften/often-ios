@@ -35,7 +35,11 @@ class SocialAccountsService: Service {
     }
     
     func updateSocialAccount(socialAccount: SocialAccount){
-        socialAccountsRef.childByAppendingPath(socialAccount.type?.rawValue).setValue(["token":socialAccount.token, "activeStatus":socialAccount.activeStatus,"tokenExpirationDate":socialAccount.tokenExpirationDate])
+        socialAccountsRef.childByAppendingPath(socialAccount.type?.rawValue).setValue([
+            "token":socialAccount.token,
+            "activeStatus":socialAccount.activeStatus,
+            "tokenExpirationDate":socialAccount.tokenExpirationDate
+            ])
     }
     
     func updateLocalSocialAccount (socialAccounts: [SocialAccount]) {
