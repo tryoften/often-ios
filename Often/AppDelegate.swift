@@ -25,9 +25,9 @@ var rightViewController: AppSettingsViewController?
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
-    var venmoService: VenmoService!
-    var spotifyService: SpotifyService!
-    var soundcloudService: SoundcloudService!
+    var venmoAccountManager: VenmoAccountManager!
+    var spotifyAccountManager: SpotifyAccountManager!
+    var soundcloudAccountManager: SoundcloudAccountManager!
     let sessionManager = SessionManager.defaultManager
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -51,12 +51,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if TestKeyboard {
                 mainController = KeyboardViewController(nibName: nil, bundle: nil)
             } else {
-                venmoService = VenmoService()
-                spotifyService = SpotifyService()
-                soundcloudService = SoundcloudService()
+                venmoAccountManager = VenmoAccountManager()
+                spotifyAccountManager = SpotifyAccountManager()
+                soundcloudAccountManager = SoundcloudAccountManager()
                 
                 let userProfileViewModel = UserProfileViewModel(sessionManager: sessionManager)
-                let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager, venmoService: venmoService, spotifyService: spotifyService, soundcloudService: soundcloudService)
+                let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
                 
                 // Front view controller must be navigation controller - will hide the nav bar
                 frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
@@ -92,18 +92,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
         
         if ( url.absoluteString!.hasPrefix("tryoften://logindone" )){
-            soundcloudService.handleOpenURL(url)
+            soundcloudAccountManager.handleOpenURL(url)
             return true
         }
         if ( url.absoluteString!.hasPrefix("tryoften://" )){
             if SPTAuth.defaultInstance().canHandleURL(url){
-                SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: spotifyService.authCallback)
+                SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: spotifyAccountManager.authCallback)
                 return true
             }
         } else if Venmo.sharedInstance().handleOpenURL(url) {
             var session = Venmo.sharedInstance().session
-            venmoService.getCurrentCurrentSessionToken(session)
-            venmoService.getVenmoUserInformation(session.accessToken)
+            venmoAccountManager.getCurrentCurrentSessionToken(session)
+            venmoAccountManager.getVenmoUserInformation(session.accessToken)
             return true
         }
         

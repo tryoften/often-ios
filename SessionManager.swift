@@ -12,9 +12,9 @@ import Crashlytics
 class SessionManager: NSObject {
     var firebase: Firebase
     var socialAccountService: SocialAccountsService?
-    var twitterService: TwitterService?
-    var facebookService: FacebookService?
-    var emailService: EmailService?
+    var twitterAccountManager: TwitterAccountManager?
+    var facebookAccountManager: FacebookAccountManager?
+    var emailAccountManager: EmailAccountManager?
     var userRef: Firebase?
     var currentUser: User?
     var userDefaults: NSUserDefaults
@@ -50,7 +50,7 @@ class SessionManager: NSObject {
         firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
         }
-        
+        print(userDefaults.objectForKey("user"))
         if let user = userDefaults.objectForKey("user") as? User {
             SEGAnalytics.sharedAnalytics().identify(user.id)
             currentUser = user
@@ -147,23 +147,23 @@ class SessionManager: NSObject {
         case .Twitter:
             userDefaults.setValue(true, forKey: "twitter")
             
-            twitterService = TwitterService(firebase: firebase)
-            twitterService?.openSessionWithTwitter(completion: completion)
+            twitterAccountManager = TwitterAccountManager(firebase: firebase)
+            twitterAccountManager?.openSessionWithTwitter(completion: completion)
             
             break
         case .Email:
             userDefaults.setValue(true, forKey: "email")
             if let username = username, let password = password {
-                emailService = EmailService(firebase: firebase)
-                emailService?.openSessionWithEmail(username, password: password, completion: completion)
+                emailAccountManager = EmailAccountManager(firebase: firebase)
+                emailAccountManager?.openSessionWithEmail(username, password: password, completion: completion)
             }
             
             break
         case .Facebook:
             userDefaults.setValue(true, forKey: "facebook")
             
-            facebookService = FacebookService(firebase: firebase)
-            facebookService?.openSessionWithFacebook(completion: completion)
+            facebookAccountManager = FacebookAccountManager(firebase: firebase)
+            facebookAccountManager?.openSessionWithFacebook(completion: completion)
             
             break
         default:
@@ -246,7 +246,7 @@ class SessionManager: NSObject {
                             
                         } else {
             
-                            self.facebookService?.getFacebookUserInfo({ (data, err) in
+                            self.facebookAccountManager?.getFacebookUserInfo({ (data, err) in
                                 if err == nil {
                                     var newData = data as! [String : AnyObject]
                                     newData["provider"] = authData.uid

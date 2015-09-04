@@ -1,5 +1,5 @@
 //
-//  FacebookService.swift
+//  FacebookAccountManager.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 9/3/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FacebookService: NSObject {
+class FacebookAccountManager: NSObject {
     var firebase: Firebase
     
     init(firebase: Firebase) {
