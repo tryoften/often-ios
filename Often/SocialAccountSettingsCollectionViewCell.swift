@@ -12,15 +12,9 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
     var serviceLogoImageView: UIImageView
     var serviceSwitch: UISwitch
     var serviceSubtitleLabel: UILabel
-    var settingServicesType: SettingsServicesType = .Venmo
+    var settingServicesType: SocialAccountType = .Other
     weak var delegate: AddServiceProviderDelegate?
-    
-    enum SettingsServicesType {
-        case Venmo
-        case Spotify
-        case Soundcloud
-    }
-    
+        
     override init(frame: CGRect) {
         serviceLogoImageView = UIImageView()
         serviceLogoImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -42,7 +36,7 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
         
         backgroundColor = WhiteColor
         
-        serviceSwitch.addTarget(self, action: "switchAction", forControlEvents: .TouchUpInside)
+        serviceSwitch.addTarget(self, action: "switchAction:", forControlEvents: .TouchUpInside)
         
         addSubview(serviceLogoImageView)
         addSubview(serviceSwitch)
@@ -55,21 +49,47 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func switchAction() {
-        if serviceSwitch.on {
+    func switchAction(sender : UIButton) {
+        delegate?.addServiceProviderCellDidTapSwitchButton(self, selected: serviceSwitch.on, buttonTag:sender.tag)
+        checkButtonStatus(serviceSwitch.on)
+        }
+    
+    func checkButtonStatus(buttonStatus:Bool){
+        if buttonStatus {
+            serviceSubtitleLabel.text = "Connected!"
+            serviceSubtitleLabel.numberOfLines = 1
             switch settingServicesType {
+            case .Twitter:
+                serviceLogoImageView.image = UIImage(named: "twitter-on")
+                break
+            case .Spotify:
+                serviceLogoImageView.image = UIImage(named: "spotify-on")
+                break
+            case .Soundcloud:
+                serviceLogoImageView.image = UIImage(named: "soundcloud-on")
+                break
             case .Venmo:
-                serviceSubtitleLabel.text = "Connected!"
-                serviceSubtitleLabel.numberOfLines = 1
                 serviceLogoImageView.image = UIImage(named: "venmo-on")
-                
-                delegate?.addServiceProviderCellDidTapSwitchButton(self, selected: serviceSwitch.on)
                 break
             default:
                 break
             }
         } else {
             switch settingServicesType {
+            case .Twitter:
+                serviceSubtitleLabel.text = "Connect your Twitter account to start sending payments & requests from your keyboard."
+                serviceSubtitleLabel.numberOfLines = 2
+                serviceLogoImageView.image = UIImage(named: "twitter-off")
+            case .Spotify:
+                serviceSubtitleLabel.text = "Connect your Spotify account to start sending payments & requests from your keyboard."
+                serviceSubtitleLabel.numberOfLines = 2
+                serviceLogoImageView.image = UIImage(named: "spotify-off")
+                break
+            case .Soundcloud:
+                serviceSubtitleLabel.text = "Connect your Soundcloud account to start sending payments & requests from your keyboard."
+                serviceSubtitleLabel.numberOfLines = 2
+                serviceLogoImageView.image = UIImage(named: "soundcloud-off")
+                break
             case .Venmo:
                 serviceSubtitleLabel.text = "Connect your Venmo account to start sending payments & requests from your keyboard."
                 serviceSubtitleLabel.numberOfLines = 2
@@ -79,6 +99,7 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
                 break
             }
         }
+
     }
     
     func setupLayout() {
@@ -88,16 +109,16 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
             serviceSubtitleLabel.al_width == 200,
             
             serviceSwitch.al_centerX == al_centerX,
-            serviceSwitch.al_top == serviceLogoImageView.al_bottom - 5,
+            serviceSwitch.al_top == serviceLogoImageView.al_bottom + 5,
             
             serviceLogoImageView.al_centerX == al_centerX,
             serviceLogoImageView.al_centerY == al_centerY - 10,
             serviceLogoImageView.al_width == 100,
-            serviceLogoImageView.al_height == 50
+            serviceLogoImageView.al_height == 40
         ])
     }
 }
 
 protocol AddServiceProviderDelegate: class {
-    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool)
+    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool, buttonTag:Int)
 }

@@ -12,6 +12,9 @@ import Crashlytics
 class SessionManager: NSObject {
     var firebase: Firebase
     var socialAccountService: SocialAccountsService?
+    var twitterService: TwitterService?
+    var facebookService: FacebookService?
+    var emailService: EmailService?
     var userRef: Firebase?
     var currentUser: User?
     var userDefaults: NSUserDefaults
@@ -60,7 +63,6 @@ class SessionManager: NSObject {
             }
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "writeDatabasetoDisk", name: "database:persist", object: nil)
     }
     
     func isUserLoggedIn() -> Bool {
@@ -85,12 +87,12 @@ class SessionManager: NSObject {
                 
                 user.signUpInBackgroundWithBlock { (success, error) in
                     if error == nil {
-                        self.firebase.createUser(username, password: password, withValueCompletionBlock: { error, result -> Void in
+                        self.firebase.createUser(email, password: password, withValueCompletionBlock: { error, result -> Void in
                             if error != nil {
                                 println("Login failed. \(error)")
                             } else {
                                 println("Logged in! \(result)")
-                                self.openSession(loginType, username: username, password: password)
+                                self.openSession(loginType, username: email, password: password)
                             }
                         })
                         completion(nil)
@@ -144,58 +146,25 @@ class SessionManager: NSObject {
         switch loginType {
         case .Twitter:
             userDefaults.setValue(true, forKey: "twitter")
-            let twitterAuthHelper = TwitterAuthHelper(firebaseRef:firebase, apiKey:TwitterConsumerKey)
-            twitterAuthHelper.selectTwitterAccountWithCallback { error, accounts in
-                if error != nil {
-                    // Error retrieving Twitter accounts
-                } else if accounts.count > 1 {
-                    // Select an account. Here we pick the first one for simplicity
-                    let account = accounts[0] as? ACAccount
-                    twitterAuthHelper.authenticateAccount(account, withCallback: { error, authData in
-                        if error != nil {
-                            println("Login failed. \(error)")
-                        } else {
-                            println( "session Opened. \(authData.providerData)")
-                        }
-                        completion?(error)
-                    })
-                } else {
-                    completion?(NSError())
-                }
-            }
+            
+            twitterService = TwitterService(firebase: firebase)
+            twitterService?.openSessionWithTwitter(completion: completion)
+            
             break
         case .Email:
             userDefaults.setValue(true, forKey: "email")
-            self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
-                if error != nil {
-                    println("logged in")
-                    completion?(nil)
-                } else {
-                    println(error)
-                    completion?(error)
-                }
-            })
+            if let username = username, let password = password {
+                emailService = EmailService(firebase: firebase)
+                emailService?.openSessionWithEmail(username, password: password, completion: completion)
+            }
+            
             break
         case .Facebook:
             userDefaults.setValue(true, forKey: "facebook")
-            if let session = FBSession.activeSession() {
-                let accessTokenData = session.accessTokenData
-                
-                if accessTokenData != nil {
-                    let accessToken = accessTokenData.accessToken
-                    firebase.authWithOAuthProvider("facebook", token: accessToken,
-                        withCompletionBlock: { error, authData in
-                            if error != nil {
-                                println("Login failed. \(error)")
-                            } else {
-                                println( "session Opened. \(authData.providerData)")
-                            }
-                            completion?(error)
-                    })
-                } else {
-                    completion?(NSError())
-                }
-            }
+            
+            facebookService = FacebookService(firebase: firebase)
+            facebookService?.openSessionWithFacebook(completion: completion)
+            
             break
         default:
             break
@@ -232,6 +201,7 @@ class SessionManager: NSObject {
                 self.broadcastUserLoginEvent()
                 self.userIsLoggingIn = false
             }
+            self.fetchSocialAccount()
         }
         
         if let authData = authData,
@@ -275,7 +245,8 @@ class SessionManager: NSObject {
                             persistUser(user)
                             
                         } else {
-                            self.getFacebookUserInfo({ (data, err) in
+            
+                            self.facebookService?.getFacebookUserInfo({ (data, err) in
                                 if err == nil {
                                     var newData = data as! [String : AnyObject]
                                     newData["provider"] = authData.uid
@@ -299,25 +270,21 @@ class SessionManager: NSObject {
         }
     }
     
-    func setSocialAccountOnCurrentUser(socialAccountIds: [String], completion: (User, NSError?) -> ()) {
+    func setSocialAccountOnCurrentUser(socialAccount:SocialAccount, completion: (User, NSError?) -> ()) {
         if let currentUser = self.currentUser {
             let socialAccountService = provideSocialAccountService(currentUser)
-            
-            socialAccountService.fetchDataForSocialAccountIds(socialAccountIds, completion: { socialAccount in
-                for socialAccountId in socialAccountIds {
-                    socialAccountService.socialAccountsRef.childByAppendingPath(socialAccountId).setValue(true)
-                }
-                
-                completion(currentUser, nil)
-            })
+            socialAccountService.updateSocialAccount(socialAccount)
+            completion(currentUser, nil)
         }
     }
 
     func fetchSocialAccount() {
         if let currentUser = currentUser {
             let socialAccountService = provideSocialAccountService(currentUser)
-            socialAccountService.requestData({ data in
-                self.broadcastDidFetchSocialAccountsEvent()
+            socialAccountService.fetchLocalData({ err  in
+                if err {
+                    self.broadcastDidFetchSocialAccountsEvent()
+                }
             })
         } else {
             // TODO(kervs): throw an error if the current user is not set
@@ -337,25 +304,6 @@ class SessionManager: NSObject {
         return socialAccountService
     }
     
-    private func getFacebookUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
-        var request = FBRequest.requestForMe()
-        request.startWithCompletionHandler({ (connection, result, error) in
-            
-            if error == nil {
-                var data = (result as! NSDictionary).mutableCopy() as! NSMutableDictionary
-                var userId = data["id"] as! String
-                var profilePicURLTemplate = "https://graph.facebook.com/%@/picture?type=%@"
-                
-                data["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
-                data["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
-                
-                completion(data, nil)
-            } else {
-                completion(nil, error)
-            }
-            
-        })
-    }
     
     func addSessionObserver(observer: SessionManagerObserver) {
         self.observers.addObject(observer)
@@ -368,7 +316,7 @@ class SessionManager: NSObject {
     private func broadcastDidFetchSocialAccountsEvent() {
         if let socialAccountService = self.socialAccountService {
             for observer in observers {
-                observer.sessionManagerDidFetchSocialAccounts(self, socialAccounts: socialAccountService.sortedSocialAccounts)
+                observer.sessionManagerDidFetchSocialAccounts(self, socialAccounts: socialAccountService.socialAccounts!)
             }
         }
     }

@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import Realm
 import Fabric
 import Crashlytics
+import Realm
+import OAuthSwift
 
 private var TestKeyboard: Bool = false
 
@@ -25,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
     var venmoService: VenmoService!
+    var spotifyService: SpotifyService!
+    var soundcloudService: SoundcloudService!
     let sessionManager = SessionManager.defaultManager
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -36,7 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFTwitterUtils.initializeWithConsumerKey(TwitterConsumerKey,  consumerSecret:TwitterConsumerSecret)
         FBAppEvents.activateApp()
         Flurry.startSession(FlurryClientKey)
-    
+        SPTAuth.defaultInstance().clientID = SpotifyClientID
+        SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
+         
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
         
@@ -46,8 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if TestKeyboard {
                 mainController = KeyboardViewController(nibName: nil, bundle: nil)
             } else {
+                venmoService = VenmoService()
+                spotifyService = SpotifyService()
+                soundcloudService = SoundcloudService()
+                
                 let userProfileViewModel = UserProfileViewModel(sessionManager: sessionManager)
-                let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager)
+                let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager, venmoService: venmoService, spotifyService: spotifyService, soundcloudService: soundcloudService)
+                
                 // Front view controller must be navigation controller - will hide the nav bar
                 frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
                 frontNavigationController = UINavigationController(rootViewController: frontViewController!)
@@ -80,25 +90,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-         venmoService = VenmoService()
         
-        if Venmo.sharedInstance().handleOpenURL(url) {
-            var urlString: String = url.absoluteString!
-            var index = 0
-            
-            for var i = 0; i < count(urlString); i++ {
-                if urlString[i] == "=" {
-                    index = i
-                }
+        if ( url.absoluteString!.hasPrefix("tryoften://logindone" )){
+            soundcloudService.handleOpenURL(url)
+            return true
+        }
+        if ( url.absoluteString!.hasPrefix("tryoften://" )){
+            if SPTAuth.defaultInstance().canHandleURL(url){
+                SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: spotifyService.authCallback)
+                return true
             }
-
+        } else if Venmo.sharedInstance().handleOpenURL(url) {
             var session = Venmo.sharedInstance().session
-            session.accessToken
-            
-            println(session.accessToken)
-            
-            venmoService.getCurrentUserInformation(session.accessToken)
-            
+            venmoService.getCurrentCurrentSessionToken(session)
+            venmoService.getVenmoUserInformation(session.accessToken)
             return true
         }
         

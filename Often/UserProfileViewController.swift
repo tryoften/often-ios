@@ -72,6 +72,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "resultCell")
         }
+        
     }
     
     override func didReceiveMemoryWarning() {

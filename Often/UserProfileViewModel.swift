@@ -35,20 +35,6 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         }
     }
     
-    func socialAccountAtIndex(index: Int) -> SocialAccount? {
-        if let socialAccounts = sessionManager.socialAccountService?.sortedSocialAccounts {
-            if index < socialAccounts.count {
-                return socialAccounts[index]
-            }
-        }
-        return nil
-    }
-    
-    func deleteSocialAccountWithId(socialAccountId: String, completion: (NSError?) -> ()) {
-        sessionManager.socialAccountService?.removeSocialAccounteWithId(socialAccountId, completion: completion)
-    }
-
-    
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
         
     }
