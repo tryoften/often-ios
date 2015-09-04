@@ -147,6 +147,7 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
                 break
             }
             
+            cell.contentImageView.image = nil
             if  let image = result.image,
                 let imageURL = NSURL(string: image) {
                 cell.contentImageView.setImageWithURL(imageURL)
