@@ -1,5 +1,5 @@
 //
-//  VenmoService.swift
+//  VenmoAccountManager.swift
 //  Surf
 //
 //  Created by Komran Ghahremani on 7/17/15.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class VenmoService: NSObject {
+class VenmoAccountManager: NSObject {
     let manager: AFHTTPRequestOperationManager
     var currentUserID = ""
     var userDefaults: NSUserDefaults!
     var friends: [VenmoFriend]?
     var venmoAccount: SocialAccount?
-    weak var delegate: VenmoServiceSocialServiceDelegate?
+    weak var delegate: VenmoAccountManagerDelegate?
     override init() {
         manager = AFHTTPRequestOperationManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(objects: "text/html", "plain/html", "application/json") as Set<NSObject>
@@ -49,7 +49,7 @@ class VenmoService: NSObject {
         venmoAccount?.tokenExpirationDate = session.expirationDate.description
         
         if let venmoAccount = self.venmoAccount {
-            self.delegate?.venmoSocialServiceDidPullToken(self, account: venmoAccount)
+            self.delegate?.venmoAccountManagerDidPullToken(self, account: venmoAccount)
         }
 
     }
@@ -134,6 +134,6 @@ class VenmoService: NSObject {
     }
 }
 
-protocol VenmoServiceSocialServiceDelegate: class {
-    func venmoSocialServiceDidPullToken(userProfileViewModel: VenmoService, account: SocialAccount)
+protocol VenmoAccountManagerDelegate: class {
+    func venmoAccountManagerDidPullToken(userProfileViewModel: VenmoAccountManager, account: SocialAccount)
 }

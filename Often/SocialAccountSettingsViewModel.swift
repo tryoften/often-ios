@@ -8,26 +8,26 @@
 
 import Foundation
 
-class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifySocialServiceDelegate, VenmoServiceSocialServiceDelegate, SoundcloudSocialServiceDelegate   {
+class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAccountManagerDelegate, VenmoAccountManagerDelegate, SoundcloudAccountManagerDelegate   {
     weak var delegate: SocialAccountSettingsViewModelDelegate?
     var sessionManager: SessionManager
     var socialAccounts: [SocialAccount]
-    var venmoService: VenmoService
-    var spotifyService: SpotifyService
-    var soundcloudService: SoundcloudService
+    var venmoAccountManager: VenmoAccountManager
+    var spotifyAccountManager: SpotifyAccountManager
+    var soundcloudAccountManager: SoundcloudAccountManager
     
-    init(sessionManager: SessionManager, venmoService: VenmoService, spotifyService: SpotifyService, soundcloudService: SoundcloudService) {
+    init(sessionManager: SessionManager, venmoAccountManager: VenmoAccountManager, spotifyAccountManager: SpotifyAccountManager, soundcloudAccountManager: SoundcloudAccountManager) {
         self.sessionManager = sessionManager
-        self.venmoService = venmoService
-        self.spotifyService = spotifyService
-        self.soundcloudService = soundcloudService
+        self.venmoAccountManager = venmoAccountManager
+        self.spotifyAccountManager = spotifyAccountManager
+        self.soundcloudAccountManager = soundcloudAccountManager
         self.socialAccounts = [SocialAccount]()
         
         super.init()
         
-        self.venmoService.delegate = self
-        self.spotifyService.delegate = self
-        self.soundcloudService.delegate = self
+        self.venmoAccountManager.delegate = self
+        self.spotifyAccountManager.delegate = self
+        self.soundcloudAccountManager.delegate = self
         self.sessionManager.addSessionObserver(self)
         
     }
@@ -48,13 +48,13 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifySo
     func updateLocalSocialAccount (socialAccountType:SocialAccountType) {
         switch socialAccountType {
         case .Spotify:
-            self.socialAccounts[1] = self.spotifyService.spotifyAccount!
+            self.socialAccounts[1] = self.spotifyAccountManager.spotifyAccount!
             break
         case .Soundcloud:
-            self.socialAccounts[2] = self.soundcloudService.soundcloudAccount!
+            self.socialAccounts[2] = self.soundcloudAccountManager.soundcloudAccount!
             break
         case .Venmo:
-            self.socialAccounts[3] = self.venmoService.venmoAccount!
+            self.socialAccounts[3] = self.venmoAccountManager.venmoAccount!
             break
         case .Other:
             break
@@ -71,16 +71,16 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifySo
         
     }
     
-    func spotifySocialServiceDidPullToken(userProfileViewModel: SpotifyService, account: SocialAccount) {
+    func spotifyAccountManagerDidPullToken(userProfileViewModel: SpotifyAccountManager, account: SocialAccount) {
         delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: account)
       
     }
     
-    func venmoSocialServiceDidPullToken(userProfileViewModel: VenmoService, account: SocialAccount) {
+    func venmoAccountManagerDidPullToken(userProfileViewModel: VenmoAccountManager, account: SocialAccount) {
          delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: account)
     }
     
-    func soundcloudsocialServiceDidPullToken(userProfileViewModel: SoundcloudService, account: SocialAccount) {
+    func soundcloudAccountManagerDidPullToken(userProfileViewModel: SoundcloudAccountManager, account: SocialAccount) {
         delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: account)
     }
 

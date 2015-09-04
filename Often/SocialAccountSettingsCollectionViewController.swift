@@ -1,5 +1,5 @@
 //
-//  ServiceSettingsCollectionViewController.swift
+//  AccountManagerSettingsCollectionViewController.swift
 //  Surf
 //
 //  Created by Komran Ghahremani on 8/5/15.
@@ -97,21 +97,21 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             if selected {
                 UIApplication.sharedApplication().openURL(SPTAuth.defaultInstance().loginURL)
             } else {
-                viewModel.spotifyService.spotifyAccount?.activeStatus = selected
-                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.spotifyService.spotifyAccount!, completion: { user,err  in
+                viewModel.spotifyAccountManager.spotifyAccount?.activeStatus = selected
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.spotifyAccountManager.spotifyAccount!, completion: { user,err  in
                     self.viewModel.updateLocalSocialAccount(.Spotify)
                 })
             }
             break
         case .Soundcloud:
             if selected {
-                let soundcloud = SoundcloudService()
-                viewModel.soundcloudService.sendRequest({ err  in
+                let soundcloud = SoundcloudAccountManager()
+                viewModel.soundcloudAccountManager.sendRequest({ err  in
                     println("it worked")
                 })
             } else {
-                viewModel.soundcloudService.soundcloudAccount?.activeStatus = selected
-                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.soundcloudService.soundcloudAccount!, completion: { user,err  in
+                viewModel.soundcloudAccountManager.soundcloudAccount?.activeStatus = selected
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.soundcloudAccountManager.soundcloudAccount!, completion: { user,err  in
                     self.viewModel.updateLocalSocialAccount(.Soundcloud)
                 })
                 
@@ -119,10 +119,10 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             break
         case .Venmo:
             if selected {
-                viewModel.venmoService.createRequest()
+                viewModel.venmoAccountManager.createRequest()
             } else {
-                viewModel.venmoService.venmoAccount?.activeStatus = selected
-                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.venmoService.venmoAccount!, completion: { user,err  in
+                viewModel.venmoAccountManager.venmoAccount?.activeStatus = selected
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.venmoAccountManager.venmoAccount!, completion: { user,err  in
                       self.viewModel.updateLocalSocialAccount(.Venmo)
                 })
             }

@@ -1,5 +1,5 @@
 //
-//  TwitterService.swift
+//  TwitterAccountManager.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 9/3/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TwitterService: NSObject {
+class TwitterAccountManager: NSObject {
     var firebase: Firebase
     
     init(firebase: Firebase) {

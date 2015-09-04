@@ -1,5 +1,5 @@
 //
-//  EmailService.swift
+//  EmailAccountManager.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 9/3/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EmailService: NSObject {
+class EmailAccountManager: NSObject {
     var firebase: Firebase
     
     init(firebase: Firebase) {
