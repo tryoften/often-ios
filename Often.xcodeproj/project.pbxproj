@@ -99,6 +99,8 @@
 		8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; };
 		8127A8F31B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; };
 		8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; };
+		8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */; };
+		8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */; };
 		812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F091B4BBA6A00C0F3BE /* Fabric.framework */; };
 		812E3F0C1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F091B4BBA6A00C0F3BE /* Fabric.framework */; };
 		812E3F0D1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */; };
@@ -368,6 +370,7 @@
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewController.swift; path = Sources/SearchSuggestionsViewController.swift; sourceTree = "<group>"; };
 		8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionTableViewCell.swift; path = Sources/SearchSuggestionTableViewCell.swift; sourceTree = "<group>"; };
+		8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionTableHeaderView.swift; path = Sources/SearchSuggestionTableHeaderView.swift; sourceTree = "<group>"; };
 		812E3F091B4BBA6A00C0F3BE /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		813138841B13AD92001AF9AC /* Keyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Keyboard.entitlements; sourceTree = "<group>"; };
@@ -992,6 +995,7 @@
 				81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */,
 				8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */,
 				8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */,
+				8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1401,6 +1405,7 @@
 				810C4AFD1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */,
 				3B63EDDD1B7E860000E54AFA /* SessionManager.swift in Sources */,
 				816589031B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
+				8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
 				810C4AFA1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
 				817939001B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
@@ -1489,6 +1494,7 @@
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
+				8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
 				810C4AFB1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
 				8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
 				81D60ACE1B84BF2500347BCA /* SearchRequest.swift in Sources */,

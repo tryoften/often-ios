@@ -72,16 +72,25 @@ class SearchViewModel: NSObject {
             let request = currentRequest {
                 
                 if request.autocomplete {
-                    var suggestions = [String: [String]]()
+                    var suggestions = [ String: [[String: AnyObject]] ]()
                     
                     for resultData in resultsData {
                         if let text = resultData["text"] as? String,
                             let options = resultData["options"] as? [ [String: AnyObject] ] {
-                                var texts = [String]()
+                                var texts = [[String: AnyObject]]()
                                 
                                 for option in options {
                                     if let optionText = option["text"] as? String {
-                                        texts.append(optionText)
+                                        var dict: [String: AnyObject] = [
+                                            "text": optionText
+                                        ]
+                                        
+                                        if let payload = option["payload"] as? [String: AnyObject],
+                                            let resultsCount = payload["resultsCount"] as? Int {
+                                                dict["resultsCount"] = resultsCount
+                                        }
+                                        
+                                        texts.append(dict)
                                     }
                                 }
                                 
@@ -183,5 +192,5 @@ class SearchViewModel: NSObject {
 
 protocol SearchViewModelDelegate {
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse)
-    func searchViewModelDidReceiveAutocompleteSuggestions(searchViewModel: SearchViewModel, suggestions: [String]?)
+    func searchViewModelDidReceiveAutocompleteSuggestions(searchViewModel: SearchViewModel, suggestions: [[String: AnyObject]]?)
 }

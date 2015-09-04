@@ -89,7 +89,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             textProcessor.proxies["search"] = searchBarView.textInput
         }
         searchResultsContainerView?.hidden = true
-        searchSuggestionsViewController = SearchSuggestionsViewController()
+        searchSuggestionsViewController = SearchSuggestionsViewController(style: .Grouped)
         searchSuggestionsViewController!.delegate = self
         searchSuggestionsViewController!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -180,6 +180,25 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         ])
     }
     
+    func submitSearchRequest() {
+        let query = searchBarView.textInput.text
+        viewModel.sendRequestForQuery(query, autocomplete: false)
+        
+        if searchBarView.textInput.selected {
+            searchResultsContainerView?.hidden = false
+            NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+        }
+    }
+    
+    func requestAutocompleteSuggestions() {
+        if searchBarView.textInput.text.isEmpty {
+            viewModel.sendRequestForQuery("#top-searches:10", autocomplete: true)
+        } else {
+            let query = searchBarView.textInput.text
+            viewModel.sendRequestForQuery(query, autocomplete: true)
+        }
+    }
+    
     func keyboardDidRestore() {
         searchResultsViewController?.response = nil
         searchResultsContainerView?.hidden = true
@@ -191,22 +210,19 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func didTapEnterButton(button: KeyboardKeyButton?) {
-        let query = searchBarView.textInput.text
-        viewModel.sendRequestForQuery(query, autocomplete: false)
-        
-        if searchBarView.textInput.selected {
-            searchResultsContainerView?.hidden = false
-            NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
-        }
+        submitSearchRequest()
     }
     
     // MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("search")
+        requestAutocompleteSuggestions()
         
         NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
             "height": 100.0
         ])
+        
+        searchSuggestionsViewController?.tableView.scrollRectToVisible(CGRectZero, animated: false)
         
         if searchResultsViewController == nil {
             searchResultsViewController = SearchResultsCollectionViewController(textProcessor: textProcessor)
@@ -229,8 +245,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         textProcessor?.parseTextInCurrentDocumentProxy()
         
         if viewModel.hasReceivedResponse {
-            let query = searchBarView.textInput.text
-            viewModel.sendRequestForQuery(query, autocomplete: true)
+            requestAutocompleteSuggestions()
         }
     }
     
@@ -248,12 +263,14 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
     }
     
-    func searchViewModelDidReceiveAutocompleteSuggestions(searchViewModel: SearchViewModel, suggestions: [String]?) {
+    func searchViewModelDidReceiveAutocompleteSuggestions(searchViewModel: SearchViewModel, suggestions: [[String: AnyObject]]?) {
         searchSuggestionsViewController?.suggestions = suggestions
     }
     
     // MARK: SearchSuggestionsViewControllerDelegate
     func searchSuggestionViewControllerDidTapSuggestion(viewController: SearchSuggestionsViewController, suggestion: String) {
         searchBarView.textInput.text = suggestion
+        textProcessor?.parseTextInCurrentDocumentProxy()
+        submitSearchRequest()
     }
 }
