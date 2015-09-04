@@ -42,12 +42,12 @@ class SpotifyService: NSObject {
         self.spotifyAccount?.activeStatus = true
         self.spotifyAccount?.tokenExpirationDate = session.expirationDate.description
         if let spotifyAccount = self.spotifyAccount {
-            self.delegate?.spotifysocialServiceDidPullToken(self, account: spotifyAccount)
+            self.delegate?.spotifySocialServiceDidPullToken(self, account: spotifyAccount)
         }
     }
 
 }
 
 protocol SpotifySocialServiceDelegate: class {
-    func spotifysocialServiceDidPullToken(userProfileViewModel: SpotifyService, account: SocialAccount)
+    func spotifySocialServiceDidPullToken(userProfileViewModel: SpotifyService, account: SocialAccount)
 }

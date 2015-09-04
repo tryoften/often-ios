@@ -21,7 +21,7 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifySo
         self.venmoService = venmoService
         self.spotifyService = spotifyService
         self.soundcloudService = soundcloudService
-        socialAccounts = [SocialAccount]()
+        self.socialAccounts = [SocialAccount]()
         
         super.init()
         
@@ -71,7 +71,7 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifySo
         
     }
     
-    func spotifysocialServiceDidPullToken(userProfileViewModel: SpotifyService, account: SocialAccount) {
+    func spotifySocialServiceDidPullToken(userProfileViewModel: SpotifyService, account: SocialAccount) {
         delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: account)
       
     }

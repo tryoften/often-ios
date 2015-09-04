@@ -71,13 +71,15 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SocialAccountSettingsCollectionViewCell
-        var socialAccount = viewModel.socialAccounts[indexPath.row]
-        serviceSettingsCell = cell
-        serviceSettingsCell?.delegate = self
-        cell.settingServicesType = socialAccount.type!
-        cell.serviceSwitch.on = socialAccount.activeStatus
-        cell.serviceSwitch.tag = indexPath.row
-        cell.checkButtonStatus(socialAccount.activeStatus)
+        if  viewModel.socialAccounts.count > indexPath.row {
+            var socialAccount = viewModel.socialAccounts[indexPath.row]
+            serviceSettingsCell = cell
+            serviceSettingsCell?.delegate = self
+            cell.settingServicesType = socialAccount.type!
+            cell.serviceSwitch.on = socialAccount.activeStatus
+            cell.serviceSwitch.tag = indexPath.row
+            cell.checkButtonStatus(socialAccount.activeStatus)
+        }
         
         return cell
     }

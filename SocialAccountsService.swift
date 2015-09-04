@@ -44,28 +44,25 @@ class SocialAccountsService: Service {
     
     func updateLocalSocialAccount (socialAccounts: [SocialAccount]) {
         var dic = [String : NSDictionary]()
-    
         for accounts in socialAccounts {
             dic.updateValue([
                 "token": accounts.token,
                 "activeStatus": accounts.activeStatus,
                 "tokenExpirationDate": accounts.tokenExpirationDate,
                 "type" : accounts.type!.rawValue
-                ]
-                , forKey: accounts.type!.rawValue)
-            
+                ], forKey: accounts.type!.rawValue)
         }
         
         userDefaults.setObject(dic, forKey: socialAccountsPath)
         userDefaults.synchronize()
     }
+    
     /**
     Creates social service models from the default NSUserDefaults
     */
     private func createSocialAccountsModels(completion: (Bool) -> Void) {
         if let services = userDefaults.objectForKey(socialAccountsPath) as? [String : NSDictionary]
         {
-            
             completion(true)
         } else {
             createSocialAccount()
@@ -94,9 +91,6 @@ class SocialAccountsService: Service {
         socialAccounts!.append(soundcloud)
         socialAccounts!.append(venmo)
     }
-    
-  
-    
 }
 
 protocol SocialAccountServiceDelegate: ServiceDelegate {}
