@@ -51,12 +51,14 @@ class SessionManager: NSObject {
             self.processAuthData(authData)
         }
         print(userDefaults.objectForKey("user"))
-        if let user = userDefaults.objectForKey("user") as? User {
-            SEGAnalytics.sharedAnalytics().identify(user.id)
-            currentUser = user
-            socialAccountService = SocialAccountsService(user: user, root: firebase)
+        if let userData = userDefaults.objectForKey("user") as? [String:String] {
+            currentUser = User()
+            currentUser?.setValuesForKeysWithDictionary(userData)
+            SEGAnalytics.sharedAnalytics().identify(currentUser!.id)
+            socialAccountService = SocialAccountsService(user: currentUser!, root: firebase)
             var crashlytics = Crashlytics.sharedInstance()
-            crashlytics.setUserIdentifier(user.id)
+            crashlytics.setUserIdentifier(currentUser!.id)
+            
             if let user = currentUser {
                 crashlytics.setUserName(user.username)
                 crashlytics.setUserEmail(user.email)
@@ -193,7 +195,16 @@ class SessionManager: NSObject {
             self.currentUser = user
         
             if !self.isUserNew {
-                self.userDefaults.setObject(user, forKey: "user")
+                self.userDefaults.setObject([
+                    "id": user.id,
+                    "name": user.name,
+                    "profileImageSmall": user.profileImageSmall,
+                    "profileImageLarge": user.profileImageLarge,
+                    "username": user.username,
+                    "email": user.email,
+                    "phone": user.phone,
+                    "backgroundImage": user.name,
+                    ], forKey: "user")
                 self.userDefaults.synchronize()
             }
             
@@ -238,7 +249,7 @@ class SessionManager: NSObject {
                             data["parseId"] = uid
                             
                             self.userRef?.setValue(data)
-                            self.isUserNew = true
+                            self.isUserNew = false
                             
                             var user = User()
                             user.setValuesForKeysWithDictionary(data)

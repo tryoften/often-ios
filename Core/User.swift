@@ -16,9 +16,7 @@ class User: NSObject {
     var username: String = ""
     var email: String = ""
     var phone: String = ""
-    var backgroundImage: String = ""
-    
-       
+
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         
         if let dictionary = keyedValues as? [String: AnyObject] {
@@ -37,10 +35,6 @@ class User: NSObject {
             
             if let emailString = dictionary["email"] as? String {
                 email = emailString
-            }
-            
-            if let backgroundImageString =  dictionary["backgroundImage"] as? String {
-                backgroundImage = backgroundImageString
             }
             
             if let profileImageSmallString = dictionary["profileImageSmall"] as? String {
