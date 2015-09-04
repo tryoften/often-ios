@@ -72,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // instantiate PKRevealController and set as mainController to do revealing
                 revealController = PKRevealController(frontViewController: frontNavigationController, leftViewController: leftViewController, rightViewController: rightViewController)
                 revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: leftViewController)
+                revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: rightViewController)
                 
                 mainController = revealController
             }

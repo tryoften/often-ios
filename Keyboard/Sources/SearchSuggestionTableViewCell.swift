@@ -9,13 +9,37 @@
 import UIKit
 
 class SearchSuggestionTableViewCell: UITableViewCell {
+    var resultsCountLabel: UILabel
+    
+    var resultsCount: Int? {
+        didSet {
+            if let resultsCount = resultsCount {
+                let attributes: [String: AnyObject] = [
+                    NSKernAttributeName: NSNumber(float: 1.5),
+                    NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10)!,
+                    NSForegroundColorAttributeName: UIColor.grayColor()
+                ]
+                var attributedString = NSAttributedString(string: "\(resultsCount) results".uppercaseString, attributes: attributes)
+                resultsCountLabel.attributedText = attributedString
+            } else {
+                resultsCountLabel.text = ""
+            }
+        }
+    }
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        resultsCountLabel = UILabel()
+        resultsCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        contentView.addSubview(resultsCountLabel)
         
         backgroundColor = ClearColor
         textLabel!.font = SubtitleFont
         selectionStyle = .None
+        
+        setupLayout()
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -32,6 +56,13 @@ class SearchSuggestionTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setupLayout() {
+        addConstraints([
+            resultsCountLabel.al_right == contentView.al_right - 15,
+            resultsCountLabel.al_centerY == contentView.al_centerY
+        ])
     }
 
 }

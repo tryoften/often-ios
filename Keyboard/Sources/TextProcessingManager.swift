@@ -85,21 +85,20 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     func parseTextInCurrentDocumentProxy() {
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
+            println(tokens)
             
-            if tokens.count > 1 {
-                let firstToken = tokens[0]
+            let firstToken = tokens[0]
+            
+            // check if first token is command call
+            if firstToken.hasPrefix("#") {
+                let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
                 
-                // check if first token is command call
-                if firstToken.hasPrefix("#") {
-                    let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
-                    
-                    if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
-                        println(serviceProviderType)
-                        for i in 0...count(firstToken) {
-                            currentProxy.deleteBackward()
-                        }
-                        delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
+                if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
+                    println(serviceProviderType)
+                    for i in 0...count(firstToken) {
+                        currentProxy.deleteBackward()
                     }
+                    delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
                 }
             }
         }
