@@ -327,7 +327,9 @@ class SessionManager: NSObject {
     private func broadcastDidFetchSocialAccountsEvent() {
         if let socialAccountService = self.socialAccountService {
             for observer in observers {
-                observer.sessionManagerDidFetchSocialAccounts(self, socialAccounts: socialAccountService.socialAccounts!)
+                if let accounts = socialAccountService.socialAccounts {
+                    observer.sessionManagerDidFetchSocialAccounts(self, socialAccounts: accounts)
+                }
             }
         }
     }
