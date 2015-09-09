@@ -1,6 +1,6 @@
 {
   "name": "Parse",
-  "version": "1.7.4",
+  "version": "1.8.1",
   "license": {
     "type": "Commercial",
     "text": "See https://www.parse.com/about/terms"
@@ -9,37 +9,62 @@
   "summary": "Parse is a complete technology stack to power your app's backend.",
   "authors": "Parse",
   "source": {
-    "http": "http://parse-ios.s3.amazonaws.com/5384bc5b9c2a14077024b8607d9b791d/parse-library-1.7.4.zip"
+    "git": "https://github.com/ParsePlatform/Parse-SDK-iOS-OSX.git",
+    "tag": "1.8.1"
   },
   "platforms": {
-    "ios": "6.0"
+    "ios": "7.0",
+    "osx": "10.9"
   },
-  "requires_arc": false,
-  "public_header_files": "Parse.framework/**/*.h",
+  "requires_arc": true,
   "source_files": [
-    "Parse.framework/**/*.h",
-    "Empty.m"
+    "Parse/*.{h,m}",
+    "Parse/Internal/**/*.{h,m}"
   ],
-  "preserve_paths": "Parse.framework/Parse",
-  "vendored_libraries": "libParse.a",
-  "prepare_command": "touch Empty.m && cp Parse.framework/Parse libParse.a",
-  "frameworks": [
-    "AudioToolbox",
-    "CFNetwork",
-    "CoreGraphics",
-    "CoreLocation",
-    "MobileCoreServices",
-    "QuartzCore",
-    "Security",
-    "StoreKit",
-    "SystemConfiguration"
-  ],
-  "weak_frameworks": [
-    "Accounts",
-    "Social"
-  ],
+  "public_header_files": "Parse/*.h",
+  "osx": {
+    "exclude_files": [
+      "Parse/PFNetworkActivityIndicatorManager.{h,m}",
+      "Parse/PFProduct.{h,m}",
+      "Parse/PFPurchase.{h,m}",
+      "Parse/Internal/PFAlertView.{h,m}",
+      "Parse/Internal/Product/**/*.{h,m}",
+      "Parse/Internal/Purchase/**/*.{h,m}"
+    ],
+    "frameworks": [
+      "ApplicationServices",
+      "CFNetwork",
+      "CoreGraphics",
+      "CoreLocation",
+      "QuartzCore",
+      "Security",
+      "SystemConfiguration"
+    ]
+  },
+  "resources": "Parse/Resources/en.lproj",
+  "ios": {
+    "frameworks": [
+      "AudioToolbox",
+      "CFNetwork",
+      "CoreGraphics",
+      "CoreLocation",
+      "QuartzCore",
+      "Security",
+      "StoreKit",
+      "SystemConfiguration"
+    ],
+    "weak_frameworks": [
+      "Accounts",
+      "Social"
+    ]
+  },
   "libraries": [
     "z",
     "sqlite3"
-  ]
+  ],
+  "dependencies": {
+    "Bolts/Tasks": [
+      ">= 1.2.0"
+    ]
+  }
 }

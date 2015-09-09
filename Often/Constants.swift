@@ -1,23 +1,30 @@
 //
 //  Constants.swift
-//  DrizzyChat
+//  Often
 //
 //  Created by Luc Success on 11/22/14.
-//  Copyright (c) 2014 Luc Success. All rights reserved.
+//  Copyright (c) 2014 Project Surf Inc. All rights reserved.
 //
 
 import Foundation
 
 #if DEBUG
-    let BaseURL = "https://drizzy-db-dev.firebaseio.com/"
+    let BaseURL = "https://asterix.firebaseio.com/"
 #else
-    let BaseURL = "https://multi-keyboards.firebaseio.com/"
+    let BaseURL = "https://asterix.firebaseio.com/"
 #endif
 let AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let ParseAppID = "L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G"
 let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"
 let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 let AnalyticsWriteKey = "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI"
+let TwitterConsumerKey = "IIPYUMSsLg4ETYgYmvkfUZ37e"
+let TwitterConsumerSecret = "OSDOYdrn8AlzPL7kNuwf0TK8tq80khTkvWGo7pqQtdOfQLaEx2"
+let SpotifyClientID = "18c6ddb2612e40fba4338f64818d7f29"
+let SpotifyConsumerSecret = "29b39cc7c0cb4093be316214e379056a"
+let SoundcloudClientID = "7fe98f2e8f4b840cf05bea989a6d04f5"
+let SoundcloudConsumerSecret = "c0d98423d7a0afa24e40a419cea0c141"
+let OftenCallbackURL = "tryoften://"
 let AppSuiteName = "group.com.tryoften.often"
 let CrashlyticsAPIKey = "e4598140f72849daf847791f325b1eabae27a254"
 let VenmoAppSecret = "9Bexp2xAQ2hfN57LDVCBYCzRQXJXrRba"

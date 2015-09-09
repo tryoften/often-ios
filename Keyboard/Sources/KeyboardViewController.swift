@@ -86,6 +86,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        Firebase.defaultConfig().persistenceEnabled = true
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         
         keysContainerView = TouchRecognizerView()
@@ -109,16 +110,17 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         textProcessor.delegate = self
         searchBar.textProcessor = textProcessor
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
         keysContainerView.togglePanelButton.addTarget(self, action: "restoreKeyboard", forControlEvents: .TouchUpInside)
         
         view.addSubview(searchBar.view)
         view.addSubview(slidePanelContainerView)
         view.addSubview(keysContainerView)
-        inputView.backgroundColor = UIColor.whiteColor()
+        inputView.backgroundColor = VeryLightGray
     }
     
     convenience init(debug: Bool = false) {
@@ -155,9 +157,16 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             lastLayoutBounds = orientationSavvyBounds
             setupKeys()
         }
-
-        keysContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
-        slidePanelContainerView.frame = keysContainerView.frame
+        
+        if keysContainerView.collapsed {
+            var height = CGRectGetHeight(self.view.frame) - 30
+            var keysContainerViewFrame = keysContainerView.frame
+            keysContainerViewFrame.origin.y = height
+            keysContainerView.frame = keysContainerViewFrame
+        } else {
+            keysContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
+        }
+        slidePanelContainerView.frame = CGRectMake(0, KeyboardSearchBarHeight, CGRectGetWidth(keysContainerView.frame), CGRectGetHeight(self.view.frame) - KeyboardSearchBarHeight)
         searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, searchBarHeight)
     }
     

@@ -9,11 +9,11 @@
 import UIKit
 
 class UserProfileFilterTabView: UIView {
-    var allFilterButton: UIButton
-    var songsFilterButton: UIButton
-    var videosFilterButton: UIButton
-    var linksFilterButton: UIButton
-    var gifsFilterButton: UIButton
+    let allFilterButton: UIButton
+    let songsFilterButton: UIButton
+    let videosFilterButton: UIButton
+    let linksFilterButton: UIButton
+    let gifsFilterButton: UIButton
     
     override init(frame: CGRect) {
         allFilterButton = UIButton()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate {
+class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate, UserProfileViewModelDelegate {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
     
@@ -17,12 +17,15 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     var setServiceViewWidthConstraint: NSLayoutConstraint?
     var settingsViewWidthConstraint: NSLayoutConstraint?
     var contentFilterTabView: UserProfileFilterTabView
+    var viewModel: UserProfileViewModel
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init(collectionViewLayout: UICollectionViewLayout) {
+
+     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
+        self.viewModel = viewModel
         contentFilterTabView = UserProfileFilterTabView()
         contentFilterTabView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -38,6 +41,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         settingsViewWidthConstraint = settingsRevealView.al_width == 0
         
         super.init(collectionViewLayout: collectionViewLayout)
+        self.viewModel.delegate = self
         
         view.addSubview(setServicesRevealView)
         view.addSubview(settingsRevealView)
@@ -68,6 +72,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(UserScrollTabCollectionViewContainerCell.self, forCellWithReuseIdentifier: "resultCell")
         }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -136,6 +141,14 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
             contentFilterTabView.al_right == view.al_right,
             contentFilterTabView.al_height == 50
         ])
+    }
+
+    func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
+        
+    }
+    
+    func userProfileViewModelDidLoadSocialServiceList(userProfileViewModel: UserProfileViewModel, socialAccountList: [SocialAccount]) {
+        
     }
     
     // User profile header delegate
