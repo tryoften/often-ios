@@ -53,8 +53,8 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
-        flowLayout.sectionInset = UIEdgeInsetsMake(25.0, 5.0, 5.0, 5.0)
-        flowLayout.itemSize = CGSizeMake(screenWidth - 20, 118)
+        flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+        flowLayout.itemSize = CGSizeMake(screenWidth, 300)
         return flowLayout
     }
     
@@ -62,11 +62,11 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         super.viewDidLoad()
         
         if let collectionView = collectionView {
-            collectionView.backgroundColor = VeryLightGray
+            collectionView.backgroundColor = WhiteColor
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "profile-header")
             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
-            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "resultCell")
+            collectionView.registerClass(UserScrollTabCollectionViewContainerCell.self, forCellWithReuseIdentifier: "resultCell")
         }
     }
     
@@ -86,20 +86,11 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 1
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-        
-        cell.avatarImageView.image = UIImage(named: "complex")
-        cell.headerLabel.text = "@ComplexMag"
-        cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."
-        cell.leftSupplementLabel.text = "3.1K Retweets"
-        cell.centerSupplementLabel.text = "4.5K Favorites"
-        cell.rightSupplementLabel.text = "July 25, 2015"
-        cell.rightCornerImageView.image = UIImage(named: "twitter")
-        cell.contentImage = UIImage(named: "ovosound")
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! UserScrollTabCollectionViewContainerCell
         
         return cell
     }
@@ -125,17 +116,11 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         return UICollectionReusableView()
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 5.0 as CGFloat
-    }
-    
-    
     func setupLayout() {
         setServiceViewWidthConstraint = setServicesRevealView.al_width == 0
         settingsViewWidthConstraint = settingsRevealView.al_width == 0
         
         view.addConstraints([
-            
             setServicesRevealView.al_left == view.al_left,
             setServicesRevealView.al_bottom == view.al_bottom,
             setServicesRevealView.al_top == view.al_top,
