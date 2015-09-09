@@ -16,6 +16,7 @@ let TextProcessingManagerTextChangedEvent = "textProcesssingManager.textDidChang
 class TextProcessingManager: NSObject, UITextInputDelegate {
     weak var delegate: TextProcessingManagerDelegate?
     var currentProxy: UITextDocumentProxy
+    var defaultProxy: UITextDocumentProxy
     var lastInsertedString: String?
     var lyricInserted = false
     var proxies: [String: UITextDocumentProxy]
@@ -23,6 +24,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     init(textDocumentProxy: UITextDocumentProxy) {
         proxies = [:]
         currentProxy = textDocumentProxy
+        defaultProxy = textDocumentProxy
         proxies["default"] = currentProxy
         
         super.init()
@@ -83,21 +85,20 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     func parseTextInCurrentDocumentProxy() {
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
+            println(tokens)
             
-            if tokens.count > 1 {
-                let firstToken = tokens[0]
+            let firstToken = tokens[0]
+            
+            // check if first token is command call
+            if firstToken.hasPrefix("#") {
+                let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
                 
-                // check if first token is command call
-                if firstToken.hasPrefix("#") {
-                    let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
-                    
-                    if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
-                        println(serviceProviderType)
-                        for i in 0...count(firstToken) {
-                            currentProxy.deleteBackward()
-                        }
-                        delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
+                if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
+                    println(serviceProviderType)
+                    for i in 0...count(firstToken) {
+                        currentProxy.deleteBackward()
                     }
+                    delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
                 }
             }
         }
@@ -118,6 +119,11 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         
         delegate?.textProcessingManagerDidChangeText(self)
         broadcastTextDidChange()
+    }
+    
+    func insertTextInProxy(text: String, proxy: UITextDocumentProxy) {
+        proxy.insertText(text)
+        delegate?.textProcessingManagerDidChangeText(self)
     }
     
     func insertText(text: String) {

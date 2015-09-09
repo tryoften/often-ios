@@ -2,7 +2,7 @@ platform :ios, '8.0'
 #use_frameworks!
 
 inhibit_all_warnings!
-#source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
 
 xcodeproj 'Often.xcodeproj'
 
@@ -12,14 +12,22 @@ target 'Often' do
   pod 'AFNetworking', '~> 2.0'
   pod 'Venmo-iOS-SDK', '~>1.3'
   pod 'TOMSMorphingLabel', '~> 0.5'
+  pod 'Facebook-iOS-SDK', '~> 3.0'
+  pod 'Parse', :podspec => 'Parse.podspec.json'
+  pod 'ParseTwitterUtils', '~> 1.8'
+  pod 'ParseFacebookUtils', '~> 1.8'
   pod 'CSStickyHeaderFlowLayout'
+  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'PKRevealController'
+  pod 'DateTools', '~> 1.6'
 end
 
 target 'Keyboard' do
   pod 'Firebase', '>= 2.0.2'
   pod 'AFNetworking', '~> 2.0'
   pod 'TOMSMorphingLabel', '~> 0.5'
+  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
+  pod 'DateTools', '~> 1.6'
 end
 
 

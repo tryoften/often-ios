@@ -23,7 +23,7 @@ class SearchBarButton: UIButton {
         setTitleColor(UIColor.blackColor(), forState: .Normal)
         titleLabel?.font = SubtitleFont
         
-        contentEdgeInsets = UIEdgeInsets(top: 3, left: 20, bottom: 3, right: 3)
+        contentEdgeInsets = UIEdgeInsets(top: 3, left: 25, bottom: 3, right: 3)
         layer.cornerRadius = 3.0
         backgroundColor = VeryLightGray
     }

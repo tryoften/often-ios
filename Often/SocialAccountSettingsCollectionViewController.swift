@@ -1,5 +1,5 @@
 //
-//  ServiceSettingsCollectionViewController.swift
+//  AccountManagerSettingsCollectionViewController.swift
 //  Surf
 //
 //  Created by Komran Ghahremani on 8/5/15.
@@ -10,13 +10,19 @@ import UIKit
 
 let ServiceSettingsViewCell = "serviceCell"
 
-class SocialAccountSettingsCollectionViewController: UICollectionViewController, AddServiceProviderDelegate {
+
+class SocialAccountSettingsCollectionViewController: UICollectionViewController, AddServiceProviderDelegate, SocialAccountSettingsViewModelDelegate  {
     var headerView: UserProfileHeaderView?
+    var viewModel: SocialAccountSettingsViewModel
     var sectionHeaderView: UserProfileSectionHeaderView?
     var serviceSettingsCell: SocialAccountSettingsCollectionViewCell?
+   
     
-    override init(collectionViewLayout layout: UICollectionViewLayout) {
+    init(collectionViewLayout layout: UICollectionViewLayout, viewModel: SocialAccountSettingsViewModel) {
+        self.viewModel = viewModel
         super.init(collectionViewLayout: layout)
+        self.viewModel.delegate = self
+        
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -60,38 +66,81 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return viewModel.socialAccounts.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SocialAccountSettingsCollectionViewCell
-        serviceSettingsCell = cell
-        serviceSettingsCell?.delegate = self
-        
-        cell.settingServicesType = .Venmo
-        cell.serviceLogoImageView.image = UIImage(named: "venmo-off")
-        cell.serviceSwitch.on = false
-        cell.serviceSubtitleLabel.text = "Connect your Venmo account to start sending payments & requests from your keyboard."
+        if  viewModel.socialAccounts.count > indexPath.row {
+            var socialAccount = viewModel.socialAccounts[indexPath.row]
+            serviceSettingsCell = cell
+            serviceSettingsCell?.delegate = self
+            cell.settingServicesType = socialAccount.type!
+            cell.serviceSwitch.on = socialAccount.activeStatus
+            cell.serviceSwitch.tag = indexPath.row
+            cell.checkButtonStatus(socialAccount.activeStatus)
+        }
         
         return cell
     }
     
-    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool) {
-        Venmo.startWithAppId(VenmoAppID, secret: VenmoAppSecret, name: "SWRV")
-        Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
-            if success {
-                println("Permissions Success!")
-            } else {
-                println("Permissions Fail")
+    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool, buttonTag:Int ) {
+        viewModel.socialAccounts[buttonTag ].activeStatus = !viewModel.socialAccounts[buttonTag].activeStatus
+        switch serviceSettingsCollectionView.settingServicesType {
+        case .Twitter:
+            if selected {
+                viewModel.sessionManager.login(.Twitter, completion: nil)
             }
+            
+            break
+        case .Spotify:
+            if selected {
+                UIApplication.sharedApplication().openURL(SPTAuth.defaultInstance().loginURL)
+            } else {
+                viewModel.spotifyAccountManager.spotifyAccount?.activeStatus = selected
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.spotifyAccountManager.spotifyAccount!, completion: { user,err  in
+                    self.viewModel.updateLocalSocialAccount(.Spotify)
+                })
+            }
+            break
+        case .Soundcloud:
+            if selected {
+                let soundcloud = SoundcloudAccountManager()
+                viewModel.soundcloudAccountManager.sendRequest({ err  in
+                    println("it worked")
+                })
+            } else {
+                viewModel.soundcloudAccountManager.soundcloudAccount?.activeStatus = selected
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.soundcloudAccountManager.soundcloudAccount!, completion: { user,err  in
+                    self.viewModel.updateLocalSocialAccount(.Soundcloud)
+                })
+                
+            }
+            break
+        case .Venmo:
+            if selected {
+                viewModel.venmoAccountManager.createRequest()
+            } else {
+                viewModel.venmoAccountManager.venmoAccount?.activeStatus = selected
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.venmoAccountManager.venmoAccount!, completion: { user,err  in
+                      self.viewModel.updateLocalSocialAccount(.Venmo)
+                })
+            }
+            break
+        default:
+            break
         }
+    }
+    
+    func socialAccountSettingsViewModelDidLoginUser(userProfileViewModel: SocialAccountSettingsViewModel, user: User) {
         
-        if Venmo.isVenmoAppInstalled() {
-            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.API
-        } else {
-            Venmo.sharedInstance().defaultTransactionMethod = VENTransactionMethod.AppSwitch
-        }
-
+    }
+    
+    func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: SocialAccount) {
+        self.viewModel.sessionManager.setSocialAccountOnCurrentUser(socialAccount, completion: { user,err  in
+            println("we did it")
+            self.viewModel.updateLocalSocialAccount(socialAccount.type!)
+        })
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {

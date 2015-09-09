@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import Realm
 import Fabric
 import Crashlytics
+import Realm
+import OAuthSwift
 
 private var TestKeyboard: Bool = false
 
@@ -24,12 +25,23 @@ var rightViewController: AppSettingsViewController?
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
-    var venmoService: VenmoService!
+    var venmoAccountManager: VenmoAccountManager!
+    var spotifyAccountManager: SpotifyAccountManager!
+    var soundcloudAccountManager: SoundcloudAccountManager!
+    let sessionManager = SessionManager.defaultManager
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         Fabric.with([Crashlytics()])
-        
+        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
+        PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
+        PFFacebookUtils.initializeFacebook()
+        PFTwitterUtils.initializeWithConsumerKey(TwitterConsumerKey,  consumerSecret:TwitterConsumerSecret)
+        FBAppEvents.activateApp()
+        Flurry.startSession(FlurryClientKey)
+        SPTAuth.defaultInstance().clientID = SpotifyClientID
+        SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
+         
         var screen = UIScreen.mainScreen()
         var frame = screen.bounds
         
@@ -39,15 +51,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if TestKeyboard {
                 mainController = KeyboardViewController(nibName: nil, bundle: nil)
             } else {
+                venmoAccountManager = VenmoAccountManager()
+                spotifyAccountManager = SpotifyAccountManager()
+                soundcloudAccountManager = SoundcloudAccountManager()
+                
+                let userProfileViewModel = UserProfileViewModel(sessionManager: sessionManager)
+                let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
+                
                 // Front view controller must be navigation controller - will hide the nav bar
-                frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout())
+                frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
                 frontNavigationController = UINavigationController(rootViewController: frontViewController!)
                 frontNavigationController?.setNavigationBarHidden(true, animated: true)
                 
                 // left view controller: Set Services for keyboard
                 // right view controller: App Settings
-                leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout())
+                leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
                 rightViewController = AppSettingsViewController()
+
                 
                 // instantiate PKRevealController and set as mainController to do revealing
                 revealController = PKRevealController(frontViewController: frontNavigationController, leftViewController: leftViewController, rightViewController: rightViewController)
@@ -71,25 +91,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-         venmoService = VenmoService()
         
-        if Venmo.sharedInstance().handleOpenURL(url) {
-            var urlString: String = url.absoluteString!
-            var index = 0
-            
-            for var i = 0; i < count(urlString); i++ {
-                if urlString[i] == "=" {
-                    index = i
-                }
+        if ( url.absoluteString!.hasPrefix("tryoften://logindone" )){
+            soundcloudAccountManager.handleOpenURL(url)
+            return true
+        }
+        if ( url.absoluteString!.hasPrefix("tryoften://" )){
+            if SPTAuth.defaultInstance().canHandleURL(url){
+                SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: spotifyAccountManager.authCallback)
+                return true
             }
-
+        } else if Venmo.sharedInstance().handleOpenURL(url) {
             var session = Venmo.sharedInstance().session
-            session.accessToken
-            
-            println(session.accessToken)
-            
-            venmoService.getCurrentUserInformation(session.accessToken)
-            
+            venmoAccountManager.getCurrentCurrentSessionToken(session)
+            venmoAccountManager.getVenmoUserInformation(session.accessToken)
             return true
         }
         
@@ -102,9 +117,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        NSNotificationCenter.defaultCenter().postNotificationName("database:persist", object: self)
     }
 
     func applicationWillEnterForeground(application: UIApplication) {

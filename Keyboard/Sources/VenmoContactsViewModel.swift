@@ -16,11 +16,13 @@ class VenmoContactsViewModel {
     init() {
         friends = []
         
-        if let friendsData = userDefaults.objectForKey("friends") as? [[NSObject : AnyObject]] {
-            for var i = 0; i < friendsData.count; i++ {
-                var friend = VenmoFriend()
-                friend.setValuesForKeysWithDictionary(friendsData[i])
-                friends.append(friend)
+        if let data = userDefaults.objectForKey("friends") as? NSData {
+            if let friendsData = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSArray {
+                for var i = 0; i < friendsData.count; i++ {
+                    var friend = VenmoFriend()
+                    friend.setValuesForKeysWithDictionary(friendsData[i] as! [NSObject : AnyObject])
+                    friends.append(friend)
+                }
             }
         } else {
             println("Keyboard Friends Fail")
