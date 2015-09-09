@@ -56,6 +56,9 @@
 		3BD971C41B98C882007EAB5A /* EmailAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */; };
 		3BD971CC1B992E43007EAB5A /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD971C51B99254F007EAB5A /* Spotify.framework */; };
 		3BD971CD1B992E49007EAB5A /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD971C51B99254F007EAB5A /* Spotify.framework */; };
+		3BD971D61B9E642D007EAB5A /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971D51B9E642D007EAB5A /* SignupView.swift */; };
+		3BD971DD1B9F7C6E007EAB5A /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */; };
+		3BD971DF1B9F911E007EAB5A /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971DE1B9F911E007EAB5A /* SigninView.swift */; };
 		3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4E1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */; };
@@ -337,6 +340,9 @@
 		3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookAccountManager.swift; sourceTree = "<group>"; };
 		3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailAccountManager.swift; sourceTree = "<group>"; };
 		3BD971C51B99254F007EAB5A /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = "../../../Downloads/ios-sdk-master/Spotify.framework"; sourceTree = "<group>"; };
+		3BD971D51B9E642D007EAB5A /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		3BD971DE1B9F911E007EAB5A /* SigninView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
 		3BF60C461B83B3F100DD6E31 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		3BF60C4C1B83EDC900DD6E31 /* TwitterAuthHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAuthHelper.h; sourceTree = "<group>"; };
 		3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAuthHelper.m; sourceTree = "<group>"; };
@@ -833,6 +839,9 @@
 			isa = PBXGroup;
 			children = (
 				690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */,
+				3BD971D51B9E642D007EAB5A /* SignupView.swift */,
+				3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */,
+				3BD971DE1B9F911E007EAB5A /* SigninView.swift */,
 				698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */,
 				698B87291B755139001B5B86 /* UserProfileSectionHeaderView.swift */,
 				69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */,
@@ -1417,6 +1426,8 @@
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				8176BEA31B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
+				3BD971DF1B9F911E007EAB5A /* SigninView.swift in Sources */,
+				3BD971D61B9E642D007EAB5A /* SignupView.swift in Sources */,
 				690AE8AE1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift in Sources */,
 				81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */,
@@ -1446,6 +1457,7 @@
 				6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
 				3BD971C41B98C882007EAB5A /* EmailAccountManager.swift in Sources */,
+				3BD971DD1B9F7C6E007EAB5A /* CreateAccountView.swift in Sources */,
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
 				69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */,
