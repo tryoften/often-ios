@@ -49,7 +49,7 @@ class SigninView: UIView {
         
         passwordTextFieldDivider = UIView()
         passwordTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
-        passwordTextFieldDivider.backgroundColor = SigninViewTitleLabelFont
+        passwordTextFieldDivider.backgroundColor = SigninViewButtonDividersColor
         
         signinButton = UIButton()
         signinButton.setTranslatesAutoresizingMaskIntoConstraints(false)
