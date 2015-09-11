@@ -22,17 +22,18 @@ class CreateAccountView: UIView {
     let orSpacerOne: UIView
     let orSpacerTwo: UIView
     let orLabel: UILabel
+    let cancelButton: UIButton
     
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        titleLabel.font = CreateAccountViewTitleLabelFont
+        titleLabel.font = UIFont(name: "Montserrat", size: 15)
         titleLabel.text = "Create your account"
         titleLabel.textAlignment = .Center
         
         subtitleLabel = UILabel()
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        subtitleLabel.font = CreateAccountViewSubtitleLabelFont
+        subtitleLabel.font = UIFont(name: "OpenSans", size: 12)
         subtitleLabel.text = "Save your favorite videos, links, GIFs and songs by creating an account!"
         subtitleLabel.numberOfLines = 2
         subtitleLabel.textAlignment = .Center
@@ -40,58 +41,68 @@ class CreateAccountView: UIView {
         usernameTextField = UITextField()
         usernameTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         usernameTextField.placeholder = "Username"
-        usernameTextField.font = CreateAccountViewTitleLabelFont
+        usernameTextField.font = UIFont(name: "Montserrat", size: 11)
         
         usernameTextFieldDivider = UIView()
         usernameTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
-        usernameTextFieldDivider.backgroundColor = CreateAccountViewButtonDividersColor
+        usernameTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         emailTextField = UITextField()
         emailTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         emailTextField.placeholder = "Email Address"
-        emailTextField.font = SignupViewCreateAccountButtonFont
+        emailTextField.font = UIFont(name: "Montserrat", size: 11)
         
         emailTextFieldDivider = UIView()
         emailTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
-        emailTextFieldDivider.backgroundColor = CreateAccountViewButtonDividersColor
+        emailTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         passwordTextField = UITextField()
         passwordTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         passwordTextField.placeholder = "Add Password (min 6 characters)"
-        passwordTextField.font = SignupViewCreateAccountButtonFont
+        passwordTextField.font = UIFont(name: "Montserrat", size: 11)
         
         passwordTextFieldDivider = UIView()
         passwordTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
-        passwordTextFieldDivider.backgroundColor = CreateAccountViewButtonDividersColor
+        passwordTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         signupButton = UIButton()
         signupButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         signupButton.backgroundColor = CreateAccountViewSignupButtonColor
         signupButton.setTitle("sign up".uppercaseString, forState: .Normal)
-        signupButton.titleLabel!.font = CreateAccountViewSignupButtonFont
+        signupButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
         signupButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
+        signupButton.layer.cornerRadius = 4.0
+        signupButton.clipsToBounds = true
         
         orLabel = UILabel()
         orLabel.textAlignment = .Center
-        orLabel.font = WalkthroughSpacerFront
-        orLabel.textColor = CreateAccountViewButtonDividersColor
+        orLabel.font = UIFont(name: "OpenSans-Italic", size: 11)
+        orLabel.textColor = UIColor(fromHexString: "#A0A0A0")
         orLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
         orLabel.text = "Or"
         
         orSpacerOne = UIView()
         orSpacerOne.setTranslatesAutoresizingMaskIntoConstraints(false)
-        orSpacerOne.backgroundColor = CreateAccountViewButtonDividersColor
+        orSpacerOne.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         orSpacerTwo = UIView()
         orSpacerTwo.setTranslatesAutoresizingMaskIntoConstraints(false)
-        orSpacerTwo.backgroundColor = CreateAccountViewButtonDividersColor
+        orSpacerTwo.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         signupTwitterButton = UIButton()
         signupTwitterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         signupTwitterButton.backgroundColor = CreateAccountViewSignupTwitterButtonColor
-        signupTwitterButton.setTitle("sign up".uppercaseString, forState: .Normal)
-        signupTwitterButton.titleLabel!.font = CreateAccountViewSignupTwitterButtonFont
+        signupTwitterButton.setTitle("sign up with twitter".uppercaseString, forState: .Normal)
+        signupTwitterButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
         signupTwitterButton.setTitleColor(CreateAccountViewSignupTwitterButtonFontColor , forState: .Normal)
+        signupTwitterButton.layer.cornerRadius = 4.0
+        signupTwitterButton.clipsToBounds = true
+        
+        cancelButton = UIButton()
+        cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        cancelButton.setTitle("cancel", forState: .Normal)
+        cancelButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
+        cancelButton.setTitleColor(CreateAccountViewSignupTwitterButtonColor , forState: .Normal)
         
         super.init(frame: frame)
         
@@ -109,6 +120,7 @@ class CreateAccountView: UIView {
         addSubview(orSpacerOne)
         addSubview(orSpacerTwo)
         addSubview(orLabel)
+        addSubview(cancelButton)
         
         setupLayout()
     }
@@ -119,15 +131,21 @@ class CreateAccountView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 37,
+            titleLabel.al_top == al_top + 75,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_height == 30,
             
+            cancelButton.al_top == al_top + 20,
+            cancelButton.al_left == al_left  + 310,
+            cancelButton.al_right == al_right,
+            cancelButton.al_height == 30,
+
+    
             subtitleLabel.al_top == titleLabel.al_bottom,
-            subtitleLabel.al_left == al_left + 20,
-            subtitleLabel.al_right == al_right - 20,
             subtitleLabel.al_height == 60,
+            subtitleLabel.al_width == 230,
+            subtitleLabel.al_centerX == al_centerX,
             
             usernameTextField.al_top == subtitleLabel.al_bottom + 40,
             usernameTextField.al_left == al_left + 40,
@@ -137,7 +155,7 @@ class CreateAccountView: UIView {
             usernameTextFieldDivider.al_top == usernameTextField.al_bottom,
             usernameTextFieldDivider.al_left == al_left + 40,
             usernameTextFieldDivider.al_right == al_right - 40,
-            usernameTextFieldDivider.al_height == 1.5,
+            usernameTextFieldDivider.al_height == 1,
             
             emailTextField.al_top == usernameTextFieldDivider.al_bottom + 20,
             emailTextField.al_left == al_left + 40,
@@ -147,7 +165,7 @@ class CreateAccountView: UIView {
             emailTextFieldDivider.al_top == emailTextField.al_bottom,
             emailTextFieldDivider.al_left == al_left + 40,
             emailTextFieldDivider.al_right == al_right - 40,
-            emailTextFieldDivider.al_height == 1.5,
+            emailTextFieldDivider.al_height == 1,
             
             passwordTextField.al_top == emailTextFieldDivider.al_bottom + 20,
             passwordTextField.al_left == al_left + 40,
@@ -157,32 +175,33 @@ class CreateAccountView: UIView {
             passwordTextFieldDivider.al_top == passwordTextField.al_bottom,
             passwordTextFieldDivider.al_left == al_left + 40,
             passwordTextFieldDivider.al_right == al_right - 40,
-            passwordTextFieldDivider.al_height == 1.5,
+            passwordTextFieldDivider.al_height == 1,
             
             signupButton.al_top == passwordTextFieldDivider.al_bottom + 40,
             signupButton.al_left == al_left + 40,
             signupButton.al_right == al_right - 40,
-            signupButton.al_height == 40,
+            signupButton.al_height == 50,
             
-            orLabel.al_top == signupButton.al_bottom + 20,
-            orLabel.al_width == 40,
+            orLabel.al_top == signupButton.al_bottom + 5,
+            orLabel.al_width == 70,
             orLabel.al_centerX == al_centerX,
             orLabel.al_height == 40,
             
-            orSpacerOne.al_top == signupButton.al_bottom + 30,
+            orSpacerOne.al_centerY == orLabel.al_centerY,
             orSpacerOne.al_right == orLabel.al_left,
-            orSpacerOne.al_left == al_left + 50,
+            orSpacerOne.al_left == al_left + 40,
             orSpacerOne.al_height == 1,
             
-            orSpacerTwo.al_top == signupButton.al_bottom + 30,
-            orSpacerTwo.al_right == al_right - 50,
+            orSpacerTwo.al_centerY == orLabel.al_centerY,
+            orSpacerTwo.al_right == al_right - 40,
             orSpacerTwo.al_left == orLabel.al_right,
             orSpacerTwo.al_height == 1,
             
-            signupTwitterButton.al_top == orLabel.al_bottom + 20,
+            signupTwitterButton.al_top == orLabel.al_bottom + 5,
             signupTwitterButton.al_left == al_left + 40,
             signupTwitterButton.al_right == al_right - 40,
-            signupTwitterButton.al_height == 40,
+            signupTwitterButton.al_height == 50,
             ])
+    
     }
 }

@@ -29,55 +29,55 @@ class SigninView: UIView {
         
         subtitleLabel = UILabel()
         subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-        subtitleLabel.font = SigninViewSubtitleLabelFont
+        subtitleLabel.font = UIFont(name: "OpenSans", size: 13)
         subtitleLabel.text = "Welcome back fam."
         subtitleLabel.textAlignment = .Center
+        subtitleLabel.alpha = 0.74
         
         emailTextField = UITextField()
         emailTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         emailTextField.placeholder = "Email"
-        emailTextField.font = SigninViewTitleLabelFont
+        emailTextField.font = UIFont(name: "Montserrat-Regular", size: 11)
         
         emailTextFieldDivider = UIView()
         emailTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
-        emailTextFieldDivider.backgroundColor = SigninViewButtonDividersColor
+        emailTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         passwordTextField = UITextField()
         passwordTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         passwordTextField.placeholder = "Password"
-        passwordTextField.font = SigninViewTitleLabelFont
+        passwordTextField.font = UIFont(name: "Montserrat-Regular", size: 11)
         
         passwordTextFieldDivider = UIView()
         passwordTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
-        passwordTextFieldDivider.backgroundColor = SigninViewButtonDividersColor
+        passwordTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         signinButton = UIButton()
         signinButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         signinButton.backgroundColor = SigninViewSigninButtonColor
         signinButton.setTitle("sign in".uppercaseString, forState: .Normal)
-        signinButton.titleLabel!.font = SigninViewSigninButtonFont
+        signinButton.titleLabel!.font = UIFont(name: "Montserrat", size: 12)
         signinButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
+        signinButton.layer.cornerRadius = 4.0
+        signinButton.clipsToBounds = true
         
         signinTwitterButton = UIButton()
         signinTwitterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        signinTwitterButton.backgroundColor = SigninViewSigninTwitterButtonColor
         signinTwitterButton.setTitle("sign in with twitter".uppercaseString, forState: .Normal)
-        signinTwitterButton.titleLabel!.font = SigninViewSigninTwitterButtonFont
-        signinTwitterButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
+        signinTwitterButton.titleLabel!.font = UIFont(name: "Montserrat", size: 12)
+        signinTwitterButton.setTitleColor(CreateAccountViewSignupTwitterButtonColor, forState: .Normal)
         
         forgetPasswordButton = UIButton()
         forgetPasswordButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        forgetPasswordButton.backgroundColor = SigninViewSigninTwitterButtonColor
-        forgetPasswordButton.setTitle("Forget?", forState: .Normal)
-        forgetPasswordButton.titleLabel!.font = SigninViewSigninButtonFont
-        forgetPasswordButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
+        forgetPasswordButton.setTitle("Forgot?", forState: .Normal)
+        forgetPasswordButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
+        forgetPasswordButton.setTitleColor(CreateAccountViewSignupTwitterButtonColor , forState: .Normal)
         
         cancelButton = UIButton()
         cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        cancelButton.backgroundColor = SignupViewCreateAccountButtonColor
         cancelButton.setTitle("cancel", forState: .Normal)
-        cancelButton.titleLabel!.font = SignupViewCreateAccountButtonFont
-        cancelButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
+        cancelButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
+        cancelButton.setTitleColor(CreateAccountViewSignupTwitterButtonColor , forState: .Normal)
         
        super.init(frame: frame)
         
@@ -91,6 +91,7 @@ class SigninView: UIView {
         addSubview(signinButton)
         addSubview(signinTwitterButton)
         addSubview(forgetPasswordButton)
+        addSubview(cancelButton)
         
         setupLayout()
     }
@@ -101,12 +102,12 @@ class SigninView: UIView {
     
     func setupLayout() {
         addConstraints([
-            cancelButton.al_top == al_top + 10,
-            cancelButton.al_right == al_right,
+            cancelButton.al_top == al_top + 20,
+            cancelButton.al_right == al_right - 10,
             cancelButton.al_width == 40,
             cancelButton.al_height == 20,
             
-            titleLabel.al_top == al_top + 37,
+            titleLabel.al_top == al_top + 120,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_height == 30,
@@ -124,22 +125,22 @@ class SigninView: UIView {
             emailTextFieldDivider.al_top == emailTextField.al_bottom,
             emailTextFieldDivider.al_left == al_left + 40,
             emailTextFieldDivider.al_right == al_right - 40,
-            emailTextFieldDivider.al_height == 1.5,
+            emailTextFieldDivider.al_height == 1,
             
             passwordTextField.al_top == emailTextFieldDivider.al_bottom + 20,
             passwordTextField.al_left == al_left + 40,
             passwordTextField.al_right == forgetPasswordButton.al_left,
             passwordTextField.al_height == 40,
             
-            forgetPasswordButton.al_top == emailTextFieldDivider.al_bottom + 20,
             forgetPasswordButton.al_right == al_right - 40,
-            forgetPasswordButton.al_width == 40,
-            forgetPasswordButton.al_height == 20,
+            forgetPasswordButton.al_width == 70,
+            forgetPasswordButton.al_height == 40,
+            forgetPasswordButton.al_centerY == passwordTextField.al_centerY,
             
-            passwordTextFieldDivider.al_top == emailTextField.al_bottom,
+            passwordTextFieldDivider.al_top == passwordTextField.al_bottom,
             passwordTextFieldDivider.al_left == al_left + 40,
             passwordTextFieldDivider.al_right == al_right - 40,
-            passwordTextFieldDivider.al_height == 1.5,
+            passwordTextFieldDivider.al_height == 1,
             
             signinButton.al_top == passwordTextFieldDivider.al_bottom + 20,
             signinButton.al_left == al_left + 40,

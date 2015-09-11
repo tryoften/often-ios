@@ -56,7 +56,7 @@ class SignupView: UIView {
         createAccountButton.setTitle("create your account".uppercaseString, forState: .Normal)
         createAccountButton.titleLabel!.font = UIFont(name: "Montserrat-Regular", size: 11)
         createAccountButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
-        createAccountButton.layer.cornerRadius = 8.0
+        createAccountButton.layer.cornerRadius = 4.0
         createAccountButton.clipsToBounds = true
         
         skipButton = UIButton()

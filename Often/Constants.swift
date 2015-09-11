@@ -326,8 +326,8 @@ let UserProfileViewControllerStatusViewSubTitleLabelBackgroundColor = UIColor.cl
 
 //Signup View
 let SignupViewTitleLabelFont = UIFont(name: "Montserrat-Regular", size: 15)
-let SignupViewTitleLabelFontColor = UIColor.blackColor()
-let SignupViewAppDescriptionLabelFont = UIFont(name: "OpenSans", size: 15)
+let SignupViewTitleLabelFontColor = UIColor(fromHexString: "#2B2B2B")
+let SignupViewAppDescriptionLabelFont = UIFont(name: "OpenSans", size: 14)
 let SignupViewAppDescriptionLabelFontColor = UIColor(fromHexString: "#202020")
 let SignupViewPageControlHighlightColor = UIColor(fromHexString: "#21CE99")
 let SignupViewCreateAccountButtonColor = UIColor(fromHexString: "#21CE99")
