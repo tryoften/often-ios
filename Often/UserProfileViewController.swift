@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate, UserProfileViewModelDelegate {
+class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate, UserProfileViewModelDelegate, UserScrollTabCellDelegate {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
     
@@ -18,6 +18,8 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     var settingsViewWidthConstraint: NSLayoutConstraint?
     var contentFilterTabView: UserProfileFilterTabView
     var viewModel: UserProfileViewModel
+    var profileDelegate: UserProfileViewControllerDelegate?
+    var headerDelegate: UserScrollHeaderDelegate?
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -98,6 +100,9 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! UserScrollTabCollectionViewContainerCell
         
+        profileDelegate = cell
+        cell.delegate = self
+        
         return cell
     }
     
@@ -108,6 +113,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
             if headerView == nil {
                 headerView = cell
                 headerView?.delegate = self
+                headerDelegate = headerView
             }
             
             return headerView!
@@ -162,10 +168,28 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     }
     
     func userFavoritesTabSelected() {
-        println("Favorites")
+        if let delegate = profileDelegate {
+            delegate.favoritesTabSelected()
+        }
     }
     
     func userRecentsTabSelected() {
-        println("Recents")
+        if let delegate = profileDelegate {
+            delegate.recentsTabSelected()
+        }
     }
+    
+    // UserScrollTabCellDelegate
+    func userScrollViewDidScroll(offsetX: CGFloat) {
+        headerDelegate?.userScrollViewDidScroll(offsetX)
+    }
+}
+
+protocol UserProfileViewControllerDelegate {
+    func favoritesTabSelected()
+    func recentsTabSelected()
+}
+
+protocol UserScrollHeaderDelegate  {
+    func userScrollViewDidScroll(offsetX: CGFloat)
 }

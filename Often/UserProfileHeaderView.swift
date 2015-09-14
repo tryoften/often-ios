@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileHeaderView: UICollectionReusableView {
+class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate {
     var profileImageView: UIImageView
     var nameLabel: UILabel
     var descriptionLabel: UILabel
@@ -125,6 +125,21 @@ class UserProfileHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // UserScrollHeaderDelegate
+    func userScrollViewDidScroll(offsetX: CGFloat) {
+        println("scrolling: \(offsetX)")
+        removeConstraints(highlightBarPositionConstraints)
+        highlightBarPositionConstraints = [
+            highlightBarView.al_left == tabContainerView.al_left + offsetX / 2,
+            highlightBarView.al_right == tabContainerView.al_centerX + offsetX / 2,
+            highlightBarView.al_bottom == tabContainerView.al_bottom,
+            highlightBarView.al_height == 4
+        ]
+        addConstraints(highlightBarPositionConstraints)
+        // layoutIfNeeded()
+    }
+    
+    
     func setupLayout() {
         addConstraints([
             setServicesRevealButton.al_left == al_left + 20,
@@ -177,35 +192,27 @@ class UserProfileHeaderView: UICollectionReusableView {
     
     // User Profile Header Delegate
     func setServicesRevealTapped() {
-        delegate?.revealSetServicesViewDidTap()
+        if let delegate = delegate {
+            delegate.revealSetServicesViewDidTap()
+        }
     }
     
     func settingsRevealTapped() {
-        delegate?.revealSettingsViewDidTap()
+        if let delegate = delegate {
+            delegate.revealSettingsViewDidTap()
+        }
     }
     
     func favoritesTabTapped() {
-        removeConstraints(highlightBarPositionConstraints)
-        highlightBarPositionConstraints = [
-            highlightBarView.al_left == tabContainerView.al_left,
-            highlightBarView.al_right == tabContainerView.al_centerX,
-            highlightBarView.al_bottom == tabContainerView.al_bottom,
-            highlightBarView.al_height == 4
-        ]
-        addConstraints(highlightBarPositionConstraints)
-        delegate?.userFavoritesTabSelected()
+        if let delegate = delegate {
+            delegate.userFavoritesTabSelected()
+        }
     }
     
     func recentsTabTapped() {
-        removeConstraints(highlightBarPositionConstraints)
-        highlightBarPositionConstraints = [
-            highlightBarView.al_left == tabContainerView.al_centerX,
-            highlightBarView.al_right == tabContainerView.al_right,
-            highlightBarView.al_bottom == tabContainerView.al_bottom,
-            highlightBarView.al_height == 4
-        ]
-        addConstraints(highlightBarPositionConstraints)
-        delegate?.userRecentsTabSelected()
+        if let delegate = delegate {
+            delegate.userRecentsTabSelected()
+        }
     }
 }
 
