@@ -75,13 +75,12 @@ class SigninView: UIView {
         
         cancelButton = UIButton()
         cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        cancelButton.setTitle("cancel", forState: .Normal)
-        cancelButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        cancelButton.setTitleColor(CreateAccountViewSignupTwitterButtonColor , forState: .Normal)
+        cancelButton.setImage(UIImage(named: "close"), forState: .Normal)
         
-       super.init(frame: frame)
+        super.init(frame: frame)
         
-        backgroundColor = WalkthroughBackgroungColor
+        backgroundColor = UIColor.whiteColor()
+        
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(emailTextField)

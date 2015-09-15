@@ -51,7 +51,7 @@ class CreateAccountView: UIView {
         emailTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         emailTextField.placeholder = "Email Address"
         emailTextField.font = UIFont(name: "Montserrat", size: 11)
-        
+    
         emailTextFieldDivider = UIView()
         emailTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
         emailTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
@@ -100,13 +100,12 @@ class CreateAccountView: UIView {
         
         cancelButton = UIButton()
         cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-        cancelButton.setTitle("cancel", forState: .Normal)
-        cancelButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        cancelButton.setTitleColor(CreateAccountViewSignupTwitterButtonColor , forState: .Normal)
+        cancelButton.setImage(UIImage(named: "close"), forState: .Normal)
         
         super.init(frame: frame)
         
-        backgroundColor = WalkthroughBackgroungColor
+        backgroundColor = UIColor.whiteColor()
+        
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(usernameTextField)

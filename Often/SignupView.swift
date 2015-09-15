@@ -11,7 +11,7 @@ import Foundation
 class SignupView: UIView {
     let titleLabel: UILabel
     var subtitleLabel: UILabel
-    var imageView: UIImageView
+    var scrollView: UIScrollView
     let pageControl: UIPageControl
     let createAccountButton: UIButton
     let skipButton: UIButton
@@ -40,9 +40,11 @@ class SignupView: UIView {
         subtitleLabel.numberOfLines = 2
         subtitleLabel.textAlignment = .Center
         
-        imageView = UIImageView()
-        imageView.contentMode = .ScaleAspectFit
-        imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scrollView = UIScrollView()
+        scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scrollView.pagingEnabled = true
+        scrollView.backgroundColor = UIColor.whiteColor()
+        scrollView.showsHorizontalScrollIndicator = false
         
         pageControl = UIPageControl()
         pageControl.currentPageIndicatorTintColor = SignupViewPageControlHighlightColor
@@ -79,10 +81,11 @@ class SignupView: UIView {
         
         super.init(frame: frame)
         
-        backgroundColor = WalkthroughBackgroungColor
+        backgroundColor = UIColor.whiteColor()
+        
         addSubview(titleLabel)
+        addSubview(scrollView)
         addSubview(subtitleLabel)
-        addSubview(imageView)
         addSubview(pageControl)
         addSubview(createAccountButton)
         addSubview(buttonDivider)
@@ -108,13 +111,12 @@ class SignupView: UIView {
             subtitleLabel.al_right == al_right - 20,
             subtitleLabel.al_height == 60,
             
-            imageView.al_top == subtitleLabel.al_bottom,
-            imageView.al_left == al_left + 20,
-            imageView.al_right == al_right - 20,
-            imageView.al_bottom == pageControl.al_top,
-            imageView.al_height == 370,
+            scrollView.al_top == subtitleLabel.al_bottom,
+            scrollView.al_left == al_left + 20,
+            scrollView.al_right == al_right - 20,
+            scrollView.al_height == 350,
             
-            pageControl.al_top == imageView.al_bottom,
+            pageControl.al_top == scrollView.al_bottom + 20,
             pageControl.al_centerX == al_centerX,
             pageControl.al_height == 2,
             pageControl.al_width == 50,
