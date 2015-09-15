@@ -50,7 +50,7 @@ class SessionManager: NSObject {
         firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
         }
-        print(userDefaults.objectForKey("user"))
+
         if let userData = userDefaults.objectForKey("user") as? [String:String] {
             currentUser = User()
             currentUser?.setValuesForKeysWithDictionary(userData)
@@ -74,14 +74,12 @@ class SessionManager: NSObject {
     func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {
         if let email = data["email"],
             let username = data["username"],
-            let password = data["password"],
-            let fullName = data["name"] {
+            let password = data["password"] {
                 
                 var user = PFUser()
                 user.email = email
                 user.username = email
                 user.password = password
-                user["fullName"] = fullName
                 
                 if let phone = data["phone"] {
                     user["phone"] = phone
@@ -111,6 +109,7 @@ class SessionManager: NSObject {
         case .Twitter:
             PFTwitterUtils.logInWithBlock({  (user, error) -> Void in
                 if error == nil {
+                    println(user)
                     self.openSession(loginType, username:nil, password: nil, completion: { sessionError in
                         if sessionError != nil {
                             completion?(nil, sessionError)
@@ -143,6 +142,19 @@ class SessionManager: NSObject {
             break
         }
     }
+    
+    func loginWithUsername(username: String, password: String,completion: (NSError?) -> ()) {
+        userIsLoggingIn = true
+        
+        PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
+            if user != nil {
+                self.openSession(.Email, username: username, password: password)
+            } else {
+                completion(error)
+            }
+        }
+    }
+
     
     func openSession(loginType: LoginType, username: String?, password: String?, completion: ((NSError?) -> ())? = nil) {
         switch loginType {
@@ -204,6 +216,7 @@ class SessionManager: NSObject {
                     "email": user.email,
                     "phone": user.phone,
                     "backgroundImage": user.name,
+                    "description": user.userDescription
                     ], forKey: "user")
                 self.userDefaults.synchronize()
             }
@@ -235,7 +248,7 @@ class SessionManager: NSObject {
                                 user.id = authData.uid
                                 self.isUserNew = false
                                 persistUser(user)
-                        }
+                    }
                     } else {
                         if (authData.uid.rangeOfString("twitter") == nil || authData.uid.rangeOfString("facebook") == nil) {
                             var data = [String : String]()
@@ -255,21 +268,6 @@ class SessionManager: NSObject {
                             user.setValuesForKeysWithDictionary(data)
                             persistUser(user)
                             
-                        } else {
-            
-                            self.facebookAccountManager?.getFacebookUserInfo({ (data, err) in
-                                if err == nil {
-                                    var newData = data as! [String : AnyObject]
-                                    newData["provider"] = authData.uid
-                                    newData["id"] = PFUser.currentUser()?.objectId
-                                    
-                                    self.userRef?.setValue(newData)
-                                    self.isUserNew = true
-                                    var user = User()
-                                    user.setValuesForKeysWithDictionary(newData)
-                                    persistUser(user)
-                                }
-                            })
                         }
                     }
                     }, withCancelBlock: { error in

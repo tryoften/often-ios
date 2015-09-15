@@ -8,9 +8,14 @@
 
 import Foundation
 
-class SigninViewController: UIViewController {
+class SigninViewController: UIViewController, UITextFieldDelegate {
     var viewModel: SignupViewModel
     var signinView: SigninView
+    var pkRevealController: PKRevealController?
+    var frontNavigationController: UINavigationController?
+    var frontViewController: UserProfileViewController?
+    var leftViewController: SocialAccountSettingsCollectionViewController?
+    var rightViewController: AppSettingsViewController?
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
@@ -28,9 +33,40 @@ class SigninViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        signinView.emailTextField.delegate = self
+        signinView.passwordTextField.delegate = self
         
         signinView.cancelButton.addTarget(self,  action: "didTapcancelButton:", forControlEvents: .TouchUpInside)
+        signinView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
+        signinView.signinTwitterButton.addTarget(self, action:"didTapSigninTwitterButton:", forControlEvents: .TouchUpInside)
         
+    }
+    
+    func didTapSigninButton(sender: UIButton) {
+        if EmailIsValid(signinView.emailTextField.text) && PasswordIsValid(signinView.passwordTextField.text) {
+            viewModel.sessionManager.loginWithUsername(signinView.emailTextField.text, password: signinView.passwordTextField.text, completion: { error  in
+                if error != nil {
+                    println("error")
+                } else {
+                    self.createProfileViewController()
+                }
+            })
+        } else {
+            println("error")
+        }
+
+    }
+    
+    func didTapSigninTwitterButton(sender: UIButton) {
+        viewModel.sessionManager.login(.Twitter, completion: { user, err in
+            if (err != nil) {
+                println("didn't work")
+            } else {
+                self.createProfileViewController()
+            }
+        })
+        
+
     }
     
     func didTapcancelButton(sender: UIButton) {
@@ -47,4 +83,55 @@ class SigninViewController: UIViewController {
         
         view.addConstraints(constraints)
     }
+    
+    func createProfileViewController() {
+        let userProfileViewModel = UserProfileViewModel(sessionManager: self.viewModel.sessionManager)
+        let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: self.viewModel.sessionManager, venmoAccountManager: self.viewModel.venmoAccountManager, spotifyAccountManager: self.viewModel.spotifyAccountManager, soundcloudAccountManager: self.viewModel.soundcloudAccountManager)
+        
+        // Front view controller must be navigation controller - will hide the nav bar
+        self.frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
+        self.frontNavigationController = UINavigationController(rootViewController: self.frontViewController!)
+        self.frontNavigationController?.setNavigationBarHidden(true, animated: true)
+        
+        // left view controller: Set Services for keyboard
+        // right view controller: App Settings
+        self.leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
+        self.rightViewController = AppSettingsViewController()
+        
+        
+        // instantiate PKRevealController and set as mainController to do revealing
+        self.pkRevealController = PKRevealController(frontViewController: self.frontNavigationController, leftViewController: self.leftViewController, rightViewController: self.rightViewController)
+        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.leftViewController)
+        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.rightViewController)
+        self.presentViewController(self.pkRevealController!, animated: true, completion: nil)
+        
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+        var characterCount = count(signinView.passwordTextField.text)
+        if characterCount >= 3 {
+            signinView.signinButton.backgroundColor = UIColor(fromHexString: "#152036")
+        } else {
+            signinView.signinButton.backgroundColor = CreateAccountViewSignupButtonColor
+        }
+        
+        return true
+    }
+
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == signinView.emailTextField {
+            signinView.passwordTextField.becomeFirstResponder()
+            
+        } else {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+
+
 }

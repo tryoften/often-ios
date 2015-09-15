@@ -16,6 +16,7 @@ class User: NSObject {
     var username: String = ""
     var email: String = ""
     var phone: String = ""
+    var userDescription: String = ""
 
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         
@@ -25,11 +26,19 @@ class User: NSObject {
                 name = nameString
             }
             
+            if let nameString = dictionary["name"] as? String {
+                name = nameString
+            }
+            
+            if let userDescriptionString = dictionary["description"] as? String {
+                userDescription = userDescriptionString
+            }
+            
             if let idString = dictionary["id"] as? String {
                 id = idString
             }
             
-            if let usernameString = dictionary["email"] as? String {
+            if let usernameString = dictionary["username"] as? String {
                 username = usernameString
             }
             

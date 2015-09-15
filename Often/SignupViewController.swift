@@ -8,15 +8,49 @@
 
 import Foundation
 
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, UIScrollViewDelegate {
     var viewModel: SignupViewModel
     var signupView: SignupView
+    var screenWidth = UIScreen.mainScreen().bounds.width
+    var screenHeight = UIScreen.mainScreen().bounds.height
+    var pageWidth: CGFloat
+    var pagesScrollViewSize: CGSize
+    var pageCount: Int
+    var pageViews: [UIImageView]
+    var pageImages: [UIImage]
+    var pagesubTitle: [String]
+
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
         signupView = SignupView()
         signupView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
+        pageWidth = screenWidth - 40
+        
+        pagesScrollViewSize = signupView.scrollView.frame.size
+        
+        pageCount = 0
+        
+        pageViews = [UIImageView]()
+        
+        pageImages = [
+            UIImage(named: "productWalkthroughStep_1")!,
+            UIImage(named: "productWalkthroughStep_2")!,
+            UIImage(named: "productWalkthroughStep_3")!,
+            UIImage(named: "productWalkthroughStep_4")!,
+        ]
+        
+        pagesubTitle = [
+            "The non-basic keyboard. Share the latest videos, songs, GIFs & news from any app.",
+            "The first Hip Hop and Pop Culture powered search experience. No Bullsh*t.",
+            "Know what you’re looking for? Use an app directly by hashtagging it’s name. #Easy",
+            "Save your favorite songs, videos, GIF’s and links to easily share them again later."
+        ]
+
         super.init(nibName: nil, bundle: nil)
+        
+        signupView.scrollView.delegate = self
         
         view.addSubview(signupView)
         setupLayout()
@@ -27,7 +61,50 @@ class SignupViewController: UIViewController {
         
         signupView.createAccountButton.addTarget(self,  action: "didTapcreateAccountButton:", forControlEvents: .TouchUpInside)
         signupView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
+        setupPages()
+        loadVisiblePages()
+    }
+    
+    
+    func loadVisiblePages() {
+        let page = Int(floor((signupView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
         
+        for index in 0...pageCount - 1 {
+            loadPage(index)
+        }
+    }
+    
+    func loadPage(page: Int) {
+        var imageView = UIImageView()
+        
+        imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        imageView.image = pageImages[page]
+        imageView.contentMode = .ScaleAspectFit
+        
+        signupView.scrollView.addSubview(imageView)
+        
+        signupView.scrollView.addConstraints([
+            imageView.al_top == signupView.scrollView.al_top,
+            imageView.al_height == signupView.scrollView.al_height,
+            imageView.al_width == signupView.scrollView.al_width,
+            imageView.al_left == signupView.scrollView.al_left + pageWidth * CGFloat(page)
+            ])
+        
+        pageViews.append(imageView)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        /// Load the pages that are now on screen
+        signupView.pageControl.currentPage = currentPage
+        signupView.subtitleLabel.text = pagesubTitle[currentPage]
+    }
+
+    func setupPages() {
+        pageCount = pageImages.count
+        signupView.pageControl.numberOfPages = pageCount
+        
+        signupView.scrollView.contentSize = CGSize(width: pageWidth  * CGFloat(pageImages.count),
+            height: pagesScrollViewSize.height)
     }
     
     func didTapcreateAccountButton(sender: UIButton) {
@@ -42,6 +119,10 @@ class SignupViewController: UIViewController {
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    var currentPage: Int {
+        return Int(floor((signupView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
     }
     
     func setupLayout() {

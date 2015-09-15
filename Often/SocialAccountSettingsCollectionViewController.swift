@@ -90,6 +90,8 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         case .Twitter:
             if selected {
                 viewModel.sessionManager.login(.Twitter, completion: nil)
+            } else {
+                
             }
             
             break

@@ -17,6 +17,7 @@
 #import <Analytics/SEGAnalytics.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseTwitterUtils/PFTwitterUtils.h>
+#import <ParseTwitterUtils/PF_Twitter.h>
 #import <TOMSMorphingLabel/TOMSMorphingLabel.h>
 #import <Venmo-iOS-SDK/Venmo.h>
 #import <Spotify/Spotify.h>
