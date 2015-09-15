@@ -23,7 +23,7 @@ class TwitterAccountManager: NSObject {
         twitterAuthHelper.selectTwitterAccountWithCallback { error, accounts in
             if error != nil {
                 // Error retrieving Twitter accounts
-            } else if accounts.count >= 1 {
+            } else if accounts.count > 1 {
                 // Select an account. Here we pick the first one for simplicity
                 let account = accounts[0] as? ACAccount
                 twitterAuthHelper.authenticateAccount(account, withCallback: { error, authData in

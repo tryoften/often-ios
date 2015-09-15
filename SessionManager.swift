@@ -81,10 +81,7 @@ class SessionManager: NSObject {
                 user.username = email
                 user.password = password
                 
-                if let phone = data["phone"] {
-                    user["phone"] = phone
-                }
-                
+                            
                 user.signUpInBackgroundWithBlock { (success, error) in
                     if error == nil {
                         self.firebase.createUser(email, password: password, withValueCompletionBlock: { error, result -> Void in
@@ -107,7 +104,7 @@ class SessionManager: NSObject {
         userIsLoggingIn = true
         switch loginType {
         case .Twitter:
-            PFTwitterUtils.logInWithBlock({  (user, error) -> Void in
+            PFTwitterUtils.logInWithBlock({ (user, error) in
                 if error == nil {
                     println(user)
                     self.openSession(loginType, username:nil, password: nil, completion: { sessionError in
