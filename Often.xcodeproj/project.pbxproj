@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0E03051BA88A6300D69601 /* SwiftAutoLayout in Resources */ = {isa = PBXBuildFile; fileRef = 3B0E03041BA88A6300D69601 /* SwiftAutoLayout */; };
+		3B0E032C1BA898CD00D69601 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0E03271BA898BF00D69601 /* OAuthSwift.framework */; };
+		3B0E032D1BA898CD00D69601 /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0E03271BA898BF00D69601 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
@@ -48,10 +51,6 @@
 		3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */; };
 		3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
 		3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
-		645C5C1B383CD0DCCB770CC7 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD2306F8F79E206D6C9908C /* libPods-Keyboard.a */; };
-		69048D491B9DCE06004ECE29 /* UserScrollTabCollectionViewContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69048D481B9DCE06004ECE29 /* UserScrollTabCollectionViewContainerCell.swift */; };
-		3BCDA6C91B90FF6D00840095 /* OAuthSwift in Resources */ = {isa = PBXBuildFile; fileRef = 3BCDA6C81B90FF6D00840095 /* OAuthSwift */; };
-		3BCDA6D11B91099D00840095 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BCDA6D01B91099D00840095 /* OAuthSwift.framework */; };
 		3BCDA6D31B910C1F00840095 /* SoundcloudAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */; };
 		3BD971BE1B98ABF4007EAB5A /* TwitterAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */; };
 		3BD971C11B98B5FB007EAB5A /* FacebookAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */; };
@@ -69,6 +68,7 @@
 		3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4E1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */; };
 		3BF60C4F1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */; };
+		69048D491B9DCE06004ECE29 /* UserScrollTabCollectionViewContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69048D481B9DCE06004ECE29 /* UserScrollTabCollectionViewContainerCell.swift */; };
 		690AE8AE1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */; };
 		690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */; };
 		690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
@@ -250,6 +250,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3B0E03241BA898BF00D69601 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F451E3C5195B8CD80051434C;
+			remoteInfo = OAuthSwiftDemo;
+		};
+		3B0E03261BA898BF00D69601 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F435027A1A6791B200038A29;
+			remoteInfo = OAuthSwift;
+		};
+		3B0E03281BA898BF00D69601 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C49FD5241AFB5DF500791E1A;
+			remoteInfo = OAuthSwiftOSXDemo;
+		};
+		3B0E032A1BA898BF00D69601 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C48B28021AFA598D00C7DEF6;
+			remoteInfo = OAuthSwiftOSX;
+		};
+		3B0E032E1BA898CD00D69601 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F43502791A6791B200038A29;
+			remoteInfo = OAuthSwift;
+		};
 		81331E361A1806BB003E4609 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
@@ -300,6 +335,7 @@
 			files = (
 				81D43B381B46E49800453BBF /* RealmSwift.framework in Embed Frameworks */,
 				81D43B361B46E49800453BBF /* Realm.framework in Embed Frameworks */,
+				3B0E032D1BA898CD00D69601 /* OAuthSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,6 +349,8 @@
 		199C4312257A18D37E7AE2A6 /* libPods-Often.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B0E03041BA88A6300D69601 /* SwiftAutoLayout */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftAutoLayout; sourceTree = "<group>"; };
+		3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuthSwift.xcodeproj; path = OAuthSwift/OAuthSwift.xcodeproj; sourceTree = "<group>"; };
 		3B1D6BF31B8F61AF004868E5 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAccountManager.swift; sourceTree = "<group>"; };
@@ -337,13 +375,7 @@
 		3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
-		3BCDA6C81B90FF6D00840095 /* OAuthSwift */ = {isa = PBXFileReference; lastKnownFileType = folder; path = OAuthSwift; sourceTree = SOURCE_ROOT; };
-		3BCDA6CA1B91061700840095 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = "OAuthSwift/build/Debug-iphoneos/OAuthSwift.framework"; sourceTree = "<group>"; };
-		3BCDA6CC1B91079300840095 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = "OAuthSwift/build/Debug-iphoneos/OAuthSwift.framework"; sourceTree = "<group>"; };
-		3BCDA6CD1B91079300840095 /* OAuthSwiftOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwiftOSX.framework; path = OAuthSwift/build/Debug/OAuthSwiftOSX.framework; sourceTree = "<group>"; };
-		3BCDA6D01B91099D00840095 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = "OAuthSwift/build/Debug-iphoneos/OAuthSwift.framework"; sourceTree = "<group>"; };
 		3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundcloudAccountManager.swift; sourceTree = "<group>"; };
-		3BCDA6D51B91166E00840095 /* OAuthSwiftOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwiftOSX.framework; path = OAuthSwift/build/Debug/OAuthSwiftOSX.framework; sourceTree = "<group>"; };
 		3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAccountManager.swift; sourceTree = "<group>"; };
 		3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookAccountManager.swift; sourceTree = "<group>"; };
 		3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailAccountManager.swift; sourceTree = "<group>"; };
@@ -359,7 +391,6 @@
 		3BF60C4C1B83EDC900DD6E31 /* TwitterAuthHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAuthHelper.h; sourceTree = "<group>"; };
 		3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAuthHelper.m; sourceTree = "<group>"; };
 		45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.release.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.release.xcconfig"; sourceTree = "<group>"; };
-		526DA3399096D4CF99A8B123 /* libPods-Often.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69048D481B9DCE06004ECE29 /* UserScrollTabCollectionViewContainerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserScrollTabCollectionViewContainerCell.swift; sourceTree = "<group>"; };
 		690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewController.swift; sourceTree = "<group>"; };
 		690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -506,7 +537,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BCDA6D11B91099D00840095 /* OAuthSwift.framework in Frameworks */,
+				3B0E032C1BA898CD00D69601 /* OAuthSwift.framework in Frameworks */,
 				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */,
 				3BD971CD1B992E49007EAB5A /* Spotify.framework in Frameworks */,
@@ -588,6 +619,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		3B0E031E1BA898BF00D69601 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3B0E03251BA898BF00D69601 /* OAuthSwiftDemo.app */,
+				3B0E03271BA898BF00D69601 /* OAuthSwift.framework */,
+				3B0E03291BA898BF00D69601 /* OAuthSwiftOSXDemo.app */,
+				3B0E032B1BA898BF00D69601 /* OAuthSwiftOSX.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3B1D6BFD1B8F78FA004868E5 /* Spotify */ = {
 			isa = PBXGroup;
 			children = (
@@ -649,11 +691,6 @@
 			isa = PBXGroup;
 			children = (
 				3BD971C51B99254F007EAB5A /* Spotify.framework */,
-				3BCDA6D51B91166E00840095 /* OAuthSwiftOSX.framework */,
-				3BCDA6D01B91099D00840095 /* OAuthSwift.framework */,
-				3BCDA6CC1B91079300840095 /* OAuthSwift.framework */,
-				3BCDA6CD1B91079300840095 /* OAuthSwiftOSX.framework */,
-				3BCDA6CA1B91061700840095 /* OAuthSwift.framework */,
 				3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */,
 				3B1D6BF31B8F61AF004868E5 /* Spotify.framework */,
 				3BF60C461B83B3F100DD6E31 /* Twitter.framework */,
@@ -733,8 +770,9 @@
 			isa = PBXGroup;
 			children = (
 				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
+				3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */,
+				3B0E03041BA88A6300D69601 /* SwiftAutoLayout */,
 				81D4BF151B38F6DA006430AB /* PKHUD */,
-				3BCDA6C81B90FF6D00840095 /* OAuthSwift */,
 				81DC114A1AF05CF400412BD2 /* SwiftyJSON */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
 			);
@@ -1129,6 +1167,7 @@
 			);
 			dependencies = (
 				8180E6381A142199007FA1CF /* PBXTargetDependency */,
+				3B0E032F1BA898CD00D69601 /* PBXTargetDependency */,
 			);
 			name = Often;
 			productName = DrizzyChat;
@@ -1210,6 +1249,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 3B0E031E1BA898BF00D69601 /* Products */;
+					ProjectRef = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
+				},
+				{
 					ProductGroup = 81331E201A1806BB003E4609 /* Products */;
 					ProjectRef = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
 				},
@@ -1223,6 +1266,34 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		3B0E03251BA898BF00D69601 /* OAuthSwiftDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = OAuthSwiftDemo.app;
+			remoteRef = 3B0E03241BA898BF00D69601 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B0E03271BA898BF00D69601 /* OAuthSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OAuthSwift.framework;
+			remoteRef = 3B0E03261BA898BF00D69601 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B0E03291BA898BF00D69601 /* OAuthSwiftOSXDemo.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = OAuthSwiftOSXDemo.app;
+			remoteRef = 3B0E03281BA898BF00D69601 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B0E032B1BA898BF00D69601 /* OAuthSwiftOSX.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OAuthSwiftOSX.framework;
+			remoteRef = 3B0E032A1BA898BF00D69601 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		81331E371A1806BB003E4609 /* SwiftAutoLayout.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1259,6 +1330,7 @@
 				3BAAB1961B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
 				3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
 				3BAAB19A1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
+				3B0E03051BA88A6300D69601 /* SwiftAutoLayout in Resources */,
 				3BAAB1A01B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
 				3BAAB1AB1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
 				3BAAB19C1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
@@ -1268,7 +1340,6 @@
 				81E26D911B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
 				3BAAB1A21B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
 				81331E2B1A1806BB003E4609 /* Info.plist in Resources */,
-				3BCDA6C91B90FF6D00840095 /* OAuthSwift in Resources */,
 				3BAAB1981B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1565,6 +1636,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3B0E032F1BA898CD00D69601 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OAuthSwift;
+			targetProxy = 3B0E032E1BA898CD00D69601 /* PBXContainerItemProxy */;
+		};
 		8180E6381A142199007FA1CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8180E6301A142199007FA1CF /* Keyboard */;
@@ -1634,6 +1710,7 @@
 					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
 					"/Users/kervinsvalcourt/Downloads/ios-sdk-master",
+					"$(PROJECT_DIR)/Vendors/OAuthSwift/build/Debug-iphoneos",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1755,6 +1832,7 @@
 					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
 					"/Users/kervinsvalcourt/Downloads/ios-sdk-master",
+					"$(PROJECT_DIR)/Vendors/OAuthSwift/build/Debug-iphoneos",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1870,6 +1948,7 @@
 					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
 					"/Users/kervinsvalcourt/Downloads/ios-sdk-master",
+					"$(PROJECT_DIR)/Vendors/OAuthSwift/build/Debug-iphoneos",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
