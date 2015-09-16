@@ -25,6 +25,7 @@ class UserRecentsCollectionViewController: UICollectionViewController {
         
         if let collectionView = collectionView {
             collectionView.backgroundColor = WhiteColor
+            collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "searchCell")
         }
     }

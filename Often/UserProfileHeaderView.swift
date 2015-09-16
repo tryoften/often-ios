@@ -19,8 +19,10 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     var favoritesTabButton: UIButton
     var recentsTabButton: UIButton
     var highlightBarView: UIView
-    var highlightBarPositionConstraints: [NSLayoutConstraint]
-
+    var leftHighlightBarPositionConstraint: NSLayoutConstraint?
+    var rightHighlightBarPositionConstraint: NSLayoutConstraint?
+    var offsetValue: CGFloat
+    
     var setServicesRevealButton: UIButton
     var settingsRevealButton: UIButton
 
@@ -88,12 +90,10 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         settingsRevealButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         settingsRevealButton.setImage(UIImage(named: "settings"), forState: .Normal)
         
-        highlightBarPositionConstraints = [
-            highlightBarView.al_left == tabContainerView.al_left,
-            highlightBarView.al_right == tabContainerView.al_centerX,
-            highlightBarView.al_bottom == tabContainerView.al_bottom,
-            highlightBarView.al_height == 4
-        ]
+        offsetValue = 0.0
+        
+        leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
+        rightHighlightBarPositionConstraint = highlightBarView.al_right == tabContainerView.al_centerX
         
         super.init(frame: frame)
     
@@ -128,19 +128,19 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     // UserScrollHeaderDelegate
     func userScrollViewDidScroll(offsetX: CGFloat) {
         println("scrolling: \(offsetX)")
-        removeConstraints(highlightBarPositionConstraints)
-        highlightBarPositionConstraints = [
-            highlightBarView.al_left == tabContainerView.al_left + offsetX / 2,
-            highlightBarView.al_right == tabContainerView.al_centerX + offsetX / 2,
-            highlightBarView.al_bottom == tabContainerView.al_bottom,
-            highlightBarView.al_height == 4
-        ]
-        addConstraints(highlightBarPositionConstraints)
-        // layoutIfNeeded()
+        offsetValue = offsetX
+    
+        leftHighlightBarPositionConstraint?.constant = offsetValue/2
+        rightHighlightBarPositionConstraint?.constant = offsetValue/2
+        
+        layoutIfNeeded()
     }
     
     
     func setupLayout() {
+         leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
+         rightHighlightBarPositionConstraint = highlightBarView.al_right == tabContainerView.al_centerX
+        
         addConstraints([
             setServicesRevealButton.al_left == al_left + 20,
             setServicesRevealButton.al_top == al_top + 16,
@@ -185,9 +185,12 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
             recentsTabButton.al_top == tabContainerView.al_top,
             recentsTabButton.al_right == tabContainerView.al_right,
             recentsTabButton.al_left == tabContainerView.al_centerX,
+            
+            highlightBarView.al_bottom == tabContainerView.al_bottom,
+            highlightBarView.al_height == 4,
+            leftHighlightBarPositionConstraint!,
+            rightHighlightBarPositionConstraint!
         ])
-        
-        addConstraints(highlightBarPositionConstraints)
     }
     
     // User Profile Header Delegate
