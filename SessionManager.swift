@@ -204,17 +204,7 @@ class SessionManager: NSObject {
             self.currentUser = user
         
             if !self.isUserNew {
-                self.userDefaults.setObject([
-                    "id": user.id,
-                    "name": user.name,
-                    "profileImageSmall": user.profileImageSmall,
-                    "profileImageLarge": user.profileImageLarge,
-                    "username": user.username,
-                    "email": user.email,
-                    "phone": user.phone,
-                    "backgroundImage": user.name,
-                    "description": user.userDescription
-                    ], forKey: "user")
+                self.userDefaults.setObject(user.dataChangedToDictionary(), forKey: "user")
                 self.userDefaults.synchronize()
             }
             

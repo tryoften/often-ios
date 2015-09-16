@@ -73,5 +73,20 @@ class User: NSObject {
         }
     }
     
-     
+    func dataChangedToDictionary() -> [String:String] {
+       let userData = [
+            "id": id,
+            "name": name,
+            "profileImageSmall": profileImageSmall,
+            "profileImageLarge": profileImageLarge,
+            "username": username,
+            "email": email,
+            "phone": phone,
+            "backgroundImage": name,
+            "description": userDescription
+        ]
+        return userData
+    }
+    
+    
 }
