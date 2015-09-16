@@ -101,7 +101,7 @@ class SignupView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 37,
+            titleLabel.al_top == al_top + 60,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_height == 40,
@@ -111,28 +111,29 @@ class SignupView: UIView {
             subtitleLabel.al_right == al_right - 20,
             subtitleLabel.al_height == 60,
             
-            scrollView.al_top == subtitleLabel.al_bottom,
+            scrollView.al_top == subtitleLabel.al_bottom + 10,
             scrollView.al_left == al_left + 20,
             scrollView.al_right == al_right - 20,
-            scrollView.al_height == 350,
+            scrollView.al_bottom == pageControl.al_top - 20,
             
-            pageControl.al_top == scrollView.al_bottom + 20,
+            pageControl.al_bottom == createAccountButton.al_top - 30,
             pageControl.al_centerX == al_centerX,
             pageControl.al_height == 2,
             pageControl.al_width == 50,
             
-            createAccountButton.al_top == pageControl.al_bottom + 20,
+            
+            createAccountButton.al_bottom == skipButton.al_top - 10,
             createAccountButton.al_left == al_left + 60,
             createAccountButton.al_right == al_right - 60,
             createAccountButton.al_height == 50,
             
-            skipButton.al_top == createAccountButton.al_bottom + 10,
+            skipButton.al_bottom == al_bottom - 15,
             skipButton.al_left == al_left + 20,
             skipButton.al_right == buttonDivider.al_left,
             skipButton.al_height == 60,
             skipButton.al_width == al_width/2 - 20,
             
-            signinButton.al_top == createAccountButton.al_bottom + 10,
+            signinButton.al_bottom == al_bottom - 15,
             signinButton.al_left == buttonDivider.al_right,
             signinButton.al_right == al_right - 20,
             signinButton.al_height == 60,

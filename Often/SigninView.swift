@@ -77,6 +77,7 @@ class SigninView: UIView {
         cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
         cancelButton.setImage(UIImage(named: "close"), forState: .Normal)
         
+        
         super.init(frame: frame)
         
         backgroundColor = UIColor.whiteColor()
@@ -102,8 +103,8 @@ class SigninView: UIView {
     func setupLayout() {
         addConstraints([
             cancelButton.al_top == al_top + 20,
-            cancelButton.al_right == al_right - 10,
-            cancelButton.al_width == 40,
+            cancelButton.al_right == al_right - 20,
+            cancelButton.al_width == 20,
             cancelButton.al_height == 20,
             
             titleLabel.al_top == al_top + 120,
