@@ -48,7 +48,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapSignupTwitterButton(sender: UIButton) {
-        viewModel.sessionManager.login(.Twitter, completion: { user, err in
+        viewModel.sessionManager.login(.Twitter, completion: { err in
             if (err != nil) {
                 println("didn't work")
             } else {

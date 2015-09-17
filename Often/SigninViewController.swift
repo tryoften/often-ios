@@ -58,14 +58,13 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapSigninTwitterButton(sender: UIButton) {
-        viewModel.sessionManager.login(.Twitter, completion: { user, err in
+        viewModel.sessionManager.login(.Twitter, completion: { err in
             if (err != nil) {
                 println("didn't work")
             } else {
                 self.createProfileViewController()
             }
         })
-        
 
     }
     
@@ -132,6 +131,5 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-
 
 }

@@ -10,15 +10,19 @@ import Foundation
 
 class TwitterAccountManager: NSObject {
     var firebase: Firebase
+    var userDefaults: NSUserDefaults
     
     init(firebase: Firebase) {
         self.firebase = firebase
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         
         super.init()
         
     }
         
     func openSessionWithTwitter(completion: ((NSError?) -> ())? = nil) {
+        userDefaults.setValue(true, forKey: "twitter")
+        
         let twitterAuthHelper = TwitterAuthHelper(firebaseRef:firebase, apiKey:TwitterConsumerKey)
         twitterAuthHelper.selectTwitterAccountWithCallback { error, accounts in
             if error != nil {
@@ -40,8 +44,19 @@ class TwitterAccountManager: NSObject {
                 
                 completion?(NSError())
             }
-            
         }
+        userDefaults.setValue(true, forKey: "openSession")
+    }
+    
+    func login(completion: ((NSError?) -> ())? = nil) {
+        PFTwitterUtils.logInWithBlock({ (user, error) in
+            if error == nil {
+                println(user)
+                self.openSessionWithTwitter(completion: completion)
+            } else {
+                completion?(error)
+            }
+        })
     }
     
     func getTwitterUserInfo(authData:FAuthData, completion: (NSError?) -> ()) {

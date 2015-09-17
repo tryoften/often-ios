@@ -72,15 +72,6 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(UserScrollTabCollectionViewContainerCell.self, forCellWithReuseIdentifier: "resultCell")
         }
-//        var emailDic = ["email":"kervins@tryoften.com",
-//            "username":"often",
-//            "password":"kervs123",
-//            "name":"often name"]
-//        viewModel.sessionManager.signupUser(.Email, data: emailDic) { err in
-//            if err == nil {
-//                println("made a email")
-//            }
-//        }
         
     }
     
