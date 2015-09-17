@@ -10,15 +10,26 @@ import Foundation
 
 class FacebookAccountManager: NSObject {
     var firebase: Firebase
+    var userDefaults: NSUserDefaults
+    
+    let permissions = [
+        "public_profile",
+        "user_actions.music",
+        "user_likes",
+        "email"
+    ]
     
     init(firebase: Firebase) {
         self.firebase = firebase
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         
         super.init()
         
     }
     
     func openSessionWithFacebook(completion: ((NSError?) -> ())? = nil) {
+        userDefaults.setValue(true, forKey: "facebook")
+        
         if let session = FBSession.activeSession() {
             let accessTokenData = session.accessTokenData
             
@@ -37,6 +48,18 @@ class FacebookAccountManager: NSObject {
                 completion?(NSError())
             }
         }
+        userDefaults.setValue(true, forKey: "openSession")
+    }
+    
+    func login(completion: ((NSError?) -> ())? = nil) {
+        PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
+            if error == nil {
+                self.openSessionWithFacebook(completion: completion)
+                
+            } else {
+                completion?(error)
+            }
+        })
 
     }
     

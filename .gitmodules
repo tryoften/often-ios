@@ -10,6 +10,6 @@
 [submodule "Vendors/PKHUD"]
 	path = Vendors/PKHUD
 	url = git@github.com:October-Labs/PKHUD.git
-[submodule "OAuthSwift"]
-	path = OAuthSwift
-	url = https://github.com/dongri/OAuthSwift.git
+[submodule "Vendors/OAuthSwift"]
+	path = Vendors/OAuthSwift
+	url = git@github.com:dongri/OAuthSwift.git

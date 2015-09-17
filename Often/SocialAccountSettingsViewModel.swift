@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAccountManagerDelegate, VenmoAccountManagerDelegate, SoundcloudAccountManagerDelegate   {
+class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAccountManagerDelegate, VenmoAccountManagerDelegate, SoundcloudAccountManagerDelegate {
     weak var delegate: SocialAccountSettingsViewModelDelegate?
     var sessionManager: SessionManager
     var socialAccounts: [SocialAccount]
@@ -47,6 +47,9 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
     
     func updateLocalSocialAccount (socialAccountType:SocialAccountType) {
         switch socialAccountType {
+        case .Twitter:
+            self.socialAccounts[0] = self.spotifyAccountManager.spotifyAccount!
+            break
         case .Spotify:
             self.socialAccounts[1] = self.spotifyAccountManager.spotifyAccount!
             break
@@ -68,6 +71,12 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
     
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount]) {
         self.socialAccounts = socialAccounts
+        if sessionManager.userDefaults.objectForKey("user") != nil {
+            var twitter = SocialAccount()
+            twitter.type = .Twitter
+            twitter.activeStatus = true
+            self.socialAccounts[0] = twitter
+        }
         
     }
     

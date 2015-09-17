@@ -323,6 +323,49 @@ let UserProfileViewControllerStatusViewTitleLabelFont = UIFont(name: "Oswald-Lig
 let UserProfileViewControllerStatusViewTitleLabelBackgroundColor = UIColor.clearColor()
 let UserProfileViewControllerStatusViewSubTitleLabelFont = UIFont(name: "OpenSans", size: 12.0)
 let UserProfileViewControllerStatusViewSubTitleLabelBackgroundColor = UIColor.clearColor()
+
+//Signup View
+let SignupViewTitleLabelFont = UIFont(name: "Montserrat-Regular", size: 15)
+let SignupViewTitleLabelFontColor = UIColor(fromHexString: "#2B2B2B")
+let SignupViewAppDescriptionLabelFont = UIFont(name: "OpenSans", size: 14)
+let SignupViewAppDescriptionLabelFontColor = UIColor(fromHexString: "#202020")
+let SignupViewPageControlHighlightColor = UIColor(fromHexString: "#21CE99")
+let SignupViewCreateAccountButtonColor = UIColor(fromHexString: "#21CE99")
+let SignupViewCreateAccountButtonFontColor = UIColor.whiteColor()
+let SignupViewCreateAccountButtonFont = UIFont(name: "Montserrat-Regular", size: 15)
+let SignupViewSkipButtonFont = UIFont(name: "Montserrat-Regular", size: 15)
+let SignupViewSkipButtonFontColor = UIColor(fromHexString: "#152036")
+let SignupViewSigninButtonFont = UIFont(name: "Montserrat-Regular", size: 15)
+let SignupViewSigninButtonFontColor = UIColor(fromHexString: "#152036")
+
+//Create Account View
+let CreateAccountViewTitleLabelFont = UIFont(name: "Montserrat-Regular", size: 15)
+let CreateAccountViewTitleLabelFontColor = UIColor.blackColor()
+let CreateAccountViewSubtitleLabelFont = UIFont(name: "OpenSans", size: 15)
+let CreateAccountViewSubtitleLabelFontColor = UIColor(fromHexString: "#202020")
+let CreateAccountViewButtonDividersColor = LightBlackColor
+let CreateAccountViewSignupButtonFont = UIFont(name: "Montserrat-Regular", size: 15)
+let CreateAccountViewSignupButtonFontColor = WhiteColor
+let CreateAccountViewSignupButtonColor = UIColor(fromHexString: "#D8D8D8")
+let CreateAccountViewSignupButtonHighlightedColor = UIColor(fromHexString: "#152036")
+let CreateAccountViewSignupTwitterButtonFont = UIFont(name: "Montserrat-Regular", size: 15)
+let CreateAccountViewSignupTwitterButtonFontColor = WhiteColor
+let CreateAccountViewSignupTwitterButtonColor = UIColor(fromHexString: "#62A9E0")
+
+//Sign In View
+let SigninViewTitleLabelFont = UIFont(name: "Montserrat-Regular", size: 15)
+let SigninViewTitleLabelFontColor = UIColor.blackColor()
+let SigninViewSubtitleLabelFont = UIFont(name: "OpenSans", size: 15)
+let SigninViewSubtitleLabelFontColor = UIColor(fromHexString: "#202020")
+let SigninViewButtonDividersColor = LightBlackColor
+let SigninViewSigninButtonFont = UIFont(name: "Montserrat-Regular", size: 15)
+let SigninViewSigninButtonFontColor = WhiteColor
+let SigninViewSigninButtonColor = UIColor(fromHexString: "#D8D8D8")
+let SigninViewSigninButtonHighlightedColor = UIColor(fromHexString: "#152036")
+let SigninViewSigninTwitterButtonFont = UIFont(name: "Montserrat-Regular", size: 15)
+let SigninViewSigninTwitterButtonFontColor = UIColor(fromHexString: "#62A9E0")
+let SigninViewSigninTwitterButtonColor = WhiteColor
+
 //WalkthroughViewController
 let WalkthroughViewControllerNextButtonFont = UIFont(name: "OpenSans-Semibold", size: 15)
 let WalkthroughViewControllerNextButtonBackgroundColor = UIColor(fromHexString: "#2CD2B4")
