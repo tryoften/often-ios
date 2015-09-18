@@ -30,7 +30,7 @@ class TwitterAccountManager: NSObject {
     
                 for account in accounts {
                     if let userName = PFTwitterUtils.twitter()?.screenName {
-                        if account.username == userName.lowercaseString {
+                        if account.username == userName {
                             
                             twitterAuthHelper.authenticateAccount(account as! ACAccount, withCallback: { error, authData in
                                 if error != nil {
