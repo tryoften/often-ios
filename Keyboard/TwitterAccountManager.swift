@@ -22,28 +22,35 @@ class TwitterAccountManager: NSObject {
         
     func openSessionWithTwitter(completion: ((NSError?) -> ())? = nil) {
         userDefaults.setValue(true, forKey: "twitter")
-        
         let twitterAuthHelper = TwitterAuthHelper(firebaseRef:firebase, apiKey:TwitterConsumerKey)
         twitterAuthHelper.selectTwitterAccountWithCallback { error, accounts in
             if error != nil {
                 // Error retrieving Twitter accounts
-            } else if accounts.count > 1 {
-                // Select an account. Here we pick the first one for simplicity
-                let account = accounts[0] as? ACAccount
-                twitterAuthHelper.authenticateAccount(account, withCallback: { error, authData in
-                    if error != nil {
-                        println("Login failed. \(error)")
-                    } else {
-                        self.getTwitterUserInfo(authData, completion: { err in
+            } else if !accounts.isEmpty {
+    
+                for account in accounts {
+                    if let userName = PFTwitterUtils.twitter()?.screenName {
+                        if account.username == userName.lowercaseString {
                             
-                        })
+                            twitterAuthHelper.authenticateAccount(account as! ACAccount, withCallback: { error, authData in
+                                if error != nil {
+                                    println("Login failed. \(error)")
+                                } else {
+                                    self.getTwitterUserInfo(authData, completion: { err in
+                                        
+                                    })
+                                }
+                                completion?(error)
+                            })
+                        }
                     }
-                    completion?(error)
-                })
+                    
+                }
             } else {
                 
                 completion?(NSError())
             }
+            
         }
         userDefaults.setValue(true, forKey: "openSession")
     }

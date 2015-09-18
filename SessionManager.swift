@@ -53,7 +53,7 @@ class SessionManager: NSObject {
             crashlytics.setUserIdentifier(currentUser!.id)
             
             if let user = currentUser {
-                crashlytics.setUserName(user.username)
+                crashlytics.setUserName(user.name)
                 crashlytics.setUserEmail(user.email)
             }
         }
