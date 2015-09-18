@@ -61,8 +61,16 @@ class SocialAccountsService: Service {
     Creates social service models from the default NSUserDefaults
     */
     private func createSocialAccountsModels(completion: (Bool) -> Void) {
-        if let services = userDefaults.objectForKey(socialAccountsPath) as? [String : NSDictionary]
+        if let services = userDefaults.objectForKey(socialAccountsPath) as? [NSObject : NSDictionary]
         {
+            let servicesValues = [NSDictionary](services.values)
+            socialAccounts = [SocialAccount]()
+            for service in servicesValues{
+                var socialAccount = SocialAccount()
+                socialAccount.setValuesForKeysWithDictionary(service as [NSObject : AnyObject])
+                socialAccounts?.append(socialAccount)
+            }
+            
             completion(true)
         } else {
             createSocialAccount()

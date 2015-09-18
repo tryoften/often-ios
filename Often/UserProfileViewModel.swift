@@ -49,7 +49,6 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     
     }
     
-
 }
 
 protocol UserProfileViewModelDelegate: class {

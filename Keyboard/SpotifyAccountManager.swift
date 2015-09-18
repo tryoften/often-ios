@@ -1,5 +1,5 @@
 //
-//  SpotifyService.swift
+//  SpotifyAccountManager.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 8/27/15.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-class SpotifyService: NSObject {
+class SpotifyAccountManager: NSObject {
     var authCallback: SPTAuthCallback?
     var spotifyAccount: SocialAccount?
-    weak var delegate: SpotifySocialServiceDelegate?
+    weak var delegate: SpotifyAccountManagerDelegate?
    
     override init() {
         super.init()
@@ -42,12 +42,12 @@ class SpotifyService: NSObject {
         self.spotifyAccount?.activeStatus = true
         self.spotifyAccount?.tokenExpirationDate = session.expirationDate.description
         if let spotifyAccount = self.spotifyAccount {
-            self.delegate?.spotifySocialServiceDidPullToken(self, account: spotifyAccount)
+            self.delegate?.spotifyAccountManagerDidPullToken(self, account: spotifyAccount)
         }
     }
 
 }
 
-protocol SpotifySocialServiceDelegate: class {
-    func spotifySocialServiceDidPullToken(userProfileViewModel: SpotifyService, account: SocialAccount)
+protocol SpotifyAccountManagerDelegate: class {
+    func spotifyAccountManagerDidPullToken(userProfileViewModel: SpotifyAccountManager, account: SocialAccount)
 }

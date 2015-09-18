@@ -9,10 +9,10 @@
 import Foundation
 import OAuthSwift
 
-class SoundcloudService: NSObject {
+class SoundcloudAccountManager: NSObject {
     let manager: AFHTTPRequestOperationManager
     var soundcloudAccount: SocialAccount?
-    weak var delegate: SoundcloudSocialServiceDelegate?
+    weak var delegate: SoundcloudAccountManagerDelegate?
     
     override init() {
         manager = AFHTTPRequestOperationManager()
@@ -54,7 +54,7 @@ class SoundcloudService: NSObject {
         soundcloudAccount?.activeStatus = true
         
         if let soundcloudAccount = self.soundcloudAccount {
-            self.delegate?.soundcloudsocialServiceDidPullToken(self, account: soundcloudAccount)
+            self.delegate?.soundcloudAccountManagerDidPullToken(self, account: soundcloudAccount)
         }
         getSoundcloudUserInfo(session)
         getSoundcloudUserActivities(session)
@@ -86,6 +86,6 @@ class SoundcloudService: NSObject {
     
 }
 
-protocol SoundcloudSocialServiceDelegate: class {
-    func soundcloudsocialServiceDidPullToken(userProfileViewModel: SoundcloudService, account: SocialAccount)
+protocol SoundcloudAccountManagerDelegate: class {
+    func soundcloudAccountManagerDidPullToken(userProfileViewModel: SoundcloudAccountManager, account: SocialAccount)
 }
