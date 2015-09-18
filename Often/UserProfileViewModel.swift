@@ -8,11 +8,12 @@ import Foundation
 class UserProfileViewModel: NSObject, SessionManagerObserver {
     weak var delegate: UserProfileViewModelDelegate?
     var sessionManager: SessionManager
-    
+    var currentUser: User?
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
         super.init()
         self.sessionManager.addSessionObserver(self)
+        self.requestData(completion: nil)
     }
     
     deinit {
@@ -21,18 +22,13 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     
     func requestData(completion: ((Bool) -> ())? = nil) {
         if sessionManager.userDefaults.objectForKey("openSession") != nil {
-            sessionManager.fetchSocialAccount()
-            if let currentUser = sessionManager.currentUser {
-                delegate?.userProfileViewModelDidLoginUser(self, user: currentUser)
+            if let user = sessionManager.currentUser {
+                currentUser = user
+                delegate?.userProfileViewModelDidLoginUser(self, user: currentUser!)
             }
             
         } else {
-            if sessionManager.userDefaults.objectForKey("twitter") != nil {
-                sessionManager.login(.Twitter)
-            } else {
-                sessionManager.login(.Facebook)
-            }
-        }
+                    }
     }
     
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
@@ -40,12 +36,12 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
     
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
-        sessionManager.fetchSocialAccount()
+        currentUser = user
         delegate?.userProfileViewModelDidLoginUser(self, user: user)
     }
     
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount]) {
-        delegate?.userProfileViewModelDidLoadSocialServiceList(self, socialAccountList: socialAccounts)
+        
     
     }
     
@@ -53,6 +49,5 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
 
 protocol UserProfileViewModelDelegate: class {
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User)
-    func userProfileViewModelDidLoadSocialServiceList(userProfileViewModel: UserProfileViewModel, socialAccountList: [SocialAccount])
 }
 

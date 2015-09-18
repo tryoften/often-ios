@@ -62,6 +62,7 @@ class TwitterAccountManager: NSObject {
     func getTwitterUserInfo(authData:FAuthData, completion: (NSError?) -> ()) {
        let userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         var data = [String : AnyObject]()
+        println(authData.providerData)
         
         data["id"] = authData.uid
         data["profileImageURL"] = authData.providerData["profileImageURL"] as? String

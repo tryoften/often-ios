@@ -104,7 +104,16 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "profile-header", forIndexPath: indexPath) as! UserProfileHeaderView
-            
+            if let user = viewModel.currentUser {
+                cell.descriptionLabel.text = user.userDescription
+                cell.nameLabel.text = user.name
+                if !user.profileImageLarge.isEmpty {
+                    cell.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge)!)
+                }
+                
+            }
+    
+    
             if headerView == nil {
                 headerView = cell
                 headerView?.delegate = self
@@ -145,10 +154,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     }
 
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
-        
-    }
-    
-    func userProfileViewModelDidLoadSocialServiceList(userProfileViewModel: UserProfileViewModel, socialAccountList: [SocialAccount]) {
+        collectionView?.reloadData()
         
     }
     
