@@ -97,7 +97,6 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! UserScrollTabCollectionViewContainerCell
         
         profileDelegate = cell
