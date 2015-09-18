@@ -17,26 +17,22 @@ class SocialAccount: NSObject {
     override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
         
         if let dictionary = keyedValues as? [String: AnyObject] {
-            if let socialAccountType = dictionary["socialAccountType"] as? String {
+            if let socialAccountType = dictionary["type"] as? String {
                 type = SocialAccountType(rawValue: socialAccountType)
             }
             
-            if let serviceToken = dictionary["serviceToken"] as? String {
+            if let serviceToken = dictionary["token"] as? String {
                 token = serviceToken
             }
             
-            if let active = dictionary["active"] as? Bool {
+            if let active = dictionary["activeStatus"] as? Bool {
                 activeStatus = active
             }
             
             if let expirationDate = dictionary["tokenExpirationDate"] as? String {
                 tokenExpirationDate = expirationDate
             }
-            
-            if let expirationDate = dictionary["tokenExpirationDate"] as? String {
-                tokenExpirationDate = expirationDate
-            }
-            
+        
         }
     }
 }

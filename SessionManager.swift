@@ -25,13 +25,6 @@ class SessionManager: NSObject {
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
     
-    let permissions = [
-        "public_profile",
-        "user_actions.music",
-        "user_likes",
-        "email"
-    ]
-    
     override init() {
         observers = NSMutableArray()
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
@@ -50,13 +43,15 @@ class SessionManager: NSObject {
         firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
         }
-        print(userDefaults.objectForKey("user"))
-        if let user = userDefaults.objectForKey("user") as? User {
-            SEGAnalytics.sharedAnalytics().identify(user.id)
-            currentUser = user
-            socialAccountService = SocialAccountsService(user: user, root: firebase)
+        
+        if let userData = userDefaults.objectForKey("user") as? [String:String] {
+            currentUser = User()
+            currentUser?.setValuesForKeysWithDictionary(userData)
+            SEGAnalytics.sharedAnalytics().identify(currentUser!.id)
+            socialAccountService = SocialAccountsService(user: currentUser!, root: firebase)
             var crashlytics = Crashlytics.sharedInstance()
-            crashlytics.setUserIdentifier(user.id)
+            crashlytics.setUserIdentifier(currentUser!.id)
+            
             if let user = currentUser {
                 crashlytics.setUserName(user.username)
                 crashlytics.setUserEmail(user.email)
@@ -70,107 +65,33 @@ class SessionManager: NSObject {
     }
     
     func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {
-        if let email = data["email"],
-            let username = data["username"],
-            let password = data["password"],
-            let fullName = data["name"] {
-                
-                var user = PFUser()
-                user.email = email
-                user.username = email
-                user.password = password
-                user["fullName"] = fullName
-                
-                if let phone = data["phone"] {
-                    user["phone"] = phone
-                }
-                
-                user.signUpInBackgroundWithBlock { (success, error) in
-                    if error == nil {
-                        self.firebase.createUser(email, password: password, withValueCompletionBlock: { error, result -> Void in
-                            if error != nil {
-                                println("Login failed. \(error)")
-                            } else {
-                                println("Logged in! \(result)")
-                                self.openSession(loginType, username: email, password: password)
-                            }
-                        })
-                        completion(nil)
-                    } else {
-                        completion(error)
-                    }
-                }
-        }
+        emailAccountManager = EmailAccountManager(firebase: firebase)
+        emailAccountManager?.createUser(data, completion: completion)
     }
     
-    func login(loginType: LoginType, completion: ((PFUser?, NSError?) -> ())? = nil) {
+    func login(loginType: LoginType, completion: ((NSError?) -> ())? = nil) {
         userIsLoggingIn = true
         switch loginType {
         case .Twitter:
-            PFTwitterUtils.logInWithBlock({  (user, error) -> Void in
-                if error == nil {
-                    self.openSession(loginType, username:nil, password: nil, completion: { sessionError in
-                        if sessionError != nil {
-                            completion?(nil, sessionError)
-                        } else {
-                            completion?(user, error)
-                        }
-                    })
-                } else {
-                    completion?(nil, error)
-                }
-            })
+            twitterAccountManager = TwitterAccountManager(firebase: firebase)
+            twitterAccountManager?.login(completion: completion)
             break
         case .Facebook:
-            PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
-                if error == nil {
-                    self.openSession(loginType, username:nil, password: nil, completion: { sessionError in
-                        if sessionError != nil {
-                            completion?(nil, sessionError)
-                        } else {
-                            completion?(user, error)
-                        }
-                    })
-                } else {
-                    completion?(nil, error)
-                }
-            })
+            facebookAccountManager = FacebookAccountManager(firebase: firebase)
+            facebookAccountManager?.login(completion: completion)
             break
         default:
-            completion?(nil, NSError())
+            completion?(NSError())
             break
         }
     }
     
-    func openSession(loginType: LoginType, username: String?, password: String?, completion: ((NSError?) -> ())? = nil) {
-        switch loginType {
-        case .Twitter:
-            userDefaults.setValue(true, forKey: "twitter")
-            
-            twitterAccountManager = TwitterAccountManager(firebase: firebase)
-            twitterAccountManager?.openSessionWithTwitter(completion: completion)
-            
-            break
-        case .Email:
-            userDefaults.setValue(true, forKey: "email")
-            if let username = username, let password = password {
-                emailAccountManager = EmailAccountManager(firebase: firebase)
-                emailAccountManager?.openSessionWithEmail(username, password: password, completion: completion)
-            }
-            
-            break
-        case .Facebook:
-            userDefaults.setValue(true, forKey: "facebook")
-            
-            facebookAccountManager = FacebookAccountManager(firebase: firebase)
-            facebookAccountManager?.openSessionWithFacebook(completion: completion)
-            
-            break
-        default:
-            break
-        }
-        userDefaults.setValue(true, forKey: "openSession")
+    func loginWithUsername(username: String, password: String,completion: (NSError?) -> ()) {
+        userIsLoggingIn = true
+        emailAccountManager = EmailAccountManager(firebase: firebase)
+        emailAccountManager?.loginWithUsername(username, password: password, completion: completion)
     }
+    
     
     func logout() {
         PFUser.logOut()
@@ -191,9 +112,9 @@ class SessionManager: NSObject {
     private func processAuthData(authData: FAuthData?) {
         let persistUser: (User) -> Void = { user in
             self.currentUser = user
-        
+            
             if !self.isUserNew {
-                self.userDefaults.setObject(user, forKey: "user")
+                self.userDefaults.setObject(user.dataChangedToDictionary(), forKey: "user")
                 self.userDefaults.synchronize()
             }
             
@@ -238,27 +159,12 @@ class SessionManager: NSObject {
                             data["parseId"] = uid
                             
                             self.userRef?.setValue(data)
-                            self.isUserNew = true
+                            self.isUserNew = false
                             
                             var user = User()
                             user.setValuesForKeysWithDictionary(data)
                             persistUser(user)
                             
-                        } else {
-            
-                            self.facebookAccountManager?.getFacebookUserInfo({ (data, err) in
-                                if err == nil {
-                                    var newData = data as! [String : AnyObject]
-                                    newData["provider"] = authData.uid
-                                    newData["id"] = PFUser.currentUser()?.objectId
-                                    
-                                    self.userRef?.setValue(newData)
-                                    self.isUserNew = true
-                                    var user = User()
-                                    user.setValuesForKeysWithDictionary(newData)
-                                    persistUser(user)
-                                }
-                            })
                         }
                     }
                     }, withCancelBlock: { error in
@@ -277,7 +183,7 @@ class SessionManager: NSObject {
             completion(currentUser, nil)
         }
     }
-
+    
     func fetchSocialAccount() {
         if let currentUser = currentUser {
             let socialAccountService = provideSocialAccountService(currentUser)
@@ -290,8 +196,8 @@ class SessionManager: NSObject {
             // TODO(kervs): throw an error if the current user is not set
         }
     }
-
-// MARK: Private methods
+    
+    // MARK: Private methods
     
     private func provideSocialAccountService(user: User) -> SocialAccountsService {
         if let socialService = self.socialAccountService {
@@ -316,7 +222,9 @@ class SessionManager: NSObject {
     private func broadcastDidFetchSocialAccountsEvent() {
         if let socialAccountService = self.socialAccountService {
             for observer in observers {
-                observer.sessionManagerDidFetchSocialAccounts(self, socialAccounts: socialAccountService.socialAccounts!)
+                if let accounts = socialAccountService.socialAccounts {
+                    observer.sessionManagerDidFetchSocialAccounts(self, socialAccounts: accounts)
+                }
             }
         }
     }

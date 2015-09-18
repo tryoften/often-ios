@@ -28,30 +28,30 @@ PODS:
     - FlurrySDK (= 4.4.0)
   - Analytics/Segmentio (1.11.3):
     - Analytics/Core-iOS
-  - Bolts (1.2.0):
-    - Bolts/AppLinks (= 1.2.0)
-    - Bolts/Tasks (= 1.2.0)
-  - Bolts/AppLinks (1.2.0):
+  - Bolts (1.2.2):
+    - Bolts/AppLinks (= 1.2.2)
+    - Bolts/Tasks (= 1.2.2)
+  - Bolts/AppLinks (1.2.2):
     - Bolts/Tasks
-  - Bolts/Tasks (1.2.0)
+  - Bolts/Tasks (1.2.2)
   - CMDQueryStringSerialization (0.2.0)
-  - CSStickyHeaderFlowLayout (0.2.8)
-  - DateTools (1.6.1)
-  - Facebook-iOS-SDK (3.23.2):
-    - Bolts (~> 1.0)
+  - CSStickyHeaderFlowLayout (0.2.9)
+  - DateTools (1.7.0)
+  - Facebook-iOS-SDK (3.24.0):
+    - Bolts (~> 1.2)
   - Firebase (2.3.3)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
-  - Parse (1.8.1):
-    - Bolts/Tasks (>= 1.2.0)
-  - ParseFacebookUtils (1.8.1):
-    - Bolts/Tasks (>= 1.2.0)
-    - Facebook-iOS-SDK (~> 3.23)
-    - Parse (~> 1.8.0)
-  - ParseTwitterUtils (1.8.1):
-    - Bolts/Tasks (>= 1.2.0)
-    - Parse (~> 1.8.0)
+  - Parse (1.8.4):
+    - Bolts/Tasks (>= 1.2.2)
+  - ParseFacebookUtils (1.8.4):
+    - Bolts/Tasks (>= 1.2.2)
+    - Facebook-iOS-SDK (~> 3.24)
+    - Parse (~> 1.8.4)
+  - ParseTwitterUtils (1.8.4):
+    - Bolts/Tasks (>= 1.2.2)
+    - Parse (~> 1.8.4)
   - PKRevealController (2.0.6)
   - Reveal-iOS-SDK (1.5.1)
   - SSKeychain (1.2.3)
@@ -71,9 +71,9 @@ DEPENDENCIES:
   - DateTools (~> 1.6)
   - Facebook-iOS-SDK (~> 3.0)
   - Firebase (>= 2.0.2)
-  - Parse (from `Parse.podspec.json`)
-  - ParseFacebookUtils (~> 1.8)
-  - ParseTwitterUtils (~> 1.8)
+  - Parse
+  - ParseFacebookUtils
+  - ParseTwitterUtils
   - PKRevealController
   - Reveal-iOS-SDK
   - TOMSMorphingLabel (~> 0.5)
@@ -82,8 +82,6 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   Analytics:
     :git: https://github.com/October-Labs/analytics-ios.git
-  Parse:
-    :podspec: Parse.podspec.json
 
 CHECKOUT OPTIONS:
   Analytics:
@@ -93,16 +91,16 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
-  Bolts: d176cb1e0012175589e389a9db49b85e27787576
+  Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
   CMDQueryStringSerialization: 15f9004212bbc72533bb533f63df79d90a00a7d8
-  CSStickyHeaderFlowLayout: e919dd425fa12bba1155f66d87edfe540eb8f89a
-  DateTools: 9bcc89e4f2f9004d8a7a2bd1b49269cf78968e65
-  Facebook-iOS-SDK: cd87f0b2f0c1d9574b44e8fa2baacc275524bac3
+  CSStickyHeaderFlowLayout: ece83dad3a1528af8b5a25bda3aa12536624ac65
+  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
+  Facebook-iOS-SDK: cb209af2e67e3a5d323f966c22e4e482e819405e
   Firebase: 2db60272f68ce40c7d47e5ae6eddc16977c65d4c
   FlurrySDK: d4737cc34e5b01503a05bedeb2e011ef45c9b114
-  Parse: 2155953b1565494095d5fa5c83b3c77f2c677c09
-  ParseFacebookUtils: f3e670d3f8edd0cfb8429ac39b30959d4ab13f0b
-  ParseTwitterUtils: 80512bea19d3d0950ad04d7300a434f86977feeb
+  Parse: c09d6efe4b2eea752765bc6f365a55516d909079
+  ParseFacebookUtils: ec77682d2bde85d9a34149005c062b97f244e3dc
+  ParseTwitterUtils: c4e7706b91faec9f9a7a8471a5735b9f4fa2f23a
   PKRevealController: ffb45a16f5a5032ad90a3d16e5cbb0d8e035bd58
   Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d

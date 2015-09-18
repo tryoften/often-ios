@@ -57,24 +57,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 let userProfileViewModel = UserProfileViewModel(sessionManager: sessionManager)
                 let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
+                let signupViewModel = SignupViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
                 
-                // Front view controller must be navigation controller - will hide the nav bar
-                frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-                frontNavigationController = UINavigationController(rootViewController: frontViewController!)
-                frontNavigationController?.setNavigationBarHidden(true, animated: true)
-                
-                // left view controller: Set Services for keyboard
-                // right view controller: App Settings
-                leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-                rightViewController = AppSettingsViewController()
+                if sessionManager.userDefaults.objectForKey("user") != nil {
+                    // Front view controller must be navigation controller - will hide the nav bar
+                    frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
+                    frontNavigationController = UINavigationController(rootViewController: frontViewController!)
+                    frontNavigationController?.setNavigationBarHidden(true, animated: true)
+                    
+                    // left view controller: Set Services for keyboard
+                    // right view controller: App Settings
+                    leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
+                    rightViewController = AppSettingsViewController()
+                    
+                    
+                    // instantiate PKRevealController and set as mainController to do revealing
+                    revealController = PKRevealController(frontViewController: frontNavigationController, leftViewController: leftViewController, rightViewController: rightViewController)
+                    revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: leftViewController)
+                    revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: rightViewController)
 
-                
-                // instantiate PKRevealController and set as mainController to do revealing
-                revealController = PKRevealController(frontViewController: frontNavigationController, leftViewController: leftViewController, rightViewController: rightViewController)
-                revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: leftViewController)
-                revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: rightViewController)
-                
-                mainController = revealController
+                    mainController = revealController
+                } else {
+                    mainController = SignupViewController(viewModel: SignupViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager))
+                }
+               
             }
             window.rootViewController = mainController
             window.makeKeyAndVisible()
