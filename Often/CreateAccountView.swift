@@ -60,6 +60,7 @@ class CreateAccountView: UIView {
         passwordTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         passwordTextField.placeholder = "Add Password (min 6 characters)"
         passwordTextField.font = UIFont(name: "Montserrat", size: 11)
+        passwordTextField.secureTextEntry = true
         
         passwordTextFieldDivider = UIView()
         passwordTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
