@@ -47,6 +47,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             println("missing password")
             return
         }
+        
         sessionManager.signupUser(.Email, data: userData, completion: { (error) -> () in
             if error == nil {
                 println("all good in the hood")

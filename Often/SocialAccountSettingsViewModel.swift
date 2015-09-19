@@ -48,7 +48,6 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
     func updateLocalSocialAccount (socialAccountType:SocialAccountType) {
         switch socialAccountType {
         case .Twitter:
-            self.socialAccounts[0] = self.spotifyAccountManager.spotifyAccount!
             break
         case .Spotify:
             self.socialAccounts[1] = self.spotifyAccountManager.spotifyAccount!
@@ -71,7 +70,7 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
     
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount]) {
         self.socialAccounts = socialAccounts
-        if sessionManager.userDefaults.objectForKey("user") != nil {
+        if sessionManager.userDefaults.boolForKey("twitter") == true {
             var twitter = SocialAccount()
             twitter.type = .Twitter
             twitter.activeStatus = true

@@ -34,7 +34,7 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         profileImageView.contentMode = .ScaleAspectFit
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = 30
-        profileImageView.image = UIImage(named: "regy")
+        profileImageView.image = UIImage(named: "userprofileplaceholder")
         
         nameLabel = UILabel()
         nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)

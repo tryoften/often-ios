@@ -13,7 +13,6 @@ class User: NSObject {
     var name: String = ""
     var profileImageSmall: String = ""
     var profileImageLarge: String = ""
-    var username: String = ""
     var email: String = ""
     var phone: String = ""
     var userDescription: String = ""
@@ -39,7 +38,7 @@ class User: NSObject {
             }
             
             if let usernameString = dictionary["username"] as? String {
-                username = usernameString
+                name = usernameString
             }
             
             if let emailString = dictionary["email"] as? String {
@@ -79,7 +78,6 @@ class User: NSObject {
             "name": name,
             "profileImageSmall": profileImageSmall,
             "profileImageLarge": profileImageLarge,
-            "username": username,
             "email": email,
             "phone": phone,
             "backgroundImage": name,

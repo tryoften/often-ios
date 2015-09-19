@@ -44,7 +44,10 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     
     func didTapSigninButton(sender: UIButton) {
         if EmailIsValid(signinView.emailTextField.text) && PasswordIsValid(signinView.passwordTextField.text) {
+            PKHUD.sharedHUD.contentView = PKHUDProgressView()
+            PKHUD.sharedHUD.show()
             viewModel.sessionManager.loginWithUsername(signinView.emailTextField.text, password: signinView.passwordTextField.text, completion: { error  in
+                PKHUD.sharedHUD.hide(animated: true)
                 if error != nil {
                     println("error")
                 } else {
@@ -58,7 +61,10 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapSigninTwitterButton(sender: UIButton) {
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
         viewModel.sessionManager.login(.Twitter, completion: { err in
+            PKHUD.sharedHUD.hide(animated: true)
             if (err != nil) {
                 println("didn't work")
             } else {

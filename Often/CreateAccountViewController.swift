@@ -48,7 +48,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapSignupTwitterButton(sender: UIButton) {
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
         viewModel.sessionManager.login(.Twitter, completion: { err in
+            PKHUD.sharedHUD.hide(animated: true)
             if (err != nil) {
                 println("didn't work")
             } else {
@@ -60,11 +63,13 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     
     func didTapSignupButton(sender: UIButton) {
         if count(createAccountView.usernameTextField.text) != 0 && count(createAccountView.emailTextField.text) != 0  && count(createAccountView.passwordTextField.text) != 0 {
-            viewModel.user.username = createAccountView.usernameTextField.text
+            viewModel.user.name = createAccountView.usernameTextField.text
             viewModel.user.email = createAccountView.emailTextField.text
             viewModel.password = createAccountView.passwordTextField.text
-            
+            PKHUD.sharedHUD.contentView = PKHUDProgressView()
+            PKHUD.sharedHUD.show()
             viewModel.signUpUser({ success  in
+                PKHUD.sharedHUD.hide(animated: true)
                 if success {
                     self.createProfileViewController()
                 }

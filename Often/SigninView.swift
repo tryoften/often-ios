@@ -47,6 +47,7 @@ class SigninView: UIView {
         passwordTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         passwordTextField.placeholder = "Password"
         passwordTextField.font = UIFont(name: "Montserrat-Regular", size: 11)
+        passwordTextField.secureTextEntry = true
         
         passwordTextFieldDivider = UIView()
         passwordTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
