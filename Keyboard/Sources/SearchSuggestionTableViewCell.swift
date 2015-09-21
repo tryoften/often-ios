@@ -29,7 +29,7 @@ class SearchSuggestionTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         resultsCountLabel = UILabel()
-        resultsCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        resultsCountLabel.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

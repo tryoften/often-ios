@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Direction: Int, Printable {
+enum Direction: Int, CustomStringConvertible {
     case Left = 0
     case Down = 3
     case Right = 2

@@ -18,7 +18,7 @@ public class Diagnostics : NSObject {
             // each member member is `_SYS_NAMELEN` sized. We skip the the first 4 members
             // of the struct which will land us at the memory address of the `machine`
             // member
-            let machinePtr = advance(ptr.baseAddress, Int(_SYS_NAMELEN * 4))
+            let machinePtr = ptr.baseAddress.advancedBy(Int(_SYS_NAMELEN * 4))
             
             // Create a Swift string from the C string
             return String.fromCString(machinePtr)!

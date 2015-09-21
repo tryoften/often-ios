@@ -25,7 +25,7 @@ class VenmoContactsViewModel {
                 }
             }
         } else {
-            println("Keyboard Friends Fail")
+            print("Keyboard Friends Fail")
         }
     }
     
@@ -54,7 +54,7 @@ class VenmoContactsViewModel {
         var filtered = [VenmoFriend]()
         
         for friend in friends {
-            if fuzzySearch(friend.name, searchString) {
+            if fuzzySearch(friend.name, stringToSearch: searchString) {
                 filtered.append(friend)
             }
         }

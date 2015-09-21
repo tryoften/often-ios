@@ -93,16 +93,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        println("Registration failed \(error)")
+        print("Registration failed \(error)")
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
         
-        if ( url.absoluteString!.hasPrefix("tryoften://logindone" )){
+        if ( url.absoluteString.hasPrefix("tryoften://logindone" )){
             soundcloudAccountManager.handleOpenURL(url)
             return true
         }
-        if ( url.absoluteString!.hasPrefix("tryoften://" )){
+        if ( url.absoluteString.hasPrefix("tryoften://" )){
             if SPTAuth.defaultInstance().canHandleURL(url){
                 SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: spotifyAccountManager.authCallback)
                 return true
@@ -139,10 +139,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension String {
     subscript(index:Int) -> Character{
-        return self[advance(self.startIndex, index)]
+        return self[self.startIndex.advancedBy(index)]
     }
     
     func substringFromIndex(index:Int) -> String {
-        return self.substringFromIndex(advance(self.startIndex, index))
+        return self.substringFromIndex(self.startIndex.advancedBy(index))
     }
 }

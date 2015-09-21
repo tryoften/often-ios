@@ -67,25 +67,25 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         currentProxy = proxies["default"]!
     }
     
-    func textWillChange(textInput: UITextInput) {
+    func textWillChange(textInput: UITextInput?) {
         NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagedResetDefaultProxyEvent, object: self, userInfo: nil)
     }
     
-    func textDidChange(textInput: UITextInput) {
+    func textDidChange(textInput: UITextInput?) {
     }
 
-    func selectionWillChange(textInput: UITextInput) {
+    func selectionWillChange(textInput: UITextInput?) {
         
     }
 
-    func selectionDidChange(textInput: UITextInput) {
+    func selectionDidChange(textInput: UITextInput?) {
         
     }
     
     func parseTextInCurrentDocumentProxy() {
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
-            println(tokens)
+            print(tokens)
             
             let firstToken = tokens[0]
             
@@ -94,8 +94,8 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                 let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
                 
                 if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
-                    println(serviceProviderType)
-                    for i in 0...count(firstToken) {
+                    print(serviceProviderType)
+                    for i in 0...firstToken.characters.count {
                         currentProxy.deleteBackward()
                     }
                     delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
@@ -108,11 +108,11 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     func clearInput() {
         //move cursor to end of text
         if let afterInputText = currentProxy.documentContextAfterInput {
-            currentProxy.adjustTextPositionByCharacterOffset(count(afterInputText.utf16))
+            currentProxy.adjustTextPositionByCharacterOffset(afterInputText.utf16.count)
         }
         
         if let beforeInputText = lastInsertedString {
-            for var i = 0, len = count(beforeInputText.utf16); i < len; i++ {
+            for var i = 0, len = beforeInputText.utf16.count; i < len; i++ {
                 currentProxy.deleteBackward()
             }
         }
@@ -178,7 +178,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     func charactersAreInCorrectState() -> Bool {
         let previousContext = (currentProxy as? UITextDocumentProxy)?.documentContextBeforeInput
     
-        if previousContext == nil || count(previousContext!) < 3 {
+        if previousContext == nil || previousContext!.characters.count < 3 {
             return false
         }
         
@@ -205,7 +205,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
 
     func stringIsWhitespace(string: String?) -> Bool {
         if string != nil {
-            for char in string! {
+            for char in string!.characters {
                 if !characterIsWhitespace(char) {
                     return false
                 }
@@ -232,7 +232,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                 }
             case .Sentences:
                 if let beforeContext = documentProxy?.documentContextBeforeInput {
-                    let offset = min(3, count(beforeContext))
+                    let offset = min(3, beforeContext.characters.count)
                     var index = beforeContext.endIndex
 
                     for (var i = 0; i < offset; i += 1) {

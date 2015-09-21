@@ -1,11 +1,11 @@
 
 func fuzzySearch(var originalString: String, var stringToSearch: String, caseSensitive: Bool = true) -> Bool {
 
-    if count(originalString) == 0 || count(stringToSearch) == 0 {
+    if originalString.characters.count == 0 || stringToSearch.characters.count == 0 {
         return false
     }
 
-    if count(originalString) < count(stringToSearch) {
+    if originalString.characters.count < stringToSearch.characters.count {
         return false
     }
 
@@ -16,12 +16,12 @@ func fuzzySearch(var originalString: String, var stringToSearch: String, caseSen
 
     var searchIndex: Int = 0
 
-    for charOut in originalString {
-        for (indexIn, charIn) in enumerate(stringToSearch) {
+    for charOut in originalString.characters {
+        for (indexIn, charIn) in stringToSearch.characters.enumerate() {
             if indexIn == searchIndex {
                 if charOut == charIn{
                     searchIndex++
-                    if searchIndex == count(stringToSearch) {
+                    if searchIndex == stringToSearch.characters.count {
                         return true
                     } else {
                         break

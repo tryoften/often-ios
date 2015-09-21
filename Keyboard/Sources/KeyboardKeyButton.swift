@@ -314,7 +314,7 @@ class KeyboardKeyButton: UIControl {
                 path?.applyTransform(transformFromShapeToView)
                 if path != nil { toPath.appendPath(path!) }
                 if let edgePaths = shape.edgePaths {
-                    for (e, anEdgePath) in enumerate(edgePaths) {
+                    for (e, anEdgePath) in edgePaths.enumerate() {
                         var editablePath = anEdgePath
                         editablePath.applyTransform(transformFromShapeToView)
                         toEdgePaths.appendPath(editablePath)

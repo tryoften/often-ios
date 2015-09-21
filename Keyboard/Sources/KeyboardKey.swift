@@ -192,7 +192,7 @@ enum KeyboardKey: Hashable {
     }
 }
 
-extension KeyboardKey: Printable, DebugPrintable {
+extension KeyboardKey: CustomStringConvertible, CustomDebugStringConvertible {
     var description: String {
         return toString()
     }

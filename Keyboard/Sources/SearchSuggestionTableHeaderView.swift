@@ -14,7 +14,7 @@ class SearchSuggestionTableHeaderView: UIView {
 
     override init(frame: CGRect) {
         titleLabel = UILabel()
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         title = "top searches"
         
         super.init(frame: frame)

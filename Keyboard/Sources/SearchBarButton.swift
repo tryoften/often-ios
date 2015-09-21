@@ -16,7 +16,7 @@ class SearchBarButton: UIButton {
         
         super.init(frame: frame)
         
-        setTranslatesAutoresizingMaskIntoConstraints(false)
+        translatesAutoresizingMaskIntoConstraints = false
         imageView?.contentMode = .ScaleAspectFit
         
         addSubview(deleteButton)

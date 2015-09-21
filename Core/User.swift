@@ -17,59 +17,56 @@ class User: NSObject {
     var phone: String = ""
     var userDescription: String = ""
 
-    override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
-        
-        if let dictionary = keyedValues as? [String: AnyObject] {
+    override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
 
-            if let nameString = dictionary["displayName"] as? String {
+            if let nameString = keyedValues["displayName"] as? String {
                 name = nameString
             }
             
-            if let nameString = dictionary["name"] as? String {
+            if let nameString = keyedValues["name"] as? String {
                 name = nameString
             }
             
-            if let userDescriptionString = dictionary["description"] as? String {
+            if let userDescriptionString = keyedValues["description"] as? String {
                 userDescription = userDescriptionString
             }
             
-            if let idString = dictionary["id"] as? String {
+            if let idString = keyedValues["id"] as? String {
                 id = idString
             }
             
-            if let usernameString = dictionary["username"] as? String {
+            if let usernameString = keyedValues["username"] as? String {
                 name = usernameString
             }
             
-            if let emailString = dictionary["email"] as? String {
+            if let emailString = keyedValues["email"] as? String {
                 email = emailString
             }
             
-            if let profileImageSmallString = dictionary["profileImageSmall"] as? String {
+            if let profileImageSmallString = keyedValues["profileImageSmall"] as? String {
                 profileImageSmall = profileImageSmallString
             }
             
-            if let profileImageSmallString = dictionary["profile_pic_small"] as? String {
+            if let profileImageSmallString = keyedValues["profile_pic_small"] as? String {
                 profileImageSmall = profileImageSmallString
             }
             
-            if let profileImageLargeString = dictionary["profileImageLarge"] as? String {
+            if let profileImageLargeString = keyedValues["profileImageLarge"] as? String {
                 profileImageLarge = profileImageLargeString
             }
             
-            if let profileImageLargeString = dictionary["profileImageURL"] as? String {
+            if let profileImageLargeString = keyedValues["profileImageURL"] as? String {
                 profileImageLarge = profileImageLargeString
             }
             
-            if let profileImageLargeString = dictionary["profile_pic_large"] as? String {
+            if let profileImageLargeString = keyedValues["profile_pic_large"] as? String {
                 profileImageLarge = profileImageLargeString
             }
             
-            if let phoneString = dictionary["phone"] as? String {
+            if let phoneString = keyedValues["phone"] as? String {
                 phone = phoneString
             }
             
-        }
     }
     
     func dataChangedToDictionary() -> [String:String] {
