@@ -38,42 +38,42 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
         
         switch cellType {
         case .Default:
-            titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
             disclosureIndicator = UIImageView()
-            disclosureIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
+            disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
             disclosureIndicator.contentMode = .ScaleAspectFit
             disclosureIndicator.image = UIImage(named: "disclosureindicator")
             
         case .Nondisclosure:
-            titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
-            secondaryTextLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+            secondaryTextLabel.translatesAutoresizingMaskIntoConstraints = false
             secondaryTextLabel.textColor = LightGrey
             secondaryTextLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
         case .Detailed:
-            titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
-            secondaryTextLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+            secondaryTextLabel.translatesAutoresizingMaskIntoConstraints = false
             secondaryTextLabel.textColor = LightGrey
             secondaryTextLabel.font = UIFont(name: "OpenSans", size: 14.0)
             secondaryTextLabel.backgroundColor = ClearColor
             
-            disclosureIndicator.setTranslatesAutoresizingMaskIntoConstraints(false)
+            disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
             disclosureIndicator.contentMode = .ScaleAspectFit
             
         case .Switch:
-            titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
-            settingSwitch.setTranslatesAutoresizingMaskIntoConstraints(false)
+            settingSwitch.translatesAutoresizingMaskIntoConstraints = false
             settingSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
         default:
-            println("Cell Type not defined")
+            print("Cell Type not defined")
         }
         
         super.init(style: .Default, reuseIdentifier: "SettingsCell")
@@ -96,13 +96,13 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
             addSubview(titleLabel)
             addSubview(settingSwitch)
         default:
-            println("Cell Type not defined")
+            print("Cell Type not defined")
         }
         
         setupLayout()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -163,7 +163,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
                 settingSwitch.al_centerY == al_centerY
             ])
         default:
-            println("Cell Type not defined")
+            print("Cell Type not defined")
         }
     }
 }

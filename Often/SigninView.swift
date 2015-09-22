@@ -22,39 +22,39 @@ class SigninView: UIView {
     
     override init(frame: CGRect) {
         titleLabel = UILabel()
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = SigninViewTitleLabelFont
         titleLabel.text = "Sign in"
         titleLabel.textAlignment = .Center
         
         subtitleLabel = UILabel()
-        subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = UIFont(name: "OpenSans", size: 13)
         subtitleLabel.text = "Welcome back fam."
         subtitleLabel.textAlignment = .Center
         subtitleLabel.alpha = 0.74
         
         emailTextField = UITextField()
-        emailTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.placeholder = "Email"
         emailTextField.font = UIFont(name: "Montserrat-Regular", size: 11)
         
         emailTextFieldDivider = UIView()
-        emailTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
+        emailTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         emailTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         passwordTextField = UITextField()
-        passwordTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.placeholder = "Password"
         passwordTextField.font = UIFont(name: "Montserrat-Regular", size: 11)
         passwordTextField.secureTextEntry = true
         
         passwordTextFieldDivider = UIView()
-        passwordTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
+        passwordTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         passwordTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         signinButton = UIButton()
-        signinButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        signinButton.translatesAutoresizingMaskIntoConstraints = false
         signinButton.backgroundColor = SigninViewSigninButtonColor
         signinButton.setTitle("sign in".uppercaseString, forState: .Normal)
         signinButton.titleLabel!.font = UIFont(name: "Montserrat", size: 12)
@@ -63,19 +63,19 @@ class SigninView: UIView {
         signinButton.clipsToBounds = true
         
         signinTwitterButton = UIButton()
-        signinTwitterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        signinTwitterButton.translatesAutoresizingMaskIntoConstraints = false
         signinTwitterButton.setTitle("sign in with twitter".uppercaseString, forState: .Normal)
         signinTwitterButton.titleLabel!.font = UIFont(name: "Montserrat", size: 12)
         signinTwitterButton.setTitleColor(CreateAccountViewSignupTwitterButtonColor, forState: .Normal)
         
         forgetPasswordButton = UIButton()
-        forgetPasswordButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        forgetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         forgetPasswordButton.setTitle("Forgot?", forState: .Normal)
         forgetPasswordButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
         forgetPasswordButton.setTitleColor(CreateAccountViewSignupTwitterButtonColor , forState: .Normal)
         
         cancelButton = UIButton()
-        cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setImage(UIImage(named: "close"), forState: .Normal)
         
         
@@ -97,7 +97,7 @@ class SigninView: UIView {
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

@@ -20,14 +20,14 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
         createAccountView = CreateAccountView()
-        createAccountView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        createAccountView.translatesAutoresizingMaskIntoConstraints = false
         super.init(nibName: nil, bundle: nil)
         
         view.addSubview(createAccountView)
         setupLayout()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -53,7 +53,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         viewModel.sessionManager.login(.Twitter, completion: { err in
             PKHUD.sharedHUD.hide(animated: true)
             if (err != nil) {
-                println("didn't work")
+                print("didn't work")
             } else {
                 self.createProfileViewController()
             }
@@ -62,10 +62,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapSignupButton(sender: UIButton) {
-        if count(createAccountView.usernameTextField.text) != 0 && count(createAccountView.emailTextField.text) != 0  && count(createAccountView.passwordTextField.text) != 0 {
-            viewModel.user.name = createAccountView.usernameTextField.text
-            viewModel.user.email = createAccountView.emailTextField.text
-            viewModel.password = createAccountView.passwordTextField.text
+        if createAccountView.usernameTextField.text!.characters.count != 0 && createAccountView.emailTextField.text!.characters.count != 0  && createAccountView.passwordTextField.text!.characters.count != 0 {
+            viewModel.user.name = createAccountView.usernameTextField.text!
+            viewModel.user.email = createAccountView.emailTextField.text!
+            viewModel.password = createAccountView.passwordTextField.text!
             PKHUD.sharedHUD.contentView = PKHUDProgressView()
             PKHUD.sharedHUD.show()
             viewModel.signUpUser({ success  in
@@ -104,7 +104,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
-        var characterCount = count(createAccountView.passwordTextField.text)
+        let characterCount = createAccountView.passwordTextField.text!.characters.count
         if characterCount >= 3 {
             createAccountView.signupButton.backgroundColor = UIColor(fromHexString: "#152036")
         } else {
@@ -115,7 +115,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupLayout() {
-        var constraints: [NSLayoutConstraint] = [
+        let constraints: [NSLayoutConstraint] = [
             createAccountView.al_bottom == view.al_bottom,
             createAccountView.al_top == view.al_top,
             createAccountView.al_left == view.al_left,
@@ -125,7 +125,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         view.addConstraints(constraints)
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     

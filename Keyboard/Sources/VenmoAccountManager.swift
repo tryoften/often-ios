@@ -27,9 +27,9 @@ class VenmoAccountManager: NSObject {
         Venmo.startWithAppId(VenmoAppID, secret: VenmoAppSecret, name: "SWRV")
         Venmo.sharedInstance().requestPermissions(["make_payments", "access_profile", "access_friends"]) { (success, error) -> Void in
             if success {
-                println("Permissions Success!")
+                print("Permissions Success!")
             } else {
-                println("Permissions Fail")
+                print("Permissions Fail")
             }
         }
         
@@ -57,18 +57,20 @@ class VenmoAccountManager: NSObject {
     /**
         Use the access token for the User to get the current users profile information
     
-        :param: accessToken Token from the authorization GET call
+        - parameter accessToken: Token from the authorization GET call
     */
 
     func getVenmoUserInformation(accessToken: String) {
-        var parameters: NSDictionary = ["accessToken": accessToken]
+        let parameters: NSDictionary = ["accessToken": accessToken]
     
         manager.GET(
             "https://api.venmo.com/v1/me",
             parameters: parameters,
-            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                println("Success: \n\(responseObject.description)")
-                if let responseData = responseObject["data"] as? [String : AnyObject] {
+            success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject) in
+                
+                print("Success: \n\(responseObject.description)")
+                if let response = responseObject as? [String: AnyObject],
+                    let responseData = response["data"] as? [String : AnyObject] {
                     if let userData = responseData["user"] as? [String : AnyObject] {
                         self.currentUserID = userData["id"] as! String
                     }
@@ -76,49 +78,59 @@ class VenmoAccountManager: NSObject {
                 self.getCurrentUserListOfFriend(accessToken, id: self.currentUserID)
                
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
-                println("Failure: \(error.localizedDescription)")
+                print("Failure: \(error.localizedDescription)")
         })
     }
     
     /**
         Retrieve contact list for the current user to populate the collection view
     
-        :param: accessToken Token from the authorization GET call
-        :param: id USer id from the User information call
+        - parameter accessToken: Token from the authorization GET call
+        - parameter id: USer id from the User information call
     */
     func getCurrentUserListOfFriend(accessToken: String, id: String) {
         var parameters: NSDictionary = ["accessToken": accessToken, "limit": 500]
         
+        func successCallback(operation: AFHTTPRequestOperation, responseObject: AnyObject) -> Void {
+            print("Success: \n\(responseObject.description)")
+            
+            if let response = responseObject as? [String: AnyObject],
+                friendsData = response["data"] as? [AnyObject] {
+                    do {
+                        let data = try NSJSONSerialization.dataWithJSONObject(friendsData, options: [])
+                        self.userDefaults.setObject(data, forKey: "friends")
+                        self.userDefaults.synchronize()
+                    } catch let error as NSError {
+                        print(error)
+                    } catch {
+                        
+                    }
+            }
+        }
+        
         manager.GET(
             "https://api.venmo.com/v1/users/\(id)/friends",
             parameters: parameters,
-            success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject) in
-                println("Success: \n\(responseObject.description)")
-                
-                if let friendsData = responseObject["data"] as? [AnyObject] {
-                    var data = NSJSONSerialization.dataWithJSONObject(friendsData, options: nil, error: nil)
-                    self.userDefaults.setObject(data, forKey: "friends")
-                    self.userDefaults.synchronize()
-                }
-            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
-                println("Failure: \(error.localizedDescription)")
+            success: successCallback,
+            failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
+                print("Failure: \(error.localizedDescription)")
         })
     }
     
     /**
         Use all of the information we retrieved to allow the user to send a payment to someone
     
-        :param: accessToken Token from the authorization GET call
-        :param: handle Handle of target user
-        :param: amount How much to send to the target user
-        :param: note Note to describe the payment
+        - parameter accessToken: Token from the authorization GET call
+        - parameter handle: Handle of target user
+        - parameter amount: How much to send to the target user
+        - parameter note: Note to describe the payment
     */
     func sendPayment(handle: String, amount: UInt, note: String) {
         Venmo.sharedInstance().sendPaymentTo(handle, amount: amount, note: note) { (transaction, success, error) -> Void in
             if success {
-                println("Transaction Succeeded")
+                print("Transaction Succeeded")
             } else {
-                println("Transaction Failed")
+                print("Transaction Failed")
             }
         }
     }
@@ -126,9 +138,9 @@ class VenmoAccountManager: NSObject {
     func sendRequest(handle: String, amount: UInt, note: String) {
         Venmo.sharedInstance().sendRequestTo(handle, amount: amount, note: note) { (transaction, success, error) -> Void in
             if success {
-                println("Transaction Succeeded")
+                print("Transaction Succeeded")
             } else {
-                println("Transaction Failed")
+                print("Transaction Failed")
             }
         }
     }

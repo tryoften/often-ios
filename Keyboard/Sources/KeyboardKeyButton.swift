@@ -175,7 +175,7 @@ class KeyboardKeyButton: UIControl {
                 switch(key) {
                 case .letter(let character):
                     color = theme.keyboardKeyBackgroundColor
-                    var str = String(character.rawValue)
+                    let str = String(character.rawValue)
                     text = str
                 case .digit(let number):
                     text = String(number.rawValue)
@@ -245,7 +245,7 @@ class KeyboardKeyButton: UIControl {
             }
     }
 
-    required init(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("NSCoding not supported")
     }
     
@@ -257,7 +257,7 @@ class KeyboardKeyButton: UIControl {
     override func layoutSubviews() {
         layoutPopupIfNeeded()
         
-        var boundingBox = (popup != nil ? CGRectUnion(bounds, popup!.frame) : bounds)
+        let boundingBox = (popup != nil ? CGRectUnion(bounds, popup!.frame) : bounds)
         
         if bounds.width == 0 || bounds.height == 0 {
             return
@@ -300,22 +300,22 @@ class KeyboardKeyButton: UIControl {
         popup?.layoutIfNeeded()
         connector?.layoutIfNeeded()
         
-        var testPath = UIBezierPath()
-        var edgePath = UIBezierPath()
+        let testPath = UIBezierPath()
+        let edgePath = UIBezierPath()
         
         let unitSquare = CGRectMake(0, 0, 1, 1)
         
         // TODO: withUnder
         let addCurves = { (fromShape: KeyboardKeyBackground?, toPath: UIBezierPath, toEdgePaths: UIBezierPath) -> Void in
             if let shape = fromShape {
-                var path = shape.fillPath
-                var translatedUnitSquare = self.displayView.convertRect(unitSquare, fromView: shape)
+                let path = shape.fillPath
+                let translatedUnitSquare = self.displayView.convertRect(unitSquare, fromView: shape)
                 let transformFromShapeToView = CGAffineTransformMakeTranslation(translatedUnitSquare.origin.x, translatedUnitSquare.origin.y)
                 path?.applyTransform(transformFromShapeToView)
                 if path != nil { toPath.appendPath(path!) }
                 if let edgePaths = shape.edgePaths {
                     for (e, anEdgePath) in edgePaths.enumerate() {
-                        var editablePath = anEdgePath
+                        let editablePath = anEdgePath
                         editablePath.applyTransform(transformFromShapeToView)
                         toEdgePaths.appendPath(editablePath)
                     }
@@ -326,12 +326,12 @@ class KeyboardKeyButton: UIControl {
         addCurves(popup, testPath, edgePath)
         addCurves(connector, testPath, edgePath)
         
-        var shadowPath = UIBezierPath(CGPath: testPath.CGPath)
+        let shadowPath = UIBezierPath(CGPath: testPath.CGPath)
         
         addCurves(background, testPath, edgePath)
         
-        var underPath = background.underPath
-        var translatedUnitSquare = displayView.convertRect(unitSquare, fromView: background)
+        let underPath = background.underPath
+        let translatedUnitSquare = displayView.convertRect(unitSquare, fromView: background)
         let transformFromShapeToView = CGAffineTransformMakeTranslation(translatedUnitSquare.origin.x, translatedUnitSquare.origin.y)
         underPath?.applyTransform(transformFromShapeToView)
         
@@ -495,11 +495,11 @@ class KeyboardKeyButton: UIControl {
         if popup == nil {
             layer.zPosition = 1000
             
-            var popup = KeyboardKeyBackground(cornerRadius: 4.0, underOffset: underOffset)
+            let popup = KeyboardKeyBackground(cornerRadius: 4.0, underOffset: underOffset)
             self.popup = popup
             addSubview(popup)
             
-            var popupLabel = UILabel()
+            let popupLabel = UILabel()
             popupLabel.textAlignment = label.textAlignment
             popupLabel.baselineAdjustment = label.baselineAdjustment
             popupLabel.font = UIFont(name: "OpenSans", size: 44)

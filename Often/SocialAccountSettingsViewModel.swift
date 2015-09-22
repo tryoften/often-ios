@@ -71,7 +71,7 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount]) {
         self.socialAccounts = socialAccounts
         if sessionManager.userDefaults.boolForKey("twitter") == true {
-            var twitter = SocialAccount()
+            let twitter = SocialAccount()
             twitter.type = .Twitter
             twitter.activeStatus = true
             self.socialAccounts[0] = twitter

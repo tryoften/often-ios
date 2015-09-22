@@ -85,7 +85,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     func parseTextInCurrentDocumentProxy() {
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
-            print(tokens)
+            print(tokens, terminator: "")
             
             let firstToken = tokens[0]
             
@@ -94,7 +94,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                 let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
                 
                 if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
-                    print(serviceProviderType)
+                    print(serviceProviderType, terminator: "")
                     for i in 0...firstToken.characters.count {
                         currentProxy.deleteBackward()
                     }
@@ -216,7 +216,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     
     func shouldAutoCapitalize() -> Bool {
         if let autocapitalization = currentProxy.autocapitalizationType {
-            var documentProxy = currentProxy as? UITextDocumentProxy
+            let documentProxy = currentProxy as? UITextDocumentProxy
             var beforeContext = currentProxy.documentContextBeforeInput
 
             switch autocapitalization {

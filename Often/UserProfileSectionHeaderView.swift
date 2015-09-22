@@ -17,12 +17,12 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         screenWidth = UIScreen.mainScreen().bounds.width
         
         trendingLabel = UILabel()
-        trendingLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        trendingLabel.translatesAutoresizingMaskIntoConstraints = false
         trendingLabel.font = TrendingSectionHeaderViewTrendingLabelFont
         trendingLabel.text = "1 Service"
         
         bottomLineBreak = UIView()
-        bottomLineBreak.setTranslatesAutoresizingMaskIntoConstraints(false)
+        bottomLineBreak.translatesAutoresizingMaskIntoConstraints = false
         bottomLineBreak.backgroundColor = TrendingSectionHeaderViewBottomLineBreakBackgroundColor
         
         super.init(frame: frame)
@@ -35,7 +35,7 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         setLayout()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

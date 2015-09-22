@@ -18,15 +18,15 @@ class UserScrollTabCollectionViewContainerCell: UICollectionViewCell, UIScrollVi
     
     override init(frame: CGRect) {
         tabScrollView = UIScrollView()
-        tabScrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        tabScrollView.translatesAutoresizingMaskIntoConstraints = false
         tabScrollView.pagingEnabled = true
         
         leftScrollContainerView = UIView(frame: CGRectMake(0, 0, frame.width, frame.height))
-        leftScrollContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        leftScrollContainerView.translatesAutoresizingMaskIntoConstraints = false
         leftScrollContainerView.backgroundColor = WhiteColor
         
         rightScrollContainerView = UIView(frame: CGRectMake(frame.width, 0, frame.width, frame.height))
-        rightScrollContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        rightScrollContainerView.translatesAutoresizingMaskIntoConstraints = false
         rightScrollContainerView.backgroundColor = WhiteColor
         
         userFavoritesCollectionViewController = UserFavoritesCollectionViewController()
@@ -49,12 +49,12 @@ class UserScrollTabCollectionViewContainerCell: UICollectionViewCell, UIScrollVi
         tabScrollView.contentSize = CGSizeMake(tabScrollView.frame.width * 2, tabScrollView.frame.height)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        var offsetX: CGFloat = scrollView.contentOffset.x
+        let offsetX: CGFloat = scrollView.contentOffset.x
         
         if let delegate = delegate {
             delegate.userScrollViewDidScroll(offsetX)

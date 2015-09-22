@@ -23,7 +23,7 @@ class SearchBar: UIView {
             } else {
                 textInput.centerLeftView = true
             }
-            toggleShareButton(animated: true)
+            toggleShareButton(true)
         }
     }
 
@@ -33,24 +33,24 @@ class SearchBar: UIView {
     override init(frame: CGRect) {
         textInput = SearchTextField()
         textInput.backgroundColor = UIColor.whiteColor()
-        textInput.setTranslatesAutoresizingMaskIntoConstraints(false)
+        textInput.translatesAutoresizingMaskIntoConstraints = false
         textInput.centerLeftView = true
         textInput.textColor = UIColor.blackColor()
         
         topSeperator = UIView()
-        topSeperator.setTranslatesAutoresizingMaskIntoConstraints(false)
+        topSeperator.translatesAutoresizingMaskIntoConstraints = false
         topSeperator.backgroundColor = DarkGrey
         
         bottomSeperator = UIView()
-        bottomSeperator.setTranslatesAutoresizingMaskIntoConstraints(false)
+        bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
         bottomSeperator.backgroundColor = DarkGrey
         
         middleSeperator = UIView()
-        middleSeperator.setTranslatesAutoresizingMaskIntoConstraints(false)
+        middleSeperator.translatesAutoresizingMaskIntoConstraints = false
         middleSeperator.backgroundColor = BlackColor
         
         shareButton = UIButton()
-        shareButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        shareButton.translatesAutoresizingMaskIntoConstraints = false
         
         buttons = []
         
@@ -123,7 +123,7 @@ class SearchBar: UIView {
     func removeLastButton() {
         if let lastButton = buttons.last {
             lastButton.removeFromSuperview()
-            removeConstraints(lastButton.constraints())
+            removeConstraints(lastButton.constraints)
             buttons.removeLast()
             repositionSearchTextField()
         }
@@ -131,7 +131,7 @@ class SearchBar: UIView {
     
     func resetSearchBar() {
         for button in buttons {
-            removeConstraints(button.constraints())
+            removeConstraints(button.constraints)
             button.removeFromSuperview()
         }
         buttons.removeAll(keepCapacity: true)
@@ -141,7 +141,7 @@ class SearchBar: UIView {
         textInput.text = ""
         textInput.placeholder = ""
         textInput.setDefaultLeftView()
-        toggleShareButton(animated: true)
+        toggleShareButton(true)
     }
     
     func repositionSearchTextField() {
@@ -205,7 +205,7 @@ class SearchBar: UIView {
         ])
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

@@ -28,7 +28,7 @@ class SearchBarButton: UIButton {
         backgroundColor = VeryLightGray
     }
     
-    required convenience init(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
     
@@ -43,7 +43,4 @@ class SearchBarButton: UIButton {
 
 func ==(lhs: SearchBarButton, rhs: SearchBarButton) -> Bool {
     return lhs.tag == rhs.tag
-}
-
-extension SearchBarButton: Equatable {
 }

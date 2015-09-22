@@ -25,13 +25,13 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
-        var screenWidth = UIScreen.mainScreen().bounds.size.width
-        var viewLayout = UICollectionViewFlowLayout()
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .Vertical
 //        viewLayout.minimumInteritemSpacing = 5.0
 //        viewLayout.minimumLineSpacing = 5.0
@@ -72,7 +72,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SocialAccountSettingsCollectionViewCell
         if  viewModel.socialAccounts.count > indexPath.row {
-            var socialAccount = viewModel.socialAccounts[indexPath.row]
+            let socialAccount = viewModel.socialAccounts[indexPath.row]
             serviceSettingsCell = cell
             serviceSettingsCell?.delegate = self
             cell.settingServicesType = socialAccount.type!
@@ -109,7 +109,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             if selected {
                 let soundcloud = SoundcloudAccountManager()
                 viewModel.soundcloudAccountManager.sendRequest({ err  in
-                    println("it worked")
+                    print("it worked")
                 })
             } else {
                 viewModel.soundcloudAccountManager.soundcloudAccount?.activeStatus = selected
@@ -140,7 +140,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
     
     func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: SocialAccount) {
         self.viewModel.sessionManager.setSocialAccountOnCurrentUser(socialAccount, completion: { user,err  in
-            println("we did it")
+            print("we did it")
             self.viewModel.updateLocalSocialAccount(socialAccount.type!)
         })
     }

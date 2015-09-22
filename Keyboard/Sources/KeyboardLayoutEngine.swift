@@ -78,7 +78,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
     
     /**
         Positions keys for a page number
-        :param: pageNum the page index
+        - parameter pageNum: the page index
     */
     func positionKeys(pageNum: Int) {
         CATransaction.begin()
@@ -101,7 +101,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
                 
                 // pass 1: reuse any keys that match the required size
                 for (key, frame) in keyMap {
-                    if var keyView = self.pooledKey(key: key, model: self.model, frame: frame) {
+                    if let keyView = self.pooledKey(key: key, model: self.model, frame: frame) {
                         foundCachedKeys.append(key)
                         setupKey(keyView, key, frame)
                     }
@@ -113,13 +113,13 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
                 
                 // pass 2: fill in the blanks
                 for (key, frame) in keyMap {
-                    var keyView = self.generateKey()
+                    let keyView = self.generateKey()
                     setupKey(keyView, key, frame)
                 }
             }
             else {
                 for (key, frame) in keyMap {
-                    if var keyView = self.pooledKey(key: key, model: self.model, frame: frame) {
+                    if let keyView = self.pooledKey(key: key, model: self.model, frame: frame) {
                         setupKey(keyView, key, frame)
                     }
                 }
@@ -224,7 +224,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
     // if pool is disabled, always generates a new key
     func generateKey() -> KeyboardKeyButton {
         let createAndSetupNewKey = { () -> KeyboardKeyButton in
-            var keyView = self.createNewKey()
+            let keyView = self.createNewKey()
             
             keyView.enabled = true
             keyView.delegate = self
@@ -294,13 +294,13 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
                 return shape
             }
             else {
-                var shape = shapeClass(frame: CGRectZero)
+                let shape = shapeClass.init(frame: CGRectZero)
                 self.shapePool[className] = shape
                 return shape
             }
         }
         else {
-            return shapeClass(frame: CGRectZero)
+            return shapeClass.init(frame: CGRectZero)
         }
     }
     
@@ -365,13 +365,13 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
             
             let keyHeight: CGFloat = {
                 let totalGaps = bottomEdge + topEdge + rowGapTotal
-                var returnHeight = (bounds.height - totalGaps) / CGFloat(numRows)
+                let returnHeight = (bounds.height - totalGaps) / CGFloat(numRows)
                 return self.rounded(returnHeight)
                 }()
             
             let letterKeyWidth: CGFloat = {
                 let totalGaps = (sideEdges * CGFloat(2)) + (keyGap * CGFloat(mostKeysInRow - 1))
-                var returnWidth = (bounds.width - totalGaps) / CGFloat(mostKeysInRow)
+                let returnWidth = (bounds.width - totalGaps) / CGFloat(mostKeysInRow)
                 return self.rounded(returnWidth)
                 }()
             

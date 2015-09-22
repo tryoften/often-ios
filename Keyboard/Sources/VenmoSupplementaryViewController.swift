@@ -34,7 +34,7 @@ class VenmoSupplementaryViewController: ServiceProviderSupplementaryViewControll
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "contactsCollectionViewDidSelectContact:", name: VenmoContactSelectedEvent, object: nil)
     }
     
-    required convenience init(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -59,7 +59,7 @@ class VenmoSupplementaryViewController: ServiceProviderSupplementaryViewControll
     
     func goToNextStep() {
         if ++stepIndex < steps.count {
-            var nextStep = steps[stepIndex]
+            let nextStep = steps[stepIndex]
             
             addChildViewController(nextStep)
             view.insertSubview(nextStep.view, belowSubview: currentStep.view)

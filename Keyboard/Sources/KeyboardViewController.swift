@@ -106,7 +106,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         super.init(nibName: nil, bundle: nil)
         
-        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy as! UITextDocumentProxy)
+        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy )
         textProcessor.delegate = self
         searchBar.textProcessor = textProcessor
         
@@ -128,7 +128,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         self.init(nibName: nil, bundle: nil)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -159,7 +159,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
         
         if keysContainerView.collapsed {
-            var height = CGRectGetHeight(self.view.frame) - 30
+            let height = CGRectGetHeight(self.view.frame) - 30
             var keysContainerViewFrame = keysContainerView.frame
             keysContainerViewFrame.origin.y = height
             keysContainerView.frame = keysContainerViewFrame
@@ -214,7 +214,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func resizeKeyboard(notification: NSNotification) {
         if let userInfo = notification.userInfo,
             height = userInfo["height"] as? CGFloat {
-                var keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
+                let keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
                 
                 searchBarHeight = height + KeyboardSearchBarHeight
                 keyboardHeight = keysContainerViewHeight + searchBarHeight
@@ -228,7 +228,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func collapseKeyboard() {
         keysContainerView.collapsed = true
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn, animations: {
-            var height = CGRectGetHeight(self.view.frame) - 30
+            let height = CGRectGetHeight(self.view.frame) - 30
             var keysContainerViewFrame = self.keysContainerView.frame
             keysContainerViewFrame.origin.y = height
             self.keysContainerView.frame = keysContainerViewFrame
@@ -320,7 +320,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     func setupKludge() {
         if kludge == nil {
-            var kludge = UIView()
+            let kludge = UIView()
             view.addSubview(kludge)
             kludge.translatesAutoresizingMaskIntoConstraints = false
             kludge.hidden = true
@@ -337,7 +337,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func setupKeys() {
-        var setupKey: (KeyboardKey) -> (KeyboardKeyButton?) = { key in
+        let setupKey: (KeyboardKey) -> (KeyboardKeyButton?) = { key in
             if let keyView = self.layoutEngine?.viewForKey(key) {
                 keyView.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
                 switch key {
@@ -414,7 +414,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             if let key = button.key {
                 switch(key) {
                 case .letter (let character):
-                    var str = String(character.rawValue)
+                    let str = String(character.rawValue)
                     if shiftState.uppercase() {
                         button.text = str
                     } else {

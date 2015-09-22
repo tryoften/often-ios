@@ -75,7 +75,7 @@ class VenmoContactsCollectionViewController: UICollectionViewController, UIColle
         
         if let friend = viewModel.contactAtIndex(indexPath.row) {
             let friendName = NSString(string: friend.name)
-            var textSize = friendName.sizeWithAttributes([NSFontAttributeName: UIFont(name: "OpenSans", size: 11)!])
+            let textSize = friendName.sizeWithAttributes([NSFontAttributeName: UIFont(name: "OpenSans", size: 11)!])
             
             return CGSizeMake(itemHeight + textSize.width + 20, itemHeight)
         }

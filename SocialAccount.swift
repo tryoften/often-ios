@@ -14,7 +14,7 @@ class SocialAccount: NSObject {
     var activeStatus = false
     var tokenExpirationDate = ""
     
-    override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
+    override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
         
         if let dictionary = keyedValues as? [String: AnyObject] {
             if let socialAccountType = dictionary["type"] as? String {

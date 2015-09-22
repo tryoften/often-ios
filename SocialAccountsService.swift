@@ -28,7 +28,7 @@ class SocialAccountsService: Service {
     /**
     Fetches data from the local database and creates models
     
-    :param: completion callback that gets called when data has loaded
+    - parameter completion: callback that gets called when data has loaded
     */
     func fetchLocalData(completion: (Bool) -> Void) {
         createSocialAccountsModels(completion)
@@ -66,8 +66,8 @@ class SocialAccountsService: Service {
             let servicesValues = [NSDictionary](services.values)
             socialAccounts = [SocialAccount]()
             for service in servicesValues{
-                var socialAccount = SocialAccount()
-                socialAccount.setValuesForKeysWithDictionary(service as [NSObject : AnyObject])
+                let socialAccount = SocialAccount()
+                socialAccount.setValuesForKeysWithDictionary(service as! [String: AnyObject])
                 socialAccounts?.append(socialAccount)
             }
             
@@ -82,16 +82,16 @@ class SocialAccountsService: Service {
     func createSocialAccount() {
         socialAccounts = [SocialAccount]()
         
-        var twitter = SocialAccount()
+        let twitter = SocialAccount()
         twitter.type = .Twitter
         
-        var spotify = SocialAccount()
+        let spotify = SocialAccount()
         spotify.type = .Spotify
         
-        var soundcloud = SocialAccount()
+        let soundcloud = SocialAccount()
         soundcloud.type = .Soundcloud
         
-        var venmo = SocialAccount()
+        let venmo = SocialAccount()
         venmo.type = .Venmo
         
         socialAccounts!.append(twitter)

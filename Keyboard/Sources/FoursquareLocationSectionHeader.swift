@@ -15,12 +15,12 @@ class FoursquareLocationSectionHeader: UICollectionReusableView {
     
     override init(frame: CGRect) {
         resultsLabel = UILabel()
-        resultsLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        resultsLabel.translatesAutoresizingMaskIntoConstraints = false
         resultsLabel.font = BrowseSectionHeaderViewSongsLabelFont
         resultsLabel.text = "\(results) Results"
         
         lineBreak = UIView()
-        lineBreak.setTranslatesAutoresizingMaskIntoConstraints(false)
+        lineBreak.translatesAutoresizingMaskIntoConstraints = false
         lineBreak.backgroundColor = BrowseSectionHeaderViewLineBreakColor
         
         super.init(frame: frame)
@@ -33,7 +33,7 @@ class FoursquareLocationSectionHeader: UICollectionReusableView {
         setupLayout()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

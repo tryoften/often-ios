@@ -37,23 +37,23 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             userData["email"] = user.email
             userData["username"] = user.email
         } else {
-            println("missing email address")
+            print("missing email address")
             return
         }
 
         if PasswordIsValid(password) {
             userData["password"] = password
         } else {
-            println("missing password")
+            print("missing password")
             return
         }
         
         sessionManager.signupUser(.Email, data: userData, completion: { (error) -> () in
             if error == nil {
-                println("all good in the hood")
+                print("all good in the hood")
                 completion(true)
             } else {
-                println("no good mang")
+                print("no good mang")
                 completion(false)
             }
         })

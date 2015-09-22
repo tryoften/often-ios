@@ -71,7 +71,7 @@ class ArticleSearchResult: SearchResult {
         self.summary = data["summary"] as? String
         
         if let date = data["date"] as? String {
-            var dateFormatter = NSDateFormatter()
+            let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
             self.date = dateFormatter.dateFromString(date)
         }
@@ -150,7 +150,7 @@ class TrackSearchResult: SearchResult {
         }
         
         if let created = resultData["created"] as? String {
-            var dateFormatter = NSDateFormatter()
+            let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss ZZZZ"
             self.created = dateFormatter.dateFromString(created)
         }

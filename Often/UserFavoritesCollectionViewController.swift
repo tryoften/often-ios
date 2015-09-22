@@ -16,7 +16,7 @@ class UserFavoritesCollectionViewController: UICollectionViewController {
         super.init(collectionViewLayout: UserFavoritesCollectionViewController.provideCollectionViewLayout())
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -35,8 +35,8 @@ class UserFavoritesCollectionViewController: UICollectionViewController {
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
-        var screenWidth = UIScreen.mainScreen().bounds.size.width
-        var flowLayout = UICollectionViewFlowLayout()
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSizeMake(screenWidth, 118)
         flowLayout.minimumLineSpacing = 0.0
         flowLayout.minimumInteritemSpacing = 0.0

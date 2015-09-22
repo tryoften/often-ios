@@ -30,64 +30,64 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     
     override init(frame: CGRect) {
         profileImageView = UIImageView()
-        profileImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .ScaleAspectFit
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = 30
         profileImageView.image = UIImage(named: "userprofileplaceholder")
         
         nameLabel = UILabel()
-        nameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont(name: "Montserrat", size: 18.0)
         nameLabel.text = "Regy Perlera"
         nameLabel.textAlignment = .Center
         
         descriptionLabel = UILabel()
-        descriptionLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = UIFont(name: "OpenSans", size: 12.0)
         descriptionLabel.text = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
         descriptionLabel.textAlignment = .Center
         descriptionLabel.numberOfLines = 3
         
         scoreLabel = UILabel()
-        scoreLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.font = UIFont(name: "Montserrat", size: 18.0)
         scoreLabel.text = "583"
         scoreLabel.textAlignment = .Center
         
         scoreNameLabel = UILabel()
-        scoreNameLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scoreNameLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreNameLabel.font = UIFont(name: "OpenSans", size: 12.0)
         scoreNameLabel.text = "Source Cred"
         scoreNameLabel.textAlignment = .Center
         
         tabContainerView = UIView()
-        tabContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        tabContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         favoritesTabButton = UIButton()
-        favoritesTabButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        favoritesTabButton.translatesAutoresizingMaskIntoConstraints = false
         favoritesTabButton.setTitle("FAVORITES", forState: .Normal)
         favoritesTabButton.setTitleColor(BlackColor, forState: .Normal)
         favoritesTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 12.0)
         favoritesTabButton.titleLabel?.textAlignment = .Center
         
         recentsTabButton = UIButton()
-        recentsTabButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        recentsTabButton.translatesAutoresizingMaskIntoConstraints = false
         recentsTabButton.setTitle("RECENTS", forState: .Normal)
         recentsTabButton.setTitleColor(BlackColor, forState: .Normal)
         recentsTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 12.0)
         recentsTabButton.titleLabel?.textAlignment = .Center
         
         highlightBarView = UIView()
-        highlightBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        highlightBarView.translatesAutoresizingMaskIntoConstraints = false
         highlightBarView.backgroundColor = TealColor
         
         setServicesRevealButton = UIButton()
-        setServicesRevealButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        setServicesRevealButton.translatesAutoresizingMaskIntoConstraints = false
         setServicesRevealButton.setImage(UIImage(named: "hamburger"), forState: .Normal)
         
         settingsRevealButton = UIButton()
-        settingsRevealButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        settingsRevealButton.translatesAutoresizingMaskIntoConstraints = false
         settingsRevealButton.setImage(UIImage(named: "settings"), forState: .Normal)
         
         offsetValue = 0.0
@@ -121,13 +121,13 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // UserScrollHeaderDelegate
     func userScrollViewDidScroll(offsetX: CGFloat) {
-        println("scrolling: \(offsetX)")
+        print("scrolling: \(offsetX)")
         offsetValue = offsetX
     
         leftHighlightBarPositionConstraint?.constant = offsetValue/2

@@ -42,8 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SPTAuth.defaultInstance().clientID = SpotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
          
-        var screen = UIScreen.mainScreen()
-        var frame = screen.bounds
+        let screen = UIScreen.mainScreen()
+        let frame = screen.bounds
         
         window = UIWindow(frame: frame)
 
@@ -93,10 +93,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        print("Registration failed \(error)")
+        print("Registration failed \(error)", terminator: "")
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         
         if ( url.absoluteString.hasPrefix("tryoften://logindone" )){
             soundcloudAccountManager.handleOpenURL(url)
@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return true
             }
         } else if Venmo.sharedInstance().handleOpenURL(url) {
-            var session = Venmo.sharedInstance().session
+            let session = Venmo.sharedInstance().session
             venmoAccountManager.getCurrentCurrentSessionToken(session)
             venmoAccountManager.getVenmoUserInformation(session.accessToken)
             return true

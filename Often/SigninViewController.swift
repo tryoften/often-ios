@@ -20,14 +20,14 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
         signinView = SigninView()
-        signinView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        signinView.translatesAutoresizingMaskIntoConstraints = false
         super.init(nibName: nil, bundle: nil)
         
         view.addSubview(signinView)
         setupLayout()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -43,19 +43,19 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapSigninButton(sender: UIButton) {
-        if EmailIsValid(signinView.emailTextField.text) && PasswordIsValid(signinView.passwordTextField.text) {
+        if EmailIsValid(signinView.emailTextField.text!) && PasswordIsValid(signinView.passwordTextField.text!) {
             PKHUD.sharedHUD.contentView = PKHUDProgressView()
             PKHUD.sharedHUD.show()
-            viewModel.sessionManager.loginWithUsername(signinView.emailTextField.text, password: signinView.passwordTextField.text, completion: { error  in
+            viewModel.sessionManager.loginWithUsername(signinView.emailTextField.text!, password: signinView.passwordTextField.text!, completion: { error  in
                 PKHUD.sharedHUD.hide(animated: true)
                 if error != nil {
-                    println("error")
+                    print("error")
                 } else {
                     self.createProfileViewController()
                 }
             })
         } else {
-            println("error")
+            print("error")
         }
 
     }
@@ -66,7 +66,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         viewModel.sessionManager.login(.Twitter, completion: { err in
             PKHUD.sharedHUD.hide(animated: true)
             if (err != nil) {
-                println("didn't work")
+                print("didn't work")
             } else {
                 self.createProfileViewController()
             }
@@ -79,7 +79,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupLayout() {
-        var constraints: [NSLayoutConstraint] = [
+        let constraints: [NSLayoutConstraint] = [
             signinView.al_bottom == view.al_bottom,
             signinView.al_top == view.al_top,
             signinView.al_left == view.al_left,
@@ -113,7 +113,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
-        var characterCount = count(signinView.passwordTextField.text)
+        var characterCount = signinView.passwordTextField.text!.characters.count
         if characterCount >= 3 {
             signinView.signinButton.backgroundColor = UIColor(fromHexString: "#152036")
         } else {
@@ -124,7 +124,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
 
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     

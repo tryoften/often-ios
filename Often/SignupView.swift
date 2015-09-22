@@ -20,28 +20,28 @@ class SignupView: UIView {
     
     override init(frame: CGRect) {
         let titleString = "often".uppercaseString
-        let titleRange = NSMakeRange(0, count(titleString))
+        let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
         
         title.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 30)!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 2, range: titleRange)
         
         titleLabel = UILabel()
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = titleString
         titleLabel.textColor = SignupViewTitleLabelFontColor
         titleLabel.textAlignment = .Center
         titleLabel.attributedText = title
         
         subtitleLabel = UILabel()
-        subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = SignupViewAppDescriptionLabelFont
         subtitleLabel.text = "The non-basic keyboard. Share the latest videos, songs, GIFs & news from any app."
         subtitleLabel.numberOfLines = 2
         subtitleLabel.textAlignment = .Center
         
         scrollView = UIScrollView()
-        scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.pagingEnabled = true
         scrollView.backgroundColor = UIColor.whiteColor()
         scrollView.showsHorizontalScrollIndicator = false
@@ -50,10 +50,10 @@ class SignupView: UIView {
         pageControl.currentPageIndicatorTintColor = SignupViewPageControlHighlightColor
         pageControl.numberOfPages = 4
         pageControl.pageIndicatorTintColor = UIColor(fromHexString: "#D2D2D2")
-        pageControl.setTranslatesAutoresizingMaskIntoConstraints(false)
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
         
         createAccountButton = UIButton()
-        createAccountButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        createAccountButton.translatesAutoresizingMaskIntoConstraints = false
         createAccountButton.backgroundColor = SignupViewCreateAccountButtonColor
         createAccountButton.setTitle("create your account".uppercaseString, forState: .Normal)
         createAccountButton.titleLabel!.font = UIFont(name: "Montserrat-Regular", size: 11)
@@ -62,21 +62,21 @@ class SignupView: UIView {
         createAccountButton.clipsToBounds = true
         
         skipButton = UIButton()
-        skipButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        skipButton.translatesAutoresizingMaskIntoConstraints = false
         skipButton.setTitle("skip".uppercaseString, forState: .Normal)
         skipButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
         skipButton.setTitleColor(UIColor(fromHexString: "#152036") , forState: .Normal)
         skipButton.alpha = 0.54
         
         signinButton = UIButton()
-        signinButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        signinButton.translatesAutoresizingMaskIntoConstraints = false
         signinButton.setTitle("sign in".uppercaseString, forState: .Normal)
         signinButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
         signinButton.setTitleColor(UIColor(fromHexString: "#152036")  , forState: .Normal)
         signinButton.alpha = 0.54
         
         buttonDivider = UIView()
-        buttonDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
+        buttonDivider.translatesAutoresizingMaskIntoConstraints = false
         buttonDivider.backgroundColor = UIColor(fromHexString: "#D2D2D2")
         
         super.init(frame: frame)
@@ -95,7 +95,7 @@ class SignupView: UIView {
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

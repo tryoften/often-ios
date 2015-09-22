@@ -15,17 +15,22 @@ class VenmoContactsViewModel {
     
     init() {
         friends = []
-        
-        if let data = userDefaults.objectForKey("friends") as? NSData {
-            if let friendsData = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSArray {
-                for var i = 0; i < friendsData.count; i++ {
-                    var friend = VenmoFriend()
-                    friend.setValuesForKeysWithDictionary(friendsData[i] as! [NSObject : AnyObject])
-                    friends.append(friend)
+        readFriendsData()
+    }
+    
+    func readFriendsData() {
+        do {
+            if let data = userDefaults.objectForKey("friends") as? NSData {
+                if let friendsData = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray {
+                    for var i = 0; i < friendsData.count; i++ {
+                        let friend = VenmoFriend()
+                        friend.setValuesForKeysWithDictionary(friendsData[i] as! [String : AnyObject])
+                        friends.append(friend)
+                    }
                 }
             }
-        } else {
-            print("Keyboard Friends Fail")
+        } catch _ as NSError {
+            
         }
     }
     

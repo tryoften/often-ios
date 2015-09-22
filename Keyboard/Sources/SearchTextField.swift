@@ -144,7 +144,7 @@ class SearchTextField: UIControl, Layouteable {
             if centerLeftView {
             } else {
             }
-            var view = leftView
+            let view = leftView
             leftView = view
         }
     }
@@ -198,7 +198,7 @@ class SearchTextField: UIControl, Layouteable {
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -312,11 +312,11 @@ extension SearchTextField: UITextDocumentProxy {
         inputPosition += offset
     }
     
-    var documentContextBeforeInput: String! {
+    var documentContextBeforeInput: String? {
         return text
     }
     
-    var documentContextAfterInput: String! {
+    var documentContextAfterInput: String? {
         return ""
     }
     
