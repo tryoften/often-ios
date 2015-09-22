@@ -13,7 +13,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         self.sessionManager = sessionManager
         super.init()
         self.sessionManager.addSessionObserver(self)
-        self.requestData(completion: nil)
+        self.requestData(nil)
     }
     
     deinit {

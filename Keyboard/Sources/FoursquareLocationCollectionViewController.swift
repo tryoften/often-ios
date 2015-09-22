@@ -29,7 +29,7 @@ class FoursquareLocationCollectionViewController: UICollectionViewController {
     }
 
     func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
-        var viewLayout = UICollectionViewFlowLayout()
+        let viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .Vertical
         viewLayout.minimumInteritemSpacing = 5.0
         viewLayout.minimumLineSpacing = 5.0
@@ -53,7 +53,7 @@ class FoursquareLocationCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(foursquareCellIdentifier, forIndexPath: indexPath) as! FoursquareLocationCollectionViewCell
     
-        var score = 9.3
+        let score = 9.3
         
         cell.titleLabel.text = "Gasoline Alley"
         cell.addressLabel.text = "325 Lafayette St, New York,..."
@@ -65,7 +65,7 @@ class FoursquareLocationCollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionHeader {
-            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! FoursquareLocationSectionHeader
+            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! FoursquareLocationSectionHeader
             
             sectionHeaderView = cell
             

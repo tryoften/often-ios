@@ -16,7 +16,7 @@ class SearchBarButton: UIButton {
         
         super.init(frame: frame)
         
-        setTranslatesAutoresizingMaskIntoConstraints(false)
+        translatesAutoresizingMaskIntoConstraints = false
         imageView?.contentMode = .ScaleAspectFit
         
         addSubview(deleteButton)
@@ -28,7 +28,7 @@ class SearchBarButton: UIButton {
         backgroundColor = VeryLightGray
     }
     
-    required convenience init(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
     
@@ -39,11 +39,11 @@ class SearchBarButton: UIButton {
         deleteButton.frame = CGRectMake(8.0, topMargin, 8.0, 8.0)
         deleteButton.image = StyleKit.imageOfButtonclose(frame: CGRectMake(0, 0, CGRectGetWidth(deleteButton.frame), CGRectGetHeight(deleteButton.frame)), color: UIColor.blackColor(), scale: 0.6)
     }
-}
-
-func ==(lhs: SearchBarButton, rhs: SearchBarButton) -> Bool {
-    return lhs.tag == rhs.tag
-}
-
-extension SearchBarButton: Equatable {
+    
+    override func isEqual(object: AnyObject?) -> Bool {
+        if let rhs = object as? UIButton {
+            return tag == rhs.tag
+        }
+        return false
+    }
 }

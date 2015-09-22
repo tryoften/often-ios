@@ -147,7 +147,7 @@ class LayoutConstants {
         return elements[self.findThreshholdIndex(threshholds, measurement: measurement)]
     }
     class func findThreshholdIndex(threshholds: [CGFloat], measurement: CGFloat) -> Int {
-        for (i, threshhold) in enumerate(reverse(threshholds)) {
+        for (i, threshhold) in Array(threshholds.reverse()).enumerate() {
             if measurement >= threshhold {
                 let actualIndex = threshholds.count - i
                 return actualIndex

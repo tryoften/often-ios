@@ -14,7 +14,7 @@ class SearchSuggestionTableHeaderView: UIView {
 
     override init(frame: CGRect) {
         titleLabel = UILabel()
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         title = "top searches"
         
         super.init(frame: frame)
@@ -23,14 +23,14 @@ class SearchSuggestionTableHeaderView: UIView {
             NSKernAttributeName: NSNumber(float: 1.0),
             NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 8)!
         ]
-        var attributedString = NSAttributedString(string: title.uppercaseString, attributes: attributes)
+        let attributedString = NSAttributedString(string: title.uppercaseString, attributes: attributes)
         titleLabel.attributedText = attributedString
         
         addSubview(titleLabel)
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

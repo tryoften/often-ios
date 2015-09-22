@@ -14,26 +14,24 @@ class VenmoFriend: NSObject {
     var profileURL = ""
     var username = ""
     
-    override func setValuesForKeysWithDictionary(keyedValues: [NSObject : AnyObject]) {
+    override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
         
-        if let dictionary = keyedValues as? [String: AnyObject] {
-            
-            if let name = dictionary["display_name"] as? String {
-                self.name = name
-            }
-            
-            if let id = dictionary["id"] as? UInt {
-                self.id = id
-            }
-            
-            if let profileURL = dictionary["profile_picture_url"] as? String {
-                self.profileURL = profileURL
-            }
-            
-            if let username = dictionary["username"] as? String {
-                self.username = username
-            }
+        if let name = keyedValues["display_name"] as? String {
+            self.name = name
+        }
+        
+        if let id = keyedValues["id"] as? UInt {
+            self.id = id
+        }
+        
+        if let profileURL = keyedValues["profile_picture_url"] as? String {
+            self.profileURL = profileURL
+        }
+        
+        if let username = keyedValues["username"] as? String {
+            self.username = username
         }
     }
+    
 
 }

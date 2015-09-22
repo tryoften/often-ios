@@ -21,11 +21,11 @@ func EmailIsValid(testStr:String) -> Bool {
 }
 
 func NameIsValid(testStr:String) -> Bool {
-    return count(testStr) >= 1
+    return testStr.characters.count >= 1
 }
 
 func PasswordIsValid(passwordStr:String) -> Bool {
-    return count(passwordStr) >= 1
+    return passwordStr.characters.count >= 1
 }
 
 func arePasswordMatchingValid(passwordStrOne:String,passwordStrTwo:String) -> Bool {

@@ -17,7 +17,7 @@ class UserProfileFilterTabView: UIView {
     
     override init(frame: CGRect) {
         allFilterButton = UIButton()
-        allFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        allFilterButton.translatesAutoresizingMaskIntoConstraints = false
         allFilterButton.setTitle("ALL", forState: .Normal)
         allFilterButton.setTitleColor(BlackColor, forState: .Selected)
         allFilterButton.setTitleColor(LightGrey, forState: .Normal)
@@ -25,28 +25,28 @@ class UserProfileFilterTabView: UIView {
         allFilterButton.selected = true
         
         songsFilterButton = UIButton()
-        songsFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        songsFilterButton.translatesAutoresizingMaskIntoConstraints = false
         songsFilterButton.setTitle("SONGS", forState: .Normal)
         songsFilterButton.setTitleColor(BlackColor, forState: .Selected)
         songsFilterButton.setTitleColor(LightGrey, forState: .Normal)
         songsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
         
         videosFilterButton = UIButton()
-        videosFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        videosFilterButton.translatesAutoresizingMaskIntoConstraints = false
         videosFilterButton.setTitle("VIDEOS", forState: .Normal)
         videosFilterButton.setTitleColor(BlackColor, forState: .Selected)
         videosFilterButton.setTitleColor(LightGrey, forState: .Normal)
         videosFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
         
         linksFilterButton = UIButton()
-        linksFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        linksFilterButton.translatesAutoresizingMaskIntoConstraints = false
         linksFilterButton.setTitle("LINKS", forState: .Normal)
         linksFilterButton.setTitleColor(BlackColor, forState: .Selected)
         linksFilterButton.setTitleColor(LightGrey, forState: .Normal)
         linksFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
         
         gifsFilterButton = UIButton()
-        gifsFilterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        gifsFilterButton.translatesAutoresizingMaskIntoConstraints = false
         gifsFilterButton.setTitle("GIFS", forState: .Normal)
         gifsFilterButton.setTitleColor(BlackColor, forState: .Selected)
         gifsFilterButton.setTitleColor(LightGrey, forState: .Normal)
@@ -71,7 +71,7 @@ class UserProfileFilterTabView: UIView {
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -164,7 +164,7 @@ class UserProfileFilterTabView: UIView {
                 }
                 break
             default:
-                println("Defaulted")
+                print("Defaulted")
                 break
             }
         }

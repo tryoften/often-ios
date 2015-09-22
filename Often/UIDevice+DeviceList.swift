@@ -18,7 +18,7 @@ public class Diagnostics : NSObject {
             // each member member is `_SYS_NAMELEN` sized. We skip the the first 4 members
             // of the struct which will land us at the memory address of the `machine`
             // member
-            let machinePtr = advance(ptr.baseAddress, Int(_SYS_NAMELEN * 4))
+            let machinePtr = ptr.baseAddress.advancedBy(Int(_SYS_NAMELEN * 4))
             
             // Create a Swift string from the C string
             return String.fromCString(machinePtr)!
@@ -29,9 +29,9 @@ public class Diagnostics : NSObject {
     /**
     Provides platform specific information for the current device
     
-    :returns: device A string of the Device type.  iPhone, iPad, iPod
-    :returns: desciption A string of the Device types full description.. Verizon iPhone 4
-    :returns: number An optional Int value of the device.. 6 - for iPhone 6 or 6 Plus
+    - returns: device A string of the Device type.  iPhone, iPad, iPod
+    - returns: desciption A string of the Device types full description.. Verizon iPhone 4
+    - returns: number An optional Int value of the device.. 6 - for iPhone 6 or 6 Plus
     */
     class func platformString() -> (device: String, desciption: String, number: Int?) {
         

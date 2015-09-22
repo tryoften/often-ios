@@ -9,13 +9,13 @@
 import Foundation
 
 #if DEBUG
-    let BaseURL = "https://asterix.firebaseio.com/"
+    let BaseURL = "https://often-dev.firebaseio.com/"
 #else
     let BaseURL = "https://asterix.firebaseio.com/"
 #endif
 let AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
-let ParseAppID = "L1f21j1lJQuu5xtP17BxdEH1qHWD1VSb6M1otl5G"
-let ParseClientKey = "TQDQM9tDsLSC31qH1zaPvHtNpyfaVcxaUAHe8OiN"
+let ParseAppID = "zOkdtEf6pbq3wHN7aTWVGe6tH236I6n934Wsr59g"
+let ParseClientKey = "sojWTShuzJqnaXzusIihvyIiaCnksrlvuj9z7OKV"
 let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 let AnalyticsWriteKey = "LBptokrz7FVy55NOfwLpFBdt6fdBh7sI"
 let TwitterConsumerKey = "IIPYUMSsLg4ETYgYmvkfUZ37e"

@@ -200,7 +200,7 @@ extension KeyboardViewController {
     func backspaceRepeatCallback() {
         playKeySound()
         
-        var timeElapsed = CFAbsoluteTimeGetCurrent() - backspaceStartTime
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - backspaceStartTime
         if timeElapsed < 2.0 {
             textProcessor.currentProxy.deleteBackward()
         } else {
@@ -216,7 +216,7 @@ extension KeyboardViewController {
     Deleting whole word method. Looks at the number of characters from cursor back to first whitespace
     before it not including one that is next to it. Needs to be in loop.
     
-    :param: recognizer Long Press recognizer to handle for a long backspace press
+    - parameter recognizer: Long Press recognizer to handle for a long backspace press
     
     */
     func backspaceLongPressed() {

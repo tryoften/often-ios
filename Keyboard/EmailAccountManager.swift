@@ -24,11 +24,11 @@ class EmailAccountManager: NSObject {
         userDefaults.setValue(true, forKey: "email")
         self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
             if error != nil {
-                println(error)
+                print(error)
                 completion?(error)
                 
             } else {
-                println("logged in")
+                print("logged in")
                 completion?(nil)
             }
         })
@@ -51,7 +51,7 @@ class EmailAccountManager: NSObject {
             let username = data["username"],
             let password = data["password"] {
                 
-                var user = PFUser()
+                let user = PFUser()
                 user.email = email
                 user.username = email
                 user.password = password
@@ -61,9 +61,9 @@ class EmailAccountManager: NSObject {
                     if error == nil {
                         self.firebase.createUser(email, password: password, withValueCompletionBlock: { error, result -> Void in
                             if error != nil {
-                                println("Login failed. \(error)")
+                                print("Login failed. \(error)")
                             } else {
-                                println("Logged in! \(result)")
+                                print("Logged in! \(result)")
                                 self.openSessionWithEmail(email, password: password, completion:completion)
                             }
                         })

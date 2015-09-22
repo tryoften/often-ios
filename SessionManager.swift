@@ -30,7 +30,7 @@ class SessionManager: NSObject {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         isUserNew = true
         
-        var configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
+        let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         SEGAnalytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
@@ -49,7 +49,7 @@ class SessionManager: NSObject {
             currentUser?.setValuesForKeysWithDictionary(userData)
             SEGAnalytics.sharedAnalytics().identify(currentUser!.id)
             socialAccountService = SocialAccountsService(user: currentUser!, root: firebase)
-            var crashlytics = Crashlytics.sharedInstance()
+            let crashlytics = Crashlytics.sharedInstance()
             crashlytics.setUserIdentifier(currentUser!.id)
             
             if let user = currentUser {
@@ -74,14 +74,14 @@ class SessionManager: NSObject {
         switch loginType {
         case .Twitter:
             twitterAccountManager = TwitterAccountManager(firebase: firebase)
-            twitterAccountManager?.login(completion: completion)
+            twitterAccountManager?.login(completion)
             break
         case .Facebook:
             facebookAccountManager = FacebookAccountManager(firebase: firebase)
-            facebookAccountManager?.login(completion: completion)
+            facebookAccountManager?.login(completion)
             break
         default:
-            completion?(NSError())
+//            completion?(NSError())
             break
         }
     }
@@ -106,7 +106,10 @@ class SessionManager: NSObject {
         
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
         
-        NSFileManager.defaultManager().removeItemAtPath(directory.path!, error: nil)
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(directory.path!)
+        } catch _ {
+        }
     }
     
     private func processAuthData(authData: FAuthData?) {
@@ -140,7 +143,7 @@ class SessionManager: NSObject {
                     if snapshot.exists() {
                         if let id = snapshot.key,
                             let value = snapshot.value as? [String: AnyObject] {
-                                var user = User()
+                                let user = User()
                                 user.setValuesForKeysWithDictionary(value)
                                 user.id = authData.uid
                                 self.isUserNew = false
@@ -161,7 +164,7 @@ class SessionManager: NSObject {
                             self.userRef?.setValue(data)
                             self.isUserNew = false
                             
-                            var user = User()
+                            let user = User()
                             user.setValuesForKeysWithDictionary(data)
                             persistUser(user)
                             
@@ -204,7 +207,7 @@ class SessionManager: NSObject {
             return socialService
         }
         
-        var socialAccountService = SocialAccountsService(user: user, root:firebase)
+        let socialAccountService = SocialAccountsService(user: user, root:firebase)
         self.socialAccountService = socialAccountService
         
         return socialAccountService

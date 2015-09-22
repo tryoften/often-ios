@@ -17,7 +17,7 @@ class SpotifyAccountManager: NSObject {
         super.init()
         authCallback = { (error: NSError!, session: SPTSession!) in
             if (error != nil) {
-                println("there's an error \(error)")
+                print("there's an error \(error)", terminator: "")
                 return
                 
             } else {

@@ -21,7 +21,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     var profileDelegate: UserProfileViewControllerDelegate?
     var headerDelegate: UserScrollHeaderDelegate?
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -29,14 +29,14 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
      init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
         contentFilterTabView = UserProfileFilterTabView()
-        contentFilterTabView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contentFilterTabView.translatesAutoresizingMaskIntoConstraints = false
         
         setServicesRevealView = UIView()
-        setServicesRevealView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        setServicesRevealView.translatesAutoresizingMaskIntoConstraints = false
         setServicesRevealView.backgroundColor = TealColor
         
         settingsRevealView = UIView()
-        settingsRevealView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        settingsRevealView.translatesAutoresizingMaskIntoConstraints = false
         settingsRevealView.backgroundColor = TealColor
         
         setServiceViewWidthConstraint = setServicesRevealView.al_width == 0
@@ -53,8 +53,8 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
-        var screenWidth = UIScreen.mainScreen().bounds.size.width
-        var flowLayout = CSStickyHeaderFlowLayout()
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 50)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
         flowLayout.parallaxHeaderAlwaysOnTop = true
@@ -107,7 +107,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "profile-header", forIndexPath: indexPath) as! UserProfileHeaderView
+            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "profile-header", forIndexPath: indexPath) as! UserProfileHeaderView
             if let user = viewModel.currentUser {
                 cell.descriptionLabel.text = user.userDescription
                 cell.nameLabel.text = user.name
@@ -126,7 +126,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
             
             return headerView!
         } else if kind == UICollectionElementKindSectionHeader {
-            var cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
+            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
             
             sectionHeaderView = cell
             

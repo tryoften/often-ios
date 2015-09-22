@@ -18,7 +18,7 @@ class VenmoSearchBarButton: ServiceProviderSearchBarButton {
         setImage(UIImage(named: "venmo-logo"), forState: .Normal)
     }
     
-    required convenience init(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
 }

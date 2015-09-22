@@ -19,7 +19,7 @@ class SearchSuggestionTableViewCell: UITableViewCell {
                     NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10)!,
                     NSForegroundColorAttributeName: UIColor.grayColor()
                 ]
-                var attributedString = NSAttributedString(string: "\(resultsCount) results".uppercaseString, attributes: attributes)
+                let attributedString = NSAttributedString(string: "\(resultsCount) results".uppercaseString, attributes: attributes)
                 resultsCountLabel.attributedText = attributedString
             } else {
                 resultsCountLabel.text = ""
@@ -29,7 +29,7 @@ class SearchSuggestionTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         resultsCountLabel = UILabel()
-        resultsCountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        resultsCountLabel.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -42,7 +42,7 @@ class SearchSuggestionTableViewCell: UITableViewCell {
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

@@ -65,10 +65,10 @@ class SoundcloudAccountManager: NSObject {
             "https://api.soundcloud.com/me?oauth_token=\(session)",
             parameters: [],
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                println("Success: \n\(responseObject.description)")
+                print("Success: \n\(responseObject.description)")
                 
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
-                println("Failure: \(error.localizedDescription)")
+                print("Failure: \(error.localizedDescription)")
         })
     }
     
@@ -77,10 +77,10 @@ class SoundcloudAccountManager: NSObject {
             "https://api.soundcloud.com/me/activities?limit=1&oauth_token=\(session)",
             parameters: [],
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
-                println("Success: \n\(responseObject.description)")
+                print("Success: \n\(responseObject.description)")
                 
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
-                println("Failure: \(error.localizedDescription)")
+                print("Failure: \(error.localizedDescription)")
         })
     }
     

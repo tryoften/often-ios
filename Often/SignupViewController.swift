@@ -24,7 +24,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
         signupView = SignupView()
-        signupView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        signupView.translatesAutoresizingMaskIntoConstraints = false
         
         pageWidth = screenWidth - 40
         
@@ -75,9 +75,9 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func loadPage(page: Int) {
-        var imageView = UIImageView()
+        let imageView = UIImageView()
         
-        imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = pageImages[page]
         imageView.contentMode = .ScaleAspectFit
         
@@ -117,7 +117,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         presentViewController(createAccount, animated: true, completion: nil)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -126,7 +126,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupLayout() {
-        var constraints: [NSLayoutConstraint] = [
+        let constraints: [NSLayoutConstraint] = [
             signupView.al_bottom == view.al_bottom,
             signupView.al_top == view.al_top,
             signupView.al_left == view.al_left,

@@ -16,20 +16,20 @@ class FoursquareLocationCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         imageView = UIImageView()
-        imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 2.0
         
         titleLabel = UILabel()
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
         
         addressLabel = UILabel()
-        addressLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        addressLabel.translatesAutoresizingMaskIntoConstraints = false
         addressLabel.font = UIFont(name: "OpenSans", size: 14.0)
         addressLabel.textColor = SubtitleGreyColor
         
         ratingLabel = UILabel()
-        ratingLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.layer.cornerRadius = 3.0
         ratingLabel.textColor = WhiteColor
         
@@ -43,7 +43,7 @@ class FoursquareLocationCollectionViewCell: UICollectionViewCell {
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

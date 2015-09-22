@@ -19,7 +19,7 @@ class Service {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         dataLoaded = false
         
-        var reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
         isInternetReachable = reachabilitymanager.reachable
         
         reachabilitymanager.setReachabilityStatusChangeBlock { status in

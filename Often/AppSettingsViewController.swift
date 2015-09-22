@@ -40,7 +40,7 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
     
     init() {
         containerView = UIView()
-        containerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.backgroundColor = UIColor.grayColor()
         
         super.init(nibName: nil, bundle: nil)
@@ -58,7 +58,7 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -112,53 +112,53 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
             switch settingsSection {
             case .Account:
                 if indexPath.row == 0 { // name
-                    var cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
+                    let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
                     cell.titleLabel.text = accountSettings[indexPath.row]
                     cell.secondaryTextLabel.text = "Regy Perlera"
                     return cell
                 } else if indexPath.row == 1 { // email
-                    var cell = UserProfileSettingsTableViewCell(type: .Detailed)
+                    let cell = UserProfileSettingsTableViewCell(type: .Detailed)
                     cell.titleLabel.text = accountSettings[indexPath.row]
                     cell.secondaryTextLabel.text = "regy@tryoften.com"
                     return cell
                 } else if indexPath.row == 2 { // password
-                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    let cell = UserProfileSettingsTableViewCell(type: .Default)
                     cell.titleLabel.text = accountSettings[indexPath.row]
                     return cell
                 } else { // push notifications
-                    var cell = UserProfileSettingsTableViewCell(type: .Switch)
+                    let cell = UserProfileSettingsTableViewCell(type: .Switch)
                     cell.titleLabel.text = accountSettings[indexPath.row]
                     return cell
                 }
             case .Actions:
                 if indexPath.row == 0 { // How to Install
-                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    let cell = UserProfileSettingsTableViewCell(type: .Default)
                     cell.titleLabel.text = actionsSettings[indexPath.row]
                     return cell
                 } else if indexPath.row == 1 { // Rate in App Store
-                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    let cell = UserProfileSettingsTableViewCell(type: .Default)
                     cell.titleLabel.text = actionsSettings[indexPath.row]
                     return cell
                 } else { // Support
-                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    let cell = UserProfileSettingsTableViewCell(type: .Default)
                     cell.titleLabel.text = actionsSettings[indexPath.row]
                     return cell
                 }
             case .About:
                 if indexPath.row == 0 { // FAQ
-                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    let cell = UserProfileSettingsTableViewCell(type: .Default)
                     cell.titleLabel.text = aboutSettings[indexPath.row]
                     return cell
                 } else if indexPath.row == 1 { // Privacy Policy
-                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    let cell = UserProfileSettingsTableViewCell(type: .Default)
                     cell.titleLabel.text = aboutSettings[indexPath.row]
                     return cell
                 } else if indexPath.row == 2 { // Terms of Use
-                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    let cell = UserProfileSettingsTableViewCell(type: .Default)
                     cell.titleLabel.text = aboutSettings[indexPath.row]
                     return cell
                 } else { // Licenses
-                    var cell = UserProfileSettingsTableViewCell(type: .Default)
+                    let cell = UserProfileSettingsTableViewCell(type: .Default)
                     cell.titleLabel.text = aboutSettings[indexPath.row]
                     return cell
                 }

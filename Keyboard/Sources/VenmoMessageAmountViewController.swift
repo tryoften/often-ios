@@ -26,23 +26,23 @@ class VenmoMessageAmountViewController: ServiceProviderSupplementaryViewControll
         messageTextField.placeholder = "Message"
         messageTextField.font = SubtitleFont
         messageTextField.enableCancelButton = false
-        messageTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        messageTextField.translatesAutoresizingMaskIntoConstraints = false
         
         amountTextField = SearchTextField()
         amountTextField.placeholder = "$0.00"
         amountTextField.font = SubtitleFont
         amountTextField.enableCancelButton = false
-        amountTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        amountTextField.translatesAutoresizingMaskIntoConstraints = false
         amountTextField.addTarget(self, action: "amountTextFieldDidEdit", forControlEvents: .EditingChanged)
         amountTextField.addTarget(self, action: "amountTextFieldDidEndEditing", forControlEvents: .EditingDidEnd)
         
         requestOrPayView = VenmoRequestOrPayView()
-        requestOrPayView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        requestOrPayView.translatesAutoresizingMaskIntoConstraints = false
         requestOrPayView.requestButton.addTarget(self, action: "didTapRequestButton", forControlEvents: .TouchUpInside)
         requestOrPayView.payButton.addTarget(self, action: "didTapPayButton", forControlEvents: .TouchUpInside)
         
         confirmButton = UIButton()
-        confirmButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        confirmButton.translatesAutoresizingMaskIntoConstraints = false
         confirmButton.backgroundColor = UIColor(fromHexString: "#7ED321")
         confirmButton.setTitle("Confirm Payment", forState: .Normal)
         confirmButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)

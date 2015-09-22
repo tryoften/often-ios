@@ -41,7 +41,7 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
-        backgroundImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.contentMode = .Center
         backgroundImageView.contentScaleFactor = 2.5
         cellsAnimated = [:]
@@ -62,7 +62,7 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         setupLayout()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -76,7 +76,7 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     }
     
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
-        var layout = UICollectionViewFlowLayout()
+        let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
@@ -163,7 +163,7 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
                 cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
 
                 
-                UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: nil, animations: {
+                UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                     cell.alpha = 1.0
                     cell.frame = finalFrame
                     }, completion: nil)

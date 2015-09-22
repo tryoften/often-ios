@@ -192,7 +192,7 @@ enum KeyboardKey: Hashable {
     }
 }
 
-extension KeyboardKey: Printable, DebugPrintable {
+extension KeyboardKey: CustomStringConvertible, CustomDebugStringConvertible {
     var description: String {
         return toString()
     }
@@ -201,6 +201,8 @@ extension KeyboardKey: Printable, DebugPrintable {
         return toString()
     }
 }
+
+extension KeyboardKey: Equatable {}
 
 func ==(lhs: KeyboardKey, rhs: KeyboardKey) -> Bool {
     return lhs.toString() == rhs.toString()

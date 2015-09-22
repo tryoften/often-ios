@@ -24,7 +24,7 @@ class VenmoContactsViewController: ServiceProviderSupplementaryViewController {
         super.viewDidLoad()
         
         headerLabel = UILabel()
-        headerLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.font = UIFont(name: "OpenSans", size: 10)
         headerLabel.text = "Contacts".uppercaseString
         
@@ -37,7 +37,7 @@ class VenmoContactsViewController: ServiceProviderSupplementaryViewController {
         layout.minimumLineSpacing = 10
 
         collectionViewController = VenmoContactsCollectionViewController(collectionViewLayout: layout)
-        collectionViewController.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        collectionViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(headerLabel)
         view.addSubview(collectionViewController.view)

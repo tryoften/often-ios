@@ -42,8 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SPTAuth.defaultInstance().clientID = SpotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
          
-        var screen = UIScreen.mainScreen()
-        var frame = screen.bounds
+        let screen = UIScreen.mainScreen()
+        let frame = screen.bounds
         
         window = UIWindow(frame: frame)
 
@@ -93,22 +93,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        println("Registration failed \(error)")
+        print("Registration failed \(error)", terminator: "")
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         
-        if ( url.absoluteString!.hasPrefix("tryoften://logindone" )){
+        if ( url.absoluteString.hasPrefix("tryoften://logindone" )){
             soundcloudAccountManager.handleOpenURL(url)
             return true
         }
-        if ( url.absoluteString!.hasPrefix("tryoften://" )){
+        if ( url.absoluteString.hasPrefix("tryoften://" )){
             if SPTAuth.defaultInstance().canHandleURL(url){
                 SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: spotifyAccountManager.authCallback)
                 return true
             }
         } else if Venmo.sharedInstance().handleOpenURL(url) {
-            var session = Venmo.sharedInstance().session
+            let session = Venmo.sharedInstance().session
             venmoAccountManager.getCurrentCurrentSessionToken(session)
             venmoAccountManager.getVenmoUserInformation(session.accessToken)
             return true
@@ -139,10 +139,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension String {
     subscript(index:Int) -> Character{
-        return self[advance(self.startIndex, index)]
+        return self[self.startIndex.advancedBy(index)]
     }
     
     func substringFromIndex(index:Int) -> String {
-        return self.substringFromIndex(advance(self.startIndex, index))
+        return self.substringFromIndex(self.startIndex.advancedBy(index))
     }
 }

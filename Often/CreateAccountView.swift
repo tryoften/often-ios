@@ -26,48 +26,48 @@ class CreateAccountView: UIView {
     
     override init(frame: CGRect) {
         titleLabel = UILabel()
-        titleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont(name: "Montserrat", size: 15)
         titleLabel.text = "Create your account"
         titleLabel.textAlignment = .Center
         
         subtitleLabel = UILabel()
-        subtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = UIFont(name: "OpenSans", size: 12)
         subtitleLabel.text = "Save your favorite videos, links, GIFs and songs by creating an account!"
         subtitleLabel.numberOfLines = 2
         subtitleLabel.textAlignment = .Center
         
         usernameTextField = UITextField()
-        usernameTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        usernameTextField.translatesAutoresizingMaskIntoConstraints = false
         usernameTextField.placeholder = "Username"
         usernameTextField.font = UIFont(name: "Montserrat", size: 11)
         
         usernameTextFieldDivider = UIView()
-        usernameTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
+        usernameTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         usernameTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         emailTextField = UITextField()
-        emailTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.placeholder = "Email Address"
         emailTextField.font = UIFont(name: "Montserrat", size: 11)
     
         emailTextFieldDivider = UIView()
-        emailTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
+        emailTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         emailTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         passwordTextField = UITextField()
-        passwordTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordTextField.placeholder = "Add Password (min 6 characters)"
         passwordTextField.font = UIFont(name: "Montserrat", size: 11)
         passwordTextField.secureTextEntry = true
         
         passwordTextFieldDivider = UIView()
-        passwordTextFieldDivider.setTranslatesAutoresizingMaskIntoConstraints(false)
+        passwordTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         passwordTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         signupButton = UIButton()
-        signupButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        signupButton.translatesAutoresizingMaskIntoConstraints = false
         signupButton.backgroundColor = CreateAccountViewSignupButtonColor
         signupButton.setTitle("sign up".uppercaseString, forState: .Normal)
         signupButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
@@ -79,19 +79,19 @@ class CreateAccountView: UIView {
         orLabel.textAlignment = .Center
         orLabel.font = UIFont(name: "OpenSans-Italic", size: 11)
         orLabel.textColor = UIColor(fromHexString: "#A0A0A0")
-        orLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        orLabel.translatesAutoresizingMaskIntoConstraints = false
         orLabel.text = "Or"
         
         orSpacerOne = UIView()
-        orSpacerOne.setTranslatesAutoresizingMaskIntoConstraints(false)
+        orSpacerOne.translatesAutoresizingMaskIntoConstraints = false
         orSpacerOne.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         orSpacerTwo = UIView()
-        orSpacerTwo.setTranslatesAutoresizingMaskIntoConstraints(false)
+        orSpacerTwo.translatesAutoresizingMaskIntoConstraints = false
         orSpacerTwo.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         signupTwitterButton = UIButton()
-        signupTwitterButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        signupTwitterButton.translatesAutoresizingMaskIntoConstraints = false
         signupTwitterButton.backgroundColor = CreateAccountViewSignupTwitterButtonColor
         signupTwitterButton.setTitle("sign up with twitter".uppercaseString, forState: .Normal)
         signupTwitterButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
@@ -100,7 +100,7 @@ class CreateAccountView: UIView {
         signupTwitterButton.clipsToBounds = true
         
         cancelButton = UIButton()
-        cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setImage(UIImage(named: "close"), forState: .Normal)
         
         super.init(frame: frame)
@@ -125,7 +125,7 @@ class CreateAccountView: UIView {
         setupLayout()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

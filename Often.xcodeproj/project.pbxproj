@@ -23,6 +23,8 @@
 		3B63EDCF1B7D2AD400E54AFA /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDCE1B7D2AD400E54AFA /* Service.swift */; };
 		3B63EDD21B7D381D00E54AFA /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDD11B7D381D00E54AFA /* SocialAccountsService.swift */; };
 		3B63EDDD1B7E860000E54AFA /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDDC1B7E860000E54AFA /* SessionManager.swift */; };
+		3B6B6FFE1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; settings = {ASSET_TAGS = (); }; };
+		3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; settings = {ASSET_TAGS = (); }; };
 		3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
@@ -146,8 +148,6 @@
 		8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEEC1B7502C400E1BDCD /* BackspaceShape.swift */; };
 		8176BEF01B7529DA00E1BDCD /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEEF1B7529DA00E1BDCD /* ArrowShape.swift */; };
 		8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEEF1B7529DA00E1BDCD /* ArrowShape.swift */; };
-		8176BEF31B77FEE200E1BDCD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEF21B77FEE200E1BDCD /* StyleKit.swift */; };
-		8176BEF41B77FEE200E1BDCD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEF21B77FEE200E1BDCD /* StyleKit.swift */; };
 		8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
 		8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
 		8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938891B5741050064B0CF /* KeyboardLayouts.swift */; };
@@ -190,17 +190,11 @@
 		8180E6151A142157007FA1CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		8180E6391A142199007FA1CF /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		81840FB81B4331C1003531B1 /* UIDevice+modelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81840FB71B4331C1003531B1 /* UIDevice+modelName.swift */; };
-		81840FB91B4331C1003531B1 /* UIDevice+modelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81840FB71B4331C1003531B1 /* UIDevice+modelName.swift */; };
 		81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81B19EAB1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
 		81B19EAC1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
-		81D43B351B46E49800453BBF /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D43B331B46E49800453BBF /* Realm.framework */; };
-		81D43B361B46E49800453BBF /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81D43B331B46E49800453BBF /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		81D43B371B46E49800453BBF /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D43B341B46E49800453BBF /* RealmSwift.framework */; };
-		81D43B381B46E49800453BBF /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81D43B341B46E49800453BBF /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		81D4BF201B38F6DA006430AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81D4BF171B38F6DA006430AB /* Images.xcassets */; };
 		81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1A1B38F6DA006430AB /* PKHUD.swift */; };
 		81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1B1B38F6DA006430AB /* PKHUDAssets.swift */; };
@@ -333,8 +327,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				81D43B381B46E49800453BBF /* RealmSwift.framework in Embed Frameworks */,
-				81D43B361B46E49800453BBF /* Realm.framework in Embed Frameworks */,
 				3B0E032D1BA898CD00D69601 /* OAuthSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -360,6 +352,7 @@
 		3B63EDCE1B7D2AD400E54AFA /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		3B63EDD11B7D381D00E54AFA /* SocialAccountsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountsService.swift; sourceTree = "<group>"; };
 		3B63EDDC1B7E860000E54AFA /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
 		3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsViewModel.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -448,7 +441,6 @@
 		8176BEE51B73F9A100E1BDCD /* KeyboardTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardTheme.swift; sourceTree = "<group>"; };
 		8176BEEC1B7502C400E1BDCD /* BackspaceShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackspaceShape.swift; sourceTree = "<group>"; };
 		8176BEEF1B7529DA00E1BDCD /* ArrowShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrowShape.swift; path = Sources/ArrowShape.swift; sourceTree = "<group>"; };
-		8176BEF21B77FEE200E1BDCD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StyleKit.swift; path = Sources/StyleKit.swift; sourceTree = "<group>"; };
 		8179387D1B55859D0064B0CF /* KeyboardKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKey.swift; path = Sources/KeyboardKey.swift; sourceTree = "<group>"; };
 		817938891B5741050064B0CF /* KeyboardLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardLayouts.swift; path = Sources/KeyboardLayouts.swift; sourceTree = "<group>"; };
 		8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKeyButton.swift; path = Sources/KeyboardKeyButton.swift; sourceTree = "<group>"; };
@@ -477,7 +469,6 @@
 		8180E6311A142199007FA1CF /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6341A142199007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E6351A142199007FA1CF /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = Sources/KeyboardViewController.swift; sourceTree = "<group>"; };
-		81840FB71B4331C1003531B1 /* UIDevice+modelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+modelName.swift"; sourceTree = "<group>"; };
 		81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HEXString.h"; sourceTree = "<group>"; };
 		81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEXString.m"; sourceTree = "<group>"; };
 		81B19E8D1B30A66700D3575C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -545,7 +536,6 @@
 				81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794EEB1A81E66D009D4A71 /* libsqlite3.dylib in Frameworks */,
 				812E3F0D1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */,
-				81D43B371B46E49800453BBF /* RealmSwift.framework in Frameworks */,
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
 				812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
@@ -556,7 +546,6 @@
 				81794ED91A81E62D009D4A71 /* CoreGraphics.framework in Frameworks */,
 				81794ED71A81E621009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */,
-				81D43B351B46E49800453BBF /* Realm.framework in Frameworks */,
 				81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */,
 				81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */,
 				8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */,
@@ -875,7 +864,6 @@
 				816EB9701AE5EBA8000620E2 /* delay.swift */,
 				3B9AD78A1B27DFF600727E79 /* Validation.swift */,
 				81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */,
-				81840FB71B4331C1003531B1 /* UIDevice+modelName.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1029,7 +1017,7 @@
 		8180E6321A142199007FA1CF /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
-				8176BEF21B77FEE200E1BDCD /* StyleKit.swift */,
+				3B6B6FFD1BB0899300669ACD /* StyleKit.swift */,
 				816588F91B616A8F00F7C9F5 /* Keyboard Layout */,
 				817939021B5BFF110064B0CF /* Providers */,
 				8179387C1B5582520064B0CF /* Models */,
@@ -1160,7 +1148,6 @@
 				8180E63D1A142199007FA1CF /* Embed App Extensions */,
 				45728D1C2D72036A77085D41 /* Copy Pods Resources */,
 				81D43B2C1B46CA8400453BBF /* Embed Frameworks */,
-				81D43B631B46FF2600453BBF /* Realm Strip from Framework */,
 				812E3F021B4BB95100C0F3BE /* Upload symbols to crashlytics */,
 			);
 			buildRules = (
@@ -1199,6 +1186,7 @@
 		8180E6001A142157007FA1CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Surf Inc.";
@@ -1430,20 +1418,6 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run e4598140f72849daf847791f325b1eabae27a254 d6286229dfcfc4a30ec93ce38e1237bd5168d469296be7842aa314720d358417";
 		};
-		81D43B631B46FF2600453BBF /* Realm Strip from Framework */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Realm Strip from Framework";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
-		};
 		A00C0EDAA51482F77D82BB77 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1468,13 +1442,11 @@
 			files = (
 				8127A8F01B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */,
 				8127A8F31B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
-				8176BEF31B77FEE200E1BDCD /* StyleKit.swift in Sources */,
 				696D8A5D1B93E8890016073C /* UserProfileSettingsTableViewCell.swift in Sources */,
 				81FFAF471B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				8176BEED1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				817939041B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				699606271B422315004102BC /* KeyboardViewController.swift in Sources */,
-				81840FB81B4331C1003531B1 /* UIDevice+modelName.swift in Sources */,
 				81E26D7F1B65B09D00FC1F2F /* LayoutConstants.swift in Sources */,
 				81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */,
 				3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */,
@@ -1502,6 +1474,7 @@
 				81E26D8E1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
 				3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */,
+				3B6B6FFE1BB0899300669ACD /* StyleKit.swift in Sources */,
 				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
 				817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				69E7FD8A1B8E0BD7003BC281 /* UserProfileFilterTabView.swift in Sources */,
@@ -1582,19 +1555,18 @@
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
-				81840FB91B4331C1003531B1 /* UIDevice+modelName.swift in Sources */,
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				81E26D8C1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
 				81FFAF4E1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
 				810C4AF81B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
+				3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */,
 				816589041B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
 				810C4AF41B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
 				81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				816588F81B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */,
-				8176BEF41B77FEE200E1BDCD /* StyleKit.swift in Sources */,
 				8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
@@ -1703,6 +1675,7 @@
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
@@ -1741,6 +1714,7 @@
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
@@ -1825,6 +1799,7 @@
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
@@ -1858,6 +1833,7 @@
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",
@@ -1941,6 +1917,7 @@
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
@@ -1974,6 +1951,7 @@
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks",

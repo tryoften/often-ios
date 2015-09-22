@@ -38,49 +38,49 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         informationContainerView = UIView()
-        informationContainerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        informationContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         sourceLogoView = UIImageView()
-        sourceLogoView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        sourceLogoView.translatesAutoresizingMaskIntoConstraints = false
         sourceLogoView.contentMode = .ScaleAspectFit
         sourceLogoView.layer.cornerRadius = 2.0
         sourceLogoView.clipsToBounds = true
         
         headerLabel = UILabel()
-        headerLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
         
         mainTextLabel = UILabel()
-        mainTextLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        mainTextLabel.translatesAutoresizingMaskIntoConstraints = false
         mainTextLabel.font = UIFont(name: "OpenSans", size: 11.0)
         mainTextLabel.numberOfLines = 2
         
         centerSupplementLabel = UILabel()
-        centerSupplementLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        centerSupplementLabel.translatesAutoresizingMaskIntoConstraints = false
         centerSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
         centerSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
         
         leftSupplementLabel = UILabel()
-        leftSupplementLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        leftSupplementLabel.translatesAutoresizingMaskIntoConstraints = false
         leftSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
         leftSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
         
         rightSupplementLabel = UILabel()
-        rightSupplementLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        rightSupplementLabel.translatesAutoresizingMaskIntoConstraints = false
         rightSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
         rightSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
         
         rightCornerImageView = UIImageView()
-        rightCornerImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        rightCornerImageView.translatesAutoresizingMaskIntoConstraints = false
         rightCornerImageView.contentMode = .ScaleAspectFit
         
         contentPlaceholderImageView = UIImageView(image: UIImage(named: "placeholder"))
-        contentPlaceholderImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contentPlaceholderImageView.translatesAutoresizingMaskIntoConstraints = false
         contentPlaceholderImageView.contentMode = .ScaleAspectFill
         contentPlaceholderImageView.clipsToBounds = true
         
         contentImageView = UIImageView()
-        contentImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contentImageView.translatesAutoresizingMaskIntoConstraints = false
         contentImageView.contentMode = .ScaleAspectFill
         contentImageView.clipsToBounds = true
         
@@ -113,7 +113,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         layoutIfNeeded()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

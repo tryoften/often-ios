@@ -17,16 +17,16 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
         
     override init(frame: CGRect) {
         serviceLogoImageView = UIImageView()
-        serviceLogoImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        serviceLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         serviceLogoImageView.contentMode = .ScaleAspectFit
         
         serviceSwitch = UISwitch()
-        serviceSwitch.setTranslatesAutoresizingMaskIntoConstraints(false)
+        serviceSwitch.translatesAutoresizingMaskIntoConstraints = false
         serviceSwitch.on = false
         serviceSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
         
         serviceSubtitleLabel = UILabel()
-        serviceSubtitleLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+        serviceSubtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         serviceSubtitleLabel.font = UIFont(name: "OpenSans", size: 9.0)
         serviceSubtitleLabel.textColor = UIColor(fromHexString: "#000000")
         serviceSubtitleLabel.textAlignment = .Center
@@ -45,7 +45,7 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

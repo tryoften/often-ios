@@ -21,7 +21,7 @@ class SearchViewModel: NSObject {
     var hasReceivedResponse: Bool
     
     init(base: Firebase) {    
-        requestsRef = base.childByAppendingPath("queue/tasks")
+        requestsRef = base.childByAppendingPath("queues/search/tasks")
         responsesRef = base.childByAppendingPath("responses")
         
         hasReceivedResponse = true
@@ -57,7 +57,7 @@ class SearchViewModel: NSObject {
     }
     
     func sendRequestForQuery(query: String, autocomplete: Bool) -> SearchRequest {
-        var request = SearchRequest(id: SearchRequest.idFromQuery(query), query: query, userId: "anon", timestamp: NSDate.new().timeIntervalSince1970 * 1000, isFulfilled: false, autocomplete: autocomplete)
+        let request = SearchRequest(id: SearchRequest.idFromQuery(query), query: query, userId: "anon", timestamp: NSDate().timeIntervalSince1970 * 1000, isFulfilled: false, autocomplete: autocomplete)
         sendRequest(request)
         return request
     }
@@ -109,7 +109,7 @@ class SearchViewModel: NSObject {
                         }
                     }
                     
-                    let lastModified = (data["time_modified"] as? NSTimeInterval) ?? NSDate.new().timeIntervalSince1970
+                    let lastModified = (data["time_modified"] as? NSTimeInterval) ?? NSDate().timeIntervalSince1970
 
                     let response = SearchResponse(id: id, results: results, timeModified: NSDate(timeIntervalSince1970: lastModified))
                     

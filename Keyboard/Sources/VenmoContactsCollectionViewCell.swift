@@ -15,17 +15,17 @@ class VenmoContactsCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         contactImageView = UIImageView()
-        contactImageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contactImageView.translatesAutoresizingMaskIntoConstraints = false
         contactImageView.backgroundColor = DarkGrey
         
         contactName = UILabel()
-        contactName.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contactName.translatesAutoresizingMaskIntoConstraints = false
         contactName.font = UIFont(name: "OpenSans", size: 11)
         
         contactNumber = UILabel()
         contactNumber.font = UIFont(name: "OpenSans", size: 10)
         contactNumber.textColor = SystemGrayColor
-        contactNumber.setTranslatesAutoresizingMaskIntoConstraints(false)
+        contactNumber.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(frame: frame)
         
@@ -43,7 +43,7 @@ class VenmoContactsCollectionViewCell: UICollectionViewCell {
         setupLayout()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

@@ -19,7 +19,7 @@ struct SearchRequest {
     var autocomplete: Bool = false
     
     func toDictionary() -> [String: AnyObject] {
-        var dict: [String: AnyObject] = [
+        let dict: [String: AnyObject] = [
             "id": id,
             "user": userId,
             "time_made": "\(timestamp)",

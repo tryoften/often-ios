@@ -81,7 +81,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBarView = SearchBar()
-        searchBarView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        searchBarView.translatesAutoresizingMaskIntoConstraints = false
         searchBarView.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
         searchBarView.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
         searchBarView.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
@@ -91,15 +91,15 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         searchResultsContainerView?.hidden = true
         searchSuggestionsViewController = SearchSuggestionsViewController(style: .Grouped)
         searchSuggestionsViewController!.delegate = self
-        searchSuggestionsViewController!.view.setTranslatesAutoresizingMaskIntoConstraints(false)
+        searchSuggestionsViewController!.view.translatesAutoresizingMaskIntoConstraints = false
         
         bottomSeperator = UIView()
-        bottomSeperator.setTranslatesAutoresizingMaskIntoConstraints(false)
+        bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
         bottomSeperator.backgroundColor = DarkGrey
         
         supplementaryViewContainer = UIView()
         supplementaryViewContainer.backgroundColor = VeryLightGray
-        supplementaryViewContainer.setTranslatesAutoresizingMaskIntoConstraints(false)
+        supplementaryViewContainer.translatesAutoresizingMaskIntoConstraints = false
         supplementaryViewHeightConstraint = supplementaryViewContainer.al_height == 0
         
         viewModel = SearchViewModel(base: Firebase(url: BaseURL))
@@ -145,9 +145,9 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        if let touch = touches.first as? UITouch {
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if let touch = touches.first {
             if touch.view == searchBarView {
                 searchBarView.textInput.becomeFirstResponder()
             }
@@ -227,7 +227,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         if searchResultsViewController == nil {
             searchResultsViewController = SearchResultsCollectionViewController(textProcessor: textProcessor)
             let searchResultsView = searchResultsViewController!.view
-            searchResultsView.setTranslatesAutoresizingMaskIntoConstraints(false)
+            searchResultsView.translatesAutoresizingMaskIntoConstraints = false
             
             if let containerView = searchResultsContainerView {
                 containerView.addSubview(searchResultsView)

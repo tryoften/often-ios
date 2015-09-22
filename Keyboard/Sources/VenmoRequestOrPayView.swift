@@ -27,19 +27,19 @@ class VenmoRequestOrPayView: UIView {
     
     override init(frame: CGRect) {
         requestButton = UIButton()
-        requestButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        requestButton.translatesAutoresizingMaskIntoConstraints = false
         requestButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         requestButton.setTitle("Request", forState: .Normal)
         requestButton.titleLabel!.font = UIFont(name: "OpenSans-Semibold", size: 16)
 
         payButton = UIButton()
-        payButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        payButton.translatesAutoresizingMaskIntoConstraints = false
         payButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         payButton.titleLabel!.font = UIFont(name: "OpenSans-Semibold", size: 16)
         payButton.setTitle("Pay", forState: .Normal)
         
         seperatorView = UIView()
-        seperatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        seperatorView.translatesAutoresizingMaskIntoConstraints = false
         seperatorView.backgroundColor = UIColor.whiteColor()
 
         active = false
@@ -74,7 +74,7 @@ class VenmoRequestOrPayView: UIView {
         ])
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

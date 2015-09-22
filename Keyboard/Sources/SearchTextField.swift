@@ -112,7 +112,7 @@ class SearchTextField: UIControl, Layouteable {
             
             if let leftView = leftView {
                 removeConstraint(labelContainerLeftConstraint)
-                leftView.setTranslatesAutoresizingMaskIntoConstraints(false)
+                leftView.translatesAutoresizingMaskIntoConstraints = false
                 
                 labelContainerLeftConstraint = labelContainer.al_left == leftView.al_right + 10
                 
@@ -144,7 +144,7 @@ class SearchTextField: UIControl, Layouteable {
             if centerLeftView {
             } else {
             }
-            var view = leftView
+            let view = leftView
             leftView = view
         }
     }
@@ -159,18 +159,18 @@ class SearchTextField: UIControl, Layouteable {
         id = ""
         
         labelContainer = UIView()
-        labelContainer.setTranslatesAutoresizingMaskIntoConstraints(false)
+        labelContainer.translatesAutoresizingMaskIntoConstraints = false
         labelContainer.clipsToBounds = true
         labelContainer.userInteractionEnabled = false
 
         label = TOMSMorphingLabel()
         label.animationDuration = 0.2
-        label.setTranslatesAutoresizingMaskIntoConstraints(false)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "OpenSans-Semibold", size: 12)
         
         indicator = UIView()
         indicator.backgroundColor = UIColor(fromHexString: "#14E09E")
-        indicator.setTranslatesAutoresizingMaskIntoConstraints(false)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.alpha = 0.0
         
         let cancelButtonImageFrame: CGRect = CGRectMake(0, 0, KeyboardSearchBarHeight, KeyboardSearchBarHeight)
@@ -178,7 +178,7 @@ class SearchTextField: UIControl, Layouteable {
         cancelButton = UIButton()
         cancelButton.setImage(StyleKit.imageOfClose(frame: cancelButtonImageFrame, color: UIColor.blackColor(), scale: cancelButtonImageScale), forState: .Normal)
         cancelButton.setImage(StyleKit.imageOfClose(frame: cancelButtonImageFrame, color: TealColor, scale: cancelButtonImageScale), forState: .Selected)
-        cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.alpha = 0.0
         
         super.init(frame: frame)
@@ -198,7 +198,7 @@ class SearchTextField: UIControl, Layouteable {
         setupLayout()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -243,15 +243,14 @@ class SearchTextField: UIControl, Layouteable {
         selected = false
         return super.resignFirstResponder()
     }
-    
-    override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
+    override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
         if !selected {
             selected = true
         }
         return true
     }
-    
-    override func endTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) {
+   
+    override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
         
     }
     
@@ -313,11 +312,11 @@ extension SearchTextField: UITextDocumentProxy {
         inputPosition += offset
     }
     
-    var documentContextBeforeInput: String! {
+    var documentContextBeforeInput: String? {
         return text
     }
     
-    var documentContextAfterInput: String! {
+    var documentContextAfterInput: String? {
         return ""
     }
     
@@ -336,7 +335,7 @@ extension SearchTextField: UITextDocumentProxy {
     
     func deleteBackward() {
         if !text.isEmpty {
-            text = text.substringToIndex(advance(text.endIndex, -1))
+            text = text.substringToIndex(text.endIndex.advancedBy(-1))
         }
         sendActionsForControlEvents(UIControlEvents.EditingChanged)
     }

@@ -34,7 +34,7 @@ class TwitterAccountManager: NSObject {
                             
                             twitterAuthHelper.authenticateAccount(account as! ACAccount, withCallback: { error, authData in
                                 if error != nil {
-                                    println("Login failed. \(error)")
+                                    print("Login failed. \(error)")
                                 } else {
                                     self.getTwitterUserInfo(authData, completion: { err in
                                         
@@ -47,8 +47,6 @@ class TwitterAccountManager: NSObject {
                     
                 }
             } else {
-                
-                completion?(NSError())
             }
             
         }
@@ -58,8 +56,8 @@ class TwitterAccountManager: NSObject {
     func login(completion: ((NSError?) -> ())? = nil) {
         PFTwitterUtils.logInWithBlock({ (user, error) in
             if error == nil {
-                println(user)
-                self.openSessionWithTwitter(completion: completion)
+                print(user)
+                self.openSessionWithTwitter(completion)
             } else {
                 completion?(error)
             }
@@ -69,14 +67,14 @@ class TwitterAccountManager: NSObject {
     func getTwitterUserInfo(authData:FAuthData, completion: (NSError?) -> ()) {
        let userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         var data = [String : AnyObject]()
-        println(authData.providerData)
+        print(authData.providerData)
         
         data["id"] = authData.uid
         data["profileImageURL"] = authData.providerData["profileImageURL"] as? String
         data["name"] = authData.providerData["displayName"] as? String
         data["username"] = authData.providerData["username"] as? String
         data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
-        data["description"] = authData.providerData["cachedUserProfile"]!["description"] as? String
+        data["description"] = (authData.providerData["cachedUserProfile"] as? [String: AnyObject])?["description"] as? String
         data["parseId"] = PFUser.currentUser()?.objectId
         data["accounts"] = [
             "twitter":
