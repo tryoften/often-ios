@@ -11,7 +11,7 @@ import Foundation
 #if DEBUG
     let BaseURL = "https://often-dev.firebaseio.com/"
 #else
-    let BaseURL = "https://asterix.firebaseio.com/"
+    let BaseURL = "https://often-dev.firebaseio.com/"
 #endif
 let AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let ParseAppID = "zOkdtEf6pbq3wHN7aTWVGe6tH236I6n934Wsr59g"
