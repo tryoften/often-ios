@@ -202,6 +202,8 @@ extension KeyboardKey: CustomStringConvertible, CustomDebugStringConvertible {
     }
 }
 
+extension KeyboardKey: Equatable {}
+
 func ==(lhs: KeyboardKey, rhs: KeyboardKey) -> Bool {
     return lhs.toString() == rhs.toString()
 }

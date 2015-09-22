@@ -21,7 +21,7 @@ class SearchViewModel: NSObject {
     var hasReceivedResponse: Bool
     
     init(base: Firebase) {    
-        requestsRef = base.childByAppendingPath("queue/tasks")
+        requestsRef = base.childByAppendingPath("queues/search/tasks")
         responsesRef = base.childByAppendingPath("responses")
         
         hasReceivedResponse = true

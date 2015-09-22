@@ -39,8 +39,11 @@ class SearchBarButton: UIButton {
         deleteButton.frame = CGRectMake(8.0, topMargin, 8.0, 8.0)
         deleteButton.image = StyleKit.imageOfButtonclose(frame: CGRectMake(0, 0, CGRectGetWidth(deleteButton.frame), CGRectGetHeight(deleteButton.frame)), color: UIColor.blackColor(), scale: 0.6)
     }
-}
-
-func ==(lhs: SearchBarButton, rhs: SearchBarButton) -> Bool {
-    return lhs.tag == rhs.tag
+    
+    override func isEqual(object: AnyObject?) -> Bool {
+        if let rhs = object as? UIButton {
+            return tag == rhs.tag
+        }
+        return false
+    }
 }

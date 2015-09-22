@@ -85,7 +85,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     func parseTextInCurrentDocumentProxy() {
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
-            print(tokens, terminator: "")
+            print(tokens)
             
             let firstToken = tokens[0]
             
@@ -94,7 +94,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                 let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
                 
                 if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
-                    print(serviceProviderType, terminator: "")
+                    print(serviceProviderType)
                     for i in 0...firstToken.characters.count {
                         currentProxy.deleteBackward()
                     }
