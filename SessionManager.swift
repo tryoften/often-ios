@@ -22,6 +22,10 @@ class SessionManager: NSObject {
     var isUserNew: Bool
     var userIsLoggingIn = false
     
+    enum SessionManagerError: ErrorType {
+        case NotVaildSignupType
+    }
+    
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
     
@@ -65,10 +69,15 @@ class SessionManager: NSObject {
     
     func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {
         emailAccountManager = EmailAccountManager(firebase: firebase)
-        emailAccountManager?.createUser(data, completion: completion)
+        do {
+            try emailAccountManager?.createUser(data, completion: completion)
+            
+        } catch {
+            
+        }
     }
     
-    func login(loginType: LoginType, completion: ((NSError?) -> ())? = nil) {
+    func login(loginType: LoginType, completion: ((NSError?) -> ())? = nil) throws {
         userIsLoggingIn = true
         switch loginType {
         case .Twitter:
@@ -80,8 +89,7 @@ class SessionManager: NSObject {
             facebookAccountManager?.login(completion)
             break
         default:
-//            completion?(NSError())
-            break
+            throw SessionManagerError.NotVaildSignupType
         }
     }
     
@@ -274,5 +282,5 @@ enum LoginType {
 @objc protocol SessionManagerObserver: class {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?)
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String : AnyObject]?)
 }

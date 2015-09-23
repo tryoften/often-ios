@@ -17,6 +17,11 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     var spotifyAccountManager: SpotifyAccountManager
     var soundcloudAccountManager: SoundcloudAccountManager
     
+    enum SignupError: ErrorType {
+        case EmailNotVaild
+        case PasswordNotVaild
+    }
+    
     init(sessionManager: SessionManager, venmoAccountManager: VenmoAccountManager, spotifyAccountManager: SpotifyAccountManager, soundcloudAccountManager: SoundcloudAccountManager) {
         self.sessionManager = sessionManager
         self.venmoAccountManager = venmoAccountManager
@@ -30,25 +35,22 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         self.sessionManager.addSessionObserver(self)
     }
     
-    func signUpUser(completion: ((Bool) -> ())) {
+    func signUpUser(completion: ((Bool) -> ())) throws {
         var userData = [String: String]()
         
-        if EmailIsValid(user.email) {
-            userData["email"] = user.email
-            userData["username"] = user.email
-        } else {
-            print("missing email address")
+        guard EmailIsValid(user.email) else {
             completion(false)
-            return
+            throw SignupError.EmailNotVaild
         }
 
-        if PasswordIsValid(password) {
-            userData["password"] = password
-        } else {
-            print("missing password")
+        guard PasswordIsValid(password) else {
             completion(false)
-            return
+            throw SignupError.PasswordNotVaild
         }
+        
+        userData["email"] = user.email
+        userData["username"] = user.email
+        userData["password"] = password
         
         sessionManager.signupUser(.Email, data: userData, completion: { (error) -> () in
             if error == nil {

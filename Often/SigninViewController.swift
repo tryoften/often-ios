@@ -64,14 +64,19 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     func didTapSigninTwitterButton(sender: UIButton) {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show()
-        viewModel.sessionManager.login(.Twitter, completion: { err in
-            PKHUD.sharedHUD.hide(animated: true)
-            if (err != nil) {
-                print("didn't work")
-            } else {
-                self.createProfileViewController()
-            }
-        })
+        do {
+            try viewModel.sessionManager.login(.Twitter, completion: { err in
+                PKHUD.sharedHUD.hide(animated: true)
+                if (err != nil) {
+                    print("didn't work")
+                } else {
+                    self.createProfileViewController()
+                }
+            })
+        } catch {
+            
+        }
+        
 
     }
     

@@ -89,7 +89,11 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         switch serviceSettingsCollectionView.settingServicesType {
         case .Twitter:
             if selected {
-                viewModel.sessionManager.login(.Twitter, completion: nil)
+                do {
+                    try viewModel.sessionManager.login(.Twitter, completion: nil)
+                } catch {
+                    
+                }
             } else {
                 
             }
