@@ -73,7 +73,6 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
     }
-
 }
 
 protocol SignupViewModelDelegate: class {
