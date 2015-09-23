@@ -43,9 +43,9 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapSigninButton(sender: UIButton) {
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
         if EmailIsValid(signinView.emailTextField.text!) && PasswordIsValid(signinView.passwordTextField.text!) {
-            PKHUD.sharedHUD.contentView = PKHUDProgressView()
-            PKHUD.sharedHUD.show()
             viewModel.sessionManager.loginWithUsername(signinView.emailTextField.text!, password: signinView.passwordTextField.text!, completion: { error  in
                 PKHUD.sharedHUD.hide(animated: true)
                 if error != nil {
@@ -55,6 +55,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
                 }
             })
         } else {
+            PKHUD.sharedHUD.hide(animated: true)
             print("error")
         }
 

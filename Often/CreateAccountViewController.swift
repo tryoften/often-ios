@@ -62,20 +62,23 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapSignupButton(sender: UIButton) {
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
         if createAccountView.usernameTextField.text!.characters.count != 0 && createAccountView.emailTextField.text!.characters.count != 0  && createAccountView.passwordTextField.text!.characters.count != 0 {
             viewModel.user.name = createAccountView.usernameTextField.text!
             viewModel.user.email = createAccountView.emailTextField.text!
             viewModel.password = createAccountView.passwordTextField.text!
-            PKHUD.sharedHUD.contentView = PKHUDProgressView()
-            PKHUD.sharedHUD.show()
             viewModel.signUpUser({ success  in
                 PKHUD.sharedHUD.hide(animated: true)
                 if success {
                     self.createProfileViewController()
+                } else {
+                    print("error")
                 }
             })
         }
         else {
+            PKHUD.sharedHUD.hide(animated: true)
             return
         }
     }

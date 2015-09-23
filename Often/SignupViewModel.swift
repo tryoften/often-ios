@@ -38,6 +38,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             userData["username"] = user.email
         } else {
             print("missing email address")
+            completion(false)
             return
         }
 
@@ -45,6 +46,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             userData["password"] = password
         } else {
             print("missing password")
+            completion(false)
             return
         }
         
