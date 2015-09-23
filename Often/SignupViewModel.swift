@@ -1,4 +1,4 @@
-//
+ //
 //  SignupViewModel.swift
 //  Often
 //
@@ -67,7 +67,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         delegate?.signupViewModelDidLoginUser(self, user: user, isNewUser: isNewUser)
     }
     
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount]) {
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String:AnyObject]) {
     }
 
 }

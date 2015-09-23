@@ -62,6 +62,7 @@ class EmailAccountManager: NSObject {
                         self.firebase.createUser(email, password: password, withValueCompletionBlock: { error, result -> Void in
                             if error != nil {
                                 print("Login failed. \(error)")
+                                completion!(error)
                             } else {
                                 print("Logged in! \(result)")
                                 self.openSessionWithEmail(email, password: password, completion:completion)
@@ -73,6 +74,6 @@ class EmailAccountManager: NSObject {
                     }
                 }
         }
-
+        
     }
 }

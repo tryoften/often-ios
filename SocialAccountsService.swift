@@ -13,17 +13,17 @@ import UIKit
 class SocialAccountsService: Service {
     let user: User
     var socialAccountsRef: Firebase
-    var socialAccounts: [SocialAccount]?
+    var socialAccounts: [String : AnyObject]?
     let socialAccountsPath = "socialAccounts"
     var isUpdatingSocialAccount = false
     
     init(user: User, root: Firebase) {
         self.user = user
         socialAccountsRef = root.childByAppendingPath("users/\(user.id)/accounts")
+        socialAccountsRef.keepSynced(true)
         
         super.init(root: root)
     }
-    
     
     /**
     Fetches data from the local database and creates models
@@ -35,70 +35,31 @@ class SocialAccountsService: Service {
     }
     
     func updateSocialAccount(socialAccount: SocialAccount){
-        socialAccountsRef.childByAppendingPath(socialAccount.type?.rawValue).setValue([
-            "token":socialAccount.token,
-            "activeStatus":socialAccount.activeStatus,
-            "tokenExpirationDate":socialAccount.tokenExpirationDate
-            ])
-    }
-    
-    func updateLocalSocialAccount (socialAccounts: [SocialAccount]) {
-        var dic = [String : NSDictionary]()
-        for accounts in socialAccounts {
-            dic.updateValue([
-                "token": accounts.token,
-                "activeStatus": accounts.activeStatus,
-                "tokenExpirationDate": accounts.tokenExpirationDate,
-                "type" : accounts.type!.rawValue
-                ], forKey: accounts.type!.rawValue)
-        }
-        
-        userDefaults.setObject(dic, forKey: socialAccountsPath)
-        userDefaults.synchronize()
+        socialAccountsRef.childByAppendingPath(socialAccount.type.rawValue).setValue(socialAccount.toDictionary())
     }
     
     /**
     Creates social service models from the default NSUserDefaults
     */
     private func createSocialAccountsModels(completion: (Bool) -> Void) {
-        if let services = userDefaults.objectForKey(socialAccountsPath) as? [NSObject : NSDictionary]
-        {
-            let servicesValues = [NSDictionary](services.values)
-            socialAccounts = [SocialAccount]()
-            for service in servicesValues{
-                let socialAccount = SocialAccount()
-                socialAccount.setValuesForKeysWithDictionary(service as! [String: AnyObject])
-                socialAccounts?.append(socialAccount)
+        socialAccountsRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+            if snapshot.exists() {
+                if let id = snapshot.key,
+                    let value = snapshot.value as? [String: AnyObject] {
+                        self.socialAccounts = value
+                        completion(true)
+                }
+            } else {
+                completion(true)
             }
             
-            completion(true)
-        } else {
-            createSocialAccount()
-            completion(true)
+            }) { err -> Void in
+                
         }
+        
         delegate?.serviceDataDidLoad(self)
     }
     
-    func createSocialAccount() {
-        socialAccounts = [SocialAccount]()
-        
-        let twitter = SocialAccount()
-        twitter.type = .Twitter
-        
-        let spotify = SocialAccount()
-        spotify.type = .Spotify
-        
-        let soundcloud = SocialAccount()
-        soundcloud.type = .Soundcloud
-        
-        let venmo = SocialAccount()
-        venmo.type = .Venmo
-        
-        socialAccounts!.append(twitter)
-        socialAccounts!.append(spotify)
-        socialAccounts!.append(soundcloud)
-        socialAccounts!.append(venmo)
-    }
 }
 
 protocol SocialAccountServiceDelegate: ServiceDelegate {}

@@ -26,12 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
     var venmoAccountManager: VenmoAccountManager!
-    var spotifyAccountManager: SpotifyAccountManager!
+    var spotifyAccountManager: SpotifyAccountManager! 
     var soundcloudAccountManager: SoundcloudAccountManager!
     let sessionManager = SessionManager.defaultManager
     
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
         Fabric.with([Crashlytics()])
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.startSession(FlurryClientKey)
         SPTAuth.defaultInstance().clientID = SpotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
+
          
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
@@ -78,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                     mainController = revealController
                 } else {
-                    mainController = SignupViewController(viewModel: SignupViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager))
+                    mainController = SignupViewController(viewModel: signupViewModel)
                 }
                
             }

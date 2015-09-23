@@ -34,7 +34,6 @@ class SessionManager: NSObject {
         SEGAnalytics.setupWithConfiguration(configuration)
         SEGAnalytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
-        Firebase.defaultConfig().persistenceEnabled = true
         
         firebase = Firebase(url: BaseURL)
         
@@ -150,8 +149,8 @@ class SessionManager: NSObject {
                                 persistUser(user)
                         }
                     } else {
-                        if (authData.uid.rangeOfString("twitter") == nil || authData.uid.rangeOfString("facebook") == nil) {
-                            var data = [String : String]()
+                        if (self.userDefaults.boolForKey("email") == true) {
+                            var data = [String : AnyObject]()
                             
                             data["id"] = authData.uid
                             data["email"] = PFUser.currentUser()?.email
@@ -160,13 +159,34 @@ class SessionManager: NSObject {
                             data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
                             data["name"] = PFUser.currentUser()?.objectForKey("fullName") as? String
                             data["parseId"] = uid
+                            var socialAccounts = [String:AnyObject]()
+                            
+                            let twitter = SocialAccount()
+                            twitter.type = .Twitter
+                            socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
+                            
+                            let spotify = SocialAccount()
+                            spotify.type = .Spotify
+                            socialAccounts.updateValue(spotify.toDictionary(), forKey: "spotify")
+                            
+                            let soundcloud = SocialAccount()
+                            soundcloud.type = .Soundcloud
+                            socialAccounts.updateValue(soundcloud.toDictionary(), forKey: "soundcloud")
+                            
+                            let venmo = SocialAccount()
+                            venmo.type = .Venmo
+                            socialAccounts.updateValue(venmo.toDictionary(), forKey: "venmo")
+                            
+                            data["accounts"] = socialAccounts
+                            
+                            let newUser = User()
+                            newUser.setValuesForKeysWithDictionary(data)
                             
                             self.userRef?.setValue(data)
                             self.isUserNew = false
                             
-                            let user = User()
-                            user.setValuesForKeysWithDictionary(data)
-                            persistUser(user)
+                        
+                            persistUser(newUser)
                             
                         }
                     }
@@ -191,7 +211,7 @@ class SessionManager: NSObject {
         if let currentUser = currentUser {
             let socialAccountService = provideSocialAccountService(currentUser)
             socialAccountService.fetchLocalData({ err  in
-                if err {
+                if err  {
                     self.broadcastDidFetchSocialAccountsEvent()
                 }
             })
@@ -212,7 +232,6 @@ class SessionManager: NSObject {
         
         return socialAccountService
     }
-    
     
     func addSessionObserver(observer: SessionManagerObserver) {
         self.observers.addObject(observer)
@@ -252,5 +271,5 @@ enum LoginType {
 @objc protocol SessionManagerObserver: class {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount])
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String : AnyObject])
 }

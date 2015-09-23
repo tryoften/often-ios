@@ -75,7 +75,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             let socialAccount = viewModel.socialAccounts[indexPath.row]
             serviceSettingsCell = cell
             serviceSettingsCell?.delegate = self
-            cell.settingServicesType = socialAccount.type!
+            cell.settingServicesType = socialAccount.type
             cell.serviceSwitch.on = socialAccount.activeStatus
             cell.serviceSwitch.tag = indexPath.row
             cell.checkButtonStatus(socialAccount.activeStatus)
@@ -101,7 +101,6 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             } else {
                 viewModel.spotifyAccountManager.spotifyAccount?.activeStatus = selected
                 viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.spotifyAccountManager.spotifyAccount!, completion: { user,err  in
-                    self.viewModel.updateLocalSocialAccount(.Spotify)
                 })
             }
             break
@@ -114,7 +113,6 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             } else {
                 viewModel.soundcloudAccountManager.soundcloudAccount?.activeStatus = selected
                 viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.soundcloudAccountManager.soundcloudAccount!, completion: { user,err  in
-                    self.viewModel.updateLocalSocialAccount(.Soundcloud)
                 })
                 
             }
@@ -125,7 +123,6 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             } else {
                 viewModel.venmoAccountManager.venmoAccount?.activeStatus = selected
                 viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.venmoAccountManager.venmoAccount!, completion: { user,err  in
-                      self.viewModel.updateLocalSocialAccount(.Venmo)
                 })
             }
             break
@@ -141,7 +138,6 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
     func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: SocialAccount) {
         self.viewModel.sessionManager.setSocialAccountOnCurrentUser(socialAccount, completion: { user,err  in
             print("we did it")
-            self.viewModel.updateLocalSocialAccount(socialAccount.type!)
         })
     }
     

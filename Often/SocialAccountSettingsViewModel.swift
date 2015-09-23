@@ -42,39 +42,15 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
     }
     
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
-        sessionManager.fetchSocialAccount()
+        
     }
     
-    func updateLocalSocialAccount (socialAccountType:SocialAccountType) {
-        switch socialAccountType {
-        case .Twitter:
-            break
-        case .Spotify:
-            self.socialAccounts[1] = self.spotifyAccountManager.spotifyAccount!
-            break
-        case .Soundcloud:
-            self.socialAccounts[2] = self.soundcloudAccountManager.soundcloudAccount!
-            break
-        case .Venmo:
-            self.socialAccounts[3] = self.venmoAccountManager.venmoAccount!
-            break
-        case .Other:
-            break
-        default:
-            break
-            
-        }
-            sessionManager.socialAccountService?.updateLocalSocialAccount(socialAccounts)
-
-    }
-    
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount]) {
-        self.socialAccounts = socialAccounts
-        if sessionManager.userDefaults.boolForKey("twitter") == true {
-            let twitter = SocialAccount()
-            twitter.type = .Twitter
-            twitter.activeStatus = true
-            self.socialAccounts[0] = twitter
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String:AnyObject]) {
+        for accounts in socialAccounts.values {
+            print(accounts)
+            let socialAccount = SocialAccount()
+            socialAccount.setValuesForKeysWithDictionary(accounts as! [String : AnyObject])
+            self.socialAccounts.append(socialAccount)
         }
         
     }

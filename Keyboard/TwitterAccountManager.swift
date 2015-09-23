@@ -76,12 +76,28 @@ class TwitterAccountManager: NSObject {
         data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
         data["description"] = (authData.providerData["cachedUserProfile"] as? [String: AnyObject])?["description"] as? String
         data["parseId"] = PFUser.currentUser()?.objectId
-        data["accounts"] = [
-            "twitter":
-            ["token":authData.providerData["accessToken"]!,
-            "activeStatus":true,
-            "tokenExpirationDate":""]
-        ]
+   
+        var socialAccounts = [String:AnyObject]()
+        
+        let twitter = SocialAccount()
+        twitter.type = .Twitter
+        twitter.activeStatus = true
+        twitter.token = authData.providerData["accessToken"]! as! String
+        socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
+        
+        let spotify = SocialAccount()
+        spotify.type = .Spotify
+        socialAccounts.updateValue(spotify.toDictionary(), forKey: "spotify")
+        
+        let soundcloud = SocialAccount()
+        soundcloud.type = .Soundcloud
+        socialAccounts.updateValue(soundcloud.toDictionary(), forKey: "soundcloud")
+        
+        let venmo = SocialAccount()
+        venmo.type = .Venmo
+        socialAccounts.updateValue(venmo.toDictionary(), forKey: "venmo")
+        
+        data["accounts"] = socialAccounts
         
         userRef.setValue(data)
 
