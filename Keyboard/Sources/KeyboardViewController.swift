@@ -85,8 +85,14 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
     }
     
+    static var once_predicate: dispatch_once_t = 0
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        Firebase.defaultConfig().persistenceEnabled = true
+        
+        dispatch_once(&KeyboardViewController.once_predicate) {
+            Firebase.defaultConfig().persistenceEnabled = true
+        }
+        
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         
         keysContainerView = TouchRecognizerView()
@@ -106,7 +112,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         super.init(nibName: nil, bundle: nil)
         
-        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy )
+        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
         textProcessor.delegate = self
         searchBar.textProcessor = textProcessor
         
