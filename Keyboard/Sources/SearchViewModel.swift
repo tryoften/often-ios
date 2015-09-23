@@ -67,7 +67,7 @@ class SearchViewModel: NSObject {
 
         if let id = data["id"] as? String,
             let query = data["query"] as? String,
-            let autocomplete = data["autocomplete"] as? Bool,
+            let _ = data["autocomplete"] as? Bool,
             let resultsData = data["results"] as? [ [String: AnyObject] ],
             let request = currentRequest {
                 
@@ -144,9 +144,9 @@ class SearchViewModel: NSObject {
     func processSearchResultData(resultData: [String: AnyObject]) -> SearchResult? {
         if let provider = resultData["_index"] as? String,
             let rawType = resultData["_type"] as? String,
-            let id = resultData["_id"] as? String,
-            let score = resultData["_score"] as? Double,
-            let source = SearchResultSource(rawValue: provider),
+            let _ = resultData["_id"] as? String,
+            let _ = resultData["_score"] as? Double,
+            let _ = SearchResultSource(rawValue: provider),
             let type = SearchResultType(rawValue: rawType) {
                 
                 var result: SearchResult? = nil
@@ -182,6 +182,8 @@ class SearchViewModel: NSObject {
                     if let source = resultData["source"] as? [String: String],
                         let sourceName = source["name"] {
                             item.sourceName = sourceName
+                    } else {
+                        item.sourceName = item.getNameForSource()
                     }
                     return item
                 }
