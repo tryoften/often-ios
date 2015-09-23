@@ -10,7 +10,7 @@ import UIKit
 
 let userFavoritesReuseIdentifier = "favoritesCell"
 
-class UserFavoritesCollectionViewController: UICollectionViewController {
+class UserFavoritesCollectionViewController: UICollectionViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     init() {
         super.init(collectionViewLayout: UserFavoritesCollectionViewController.provideCollectionViewLayout())
@@ -24,6 +24,8 @@ class UserFavoritesCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         if let collectionView = collectionView {
+            collectionView.emptyDataSetSource = self
+            collectionView.emptyDataSetDelegate = self
             collectionView.backgroundColor = WhiteColor
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: userFavoritesReuseIdentifier)
@@ -42,6 +44,38 @@ class UserFavoritesCollectionViewController: UICollectionViewController {
         flowLayout.minimumInteritemSpacing = 0.0
         return flowLayout
     }
+    
+    // DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "favoritesemptystate")
+    }
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let string: NSString = "No favorites yet!"
+        var attributedString = NSMutableAttributedString(string: string as String)
+        let firstAttributes = [NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"), NSBackgroundColorAttributeName: ClearColor]
+        
+        attributedString.addAttributes(firstAttributes, range: NSMakeRange(0, attrString.length))
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 15.0)!, range: NSMakeRange(0, attrString.length))
+        
+        return attributedString
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let string: NSString = "Double tap any cards to save them to your favorites & easily share them again later."
+        var attributedString = NSMutableAttributedString(string: string as String)
+        let firstAttributes = [NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"), NSBackgroundColorAttributeName: ClearColor]
+        
+        attributedString.addAttributes(firstAttributes, range: string.rangeOfString(NSMakeRange(0, attrString.length)))
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 12.0)!, range: NSMakeRange(0, attrString.length))
+        
+        return attributedString
+    }
+    
+    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+        return view.frame.height / 3
+    }
+    
 
     // MARK: UICollectionViewDataSource
 

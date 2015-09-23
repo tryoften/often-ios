@@ -10,7 +10,7 @@ import UIKit
 
 let userRecentsReuseIdentifier = "userRecentsCell"
 
-class UserRecentsCollectionViewController: UICollectionViewController {
+class UserRecentsCollectionViewController: UICollectionViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
     init() {
         super.init(collectionViewLayout: UserRecentsCollectionViewController.provideCollectionViewLayout())
@@ -24,6 +24,8 @@ class UserRecentsCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         if let collectionView = collectionView {
+            collectionView.emptyDataSetSource = self
+            collectionView.emptyDataSetDelegate = self
             collectionView.backgroundColor = WhiteColor
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "searchCell")
@@ -41,6 +43,37 @@ class UserRecentsCollectionViewController: UICollectionViewController {
         flowLayout.minimumLineSpacing = 0.0
         flowLayout.minimumInteritemSpacing = 0.0
         return flowLayout
+    }
+    
+    // DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "recentsemptystate")
+    }
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let string: NSString = "No recents yet!"
+        var attributedString = NSMutableAttributedString(string: string as String)
+        let firstAttributes = [NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"), NSBackgroundColorAttributeName: ClearColor]
+        
+        attributedString.addAttributes(firstAttributes, range: NSMakeRange(0, attrString.length))
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 15.0)!, range: NSMakeRange(0, attrString.length))
+        
+        return attributedString
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let string: NSString = "Start using Often to easily access your most recently searched or used content."
+        var attributedString = NSMutableAttributedString(string: string as String)
+        let firstAttributes = [NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"), NSBackgroundColorAttributeName: ClearColor]
+        
+        attributedString.addAttributes(firstAttributes, range: string.rangeOfString(NSMakeRange(0, attrString.length)))
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 12.0)!, range: NSMakeRange(0, attrString.length))
+        
+        return attributedString
+    }
+    
+    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+        return view.frame.height / 3
     }
     
     // MARK: UICollectionViewDataSource
