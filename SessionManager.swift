@@ -274,5 +274,5 @@ enum LoginType {
 @objc protocol SessionManagerObserver: class {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String : AnyObject])
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?)
 }

@@ -106,7 +106,6 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             break
         case .Soundcloud:
             if selected {
-                let soundcloud = SoundcloudAccountManager()
                 viewModel.soundcloudAccountManager.sendRequest({ err  in
                     print("it worked")
                 })

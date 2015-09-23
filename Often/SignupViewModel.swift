@@ -67,7 +67,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         delegate?.signupViewModelDidLoginUser(self, user: user, isNewUser: isNewUser)
     }
     
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String:AnyObject]) {
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
     }
 
 }

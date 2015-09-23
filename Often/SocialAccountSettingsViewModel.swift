@@ -45,14 +45,15 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
         
     }
     
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String:AnyObject]) {
-        for accounts in socialAccounts.values {
-            print(accounts)
-            let socialAccount = SocialAccount()
-            socialAccount.setValuesForKeysWithDictionary(accounts as! [String : AnyObject])
-            self.socialAccounts.append(socialAccount)
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
+        if let socialAccounts = socialAccounts {
+            for accounts in socialAccounts.values {
+                print(accounts)
+                let socialAccount = SocialAccount()
+                socialAccount.setValuesForKeysWithDictionary(accounts as! [String : AnyObject])
+                self.socialAccounts.append(socialAccount)
+            }
         }
-        
     }
     
     func spotifyAccountManagerDidPullToken(userProfileViewModel: SpotifyAccountManager, account: SocialAccount) {
