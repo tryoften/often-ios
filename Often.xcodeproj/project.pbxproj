@@ -211,6 +211,7 @@
 		81D60AD41B854D8500347BCA /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* SearchResult.swift */; };
 		81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AC21B84BD4200347BCA /* SearchViewModel.swift */; };
 		81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */ = {isa = PBXBuildFile; fileRef = 81DC114A1AF05CF400412BD2 /* SwiftyJSON */; };
+		81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; settings = {ASSET_TAGS = (); }; };
 		81E26D7F1B65B09D00FC1F2F /* LayoutConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */; };
 		81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */; };
 		81E26D851B65B17A00FC1F2F /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D841B65B17A00FC1F2F /* Direction.swift */; };
@@ -489,6 +490,7 @@
 		81D60ACF1B84BF3200347BCA /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResponse.swift; path = Sources/SearchResponse.swift; sourceTree = "<group>"; };
 		81D60AD21B854D8500347BCA /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResult.swift; path = Sources/SearchResult.swift; sourceTree = "<group>"; };
 		81DC114A1AF05CF400412BD2 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftyJSON; sourceTree = "<group>"; };
+		81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsCellOverlayView.swift; path = Sources/SearchResultsCellOverlayView.swift; sourceTree = "<group>"; };
 		81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutConstants.swift; path = Sources/LayoutConstants.swift; sourceTree = "<group>"; };
 		81E26D841B65B17A00FC1F2F /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Direction.swift; path = Sources/Direction.swift; sourceTree = "<group>"; };
 		81E26D871B65BC8D00FC1F2F /* KeyboardKeyBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardKeyBackground.swift; path = Sources/KeyboardKeyBackground.swift; sourceTree = "<group>"; };
@@ -1054,6 +1056,7 @@
 				8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */,
 				8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */,
 				8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */,
+				81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1193,7 +1196,7 @@
 				TargetAttributes = {
 					8180E6071A142157007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = LMA3M32RE8;
+						DevelopmentTeam = VPYJKM228K;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1211,7 +1214,7 @@
 					};
 					8180E6301A142199007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = LMA3M32RE8;
+						DevelopmentTeam = VPYJKM228K;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1587,6 +1590,7 @@
 				3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
 				816EB9721AE5EBB1000620E2 /* delay.swift in Sources */,
 				3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */,
+				81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
@@ -1817,10 +1821,10 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Often/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "d92906a3-87a9-4963-b5ff-cccfec137fef";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
