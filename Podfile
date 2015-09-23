@@ -30,14 +30,3 @@ target 'Keyboard' do
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'DateTools', '~> 1.6'
 end
-
-
-post_install do |add_app_extension_macro|
-    add_app_extension_macro.project.targets.each do |target|
-        if target.name.include?("Pods-Keyboard")
-            target.build_configurations.each do |config|
-                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'AF_APP_EXTENSIONS=1']
-            end
-        end
-    end
-end

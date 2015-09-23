@@ -51,23 +51,30 @@ class UserFavoritesCollectionViewController: UICollectionViewController, DZNEmpt
     }
     
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let string: NSString = "No favorites yet!"
-        var attributedString = NSMutableAttributedString(string: string as String)
-        let firstAttributes = [NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"), NSBackgroundColorAttributeName: ClearColor]
+        let string = "No favorites yet!"
+        let attributedString = NSMutableAttributedString(string: string)
+        let attributes = [
+            NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"),
+            NSBackgroundColorAttributeName: ClearColor,
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 15.0)!
+        ]
         
-        attributedString.addAttributes(firstAttributes, range: NSMakeRange(0, attrString.length))
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 15.0)!, range: NSMakeRange(0, attrString.length))
+        attributedString.addAttributes(attributes, range: NSMakeRange(0, string.characters.count))
         
         return attributedString
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let string: NSString = "Double tap any cards to save them to your favorites & easily share them again later."
-        var attributedString = NSMutableAttributedString(string: string as String)
-        let firstAttributes = [NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"), NSBackgroundColorAttributeName: ClearColor]
+        let string = "Double tap any cards to save them to your favorites & easily share them again later."
+        var attributedString = NSMutableAttributedString(string: string)
         
-        attributedString.addAttributes(firstAttributes, range: string.rangeOfString(NSMakeRange(0, attrString.length)))
-        attributedString.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 12.0)!, range: NSMakeRange(0, attrString.length))
+        let attributes = [
+            NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"),
+            NSBackgroundColorAttributeName: ClearColor,
+            NSFontAttributeName: UIFont(name: "OpenSans", size: 12.0)!
+        ]
+        
+        attributedString.addAttributes(attributes, range: NSMakeRange(0, string.characters.count))
         
         return attributedString
     }
