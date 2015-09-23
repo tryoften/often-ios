@@ -159,25 +159,7 @@ class SessionManager: NSObject {
                             data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
                             data["name"] = PFUser.currentUser()?.objectForKey("fullName") as? String
                             data["parseId"] = uid
-                            var socialAccounts = [String:AnyObject]()
-                            
-                            let twitter = SocialAccount()
-                            twitter.type = .Twitter
-                            socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
-                            
-                            let spotify = SocialAccount()
-                            spotify.type = .Spotify
-                            socialAccounts.updateValue(spotify.toDictionary(), forKey: "spotify")
-                            
-                            let soundcloud = SocialAccount()
-                            soundcloud.type = .Soundcloud
-                            socialAccounts.updateValue(soundcloud.toDictionary(), forKey: "soundcloud")
-                            
-                            let venmo = SocialAccount()
-                            venmo.type = .Venmo
-                            socialAccounts.updateValue(venmo.toDictionary(), forKey: "venmo")
-                            
-                            data["accounts"] = socialAccounts
+                            data["accounts"] = self.createSocialAccount()
                             
                             let newUser = User()
                             newUser.setValuesForKeysWithDictionary(data)
@@ -185,7 +167,6 @@ class SessionManager: NSObject {
                             self.userRef?.setValue(data)
                             self.isUserNew = false
                             
-                        
                             persistUser(newUser)
                             
                         }
@@ -197,6 +178,28 @@ class SessionManager: NSObject {
         } else {
             
         }
+    }
+    
+    func createSocialAccount() -> [String:AnyObject] {
+        var socialAccounts = [String:AnyObject]()
+        
+        let twitter = SocialAccount()
+        twitter.type = .Twitter
+        socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
+        
+        let spotify = SocialAccount()
+        spotify.type = .Spotify
+        socialAccounts.updateValue(spotify.toDictionary(), forKey: "spotify")
+        
+        let soundcloud = SocialAccount()
+        soundcloud.type = .Soundcloud
+        socialAccounts.updateValue(soundcloud.toDictionary(), forKey: "soundcloud")
+        
+        let venmo = SocialAccount()
+        venmo.type = .Venmo
+        socialAccounts.updateValue(venmo.toDictionary(), forKey: "venmo")
+        
+        return socialAccounts
     }
     
     func setSocialAccountOnCurrentUser(socialAccount:SocialAccount, completion: (User, NSError?) -> ()) {
