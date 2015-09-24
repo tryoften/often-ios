@@ -75,7 +75,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             let socialAccount = viewModel.socialAccounts[indexPath.row]
             serviceSettingsCell = cell
             serviceSettingsCell?.delegate = self
-            cell.settingServicesType = socialAccount.type
+            cell.settingSocialAccount = socialAccount
             cell.serviceSwitch.on = socialAccount.activeStatus
             cell.serviceSwitch.tag = indexPath.row
             cell.checkButtonStatus(socialAccount.activeStatus)
@@ -86,7 +86,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
     
     func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool, buttonTag:Int ) {
         viewModel.socialAccounts[buttonTag ].activeStatus = !viewModel.socialAccounts[buttonTag].activeStatus
-        switch serviceSettingsCollectionView.settingServicesType {
+        switch serviceSettingsCollectionView.settingSocialAccount.type {
         case .Twitter:
             if selected {
                 do {
@@ -95,6 +95,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
                     
                 }
             } else {
+                viewModel.sessionManager.logout()
                 
             }
             
@@ -103,8 +104,8 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             if selected {
                 UIApplication.sharedApplication().openURL(SPTAuth.defaultInstance().loginURL)
             } else {
-                viewModel.spotifyAccountManager.spotifyAccount?.activeStatus = selected
-                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.spotifyAccountManager.spotifyAccount!, completion: { user,err  in
+                serviceSettingsCollectionView.settingSocialAccount.activeStatus = selected
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(serviceSettingsCollectionView.settingSocialAccount, completion: { user,err  in
                 })
             }
             break
@@ -114,8 +115,8 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
                     print("it worked")
                 })
             } else {
-                viewModel.soundcloudAccountManager.soundcloudAccount?.activeStatus = selected
-                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.soundcloudAccountManager.soundcloudAccount!, completion: { user,err  in
+                serviceSettingsCollectionView.settingSocialAccount.activeStatus = selected
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(serviceSettingsCollectionView.settingSocialAccount, completion: { user,err  in
                 })
                 
             }
@@ -124,8 +125,8 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             if selected {
                 viewModel.venmoAccountManager.createRequest()
             } else {
-                viewModel.venmoAccountManager.venmoAccount?.activeStatus = selected
-                viewModel.sessionManager.setSocialAccountOnCurrentUser(viewModel.venmoAccountManager.venmoAccount!, completion: { user,err  in
+                serviceSettingsCollectionView.settingSocialAccount.activeStatus = selected
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(serviceSettingsCollectionView.settingSocialAccount, completion: { user,err  in
                 })
             }
             break
