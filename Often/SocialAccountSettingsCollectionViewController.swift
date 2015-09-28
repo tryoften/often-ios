@@ -33,8 +33,6 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .Vertical
-//        viewLayout.minimumInteritemSpacing = 5.0
-//        viewLayout.minimumLineSpacing = 5.0
         viewLayout.sectionInset = UIEdgeInsetsMake(25.0, 5.0, 5.0, 5.0)
         viewLayout.itemSize = CGSizeMake(screenWidth - 30, 218)
         return viewLayout
@@ -90,7 +88,14 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         case .Twitter:
             if selected {
                 do {
-                    try viewModel.sessionManager.login(.Twitter, completion: nil)
+                    try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
+                        PKHUD.sharedHUD.hide(animated: true)
+                        switch results {
+                        case .Success(_): self.collectionView?.reloadData()
+                        case .Error(let e): print("Error", e)
+                        default: break
+                        }
+                    })
                 } catch {
                     
                 }

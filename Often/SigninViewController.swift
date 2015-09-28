@@ -42,6 +42,10 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
+    
     func didTapSigninButton(sender: UIButton) {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show()
@@ -65,12 +69,12 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show()
         do {
-            try viewModel.sessionManager.login(.Twitter, completion: { err in
+            try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
-                if (err != nil) {
-                    print("didn't work")
-                } else {
-                    self.createProfileViewController()
+                switch results {
+                case .Success(_): self.createProfileViewController()
+                case .Error(let e): print("Error", e)
+                default: break
                 }
             })
         } catch {
@@ -119,7 +123,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
-        var characterCount = signinView.passwordTextField.text!.characters.count
+        let characterCount = signinView.passwordTextField.text!.characters.count
         if characterCount >= 3 {
             signinView.signinButton.backgroundColor = UIColor(fromHexString: "#152036")
         } else {

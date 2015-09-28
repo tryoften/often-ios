@@ -22,8 +22,14 @@ class SessionManager: NSObject {
     var isUserNew: Bool
     var userIsLoggingIn = false
     
+    enum ResultType {
+        case Success(r: Bool)
+        case Error(e: ErrorType)
+        case SystemError(e: NSError)
+    }
+    
     enum SessionManagerError: ErrorType {
-        case NotVaildSignupType
+        case UnvalidSignUp
     }
     
     private var observers: NSMutableArray
@@ -77,19 +83,32 @@ class SessionManager: NSObject {
         }
     }
     
-    func login(loginType: LoginType, completion: ((NSError?) -> ())? = nil) throws {
+    func login(loginType: LoginType, completion: (results: ResultType) -> Void) throws {
         userIsLoggingIn = true
         switch loginType {
         case .Twitter:
             twitterAccountManager = TwitterAccountManager(firebase: firebase)
-            twitterAccountManager?.login(completion)
+            twitterAccountManager?.login({ err in
+                if err != nil {
+                    completion(results: ResultType.SystemError(e: err!))
+                } else {
+                    completion(results: ResultType.Success(r: true))
+                }
+            })
             break
         case .Facebook:
             facebookAccountManager = FacebookAccountManager(firebase: firebase)
-            facebookAccountManager?.login(completion)
+            facebookAccountManager?.login({ err in
+                if err != nil {
+                    completion(results: ResultType.SystemError(e: err!))
+                } else {
+                    completion(results: ResultType.Success(r: true))
+                }
+            })
             break
         default:
-            throw SessionManagerError.NotVaildSignupType
+            completion(results: ResultType.Error(e: SessionManagerError.UnvalidSignUp))
+            throw SessionManagerError.UnvalidSignUp
         }
     }
     
