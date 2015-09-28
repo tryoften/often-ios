@@ -42,7 +42,11 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         createAccountView.signupTwitterButton.addTarget(self, action: "didTapSignupTwitterButton:", forControlEvents: .TouchUpInside)
     }
     
-    func didTapCancelButton(sender: UIButton) {
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
+    
+    func didTapCancelButton(sender: UIButton) throws {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -50,16 +54,16 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show()
         do {
-            try viewModel.sessionManager.login(.Twitter, completion: { err in
+            try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
-                if (err != nil) {
-                    print("didn't work")
-                } else {
-                    self.createProfileViewController()
+                switch results {
+                case .Success(_): self.createProfileViewController()
+                case .Error(let e): print("Error", e)
+                default: break
                 }
             })
         } catch {
-            
+    
         }
     }
     
@@ -71,12 +75,12 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
             viewModel.user.email = createAccountView.emailTextField.text!
             viewModel.password = createAccountView.passwordTextField.text!
             do {
-                try viewModel.signUpUser({ success  in
-                    PKHUD.sharedHUD.hide(animated: true)
-                    if success {
-                        self.createProfileViewController()
-                    } else {
-                        print("error")
+                try viewModel.signUpUser({ results -> Void in
+                     PKHUD.sharedHUD.hide(animated: true)
+                    switch results {
+                    case .Success(_): self.createProfileViewController()
+                    case .Error(let e): print("Error", e)
+                    default: break
                     }
                 })
             } catch {
@@ -85,7 +89,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         }
         else {
             PKHUD.sharedHUD.hide(animated: true)
-            return
+
         }
     }
     
