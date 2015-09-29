@@ -23,7 +23,7 @@ class SigninView: UIView {
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = SigninViewTitleLabelFont
+        titleLabel.font = UIFont(name: "Montserrat", size: 18)
         titleLabel.text = "Sign in"
         titleLabel.textAlignment = .Center
         

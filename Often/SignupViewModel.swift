@@ -1,4 +1,4 @@
-//
+ //
 //  SignupViewModel.swift
 //  Often
 //
@@ -17,6 +17,17 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     var spotifyAccountManager: SpotifyAccountManager
     var soundcloudAccountManager: SoundcloudAccountManager
     
+    enum ResultType {
+        case Success(r: Bool)
+        case Error(e: ErrorType)
+        case SystemError(e: NSError)
+    }
+    
+    enum SignupError: ErrorType {
+        case EmailNotVaild
+        case PasswordNotVaild
+    }
+    
     init(sessionManager: SessionManager, venmoAccountManager: VenmoAccountManager, spotifyAccountManager: SpotifyAccountManager, soundcloudAccountManager: SoundcloudAccountManager) {
         self.sessionManager = sessionManager
         self.venmoAccountManager = venmoAccountManager
@@ -30,31 +41,30 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         self.sessionManager.addSessionObserver(self)
     }
     
-    func signUpUser(completion: ((Bool) -> ())) {
+    func signUpUser(completion: (results: ResultType) -> Void) throws {
         var userData = [String: String]()
         
-        if EmailIsValid(user.email) {
-            userData["email"] = user.email
-            userData["username"] = user.email
-        } else {
-            print("missing email address")
-            return
+        guard EmailIsValid(user.email) else {
+            completion(results: ResultType.Error(e: SignupError.EmailNotVaild))
+            throw SignupError.EmailNotVaild
         }
 
-        if PasswordIsValid(password) {
-            userData["password"] = password
-        } else {
-            print("missing password")
-            return
+        guard PasswordIsValid(password) else {
+            completion(results: ResultType.Error(e: SignupError.PasswordNotVaild))
+            throw SignupError.PasswordNotVaild
         }
         
-        sessionManager.signupUser(.Email, data: userData, completion: { (error) -> () in
+        userData["email"] = user.email
+        userData["username"] = user.email
+        userData["password"] = password
+        
+        sessionManager.signupUser(.Email, data: userData, completion: { error -> () in
             if error == nil {
                 print("all good in the hood")
-                completion(true)
+                completion(results: ResultType.Success(r: true))
             } else {
                 print("no good mang")
-                completion(false)
+                completion(results: ResultType.SystemError(e: error!))
             }
         })
     }
@@ -67,9 +77,8 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         delegate?.signupViewModelDidLoginUser(self, user: user, isNewUser: isNewUser)
     }
     
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount]) {
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
     }
-
 }
 
 protocol SignupViewModelDelegate: class {

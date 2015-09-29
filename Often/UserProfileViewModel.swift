@@ -40,9 +40,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         delegate?.userProfileViewModelDidLoginUser(self, user: user)
     }
     
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount]) {
-        
-    
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
     }
     
 }

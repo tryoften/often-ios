@@ -40,43 +40,56 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         createAccountView.cancelButton.addTarget(self,  action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupButton.addTarget(self, action: "didTapSignupButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupTwitterButton.addTarget(self, action: "didTapSignupTwitterButton:", forControlEvents: .TouchUpInside)
-        
     }
     
-    func didTapCancelButton(sender: UIButton) {
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
+    
+    func didTapCancelButton(sender: UIButton) throws {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func didTapSignupTwitterButton(sender: UIButton) {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show()
-        viewModel.sessionManager.login(.Twitter, completion: { err in
-            PKHUD.sharedHUD.hide(animated: true)
-            if (err != nil) {
-                print("didn't work")
-            } else {
-                self.createProfileViewController()
-            }
-        })
-        
+        do {
+            try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
+                PKHUD.sharedHUD.hide(animated: true)
+                switch results {
+                case .Success(_): self.createProfileViewController()
+                case .Error(let e): print("Error", e)
+                default: break
+                }
+            })
+        } catch {
+    
+        }
     }
     
     func didTapSignupButton(sender: UIButton) {
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
         if createAccountView.usernameTextField.text!.characters.count != 0 && createAccountView.emailTextField.text!.characters.count != 0  && createAccountView.passwordTextField.text!.characters.count != 0 {
             viewModel.user.name = createAccountView.usernameTextField.text!
             viewModel.user.email = createAccountView.emailTextField.text!
             viewModel.password = createAccountView.passwordTextField.text!
-            PKHUD.sharedHUD.contentView = PKHUDProgressView()
-            PKHUD.sharedHUD.show()
-            viewModel.signUpUser({ success  in
-                PKHUD.sharedHUD.hide(animated: true)
-                if success {
-                    self.createProfileViewController()
-                }
-            })
+            do {
+                try viewModel.signUpUser({ results -> Void in
+                     PKHUD.sharedHUD.hide(animated: true)
+                    switch results {
+                    case .Success(_): self.createProfileViewController()
+                    case .Error(let e): print("Error", e)
+                    default: break
+                    }
+                })
+            } catch {
+                
+            }
         }
         else {
-            return
+            PKHUD.sharedHUD.hide(animated: true)
+
         }
     }
     

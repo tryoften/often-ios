@@ -10,31 +10,41 @@ import UIKit
 
 class SocialAccount: NSObject {
     var token = ""
-    var type: SocialAccountType?
+    var type: SocialAccountType = .Other
     var activeStatus = false
     var tokenExpirationDate = ""
     
     override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
         
-        if let dictionary = keyedValues as? [String: AnyObject] {
-            if let socialAccountType = dictionary["type"] as? String {
-                type = SocialAccountType(rawValue: socialAccountType)
+            if let socialAccountType = keyedValues["type"] as? String {
+                type = SocialAccountType(rawValue: socialAccountType)!
             }
             
-            if let serviceToken = dictionary["token"] as? String {
+            if let serviceToken = keyedValues["token"] as? String {
                 token = serviceToken
             }
             
-            if let active = dictionary["activeStatus"] as? Bool {
+            if let active = keyedValues["activeStatus"] as? Bool {
                 activeStatus = active
             }
             
-            if let expirationDate = dictionary["tokenExpirationDate"] as? String {
+            if let expirationDate = keyedValues["tokenExpirationDate"] as? String {
                 tokenExpirationDate = expirationDate
             }
         
-        }
     }
+    
+    func toDictionary() -> [String: AnyObject] {
+        let dict: [String: AnyObject] = [
+            "token": token,
+            "type": type.rawValue,
+            "activeStatus": activeStatus,
+            "tokenExpirationDate": tokenExpirationDate
+        ]
+
+        return dict
+    }
+    
 }
 
 enum SocialAccountType: String {
