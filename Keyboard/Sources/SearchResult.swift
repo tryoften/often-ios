@@ -87,8 +87,14 @@ class SearchResult {
         case .XXLMag: return "XXL Mag"
         case .TMZ: return "TMZ"
         case .Unknown: return "Unknown"
-        default: return ""
         }
+    }
+    
+    func toDictionary() -> [String: AnyObject] {
+        return [
+            "id": id,
+            "type": type.rawValue
+        ]
     }
 }
 
@@ -159,53 +165,53 @@ class TrackSearchResult: SearchResult {
         return ""
     }
     
-    init(resultData: [String: AnyObject]) {
+    init(data: [String: AnyObject]) {
         super.init()
         
         self.type = .Track
 
-        if let id = resultData["_id"] as? String {
+        if let id = data["_id"] as? String {
             self.id = id
         }
         
-        if let name = resultData["name"] as? String {
+        if let name = data["name"] as? String {
             self.name = name
         }
         
-        if let url = resultData["uri"] as? String {
+        if let url = data["uri"] as? String {
             self.url = url
         }
         
-        if let url = resultData["url"] as? String {
+        if let url = data["url"] as? String {
             self.url = url
         }
         
-        if let image = resultData["image"] as? String {
+        if let image = data["image"] as? String {
             self.image = image
         }
         
-        if let image = resultData["image_large"] as? String {
+        if let image = data["image_large"] as? String {
             self.image = image
         }
         
-        if let albumName = resultData["album_name"] as? String {
+        if let albumName = data["album_name"] as? String {
             self.albumName = albumName
         }
 
-        if let artistName = resultData["artist_name"] as? String {
+        if let artistName = data["artist_name"] as? String {
             self.artistName = artistName
         }
         
-        if let user = resultData["user"] as? [String: AnyObject],
+        if let user = data["user"] as? [String: AnyObject],
             let username = user["username"] as? String {
                 self.artistName = username
         }
         
-        if let plays = resultData["plays"] as? Int {
+        if let plays = data["plays"] as? Int {
             self.plays = plays
         }
         
-        if let created = resultData["created"] as? String {
+        if let created = data["created"] as? String {
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss ZZZZ"
             self.created = dateFormatter.dateFromString(created)
@@ -218,6 +224,10 @@ class TrackSearchResult: SearchResult {
             return "\(formattedNum) Plays"
         }
         return "No Plays"
+    }
+    
+    override func getInsertableText() -> String {
+        return "\(name) by \(artistName) - \(url)"
     }
 }
 

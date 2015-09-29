@@ -22,7 +22,7 @@ import UIKit
     Tweet Cell
 
 */
-class SearchResultsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SearchResultsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, SearchResultsCollectionViewCellDelegate {
     var backgroundImageView: UIImageView
     var cellsAnimated: [NSIndexPath: Bool]
     var textProcessor: TextProcessingManager?
@@ -142,11 +142,13 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
                 default:
                     break
                 }
-                
             default:
                 break
             }
             
+            cell.searchResult = result
+            cell.delegate = self
+            cell.overlayVisible = false
             cell.contentImageView.image = nil
             if  let image = result.image,
                 let imageURL = NSURL(string: image) {
@@ -157,16 +159,15 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
             
             if (cellsAnimated[indexPath] != true) {
                 cell.alpha = 0.0
+                
                 let finalFrame = cell.frame
-                let translation = collectionView.panGestureRecognizer.translationInView(collectionView)
                 
                 cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
 
-                
                 UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                     cell.alpha = 1.0
                     cell.frame = finalFrame
-                    }, completion: nil)
+                }, completion: nil)
             }
             
             cellsAnimated[indexPath] = true
@@ -176,9 +177,20 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let result = response?.results[indexPath.row] {
-            textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SearchResultsCollectionViewCell else {
+            return
         }
+        
+        guard let cells = collectionView.visibleCells() as? [SearchResultsCollectionViewCell] else {
+            return
+        }
+        
+        for cell in cells {
+            cell.overlayVisible = false
+        }
+        
+        cell.overlayVisible = true
     }
     
     func setupLayout() {
@@ -188,5 +200,33 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
             backgroundImageView.al_width == view.al_width,
             backgroundImageView.al_height == view.al_height - 30
         ])
+    }
+    
+    // SearchResultsCollectionViewCellDelegate
+    func searchResultsCollectionViewCellDidToggleFavoriteButton(cell: SearchResultsCollectionViewCell, selected: Bool) {
+        guard let result = cell.searchResult else {
+            return
+        }
+        
+        let task = selected ? "addFavorite" : "removeFavorite"
+        
+        let favoriteQueueRef = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
+        favoriteQueueRef.setValue([
+            "task": task,
+            "user": "anon",
+            "result": result.toDictionary()
+        ])
+    }
+    
+    func searchResultsCollectionViewCellDidToggleCancelButton(cell: SearchResultsCollectionViewCell, selected: Bool) {
+        cell.overlayVisible = false
+    }
+    
+    func searchResultsCollectionViewCellDidToggleInsertButton(cell: SearchResultsCollectionViewCell, selected: Bool) {
+        guard let result = cell.searchResult else {
+            return
+        }
+
+        textProcessor?.defaultProxy.insertText(result.getInsertableText())
     }
 }

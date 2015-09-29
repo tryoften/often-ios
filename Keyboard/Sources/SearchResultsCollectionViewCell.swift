@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Spring
 
 class SearchResultsCollectionViewCell: UICollectionViewCell {
+    weak var delegate: SearchResultsCollectionViewCellDelegate?
+    
     var informationContainerView: UIView
     var sourceLogoView: UIImageView
     var headerLabel: UILabel
@@ -17,6 +20,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     var centerSupplementLabel: UILabel
     var rightSupplementLabel: UILabel
     var rightCornerImageView: UIImageView
+    var overlayView: SearchResultsCellOverlayView
     
     var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
@@ -35,6 +39,21 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+    
+    var overlayVisible: Bool {
+        didSet {
+            if (overlayVisible) {
+                overlayView.hidden = false
+                overlayView.showButtons()
+            } else {
+                overlayView.hidden = true
+                
+            }
+        }
+    }
+    
+    var searchResult: SearchResult?
+
     
     override init(frame: CGRect) {
         informationContainerView = UIView()
@@ -86,6 +105,12 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         
         contentImageViewWidthConstraint = contentImageView.al_width == 100
         
+        overlayView = SearchResultsCellOverlayView()
+        overlayView.hidden = true
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        
+        overlayVisible = false
+        
         super.init(frame: frame)
         
         backgroundColor = WhiteColor
@@ -100,6 +125,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(informationContainerView)
         contentView.addSubview(contentPlaceholderImageView)
         contentView.addSubview(contentImageView)
+        contentView.addSubview(overlayView)
+        
         informationContainerView.addSubview(sourceLogoView)
         informationContainerView.addSubview(headerLabel)
         informationContainerView.addSubview(mainTextLabel)
@@ -109,12 +136,48 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         informationContainerView.addSubview(rightCornerImageView)
         
         setupLayout()
-        
         layoutIfNeeded()
+        
+        overlayView.favoriteButton.addTarget(self, action: "didTapFavoriteButton", forControlEvents: .TouchUpInside)
+        overlayView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        overlayView.insertButton.addTarget(self, action: "didTapInsertButton", forControlEvents: .TouchUpInside)
+        
+        for button in [overlayView.favoriteButton, overlayView.cancelButton, overlayView.insertButton] {
+            button.addTarget(self, action: "didTouchUpButton:", forControlEvents: .TouchUpInside)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func didTapFavoriteButton() {
+        overlayView.favoriteButton.animation = ""
+        overlayView.favoriteButton.selected = !overlayView.favoriteButton.selected
+        delegate?.searchResultsCollectionViewCellDidToggleFavoriteButton(self, selected: overlayView.favoriteButton.selected)
+    }
+    
+    func didTapCancelButton() {
+        overlayView.cancelButton.selected = !overlayView.cancelButton.selected
+        delegate?.searchResultsCollectionViewCellDidToggleCancelButton(self, selected: overlayView.cancelButton.selected)
+    }
+    
+    func didTapInsertButton() {
+        overlayView.insertButton.selected = !overlayView.insertButton.selected
+        delegate?.searchResultsCollectionViewCellDidToggleInsertButton(self, selected: overlayView.insertButton.selected)
+    }
+    
+    func didTouchUpButton(button: SpringButton?) {
+        if let button = button {
+            animateButton(button)
+        }
+    }
+    
+    func animateButton(button: SpringButton) {
+        button.animation = "pop"
+        button.duration = 0.3
+        button.curve = "easeIn"
+        button.animate()
     }
     
     func setupLayout() {
@@ -162,7 +225,18 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
             rightCornerImageView.al_top == informationContainerView.al_top + 10,
             rightCornerImageView.al_right == contentImageView.al_left - 15,
             rightCornerImageView.al_height == 20,
-            rightCornerImageView.al_width == 20
+            rightCornerImageView.al_width == 20,
+            
+            overlayView.al_top == contentView.al_top,
+            overlayView.al_bottom == contentView.al_bottom,
+            overlayView.al_left == contentView.al_left,
+            overlayView.al_right == contentView.al_right
         ])
     }
+}
+
+protocol SearchResultsCollectionViewCellDelegate: class {
+    func searchResultsCollectionViewCellDidToggleFavoriteButton(cell: SearchResultsCollectionViewCell, selected: Bool)
+    func searchResultsCollectionViewCellDidToggleCancelButton(cell: SearchResultsCollectionViewCell, selected: Bool)
+    func searchResultsCollectionViewCellDidToggleInsertButton(cell: SearchResultsCollectionViewCell, selected: Bool)
 }

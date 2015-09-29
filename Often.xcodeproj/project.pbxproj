@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B0E03051BA88A6300D69601 /* SwiftAutoLayout in Resources */ = {isa = PBXBuildFile; fileRef = 3B0E03041BA88A6300D69601 /* SwiftAutoLayout */; };
 		3B0E032C1BA898CD00D69601 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0E03271BA898BF00D69601 /* OAuthSwift.framework */; };
 		3B0E032D1BA898CD00D69601 /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0E03271BA898BF00D69601 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
-		3B1D6C001B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
 		3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
@@ -104,6 +102,19 @@
 		810C4AFE1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AFC1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift */; };
 		810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AFF1B5DAAF4005AABEA /* VenmoRequestOrPayView.swift */; };
 		810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AFF1B5DAAF4005AABEA /* VenmoRequestOrPayView.swift */; };
+		81153C721BB9907F00A91EAD /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81153C6F1BB9906F00A91EAD /* Spring.framework */; };
+		81153C731BB9907F00A91EAD /* Spring.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81153C6F1BB9906F00A91EAD /* Spring.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81153C761BB9918800A91EAD /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81153C6F1BB9906F00A91EAD /* Spring.framework */; };
+		81153C781BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; settings = {ASSET_TAGS = (); }; };
+		81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; settings = {ASSET_TAGS = (); }; };
+		81153C801BBB085F00A91EAD /* EmailAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */; settings = {ASSET_TAGS = (); }; };
+		81153C811BBB085F00A91EAD /* TwitterAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */; settings = {ASSET_TAGS = (); }; };
+		81153C821BBB085F00A91EAD /* FacebookAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */; settings = {ASSET_TAGS = (); }; };
+		81153C831BBB085F00A91EAD /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDDC1B7E860000E54AFA /* SessionManager.swift */; settings = {ASSET_TAGS = (); }; };
+		81153C841BBB085F00A91EAD /* SoundcloudAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */; settings = {ASSET_TAGS = (); }; };
+		81153C851BBB085F00A91EAD /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; settings = {ASSET_TAGS = (); }; };
+		81153C861BBB085F00A91EAD /* VenmoAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */; settings = {ASSET_TAGS = (); }; };
+		81153C871BBB091900A91EAD /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63EDD11B7D381D00E54AFA /* SocialAccountsService.swift */; settings = {ASSET_TAGS = (); }; };
 		81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
 		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
@@ -212,6 +223,8 @@
 		81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AC21B84BD4200347BCA /* SearchViewModel.swift */; };
 		81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */ = {isa = PBXBuildFile; fileRef = 81DC114A1AF05CF400412BD2 /* SwiftyJSON */; };
 		81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; settings = {ASSET_TAGS = (); }; };
+		81DF4BBB1BB462A7008B1A38 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; settings = {ASSET_TAGS = (); }; };
+		81DF4BBE1BB49371008B1A38 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; settings = {ASSET_TAGS = (); }; };
 		81E26D7F1B65B09D00FC1F2F /* LayoutConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */; };
 		81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */; };
 		81E26D851B65B17A00FC1F2F /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D841B65B17A00FC1F2F /* Direction.swift */; };
@@ -280,6 +293,41 @@
 			remoteGlobalIDString = F43502791A6791B200038A29;
 			remoteInfo = OAuthSwift;
 		};
+		81153C6A1BB9906F00A91EAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81153C631BB9906E00A91EAD /* SpringApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9641173B1A5BE90A000E3A5A;
+			remoteInfo = SpringApp;
+		};
+		81153C6C1BB9906F00A91EAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81153C631BB9906E00A91EAD /* SpringApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 964117501A5BE90A000E3A5A;
+			remoteInfo = SpringAppTests;
+		};
+		81153C6E1BB9906F00A91EAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81153C631BB9906E00A91EAD /* SpringApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1A4FDA331A6E44780099D309;
+			remoteInfo = Spring;
+		};
+		81153C701BB9906F00A91EAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81153C631BB9906E00A91EAD /* SpringApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1A4FDA3D1A6E44780099D309;
+			remoteInfo = SpringTests;
+		};
+		81153C741BB9907F00A91EAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81153C631BB9906E00A91EAD /* SpringApp.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A4FDA321A6E44780099D309;
+			remoteInfo = Spring;
+		};
 		81331E361A1806BB003E4609 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
@@ -329,6 +377,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3B0E032D1BA898CD00D69601 /* OAuthSwift.framework in Embed Frameworks */,
+				81153C731BB9907F00A91EAD /* Spring.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,11 +391,10 @@
 		199C4312257A18D37E7AE2A6 /* libPods-Often.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B0E03041BA88A6300D69601 /* SwiftAutoLayout */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftAutoLayout; sourceTree = "<group>"; };
 		3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuthSwift.xcodeproj; path = OAuthSwift/OAuthSwift.xcodeproj; sourceTree = "<group>"; };
 		3B1D6BF31B8F61AF004868E5 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAccountManager.swift; sourceTree = "<group>"; };
+		3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotifyAccountManager.swift; path = Keyboard/SpotifyAccountManager.swift; sourceTree = "<group>"; };
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeyboardViewController+EventHandlers.swift"; path = "Sources/KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
 		3B63EDC31B7BB6D700E54AFA /* SocialAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccount.swift; sourceTree = "<group>"; };
@@ -369,10 +417,10 @@
 		3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
-		3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundcloudAccountManager.swift; sourceTree = "<group>"; };
-		3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAccountManager.swift; sourceTree = "<group>"; };
-		3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookAccountManager.swift; sourceTree = "<group>"; };
-		3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailAccountManager.swift; sourceTree = "<group>"; };
+		3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundcloudAccountManager.swift; path = Keyboard/SoundcloudAccountManager.swift; sourceTree = "<group>"; };
+		3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterAccountManager.swift; path = Keyboard/TwitterAccountManager.swift; sourceTree = "<group>"; };
+		3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FacebookAccountManager.swift; path = Keyboard/FacebookAccountManager.swift; sourceTree = "<group>"; };
+		3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailAccountManager.swift; path = Keyboard/EmailAccountManager.swift; sourceTree = "<group>"; };
 		3BD971C51B99254F007EAB5A /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = "../../../Downloads/ios-sdk-master/Spotify.framework"; sourceTree = "<group>"; };
 		3BD971D51B9E642D007EAB5A /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
@@ -403,7 +451,7 @@
 		69D51DBC1B3CDE0B00B2714D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileFilterTabView.swift; sourceTree = "<group>"; };
-		69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoAccountManager.swift; path = Sources/VenmoAccountManager.swift; sourceTree = "<group>"; };
+		69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoAccountManager.swift; path = Keyboard/Sources/VenmoAccountManager.swift; sourceTree = "<group>"; };
 		6B6FC3A11B55322AAC249F5E /* libPods-October.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-October.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -412,6 +460,8 @@
 		810C4AF91B5D922B005AABEA /* VenmoContactsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsCollectionViewController.swift; path = Sources/VenmoContactsCollectionViewController.swift; sourceTree = "<group>"; };
 		810C4AFC1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsCollectionViewCell.swift; path = Sources/VenmoContactsCollectionViewCell.swift; sourceTree = "<group>"; };
 		810C4AFF1B5DAAF4005AABEA /* VenmoRequestOrPayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoRequestOrPayView.swift; path = Sources/VenmoRequestOrPayView.swift; sourceTree = "<group>"; };
+		81153C631BB9906E00A91EAD /* SpringApp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SpringApp.xcodeproj; path = Spring/SpringApp.xcodeproj; sourceTree = "<group>"; };
+		81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsViewModel.swift; path = Sources/SearchResultsViewModel.swift; sourceTree = "<group>"; };
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
@@ -541,6 +591,7 @@
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
 				812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
+				81153C721BB9907F00A91EAD /* Spring.framework in Frameworks */,
 				81794EE11A81E649009D4A71 /* Security.framework in Frameworks */,
 				81794EDF1A81E642009D4A71 /* QuartzCore.framework in Frameworks */,
 				81794EDD1A81E63B009D4A71 /* MobileCoreServices.framework in Frameworks */,
@@ -558,6 +609,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81153C761BB9918800A91EAD /* Spring.framework in Frameworks */,
 				81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */,
 				3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */,
@@ -621,44 +673,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3B1D6BFD1B8F78FA004868E5 /* Spotify */ = {
-			isa = PBXGroup;
-			children = (
-				3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */,
-			);
-			name = Spotify;
-			sourceTree = "<group>";
-		};
 		3BCDA5BA1B8FEBD200840095 /* Soundcloud */ = {
 			isa = PBXGroup;
 			children = (
-				3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */,
 			);
 			name = Soundcloud;
-			sourceTree = "<group>";
-		};
-		3BD971BC1B98ABBD007EAB5A /* Twitter */ = {
-			isa = PBXGroup;
-			children = (
-				3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */,
-			);
-			name = Twitter;
-			sourceTree = "<group>";
-		};
-		3BD971BF1B98B5DE007EAB5A /* Facebook */ = {
-			isa = PBXGroup;
-			children = (
-				3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */,
-			);
-			name = Facebook;
-			sourceTree = "<group>";
-		};
-		3BD971C21B98C81F007EAB5A /* Email */ = {
-			isa = PBXGroup;
-			children = (
-				3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */,
-			);
-			name = Email;
 			sourceTree = "<group>";
 		};
 		6921A0361B615B6B00B75CEC /* Foursquare */ = {
@@ -727,6 +746,17 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		81153C641BB9906E00A91EAD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				81153C6B1BB9906F00A91EAD /* SpringApp.app */,
+				81153C6D1BB9906F00A91EAD /* SpringAppTests.xctest */,
+				81153C6F1BB9906F00A91EAD /* Spring.framework */,
+				81153C711BB9906F00A91EAD /* SpringTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		811B1E101B1F961100618E1A /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,8 +781,8 @@
 		81331E061A17E552003E4609 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				3B63EDCE1B7D2AD400E54AFA /* Service.swift */,
 				3B63EDD11B7D381D00E54AFA /* SocialAccountsService.swift */,
+				3B63EDCE1B7D2AD400E54AFA /* Service.swift */,
 			);
 			name = Services;
 			sourceTree = SOURCE_ROOT;
@@ -761,8 +791,8 @@
 			isa = PBXGroup;
 			children = (
 				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
+				81153C631BB9906E00A91EAD /* SpringApp.xcodeproj */,
 				3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */,
-				3B0E03041BA88A6300D69601 /* SwiftAutoLayout */,
 				81D4BF151B38F6DA006430AB /* PKHUD */,
 				81DC114A1AF05CF400412BD2 /* SwiftyJSON */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
@@ -831,6 +861,12 @@
 			isa = PBXGroup;
 			children = (
 				3B63EDDC1B7E860000E54AFA /* SessionManager.swift */,
+				3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */,
+				3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */,
+				3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */,
+				3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */,
+				3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */,
+				69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */,
 			);
 			name = Managers;
 			sourceTree = SOURCE_ROOT;
@@ -934,12 +970,8 @@
 			isa = PBXGroup;
 			children = (
 				810C4AF51B5D7EB6005AABEA /* Base */,
-				3BD971C21B98C81F007EAB5A /* Email */,
-				3BD971BF1B98B5DE007EAB5A /* Facebook */,
-				3BD971BC1B98ABBD007EAB5A /* Twitter */,
 				6921A0361B615B6B00B75CEC /* Foursquare */,
 				3BCDA5BA1B8FEBD200840095 /* Soundcloud */,
-				3B1D6BFD1B8F78FA004868E5 /* Spotify */,
 				81FFAF421B5C5A7500E2ABAC /* Venmo */,
 			);
 			name = Providers;
@@ -1100,6 +1132,7 @@
 			isa = PBXGroup;
 			children = (
 				81D60AC21B84BD4200347BCA /* SearchViewModel.swift */,
+				81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -1123,7 +1156,6 @@
 		81FFAF421B5C5A7500E2ABAC /* Venmo */ = {
 			isa = PBXGroup;
 			children = (
-				69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */,
 				81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */,
 				81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */,
 				8176BEA21B728F0300E1BDCD /* VenmoContactsViewModel.swift */,
@@ -1158,6 +1190,7 @@
 			dependencies = (
 				8180E6381A142199007FA1CF /* PBXTargetDependency */,
 				3B0E032F1BA898CD00D69601 /* PBXTargetDependency */,
+				81153C751BB9907F00A91EAD /* PBXTargetDependency */,
 			);
 			name = Often;
 			productName = DrizzyChat;
@@ -1244,6 +1277,10 @@
 					ProjectRef = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
 				},
 				{
+					ProductGroup = 81153C641BB9906E00A91EAD /* Products */;
+					ProjectRef = 81153C631BB9906E00A91EAD /* SpringApp.xcodeproj */;
+				},
+				{
 					ProductGroup = 81331E201A1806BB003E4609 /* Products */;
 					ProjectRef = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
 				},
@@ -1285,6 +1322,34 @@
 			remoteRef = 3B0E032A1BA898BF00D69601 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		81153C6B1BB9906F00A91EAD /* SpringApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = SpringApp.app;
+			remoteRef = 81153C6A1BB9906F00A91EAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		81153C6D1BB9906F00A91EAD /* SpringAppTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SpringAppTests.xctest;
+			remoteRef = 81153C6C1BB9906F00A91EAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		81153C6F1BB9906F00A91EAD /* Spring.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Spring.framework;
+			remoteRef = 81153C6E1BB9906F00A91EAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		81153C711BB9906F00A91EAD /* SpringTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SpringTests.xctest;
+			remoteRef = 81153C701BB9906F00A91EAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		81331E371A1806BB003E4609 /* SwiftAutoLayout.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1321,7 +1386,6 @@
 				3BAAB1961B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
 				3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
 				3BAAB19A1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
-				3B0E03051BA88A6300D69601 /* SwiftAutoLayout in Resources */,
 				3BAAB1A01B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
 				3BAAB1AB1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
 				3BAAB19C1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
@@ -1339,6 +1403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81DF4BBE1BB49371008B1A38 /* Montserrat-Regular.ttf in Resources */,
 				3BAAB1AA1B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */,
 				3BAAB19D1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
@@ -1477,6 +1542,7 @@
 				81E26D8E1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
 				3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */,
+				81DF4BBB1BB462A7008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				3B6B6FFE1BB0899300669ACD /* StyleKit.swift in Sources */,
 				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
 				817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */,
@@ -1498,6 +1564,7 @@
 				8176BEF01B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
+				81153C781BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
 				8176BEA31B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
 				816EB9711AE5EBA8000620E2 /* delay.swift in Sources */,
 				3BD971DF1B9F911E007EAB5A /* SigninView.swift in Sources */,
@@ -1554,6 +1621,7 @@
 				8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				8176BEA41B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
 				690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */,
+				81153C851BBB085F00A91EAD /* SpotifyAccountManager.swift in Sources */,
 				817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
@@ -1567,15 +1635,20 @@
 				3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */,
 				816589041B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
 				810C4AF41B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
+				81153C831BBB085F00A91EAD /* SessionManager.swift in Sources */,
 				81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				816588F81B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
+				81153C821BBB085F00A91EAD /* FacebookAccountManager.swift in Sources */,
 				81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				8176BEA11B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
+				81153C811BBB085F00A91EAD /* TwitterAccountManager.swift in Sources */,
+				81153C801BBB085F00A91EAD /* EmailAccountManager.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
+				81153C841BBB085F00A91EAD /* SoundcloudAccountManager.swift in Sources */,
 				3BF60C4F1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */,
 				817939011B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81E26D891B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
@@ -1596,16 +1669,18 @@
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				8176BEC61B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
-				3B1D6C001B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */,
 				810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				817938FE1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
 				81D60AC31B84BD4200347BCA /* SearchViewModel.swift in Sources */,
 				3B63EDCD1B7D284500E54AFA /* SocialAccount.swift in Sources */,
+				81153C871BBB091900A91EAD /* SocialAccountsService.swift in Sources */,
 				8179388B1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				8176BECC1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
 				81D60AD41B854D8500347BCA /* SearchResult.swift in Sources */,
 				81E26D861B65B17A00FC1F2F /* Direction.swift in Sources */,
+				81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
+				81153C861BBB085F00A91EAD /* VenmoAccountManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1616,6 +1691,11 @@
 			isa = PBXTargetDependency;
 			name = OAuthSwift;
 			targetProxy = 3B0E032E1BA898CD00D69601 /* PBXContainerItemProxy */;
+		};
+		81153C751BB9907F00A91EAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Spring;
+			targetProxy = 81153C741BB9907F00A91EAD /* PBXContainerItemProxy */;
 		};
 		8180E6381A142199007FA1CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1679,6 +1759,7 @@
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1803,6 +1884,7 @@
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1921,6 +2003,7 @@
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

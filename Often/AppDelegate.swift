@@ -12,7 +12,7 @@ import Crashlytics
 import Realm
 import OAuthSwift
 
-private var TestKeyboard: Bool = false
+private var TestKeyboard: Bool = true
 
 // PKRevealController
 var revealController: PKRevealController?
@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let window = self.window {
             if TestKeyboard {
-                mainController = KeyboardViewController(nibName: nil, bundle: nil)
+                mainController = KeyboardViewController(debug: true)
             } else {
                 venmoAccountManager = VenmoAccountManager()
                 spotifyAccountManager = SpotifyAccountManager()

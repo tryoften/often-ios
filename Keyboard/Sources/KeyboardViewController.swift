@@ -90,7 +90,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
         dispatch_once(&KeyboardViewController.once_predicate) {
-            Firebase.defaultConfig().persistenceEnabled = true
+            if (!KeyboardViewController.debugKeyboard) {
+                Firebase.defaultConfig().persistenceEnabled = true
+            }
         }
         
         searchBar = SearchBarController(nibName: nil, bundle: nil)
