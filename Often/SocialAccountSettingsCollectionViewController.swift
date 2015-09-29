@@ -46,6 +46,13 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(SocialAccountSettingsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
         }
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if viewModel.socialAccounts.isEmpty {
+            viewModel.sessionManager.fetchSocialAccount()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -144,7 +151,11 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         
     }
     
-    func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: SocialAccount) {
+    func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: [SocialAccount]) {
+        self.collectionView?.reloadData()
+    }
+    
+    func socialAccountSettingsViewModelDidLoadSocialAccount(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: SocialAccount) {
         self.viewModel.sessionManager.setSocialAccountOnCurrentUser(socialAccount, completion: { user,err  in
             print("we did it")
         })

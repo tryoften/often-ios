@@ -11,16 +11,14 @@ import Foundation
 class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     var viewModel: SignupViewModel
     var createAccountView: CreateAccountView
-    var pkRevealController: PKRevealController?
-    var frontNavigationController: UINavigationController?
-    var frontViewController: UserProfileViewController?
-    var leftViewController: SocialAccountSettingsCollectionViewController?
-    var rightViewController: AppSettingsViewController?
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
+        self.viewModel.sessionManager.userDefaults.setValue(false, forKey: "keyboardInstall")
+        
         createAccountView = CreateAccountView()
         createAccountView.translatesAutoresizingMaskIntoConstraints = false
+    
         super.init(nibName: nil, bundle: nil)
         
         view.addSubview(createAccountView)
@@ -57,7 +55,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
             try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
-                case .Success(_): self.createProfileViewController()
+                case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
                 case .Error(let e): print("Error", e)
                 default: break
                 }
@@ -78,7 +76,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 try viewModel.signUpUser({ results -> Void in
                      PKHUD.sharedHUD.hide(animated: true)
                     switch results {
-                    case .Success(_): self.createProfileViewController()
+                    case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
                     case .Error(let e): print("Error", e)
                     default: break
                     }
@@ -93,26 +91,9 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func createProfileViewController() {
-        let userProfileViewModel = UserProfileViewModel(sessionManager: self.viewModel.sessionManager)
-        let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: self.viewModel.sessionManager, venmoAccountManager: self.viewModel.venmoAccountManager, spotifyAccountManager: self.viewModel.spotifyAccountManager, soundcloudAccountManager: self.viewModel.soundcloudAccountManager)
-        
-        // Front view controller must be navigation controller - will hide the nav bar
-        self.frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-        self.frontNavigationController = UINavigationController(rootViewController: self.frontViewController!)
-        self.frontNavigationController?.setNavigationBarHidden(true, animated: true)
-        
-        // left view controller: Set Services for keyboard
-        // right view controller: App Settings
-        self.leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-        self.rightViewController = AppSettingsViewController()
-        
-        
-        // instantiate PKRevealController and set as mainController to do revealing
-        self.pkRevealController = PKRevealController(frontViewController: self.frontNavigationController, leftViewController: self.leftViewController, rightViewController: self.rightViewController)
-        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.leftViewController)
-        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.rightViewController)
-        self.presentViewController(self.pkRevealController!, animated: true, completion: nil)
+    func createKeyboardInstallationWalkthroughViewController() {
+        let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
+        self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
 
     }
     

@@ -23,6 +23,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
+        
         signupView = SignupView()
         signupView.translatesAutoresizingMaskIntoConstraints = false
         

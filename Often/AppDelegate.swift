@@ -61,6 +61,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let signupViewModel = SignupViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
                 
                 if sessionManager.userDefaults.objectForKey("user") != nil {
+                    let shouldShowInstallationKeyboardWalkthrough = sessionManager.userDefaults.boolForKey("keyboardInstall")
+                    
+                    if shouldShowInstallationKeyboardWalkthrough {
                     // Front view controller must be navigation controller - will hide the nav bar
                     frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
                     frontNavigationController = UINavigationController(rootViewController: frontViewController!)
@@ -78,8 +81,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: rightViewController)
 
                     mainController = revealController
+                    } else {
+                        mainController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
+                    }
+                
                 } else {
-                    mainController = SignupViewController(viewModel: signupViewModel)
+                        mainController = SignupViewController(viewModel: signupViewModel)
                 }
                
             }
