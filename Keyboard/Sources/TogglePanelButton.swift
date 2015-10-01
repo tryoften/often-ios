@@ -12,6 +12,7 @@ class TogglePanelButton: UIButton {
     
     var collapsed: Bool {
         didSet {
+            hidden = false
             UIView.animateWithDuration(0.3) {
                 self.imageView!.transform = CGAffineTransformRotate(self.imageView!.transform, CGFloat(M_PI))
                 self.layoutIfNeeded()

@@ -36,10 +36,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
-    enum AutoPeriodState {
-        case NoSpace
-        case FirstSpace
-    }
     var autoPeriodState: AutoPeriodState = .NoSpace
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
@@ -82,6 +78,10 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             }
             return keys
         }
+    }
+    enum AutoPeriodState {
+        case NoSpace
+        case FirstSpace
     }
     
     static var once_predicate: dispatch_once_t = 0
@@ -238,10 +238,13 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func resizeKeyboard(notification: NSNotification) {
         if let userInfo = notification.userInfo,
             height = userInfo["height"] as? CGFloat {
+                togglePanelButton.hidden = true
+                
                 let keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
                 
                 searchBarHeight = height + KeyboardSearchBarHeight
                 keyboardHeight = keysContainerViewHeight + searchBarHeight
+                
                 UIView.animateWithDuration(0.3) {
                     self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
                     self.view.layoutIfNeeded()

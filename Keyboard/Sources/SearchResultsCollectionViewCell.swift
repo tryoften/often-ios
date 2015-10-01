@@ -21,6 +21,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     var rightSupplementLabel: UILabel
     var rightCornerImageView: UIImageView
     var overlayView: SearchResultsCellOverlayView
+    var favoriteRibbon: UIImageView
     
     var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
@@ -56,6 +57,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     var itemFavorited: Bool {
         didSet {
             overlayView.favoriteButton.selected = itemFavorited
+            favoriteRibbon.hidden = !itemFavorited
         }
     }
     
@@ -110,6 +112,11 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         contentImageView.contentMode = .ScaleAspectFill
         contentImageView.clipsToBounds = true
         
+        favoriteRibbon = UIImageView()
+        favoriteRibbon.translatesAutoresizingMaskIntoConstraints = false
+        favoriteRibbon.image = StyleKit.imageOfFavoritedstate(frame: CGRectMake(0, 0, 62, 62), scale: 0.5)
+        favoriteRibbon.hidden = true
+        
         contentImageViewWidthConstraint = contentImageView.al_width == 100
         
         overlayView = SearchResultsCellOverlayView()
@@ -133,6 +140,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(informationContainerView)
         contentView.addSubview(contentPlaceholderImageView)
         contentView.addSubview(contentImageView)
+        contentView.addSubview(favoriteRibbon)
         contentView.addSubview(overlayView)
         
         informationContainerView.addSubview(sourceLogoView)
@@ -233,6 +241,9 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
             rightCornerImageView.al_right == contentImageView.al_left - 15,
             rightCornerImageView.al_height == 20,
             rightCornerImageView.al_width == 20,
+            
+            favoriteRibbon.al_right == al_right,
+            favoriteRibbon.al_bottom == al_bottom,
             
             overlayView.al_top == contentView.al_top,
             overlayView.al_bottom == contentView.al_bottom,
