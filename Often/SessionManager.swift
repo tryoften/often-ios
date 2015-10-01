@@ -22,6 +22,16 @@ class SessionManager: NSObject {
     var isUserNew: Bool
     var userIsLoggingIn = false
     
+    enum ResultType {
+        case Success(r: Bool)
+        case Error(e: ErrorType)
+        case SystemError(e: NSError)
+    }
+    
+    enum SessionManagerError: ErrorType {
+        case UnvalidSignUp
+    }
+    
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
     
@@ -34,7 +44,6 @@ class SessionManager: NSObject {
         SEGAnalytics.setupWithConfiguration(configuration)
         SEGAnalytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
-        Firebase.defaultConfig().persistenceEnabled = true
         
         firebase = Firebase(url: BaseURL)
         
@@ -44,7 +53,7 @@ class SessionManager: NSObject {
             self.processAuthData(authData)
         }
         
-        if let userData = userDefaults.objectForKey("user") as? [String:String] {
+        if let userData = userDefaults.objectForKey("user") as? [String: String] {
             currentUser = User()
             currentUser?.setValuesForKeysWithDictionary(userData)
             SEGAnalytics.sharedAnalytics().identify(currentUser!.id)
@@ -66,23 +75,40 @@ class SessionManager: NSObject {
     
     func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {
         emailAccountManager = EmailAccountManager(firebase: firebase)
-        emailAccountManager?.createUser(data, completion: completion)
+        do {
+            try emailAccountManager?.createUser(data, completion: completion)
+            
+        } catch {
+            
+        }
     }
     
-    func login(loginType: LoginType, completion: ((NSError?) -> ())? = nil) {
+    func login(loginType: LoginType, completion: (results: ResultType) -> Void) throws {
         userIsLoggingIn = true
         switch loginType {
         case .Twitter:
             twitterAccountManager = TwitterAccountManager(firebase: firebase)
-            twitterAccountManager?.login(completion)
+            twitterAccountManager?.login({ err in
+                if err != nil {
+                    completion(results: ResultType.SystemError(e: err!))
+                } else {
+                    completion(results: ResultType.Success(r: true))
+                }
+            })
             break
         case .Facebook:
             facebookAccountManager = FacebookAccountManager(firebase: firebase)
-            facebookAccountManager?.login(completion)
+            facebookAccountManager?.login({ err in
+                if err != nil {
+                    completion(results: ResultType.SystemError(e: err!))
+                } else {
+                    completion(results: ResultType.Success(r: true))
+                }
+            })
             break
         default:
-//            completion?(NSError())
-            break
+            completion(results: ResultType.Error(e: SessionManagerError.UnvalidSignUp))
+            throw SessionManagerError.UnvalidSignUp
         }
     }
     
@@ -150,8 +176,8 @@ class SessionManager: NSObject {
                                 persistUser(user)
                         }
                     } else {
-                        if (authData.uid.rangeOfString("twitter") == nil || authData.uid.rangeOfString("facebook") == nil) {
-                            var data = [String : String]()
+                        if (self.userDefaults.boolForKey("email") == true) {
+                            var data = [String : AnyObject]()
                             
                             data["id"] = authData.uid
                             data["email"] = PFUser.currentUser()?.email
@@ -160,13 +186,15 @@ class SessionManager: NSObject {
                             data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
                             data["name"] = PFUser.currentUser()?.objectForKey("fullName") as? String
                             data["parseId"] = uid
+                            data["accounts"] = self.createSocialAccount()
+                            
+                            let newUser = User()
+                            newUser.setValuesForKeysWithDictionary(data)
                             
                             self.userRef?.setValue(data)
                             self.isUserNew = false
                             
-                            let user = User()
-                            user.setValuesForKeysWithDictionary(data)
-                            persistUser(user)
+                            persistUser(newUser)
                             
                         }
                     }
@@ -177,6 +205,28 @@ class SessionManager: NSObject {
         } else {
             
         }
+    }
+    
+    func createSocialAccount() -> [String:AnyObject] {
+        var socialAccounts = [String:AnyObject]()
+        
+        let twitter = SocialAccount()
+        twitter.type = .Twitter
+        socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
+        
+        let spotify = SocialAccount()
+        spotify.type = .Spotify
+        socialAccounts.updateValue(spotify.toDictionary(), forKey: "spotify")
+        
+        let soundcloud = SocialAccount()
+        soundcloud.type = .Soundcloud
+        socialAccounts.updateValue(soundcloud.toDictionary(), forKey: "soundcloud")
+        
+        let venmo = SocialAccount()
+        venmo.type = .Venmo
+        socialAccounts.updateValue(venmo.toDictionary(), forKey: "venmo")
+        
+        return socialAccounts
     }
     
     func setSocialAccountOnCurrentUser(socialAccount:SocialAccount, completion: (User, NSError?) -> ()) {
@@ -191,7 +241,7 @@ class SessionManager: NSObject {
         if let currentUser = currentUser {
             let socialAccountService = provideSocialAccountService(currentUser)
             socialAccountService.fetchLocalData({ err  in
-                if err {
+                if err  {
                     self.broadcastDidFetchSocialAccountsEvent()
                 }
             })
@@ -212,7 +262,6 @@ class SessionManager: NSObject {
         
         return socialAccountService
     }
-    
     
     func addSessionObserver(observer: SessionManagerObserver) {
         self.observers.addObject(observer)
@@ -252,5 +301,5 @@ enum LoginType {
 @objc protocol SessionManagerObserver: class {
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [SocialAccount])
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String : AnyObject]?)
 }

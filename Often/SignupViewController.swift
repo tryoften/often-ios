@@ -67,8 +67,6 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     
     
     func loadVisiblePages() {
-        let page = Int(floor((signupView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
-        
         for index in 0...pageCount - 1 {
             loadPage(index)
         }
@@ -94,9 +92,24 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        /// Load the pages that are now on screen
+        let subtitleString = pagesubTitle[currentPage]
+        let subtitleRange = NSMakeRange(0, subtitleString.characters.count)
+        let subtitle = NSMutableAttributedString(string: subtitleString)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 3
+        
+        subtitle.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:subtitleRange)
+        subtitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 13)!, range: subtitleRange)
+        subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
+        
         signupView.pageControl.currentPage = currentPage
-        signupView.subtitleLabel.text = pagesubTitle[currentPage]
+        signupView.subtitleLabel.text = subtitleString
+        signupView.subtitleLabel.attributedText = subtitle
+        signupView.subtitleLabel.textAlignment = .Center
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
     }
 
     func setupPages() {

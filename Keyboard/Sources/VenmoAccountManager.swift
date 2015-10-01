@@ -15,6 +15,7 @@ class VenmoAccountManager: NSObject {
     var friends: [VenmoFriend]?
     var venmoAccount: SocialAccount?
     weak var delegate: VenmoAccountManagerDelegate?
+   
     override init() {
         manager = AFHTTPRequestOperationManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(objects: "text/html", "plain/html", "application/json") as Set<NSObject>
@@ -42,8 +43,6 @@ class VenmoAccountManager: NSObject {
     }
     
     func getCurrentCurrentSessionToken(session: VENSession) {
-        venmoAccount = SocialAccount()
-        venmoAccount?.type = .Venmo
         venmoAccount?.token = session.accessToken
         venmoAccount?.activeStatus = true
         venmoAccount?.tokenExpirationDate = session.expirationDate.description
