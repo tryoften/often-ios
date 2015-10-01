@@ -12,7 +12,7 @@ import Crashlytics
 import Realm
 import OAuthSwift
 
-private var TestKeyboard: Bool = true
+private var TestKeyboard: Bool = false
 
 // PKRevealController
 var revealController: PKRevealController?

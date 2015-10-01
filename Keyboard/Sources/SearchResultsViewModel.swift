@@ -6,12 +6,6 @@
 //  Copyright © 2015 Surf Inc. All rights reserved.
 //
 
-import UIKit
-
-enum SearchResultsError: ErrorType {
-    
-}
-
 class SearchResultsViewModel {
     
     let favoriteRef: Firebase

@@ -160,7 +160,6 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     }
     
     func didTapFavoriteButton() {
-        overlayView.favoriteButton.animation = ""
         overlayView.favoriteButton.selected = !overlayView.favoriteButton.selected
         delegate?.searchResultsCollectionViewCellDidToggleFavoriteButton(self, selected: overlayView.favoriteButton.selected)
     }
