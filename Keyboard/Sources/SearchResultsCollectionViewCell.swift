@@ -45,10 +45,17 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
             if (overlayVisible) {
                 overlayView.hidden = false
                 overlayView.showButtons()
+                overlayView.favoriteButton.selected = itemFavorited
             } else {
                 overlayView.hidden = true
                 
             }
+        }
+    }
+    
+    var itemFavorited: Bool {
+        didSet {
+            overlayView.favoriteButton.selected = itemFavorited
         }
     }
     
@@ -110,6 +117,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         
         overlayVisible = false
+        itemFavorited = false
         
         super.init(frame: frame)
         

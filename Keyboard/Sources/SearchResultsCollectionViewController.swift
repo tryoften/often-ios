@@ -38,6 +38,7 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
             backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
         }
     }
+    var viewModel: SearchResultsViewModel?
     
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
@@ -45,6 +46,8 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         backgroundImageView.contentMode = .Center
         backgroundImageView.contentScaleFactor = 2.5
         cellsAnimated = [:]
+        
+        viewModel = SearchResultsViewModel()
         
         self.textProcessor = textProcessor
         
@@ -116,9 +119,11 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
 
-        if let result = response?.results[indexPath.row] {
-            
-            switch(result.type) {
+        guard let result = response?.results[indexPath.row] else {
+            return cell
+        }
+        
+        switch(result.type) {
             case .Article:
                 let article = (result as! ArticleSearchResult)
                 cell.mainTextLabel.text = article.title
@@ -144,50 +149,59 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
                 }
             default:
                 break
-            }
-            
-            cell.searchResult = result
-            cell.delegate = self
-            cell.overlayVisible = false
-            cell.contentImageView.image = nil
-            if  let image = result.image,
-                let imageURL = NSURL(string: image) {
-                cell.contentImageView.setImageWithURL(imageURL)
-            }
-            
-            cell.sourceLogoView.image = result.iconImageForSource()
-            
-            if (cellsAnimated[indexPath] != true) {
-                cell.alpha = 0.0
-                
-                let finalFrame = cell.frame
-                
-                cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
-
-                UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
-                    cell.alpha = 1.0
-                    cell.frame = finalFrame
-                }, completion: nil)
-            }
-            
-            cellsAnimated[indexPath] = true
         }
+        
+        cell.searchResult = result
+        
+        if let favorited = viewModel?.checkFavorite(result) {
+            cell.itemFavorited = favorited
+        } else {
+            cell.itemFavorited = false
+        }
+        
+        cell.delegate = self
+        cell.overlayVisible = false
+        cell.contentImageView.image = nil
+        if  let image = result.image,
+            let imageURL = NSURL(string: image) {
+            cell.contentImageView.setImageWithURL(imageURL)
+        }
+        
+        cell.sourceLogoView.image = result.iconImageForSource()
+        
+        if (cellsAnimated[indexPath] != true) {
+            cell.alpha = 0.0
+            
+            let finalFrame = cell.frame
+            cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
+
+            UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+                cell.alpha = 1.0
+                cell.frame = finalFrame
+            }, completion: nil)
+        }
+        
+        cellsAnimated[indexPath] = true
         
         return cell
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SearchResultsCollectionViewCell else {
-            return
-        }
-        
-        guard let cells = collectionView.visibleCells() as? [SearchResultsCollectionViewCell] else {
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SearchResultsCollectionViewCell,
+            let cells = collectionView.visibleCells() as? [SearchResultsCollectionViewCell],
+            let result = response?.results[indexPath.row] else {
             return
         }
         
         for cell in cells {
             cell.overlayVisible = false
+        }
+        
+        if let favorited = viewModel?.checkFavorite(result) {
+            cell.itemFavorited = favorited
+        } else {
+            cell.itemFavorited = false
         }
         
         cell.overlayVisible = true
@@ -208,14 +222,8 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
             return
         }
         
-        let task = selected ? "addFavorite" : "removeFavorite"
-        
-        let favoriteQueueRef = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
-        favoriteQueueRef.setValue([
-            "task": task,
-            "user": "anon",
-            "result": result.toDictionary()
-        ])
+        viewModel?.toggleFavorite(selected, result: result)
+        cell.itemFavorited = selected
     }
     
     func searchResultsCollectionViewCellDidToggleCancelButton(cell: SearchResultsCollectionViewCell, selected: Bool) {

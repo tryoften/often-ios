@@ -53,6 +53,16 @@ class SearchResult {
     var sourceName: String = ""
     var source: SearchResultSource = .Unknown
     var image: String?
+    var data: [String: AnyObject] = [:]
+    
+    
+    init (data: [String: AnyObject]) {
+        self.data = data
+        
+        if let id = data["_id"] as? String {
+            self.id = id
+        }
+    }
     
     func iconImageForSource() -> UIImage? {
         return UIImage(named: source.rawValue)
@@ -91,10 +101,18 @@ class SearchResult {
     }
     
     func toDictionary() -> [String: AnyObject] {
-        return [
+        var data : [String: AnyObject] = [
+            "_id": id,
             "id": id,
-            "type": type.rawValue
+            "type": type.rawValue,
+            "source": source.rawValue
         ]
+        
+        for (key, value) in self.data {
+            data[key] = value
+        }
+        
+        return data
     }
 }
 
@@ -109,7 +127,7 @@ class ArticleSearchResult: SearchResult {
     var categories: [String]?
 
     
-    init (data: [String: AnyObject]) {
+    override init (data: [String: AnyObject]) {
         self.title = data["title"] as! String
         self.link = data["link"] as! String
         
@@ -123,7 +141,7 @@ class ArticleSearchResult: SearchResult {
             self.date = dateFormatter.dateFromString(date)
         }
 
-        super.init()
+        super.init(data: data)
         
         if let images = data["images"] as? [ [String: AnyObject] ] {
             var rectangleImage: [String: AnyObject]? = nil
@@ -141,7 +159,6 @@ class ArticleSearchResult: SearchResult {
             self.image = data["image"] as? String
         }
         
-        self.id = data["_id"] as! String
         self.type = .Article
         self.score = data["_score"] as? Double ?? 0.0
     }
@@ -165,14 +182,10 @@ class TrackSearchResult: SearchResult {
         return ""
     }
     
-    init(data: [String: AnyObject]) {
-        super.init()
+    override init(data: [String: AnyObject]) {
+        super.init(data: data)
         
         self.type = .Track
-
-        if let id = data["_id"] as? String {
-            self.id = id
-        }
         
         if let name = data["name"] as? String {
             self.name = name

@@ -11,33 +11,14 @@ import UIKit
 class TouchRecognizerView: UIView {
     
     var touchToView: [UITouch: UIView]
-    var togglePanelButton: UIButton
-    var collapsed: Bool {
-        didSet {
-            togglePanelButton.hidden = !collapsed
-        }
-    }
+    var collapsed: Bool
     
     override init(frame: CGRect) {
         touchToView = [:]
-        togglePanelButton = UIButton()
-        togglePanelButton.imageView?.contentMode = .ScaleAspectFit
-        togglePanelButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 5, bottom: 2, right: 5)
-        togglePanelButton.backgroundColor = UIColor.whiteColor()
-        togglePanelButton.hidden = true
-        togglePanelButton.userInteractionEnabled = true
-        togglePanelButton.layer.zPosition = 999
-        togglePanelButton.layer.cornerRadius = 2.0
-        togglePanelButton.layer.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.19).CGColor
-        togglePanelButton.layer.shadowOpacity = 1.0
-        togglePanelButton.layer.shadowOffset = CGSizeMake(0, 0)
-        togglePanelButton.layer.shadowRadius = 2.0
-
         collapsed = false
         
         super.init(frame: frame)
         
-        addSubview(togglePanelButton)
         contentMode = .Redraw
         multipleTouchEnabled = true
         userInteractionEnabled = true
@@ -53,14 +34,6 @@ class TouchRecognizerView: UIView {
         if frame.size.width == 0 || frame.size.height == 0 {
             return
         }
-        
-        var togglePanelButtonFrame = frame
-        togglePanelButtonFrame.origin.y = 0
-        togglePanelButtonFrame.size.height = 30
-        togglePanelButton.frame = togglePanelButtonFrame
-        
-        togglePanelButton.setImage(StyleKit.imageOfArrowheadup(frame: togglePanelButtonFrame, color: DefaultTheme.keyboardKeyTextColor, borderWidth: 2.0), forState: .Normal)
-        togglePanelButton.setImage(StyleKit.imageOfArrowheadup(frame: togglePanelButtonFrame, color: TealColor, borderWidth: 2.0), forState: .Selected)
     }
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent!) -> UIView? {

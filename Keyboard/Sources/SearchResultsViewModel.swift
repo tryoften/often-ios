@@ -14,31 +14,54 @@ enum SearchResultsError: ErrorType {
 
 class SearchResultsViewModel {
     
-    let favoriteRef: Firebase?
+    let favoriteRef: Firebase
     let userId: String
+    var favorites: [String]
     
     init?() {
-        let manager = SessionManager.defaultManager
         let baseRef = Firebase(url: BaseURL)
+        let userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        favorites = []
         
-        guard let user = manager.currentUser else {
+        guard let userData = userDefaults.objectForKey("user") as? [String: String],
+            let userId = userData["id"] else {
+                self.userId = ""
+                favoriteRef = Firebase()
             return nil
         }
         
-        userId = user.id
-        favoriteRef = baseRef.childByAppendingPath("users/\(user.id)/favorites")
+        self.userId = userId
+        favoriteRef = baseRef.childByAppendingPath("users/\(userId)/favorites")
+        favoriteRef.keepSynced(true)
+        getFavorites()
+    }
+    
+    func toggleFavorite(selected: Bool, result: SearchResult) {
+        if selected {
+            addFavorite(result)
+        } else {
+            removeFavorite(result)
+        }
     }
     
     func addFavorite(result: SearchResult) {
-        sendTask("askFavorite", result: result)
+        sendTask("addFavorite", result: result)
     }
     
     func removeFavorite(result: SearchResult) {
         sendTask("removeFavorite", result: result)
     }
     
-    func getFavorites(callback: ([String]) -> ()) {
-        favoriteRef?.observeSingleEventOfType(.Value, withBlock: { snapshot in
+    func checkFavorite(result: SearchResult) -> Bool {
+        let base64URI = SearchRequest.idFromQuery(result.id)
+            .stringByReplacingOccurrencesOfString("/", withString: "_")
+            .stringByReplacingOccurrencesOfString("+", withString: "-")
+        
+        return favorites.contains(base64URI)
+    }
+    
+    func getFavorites() {
+        favoriteRef.observeEventType(.Value, withBlock: { snapshot in
             
             if let data = snapshot.value as? [String: AnyObject] {
                 var ids = [String]()
@@ -47,7 +70,7 @@ class SearchResultsViewModel {
                     ids.append(id)
                 }
                 
-                callback(ids)
+                self.favorites = ids
             }
             
         })
@@ -57,7 +80,7 @@ class SearchResultsViewModel {
         let favoriteQueueRef = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
         favoriteQueueRef.setValue([
             "task": task,
-            "user": "anon",
+            "user": userId,
             "result": result.toDictionary()
         ])
     }

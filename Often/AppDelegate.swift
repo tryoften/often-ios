@@ -50,6 +50,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let window = self.window {
             if TestKeyboard {
+                var frame = window.frame
+                frame.origin.y = frame.size.height - (KeyboardHeight + 100)
+                frame.size.height = KeyboardHeight + 100
+                window.frame = frame
+                window.clipsToBounds = true
                 mainController = KeyboardViewController(debug: true)
             } else {
                 venmoAccountManager = VenmoAccountManager()
