@@ -60,7 +60,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
-        flowLayout.itemSize = CGSizeMake(screenWidth, 300)
+        flowLayout.itemSize = CGSizeMake(screenWidth, 6*118)
         return flowLayout
     }
     

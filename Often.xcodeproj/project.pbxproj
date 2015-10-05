@@ -75,17 +75,22 @@
 		690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */; };
 		690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
 		690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
+		69192E581BBB9AF800903071 /* EmptySetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69192E571BBB9AF800903071 /* EmptySetView.swift */; settings = {ASSET_TAGS = (); }; };
 		6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */; };
 		6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */; };
 		6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */; };
 		695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */; };
 		695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
+		696C2DA71BB6126B004AC9F6 /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		696C2DB11BB61357004AC9F6 /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DB01BB61357004AC9F6 /* ToolTip.swift */; settings = {ASSET_TAGS = (); }; };
 		696D8A5D1B93E8890016073C /* UserProfileSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */; };
 		6987F82E1B99A53900CA55D5 /* UserFavoritesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6987F82D1B99A53900CA55D5 /* UserFavoritesCollectionViewController.swift */; };
 		6987F8301B99A63B00CA55D5 /* UserRecentsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6987F82F1B99A63B00CA55D5 /* UserRecentsCollectionViewController.swift */; };
 		698B87231B75401E001B5B86 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */; };
 		698B872A1B755139001B5B86 /* UserProfileSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698B87291B755139001B5B86 /* UserProfileSectionHeaderView.swift */; };
 		699606271B422315004102BC /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
+		69BFB5091BC16F60001CC24D /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		69BFB5101BC16F96001CC24D /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DB01BB61357004AC9F6 /* ToolTip.swift */; settings = {ASSET_TAGS = (); }; };
 		69C663221B8B6FA60014433D /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C663211B8B6FA60014433D /* UserProfileViewModel.swift */; };
 		69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */; };
 		69E7FD8A1B8E0BD7003BC281 /* UserProfileFilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */; };
@@ -389,11 +394,14 @@
 		690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewController.swift; sourceTree = "<group>"; };
 		690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewCell.swift; sourceTree = "<group>"; };
 		690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoFriend.swift; path = Keyboard/Sources/VenmoFriend.swift; sourceTree = "<group>"; };
+		69192E571BBB9AF800903071 /* EmptySetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptySetView.swift; sourceTree = "<group>"; };
 		6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewCell.swift; path = Sources/FoursquareLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewController.swift; path = Sources/FoursquareLocationCollectionViewController.swift; sourceTree = "<group>"; };
 		6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationSectionHeader.swift; path = Sources/FoursquareLocationSectionHeader.swift; sourceTree = "<group>"; };
 		695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolTipViewController.swift; path = Sources/ToolTipViewController.swift; sourceTree = "<group>"; };
+		696C2DB01BB61357004AC9F6 /* ToolTip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolTip.swift; path = Sources/ToolTip.swift; sourceTree = "<group>"; };
 		696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		6987F82D1B99A53900CA55D5 /* UserFavoritesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFavoritesCollectionViewController.swift; sourceTree = "<group>"; };
 		6987F82F1B99A63B00CA55D5 /* UserRecentsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRecentsCollectionViewController.swift; sourceTree = "<group>"; };
@@ -897,6 +905,7 @@
 				69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */,
 				69048D481B9DCE06004ECE29 /* UserScrollTabCollectionViewContainerCell.swift */,
 				696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */,
+				69192E571BBB9AF800903071 /* EmptySetView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1051,6 +1060,7 @@
 				81E26D871B65BC8D00FC1F2F /* KeyboardKeyBackground.swift */,
 				81E26D8A1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift */,
 				3B63ED651B6AD43A00E54AFA /* ShapeView.swift */,
+				696C2DB01BB61357004AC9F6 /* ToolTip.swift */,
 				81E26D951B67C29D00FC1F2F /* Shape.swift */,
 				81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */,
 				8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */,
@@ -1067,6 +1077,7 @@
 				8180E6351A142199007FA1CF /* KeyboardViewController.swift */,
 				3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */,
 				8176BEC41B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift */,
+				696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */,
 				817939061B5C29560064B0CF /* SearchBarController.swift */,
 				81E26DA51B68901100FC1F2F /* TrendingViewController.swift */,
 				8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */,
@@ -1196,7 +1207,7 @@
 				TargetAttributes = {
 					8180E6071A142157007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = VPYJKM228K;
+						DevelopmentTeam = G23SDK69HF;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1214,7 +1225,7 @@
 					};
 					8180E6301A142199007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = VPYJKM228K;
+						DevelopmentTeam = LMA3M32RE8;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1456,6 +1467,7 @@
 				3BD971E31B9FD483007EAB5A /* SignupViewModel.swift in Sources */,
 				81E26D9C1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
+				69192E581BBB9AF800903071 /* EmptySetView.swift in Sources */,
 				81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
 				81D60AD31B854D8500347BCA /* SearchResult.swift in Sources */,
 				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
@@ -1481,6 +1493,7 @@
 				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
 				817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				69E7FD8A1B8E0BD7003BC281 /* UserProfileFilterTabView.swift in Sources */,
+				69BFB5101BC16F96001CC24D /* ToolTip.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				69048D491B9DCE06004ECE29 /* UserScrollTabCollectionViewContainerCell.swift in Sources */,
 				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
@@ -1523,6 +1536,7 @@
 				3B63EDCF1B7D2AD400E54AFA /* Service.swift in Sources */,
 				810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				3BD971BE1B98ABF4007EAB5A /* TwitterAccountManager.swift in Sources */,
+				69BFB5091BC16F60001CC24D /* ToolTipViewController.swift in Sources */,
 				81E26D8B1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				81D60AD01B84BF3200347BCA /* SearchResponse.swift in Sources */,
@@ -1547,6 +1561,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				696C2DA71BB6126B004AC9F6 /* ToolTipViewController.swift in Sources */,
 				8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */,
 				81D60AD11B84BF3200347BCA /* SearchResponse.swift in Sources */,
 				8176BEE71B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
@@ -1562,6 +1577,7 @@
 				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				81E26D8C1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
+				696C2DB11BB61357004AC9F6 /* ToolTip.swift in Sources */,
 				81FFAF4E1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
 				810C4AF81B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
 				3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */,
@@ -1861,7 +1877,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8da3c413-a9d1-440e-88e7-cf51f83d27fd";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};

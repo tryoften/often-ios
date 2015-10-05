@@ -75,13 +75,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     revealController = PKRevealController(frontViewController: frontNavigationController, leftViewController: leftViewController, rightViewController: rightViewController)
                     revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: leftViewController)
                     revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: rightViewController)
-
+                    
                     mainController = revealController
                 } else {
                     mainController = SignupViewController(viewModel: SignupViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager))
                 }
                
             }
+            UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Fade)
             window.rootViewController = mainController
             window.makeKeyAndVisible()
         }
