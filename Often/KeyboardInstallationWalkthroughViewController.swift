@@ -25,11 +25,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     var pageTitle: [String]
     var pagesubTitle: [String]
     var viewModel: SignupViewModel
-    var pkRevealController: PKRevealController?
-    var frontNavigationController: UINavigationController?
-    var frontViewController: UserProfileViewController?
-    var leftViewController: SocialAccountSettingsCollectionViewController?
-    var rightViewController: AppSettingsViewController?
+    
     
     var currentPage: Int {
         return Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
@@ -122,7 +118,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         toolbar.addSubview(settingsButton)
         toolbar.addSubview(nextButton)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayInstallationKeyboardWalkthrough", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayInstallationKeyboardWalkthrough", name: "didBecomeActive", object: nil)
         setupLayout()
     }
     
@@ -140,10 +136,6 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         
         setupPages()
         loadVisiblePages()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        displayInstallationKeyboardWalkthrough()
     }
     
     override func didReceiveMemoryWarning() {
@@ -211,31 +203,27 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             if shouldShowInstallationKeyboardWalkthrough {
                 self.createProfileViewController()
             } 
-
-        
     }
     
     func createProfileViewController() {
-        let userProfileViewModel = UserProfileViewModel(sessionManager: self.viewModel.sessionManager)
-        let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: self.viewModel.sessionManager, venmoAccountManager: self.viewModel.venmoAccountManager, spotifyAccountManager: self.viewModel.spotifyAccountManager, soundcloudAccountManager: self.viewModel.soundcloudAccountManager)
         
-        // Front view controller must be navigation controller - will hide the nav bar
-        self.frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-        self.frontNavigationController = UINavigationController(rootViewController: self.frontViewController!)
-        self.frontNavigationController?.setNavigationBarHidden(true, animated: true)
-        
-        // left view controller: Set Services for keyboard
-        // right view controller: App Settings
-        self.leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-        self.rightViewController = AppSettingsViewController()
-        
-        
-        // instantiate PKRevealController and set as mainController to do revealing
-        self.pkRevealController = PKRevealController(frontViewController: self.frontNavigationController, leftViewController: self.leftViewController, rightViewController: self.rightViewController)
-        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.leftViewController)
-        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.rightViewController)
-        self.presentViewController(self.pkRevealController!, animated: true, completion: nil)
-        
+        if (SlideNavigationController.sharedInstance() == nil) {
+            let userProfileViewModel = UserProfileViewModel(sessionManager: self.viewModel.sessionManager)
+            let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: self.viewModel.sessionManager, venmoAccountManager: self.viewModel.venmoAccountManager, spotifyAccountManager: self.viewModel.spotifyAccountManager, soundcloudAccountManager: self.viewModel.soundcloudAccountManager)
+            
+            let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
+            let mainViewController = SlideNavigationController(rootViewController: frontViewController)
+            mainViewController.navigationBar.hidden = true
+            mainViewController.enableShadow = false   
+            mainViewController.panGestureSideOffset = CGFloat(30)
+            // left view controller: Set Services for keyboard
+            // right view controller: App Settings
+            
+            SlideNavigationController.sharedInstance().leftMenu =  SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
+            SlideNavigationController.sharedInstance().rightMenu = AppSettingsViewController()
+            presentViewController(mainViewController, animated: true, completion: nil )
+            
+        }
     }
 
     

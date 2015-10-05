@@ -11,11 +11,7 @@ import Foundation
 class SigninViewController: UIViewController, UITextFieldDelegate {
     var viewModel: SignupViewModel
     var signinView: SigninView
-    var pkRevealController: PKRevealController?
-    var frontNavigationController: UINavigationController?
-    var frontViewController: UserProfileViewController?
-    var leftViewController: SocialAccountSettingsCollectionViewController?
-    var rightViewController: AppSettingsViewController?
+  
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
@@ -103,23 +99,17 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         let userProfileViewModel = UserProfileViewModel(sessionManager: self.viewModel.sessionManager)
         let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: self.viewModel.sessionManager, venmoAccountManager: self.viewModel.venmoAccountManager, spotifyAccountManager: self.viewModel.spotifyAccountManager, soundcloudAccountManager: self.viewModel.soundcloudAccountManager)
         
-        // Front view controller must be navigation controller - will hide the nav bar
-        self.frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-        self.frontNavigationController = UINavigationController(rootViewController: self.frontViewController!)
-        self.frontNavigationController?.setNavigationBarHidden(true, animated: true)
-        
+        let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
+        let mainViewController = SlideNavigationController(rootViewController: frontViewController)
+        mainViewController.navigationBar.hidden = true
+        mainViewController.enableShadow = false
+        mainViewController.panGestureSideOffset = CGFloat(30)
         // left view controller: Set Services for keyboard
         // right view controller: App Settings
-        self.leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-        self.rightViewController = AppSettingsViewController()
         
-        
-        // instantiate PKRevealController and set as mainController to do revealing
-        self.pkRevealController = PKRevealController(frontViewController: self.frontNavigationController, leftViewController: self.leftViewController, rightViewController: self.rightViewController)
-        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.leftViewController)
-        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.rightViewController)
-        self.presentViewController(self.pkRevealController!, animated: true, completion: nil)
-        
+        SlideNavigationController.sharedInstance().leftMenu =  SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
+        SlideNavigationController.sharedInstance().rightMenu = AppSettingsViewController()
+        presentViewController(mainViewController, animated: true, completion: nil )
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{

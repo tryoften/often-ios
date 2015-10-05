@@ -18,8 +18,8 @@ target 'Often' do
   pod 'ParseFacebookUtils'
   pod 'CSStickyHeaderFlowLayout'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
-  pod 'PKRevealController'
   pod 'DateTools', '~> 1.6'
+  pod 'iOS-Slide-Menu'
   pod 'DZNEmptyDataSet'
 end
 
@@ -31,5 +31,5 @@ target 'Keyboard' do
   pod 'DateTools', '~> 1.6'
 end
 
-end
+
 

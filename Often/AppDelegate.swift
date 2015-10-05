@@ -14,10 +14,6 @@ import OAuthSwift
 
 private var TestKeyboard: Bool = false
 
-// PKRevealController
-var revealController: PKRevealController?
-var frontNavigationController: UINavigationController?
-var frontViewController: UserProfileViewController?
 var leftViewController: SocialAccountSettingsCollectionViewController?
 var rightViewController: AppSettingsViewController?
 
@@ -64,31 +60,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let shouldShowInstallationKeyboardWalkthrough = sessionManager.userDefaults.boolForKey("keyboardInstall")
                     
                     if shouldShowInstallationKeyboardWalkthrough {
-                    // Front view controller must be navigation controller - will hide the nav bar
-                    frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-                    frontNavigationController = UINavigationController(rootViewController: frontViewController!)
-                    frontNavigationController?.setNavigationBarHidden(true, animated: true)
-                    
-                    // left view controller: Set Services for keyboard
-                    // right view controller: App Settings
-                    leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-                    rightViewController = AppSettingsViewController()
-                    
-                    
-                    // instantiate PKRevealController and set as mainController to do revealing
-                    revealController = PKRevealController(frontViewController: frontNavigationController, leftViewController: leftViewController, rightViewController: rightViewController)
-                    revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: leftViewController)
-                    revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: rightViewController)
-
-                    mainController = revealController
+                        let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
+                        let mainViewController = SlideNavigationController(rootViewController: frontViewController)
+                        mainViewController.navigationBar.hidden = true
+                        mainViewController.enableShadow = false
+                        mainViewController.panGestureSideOffset = CGFloat(30)
+                        // left view controller: Set Services for keyboard
+                        // right view controller: App Settings
+                        leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
+                        rightViewController = AppSettingsViewController()
+                        
+                        SlideNavigationController.sharedInstance().leftMenu =  leftViewController
+                        SlideNavigationController.sharedInstance().rightMenu = rightViewController
+                        
+                        mainController = mainViewController
                     } else {
                         mainController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
                     }
-                
+                    
                 } else {
-                        mainController = SignupViewController(viewModel: signupViewModel)
+                    mainController = SignupViewController(viewModel: signupViewModel)
                 }
-               
+                
             }
             window.rootViewController = mainController
             window.makeKeyAndVisible()
@@ -138,6 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
+        
     }
 
     func applicationWillTerminate(application: UIApplication) {
