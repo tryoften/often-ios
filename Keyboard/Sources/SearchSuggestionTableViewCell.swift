@@ -10,6 +10,7 @@ import UIKit
 
 class SearchSuggestionTableViewCell: UITableViewCell {
     var resultsCountLabel: UILabel
+
     
     var resultsCount: Int? {
         didSet {
@@ -26,6 +27,7 @@ class SearchSuggestionTableViewCell: UITableViewCell {
             }
         }
     }
+    
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         resultsCountLabel = UILabel()
@@ -33,11 +35,11 @@ class SearchSuggestionTableViewCell: UITableViewCell {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(resultsCountLabel)
-        
         backgroundColor = ClearColor
         textLabel!.font = SubtitleFont
         selectionStyle = .None
+        
+        contentView.addSubview(resultsCountLabel)
         
         setupLayout()
     }

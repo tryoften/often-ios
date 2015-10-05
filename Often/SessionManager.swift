@@ -53,7 +53,7 @@ class SessionManager: NSObject {
             self.processAuthData(authData)
         }
         
-        if let userData = userDefaults.objectForKey("user") as? [String:String] {
+        if let userData = userDefaults.objectForKey("user") as? [String: String] {
             currentUser = User()
             currentUser?.setValuesForKeysWithDictionary(userData)
             SEGAnalytics.sharedAnalytics().identify(currentUser!.id)

@@ -22,7 +22,7 @@ import UIKit
     Tweet Cell
 
 */
-class SearchResultsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SearchResultsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, SearchResultsCollectionViewCellDelegate {
     var backgroundImageView: UIImageView
     var cellsAnimated: [NSIndexPath: Bool]
     var textProcessor: TextProcessingManager?
@@ -38,6 +38,7 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
             backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
         }
     }
+    var viewModel: SearchResultsViewModel?
     
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
@@ -45,6 +46,8 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         backgroundImageView.contentMode = .Center
         backgroundImageView.contentScaleFactor = 2.5
         cellsAnimated = [:]
+        
+        viewModel = SearchResultsViewModel()
         
         self.textProcessor = textProcessor
         
@@ -116,9 +119,11 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
 
-        if let result = response?.results[indexPath.row] {
-            
-            switch(result.type) {
+        guard let result = response?.results[indexPath.row] else {
+            return cell
+        }
+        
+        switch(result.type) {
             case .Article:
                 let article = (result as! ArticleSearchResult)
                 cell.mainTextLabel.text = article.title
@@ -142,43 +147,64 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
                 default:
                     break
                 }
-                
             default:
                 break
-            }
-            
-            cell.contentImageView.image = nil
-            if  let image = result.image,
-                let imageURL = NSURL(string: image) {
-                cell.contentImageView.setImageWithURL(imageURL)
-            }
-            
-            cell.sourceLogoView.image = result.iconImageForSource()
-            
-            if (cellsAnimated[indexPath] != true) {
-                cell.alpha = 0.0
-                let finalFrame = cell.frame
-                let translation = collectionView.panGestureRecognizer.translationInView(collectionView)
-                
-                cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
-
-                
-                UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
-                    cell.alpha = 1.0
-                    cell.frame = finalFrame
-                    }, completion: nil)
-            }
-            
-            cellsAnimated[indexPath] = true
         }
+        
+        cell.searchResult = result
+        
+        if let favorited = viewModel?.checkFavorite(result) {
+            cell.itemFavorited = favorited
+        } else {
+            cell.itemFavorited = false
+        }
+        
+        cell.delegate = self
+        cell.overlayVisible = false
+        cell.contentImageView.image = nil
+        if  let image = result.image,
+            let imageURL = NSURL(string: image) {
+            cell.contentImageView.setImageWithURL(imageURL)
+        }
+        
+        cell.sourceLogoView.image = result.iconImageForSource()
+        
+        if (cellsAnimated[indexPath] != true) {
+            cell.alpha = 0.0
+            
+            let finalFrame = cell.frame
+            cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
+
+            UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+                cell.alpha = 1.0
+                cell.frame = finalFrame
+            }, completion: nil)
+        }
+        
+        cellsAnimated[indexPath] = true
         
         return cell
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let result = response?.results[indexPath.row] {
-            textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SearchResultsCollectionViewCell,
+            let cells = collectionView.visibleCells() as? [SearchResultsCollectionViewCell],
+            let result = response?.results[indexPath.row] else {
+            return
         }
+        
+        for cell in cells {
+            cell.overlayVisible = false
+        }
+        
+        if let favorited = viewModel?.checkFavorite(result) {
+            cell.itemFavorited = favorited
+        } else {
+            cell.itemFavorited = false
+        }
+        
+        cell.overlayVisible = true
     }
     
     func setupLayout() {
@@ -188,5 +214,27 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
             backgroundImageView.al_width == view.al_width,
             backgroundImageView.al_height == view.al_height - 30
         ])
+    }
+    
+    // SearchResultsCollectionViewCellDelegate
+    func searchResultsCollectionViewCellDidToggleFavoriteButton(cell: SearchResultsCollectionViewCell, selected: Bool) {
+        guard let result = cell.searchResult else {
+            return
+        }
+        
+        viewModel?.toggleFavorite(selected, result: result)
+        cell.itemFavorited = selected
+    }
+    
+    func searchResultsCollectionViewCellDidToggleCancelButton(cell: SearchResultsCollectionViewCell, selected: Bool) {
+        cell.overlayVisible = false
+    }
+    
+    func searchResultsCollectionViewCellDidToggleInsertButton(cell: SearchResultsCollectionViewCell, selected: Bool) {
+        guard let result = cell.searchResult else {
+            return
+        }
+
+        textProcessor?.defaultProxy.insertText(result.getInsertableText())
     }
 }

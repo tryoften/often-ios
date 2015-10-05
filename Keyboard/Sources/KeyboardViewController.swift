@@ -19,6 +19,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     let locale: Language = .English
     var textProcessor: TextProcessingManager!
     var keysContainerView: TouchRecognizerView!
+    var togglePanelButton: TogglePanelButton!
     var slidePanelContainerView: UIView
     var searchBar: SearchBarController!
     var layout: KeyboardLayout
@@ -35,15 +36,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
-    enum AutoPeriodState {
-        case NoSpace
-        case FirstSpace
-    }
     var autoPeriodState: AutoPeriodState = .NoSpace
     var backspaceActive: Bool {
-        get {
-            return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
-        }
+        return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
     }
     var backspaceDelayTimer: NSTimer?
     var backspaceRepeatTimer: NSTimer?
@@ -84,19 +79,30 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             return keys
         }
     }
+    enum AutoPeriodState {
+        case NoSpace
+        case FirstSpace
+    }
     
     static var once_predicate: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
+        // Only setup firebase once because this view controller gets instantiated
+        // everytime the keyboard is spawned
         dispatch_once(&KeyboardViewController.once_predicate) {
-            Firebase.defaultConfig().persistenceEnabled = true
+            if (!KeyboardViewController.debugKeyboard) {
+                Firebase.defaultConfig().persistenceEnabled = true
+            }
         }
         
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         
         keysContainerView = TouchRecognizerView()
         keysContainerView.backgroundColor = DefaultTheme.keyboardBackgroundColor
+        
+        togglePanelButton = TogglePanelButton()
+        togglePanelButton.hidden = true
         
         shiftState = .Enabled
         
@@ -121,10 +127,11 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         center.addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
         center.addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
         center.addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
-        keysContainerView.togglePanelButton.addTarget(self, action: "restoreKeyboard", forControlEvents: .TouchUpInside)
+        togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
         
         view.addSubview(searchBar.view)
         view.addSubview(slidePanelContainerView)
+        view.addSubview(togglePanelButton)
         view.addSubview(keysContainerView)
         inputView!.backgroundColor = VeryLightGray
     }
@@ -167,8 +174,13 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         if keysContainerView.collapsed {
             let height = CGRectGetHeight(self.view.frame) - 30
             var keysContainerViewFrame = keysContainerView.frame
-            keysContainerViewFrame.origin.y = height
+            keysContainerViewFrame.origin.y = CGRectGetHeight(self.view.frame)
             keysContainerView.frame = keysContainerViewFrame
+            
+            var togglePanelButtonFrame = self.keysContainerView.frame
+            togglePanelButtonFrame.origin.y = height
+            togglePanelButtonFrame.size.height = 30
+            self.togglePanelButton.frame = togglePanelButtonFrame
         } else {
             keysContainerView.frame.origin = CGPointMake(0, view.bounds.height - keysContainerView.bounds.height)
         }
@@ -194,6 +206,12 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             heightConstraint!.priority = 1000
             
             view.addConstraint(heightConstraint!) // TODO: what if view already has constraint added?
+            
+            if (KeyboardViewController.debugKeyboard) {
+                var viewFrame = view.frame
+                viewFrame.size.height = KeyboardHeight + 100
+                view.frame = viewFrame
+            }
         }
         else {
             heightConstraint?.constant = height
@@ -220,10 +238,13 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func resizeKeyboard(notification: NSNotification) {
         if let userInfo = notification.userInfo,
             height = userInfo["height"] as? CGFloat {
+                togglePanelButton.hidden = true
+                
                 let keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
                 
                 searchBarHeight = height + KeyboardSearchBarHeight
                 keyboardHeight = keysContainerViewHeight + searchBarHeight
+                
                 UIView.animateWithDuration(0.3) {
                     self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
                     self.view.layoutIfNeeded()
@@ -232,23 +253,42 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func collapseKeyboard() {
+        togglePanelButton.collapsed = true
         keysContainerView.collapsed = true
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn, animations: {
+            
             let height = CGRectGetHeight(self.view.frame) - 30
             var keysContainerViewFrame = self.keysContainerView.frame
-            keysContainerViewFrame.origin.y = height
+            keysContainerViewFrame.origin.y = CGRectGetHeight(self.view.frame)
             self.keysContainerView.frame = keysContainerViewFrame
+            
+            var togglePanelButtonFrame = self.keysContainerView.frame
+            togglePanelButtonFrame.origin.y = height
+            togglePanelButtonFrame.size.height = 30
+            self.togglePanelButton.frame = togglePanelButtonFrame
+            
         }) { done in
-                
+            self.togglePanelButton.hidden = false
         }
     }
     
     func restoreKeyboard() {
+        togglePanelButton.collapsed = false
         keysContainerView.collapsed = false
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn, animations: {
             self.keysContainerView.frame.origin = CGPointMake(0, self.view.bounds.height - self.keysContainerView.bounds.height)
+            
+            self.togglePanelButton.frame.origin.y = self.keysContainerView.frame.origin.y - 30
             }) { done in
                 
+        }
+    }
+    
+    func toggleKeyboard() {
+        if togglePanelButton.collapsed {
+            restoreKeyboard()
+        } else {
+            collapseKeyboard()
         }
     }
     
@@ -347,20 +387,20 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             if let keyView = self.layoutEngine?.viewForKey(key) {
                 keyView.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
                 switch key {
-                case .modifier(.SwitchKeyboard, let pageId):
+                case .modifier(.SwitchKeyboard, _):
                     keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
-                case .modifier(.Backspace, let pageId):
+                case .modifier(.Backspace, _):
                     let cancelEvents: UIControlEvents = [UIControlEvents.TouchUpInside, UIControlEvents.TouchUpInside, UIControlEvents.TouchDragExit, UIControlEvents.TouchUpOutside, UIControlEvents.TouchCancel, UIControlEvents.TouchDragOutside]
                     keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
-                case .modifier(.CapsLock, let pageId):
+                case .modifier(.CapsLock, _):
                     keyView.addTarget(self, action: "shiftDown:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
                     keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
-                case .modifier(.Space, let pageId):
+                case .modifier(.Space, _):
                     keyView.addTarget(self, action: "didTapSpaceButton:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseSpaceButton:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
-                case .modifier(.CallService, let pageId):
+                case .modifier(.CallService, _):
                     let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "callServiceLongPressed:")
                     longPressRecognizer.minimumPressDuration = 1.0
                     keyView.background.addGestureRecognizer(longPressRecognizer)
@@ -368,10 +408,10 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                     
                     keyView.addTarget(self, action: "didTapCallKey:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseCallKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
-                case .modifier(.Enter, let pageId):
+                case .modifier(.Enter, _):
                     keyView.addTarget(self, action: "didTapEnterKey:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseEnterKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
-                case .changePage(let pageNumber, let pageId):
+                case .changePage(_, _):
                     keyView.addTarget(self, action: "pageChangeTapped:", forControlEvents: .TouchDown)
                 default:
                     break
@@ -427,7 +467,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                         button.text = str.lowercaseString
                     }
                     break
-                case .modifier(.CapsLock, let pageId):
+                case .modifier(.CapsLock, _):
                     if shiftState.uppercase() {
                         button.selected = true
                     } else {
