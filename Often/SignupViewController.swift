@@ -127,8 +127,8 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func didTapSigninButton(sender: UIButton) {
-        let createAccount = SigninViewController(viewModel:self.viewModel)
-        presentViewController(createAccount, animated: true, completion: nil)
+        let signinAccount = SigninViewController(viewModel:self.viewModel)
+        presentViewController(signinAccount, animated: true, completion: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
