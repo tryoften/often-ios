@@ -118,7 +118,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         toolbar.addSubview(settingsButton)
         toolbar.addSubview(nextButton)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayInstallationKeyboardWalkthrough", name: "didBecomeActive", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayInstallationKeyboardWalkthrough", name: UIApplicationDidBecomeActiveNotification, object: nil)
         setupLayout()
     }
     
