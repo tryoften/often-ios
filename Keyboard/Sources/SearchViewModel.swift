@@ -157,7 +157,7 @@ class SearchViewModel: NSObject {
                 case .Music:
                     break
                 case .Track:
-                    result = TrackSearchResult(resultData: resultData)
+                    result = TrackSearchResult(data: resultData)
                 case .Album:
                     break
                 case .User:

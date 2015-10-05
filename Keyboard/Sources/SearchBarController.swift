@@ -36,8 +36,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
                     break
                 case .Foursquare:
                     break
-                default:
-                    break
                 }
                 button?.addTarget(self, action: "didTapProviderButton:", forControlEvents: .TouchUpInside)
                 searchBarView.providerButton = button
@@ -176,7 +174,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         activeServiceProvider = nil
         activeSupplementaryViewController = nil
         NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-            "height": 0
+            "height": 0,
+            "hideToggleBar": true
         ])
     }
     
@@ -219,7 +218,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         requestAutocompleteSuggestions()
         
         NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-            "height": 100.0
+            "height": 100.0,
+            "hideToggleBar": true
         ])
         
         searchSuggestionsViewController?.tableView.scrollRectToVisible(CGRectZero, animated: false)

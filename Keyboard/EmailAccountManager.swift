@@ -21,7 +21,6 @@ class EmailAccountManager: NSObject {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         
         super.init()
-        
     }
     
     func openSessionWithEmail(username:String, password: String, completion: ((NSError?) -> ())? = nil) {
@@ -40,7 +39,6 @@ class EmailAccountManager: NSObject {
     }
     
     func loginWithUsername(username: String, password: String,completion: (NSError?) -> ()) {
-        
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
             if user != nil {
                 self.openSessionWithEmail(username, password: password, completion:completion)
