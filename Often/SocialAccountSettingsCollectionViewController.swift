@@ -33,8 +33,8 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .Vertical
-        viewLayout.sectionInset = UIEdgeInsetsMake(25.0, 5.0, 5.0, 5.0)
-        viewLayout.itemSize = CGSizeMake(screenWidth - 30, 218)
+        viewLayout.sectionInset = UIEdgeInsetsMake(25.0, 5.0, 5.0, 70.0)
+        viewLayout.itemSize = CGSizeMake(screenWidth - 95, 218)
         return viewLayout
     }
     
