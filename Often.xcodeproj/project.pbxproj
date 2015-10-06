@@ -20,8 +20,6 @@
 		3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; settings = {ASSET_TAGS = (); }; };
 		3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
-		3BA894581BB35D340000D5C0 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA894571BB35D340000D5C0 /* Service.swift */; settings = {ASSET_TAGS = (); }; };
-		3BA8945A1BB35D440000D5C0 /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA894591BB35D440000D5C0 /* SocialAccountsService.swift */; settings = {ASSET_TAGS = (); }; };
 		3BA8945C1BB35D560000D5C0 /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */; settings = {ASSET_TAGS = (); }; };
 		3BA8945E1BB35E170000D5C0 /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */; settings = {ASSET_TAGS = (); }; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
@@ -106,7 +104,6 @@
 		81153C761BB9918800A91EAD /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81153C6F1BB9906F00A91EAD /* Spring.framework */; };
 		81153C781BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; settings = {ASSET_TAGS = (); }; };
 		81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; settings = {ASSET_TAGS = (); }; };
-		81153C831BBB085F00A91EAD /* (null) in Sources */ = {isa = PBXBuildFile; settings = {ASSET_TAGS = (); }; };
 		81153CB11BBB267000A91EAD /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CB01BBB267000A91EAD /* SessionManager.swift */; settings = {ASSET_TAGS = (); }; };
 		81153CBD1BBC7FC000A91EAD /* TogglePanelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */; settings = {ASSET_TAGS = (); }; };
 		81153CBE1BBC869200A91EAD /* TogglePanelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */; settings = {ASSET_TAGS = (); }; };
@@ -124,8 +121,6 @@
 		812E3F0C1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F091B4BBA6A00C0F3BE /* Fabric.framework */; };
 		812E3F0D1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */; };
 		812E3F0E1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */; };
-		81331E2B1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
-		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
@@ -201,7 +196,6 @@
 		81B19EAB1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
 		81B19EAC1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
-		81D4BF201B38F6DA006430AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81D4BF171B38F6DA006430AB /* Images.xcassets */; };
 		81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1A1B38F6DA006430AB /* PKHUD.swift */; };
 		81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1B1B38F6DA006430AB /* PKHUDAssets.swift */; };
 		81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1C1B38F6DA006430AB /* PKHUDContentView.swift */; };
@@ -216,7 +210,6 @@
 		81D60AD31B854D8500347BCA /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* SearchResult.swift */; };
 		81D60AD41B854D8500347BCA /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* SearchResult.swift */; };
 		81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AC21B84BD4200347BCA /* SearchViewModel.swift */; };
-		81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */ = {isa = PBXBuildFile; fileRef = 81DC114A1AF05CF400412BD2 /* SwiftyJSON */; };
 		81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; settings = {ASSET_TAGS = (); }; };
 		81DF4BBB1BB462A7008B1A38 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; settings = {ASSET_TAGS = (); }; };
 		81DF4BBE1BB49371008B1A38 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; settings = {ASSET_TAGS = (); }; };
@@ -395,8 +388,6 @@
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
 		3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsViewModel.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
-		3BA894571BB35D340000D5C0 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = Often/Service.swift; sourceTree = "<group>"; };
-		3BA894591BB35D440000D5C0 /* SocialAccountsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialAccountsService.swift; path = Often/SocialAccountsService.swift; sourceTree = "<group>"; };
 		3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialAccount.swift; path = Often/SocialAccount.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -469,7 +460,6 @@
 		813138841B13AD92001AF9AC /* Keyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Keyboard.entitlements; sourceTree = "<group>"; };
 		813138881B13ADA3001AF9AC /* Often.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Often.entitlements; path = ../Often.entitlements; sourceTree = "<group>"; };
 		81331E071A17E8FE003E4609 /* Often-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Often-Bridging-Header.h"; sourceTree = "<group>"; };
-		81331E1C1A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E1D1A1806BB003E4609 /* SwiftAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftAutoLayout.h; sourceTree = "<group>"; };
 		81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayout.swift; sourceTree = "<group>"; };
 		81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SwiftAutoLayout.xcodeproj; sourceTree = "<group>"; };
@@ -807,7 +797,6 @@
 		81331E1B1A1806BB003E4609 /* SwiftAutoLayout */ = {
 			isa = PBXGroup;
 			children = (
-				81331E1C1A1806BB003E4609 /* Info.plist */,
 				81331E1D1A1806BB003E4609 /* SwiftAutoLayout.h */,
 				81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */,
 			);
@@ -1375,7 +1364,6 @@
 			files = (
 				695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */,
 				3BAAB1A41B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
-				81D4BF201B38F6DA006430AB /* Images.xcassets in Resources */,
 				3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				3BAAB1A91B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				3BAAB1961B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
@@ -1389,7 +1377,6 @@
 				8180E6151A142157007FA1CF /* Images.xcassets in Resources */,
 				81E26D911B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
 				3BAAB1A21B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
-				81331E2B1A1806BB003E4609 /* Info.plist in Resources */,
 				3BAAB1981B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1406,11 +1393,9 @@
 				3BAAB19F1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
 				3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
 				3BAAB19B1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
-				81331E2C1A1806BB003E4609 /* Info.plist in Resources */,
 				3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
 				3BAAB1A31B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
 				3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
-				81DC114C1AF05CF400412BD2 /* SwiftyJSON in Resources */,
 				3BAAB1951B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
 				81E26D921B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
 				3BAAB1971B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
@@ -1534,7 +1519,6 @@
 				3BDF98C61BA262DE00F383D8 /* CreateAccountViewController.swift in Sources */,
 				8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				817939071B5C29560064B0CF /* SearchBarController.swift in Sources */,
-				3BA8945A1BB35D440000D5C0 /* SocialAccountsService.swift in Sources */,
 				69C663221B8B6FA60014433D /* UserProfileViewModel.swift in Sources */,
 				81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				81E26D8E1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
@@ -1547,7 +1531,6 @@
 				69E7FD8A1B8E0BD7003BC281 /* UserProfileFilterTabView.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				69048D491B9DCE06004ECE29 /* UserScrollTabCollectionViewContainerCell.swift in Sources */,
-				3BA894581BB35D340000D5C0 /* Service.swift in Sources */,
 				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				810C4AFD1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */,
 				816589031B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
@@ -1631,7 +1614,6 @@
 				3BA8945E1BB35E170000D5C0 /* SocialAccount.swift in Sources */,
 				816589041B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
 				810C4AF41B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
-				81153C831BBB085F00A91EAD /* (null) in Sources */,
 				81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				816588F81B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */,
