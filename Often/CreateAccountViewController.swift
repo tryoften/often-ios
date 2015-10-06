@@ -44,7 +44,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         return true;
     }
     
-    func didTapCancelButton(sender: UIButton) throws {
+    func didTapCancelButton(sender: UIButton) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
