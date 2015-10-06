@@ -22,7 +22,16 @@ class SignupView: UIView {
         let titleString = "often".uppercaseString
         let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
+        let subtitleString = "The non-basic keyboard. Share the latest videos, songs, GIFs & news from any app."
+        let subtitleRange = NSMakeRange(0, subtitleString.characters.count)
+        let subtitle = NSMutableAttributedString(string: subtitleString)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 3
         
+        subtitle.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:subtitleRange)
+        subtitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 13)!, range: subtitleRange)
+        subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
+
         title.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 30)!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 2, range: titleRange)
         
@@ -36,7 +45,8 @@ class SignupView: UIView {
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = SignupViewAppDescriptionLabelFont
-        subtitleLabel.text = "The non-basic keyboard. Share the latest videos, songs, GIFs & news from any app."
+        subtitleLabel.text = subtitleString
+        subtitleLabel.attributedText = subtitle
         subtitleLabel.numberOfLines = 2
         subtitleLabel.textAlignment = .Center
         
@@ -101,7 +111,7 @@ class SignupView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 60,
+            titleLabel.al_top == al_top + 40,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_height == 40,

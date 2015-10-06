@@ -12,10 +12,13 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
     var serviceLogoImageView: UIImageView
     var serviceSwitch: UISwitch
     var serviceSubtitleLabel: UILabel
-    var settingServicesType: SocialAccountType = .Other
+    var settingSocialAccount:SocialAccount
     weak var delegate: AddServiceProviderDelegate?
         
     override init(frame: CGRect) {
+        settingSocialAccount = SocialAccount()
+        settingSocialAccount.type = .Other
+        
         serviceLogoImageView = UIImageView()
         serviceLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         serviceLogoImageView.contentMode = .ScaleAspectFit
@@ -58,7 +61,7 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
         if buttonStatus {
             serviceSubtitleLabel.text = "Connected!"
             serviceSubtitleLabel.numberOfLines = 1
-            switch settingServicesType {
+            switch settingSocialAccount.type {
             case .Twitter:
                 serviceLogoImageView.image = UIImage(named: "twitter-on")
                 break
@@ -75,7 +78,7 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
                 break
             }
         } else {
-            switch settingServicesType {
+            switch settingSocialAccount.type {
             case .Twitter:
                 serviceSubtitleLabel.text = "Connect your Twitter account to start sending payments & requests from your keyboard."
                 serviceSubtitleLabel.numberOfLines = 2

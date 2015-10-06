@@ -42,10 +42,14 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
+    
     func didTapSigninButton(sender: UIButton) {
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
         if EmailIsValid(signinView.emailTextField.text!) && PasswordIsValid(signinView.passwordTextField.text!) {
-            PKHUD.sharedHUD.contentView = PKHUDProgressView()
-            PKHUD.sharedHUD.show()
             viewModel.sessionManager.loginWithUsername(signinView.emailTextField.text!, password: signinView.passwordTextField.text!, completion: { error  in
                 PKHUD.sharedHUD.hide(animated: true)
                 if error != nil {
@@ -55,6 +59,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
                 }
             })
         } else {
+            PKHUD.sharedHUD.hide(animated: true)
             print("error")
         }
 
@@ -63,14 +68,19 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     func didTapSigninTwitterButton(sender: UIButton) {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show()
-        viewModel.sessionManager.login(.Twitter, completion: { err in
-            PKHUD.sharedHUD.hide(animated: true)
-            if (err != nil) {
-                print("didn't work")
-            } else {
-                self.createProfileViewController()
-            }
-        })
+        do {
+            try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
+                PKHUD.sharedHUD.hide(animated: true)
+                switch results {
+                case .Success(_): self.createProfileViewController()
+                case .Error(let e): print("Error", e)
+                default: break
+                }
+            })
+        } catch {
+            
+        }
+        
 
     }
     
@@ -113,7 +123,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
-        var characterCount = signinView.passwordTextField.text!.characters.count
+        let characterCount = signinView.passwordTextField.text!.characters.count
         if characterCount >= 3 {
             signinView.signinButton.backgroundColor = UIColor(fromHexString: "#152036")
         } else {

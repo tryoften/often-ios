@@ -11,6 +11,7 @@ import Foundation
 class TwitterAccountManager: NSObject {
     var firebase: Firebase
     var userDefaults: NSUserDefaults
+    let sessionManager = SessionManager.defaultManager
     
     init(firebase: Firebase) {
         self.firebase = firebase
@@ -67,8 +68,17 @@ class TwitterAccountManager: NSObject {
     func getTwitterUserInfo(authData:FAuthData, completion: (NSError?) -> ()) {
        let userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         var data = [String : AnyObject]()
-        print(authData.providerData)
+        var socialAccounts = sessionManager.createSocialAccount()
         
+        if let accessToken = authData.providerData["accessToken"] as? String {
+            let twitter = SocialAccount()
+            twitter.type = .Twitter
+            twitter.activeStatus = true
+            twitter.token = accessToken
+            socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
+        }
+        
+        data["accounts"] = socialAccounts
         data["id"] = authData.uid
         data["profileImageURL"] = authData.providerData["profileImageURL"] as? String
         data["name"] = authData.providerData["displayName"] as? String
@@ -76,12 +86,6 @@ class TwitterAccountManager: NSObject {
         data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
         data["description"] = (authData.providerData["cachedUserProfile"] as? [String: AnyObject])?["description"] as? String
         data["parseId"] = PFUser.currentUser()?.objectId
-        data["accounts"] = [
-            "twitter":
-            ["token":authData.providerData["accessToken"]!,
-            "activeStatus":true,
-            "tokenExpirationDate":""]
-        ]
         
         userRef.setValue(data)
 

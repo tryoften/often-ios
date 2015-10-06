@@ -6,6 +6,7 @@
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 0,
     "85B3766ED4048A6BEE8AC9CA920C2E82FABC578C" : 0,
+    "71F5D8D885CFF6BD7151066D7BFF25CC48A5235E" : 0,
     "4EA48C4418C0D37C936EB709C50F03661DB187D9" : 0,
     "3E52007F09750D16ACFE218222CA41A182FE1CE3" : 0,
     "A65BCAA9B7A77500BBF95593800C3F1B9D215F5E" : 0
@@ -14,6 +15,7 @@
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "surf-iosVendors\/SwiftyJSON",
     "85B3766ED4048A6BEE8AC9CA920C2E82FABC578C" : "surf-iosVendors\/SwiftAutoLayout",
+    "71F5D8D885CFF6BD7151066D7BFF25CC48A5235E" : "often-ios\/Vendors\/Spring\/",
     "4EA48C4418C0D37C936EB709C50F03661DB187D9" : "surf-iosVendors\/PKHUD",
     "3E52007F09750D16ACFE218222CA41A182FE1CE3" : "surf-ios",
     "A65BCAA9B7A77500BBF95593800C3F1B9D215F5E" : "surf-ios\/OAuthSwift"
@@ -31,6 +33,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:October-Labs\/PKHUD.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4EA48C4418C0D37C936EB709C50F03661DB187D9"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/MengTo\/Spring.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "71F5D8D885CFF6BD7151066D7BFF25CC48A5235E"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/indragiek\/SwiftAutoLayout.git",

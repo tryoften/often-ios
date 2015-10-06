@@ -27,7 +27,7 @@ class CreateAccountView: UIView {
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont(name: "Montserrat", size: 15)
+        titleLabel.font = UIFont(name: "Montserrat", size: 18)
         titleLabel.text = "Create your account"
         titleLabel.textAlignment = .Center
         
@@ -137,15 +137,13 @@ class CreateAccountView: UIView {
             titleLabel.al_height == 30,
             
             cancelButton.al_top == al_top + 20,
-            cancelButton.al_left == al_left  + 310,
-            cancelButton.al_right == al_right,
-            cancelButton.al_height == 30,
+            cancelButton.al_right == al_right - 20,
+            cancelButton.al_width == 20,
+            cancelButton.al_height == 20,
 
-    
-            subtitleLabel.al_top == titleLabel.al_bottom,
-            subtitleLabel.al_height == 60,
-            subtitleLabel.al_width == 230,
-            subtitleLabel.al_centerX == al_centerX,
+            subtitleLabel.al_top == titleLabel.al_bottom + 8,
+            subtitleLabel.al_left == al_left  + 80,
+            subtitleLabel.al_right == al_right - 80,
             
             usernameTextField.al_top == subtitleLabel.al_bottom + 40,
             usernameTextField.al_left == al_left + 40,
@@ -202,6 +200,5 @@ class CreateAccountView: UIView {
             signupTwitterButton.al_right == al_right - 40,
             signupTwitterButton.al_height == 50,
             ])
-    
     }
 }

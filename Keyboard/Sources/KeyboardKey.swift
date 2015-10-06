@@ -139,7 +139,7 @@ enum KeyboardKey: Hashable {
     
     var isModifier: Bool {
         switch self {
-        case .modifier(let modifier, let pageId):
+        case .modifier(_, _):
             return true
         case .changePage(let page, let pageId):
             return true
@@ -150,7 +150,7 @@ enum KeyboardKey: Hashable {
     
     var isSpace: Bool {
         switch self {
-        case .modifier(.Space, let pageId):
+        case .modifier(.Space, _):
             return true
         default:
             return false

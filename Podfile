@@ -29,3 +29,6 @@ target 'Keyboard' do
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'DateTools', '~> 1.6'
 end
+
+end
+
