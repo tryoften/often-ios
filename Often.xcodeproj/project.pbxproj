@@ -246,6 +246,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		30A401F81BC46C0600BF0C0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81153C631BB9906E00A91EAD /* SpringApp.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A4FDA321A6E44780099D309;
+			remoteInfo = Spring;
+		};
 		3B0E03241BA898BF00D69601 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
@@ -1194,6 +1201,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				30A401F91BC46C0600BF0C0E /* PBXTargetDependency */,
 			);
 			name = Keyboard;
 			productName = CustomKeyboard;
@@ -1659,6 +1667,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		30A401F91BC46C0600BF0C0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Spring;
+			targetProxy = 30A401F81BC46C0600BF0C0E /* PBXContainerItemProxy */;
+		};
 		3B0E032F1BA898CD00D69601 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = OAuthSwift;
