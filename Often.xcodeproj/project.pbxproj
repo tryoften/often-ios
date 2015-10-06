@@ -21,6 +21,7 @@
 		3B6B6FFE1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; settings = {ASSET_TAGS = (); }; };
 		3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; settings = {ASSET_TAGS = (); }; };
 		3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
+		3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */; settings = {ASSET_TAGS = (); }; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		3BA894581BB35D340000D5C0 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA894571BB35D340000D5C0 /* Service.swift */; settings = {ASSET_TAGS = (); }; };
 		3BA8945A1BB35D440000D5C0 /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA894591BB35D440000D5C0 /* SocialAccountsService.swift */; settings = {ASSET_TAGS = (); }; };
@@ -398,6 +399,7 @@
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
 		3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsViewModel.swift; sourceTree = "<group>"; };
+		3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountHeaderView.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BA894571BB35D340000D5C0 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = Often/Service.swift; sourceTree = "<group>"; };
 		3BA894591BB35D440000D5C0 /* SocialAccountsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialAccountsService.swift; path = Often/SocialAccountsService.swift; sourceTree = "<group>"; };
@@ -929,6 +931,7 @@
 				3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */,
 				3BD971DE1B9F911E007EAB5A /* SigninView.swift */,
 				698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */,
+				3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */,
 				698B87291B755139001B5B86 /* UserProfileSectionHeaderView.swift */,
 				69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */,
 				69048D481B9DCE06004ECE29 /* UserScrollTabCollectionViewContainerCell.swift */,
@@ -1560,6 +1563,7 @@
 				6987F8301B99A63B00CA55D5 /* UserRecentsCollectionViewController.swift in Sources */,
 				8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
 				810C4AFA1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
+				3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */,
 				817939001B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
@@ -1784,7 +1788,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc265701-0ac2-48d3-98ec-0ded77a87ecf";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1822,7 +1826,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "73d2722c-b6fe-4fcc-a068-5c74969692a7";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1904,7 +1908,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc265701-0ac2-48d3-98ec-0ded77a87ecf";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1941,7 +1945,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "73d2722c-b6fe-4fcc-a068-5c74969692a7";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -2023,7 +2027,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc265701-0ac2-48d3-98ec-0ded77a87ecf";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2060,7 +2064,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "73d2722c-b6fe-4fcc-a068-5c74969692a7";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};

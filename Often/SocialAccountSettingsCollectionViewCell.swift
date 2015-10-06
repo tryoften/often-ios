@@ -45,6 +45,12 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
         addSubview(serviceSwitch)
         addSubview(serviceSubtitleLabel)
         
+        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowOffset = CGSizeMake(0, 1)
+        layer.shadowOpacity = 0.20
+        layer.shadowRadius = 1.0
+        clipsToBounds = false
+        
         setupLayout()
     }
 
