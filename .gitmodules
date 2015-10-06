@@ -16,3 +16,6 @@
 [submodule "Vendors/Spring"]
 	path = Vendors/Spring
 	url = https://github.com/MengTo/Spring.git
+[submodule "Vendors/iOS-Slide-Menu"]
+	path = Vendors/iOS-Slide-Menu
+	url = git@github.com:washingtonmiranda/iOS-Slide-Menu.git

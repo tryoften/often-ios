@@ -44,7 +44,6 @@ PODS:
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
-  - iOS-Slide-Menu (1.5)
   - Parse (1.8.5):
     - Bolts/Tasks (>= 1.2.2)
   - ParseFacebookUtils (1.8.5):
@@ -73,7 +72,6 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - Facebook-iOS-SDK (~> 3.0)
   - Firebase (>= 2.0.2)
-  - iOS-Slide-Menu
   - Parse
   - ParseFacebookUtils
   - ParseTwitterUtils
@@ -101,7 +99,6 @@ SPEC CHECKSUMS:
   Facebook-iOS-SDK: cb209af2e67e3a5d323f966c22e4e482e819405e
   Firebase: 47f921f251c8982d147d90f2845816b21f016acc
   FlurrySDK: d4737cc34e5b01503a05bedeb2e011ef45c9b114
-  iOS-Slide-Menu: 40b0cbd8916c42afc755f0869793cd09e7a32102
   Parse: 17ad8e0677ed682f7f00503860fcda0f4eb74168
   ParseFacebookUtils: 839b5f4a11aa1064a8e2c4be9babeaf052d54138
   ParseTwitterUtils: 408a2a9220b051c18fe45797db3f272d548e51f1

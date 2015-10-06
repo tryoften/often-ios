@@ -12,6 +12,7 @@ import Crashlytics
 import Realm
 import OAuthSwift
 
+
 private var TestKeyboard: Bool = false
 
 var leftViewController: SocialAccountSettingsCollectionViewController?
@@ -66,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     if shouldShowInstallationKeyboardWalkthrough {
                         let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-                        let mainViewController = SlideNavigationController(rootViewController: frontViewController)
+                        let mainViewController =  SlideNavigationController(rootViewController: frontViewController)
                         mainViewController.navigationBar.hidden = true
                         mainViewController.enableShadow = false
                         mainViewController.panGestureSideOffset = CGFloat(30)
