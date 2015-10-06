@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		30A402041BC46D6F00BF0C0E /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A402031BC46D6F00BF0C0E /* SocialAccountsService.swift */; settings = {ASSET_TAGS = (); }; };
 		30A402061BC46D8600BF0C0E /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A402051BC46D8600BF0C0E /* Service.swift */; settings = {ASSET_TAGS = (); }; };
+		30A402081BC4700A00BF0C0E /* Spring.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 81153C6F1BB9906F00A91EAD /* Spring.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B0E032C1BA898CD00D69601 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0E03271BA898BF00D69601 /* OAuthSwift.framework */; };
 		3B0E032D1BA898CD00D69601 /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0E03271BA898BF00D69601 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
@@ -356,6 +357,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		30A402071BC46FF600BF0C0E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 11;
+			files = (
+				30A402081BC4700A00BF0C0E /* Spring.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8180E63D1A142199007FA1CF /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1203,6 +1214,7 @@
 				8180E62E1A142199007FA1CF /* Frameworks */,
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
+				30A402071BC46FF600BF0C0E /* CopyFiles */,
 			);
 			buildRules = (
 			);
