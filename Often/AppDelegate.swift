@@ -30,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var soundcloudAccountManager: SoundcloudAccountManager!
     let sessionManager = SessionManager.defaultManager
     
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics()])
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
@@ -41,7 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.startSession(FlurryClientKey)
         SPTAuth.defaultInstance().clientID = SpotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
-
          
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds

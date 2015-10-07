@@ -89,7 +89,6 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     }
     
     // MARK: UICollectionViewDataSource
-    
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -123,6 +122,8 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
             return cell
         }
         
+        cell.reset()
+        
         switch(result.type) {
             case .Article:
                 let article = (result as! ArticleSearchResult)
@@ -141,12 +142,28 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
                     cell.headerLabel.text = "Spotify"
                     cell.mainTextLabel.text = "\(track.name)"
                     cell.leftSupplementLabel.text = track.artistName
+                    cell.rightSupplementLabel.text = track.albumName
                 case .Soundcloud:
                     cell.headerLabel.text = track.artistName
                     cell.leftSupplementLabel.text = track.formattedPlays()
                 default:
                     break
                 }
+            case .Video:
+                let video = (result as! VideoSearchResult)
+                cell.mainTextLabel.text = video.title
+                cell.headerLabel.text = video.owner
+                
+                if let viewCount = video.viewCount {
+                    cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
+                }
+                
+                if let likeCount = video.likeCount {
+                    cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
+                }
+                
+                cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
+            
             default:
                 break
         }
@@ -164,7 +181,12 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         cell.contentImageView.image = nil
         if  let image = result.image,
             let imageURL = NSURL(string: image) {
-            cell.contentImageView.setImageWithURL(imageURL)
+            print("Loading image: \(imageURL)")
+            cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
+                    cell.contentImageView.image = image
+            }, failure: { (req, res, error) in
+                    print("Failed to load image: \(imageURL)")
+            })
         }
         
         cell.sourceLogoView.image = result.iconImageForSource()

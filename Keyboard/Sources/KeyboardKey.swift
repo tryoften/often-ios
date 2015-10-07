@@ -111,15 +111,15 @@ enum KeyboardKey: Hashable {
     
     var hasOutput: Bool {
         switch self {
-        case .modifier(.Space, let pageId):
+        case .modifier(.Space, _):
             return true
-        case .modifier(.Enter, let pageId):
+        case .modifier(.Enter, _):
             return true
-        case .modifier(.CallService, let pageId):
+        case .modifier(.CallService, _):
             return true
-        case .modifier(let modifier):
+        case .modifier(let _):
             return false
-        case .changePage(let page, let pageId):
+        case .changePage(let page, _):
             return false
         default:
             return true
