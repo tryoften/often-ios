@@ -69,8 +69,17 @@ class SessionManager: NSObject {
         
     }
     
+    func setUserDefaultsValue(value:AnyObject, forKey:String ) {
+        userDefaults.setValue(false, forKey: forKey)
+        userDefaults.synchronize()
+    }
+    
     func isUserLoggedIn() -> Bool {
         return userDefaults.objectForKey("user") != nil
+    }
+    
+    func isKeyboardInstalled() -> Bool {
+        return userDefaults.boolForKey("keyboardInstall")
     }
     
     func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {

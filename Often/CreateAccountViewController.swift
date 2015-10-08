@@ -14,7 +14,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
-        self.viewModel.sessionManager.userDefaults.setValue(false, forKey: "keyboardInstall")
+        self.viewModel.sessionManager.setUserDefaultsValue(false, forKey: "keyboardInstall")
         
         createAccountView = CreateAccountView()
         createAccountView.translatesAutoresizingMaskIntoConstraints = false

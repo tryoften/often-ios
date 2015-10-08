@@ -62,10 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
                 let signupViewModel = SignupViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
                 
-                if sessionManager.userDefaults.objectForKey("user") != nil {
-                    let shouldShowInstallationKeyboardWalkthrough = sessionManager.userDefaults.boolForKey("keyboardInstall")
+                if sessionManager.isUserLoggedIn() {
                     
-                    if shouldShowInstallationKeyboardWalkthrough {
+                    if sessionManager.isKeyboardInstalled() {
                         let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
                         let mainViewController =  SlideNavigationController(rootViewController: frontViewController)
                         mainViewController.navigationBar.hidden = true
