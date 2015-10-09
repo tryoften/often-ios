@@ -11,12 +11,13 @@ import Foundation
 class SigninViewController: UIViewController, UITextFieldDelegate {
     var viewModel: SignupViewModel
     var signinView: SigninView
-  
+
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
         signinView = SigninView()
         signinView.translatesAutoresizingMaskIntoConstraints = false
+        
         super.init(nibName: nil, bundle: nil)
         
         view.addSubview(signinView)
@@ -43,44 +44,71 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapSigninButton(sender: UIButton) {
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
-        if EmailIsValid(signinView.emailTextField.text!) && PasswordIsValid(signinView.passwordTextField.text!) {
-            viewModel.sessionManager.loginWithUsername(signinView.emailTextField.text!, password: signinView.passwordTextField.text!, completion: { error  in
+        
+        do {
+            try viewModel.signInUser(signinView.emailTextField.text!, password: signinView.passwordTextField.text!) { results -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
-                if error != nil {
-                    print("error")
-                } else {
-                    self.createProfileViewController()
+                switch results {
+                case .Success(_): self.createProfileViewController()
+                case .Error(let err): self.showErrorView(err)
+                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
-            })
-        } else {
-            PKHUD.sharedHUD.hide(animated: true)
-            print("error")
+            }
+            
+        } catch {
+            
         }
 
     }
     
+    
     func didTapSigninTwitterButton(sender: UIButton) {
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         do {
             try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
-                case .Error(let e): print("Error", e)
-                default: break
+                case .Error(let err): self.showErrorView(err)
+                case .SystemError(let err):  DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
         } catch {
             
         }
         
-
+        
+    }
+    
+    func showErrorView(error:ErrorType) {
+        switch error {
+        case TwitterAccountManagerError.ReturnedEmptyUserObject:
+            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case TwitterAccountManagerError.NotConncetedOnline, SignupError.NotConncetedOnline:
+            DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SessionManagerError.UnvalidSignUp:
+            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SignupError.EmailNotVaild:
+            DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SignupError.PasswordNotVaild:
+            DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        default: break
+        }
+        
     }
     
     func didTapcancelButton(sender: UIButton) {
+        self.view.endEditing(true)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -90,7 +118,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
             signinView.al_top == view.al_top,
             signinView.al_left == view.al_left,
             signinView.al_right == view.al_right,
-        ]
+            ]
         
         view.addConstraints(constraints)
     }
