@@ -11,12 +11,6 @@
 		3B0E032D1BA898CD00D69601 /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0E03271BA898BF00D69601 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B100A221BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		3B100A2B1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */; settings = {ASSET_TAGS = (); }; };
-		3B14EA101BC3A0DC00C1304A /* SlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B14EA0F1BC3A0DC00C1304A /* SlideNavigationController.m */; settings = {ASSET_TAGS = (); }; };
-		3B14EA1D1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B14EA141BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorFade.m */; settings = {ASSET_TAGS = (); }; };
-		3B14EA1F1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B14EA161BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScale.m */; settings = {ASSET_TAGS = (); }; };
-		3B14EA211BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B14EA181BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScaleAndFade.m */; settings = {ASSET_TAGS = (); }; };
-		3B14EA231BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B14EA1A1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlide.m */; settings = {ASSET_TAGS = (); }; };
-		3B14EA251BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B14EA1C1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlideAndFade.m */; settings = {ASSET_TAGS = (); }; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
@@ -398,24 +392,12 @@
 		3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuthSwift.xcodeproj; path = OAuthSwift/OAuthSwift.xcodeproj; sourceTree = "<group>"; };
 		3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstallationWalkthroughViewController.swift; sourceTree = "<group>"; };
 		3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardWalkthroughView.swift; sourceTree = "<group>"; };
-		3B14EA0E1BC3A0DC00C1304A /* SlideNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationController.h; sourceTree = "<group>"; };
-		3B14EA0F1BC3A0DC00C1304A /* SlideNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationController.m; sourceTree = "<group>"; };
-		3B14EA121BC3A0EC00C1304A /* SlideNavigationContorllerAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimator.h; sourceTree = "<group>"; };
-		3B14EA131BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorFade.h; sourceTree = "<group>"; };
-		3B14EA141BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorFade.m; sourceTree = "<group>"; };
-		3B14EA151BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorScale.h; sourceTree = "<group>"; };
-		3B14EA161BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorScale.m; sourceTree = "<group>"; };
-		3B14EA171BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScaleAndFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorScaleAndFade.h; sourceTree = "<group>"; };
-		3B14EA181BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScaleAndFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorScaleAndFade.m; sourceTree = "<group>"; };
-		3B14EA191BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorSlide.h; sourceTree = "<group>"; };
-		3B14EA1A1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorSlide.m; sourceTree = "<group>"; };
-		3B14EA1B1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlideAndFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimatorSlideAndFade.h; sourceTree = "<group>"; };
-		3B14EA1C1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlideAndFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationContorllerAnimatorSlideAndFade.m; sourceTree = "<group>"; };
 		3B1D6BF31B8F61AF004868E5 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotifyAccountManager.swift; path = Keyboard/SpotifyAccountManager.swift; sourceTree = "<group>"; };
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeyboardViewController+EventHandlers.swift"; path = "Sources/KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
+		3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownErrorMessage.swift; sourceTree = "<group>"; };
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
 		3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsViewModel.swift; sourceTree = "<group>"; };
 		3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountHeaderView.swift; sourceTree = "<group>"; };
@@ -694,27 +676,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3B14EA0D1BC3A0C100C1304A /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				3B14EA121BC3A0EC00C1304A /* SlideNavigationContorllerAnimator.h */,
-				3B14EA131BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorFade.h */,
-				3B14EA141BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorFade.m */,
-				3B14EA151BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScale.h */,
-				3B14EA161BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScale.m */,
-				3B14EA171BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScaleAndFade.h */,
-				3B14EA181BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScaleAndFade.m */,
-				3B14EA191BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlide.h */,
-				3B14EA1A1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlide.m */,
-				3B14EA1B1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlideAndFade.h */,
-				3B14EA1C1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlideAndFade.m */,
-				3B14EA0E1BC3A0DC00C1304A /* SlideNavigationController.h */,
-				3B14EA0F1BC3A0DC00C1304A /* SlideNavigationController.m */,
-			);
-			name = "New Group";
-			path = OAuthSwift;
-			sourceTree = "<group>";
-		};
 		3BCDA5BA1B8FEBD200840095 /* Soundcloud */ = {
 			isa = PBXGroup;
 			children = (
@@ -832,7 +793,6 @@
 			children = (
 				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
 				81153C631BB9906E00A91EAD /* SpringApp.xcodeproj */,
-				3B14EA0D1BC3A0C100C1304A /* New Group */,
 				3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */,
 				81D4BF151B38F6DA006430AB /* PKHUD */,
 				81DC114A1AF05CF400412BD2 /* SwiftyJSON */,
@@ -1580,7 +1540,6 @@
 				81D4BF371B39D25C006430AB /* FrameView.swift in Sources */,
 				8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */,
-				3B14EA1F1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScale.m in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				3BDF98C61BA262DE00F383D8 /* CreateAccountViewController.swift in Sources */,
 				8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
@@ -1630,11 +1589,8 @@
 				69E9104C1B59AF1D008BFBD6 /* VenmoAccountManager.swift in Sources */,
 				8176BECB1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
 				3BCDA6D31B910C1F00840095 /* SoundcloudAccountManager.swift in Sources */,
-				3B14EA251BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */,
 				3BF60C4E1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */,
-				3B14EA211BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */,
 				810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
-				3B14EA231BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorSlide.m in Sources */,
 				81D60ACD1B84BF2500347BCA /* SearchRequest.swift in Sources */,
 				8176BEE61B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
 				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
@@ -1656,8 +1612,6 @@
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
 				6987F82E1B99A53900CA55D5 /* UserFavoritesCollectionViewController.swift in Sources */,
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
-				3B14EA1D1BC3A0EC00C1304A /* SlideNavigationContorllerAnimatorFade.m in Sources */,
-				3B14EA101BC3A0DC00C1304A /* SlideNavigationController.m in Sources */,
 				69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */,
 				698B872A1B755139001B5B86 /* UserProfileSectionHeaderView.swift in Sources */,
 				3BD971E11B9FD374007EAB5A /* SignupViewController.swift in Sources */,
