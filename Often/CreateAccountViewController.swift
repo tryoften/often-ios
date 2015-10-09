@@ -45,56 +45,77 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapCancelButton(sender: UIButton) {
+        self.view.endEditing(true)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func didTapSignupTwitterButton(sender: UIButton) {
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         do {
             try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
-                case .Error(let e): print("Error", e)
-                default: break
+                case .Error(let err): self.showErrorView(err)
+                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
-        } catch {
+        } catch {  
     
         }
     }
     
     func didTapSignupButton(sender: UIButton) {
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
-        if createAccountView.usernameTextField.text!.characters.count != 0 && createAccountView.emailTextField.text!.characters.count != 0  && createAccountView.passwordTextField.text!.characters.count != 0 {
-            viewModel.user.name = createAccountView.usernameTextField.text!
-            viewModel.user.email = createAccountView.emailTextField.text!
-            viewModel.password = createAccountView.passwordTextField.text!
-            do {
-                try viewModel.signUpUser({ results -> Void in
-                     PKHUD.sharedHUD.hide(animated: true)
-                    switch results {
-                    case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
-                    case .Error(let e): print("Error", e)
-                    default: break
-                    }
-                })
-            } catch {
-                
-            }
-        }
-        else {
-            PKHUD.sharedHUD.hide(animated: true)
-
-        }
+        
+        viewModel.user.name = createAccountView.usernameTextField.text!
+        viewModel.user.email = createAccountView.emailTextField.text!
+        viewModel.password = createAccountView.passwordTextField.text!
+        
+        do {
+            try viewModel.signUpUser({ results -> Void in
+                PKHUD.sharedHUD.hide(animated: true)
+                switch results {
+                case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
+                case .Error(let err): self.showErrorView(err)
+                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                }
+            })
+            
+        } catch {}
+        
     }
     
     func createKeyboardInstallationWalkthroughViewController() {
         let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
         self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
 
+    }
+    
+    func showErrorView(error:ErrorType) {
+        switch error {
+        case TwitterAccountManagerError.ReturnedEmptyUserObject:
+            DropDownErrorMessage().setMessage("Unable to create account. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case TwitterAccountManagerError.NotConncetedOnline, SignupError.NotConncetedOnline:
+            DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SessionManagerError.UnvalidSignUp:
+            DropDownErrorMessage().setMessage("Unable to create account. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SignupError.EmailNotVaild:
+            DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SignupError.PasswordNotVaild:
+            DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        default: break
+        }
+        
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
