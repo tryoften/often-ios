@@ -18,6 +18,7 @@ target 'Often' do
   pod 'ParseFacebookUtils'
   pod 'CSStickyHeaderFlowLayout'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
+  pod 'iOS-Slide-Menu', :git => 'git@github.com:washingtonmiranda/iOS-Slide-Menu.git'
   pod 'DateTools', '~> 1.6'
   pod 'DZNEmptyDataSet'
 end
