@@ -82,12 +82,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     } else {
                         mainController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
                     }
-                    
                 } else {
                     mainController = SignupViewController(viewModel: signupViewModel)
                 }
                 
             }
+            UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Fade)
             window.rootViewController = mainController
             window.makeKeyAndVisible()
         }

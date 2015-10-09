@@ -141,11 +141,11 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         
         addConstraints([
             setServicesRevealButton.al_left == al_left + 20,
-            setServicesRevealButton.al_top == al_top + 16,
-            setServicesRevealButton.al_height == 16,
-            setServicesRevealButton.al_width == 16,
+            setServicesRevealButton.al_top == al_top + 21,
+            setServicesRevealButton.al_height == 14,
+            setServicesRevealButton.al_width == 19,
             
-            settingsRevealButton.al_top == al_top + 15,
+            settingsRevealButton.al_top == al_top + 17,
             settingsRevealButton.al_right == al_right - 15,
             settingsRevealButton.al_height == 22,
             settingsRevealButton.al_width == 22,

@@ -20,7 +20,6 @@ target 'Often' do
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'iOS-Slide-Menu', :git => 'git@github.com:washingtonmiranda/iOS-Slide-Menu.git'
   pod 'DateTools', '~> 1.6'
-  pod 'DZNEmptyDataSet'
 end
 
 target 'Keyboard' do
