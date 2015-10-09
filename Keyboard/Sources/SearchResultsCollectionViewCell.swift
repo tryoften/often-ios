@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Spring
 
 class SearchResultsCollectionViewCell: UICollectionViewCell {
     weak var delegate: SearchResultsCollectionViewCellDelegate?

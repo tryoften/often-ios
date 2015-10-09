@@ -9,59 +9,13 @@
 /* Begin PBXBuildFile section */
 		30A402041BC46D6F00BF0C0E /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A402031BC46D6F00BF0C0E /* SocialAccountsService.swift */; settings = {ASSET_TAGS = (); }; };
 		30A402061BC46D8600BF0C0E /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A402051BC46D8600BF0C0E /* Service.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C2A1BC842B900DDF24C /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C0C1BC842B900DDF24C /* AsyncButton.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C2B1BC842B900DDF24C /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C0C1BC842B900DDF24C /* AsyncButton.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C2C1BC842B900DDF24C /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C0D1BC842B900DDF24C /* AsyncImageView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C2D1BC842B900DDF24C /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C0D1BC842B900DDF24C /* AsyncImageView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C2E1BC842B900DDF24C /* AutoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C0E1BC842B900DDF24C /* AutoTextView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C2F1BC842B900DDF24C /* AutoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C0E1BC842B900DDF24C /* AutoTextView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C301BC842B900DDF24C /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C0F1BC842B900DDF24C /* BlurView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C311BC842B900DDF24C /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C0F1BC842B900DDF24C /* BlurView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C321BC842B900DDF24C /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C101BC842B900DDF24C /* DesignableButton.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C331BC842B900DDF24C /* DesignableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C101BC842B900DDF24C /* DesignableButton.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C341BC842B900DDF24C /* DesignableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C111BC842B900DDF24C /* DesignableImageView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C351BC842B900DDF24C /* DesignableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C111BC842B900DDF24C /* DesignableImageView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C361BC842B900DDF24C /* DesignableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C121BC842B900DDF24C /* DesignableLabel.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C371BC842B900DDF24C /* DesignableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C121BC842B900DDF24C /* DesignableLabel.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C381BC842B900DDF24C /* DesignableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C131BC842B900DDF24C /* DesignableTabBarController.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C391BC842B900DDF24C /* DesignableTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C131BC842B900DDF24C /* DesignableTabBarController.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C3A1BC842B900DDF24C /* DesignableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C141BC842B900DDF24C /* DesignableTextField.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C3B1BC842B900DDF24C /* DesignableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C141BC842B900DDF24C /* DesignableTextField.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C3C1BC842B900DDF24C /* DesignableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C151BC842B900DDF24C /* DesignableTextView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C3D1BC842B900DDF24C /* DesignableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C151BC842B900DDF24C /* DesignableTextView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C3E1BC842B900DDF24C /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C161BC842B900DDF24C /* DesignableView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C3F1BC842B900DDF24C /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C161BC842B900DDF24C /* DesignableView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C401BC842B900DDF24C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C171BC842B900DDF24C /* ImageLoader.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C411BC842B900DDF24C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C171BC842B900DDF24C /* ImageLoader.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C4A1BC842B900DDF24C /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C1C1BC842B900DDF24C /* Misc.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C4B1BC842B900DDF24C /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C1C1BC842B900DDF24C /* Misc.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C4C1BC842B900DDF24C /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C1D1BC842B900DDF24C /* SoundPlayer.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C4D1BC842B900DDF24C /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C1D1BC842B900DDF24C /* SoundPlayer.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C4E1BC842B900DDF24C /* Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C1F1BC842B900DDF24C /* Spring.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C4F1BC842B900DDF24C /* Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C1F1BC842B900DDF24C /* Spring.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C501BC842B900DDF24C /* SpringAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C201BC842B900DDF24C /* SpringAnimation.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C511BC842B900DDF24C /* SpringAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C201BC842B900DDF24C /* SpringAnimation.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C521BC842B900DDF24C /* SpringButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C211BC842B900DDF24C /* SpringButton.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C531BC842B900DDF24C /* SpringButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C211BC842B900DDF24C /* SpringButton.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C541BC842B900DDF24C /* SpringImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C221BC842B900DDF24C /* SpringImageView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C551BC842B900DDF24C /* SpringImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C221BC842B900DDF24C /* SpringImageView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C561BC842B900DDF24C /* SpringLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C231BC842B900DDF24C /* SpringLabel.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C571BC842B900DDF24C /* SpringLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C231BC842B900DDF24C /* SpringLabel.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C581BC842B900DDF24C /* SpringTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C241BC842B900DDF24C /* SpringTextField.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C591BC842B900DDF24C /* SpringTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C241BC842B900DDF24C /* SpringTextField.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C5A1BC842B900DDF24C /* SpringTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C251BC842B900DDF24C /* SpringTextView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C5B1BC842B900DDF24C /* SpringTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C251BC842B900DDF24C /* SpringTextView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C5C1BC842B900DDF24C /* SpringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C261BC842B900DDF24C /* SpringView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C5D1BC842B900DDF24C /* SpringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C261BC842B900DDF24C /* SpringView.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C5E1BC842B900DDF24C /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C271BC842B900DDF24C /* TransitionManager.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C5F1BC842B900DDF24C /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C271BC842B900DDF24C /* TransitionManager.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C601BC842B900DDF24C /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C281BC842B900DDF24C /* TransitionZoom.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C611BC842B900DDF24C /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C281BC842B900DDF24C /* TransitionZoom.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C621BC842B900DDF24C /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C291BC842B900DDF24C /* UnwindSegue.swift */; settings = {ASSET_TAGS = (); }; };
-		30E00C631BC842B900DDF24C /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C291BC842B900DDF24C /* UnwindSegue.swift */; settings = {ASSET_TAGS = (); }; };
 		30E00C6F1BC8523400DDF24C /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30E00C711BC8526A00DDF24C /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */; };
 		30E00C721BC8527300DDF24C /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */; };
+		30E00C771BC86C3D00DDF24C /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C761BC86C3D00DDF24C /* Spring.framework */; };
+		30E00C781BC86C3D00DDF24C /* Spring.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C761BC86C3D00DDF24C /* Spring.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		30E00C7A1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; settings = {ASSET_TAGS = (); }; };
+		30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; settings = {ASSET_TAGS = (); }; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
@@ -374,6 +328,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				30E00C6F1BC8523400DDF24C /* OAuthSwift.framework in Embed Frameworks */,
+				30E00C781BC86C3D00DDF24C /* Spring.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,34 +354,9 @@
 		245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		30A402031BC46D6F00BF0C0E /* SocialAccountsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialAccountsService.swift; path = Often/SocialAccountsService.swift; sourceTree = "<group>"; };
 		30A402051BC46D8600BF0C0E /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = Often/Service.swift; sourceTree = "<group>"; };
-		30E00C0C1BC842B900DDF24C /* AsyncButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
-		30E00C0D1BC842B900DDF24C /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
-		30E00C0E1BC842B900DDF24C /* AutoTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoTextView.swift; sourceTree = "<group>"; };
-		30E00C0F1BC842B900DDF24C /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
-		30E00C101BC842B900DDF24C /* DesignableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableButton.swift; sourceTree = "<group>"; };
-		30E00C111BC842B900DDF24C /* DesignableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableImageView.swift; sourceTree = "<group>"; };
-		30E00C121BC842B900DDF24C /* DesignableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableLabel.swift; sourceTree = "<group>"; };
-		30E00C131BC842B900DDF24C /* DesignableTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableTabBarController.swift; sourceTree = "<group>"; };
-		30E00C141BC842B900DDF24C /* DesignableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableTextField.swift; sourceTree = "<group>"; };
-		30E00C151BC842B900DDF24C /* DesignableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableTextView.swift; sourceTree = "<group>"; };
-		30E00C161BC842B900DDF24C /* DesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignableView.swift; sourceTree = "<group>"; };
-		30E00C171BC842B900DDF24C /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
-		30E00C191BC842B900DDF24C /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
-		30E00C1A1BC842B900DDF24C /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		30E00C1C1BC842B900DDF24C /* Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
-		30E00C1D1BC842B900DDF24C /* SoundPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
-		30E00C1F1BC842B900DDF24C /* Spring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spring.swift; sourceTree = "<group>"; };
-		30E00C201BC842B900DDF24C /* SpringAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringAnimation.swift; sourceTree = "<group>"; };
-		30E00C211BC842B900DDF24C /* SpringButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringButton.swift; sourceTree = "<group>"; };
-		30E00C221BC842B900DDF24C /* SpringImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringImageView.swift; sourceTree = "<group>"; };
-		30E00C231BC842B900DDF24C /* SpringLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringLabel.swift; sourceTree = "<group>"; };
-		30E00C241BC842B900DDF24C /* SpringTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringTextField.swift; sourceTree = "<group>"; };
-		30E00C251BC842B900DDF24C /* SpringTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringTextView.swift; sourceTree = "<group>"; };
-		30E00C261BC842B900DDF24C /* SpringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringView.swift; sourceTree = "<group>"; };
-		30E00C271BC842B900DDF24C /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
-		30E00C281BC842B900DDF24C /* TransitionZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionZoom.swift; sourceTree = "<group>"; };
-		30E00C291BC842B900DDF24C /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
 		30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
+		30E00C761BC86C3D00DDF24C /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = Carthage/Build/iOS/Spring.framework; sourceTree = "<group>"; };
+		30E00C791BC86CEA00DDF24C /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuthSwift.xcodeproj; path = OAuthSwift/OAuthSwift.xcodeproj; sourceTree = "<group>"; };
 		3B1D6BF31B8F61AF004868E5 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
@@ -627,6 +557,7 @@
 				812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
 				81794EE11A81E649009D4A71 /* Security.framework in Frameworks */,
+				30E00C771BC86C3D00DDF24C /* Spring.framework in Frameworks */,
 				81794EDF1A81E642009D4A71 /* QuartzCore.framework in Frameworks */,
 				81794EDD1A81E63B009D4A71 /* MobileCoreServices.framework in Frameworks */,
 				81794EDB1A81E633009D4A71 /* CoreLocation.framework in Frameworks */,
@@ -671,41 +602,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		30E00C0B1BC842B900DDF24C /* Spring */ = {
-			isa = PBXGroup;
-			children = (
-				30E00C0C1BC842B900DDF24C /* AsyncButton.swift */,
-				30E00C0D1BC842B900DDF24C /* AsyncImageView.swift */,
-				30E00C0E1BC842B900DDF24C /* AutoTextView.swift */,
-				30E00C0F1BC842B900DDF24C /* BlurView.swift */,
-				30E00C101BC842B900DDF24C /* DesignableButton.swift */,
-				30E00C111BC842B900DDF24C /* DesignableImageView.swift */,
-				30E00C121BC842B900DDF24C /* DesignableLabel.swift */,
-				30E00C131BC842B900DDF24C /* DesignableTabBarController.swift */,
-				30E00C141BC842B900DDF24C /* DesignableTextField.swift */,
-				30E00C151BC842B900DDF24C /* DesignableTextView.swift */,
-				30E00C161BC842B900DDF24C /* DesignableView.swift */,
-				30E00C171BC842B900DDF24C /* ImageLoader.swift */,
-				30E00C191BC842B900DDF24C /* KeyboardLayoutConstraint.swift */,
-				30E00C1A1BC842B900DDF24C /* LoadingView.swift */,
-				30E00C1C1BC842B900DDF24C /* Misc.swift */,
-				30E00C1D1BC842B900DDF24C /* SoundPlayer.swift */,
-				30E00C1F1BC842B900DDF24C /* Spring.swift */,
-				30E00C201BC842B900DDF24C /* SpringAnimation.swift */,
-				30E00C211BC842B900DDF24C /* SpringButton.swift */,
-				30E00C221BC842B900DDF24C /* SpringImageView.swift */,
-				30E00C231BC842B900DDF24C /* SpringLabel.swift */,
-				30E00C241BC842B900DDF24C /* SpringTextField.swift */,
-				30E00C251BC842B900DDF24C /* SpringTextView.swift */,
-				30E00C261BC842B900DDF24C /* SpringView.swift */,
-				30E00C271BC842B900DDF24C /* TransitionManager.swift */,
-				30E00C281BC842B900DDF24C /* TransitionZoom.swift */,
-				30E00C291BC842B900DDF24C /* UnwindSegue.swift */,
-			);
-			name = Spring;
-			path = Spring/Spring;
-			sourceTree = "<group>";
-		};
 		3A906368B7CA46AA11C157BA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -770,6 +666,7 @@
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30E00C761BC86C3D00DDF24C /* Spring.framework */,
 				30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */,
 				3BD971C51B99254F007EAB5A /* Spotify.framework */,
 				3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */,
@@ -850,7 +747,6 @@
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
-				30E00C0B1BC842B900DDF24C /* Spring */,
 				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
 				3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */,
 				81D4BF151B38F6DA006430AB /* PKHUD */,
@@ -960,6 +856,7 @@
 				3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */,
 				3B9AD78A1B27DFF600727E79 /* Validation.swift */,
 				81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */,
+				30E00C791BC86CEA00DDF24C /* delay.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -1494,7 +1391,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		812E3F021B4BB95100C0F3BE /* Upload symbols to crashlytics */ = {
@@ -1543,30 +1440,19 @@
 				81E26D7F1B65B09D00FC1F2F /* LayoutConstants.swift in Sources */,
 				81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */,
 				3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */,
-				30E00C541BC842B900DDF24C /* SpringImageView.swift in Sources */,
-				30E00C5A1BC842B900DDF24C /* SpringTextView.swift in Sources */,
-				30E00C361BC842B900DDF24C /* DesignableLabel.swift in Sources */,
 				3BD971E31B9FD483007EAB5A /* SignupViewModel.swift in Sources */,
 				81E26D9C1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
-				30E00C561BC842B900DDF24C /* SpringLabel.swift in Sources */,
-				30E00C521BC842B900DDF24C /* SpringButton.swift in Sources */,
 				8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
-				30E00C4C1BC842B900DDF24C /* SoundPlayer.swift in Sources */,
 				69192E581BBB9AF800903071 /* EmptySetView.swift in Sources */,
-				30E00C2E1BC842B900DDF24C /* AutoTextView.swift in Sources */,
 				3BA8945C1BB35D560000D5C0 /* SocialAccount.swift in Sources */,
 				81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
 				81D60AD31B854D8500347BCA /* SearchResult.swift in Sources */,
 				81153CBE1BBC869200A91EAD /* TogglePanelButton.swift in Sources */,
 				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
 				81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
-				30E00C301BC842B900DDF24C /* BlurView.swift in Sources */,
 				816588F71B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
-				30E00C4E1BC842B900DDF24C /* Spring.swift in Sources */,
 				695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */,
 				81E26D851B65B17A00FC1F2F /* Direction.swift in Sources */,
-				30E00C3E1BC842B900DDF24C /* DesignableView.swift in Sources */,
-				30E00C341BC842B900DDF24C /* DesignableImageView.swift in Sources */,
 				690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */,
 				698B87231B75401E001B5B86 /* UserProfileHeaderView.swift in Sources */,
 				81D4BF371B39D25C006430AB /* FrameView.swift in Sources */,
@@ -1576,17 +1462,12 @@
 				3BDF98C61BA262DE00F383D8 /* CreateAccountViewController.swift in Sources */,
 				8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				817939071B5C29560064B0CF /* SearchBarController.swift in Sources */,
-				30E00C501BC842B900DDF24C /* SpringAnimation.swift in Sources */,
 				69C663221B8B6FA60014433D /* UserProfileViewModel.swift in Sources */,
-				30E00C381BC842B900DDF24C /* DesignableTabBarController.swift in Sources */,
-				30E00C321BC842B900DDF24C /* DesignableButton.swift in Sources */,
 				81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				81E26D8E1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
 				3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */,
 				81DF4BBB1BB462A7008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
-				30E00C2A1BC842B900DDF24C /* AsyncButton.swift in Sources */,
-				30E00C601BC842B900DDF24C /* TransitionZoom.swift in Sources */,
 				3B6B6FFE1BB0899300669ACD /* StyleKit.swift in Sources */,
 				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
 				817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */,
@@ -1600,8 +1481,8 @@
 				6987F8301B99A63B00CA55D5 /* UserRecentsCollectionViewController.swift in Sources */,
 				8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
 				810C4AFA1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
+				30E00C7A1BC86CEA00DDF24C /* delay.swift in Sources */,
 				817939001B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
-				30E00C3A1BC842B900DDF24C /* DesignableTextField.swift in Sources */,
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */,
@@ -1615,29 +1496,22 @@
 				3BD971D61B9E642D007EAB5A /* SignupView.swift in Sources */,
 				690AE8AE1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift in Sources */,
 				81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
-				30E00C581BC842B900DDF24C /* SpringTextField.swift in Sources */,
 				81153CB11BBB267000A91EAD /* SessionManager.swift in Sources */,
-				30E00C621BC842B900DDF24C /* UnwindSegue.swift in Sources */,
 				30A402041BC46D6F00BF0C0E /* SocialAccountsService.swift in Sources */,
 				6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */,
 				3BD971C11B98B5FB007EAB5A /* FacebookAccountManager.swift in Sources */,
-				30E00C5E1BC842B900DDF24C /* TransitionManager.swift in Sources */,
 				817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */,
 				69E9104C1B59AF1D008BFBD6 /* VenmoAccountManager.swift in Sources */,
 				8176BECB1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
 				3BCDA6D31B910C1F00840095 /* SoundcloudAccountManager.swift in Sources */,
-				30E00C3C1BC842B900DDF24C /* DesignableTextView.swift in Sources */,
 				3BF60C4E1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */,
-				30E00C5C1BC842B900DDF24C /* SpringView.swift in Sources */,
 				810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
 				81D60ACD1B84BF2500347BCA /* SearchRequest.swift in Sources */,
-				30E00C4A1BC842B900DDF24C /* Misc.swift in Sources */,
 				8176BEE61B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
 				30A402061BC46D8600BF0C0E /* Service.swift in Sources */,
 				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
-				30E00C2C1BC842B900DDF24C /* AsyncImageView.swift in Sources */,
 				81E26D961B67C29D00FC1F2F /* Shape.swift in Sources */,
 				810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				3BD971BE1B98ABF4007EAB5A /* TwitterAccountManager.swift in Sources */,
@@ -1652,7 +1526,6 @@
 				3BDF98CB1BA2652F00F383D8 /* SigninViewController.swift in Sources */,
 				3BD971C41B98C882007EAB5A /* EmailAccountManager.swift in Sources */,
 				3BD971DD1B9F7C6E007EAB5A /* CreateAccountView.swift in Sources */,
-				30E00C401BC842B900DDF24C /* ImageLoader.swift in Sources */,
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
 				6987F82E1B99A53900CA55D5 /* UserFavoritesCollectionViewController.swift in Sources */,
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
@@ -1669,25 +1542,18 @@
 			files = (
 				696C2DA71BB6126B004AC9F6 /* ToolTipViewController.swift in Sources */,
 				8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */,
-				30E00C4F1BC842B900DDF24C /* Spring.swift in Sources */,
-				30E00C3F1BC842B900DDF24C /* DesignableView.swift in Sources */,
 				81D60AD11B84BF3200347BCA /* SearchResponse.swift in Sources */,
 				8176BEE71B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
-				30E00C2F1BC842B900DDF24C /* AutoTextView.swift in Sources */,
 				810C4AFE1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */,
-				30E00C391BC842B900DDF24C /* DesignableTabBarController.swift in Sources */,
 				8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				8176BEA41B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
-				30E00C551BC842B900DDF24C /* SpringImageView.swift in Sources */,
 				690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */,
 				817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
-				30E00C5B1BC842B900DDF24C /* SpringTextView.swift in Sources */,
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
-				30E00C571BC842B900DDF24C /* SpringLabel.swift in Sources */,
 				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				81E26D8C1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
 				696C2DB11BB61357004AC9F6 /* ToolTip.swift in Sources */,
@@ -1697,57 +1563,40 @@
 				3BA8945E1BB35E170000D5C0 /* SocialAccount.swift in Sources */,
 				816589041B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
 				810C4AF41B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
-				30E00C411BC842B900DDF24C /* ImageLoader.swift in Sources */,
 				81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				816588F81B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */,
-				30E00C531BC842B900DDF24C /* SpringButton.swift in Sources */,
 				8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				8176BEA11B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
+				30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */,
 				81153CBD1BBC7FC000A91EAD /* TogglePanelButton.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				3BF60C4F1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */,
 				817939011B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81E26D891B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
-				30E00C611BC842B900DDF24C /* TransitionZoom.swift in Sources */,
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
-				30E00C591BC842B900DDF24C /* SpringTextField.swift in Sources */,
-				30E00C331BC842B900DDF24C /* DesignableButton.swift in Sources */,
-				30E00C5D1BC842B900DDF24C /* SpringView.swift in Sources */,
 				8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
 				810C4AFB1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
-				30E00C5F1BC842B900DDF24C /* TransitionManager.swift in Sources */,
 				8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
 				81D60ACE1B84BF2500347BCA /* SearchRequest.swift in Sources */,
-				30E00C2D1BC842B900DDF24C /* AsyncImageView.swift in Sources */,
-				30E00C371BC842B900DDF24C /* DesignableLabel.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
-				30E00C4D1BC842B900DDF24C /* SoundPlayer.swift in Sources */,
 				3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
 				3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */,
 				81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
-				30E00C2B1BC842B900DDF24C /* AsyncButton.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
-				30E00C4B1BC842B900DDF24C /* Misc.swift in Sources */,
-				30E00C3D1BC842B900DDF24C /* DesignableTextView.swift in Sources */,
 				8176BEC61B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
-				30E00C631BC842B900DDF24C /* UnwindSegue.swift in Sources */,
 				810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
-				30E00C511BC842B900DDF24C /* SpringAnimation.swift in Sources */,
 				817938FE1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
-				30E00C351BC842B900DDF24C /* DesignableImageView.swift in Sources */,
-				30E00C311BC842B900DDF24C /* BlurView.swift in Sources */,
 				81D60AC31B84BD4200347BCA /* SearchViewModel.swift in Sources */,
-				30E00C3B1BC842B900DDF24C /* DesignableTextField.swift in Sources */,
 				8179388B1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				8176BECC1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
 				81D60AD41B854D8500347BCA /* SearchResult.swift in Sources */,

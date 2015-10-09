@@ -37,7 +37,6 @@ PODS:
   - CMDQueryStringSerialization (0.2.0)
   - CSStickyHeaderFlowLayout (0.2.9)
   - DateTools (1.7.0)
-  - DZNEmptyDataSet (1.7.1)
   - Facebook-iOS-SDK (3.24.0):
     - Bolts (~> 1.2)
   - Firebase (2.3.3)
@@ -70,7 +69,6 @@ DEPENDENCIES:
   - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
   - CSStickyHeaderFlowLayout
   - DateTools (~> 1.6)
-  - DZNEmptyDataSet
   - Facebook-iOS-SDK (~> 3.0)
   - Firebase (>= 2.0.2)
   - Parse
@@ -97,7 +95,6 @@ SPEC CHECKSUMS:
   CMDQueryStringSerialization: 15f9004212bbc72533bb533f63df79d90a00a7d8
   CSStickyHeaderFlowLayout: ece83dad3a1528af8b5a25bda3aa12536624ac65
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
-  DZNEmptyDataSet: 2a398066c2bf5848f7f693fb50954b5064debd12
   Facebook-iOS-SDK: cb209af2e67e3a5d323f966c22e4e482e819405e
   Firebase: 2db60272f68ce40c7d47e5ae6eddc16977c65d4c
   FlurrySDK: d4737cc34e5b01503a05bedeb2e011ef45c9b114
