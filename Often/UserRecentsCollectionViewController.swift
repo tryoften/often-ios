@@ -10,7 +10,7 @@ import UIKit
 
 let userRecentsReuseIdentifier = "userRecentsCell"
 
-class UserRecentsCollectionViewController: UICollectionViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class UserRecentsCollectionViewController: UICollectionViewController {
 
     init() {
         super.init(collectionViewLayout: UserRecentsCollectionViewController.provideCollectionViewLayout())
@@ -24,8 +24,7 @@ class UserRecentsCollectionViewController: UICollectionViewController, DZNEmptyD
         super.viewDidLoad()
         
         if let collectionView = collectionView {
-            collectionView.emptyDataSetSource = self
-            collectionView.emptyDataSetDelegate = self
+            collectionView.scrollEnabled = false
             collectionView.backgroundColor = WhiteColor
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "searchCell")

@@ -36,8 +36,6 @@ class UserScrollTabCollectionViewContainerCell: UICollectionViewCell, UIScrollVi
         
         tabScrollView.delegate = self
         tabScrollView.frame = CGRectMake(0, 0, frame.width, frame.height)
-        let scrollViewWidth = tabScrollView.frame.width
-        let scrollViewHeight = tabScrollView.frame.height
         
         leftScrollContainerView.addSubview(userFavoritesCollectionViewController.view)
         rightScrollContainerView.addSubview(userRecentsCollectionViewController.view)
@@ -47,6 +45,8 @@ class UserScrollTabCollectionViewContainerCell: UICollectionViewCell, UIScrollVi
         addSubview(tabScrollView)
         
         tabScrollView.contentSize = CGSizeMake(tabScrollView.frame.width * 2, tabScrollView.frame.height)
+        
+        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -70,23 +70,8 @@ class UserScrollTabCollectionViewContainerCell: UICollectionViewCell, UIScrollVi
         tabScrollView.setContentOffset(CGPointMake(tabScrollView.frame.width, 0), animated: true)
     }
     
-    func setLayout() {
-        addConstraints([
-            tabScrollView.al_left == al_left,
-            tabScrollView.al_right == al_right,
-            tabScrollView.al_bottom == al_bottom,
-            tabScrollView.al_top == al_top,
-            
-            leftScrollContainerView.al_left == tabScrollView.al_left,
-            leftScrollContainerView.al_top == tabScrollView.al_top,
-            leftScrollContainerView.al_bottom == tabScrollView.al_bottom,
-            leftScrollContainerView.al_right == tabScrollView.al_centerX,
-            
-            rightScrollContainerView.al_right == tabScrollView.al_right,
-            rightScrollContainerView.al_top == tabScrollView.al_top,
-            rightScrollContainerView.al_bottom == tabScrollView.al_bottom,
-            rightScrollContainerView.al_left == tabScrollView.al_centerX
-        ])
+    func setupLayout() {
+        
     }
 }
 
