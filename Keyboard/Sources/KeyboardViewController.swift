@@ -33,6 +33,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var backspaceStartTime: CFAbsoluteTime!
     var firstWordQuickDeleted: Bool = false
     var lastLayoutBounds: CGRect?
+    var userDefaults: NSUserDefaults
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
@@ -87,6 +88,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     static var once_predicate: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        userDefaults.setBool(true, forKey: "keyboardInstall")
+        userDefaults.synchronize()
         
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned

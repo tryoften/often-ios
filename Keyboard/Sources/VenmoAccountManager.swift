@@ -43,9 +43,11 @@ class VenmoAccountManager: NSObject {
     }
     
     func getCurrentCurrentSessionToken(session: VENSession) {
+        venmoAccount = SocialAccount()
         venmoAccount?.token = session.accessToken
         venmoAccount?.activeStatus = true
         venmoAccount?.tokenExpirationDate = session.expirationDate.description
+        venmoAccount?.type = .Venmo
         
         if let venmoAccount = self.venmoAccount {
             self.delegate?.venmoAccountManagerDidPullToken(self, account: venmoAccount)

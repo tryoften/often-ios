@@ -9,6 +9,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     weak var delegate: UserProfileViewModelDelegate?
     var sessionManager: SessionManager
     var currentUser: User?
+    
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
         super.init()

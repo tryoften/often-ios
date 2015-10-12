@@ -28,10 +28,6 @@ class SessionManager: NSObject {
         case SystemError(e: NSError)
     }
     
-    enum SessionManagerError: ErrorType {
-        case UnvalidSignUp
-    }
-    
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
     
@@ -69,8 +65,17 @@ class SessionManager: NSObject {
         
     }
     
+    func setUserDefaultsValue(value:AnyObject, forKey:String ) {
+        userDefaults.setValue(false, forKey: forKey)
+        userDefaults.synchronize()
+    }
+    
     func isUserLoggedIn() -> Bool {
         return userDefaults.objectForKey("user") != nil
+    }
+    
+    func isKeyboardInstalled() -> Bool {
+        return userDefaults.boolForKey("keyboardInstall")
     }
     
     func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {
@@ -88,11 +93,11 @@ class SessionManager: NSObject {
         switch loginType {
         case .Twitter:
             twitterAccountManager = TwitterAccountManager(firebase: firebase)
-            twitterAccountManager?.login({ err in
-                if err != nil {
-                    completion(results: ResultType.SystemError(e: err!))
-                } else {
-                    completion(results: ResultType.Success(r: true))
+            twitterAccountManager?.login({ results in
+                switch results {
+                case .Success(let value): completion(results: ResultType.Success(r: value))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
                 }
             })
             break
@@ -129,6 +134,7 @@ class SessionManager: NSObject {
         userDefaults.setValue(nil, forKey: "twitter")
         userDefaults.setValue(nil, forKey: "openSession")
         userDefaults.setValue(nil, forKey: "authData")
+        userDefaults.synchronize()
         
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
         
@@ -290,6 +296,10 @@ class SessionManager: NSObject {
             }
         }
     }
+}
+
+enum SessionManagerError: ErrorType {
+    case UnvalidSignUp
 }
 
 enum LoginType {
