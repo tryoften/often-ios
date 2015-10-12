@@ -36,12 +36,12 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
         sessionManager.removeSessionObserver(self)
     }
     
-      
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
         
     }
     
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
+        delegate?.socialAccountSettingsViewModelDidLoginUser(self, user: user)
         
     }
     
@@ -53,25 +53,27 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
                 socialAccount.setValuesForKeysWithDictionary(accounts as! [String : AnyObject])
                 self.socialAccounts.append(socialAccount)
             }
+            delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: self.socialAccounts)
         }
     }
     
     func spotifyAccountManagerDidPullToken(userProfileViewModel: SpotifyAccountManager, account: SocialAccount) {
-        delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: account)
+        delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
       
     }
     
     func venmoAccountManagerDidPullToken(userProfileViewModel: VenmoAccountManager, account: SocialAccount) {
-         delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: account)
+         delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
     }
     
     func soundcloudAccountManagerDidPullToken(userProfileViewModel: SoundcloudAccountManager, account: SocialAccount) {
-        delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: account)
+        delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
     }
 
 }
 
 protocol SocialAccountSettingsViewModelDelegate: class {
+    func socialAccountSettingsViewModelDidLoadSocialAccount(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: SocialAccount)
     func socialAccountSettingsViewModelDidLoginUser(userProfileViewModel: SocialAccountSettingsViewModel, user: User)
-    func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: SocialAccount)
+    func socialAccountSettingsViewModelDidLoadSocialAccountList(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: [SocialAccount])
 }

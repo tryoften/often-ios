@@ -139,7 +139,7 @@ let WalkthroughSpacerFront = UIFont(name: "OpenSans-Italic", size: 12)
 let WalkthroughErrorMessageBackgroundColor = UIColor(fromHexString: "#E85769")
 let WalkthroughNavBarTitleFontColor = UIColor.whiteColor()
 let WalkthroughTitleFontColor = UIColor(fromHexString: "#202020")
-let WalkthroughSubTitleFontColor = UIColor(fromHexString: "#121314")
+let WalkthroughSubTitleFontColor = UIColor(fromHexString: "#0F1010")
 let WalkthroughBackgroungColor = UIColor(fromHexString: "#F7F7F7")
 let WalkthroughEmailSpaceBackgroundColor = UIColor(fromHexString: "#E4E4E4")
 
