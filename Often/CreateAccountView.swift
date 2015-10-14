@@ -101,7 +101,7 @@ class CreateAccountView: UIView {
         
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.setImage(UIImage(named: "close"), forState: .Normal)
+        cancelButton.setImage(StyleKit.imageOfButtonclose(scale: 1.0), forState: .Normal)
         
         super.init(frame: frame)
         

@@ -12,13 +12,26 @@ class TwitterAccountManager: NSObject {
     var firebase: Firebase
     var userDefaults: NSUserDefaults
     let sessionManager = SessionManager.defaultManager
+    var isInternetReachable: Bool
+    
+    enum ResultType {
+        case Success(r: Bool)
+        case Error(e: ErrorType)
+        case SystemError(e: NSError)
+    }
     
     init(firebase: Firebase) {
         self.firebase = firebase
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+        isInternetReachable = reachabilitymanager.reachable
         
         super.init()
         
+        reachabilitymanager.setReachabilityStatusChangeBlock { status in
+            self.isInternetReachable = reachabilitymanager.reachable
+        }
+        reachabilitymanager.startMonitoring()
     }
         
     func openSessionWithTwitter(completion: ((NSError?) -> ())? = nil) {
@@ -48,19 +61,36 @@ class TwitterAccountManager: NSObject {
                     
                 }
             } else {
+                
             }
             
         }
         userDefaults.setValue(true, forKey: "openSession")
+        userDefaults.synchronize()
     }
     
-    func login(completion: ((NSError?) -> ())? = nil) {
+    func login(completion: (results: ResultType) -> Void) {
+        guard isInternetReachable else {
+            completion(results: ResultType.Error(e: TwitterAccountManagerError.NotConncetedOnline))
+            return
+        }
+        
         PFTwitterUtils.logInWithBlock({ (user, error) in
             if error == nil {
-                print(user)
-                self.openSessionWithTwitter(completion)
+                if user != nil {
+                    self.openSessionWithTwitter({ err in
+                        if err == nil {
+                           completion(results: ResultType.Success(r: true))
+                        } else {
+                            completion(results: ResultType.SystemError(e: err!))
+                        }
+                    })
+                } else {
+                    completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
+                }
+                
             } else {
-                completion?(error)
+                completion(results: ResultType.SystemError(e: error!))
             }
         })
     }
@@ -91,4 +121,9 @@ class TwitterAccountManager: NSObject {
 
     }
 
+}
+
+enum TwitterAccountManagerError: ErrorType {
+    case ReturnedEmptyUserObject
+    case NotConncetedOnline
 }

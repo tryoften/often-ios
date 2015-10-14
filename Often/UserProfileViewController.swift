@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate, UserProfileViewModelDelegate, UserScrollTabCellDelegate {
+class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate, UserProfileViewModelDelegate, UserScrollTabCellDelegate, SlideNavigationControllerDelegate {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
     
@@ -60,7 +60,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
-        flowLayout.itemSize = CGSizeMake(screenWidth, 300)
+        flowLayout.itemSize = CGSizeMake(screenWidth, 6*118)
         return flowLayout
     }
     
@@ -163,13 +163,21 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         
     }
     
+    func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
+        return true
+    }
+    
+    func slideNavigationControllerShouldDisplayRightMenu() -> Bool {
+        return true
+    }
+    
     // User profile header delegate
     func revealSetServicesViewDidTap() {
-        revealController.showViewController(leftViewController)
+        SlideNavigationController.sharedInstance().openMenu(MenuLeft, withCompletion: nil)
     }
     
     func revealSettingsViewDidTap() {
-        revealController.showViewController(rightViewController)
+        SlideNavigationController.sharedInstance().openMenu(MenuRight, withCompletion: nil)
     }
     
     func userFavoritesTabSelected() {

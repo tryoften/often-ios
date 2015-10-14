@@ -10,7 +10,7 @@ import UIKit
 
 let userFavoritesReuseIdentifier = "favoritesCell"
 
-class UserFavoritesCollectionViewController: UICollectionViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class UserFavoritesCollectionViewController: UICollectionViewController {
     
     init() {
         super.init(collectionViewLayout: UserFavoritesCollectionViewController.provideCollectionViewLayout())
@@ -24,8 +24,7 @@ class UserFavoritesCollectionViewController: UICollectionViewController, DZNEmpt
         super.viewDidLoad()
         
         if let collectionView = collectionView {
-            collectionView.emptyDataSetSource = self
-            collectionView.emptyDataSetDelegate = self
+            collectionView.scrollEnabled = false
             collectionView.backgroundColor = WhiteColor
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: userFavoritesReuseIdentifier)
