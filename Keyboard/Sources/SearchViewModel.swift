@@ -163,6 +163,7 @@ class SearchViewModel: NSObject {
                 case .User:
                     break
                 case .Video:
+                    result = VideoSearchResult(data: resultData)
                     break
                 case .Other:
                     break
