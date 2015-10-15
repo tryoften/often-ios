@@ -30,5 +30,3 @@ target 'Keyboard' do
   pod 'DateTools', '~> 1.6'
 end
 
-end
-
