@@ -26,19 +26,13 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     var backgroundImageView: UIImageView
     var cellsAnimated: [NSIndexPath: Bool]
     var textProcessor: TextProcessingManager?
-    var response: SearchResponse? {
-        didSet {
-            cellsAnimated = [:]
-            
-            if let collectionView = collectionView {
-                collectionView.reloadData()
-                collectionView.scrollRectToVisible(CGRectZero, animated: true)
-            }
-            
-            backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
-        }
-    }
+    var response: SearchResponse?
+    
+    // object the current response needs to be replaced/updated with
+    var nextResponse: SearchResponse?
     var viewModel: SearchResultsViewModel?
+    var refreshResultsButton: RefreshResultsButton
+    var refreshResultsButtonTopConstraint: NSLayoutConstraint!
     
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
@@ -49,13 +43,20 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         
         viewModel = SearchResultsViewModel()
         
+        refreshResultsButton = RefreshResultsButton()
+        refreshResultsButton.translatesAutoresizingMaskIntoConstraints = false
+        
         self.textProcessor = textProcessor
         
         super.init(collectionViewLayout: layout)
         
+        view.layer.masksToBounds = true
         view.insertSubview(backgroundImageView, belowSubview: collectionView!)
+        view.addSubview(refreshResultsButton)
         view.backgroundColor = VeryLightGray
         collectionView?.backgroundColor = UIColor.clearColor()
+        
+        refreshResultsButton.addTarget(self, action: "didTapRefreshResultsButton", forControlEvents: .TouchUpInside)
         
         // Register cell classes
         if let collectionView = collectionView {
@@ -117,7 +118,11 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-
+        
+        if indexPath.row >= response?.results.count {
+            return cell
+        }
+        
         guard let result = response?.results[indexPath.row] else {
             return cell
         }
@@ -229,12 +234,62 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         cell.overlayVisible = true
     }
     
+    func refreshResults() {
+        cellsAnimated = [:]
+        
+        guard let collectionView = collectionView else {
+            return
+        }
+        
+        collectionView.reloadData()
+        collectionView.setContentOffset(CGPointZero, animated: true)
+    
+        backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
+    }
+    
+    func showRefreshResultsButton() {
+        refreshResultsButtonTopConstraint.constant = 20
+        
+        UIView.animateWithDuration(
+            0.3,
+            delay: 5.0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 0.7,
+            options: .CurveEaseIn,
+            animations: {
+                self.refreshResultsButton.layoutIfNeeded()
+            }, completion: nil)
+    }
+    
+    func didTapRefreshResultsButton() {
+        response = nextResponse
+        refreshResultsButtonTopConstraint.constant = -40
+        
+        UIView.animateWithDuration(
+            0.3,
+            delay: 0.0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 0.7,
+            options: .CurveEaseIn,
+            animations: {
+                self.refreshResultsButton.layoutIfNeeded()
+            }, completion: nil)
+
+        refreshResults()
+    }
+    
     func setupLayout() {
+        refreshResultsButtonTopConstraint = refreshResultsButton.al_top == view.al_top - 40
+        
         view.addConstraints([
             backgroundImageView.al_top == view.al_top,
             backgroundImageView.al_left == view.al_left,
             backgroundImageView.al_width == view.al_width,
-            backgroundImageView.al_height == view.al_height - 30
+            backgroundImageView.al_height == view.al_height - 30,
+            
+            refreshResultsButton.al_height == 30,
+            refreshResultsButton.al_centerX == view.al_centerX,
+            refreshResultsButtonTopConstraint
         ])
     }
     

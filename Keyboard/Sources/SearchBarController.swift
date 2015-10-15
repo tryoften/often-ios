@@ -184,6 +184,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         viewModel.sendRequestForQuery(query, autocomplete: false)
         
         if searchBarView.textInput.selected {
+            searchResultsViewController?.response = nil
+            searchResultsViewController?.refreshResults()
             searchResultsContainerView?.hidden = false
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
         }
@@ -224,6 +226,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         
         searchSuggestionsViewController?.tableView.scrollRectToVisible(CGRectZero, animated: false)
         
+        // setup search results view controller if nil
         if searchResultsViewController == nil {
             searchResultsViewController = SearchResultsCollectionViewController(textProcessor: textProcessor)
             let searchResultsView = searchResultsViewController!.view
@@ -258,9 +261,17 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     // MARK: SearchViewModelDelegate
-    func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse) {
-        searchResultsViewController?.response = response
-        NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+    func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
+        let hasNoResultsDisplayed = searchResultsViewController?.response == nil
+        
+        if responseChanged || hasNoResultsDisplayed {
+            searchResultsViewController?.response = response
+            searchResultsViewController?.refreshResults()
+            NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+        } else {
+            searchResultsViewController?.nextResponse = response
+            searchResultsViewController?.showRefreshResultsButton()
+        }
     }
     
     func searchViewModelDidReceiveAutocompleteSuggestions(searchViewModel: SearchViewModel, suggestions: [[String: AnyObject]]?) {

@@ -138,6 +138,8 @@
 		81331E2C1A1806BB003E4609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81331E1C1A1806BB003E4609 /* Info.plist */; };
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
+		8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */; settings = {ASSET_TAGS = (); }; };
+		8136F6E91BCEEB0D000401BF /* RefreshResultsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */; settings = {ASSET_TAGS = (); }; };
 		8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
@@ -501,6 +503,7 @@
 		81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SwiftAutoLayout.xcodeproj; sourceTree = "<group>"; };
 		81331E231A1806BB003E4609 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81331E241A1806BB003E4609 /* SwiftAutoLayoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAutoLayoutTests.swift; sourceTree = "<group>"; };
+		8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RefreshResultsButton.swift; path = Sources/RefreshResultsButton.swift; sourceTree = "<group>"; };
 		8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextProcessingManager.swift; path = Sources/TextProcessingManager.swift; sourceTree = "<group>"; };
 		81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceList.swift"; sourceTree = "<group>"; };
 		816588ED1B61676000F7C9F5 /* KeyboardPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardPage.swift; path = Sources/KeyboardPage.swift; sourceTree = "<group>"; };
@@ -979,6 +982,7 @@
 				8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */,
 				810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */,
 				81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */,
+				8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -1541,6 +1545,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8136F6E91BCEEB0D000401BF /* RefreshResultsButton.swift in Sources */,
 				8127A8F01B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */,
 				8127A8F31B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
 				3B64A1951BC593560057F795 /* DropDownErrorMessage.swift in Sources */,
@@ -1670,6 +1675,7 @@
 				8176BEA41B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
 				690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */,
 				817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
+				8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
@@ -1803,7 +1809,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Luc Succes (SDZRACXG79)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -1832,7 +1838,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "4a25a365-e39e-497c-b435-e360935cd4d4";
+				PROVISIONING_PROFILE = "a8ed682b-79a3-4107-88f2-9b1480e14f21";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1870,7 +1876,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d81637a1-3443-4710-9896-ad6e113353cc";
+				PROVISIONING_PROFILE = "d8d9e083-6726-47b9-ae0b-54c96a0b14d5";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1928,7 +1934,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Luc Succes (SDZRACXG79)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -1952,7 +1958,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "4a25a365-e39e-497c-b435-e360935cd4d4";
+				PROVISIONING_PROFILE = "a8ed682b-79a3-4107-88f2-9b1480e14f21";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1989,7 +1995,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d81637a1-3443-4710-9896-ad6e113353cc";
+				PROVISIONING_PROFILE = "d8d9e083-6726-47b9-ae0b-54c96a0b14d5";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -2047,7 +2053,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Luc Succes (SDZRACXG79)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -2071,7 +2077,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "4a25a365-e39e-497c-b435-e360935cd4d4";
+				PROVISIONING_PROFILE = "a8ed682b-79a3-4107-88f2-9b1480e14f21";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2108,7 +2114,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d81637a1-3443-4710-9896-ad6e113353cc";
+				PROVISIONING_PROFILE = "d8d9e083-6726-47b9-ae0b-54c96a0b14d5";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};

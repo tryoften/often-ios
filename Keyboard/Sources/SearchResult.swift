@@ -46,7 +46,7 @@ enum SearchResultSource: String {
     case Unknown = "unknown"
 }
 
-class SearchResult {
+class SearchResult: Equatable {
     var id: String = ""
     var type: SearchResultType = .Other
     var score: Double = 0.0
@@ -116,3 +116,6 @@ class SearchResult {
     }
 }
 
+func ==(lhs: SearchResult, rhs: SearchResult) -> Bool {
+    return lhs.id == rhs.id
+}
