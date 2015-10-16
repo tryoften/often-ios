@@ -41,47 +41,9 @@ class UserFavoritesCollectionViewController: UICollectionViewController {
         flowLayout.itemSize = CGSizeMake(screenWidth, 118)
         flowLayout.minimumLineSpacing = 0.0
         flowLayout.minimumInteritemSpacing = 0.0
+        flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
         return flowLayout
     }
-    
-    // DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
-    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "favoritesemptystate")
-    }
-    
-    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let string = "No favorites yet!"
-        let attributedString = NSMutableAttributedString(string: string)
-        let attributes = [
-            NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"),
-            NSBackgroundColorAttributeName: ClearColor,
-            NSFontAttributeName: UIFont(name: "Montserrat", size: 15.0)!
-        ]
-        
-        attributedString.addAttributes(attributes, range: NSMakeRange(0, string.characters.count))
-        
-        return attributedString
-    }
-    
-    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let string = "Double tap any cards to save them to your favorites & easily share them again later."
-        var attributedString = NSMutableAttributedString(string: string)
-        
-        let attributes = [
-            NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"),
-            NSBackgroundColorAttributeName: ClearColor,
-            NSFontAttributeName: UIFont(name: "OpenSans", size: 12.0)!
-        ]
-        
-        attributedString.addAttributes(attributes, range: NSMakeRange(0, string.characters.count))
-        
-        return attributedString
-    }
-    
-    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
-        return view.frame.height / 3
-    }
-    
 
     // MARK: UICollectionViewDataSource
 
