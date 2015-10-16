@@ -249,10 +249,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 searchBarHeight = height + KeyboardSearchBarHeight
                 keyboardHeight = keysContainerViewHeight + searchBarHeight
                 
-                UIView.animateWithDuration(0.3) {
-                    self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
-                    self.view.layoutIfNeeded()
-                }
+                self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
+                self.view.layoutIfNeeded()
         }
     }
     

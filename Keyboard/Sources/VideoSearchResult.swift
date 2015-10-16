@@ -22,6 +22,10 @@ class VideoSearchResult: SearchResult {
             self.link = link
         }
         
+        if let link = data["external_url"] as? String {
+            self.link = link
+        }
+        
         if let title = data["title"] as? String {
             self.title = title
         }
@@ -57,5 +61,9 @@ class VideoSearchResult: SearchResult {
         }
         
         self.type = .Video
+    }
+    
+    override func getInsertableText() -> String {
+        return "\(title) - \(link)"
     }
 }

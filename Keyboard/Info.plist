@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1008</string>
+	<string>1009</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -35,6 +35,11 @@
 				<string>Crashlytics</string>
 			</dict>
 		</array>
+	</dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 	</dict>
 	<key>NSExtension</key>
 	<dict>
@@ -70,11 +75,5 @@
 		<string>Oswald-Regular.ttf</string>
 		<string>Oswald-Light.ttf</string>
 	</array>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-        <!--Include to allow all connections (DANGER)-->
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-    </dict>
 </dict>
 </plist>

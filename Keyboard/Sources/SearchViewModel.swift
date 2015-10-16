@@ -16,6 +16,7 @@ class SearchViewModel: NSObject {
     
     var currentRequest: SearchRequest?
     var currentResponseRef: Firebase?
+    var currentResponse: SearchResponse?
     
     var isDataLoaded: Bool
     var hasReceivedResponse: Bool
@@ -65,80 +66,101 @@ class SearchViewModel: NSObject {
     func responseDataReceived(data: [String: AnyObject]) {
         hasReceivedResponse = true
 
-        if let id = data["id"] as? String,
+        guard let id = data["id"] as? String,
             let query = data["query"] as? String,
             let _ = data["autocomplete"] as? Bool,
             let resultsData = data["results"] as? [ [String: AnyObject] ],
-            let request = currentRequest {
-                
-                if request.autocomplete {
-                    var suggestions = [ String: [[String: AnyObject]] ]()
-                    
-                    for resultData in resultsData {
-                        if let text = resultData["text"] as? String,
-                            let options = resultData["options"] as? [ [String: AnyObject] ] {
-                                var texts = [[String: AnyObject]]()
-                                
-                                for option in options {
-                                    if let optionText = option["text"] as? String {
-                                        var dict: [String: AnyObject] = [
-                                            "text": optionText
-                                        ]
-                                        
-                                        if let payload = option["payload"] as? [String: AnyObject],
-                                            let resultsCount = payload["resultsCount"] as? Int {
-                                                dict["resultsCount"] = resultsCount
-                                        }
-                                        
-                                        texts.append(dict)
-                                    }
-                                }
-                                
-                                suggestions[text] = texts
-                        }
-                    }
-                    
-                    self.delegate?.searchViewModelDidReceiveAutocompleteSuggestions(self, suggestions: suggestions[query])
-                    return
-                } else {
-                    var results = [SearchResult]()
-                    
-                    for resultData in resultsData {
-                        if let result = self.processSearchResultData(resultData) {
-                            results.append(result)
-                        }
-                    }
-                    
-                    let lastModified = (data["time_modified"] as? NSTimeInterval) ?? NSDate().timeIntervalSince1970
-
-                    let response = SearchResponse(id: id, results: results, timeModified: NSDate(timeIntervalSince1970: lastModified))
-                    
-                    if let doneUpdating = data["doneUpdating"] as? Bool {
-                        if doneUpdating {
-                            self.currentResponseRef?.removeAllObservers()
-                            self.currentRequest = nil
-                            self.isDataLoaded = true
-                            if NSThread.isMainThread() {
-                                self.delegate?.searchViewModelDidReceiveResponse(self, response: response)
-
-                            } else {
-                                NSOperationQueue.mainQueue().addOperationWithBlock {
-                                    self.delegate?.searchViewModelDidReceiveResponse(self, response: response)
-                                }
-                            }
-                        }
-                    }
-                    
-                    // We already have data so wait another 300ms before displaying in case more data comes in by then
-                    delay(0.3) {
-                        if (!self.isDataLoaded) {
-                            self.delegate?.searchViewModelDidReceiveResponse(self, response: response)
-                            self.isDataLoaded = true
+            let request = currentRequest else {
+                return
+        }
+        
+        if request.autocomplete {
+            processAutocompleteSuggestions(query, resultsData: resultsData)
+            return
+        } else {
+            var results = [SearchResult]()
+            
+            for resultData in resultsData {
+                if let result = processSearchResultData(resultData) {
+                    results.append(result)
+                }
+            }
+            
+            var responseChanged = true
+            
+            let lastModified = (data["time_modified"] as? NSTimeInterval) ?? NSDate().timeIntervalSince1970
+            let response = SearchResponse(id: id, results: results, timeModified: NSDate(timeIntervalSince1970: lastModified))
+            
+            // check if the response has different results than the previously received result set
+            // if it is, let the view layer know
+            if let currentResponse = currentResponse {
+                if currentResponse == response {
+                    responseChanged = false
+                }
+            }
+            
+            if responseChanged {
+                print("SearchViewModel: response to query (\(query)) changed")
+            } else {
+                print("SearchViewModel: response to query (\(query)) is the same as previous")
+            }
+            
+            currentResponse = response
+            
+            if let doneUpdating = data["doneUpdating"] as? Bool {
+                if doneUpdating {
+                    self.currentResponseRef?.removeAllObservers()
+                    self.currentRequest = nil
+                    self.isDataLoaded = true
+                    if NSThread.isMainThread() {
+                        self.delegate?.searchViewModelDidReceiveResponse(self, response: response, responseChanged: responseChanged)
+                    } else {
+                        NSOperationQueue.mainQueue().addOperationWithBlock {
+                            self.delegate?.searchViewModelDidReceiveResponse(self, response: response, responseChanged: responseChanged)
                         }
                     }
                 }
+            }
+            
+            // We already have data so wait another 300ms before displaying in case more data comes in by then
+            delay(0.3) {
+                if (!self.isDataLoaded) {
+                    self.delegate?.searchViewModelDidReceiveResponse(self, response: response, responseChanged: responseChanged)
+                    self.isDataLoaded = true
+                }
+            }
         }
 
+    }
+    
+    func processAutocompleteSuggestions(query: String, resultsData: [[String: AnyObject]]) {
+        var suggestions = [ String: [[String: AnyObject]] ]()
+        
+        for resultData in resultsData {
+            if let text = resultData["text"] as? String,
+                let options = resultData["options"] as? [ [String: AnyObject] ] {
+                    var texts = [[String: AnyObject]]()
+                    
+                    for option in options {
+                        if let optionText = option["text"] as? String {
+                            var dict: [String: AnyObject] = [
+                                "text": optionText
+                            ]
+                            
+                            if let payload = option["payload"] as? [String: AnyObject],
+                                let resultsCount = payload["resultsCount"] as? Int {
+                                    dict["resultsCount"] = resultsCount
+                            }
+                            
+                            texts.append(dict)
+                        }
+                    }
+                    
+                    suggestions[text] = texts
+            }
+        }
+        
+        delegate?.searchViewModelDidReceiveAutocompleteSuggestions(self, suggestions: suggestions[query])
     }
     
     func processSearchResultData(resultData: [String: AnyObject]) -> SearchResult? {
@@ -194,6 +216,12 @@ class SearchViewModel: NSObject {
 }
 
 protocol SearchViewModelDelegate {
-    func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse)
+    /*
+        sent when a response for a request is received, may be called multiple times for a given query
+        :param: searchViewModel view model handling the search requests/responses
+        :param: response the response object containing the results
+        :param: responseChanged whether this response is different from a previous one
+    */
+    func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool)
     func searchViewModelDidReceiveAutocompleteSuggestions(searchViewModel: SearchViewModel, suggestions: [[String: AnyObject]]?)
 }
