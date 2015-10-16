@@ -39,6 +39,10 @@ class TrackSearchResult: SearchResult {
             self.url = url
         }
         
+        if let url = data["external_url"] as? String {
+            self.url = url
+        }
+        
         if let image = data["image"] as? String {
             self.image = image
         }
