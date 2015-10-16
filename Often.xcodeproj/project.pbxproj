@@ -1170,6 +1170,7 @@
 				45728D1C2D72036A77085D41 /* Copy Pods Resources */,
 				812E3F021B4BB95100C0F3BE /* Upload symbols to crashlytics */,
 				30E00C701BC8523500DDF24C /* Embed Frameworks */,
+				27D78C2F1BB783151789F70D /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1191,6 +1192,7 @@
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
 				30A402071BC46FF600BF0C0E /* CopyFiles */,
+				E06B8CC65CEDDEF274ED63EC /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1391,6 +1393,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		27D78C2F1BB783151789F70D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		45728D1C2D72036A77085D41 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1448,6 +1465,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E06B8CC65CEDDEF274ED63EC /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1737,7 +1769,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "24232086-1597-48cb-9a7b-b3534a66c0d4";
+				PROVISIONING_PROFILE = "a8ed682b-79a3-4107-88f2-9b1480e14f21";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1775,7 +1807,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4f93d8b6-3db0-412f-9bc7-4c7026f42e9f";
+				PROVISIONING_PROFILE = "d8d9e083-6726-47b9-ae0b-54c96a0b14d5";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1857,7 +1889,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "24232086-1597-48cb-9a7b-b3534a66c0d4";
+				PROVISIONING_PROFILE = "a8ed682b-79a3-4107-88f2-9b1480e14f21";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1894,7 +1926,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4f93d8b6-3db0-412f-9bc7-4c7026f42e9f";
+				PROVISIONING_PROFILE = "d8d9e083-6726-47b9-ae0b-54c96a0b14d5";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1976,7 +2008,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "24232086-1597-48cb-9a7b-b3534a66c0d4";
+				PROVISIONING_PROFILE = "a8ed682b-79a3-4107-88f2-9b1480e14f21";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2013,7 +2045,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "4f93d8b6-3db0-412f-9bc7-4c7026f42e9f";
+				PROVISIONING_PROFILE = "d8d9e083-6726-47b9-ae0b-54c96a0b14d5";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
