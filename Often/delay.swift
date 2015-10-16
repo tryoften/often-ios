@@ -1,9 +1,9 @@
 //
 //  delay.swift
-//  Drizzy
+//  Often
 //
-//  Created by Luc Success on 4/20/15.
-//  Copyright (c) 2015 Luc Success. All rights reserved.
+//  Created by Often on 10/9/15.
+//  Copyright © 2015 Surf Inc. All rights reserved.
 //
 
 import Foundation
