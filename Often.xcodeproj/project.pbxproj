@@ -199,6 +199,14 @@
 		81794EFE1A81ECD5009D4A71 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE01A81E649009D4A71 /* Security.framework */; };
 		81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE21A81E651009D4A71 /* Social.framework */; };
 		81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE61A81E660009D4A71 /* SystemConfiguration.framework */; };
+		817F78391BBDD2780087EBE8 /* TrackSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78381BBDD2780087EBE8 /* TrackSearchResult.swift */; settings = {ASSET_TAGS = (); }; };
+		817F783A1BBDD2780087EBE8 /* TrackSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78381BBDD2780087EBE8 /* TrackSearchResult.swift */; settings = {ASSET_TAGS = (); }; };
+		817F78461BBDD2A20087EBE8 /* ArticleSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78451BBDD2A20087EBE8 /* ArticleSearchResult.swift */; settings = {ASSET_TAGS = (); }; };
+		817F78471BBDD2A20087EBE8 /* ArticleSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78451BBDD2A20087EBE8 /* ArticleSearchResult.swift */; settings = {ASSET_TAGS = (); }; };
+		817F78491BBDD2FB0087EBE8 /* VideoSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78481BBDD2FB0087EBE8 /* VideoSearchResult.swift */; settings = {ASSET_TAGS = (); }; };
+		817F784A1BBDD2FB0087EBE8 /* VideoSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78481BBDD2FB0087EBE8 /* VideoSearchResult.swift */; settings = {ASSET_TAGS = (); }; };
+		817F784C1BC085440087EBE8 /* suffixNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F784B1BC085440087EBE8 /* suffixNumber.swift */; settings = {ASSET_TAGS = (); }; };
+		817F784D1BC085440087EBE8 /* suffixNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F784B1BC085440087EBE8 /* suffixNumber.swift */; settings = {ASSET_TAGS = (); }; };
 		8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60D1A142157007FA1CF /* AppDelegate.swift */; };
 		8180E6151A142157007FA1CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
@@ -487,12 +495,14 @@
 		81794EE61A81E660009D4A71 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		81794EE81A81E666009D4A71 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		817F78381BBDD2780087EBE8 /* TrackSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackSearchResult.swift; path = Sources/TrackSearchResult.swift; sourceTree = "<group>"; };
+		817F78451BBDD2A20087EBE8 /* ArticleSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleSearchResult.swift; path = Sources/ArticleSearchResult.swift; sourceTree = "<group>"; };
+		817F78481BBDD2FB0087EBE8 /* VideoSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoSearchResult.swift; path = Sources/VideoSearchResult.swift; sourceTree = "<group>"; };
+		817F784B1BC085440087EBE8 /* suffixNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = suffixNumber.swift; sourceTree = "<group>"; };
 		8180E6081A142157007FA1CF /* Often.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Often.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E60C1A142157007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E60D1A142157007FA1CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8180E6141A142157007FA1CF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		8180E6221A142158007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8180E6231A142158007FA1CF /* DrizzyChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrizzyChatTests.swift; sourceTree = "<group>"; };
 		8180E6311A142199007FA1CF /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6341A142199007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E6351A142199007FA1CF /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = Sources/KeyboardViewController.swift; sourceTree = "<group>"; };
@@ -734,6 +744,13 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		813092DD1BC43F3100DC6736 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
 		81331DFF1A17DF66003E4609 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -869,6 +886,7 @@
 				3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */,
 				81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */,
 				30E00C791BC86CEA00DDF24C /* delay.swift */,
+				817F784B1BC085440087EBE8 /* suffixNumber.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -930,6 +948,7 @@
 		8179387C1B5582520064B0CF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				817F78441BBDD28A0087EBE8 /* Result Types */,
 				81E26D841B65B17A00FC1F2F /* Direction.swift */,
 				81D60ACC1B84BF2500347BCA /* SearchRequest.swift */,
 				81D60ACF1B84BF3200347BCA /* SearchResponse.swift */,
@@ -949,6 +968,16 @@
 			name = Providers;
 			sourceTree = "<group>";
 		};
+		817F78441BBDD28A0087EBE8 /* Result Types */ = {
+			isa = PBXGroup;
+			children = (
+				817F78381BBDD2780087EBE8 /* TrackSearchResult.swift */,
+				817F78451BBDD2A20087EBE8 /* ArticleSearchResult.swift */,
+				817F78481BBDD2FB0087EBE8 /* VideoSearchResult.swift */,
+			);
+			name = "Result Types";
+			sourceTree = "<group>";
+		};
 		8180E5FF1A142157007FA1CF = {
 			isa = PBXGroup;
 			children = (
@@ -957,7 +986,6 @@
 				8180E60A1A142157007FA1CF /* Container App */,
 				81331E161A1806BB003E4609 /* Vendors */,
 				8180E6091A142157007FA1CF /* Products */,
-				8180E6201A142158007FA1CF /* DrizzyChatTests */,
 				3A906368B7CA46AA11C157BA /* Pods */,
 				7F93937CEF33AF0CDDEE7D74 /* Frameworks */,
 			);
@@ -984,6 +1012,7 @@
 				816FE5A11A86E66900E42C17 /* View Controllers */,
 				8180E60D1A142157007FA1CF /* AppDelegate.swift */,
 				8180E6141A142157007FA1CF /* Images.xcassets */,
+				813092DD1BC43F3100DC6736 /* Tests */,
 				81B35FAE1A7A10B6001A546C /* Resources */,
 				8180E60B1A142157007FA1CF /* Supporting Files */,
 				81331E071A17E8FE003E4609 /* Often-Bridging-Header.h */,
@@ -999,23 +1028,6 @@
 			isa = PBXGroup;
 			children = (
 				8180E60C1A142157007FA1CF /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		8180E6201A142158007FA1CF /* DrizzyChatTests */ = {
-			isa = PBXGroup;
-			children = (
-				8180E6231A142158007FA1CF /* DrizzyChatTests.swift */,
-				8180E6211A142158007FA1CF /* Supporting Files */,
-			);
-			path = DrizzyChatTests;
-			sourceTree = "<group>";
-		};
-		8180E6211A142158007FA1CF /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				8180E6221A142158007FA1CF /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1457,6 +1469,7 @@
 				81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */,
 				3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */,
 				3BD971E31B9FD483007EAB5A /* SignupViewModel.swift in Sources */,
+				817F78461BBDD2A20087EBE8 /* ArticleSearchResult.swift in Sources */,
 				81E26D9C1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				69192E581BBB9AF800903071 /* EmptySetView.swift in Sources */,
@@ -1531,6 +1544,7 @@
 				30A402061BC46D8600BF0C0E /* Service.swift in Sources */,
 				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
+				817F78391BBDD2780087EBE8 /* TrackSearchResult.swift in Sources */,
 				81E26D961B67C29D00FC1F2F /* Shape.swift in Sources */,
 				3B100A221BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift in Sources */,
 				810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
@@ -1542,9 +1556,11 @@
 				3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */,
 				81D4BF261B38F6DA006430AB /* WindowRootViewController.swift in Sources */,
 				6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */,
+				817F784C1BC085440087EBE8 /* suffixNumber.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
 				3BDF98CB1BA2652F00F383D8 /* SigninViewController.swift in Sources */,
 				3BD971C41B98C882007EAB5A /* EmailAccountManager.swift in Sources */,
+				817F78491BBDD2FB0087EBE8 /* VideoSearchResult.swift in Sources */,
 				3BD971DD1B9F7C6E007EAB5A /* CreateAccountView.swift in Sources */,
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
 				6987F82E1B99A53900CA55D5 /* UserFavoritesCollectionViewController.swift in Sources */,
@@ -1560,6 +1576,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				817F784D1BC085440087EBE8 /* suffixNumber.swift in Sources */,
 				696C2DA71BB6126B004AC9F6 /* ToolTipViewController.swift in Sources */,
 				8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */,
 				81D60AD11B84BF3200347BCA /* SearchResponse.swift in Sources */,
@@ -1572,6 +1589,7 @@
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
+				817F78471BBDD2A20087EBE8 /* ArticleSearchResult.swift in Sources */,
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
@@ -1611,6 +1629,7 @@
 				81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
+				817F783A1BBDD2780087EBE8 /* TrackSearchResult.swift in Sources */,
 				8176BEC61B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
 				810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
@@ -1621,6 +1640,7 @@
 				8176BECC1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
 				81D60AD41B854D8500347BCA /* SearchResult.swift in Sources */,
 				81E26D861B65B17A00FC1F2F /* Direction.swift in Sources */,
+				817F784A1BBDD2FB0087EBE8 /* VideoSearchResult.swift in Sources */,
 				81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
