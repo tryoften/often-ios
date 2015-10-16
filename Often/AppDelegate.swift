@@ -13,7 +13,7 @@ import Realm
 import OAuthSwift
 
 
-private var TestKeyboard: Bool = true
+private var TestKeyboard: Bool = false
 
 var leftViewController: SocialAccountSettingsCollectionViewController?
 var rightViewController: AppSettingsViewController?

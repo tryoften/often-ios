@@ -26,13 +26,18 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     var backgroundImageView: UIImageView
     var cellsAnimated: [NSIndexPath: Bool]
     var textProcessor: TextProcessingManager?
-    var response: SearchResponse?
+    var response: SearchResponse? {
+        didSet {
+            refreshTimer?.invalidate()
+        }
+    }
     
     // object the current response needs to be replaced/updated with
     var nextResponse: SearchResponse?
     var viewModel: SearchResultsViewModel?
     var refreshResultsButton: RefreshResultsButton
     var refreshResultsButtonTopConstraint: NSLayoutConstraint!
+    var refreshTimer: NSTimer?
     
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
@@ -248,11 +253,14 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     }
     
     func showRefreshResultsButton() {
+        refreshTimer = NSTimer(timeInterval: NSTimeInterval(5.0), target: self, selector: "displayRefreshResultsButton", userInfo: nil, repeats: false)
+    }
+    
+    func displayRefreshResultsButton() {
         refreshResultsButtonTopConstraint.constant = 20
-        
         UIView.animateWithDuration(
             0.3,
-            delay: 5.0,
+            delay: 0.0,
             usingSpringWithDamping: 0.7,
             initialSpringVelocity: 0.7,
             options: .CurveEaseIn,

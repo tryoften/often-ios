@@ -58,4 +58,8 @@ class VideoSearchResult: SearchResult {
         
         self.type = .Video
     }
+    
+    override func getInsertableText() -> String {
+        return "\(title) - \(url)"
+    }
 }

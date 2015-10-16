@@ -173,6 +173,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         activeServiceProviderType = nil
         activeServiceProvider = nil
         activeSupplementaryViewController = nil
+        searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
         NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
             "height": 0,
             "hideToggleBar": true
@@ -246,6 +247,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func textFieldDidChange() {
         textProcessor?.parseTextInCurrentDocumentProxy()
+        searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
         
         if viewModel.hasReceivedResponse {
             requestAutocompleteSuggestions()
@@ -255,6 +257,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func textFieldDidEndEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("default")
         
+        searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
         NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
             "height": 0
         ])
@@ -264,7 +267,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
         let hasNoResultsDisplayed = searchResultsViewController?.response == nil
         
-        if responseChanged || hasNoResultsDisplayed {
+        if responseChanged || hasNoResultsDisplayed || response.id != searchResultsViewController?.response?.id {
             searchResultsViewController?.response = response
             searchResultsViewController?.refreshResults()
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
