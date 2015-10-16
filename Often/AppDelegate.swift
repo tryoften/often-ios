@@ -12,12 +12,9 @@ import Crashlytics
 import Realm
 import OAuthSwift
 
+
 private var TestKeyboard: Bool = false
 
-// PKRevealController
-var revealController: PKRevealController?
-var frontNavigationController: UINavigationController?
-var frontViewController: UserProfileViewController?
 var leftViewController: SocialAccountSettingsCollectionViewController?
 var rightViewController: AppSettingsViewController?
 
@@ -30,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var soundcloudAccountManager: SoundcloudAccountManager!
     let sessionManager = SessionManager.defaultManager
     
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics()])
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
@@ -41,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.startSession(FlurryClientKey)
         SPTAuth.defaultInstance().clientID = SpotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
-
          
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
@@ -65,28 +60,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
                 let signupViewModel = SignupViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
                 
-                if sessionManager.userDefaults.objectForKey("user") != nil {
-                    // Front view controller must be navigation controller - will hide the nav bar
-                    frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-                    frontNavigationController = UINavigationController(rootViewController: frontViewController!)
-                    frontNavigationController?.setNavigationBarHidden(true, animated: true)
+                if sessionManager.isUserLoggedIn() {
                     
-                    // left view controller: Set Services for keyboard
-                    // right view controller: App Settings
-                    leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-                    rightViewController = AppSettingsViewController()
-                    
-                    
-                    // instantiate PKRevealController and set as mainController to do revealing
-                    revealController = PKRevealController(frontViewController: frontNavigationController, leftViewController: leftViewController, rightViewController: rightViewController)
-                    revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: leftViewController)
-                    revealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: rightViewController)
-                    
-                    mainController = revealController
+                    if sessionManager.isKeyboardInstalled() {
+                        let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
+                        let mainViewController =  SlideNavigationController(rootViewController: frontViewController)
+                        mainViewController.navigationBar.hidden = true
+                        mainViewController.enableShadow = false
+                        mainViewController.panGestureSideOffset = CGFloat(30)
+                        // left view controller: Set Services for keyboard
+                        // right view controller: App Settings
+                        leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
+                        rightViewController = AppSettingsViewController()
+                        
+                        SlideNavigationController.sharedInstance().leftMenu =  leftViewController
+                        SlideNavigationController.sharedInstance().rightMenu = rightViewController
+                        
+                        mainController = mainViewController
+                    } else {
+                        mainController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
+                    }
                 } else {
                     mainController = SignupViewController(viewModel: signupViewModel)
                 }
-               
+                
             }
             UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Fade)
             window.rootViewController = mainController
@@ -137,6 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
+        
     }
 
     func applicationWillTerminate(application: UIApplication) {

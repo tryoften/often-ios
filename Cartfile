@@ -1,0 +1,2 @@
+github "dongri/OAuthSwift" ~> 0.4.6
+github "MengTo/Spring" "swift2"

@@ -11,16 +11,13 @@ import Foundation
 class SigninViewController: UIViewController, UITextFieldDelegate {
     var viewModel: SignupViewModel
     var signinView: SigninView
-    var pkRevealController: PKRevealController?
-    var frontNavigationController: UINavigationController?
-    var frontViewController: UserProfileViewController?
-    var leftViewController: SocialAccountSettingsCollectionViewController?
-    var rightViewController: AppSettingsViewController?
+
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
         signinView = SigninView()
         signinView.translatesAutoresizingMaskIntoConstraints = false
+        
         super.init(nibName: nil, bundle: nil)
         
         view.addSubview(signinView)
@@ -47,44 +44,71 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapSigninButton(sender: UIButton) {
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
-        if EmailIsValid(signinView.emailTextField.text!) && PasswordIsValid(signinView.passwordTextField.text!) {
-            viewModel.sessionManager.loginWithUsername(signinView.emailTextField.text!, password: signinView.passwordTextField.text!, completion: { error  in
+        
+        do {
+            try viewModel.signInUser(signinView.emailTextField.text!, password: signinView.passwordTextField.text!) { results -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
-                if error != nil {
-                    print("error")
-                } else {
-                    self.createProfileViewController()
+                switch results {
+                case .Success(_): self.createProfileViewController()
+                case .Error(let err): self.showErrorView(err)
+                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
-            })
-        } else {
-            PKHUD.sharedHUD.hide(animated: true)
-            print("error")
+            }
+            
+        } catch {
+            
         }
 
     }
     
+    
     func didTapSigninTwitterButton(sender: UIButton) {
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         do {
             try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
-                case .Error(let e): print("Error", e)
-                default: break
+                case .Error(let err): self.showErrorView(err)
+                case .SystemError(let err):  DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
         } catch {
             
         }
         
-
+        
+    }
+    
+    func showErrorView(error:ErrorType) {
+        switch error {
+        case TwitterAccountManagerError.ReturnedEmptyUserObject:
+            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case TwitterAccountManagerError.NotConncetedOnline, SignupError.NotConncetedOnline:
+            DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SessionManagerError.UnvalidSignUp:
+            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SignupError.EmailNotVaild:
+            DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SignupError.PasswordNotVaild:
+            DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        default: break
+        }
+        
     }
     
     func didTapcancelButton(sender: UIButton) {
+        self.view.endEditing(true)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -94,7 +118,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
             signinView.al_top == view.al_top,
             signinView.al_left == view.al_left,
             signinView.al_right == view.al_right,
-        ]
+            ]
         
         view.addConstraints(constraints)
     }
@@ -103,23 +127,17 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         let userProfileViewModel = UserProfileViewModel(sessionManager: self.viewModel.sessionManager)
         let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: self.viewModel.sessionManager, venmoAccountManager: self.viewModel.venmoAccountManager, spotifyAccountManager: self.viewModel.spotifyAccountManager, soundcloudAccountManager: self.viewModel.soundcloudAccountManager)
         
-        // Front view controller must be navigation controller - will hide the nav bar
-        self.frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-        self.frontNavigationController = UINavigationController(rootViewController: self.frontViewController!)
-        self.frontNavigationController?.setNavigationBarHidden(true, animated: true)
-        
+        let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
+        let mainViewController = SlideNavigationController(rootViewController: frontViewController)
+        mainViewController.navigationBar.hidden = true
+        mainViewController.enableShadow = false
+        mainViewController.panGestureSideOffset = CGFloat(30)
         // left view controller: Set Services for keyboard
         // right view controller: App Settings
-        self.leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-        self.rightViewController = AppSettingsViewController()
         
-        
-        // instantiate PKRevealController and set as mainController to do revealing
-        self.pkRevealController = PKRevealController(frontViewController: self.frontNavigationController, leftViewController: self.leftViewController, rightViewController: self.rightViewController)
-        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.leftViewController)
-        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.rightViewController)
-        self.presentViewController(self.pkRevealController!, animated: true, completion: nil)
-        
+        SlideNavigationController.sharedInstance().leftMenu =  SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
+        SlideNavigationController.sharedInstance().rightMenu = AppSettingsViewController()
+        presentViewController(mainViewController, animated: true, completion: nil )
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{

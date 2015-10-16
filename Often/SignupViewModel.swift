@@ -16,6 +16,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     var venmoAccountManager: VenmoAccountManager
     var spotifyAccountManager: SpotifyAccountManager
     var soundcloudAccountManager: SoundcloudAccountManager
+    var isInternetReachable: Bool
     
     enum ResultType {
         case Success(r: Bool)
@@ -23,26 +24,34 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         case SystemError(e: NSError)
     }
     
-    enum SignupError: ErrorType {
-        case EmailNotVaild
-        case PasswordNotVaild
-    }
-    
     init(sessionManager: SessionManager, venmoAccountManager: VenmoAccountManager, spotifyAccountManager: SpotifyAccountManager, soundcloudAccountManager: SoundcloudAccountManager) {
         self.sessionManager = sessionManager
         self.venmoAccountManager = venmoAccountManager
         self.spotifyAccountManager = spotifyAccountManager
         self.soundcloudAccountManager = soundcloudAccountManager
+        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+        isInternetReachable = reachabilitymanager.reachable
+        
         user = User()
         password = ""
         
         super.init()
+        
+        reachabilitymanager.setReachabilityStatusChangeBlock { status in
+            self.isInternetReachable = reachabilitymanager.reachable
+        }
+        reachabilitymanager.startMonitoring()
         
         self.sessionManager.addSessionObserver(self)
     }
     
     func signUpUser(completion: (results: ResultType) -> Void) throws {
         var userData = [String: String]()
+        
+        guard AFNetworkReachabilityManager.sharedManager().reachable else {
+            completion(results: ResultType.Error(e: SignupError.NotConncetedOnline))
+            throw SignupError.EmailNotVaild
+        }
         
         guard EmailIsValid(user.email) else {
             completion(results: ResultType.Error(e: SignupError.EmailNotVaild))
@@ -69,6 +78,35 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         })
     }
     
+    func signInUser(username:String, password:String, completion: (results: ResultType) -> Void) throws {
+        guard isInternetReachable else {
+            completion(results: ResultType.Error(e: SignupError.NotConncetedOnline))
+            throw SignupError.NotConncetedOnline
+        }
+        
+        guard EmailIsValid(username) else {
+            completion(results: ResultType.Error(e: SignupError.EmailNotVaild))
+            throw SignupError.EmailNotVaild
+        }
+        
+        guard PasswordIsValid(password) else {
+            completion(results: ResultType.Error(e: SignupError.PasswordNotVaild))
+            throw SignupError.PasswordNotVaild
+        }
+        
+        sessionManager.loginWithUsername(username, password: password) { error  in
+            if error == nil {
+                print("all good in the hood")
+                completion(results: ResultType.Success(r: true))
+            } else {
+                print("no good mang")
+                completion(results: ResultType.SystemError(e: error!))
+            }
+        }
+        
+    }
+
+    
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
     }
     
@@ -80,7 +118,13 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
     }
 }
-
+ 
+ enum SignupError: ErrorType {
+    case EmailNotVaild
+    case PasswordNotVaild
+    case NotConncetedOnline
+ }
+ 
 protocol SignupViewModelDelegate: class {
     func signupViewModelDidLoginUser(userProfileViewModel: SignupViewModel, user: User, isNewUser: Bool)
 }

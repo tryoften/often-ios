@@ -33,6 +33,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var backspaceStartTime: CFAbsoluteTime!
     var firstWordQuickDeleted: Bool = false
     var lastLayoutBounds: CGRect?
+    var userDefaults: NSUserDefaults
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
@@ -87,6 +88,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     static var once_predicate: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        userDefaults.setBool(true, forKey: "keyboardInstall")
+        userDefaults.synchronize()
         
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
@@ -97,6 +101,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
         
         searchBar = SearchBarController(nibName: nil, bundle: nil)
+        searchBarHeight = KeyboardSearchBarHeight
         
         keysContainerView = TouchRecognizerView()
         keysContainerView.backgroundColor = DefaultTheme.keyboardBackgroundColor
@@ -155,9 +160,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
         
         setupLayout()
-    
-        let orientationSavvyBounds = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: false))
         
+        let orientationSavvyBounds = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: false))
         if (lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
             // do nothing
         }
@@ -230,7 +234,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
         let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
         let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
-        let topBannerHeight: CGFloat = withTopBanner ? KeyboardSearchBarHeight : 0.0
+        let topBannerHeight: CGFloat = withTopBanner ? searchBarHeight : 0.0
         
         return CGFloat(orientation.isPortrait ? canonicalPortraitHeight : canonicalLandscapeHeight) + topBannerHeight
     }

@@ -36,6 +36,7 @@ class EmailAccountManager: NSObject {
             }
         })
         userDefaults.setValue(true, forKey: "openSession")
+        userDefaults.synchronize()
     }
     
     func loginWithUsername(username: String, password: String,completion: (NSError?) -> ()) {

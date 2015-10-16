@@ -49,6 +49,7 @@ class FacebookAccountManager: NSObject {
             }
         }
         userDefaults.setValue(true, forKey: "openSession")
+        userDefaults.synchronize()  
     }
     
     func login(completion: ((NSError?) -> ())? = nil) {
