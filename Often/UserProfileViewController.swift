@@ -8,14 +8,14 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate, UserProfileViewModelDelegate, UserScrollTabCellDelegate {
+class UserProfileViewController: UICollectionViewController,
+UserProfileHeaderDelegate,
+UserProfileViewModelDelegate,
+UserScrollTabCellDelegate {
+    
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
     
-    var setServicesRevealView: UIView
-    var settingsRevealView: UIView
-    var setServiceViewWidthConstraint: NSLayoutConstraint?
-    var settingsViewWidthConstraint: NSLayoutConstraint?
     var contentFilterTabView: UserProfileFilterTabView
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
@@ -31,22 +31,9 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         contentFilterTabView = UserProfileFilterTabView()
         contentFilterTabView.translatesAutoresizingMaskIntoConstraints = false
         
-        setServicesRevealView = UIView()
-        setServicesRevealView.translatesAutoresizingMaskIntoConstraints = false
-        setServicesRevealView.backgroundColor = TealColor
-        
-        settingsRevealView = UIView()
-        settingsRevealView.translatesAutoresizingMaskIntoConstraints = false
-        settingsRevealView.backgroundColor = TealColor
-        
-        setServiceViewWidthConstraint = setServicesRevealView.al_width == 0
-        settingsViewWidthConstraint = settingsRevealView.al_width == 0
-        
         super.init(collectionViewLayout: collectionViewLayout)
         self.viewModel.delegate = self
         
-        view.addSubview(setServicesRevealView)
-        view.addSubview(settingsRevealView)
         view.addSubview(contentFilterTabView)
         
         setupLayout()
@@ -59,8 +46,8 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
-        flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 50.0, 0.0)
-        flowLayout.itemSize = CGSizeMake(screenWidth, 6*118)
+        flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+        flowLayout.itemSize = CGSizeMake(screenWidth, 7*118)
         return flowLayout
     }
     
@@ -137,20 +124,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     }
     
     func setupLayout() {
-        setServiceViewWidthConstraint = setServicesRevealView.al_width == 0
-        settingsViewWidthConstraint = settingsRevealView.al_width == 0
-        
         view.addConstraints([
-            setServicesRevealView.al_left == view.al_left,
-            setServicesRevealView.al_bottom == view.al_bottom,
-            setServicesRevealView.al_top == view.al_top,
-            setServiceViewWidthConstraint!,
-            
-            settingsRevealView.al_right == view.al_right,
-            settingsRevealView.al_top == view.al_top,
-            settingsRevealView.al_bottom == view.al_bottom,
-            settingsViewWidthConstraint!,
-            
             contentFilterTabView.al_bottom == view.al_bottom,
             contentFilterTabView.al_left == view.al_left,
             contentFilterTabView.al_right == view.al_right,
