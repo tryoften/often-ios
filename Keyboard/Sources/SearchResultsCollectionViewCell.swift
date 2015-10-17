@@ -167,6 +167,16 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func reset() {
+        sourceLogoView.image = nil
+        headerLabel.text = ""
+        mainTextLabel.text = ""
+        leftSupplementLabel.text = ""
+        centerSupplementLabel.text = ""
+        rightSupplementLabel.text = ""
+        rightCornerImageView.image = nil
+    }
+    
     func didTapFavoriteButton() {
         overlayView.favoriteButton.selected = !overlayView.favoriteButton.selected
         delegate?.searchResultsCollectionViewCellDidToggleFavoriteButton(self, selected: overlayView.favoriteButton.selected)

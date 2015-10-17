@@ -11,16 +11,14 @@ import Foundation
 class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     var viewModel: SignupViewModel
     var createAccountView: CreateAccountView
-    var pkRevealController: PKRevealController?
-    var frontNavigationController: UINavigationController?
-    var frontViewController: UserProfileViewController?
-    var leftViewController: SocialAccountSettingsCollectionViewController?
-    var rightViewController: AppSettingsViewController?
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
+        self.viewModel.sessionManager.setUserDefaultsValue(false, forKey: "keyboardInstall")
+        
         createAccountView = CreateAccountView()
         createAccountView.translatesAutoresizingMaskIntoConstraints = false
+    
         super.init(nibName: nil, bundle: nil)
         
         view.addSubview(createAccountView)
@@ -46,74 +44,78 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         return true;
     }
     
-    func didTapCancelButton(sender: UIButton) throws {
+    func didTapCancelButton(sender: UIButton) {
+        self.view.endEditing(true)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func didTapSignupTwitterButton(sender: UIButton) {
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         do {
             try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
-                case .Success(_): self.createProfileViewController()
-                case .Error(let e): print("Error", e)
-                default: break
+                case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
+                case .Error(let err): self.showErrorView(err)
+                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
-        } catch {
+        } catch {  
     
         }
     }
     
     func didTapSignupButton(sender: UIButton) {
-        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
-        if createAccountView.usernameTextField.text!.characters.count != 0 && createAccountView.emailTextField.text!.characters.count != 0  && createAccountView.passwordTextField.text!.characters.count != 0 {
-            viewModel.user.name = createAccountView.usernameTextField.text!
-            viewModel.user.email = createAccountView.emailTextField.text!
-            viewModel.password = createAccountView.passwordTextField.text!
-            do {
-                try viewModel.signUpUser({ results -> Void in
-                     PKHUD.sharedHUD.hide(animated: true)
-                    switch results {
-                    case .Success(_): self.createProfileViewController()
-                    case .Error(let e): print("Error", e)
-                    default: break
-                    }
-                })
-            } catch {
-                
-            }
-        }
-        else {
-            PKHUD.sharedHUD.hide(animated: true)
-
-        }
+        
+        viewModel.user.name = createAccountView.usernameTextField.text!
+        viewModel.user.email = createAccountView.emailTextField.text!
+        viewModel.password = createAccountView.passwordTextField.text!
+        
+        do {
+            try viewModel.signUpUser({ results -> Void in
+                PKHUD.sharedHUD.hide(animated: true)
+                switch results {
+                case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
+                case .Error(let err): self.showErrorView(err)
+                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                }
+            })
+            
+        } catch {}
+        
     }
     
-    func createProfileViewController() {
-        let userProfileViewModel = UserProfileViewModel(sessionManager: self.viewModel.sessionManager)
-        let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: self.viewModel.sessionManager, venmoAccountManager: self.viewModel.venmoAccountManager, spotifyAccountManager: self.viewModel.spotifyAccountManager, soundcloudAccountManager: self.viewModel.soundcloudAccountManager)
-        
-        // Front view controller must be navigation controller - will hide the nav bar
-        self.frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-        self.frontNavigationController = UINavigationController(rootViewController: self.frontViewController!)
-        self.frontNavigationController?.setNavigationBarHidden(true, animated: true)
-        
-        // left view controller: Set Services for keyboard
-        // right view controller: App Settings
-        self.leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-        self.rightViewController = AppSettingsViewController()
-        
-        
-        // instantiate PKRevealController and set as mainController to do revealing
-        self.pkRevealController = PKRevealController(frontViewController: self.frontNavigationController, leftViewController: self.leftViewController, rightViewController: self.rightViewController)
-        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.leftViewController)
-        self.pkRevealController?.setMinimumWidth(320.0, maximumWidth: 340.0, forViewController: self.rightViewController)
-        self.presentViewController(self.pkRevealController!, animated: true, completion: nil)
+    func createKeyboardInstallationWalkthroughViewController() {
+        let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
+        self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
 
+    }
+    
+    func showErrorView(error:ErrorType) {
+        switch error {
+        case TwitterAccountManagerError.ReturnedEmptyUserObject:
+            DropDownErrorMessage().setMessage("Unable to create account. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case TwitterAccountManagerError.NotConncetedOnline, SignupError.NotConncetedOnline:
+            DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SessionManagerError.UnvalidSignUp:
+            DropDownErrorMessage().setMessage("Unable to create account. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SignupError.EmailNotVaild:
+            DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        case SignupError.PasswordNotVaild:
+            DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            break
+        default: break
+        }
+        
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{

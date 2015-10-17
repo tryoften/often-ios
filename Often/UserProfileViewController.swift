@@ -8,10 +8,7 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController,
-UserProfileHeaderDelegate,
-UserProfileViewModelDelegate,
-UserScrollTabCellDelegate {
+class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate, UserProfileViewModelDelegate, UserScrollTabCellDelegate, SlideNavigationControllerDelegate {
     
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
@@ -137,13 +134,21 @@ UserScrollTabCellDelegate {
         
     }
     
+    func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
+        return true
+    }
+    
+    func slideNavigationControllerShouldDisplayRightMenu() -> Bool {
+        return true
+    }
+    
     // User profile header delegate
     func revealSetServicesViewDidTap() {
-        revealController.showViewController(leftViewController)
+        SlideNavigationController.sharedInstance().openMenu(MenuLeft, withCompletion: nil)
     }
     
     func revealSettingsViewDidTap() {
-        revealController.showViewController(rightViewController)
+        SlideNavigationController.sharedInstance().openMenu(MenuRight, withCompletion: nil)
     }
     
     func userFavoritesTabSelected() {

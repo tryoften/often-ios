@@ -57,13 +57,11 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         scoreLabel = UILabel()
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.font = UIFont(name: "Montserrat", size: 18.0)
-        scoreLabel.text = "583"
         scoreLabel.textAlignment = .Center
         
         scoreNameLabel = UILabel()
         scoreNameLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreNameLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        scoreNameLabel.text = "Source Cred"
         scoreNameLabel.textAlignment = .Center
         
         tabContainerView = UIView()
