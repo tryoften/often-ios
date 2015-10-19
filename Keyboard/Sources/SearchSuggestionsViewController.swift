@@ -9,6 +9,7 @@
 import UIKit
 
 let SearchSuggestionCellReuseIdentifier = "SearchSuggestionsCell"
+let ServiceProviderSuggestionCellReuseIdentifier = "ServiceProviderSuggestionCell"
 
 class SearchSuggestionsViewController: UITableViewController {
     var delegate: SearchSuggestionViewControllerDelegate?
@@ -19,11 +20,11 @@ class SearchSuggestionsViewController: UITableViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.registerClass(SearchSuggestionTableViewCell.self, forCellReuseIdentifier: SearchSuggestionCellReuseIdentifier)
+        tableView.registerClass(ServiceProviderSuggestionTableViewCell.self, forCellReuseIdentifier: ServiceProviderSuggestionCellReuseIdentifier)
         tableView.separatorColor = DarkGrey
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.contentInset = UIEdgeInsetsZero

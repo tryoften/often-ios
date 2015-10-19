@@ -51,7 +51,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
             secondaryTextLabel.translatesAutoresizingMaskIntoConstraints = false
-            secondaryTextLabel.textColor = LightGrey
+            secondaryTextLabel.textColor = UIColor(fromHexString: "202020")
             secondaryTextLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
         case .Detailed:
@@ -59,11 +59,12 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
             secondaryTextLabel.translatesAutoresizingMaskIntoConstraints = false
-            secondaryTextLabel.textColor = LightGrey
+            secondaryTextLabel.textColor = UIColor(fromHexString: "202020")
             secondaryTextLabel.font = UIFont(name: "OpenSans", size: 14.0)
             secondaryTextLabel.backgroundColor = ClearColor
             
             disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
+            disclosureIndicator.image = UIImage(named: "disclosureindicator")
             disclosureIndicator.contentMode = .ScaleAspectFit
             
         case .Switch:
@@ -124,10 +125,10 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
                 titleLabel.al_left == al_left + 20,
                 titleLabel.al_centerY == al_centerY,
                 
-                disclosureIndicator.al_right == al_right - 55,
+                disclosureIndicator.al_right == al_right - 70,
                 disclosureIndicator.al_centerY == al_centerY,
-                disclosureIndicator.al_width == 22,
-                disclosureIndicator.al_height == 22
+                disclosureIndicator.al_width == 16,
+                disclosureIndicator.al_height == 16
             ])
             
         case .Nondisclosure:
@@ -135,7 +136,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
                 titleLabel.al_left == al_left + 20,
                 titleLabel.al_centerY == al_centerY,
                 
-                secondaryTextLabel.al_right == al_right - 65,
+                secondaryTextLabel.al_right == al_right - 73,
                 secondaryTextLabel.al_centerY == al_centerY
             ])
             
@@ -145,13 +146,13 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
                 titleLabel.al_centerY == al_centerY,
                 
                 secondaryTextLabel.al_width == 125,
-                secondaryTextLabel.al_right == disclosureIndicator.al_left,
+                secondaryTextLabel.al_right == disclosureIndicator.al_left - 10,
                 secondaryTextLabel.al_centerY == al_centerY,
                 
                 disclosureIndicator.al_right == al_right - 70,
                 disclosureIndicator.al_centerY == al_centerY,
-                disclosureIndicator.al_width == 22,
-                disclosureIndicator.al_height == 22
+                disclosureIndicator.al_width == 16,
+                disclosureIndicator.al_height == 16
             ])
             
         case .Switch:

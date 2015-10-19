@@ -11,9 +11,19 @@ import UIKit
 let userRecentsReuseIdentifier = "userRecentsCell"
 
 class UserRecentsCollectionViewController: UICollectionViewController {
-
+    var emptyStateViewLayoutConstraint: NSLayoutConstraint?
+    var emptyStateView: EmptySetView
+    
     init() {
+        emptyStateView = EmptySetView()
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        emptyStateView.userState = .NoFavorites
+        
         super.init(collectionViewLayout: UserRecentsCollectionViewController.provideCollectionViewLayout())
+        
+        view.addSubview(emptyStateView)
+        
+        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -53,7 +63,15 @@ class UserRecentsCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        let numItems = 7
+        
+        if numItems == 0 {
+            updateEmptySetVisible(true)
+            return 0
+        } else {
+            updateEmptySetVisible(false)
+            return numItems
+        }
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -69,5 +87,27 @@ class UserRecentsCollectionViewController: UICollectionViewController {
         cell.contentImage = UIImage(named: "ovosound")
     
         return cell
+    }
+    
+    // MARK: EmptyStateDelegate
+    func updateEmptySetVisible(visible: Bool) {
+        if visible {
+            view.addSubview(emptyStateView)
+            emptyStateViewLayoutConstraint?.constant = 400
+        } else {
+            emptyStateView.removeFromSuperview()
+            emptyStateViewLayoutConstraint?.constant = 0
+        }
+    }
+    
+    func setupLayout() {
+        emptyStateViewLayoutConstraint = emptyStateView.al_height == 400
+        
+        view.addConstraints([
+            emptyStateViewLayoutConstraint!,
+            emptyStateView.al_left == view.al_left,
+            emptyStateView.al_right == view.al_right,
+            emptyStateView.al_top == view.al_top
+        ])
     }
 }

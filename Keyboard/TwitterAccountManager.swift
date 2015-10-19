@@ -71,7 +71,7 @@ class TwitterAccountManager: NSObject {
     
     func login(completion: (results: ResultType) -> Void) {
         guard isInternetReachable else {
-            completion(results: ResultType.Error(e: TwitterAccountManagerError.NotConncetedOnline))
+            completion(results: ResultType.Error(e: TwitterAccountManagerError.NotConnectedOnline))
             return
         }
         
@@ -125,5 +125,5 @@ class TwitterAccountManager: NSObject {
 
 enum TwitterAccountManagerError: ErrorType {
     case ReturnedEmptyUserObject
-    case NotConncetedOnline
+    case NotConnectedOnline
 }

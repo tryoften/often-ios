@@ -41,7 +41,7 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
     init() {
         containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.backgroundColor = UIColor.grayColor()
+        containerView.backgroundColor = VeryLightGray
         
         super.init(nibName: nil, bundle: nil)
         
@@ -49,10 +49,12 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
         if let tableView = tableView {
             tableView.delegate = self
             tableView.dataSource = self
+            tableView.contentInset = UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0)
             tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
             containerView.addSubview(tableView)
         }
         
+        view.backgroundColor = VeryLightGray
         view.addSubview(containerView)
         
         setupLayout()
@@ -105,6 +107,26 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UserProfileSettingsSectionHeaderView()
+        
+        if ProfileSettingsSection.Account.rawValue == section {
+            headerView.titleLabel.text = "ACCOUNT"
+        } else if ProfileSettingsSection.Actions.rawValue == section {
+            headerView.titleLabel.text = "ACTIONS"
+        } else if ProfileSettingsSection.About.rawValue == section {
+            headerView.titleLabel.text = "ABOUT"
+        } else {
+            
+        }
+        
+        return headerView
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20.0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
