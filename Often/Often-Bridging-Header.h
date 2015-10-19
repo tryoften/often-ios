@@ -13,6 +13,8 @@
 #import "UIColor+HEXString.h"
 #import <FlurrySDK/Flurry.h>
 #import <Parse/Parse.h>
+#import "MMWormhole.h"
+#import "MMWormholeSession.h"
 #import "SlideNavigationController.h"
 #import "TwitterAuthHelper.h"
 #import <Analytics/SEGAnalytics.h>

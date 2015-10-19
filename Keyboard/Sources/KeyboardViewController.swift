@@ -34,6 +34,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var firstWordQuickDeleted: Bool = false
     var lastLayoutBounds: CGRect?
     var userDefaults: NSUserDefaults
+    var keyboardconnectivityWormhole: MMWormhole?
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
@@ -121,6 +122,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         searchBar.searchResultsContainerView = slidePanelContainerView
         
         super.init(nibName: nil, bundle: nil)
+        
+        keyboardconnectivityWormhole = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: "wormhole")
+        keyboardconnectivityWormhole!.passMessageObject("open", identifier: "keyboardOpen")
         
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
         textProcessor.delegate = self

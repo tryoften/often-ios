@@ -20,12 +20,14 @@ target 'Often' do
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'iOS-Slide-Menu', :git => 'git@github.com:washingtonmiranda/iOS-Slide-Menu.git'
   pod 'DateTools', '~> 1.6'
+  pod 'MMWormhole', '~> 2.0.0'
 end
 
 target 'Keyboard' do
   pod 'Firebase', '>= 2.0.2'
   pod 'AFNetworking', '~> 2.0'
   pod 'TOMSMorphingLabel', '~> 0.5'
+  pod 'MMWormhole', '~> 2.0.0'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'DateTools', '~> 1.6'
 end
