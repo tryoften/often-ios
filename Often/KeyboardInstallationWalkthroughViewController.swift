@@ -130,9 +130,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         toolbar.addSubview(pager)
         toolbar.addSubview(settingsButton)
         toolbar.addSubview(nextButton)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayTextMessageWalktrough", name: UIApplicationWillResignActiveNotification, object: nil)
-        
+    
         setupLayout()
     }
     
@@ -212,9 +210,9 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     }
     
     func displayTextMessageWalktrough() {
+        
         let textMessageController = TextMessageViewController(viewModel: self.viewModel)
         presentViewController(textMessageController, animated: true, completion: nil )
-        
     }
     
     func didTapNextButton(sender: UIButton) {
@@ -249,18 +247,33 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         {
             UIApplication.sharedApplication().openURL(appSettings)
         }
+        displayTextMessageWalktrough()
     }
     
     func didTapYesButton(sender: UIButton) {
         if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString)
         {
-            var localNotification:UILocalNotification = UILocalNotification()
-            localNotification.alertAction = "Testing notifications on iOS8"
-            localNotification.alertBody = "Woww it works!!"
-            localNotification.fireDate = NSDate(timeIntervalSinceNow: 30)
-            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+            sendNotificationMessages()
             UIApplication.sharedApplication().openURL(appSettings)
         }
+        displayTextMessageWalktrough()
+    }
+    
+    func sendNotificationMessages() {
+        let notificationsMessages = [
+            "Tap “Settings” at the top left hand corner. Swipe this message up to see it", "Scroll to the top and tap “General","Scroll to the bottom and tap “Keyboard", "Tap “Keyboards","Tap “Add New Keyboard…","Select Often","Tap Often","Turn on “Allow Full Access”. We do NOT access any sensitive information fam.","Tap Allow","You’re done all boo. Tap here to go back to the Often app. XOXO"
+        ]
+        var timeStamp: NSTimeInterval = 3
+        
+        for message in notificationsMessages {
+            let localNotification:UILocalNotification = UILocalNotification()
+            localNotification.alertBody = message
+            localNotification.fireDate = NSDate(timeIntervalSinceNow: timeStamp)
+            timeStamp += 4
+            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+            
+        }
+        
     }
     
     func setupPages() {

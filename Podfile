@@ -24,7 +24,7 @@ target 'Often' do
   pod 'ParseTwitterUtils'
   pod 'ParseFacebookUtils'
   pod 'CSStickyHeaderFlowLayout'
-  pod 'iOS-Slide-Menu', :git => 'https://github.com/aryaxt/iOS-Slide-Menu.git'
+  pod 'iOS-Slide-Menu', :git => 'git@github.com:washingtonmiranda/iOS-Slide-Menu.git'
 end
 
 target 'Keyboard' do
