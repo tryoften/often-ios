@@ -8,7 +8,8 @@
 
 import UIKit
 
-class UserScrollTabCollectionViewContainerCell: UICollectionViewCell, UIScrollViewDelegate, UserProfileViewControllerDelegate {
+class UserScrollTabCollectionViewContainerCell: UICollectionViewCell, UIScrollViewDelegate,
+UserProfileViewControllerDelegate {
     var tabScrollView: UIScrollView
     var leftScrollContainerView: UIView
     var rightScrollContainerView: UIView
@@ -20,14 +21,15 @@ class UserScrollTabCollectionViewContainerCell: UICollectionViewCell, UIScrollVi
         tabScrollView = UIScrollView()
         tabScrollView.translatesAutoresizingMaskIntoConstraints = false
         tabScrollView.pagingEnabled = true
+        tabScrollView.showsHorizontalScrollIndicator = false
         
         leftScrollContainerView = UIView(frame: CGRectMake(0, 0, frame.width, frame.height))
         leftScrollContainerView.translatesAutoresizingMaskIntoConstraints = false
-        leftScrollContainerView.backgroundColor = WhiteColor
+        leftScrollContainerView.backgroundColor = ClearColor
         
         rightScrollContainerView = UIView(frame: CGRectMake(frame.width, 0, frame.width, frame.height))
         rightScrollContainerView.translatesAutoresizingMaskIntoConstraints = false
-        rightScrollContainerView.backgroundColor = WhiteColor
+        rightScrollContainerView.backgroundColor = ClearColor
         
         userFavoritesCollectionViewController = UserFavoritesCollectionViewController()
         userRecentsCollectionViewController = UserRecentsCollectionViewController()
@@ -61,7 +63,7 @@ class UserScrollTabCollectionViewContainerCell: UICollectionViewCell, UIScrollVi
         }
     }
     
-    // UserProfileViewControllerDelegate
+    // MARK: UserProfileViewControllerDelegate
     func favoritesTabSelected() {
         tabScrollView.setContentOffset(CGPointMake(0, 0), animated: true)
     }
@@ -69,6 +71,8 @@ class UserScrollTabCollectionViewContainerCell: UICollectionViewCell, UIScrollVi
     func recentsTabSelected() {
         tabScrollView.setContentOffset(CGPointMake(tabScrollView.frame.width, 0), animated: true)
     }
+    
+    
     
     func setupLayout() {
         
