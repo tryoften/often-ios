@@ -15,6 +15,8 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     var pageWidth: CGFloat
     var toolbar: UIView
     var pager: UIPageControl
+    var alertView: LocalNotificationsAlertView
+    var visualEffectView: UIView
     var settingsButton: UIButton
     var nextButton: UIButton
     var shadowBar: UIView
@@ -48,6 +50,14 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         scrollView.pagingEnabled = true
         scrollView.backgroundColor = WhiteColor
         scrollView.showsHorizontalScrollIndicator = false
+        
+        alertView = LocalNotificationsAlertView()
+        alertView.translatesAutoresizingMaskIntoConstraints = false
+        alertView.layer.cornerRadius = 5.0
+        
+        visualEffectView = UIView(frame: UIScreen.mainScreen().bounds)
+        visualEffectView.backgroundColor = BlackColor
+        visualEffectView.alpha = 0.74
         
         pageWidth = screenWidth
         
@@ -107,18 +117,22 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         
         view.backgroundColor = KeyboardInstallationWalkthroughViewControllerBackgroundColor
         
-        settingsButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
-        nextButton.addTarget(self, action: "didTapNextButton", forControlEvents: .TouchUpInside)
-    
+        settingsButton.addTarget(self, action: "didTapSettingsButton:", forControlEvents: .TouchUpInside)
+        nextButton.addTarget(self, action: "didTapNextButton:", forControlEvents: .TouchUpInside)
+        alertView.noButton.addTarget(self, action: "didTapNoButton:", forControlEvents: .TouchUpInside)
+        alertView.yesButton.addTarget(self, action: "didTapYesButton:", forControlEvents: .TouchUpInside)
+        
+        
         view.addSubview(scrollView)
         view.addSubview(toolbar)
         view.addSubview(shadowBar)
-        
+       
         toolbar.addSubview(pager)
         toolbar.addSubview(settingsButton)
         toolbar.addSubview(nextButton)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayInstallationKeyboardWalkthrough", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "displayTextMessageWalktrough", name: UIApplicationWillResignActiveNotification, object: nil)
+        
         setupLayout()
     }
     
@@ -197,37 +211,13 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         }
     }
     
-    func displayInstallationKeyboardWalkthrough() {
-        let shouldShowInstallationKeyboardWalkthrough = viewModel.sessionManager.userDefaults.boolForKey("keyboardInstall")
-
-            if shouldShowInstallationKeyboardWalkthrough {
-                self.createProfileViewController()
-            } 
-    }
-    
-    func createProfileViewController() {
+    func displayTextMessageWalktrough() {
+        let textMessageController = TextMessageViewController(viewModel: self.viewModel)
+        presentViewController(textMessageController, animated: true, completion: nil )
         
-        if (SlideNavigationController.sharedInstance() == nil) {
-            let userProfileViewModel = UserProfileViewModel(sessionManager: self.viewModel.sessionManager)
-            let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: self.viewModel.sessionManager, venmoAccountManager: self.viewModel.venmoAccountManager, spotifyAccountManager: self.viewModel.spotifyAccountManager, soundcloudAccountManager: self.viewModel.soundcloudAccountManager)
-            
-            let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-            let mainViewController = SlideNavigationController(rootViewController: frontViewController)
-            mainViewController.navigationBar.hidden = true
-            mainViewController.enableShadow = false   
-            mainViewController.panGestureSideOffset = CGFloat(30)
-            // left view controller: Set Services for keyboard
-            // right view controller: App Settings
-            
-            SlideNavigationController.sharedInstance().leftMenu =  SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-            SlideNavigationController.sharedInstance().rightMenu = AppSettingsViewController()
-            presentViewController(mainViewController, animated: true, completion: nil )
-            
-        }
     }
-
     
-    func didTapNextButton() {
+    func didTapNextButton(sender: UIButton) {
         let pageWidth = CGRectGetWidth(self.scrollView.frame)
         let maxWidth = pageWidth * CGFloat(pageCount)
         let contentOffset = self.scrollView.contentOffset.x
@@ -240,9 +230,35 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         self.scrollView.setContentOffset(CGPoint(x: slideToX, y: 0), animated: true)
     }
     
-    func didTapSettingsButton() {
+    func didTapSettingsButton(sender: UIButton) {
+         view.addSubview(visualEffectView)
+         view.addSubview(alertView)
+        
+        view.addConstraints([
+            alertView.al_centerX == view.al_centerX,
+            alertView.al_centerY == view.al_centerY,
+            alertView.al_height == 200,
+            alertView.al_width == UIScreen.mainScreen().bounds.width - 40,
+        ])
+        
+        alertView.animate()
+    }
+    
+    func didTapNoButton(sender: UIButton) {
         if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString)
         {
+            UIApplication.sharedApplication().openURL(appSettings)
+        }
+    }
+    
+    func didTapYesButton(sender: UIButton) {
+        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString)
+        {
+            var localNotification:UILocalNotification = UILocalNotification()
+            localNotification.alertAction = "Testing notifications on iOS8"
+            localNotification.alertBody = "Woww it works!!"
+            localNotification.fireDate = NSDate(timeIntervalSinceNow: 30)
+            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
             UIApplication.sharedApplication().openURL(appSettings)
         }
     }
