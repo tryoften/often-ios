@@ -6,29 +6,28 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 xcodeproj 'Often.xcodeproj'
 
-target 'Often' do
+def base_deps
   pod 'Firebase', '>= 2.0.2'
-  pod 'Reveal-iOS-SDK', :configurations => ['Debug']
   pod 'AFNetworking', '~> 2.0'
-  pod 'Venmo-iOS-SDK', '~>1.3'
   pod 'TOMSMorphingLabel', '~> 0.5'
+  pod 'DateTools', '~> 1.6'
+  pod 'MMWormhole', '~> 2.0.0'
+  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
+end
+
+target 'Often' do
+  base_deps
+  pod 'Reveal-iOS-SDK', :configurations => ['Debug']
+  pod 'Venmo-iOS-SDK', '~>1.3'
   pod 'Facebook-iOS-SDK', '~> 3.0'
   pod 'Parse'
   pod 'ParseTwitterUtils'
   pod 'ParseFacebookUtils'
   pod 'CSStickyHeaderFlowLayout'
-  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
-  pod 'iOS-Slide-Menu', :git => 'git@github.com:washingtonmiranda/iOS-Slide-Menu.git'
-  pod 'DateTools', '~> 1.6'
-  pod 'MMWormhole', '~> 2.0.0'
+  pod 'iOS-Slide-Menu', :git => 'https://github.com/aryaxt/iOS-Slide-Menu.git'
 end
 
 target 'Keyboard' do
-  pod 'Firebase', '>= 2.0.2'
-  pod 'AFNetworking', '~> 2.0'
-  pod 'TOMSMorphingLabel', '~> 0.5'
-  pod 'MMWormhole', '~> 2.0.0'
-  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
-  pod 'DateTools', '~> 1.6'
+  base_deps
 end
 

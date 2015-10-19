@@ -14,6 +14,11 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     var descriptionLabel: UILabel
     var scoreLabel: UILabel
     var scoreNameLabel: UILabel
+    var nameLabelHeightConstraint: NSLayoutConstraint?
+    var nameLabelHorizontalConstraint: NSLayoutConstraint?
+    var descriptionLabelHeightConstraint: NSLayoutConstraint?
+    var scoreLabelHeightConstraint: NSLayoutConstraint?
+    var scoreNameLabelHeightConstraint: NSLayoutConstraint?
     
     var tabContainerView: UIView
     var favoritesTabButton: UIButton
@@ -90,9 +95,6 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         
         offsetValue = 0.0
         
-        leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
-        rightHighlightBarPositionConstraint = highlightBarView.al_right == tabContainerView.al_centerX
-        
         super.init(frame: frame)
     
         backgroundColor = WhiteColor
@@ -134,10 +136,32 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         layoutIfNeeded()
     }
     
+    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
+        
+        if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
+            let progressiveness = attributes.progressiveness
+            
+            if progressiveness <= 1 {
+                nameLabelHeightConstraint?.constant = (-140 * progressiveness)
+                descriptionLabelHeightConstraint?.constant = (-15 * (1 - progressiveness))
+                scoreNameLabelHeightConstraint?.constant = (-120 * (1 - progressiveness)) - 30
+                scoreNameLabel.alpha = progressiveness - 0.2
+                scoreLabel.alpha = progressiveness - 0.2
+                descriptionLabel.alpha = progressiveness - 0.2
+            }
+        }
+    }
+    
     
     func setupLayout() {
-         leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
-         rightHighlightBarPositionConstraint = highlightBarView.al_right == tabContainerView.al_centerX
+            leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
+            rightHighlightBarPositionConstraint = highlightBarView.al_right == tabContainerView.al_centerX
+        
+            nameLabelHeightConstraint = nameLabel.al_bottom == tabContainerView.al_top - 140
+        
+            descriptionLabelHeightConstraint = descriptionLabel.al_bottom == scoreLabel.al_top
+        
+            scoreNameLabelHeightConstraint = scoreNameLabel.al_bottom == tabContainerView.al_top - 30
         
         addConstraints([
             setServicesRevealButton.al_left == al_left + 20,
@@ -150,15 +174,15 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
             settingsRevealButton.al_height == 22,
             settingsRevealButton.al_width == 22,
             
-            profileImageView.al_bottom == nameLabel.al_top - 20,
+            profileImageView.al_bottom == nameLabel.al_top - 10,
             profileImageView.al_centerX == al_centerX,
             profileImageView.al_height == 60,
             profileImageView.al_width == 60,
             
-            nameLabel.al_bottom == descriptionLabel.al_top - 9,
+            nameLabelHeightConstraint!,
             nameLabel.al_centerX == al_centerX,
             
-            descriptionLabel.al_bottom == scoreLabel.al_top - 10,
+            descriptionLabelHeightConstraint!,
             descriptionLabel.al_centerX == al_centerX,
             descriptionLabel.al_width == 200,
             
@@ -166,7 +190,7 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
             scoreLabel.al_centerX == al_centerX,
             scoreLabel.al_height == 30,
             
-            scoreNameLabel.al_bottom == tabContainerView.al_top - 10,
+            scoreNameLabelHeightConstraint!,
             scoreNameLabel.al_centerX == al_centerX,
             
             tabContainerView.al_bottom == al_bottom,

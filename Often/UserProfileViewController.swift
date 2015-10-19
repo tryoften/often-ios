@@ -55,11 +55,11 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 50)
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 215)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
-        flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+        flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 50.0, 0.0)
         flowLayout.itemSize = CGSizeMake(screenWidth, 6*118)
         return flowLayout
     }

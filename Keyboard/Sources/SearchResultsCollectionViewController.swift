@@ -28,17 +28,16 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     var textProcessor: TextProcessingManager?
     var response: SearchResponse? {
         didSet {
-            cellsAnimated = [:]
-            
-            if let collectionView = collectionView {
-                collectionView.reloadData()
-                collectionView.scrollRectToVisible(CGRectZero, animated: true)
-            }
-            
-            backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
+            refreshTimer?.invalidate()
         }
     }
+    
+    // object the current response needs to be replaced/updated with
+    var nextResponse: SearchResponse?
     var viewModel: SearchResultsViewModel?
+    var refreshResultsButton: RefreshResultsButton
+    var refreshResultsButtonTopConstraint: NSLayoutConstraint!
+    var refreshTimer: NSTimer?
     
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
@@ -49,13 +48,20 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         
         viewModel = SearchResultsViewModel()
         
+        refreshResultsButton = RefreshResultsButton()
+        refreshResultsButton.translatesAutoresizingMaskIntoConstraints = false
+        
         self.textProcessor = textProcessor
         
         super.init(collectionViewLayout: layout)
         
+        view.layer.masksToBounds = true
         view.insertSubview(backgroundImageView, belowSubview: collectionView!)
+        view.addSubview(refreshResultsButton)
         view.backgroundColor = VeryLightGray
         collectionView?.backgroundColor = UIColor.clearColor()
+        
+        refreshResultsButton.addTarget(self, action: "didTapRefreshResultsButton", forControlEvents: .TouchUpInside)
         
         // Register cell classes
         if let collectionView = collectionView {
@@ -89,7 +95,6 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     }
     
     // MARK: UICollectionViewDataSource
-    
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -118,10 +123,16 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-
+        
+        if indexPath.row >= response?.results.count {
+            return cell
+        }
+        
         guard let result = response?.results[indexPath.row] else {
             return cell
         }
+        
+        cell.reset()
         
         switch(result.type) {
             case .Article:
@@ -141,12 +152,28 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
                     cell.headerLabel.text = "Spotify"
                     cell.mainTextLabel.text = "\(track.name)"
                     cell.leftSupplementLabel.text = track.artistName
+                    cell.rightSupplementLabel.text = track.albumName
                 case .Soundcloud:
                     cell.headerLabel.text = track.artistName
                     cell.leftSupplementLabel.text = track.formattedPlays()
                 default:
                     break
                 }
+            case .Video:
+                let video = (result as! VideoSearchResult)
+                cell.mainTextLabel.text = video.title
+                cell.headerLabel.text = video.owner
+                
+                if let viewCount = video.viewCount {
+                    cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
+                }
+                
+                if let likeCount = video.likeCount {
+                    cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
+                }
+                
+                cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
+            
             default:
                 break
         }
@@ -164,7 +191,12 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         cell.contentImageView.image = nil
         if  let image = result.image,
             let imageURL = NSURL(string: image) {
-            cell.contentImageView.setImageWithURL(imageURL)
+            print("Loading image: \(imageURL)")
+            cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
+                    cell.contentImageView.image = image
+            }, failure: { (req, res, error) in
+                    print("Failed to load image: \(imageURL)")
+            })
         }
         
         cell.sourceLogoView.image = result.iconImageForSource()
@@ -207,12 +239,65 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         cell.overlayVisible = true
     }
     
+    func refreshResults() {
+        cellsAnimated = [:]
+        
+        guard let collectionView = collectionView else {
+            return
+        }
+        
+        collectionView.reloadData()
+        collectionView.setContentOffset(CGPointZero, animated: true)
+    
+        backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
+    }
+    
+    func showRefreshResultsButton() {
+        refreshTimer = NSTimer(timeInterval: NSTimeInterval(5.0), target: self, selector: "displayRefreshResultsButton", userInfo: nil, repeats: false)
+    }
+    
+    func displayRefreshResultsButton() {
+        refreshResultsButtonTopConstraint.constant = 20
+        UIView.animateWithDuration(
+            0.3,
+            delay: 0.0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 0.7,
+            options: .CurveEaseIn,
+            animations: {
+                self.refreshResultsButton.layoutIfNeeded()
+            }, completion: nil)
+    }
+    
+    func didTapRefreshResultsButton() {
+        response = nextResponse
+        refreshResultsButtonTopConstraint.constant = -40
+        
+        UIView.animateWithDuration(
+            0.3,
+            delay: 0.0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 0.7,
+            options: .CurveEaseIn,
+            animations: {
+                self.refreshResultsButton.layoutIfNeeded()
+            }, completion: nil)
+
+        refreshResults()
+    }
+    
     func setupLayout() {
+        refreshResultsButtonTopConstraint = refreshResultsButton.al_top == view.al_top - 40
+        
         view.addConstraints([
             backgroundImageView.al_top == view.al_top,
             backgroundImageView.al_left == view.al_left,
             backgroundImageView.al_width == view.al_width,
-            backgroundImageView.al_height == view.al_height - 30
+            backgroundImageView.al_height == view.al_height - 30,
+            
+            refreshResultsButton.al_height == 30,
+            refreshResultsButton.al_centerX == view.al_centerX,
+            refreshResultsButtonTopConstraint
         ])
     }
     

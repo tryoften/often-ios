@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var soundcloudAccountManager: SoundcloudAccountManager!
     let sessionManager = SessionManager.defaultManager
     
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.with([Crashlytics()])
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)

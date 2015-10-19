@@ -74,8 +74,7 @@ DEPENDENCIES:
   - DateTools (~> 1.6)
   - Facebook-iOS-SDK (~> 3.0)
   - Firebase (>= 2.0.2)
-  - iOS-Slide-Menu (from `git@github.com:washingtonmiranda/iOS-Slide-Menu.git`)
-  - MMWormhole (~> 2.0.0)
+  - iOS-Slide-Menu (from `https://github.com/aryaxt/iOS-Slide-Menu.git`)
   - Parse
   - ParseFacebookUtils
   - ParseTwitterUtils
@@ -87,15 +86,15 @@ EXTERNAL SOURCES:
   Analytics:
     :git: https://github.com/October-Labs/analytics-ios.git
   iOS-Slide-Menu:
-    :git: git@github.com:washingtonmiranda/iOS-Slide-Menu.git
+    :git: https://github.com/aryaxt/iOS-Slide-Menu.git
 
 CHECKOUT OPTIONS:
   Analytics:
     :commit: f55c68031f7c92235f861ccc744623f9897db989
     :git: https://github.com/October-Labs/analytics-ios.git
   iOS-Slide-Menu:
-    :commit: 5238734be5f6d801a0a7aae3d99a1ecfcafd6d35
-    :git: git@github.com:washingtonmiranda/iOS-Slide-Menu.git
+    :commit: 2ddf700588c4774faab85c55b44128a0fcf34144
+    :git: https://github.com/aryaxt/iOS-Slide-Menu.git
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05

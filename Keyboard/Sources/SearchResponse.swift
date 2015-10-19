@@ -8,8 +8,12 @@
 
 import UIKit
 
-struct SearchResponse {
+struct SearchResponse: Equatable {
     var id: String
     var results: [SearchResult] = []
     var timeModified: NSDate
+}
+
+func ==(lhs: SearchResponse, rhs: SearchResponse) -> Bool {
+    return lhs.id == rhs.id && lhs.results == rhs.results
 }
