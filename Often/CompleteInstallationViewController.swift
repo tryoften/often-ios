@@ -1,5 +1,5 @@
 //
-//  CompleteInstallation.swift
+//  CompleteInstallationViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 10/16/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CompleteInstallation: UIViewController {
+class CompleteInstallationViewController: UIViewController {
     var viewModel: SignupViewModel
     var completeInstallationView: CompleteInstallationView
    
