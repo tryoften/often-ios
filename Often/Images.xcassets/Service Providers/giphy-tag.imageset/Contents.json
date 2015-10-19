@@ -2,18 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "twitter grey copy.png"
+      "filename" : "Giphy Tag Copy.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "twitter grey.png"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "twitter grey copy-1.png"
+      "scale" : "3x"
     }
   ],
   "info" : {

@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "spotify copy.png"
+      "filename" : "twitter grey copy.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "spotify.png"
+      "filename" : "twitter grey.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "spotify copy-1.png"
+      "filename" : "twitter grey copy-1.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

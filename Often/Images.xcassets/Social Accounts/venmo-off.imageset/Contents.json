@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "soundcloud grey copy.png"
+      "filename" : "venmo grey copy.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "soundcloud grey.png"
+      "filename" : "venmo grey.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "soundcloud grey copy-1.png"
+      "filename" : "venmo grey copy-1.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
