@@ -64,7 +64,6 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
 
     }
     
-    
     func didTapSigninTwitterButton(sender: UIButton) {
         self.view.endEditing(true)
         PKHUD.sharedHUD.contentView = HUDProgressView()
