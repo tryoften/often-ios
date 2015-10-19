@@ -12,7 +12,6 @@ class TextMessageViewController: UIViewController {
     var viewModel: SignupViewModel
     var textMessageOnBoardingView: TextMessageOnBoardingView
     var keyboardconnectivityWormhole: MMWormhole
-    var keyboardConnectivityListeningWormhole: MMWormholeSession
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
@@ -21,26 +20,21 @@ class TextMessageViewController: UIViewController {
         textMessageOnBoardingView.translatesAutoresizingMaskIntoConstraints = false
         textMessageOnBoardingView.textMessageBubbleTwo.hidden = true
         
-        keyboardConnectivityListeningWormhole = MMWormholeSession.sharedListeningSession()
-        
-        keyboardconnectivityWormhole = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: "wormhole")
+        keyboardconnectivityWormhole = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: nil)
 
-        
         
         super.init(nibName: nil, bundle: nil)
         
         view.addSubview(textMessageOnBoardingView)
         
-        keyboardConnectivityListeningWormhole.listenForMessageWithIdentifier("keyboardOpen") { messageObject -> Void in
+        keyboardconnectivityWormhole.listenForMessageWithIdentifier("keyboardOpen") { messageObject -> Void in
             self.textMessageOnBoardingView.textMessageBubbleTwo.hidden = false
         }
         
-        keyboardConnectivityListeningWormhole.listenForMessageWithIdentifier("firstSearch") { messageObject -> Void in
+        keyboardconnectivityWormhole.listenForMessageWithIdentifier("firstSearch") { messageObject -> Void in
             self.displayCompleteView()
         }
         
-        keyboardConnectivityListeningWormhole.activateSessionListening()
-    
         setupLayout()
     }
 

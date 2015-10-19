@@ -120,6 +120,8 @@ extension KeyboardViewController {
         if let button = button {
             button.selected = true
         }
+        
+        keyboardconnectivityWormhole.passMessageObject("search", identifier: "firstSearch")
     }
     
     func didReleaseEnterKey(button: KeyboardKeyButton?) {
