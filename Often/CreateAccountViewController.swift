@@ -101,7 +101,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         case TwitterAccountManagerError.ReturnedEmptyUserObject:
             DropDownErrorMessage().setMessage("Unable to create account. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
             break
-        case TwitterAccountManagerError.NotConncetedOnline, SignupError.NotConncetedOnline:
+        case TwitterAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
             DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
             break
         case SessionManagerError.UnvalidSignUp:

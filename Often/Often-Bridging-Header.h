@@ -25,4 +25,4 @@
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayoutAttributes.h>
 #import <DateTools/DateTools.h>
-
+#import <iOS-Slide-Menu/SlideNavigationContorllerAnimatorScaleAndFade.h>

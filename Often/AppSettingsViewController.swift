@@ -41,7 +41,7 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
     init() {
         containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.backgroundColor = UIColor.grayColor()
+        containerView.backgroundColor = VeryLightGray
         
         super.init(nibName: nil, bundle: nil)
         
@@ -54,6 +54,7 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
             containerView.addSubview(tableView)
         }
         
+        view.backgroundColor = VeryLightGray
         view.addSubview(containerView)
         
         setupLayout()

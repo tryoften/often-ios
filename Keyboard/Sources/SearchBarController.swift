@@ -9,8 +9,9 @@
 import UIKit
 
 class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewModelDelegate,
-    SearchSuggestionViewControllerDelegate {
+    SearchSuggestionViewControllerDelegate, SearchSuggestionsViewModelDelegate {
     var viewModel: SearchViewModel!
+    var suggestionsViewModel: SearchSuggestionsViewModel!
     var searchBarView: SearchBar!
     var supplementaryViewContainer: UIView!
     var supplementaryViewHeightConstraint: NSLayoutConstraint!
@@ -100,8 +101,13 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         supplementaryViewContainer.translatesAutoresizingMaskIntoConstraints = false
         supplementaryViewHeightConstraint = supplementaryViewContainer.al_height == 0
         
-        viewModel = SearchViewModel(base: Firebase(url: BaseURL))
+        let baseURL = Firebase(url: BaseURL)
+        viewModel = SearchViewModel(base: baseURL)
         viewModel.delegate = self
+        
+        suggestionsViewModel = SearchSuggestionsViewModel(base: baseURL)
+        suggestionsViewModel.delegate = self
+        suggestionsViewModel.suggestionsDelegate = self
         
         view.addSubview(searchSuggestionsViewController!.view)
         view.addSubview(supplementaryViewContainer)
@@ -194,10 +200,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func requestAutocompleteSuggestions() {
         if searchBarView.textInput.text.isEmpty {
-            viewModel.sendRequestForQuery("#top-searches:10", autocomplete: true)
+            suggestionsViewModel.sendRequestForQuery("#top-searches:10", autocomplete: true)
         } else {
             let query = searchBarView.textInput.text
-            viewModel.sendRequestForQuery(query, autocomplete: true)
+            suggestionsViewModel.sendRequestForQuery(query, autocomplete: true)
         }
     }
     
@@ -277,7 +283,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         }
     }
     
-    func searchViewModelDidReceiveAutocompleteSuggestions(searchViewModel: SearchViewModel, suggestions: [[String: AnyObject]]?) {
+    // MARK: SearchSuggestionsViewModelDelegate
+    func searchSuggestionsViewModelDidReceiveSuggestions(searchSuggestionsViewModel: SearchSuggestionsViewModel, suggestions: [[String: AnyObject]]?) {
         searchSuggestionsViewController?.suggestions = suggestions
     }
     

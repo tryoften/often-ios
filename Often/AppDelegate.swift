@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let frame = screen.bounds
         
         window = UIWindow(frame: frame)
+        window?.backgroundColor = VeryLightGray
 
         if let window = self.window {
             if TestKeyboard {
@@ -65,9 +66,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if sessionManager.isKeyboardInstalled() {
                         let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
                         let mainViewController =  SlideNavigationController(rootViewController: frontViewController)
+                        let animator = SlideNavigationContorllerAnimatorScaleAndFade(maximumFadeAlpha: 0.8, fadeColor: VeryLightGray, andMinimumScale: 0.8)
                         mainViewController.navigationBar.hidden = true
+                        mainViewController.menuRevealAnimator = animator
                         mainViewController.enableShadow = false
-                        mainViewController.panGestureSideOffset = CGFloat(30)
+                        mainViewController.panGestureSideOffset = CGFloat(100)
                         // left view controller: Set Services for keyboard
                         // right view controller: App Settings
                         leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
