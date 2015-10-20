@@ -46,6 +46,7 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
         super.init(nibName: nil, bundle: nil)
         
         tableView = UITableView(frame: view.bounds, style: .Grouped)
+        tableView?.backgroundColor = UIColor.clearColor()
         if let tableView = tableView {
             tableView.delegate = self
             tableView.dataSource = self
@@ -54,6 +55,7 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
             containerView.addSubview(tableView)
         }
         
+        view.layer.masksToBounds = true
         view.backgroundColor = VeryLightGray
         view.addSubview(containerView)
         

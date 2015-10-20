@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  DrizzyChat
+//  Often
 //
 //  Created by Luc Success on 11/12/14.
-//  Copyright (c) 2014 Luc Success. All rights reserved.
+//  Copyright (c) 2014 Project Surf Inc.. All rights reserved.
 //
 
 import UIKit
@@ -22,9 +22,7 @@ var rightViewController: AppSettingsViewController?
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
-    var venmoAccountManager: VenmoAccountManager!
-    var spotifyAccountManager: SpotifyAccountManager! 
-    var soundcloudAccountManager: SoundcloudAccountManager!
+
     let sessionManager = SessionManager.defaultManager
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -53,37 +51,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window.clipsToBounds = true
                 mainController = KeyboardViewController(debug: true)
             } else {
-                venmoAccountManager = VenmoAccountManager()
-                spotifyAccountManager = SpotifyAccountManager()
-                soundcloudAccountManager = SoundcloudAccountManager()
-                
-                let userProfileViewModel = UserProfileViewModel(sessionManager: sessionManager)
-                let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
-                let signupViewModel = SignupViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
-                
+
                 if sessionManager.isUserLoggedIn() {
-                    
                     if sessionManager.isKeyboardInstalled() {
-                        let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-                        let mainViewController =  SlideNavigationController(rootViewController: frontViewController)
-                        let animator = SlideNavigationContorllerAnimatorScaleAndFade(maximumFadeAlpha: 0.8, fadeColor: VeryLightGray, andMinimumScale: 0.8)
-                        mainViewController.navigationBar.hidden = true
-                        mainViewController.menuRevealAnimator = animator
-                        mainViewController.enableShadow = false
-                        mainViewController.panGestureSideOffset = CGFloat(100)
-                        // left view controller: Set Services for keyboard
-                        // right view controller: App Settings
-                        leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-                        rightViewController = AppSettingsViewController()
-                        
-                        SlideNavigationController.sharedInstance().leftMenu =  leftViewController
-                        SlideNavigationController.sharedInstance().rightMenu = rightViewController
-                        
+                        let mainViewController = RootViewController()
                         mainController = mainViewController
                     } else {
+                        let signupViewModel = SignupViewModel(sessionManager: sessionManager)
                         mainController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
                     }
                 } else {
+                    let signupViewModel = SignupViewModel(sessionManager: sessionManager)
                     mainController = SignupViewController(viewModel: signupViewModel)
                 }
                 
@@ -106,18 +84,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         
         if ( url.absoluteString.hasPrefix("tryoften://logindone" )){
-            soundcloudAccountManager.handleOpenURL(url)
+            sessionManager.soundcloudAccountManager?.handleOpenURL(url)
             return true
         }
         if ( url.absoluteString.hasPrefix("tryoften://" )){
             if SPTAuth.defaultInstance().canHandleURL(url){
-                SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: spotifyAccountManager.authCallback)
+                SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: sessionManager.spotifyAccountManager?.authCallback)
                 return true
             }
         } else if Venmo.sharedInstance().handleOpenURL(url) {
             let session = Venmo.sharedInstance().session
-            venmoAccountManager.getCurrentCurrentSessionToken(session)
-            venmoAccountManager.getVenmoUserInformation(session.accessToken)
+            if let acct = sessionManager.venmoAccountManager {
+                acct.getCurrentCurrentSessionToken(session)
+                acct.getVenmoUserInformation(session.accessToken)
+            }
             return true
         }
         

@@ -32,6 +32,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         self.viewModel.delegate = self
         
         view.addSubview(contentFilterTabView)
+        view.layer.masksToBounds = true
         
         setupLayout()
     }
@@ -44,7 +45,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
-        flowLayout.itemSize = CGSizeMake(screenWidth, 7*118)
+        flowLayout.itemSize = CGSizeMake(screenWidth, 6 * 118)
         return flowLayout
     }
     

@@ -13,9 +13,6 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     var sessionManager: SessionManager
     var user: User
     var password: String
-    var venmoAccountManager: VenmoAccountManager
-    var spotifyAccountManager: SpotifyAccountManager
-    var soundcloudAccountManager: SoundcloudAccountManager
     var isInternetReachable: Bool
     
     enum ResultType {
@@ -24,11 +21,9 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         case SystemError(e: NSError)
     }
     
-    init(sessionManager: SessionManager, venmoAccountManager: VenmoAccountManager, spotifyAccountManager: SpotifyAccountManager, soundcloudAccountManager: SoundcloudAccountManager) {
+    init(sessionManager: SessionManager) {
+
         self.sessionManager = sessionManager
-        self.venmoAccountManager = venmoAccountManager
-        self.spotifyAccountManager = spotifyAccountManager
-        self.soundcloudAccountManager = soundcloudAccountManager
         let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
         isInternetReachable = reachabilitymanager.reachable
         
