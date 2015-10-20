@@ -34,6 +34,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var firstWordQuickDeleted: Bool = false
     var lastLayoutBounds: CGRect?
     var userDefaults: NSUserDefaults
+    var messageChannel: MMWormhole
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
@@ -92,6 +93,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         userDefaults.setBool(true, forKey: "keyboardInstall")
         userDefaults.synchronize()
         
+        messageChannel = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: nil)
+        messageChannel.passMessageObject("open", identifier: "keyboardOpen")
+        
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
         dispatch_once(&KeyboardViewController.once_predicate) {
@@ -101,6 +105,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
         
         searchBar = SearchBarController(nibName: nil, bundle: nil)
+        searchBarHeight = KeyboardSearchBarHeight
         
         keysContainerView = TouchRecognizerView()
         keysContainerView.backgroundColor = DefaultTheme.keyboardBackgroundColor
@@ -159,9 +164,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
         
         setupLayout()
-    
-        let orientationSavvyBounds = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: false))
         
+        let orientationSavvyBounds = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: false))
         if (lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
             // do nothing
         }
@@ -234,7 +238,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
         let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
         let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
-        let topBannerHeight: CGFloat = withTopBanner ? KeyboardSearchBarHeight : 0.0
+        let topBannerHeight: CGFloat = withTopBanner ? searchBarHeight : 0.0
         
         return CGFloat(orientation.isPortrait ? canonicalPortraitHeight : canonicalLandscapeHeight) + topBannerHeight
     }
@@ -249,10 +253,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 searchBarHeight = height + KeyboardSearchBarHeight
                 keyboardHeight = keysContainerViewHeight + searchBarHeight
                 
-                UIView.animateWithDuration(0.3) {
-                    self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
-                    self.view.layoutIfNeeded()
-                }
+                self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
+                self.view.layoutIfNeeded()
         }
     }
     

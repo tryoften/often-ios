@@ -110,7 +110,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true;
+        return true
     }
 
     func setupPages() {
@@ -141,6 +141,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     
     func setupLayout() {
         let constraints: [NSLayoutConstraint] = [
+            
             signupView.al_bottom == view.al_bottom,
             signupView.al_top == view.al_top,
             signupView.al_left == view.al_left,

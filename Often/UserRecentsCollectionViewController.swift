@@ -11,9 +11,19 @@ import UIKit
 let userRecentsReuseIdentifier = "userRecentsCell"
 
 class UserRecentsCollectionViewController: UICollectionViewController {
-
+    var emptyStateViewLayoutConstraint: NSLayoutConstraint?
+    var emptyStateView: EmptySetView
+    
     init() {
+        emptyStateView = EmptySetView()
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        emptyStateView.userState = .NoFavorites
+        
         super.init(collectionViewLayout: UserRecentsCollectionViewController.provideCollectionViewLayout())
+        
+        view.addSubview(emptyStateView)
+        
+        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -41,45 +51,8 @@ class UserRecentsCollectionViewController: UICollectionViewController {
         flowLayout.itemSize = CGSizeMake(screenWidth, 118)
         flowLayout.minimumLineSpacing = 0.0
         flowLayout.minimumInteritemSpacing = 0.0
+        flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
         return flowLayout
-    }
-    
-    // DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
-    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage(named: "recentsemptystate")
-    }
-    
-    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let string: String = "No recents yet!"
-        let attributedString = NSMutableAttributedString(string: string)
-        let attributes = [
-            NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"),
-            NSBackgroundColorAttributeName: ClearColor,
-            NSFontAttributeName: UIFont(name: "Montserrat", size: 15.0)!
-        ]
-        
-        attributedString.addAttributes(attributes, range: NSMakeRange(0, string.characters.count))
-        
-        return attributedString
-    }
-    
-    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let string: String = "Start using Often to easily access your most recently searched or used content."
-        var attributedString = NSMutableAttributedString(string: string)
-        
-        let attributes = [
-            NSForegroundColorAttributeName: UIColor(fromHexString: "#202020"),
-            NSBackgroundColorAttributeName: ClearColor,
-            NSFontAttributeName: UIFont(name: "OpenSans", size: 12.0)!
-        ]
-        
-        attributedString.addAttributes(attributes, range: NSMakeRange(0, string.characters.count))
-        
-        return attributedString
-    }
-    
-    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
-        return view.frame.height / 3
     }
     
     // MARK: UICollectionViewDataSource
@@ -90,7 +63,15 @@ class UserRecentsCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        let numItems = 7
+        
+        if numItems == 0 {
+            updateEmptySetVisible(true)
+            return 0
+        } else {
+            updateEmptySetVisible(false)
+            return numItems
+        }
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -106,5 +87,27 @@ class UserRecentsCollectionViewController: UICollectionViewController {
         cell.contentImage = UIImage(named: "ovosound")
     
         return cell
+    }
+    
+    // MARK: EmptyStateDelegate
+    func updateEmptySetVisible(visible: Bool) {
+        if visible {
+            view.addSubview(emptyStateView)
+            emptyStateViewLayoutConstraint?.constant = 400
+        } else {
+            emptyStateView.removeFromSuperview()
+            emptyStateViewLayoutConstraint?.constant = 0
+        }
+    }
+    
+    func setupLayout() {
+        emptyStateViewLayoutConstraint = emptyStateView.al_height == 400
+        
+        view.addConstraints([
+            emptyStateViewLayoutConstraint!,
+            emptyStateView.al_left == view.al_left,
+            emptyStateView.al_right == view.al_right,
+            emptyStateView.al_top == view.al_top
+        ])
     }
 }

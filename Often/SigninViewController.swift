@@ -64,7 +64,6 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
 
     }
     
-    
     func didTapSigninTwitterButton(sender: UIButton) {
         self.view.endEditing(true)
         PKHUD.sharedHUD.contentView = HUDProgressView()
@@ -90,7 +89,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         case TwitterAccountManagerError.ReturnedEmptyUserObject:
             DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
             break
-        case TwitterAccountManagerError.NotConncetedOnline, SignupError.NotConncetedOnline:
+        case TwitterAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
             DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
             break
         case SessionManagerError.UnvalidSignUp:
@@ -124,20 +123,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func createProfileViewController() {
-        let userProfileViewModel = UserProfileViewModel(sessionManager: self.viewModel.sessionManager)
-        let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: self.viewModel.sessionManager, venmoAccountManager: self.viewModel.venmoAccountManager, spotifyAccountManager: self.viewModel.spotifyAccountManager, soundcloudAccountManager: self.viewModel.soundcloudAccountManager)
-        
-        let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
-        let mainViewController = SlideNavigationController(rootViewController: frontViewController)
-        mainViewController.navigationBar.hidden = true
-        mainViewController.enableShadow = false
-        mainViewController.panGestureSideOffset = CGFloat(30)
-        // left view controller: Set Services for keyboard
-        // right view controller: App Settings
-        
-        SlideNavigationController.sharedInstance().leftMenu =  SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-        SlideNavigationController.sharedInstance().rightMenu = AppSettingsViewController()
-        presentViewController(mainViewController, animated: true, completion: nil )
+        presentViewController(RootViewController(), animated: true, completion: nil)
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{

@@ -13,7 +13,9 @@
 #import "UIColor+HEXString.h"
 #import <FlurrySDK/Flurry.h>
 #import <Parse/Parse.h>
-#import "SlideNavigationController.h"
+#import <MMWormhole/MMWormhole.h>
+#import <MMWormhole/MMWormholeSession.h>
+#import <iOS-Slide-Menu/SlideNavigationController.h>
 #import "TwitterAuthHelper.h"
 #import <Analytics/SEGAnalytics.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
@@ -25,4 +27,4 @@
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayoutAttributes.h>
 #import <DateTools/DateTools.h>
-
+#import <iOS-Slide-Menu/SlideNavigationContorllerAnimatorScaleAndFade.h>

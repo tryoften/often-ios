@@ -14,13 +14,17 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     var descriptionLabel: UILabel
     var scoreLabel: UILabel
     var scoreNameLabel: UILabel
+    var nameLabelHeightConstraint: NSLayoutConstraint?
+    var nameLabelHorizontalConstraint: NSLayoutConstraint?
+    var descriptionLabelHeightConstraint: NSLayoutConstraint?
+    var scoreLabelHeightConstraint: NSLayoutConstraint?
+    var scoreNameLabelHeightConstraint: NSLayoutConstraint?
     
     var tabContainerView: UIView
     var favoritesTabButton: UIButton
     var recentsTabButton: UIButton
     var highlightBarView: UIView
     var leftHighlightBarPositionConstraint: NSLayoutConstraint?
-    var rightHighlightBarPositionConstraint: NSLayoutConstraint?
     var offsetValue: CGFloat
     
     var setServicesRevealButton: UIButton
@@ -83,15 +87,15 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         setServicesRevealButton = UIButton()
         setServicesRevealButton.translatesAutoresizingMaskIntoConstraints = false
         setServicesRevealButton.setImage(UIImage(named: "hamburger"), forState: .Normal)
+        setServicesRevealButton.contentEdgeInsets = UIEdgeInsets(top: 21, left: 20, bottom: 20, right: 20)
         
         settingsRevealButton = UIButton()
         settingsRevealButton.translatesAutoresizingMaskIntoConstraints = false
         settingsRevealButton.setImage(UIImage(named: "settings"), forState: .Normal)
+        settingsRevealButton.contentEdgeInsets = UIEdgeInsets(top: 17, left: 20, bottom: 20, right: 15)
+        
         
         offsetValue = 0.0
-        
-        leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
-        rightHighlightBarPositionConstraint = highlightBarView.al_right == tabContainerView.al_centerX
         
         super.init(frame: frame)
     
@@ -125,40 +129,53 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     
     // UserScrollHeaderDelegate
     func userScrollViewDidScroll(offsetX: CGFloat) {
-        print("scrolling: \(offsetX)")
-        offsetValue = offsetX
-    
-        leftHighlightBarPositionConstraint?.constant = offsetValue/2
-        rightHighlightBarPositionConstraint?.constant = offsetValue/2
-        
+        leftHighlightBarPositionConstraint?.constant = offsetX / 2
         layoutIfNeeded()
+    }
+    
+    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
+        
+        if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
+            let progressiveness = attributes.progressiveness
+            
+            if progressiveness > 0 && progressiveness <= 1 {
+                nameLabelHeightConstraint?.constant = (-140 * progressiveness)
+                descriptionLabelHeightConstraint?.constant = (-15 * (1 - progressiveness))
+                scoreNameLabelHeightConstraint?.constant = (-120 * (1 - progressiveness)) - 30
+                scoreNameLabel.alpha = progressiveness - 0.2
+                scoreLabel.alpha = progressiveness - 0.2
+                descriptionLabel.alpha = progressiveness - 0.2
+            }
+        }
     }
     
     
     func setupLayout() {
-         leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
-         rightHighlightBarPositionConstraint = highlightBarView.al_right == tabContainerView.al_centerX
+            leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
+            nameLabelHeightConstraint = nameLabel.al_bottom == tabContainerView.al_top - 140
+            descriptionLabelHeightConstraint = descriptionLabel.al_bottom == scoreLabel.al_top
+            scoreNameLabelHeightConstraint = scoreNameLabel.al_bottom == tabContainerView.al_top - 30
         
         addConstraints([
-            setServicesRevealButton.al_left == al_left + 20,
-            setServicesRevealButton.al_top == al_top + 21,
-            setServicesRevealButton.al_height == 14,
-            setServicesRevealButton.al_width == 19,
+            setServicesRevealButton.al_left == al_left,
+            setServicesRevealButton.al_top == al_top,
+            setServicesRevealButton.al_height == 55,
+            setServicesRevealButton.al_width == 59,
             
-            settingsRevealButton.al_top == al_top + 17,
-            settingsRevealButton.al_right == al_right - 15,
-            settingsRevealButton.al_height == 22,
-            settingsRevealButton.al_width == 22,
+            settingsRevealButton.al_top == al_top,
+            settingsRevealButton.al_right == al_right,
+            settingsRevealButton.al_height == 59,
+            settingsRevealButton.al_width == 57,
             
-            profileImageView.al_bottom == nameLabel.al_top - 20,
+            profileImageView.al_bottom == nameLabel.al_top - 10,
             profileImageView.al_centerX == al_centerX,
             profileImageView.al_height == 60,
             profileImageView.al_width == 60,
             
-            nameLabel.al_bottom == descriptionLabel.al_top - 9,
+            nameLabelHeightConstraint!,
             nameLabel.al_centerX == al_centerX,
             
-            descriptionLabel.al_bottom == scoreLabel.al_top - 10,
+            descriptionLabelHeightConstraint!,
             descriptionLabel.al_centerX == al_centerX,
             descriptionLabel.al_width == 200,
             
@@ -166,7 +183,7 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
             scoreLabel.al_centerX == al_centerX,
             scoreLabel.al_height == 30,
             
-            scoreNameLabel.al_bottom == tabContainerView.al_top - 10,
+            scoreNameLabelHeightConstraint!,
             scoreNameLabel.al_centerX == al_centerX,
             
             tabContainerView.al_bottom == al_bottom,
@@ -186,8 +203,8 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
             
             highlightBarView.al_bottom == tabContainerView.al_bottom,
             highlightBarView.al_height == 4,
-            leftHighlightBarPositionConstraint!,
-            rightHighlightBarPositionConstraint!
+            highlightBarView.al_width == tabContainerView.al_width / 2,
+            leftHighlightBarPositionConstraint!
         ])
     }
     
