@@ -199,10 +199,13 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func requestAutocompleteSuggestions() {
-        if searchBarView.textInput.text.isEmpty {
+        let query = searchBarView.textInput.text
+        
+        if query.isEmpty {
             suggestionsViewModel.sendRequestForQuery("#top-searches:10", autocomplete: true)
+        } else if query == "#" {
+            suggestionsViewModel.sendRequestForQuery("#filters-list", autocomplete: true)
         } else {
-            let query = searchBarView.textInput.text
             suggestionsViewModel.sendRequestForQuery(query, autocomplete: true)
         }
     }

@@ -66,18 +66,41 @@ class SearchSuggestionsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(SearchSuggestionCellReuseIdentifier, forIndexPath: indexPath) as! SearchSuggestionTableViewCell
+        var cell: UITableViewCell = UITableViewCell()
         
-        if let suggestion = suggestions?[indexPath.row] {
-            if let text = suggestion["text"] as? String {
-                cell.textLabel!.text = text.capitalizedString
-            }
+        // TODO(luc): Create suggestion model
+        if let suggestion = suggestions?[indexPath.row],
+            let type = suggestion["type"] as? String {
+                
+                guard let text = suggestion["text"] as? String,
+                    let id = suggestion["id"] as? String else {
+                    return cell
+                }
             
-            if let resultsCount = suggestion["resultsCount"] as? Int {
-                cell.resultsCount = resultsCount
-            } else {
-                cell.resultsCount = nil
-            }
+                if type == "filter" {
+                    cell = tableView.dequeueReusableCellWithIdentifier(ServiceProviderSuggestionCellReuseIdentifier, forIndexPath: indexPath)
+                    
+                    let filterCell = cell as! ServiceProviderSuggestionTableViewCell
+                    if let image = suggestion["image"] as? String {
+                        filterCell.serviceProviderLogoImage = UIImage(named: image)
+                    }
+                    cell.textLabel!.text = text.capitalizedString
+
+                    
+                } else if type == "query" {
+                    cell = tableView.dequeueReusableCellWithIdentifier(SearchSuggestionCellReuseIdentifier, forIndexPath: indexPath)
+                    cell.textLabel!.text = text.capitalizedString
+                    
+                    let searchCell = cell as! SearchSuggestionTableViewCell
+                    
+                    if let resultsCount = suggestion["resultsCount"] as? Int {
+                        searchCell.resultsCount = resultsCount
+                    } else {
+                        searchCell.resultsCount = nil
+                    }
+                }
+            
+
         }
 
         return cell

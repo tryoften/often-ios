@@ -20,10 +20,18 @@ class SearchSuggestionsViewModel: SearchBaseViewModel {
                     var texts = [[String: AnyObject]]()
                     
                     for option in options {
-                        if let optionText = option["text"] as? String {
+                        if  let id = option["id"] as? String,
+                            let optionText = option["text"] as? String,
+                            let optionType = option["type"] as? String {
                             var dict: [String: AnyObject] = [
-                                "text": optionText
+                                "id": id,
+                                "text": optionText,
+                                "type": optionType
                             ]
+                                
+                                if let image = option["image"] as? String {
+                                    dict["image"] = image
+                                }
                             
                             if let payload = option["payload"] as? [String: AnyObject],
                                 let resultsCount = payload["resultsCount"] as? Int {
