@@ -134,11 +134,6 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         setupLayout()
     }
     
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-
-    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -269,7 +264,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             let localNotification:UILocalNotification = UILocalNotification()
             localNotification.alertBody = message
             localNotification.fireDate = NSDate(timeIntervalSinceNow: timeStamp)
-            timeStamp += 4
+            timeStamp += 2
             UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
             
         }
