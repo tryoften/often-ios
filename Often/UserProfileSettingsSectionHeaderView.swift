@@ -14,13 +14,13 @@ class UserProfileSettingsSectionHeaderView: UIView {
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont(name: "OpenSans", size: 10)
+        titleLabel.font = UIFont(name: "OpenSans-Semibold", size: 10)
         
         super.init(frame: frame)
         
         addSubview(titleLabel)
-        
         setupLayout()
+        backgroundColor = MediumGrey
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +30,7 @@ class UserProfileSettingsSectionHeaderView: UIView {
     func setupLayout() {
         addConstraints([
             titleLabel.al_left == al_left + 25,
-            titleLabel.al_centerY == al_top + (bounds.height / 2) + 2
+            titleLabel.al_centerY == al_centerY
         ])
     }
 }

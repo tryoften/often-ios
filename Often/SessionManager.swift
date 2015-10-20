@@ -15,6 +15,9 @@ class SessionManager: NSObject {
     var twitterAccountManager: TwitterAccountManager?
     var facebookAccountManager: FacebookAccountManager?
     var emailAccountManager: EmailAccountManager?
+    var venmoAccountManager: VenmoAccountManager?
+    var spotifyAccountManager: SpotifyAccountManager?
+    var soundcloudAccountManager: SoundcloudAccountManager?
     var userRef: Firebase?
     var currentUser: User?
     var userDefaults: NSUserDefaults
@@ -35,6 +38,10 @@ class SessionManager: NSObject {
         observers = NSMutableArray()
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         isUserNew = true
+
+        venmoAccountManager = VenmoAccountManager()
+        spotifyAccountManager = SpotifyAccountManager()
+        soundcloudAccountManager = SoundcloudAccountManager()
         
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
@@ -173,7 +180,7 @@ class SessionManager: NSObject {
                 userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                     // TODO(kervs): create user model with data and send event
                     if snapshot.exists() {
-                        if let id = snapshot.key,
+                        if let _ = snapshot.key,
                             let value = snapshot.value as? [String: AnyObject] {
                                 let user = User()
                                 user.setValuesForKeysWithDictionary(value)

@@ -15,24 +15,13 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
     var headerView: UserProfileHeaderView?
     var viewModel: SocialAccountSettingsViewModel
     var sectionHeaderView: SocialAccountHeaderView?
-    var shadowView:UIView
     var serviceSettingsCell: SocialAccountSettingsCollectionViewCell?
-   
     
     init(collectionViewLayout layout: UICollectionViewLayout, viewModel: SocialAccountSettingsViewModel) {
         self.viewModel = viewModel
-        
-        shadowView = UIView()
-        shadowView.translatesAutoresizingMaskIntoConstraints = false
-        shadowView.backgroundColor = BlackColor
-        shadowView.alpha = 0.10
-        
+    
         super.init(collectionViewLayout: layout)
-        view.addSubview(shadowView)
-        
-        self.viewModel.delegate = self
-        
-        setupLayout()
+        viewModel.delegate = self
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -47,16 +36,6 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         viewLayout.sectionInset = UIEdgeInsetsMake(25.0, 5.0, 5.0, 70.0)
         viewLayout.itemSize = CGSizeMake(screenWidth - 95, 218)
         return viewLayout
-    }
-    
-    func setupLayout() {
-        view.addConstraints([
-            shadowView.al_top == view.al_top,
-            shadowView.al_bottom == view.al_bottom,
-            shadowView.al_right == view.al_right,
-            shadowView.al_width == 61,
-            
-            ])
     }
 
     override func viewDidLoad() {
@@ -160,7 +139,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             break
         case .Soundcloud:
             if selected {
-                viewModel.soundcloudAccountManager.sendRequest({ err  in
+                viewModel.soundcloudAccountManager?.sendRequest({ err  in
                     print("it worked")
                 })
             } else {
@@ -172,7 +151,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
             break
         case .Venmo:
             if selected {
-                viewModel.venmoAccountManager.createRequest()
+                viewModel.venmoAccountManager?.createRequest()
             } else {
                 serviceSettingsCollectionView.settingSocialAccount.activeStatus = selected
                 viewModel.sessionManager.setSocialAccountOnCurrentUser(serviceSettingsCollectionView.settingSocialAccount, completion: { user,err  in

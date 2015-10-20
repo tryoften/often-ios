@@ -39,7 +39,7 @@ class EmailAccountManager: NSObject {
         userDefaults.synchronize()
     }
     
-    func loginWithUsername(username: String, password: String,completion: (NSError?) -> ()) {
+    func loginWithUsername(username: String, password: String, completion: (NSError?) -> ()) {
         PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
             if user != nil {
                 self.openSessionWithEmail(username, password: password, completion:completion)
