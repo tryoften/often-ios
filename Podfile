@@ -11,6 +11,7 @@ def base_deps
   pod 'AFNetworking', '~> 2.0'
   pod 'TOMSMorphingLabel', '~> 0.5'
   pod 'DateTools', '~> 1.6'
+  pod 'MMWormhole', '~> 2.0.0'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
 end
 
@@ -23,7 +24,7 @@ target 'Often' do
   pod 'ParseTwitterUtils'
   pod 'ParseFacebookUtils'
   pod 'CSStickyHeaderFlowLayout'
-  pod 'iOS-Slide-Menu', :git => 'https://github.com/aryaxt/iOS-Slide-Menu.git'
+  pod 'iOS-Slide-Menu', :git => 'https://github.com/washingtonmiranda/iOS-Slide-Menu.git'
 end
 
 target 'Keyboard' do

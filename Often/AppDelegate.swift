@@ -35,7 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.startSession(FlurryClientKey)
         SPTAuth.defaultInstance().clientID = SpotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
-         
+        
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert,.Badge], categories: []))
+    
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
         
