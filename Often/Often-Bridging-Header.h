@@ -13,9 +13,9 @@
 #import "UIColor+HEXString.h"
 #import <FlurrySDK/Flurry.h>
 #import <Parse/Parse.h>
-#import "MMWormhole.h"
-#import "MMWormholeSession.h"
-#import "SlideNavigationController.h"
+#import <MMWormhole/MMWormhole.h>
+#import <MMWormhole/MMWormholeSession.h>
+#import <iOS-Slide-Menu/SlideNavigationController.h>
 #import "TwitterAuthHelper.h"
 #import <Analytics/SEGAnalytics.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>

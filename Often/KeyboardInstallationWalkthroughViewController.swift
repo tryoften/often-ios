@@ -224,33 +224,32 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     }
     
     func didTapSettingsButton(sender: UIButton) {
-         view.addSubview(visualEffectView)
-         view.addSubview(alertView)
-        
+        view.addSubview(visualEffectView)
+        view.addSubview(alertView)
         view.addConstraints([
             alertView.al_centerX == view.al_centerX,
             alertView.al_centerY == view.al_centerY,
             alertView.al_height == 200,
             alertView.al_width == UIScreen.mainScreen().bounds.width - 40,
-        ])
+            ])
         
         alertView.animate()
     }
     
     func didTapNoButton(sender: UIButton) {
-        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString)
-        {
+        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
             UIApplication.sharedApplication().openURL(appSettings)
         }
+        
         displayTextMessageWalktrough()
     }
     
     func didTapYesButton(sender: UIButton) {
-        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString)
-        {
+        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
             sendNotificationMessages()
             UIApplication.sharedApplication().openURL(appSettings)
         }
+        
         displayTextMessageWalktrough()
     }
     
