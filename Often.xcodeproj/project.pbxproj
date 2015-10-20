@@ -228,7 +228,6 @@
 		81B2BB711BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		81BD904F1BD58834002F7D32 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD904E1BD58834002F7D32 /* RootViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		81BD90551BD6B239002F7D32 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD90541BD6B239002F7D32 /* SearchSuggestion.swift */; settings = {ASSET_TAGS = (); }; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; settings = {ASSET_TAGS = (); }; };
 		81D0CDC41BD542C20009859D /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; settings = {ASSET_TAGS = (); }; };
@@ -506,7 +505,6 @@
 		81B19EAA1B30AD9900D3575C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Core/User.swift; sourceTree = "<group>"; };
 		81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderSuggestionTableViewCell.swift; path = Sources/ServiceProviderSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		81BD904E1BD58834002F7D32 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		81BD90541BD6B239002F7D32 /* SearchSuggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestion.swift; path = Sources/SearchSuggestion.swift; sourceTree = "<group>"; };
 		81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBaseViewModel.swift; path = Sources/SearchBaseViewModel.swift; sourceTree = "<group>"; };
 		81D43B331B46E49800453BBF /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		81D43B341B46E49800453BBF /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
@@ -944,7 +942,6 @@
 				81D60ACC1B84BF2500347BCA /* SearchRequest.swift */,
 				81D60ACF1B84BF3200347BCA /* SearchResponse.swift */,
 				81D60AD21B854D8500347BCA /* SearchResult.swift */,
-				81BD90541BD6B239002F7D32 /* SearchSuggestion.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -1579,7 +1576,6 @@
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
-				81BD90551BD6B239002F7D32 /* SearchSuggestion.swift in Sources */,
 				81E26D8C1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
 				696C2DB11BB61357004AC9F6 /* ToolTip.swift in Sources */,
 				81FFAF4E1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
