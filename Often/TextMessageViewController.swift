@@ -11,7 +11,7 @@ import Foundation
 class TextMessageViewController: UIViewController {
     var viewModel: SignupViewModel
     var textMessageOnBoardingView: TextMessageOnBoardingView
-    var keyboardconnectivityWormhole: MMWormhole
+    var messageChannel: MMWormhole
     
     init (viewModel: SignupViewModel) {
         self.viewModel = viewModel
@@ -20,18 +20,18 @@ class TextMessageViewController: UIViewController {
         textMessageOnBoardingView.translatesAutoresizingMaskIntoConstraints = false
         textMessageOnBoardingView.textMessageBubbleTwo.hidden = true
         
-        keyboardconnectivityWormhole = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: nil)
+        messageChannel = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: nil)
 
         
         super.init(nibName: nil, bundle: nil)
         
         view.addSubview(textMessageOnBoardingView)
         
-        keyboardconnectivityWormhole.listenForMessageWithIdentifier("keyboardOpen") { messageObject -> Void in
+        messageChannel.listenForMessageWithIdentifier("keyboardOpen") { messageObject -> Void in
             self.textMessageOnBoardingView.textMessageBubbleTwo.hidden = false
         }
         
-        keyboardconnectivityWormhole.listenForMessageWithIdentifier("firstSearch") { messageObject -> Void in
+        messageChannel.listenForMessageWithIdentifier("firstSearch") { messageObject -> Void in
             self.displayCompleteView()
         }
         
