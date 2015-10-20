@@ -52,6 +52,7 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
             tableView.dataSource = self
             tableView.contentInset = UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0)
             tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
+            tableView.backgroundColor = MediumGrey
             containerView.addSubview(tableView)
         }
         
@@ -128,7 +129,11 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20.0
+        return 40.0
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
