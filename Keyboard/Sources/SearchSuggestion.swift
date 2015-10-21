@@ -12,12 +12,13 @@ import Foundation
 enum SearchSuggestionType: String {
     case Query = "query"
     case Filter = "filter"
+    case Unknown = "unknown"
 }
 
 class SearchSuggestion {
     var id: String = ""
-    var title: String = ""
-    var type: SearchSuggestionType = .Query
+    var text: String = ""
+    var type: SearchSuggestionType = .Unknown
     var image: String?
     var resultsCount: Int?
 }
