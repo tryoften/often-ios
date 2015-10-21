@@ -126,31 +126,35 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     }
     
     // UserScrollHeaderDelegate
-    func userScrollViewDidScroll(offsetX: CGFloat) {
-        print("scrolling: \(offsetX)")
-        offsetValue = offsetX
+    func userDidSelectTab(type: String) {
+        if type == "favorites" {
+            leftHighlightBarPositionConstraint?.constant = 0.0
+            rightHighlightBarPositionConstraint?.constant = 0.0
+            
+        } else {
+            leftHighlightBarPositionConstraint?.constant = UIScreen.mainScreen().bounds.width / 2
+            rightHighlightBarPositionConstraint?.constant = UIScreen.mainScreen().bounds.width / 2
+            
+        }
     
-        leftHighlightBarPositionConstraint?.constant = offsetValue/2
-        rightHighlightBarPositionConstraint?.constant = offsetValue/2
-        
         layoutIfNeeded()
     }
     
-    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
-        
-        if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
-            let progressiveness = attributes.progressiveness
-            
-            if progressiveness <= 1 {
-                nameLabelHeightConstraint?.constant = (-140 * progressiveness)
-                descriptionLabelHeightConstraint?.constant = (-15 * (1 - progressiveness))
-                scoreNameLabelHeightConstraint?.constant = (-120 * (1 - progressiveness)) - 30
-                scoreNameLabel.alpha = progressiveness - 0.2
-                scoreLabel.alpha = progressiveness - 0.2
-                descriptionLabel.alpha = progressiveness - 0.2
-            }
-        }
-    }
+//    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
+//        
+//        if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
+//           // let progressiveness = attributes.progressiveness
+//            
+////            if progressiveness <= 1 {
+////                nameLabelHeightConstraint?.constant = (-140 * progressiveness)
+////                descriptionLabelHeightConstraint?.constant = (-15 * (1 - progressiveness))
+////                scoreNameLabelHeightConstraint?.constant = (-120 * (1 - progressiveness)) - 30
+////                scoreNameLabel.alpha = progressiveness - 0.2
+////                scoreLabel.alpha = progressiveness - 0.2
+////                descriptionLabel.alpha = progressiveness - 0.2
+////            }
+//        }
+//    }
     
     
     func setupLayout() {

@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let userProfileViewModel = UserProfileViewModel(sessionManager: sessionManager)
                 let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
                 let signupViewModel = SignupViewModel(sessionManager: sessionManager, venmoAccountManager: venmoAccountManager, spotifyAccountManager: spotifyAccountManager, soundcloudAccountManager: soundcloudAccountManager)
+                let settingsViewModel = SettingsViewModel(sessionManager: sessionManager)
                 
                 if sessionManager.isUserLoggedIn() {
                     
@@ -71,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         // left view controller: Set Services for keyboard
                         // right view controller: App Settings
                         leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-                        rightViewController = AppSettingsViewController()
+                        rightViewController = AppSettingsViewController(viewModel: settingsViewModel)
                         
                         SlideNavigationController.sharedInstance().leftMenu =  leftViewController
                         SlideNavigationController.sharedInstance().rightMenu = rightViewController

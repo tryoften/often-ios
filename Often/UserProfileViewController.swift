@@ -8,7 +8,16 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate, UserProfileViewModelDelegate, UserScrollTabCellDelegate, SlideNavigationControllerDelegate {
+class UserProfileViewController: UICollectionViewController,
+    UserProfileViewModelDelegate,
+    SlideNavigationControllerDelegate {
+    
+    enum UserProfileCollectionType {
+        case Favorites
+        case Recents
+    }
+    
+    var collectionType: UserProfileCollectionType = .Favorites
     
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
@@ -17,13 +26,8 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
     var headerDelegate: UserScrollHeaderDelegate?
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 
-     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
+    init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
         contentFilterTabView = UserProfileFilterTabView()
         contentFilterTabView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,6 +40,10 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         setupLayout()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
@@ -43,8 +51,10 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
+        flowLayout.minimumLineSpacing = 0.0
+        flowLayout.minimumInteritemSpacing = 0.0
         flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
-        flowLayout.itemSize = CGSizeMake(screenWidth, 7*118)
+        flowLayout.itemSize = CGSizeMake(screenWidth, 118)
         return flowLayout
     }
     
@@ -55,8 +65,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
             collectionView.backgroundColor = WhiteColor
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "profile-header")
-            collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
-            collectionView.registerClass(UserScrollTabCollectionViewContainerCell.self, forCellWithReuseIdentifier: "resultCell")
+            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "resultCell")
         }
         
     }
@@ -77,16 +86,44 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        if collectionType == .Favorites {
+            return 7 // return the number of favorites for the current user
+        } else if collectionType == .Recents {
+            return 7 // return the number of recents for the current user
+        } else {
+            return 0
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! UserScrollTabCollectionViewContainerCell
-        
-        profileDelegate = cell
-        cell.delegate = self
-        
-        return cell
+        // same cell for both right now
+        if collectionType == .Favorites {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
+            
+            cell.sourceLogoView.image = UIImage(named: "complex")
+            cell.headerLabel.text = "@ComplexMag"
+            cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."
+            cell.leftSupplementLabel.text = "3.1K Retweets"
+            cell.centerSupplementLabel.text = "4.5K Favorites"
+            cell.rightSupplementLabel.text = "July 25, 2015"
+            cell.rightCornerImageView.image = UIImage(named: "twitter")
+            cell.contentImage = UIImage(named: "ovosound")
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
+            
+            cell.sourceLogoView.image = UIImage(named: "complex")
+            cell.headerLabel.text = "@ComplexMag"
+            cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."
+            cell.leftSupplementLabel.text = "3.1K Retweets"
+            cell.centerSupplementLabel.text = "4.5K Favorites"
+            cell.rightSupplementLabel.text = "July 25, 2015"
+            cell.rightCornerImageView.image = UIImage(named: "twitter")
+            cell.contentImage = UIImage(named: "ovosound")
+            
+            return cell
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -101,20 +138,12 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
                 
             }
     
-    
             if headerView == nil {
                 headerView = cell
-                headerView?.delegate = self
                 headerDelegate = headerView
             }
             
             return headerView!
-        } else if kind == UICollectionElementKindSectionHeader {
-            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
-            
-            sectionHeaderView = cell
-            
-            return cell
         }
         
         return UICollectionReusableView()
@@ -152,20 +181,23 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     }
     
     func userFavoritesTabSelected() {
-        if let delegate = profileDelegate {
-            delegate.favoritesTabSelected()
+        collectionType = .Favorites
+        
+        if let collectionView = collectionView {
+            collectionView.reloadSections(NSIndexSet(index: 0))
         }
+        
+        headerDelegate?.userDidSelectTab("favorites")
     }
     
     func userRecentsTabSelected() {
-        if let delegate = profileDelegate {
-            delegate.recentsTabSelected()
+        collectionType = .Recents
+        
+        if let collectionView = collectionView {
+            collectionView.reloadSections(NSIndexSet(index: 0))
         }
-    }
-    
-    // UserScrollTabCellDelegate
-    func userScrollViewDidScroll(offsetX: CGFloat) {
-        headerDelegate?.userScrollViewDidScroll(offsetX)
+        
+        headerDelegate?.userDidSelectTab("recents")
     }
 }
 
@@ -175,5 +207,5 @@ protocol UserProfileViewControllerDelegate {
 }
 
 protocol UserScrollHeaderDelegate  {
-    func userScrollViewDidScroll(offsetX: CGFloat)
+    func userDidSelectTab(type: String)
 }

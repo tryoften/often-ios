@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import MessageUI
 
-class AppSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AppSettingsViewController: UIViewController, UITableViewDataSource,
+UITableViewDelegate,
+MFMailComposeViewControllerDelegate,
+SlideNavigationControllerDelegate {
     var containerView: UIView
     var tableView: UITableView?
+    var viewModel: SettingsViewModel
     
     var accountSettings = [
         "Name",
@@ -38,7 +43,9 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
         case About = 2
     }
     
-    init() {
+    init(viewModel: SettingsViewModel) {
+        self.viewModel = viewModel
+        
         containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.backgroundColor = UIColor.grayColor()
@@ -46,15 +53,15 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
         super.init(nibName: nil, bundle: nil)
         
         tableView = UITableView(frame: view.bounds, style: .Grouped)
+        
         if let tableView = tableView {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.contentInset = UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0)
+            tableView.showsVerticalScrollIndicator = false
             tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
-            containerView.addSubview(tableView)
+            view.addSubview(tableView)
         }
-        
-        view.addSubview(containerView)
         
         setupLayout()
     }
@@ -72,6 +79,8 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
         // Dispose of any resources that can be recreated.
     }
     
+    
+    // MARK: TableViewDelegate and Datasource
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if ProfileSettingsSection.Account.rawValue == section {
             return "Account"
@@ -105,7 +114,47 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if let settingsSection: ProfileSettingsSection = ProfileSettingsSection(rawValue: indexPath.section) {
+            switch settingsSection {
+            case .Account:
+                if indexPath.row == 0 { // name
+                    let cell = tableView.cellForRowAtIndexPath(indexPath) as! UserProfileSettingsTableViewCell
+                    cell.secondaryTextField.becomeFirstResponder()
+                } else if indexPath.row == 1 { // email
+                    
+                } else if indexPath.row == 2 { // password
+                    
+                } else { // push notifications
+                    
+                }
+            case .Actions:
+                if indexPath.row == 0 { // How to Install
+                    
+                } else if indexPath.row == 1 { // Rate in App Store
+                    
+                } else { // Support
+                    launchEmail(self)
+                }
+            case .About:
+                if indexPath.row == 0 { // FAQ
+                    let vc = SettingsWebViewController(website: "http://www.google.com")
+                    presentViewController(vc, animated: true, completion: nil)
+                } else if indexPath.row == 1 { // Privacy Policy
+                    let vc = SettingsWebViewController(website: "http://www.google.com")
+                    presentViewController(vc, animated: true, completion: nil)
+                } else if indexPath.row == 2 { // Terms of Use
+                    let vc = SettingsWebViewController(website: "http://www.google.com")
+                    presentViewController(vc, animated: true, completion: nil)
+                } else { // Licenses
+                    let vc = SettingsWebViewController(website: "http://www.google.com")
+                    presentViewController(vc, animated: true, completion: nil)
+                }
+            default:
+                break
+            }
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -135,16 +184,20 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
                 if indexPath.row == 0 { // name
                     let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
                     cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.secondaryTextLabel.text = "Regy Perlera"
+                    cell.secondaryTextField.text = "Regy Perlera"
+                    print(viewModel.currentUser?.name)
                     return cell
                 } else if indexPath.row == 1 { // email
-                    let cell = UserProfileSettingsTableViewCell(type: .Detailed)
+                    let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
                     cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.secondaryTextLabel.text = "regy@tryoften.com"
+                    cell.secondaryTextField.text = "regy@tryoften.com"
+                    cell.userInteractionEnabled = false
                     return cell
                 } else if indexPath.row == 2 { // password
                     let cell = UserProfileSettingsTableViewCell(type: .Default)
                     cell.titleLabel.text = accountSettings[indexPath.row]
+                    cell.disclosureIndicator.image = UIImage(named: "")
+                    cell.userInteractionEnabled = false
                     return cell
                 } else { // push notifications
                     let cell = UserProfileSettingsTableViewCell(type: .Switch)
@@ -191,17 +244,43 @@ class AppSettingsViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
+    // MARK: MFMailComposeViewControllerDelegate
+    func launchEmail(sender: AnyObject) {
+        let emailTitle = "Often Feedback"
+        let messageBody = ""
+        let toRecipents = ["feedback@tryoften.com"]
+        let mc: MFMailComposeViewController = MFMailComposeViewController()
+        
+        mc.mailComposeDelegate = self
+        mc.setSubject(emailTitle)
+        mc.setMessageBody(messageBody, isHTML: false)
+        mc.setToRecipients(toRecipents)
+        
+        presentViewController(mc, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError?) {
+        switch result.rawValue {
+        case MFMailComposeResultCancelled.rawValue:
+            print("Mail cancelled")
+        case MFMailComposeResultSaved.rawValue:
+            print("Mail saved")
+        case MFMailComposeResultSent.rawValue:
+            print("Mail sent")
+        case MFMailComposeResultFailed.rawValue:
+            print("Mail sent failure: \(error!.localizedDescription)")
+        default:
+            break
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func setupLayout() {
         view.addConstraints([
-            tableView!.al_left == containerView.al_left,
-            tableView!.al_top == containerView.al_top,
-            tableView!.al_bottom == containerView.al_bottom,
-            tableView!.al_right == containerView.al_right,
-            
-            containerView.al_left == view.al_left + 50,
-            containerView.al_top == view.al_top,
-            containerView.al_right == view.al_right,
-            containerView.al_bottom == view.al_bottom
+            tableView!.al_left == view.al_left + 50,
+            tableView!.al_top == view.al_top,
+            tableView!.al_right == view.al_right,
+            tableView!.al_bottom == view.al_bottom
         ])
     }
 }

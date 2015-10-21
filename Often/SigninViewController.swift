@@ -126,6 +126,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     func createProfileViewController() {
         let userProfileViewModel = UserProfileViewModel(sessionManager: self.viewModel.sessionManager)
         let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: self.viewModel.sessionManager, venmoAccountManager: self.viewModel.venmoAccountManager, spotifyAccountManager: self.viewModel.spotifyAccountManager, soundcloudAccountManager: self.viewModel.soundcloudAccountManager)
+        let settingsViewModel = SettingsViewModel(sessionManager: self.viewModel.sessionManager)
         
         let frontViewController = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel)
         let mainViewController = SlideNavigationController(rootViewController: frontViewController)
@@ -136,7 +137,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         // right view controller: App Settings
         
         SlideNavigationController.sharedInstance().leftMenu =  SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
-        SlideNavigationController.sharedInstance().rightMenu = AppSettingsViewController()
+        SlideNavigationController.sharedInstance().rightMenu = AppSettingsViewController(viewModel: settingsViewModel)
         presentViewController(mainViewController, animated: true, completion: nil )
     }
     
