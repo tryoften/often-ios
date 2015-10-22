@@ -15,9 +15,6 @@ import OAuthSwift
 
 private var TestKeyboard: Bool = false
 
-var leftViewController: SocialAccountSettingsCollectionViewController?
-var rightViewController: AppSettingsViewController?
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
