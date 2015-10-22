@@ -15,33 +15,35 @@ class SearchSuggestionsViewModel: SearchBaseViewModel {
         var suggestions = [SearchSuggestion]()
         
         for resultData in resultsData {
-            if let options = resultData["options"] as? [ [String: AnyObject] ] {
+            guard let options = resultData["options"] as? [ [String: AnyObject] ] else {
+                continue
+            }
+
+            for option in options {
+                guard let id = option["id"] as? String,
+                    let optionText = option["text"] as? String,
+                    let optionType = option["type"] as? String else {
+                        continue
+                }
                 
-                    for option in options {
-                        if  let id = option["id"] as? String,
-                            let optionText = option["text"] as? String,
-                            let optionType = option["type"] as? String {
-                                
-                                let suggestion = SearchSuggestion()
-                                suggestion.id = id
-                                suggestion.text = optionText
-                                
-                                if let type = SearchSuggestionType(rawValue: optionType) {
-                                    suggestion.type = type
-                                }
+                let suggestion = SearchSuggestion()
+                suggestion.id = id
+                suggestion.text = optionText
+                
+                if let type = SearchSuggestionType(rawValue: optionType) {
+                    suggestion.type = type
+                }
 
-                                if let image = option["image"] as? String {
-                                    suggestion.image = image
-                                }
-                                
-                                if let payload = option["payload"] as? [String: AnyObject],
-                                    let resultsCount = payload["resultsCount"] as? Int {
-                                        suggestion.resultsCount = resultsCount
-                                }
+                if let image = option["image"] as? String {
+                    suggestion.image = image
+                }
+                
+                if let payload = option["payload"] as? [String: AnyObject],
+                    let resultsCount = payload["resultsCount"] as? Int {
+                        suggestion.resultsCount = resultsCount
+                }
 
-                                suggestions.append(suggestion)
-                        }
-                    }
+                suggestions.append(suggestion)
             }
         }
         
