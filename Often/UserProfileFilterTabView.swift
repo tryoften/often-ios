@@ -69,6 +69,11 @@ class UserProfileFilterTabView: UIView {
         addSubview(gifsFilterButton)
         
         setupLayout()
+
+        layer.shadowOffset = CGSizeMake(0, -1)
+        layer.shadowOpacity = 0.8
+        layer.shadowColor = DarkGrey.CGColor
+        layer.shadowRadius = 4
     }
 
     required init?(coder aDecoder: NSCoder) {

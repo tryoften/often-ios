@@ -13,9 +13,6 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     var sessionManager: SessionManager
     var user: User
     var password: String
-    var venmoAccountManager: VenmoAccountManager
-    var spotifyAccountManager: SpotifyAccountManager
-    var soundcloudAccountManager: SoundcloudAccountManager
     var isInternetReachable: Bool
     
     enum ResultType {
@@ -24,11 +21,9 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         case SystemError(e: NSError)
     }
     
-    init(sessionManager: SessionManager, venmoAccountManager: VenmoAccountManager, spotifyAccountManager: SpotifyAccountManager, soundcloudAccountManager: SoundcloudAccountManager) {
+    init(sessionManager: SessionManager) {
+
         self.sessionManager = sessionManager
-        self.venmoAccountManager = venmoAccountManager
-        self.spotifyAccountManager = spotifyAccountManager
-        self.soundcloudAccountManager = soundcloudAccountManager
         let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
         isInternetReachable = reachabilitymanager.reachable
         
@@ -49,7 +44,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         var userData = [String: String]()
         
         guard AFNetworkReachabilityManager.sharedManager().reachable else {
-            completion(results: ResultType.Error(e: SignupError.NotConncetedOnline))
+            completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
             throw SignupError.EmailNotVaild
         }
         
@@ -80,8 +75,8 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     
     func signInUser(username:String, password:String, completion: (results: ResultType) -> Void) throws {
         guard isInternetReachable else {
-            completion(results: ResultType.Error(e: SignupError.NotConncetedOnline))
-            throw SignupError.NotConncetedOnline
+            completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
+            throw SignupError.NotConnectedOnline
         }
         
         guard EmailIsValid(username) else {
@@ -122,7 +117,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
  enum SignupError: ErrorType {
     case EmailNotVaild
     case PasswordNotVaild
-    case NotConncetedOnline
+    case NotConnectedOnline
  }
  
 protocol SignupViewModelDelegate: class {

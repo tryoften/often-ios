@@ -21,6 +21,7 @@
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
+		3B1F62A41BD19F7100CC24F4 /* CompleteInstallationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F62A31BD19F7100CC24F4 /* CompleteInstallationViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
@@ -73,6 +74,10 @@
 		3BDF98C61BA262DE00F383D8 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */; };
 		3BDF98CB1BA2652F00F383D8 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */; };
 		3BEB408E1BC8561500D36C4D /* HUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */; settings = {ASSET_TAGS = (); }; };
+		3BEB40AE1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */; settings = {ASSET_TAGS = (); }; };
+		3BEB40B91BD03A3500D36C4D /* TextMessageOnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */; settings = {ASSET_TAGS = (); }; };
+		3BEB40BB1BD03A8C00D36C4D /* CompleteInstallationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */; settings = {ASSET_TAGS = (); }; };
+		3BEB40BD1BD04CDB00D36C4D /* TextMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40BC1BD04CDB00D36C4D /* TextMessageViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4E1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */; };
@@ -106,6 +111,8 @@
 		69E9104C1B59AF1D008BFBD6 /* VenmoAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */; };
 		74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */; };
 		8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
+		8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; settings = {ASSET_TAGS = (); }; };
+		8107F7E31BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; settings = {ASSET_TAGS = (); }; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF21B5D7E95005AABEA /* VenmoSupplementaryViewController.swift */; };
@@ -127,9 +134,7 @@
 		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
-		8127A8F01B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; };
 		8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; };
-		8127A8F31B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; };
 		8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; };
 		8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */; };
 		8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */; };
@@ -140,7 +145,6 @@
 		81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
 		8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */; settings = {ASSET_TAGS = (); }; };
-		8136F6E91BCEEB0D000401BF /* RefreshResultsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */; settings = {ASSET_TAGS = (); }; };
 		8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
@@ -215,11 +219,22 @@
 		8180E6151A142157007FA1CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E6351A142199007FA1CF /* KeyboardViewController.swift */; };
 		8180E6391A142199007FA1CF /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8184DC931BD57A32001767AD /* RefreshResultsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */; settings = {ASSET_TAGS = (); }; };
+		8184DC9B1BD57F02001767AD /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		8184DC9F1BD57FE3001767AD /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		8185A0D81BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */; settings = {ASSET_TAGS = (); }; };
 		81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81B19EAB1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
 		81B19EAC1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
+		81B2BB711BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		81B92D5A1BD6CE5000FFAC92 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; settings = {ASSET_TAGS = (); }; };
+		81B92D5E1BD6D77C00FFAC92 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; settings = {ASSET_TAGS = (); }; };
+		81BD904F1BD58834002F7D32 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD904E1BD58834002F7D32 /* RootViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
+		81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; settings = {ASSET_TAGS = (); }; };
+		81D0CDC41BD542C20009859D /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; settings = {ASSET_TAGS = (); }; };
 		81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1A1B38F6DA006430AB /* PKHUD.swift */; };
 		81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1B1B38F6DA006430AB /* PKHUDAssets.swift */; };
 		81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1C1B38F6DA006430AB /* PKHUDContentView.swift */; };
@@ -270,34 +285,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3B0E03241BA898BF00D69601 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F451E3C5195B8CD80051434C;
-			remoteInfo = OAuthSwiftDemo;
-		};
-		3B0E03261BA898BF00D69601 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F435027A1A6791B200038A29;
-			remoteInfo = OAuthSwift;
-		};
-		3B0E03281BA898BF00D69601 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C49FD5241AFB5DF500791E1A;
-			remoteInfo = OAuthSwiftOSXDemo;
-		};
-		3B0E032A1BA898BF00D69601 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C48B28021AFA598D00C7DEF6;
-			remoteInfo = OAuthSwiftOSX;
-		};
 		81331E361A1806BB003E4609 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
@@ -374,13 +361,12 @@
 		30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		30E00C761BC86C3D00DDF24C /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = Carthage/Build/iOS/Spring.framework; sourceTree = "<group>"; };
 		30E00C791BC86CEA00DDF24C /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
-		36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CustomKeyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OAuthSwift.xcodeproj; path = OAuthSwift/OAuthSwift.xcodeproj; sourceTree = "<group>"; };
 		3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstallationWalkthroughViewController.swift; sourceTree = "<group>"; };
 		3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardWalkthroughView.swift; sourceTree = "<group>"; };
 		3B1D6BF31B8F61AF004868E5 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotifyAccountManager.swift; path = Keyboard/SpotifyAccountManager.swift; sourceTree = "<group>"; };
+		3B1F62A31BD19F7100CC24F4 /* CompleteInstallationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteInstallationViewController.swift; sourceTree = "<group>"; };
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeyboardViewController+EventHandlers.swift"; path = "Sources/KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
 		3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownErrorMessage.swift; sourceTree = "<group>"; };
@@ -415,6 +401,10 @@
 		3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDProgressView.swift; sourceTree = "<group>"; };
+		3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotificationsAlertView.swift; sourceTree = "<group>"; };
+		3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessageOnBoardingView.swift; sourceTree = "<group>"; };
+		3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteInstallationView.swift; sourceTree = "<group>"; };
+		3BEB40BC1BD04CDB00D36C4D /* TextMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessageViewController.swift; sourceTree = "<group>"; };
 		3BF60C461B83B3F100DD6E31 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		3BF60C4C1B83EDC900DD6E31 /* TwitterAuthHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAuthHelper.h; sourceTree = "<group>"; };
 		3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAuthHelper.m; sourceTree = "<group>"; };
@@ -443,8 +433,8 @@
 		69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileFilterTabView.swift; sourceTree = "<group>"; };
 		69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoAccountManager.swift; path = Keyboard/Sources/VenmoAccountManager.swift; sourceTree = "<group>"; };
-		6B6FC3A11B55322AAC249F5E /* libPods-October.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-October.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
+		8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewModel.swift; path = Sources/SearchSuggestionsViewModel.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		810C4AF21B5D7E95005AABEA /* VenmoSupplementaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoSupplementaryViewController.swift; path = Sources/VenmoSupplementaryViewController.swift; sourceTree = "<group>"; };
 		810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarButton.swift; path = Sources/SearchBarButton.swift; sourceTree = "<group>"; };
@@ -513,11 +503,16 @@
 		8180E6311A142199007FA1CF /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6341A142199007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8180E6351A142199007FA1CF /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyboardViewController.swift; path = Sources/KeyboardViewController.swift; sourceTree = "<group>"; };
+		8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsSectionHeaderView.swift; sourceTree = "<group>"; };
 		81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HEXString.h"; sourceTree = "<group>"; };
 		81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEXString.m"; sourceTree = "<group>"; };
 		81B19E8D1B30A66700D3575C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		81B19E8F1B30A71500D3575C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		81B19EAA1B30AD9900D3575C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Core/User.swift; sourceTree = "<group>"; };
+		81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderSuggestionTableViewCell.swift; path = Sources/ServiceProviderSuggestionTableViewCell.swift; sourceTree = "<group>"; };
+		81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestion.swift; path = Sources/SearchSuggestion.swift; sourceTree = "<group>"; };
+		81BD904E1BD58834002F7D32 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBaseViewModel.swift; path = Sources/SearchBaseViewModel.swift; sourceTree = "<group>"; };
 		81D43B331B46E49800453BBF /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		81D43B341B46E49800453BBF /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		81D4BF161B38F6DA006430AB /* FrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
@@ -559,11 +554,8 @@
 		B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.debug.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.debug.xcconfig"; sourceTree = "<group>"; };
 		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
 		C85359BC0D2B9C5AAD1BD2F3 /* Pods-Surf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.debug.xcconfig"; sourceTree = "<group>"; };
-		CAC04D95B6CDD62B74E1C6FE /* libPods-Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.debug.xcconfig"; sourceTree = "<group>"; };
-		DE029A1C4A784B9B85DE8FF7 /* libPods-Drizzy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Drizzy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0DD50C141D01B72F4932753 /* Pods-Core.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Core/Pods-Core.debug.xcconfig"; sourceTree = "<group>"; };
-		F5F78761D830BD3A5F573760 /* libPods-Surf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Surf.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB605ECF29EF659FB4C49324 /* Pods-Keyboard.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -655,17 +647,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		3B0E031E1BA898BF00D69601 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3B0E03251BA898BF00D69601 /* OAuthSwiftDemo.app */,
-				3B0E03271BA898BF00D69601 /* OAuthSwift.framework */,
-				3B0E03291BA898BF00D69601 /* OAuthSwiftOSXDemo.app */,
-				3B0E032B1BA898BF00D69601 /* OAuthSwift.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		3BCDA5BA1B8FEBD200840095 /* Soundcloud */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,6 +674,7 @@
 		69FE381D1BD82FE2007A63FB /* User Profile */ = {
 			isa = PBXGroup;
 			children = (
+				8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */,
 				698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */,
 				698B87291B755139001B5B86 /* UserProfileSectionHeaderView.swift */,
 				69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */,
@@ -732,11 +714,6 @@
 				81794ED61A81E621009D4A71 /* AudioToolbox.framework */,
 				81794ED41A81E613009D4A71 /* CFNetwork.framework */,
 				81794ED21A81E607009D4A71 /* Accounts.framework */,
-				CAC04D95B6CDD62B74E1C6FE /* libPods-Core.a */,
-				36EFB6E226292B41948C339B /* libPods-CustomKeyboard.a */,
-				DE029A1C4A784B9B85DE8FF7 /* libPods-Drizzy.a */,
-				6B6FC3A11B55322AAC249F5E /* libPods-October.a */,
-				F5F78761D830BD3A5F573760 /* libPods-Surf.a */,
 				85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */,
 				199C4312257A18D37E7AE2A6 /* libPods-Often.a */,
 			);
@@ -794,7 +771,6 @@
 			isa = PBXGroup;
 			children = (
 				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
-				3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */,
 				81D4BF151B38F6DA006430AB /* PKHUD */,
 				81DC114A1AF05CF400412BD2 /* SwiftyJSON */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
@@ -859,16 +835,22 @@
 			name = Managers;
 			sourceTree = "<group>";
 		};
+		8150EDE91BD56D5E002A23B2 /* Search View Models */ = {
+			isa = PBXGroup;
+			children = (
+				81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */,
+				81D60AC21B84BD4200347BCA /* SearchViewModel.swift */,
+				81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */,
+				8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */,
+			);
+			name = "Search View Models";
+			sourceTree = "<group>";
+		};
 		81592F921B0FA4F10092EA8F /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				81BD90531BD58EBA002F7D32 /* Account Managers */,
 				81153CB01BBB267000A91EAD /* SessionManager.swift */,
-				3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */,
-				3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */,
-				3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */,
-				3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */,
-				3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */,
-				69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */,
 			);
 			name = Managers;
 			sourceTree = SOURCE_ROOT;
@@ -915,6 +897,8 @@
 			isa = PBXGroup;
 			children = (
 				3BD971E01B9FD374007EAB5A /* SignupViewController.swift */,
+				3BEB40BC1BD04CDB00D36C4D /* TextMessageViewController.swift */,
+				3B1F62A31BD19F7100CC24F4 /* CompleteInstallationViewController.swift */,
 				3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */,
 				3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */,
 				3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */,
@@ -924,6 +908,7 @@
 				6987F82F1B99A63B00CA55D5 /* UserRecentsCollectionViewController.swift */,
 				690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */,
 				69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */,
+				81BD904E1BD58834002F7D32 /* RootViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -932,6 +917,9 @@
 			isa = PBXGroup;
 			children = (
 				690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */,
+				3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */,
+				3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */,
+				3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */,
 				3BD971D51B9E642D007EAB5A /* SignupView.swift */,
 				3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */,
 				3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */,
@@ -968,6 +956,7 @@
 			children = (
 				817F78441BBDD28A0087EBE8 /* Result Types */,
 				81E26D841B65B17A00FC1F2F /* Direction.swift */,
+				81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */,
 				81D60ACC1B84BF2500347BCA /* SearchRequest.swift */,
 				81D60ACF1B84BF3200347BCA /* SearchResponse.swift */,
 				81D60AD21B854D8500347BCA /* SearchResult.swift */,
@@ -1090,6 +1079,7 @@
 				81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */,
 				8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */,
 				8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */,
+				81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */,
 				8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */,
 				81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */,
 			);
@@ -1135,10 +1125,22 @@
 		81B6D58D1A95B07B0089767B /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				81D60AC21B84BD4200347BCA /* SearchViewModel.swift */,
-				81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */,
+				8150EDE91BD56D5E002A23B2 /* Search View Models */,
 			);
 			name = "View Models";
+			sourceTree = "<group>";
+		};
+		81BD90531BD58EBA002F7D32 /* Account Managers */ = {
+			isa = PBXGroup;
+			children = (
+				3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */,
+				3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */,
+				3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */,
+				3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */,
+				3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */,
+				69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */,
+			);
+			name = "Account Managers";
 			sourceTree = "<group>";
 		};
 		81D4BF151B38F6DA006430AB /* PKHUD */ = {
@@ -1276,10 +1278,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 3B0E031E1BA898BF00D69601 /* Products */;
-					ProjectRef = 3B0E031D1BA898BF00D69601 /* OAuthSwift.xcodeproj */;
-				},
-				{
 					ProductGroup = 81331E201A1806BB003E4609 /* Products */;
 					ProjectRef = 81331E1F1A1806BB003E4609 /* SwiftAutoLayout.xcodeproj */;
 				},
@@ -1293,34 +1291,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		3B0E03251BA898BF00D69601 /* OAuthSwiftDemo.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = OAuthSwiftDemo.app;
-			remoteRef = 3B0E03241BA898BF00D69601 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3B0E03271BA898BF00D69601 /* OAuthSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = OAuthSwift.framework;
-			remoteRef = 3B0E03261BA898BF00D69601 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3B0E03291BA898BF00D69601 /* OAuthSwiftOSXDemo.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = OAuthSwiftOSXDemo.app;
-			remoteRef = 3B0E03281BA898BF00D69601 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3B0E032B1BA898BF00D69601 /* OAuthSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = OAuthSwift.framework;
-			remoteRef = 3B0E032A1BA898BF00D69601 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		81331E371A1806BB003E4609 /* SwiftAutoLayout.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1475,19 +1445,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8136F6E91BCEEB0D000401BF /* RefreshResultsButton.swift in Sources */,
-				8127A8F01B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */,
-				8127A8F31B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
 				3B64A1951BC593560057F795 /* DropDownErrorMessage.swift in Sources */,
+				3BEB40BD1BD04CDB00D36C4D /* TextMessageViewController.swift in Sources */,
+				8184DC9F1BD57FE3001767AD /* SearchSuggestionTableViewCell.swift in Sources */,
 				696D8A5D1B93E8890016073C /* UserProfileSettingsTableViewCell.swift in Sources */,
+				8184DC931BD57A32001767AD /* RefreshResultsButton.swift in Sources */,
 				81FFAF471B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				8176BEED1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				817939041B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				699606271B422315004102BC /* KeyboardViewController.swift in Sources */,
+				8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
 				81E26D7F1B65B09D00FC1F2F /* LayoutConstants.swift in Sources */,
 				81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */,
 				3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */,
 				3BD971E31B9FD483007EAB5A /* SignupViewModel.swift in Sources */,
+				81B92D5E1BD6D77C00FFAC92 /* SearchSuggestion.swift in Sources */,
 				817F78461BBDD2A20087EBE8 /* ArticleSearchResult.swift in Sources */,
 				81E26D9C1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
@@ -1499,6 +1471,7 @@
 				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
 				81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
 				816588F71B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
+				81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */,
 				695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */,
 				81E26D851B65B17A00FC1F2F /* Direction.swift in Sources */,
 				690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */,
@@ -1513,6 +1486,7 @@
 				817939071B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				69C663221B8B6FA60014433D /* UserProfileViewModel.swift in Sources */,
 				81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
+				3BEB40AE1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift in Sources */,
 				81E26D8E1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
 				3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */,
@@ -1521,6 +1495,7 @@
 				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
 				817938FD1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				69E7FD8A1B8E0BD7003BC281 /* UserProfileFilterTabView.swift in Sources */,
+				3BEB40B91BD03A3500D36C4D /* TextMessageOnBoardingView.swift in Sources */,
 				69BFB5101BC16F96001CC24D /* ToolTip.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				69048D491B9DCE06004ECE29 /* UserScrollTabCollectionViewContainerCell.swift in Sources */,
@@ -1550,6 +1525,7 @@
 				30A402041BC46D6F00BF0C0E /* SocialAccountsService.swift in Sources */,
 				6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */,
 				3B100A2B1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift in Sources */,
+				8184DC9B1BD57F02001767AD /* SearchSuggestionsViewController.swift in Sources */,
 				3BD971C11B98B5FB007EAB5A /* FacebookAccountManager.swift in Sources */,
 				817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */,
@@ -1567,6 +1543,7 @@
 				81E26D961B67C29D00FC1F2F /* Shape.swift in Sources */,
 				3B100A221BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift in Sources */,
 				810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
+				81B2BB711BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
 				3BD971BE1B98ABF4007EAB5A /* TwitterAccountManager.swift in Sources */,
 				69BFB5091BC16F60001CC24D /* ToolTipViewController.swift in Sources */,
 				81E26D8B1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
@@ -1575,6 +1552,7 @@
 				3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */,
 				81D4BF261B38F6DA006430AB /* WindowRootViewController.swift in Sources */,
 				6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */,
+				81BD904F1BD58834002F7D32 /* RootViewController.swift in Sources */,
 				817F784C1BC085440087EBE8 /* suffixNumber.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
 				69B2924E1BD7550800277EC2 /* SettingsViewModel.swift in Sources */,
@@ -1585,11 +1563,14 @@
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
 				6987F82E1B99A53900CA55D5 /* UserFavoritesCollectionViewController.swift in Sources */,
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
+				3B1F62A41BD19F7100CC24F4 /* CompleteInstallationViewController.swift in Sources */,
 				69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */,
 				698B872A1B755139001B5B86 /* UserProfileSectionHeaderView.swift in Sources */,
 				3BD971E11B9FD374007EAB5A /* SignupViewController.swift in Sources */,
 				81E26D881B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
+				8185A0D81BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift in Sources */,
 				690003A61BD5954600C0DA9E /* SettingsWebViewController.swift in Sources */,
+				3BEB40BB1BD03A8C00D36C4D /* CompleteInstallationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1606,6 +1587,7 @@
 				8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				8176BEA41B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
 				690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */,
+				8107F7E31BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
 				817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
@@ -1615,6 +1597,7 @@
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
+				81B92D5A1BD6CE5000FFAC92 /* SearchSuggestion.swift in Sources */,
 				81E26D8C1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
 				696C2DB11BB61357004AC9F6 /* ToolTip.swift in Sources */,
 				81FFAF4E1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
@@ -1645,12 +1628,14 @@
 				8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
 				81D60ACE1B84BF2500347BCA /* SearchRequest.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
+				81D0CDC41BD542C20009859D /* SearchBaseViewModel.swift in Sources */,
 				3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
 				3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */,
 				81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
+				81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
 				817F783A1BBDD2780087EBE8 /* TrackSearchResult.swift in Sources */,
 				8176BEC61B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
@@ -1759,7 +1744,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc265701-0ac2-48d3-98ec-0ded77a87ecf";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1797,7 +1782,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "73d2722c-b6fe-4fcc-a068-5c74969692a7";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1879,7 +1864,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc265701-0ac2-48d3-98ec-0ded77a87ecf";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1916,7 +1901,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "73d2722c-b6fe-4fcc-a068-5c74969692a7";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1998,7 +1983,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc265701-0ac2-48d3-98ec-0ded77a87ecf";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2035,7 +2020,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "73d2722c-b6fe-4fcc-a068-5c74969692a7";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};

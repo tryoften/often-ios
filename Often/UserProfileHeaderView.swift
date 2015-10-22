@@ -25,7 +25,6 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     var recentsTabButton: UIButton
     var highlightBarView: UIView
     var leftHighlightBarPositionConstraint: NSLayoutConstraint?
-    var rightHighlightBarPositionConstraint: NSLayoutConstraint?
     var offsetValue: CGFloat
     
     var setServicesRevealButton: UIButton
@@ -88,10 +87,13 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         setServicesRevealButton = UIButton()
         setServicesRevealButton.translatesAutoresizingMaskIntoConstraints = false
         setServicesRevealButton.setImage(UIImage(named: "hamburger"), forState: .Normal)
+        setServicesRevealButton.contentEdgeInsets = UIEdgeInsets(top: 21, left: 20, bottom: 20, right: 20)
         
         settingsRevealButton = UIButton()
         settingsRevealButton.translatesAutoresizingMaskIntoConstraints = false
         settingsRevealButton.setImage(UIImage(named: "settings"), forState: .Normal)
+        settingsRevealButton.contentEdgeInsets = UIEdgeInsets(top: 17, left: 20, bottom: 20, right: 15)
+        
         
         offsetValue = 0.0
         
@@ -126,57 +128,48 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     }
     
     // UserScrollHeaderDelegate
-    func userDidSelectTab(type: String) {
-        if type == "favorites" {
-            leftHighlightBarPositionConstraint?.constant = 0.0
-            rightHighlightBarPositionConstraint?.constant = 0.0
-            
-        } else {
-            leftHighlightBarPositionConstraint?.constant = UIScreen.mainScreen().bounds.width / 2
-            rightHighlightBarPositionConstraint?.constant = UIScreen.mainScreen().bounds.width / 2
-            
-        }
     
+    func userDidSelectTab(type: String) {
+        
+    }
+
+    func userScrollViewDidScroll(offsetX: CGFloat) {
+        leftHighlightBarPositionConstraint?.constant = offsetX / 2
         layoutIfNeeded()
     }
     
-//    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
-//        
-//        if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
-//           // let progressiveness = attributes.progressiveness
-//            
-////            if progressiveness <= 1 {
-////                nameLabelHeightConstraint?.constant = (-140 * progressiveness)
-////                descriptionLabelHeightConstraint?.constant = (-15 * (1 - progressiveness))
-////                scoreNameLabelHeightConstraint?.constant = (-120 * (1 - progressiveness)) - 30
-////                scoreNameLabel.alpha = progressiveness - 0.2
-////                scoreLabel.alpha = progressiveness - 0.2
-////                descriptionLabel.alpha = progressiveness - 0.2
-////            }
-//        }
-//    }
-    
+    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
+        
+        if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
+            let progressiveness = attributes.progressiveness
+            
+            if progressiveness > 0 && progressiveness <= 1 {
+                nameLabelHeightConstraint?.constant = (-140 * progressiveness)
+                descriptionLabelHeightConstraint?.constant = (-15 * (1 - progressiveness))
+                scoreNameLabelHeightConstraint?.constant = (-120 * (1 - progressiveness)) - 30
+                scoreNameLabel.alpha = progressiveness - 0.2
+                scoreLabel.alpha = progressiveness - 0.2
+                descriptionLabel.alpha = progressiveness - 0.2
+            }
+        }
+    }
     
     func setupLayout() {
             leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
-            rightHighlightBarPositionConstraint = highlightBarView.al_right == tabContainerView.al_centerX
-        
             nameLabelHeightConstraint = nameLabel.al_bottom == tabContainerView.al_top - 140
-        
             descriptionLabelHeightConstraint = descriptionLabel.al_bottom == scoreLabel.al_top
-        
             scoreNameLabelHeightConstraint = scoreNameLabel.al_bottom == tabContainerView.al_top - 30
         
         addConstraints([
-            setServicesRevealButton.al_left == al_left + 20,
-            setServicesRevealButton.al_top == al_top + 21,
-            setServicesRevealButton.al_height == 14,
-            setServicesRevealButton.al_width == 19,
+            setServicesRevealButton.al_left == al_left,
+            setServicesRevealButton.al_top == al_top,
+            setServicesRevealButton.al_height == 55,
+            setServicesRevealButton.al_width == 59,
             
-            settingsRevealButton.al_top == al_top + 17,
-            settingsRevealButton.al_right == al_right - 15,
-            settingsRevealButton.al_height == 22,
-            settingsRevealButton.al_width == 22,
+            settingsRevealButton.al_top == al_top,
+            settingsRevealButton.al_right == al_right,
+            settingsRevealButton.al_height == 59,
+            settingsRevealButton.al_width == 57,
             
             profileImageView.al_bottom == nameLabel.al_top - 10,
             profileImageView.al_centerX == al_centerX,
@@ -214,8 +207,8 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
             
             highlightBarView.al_bottom == tabContainerView.al_bottom,
             highlightBarView.al_height == 4,
-            leftHighlightBarPositionConstraint!,
-            rightHighlightBarPositionConstraint!
+            highlightBarView.al_width == tabContainerView.al_width / 2,
+            leftHighlightBarPositionConstraint!
         ])
     }
     

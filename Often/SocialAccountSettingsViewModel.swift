@@ -12,24 +12,23 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
     weak var delegate: SocialAccountSettingsViewModelDelegate?
     var sessionManager: SessionManager
     var socialAccounts: [SocialAccount]
-    var venmoAccountManager: VenmoAccountManager
-    var spotifyAccountManager: SpotifyAccountManager
-    var soundcloudAccountManager: SoundcloudAccountManager
+    var venmoAccountManager: VenmoAccountManager?
+    var spotifyAccountManager: SpotifyAccountManager?
+    var soundcloudAccountManager: SoundcloudAccountManager?
     
-    init(sessionManager: SessionManager, venmoAccountManager: VenmoAccountManager, spotifyAccountManager: SpotifyAccountManager, soundcloudAccountManager: SoundcloudAccountManager) {
+    init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
-        self.venmoAccountManager = venmoAccountManager
-        self.spotifyAccountManager = spotifyAccountManager
-        self.soundcloudAccountManager = soundcloudAccountManager
-        self.socialAccounts = [SocialAccount]()
+        venmoAccountManager = sessionManager.venmoAccountManager
+        spotifyAccountManager = sessionManager.spotifyAccountManager
+        soundcloudAccountManager = sessionManager.soundcloudAccountManager
+        socialAccounts = [SocialAccount]()
         
         super.init()
         
-        self.venmoAccountManager.delegate = self
-        self.spotifyAccountManager.delegate = self
-        self.soundcloudAccountManager.delegate = self
-        self.sessionManager.addSessionObserver(self)
-        
+        venmoAccountManager?.delegate = self
+        spotifyAccountManager?.delegate = self
+        soundcloudAccountManager?.delegate = self
+        sessionManager.addSessionObserver(self)
     }
     
     deinit {

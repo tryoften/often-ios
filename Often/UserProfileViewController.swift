@@ -36,6 +36,7 @@ class UserProfileViewController: UICollectionViewController,
         self.viewModel.delegate = self
         
         view.addSubview(contentFilterTabView)
+        view.layer.masksToBounds = true
         
         setupLayout()
     }

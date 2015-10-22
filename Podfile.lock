@@ -44,6 +44,9 @@ PODS:
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
   - iOS-Slide-Menu (1.5)
+  - MMWormhole (2.0.0):
+    - MMWormhole/Core (= 2.0.0)
+  - MMWormhole/Core (2.0.0)
   - Parse (1.8.5):
     - Bolts/Tasks (>= 1.2.2)
   - ParseFacebookUtils (1.8.5):
@@ -53,7 +56,7 @@ PODS:
   - ParseTwitterUtils (1.8.5):
     - Bolts/Tasks (>= 1.2.2)
     - Parse (~> 1.8.5)
-  - Reveal-iOS-SDK (1.5.1)
+  - Reveal-iOS-SDK (1.6.0)
   - SSKeychain (1.2.3)
   - TOMSMorphingLabel (0.5.1)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
@@ -71,7 +74,8 @@ DEPENDENCIES:
   - DateTools (~> 1.6)
   - Facebook-iOS-SDK (~> 3.0)
   - Firebase (>= 2.0.2)
-  - iOS-Slide-Menu (from `https://github.com/aryaxt/iOS-Slide-Menu.git`)
+  - iOS-Slide-Menu (from `https://github.com/washingtonmiranda/iOS-Slide-Menu.git`)
+  - MMWormhole (~> 2.0.0)
   - Parse
   - ParseFacebookUtils
   - ParseTwitterUtils
@@ -83,15 +87,15 @@ EXTERNAL SOURCES:
   Analytics:
     :git: https://github.com/October-Labs/analytics-ios.git
   iOS-Slide-Menu:
-    :git: https://github.com/aryaxt/iOS-Slide-Menu.git
+    :git: https://github.com/washingtonmiranda/iOS-Slide-Menu.git
 
 CHECKOUT OPTIONS:
   Analytics:
     :commit: f55c68031f7c92235f861ccc744623f9897db989
     :git: https://github.com/October-Labs/analytics-ios.git
   iOS-Slide-Menu:
-    :commit: 2ddf700588c4774faab85c55b44128a0fcf34144
-    :git: https://github.com/aryaxt/iOS-Slide-Menu.git
+    :commit: 5238734be5f6d801a0a7aae3d99a1ecfcafd6d35
+    :git: https://github.com/washingtonmiranda/iOS-Slide-Menu.git
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -104,10 +108,11 @@ SPEC CHECKSUMS:
   Firebase: 47f921f251c8982d147d90f2845816b21f016acc
   FlurrySDK: d4737cc34e5b01503a05bedeb2e011ef45c9b114
   iOS-Slide-Menu: 40b0cbd8916c42afc755f0869793cd09e7a32102
+  MMWormhole: 0cd3fd35a9118b2e2d762b499f54eeaace0be791
   Parse: 17ad8e0677ed682f7f00503860fcda0f4eb74168
   ParseFacebookUtils: 839b5f4a11aa1064a8e2c4be9babeaf052d54138
   ParseTwitterUtils: 408a2a9220b051c18fe45797db3f272d548e51f1
-  Reveal-iOS-SDK: c9c55cad2729c85f6ced415f1b21857c9a2d8ef9
+  Reveal-iOS-SDK: 6afacafd60f66f2822c09c43ae60562881bfab6e
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
   TOMSMorphingLabel: 3e88a2bf5257f8993ebc51fb3109187a0bfb2c4d
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0

@@ -9,8 +9,9 @@
 import UIKit
 
 class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewModelDelegate,
-    SearchSuggestionViewControllerDelegate {
+    SearchSuggestionViewControllerDelegate, SearchSuggestionsViewModelDelegate {
     var viewModel: SearchViewModel!
+    var suggestionsViewModel: SearchSuggestionsViewModel!
     var searchBarView: SearchBar!
     var supplementaryViewContainer: UIView!
     var supplementaryViewHeightConstraint: NSLayoutConstraint!
@@ -42,6 +43,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             }
         }
     }
+    var isNewSearch: Bool = false
 
     var activeServiceProvider: ServiceProvider? {
         didSet {
@@ -100,8 +102,13 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         supplementaryViewContainer.translatesAutoresizingMaskIntoConstraints = false
         supplementaryViewHeightConstraint = supplementaryViewContainer.al_height == 0
         
-        viewModel = SearchViewModel(base: Firebase(url: BaseURL))
+        let baseURL = Firebase(url: BaseURL)
+        viewModel = SearchViewModel(base: baseURL)
         viewModel.delegate = self
+        
+        suggestionsViewModel = SearchSuggestionsViewModel(base: baseURL)
+        suggestionsViewModel.delegate = self
+        suggestionsViewModel.suggestionsDelegate = self
         
         view.addSubview(searchSuggestionsViewController!.view)
         view.addSubview(supplementaryViewContainer)
@@ -183,6 +190,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func submitSearchRequest() {
         let query = searchBarView.textInput.text
         viewModel.sendRequestForQuery(query, autocomplete: false)
+        isNewSearch = true
         
         if searchBarView.textInput.selected {
             searchResultsViewController?.response = nil
@@ -193,11 +201,14 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func requestAutocompleteSuggestions() {
-        if searchBarView.textInput.text.isEmpty {
-            viewModel.sendRequestForQuery("#top-searches:10", autocomplete: true)
+        let query = searchBarView.textInput.text
+        
+        if query.isEmpty {
+            suggestionsViewModel.sendRequestForQuery("#top-searches:10", autocomplete: true)
+        } else if query == "#" {
+            suggestionsViewModel.sendRequestForQuery("#filters-list", autocomplete: true)
         } else {
-            let query = searchBarView.textInput.text
-            viewModel.sendRequestForQuery(query, autocomplete: true)
+            suggestionsViewModel.sendRequestForQuery(query, autocomplete: true)
         }
     }
     
@@ -265,26 +276,34 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     // MARK: SearchViewModelDelegate
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
-        let hasNoResultsDisplayed = searchResultsViewController?.response == nil
+        if response.results.isEmpty {
+            return
+        }
         
-        if responseChanged || hasNoResultsDisplayed || response.id != searchResultsViewController?.response?.id {
+        if isNewSearch {
             searchResultsViewController?.response = response
             searchResultsViewController?.refreshResults()
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
-        } else {
+            isNewSearch = false
+        } else if responseChanged {
             searchResultsViewController?.nextResponse = response
             searchResultsViewController?.showRefreshResultsButton()
         }
     }
     
-    func searchViewModelDidReceiveAutocompleteSuggestions(searchViewModel: SearchViewModel, suggestions: [[String: AnyObject]]?) {
+    // MARK: SearchSuggestionsViewModelDelegate
+    func searchSuggestionsViewModelDidReceiveSuggestions(searchSuggestionsViewModel: SearchSuggestionsViewModel, suggestions: [SearchSuggestion]?) {
         searchSuggestionsViewController?.suggestions = suggestions
     }
     
     // MARK: SearchSuggestionsViewControllerDelegate
-    func searchSuggestionViewControllerDidTapSuggestion(viewController: SearchSuggestionsViewController, suggestion: String) {
-        searchBarView.textInput.text = suggestion
-        textProcessor?.parseTextInCurrentDocumentProxy()
-        submitSearchRequest()
+    func searchSuggestionViewControllerDidTapSuggestion(viewController: SearchSuggestionsViewController, suggestion: SearchSuggestion) {
+        
+        searchBarView.textInput.text = suggestion.text
+        
+        if suggestion.type == .Query {
+            textProcessor?.parseTextInCurrentDocumentProxy()
+            submitSearchRequest()
+        }
     }
 }

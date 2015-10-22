@@ -253,7 +253,7 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     }
     
     func showRefreshResultsButton() {
-        refreshTimer = NSTimer(timeInterval: NSTimeInterval(5.0), target: self, selector: "displayRefreshResultsButton", userInfo: nil, repeats: false)
+        refreshTimer = NSTimer(timeInterval: NSTimeInterval(3.0), target: self, selector: "displayRefreshResultsButton", userInfo: nil, repeats: false)
     }
     
     func displayRefreshResultsButton() {

@@ -105,6 +105,8 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             print("Cell Type not defined")
         }
         
+        backgroundColor = VeryLightGray
+        
         setupLayout()
     }
     

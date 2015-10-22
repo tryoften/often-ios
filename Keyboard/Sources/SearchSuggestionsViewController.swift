@@ -9,21 +9,22 @@
 import UIKit
 
 let SearchSuggestionCellReuseIdentifier = "SearchSuggestionsCell"
+let ServiceProviderSuggestionCellReuseIdentifier = "ServiceProviderSuggestionCell"
 
 class SearchSuggestionsViewController: UITableViewController {
     var delegate: SearchSuggestionViewControllerDelegate?
-    var suggestions: [[String: AnyObject]]? {
+    var suggestions: [SearchSuggestion]? {
         didSet {
             tableView.reloadData()
             tableView.scrollRectToVisible(CGRectZero, animated: true)
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.registerClass(SearchSuggestionTableViewCell.self, forCellReuseIdentifier: SearchSuggestionCellReuseIdentifier)
+        tableView.registerClass(ServiceProviderSuggestionTableViewCell.self, forCellReuseIdentifier: ServiceProviderSuggestionCellReuseIdentifier)
         tableView.separatorColor = DarkGrey
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.contentInset = UIEdgeInsetsZero
@@ -65,27 +66,39 @@ class SearchSuggestionsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(SearchSuggestionCellReuseIdentifier, forIndexPath: indexPath) as! SearchSuggestionTableViewCell
+        var cell: UITableViewCell = UITableViewCell()
         
-        if let suggestion = suggestions?[indexPath.row] {
-            if let text = suggestion["text"] as? String {
-                cell.textLabel!.text = text.capitalizedString
-            }
+        guard let suggestion = suggestions?[indexPath.row] else {
+            return cell
+        }
+        
+        switch (suggestion.type) {
+        case .Filter:
+            cell = tableView.dequeueReusableCellWithIdentifier(ServiceProviderSuggestionCellReuseIdentifier, forIndexPath: indexPath)
             
-            if let resultsCount = suggestion["resultsCount"] as? Int {
-                cell.resultsCount = resultsCount
-            } else {
-                cell.resultsCount = nil
+            let filterCell = cell as! ServiceProviderSuggestionTableViewCell
+            if let image = suggestion.image {
+                filterCell.serviceProviderLogoImage = UIImage(named: image)
             }
+            cell.textLabel!.text = suggestion.text.capitalizedString
+            
+        case .Query:
+            cell = tableView.dequeueReusableCellWithIdentifier(SearchSuggestionCellReuseIdentifier, forIndexPath: indexPath)
+            cell.textLabel!.text = suggestion.text.capitalizedString
+            
+            let searchCell = cell as! SearchSuggestionTableViewCell
+            searchCell.resultsCount = suggestion.resultsCount
+            
+        case .Unknown:
+            break
         }
 
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let suggestion = suggestions?[indexPath.row],
-            let text = suggestion["text"] as? String {
-            delegate?.searchSuggestionViewControllerDidTapSuggestion(self, suggestion: text)
+        if let suggestion = suggestions?[indexPath.row] {
+            delegate?.searchSuggestionViewControllerDidTapSuggestion(self, suggestion: suggestion)
         }
     }
 
@@ -93,5 +106,5 @@ class SearchSuggestionsViewController: UITableViewController {
 
 
 protocol SearchSuggestionViewControllerDelegate: class {
-    func searchSuggestionViewControllerDidTapSuggestion(viewController: SearchSuggestionsViewController, suggestion: String)
+    func searchSuggestionViewControllerDidTapSuggestion(viewController: SearchSuggestionsViewController, suggestion: SearchSuggestion)
 }

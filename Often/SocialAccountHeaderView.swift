@@ -11,7 +11,7 @@ import Foundation
 class SocialAccountHeaderView: UICollectionReusableView {
     var titleView: UILabel
     var subtitleView: UILabel
-    var conncetImageView: UIImageView
+    var connectImageView: UIImageView
     var learnMoreButton: UIButton
     
     override init(frame: CGRect) {
@@ -35,16 +35,16 @@ class SocialAccountHeaderView: UICollectionReusableView {
         learnMoreButton.titleLabel?.font = UIFont(name: "Montserrat", size: 14.0)
         learnMoreButton.titleLabel?.textAlignment = .Left
         
-        conncetImageView = UIImageView()
-        conncetImageView.translatesAutoresizingMaskIntoConstraints = false
-        conncetImageView.contentMode = .ScaleAspectFit
-        conncetImageView.image = UIImage(named: "conncetImage")
+        connectImageView = UIImageView()
+        connectImageView.translatesAutoresizingMaskIntoConstraints = false
+        connectImageView.contentMode = .ScaleAspectFit
+        connectImageView.image = UIImage(named: "connectImage")
         
         super.init(frame: frame)
     
         addSubview(titleView)
         addSubview(subtitleView)
-        addSubview(conncetImageView)
+        addSubview(connectImageView)
         
         setupLayout()
     }
@@ -56,12 +56,12 @@ class SocialAccountHeaderView: UICollectionReusableView {
     
     func setupLayout() {
         addConstraints([
-            conncetImageView.al_top == al_top + 50,
-            conncetImageView.al_left == al_left + 20,
-            conncetImageView.al_right == al_right - 90,
-            conncetImageView.al_height == 100,
+            connectImageView.al_top == al_top + 50,
+            connectImageView.al_left == al_left + 20,
+            connectImageView.al_right == al_right - 90,
+            connectImageView.al_height == 100,
             
-            titleView.al_top == conncetImageView.al_bottom + 30,
+            titleView.al_top == connectImageView.al_bottom + 30,
             titleView.al_left == al_left + 20,
             titleView.al_right == al_right - 90,
             titleView.al_height == 16,

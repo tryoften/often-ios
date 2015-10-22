@@ -246,7 +246,7 @@ let SignUpAddArtistsLoaderViewBackgroundColor = UIColor.whiteColor()
 let SignUpAddArtistsTableViewCellImageViewBackgroundColor = UIColor.blueColor()
 
 //ErrorMessageView
-let ErrorMessageFont = UIFont(name: "OpenSans-Semibold", size: 10)
+let ErrorMessageFont = UIFont(name: "OpenSans-Semibold", size: 11)
 let ErrorMessageFontColor = UIColor.whiteColor()
 
 //TabBarController

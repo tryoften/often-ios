@@ -17,6 +17,7 @@ class SocialAccountsService: Service {
     let socialAccountsPath = "socialAccounts"
     var isUpdatingSocialAccount = false
     
+    
     init(user: User, root: Firebase) {
         self.user = user
         socialAccountsRef = root.childByAppendingPath("users/\(user.id)/accounts")

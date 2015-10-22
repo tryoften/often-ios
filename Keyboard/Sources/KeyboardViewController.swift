@@ -34,6 +34,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var firstWordQuickDeleted: Bool = false
     var lastLayoutBounds: CGRect?
     var userDefaults: NSUserDefaults
+    var messageChannel: MMWormhole
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
@@ -91,6 +92,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         userDefaults.setBool(true, forKey: "keyboardInstall")
         userDefaults.synchronize()
+        
+        messageChannel = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: nil)
+        messageChannel.passMessageObject("open", identifier: "keyboardOpen")
         
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
