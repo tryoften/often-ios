@@ -11,7 +11,6 @@ import Foundation
 class ArticleSearchResult: SearchResult {
     var title: String
     var link: String
-    
     var date: NSDate?
     var author: String?
     var description: String?
@@ -20,7 +19,15 @@ class ArticleSearchResult: SearchResult {
 
     override init(data: [String: AnyObject]) {
         self.title = data["title"] as! String
-        self.link = data["link"] as! String
+        self.link = ""
+            
+        if let link = data["link"] as? String {
+            self.link = link
+        }
+        
+        if let link = data["external_link"] as? String {
+            self.link = link
+        }
         
         self.author = data["author"] as? String
         self.description = data["description"] as? String

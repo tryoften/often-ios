@@ -24,7 +24,11 @@ class ServiceProviderSuggestionTableViewCell: SearchSuggestionTableViewCell {
         
         resultsCountLabel.hidden = true
         contentView.addSubview(serviceProviderLogo)
-        setupLayout()
+
+        addConstraints([
+            serviceProviderLogo.al_right == contentView.al_right - 15,
+            serviceProviderLogo.al_centerY == contentView.al_centerY
+        ])
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -32,9 +36,6 @@ class ServiceProviderSuggestionTableViewCell: SearchSuggestionTableViewCell {
     }
     
     override func setupLayout() {
-        addConstraints([
-            serviceProviderLogo.al_right == contentView.al_right - 15,
-            serviceProviderLogo.al_centerY == contentView.al_centerY
-        ])
+        super.setupLayout()
     }
 }
