@@ -28,7 +28,8 @@ class RootViewController: SlideNavigationController {
         let socialAccountViewModel = SocialAccountSettingsViewModel(sessionManager: sessionManager)
         let leftViewController = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: socialAccountViewModel)
         
-        let rightViewController = AppSettingsViewController()
+        let settingsViewModel = SettingsViewModel(sessionManager: sessionManager)
+        let rightViewController = AppSettingsViewController(viewModel: settingsViewModel)
         
         leftMenu = leftViewController
         rightMenu = rightViewController

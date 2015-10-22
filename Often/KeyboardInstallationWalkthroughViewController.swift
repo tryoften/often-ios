@@ -205,7 +205,6 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     }
     
     func displayTextMessageWalktrough() {
-        
         let textMessageController = TextMessageViewController(viewModel: self.viewModel)
         presentViewController(textMessageController, animated: true, completion: nil )
     }
