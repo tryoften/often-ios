@@ -369,6 +369,10 @@ let SigninViewSigninTwitterButtonColor = WhiteColor
 //WalkthroughViewController
 let WalkthroughViewControllerNextButtonFont = UIFont(name: "OpenSans-Semibold", size: 15)
 let WalkthroughViewControllerNextButtonBackgroundColor = UIColor(fromHexString: "#2CD2B4")
+
+//Settings View Cell
+let SettingsViewCellSecondaryTextColor = UIColor(fromHexString: "202020")
+
 // Main App
 let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 14)
 let FacebookButtonTitleTextColor = UIColor.whiteColor()

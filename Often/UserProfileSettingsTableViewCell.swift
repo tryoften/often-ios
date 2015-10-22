@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileSettingsTableViewCell: UITableViewCell {
+class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
     /**
     Default: Main text label and disclosure indicator
     Nondisclosure: Main text label and secondary text label
@@ -26,6 +26,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
     var cellType: SettingsCellType
     var titleLabel: UILabel
     var secondaryTextLabel: UILabel
+    var secondaryTextField: UITextField
     var settingSwitch: UISwitch
     var disclosureIndicator: UIImageView
     
@@ -33,6 +34,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
         cellType = type
         titleLabel = UILabel()
         secondaryTextLabel = UILabel()
+        secondaryTextField = UITextField()
         disclosureIndicator = UIImageView()
         settingSwitch = UISwitch()
         
@@ -50,16 +52,17 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
-            secondaryTextLabel.translatesAutoresizingMaskIntoConstraints = false
-            secondaryTextLabel.textColor = UIColor(fromHexString: "202020")
-            secondaryTextLabel.font = UIFont(name: "OpenSans", size: 14.0)
+            secondaryTextField.translatesAutoresizingMaskIntoConstraints = false
+            secondaryTextField.textColor = SettingsViewCellSecondaryTextColor
+            secondaryTextField.font = UIFont(name: "OpenSans", size: 14.0)
+            secondaryTextField.returnKeyType = .Done
             
         case .Detailed:
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
             secondaryTextLabel.translatesAutoresizingMaskIntoConstraints = false
-            secondaryTextLabel.textColor = UIColor(fromHexString: "202020")
+            secondaryTextLabel.textColor = SettingsViewCellSecondaryTextColor
             secondaryTextLabel.font = UIFont(name: "OpenSans", size: 14.0)
             secondaryTextLabel.backgroundColor = ClearColor
             
@@ -85,8 +88,9 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
             addSubview(disclosureIndicator)
             
         case .Nondisclosure:
+            secondaryTextField.delegate = self
             addSubview(titleLabel)
-            addSubview(secondaryTextLabel)
+            addSubview(secondaryTextField)
             
         case .Detailed:
             addSubview(titleLabel)
@@ -94,6 +98,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
             addSubview(disclosureIndicator)
             
         case .Switch:
+            settingSwitch.addTarget(self, action: "switchToggled", forControlEvents: .TouchUpInside)
             addSubview(titleLabel)
             addSubview(settingSwitch)
         default:
@@ -119,15 +124,35 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    //MARK: UISwitch
+    func switchToggled() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        if settingSwitch.on == true {
+            defaults.setBool(true, forKey: "notificationsOn")
+            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert,UIUserNotificationType.Sound, UIUserNotificationType.Badge], categories: nil))
+        } else {
+            defaults.setBool(false, forKey: "notificationsOn")
+        }
+    }
+    
+    //MARK: UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 
     func setupLayout() {
+        let slideOffset = SlideNavigationController.sharedInstance().portraitSlideOffset
+        
         switch cellType {
         case .Default:
             addConstraints([
-                titleLabel.al_left == al_left + 20,
+                titleLabel.al_left == al_left + (slideOffset + 10),
                 titleLabel.al_centerY == al_centerY,
                 
-                disclosureIndicator.al_right == al_right - 70,
+                disclosureIndicator.al_right == al_right - 20,
                 disclosureIndicator.al_centerY == al_centerY,
                 disclosureIndicator.al_width == 16,
                 disclosureIndicator.al_height == 16
@@ -135,23 +160,23 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
             
         case .Nondisclosure:
             addConstraints([
-                titleLabel.al_left == al_left + 20,
+                titleLabel.al_left == al_left + (slideOffset + 10),
                 titleLabel.al_centerY == al_centerY,
                 
-                secondaryTextLabel.al_right == al_right - 73,
-                secondaryTextLabel.al_centerY == al_centerY
+                secondaryTextField.al_right == al_right - 23,
+                secondaryTextField.al_centerY == al_centerY
             ])
             
         case .Detailed:
             addConstraints([
-                titleLabel.al_left == al_left + 20,
+                titleLabel.al_left == al_left + (slideOffset + 10),
                 titleLabel.al_centerY == al_centerY,
                 
                 secondaryTextLabel.al_width == 125,
                 secondaryTextLabel.al_right == disclosureIndicator.al_left - 10,
                 secondaryTextLabel.al_centerY == al_centerY,
                 
-                disclosureIndicator.al_right == al_right - 70,
+                disclosureIndicator.al_right == al_right - 20,
                 disclosureIndicator.al_centerY == al_centerY,
                 disclosureIndicator.al_width == 16,
                 disclosureIndicator.al_height == 16
@@ -159,10 +184,10 @@ class UserProfileSettingsTableViewCell: UITableViewCell {
             
         case .Switch:
             addConstraints([
-                titleLabel.al_left == al_left + 20,
+                titleLabel.al_left == al_left + (slideOffset + 10),
                 titleLabel.al_centerY == al_centerY,
                 
-                settingSwitch.al_right  == al_right - 70,
+                settingSwitch.al_right  == al_right - 20,
                 settingSwitch.al_centerY == al_centerY
             ])
         default:
