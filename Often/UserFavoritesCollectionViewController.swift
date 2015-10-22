@@ -39,8 +39,6 @@ class UserFavoritesCollectionViewController: UICollectionViewController, EmptySe
         
         super.init(collectionViewLayout: UserFavoritesCollectionViewController.provideCollectionViewLayout())
         
-        updateEmptySetVisible(false)
-        
         view.addSubview(emptyStateView)
         
         setupLayout()

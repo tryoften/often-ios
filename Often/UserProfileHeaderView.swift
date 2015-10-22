@@ -128,6 +128,11 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     }
     
     // UserScrollHeaderDelegate
+    
+    func userDidSelectTab(type: String) {
+        
+    }
+
     func userScrollViewDidScroll(offsetX: CGFloat) {
         leftHighlightBarPositionConstraint?.constant = offsetX / 2
         layoutIfNeeded()
@@ -148,7 +153,6 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
             }
         }
     }
-    
     
     func setupLayout() {
             leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left

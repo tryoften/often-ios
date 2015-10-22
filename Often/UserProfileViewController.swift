@@ -8,7 +8,17 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController, UserProfileHeaderDelegate, UserProfileViewModelDelegate, UserScrollTabCellDelegate, SlideNavigationControllerDelegate {
+class UserProfileViewController: UICollectionViewController,
+    UserProfileHeaderDelegate,
+    UserProfileViewModelDelegate,
+    SlideNavigationControllerDelegate {
+    
+    enum UserProfileCollectionType {
+        case Favorites
+        case Recents
+    }
+    
+    var collectionType: UserProfileCollectionType = .Favorites
     
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
@@ -17,13 +27,8 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
     var headerDelegate: UserScrollHeaderDelegate?
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 
-     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
+    init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
         contentFilterTabView = UserProfileFilterTabView()
         contentFilterTabView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,6 +43,10 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         setupLayout()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
@@ -45,8 +54,10 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
+        flowLayout.minimumLineSpacing = 0.0
+        flowLayout.minimumInteritemSpacing = 0.0
         flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
-        flowLayout.itemSize = CGSizeMake(screenWidth, 6 * 118)
+        flowLayout.itemSize = CGSizeMake(screenWidth, 118)
         return flowLayout
     }
     
@@ -60,8 +71,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
             collectionView.backgroundColor = WhiteColor
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "profile-header")
-            collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
-            collectionView.registerClass(UserScrollTabCollectionViewContainerCell.self, forCellWithReuseIdentifier: "resultCell")
+            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "resultCell")
         }
         
         
@@ -83,18 +93,166 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        if collectionType == .Favorites {
+            return viewModel.userFavorites.count // return the number of favorites for the current user
+        } else if collectionType == .Recents {
+            return 7 // return the number of recents for the current user
+        } else {
+            return 0
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! UserScrollTabCollectionViewContainerCell
-        cell.userFavoritesCollectionViewController.userFavorites = viewModel.userFavorites
-        cell.userRecentsCollectionViewController.userRecents  = viewModel.userRecents
-        
-        profileDelegate = cell
-        cell.delegate = self
-        
-        return cell
+        // same cell for both right now
+        if collectionType == .Favorites {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
+            
+            
+            if indexPath.row >= viewModel.userFavorites.count {
+                return cell
+            }
+            
+            guard let result = viewModel.userFavorites[indexPath.row] else {
+                return cell
+            }
+            
+            cell.reset()
+            
+            switch(result.type) {
+            case .Article:
+                let article = (result as! ArticleSearchResult)
+                cell.mainTextLabel.text = article.title
+                cell.leftSupplementLabel.text = article.author
+                cell.headerLabel.text = article.sourceName
+                cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
+                cell.centerSupplementLabel.text = nil
+            case .Track:
+                let track = (result as! TrackSearchResult)
+                cell.mainTextLabel.text = track.name
+                cell.rightSupplementLabel.text = track.formattedCreatedDate
+                
+                switch(result.source) {
+                case .Spotify:
+                    cell.headerLabel.text = "Spotify"
+                    cell.mainTextLabel.text = "\(track.name)"
+                    cell.leftSupplementLabel.text = track.artistName
+                    cell.rightSupplementLabel.text = track.albumName
+                case .Soundcloud:
+                    cell.headerLabel.text = track.artistName
+                    cell.leftSupplementLabel.text = track.formattedPlays()
+                default:
+                    break
+                }
+            case .Video:
+                let video = (result as! VideoSearchResult)
+                cell.mainTextLabel.text = video.title
+                cell.headerLabel.text = video.owner
+                
+                if let viewCount = video.viewCount {
+                    cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
+                }
+                
+                if let likeCount = video.likeCount {
+                    cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
+                }
+                
+                cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
+                
+            default:
+                break
+            }
+            
+            cell.searchResult = result
+            cell.overlayVisible = false
+            cell.contentImageView.image = nil
+            if  let image = result.image,
+                let imageURL = NSURL(string: image) {
+                    print("Loading image: \(imageURL)")
+                    cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
+                        cell.contentImageView.image = image
+                        }, failure: { (req, res, error) in
+                            print("Failed to load image: \(imageURL)")
+                    })
+            }
+            
+            cell.sourceLogoView.image = result.iconImageForSource()
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
+            
+            
+            if indexPath.row >= viewModel.userRecents.count {
+                return cell
+            }
+            
+            guard let result = viewModel.userRecents[indexPath.row] else {
+                return cell
+            }
+            
+            cell.reset()
+            
+            switch(result.type) {
+            case .Article:
+                let article = (result as! ArticleSearchResult)
+                cell.mainTextLabel.text = article.title
+                cell.leftSupplementLabel.text = article.author
+                cell.headerLabel.text = article.sourceName
+                cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
+                cell.centerSupplementLabel.text = nil
+            case .Track:
+                let track = (result as! TrackSearchResult)
+                cell.mainTextLabel.text = track.name
+                cell.rightSupplementLabel.text = track.formattedCreatedDate
+                
+                switch(result.source) {
+                case .Spotify:
+                    cell.headerLabel.text = "Spotify"
+                    cell.mainTextLabel.text = "\(track.name)"
+                    cell.leftSupplementLabel.text = track.artistName
+                    cell.rightSupplementLabel.text = track.albumName
+                case .Soundcloud:
+                    cell.headerLabel.text = track.artistName
+                    cell.leftSupplementLabel.text = track.formattedPlays()
+                default:
+                    break
+                }
+            case .Video:
+                let video = (result as! VideoSearchResult)
+                cell.mainTextLabel.text = video.title
+                cell.headerLabel.text = video.owner
+                
+                if let viewCount = video.viewCount {
+                    cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
+                }
+                
+                if let likeCount = video.likeCount {
+                    cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
+                }
+                
+                cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
+                
+            default:
+                break
+            }
+            
+            cell.searchResult = result
+            cell.overlayVisible = false
+            cell.contentImageView.image = nil
+            if  let image = result.image,
+                let imageURL = NSURL(string: image) {
+                    print("Loading image: \(imageURL)")
+                    cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
+                        cell.contentImageView.image = image
+                        }, failure: { (req, res, error) in
+                            print("Failed to load image: \(imageURL)")
+                    })
+            }
+            
+            cell.sourceLogoView.image = result.iconImageForSource()
+            
+            return cell
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -116,12 +274,6 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
             }
             
             return headerView!
-        } else if kind == UICollectionElementKindSectionHeader {
-            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! UserProfileSectionHeaderView
-            
-            sectionHeaderView = cell
-            
-            return cell
         }
         
         return UICollectionReusableView()
@@ -164,20 +316,23 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     }
     
     func userFavoritesTabSelected() {
-        if let delegate = profileDelegate {
-            delegate.favoritesTabSelected()
+        collectionType = .Favorites
+        
+        if let collectionView = collectionView {
+            collectionView.reloadSections(NSIndexSet(index: 0))
         }
+        
+        headerDelegate?.userDidSelectTab("favorites")
     }
     
     func userRecentsTabSelected() {
-        if let delegate = profileDelegate {
-            delegate.recentsTabSelected()
+        collectionType = .Recents
+        
+        if let collectionView = collectionView {
+            collectionView.reloadSections(NSIndexSet(index: 0))
         }
-    }
-    
-    // UserScrollTabCellDelegate
-    func userScrollViewDidScroll(offsetX: CGFloat) {
-        headerDelegate?.userScrollViewDidScroll(offsetX)
+        
+        headerDelegate?.userDidSelectTab("recents")
     }
 }
 
@@ -187,5 +342,5 @@ protocol UserProfileViewControllerDelegate {
 }
 
 protocol UserScrollHeaderDelegate  {
-    func userScrollViewDidScroll(offsetX: CGFloat)
+    func userDidSelectTab(type: String)
 }
