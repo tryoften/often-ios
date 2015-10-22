@@ -9,6 +9,7 @@
 import UIKit
 
 class UserProfileViewController: UICollectionViewController,
+    UserProfileHeaderDelegate,
     UserProfileViewModelDelegate,
     SlideNavigationControllerDelegate {
     
@@ -141,6 +142,7 @@ class UserProfileViewController: UICollectionViewController,
     
             if headerView == nil {
                 headerView = cell
+                headerView?.delegate = self
                 headerDelegate = headerView
             }
             
