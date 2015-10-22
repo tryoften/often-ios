@@ -14,6 +14,8 @@ class UserProfileFilterTabView: UIView {
     let videosFilterButton: UIButton
     let linksFilterButton: UIButton
     let gifsFilterButton: UIButton
+    let highlightBar: UIView
+    var highlightBarLeftConstraint: NSLayoutConstraint?
     
     override init(frame: CGRect) {
         allFilterButton = UIButton()
@@ -52,6 +54,10 @@ class UserProfileFilterTabView: UIView {
         gifsFilterButton.setTitleColor(LightGrey, forState: .Normal)
         gifsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
         
+        highlightBar = UIView()
+        highlightBar.translatesAutoresizingMaskIntoConstraints = false
+        highlightBar.backgroundColor = TealColor
+        
         super.init(frame: frame)
         
         backgroundColor = WhiteColor
@@ -67,6 +73,7 @@ class UserProfileFilterTabView: UIView {
         addSubview(videosFilterButton)
         addSubview(linksFilterButton)
         addSubview(gifsFilterButton)
+        addSubview(highlightBar)
         
         setupLayout()
 
@@ -81,6 +88,8 @@ class UserProfileFilterTabView: UIView {
     }
     
     func setupLayout() {
+        highlightBarLeftConstraint = highlightBar.al_left == allFilterButton.al_left
+        
         addConstraints([
             allFilterButton.al_top == al_top,
             allFilterButton.al_left == al_left,
@@ -105,12 +114,19 @@ class UserProfileFilterTabView: UIView {
             gifsFilterButton.al_left == linksFilterButton.al_right,
             gifsFilterButton.al_top == al_top,
             gifsFilterButton.al_bottom == al_bottom,
-            gifsFilterButton.al_right == al_right
+            gifsFilterButton.al_right == al_right,
+            
+            highlightBarLeftConstraint!,
+            highlightBar.al_bottom == al_bottom,
+            highlightBar.al_height == 4.0,
+            highlightBar.al_width == UIScreen.mainScreen().bounds.width / 5
         ])
     }
     
     //Filter Method
     func filterButtonTapped(button: UIButton) {
+        let buttonWidth = UIScreen.mainScreen().bounds.width / 5
+        
         if let title = button.titleLabel?.text {
             switch title {
             case "ALL":
@@ -122,6 +138,7 @@ class UserProfileFilterTabView: UIView {
                     videosFilterButton.selected = false
                     linksFilterButton.selected = false
                     gifsFilterButton.selected = false
+                    highlightBarLeftConstraint?.constant = 0.0
                 }
                 break
             case "SONGS":
@@ -133,6 +150,7 @@ class UserProfileFilterTabView: UIView {
                     videosFilterButton.selected = false
                     linksFilterButton.selected = false
                     gifsFilterButton.selected = false
+                    highlightBarLeftConstraint?.constant = buttonWidth
                 }
                 break
             case "VIDEOS":
@@ -144,6 +162,7 @@ class UserProfileFilterTabView: UIView {
                     videosFilterButton.selected = true
                     linksFilterButton.selected = false
                     gifsFilterButton.selected = false
+                    highlightBarLeftConstraint?.constant = buttonWidth * 2
                 }
                 break
             case "LINKS":
@@ -155,6 +174,7 @@ class UserProfileFilterTabView: UIView {
                     videosFilterButton.selected = false
                     linksFilterButton.selected = true
                     gifsFilterButton.selected = false
+                    highlightBarLeftConstraint?.constant = buttonWidth * 3
                 }
                 break
             case "GIFS":
@@ -166,6 +186,7 @@ class UserProfileFilterTabView: UIView {
                     videosFilterButton.selected = false
                     linksFilterButton.selected = false
                     gifsFilterButton.selected = true
+                    highlightBarLeftConstraint?.constant = buttonWidth * 4
                 }
                 break
             default:
