@@ -8,10 +8,12 @@
 
 import UIKit
 
+/// This view is a container for a SearchTextField view and button(s) to the left or right of the
+/// text field (i.e. filter button)
 class SearchBar: UIView {
     var topSeperator: UIView
     var bottomSeperator: UIView
-    var middleSeperator: UIView
+
     var textInput: SearchTextField
     var textInputLeftConstraint: NSLayoutConstraint?
     var shareButtonLeftConstraint: NSLayoutConstraint!
@@ -19,22 +21,22 @@ class SearchBar: UIView {
         didSet {
             if let button = providerButton {
                 addButton(button)
-                textInput.centerLeftView = false
-            } else {
-                textInput.centerLeftView = true
             }
             toggleShareButton(true)
         }
     }
 
     var shareButton: UIButton
+    var shareButtonLeftPadding: CGFloat {
+        return CGRectGetWidth(frame) - 40
+    }
+    
     private var buttons: [SearchBarButton]
 
     override init(frame: CGRect) {
         textInput = SearchTextField()
         textInput.backgroundColor = UIColor.whiteColor()
         textInput.translatesAutoresizingMaskIntoConstraints = false
-        textInput.centerLeftView = true
         textInput.textColor = UIColor.blackColor()
         
         topSeperator = UIView()
@@ -44,11 +46,7 @@ class SearchBar: UIView {
         bottomSeperator = UIView()
         bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
         bottomSeperator.backgroundColor = DarkGrey
-        
-        middleSeperator = UIView()
-        middleSeperator.translatesAutoresizingMaskIntoConstraints = false
-        middleSeperator.backgroundColor = BlackColor
-        
+
         shareButton = UIButton()
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -64,7 +62,6 @@ class SearchBar: UIView {
         addSubview(shareButton)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
-        addSubview(middleSeperator)
 
         setupLayout()
     }
@@ -74,10 +71,6 @@ class SearchBar: UIView {
         
         if frame.size.width == 0 || frame.size.height == 0 {
             return
-        }
-        
-        if textInput.leftView == nil {
-            textInput.setDefaultLeftView()
         }
         
         toggleShareButton()
@@ -139,8 +132,7 @@ class SearchBar: UIView {
         providerButton = nil
         textInput.selected = false
         textInput.text = ""
-        textInput.placeholder = ""
-        textInput.setDefaultLeftView()
+        textInput.placeholder = textInput.placeholderText
         toggleShareButton(true)
     }
     
@@ -159,7 +151,7 @@ class SearchBar: UIView {
         if shouldShowShareButton() {
             shareButtonLeftConstraint.constant = CGRectGetWidth(frame)
         } else {
-            shareButtonLeftConstraint.constant = CGRectGetWidth(frame) / 2
+            shareButtonLeftConstraint.constant = shareButtonLeftPadding
         }
         
         if animated {
@@ -175,7 +167,7 @@ class SearchBar: UIView {
 
     func setupLayout() {
         textInputLeftConstraint = textInput.al_left == al_left + 5
-        shareButtonLeftConstraint = shareButton.al_left == al_left + CGRectGetWidth(frame) / 2
+        shareButtonLeftConstraint = shareButton.al_left == al_left + shareButtonLeftPadding
 
         addConstraints([
             textInput.al_top == al_top + 5,
@@ -193,13 +185,8 @@ class SearchBar: UIView {
             bottomSeperator.al_width == al_width,
             bottomSeperator.al_height == 0.6,
             
-            middleSeperator.al_width == 1,
-            middleSeperator.al_left == shareButton.al_left,
-            middleSeperator.al_centerY == al_centerY,
-            middleSeperator.al_height == al_height - 20,
-            
-            shareButton.al_width == al_width / 2,
             shareButtonLeftConstraint,
+            shareButton.al_width == 40,
             shareButton.al_top == al_top,
             shareButton.al_height == al_height
         ])

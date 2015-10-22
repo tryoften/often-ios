@@ -12,7 +12,9 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     SearchSuggestionViewControllerDelegate, SearchSuggestionsViewModelDelegate {
     var viewModel: SearchViewModel!
     var suggestionsViewModel: SearchSuggestionsViewModel!
+    
     var searchBarView: SearchBar!
+    
     var supplementaryViewContainer: UIView!
     var supplementaryViewHeightConstraint: NSLayoutConstraint!
     var bottomSeperator: UIView!
