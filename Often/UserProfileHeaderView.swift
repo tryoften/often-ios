@@ -129,7 +129,7 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     
     // UserScrollHeaderDelegate
     
-    func userDidSelectTab(type: String) {
+    func userDidSelectTab(type: UserProfileCollectionType) {
         
     }
 

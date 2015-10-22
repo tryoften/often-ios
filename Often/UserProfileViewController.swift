@@ -13,16 +13,9 @@ class UserProfileViewController: UICollectionViewController,
     UserProfileViewModelDelegate,
     SlideNavigationControllerDelegate {
     
-    enum UserProfileCollectionType {
-        case Favorites
-        case Recents
-    }
-    
     var collectionType: UserProfileCollectionType = .Favorites
-    
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
-    
     var contentFilterTabView: UserProfileFilterTabView
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
@@ -73,8 +66,6 @@ class UserProfileViewController: UICollectionViewController,
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "profile-header")
             collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "resultCell")
         }
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -93,166 +84,97 @@ class UserProfileViewController: UICollectionViewController,
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionType == .Favorites {
-            return viewModel.userFavorites.count // return the number of favorites for the current user
-        } else if collectionType == .Recents {
-            return 7 // return the number of recents for the current user
-        } else {
-            return 0
+        switch(collectionType) {
+        case .Favorites:
+            return viewModel.userFavorites.count
+        case .Recents:
+            return viewModel.userRecents.count
         }
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        // same cell for both right now
-        if collectionType == .Favorites {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-            
-            
-            if indexPath.row >= viewModel.userFavorites.count {
-                return cell
-            }
-            
-            guard let result = viewModel.userFavorites[indexPath.row] else {
-                return cell
-            }
-            
-            cell.reset()
-            
-            switch(result.type) {
-            case .Article:
-                let article = (result as! ArticleSearchResult)
-                cell.mainTextLabel.text = article.title
-                cell.leftSupplementLabel.text = article.author
-                cell.headerLabel.text = article.sourceName
-                cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
-                cell.centerSupplementLabel.text = nil
-            case .Track:
-                let track = (result as! TrackSearchResult)
-                cell.mainTextLabel.text = track.name
-                cell.rightSupplementLabel.text = track.formattedCreatedDate
-                
-                switch(result.source) {
-                case .Spotify:
-                    cell.headerLabel.text = "Spotify"
-                    cell.mainTextLabel.text = "\(track.name)"
-                    cell.leftSupplementLabel.text = track.artistName
-                    cell.rightSupplementLabel.text = track.albumName
-                case .Soundcloud:
-                    cell.headerLabel.text = track.artistName
-                    cell.leftSupplementLabel.text = track.formattedPlays()
-                default:
-                    break
-                }
-            case .Video:
-                let video = (result as! VideoSearchResult)
-                cell.mainTextLabel.text = video.title
-                cell.headerLabel.text = video.owner
-                
-                if let viewCount = video.viewCount {
-                    cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
-                }
-                
-                if let likeCount = video.likeCount {
-                    cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
-                }
-                
-                cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
-                
-            default:
-                break
-            }
-            
-            cell.searchResult = result
-            cell.overlayVisible = false
-            cell.contentImageView.image = nil
-            if  let image = result.image,
-                let imageURL = NSURL(string: image) {
-                    print("Loading image: \(imageURL)")
-                    cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
-                        cell.contentImageView.image = image
-                        }, failure: { (req, res, error) in
-                            print("Failed to load image: \(imageURL)")
-                    })
-            }
-            
-            cell.sourceLogoView.image = result.iconImageForSource()
-            
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-            
-            
-            if indexPath.row >= viewModel.userRecents.count {
-                return cell
-            }
-            
-            guard let result = viewModel.userRecents[indexPath.row] else {
-                return cell
-            }
-            
-            cell.reset()
-            
-            switch(result.type) {
-            case .Article:
-                let article = (result as! ArticleSearchResult)
-                cell.mainTextLabel.text = article.title
-                cell.leftSupplementLabel.text = article.author
-                cell.headerLabel.text = article.sourceName
-                cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
-                cell.centerSupplementLabel.text = nil
-            case .Track:
-                let track = (result as! TrackSearchResult)
-                cell.mainTextLabel.text = track.name
-                cell.rightSupplementLabel.text = track.formattedCreatedDate
-                
-                switch(result.source) {
-                case .Spotify:
-                    cell.headerLabel.text = "Spotify"
-                    cell.mainTextLabel.text = "\(track.name)"
-                    cell.leftSupplementLabel.text = track.artistName
-                    cell.rightSupplementLabel.text = track.albumName
-                case .Soundcloud:
-                    cell.headerLabel.text = track.artistName
-                    cell.leftSupplementLabel.text = track.formattedPlays()
-                default:
-                    break
-                }
-            case .Video:
-                let video = (result as! VideoSearchResult)
-                cell.mainTextLabel.text = video.title
-                cell.headerLabel.text = video.owner
-                
-                if let viewCount = video.viewCount {
-                    cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
-                }
-                
-                if let likeCount = video.likeCount {
-                    cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
-                }
-                
-                cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
-                
-            default:
-                break
-            }
-            
-            cell.searchResult = result
-            cell.overlayVisible = false
-            cell.contentImageView.image = nil
-            if  let image = result.image,
-                let imageURL = NSURL(string: image) {
-                    print("Loading image: \(imageURL)")
-                    cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
-                        cell.contentImageView.image = image
-                        }, failure: { (req, res, error) in
-                            print("Failed to load image: \(imageURL)")
-                    })
-            }
-            
-            cell.sourceLogoView.image = result.iconImageForSource()
-            
+        switch(collectionType) {
+        case .Favorites:
+            return  parseSearchResultsData(viewModel.userFavorites, indexPath: indexPath, collectionView: collectionView)
+        case .Recents:
+            return parseSearchResultsData(viewModel.userRecents, indexPath: indexPath, collectionView: collectionView)
+        }
+    }
+    
+    func parseSearchResultsData(searchResultsData:[SearchResult?], indexPath:NSIndexPath, collectionView: UICollectionView) -> SearchResultsCollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
+        
+        
+        if indexPath.row >= searchResultsData.count {
             return cell
         }
+        
+        guard let result = searchResultsData[indexPath.row] else {
+            return cell
+        }
+        
+        cell.reset()
+        
+        switch(result.type) {
+        case .Article:
+            let article = (result as! ArticleSearchResult)
+            cell.mainTextLabel.text = article.title
+            cell.leftSupplementLabel.text = article.author
+            cell.headerLabel.text = article.sourceName
+            cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
+            cell.centerSupplementLabel.text = nil
+        case .Track:
+            let track = (result as! TrackSearchResult)
+            cell.mainTextLabel.text = track.name
+            cell.rightSupplementLabel.text = track.formattedCreatedDate
+            
+            switch(result.source) {
+            case .Spotify:
+                cell.headerLabel.text = "Spotify"
+                cell.mainTextLabel.text = "\(track.name)"
+                cell.leftSupplementLabel.text = track.artistName
+                cell.rightSupplementLabel.text = track.albumName
+            case .Soundcloud:
+                cell.headerLabel.text = track.artistName
+                cell.leftSupplementLabel.text = track.formattedPlays()
+            default:
+                break
+            }
+        case .Video:
+            let video = (result as! VideoSearchResult)
+            cell.mainTextLabel.text = video.title
+            cell.headerLabel.text = video.owner
+            
+            if let viewCount = video.viewCount {
+                cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
+            }
+            
+            if let likeCount = video.likeCount {
+                cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
+            }
+            
+            cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
+            
+        default:
+            break
+        }
+        
+        cell.searchResult = result
+        cell.overlayVisible = false
+        cell.contentImageView.image = nil
+        if  let image = result.image,
+            let imageURL = NSURL(string: image) {
+                print("Loading image: \(imageURL)")
+                cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
+                    cell.contentImageView.image = image
+                    }, failure: { (req, res, error) in
+                        print("Failed to load image: \(imageURL)")
+                })
+        }
+        
+        cell.sourceLogoView.image = result.iconImageForSource()
+        
+        return cell
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -322,7 +244,7 @@ class UserProfileViewController: UICollectionViewController,
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
         
-        headerDelegate?.userDidSelectTab("favorites")
+        headerDelegate?.userDidSelectTab(.Favorites)
     }
     
     func userRecentsTabSelected() {
@@ -332,8 +254,13 @@ class UserProfileViewController: UICollectionViewController,
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
         
-        headerDelegate?.userDidSelectTab("recents")
+        headerDelegate?.userDidSelectTab(.Favorites)
     }
+}
+
+enum UserProfileCollectionType {
+    case Favorites
+    case Recents
 }
 
 protocol UserProfileViewControllerDelegate {
@@ -342,5 +269,5 @@ protocol UserProfileViewControllerDelegate {
 }
 
 protocol UserScrollHeaderDelegate  {
-    func userDidSelectTab(type: String)
+    func userDidSelectTab(type: UserProfileCollectionType)
 }

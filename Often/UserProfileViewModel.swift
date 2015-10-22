@@ -58,6 +58,19 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
             }
         })
         
+        recentsRef = recentsRef.childByAppendingPath("users/\(user.id)/recents")
+        recentsRef.keepSynced(true)
+        
+        recentsRef.observeEventType(.Value, withBlock: { snapshot in
+            
+            if let data = snapshot.value as? [String: AnyObject] {
+                for (_,favoritesData) in data {
+                    self.userRecents.append(self.processSearchResultData(favoritesData as! [String : AnyObject]))
+                }
+                self.delegate?.userProfileViewModelDidPullUserFavorites(self)
+            }
+        })
+        
     }
     
     func processSearchResultData(resultData: [String: AnyObject]) -> SearchResult? {
