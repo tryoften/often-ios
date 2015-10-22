@@ -13,13 +13,33 @@ let userFavoritesReuseIdentifier = "favoritesCell"
 class UserFavoritesCollectionViewController: UICollectionViewController, EmptySetDelegate {
     var emptyStateViewLayoutConstraint: NSLayoutConstraint?
     var emptyStateView: EmptySetView
+    var userDefaults: NSUserDefaults
+    var userFavorites:[SearchResult?] {
+        didSet{
+            self.collectionView?.reloadData()
+        }
+    }
     
     init() {
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        
         emptyStateView = EmptySetView()
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
-        emptyStateView.updateEmptyStateContent(.NoKeyboard)
+        emptyStateView.updateEmptyStateContent(.NoFavorites)
+        
+        if !userDefaults.boolForKey("twitter") {
+            emptyStateView.updateEmptyStateContent(.NoTwitter)
+        }
+        
+        if !userDefaults.boolForKey("keyboardInstall") {
+            emptyStateView.updateEmptyStateContent(.NoKeyboard)
+        }
+        
+        userFavorites = []
         
         super.init(collectionViewLayout: UserFavoritesCollectionViewController.provideCollectionViewLayout())
+        
+        updateEmptySetVisible(false)
         
         view.addSubview(emptyStateView)
         
@@ -63,7 +83,7 @@ class UserFavoritesCollectionViewController: UICollectionViewController, EmptySe
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numItems = 7
+        let numItems = userFavorites.count
         
         if numItems == 0 {
             updateEmptySetVisible(true)
@@ -76,15 +96,76 @@ class UserFavoritesCollectionViewController: UICollectionViewController, EmptySe
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(userFavoritesReuseIdentifier, forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-    
-        cell.sourceLogoView.image = UIImage(named: "complex")
-        cell.headerLabel.text = "@ComplexMag"
-        cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."
-        cell.leftSupplementLabel.text = "3.1K Retweets"
-        cell.centerSupplementLabel.text = "4.5K Favorites"
-        cell.rightSupplementLabel.text = "July 25, 2015"
-        cell.rightCornerImageView.image = UIImage(named: "twitter")
-        cell.contentImage = UIImage(named: "ovosound")
+
+        
+        if indexPath.row >= userFavorites.count {
+            return cell
+        }
+        
+        guard let result = userFavorites[indexPath.row] else {
+            return cell
+        }
+        
+        cell.reset()
+        
+        switch(result.type) {
+        case .Article:
+            let article = (result as! ArticleSearchResult)
+            cell.mainTextLabel.text = article.title
+            cell.leftSupplementLabel.text = article.author
+            cell.headerLabel.text = article.sourceName
+            cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
+            cell.centerSupplementLabel.text = nil
+        case .Track:
+            let track = (result as! TrackSearchResult)
+            cell.mainTextLabel.text = track.name
+            cell.rightSupplementLabel.text = track.formattedCreatedDate
+            
+            switch(result.source) {
+            case .Spotify:
+                cell.headerLabel.text = "Spotify"
+                cell.mainTextLabel.text = "\(track.name)"
+                cell.leftSupplementLabel.text = track.artistName
+                cell.rightSupplementLabel.text = track.albumName
+            case .Soundcloud:
+                cell.headerLabel.text = track.artistName
+                cell.leftSupplementLabel.text = track.formattedPlays()
+            default:
+                break
+            }
+        case .Video:
+            let video = (result as! VideoSearchResult)
+            cell.mainTextLabel.text = video.title
+            cell.headerLabel.text = video.owner
+            
+            if let viewCount = video.viewCount {
+                cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
+            }
+            
+            if let likeCount = video.likeCount {
+                cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
+            }
+            
+            cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
+            
+        default:
+            break
+        }
+        
+        cell.searchResult = result
+        cell.overlayVisible = false
+        cell.contentImageView.image = nil
+        if  let image = result.image,
+            let imageURL = NSURL(string: image) {
+                print("Loading image: \(imageURL)")
+                cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
+                    cell.contentImageView.image = image
+                    }, failure: { (req, res, error) in
+                        print("Failed to load image: \(imageURL)")
+                })
+        }
+        
+        cell.sourceLogoView.image = result.iconImageForSource()
         
         return cell
     }

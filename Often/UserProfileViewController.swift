@@ -30,6 +30,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
         
         super.init(collectionViewLayout: collectionViewLayout)
         self.viewModel.delegate = self
+        self.viewModel.requestData()
         
         view.addSubview(contentFilterTabView)
         view.layer.masksToBounds = true
@@ -52,6 +53,9 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        
         if let collectionView = collectionView {
             collectionView.backgroundColor = WhiteColor
             collectionView.showsVerticalScrollIndicator = false
@@ -59,6 +63,7 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(UserScrollTabCollectionViewContainerCell.self, forCellWithReuseIdentifier: "resultCell")
         }
+        
         
     }
     
@@ -83,6 +88,8 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! UserScrollTabCollectionViewContainerCell
+        cell.userFavoritesCollectionViewController.userFavorites = viewModel.userFavorites
+        cell.userRecentsCollectionViewController.userRecents  = viewModel.userRecents
         
         profileDelegate = cell
         cell.delegate = self
@@ -101,7 +108,6 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
                 }
                 
             }
-    
     
             if headerView == nil {
                 headerView = cell
@@ -132,7 +138,12 @@ class UserProfileViewController: UICollectionViewController, UserProfileHeaderDe
 
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
         collectionView?.reloadData()
+        PKHUD.sharedHUD.hide(animated: true)
         
+    }
+    
+    func userProfileViewModelDidPullUserFavorites(userProfileViewModel: UserProfileViewModel) {
+        collectionView?.reloadData()
     }
     
     func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
