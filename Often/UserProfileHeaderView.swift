@@ -130,7 +130,11 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     // UserScrollHeaderDelegate
     
     func userDidSelectTab(type: String) {
-        
+        if type == "favorites" {
+            leftHighlightBarPositionConstraint?.constant = 0.0
+        } else {
+            leftHighlightBarPositionConstraint?.constant = UIScreen.mainScreen().bounds.width / 2
+        }
     }
 
     func userScrollViewDidScroll(offsetX: CGFloat) {
