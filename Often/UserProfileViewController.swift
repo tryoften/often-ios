@@ -132,7 +132,14 @@ class UserProfileViewController: UICollectionViewController,
         if kind == CSStickyHeaderParallaxHeader {
             let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "profile-header", forIndexPath: indexPath) as! UserProfileHeaderView
             if let user = viewModel.currentUser {
-                cell.descriptionLabel.text = user.userDescription
+                let subtitle = NSMutableAttributedString(string: user.userDescription)
+                let subtitleRange = NSMakeRange(0, user.userDescription.characters.count)
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 3
+                subtitle.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:subtitleRange)
+                subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
+                cell.descriptionLabel.attributedText = subtitle
+                cell.descriptionLabel.textAlignment = .Center
                 cell.nameLabel.text = user.name
                 if !user.profileImageLarge.isEmpty {
                     cell.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge)!)
