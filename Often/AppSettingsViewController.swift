@@ -124,6 +124,7 @@ SlideNavigationControllerDelegate {
             switch settingsSection {
             case .Account:
                 if indexPath.row == 0 { // name
+                    // To allow name editing on same view inside of the cell
                     let cell = tableView.cellForRowAtIndexPath(indexPath) as! UserProfileSettingsTableViewCell
                     cell.secondaryTextField.becomeFirstResponder()
                 } else if indexPath.row == 1 { // email
@@ -254,7 +255,7 @@ SlideNavigationControllerDelegate {
         return cell
     }
     
-    // MARK: MFMailComposeViewControllerDelegate
+    // MARK: MFMailComposeViewControllerDelegate - (Does not work in Simulator)
     func launchEmail(sender: AnyObject) {
         let emailTitle = "Often Feedback"
         let messageBody = ""
