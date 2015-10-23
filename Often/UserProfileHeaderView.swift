@@ -141,11 +141,6 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         }
 
     }
-
-    func userScrollViewDidScroll(offsetX: CGFloat) {
-        leftHighlightBarPositionConstraint?.constant = offsetX / 2
-        layoutIfNeeded()
-    }
     
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
         

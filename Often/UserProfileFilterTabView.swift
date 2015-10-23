@@ -9,11 +9,16 @@
 import UIKit
 
 class UserProfileFilterTabView: UIView {
+    
     let allFilterButton: UIButton
     let songsFilterButton: UIButton
     let videosFilterButton: UIButton
     let linksFilterButton: UIButton
     let gifsFilterButton: UIButton
+    let highlightBar: UIView
+    var highlightBarLeftConstraint: NSLayoutConstraint?
+    
+    var buttons: [UIButton]
     
     override init(frame: CGRect) {
         allFilterButton = UIButton()
@@ -52,6 +57,12 @@ class UserProfileFilterTabView: UIView {
         gifsFilterButton.setTitleColor(LightGrey, forState: .Normal)
         gifsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
         
+        highlightBar = UIView()
+        highlightBar.translatesAutoresizingMaskIntoConstraints = false
+        highlightBar.backgroundColor = TealColor
+        
+        buttons = [allFilterButton, songsFilterButton, videosFilterButton, linksFilterButton, gifsFilterButton]
+        
         super.init(frame: frame)
         
         backgroundColor = WhiteColor
@@ -67,6 +78,7 @@ class UserProfileFilterTabView: UIView {
         addSubview(videosFilterButton)
         addSubview(linksFilterButton)
         addSubview(gifsFilterButton)
+        addSubview(highlightBar)
         
         setupLayout()
 
@@ -81,6 +93,8 @@ class UserProfileFilterTabView: UIView {
     }
     
     func setupLayout() {
+        highlightBarLeftConstraint = highlightBar.al_left == allFilterButton.al_left
+        
         addConstraints([
             allFilterButton.al_top == al_top,
             allFilterButton.al_left == al_left,
@@ -105,73 +119,27 @@ class UserProfileFilterTabView: UIView {
             gifsFilterButton.al_left == linksFilterButton.al_right,
             gifsFilterButton.al_top == al_top,
             gifsFilterButton.al_bottom == al_bottom,
-            gifsFilterButton.al_right == al_right
+            gifsFilterButton.al_right == al_right,
+            
+            highlightBarLeftConstraint!,
+            highlightBar.al_bottom == al_bottom,
+            highlightBar.al_height == 4.0,
+            highlightBar.al_width == UIScreen.mainScreen().bounds.width / 5
         ])
     }
     
     //Filter Method
     func filterButtonTapped(button: UIButton) {
-        if let title = button.titleLabel?.text {
-            switch title {
-            case "ALL":
-                if allFilterButton.selected == true {
-                    //do nothing
-                } else {
-                    allFilterButton.selected = true
-                    songsFilterButton.selected = false
-                    videosFilterButton.selected = false
-                    linksFilterButton.selected = false
-                    gifsFilterButton.selected = false
-                }
-                break
-            case "SONGS":
-                if songsFilterButton.selected == true {
-                    //do nothing
-                } else {
-                    allFilterButton.selected = false
-                    songsFilterButton.selected = true
-                    videosFilterButton.selected = false
-                    linksFilterButton.selected = false
-                    gifsFilterButton.selected = false
-                }
-                break
-            case "VIDEOS":
-                if videosFilterButton.selected == true {
-                    //do nothing
-                } else {
-                    allFilterButton.selected = false
-                    songsFilterButton.selected = false
-                    videosFilterButton.selected = true
-                    linksFilterButton.selected = false
-                    gifsFilterButton.selected = false
-                }
-                break
-            case "LINKS":
-                if linksFilterButton.selected == true {
-                    //do nothing
-                } else {
-                    allFilterButton.selected = false
-                    songsFilterButton.selected = false
-                    videosFilterButton.selected = false
-                    linksFilterButton.selected = true
-                    gifsFilterButton.selected = false
-                }
-                break
-            case "GIFS":
-                if gifsFilterButton.selected == true {
-                    //do nothing
-                } else {
-                    allFilterButton.selected = false
-                    songsFilterButton.selected = false
-                    videosFilterButton.selected = false
-                    linksFilterButton.selected = false
-                    gifsFilterButton.selected = true
-                }
-                break
-            default:
-                print("Defaulted")
-                break
+        let buttonWidth = UIScreen.mainScreen().bounds.width / 5
+        
+        for var i = 0; i < buttons.count; i++ {
+            if buttons[i] == button {
+                buttons[i].selected = true
+                highlightBarLeftConstraint?.constant = (buttonWidth * CGFloat(i))
+            } else {
+                buttons[i].selected = false
             }
         }
     }
 }
+
