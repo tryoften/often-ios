@@ -10,16 +10,6 @@ import UIKit
 
 class UserProfileFilterTabView: UIView {
     
-    enum FilterType {
-        case All
-        case Songs
-        case Videos
-        case Links
-        case Gifs
-    }
-    
-    var currentFilter: FilterType = .All
-    
     let allFilterButton: UIButton
     let songsFilterButton: UIButton
     let videosFilterButton: UIButton
@@ -27,6 +17,8 @@ class UserProfileFilterTabView: UIView {
     let gifsFilterButton: UIButton
     let highlightBar: UIView
     var highlightBarLeftConstraint: NSLayoutConstraint?
+    
+    var buttons: [UIButton]
     
     override init(frame: CGRect) {
         allFilterButton = UIButton()
@@ -68,6 +60,8 @@ class UserProfileFilterTabView: UIView {
         highlightBar = UIView()
         highlightBar.translatesAutoresizingMaskIntoConstraints = false
         highlightBar.backgroundColor = TealColor
+        
+        buttons = [allFilterButton, songsFilterButton, videosFilterButton, linksFilterButton, gifsFilterButton]
         
         super.init(frame: frame)
         
@@ -137,86 +131,14 @@ class UserProfileFilterTabView: UIView {
     //Filter Method
     func filterButtonTapped(button: UIButton) {
         let buttonWidth = UIScreen.mainScreen().bounds.width / 5
-        var type = currentFilter
-        if button.titleLabel?.text == "ALL" {
-            type = .All
-        } else if button.titleLabel?.text == "SONGS" {
-            type = .Songs
-        } else if  button.titleLabel?.text == "VIDEOS" {
-            type = .Videos
-        } else if  button.titleLabel?.text == "LINKS" {
-            type = .Links
-        } else if  button.titleLabel?.text == "GIFS" {
-            type = .Gifs
-        }
         
-        
-        switch type {
-        case .All:
-            if allFilterButton.selected == true {
-                //do nothing
+        for var i = 0; i < buttons.count; i++ {
+            if buttons[i] == button {
+                buttons[i].selected = true
+                highlightBarLeftConstraint?.constant = (buttonWidth * CGFloat(i))
             } else {
-                allFilterButton.selected = true
-                songsFilterButton.selected = false
-                videosFilterButton.selected = false
-                linksFilterButton.selected = false
-                gifsFilterButton.selected = false
-                highlightBarLeftConstraint?.constant = 0.0
-                currentFilter = .All
+                buttons[i].selected = false
             }
-            break
-        case .Songs:
-            if songsFilterButton.selected == true {
-                //do nothing
-            } else {
-                allFilterButton.selected = false
-                songsFilterButton.selected = true
-                videosFilterButton.selected = false
-                linksFilterButton.selected = false
-                gifsFilterButton.selected = false
-                highlightBarLeftConstraint?.constant = buttonWidth
-                currentFilter = .Songs
-            }
-            break
-        case .Videos:
-            if videosFilterButton.selected == true {
-                //do nothing
-            } else {
-                allFilterButton.selected = false
-                songsFilterButton.selected = false
-                videosFilterButton.selected = true
-                linksFilterButton.selected = false
-                gifsFilterButton.selected = false
-                highlightBarLeftConstraint?.constant = buttonWidth * 2
-                currentFilter = .Videos
-            }
-            break
-        case .Links:
-            if linksFilterButton.selected == true {
-                //do nothing
-            } else {
-                allFilterButton.selected = false
-                songsFilterButton.selected = false
-                videosFilterButton.selected = false
-                linksFilterButton.selected = true
-                gifsFilterButton.selected = false
-                highlightBarLeftConstraint?.constant = buttonWidth * 3
-                currentFilter = .Links
-            }
-            break
-        case .Gifs:
-            if gifsFilterButton.selected == true {
-                //do nothing
-            } else {
-                allFilterButton.selected = false
-                songsFilterButton.selected = false
-                videosFilterButton.selected = false
-                linksFilterButton.selected = false
-                gifsFilterButton.selected = true
-                highlightBarLeftConstraint?.constant = buttonWidth * 4
-                currentFilter = .Gifs
-            }
-            break
         }
     }
 }
