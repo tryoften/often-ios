@@ -152,14 +152,9 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             let progressiveness = attributes.progressiveness
             
-            if progressiveness > 0 && progressiveness <= 1 {
-                nameLabelHeightConstraint?.constant = (-140 * progressiveness)
-                descriptionLabelHeightConstraint?.constant = (-15 * (1 - progressiveness))
-                scoreNameLabelHeightConstraint?.constant = (-120 * (1 - progressiveness)) - 30
-                scoreNameLabel.alpha = progressiveness - 0.2
-                scoreLabel.alpha = progressiveness - 0.2
-                descriptionLabel.alpha = progressiveness - 0.2
-            }
+            nameLabelHeightConstraint?.constant = (-140 * progressiveness)
+            descriptionLabelHeightConstraint?.constant = (-15 *  progressiveness)
+            descriptionLabel.alpha = progressiveness - 0.2
         }
     }
     
