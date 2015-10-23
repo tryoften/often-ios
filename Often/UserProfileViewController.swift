@@ -20,11 +20,14 @@ class UserProfileViewController: UICollectionViewController,
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
     var headerDelegate: UserScrollHeaderDelegate?
+    var cellsAnimated: [NSIndexPath: Bool]
 
     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
         contentFilterTabView = UserProfileFilterTabView()
         contentFilterTabView.translatesAutoresizingMaskIntoConstraints = false
+        
+        cellsAnimated = [:]
         
         super.init(collectionViewLayout: collectionViewLayout)
         self.viewModel.delegate = self
@@ -42,15 +45,18 @@ class UserProfileViewController: UICollectionViewController,
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 215)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight/2)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
-        flowLayout.minimumLineSpacing = 0.0
-        flowLayout.minimumInteritemSpacing = 0.0
-        flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
-        flowLayout.itemSize = CGSizeMake(screenWidth, 118)
+        flowLayout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        flowLayout.scrollDirection = .Vertical
+        flowLayout.minimumInteritemSpacing = 7.0
+        flowLayout.minimumLineSpacing = 7.0
+        flowLayout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 40.0, right: 10.0)
+
         return flowLayout
     }
     
@@ -173,6 +179,22 @@ class UserProfileViewController: UICollectionViewController,
         }
         
         cell.sourceLogoView.image = result.iconImageForSource()
+        cell.layer.shouldRasterize = true
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        
+        if (cellsAnimated[indexPath] != true) {
+            cell.alpha = 0.0
+            
+            let finalFrame = cell.frame
+            cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
+            
+            UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+                cell.alpha = 1.0
+                cell.frame = finalFrame
+                }, completion: nil)
+        }
+        
+        cellsAnimated[indexPath] = true
         
         return cell
     }
@@ -183,18 +205,22 @@ class UserProfileViewController: UICollectionViewController,
             if let user = viewModel.currentUser {
                 cell.descriptionLabel.text = user.userDescription
                 cell.nameLabel.text = user.name
-                if !user.profileImageLarge.isEmpty {
-                    cell.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge)!)
+                if let imageURL = NSURL(string: user.profileImageLarge) {
+                    cell.profileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
+                        cell.profileImageView.image = image
+                        }, failure: { (req, res, error) in
+                            print("Failed to load image: \(imageURL)")
+                    })
                 }
                 
             }
-    
+
             if headerView == nil {
                 headerView = cell
                 headerView?.delegate = self
                 headerDelegate = headerView
             }
-            
+
             return headerView!
         }
         
@@ -212,12 +238,12 @@ class UserProfileViewController: UICollectionViewController,
 
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
         collectionView?.reloadData()
-        PKHUD.sharedHUD.hide(animated: true)
         
     }
     
     func userProfileViewModelDidPullUserFavorites(userProfileViewModel: UserProfileViewModel) {
         collectionView?.reloadData()
+        PKHUD.sharedHUD.hide(animated: true)
     }
     
     func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
@@ -254,8 +280,9 @@ class UserProfileViewController: UICollectionViewController,
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
         
-        headerDelegate?.userDidSelectTab(.Favorites)
+        headerDelegate?.userDidSelectTab(.Recents)
     }
+    
 }
 
 enum UserProfileCollectionType {
