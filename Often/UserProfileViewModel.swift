@@ -45,12 +45,11 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
     
     func pullUserFavoriteAndRecents(user: User) {
-        userFavorites = []
-        userRecents = []
         favoriteRef = favoriteRef.childByAppendingPath("users/\(user.id)/favorites")
         favoriteRef.keepSynced(true)
 
         favoriteRef.observeEventType(.Value, withBlock: { snapshot in
+            self.userFavorites = []
             
             if let data = snapshot.value as? [String: AnyObject] {
                 for (_,favoritesData) in data {
@@ -64,6 +63,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         recentsRef.keepSynced(true)
         
         recentsRef.observeEventType(.Value, withBlock: { snapshot in
+            self.userRecents = []
             
             if let data = snapshot.value as? [String: AnyObject] {
                 for (_,favoritesData) in data {

@@ -136,6 +136,7 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         case .Recents:
             leftHighlightBarPositionConstraint?.constant = UIScreen.mainScreen().bounds.width / 2
         }
+        
         UIView.animateWithDuration(0.3) {
             self.layoutIfNeeded()
         }
