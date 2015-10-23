@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController,
+class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
     UserProfileHeaderDelegate,
     UserProfileViewModelDelegate,
     SlideNavigationControllerDelegate {
@@ -20,14 +20,11 @@ class UserProfileViewController: UICollectionViewController,
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
     var headerDelegate: UserScrollHeaderDelegate?
-    var cellsAnimated: [NSIndexPath: Bool]
-
+    
     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
         contentFilterTabView = UserProfileFilterTabView()
         contentFilterTabView.translatesAutoresizingMaskIntoConstraints = false
-        
-        cellsAnimated = [:]
         
         super.init(collectionViewLayout: collectionViewLayout)
         self.viewModel.delegate = self
@@ -70,7 +67,7 @@ class UserProfileViewController: UICollectionViewController,
             collectionView.backgroundColor = WhiteColor
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "profile-header")
-            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "resultCell")
+            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
         }
     }
     
@@ -90,114 +87,30 @@ class UserProfileViewController: UICollectionViewController,
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch(collectionType) {
-        case .Favorites:
-            return viewModel.userFavorites.count
-        case .Recents:
-            return viewModel.userRecents.count
+        if let userFavorites = viewModel.userFavorites, userRecents = viewModel.userRecents {
+            switch(collectionType) {
+            case .Favorites:
+                return userFavorites.count
+            case .Recents:
+                return userRecents.count
+            }
         }
+        return 0
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        var cell: SearchResultsCollectionViewCell
         switch(collectionType) {
         case .Favorites:
-            return  parseSearchResultsData(viewModel.userFavorites, indexPath: indexPath, collectionView: collectionView)
+            cell = parseSearchResultsData(viewModel.userFavorites, indexPath: indexPath, collectionView: collectionView)
         case .Recents:
-            return parseSearchResultsData(viewModel.userRecents, indexPath: indexPath, collectionView: collectionView)
+            cell = parseSearchResultsData(viewModel.userRecents, indexPath: indexPath, collectionView: collectionView)
         }
-    }
-    
-    func parseSearchResultsData(searchResultsData:[SearchResult?], indexPath:NSIndexPath, collectionView: UICollectionView) -> SearchResultsCollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-        
-        
-        if indexPath.row >= searchResultsData.count {
-            return cell
-        }
-        
-        guard let result = searchResultsData[indexPath.row] else {
-            return cell
-        }
-        
-        cell.reset()
-        
-        switch(result.type) {
-        case .Article:
-            let article = (result as! ArticleSearchResult)
-            cell.mainTextLabel.text = article.title
-            cell.leftSupplementLabel.text = article.author
-            cell.headerLabel.text = article.sourceName
-            cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
-            cell.centerSupplementLabel.text = nil
-        case .Track:
-            let track = (result as! TrackSearchResult)
-            cell.mainTextLabel.text = track.name
-            cell.rightSupplementLabel.text = track.formattedCreatedDate
-            
-            switch(result.source) {
-            case .Spotify:
-                cell.headerLabel.text = "Spotify"
-                cell.mainTextLabel.text = "\(track.name)"
-                cell.leftSupplementLabel.text = track.artistName
-                cell.rightSupplementLabel.text = track.albumName
-            case .Soundcloud:
-                cell.headerLabel.text = track.artistName
-                cell.leftSupplementLabel.text = track.formattedPlays()
-            default:
-                break
-            }
-        case .Video:
-            let video = (result as! VideoSearchResult)
-            cell.mainTextLabel.text = video.title
-            cell.headerLabel.text = video.owner
-            
-            if let viewCount = video.viewCount {
-                cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
-            }
-            
-            if let likeCount = video.likeCount {
-                cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
-            }
-            
-            cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
-            
-        default:
-            break
-        }
-        
-        cell.searchResult = result
-        cell.overlayVisible = false
-        cell.contentImageView.image = nil
-        if  let image = result.image,
-            let imageURL = NSURL(string: image) {
-                print("Loading image: \(imageURL)")
-                cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
-                    cell.contentImageView.image = image
-                    }, failure: { (req, res, error) in
-                        print("Failed to load image: \(imageURL)")
-                })
-        }
-        
-        cell.sourceLogoView.image = result.iconImageForSource()
-        cell.layer.shouldRasterize = true
-        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
-        
-        if (cellsAnimated[indexPath] != true) {
-            cell.alpha = 0.0
-            
-            let finalFrame = cell.frame
-            cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
-            
-            UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
-                cell.alpha = 1.0
-                cell.frame = finalFrame
-                }, completion: nil)
-        }
-        
-        cellsAnimated[indexPath] = true
+        animateCell(cell, indexPath: indexPath)
         
         return cell
     }
+    
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {

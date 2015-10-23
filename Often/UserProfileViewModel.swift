@@ -11,8 +11,8 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     var currentUser: User?
     var favoriteRef: Firebase
     var recentsRef: Firebase
-    var userFavorites: [SearchResult?]
-    var userRecents: [SearchResult?]
+    var userFavorites: [SearchResult]?
+    var userRecents: [SearchResult]?
     
     
     init(sessionManager: SessionManager) {
@@ -45,6 +45,8 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
     
     func pullUserFavoriteAndRecents(user: User) {
+        userFavorites = []
+        userRecents = []
         favoriteRef = favoriteRef.childByAppendingPath("users/\(user.id)/favorites")
         favoriteRef.keepSynced(true)
 
@@ -52,7 +54,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
             
             if let data = snapshot.value as? [String: AnyObject] {
                 for (_,favoritesData) in data {
-                    self.userFavorites.append(self.processSearchResultData(favoritesData as! [String : AnyObject]))
+                    self.userFavorites!.append(self.processSearchResultData(favoritesData as! [String : AnyObject])!)
                 }
                 self.delegate?.userProfileViewModelDidPullUserFavorites(self)
             }
@@ -65,7 +67,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
             
             if let data = snapshot.value as? [String: AnyObject] {
                 for (_,favoritesData) in data {
-                    self.userRecents.append(self.processSearchResultData(favoritesData as! [String : AnyObject]))
+                    self.userRecents!.append(self.processSearchResultData(favoritesData as! [String : AnyObject])!)
                 }
                 self.delegate?.userProfileViewModelDidPullUserFavorites(self)
             }
