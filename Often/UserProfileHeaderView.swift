@@ -48,10 +48,11 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         
         descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.font = UIFont(name: "OpenSans", size: 12.0)
+        descriptionLabel.font = UIFont(name: "OpenSans", size: 12.5)
         descriptionLabel.text = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
         descriptionLabel.textAlignment = .Center
         descriptionLabel.numberOfLines = 3
+        descriptionLabel.alpha = 0.54
         
         scoreLabel = UILabel()
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -70,14 +71,14 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         favoritesTabButton.translatesAutoresizingMaskIntoConstraints = false
         favoritesTabButton.setTitle("FAVORITES", forState: .Normal)
         favoritesTabButton.setTitleColor(BlackColor, forState: .Normal)
-        favoritesTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 12.0)
+        favoritesTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         favoritesTabButton.titleLabel?.textAlignment = .Center
         
         recentsTabButton = UIButton()
         recentsTabButton.translatesAutoresizingMaskIntoConstraints = false
         recentsTabButton.setTitle("RECENTS", forState: .Normal)
         recentsTabButton.setTitleColor(BlackColor, forState: .Normal)
-        recentsTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 12.0)
+        recentsTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         recentsTabButton.titleLabel?.textAlignment = .Center
         
         highlightBarView = UIView()
@@ -172,15 +173,15 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
             
             profileImageView.al_bottom == nameLabel.al_top - 10,
             profileImageView.al_centerX == al_centerX,
-            profileImageView.al_height == 60,
-            profileImageView.al_width == 60,
+            profileImageView.al_height == 68,
+            profileImageView.al_width == 68,
             
             nameLabelHeightConstraint!,
             nameLabel.al_centerX == al_centerX,
             
             descriptionLabelHeightConstraint!,
             descriptionLabel.al_centerX == al_centerX,
-            descriptionLabel.al_width == 200,
+            descriptionLabel.al_width == 250,
             
             scoreLabel.al_bottom == scoreNameLabel.al_top,
             scoreLabel.al_centerX == al_centerX,
