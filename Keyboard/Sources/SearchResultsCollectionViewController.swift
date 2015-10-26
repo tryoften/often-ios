@@ -22,7 +22,7 @@ import UIKit
     Tweet Cell
 
 */
-class SearchResultsCollectionViewController: SearchResultsCollectionViewControllerBaseClass, UICollectionViewDelegateFlowLayout, SearchResultsCollectionViewCellDelegate {
+class SearchResultsCollectionViewController: SearchResultsCollectionBaseViewController, UICollectionViewDelegateFlowLayout, SearchResultsCollectionViewCellDelegate {
     var backgroundImageView: UIImageView
     var textProcessor: TextProcessingManager?
     var response: SearchResponse? {

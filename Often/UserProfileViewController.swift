@@ -8,7 +8,9 @@
 
 import UIKit
 
-class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
+let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
+
+class UserProfileViewController: SearchResultsCollectionBaseViewController,
     UserProfileHeaderDelegate,
     UserProfileViewModelDelegate,
     SlideNavigationControllerDelegate {
@@ -28,7 +30,14 @@ class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
         
         super.init(collectionViewLayout: collectionViewLayout)
         self.viewModel.delegate = self
-        self.viewModel.requestData()
+        
+        do {
+            try viewModel.requestData()
+        } catch UserProfileViewModelError.RequestDataFailed {
+            print("Failed to request data")
+        } catch let error {
+            print("Failed to request data \(error)")
+        }
         
         view.addSubview(contentFilterTabView)
         view.layer.masksToBounds = true
@@ -66,8 +75,8 @@ class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
         if let collectionView = collectionView {
             collectionView.backgroundColor = WhiteColor
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "profile-header")
-            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
+            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
+            
         }
     }
     
@@ -87,14 +96,14 @@ class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let userFavorites = viewModel.userFavorites, userRecents = viewModel.userRecents {
-            switch(collectionType) {
-            case .Favorites:
-                return userFavorites.count
-            case .Recents:
-                return userRecents.count
-            }
+
+        switch(collectionType) {
+        case .Favorites:
+            return viewModel.userFavorites.count
+        case .Recents:
+            return viewModel.userRecents.count
         }
+
         return 0
     }
     
@@ -114,8 +123,8 @@ class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "profile-header", forIndexPath: indexPath) as! UserProfileHeaderView
-            if let user = viewModel.currentUser {
+            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier:UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileHeaderView
+            if let user = viewModel.sessionManager.currentUser {
                 cell.descriptionLabel.text = user.userDescription
                 cell.nameLabel.text = user.name
                 if let imageURL = NSURL(string: user.profileImageLarge) {
@@ -154,9 +163,13 @@ class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
         
     }
     
-    func userProfileViewModelDidPullUserFavorites(userProfileViewModel: UserProfileViewModel) {
+    func userProfileViewModelDidReceiveFavorites(userProfileViewModel: UserProfileViewModel, favorites: [UserFavoriteLink]) {
         collectionView?.reloadData()
         PKHUD.sharedHUD.hide(animated: true)
+    }
+    
+    func userProfileViewModelDidReceiveRecents(userProfileViewModel: UserProfileViewModel, recents: [UserRecentLink]) {
+        
     }
     
     func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
@@ -167,7 +180,7 @@ class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
         return true
     }
     
-    // User profile header delegate
+    // MARK: UserProfileHeaderDelegate
     func revealSetServicesViewDidTap() {
         SlideNavigationController.sharedInstance().openMenu(MenuLeft, withCompletion: nil)
     }

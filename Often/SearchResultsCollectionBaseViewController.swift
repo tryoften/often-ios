@@ -1,5 +1,5 @@
 //
-//  SearchResultsCollectionViewControllerBaseClass.swift
+//  SearchResultsCollectionViewBaseController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 10/23/15.
@@ -8,23 +8,26 @@
 
 import Foundation
 
-class SearchResultsCollectionViewControllerBaseClass: UICollectionViewController {
+let ServiceResultsCollectionViewCellReuseIdentifier = "SearchResultsCollectionViewCell"
+
+class SearchResultsCollectionBaseViewController: UICollectionViewController {
    var cellsAnimated: [NSIndexPath: Bool]
    
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         cellsAnimated = [:]
 
         super.init(collectionViewLayout: layout)
+        
+        collectionView?.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: ServiceResultsCollectionViewCellReuseIdentifier)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func parseSearchResultsData(searchResultsData:[SearchResult]?, indexPath:NSIndexPath, collectionView: UICollectionView) -> SearchResultsCollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-        
-        
+    func parseSearchResultsData(searchResultsData: [SearchResult]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> SearchResultsCollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ServiceResultsCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as! SearchResultsCollectionViewCell
+
         if indexPath.row >= searchResultsData?.count {
             return cell
         }
