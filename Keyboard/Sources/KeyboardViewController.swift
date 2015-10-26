@@ -214,15 +214,18 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             heightConstraint!.priority = 1000
             
             view.addConstraint(heightConstraint!) // TODO: what if view already has constraint added?
-            
-            if (KeyboardViewController.debugKeyboard) {
-                var viewFrame = view.frame
-                viewFrame.size.height = KeyboardHeight + 100
-                view.frame = viewFrame
-            }
         }
         else {
             heightConstraint?.constant = height
+        }
+        
+        if (KeyboardViewController.debugKeyboard) {
+            if let window = view.window {
+                var frame = window.frame
+                frame.origin.y = UIScreen.mainScreen().bounds.size.height - height
+                frame.size.height = height
+                window.frame = frame
+            }
         }
     }
 
@@ -244,18 +247,27 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func resizeKeyboard(notification: NSNotification) {
-        if let userInfo = notification.userInfo,
-            height = userInfo["height"] as? CGFloat {
-                togglePanelButton.hidden = true
-                
-                let keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
-                
-                searchBarHeight = height + KeyboardSearchBarHeight
-                keyboardHeight = keysContainerViewHeight + searchBarHeight
-                
-                self.searchBar.view.frame = CGRectMake(0, self.searchBarHeight, self.view.bounds.width, self.searchBarHeight)
-                self.view.layoutIfNeeded()
+        guard let userInfo = notification.userInfo,
+            height = userInfo["height"] as? CGFloat else {
+                return
         }
+        
+        togglePanelButton.hidden = true
+        
+        let keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
+        
+        searchBarHeight = height + KeyboardSearchBarHeight
+        keyboardHeight = keysContainerViewHeight + searchBarHeight
+        
+        self.searchBar.view.frame = CGRectMake(0, 0, self.view.bounds.width, self.searchBarHeight)
+        self.view.layoutIfNeeded()
+        
+        if height == 0 {
+            togglePanelButton.hidden = true
+        } else {
+            togglePanelButton.hidden = false
+        }
+
     }
     
     func collapseKeyboard() {
@@ -286,7 +298,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             
             self.togglePanelButton.frame.origin.y = self.keysContainerView.frame.origin.y - 30
             }) { done in
-                
+                if self.keyboardHeight == KeyboardHeight {
+                    self.togglePanelButton.hidden = true
+                }
         }
     }
     
@@ -492,7 +506,14 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType) {
-        searchBar.activeServiceProviderType = serviceProviderType
+    }
+    
+    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
+        searchBar.setFilter(filter)
+    }
+    
+    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
+        return searchBar.suggestionsViewModel.checkFilterInQuery(text)
     }
 }
 

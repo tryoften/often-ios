@@ -17,7 +17,7 @@ class SearchTextField: UIControl, Layouteable {
     
     private var backgroundView: UIView
     private var labelContainer: UIView
-    private var label: TOMSMorphingLabel
+    private var label: UILabel
     private var indicator: UIView
     private var searchIcon: UIImageView
     private var cancelButton: UIButton
@@ -71,8 +71,6 @@ class SearchTextField: UIControl, Layouteable {
                     sendActionsForControlEvents(UIControlEvents.EditingDidBegin)
                 }
                 text = "\(text!)"
-                label.morphingEnabled = false
-                
                 cancelButtonLeftConstraint.constant = -CGRectGetHeight(cancelButton.frame) - 5
                 
                 if leftView != nil {
@@ -80,7 +78,7 @@ class SearchTextField: UIControl, Layouteable {
                 }
                 
                 UIView.animateWithDuration(0.3) {
-                    self.backgroundView.layer.borderColor = UIColor.blackColor().CGColor
+                    self.backgroundView.layer.borderColor = UIColor(fromHexString: "#C3C3C3").CGColor
                     self.cancelButton.alpha = 1.0
                     self.layoutIfNeeded()
                 }
@@ -90,7 +88,6 @@ class SearchTextField: UIControl, Layouteable {
                 if editing {
                     sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
                 }
-                label.morphingEnabled = true
                 cancelButtonLeftConstraint.constant = 0
                 
                 if text == "" && placeholder != nil {
@@ -156,8 +153,7 @@ class SearchTextField: UIControl, Layouteable {
         labelContainer.clipsToBounds = true
         labelContainer.userInteractionEnabled = false
 
-        label = TOMSMorphingLabel()
-        label.animationDuration = 0.2
+        label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "OpenSans-Semibold", size: 12)
         
@@ -255,17 +251,18 @@ class SearchTextField: UIControl, Layouteable {
         placeholder = placeholderText
         selected = false
         sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
-        NSNotificationCenter.defaultCenter().postNotificationName(RestoreKeyboardEvent, object: nil, userInfo: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(KeyboardResetSearchBar, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(RestoreKeyboardEvent, object: nil)
     }
     
     func setupLayout() {
         addConstraints([
             cancelButtonLeftConstraint,
-            
-            backgroundView.al_height == labelContainer.al_height - 3,
+
             backgroundView.al_left == labelContainer.al_left + 5,
             backgroundView.al_right == labelContainer.al_right - 5,
             backgroundView.al_top == labelContainer.al_top + 1.5,
+            backgroundView.al_bottom == labelContainer.al_bottom,
             
             searchIcon.al_left == labelContainer.al_left + 10,
             searchIcon.al_centerY == labelContainer.al_centerY,

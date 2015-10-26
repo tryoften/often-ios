@@ -17,21 +17,13 @@ class SearchBar: UIView {
     var textInput: SearchTextField
     var textInputLeftConstraint: NSLayoutConstraint?
     var shareButtonLeftConstraint: NSLayoutConstraint!
-    var providerButton: ServiceProviderSearchBarButton? {
-        didSet {
-            if let button = providerButton {
-                addButton(button)
-            }
-            toggleShareButton(true)
-        }
-    }
 
     var shareButton: UIButton
     var shareButtonLeftPadding: CGFloat {
-        return CGRectGetWidth(frame) - 40
+        return CGRectGetWidth(frame) - 45
     }
     
-    private var buttons: [SearchBarButton]
+    private var filterButton: UIButton?
 
     override init(frame: CGRect) {
         textInput = SearchTextField()
@@ -49,8 +41,6 @@ class SearchBar: UIView {
 
         shareButton = UIButton()
         shareButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        buttons = []
         
         super.init(frame: frame)
         
@@ -91,45 +81,50 @@ class SearchBar: UIView {
         }
     }
     
-    func addButton(button: SearchBarButton) {
+    func setFilterButton(filter: Filter) {
+
+        
         var constraints: [NSLayoutConstraint] = []
         
-        if let lastButton = buttons.last {
-            constraints.append(button.al_left == lastButton.al_right + 10)
-            constraints.append(button.al_top == lastButton.al_top)
-        } else {
-            constraints.append(button.al_left == al_left + 10)
-            constraints.append(button.al_top == al_top + 5)
+        if let lastButton = filterButton {
+            lastButton.removeFromSuperview()
+            removeConstraints(lastButton.constraints)
+            repositionSearchTextField()
         }
+        
+        let button = UIButton()
+        
+        if let image = filter.image {
+            button.setImage(UIImage(named: image), forState: .Normal)
+        } else {
+            button.setTitle(filter.text, forState: .Normal)
+        }
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.contentEdgeInsets = UIEdgeInsetsZero
+        
+        constraints.append(button.al_left == al_left + 10)
+        constraints.append(button.al_top == al_top + 6.5)
         
         insertSubview(button, belowSubview: textInput)
         addConstraints(constraints + [
             button.al_bottom == al_bottom - 5
         ])
+        
         textInput.leftView = nil
         layoutIfNeeded()
-        buttons.append(button)
         
+        filterButton = button
         repositionSearchTextField()
-    }
-    
-    func removeLastButton() {
-        if let lastButton = buttons.last {
-            lastButton.removeFromSuperview()
-            removeConstraints(lastButton.constraints)
-            buttons.removeLast()
-            repositionSearchTextField()
-        }
     }
     
     func resetSearchBar() {
-        for button in buttons {
+        if let button = filterButton {
             removeConstraints(button.constraints)
             button.removeFromSuperview()
+            filterButton = nil
         }
-        buttons.removeAll(keepCapacity: true)
         repositionSearchTextField()
-        providerButton = nil
         textInput.selected = false
         textInput.text = ""
         textInput.placeholder = textInput.placeholderText
@@ -137,8 +132,8 @@ class SearchBar: UIView {
     }
     
     func repositionSearchTextField() {
-        if let lastButton = buttons.last {
-            self.textInputLeftConstraint?.constant = CGRectGetMaxX(lastButton.frame) + 10
+        if let lastButton = filterButton {
+            self.textInputLeftConstraint?.constant = CGRectGetMaxX(lastButton.frame) + 5
         } else {
             self.textInputLeftConstraint?.constant = 10
         }
@@ -162,7 +157,7 @@ class SearchBar: UIView {
     }
     
     func shouldShowShareButton() -> Bool {
-        return textInput.selected || providerButton != nil
+        return textInput.selected || filterButton != nil
     }
 
     func setupLayout() {
