@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class RootViewController: SlideNavigationController {
     let sessionManager = SessionManager.defaultManager
     

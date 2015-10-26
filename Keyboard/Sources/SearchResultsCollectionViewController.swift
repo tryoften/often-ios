@@ -22,9 +22,8 @@ import UIKit
     Tweet Cell
 
 */
-class SearchResultsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, SearchResultsCollectionViewCellDelegate {
+class SearchResultsCollectionViewController: SearchResultsCollectionBaseViewController, UICollectionViewDelegateFlowLayout, SearchResultsCollectionViewCellDelegate {
     var backgroundImageView: UIImageView
-    var cellsAnimated: [NSIndexPath: Bool]
     var textProcessor: TextProcessingManager?
     var response: SearchResponse? {
         didSet {
@@ -44,7 +43,6 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.contentMode = .Center
         backgroundImageView.contentScaleFactor = 2.5
-        cellsAnimated = [:]
         
         viewModel = SearchResultsViewModel()
         
@@ -122,103 +120,23 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-        
-        if indexPath.row >= response?.results.count {
-            return cell
-        }
-        
-        guard let result = response?.results[indexPath.row] else {
-            return cell
-        }
-        
-        cell.reset()
-        
-        switch(result.type) {
-            case .Article:
-                let article = (result as! ArticleSearchResult)
-                cell.mainTextLabel.text = article.title
-                cell.leftSupplementLabel.text = article.author
-                cell.headerLabel.text = article.sourceName
-                cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
-                cell.centerSupplementLabel.text = nil
-            case .Track:
-                let track = (result as! TrackSearchResult)
-                cell.mainTextLabel.text = track.name
-                cell.rightSupplementLabel.text = track.formattedCreatedDate
-                
-                switch(result.source) {
-                case .Spotify:
-                    cell.headerLabel.text = "Spotify"
-                    cell.mainTextLabel.text = "\(track.name)"
-                    cell.leftSupplementLabel.text = track.artistName
-                    cell.rightSupplementLabel.text = track.albumName
-                case .Soundcloud:
-                    cell.headerLabel.text = track.artistName
-                    cell.leftSupplementLabel.text = track.formattedPlays()
-                default:
-                    break
-                }
-            case .Video:
-                let video = (result as! VideoSearchResult)
-                cell.mainTextLabel.text = video.title
-                cell.headerLabel.text = video.owner
-                
-                if let viewCount = video.viewCount {
-                    cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
-                }
-                
-                if let likeCount = video.likeCount {
-                    cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
-                }
-                
-                cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
-            
-            default:
-                break
-        }
-        
-        cell.searchResult = result
-        
-        if let favorited = viewModel?.checkFavorite(result) {
-            cell.itemFavorited = favorited
-        } else {
-            cell.itemFavorited = false
-        }
-        
+        let cell = parseSearchResultsData(response?.results, indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
-        cell.overlayVisible = false
-        cell.contentImageView.image = nil
-        if  let image = result.image,
-            let imageURL = NSURL(string: image) {
-            print("Loading image: \(imageURL)")
-            cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
-                    cell.contentImageView.image = image
-            }, failure: { (req, res, error) in
-                    print("Failed to load image: \(imageURL)")
-            })
-        }
-        
-        cell.sourceLogoView.image = result.iconImageForSource()
-        
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.layer.shouldRasterize = true
-        
-        if (cellsAnimated[indexPath] != true) {
-            cell.alpha = 0.0
-            
-            let finalFrame = cell.frame
-            cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
 
-            UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
-                cell.alpha = 1.0
-                cell.frame = finalFrame
-            }, completion: nil)
+        if let result = cell.searchResult {
+            if let favorited = viewModel?.checkFavorite(result) {
+                cell.itemFavorited = favorited
+            } else {
+                cell.itemFavorited = false
+            }
         }
         
-        cellsAnimated[indexPath] = true
+        animateCell(cell, indexPath: indexPath)
         
         return cell
+        
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -233,6 +151,7 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         
         for cell in cells {
             cell.overlayVisible = false
+            cell.layer.shouldRasterize = false
         }
         
         if let favorited = viewModel?.checkFavorite(result) {

@@ -33,7 +33,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         let viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .Vertical
         viewLayout.headerReferenceSize = CGSizeMake(screenWidth - 85, 250)
-        viewLayout.sectionInset = UIEdgeInsetsMake( -10.0, 5.0, 15.0, 65.0)
+        viewLayout.sectionInset = UIEdgeInsetsMake(-10.0, 5.0, 15.0, 65.0)
         viewLayout.itemSize = CGSizeMake(screenWidth - 85, 180)
         return viewLayout
     }
@@ -105,7 +105,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         
     }
     
-    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool, buttonTag:Int ) {
+    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool, buttonTag: Int) {
         viewModel.socialAccounts[buttonTag ].activeStatus = !viewModel.socialAccounts[buttonTag].activeStatus
         switch serviceSettingsCollectionView.settingSocialAccount.type {
         case .Twitter:

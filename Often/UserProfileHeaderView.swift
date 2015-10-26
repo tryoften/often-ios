@@ -32,6 +32,19 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
 
     var delegate: UserProfileHeaderDelegate?
     
+    var descriptionText: String {
+        didSet {
+            let subtitle = NSMutableAttributedString(string: descriptionText)
+            let subtitleRange = NSMakeRange(0, descriptionText.characters.count)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 3
+            subtitle.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:subtitleRange)
+            subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
+            descriptionLabel.attributedText = subtitle
+            descriptionLabel.textAlignment = .Center
+        }
+    }
+    
     override init(frame: CGRect) {
         profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +62,6 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = UIFont(name: "OpenSans", size: 12.5)
-        descriptionLabel.text = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
         descriptionLabel.textAlignment = .Center
         descriptionLabel.numberOfLines = 3
         descriptionLabel.alpha = 0.54
@@ -97,9 +109,10 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         
         
         offsetValue = 0.0
+        descriptionText = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
         
         super.init(frame: frame)
-    
+
         backgroundColor = WhiteColor
         clipsToBounds = true
         
@@ -130,12 +143,18 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     
     // UserScrollHeaderDelegate
     
-    func userDidSelectTab(type: String) {
-        if type == "favorites" {
-            leftHighlightBarPositionConstraint?.constant = 0.0
-        } else {
+    func userDidSelectTab(type: UserProfileCollectionType) {
+        switch(type) {
+        case .Favorites:
+             leftHighlightBarPositionConstraint?.constant = 0.0
+        case .Recents:
             leftHighlightBarPositionConstraint?.constant = UIScreen.mainScreen().bounds.width / 2
         }
+        
+        UIView.animateWithDuration(0.3) {
+            self.layoutIfNeeded()
+        }
+
     }
     
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
@@ -143,14 +162,9 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             let progressiveness = attributes.progressiveness
             
-            if progressiveness > 0 && progressiveness <= 1 {
-                nameLabelHeightConstraint?.constant = (-140 * progressiveness)
-                descriptionLabelHeightConstraint?.constant = (-15 * (1 - progressiveness))
-                scoreNameLabelHeightConstraint?.constant = (-120 * (1 - progressiveness)) - 30
-                scoreNameLabel.alpha = progressiveness - 0.2
-                scoreLabel.alpha = progressiveness - 0.2
-                descriptionLabel.alpha = progressiveness - 0.2
-            }
+            nameLabelHeightConstraint?.constant = (-140 * progressiveness)
+            descriptionLabelHeightConstraint?.constant = (-15 *  progressiveness)
+            descriptionLabel.alpha = progressiveness - 0.2
         }
     }
     

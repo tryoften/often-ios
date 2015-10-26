@@ -136,6 +136,10 @@ class UserProfileFilterTabView: UIView {
             if buttons[i] == button {
                 buttons[i].selected = true
                 highlightBarLeftConstraint?.constant = (buttonWidth * CGFloat(i))
+                
+                UIView.animateWithDuration(0.3) {
+                    self.layoutIfNeeded()
+                }
             } else {
                 buttons[i].selected = false
             }
