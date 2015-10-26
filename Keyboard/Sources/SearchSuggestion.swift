@@ -22,3 +22,5 @@ class SearchSuggestion {
     var image: String?
     var resultsCount: Int?
 }
+
+typealias Filter = SearchSuggestion

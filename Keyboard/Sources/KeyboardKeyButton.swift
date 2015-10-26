@@ -112,7 +112,7 @@ class KeyboardKeyButton: UIControl {
         drawBorder = false
         underOffset = 1
         
-        background = KeyboardKeyBackground(cornerRadius: 4, underOffset: underOffset)
+        background = KeyboardKeyBackground(cornerRadius: 5.0, underOffset: underOffset)
         
         textColor = theme.keyboardKeyTextColor
         popupDirection = nil
@@ -142,10 +142,10 @@ class KeyboardKeyButton: UIControl {
             self.underView?.opaque = false
             self.borderView?.opaque = false
             
-            self.shadowLayer.shadowOpacity = 0.3
-            self.shadowLayer.shadowRadius = 4
-            self.shadowLayer.shadowOffset = CGSizeMake(0, 3)
-            self.shadowLayer.backgroundColor = DarkGrey.CGColor
+            self.shadowLayer.shadowOpacity = 0.24
+            self.shadowLayer.shadowRadius = 5
+            self.shadowLayer.shadowOffset = CGSizeMake(0, 4)
+            self.shadowLayer.backgroundColor = UIColor.blackColor().CGColor
             
             self.borderView?.lineWidth = 0.5
             self.borderView?.fillColor = UIColor.clearColor()
@@ -162,7 +162,7 @@ class KeyboardKeyButton: UIControl {
     
         func setupKey() {
             if let key = key {
-                label.font = UIFont(name: "OpenSans", size: 21)
+                label.font = UIFont(name: "OpenSans", size: 19.0)
                 color = theme.keyboardKeyBackgroundColor
                 textColor = theme.keyboardKeyTextColor
                 underColor = theme.keyboardKeyUnderColor
@@ -179,9 +179,9 @@ class KeyboardKeyButton: UIControl {
                     text = str
                 case .digit(let number):
                     text = String(number.rawValue)
-                case .special(let character, let pageId):
+                case .special(let character, _):
                     text = String(character.rawValue)
-                case .modifier(let modifier, let pageId):
+                case .modifier(let modifier, _):
                     switch(modifier) {
                     case .Backspace:
                         color = UIColor.clearColor()
@@ -192,7 +192,7 @@ class KeyboardKeyButton: UIControl {
                         color = UIColor.clearColor()
                         underColor = UIColor.clearColor()
                         shape = ArrowShape(color: theme.keyboardKeyTextColor)
-                        background.layer.cornerRadius = 4.0
+                        background.layer.cornerRadius = 5.0
                         background.layer.borderWidth = 1.6
                         background.layer.borderColor = UIColor.clearColor().CGColor
                         break
@@ -204,26 +204,28 @@ class KeyboardKeyButton: UIControl {
                         break
                     case .GoToBrowse:
                         iconView.image = UIImage(named: "IconWhite")!
+                        iconView.contentMode = .ScaleAspectFill
                         break
                     case .Space:
                         text = "Space".uppercaseString
                         label.font = UIFont(name: "OpenSans-Semibold", size: 12)
                         break
                     case .Enter:
-                        text = "Enter".uppercaseString
+                        text = "Entr".uppercaseString
                         textColor = UIColor.blackColor()
                         color = theme.enterKeyBackgroundColor
-                        label.font = UIFont(name: "OpenSans", size: 11)
+                        label.font = UIFont(name: "OpenSans-Semibold", size: 12)
                         break
                     case .CallService:
                         text = "#"
+                        label.font = UIFont(name: "OpenSans-Semibold", size: 12)
                         color = WhiteColor
                         textColor = BlackColor
                         background.userInteractionEnabled = true
                     default:
                         break
                     }
-                case .changePage(let pageNumber, let pageId):
+                case .changePage(let pageNumber, _):
                     switch(pageNumber) {
                     case 0:
                         text = "ABC"
@@ -314,7 +316,7 @@ class KeyboardKeyButton: UIControl {
                 path?.applyTransform(transformFromShapeToView)
                 if path != nil { toPath.appendPath(path!) }
                 if let edgePaths = shape.edgePaths {
-                    for (e, anEdgePath) in edgePaths.enumerate() {
+                    for (_, anEdgePath) in edgePaths.enumerate() {
                         let editablePath = anEdgePath
                         editablePath.applyTransform(transformFromShapeToView)
                         toEdgePaths.appendPath(editablePath)
@@ -338,7 +340,7 @@ class KeyboardKeyButton: UIControl {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
-        if let popup = popup {
+        if let _ = popup {
             shadowLayer.shadowPath = shadowPath.CGPath
         }
         
@@ -397,7 +399,7 @@ class KeyboardKeyButton: UIControl {
         CATransaction.setDisableActions(true)
         if let key = key {
             switch(key) {
-            case .modifier(let modifier, let pageId):
+            case .modifier(let modifier, let _):
                 switch(modifier) {
                 case .Backspace:
                     if selected {
@@ -486,7 +488,7 @@ class KeyboardKeyButton: UIControl {
         let p = popup!
         
         connector?.removeFromSuperview()
-        connector = KeyboardConnector(cornerRadius: 4, underOffset: underOffset, start: kv, end: p, startConnectable: kv, endConnectable: p, startDirection: direction, endDirection: direction.opposite())
+        connector = KeyboardConnector(cornerRadius: 5.0, underOffset: underOffset, start: kv, end: p, startConnectable: kv, endConnectable: p, startDirection: direction, endDirection: direction.opposite())
         connector!.layer.zPosition = -1
         addSubview(connector!)
     }
@@ -495,7 +497,7 @@ class KeyboardKeyButton: UIControl {
         if popup == nil {
             layer.zPosition = 1000
             
-            let popup = KeyboardKeyBackground(cornerRadius: 4.0, underOffset: underOffset)
+            let popup = KeyboardKeyBackground(cornerRadius: 5.0, underOffset: underOffset)
             self.popup = popup
             addSubview(popup)
             

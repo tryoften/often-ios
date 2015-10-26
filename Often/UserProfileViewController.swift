@@ -123,9 +123,10 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
+
             let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier:UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileHeaderView
             if let user = viewModel.sessionManager.currentUser {
-                cell.descriptionLabel.text = user.userDescription
+                cell.descriptionText = user.userDescription
                 cell.nameLabel.text = user.name
                 if let imageURL = NSURL(string: user.profileImageLarge) {
                     cell.profileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in

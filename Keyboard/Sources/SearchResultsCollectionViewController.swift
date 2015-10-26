@@ -122,14 +122,15 @@ class SearchResultsCollectionViewController: SearchResultsCollectionBaseViewCont
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = parseSearchResultsData(response?.results, indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
-        
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        cell.layer.shouldRasterize = true
+
         if let result = cell.searchResult {
             if let favorited = viewModel?.checkFavorite(result) {
                 cell.itemFavorited = favorited
             } else {
                 cell.itemFavorited = false
             }
-
         }
         
         animateCell(cell, indexPath: indexPath)
@@ -145,6 +146,8 @@ class SearchResultsCollectionViewController: SearchResultsCollectionBaseViewCont
             let result = response?.results[indexPath.row] else {
             return
         }
+        
+        cell.layer.shouldRasterize = false
         
         for cell in cells {
             cell.overlayVisible = false
