@@ -42,21 +42,23 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func didReceiveSetCurrentProxy(notification: NSNotification) {
-        if let userInfo = notification.userInfo,
+        guard let userInfo = notification.userInfo,
             let proxy = notification.object as? UITextDocumentProxy,
             let setDefault = userInfo["setDefault"] as? Bool,
-            let id = userInfo["id"] as? String {
-                if let currentProxy = currentProxy as? UIResponder {
-                    if (currentProxy as NSObject) != (proxy as! NSObject) {
-                        currentProxy.resignFirstResponder()
-                    }
-                }
-                
-                proxies[id] = proxy
-                
-                if setDefault {
-                    currentProxy = proxy
-                }
+            let id = userInfo["id"] as? String else {
+                return
+        }
+        
+        if let currentProxy = currentProxy as? UIResponder {
+            if (currentProxy as NSObject) != (proxy as! NSObject) {
+                currentProxy.resignFirstResponder()
+            }
+        }
+        
+        proxies[id] = proxy
+        
+        if setDefault {
+            currentProxy = proxy
         }
     }
     
@@ -91,11 +93,18 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
             
             // check if first token is command call
             if firstToken.hasPrefix("#") {
-                let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
                 
+                if let filter = delegate?.textProcessingManagerDidTextContainerFilter(text) {
+                    for _ in 0...filter.text.characters.count {
+                        currentProxy.deleteBackward()
+                    }
+                    delegate?.textProcessingManagerDidDetectFilter(self, filter: filter)
+                }
+                
+                let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
                 if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
                     print(serviceProviderType)
-                    for i in 0...firstToken.characters.count {
+                    for _ in 0...firstToken.characters.count {
                         currentProxy.deleteBackward()
                     }
                     delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
@@ -276,4 +285,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
 protocol TextProcessingManagerDelegate: class {
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager)
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType)
+    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter)
+    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter?
 }

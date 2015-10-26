@@ -13,6 +13,7 @@ class ServiceProviderSuggestionTableViewCell: SearchSuggestionTableViewCell {
     var serviceProviderLogoImage: UIImage? {
         didSet(value) {
             serviceProviderLogo.image = value
+            serviceProviderLogo.setNeedsDisplay()
         }
     }
     

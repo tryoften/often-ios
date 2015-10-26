@@ -201,6 +201,9 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
         
         cell.sourceLogoView.image = result.iconImageForSource()
         
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        cell.layer.shouldRasterize = true
+        
         if (cellsAnimated[indexPath] != true) {
             cell.alpha = 0.0
             
@@ -225,6 +228,8 @@ class SearchResultsCollectionViewController: UICollectionViewController, UIColle
             let result = response?.results[indexPath.row] else {
             return
         }
+        
+        cell.layer.shouldRasterize = false
         
         for cell in cells {
             cell.overlayVisible = false
