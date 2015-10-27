@@ -29,7 +29,7 @@ class SocialAccountsService: Service {
     /**
     Fetches data from the local database and creates models
     
-    - parameter completion: callback that gets called when data has loaded
+    :param: completion: callback that gets called when data has loaded
     */
     func fetchLocalData(completion: (Bool) -> Void) {
         createSocialAccountsModels(completion)
@@ -45,8 +45,7 @@ class SocialAccountsService: Service {
     private func createSocialAccountsModels(completion: (Bool) -> Void) {
         socialAccountsRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
             if snapshot.exists() {
-                if let id = snapshot.key,
-                    let value = snapshot.value as? [String: AnyObject] {
+                if let value = snapshot.value as? [String: AnyObject] {
                         self.socialAccounts = value
                         completion(true)
                 }

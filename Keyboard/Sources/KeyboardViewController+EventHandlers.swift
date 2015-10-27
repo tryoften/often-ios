@@ -30,18 +30,18 @@ extension KeyboardViewController {
                 textProcessor.insertText(str)
             case .digit(let number):
                 textProcessor.insertText(String(number.rawValue))
-            case .special(let character, let pageId):
+            case .special(let character, _):
                 textProcessor.insertText(String(character.rawValue))
-            case .changePage(let pageIndex, let pageId):
+            case .changePage(_, _):
                 break
-            case .modifier(.CapsLock, let pageId):
+            case .modifier(.CapsLock, _):
                 break
-            case .modifier(.CallService, let pageId):
+            case .modifier(.CallService, _):
                 textProcessor.insertText("#")
-            case .modifier(.Space, let pageId):
+            case .modifier(.Space, _):
                 textProcessor.insertText(" ")
                 handleAutoPeriod(button)
-            case .modifier(.Enter, let pageId):
+            case .modifier(.Enter, _):
                 textProcessor.insertText("\n")
             default:
                 break
@@ -61,7 +61,7 @@ extension KeyboardViewController {
     func pageChangeTapped(button: KeyboardKeyButton?) {
         if let button = button, key = button.key {
             switch(key) {
-            case .changePage(let pageNumber, let pageId):
+            case .changePage(let pageNumber, _):
                 setPage(pageNumber)
             default:
                 setPage(0)
@@ -254,7 +254,7 @@ extension KeyboardViewController {
                     charactersToDelete = 1
                 }
                 
-                for i in 0..<charactersToDelete {
+                for _ in 0..<charactersToDelete {
                     textProcessor.currentProxy.deleteBackward()
                 }
             }
@@ -328,7 +328,7 @@ extension KeyboardViewController {
     func handleAutoPeriod(button: KeyboardKeyButton?){
         if let button = button, key = button.key {
             switch(key) {
-            case .modifier(.Space, let pageId):
+            case .modifier(.Space, _):
                 if self.autoPeriodState == .FirstSpace {
                     if self.textProcessor.charactersAreInCorrectState() {
                         textProcessor.deleteBackward()

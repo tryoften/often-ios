@@ -14,14 +14,9 @@ class KeyboardWalkthroughView: UIView {
     var currentPage: Int
     let device = UIDevice.currentDevice()
     
-    override init(frame: CGRect) {
-        var contentMode = UIViewContentMode.ScaleAspectFit
-        var WalkthroughTitleLabelFront = UIFont(name: "OpenSans-Semibold", size: 18)
-        var WalkthroughSubTitleLabelFront = UIFont(name: "OpenSans", size: 14)
-        
-        
+    override init(frame: CGRect) {        
         iphoneImageView = UIImageView()
-        iphoneImageView.contentMode = contentMode
+        iphoneImageView.contentMode = .ScaleAspectFit
         iphoneImageView.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel = UILabel()
@@ -55,24 +50,7 @@ class KeyboardWalkthroughView: UIView {
     }
     
     func setupLayout() {
-        let iphoneImageViewOneTopConstraintValue: CGFloat
-        let iphoneImageViewTwoTopConstraintValue: CGFloat
-        let iphoneImageViewThreeTopConstraintValue: CGFloat
-        let subtitleHeight: CGFloat
-        
-        var titleLabelTopConstraintValue: CGFloat = 40
-        var iphoneImageViewOneSideConstraintValue: CGFloat = 20
-        var iphoneImageViewTwoSideConstraintValue: CGFloat = 30
-        
-        
-            iphoneImageViewOneTopConstraintValue = 30.0
-            iphoneImageViewTwoTopConstraintValue = 40.0
-            iphoneImageViewThreeTopConstraintValue = 13.0
-            subtitleHeight = 80.00
-        
-        
-        switch currentPage
-        {
+        switch currentPage {
         case  0:
             addConstraints([
                 titleLabel.al_top == al_top + 80,
@@ -89,7 +67,7 @@ class KeyboardWalkthroughView: UIView {
                 iphoneImageView.al_left == al_left + 40,
                 iphoneImageView.al_right == al_right - 40,
                 iphoneImageView.al_bottom == al_bottom + 50
-                ])
+            ])
         case  3:
             addConstraints([
                 titleLabel.al_top == al_top + 80,
@@ -106,8 +84,7 @@ class KeyboardWalkthroughView: UIView {
                 iphoneImageView.al_left == al_left + 40,
                 iphoneImageView.al_right == al_right - 40,
                 iphoneImageView.al_bottom == al_bottom + 130
-                ])
-            
+            ])
         default:
             addConstraints([
                 titleLabel.al_top == al_top + 80,
@@ -124,12 +101,8 @@ class KeyboardWalkthroughView: UIView {
                 iphoneImageView.al_left == al_left + 40,
                 iphoneImageView.al_right == al_right - 40,
                 iphoneImageView.al_bottom == al_bottom + 50
-                ])
-            
-            
+            ])
         }
-        
-        
     }
     
     

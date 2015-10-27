@@ -115,7 +115,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         let page = Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
         
         // Update the page control
-        //pageControl.currentPage = page
+        pageControl.currentPage = page
         
         /// Load pages in our range
         for index in 0...pageCount - 1 {

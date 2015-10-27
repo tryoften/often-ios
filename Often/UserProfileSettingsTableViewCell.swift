@@ -76,8 +76,6 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             
             settingSwitch.translatesAutoresizingMaskIntoConstraints = false
             settingSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
-        default:
-            print("Cell Type not defined")
         }
         
         super.init(style: .Default, reuseIdentifier: "SettingsCell")
@@ -101,8 +99,6 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             settingSwitch.addTarget(self, action: "switchToggled", forControlEvents: .TouchUpInside)
             addSubview(titleLabel)
             addSubview(settingSwitch)
-        default:
-            print("Cell Type not defined")
         }
         
         backgroundColor = VeryLightGray
@@ -188,8 +184,6 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
                 settingSwitch.al_right  == al_right - 10,
                 settingSwitch.al_centerY == al_centerY
             ])
-        default:
-            print("Cell Type not defined")
         }
     }
 }
