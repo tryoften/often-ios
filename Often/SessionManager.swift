@@ -174,57 +174,56 @@ class SessionManager: NSObject {
             self.fetchSocialAccount()
         }
         
-        if let authData = authData,
-            let uid = PFUser.currentUser()?.objectId {
-                
-                userDefaults.setObject([
-                    "uid": authData.uid,
-                    "provider": authData.provider,
-                    "token": authData.token
-                    ], forKey: SessionManagerProperty.authData)
-                
-                userRef = firebase.childByAppendingPath("users/\(authData.uid)")
-                userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
-                    // TODO(kervs): create user model with data and send event
-                    if snapshot.exists() {
-                        if let _ = snapshot.key,
-                            let value = snapshot.value as? [String: AnyObject] {
-                                let user = User()
-                                user.setValuesForKeysWithDictionary(value)
-                                user.id = authData.uid
-                                self.isUserNew = false
-                                persistUser(user)
-                        }
-                    } else {
-                        if (self.userDefaults.boolForKey("email") == true) {
-                            var data = [String : AnyObject]()
-                            
-                            data["id"] = authData.uid
-                            data["email"] = PFUser.currentUser()?.email
-                            data["phone"] = PFUser.currentUser()?.objectForKey("phone") as? String
-                            data["username"] = PFUser.currentUser()?.username
-                            data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
-                            data["name"] = PFUser.currentUser()?.objectForKey("fullName") as? String
-                            data["parseId"] = uid
-                            data["accounts"] = self.createSocialAccount()
-                            
-                            let newUser = User()
-                            newUser.setValuesForKeysWithDictionary(data)
-                            
-                            self.userRef?.setValue(data)
-                            self.isUserNew = false
-                            
-                            persistUser(newUser)
-                            
-                        }
-                    }
-                    }, withCancelBlock: { error in
-                        
-                })
-                
-        } else {
-            
+        guard let authData = authData, let uid = PFUser.currentUser()?.objectId else {
+                return
         }
+        
+        userDefaults.setObject([
+            "uid": authData.uid,
+            "provider": authData.provider,
+            "token": authData.token
+        ], forKey: SessionManagerProperty.authData)
+        
+        userRef = firebase.childByAppendingPath("users/\(authData.uid)")
+        
+        userRef?.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            // TODO(kervs): create user model with data and send event
+            if snapshot.exists() {
+                if let _ = snapshot.key,
+                    let value = snapshot.value as? [String: AnyObject] {
+                        let user = User()
+                        user.setValuesForKeysWithDictionary(value)
+                        user.id = authData.uid
+                        self.isUserNew = false
+                        persistUser(user)
+                }
+            } else {
+                if self.userDefaults.boolForKey(SessionManagerProperty.userEmail) {
+                    var data = [String : AnyObject]()
+                    
+                    data["id"] = authData.uid
+                    data["email"] = PFUser.currentUser()?.email
+                    data["phone"] = PFUser.currentUser()?.objectForKey("phone") as? String
+                    data["username"] = PFUser.currentUser()?.username
+                    data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
+                    data["name"] = PFUser.currentUser()?.objectForKey("fullName") as? String
+                    data["parseId"] = uid
+                    data["accounts"] = self.createSocialAccount()
+                    
+                    let newUser = User()
+                    newUser.setValuesForKeysWithDictionary(data)
+                    
+                    self.userRef?.setValue(data)
+                    self.isUserNew = false
+                    
+                    persistUser(newUser)
+                    
+                }
+            }
+            }, withCancelBlock: { error in
+                
+        })
+        
     }
     
     func createSocialAccount() -> [String:AnyObject] {
