@@ -11,7 +11,8 @@ import UIKit
 class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
     UserProfileHeaderDelegate,
     UserProfileViewModelDelegate,
-    SlideNavigationControllerDelegate {
+    SlideNavigationControllerDelegate,
+    FilterTabDelegate {
     
     var collectionType: UserProfileCollectionType = .Favorites
     var headerView: UserProfileHeaderView?
@@ -29,6 +30,8 @@ class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
         super.init(collectionViewLayout: collectionViewLayout)
         self.viewModel.delegate = self
         self.viewModel.requestData()
+        
+        contentFilterTabView.delegate = self
         
         view.addSubview(contentFilterTabView)
         view.layer.masksToBounds = true
@@ -100,12 +103,14 @@ class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: SearchResultsCollectionViewCell
+        
         switch(collectionType) {
         case .Favorites:
             cell = parseSearchResultsData(viewModel.userFavorites, indexPath: indexPath, collectionView: collectionView)
         case .Recents:
             cell = parseSearchResultsData(viewModel.userRecents, indexPath: indexPath, collectionView: collectionView)
         }
+        
         animateCell(cell, indexPath: indexPath)
         
         return cell
@@ -196,6 +201,9 @@ class UserProfileViewController: SearchResultsCollectionViewControllerBaseClass,
         headerDelegate?.userDidSelectTab(.Recents)
     }
     
+    func currentFilterState(filter: FilterFlag) {
+        
+    }
 }
 
 enum UserProfileCollectionType {

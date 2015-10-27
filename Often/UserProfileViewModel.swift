@@ -13,7 +13,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     var recentsRef: Firebase
     var userFavorites: [SearchResult]?
     var userRecents: [SearchResult]?
-    
+    var currentFilter: FilterFlag?
     
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
@@ -118,6 +118,25 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         return nil
     }
 
+    func filterUserFavoriteAndRecents(filterFlag: FilterFlag) {
+        if let userFavorites = userFavorites {
+            var filterFavorts = []
+            for favResult in userFavorites {
+               
+                switch (filterFlag){
+                case .All:
+                    filterFavorts = userFavorites
+                case .Songs:
+                    
+                
+                }
+                
+            }
+            
+        }
+        
+        
+    }
     
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
         
