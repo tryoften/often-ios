@@ -51,8 +51,8 @@ class VenmoSupplementaryViewController: ServiceProviderSupplementaryViewControll
     
     func contactsCollectionViewDidSelectContact(notification: NSNotification) {
         if let userInfo = notification.userInfo,
-            let name = userInfo["name"] as? String,
-            let phone = userInfo["phone"] as? String {
+            _ = userInfo["name"] as? String,
+            _ = userInfo["phone"] as? String {
                 goToNextStep()
         }
     }

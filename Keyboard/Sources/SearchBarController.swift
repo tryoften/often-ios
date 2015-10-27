@@ -37,6 +37,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         if let textProcessor = textProcessor {
             textProcessor.proxies["search"] = searchBar.textInput
         }
+        searchBar.textInput.placeholder = searchBar.textInput.placeholderText
+        
         searchResultsContainerView?.hidden = true
         searchSuggestionsViewController = SearchSuggestionsViewController(style: .Grouped)
         searchSuggestionsViewController!.delegate = self
@@ -106,16 +108,15 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func submitSearchRequest() {
-        
         let query = filter != nil ? filter!.text + " " + searchBar.textInput.text : searchBar.textInput.text
         viewModel.sendRequestForQuery(query, autocomplete: false)
-        isNewSearch = true
         
         if searchBar.textInput.selected {
             searchResultsViewController?.response = nil
             searchResultsViewController?.refreshResults()
             searchResultsContainerView?.hidden = false
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+            searchBar.textInput.resignFirstResponder()
         }
     }
     
@@ -138,10 +139,11 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func didTapProviderButton(button: ServiceProviderSearchBarButton?) {
         resetSearchBar()
-        
     }
     
     func didTapEnterButton(button: KeyboardKeyButton?) {
+        isNewSearch = true
+        searchBar.textInput.resignFirstResponder()
         submitSearchRequest()
     }
     
@@ -150,10 +152,14 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         textProcessor?.setCurrentProxyWithId("search")
         requestAutocompleteSuggestions()
         
-        NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
+        let center = NSNotificationCenter.defaultCenter()
+        
+        center.postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
             "height": 100.0,
             "hideToggleBar": true
         ])
+        center.postNotificationName(RestoreKeyboardEvent, object: nil)
+        center.postNotificationName(ToggleButtonKeyboardEvevnt, object: nil, userInfo: ["hide": true])
         
         searchSuggestionsViewController?.tableView.scrollRectToVisible(CGRectZero, animated: false)
         
@@ -178,19 +184,18 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func textFieldDidChange() {
         textProcessor?.parseTextInCurrentDocumentProxy()
         searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
-        
+
         if viewModel.hasReceivedResponse {
             requestAutocompleteSuggestions()
+            isNewSearch = true
+            searchResultsContainerView?.hidden = true
+            NSNotificationCenter.defaultCenter().postNotificationName(ToggleButtonKeyboardEvevnt, object: nil, userInfo: ["hide": true])
         }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("default")
-        
         searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
-        NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-            "height": 0
-        ])
     }
     
     func setFilter(filter: Filter) {
@@ -205,6 +210,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         }
         
         if isNewSearch {
+            searchResultsViewController?.view.hidden = false
             searchResultsViewController?.response = response
             searchResultsViewController?.refreshResults()
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
@@ -225,6 +231,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         
         switch(suggestion.type) {
         case .Query:
+            isNewSearch = true
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.textInput.text = suggestion.text
             submitSearchRequest()

@@ -100,15 +100,12 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
         switch(collectionType) {
         case .Favorites:
             return viewModel.userFavorites.count
         case .Recents:
             return viewModel.userRecents.count
         }
-
-        return 0
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
