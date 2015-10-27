@@ -1,6 +1,6 @@
 //
 //  SearchTextField.swift
-//  Surf
+//  Often
 //
 //  Created by Luc Succes on 7/28/15.
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
@@ -264,7 +264,7 @@ class SearchTextField: UIControl, Layouteable {
         let center = NSNotificationCenter.defaultCenter()
         center.postNotificationName(KeyboardResetSearchBar, object: nil)
         center.postNotificationName(RestoreKeyboardEvent, object: nil)
-        center.postNotificationName(ToggleButtonKeyboardEvevnt, object: nil, userInfo: ["hide": true])
+        center.postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
     }
     
     func setupLayout() {
