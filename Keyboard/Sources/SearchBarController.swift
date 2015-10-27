@@ -114,7 +114,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             searchResultsViewController?.refreshResults()
             searchResultsContainerView?.hidden = false
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
-            searchBar.textInput.resignFirstResponder()
         }
     }
     
@@ -141,7 +140,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func didTapEnterButton(button: KeyboardKeyButton?) {
         isNewSearch = true
-        searchBar.textInput.resignFirstResponder()
         submitSearchRequest()
     }
     
@@ -212,6 +210,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             searchResultsViewController?.response = response
             searchResultsViewController?.refreshResults()
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+            searchBar.textInput.resignFirstResponder()
             isNewSearch = false
         } else if responseChanged {
             searchResultsViewController?.nextResponse = response
