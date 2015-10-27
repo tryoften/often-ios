@@ -14,7 +14,7 @@ let ResizeKeyboardEvent = "resizeKeyboard"
 let SwitchKeyboardEvent = "switchKeyboard"
 let CollapseKeyboardEvent = "collapseKeyboard"
 let RestoreKeyboardEvent = "restoreKeyboard"
-let ToggleButtonKeyboardEvevnt = "toggleButtonKeyboard"
+let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
 
 class KeyboardViewController: UIInputViewController, TextProcessingManagerDelegate {
     let locale: Language = .English
@@ -137,7 +137,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         center.addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
         center.addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
         center.addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvevnt, object: nil)
+        center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvent, object: nil)
 
         togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
         

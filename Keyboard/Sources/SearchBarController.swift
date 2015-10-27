@@ -159,7 +159,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             "hideToggleBar": true
         ])
         center.postNotificationName(RestoreKeyboardEvent, object: nil)
-        center.postNotificationName(ToggleButtonKeyboardEvevnt, object: nil, userInfo: ["hide": true])
+        center.postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
         
         searchSuggestionsViewController?.tableView.scrollRectToVisible(CGRectZero, animated: false)
         
@@ -189,7 +189,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             requestAutocompleteSuggestions()
             isNewSearch = true
             searchResultsContainerView?.hidden = true
-            NSNotificationCenter.defaultCenter().postNotificationName(ToggleButtonKeyboardEvevnt, object: nil, userInfo: ["hide": true])
+            NSNotificationCenter.defaultCenter().postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
         }
     }
     
