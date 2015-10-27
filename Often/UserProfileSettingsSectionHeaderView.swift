@@ -29,8 +29,8 @@ class UserProfileSettingsSectionHeaderView: UIView {
 
     func setupLayout() {
         addConstraints([
-            titleLabel.al_left == al_left + 25,
-            titleLabel.al_centerY == al_centerY
+            titleLabel.al_left == al_left + 10,
+            titleLabel.al_bottom == al_bottom - 15
         ])
     }
 }

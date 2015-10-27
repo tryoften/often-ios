@@ -78,7 +78,9 @@ class SearchSuggestionsViewController: UITableViewController {
             
             let filterCell = cell as! ServiceProviderSuggestionTableViewCell
             if let image = suggestion.image {
-                filterCell.serviceProviderLogoImage = UIImage(named: image)
+                filterCell.serviceProviderLogo.image = UIImage(named: image)
+            } else {
+                filterCell.serviceProviderLogo.image = nil
             }
             cell.textLabel!.text = suggestion.text.capitalizedString
             

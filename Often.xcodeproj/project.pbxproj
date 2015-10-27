@@ -29,8 +29,8 @@
 		3B64A1951BC593560057F795 /* DropDownErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */; };
 		3B6B6FFE1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; };
 		3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; };
-		3B6EA4301BDAC98E0011E172 /* SearchResultsCollectionViewControllerBaseClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionViewControllerBaseClass.swift */; };
-		3B6EA4311BDAC98E0011E172 /* SearchResultsCollectionViewControllerBaseClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionViewControllerBaseClass.swift */; };
+		3B6EA4301BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift */; };
+		3B6EA4311BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift */; };
 		3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
 		3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
@@ -89,10 +89,7 @@
 		690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */; };
 		690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
 		690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
-		69192E581BBB9AF800903071 /* EmptySetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69192E571BBB9AF800903071 /* EmptySetView.swift */; };
-		6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */; };
-		6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */; };
-		6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */; };
+		69192E581BBB9AF800903071 /* EmptySetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69192E571BBB9AF800903071 /* EmptySetView.swift */; settings = {ASSET_TAGS = (); }; };
 		695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */; };
 		695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		696C2DA71BB6126B004AC9F6 /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */; };
@@ -370,7 +367,7 @@
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
 		3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownErrorMessage.swift; sourceTree = "<group>"; };
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
-		3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionViewControllerBaseClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsCollectionViewControllerBaseClass.swift; sourceTree = "<group>"; };
+		3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsCollectionBaseViewController.swift; sourceTree = "<group>"; };
 		3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsViewModel.swift; sourceTree = "<group>"; };
 		3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountHeaderView.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
@@ -414,9 +411,6 @@
 		690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewCell.swift; sourceTree = "<group>"; };
 		690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoFriend.swift; path = Keyboard/Sources/VenmoFriend.swift; sourceTree = "<group>"; };
 		69192E571BBB9AF800903071 /* EmptySetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptySetView.swift; sourceTree = "<group>"; };
-		6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewCell.swift; path = Sources/FoursquareLocationCollectionViewCell.swift; sourceTree = "<group>"; };
-		6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationCollectionViewController.swift; path = Sources/FoursquareLocationCollectionViewController.swift; sourceTree = "<group>"; };
-		6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoursquareLocationSectionHeader.swift; path = Sources/FoursquareLocationSectionHeader.swift; sourceTree = "<group>"; };
 		695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolTipViewController.swift; path = Sources/ToolTipViewController.swift; sourceTree = "<group>"; };
@@ -651,16 +645,6 @@
 			name = Soundcloud;
 			sourceTree = "<group>";
 		};
-		6921A0361B615B6B00B75CEC /* Foursquare */ = {
-			isa = PBXGroup;
-			children = (
-				6921A03A1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift */,
-				6921A03E1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift */,
-				6921A0441B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift */,
-			);
-			name = Foursquare;
-			sourceTree = "<group>";
-		};
 		69BA81FD1B2FA84A00233789 /* View Layouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,7 +660,7 @@
 				698B87291B755139001B5B86 /* UserProfileSectionHeaderView.swift */,
 				69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */,
 				696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */,
-				3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionViewControllerBaseClass.swift */,
+				3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift */,
 			);
 			name = "User Profile";
 			sourceTree = "<group>";
@@ -963,7 +947,6 @@
 			isa = PBXGroup;
 			children = (
 				810C4AF51B5D7EB6005AABEA /* Base */,
-				6921A0361B615B6B00B75CEC /* Foursquare */,
 				3BCDA5BA1B8FEBD200840095 /* Soundcloud */,
 				81FFAF421B5C5A7500E2ABAC /* Venmo */,
 			);
@@ -1473,9 +1456,8 @@
 				698B87231B75401E001B5B86 /* UserProfileHeaderView.swift in Sources */,
 				81D4BF371B39D25C006430AB /* FrameView.swift in Sources */,
 				8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
-				6921A0451B617B6E00B75CEC /* FoursquareLocationSectionHeader.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
-				3B6EA4301BDAC98E0011E172 /* SearchResultsCollectionViewControllerBaseClass.swift in Sources */,
+				3B6EA4301BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift in Sources */,
 				3BDF98C61BA262DE00F383D8 /* CreateAccountViewController.swift in Sources */,
 				3BEB408E1BC8561500D36C4D /* HUDProgressView.swift in Sources */,
 				8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
@@ -1517,7 +1499,6 @@
 				81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				81153CB11BBB267000A91EAD /* SessionManager.swift in Sources */,
 				30A402041BC46D6F00BF0C0E /* SocialAccountsService.swift in Sources */,
-				6921A03B1B615F7100B75CEC /* FoursquareLocationCollectionViewCell.swift in Sources */,
 				3B100A2B1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift in Sources */,
 				8184DC9B1BD57F02001767AD /* SearchSuggestionsViewController.swift in Sources */,
 				3BD971C11B98B5FB007EAB5A /* FacebookAccountManager.swift in Sources */,
@@ -1545,7 +1526,6 @@
 				81D60AD01B84BF3200347BCA /* SearchResponse.swift in Sources */,
 				3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */,
 				81D4BF261B38F6DA006430AB /* WindowRootViewController.swift in Sources */,
-				6921A03F1B616D9F00B75CEC /* FoursquareLocationCollectionViewController.swift in Sources */,
 				81BD904F1BD58834002F7D32 /* RootViewController.swift in Sources */,
 				817F784C1BC085440087EBE8 /* suffixNumber.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
@@ -1582,7 +1562,7 @@
 				690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */,
 				8107F7E31BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
 				817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
-				3B6EA4311BDAC98E0011E172 /* SearchResultsCollectionViewControllerBaseClass.swift in Sources */,
+				3B6EA4311BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift in Sources */,
 				8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
@@ -1696,7 +1676,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "";
-				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
@@ -1739,7 +1719,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "dc265701-0ac2-48d3-98ec-0ded77a87ecf";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1778,7 +1758,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "73d2722c-b6fe-4fcc-a068-5c74969692a7";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1823,7 +1803,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "";
-				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
@@ -1861,7 +1841,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "dc265701-0ac2-48d3-98ec-0ded77a87ecf";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1899,7 +1879,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "73d2722c-b6fe-4fcc-a068-5c74969692a7";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1945,7 +1925,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
-				PROVISIONING_PROFILE = "f0ea3cb4-5454-4335-9fcc-6b4a2a35b1a6";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1983,7 +1963,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "dc265701-0ac2-48d3-98ec-0ded77a87ecf";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2021,7 +2001,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "73d2722c-b6fe-4fcc-a068-5c74969692a7";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};

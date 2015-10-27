@@ -66,7 +66,6 @@ class VenmoSupplementaryViewController: ServiceProviderSupplementaryViewControll
             
             UIView.animateWithDuration(0.3, animations: {
                 self.currentStep.view.alpha = 0.0
-                self.searchBarController?.activeSupplementaryViewController = nextStep
             }, completion: { done in
                 self.currentStep.view.removeFromSuperview()
                 self.currentStep.removeFromParentViewController()

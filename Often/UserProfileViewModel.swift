@@ -5,20 +5,26 @@
 
 import Foundation
 
+typealias UserFavoriteLink = SearchResult
+typealias UserRecentLink = SearchResult
+
+enum UserProfileViewModelError: ErrorType {
+    case NoUser
+    case FetchingFavoritesDataFailed
+    case FetchingRecentsDataFailed
+    case RequestDataFailed
+}
+
 class UserProfileViewModel: NSObject, SessionManagerObserver {
     weak var delegate: UserProfileViewModelDelegate?
-    var sessionManager: SessionManager
-    var currentUser: User?
-    var favoriteRef: Firebase
-    var recentsRef: Firebase
-    var userFavorites: [SearchResult]?
-    var userRecents: [SearchResult]?
-    var currentFilter: FilterFlag?
+    let sessionManager: SessionManager
+    var favoriteRef: Firebase?
+    var recentsRef: Firebase?
+    var userFavorites: [UserFavoriteLink]
+    var userRecents: [UserRecentLink]
     
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
-        favoriteRef =  Firebase(url: BaseURL)
-        recentsRef = Firebase(url: BaseURL)
         
         userFavorites = []
         userRecents = []
@@ -32,50 +38,70 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         sessionManager.removeSessionObserver(self)
     }
     
-    func requestData(completion: ((Bool) -> ())? = nil) {
-        if sessionManager.userDefaults.objectForKey("openSession") != nil {
-            if let user = sessionManager.currentUser {
-                currentUser = user
-                pullUserFavoriteAndRecents(currentUser!)
-                delegate?.userProfileViewModelDidLoginUser(self, user: currentUser!)
-            }
-            
-        } else {
-                    }
+    func requestData(completion: ((Bool) -> ())? = nil) throws {
+        guard let user = sessionManager.currentUser else {
+            throw UserProfileViewModelError.NoUser
+        }
+        
+        guard sessionManager.userDefaults.boolForKey(SessionManagerProperty.openSession) else {
+            throw UserProfileViewModelError.RequestDataFailed
+        }
+        
+        let root = Firebase(url: BaseURL)
+        favoriteRef = root.childByAppendingPath("users/\(user.id)/favorites")
+        favoriteRef?.keepSynced(true)
+        
+        recentsRef = root.childByAppendingPath("users/\(user.id)/recents")
+        recentsRef?.keepSynced(true)
+        
+        try fetchFavorites()
+        try fetchRecents()
+
+        delegate?.userProfileViewModelDidLoginUser(self, user: user)
     }
     
-    func pullUserFavoriteAndRecents(user: User) {
-        favoriteRef = favoriteRef.childByAppendingPath("users/\(user.id)/favorites")
-        favoriteRef.keepSynced(true)
-
+    func fetchFavorites() throws {
+        guard let favoriteRef = favoriteRef else {
+            throw UserProfileViewModelError.FetchingFavoritesDataFailed
+        }
+        
         favoriteRef.observeEventType(.Value, withBlock: { snapshot in
             self.userFavorites = []
             
             if let data = snapshot.value as? [String: AnyObject] {
-                for (_,favoritesData) in data {
-                    self.userFavorites!.append(self.processSearchResultData(favoritesData as! [String : AnyObject])!)
+                for (_, favoritesData) in data {
+                    if let favoriteLink = self.processSearchResultData(favoritesData as! [String: AnyObject]) {
+                        self.userFavorites.append(favoriteLink)
+                    }
                 }
-                self.delegate?.userProfileViewModelDidPullUserFavorites(self)
             }
+            
+            self.delegate?.userProfileViewModelDidReceiveFavorites(self, favorites: self.userFavorites)
         })
         
-        recentsRef = recentsRef.childByAppendingPath("users/\(user.id)/recents")
-        recentsRef.keepSynced(true)
+    }
+    
+    func fetchRecents() throws {
+        guard let recentsRef = recentsRef else {
+            throw UserProfileViewModelError.FetchingRecentsDataFailed
+        }
         
         recentsRef.observeEventType(.Value, withBlock: { snapshot in
             self.userRecents = []
             
             if let data = snapshot.value as? [String: AnyObject] {
-                for (_,favoritesData) in data {
-                    self.userRecents!.append(self.processSearchResultData(favoritesData as! [String : AnyObject])!)
+                for (_, recentsData) in data {
+                    if let recentLink = self.processSearchResultData(recentsData as! [String : AnyObject]) {
+                        self.userRecents.append(recentLink)
+                    }
                 }
-                self.delegate?.userProfileViewModelDidPullUserFavorites(self)
             }
+            
+            self.delegate?.userProfileViewModelDidReceiveRecents(self, recents: self.userRecents)
         })
-        
     }
     
-    func processSearchResultData(resultData: [String: AnyObject]) -> SearchResult? {
+    private func processSearchResultData(resultData: [String: AnyObject]) -> SearchResult? {
         if let provider = resultData["_index"] as? String,
             let rawType = resultData["_type"] as? String,
             let _ = resultData["_id"] as? String,
@@ -96,7 +122,6 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
                 default:
                     break
                 }
-                
                 
                 if let item = result {
                     if let index = resultData["_index"] as? String,
@@ -119,21 +144,6 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
 
     func filterUserFavoriteAndRecents(filterFlag: FilterFlag) {
-        if let userFavorites = userFavorites {
-            var filterFavorts = []
-            for favResult in userFavorites {
-               
-                switch (filterFlag){
-                case .All:
-                    filterFavorts = userFavorites
-                case .Songs:
-                    
-                
-                }
-                
-            }
-            
-        }
         
         
     }
@@ -143,8 +153,6 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
     
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
-        currentUser = user
-        pullUserFavoriteAndRecents(currentUser!)
         delegate?.userProfileViewModelDidLoginUser(self, user: user)
     }
     
@@ -155,6 +163,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
 
 protocol UserProfileViewModelDelegate: class {
     func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User)
-    func userProfileViewModelDidPullUserFavorites(userProfileViewModel: UserProfileViewModel)
+    func userProfileViewModelDidReceiveFavorites(userProfileViewModel: UserProfileViewModel, favorites: [UserFavoriteLink])
+    func userProfileViewModelDidReceiveRecents(userProfileViewModel: UserProfileViewModel, recents: [UserRecentLink])
 }
 

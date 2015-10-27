@@ -117,7 +117,7 @@ enum KeyboardKey: Hashable {
             return true
         case .modifier(.CallService, _):
             return true
-        case .modifier(let _):
+        case .modifier:
             return false
         case .changePage(let page, _):
             return false

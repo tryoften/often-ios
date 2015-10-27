@@ -30,7 +30,7 @@ class UserProfileFilterTabView: UIView {
         allFilterButton.setTitle("all".uppercaseString, forState: .Normal)
         allFilterButton.setTitleColor(BlackColor, forState: .Selected)
         allFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        allFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
+        allFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         allFilterButton.selected = true
         allFilterButton.filterTag = FilterFlag.All
         
@@ -39,15 +39,15 @@ class UserProfileFilterTabView: UIView {
         songsFilterButton.setTitle("songs".uppercaseString, forState: .Normal)
         songsFilterButton.setTitleColor(BlackColor, forState: .Selected)
         songsFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        songsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
         songsFilterButton.filterTag = FilterFlag.Songs
+        songsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         
         videosFilterButton = FilterButton()
         videosFilterButton.translatesAutoresizingMaskIntoConstraints = false
         videosFilterButton.setTitle("videos".uppercaseString, forState: .Normal)
         videosFilterButton.setTitleColor(BlackColor, forState: .Selected)
         videosFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        videosFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
+        videosFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         videosFilterButton.filterTag = FilterFlag.Videos
         
         newsFilterButton = FilterButton()
@@ -55,7 +55,7 @@ class UserProfileFilterTabView: UIView {
         newsFilterButton.setTitle("news".uppercaseString, forState: .Normal)
         newsFilterButton.setTitleColor(BlackColor, forState: .Selected)
         newsFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        newsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
+        newsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         newsFilterButton.filterTag = FilterFlag.News
         
         gifsFilterButton = FilterButton()
@@ -63,7 +63,7 @@ class UserProfileFilterTabView: UIView {
         gifsFilterButton.setTitle("gifs".uppercaseString, forState: .Normal)
         gifsFilterButton.setTitleColor(BlackColor, forState: .Selected)
         gifsFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        gifsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10)
+        gifsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         gifsFilterButton.filterTag = FilterFlag.Gifs
         
         highlightBar = UIView()
