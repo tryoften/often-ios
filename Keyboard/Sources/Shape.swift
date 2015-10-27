@@ -11,7 +11,7 @@ import UIKit
 class Shape: UIView {
     var color: UIColor? {
         didSet {
-            if let color = self.color {
+            if self.color != nil {
                 setNeedsDisplay()
             }
         }

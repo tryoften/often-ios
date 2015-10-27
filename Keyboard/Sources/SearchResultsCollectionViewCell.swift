@@ -246,6 +246,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
             
             rightSupplementLabel.al_right == mainTextLabel.al_right,
             rightSupplementLabel.al_centerY == leftSupplementLabel.al_centerY,
+            rightSupplementLabel.al_left == centerSupplementLabel.al_right + 5,
             
             rightCornerImageView.al_top == informationContainerView.al_top + 10,
             rightCornerImageView.al_right == contentImageView.al_left - 15,

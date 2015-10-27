@@ -137,7 +137,7 @@ class KeyboardKeyButton: UIControl {
         background.addSubview(label)
         background.addSubview(iconView)
         
-        let setupViews: Void = {
+        _ = {
             self.displayView.opaque = false
             self.underView?.opaque = false
             self.borderView?.opaque = false
@@ -240,8 +240,6 @@ class KeyboardKeyButton: UIControl {
                     color = UIColor.clearColor()
                     label.font = UIFont(name: "OpenSans-Semibold", size: 12)
                     textColor = theme.keyboardKeyTextColor.colorWithAlphaComponent(0.74)
-                default:
-                    break
                 }
                 updateColors()
             }
@@ -399,7 +397,7 @@ class KeyboardKeyButton: UIControl {
         CATransaction.setDisableActions(true)
         if let key = key {
             switch(key) {
-            case .modifier(let modifier, let _):
+            case .modifier(let modifier, _):
                 switch(modifier) {
                 case .Backspace:
                     if selected {
