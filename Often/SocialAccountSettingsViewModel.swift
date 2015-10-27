@@ -8,24 +8,21 @@
 
 import Foundation
 
-class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAccountManagerDelegate, VenmoAccountManagerDelegate, SoundcloudAccountManagerDelegate {
+class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAccountManagerDelegate, SoundcloudAccountManagerDelegate {
     weak var delegate: SocialAccountSettingsViewModelDelegate?
     var sessionManager: SessionManager
     var socialAccounts: [SocialAccount]
-    var venmoAccountManager: VenmoAccountManager?
     var spotifyAccountManager: SpotifyAccountManager?
     var soundcloudAccountManager: SoundcloudAccountManager?
     
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
-        venmoAccountManager = sessionManager.venmoAccountManager
         spotifyAccountManager = sessionManager.spotifyAccountManager
         soundcloudAccountManager = sessionManager.soundcloudAccountManager
         socialAccounts = [SocialAccount]()
         
         super.init()
-        
-        venmoAccountManager?.delegate = self
+
         spotifyAccountManager?.delegate = self
         soundcloudAccountManager?.delegate = self
         sessionManager.addSessionObserver(self)
@@ -59,10 +56,6 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
     func spotifyAccountManagerDidPullToken(userProfileViewModel: SpotifyAccountManager, account: SocialAccount) {
         delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
       
-    }
-    
-    func venmoAccountManagerDidPullToken(userProfileViewModel: VenmoAccountManager, account: SocialAccount) {
-         delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
     }
     
     func soundcloudAccountManagerDidPullToken(userProfileViewModel: SoundcloudAccountManager, account: SocialAccount) {

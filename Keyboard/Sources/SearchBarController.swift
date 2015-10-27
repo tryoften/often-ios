@@ -77,8 +77,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             bottomSeperator.al_height == 0.6
         ])
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSearchBarButton:", name: VenmoAddSearchBarButtonEvent, object: nil)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetSearchBar", name: KeyboardResetSearchBar, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)

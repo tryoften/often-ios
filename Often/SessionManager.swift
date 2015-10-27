@@ -14,6 +14,7 @@ struct SessionManagerProperty {
     static var userEmail = "email"
     static var openSession = "openSession"
     static var authData = "authData"
+    static var keyboardInstalled = "keyboardInstall"
 }
 
 class SessionManager: NSObject {
@@ -22,7 +23,6 @@ class SessionManager: NSObject {
     var twitterAccountManager: TwitterAccountManager?
     var facebookAccountManager: FacebookAccountManager?
     var emailAccountManager: EmailAccountManager?
-    var venmoAccountManager: VenmoAccountManager?
     var spotifyAccountManager: SpotifyAccountManager?
     var soundcloudAccountManager: SoundcloudAccountManager?
     var userRef: Firebase?
@@ -46,7 +46,6 @@ class SessionManager: NSObject {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         isUserNew = true
 
-        venmoAccountManager = VenmoAccountManager()
         spotifyAccountManager = SpotifyAccountManager()
         soundcloudAccountManager = SoundcloudAccountManager()
         
@@ -240,10 +239,6 @@ class SessionManager: NSObject {
         let soundcloud = SocialAccount()
         soundcloud.type = .Soundcloud
         socialAccounts.updateValue(soundcloud.toDictionary(), forKey: "soundcloud")
-        
-        let venmo = SocialAccount()
-        venmo.type = .Venmo
-        socialAccounts.updateValue(venmo.toDictionary(), forKey: "venmo")
         
         return socialAccounts
     }

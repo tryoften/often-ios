@@ -16,8 +16,9 @@ class SocialAccount: NSObject {
     
     override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
         
-            if let socialAccountType = keyedValues["type"] as? String {
-                type = SocialAccountType(rawValue: socialAccountType)!
+            if let socialAccountType = keyedValues["type"] as? String,
+                let accountType = SocialAccountType(rawValue: socialAccountType) {
+                type = accountType
             }
             
             if let serviceToken = keyedValues["token"] as? String {
@@ -51,6 +52,5 @@ enum SocialAccountType: String {
     case Twitter = "twitter"
     case Spotify = "spotify"
     case Soundcloud = "soundcloud"
-    case Venmo = "venmo"
     case Other = "other"
 }
