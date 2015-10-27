@@ -24,7 +24,7 @@ class SocialAccountHeaderView: UICollectionReusableView {
         subtitleView = UILabel()
         subtitleView.translatesAutoresizingMaskIntoConstraints = false
         subtitleView.font = UIFont(name: "OpenSans", size: 12.0)
-        subtitleView.text = "Connect your profiles to use Venmo, share Spotify favorites, and more! Learn More"
+        subtitleView.text = "Connect your profiles to share Spotify favorites, and more! Learn More"
         subtitleView.numberOfLines = 0
         subtitleView.textAlignment = .Center
         subtitleView.alpha = 0.74

@@ -78,9 +78,6 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
             case .Soundcloud:
                 serviceLogoImageView.image = UIImage(named: "soundcloud-on")
                 break
-            case .Venmo:
-                serviceLogoImageView.image = UIImage(named: "venmo-on")
-                break
             default:
                 break
             }
@@ -99,11 +96,6 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
                 serviceSubtitleLabel.text = "Connect your Soundcloud account to share songs you've liked."
                 serviceSubtitleLabel.numberOfLines = 2
                 serviceLogoImageView.image = UIImage(named: "soundcloud-off")
-                break
-            case .Venmo:
-                serviceSubtitleLabel.text = "Connect your Venmo account to start sending payments & requests from your keyboard."
-                serviceSubtitleLabel.numberOfLines = 2
-                serviceLogoImageView.image = UIImage(named: "venmo-off")
                 break
             default:
                 break
