@@ -9,6 +9,13 @@
 import Foundation
 import Crashlytics
 
+struct SessionManagerProperty {
+    static var user = "user"
+    static var userEmail = "email"
+    static var openSession = "openSession"
+    static var authData = "authData"
+}
+
 class SessionManager: NSObject {
     var firebase: Firebase
     var socialAccountService: SocialAccountsService?
@@ -56,7 +63,7 @@ class SessionManager: NSObject {
             self.processAuthData(authData)
         }
         
-        if let userData = userDefaults.objectForKey("user") as? [String: String] {
+        if let userData = userDefaults.objectForKey(SessionManagerProperty.user) as? [String: String] {
             currentUser = User()
             currentUser?.setValuesForKeysWithDictionary(userData)
             SEGAnalytics.sharedAnalytics().identify(currentUser!.id)
@@ -78,7 +85,7 @@ class SessionManager: NSObject {
     }
     
     func isUserLoggedIn() -> Bool {
-        return userDefaults.objectForKey("user") != nil
+        return userDefaults.objectForKey(SessionManagerProperty.user) != nil
     }
     
     func isKeyboardInstalled() -> Bool {
@@ -135,12 +142,12 @@ class SessionManager: NSObject {
         PFUser.logOut()
         firebase.unauth()
         observers.removeAllObjects()
-        userDefaults.setValue(nil, forKey: "user")
-        userDefaults.setValue(nil, forKey: "email")
+        userDefaults.setValue(nil, forKey: SessionManagerProperty.user)
+        userDefaults.setValue(nil, forKey: SessionManagerProperty.userEmail)
         userDefaults.setValue(nil, forKey: "facebook")
         userDefaults.setValue(nil, forKey: "twitter")
-        userDefaults.setValue(nil, forKey: "openSession")
-        userDefaults.setValue(nil, forKey: "authData")
+        userDefaults.setValue(nil, forKey: SessionManagerProperty.openSession)
+        userDefaults.setValue(nil, forKey: SessionManagerProperty.authData)
         userDefaults.synchronize()
         
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
@@ -156,7 +163,7 @@ class SessionManager: NSObject {
             self.currentUser = user
             
             if !self.isUserNew {
-                self.userDefaults.setObject(user.dataChangedToDictionary(), forKey: "user")
+                self.userDefaults.setObject(user.dataChangedToDictionary(), forKey: SessionManagerProperty.user)
                 self.userDefaults.synchronize()
             }
             
@@ -174,7 +181,7 @@ class SessionManager: NSObject {
                     "uid": authData.uid,
                     "provider": authData.provider,
                     "token": authData.token
-                    ], forKey: "authData")
+                    ], forKey: SessionManagerProperty.authData)
                 
                 userRef = firebase.childByAppendingPath("users/\(authData.uid)")
                 userRef?.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
@@ -288,7 +295,7 @@ class SessionManager: NSObject {
         if let socialAccountService = self.socialAccountService {
             for observer in observers {
                 if let accounts = socialAccountService.socialAccounts {
-                    observer.sessionManagerDidFetchSocialAccounts(self, socialAccounts: accounts)
+                    observer.sessionManagerDidFetchSocialAccounts?(self, socialAccounts: accounts)
                 }
             }
         }
@@ -297,9 +304,7 @@ class SessionManager: NSObject {
     private func broadcastUserLoginEvent() {
         if let currentUser = currentUser {
             for observer in observers {
-                if observer.respondsToSelector("sessionManagerDidLoginUser:user:isNewUser:") {
-                    observer.sessionManagerDidLoginUser(self, user: currentUser, isNewUser: isUserNew)
-                }
+                observer.sessionManagerDidLoginUser?(self, user: currentUser, isNewUser: isUserNew)
             }
         }
     }
@@ -316,7 +321,7 @@ enum LoginType {
 }
 
 @objc protocol SessionManagerObserver: class {
-    func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String : AnyObject]?)
+    optional func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
+    optional func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
+    optional func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String : AnyObject]?)
 }

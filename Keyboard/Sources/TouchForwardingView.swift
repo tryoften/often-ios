@@ -51,10 +51,8 @@ class TouchRecognizerView: UIView {
             for target in targets {
                 if let actions = control.actionsForTarget(target, forControlEvent: controlEvent) {
                     for action in actions {
-                        if let selectorString = action as? String {
-                            let selector = Selector(selectorString)
-                            control.sendAction(selector, to: target, forEvent: nil)
-                        }
+                        let selector = Selector(action)
+                        control.sendAction(selector, to: target, forEvent: nil)
                     }
                 }
             }
@@ -69,25 +67,25 @@ class TouchRecognizerView: UIView {
         
         var closest: (UIView, CGFloat)? = nil
         
-        for anyView in self.subviews {
-            if let view = anyView as? UIView {
-                if view.hidden {
-                    continue
-                }
-                
-                view.alpha = 1
-                
-                let distance = distanceBetween(view.frame, point: position)
-                
-                if closest != nil {
-                    if distance < closest!.1 {
-                        closest = (view, distance)
-                    }
-                }
-                else {
+        for view in self.subviews {
+
+            if view.hidden {
+                continue
+            }
+            
+            view.alpha = 1
+            
+            let distance = distanceBetween(view.frame, point: position)
+            
+            if closest != nil {
+                if distance < closest!.1 {
                     closest = (view, distance)
                 }
             }
+            else {
+                closest = (view, distance)
+            }
+
         }
     
         if closest != nil {
@@ -173,28 +171,26 @@ class TouchRecognizerView: UIView {
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        for obj in touches {
-            if let touch = obj as? UITouch {
-                let position = touch.locationInView(self)
+        for touch in touches {
+            let position = touch.locationInView(self)
+            
+            let oldView = self.touchToView[touch]
+            let newView = findNearestView(position)
+            
+            if oldView != newView {
+                self.handleControl(oldView, controlEvent: .TouchDragExit)
                 
-                let oldView = self.touchToView[touch]
-                let newView = findNearestView(position)
+                let viewChangedOwnership = self.ownView(touch, viewToOwn: newView)
                 
-                if oldView != newView {
-                    self.handleControl(oldView, controlEvent: .TouchDragExit)
-                    
-                    let viewChangedOwnership = self.ownView(touch, viewToOwn: newView)
-                    
-                    if !viewChangedOwnership {
-                        self.handleControl(newView, controlEvent: .TouchDragEnter)
-                    }
-                    else {
-                        self.handleControl(newView, controlEvent: .TouchDragInside)
-                    }
+                if !viewChangedOwnership {
+                    self.handleControl(newView, controlEvent: .TouchDragEnter)
                 }
                 else {
-                    self.handleControl(oldView, controlEvent: .TouchDragInside)
+                    self.handleControl(newView, controlEvent: .TouchDragInside)
                 }
+            }
+            else {
+                self.handleControl(oldView, controlEvent: .TouchDragInside)
             }
         }
     }
@@ -218,17 +214,13 @@ class TouchRecognizerView: UIView {
     
     override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
         if let touches = touches {
-            for obj in touches {
-                if let touch = obj as? UITouch {
-                    let view = self.touchToView[touch]
-                    
-                    self.handleControl(view, controlEvent: .TouchCancel)
-                    
-                    self.touchToView[touch] = nil
-                }
+            for touch in touches {
+                let view = self.touchToView[touch]
+                
+                self.handleControl(view, controlEvent: .TouchCancel)
+                
+                self.touchToView[touch] = nil
             }
-            
-            
         }
     }
     

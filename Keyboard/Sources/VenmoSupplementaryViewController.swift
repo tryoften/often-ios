@@ -51,8 +51,8 @@ class VenmoSupplementaryViewController: ServiceProviderSupplementaryViewControll
     
     func contactsCollectionViewDidSelectContact(notification: NSNotification) {
         if let userInfo = notification.userInfo,
-            let name = userInfo["name"] as? String,
-            let phone = userInfo["phone"] as? String {
+            _ = userInfo["name"] as? String,
+            _ = userInfo["phone"] as? String {
                 goToNextStep()
         }
     }
@@ -66,7 +66,6 @@ class VenmoSupplementaryViewController: ServiceProviderSupplementaryViewControll
             
             UIView.animateWithDuration(0.3, animations: {
                 self.currentStep.view.alpha = 0.0
-                self.searchBarController?.activeSupplementaryViewController = nextStep
             }, completion: { done in
                 self.currentStep.view.removeFromSuperview()
                 self.currentStep.removeFromParentViewController()

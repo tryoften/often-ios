@@ -17,16 +17,17 @@ class SocialAccountHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         titleView = UILabel()
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.font = UIFont(name: "Montserrat", size: 11.0)
+        titleView.font = UIFont(name: "Montserrat", size: 11.5)
         titleView.text = "connect".uppercaseString
         titleView.textAlignment = .Center
         
         subtitleView = UILabel()
         subtitleView.translatesAutoresizingMaskIntoConstraints = false
-        subtitleView.font = UIFont(name: "OpenSans", size: 13.0)
+        subtitleView.font = UIFont(name: "OpenSans", size: 12.0)
         subtitleView.text = "Connect your profiles to use Venmo, share Spotify favorites, and more! Learn More"
         subtitleView.numberOfLines = 0
         subtitleView.textAlignment = .Center
+        subtitleView.alpha = 0.74
         
         
         learnMoreButton = UIButton()
@@ -59,7 +60,7 @@ class SocialAccountHeaderView: UICollectionReusableView {
             connectImageView.al_top == al_top + 50,
             connectImageView.al_left == al_left + 20,
             connectImageView.al_right == al_right - 90,
-            connectImageView.al_height == 100,
+            connectImageView.al_height == 80,
             
             titleView.al_top == connectImageView.al_bottom + 30,
             titleView.al_left == al_left + 20,

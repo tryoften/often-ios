@@ -36,10 +36,12 @@ class TwitterAccountManager: NSObject {
         
     func openSessionWithTwitter(completion: ((NSError?) -> ())? = nil) {
         userDefaults.setValue(true, forKey: "twitter")
-        let twitterAuthHelper = TwitterAuthHelper(firebaseRef:firebase, apiKey:TwitterConsumerKey)
+        
+        let twitterAuthHelper = TwitterAuthHelper(firebaseRef: firebase, apiKey: TwitterConsumerKey)
         twitterAuthHelper.selectTwitterAccountWithCallback { error, accounts in
             if error != nil {
                 // Error retrieving Twitter accounts
+                completion?(error)
             } else if !accounts.isEmpty {
     
                 for account in accounts {
@@ -49,23 +51,24 @@ class TwitterAccountManager: NSObject {
                             twitterAuthHelper.authenticateAccount(account as! ACAccount, withCallback: { error, authData in
                                 if error != nil {
                                     print("Login failed. \(error)")
+                                    completion?(error)
                                 } else {
                                     self.getTwitterUserInfo(authData, completion: { err in
-                                        
+                                        if err != nil {
+                                            completion?(err)
+                                        }
                                     })
                                 }
-                                completion?(error)
+  
                             })
                         }
                     }
                     
                 }
-            } else {
-                
             }
-            
         }
-        userDefaults.setValue(true, forKey: "openSession")
+
+        userDefaults.setValue(true, forKey: SessionManagerProperty.openSession)
         userDefaults.synchronize()
     }
     
@@ -96,7 +99,7 @@ class TwitterAccountManager: NSObject {
     }
     
     func getTwitterUserInfo(authData:FAuthData, completion: (NSError?) -> ()) {
-       let userRef = firebase.childByAppendingPath("users/\(authData.uid)")
+        let userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         var data = [String : AnyObject]()
         var socialAccounts = sessionManager.createSocialAccount()
         

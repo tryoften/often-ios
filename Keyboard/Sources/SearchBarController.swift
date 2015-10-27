@@ -12,82 +12,33 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     SearchSuggestionViewControllerDelegate, SearchSuggestionsViewModelDelegate {
     var viewModel: SearchViewModel!
     var suggestionsViewModel: SearchSuggestionsViewModel!
-    var searchBarView: SearchBar!
-    var supplementaryViewContainer: UIView!
-    var supplementaryViewHeightConstraint: NSLayoutConstraint!
+    var searchBar: SearchBar!
     var bottomSeperator: UIView!
     var textProcessor: TextProcessingManager? {
         didSet {
             primaryTextDocumentProxy = textProcessor?.currentProxy
         }
     }
+    var filter: Filter?
     var searchSuggestionsViewController: SearchSuggestionsViewController?
     var searchResultsViewController: SearchResultsCollectionViewController?
     var searchResultsContainerView: UIView?
     var primaryTextDocumentProxy: UITextDocumentProxy?
-    var activeServiceProviderType: ServiceProviderType? {
-        didSet {
-            if let providerType = activeServiceProviderType {
-                var button: ServiceProviderSearchBarButton?
-                switch(providerType) {
-                case .Venmo:
-                    activeServiceProvider = VenmoServiceProvider(providerType: providerType, textProcessor: textProcessor!)
-                    activeServiceProvider?.searchBarController = self
-                    button = activeServiceProvider!.provideSearchBarButton()
-                    break
-                case .Foursquare:
-                    break
-                }
-                button?.addTarget(self, action: "didTapProviderButton:", forControlEvents: .TouchUpInside)
-                searchBarView.providerButton = button
-            }
-        }
-    }
+
     var isNewSearch: Bool = false
-
-    var activeServiceProvider: ServiceProvider? {
-        didSet {
-            if let supplementaryViewController = activeServiceProvider?.provideSupplementaryViewController() {
-                supplementaryViewController.searchBarController = self
-                activeSupplementaryViewController = supplementaryViewController
-                supplementaryViewContainer.addSubview(supplementaryViewController.view)
-
-                NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-                    "height": supplementaryViewController.supplementaryViewHeight
-                ])
-            }
-        }
-    }
-    var activeSupplementaryViewController: ServiceProviderSupplementaryViewController? {
-        didSet {
-            if let supplementaryViewController = activeSupplementaryViewController {
-                supplementaryViewHeightConstraint.constant = supplementaryViewController.supplementaryViewHeight
-                
-                searchBarView.textInput.selected = false
-                searchBarView.textInput.placeholder = supplementaryViewController.searchBarPlaceholderText
-            }
-        }
-        
-        willSet(value) {
-            if value == nil {
-                if let supplementaryViewController = activeSupplementaryViewController {
-                    supplementaryViewController.view.removeFromSuperview()
-                    supplementaryViewHeightConstraint.constant = 0
-                }
-            }
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBarView = SearchBar()
-        searchBarView.translatesAutoresizingMaskIntoConstraints = false
-        searchBarView.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
-        searchBarView.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
-        searchBarView.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
+        searchBar = SearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
+        searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
+        searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
         if let textProcessor = textProcessor {
-            textProcessor.proxies["search"] = searchBarView.textInput
+            textProcessor.proxies["search"] = searchBar.textInput
         }
+        searchBar.textInput.placeholder = searchBar.textInput.placeholderText
+        
         searchResultsContainerView?.hidden = true
         searchSuggestionsViewController = SearchSuggestionsViewController(style: .Grouped)
         searchSuggestionsViewController!.delegate = self
@@ -96,12 +47,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         bottomSeperator = UIView()
         bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
         bottomSeperator.backgroundColor = DarkGrey
-        
-        supplementaryViewContainer = UIView()
-        supplementaryViewContainer.backgroundColor = VeryLightGray
-        supplementaryViewContainer.translatesAutoresizingMaskIntoConstraints = false
-        supplementaryViewHeightConstraint = supplementaryViewContainer.al_height == 0
-        
+
         let baseURL = Firebase(url: BaseURL)
         viewModel = SearchViewModel(base: baseURL)
         viewModel.delegate = self
@@ -111,23 +57,16 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         suggestionsViewModel.suggestionsDelegate = self
         
         view.addSubview(searchSuggestionsViewController!.view)
-        view.addSubview(supplementaryViewContainer)
-        view.addSubview(searchBarView)
+        view.addSubview(searchBar)
         view.addSubview(bottomSeperator)
         
         view.addConstraints([
-            searchBarView.al_top == view.al_top,
-            searchBarView.al_width == view.al_width,
-            searchBarView.al_left == view.al_left,
-            searchBarView.al_height == KeyboardSearchBarHeight,
-
-            supplementaryViewContainer.al_top == searchBarView.al_bottom,
-            supplementaryViewContainer.al_bottom == view.al_bottom,
-            supplementaryViewContainer.al_left == view.al_left,
-            supplementaryViewContainer.al_width == view.al_width,
-            supplementaryViewHeightConstraint,
+            searchBar.al_top == view.al_top,
+            searchBar.al_width == view.al_width,
+            searchBar.al_left == view.al_left,
+            searchBar.al_height == KeyboardSearchBarHeight,
             
-            searchSuggestionsViewController!.view.al_top == searchBarView.al_bottom,
+            searchSuggestionsViewController!.view.al_top == searchBar.al_bottom,
             searchSuggestionsViewController!.view.al_bottom == view.al_bottom,
             searchSuggestionsViewController!.view.al_left == view.al_left,
             searchSuggestionsViewController!.view.al_width == view.al_width,
@@ -140,7 +79,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSearchBarButton:", name: VenmoAddSearchBarButtonEvent, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetSearchBar", name: "SearchBarController.resetSearchBar", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetSearchBar", name: KeyboardResetSearchBar, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
         
@@ -153,33 +92,14 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let touch = touches.first {
-            if touch.view == searchBarView {
-                searchBarView.textInput.becomeFirstResponder()
+            if touch.view == searchBar {
+                searchBar.textInput.becomeFirstResponder()
             }
         }
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        if let activeSupplementaryViewController = activeSupplementaryViewController {
-            activeSupplementaryViewController.view.frame = supplementaryViewContainer.bounds
-        }
-    }
-    
-    func didReceiveSearchBarButton(notification: NSNotification) {
-        if let userInfo = notification.userInfo,
-            button = userInfo["button"] as? SearchBarButton {
-            searchBarView.addButton(button)
-            searchBarView.textInput.leftView = UIView()
-        }
-    }
-    
     func resetSearchBar() {
-        searchBarView.resetSearchBar()
-        activeServiceProviderType = nil
-        activeServiceProvider = nil
-        activeSupplementaryViewController = nil
+        searchBar.resetSearchBar()
         searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
         NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
             "height": 0,
@@ -188,20 +108,20 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func submitSearchRequest() {
-        let query = searchBarView.textInput.text
+        let query = filter != nil ? filter!.text + " " + searchBar.textInput.text : searchBar.textInput.text
         viewModel.sendRequestForQuery(query, autocomplete: false)
-        isNewSearch = true
         
-        if searchBarView.textInput.selected {
+        if searchBar.textInput.selected {
             searchResultsViewController?.response = nil
             searchResultsViewController?.refreshResults()
             searchResultsContainerView?.hidden = false
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+            searchBar.textInput.resignFirstResponder()
         }
     }
     
     func requestAutocompleteSuggestions() {
-        let query = searchBarView.textInput.text
+        let query = searchBar.textInput.text
         
         if query.isEmpty {
             suggestionsViewModel.sendRequestForQuery("#top-searches:10", autocomplete: true)
@@ -219,10 +139,11 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func didTapProviderButton(button: ServiceProviderSearchBarButton?) {
         resetSearchBar()
-        
     }
     
     func didTapEnterButton(button: KeyboardKeyButton?) {
+        isNewSearch = true
+        searchBar.textInput.resignFirstResponder()
         submitSearchRequest()
     }
     
@@ -231,10 +152,14 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         textProcessor?.setCurrentProxyWithId("search")
         requestAutocompleteSuggestions()
         
-        NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
+        let center = NSNotificationCenter.defaultCenter()
+        
+        center.postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
             "height": 100.0,
             "hideToggleBar": true
         ])
+        center.postNotificationName(RestoreKeyboardEvent, object: nil)
+        center.postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
         
         searchSuggestionsViewController?.tableView.scrollRectToVisible(CGRectZero, animated: false)
         
@@ -259,19 +184,23 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func textFieldDidChange() {
         textProcessor?.parseTextInCurrentDocumentProxy()
         searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
-        
+
         if viewModel.hasReceivedResponse {
             requestAutocompleteSuggestions()
+            isNewSearch = true
+            searchResultsContainerView?.hidden = true
+            NSNotificationCenter.defaultCenter().postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
         }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("default")
-        
         searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
-        NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-            "height": 0
-        ])
+    }
+    
+    func setFilter(filter: Filter) {
+        self.filter = filter
+        searchBar?.setFilterButton(filter)
     }
     
     // MARK: SearchViewModelDelegate
@@ -281,6 +210,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         }
         
         if isNewSearch {
+            searchResultsViewController?.view.hidden = false
             searchResultsViewController?.response = response
             searchResultsViewController?.refreshResults()
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
@@ -299,11 +229,23 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     // MARK: SearchSuggestionsViewControllerDelegate
     func searchSuggestionViewControllerDidTapSuggestion(viewController: SearchSuggestionsViewController, suggestion: SearchSuggestion) {
         
-        searchBarView.textInput.text = suggestion.text
-        
-        if suggestion.type == .Query {
+        switch(suggestion.type) {
+        case .Query:
+            isNewSearch = true
             textProcessor?.parseTextInCurrentDocumentProxy()
+            searchBar.textInput.text = suggestion.text
             submitSearchRequest()
+            break
+        case .Filter:
+            textProcessor?.parseTextInCurrentDocumentProxy()
+            searchBar.textInput.text = ""
+            if let filter = suggestionsViewModel.checkFilterInQuery(suggestion.text) {
+                setFilter(filter)
+            }
+            
+            break
+        case .Unknown:
+            break
         }
     }
 }

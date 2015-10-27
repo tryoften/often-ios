@@ -117,9 +117,9 @@ enum KeyboardKey: Hashable {
             return true
         case .modifier(.CallService, _):
             return true
-        case .modifier(let _):
+        case .modifier:
             return false
-        case .changePage(let page, _):
+        case .changePage(_, _):
             return false
         default:
             return true
@@ -128,9 +128,9 @@ enum KeyboardKey: Hashable {
     
     var isCharacter: Bool {
         switch self {
-        case .modifier(let modifier, let pageId):
+        case .modifier(_, _):
             return false
-        case .changePage(let page, let pageId):
+        case .changePage(_, _):
             return false
         default:
             return true
@@ -141,7 +141,7 @@ enum KeyboardKey: Hashable {
         switch self {
         case .modifier(_, _):
             return true
-        case .changePage(let page, let pageId):
+        case .changePage(_, _):
             return true
         default:
             return false
@@ -167,10 +167,8 @@ enum KeyboardKey: Hashable {
             return "\(string.rawValue):\(pageId.rawValue)"
         case .special(let character, let pageId):
             return "\(character.rawValue):\(pageId.rawValue)"
-        case .changePage(let page, let pageId):
+        case .changePage(let page, _):
             return "Page: \(page)"
-        default:
-            return ""
         }
     }
     
@@ -180,14 +178,12 @@ enum KeyboardKey: Hashable {
             return character.hashValue
         case .letter(let character):
             return character.hashValue
-        case .modifier(let character, let pageId):
+        case .modifier(let character, _):
             return character.hashValue
-        case .special(let character, let pageId):
+        case .special(let character, _):
             return character.hashValue
-        case .changePage(let page, let pageId):
+        case .changePage(let page, _):
             return page
-        default:
-            break
         }
     }
 }

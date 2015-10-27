@@ -42,21 +42,23 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func didReceiveSetCurrentProxy(notification: NSNotification) {
-        if let userInfo = notification.userInfo,
+        guard let userInfo = notification.userInfo,
             let proxy = notification.object as? UITextDocumentProxy,
             let setDefault = userInfo["setDefault"] as? Bool,
-            let id = userInfo["id"] as? String {
-                if let currentProxy = currentProxy as? UIResponder {
-                    if (currentProxy as NSObject) != (proxy as! NSObject) {
-                        currentProxy.resignFirstResponder()
-                    }
-                }
-                
-                proxies[id] = proxy
-                
-                if setDefault {
-                    currentProxy = proxy
-                }
+            let id = userInfo["id"] as? String else {
+                return
+        }
+        
+        if let currentProxy = currentProxy as? UIResponder {
+            if (currentProxy as NSObject) != (proxy as! NSObject) {
+                currentProxy.resignFirstResponder()
+            }
+        }
+        
+        proxies[id] = proxy
+        
+        if setDefault {
+            currentProxy = proxy
         }
     }
     
@@ -91,11 +93,18 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
             
             // check if first token is command call
             if firstToken.hasPrefix("#") {
-                let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
                 
+                if let filter = delegate?.textProcessingManagerDidTextContainerFilter(text) {
+                    for _ in 0...filter.text.characters.count {
+                        currentProxy.deleteBackward()
+                    }
+                    delegate?.textProcessingManagerDidDetectFilter(self, filter: filter)
+                }
+                
+                let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
                 if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
                     print(serviceProviderType)
-                    for i in 0...firstToken.characters.count {
+                    for _ in 0...firstToken.characters.count {
                         currentProxy.deleteBackward()
                     }
                     delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
@@ -176,7 +185,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func charactersAreInCorrectState() -> Bool {
-        let previousContext = (currentProxy as? UITextDocumentProxy)?.documentContextBeforeInput
+        let previousContext = currentProxy.documentContextBeforeInput
     
         if previousContext == nil || previousContext!.characters.count < 3 {
             return false
@@ -215,60 +224,45 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func shouldAutoCapitalize() -> Bool {
-        if let autocapitalization = currentProxy.autocapitalizationType {
-            let documentProxy = currentProxy as? UITextDocumentProxy
-            var beforeContext = currentProxy.documentContextBeforeInput
-
-            switch autocapitalization {
-            case .None:
+        guard let autocapitalization = currentProxy.autocapitalizationType,
+            let beforeContext = currentProxy.documentContextBeforeInput else {
                 return false
-            case .Words:
-                if let beforeContext = documentProxy?.documentContextBeforeInput {
-                    let previousCharacter = beforeContext[beforeContext.endIndex.predecessor()]
-                    return self.characterIsWhitespace(previousCharacter)
-                }
-                else {
-                    return true
-                }
-            case .Sentences:
-                if let beforeContext = documentProxy?.documentContextBeforeInput {
-                    let offset = min(3, beforeContext.characters.count)
-                    var index = beforeContext.endIndex
-
-                    for (var i = 0; i < offset; i += 1) {
-                        index = index.predecessor()
-                        let char = beforeContext[index]
-
-                        if characterIsPunctuation(char) {
-                            if i == 0 {
-                                return false //not enough spaces after punctuation
-                            }
-                            else {
-                                return true //punctuation with at least one space after it
-                            }
-                        }
-                        else {
-                            if !characterIsWhitespace(char) {
-                                return false //hit a foreign character before getting to 3 spaces
-                            }
-                            else if characterIsNewline(char) {
-                                return true //hit start of line
-                            }
-                        }
-                    }
-                    
-                    return true //either got 3 spaces or hit start of line
-                }
-                else {
-                    return true
-                }
-            case .AllCharacters:
-                return true
-            }
         }
-        else {
+
+        switch autocapitalization {
+        case .None:
             return false
+        case .Words:
+            let previousCharacter = beforeContext[beforeContext.endIndex.predecessor()]
+            return self.characterIsWhitespace(previousCharacter)
+        case .Sentences:
+            let offset = min(3, beforeContext.characters.count)
+            var index = beforeContext.endIndex
+
+            for (var i = 0; i < offset; i += 1) {
+                index = index.predecessor()
+                let char = beforeContext[index]
+
+                if characterIsPunctuation(char) {
+                    if i == 0 {
+                        return false //not enough spaces after punctuation
+                    }
+                    return true //punctuation with at least one space after it
+                }
+                else {
+                    if !characterIsWhitespace(char) {
+                        return false //hit a foreign character before getting to 3 spaces
+                    }
+                    else if characterIsNewline(char) {
+                        return true //hit start of line
+                    }
+                }
+            }
+        case .AllCharacters:
+            return true
         }
+
+        return false
     }
     
 }
@@ -276,4 +270,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
 protocol TextProcessingManagerDelegate: class {
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager)
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType)
+    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter)
+    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter?
 }

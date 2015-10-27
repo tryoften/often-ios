@@ -28,7 +28,6 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     var pagesubTitle: [String]
     var viewModel: SignupViewModel
     
-    
     var currentPage: Int {
         return Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
     }
@@ -121,8 +120,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         nextButton.addTarget(self, action: "didTapNextButton:", forControlEvents: .TouchUpInside)
         alertView.noButton.addTarget(self, action: "didTapNoButton:", forControlEvents: .TouchUpInside)
         alertView.yesButton.addTarget(self, action: "didTapYesButton:", forControlEvents: .TouchUpInside)
-        
-        
+
         view.addSubview(scrollView)
         view.addSubview(toolbar)
         view.addSubview(shadowBar)
@@ -183,7 +181,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             keyboardWalkthroughView.al_height == scrollView.al_height,
             keyboardWalkthroughView.al_width == scrollView.al_width,
             keyboardWalkthroughView.al_left == scrollView.al_left + pageWidth * CGFloat(page)
-            ])
+        ])
         
         pageViews.append(keyboardWalkthroughView)
     }
@@ -196,7 +194,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         
         SEGAnalytics.sharedAnalytics().track("app:installKeyboardSwipeToPage", properties: [
             "page": currentPage
-            ])
+        ])
         
         if currentPage == 4 {
             settingsButton.hidden = false
@@ -230,7 +228,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             alertView.al_centerY == view.al_centerY,
             alertView.al_height == 200,
             alertView.al_width == UIScreen.mainScreen().bounds.width - 40,
-            ])
+        ])
         
         alertView.animate()
     }
@@ -254,7 +252,16 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     
     func sendNotificationMessages() {
         let notificationsMessages = [
-            "Tap “Settings” at the top left hand corner. Swipe this message up to see it", "Scroll to the top and tap “General","Scroll to the bottom and tap “Keyboard", "Tap “Keyboards","Tap “Add New Keyboard…","Select Often","Tap Often","Turn on “Allow Full Access”. We do NOT access any sensitive information fam.","Tap Allow","You’re done all boo. Tap here to go back to the Often app. XOXO"
+            "Tap “Settings” at the top left hand corner. Swipe this message up to see it",
+            "Scroll to the top and tap “General",
+            "Scroll to the bottom and tap “Keyboard",
+            "Tap “Keyboards",
+            "Tap “Add New Keyboard…",
+            "Select Often",
+            "Tap Often",
+            "Turn on “Allow Full Access”. We do NOT access any sensitive information fam.",
+            "Tap Allow",
+            "You’re all done. Tap here to go back to the Often app."
         ]
         var timeStamp: NSTimeInterval = 3
         
@@ -264,9 +271,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             localNotification.fireDate = NSDate(timeIntervalSinceNow: timeStamp)
             timeStamp += 2
             UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-            
         }
-        
     }
     
     func setupPages() {
@@ -304,7 +309,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             nextButton.al_right == toolbar.al_right - 10,
             nextButton.al_top == toolbar.al_top + 10,
             nextButton.al_bottom == toolbar.al_bottom - 10
-            ])
+        ])
     }
     
     override func prefersStatusBarHidden() -> Bool {

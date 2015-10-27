@@ -23,19 +23,18 @@ class EmailAccountManager: NSObject {
         super.init()
     }
     
-    func openSessionWithEmail(username:String, password: String, completion: ((NSError?) -> ())? = nil) {
-        userDefaults.setValue(true, forKey: "email")
+    func openSessionWithEmail(username: String, password: String, completion: ((NSError?) -> ())? = nil) {
+        userDefaults.setValue(true, forKey: SessionManagerProperty.userEmail)
         self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
             if error != nil {
                 print(error)
                 completion?(error)
                 
             } else {
-                print("logged in")
                 completion?(nil)
             }
         })
-        userDefaults.setValue(true, forKey: "openSession")
+        userDefaults.setValue(true, forKey: SessionManagerProperty.openSession)
         userDefaults.synchronize()
     }
     

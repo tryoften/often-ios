@@ -32,12 +32,25 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
 
     var delegate: UserProfileHeaderDelegate?
     
+    var descriptionText: String {
+        didSet {
+            let subtitle = NSMutableAttributedString(string: descriptionText)
+            let subtitleRange = NSMakeRange(0, descriptionText.characters.count)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 3
+            subtitle.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:subtitleRange)
+            subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
+            descriptionLabel.attributedText = subtitle
+            descriptionLabel.textAlignment = .Center
+        }
+    }
+    
     override init(frame: CGRect) {
         profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .ScaleAspectFit
         profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = 30
+        profileImageView.layer.cornerRadius = 34
         profileImageView.image = UIImage(named: "userprofileplaceholder")
         
         nameLabel = UILabel()
@@ -48,10 +61,10 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         
         descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        descriptionLabel.text = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
+        descriptionLabel.font = UIFont(name: "OpenSans", size: 12.5)
         descriptionLabel.textAlignment = .Center
         descriptionLabel.numberOfLines = 3
+        descriptionLabel.alpha = 0.54
         
         scoreLabel = UILabel()
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -70,14 +83,14 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         favoritesTabButton.translatesAutoresizingMaskIntoConstraints = false
         favoritesTabButton.setTitle("FAVORITES", forState: .Normal)
         favoritesTabButton.setTitleColor(BlackColor, forState: .Normal)
-        favoritesTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 12.0)
+        favoritesTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         favoritesTabButton.titleLabel?.textAlignment = .Center
         
         recentsTabButton = UIButton()
         recentsTabButton.translatesAutoresizingMaskIntoConstraints = false
         recentsTabButton.setTitle("RECENTS", forState: .Normal)
         recentsTabButton.setTitleColor(BlackColor, forState: .Normal)
-        recentsTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 12.0)
+        recentsTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         recentsTabButton.titleLabel?.textAlignment = .Center
         
         highlightBarView = UIView()
@@ -96,9 +109,10 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         
         
         offsetValue = 0.0
+        descriptionText = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
         
         super.init(frame: frame)
-    
+
         backgroundColor = WhiteColor
         clipsToBounds = true
         
@@ -129,12 +143,18 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     
     // UserScrollHeaderDelegate
     
-    func userDidSelectTab(type: String) {
-        if type == "favorites" {
-            leftHighlightBarPositionConstraint?.constant = 0.0
-        } else {
+    func userDidSelectTab(type: UserProfileCollectionType) {
+        switch(type) {
+        case .Favorites:
+             leftHighlightBarPositionConstraint?.constant = 0.0
+        case .Recents:
             leftHighlightBarPositionConstraint?.constant = UIScreen.mainScreen().bounds.width / 2
         }
+        
+        UIView.animateWithDuration(0.3) {
+            self.layoutIfNeeded()
+        }
+
     }
     
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
@@ -142,14 +162,9 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             let progressiveness = attributes.progressiveness
             
-            if progressiveness > 0 && progressiveness <= 1 {
-                nameLabelHeightConstraint?.constant = (-140 * progressiveness)
-                descriptionLabelHeightConstraint?.constant = (-15 * (1 - progressiveness))
-                scoreNameLabelHeightConstraint?.constant = (-120 * (1 - progressiveness)) - 30
-                scoreNameLabel.alpha = progressiveness - 0.2
-                scoreLabel.alpha = progressiveness - 0.2
-                descriptionLabel.alpha = progressiveness - 0.2
-            }
+            nameLabelHeightConstraint?.constant = (-140 * progressiveness)
+            descriptionLabelHeightConstraint?.constant = (-15 *  progressiveness)
+            descriptionLabel.alpha = progressiveness - 0.2
         }
     }
     
@@ -172,15 +187,15 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
             
             profileImageView.al_bottom == nameLabel.al_top - 10,
             profileImageView.al_centerX == al_centerX,
-            profileImageView.al_height == 60,
-            profileImageView.al_width == 60,
+            profileImageView.al_height == 68,
+            profileImageView.al_width == 68,
             
             nameLabelHeightConstraint!,
             nameLabel.al_centerX == al_centerX,
             
             descriptionLabelHeightConstraint!,
             descriptionLabel.al_centerX == al_centerX,
-            descriptionLabel.al_width == 200,
+            descriptionLabel.al_width == 250,
             
             scoreLabel.al_bottom == scoreNameLabel.al_top,
             scoreLabel.al_centerX == al_centerX,

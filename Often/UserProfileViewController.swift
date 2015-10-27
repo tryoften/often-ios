@@ -8,26 +8,21 @@
 
 import UIKit
 
-class UserProfileViewController: UICollectionViewController,
+let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
+
+class UserProfileViewController: SearchResultsCollectionBaseViewController,
     UserProfileHeaderDelegate,
     UserProfileViewModelDelegate,
     SlideNavigationControllerDelegate {
     
-    enum UserProfileCollectionType {
-        case Favorites
-        case Recents
-    }
-    
     var collectionType: UserProfileCollectionType = .Favorites
-    
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
-    
     var contentFilterTabView: UserProfileFilterTabView
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
     var headerDelegate: UserScrollHeaderDelegate?
-
+    
     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
         contentFilterTabView = UserProfileFilterTabView()
@@ -36,7 +31,16 @@ class UserProfileViewController: UICollectionViewController,
         super.init(collectionViewLayout: collectionViewLayout)
         self.viewModel.delegate = self
         
+        do {
+            try viewModel.requestData()
+        } catch UserProfileViewModelError.RequestDataFailed {
+            print("Failed to request data")
+        } catch let error {
+            print("Failed to request data \(error)")
+        }
+        
         view.addSubview(contentFilterTabView)
+        view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
         
         setupLayout()
@@ -48,28 +52,33 @@ class UserProfileViewController: UICollectionViewController,
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 215)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 360)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight / 2)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
-        flowLayout.minimumLineSpacing = 0.0
-        flowLayout.minimumInteritemSpacing = 0.0
-        flowLayout.sectionInset = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
-        flowLayout.itemSize = CGSizeMake(screenWidth, 118)
+        flowLayout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        flowLayout.scrollDirection = .Vertical
+        flowLayout.minimumInteritemSpacing = 7.0
+        flowLayout.minimumLineSpacing = 7.0
+        flowLayout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 70.0, right: 10.0)
+
         return flowLayout
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let collectionView = collectionView {
-            collectionView.backgroundColor = WhiteColor
-            collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "profile-header")
-            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "resultCell")
-        }
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
         
+        if let collectionView = collectionView {
+            collectionView.backgroundColor = VeryLightGray
+            collectionView.showsVerticalScrollIndicator = false
+            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -88,64 +97,51 @@ class UserProfileViewController: UICollectionViewController,
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionType == .Favorites {
-            return 7 // return the number of favorites for the current user
-        } else if collectionType == .Recents {
-            return 7 // return the number of recents for the current user
-        } else {
-            return 0
+        switch(collectionType) {
+        case .Favorites:
+            return viewModel.userFavorites.count
+        case .Recents:
+            return viewModel.userRecents.count
         }
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        // same cell for both right now
-        if collectionType == .Favorites {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-            
-            cell.sourceLogoView.image = UIImage(named: "complex")
-            cell.headerLabel.text = "@ComplexMag"
-            cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."
-            cell.leftSupplementLabel.text = "3.1K Retweets"
-            cell.centerSupplementLabel.text = "4.5K Favorites"
-            cell.rightSupplementLabel.text = "July 25, 2015"
-            cell.rightCornerImageView.image = UIImage(named: "twitter")
-            cell.contentImage = UIImage(named: "ovosound")
-            
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultsCollectionViewCell
-            
-            cell.sourceLogoView.image = UIImage(named: "complex")
-            cell.headerLabel.text = "@ComplexMag"
-            cell.mainTextLabel.text = "In the heat of the battle, @Drake dropped some new flames in his new track, Charged Up, via..."
-            cell.leftSupplementLabel.text = "3.1K Retweets"
-            cell.centerSupplementLabel.text = "4.5K Favorites"
-            cell.rightSupplementLabel.text = "July 25, 2015"
-            cell.rightCornerImageView.image = UIImage(named: "twitter")
-            cell.contentImage = UIImage(named: "ovosound")
-            
-            return cell
+        var cell: SearchResultsCollectionViewCell
+        switch(collectionType) {
+        case .Favorites:
+            cell = parseSearchResultsData(viewModel.userFavorites, indexPath: indexPath, collectionView: collectionView)
+        case .Recents:
+            cell = parseSearchResultsData(viewModel.userRecents, indexPath: indexPath, collectionView: collectionView)
         }
+        animateCell(cell, indexPath: indexPath)
+        
+        return cell
     }
+    
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "profile-header", forIndexPath: indexPath) as! UserProfileHeaderView
-            if let user = viewModel.currentUser {
-                cell.descriptionLabel.text = user.userDescription
+
+            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier:UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileHeaderView
+            if let user = viewModel.sessionManager.currentUser {
+                cell.descriptionText = user.userDescription
                 cell.nameLabel.text = user.name
-                if !user.profileImageLarge.isEmpty {
-                    cell.profileImageView.setImageWithURL(NSURL(string: user.profileImageLarge)!)
+                if let imageURL = NSURL(string: user.profileImageLarge) {
+                    cell.profileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
+                        cell.profileImageView.image = image
+                        }, failure: { (req, res, error) in
+                            print("Failed to load image: \(imageURL)")
+                    })
                 }
                 
             }
-    
+
             if headerView == nil {
                 headerView = cell
                 headerView?.delegate = self
                 headerDelegate = headerView
             }
-            
+
             return headerView!
         }
         
@@ -166,6 +162,15 @@ class UserProfileViewController: UICollectionViewController,
         
     }
     
+    func userProfileViewModelDidReceiveFavorites(userProfileViewModel: UserProfileViewModel, favorites: [UserFavoriteLink]) {
+        collectionView?.reloadData()
+        PKHUD.sharedHUD.hide(animated: true)
+    }
+    
+    func userProfileViewModelDidReceiveRecents(userProfileViewModel: UserProfileViewModel, recents: [UserRecentLink]) {
+        
+    }
+    
     func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
         return true
     }
@@ -174,7 +179,7 @@ class UserProfileViewController: UICollectionViewController,
         return true
     }
     
-    // User profile header delegate
+    // MARK: UserProfileHeaderDelegate
     func revealSetServicesViewDidTap() {
         SlideNavigationController.sharedInstance().openMenu(MenuLeft, withCompletion: nil)
     }
@@ -190,7 +195,7 @@ class UserProfileViewController: UICollectionViewController,
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
         
-        headerDelegate?.userDidSelectTab("favorites")
+        headerDelegate?.userDidSelectTab(.Favorites)
     }
     
     func userRecentsTabSelected() {
@@ -200,8 +205,14 @@ class UserProfileViewController: UICollectionViewController,
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
         
-        headerDelegate?.userDidSelectTab("recents")
+        headerDelegate?.userDidSelectTab(.Recents)
     }
+    
+}
+
+enum UserProfileCollectionType {
+    case Favorites
+    case Recents
 }
 
 protocol UserProfileViewControllerDelegate {
@@ -210,5 +221,5 @@ protocol UserProfileViewControllerDelegate {
 }
 
 protocol UserScrollHeaderDelegate  {
-    func userDidSelectTab(type: String)
+    func userDidSelectTab(type: UserProfileCollectionType)
 }

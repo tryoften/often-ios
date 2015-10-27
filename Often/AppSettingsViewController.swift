@@ -9,13 +9,13 @@
 import UIKit
 import MessageUI
 
-class AppSettingsViewController: UIViewController, UITableViewDataSource,
-UITableViewDelegate,
-MFMailComposeViewControllerDelegate,
-SlideNavigationControllerDelegate,
-TableViewCellDelegate {
-    var containerView: UIView
-    var tableView: UITableView?
+class AppSettingsViewController: UIViewController,
+    UITableViewDataSource,
+    UITableViewDelegate,
+    MFMailComposeViewControllerDelegate,
+    SlideNavigationControllerDelegate,
+    TableViewCellDelegate {
+    var tableView: UITableView
     var viewModel: SettingsViewModel
     
     var accountSettings = [
@@ -47,28 +47,23 @@ TableViewCellDelegate {
     init(viewModel: SettingsViewModel) {
         self.viewModel = viewModel
         
-        containerView = UIView()
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.backgroundColor = VeryLightGray
+        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = UIColor.clearColor()
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorInset = UIEdgeInsetsZero
+        tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
+        tableView.backgroundColor = MediumGrey
         
         super.init(nibName: nil, bundle: nil)
         
-        tableView = UITableView(frame: view.bounds, style: .Grouped)
-        tableView?.backgroundColor = UIColor.clearColor()
-
-        if let tableView = tableView {
-            tableView.delegate = self
-            tableView.dataSource = self
-            tableView.contentInset = UIEdgeInsetsMake(20.0, 0.0, 0.0, 0.0)
-            tableView.showsVerticalScrollIndicator = false
-            tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
-            tableView.backgroundColor = MediumGrey
-            containerView.addSubview(tableView)
-        }
+        tableView.delegate = self
+        tableView.dataSource = self
         
         view.layer.masksToBounds = true
-        view.backgroundColor = VeryLightGray
-        view.addSubview(containerView)
+        view.backgroundColor = MediumGrey
+        view.addSubview(tableView)
         
         setupLayout()
     }
@@ -89,14 +84,17 @@ TableViewCellDelegate {
     
     // MARK: TableViewDelegate and Datasource
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if ProfileSettingsSection.Account.rawValue == section {
+        guard let enumVal = ProfileSettingsSection(rawValue: section) else {
+            return nil
+        }
+        
+        switch(enumVal) {
+        case .Account:
             return "Account"
-        } else if ProfileSettingsSection.Actions.rawValue == section {
+        case .Actions:
             return "Actions"
-        } else if ProfileSettingsSection.About.rawValue == section {
+        case .About:
             return "About"
-        } else {
-            return ""
         }
     }
     
@@ -105,15 +103,18 @@ TableViewCellDelegate {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if ProfileSettingsSection.Account.rawValue == section {
-            return accountSettings.count
-        } else if ProfileSettingsSection.Actions.rawValue == section {
-            return actionsSettings.count
-        } else if ProfileSettingsSection.About.rawValue == section {
-            return aboutSettings.count
-        } else {
-            return 0
+        if let settingsSection = ProfileSettingsSection(rawValue: section) {
+            switch(settingsSection) {
+            case .Account:
+                return accountSettings.count
+            case .Actions:
+                return actionsSettings.count
+            case .About:
+                return aboutSettings.count
+            }
         }
+        
+        return 0
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -121,7 +122,7 @@ TableViewCellDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let settingsSection: ProfileSettingsSection = ProfileSettingsSection(rawValue: indexPath.section) {
+        if let settingsSection = ProfileSettingsSection(rawValue: indexPath.section) {
             switch settingsSection {
             case .Account:
                 if indexPath.row == 0 { // name
@@ -137,7 +138,8 @@ TableViewCellDelegate {
                 }
             case .Actions:
                 if indexPath.row == 0 { // How to Install
-                    
+                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(UIViewController(), withSlideOutAnimation: true, andCompletion: {
+                    })
                 } else if indexPath.row == 1 { // Rate in App Store
                     
                 } else { // Support
@@ -157,8 +159,6 @@ TableViewCellDelegate {
                     let vc = SettingsWebViewController(website: "http://www.google.com")
                     presentViewController(vc, animated: true, completion: nil)
                 }
-            default:
-                break
             }
         }
         
@@ -174,18 +174,24 @@ TableViewCellDelegate {
             headerView.titleLabel.text = "ACTIONS"
         } else if ProfileSettingsSection.About.rawValue == section {
             headerView.titleLabel.text = "ABOUT"
-        } else {
-            
         }
         
         return headerView
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40.0
+        return 50.0
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if let settingsSection = ProfileSettingsSection(rawValue: section) {
+            switch(settingsSection) {
+            case .About:
+                return 50
+            default:
+                return 0.01
+            }
+        }
         return 0.01
     }
     
@@ -217,39 +223,13 @@ TableViewCellDelegate {
                     return cell
                 }
             case .Actions:
-                if indexPath.row == 0 { // How to Install
-                    let cell = UserProfileSettingsTableViewCell(type: .Default)
-                    cell.titleLabel.text = actionsSettings[indexPath.row]
-                    return cell
-                } else if indexPath.row == 1 { // Rate in App Store
-                    let cell = UserProfileSettingsTableViewCell(type: .Default)
-                    cell.titleLabel.text = actionsSettings[indexPath.row]
-                    return cell
-                } else { // Support
-                    let cell = UserProfileSettingsTableViewCell(type: .Default)
-                    cell.titleLabel.text = actionsSettings[indexPath.row]
-                    return cell
-                }
+                let cell = UserProfileSettingsTableViewCell(type: .Default)
+                cell.titleLabel.text = actionsSettings[indexPath.row]
+                return cell
             case .About:
-                if indexPath.row == 0 { // FAQ
-                    let cell = UserProfileSettingsTableViewCell(type: .Default)
-                    cell.titleLabel.text = aboutSettings[indexPath.row]
-                    return cell
-                } else if indexPath.row == 1 { // Privacy Policy
-                    let cell = UserProfileSettingsTableViewCell(type: .Default)
-                    cell.titleLabel.text = aboutSettings[indexPath.row]
-                    return cell
-                } else if indexPath.row == 2 { // Terms of Use
-                    let cell = UserProfileSettingsTableViewCell(type: .Default)
-                    cell.titleLabel.text = aboutSettings[indexPath.row]
-                    return cell
-                } else { // Licenses
-                    let cell = UserProfileSettingsTableViewCell(type: .Default)
-                    cell.titleLabel.text = aboutSettings[indexPath.row]
-                    return cell
-                }
-            default:
-                break
+                let cell = UserProfileSettingsTableViewCell(type: .Default)
+                cell.titleLabel.text = aboutSettings[indexPath.row]
+                return cell
             }
         }
         let cell = UITableViewCell()
@@ -271,7 +251,13 @@ TableViewCellDelegate {
         presentViewController(mc, animated: true, completion: nil)
     }
     
-    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError?) {
+//    override func presentViewController(viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
+//        RootViewController.sharedInstance().popToRootAndSwitchToViewController(viewControllerToPresent, withSlideOutAnimation: flag, andCompletion: {
+//            completion?()
+//        })
+//    }
+    
+    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         switch result.rawValue {
         case MFMailComposeResultCancelled.rawValue:
             print("Mail cancelled")
@@ -294,10 +280,10 @@ TableViewCellDelegate {
     
     func setupLayout() {
         view.addConstraints([
-            tableView!.al_left == view.al_left + 50,
-            tableView!.al_top == view.al_top,
-            tableView!.al_right == view.al_right,
-            tableView!.al_bottom == view.al_bottom
+            tableView.al_left == view.al_left + 60,
+            tableView.al_top == view.al_top,
+            tableView.al_right == view.al_right,
+            tableView.al_bottom == view.al_bottom
         ])
     }
 }

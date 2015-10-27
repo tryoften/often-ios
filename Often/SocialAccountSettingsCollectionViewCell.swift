@@ -34,6 +34,7 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
         serviceSubtitleLabel.textColor = UIColor(fromHexString: "#000000")
         serviceSubtitleLabel.textAlignment = .Center
         serviceSubtitleLabel.numberOfLines = 2
+        serviceSubtitleLabel.alpha = 0.54
         
         super.init(frame: frame)
         
@@ -46,9 +47,9 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
         addSubview(serviceSubtitleLabel)
         
         layer.shadowColor = UIColor.blackColor().CGColor
-        layer.shadowOffset = CGSizeMake(0, 1)
-        layer.shadowOpacity = 0.20
-        layer.shadowRadius = 1.0
+        layer.shadowOffset = CGSizeMake(0, 2)
+        layer.shadowOpacity = 0.14
+        layer.shadowRadius = 2.0
         clipsToBounds = false
         
         setupLayout()
@@ -86,16 +87,16 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
         } else {
             switch settingSocialAccount.type {
             case .Twitter:
-                serviceSubtitleLabel.text = "Connect your Twitter account to start sending payments & requests from your keyboard."
+                serviceSubtitleLabel.text = "Connect your Twitter account to sync your profile picture, description & favorites."
                 serviceSubtitleLabel.numberOfLines = 2
                 serviceLogoImageView.image = UIImage(named: "twitter-off")
             case .Spotify:
-                serviceSubtitleLabel.text = "Connect your Spotify account to start sending payments & requests from your keyboard."
+                serviceSubtitleLabel.text = "Connect your Spotify account to share playlists & saved songs."
                 serviceSubtitleLabel.numberOfLines = 2
                 serviceLogoImageView.image = UIImage(named: "spotify-off")
                 break
             case .Soundcloud:
-                serviceSubtitleLabel.text = "Connect your Soundcloud account to start sending payments & requests from your keyboard."
+                serviceSubtitleLabel.text = "Connect your Soundcloud account to share songs you've liked."
                 serviceSubtitleLabel.numberOfLines = 2
                 serviceLogoImageView.image = UIImage(named: "soundcloud-off")
                 break
@@ -113,15 +114,15 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
     
     func setupLayout() {
         addConstraints([
-            serviceSubtitleLabel.al_bottom == al_bottom - 10,
+            serviceSubtitleLabel.al_bottom == al_bottom - 18,
             serviceSubtitleLabel.al_centerX == al_centerX,
-            serviceSubtitleLabel.al_width == 200,
+            serviceSubtitleLabel.al_width == 180,
             
             serviceSwitch.al_centerX == al_centerX,
-            serviceSwitch.al_top == serviceLogoImageView.al_bottom + 5,
+            serviceSwitch.al_top == serviceLogoImageView.al_bottom + 3,
             
             serviceLogoImageView.al_centerX == al_centerX,
-            serviceLogoImageView.al_centerY == al_centerY - 10,
+            serviceLogoImageView.al_centerY == al_centerY - 25,
             serviceLogoImageView.al_width == 100,
             serviceLogoImageView.al_height == 40
         ])
