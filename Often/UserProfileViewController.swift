@@ -40,6 +40,7 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
         }
         
         view.addSubview(contentFilterTabView)
+        view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
         
         setupLayout()
@@ -54,14 +55,14 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
         let screenHeight = UIScreen.mainScreen().bounds.size.height
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 215)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight/2)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight / 2)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         flowLayout.scrollDirection = .Vertical
         flowLayout.minimumInteritemSpacing = 7.0
         flowLayout.minimumLineSpacing = 7.0
-        flowLayout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 40.0, right: 10.0)
+        flowLayout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 70.0, right: 10.0)
 
         return flowLayout
     }
@@ -73,7 +74,7 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
         PKHUD.sharedHUD.show()
         
         if let collectionView = collectionView {
-            collectionView.backgroundColor = WhiteColor
+            collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
             

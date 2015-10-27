@@ -147,10 +147,10 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         switch cellType {
         case .Default:
             addConstraints([
-                titleLabel.al_left == al_left + 25,
+                titleLabel.al_left == al_left + 15,
                 titleLabel.al_centerY == al_centerY,
                 
-                disclosureIndicator.al_right == al_right - 60,
+                disclosureIndicator.al_right == al_right - 10,
                 disclosureIndicator.al_centerY == al_centerY,
                 disclosureIndicator.al_width == 16,
                 disclosureIndicator.al_height == 16
@@ -158,23 +158,23 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             
         case .Nondisclosure:
             addConstraints([
-                titleLabel.al_left == al_left + 25,
+                titleLabel.al_left == al_left + 15,
                 titleLabel.al_centerY == al_centerY,
                 
-                secondaryTextField.al_right == al_right - 63,
+                secondaryTextField.al_right == al_right - 13,
                 secondaryTextField.al_centerY == al_centerY
             ])
             
         case .Detailed:
             addConstraints([
-                titleLabel.al_left == al_left + 25,
+                titleLabel.al_left == al_left + 15,
                 titleLabel.al_centerY == al_centerY,
                 
                 secondaryTextLabel.al_width == 125,
                 secondaryTextLabel.al_right == disclosureIndicator.al_left - 10,
                 secondaryTextLabel.al_centerY == al_centerY,
                 
-                disclosureIndicator.al_right == al_right - 60,
+                disclosureIndicator.al_right == al_right - 10,
                 disclosureIndicator.al_centerY == al_centerY,
                 disclosureIndicator.al_width == 16,
                 disclosureIndicator.al_height == 16
@@ -182,10 +182,10 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             
         case .Switch:
             addConstraints([
-                titleLabel.al_left == al_left + 25,
+                titleLabel.al_left == al_left + 15,
                 titleLabel.al_centerY == al_centerY,
                 
-                settingSwitch.al_right  == al_right - 60,
+                settingSwitch.al_right  == al_right - 10,
                 settingSwitch.al_centerY == al_centerY
             ])
         default:
