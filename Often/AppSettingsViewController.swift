@@ -13,7 +13,8 @@ class AppSettingsViewController: UIViewController,
     UITableViewDataSource,
     UITableViewDelegate,
     MFMailComposeViewControllerDelegate,
-    SlideNavigationControllerDelegate {
+    SlideNavigationControllerDelegate,
+    TableViewCellDelegate {
     var tableView: UITableView
     var viewModel: SettingsViewModel
     
@@ -137,7 +138,6 @@ class AppSettingsViewController: UIViewController,
                 }
             case .Actions:
                 if indexPath.row == 0 { // How to Install
-                    let installationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: SignupViewModel(sessionManager: SessionManager.defaultManager))
                     RootViewController.sharedInstance().popToRootAndSwitchToViewController(UIViewController(), withSlideOutAnimation: true, andCompletion: {
                     })
                 } else if indexPath.row == 1 { // Rate in App Store
@@ -159,8 +159,6 @@ class AppSettingsViewController: UIViewController,
                     let vc = SettingsWebViewController(website: "http://www.google.com")
                     presentViewController(vc, animated: true, completion: nil)
                 }
-            default:
-                break
             }
         }
         
@@ -204,13 +202,13 @@ class AppSettingsViewController: UIViewController,
                 if indexPath.row == 0 { // name
                     let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
                     cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.secondaryTextField.text = "Regy Perlera"
-                    print(viewModel.currentUser?.name)
+                    cell.secondaryTextField.text = viewModel.currentUser?.name
+                    cell.delegate = self
                     return cell
                 } else if indexPath.row == 1 { // email
                     let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
                     cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.secondaryTextField.text = "regy@tryoften.com"
+                    cell.secondaryTextField.text = viewModel.currentUser?.email
                     cell.userInteractionEnabled = false
                     return cell
                 } else if indexPath.row == 2 { // password
@@ -232,8 +230,6 @@ class AppSettingsViewController: UIViewController,
                 let cell = UserProfileSettingsTableViewCell(type: .Default)
                 cell.titleLabel.text = aboutSettings[indexPath.row]
                 return cell
-            default:
-                break
             }
         }
         let cell = UITableViewCell()
@@ -255,6 +251,12 @@ class AppSettingsViewController: UIViewController,
         presentViewController(mc, animated: true, completion: nil)
     }
     
+//    override func presentViewController(viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
+//        RootViewController.sharedInstance().popToRootAndSwitchToViewController(viewControllerToPresent, withSlideOutAnimation: flag, andCompletion: {
+//            completion?()
+//        })
+//    }
+    
     func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         switch result.rawValue {
         case MFMailComposeResultCancelled.rawValue:
@@ -269,6 +271,11 @@ class AppSettingsViewController: UIViewController,
             break
         }
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: TableViewCellDelegate
+    func didFinishEditingName(newName: String) {
+        viewModel.currentUser?.name = newName
     }
     
     func setupLayout() {
