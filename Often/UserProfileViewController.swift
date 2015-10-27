@@ -23,6 +23,7 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
     var headerDelegate: UserScrollHeaderDelegate?
+   
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
@@ -100,11 +101,12 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
         switch(collectionType) {
         case .Favorites:
-            return viewModel.userFavorites.count
+            return viewModel.filteredUserFavorites.count
         case .Recents:
-            return viewModel.userRecents.count
+            return viewModel.filteredUserRecents.count
         }
     }
     
@@ -113,9 +115,9 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
         
         switch(collectionType) {
         case .Favorites:
-            cell = parseSearchResultsData(viewModel.userFavorites, indexPath: indexPath, collectionView: collectionView)
+            cell = parseSearchResultsData(viewModel.filteredUserFavorites, indexPath: indexPath, collectionView: collectionView)
         case .Recents:
-            cell = parseSearchResultsData(viewModel.userRecents, indexPath: indexPath, collectionView: collectionView)
+            cell = parseSearchResultsData(viewModel.filteredUserRecents, indexPath: indexPath, collectionView: collectionView)
         }
         
         animateCell(cell, indexPath: indexPath)

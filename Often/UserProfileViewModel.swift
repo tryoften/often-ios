@@ -20,14 +20,29 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     let sessionManager: SessionManager
     var favoriteRef: Firebase?
     var recentsRef: Firebase?
-    var userFavorites: [UserFavoriteLink]
-    var userRecents: [UserRecentLink]
+    var currentfilterFlag: FilterFlag = .All
+    var filteredUserRecents: [UserRecentLink]
+    var filteredUserFavorites: [UserFavoriteLink]
+    
+    var userRecents: [UserRecentLink] {
+        didSet {
+            filterUserRecents(currentfilterFlag)
+        }
+    }
+    
+    var userFavorites: [UserFavoriteLink] {
+        didSet {
+            filterUserFavorites(currentfilterFlag)
+        }
+    }
     
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
         
         userFavorites = []
         userRecents = []
+        filteredUserRecents = []
+        filteredUserFavorites = []
         
         super.init()
         
@@ -66,17 +81,17 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         }
         
         favoriteRef.observeEventType(.Value, withBlock: { snapshot in
-            self.userFavorites = []
+            var favoritesLinks: [UserFavoriteLink] = []
             
             if let data = snapshot.value as? [String: AnyObject] {
                 for (_, favoritesData) in data {
                     if let favoriteLink = self.processSearchResultData(favoritesData as! [String: AnyObject]) {
-                        self.userFavorites.append(favoriteLink)
+                        favoritesLinks.append(favoriteLink)
                     }
                 }
+                
+                self.userFavorites = favoritesLinks
             }
-            
-            self.delegate?.userProfileViewModelDidReceiveFavorites(self, favorites: self.userFavorites)
         })
         
     }
@@ -87,17 +102,17 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         }
         
         recentsRef.observeEventType(.Value, withBlock: { snapshot in
-            self.userRecents = []
+            var recentsLinks: [UserRecentLink] = []
             
             if let data = snapshot.value as? [String: AnyObject] {
                 for (_, recentsData) in data {
                     if let recentLink = self.processSearchResultData(recentsData as! [String : AnyObject]) {
-                        self.userRecents.append(recentLink)
+                        recentsLinks.append(recentLink)
                     }
                 }
+                
+                self.userRecents = recentsLinks
             }
-            
-            self.delegate?.userProfileViewModelDidReceiveRecents(self, recents: self.userRecents)
         })
     }
     
@@ -143,9 +158,69 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         return nil
     }
 
-    func filterUserFavoriteAndRecents(filterFlag: FilterFlag) {
+    func filterUserRecents(filterFlag: FilterFlag) {
+        currentfilterFlag = filterFlag
         
+        filteredUserRecents = []
         
+        switch (currentfilterFlag) {
+        case .Songs:
+            filteredUserRecents = runFilter(userRecents, filterFor: .Track)
+            break
+        case .Videos:
+            filteredUserRecents = runFilter(userRecents, filterFor: .Video)
+        case .News:
+            filteredUserRecents = runFilter(userRecents, filterFor: .Article)
+            break
+        case .Gifs:
+            break
+        default:
+            filteredUserRecents = userRecents
+            break
+        }
+        
+        delegate?.userProfileViewModelDidReceiveRecents(self, recents: filteredUserRecents)
+    }
+    
+    func filterUserFavorites(filterFlag: FilterFlag) {
+        currentfilterFlag = filterFlag
+        
+        filteredUserFavorites = []
+    
+        switch (currentfilterFlag) {
+        case .Songs:
+            filteredUserFavorites = runFilter(userFavorites, filterFor: .Track)
+            break
+        case .Videos:
+            filteredUserFavorites = runFilter(userFavorites, filterFor: .Video)
+           break
+        case .News:
+            filteredUserFavorites = runFilter(userFavorites, filterFor: .Article)
+            break
+        case .Gifs:
+            break
+        default:
+            filteredUserFavorites = userFavorites
+            break
+        }
+        
+        delegate?.userProfileViewModelDidReceiveFavorites(self, favorites: filteredUserFavorites)
+    }
+    
+    func runFilter(linksArray:[SearchResult], filterFor: SearchResultType) -> [SearchResult] {
+        var currentFilterLinks: [SearchResult] = []
+        
+        for links in linksArray {
+            switch(links.type){
+            case filterFor:
+                currentFilterLinks.append(links)
+                break
+            default:
+                break
+            }
+        }
+        
+        return currentFilterLinks
     }
     
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
