@@ -22,13 +22,14 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         case Detailed
         case Switch
     }
-    
-    var cellType: SettingsCellType
+
     var titleLabel: UILabel
     var secondaryTextLabel: UILabel
     var secondaryTextField: UITextField
     var settingSwitch: UISwitch
     var disclosureIndicator: UIImageView
+    var cellType: SettingsCellType
+    var delegate: TableViewCellDelegate?
     
     init(type: SettingsCellType) {
         cellType = type
@@ -139,6 +140,10 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if let newName = textField.text {
+            delegate?.didFinishEditingName(newName)
+        }
+
         textField.resignFirstResponder()
         return true
     }
@@ -192,4 +197,8 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             print("Cell Type not defined")
         }
     }
+}
+
+protocol TableViewCellDelegate {
+    func didFinishEditingName(newName: String)
 }

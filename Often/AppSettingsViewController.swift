@@ -12,7 +12,8 @@ import MessageUI
 class AppSettingsViewController: UIViewController, UITableViewDataSource,
 UITableViewDelegate,
 MFMailComposeViewControllerDelegate,
-SlideNavigationControllerDelegate {
+SlideNavigationControllerDelegate,
+TableViewCellDelegate {
     var containerView: UIView
     var tableView: UITableView?
     var viewModel: SettingsViewModel
@@ -195,13 +196,13 @@ SlideNavigationControllerDelegate {
                 if indexPath.row == 0 { // name
                     let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
                     cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.secondaryTextField.text = "Regy Perlera"
-                    print(viewModel.currentUser?.name)
+                    cell.secondaryTextField.text = viewModel.currentUser?.name
+                    cell.delegate = self
                     return cell
                 } else if indexPath.row == 1 { // email
                     let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
                     cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.secondaryTextField.text = "regy@tryoften.com"
+                    cell.secondaryTextField.text = viewModel.currentUser?.email
                     cell.userInteractionEnabled = false
                     return cell
                 } else if indexPath.row == 2 { // password
@@ -284,6 +285,11 @@ SlideNavigationControllerDelegate {
             break
         }
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: TableViewCellDelegate
+    func didFinishEditingName(newName: String) {
+        viewModel.currentUser?.name = newName
     }
     
     func setupLayout() {
