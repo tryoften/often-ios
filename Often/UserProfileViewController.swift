@@ -168,12 +168,16 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
     }
     
     func userProfileViewModelDidReceiveFavorites(userProfileViewModel: UserProfileViewModel, favorites: [UserFavoriteLink]) {
-        collectionView?.reloadData()
-        PKHUD.sharedHUD.hide(animated: true)
+        reloadCollectionView()
     }
     
     func userProfileViewModelDidReceiveRecents(userProfileViewModel: UserProfileViewModel, recents: [UserRecentLink]) {
-        
+        reloadCollectionView()
+    }
+    
+    func reloadCollectionView() {
+        collectionView?.reloadSections(NSIndexSet(index: 0))
+        PKHUD.sharedHUD.hide(animated: true)
     }
     
     func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
@@ -214,7 +218,13 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
     }
     
     func currentFilterState(filter: FilterFlag) {
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
         
+        delay(0.3) {
+            self.viewModel.filterUserRecents(filter)
+            self.viewModel.filterUserFavorites(filter)
+        }
     }
 }
 
