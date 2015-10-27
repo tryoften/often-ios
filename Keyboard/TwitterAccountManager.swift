@@ -83,7 +83,7 @@ class TwitterAccountManager: NSObject {
                 if user != nil {
                     self.openSessionWithTwitter({ err in
                         if err == nil {
-                           completion(results: ResultType.Success(r: true))
+                            completion(results: ResultType.Success(r: true))
                         } else {
                             completion(results: ResultType.SystemError(e: err!))
                         }

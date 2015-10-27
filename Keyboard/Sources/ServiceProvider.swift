@@ -9,7 +9,6 @@
 import Foundation
 
 enum ServiceProviderType: String {
-    case Venmo = "venmo"
     case Foursquare = "foursquare"
 }
 

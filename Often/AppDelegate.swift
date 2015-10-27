@@ -92,13 +92,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: sessionManager.spotifyAccountManager?.authCallback)
                 return true
             }
-        } else if Venmo.sharedInstance().handleOpenURL(url) {
-            let session = Venmo.sharedInstance().session
-            if let acct = sessionManager.venmoAccountManager {
-                acct.getCurrentCurrentSessionToken(session)
-                acct.getVenmoUserInformation(session.accessToken)
-            }
-            return true
         }
         
         return false
