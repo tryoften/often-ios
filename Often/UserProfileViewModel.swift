@@ -166,29 +166,16 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         return item
     }
 
-
     func filterUserRecents(filterFlag: MediaType) {
         currentfilterFlag = filterFlag
-        filteredUserRecents = []
-        
-        if shouldFilter {
-            filteredUserRecents = runFilter(userRecents, filterFor: currentfilterFlag)
-        } else {
-            filteredUserRecents = userRecents
-        }
-        
+        filteredUserRecents = runFilter(userRecents, filterFor: currentfilterFlag)
+       
         delegate?.userProfileViewModelDidReceiveRecents(self, recents: filteredUserRecents)
     }
     
     func filterUserFavorites(filterFlag: MediaType) {
         currentfilterFlag = filterFlag
-        filteredUserFavorites = []
-        
-        if shouldFilter {
-            filteredUserFavorites = runFilter(userFavorites, filterFor: currentfilterFlag)
-        } else {
-            filteredUserFavorites = userFavorites
-        }
+        filteredUserFavorites = runFilter(userFavorites, filterFor: currentfilterFlag)
     
         delegate?.userProfileViewModelDidReceiveFavorites(self, favorites: filteredUserFavorites)
     }
@@ -196,14 +183,20 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     func runFilter(linksArray:[MediaLink], filterFor: MediaType) -> [MediaLink] {
         var currentFilterLinks: [MediaLink] = []
         
-        for link in linksArray {
-            switch(link.type){
-            case filterFor:
-                currentFilterLinks.append(link)
-                break
-            default:
-                break
+        if shouldFilter {
+            for link in linksArray {
+                switch(link.type){
+                case filterFor:
+                    currentFilterLinks.append(link)
+                    break
+                    
+                default:
+                    break
+                }
             }
+        } else {
+            currentFilterLinks = linksArray
+            
         }
         
         return currentFilterLinks
