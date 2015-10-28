@@ -162,15 +162,15 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             let progressiveness = attributes.progressiveness
             
-            nameLabelHeightConstraint?.constant = (-140 * progressiveness)
-            descriptionLabelHeightConstraint?.constant = (-15 *  progressiveness)
+            nameLabelHeightConstraint?.constant = (-115 * progressiveness)
+            descriptionLabelHeightConstraint?.constant = (14 *  progressiveness)
             descriptionLabel.alpha = progressiveness - 0.2
         }
     }
     
     func setupLayout() {
             leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
-            nameLabelHeightConstraint = nameLabel.al_bottom == tabContainerView.al_top - 140
+            nameLabelHeightConstraint = nameLabel.al_bottom == tabContainerView.al_top - 115
             descriptionLabelHeightConstraint = descriptionLabel.al_bottom == scoreLabel.al_top
             scoreNameLabelHeightConstraint = scoreNameLabel.al_bottom == tabContainerView.al_top - 30
         
