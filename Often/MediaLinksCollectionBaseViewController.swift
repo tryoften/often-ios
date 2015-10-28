@@ -8,9 +8,9 @@
 
 import Foundation
 
-let ServiceResultsCollectionViewCellReuseIdentifier = "SearchResultsCollectionViewCell"
+let MediaLinkCollectionViewCellReuseIdentifier = "MediaLinksCollectionViewCell"
 
-class SearchResultsCollectionBaseViewController: UICollectionViewController {
+class MediaLinksCollectionBaseViewController: UICollectionViewController {
    var cellsAnimated: [NSIndexPath: Bool]
    
     override init(collectionViewLayout layout: UICollectionViewLayout) {
@@ -18,15 +18,15 @@ class SearchResultsCollectionBaseViewController: UICollectionViewController {
 
         super.init(collectionViewLayout: layout)
         
-        collectionView?.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: ServiceResultsCollectionViewCellReuseIdentifier)
+        collectionView?.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: MediaLinkCollectionViewCellReuseIdentifier)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func parseSearchResultsData(searchResultsData: [SearchResult]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> SearchResultsCollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ServiceResultsCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as! SearchResultsCollectionViewCell
+    func parseMediaLinkData(searchResultsData: [MediaLink]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaLinkCollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaLinkCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as! MediaLinkCollectionViewCell
 
         if indexPath.row >= searchResultsData?.count {
             return cell
@@ -40,14 +40,14 @@ class SearchResultsCollectionBaseViewController: UICollectionViewController {
         
         switch(result.type) {
         case .Article:
-            let article = (result as! ArticleSearchResult)
+            let article = (result as! ArticleMediaLink)
             cell.mainTextLabel.text = article.title
             cell.leftSupplementLabel.text = article.author
             cell.headerLabel.text = article.sourceName
             cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
             cell.centerSupplementLabel.text = nil
         case .Track:
-            let track = (result as! TrackSearchResult)
+            let track = (result as! TrackMediaLink)
             cell.mainTextLabel.text = track.name
             cell.rightSupplementLabel.text = track.formattedCreatedDate
             
@@ -64,7 +64,7 @@ class SearchResultsCollectionBaseViewController: UICollectionViewController {
                 break
             }
         case .Video:
-            let video = (result as! VideoSearchResult)
+            let video = (result as! VideoMediaLink)
             cell.mainTextLabel.text = video.title
             cell.headerLabel.text = video.owner
             
@@ -83,7 +83,7 @@ class SearchResultsCollectionBaseViewController: UICollectionViewController {
         }
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
-        cell.searchResult = result
+        cell.mediaLink = result
         cell.overlayVisible = false
         cell.contentImageView.image = nil
         if  let image = result.image,
@@ -103,7 +103,7 @@ class SearchResultsCollectionBaseViewController: UICollectionViewController {
         return cell
     }
     
-    func animateCell(cell:SearchResultsCollectionViewCell, indexPath:NSIndexPath) {
+    func animateCell(cell:MediaLinkCollectionViewCell, indexPath:NSIndexPath) {
         
         if (cellsAnimated[indexPath] != true) {
             cell.alpha = 0.0

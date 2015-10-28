@@ -1,5 +1,5 @@
 //
-//  SearchResult.swift
+//  MediaLink.swift
 //  Often
 //
 //  Created by Luc Succes on 8/19/15.
@@ -8,19 +8,55 @@
 
 import Foundation
 
-enum SearchResultType: String {
+enum MediaType: String {
     case Article = "article"
-    case Link = "link"
-    case Music = "music"
     case Album = "album"
     case Track = "track"
     case Artist = "artist"
     case Video = "video"
     case User = "user"
+    case Gif = "gif"
     case Other = "other"
+    
+    var isVideo: Bool {
+        switch self {
+        case .Video:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var isMusic: Bool {
+        switch self {
+        case .Album, .Track, .Artist:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var isNews: Bool {
+        switch self {
+        case .Article:
+            return true
+        default:
+            return true
+        }
+    }
+    
+    var isGif: Bool {
+        switch self {
+        case .Gif:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
-enum SearchResultSource: String {
+
+enum MediaLinkSource: String {
     case Billboard = "billboard"
     case Complex = "complex-music"
     case Highsnobiety = "highsnobiety"
@@ -46,12 +82,12 @@ enum SearchResultSource: String {
     case Unknown = "unknown"
 }
 
-class SearchResult: Equatable {
+class MediaLink: Equatable {
     var id: String = ""
-    var type: SearchResultType = .Other
+    var type: MediaType = .Other
     var score: Double = 0.0
     var sourceName: String = ""
-    var source: SearchResultSource = .Unknown
+    var source: MediaLinkSource = .Unknown
     var image: String?
     var data: [String: AnyObject] = [:]
     
@@ -116,6 +152,6 @@ class SearchResult: Equatable {
     }
 }
 
-func ==(lhs: SearchResult, rhs: SearchResult) -> Bool {
+func ==(lhs: MediaLink, rhs: MediaLink) -> Bool {
     return lhs.id == rhs.id
 }
