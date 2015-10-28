@@ -63,7 +63,7 @@ class KeyboardWalkthroughView: UIView {
                 subtitleLabel.al_right == al_right - 30,
                 subtitleLabel.al_height == 70,
                 
-                iphoneImageView.al_top == subtitleLabel.al_bottom + 70,
+                iphoneImageView.al_top == subtitleLabel.al_bottom + 20,
                 iphoneImageView.al_left == al_left + 40,
                 iphoneImageView.al_right == al_right - 40,
                 iphoneImageView.al_bottom == al_bottom + 50
@@ -80,7 +80,7 @@ class KeyboardWalkthroughView: UIView {
                 subtitleLabel.al_right == al_right - 30,
                 subtitleLabel.al_height == 90,
                 
-                iphoneImageView.al_top == subtitleLabel.al_bottom + 70,
+                iphoneImageView.al_top == subtitleLabel.al_bottom + 20,
                 iphoneImageView.al_left == al_left + 40,
                 iphoneImageView.al_right == al_right - 40,
                 iphoneImageView.al_bottom == al_bottom + 130
@@ -97,7 +97,7 @@ class KeyboardWalkthroughView: UIView {
                 subtitleLabel.al_right == al_right - 30,
                 subtitleLabel.al_height == 70,
                 
-                iphoneImageView.al_top == subtitleLabel.al_bottom + 70,
+                iphoneImageView.al_top == subtitleLabel.al_bottom + 20,
                 iphoneImageView.al_left == al_left + 40,
                 iphoneImageView.al_right == al_right - 40,
                 iphoneImageView.al_bottom == al_bottom + 50
