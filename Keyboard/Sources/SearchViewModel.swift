@@ -21,7 +21,7 @@ class SearchViewModel: SearchBaseViewModel {
                 return
         }
         
-        var results = [SearchResult]()
+        var results = [MediaLink]()
         
         for resultData in resultsData {
             if let result = processSearchResultData(resultData) {
@@ -75,25 +75,25 @@ class SearchViewModel: SearchBaseViewModel {
 
     }
     
-    func processSearchResultData(resultData: [String: AnyObject]) -> SearchResult? {
+    func processSearchResultData(resultData: [String: AnyObject]) -> MediaLink? {
         guard let provider = resultData["_index"] as? String,
             let rawType = resultData["_type"] as? String,
             let _ = resultData["_id"] as? String,
             let _ = resultData["_score"] as? Double,
-            let _ = SearchResultSource(rawValue: provider),
-            let type = SearchResultType(rawValue: rawType) else {
+            let _ = MediaLinkSource(rawValue: provider),
+            let type = MediaType(rawValue: rawType) else {
                 return nil
         }
         
-        var result: SearchResult? = nil
+        var result: MediaLink? = nil
         
         switch(type) {
         case .Article:
-            result = ArticleSearchResult(data: resultData)
+            result = ArticleMediaLink(data: resultData)
         case .Track:
-            result = TrackSearchResult(data: resultData)
+            result = TrackMediaLink(data: resultData)
         case .Video:
-            result = VideoSearchResult(data: resultData)
+            result = VideoMediaLink(data: resultData)
             break
         default:
             break
@@ -101,7 +101,7 @@ class SearchViewModel: SearchBaseViewModel {
         
         if let item = result {
             if let index = resultData["_index"] as? String,
-                let source = SearchResultSource(rawValue: index) {
+                let source = MediaLinkSource(rawValue: index) {
                     item.source = source
             } else {
                 item.source = .Unknown

@@ -10,7 +10,7 @@ import UIKit
 
 let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
 
-class UserProfileViewController: SearchResultsCollectionBaseViewController,
+class UserProfileViewController: MediaLinksCollectionBaseViewController,
     UserProfileHeaderDelegate,
     UserProfileViewModelDelegate,
     SlideNavigationControllerDelegate,
@@ -111,13 +111,13 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell: SearchResultsCollectionViewCell
+        var cell: MediaLinkCollectionViewCell
         
         switch(collectionType) {
         case .Favorites:
-            cell = parseSearchResultsData(viewModel.filteredUserFavorites, indexPath: indexPath, collectionView: collectionView)
+            cell = parseMediaLinkData(viewModel.filteredUserFavorites, indexPath: indexPath, collectionView: collectionView)
         case .Recents:
-            cell = parseSearchResultsData(viewModel.filteredUserRecents, indexPath: indexPath, collectionView: collectionView)
+            cell = parseMediaLinkData(viewModel.filteredUserRecents, indexPath: indexPath, collectionView: collectionView)
         }
         
         animateCell(cell, indexPath: indexPath)
