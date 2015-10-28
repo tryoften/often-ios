@@ -22,7 +22,8 @@ class UserProfileFilterTabView: UIView {
     let highlightBar: UIView
     var highlightBarLeftConstraint: NSLayoutConstraint?
     
-    var buttons: [UIButton]
+    var buttons: [FilterButton]
+    
     
     override init(frame: CGRect) {
         allFilterButton = FilterButton()
