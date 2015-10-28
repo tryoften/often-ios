@@ -219,14 +219,10 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         headerDelegate?.userDidSelectTab(.Recents)
     }
     
-    func currentFilterState(filter: FilterFlag) {
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
+    func currentFilterState(filter: MediaType) {
         
-        delay(0.3) {
-            self.viewModel.filterUserRecents(filter)
-            self.viewModel.filterUserFavorites(filter)
-        }
+        self.viewModel.filterUserRecents(filter)
+        self.viewModel.filterUserFavorites(filter)
     }
 }
 

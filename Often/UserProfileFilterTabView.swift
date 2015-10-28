@@ -8,7 +8,8 @@
 
 import UIKit
 class FilterButton: UIButton {
-    var filterTag:FilterFlag?
+    var filterType: MediaType = .Other
+
 }
 
 class UserProfileFilterTabView: UIView {
@@ -22,7 +23,7 @@ class UserProfileFilterTabView: UIView {
     let highlightBar: UIView
     var highlightBarLeftConstraint: NSLayoutConstraint?
     
-    var buttons: [UIButton]
+    let buttons: [UIButton]
     
     override init(frame: CGRect) {
         allFilterButton = FilterButton()
@@ -32,14 +33,13 @@ class UserProfileFilterTabView: UIView {
         allFilterButton.setTitleColor(LightGrey, forState: .Normal)
         allFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         allFilterButton.selected = true
-        allFilterButton.filterTag = FilterFlag.All
         
         songsFilterButton = FilterButton()
         songsFilterButton.translatesAutoresizingMaskIntoConstraints = false
         songsFilterButton.setTitle("songs".uppercaseString, forState: .Normal)
         songsFilterButton.setTitleColor(BlackColor, forState: .Selected)
         songsFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        songsFilterButton.filterTag = FilterFlag.Songs
+        songsFilterButton.filterType = .Track
         songsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
         
         videosFilterButton = FilterButton()
@@ -48,7 +48,7 @@ class UserProfileFilterTabView: UIView {
         videosFilterButton.setTitleColor(BlackColor, forState: .Selected)
         videosFilterButton.setTitleColor(LightGrey, forState: .Normal)
         videosFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
-        videosFilterButton.filterTag = FilterFlag.Videos
+        videosFilterButton.filterType = .Video
         
         newsFilterButton = FilterButton()
         newsFilterButton.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +56,7 @@ class UserProfileFilterTabView: UIView {
         newsFilterButton.setTitleColor(BlackColor, forState: .Selected)
         newsFilterButton.setTitleColor(LightGrey, forState: .Normal)
         newsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
-        newsFilterButton.filterTag = FilterFlag.News
+        newsFilterButton.filterType = .Article
         
         gifsFilterButton = FilterButton()
         gifsFilterButton.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +64,7 @@ class UserProfileFilterTabView: UIView {
         gifsFilterButton.setTitleColor(BlackColor, forState: .Selected)
         gifsFilterButton.setTitleColor(LightGrey, forState: .Normal)
         gifsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
-        gifsFilterButton.filterTag = FilterFlag.Gifs
+        gifsFilterButton.filterType = .Gif
         
         highlightBar = UIView()
         highlightBar.translatesAutoresizingMaskIntoConstraints = false
@@ -146,10 +146,8 @@ class UserProfileFilterTabView: UIView {
                 buttons[i].selected = true
                 highlightBarLeftConstraint?.constant = (buttonWidth * CGFloat(i))
                 
-                if let flag = button.filterTag {
-                    delegate?.currentFilterState(flag)
-                }
-
+                delegate?.currentFilterState(button.filterType)
+                
                 UIView.animateWithDuration(0.3) {
                     self.layoutIfNeeded()
                 }
@@ -161,15 +159,7 @@ class UserProfileFilterTabView: UIView {
     }
 }
 
-enum FilterFlag {
-    case All
-    case Songs
-    case Videos
-    case News
-    case Gifs
-}
-
 protocol FilterTabDelegate: class {
-    func currentFilterState(filter: FilterFlag)
+    func currentFilterState(filter: MediaType)
 }
 

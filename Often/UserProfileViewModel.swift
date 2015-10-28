@@ -20,10 +20,15 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     let sessionManager: SessionManager
     var favoriteRef: Firebase?
     var recentsRef: Firebase?
-    var currentfilterFlag: FilterFlag = .All
     var filteredUserRecents: [UserRecentLink]
     var filteredUserFavorites: [UserFavoriteLink]
+    var shouldFilter: Bool = false
     
+    var currentfilterFlag: MediaType = .Other {
+        didSet {
+            shouldFilter = currentfilterFlag.isMusic || currentfilterFlag.isNews || currentfilterFlag.isVideo || currentfilterFlag.isGif
+        }
+    }
     var userRecents: [UserRecentLink] {
         didSet {
             filterUserRecents(currentfilterFlag)
@@ -162,63 +167,39 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     }
 
 
-    func filterUserRecents(filterFlag: FilterFlag) {
+    func filterUserRecents(filterFlag: MediaType) {
         currentfilterFlag = filterFlag
-        
         filteredUserRecents = []
         
-        switch (currentfilterFlag) {
-        case .Songs:
-            filteredUserRecents = runFilter(userRecents, filterFor: .Track)
-            break
-        case .Videos:
-            filteredUserRecents = runFilter(userRecents, filterFor: .Video)
-            break
-        case .News:
-            filteredUserRecents = runFilter(userRecents, filterFor: .Article)
-            break
-        case .Gifs:
-            break
-        default:
+        if shouldFilter {
+            filteredUserRecents = runFilter(userRecents, filterFor: currentfilterFlag)
+        } else {
             filteredUserRecents = userRecents
-            break
         }
         
         delegate?.userProfileViewModelDidReceiveRecents(self, recents: filteredUserRecents)
     }
     
-    func filterUserFavorites(filterFlag: FilterFlag) {
+    func filterUserFavorites(filterFlag: MediaType) {
         currentfilterFlag = filterFlag
-        
         filteredUserFavorites = []
-    
-        switch (currentfilterFlag) {
-        case .Songs:
-            filteredUserFavorites = runFilter(userFavorites, filterFor: .Track)
-            break
-        case .Videos:
-            filteredUserFavorites = runFilter(userFavorites, filterFor: .Video)
-           break
-        case .News:
-            filteredUserFavorites = runFilter(userFavorites, filterFor: .Article)
-            break
-        case .Gifs:
-            break
-        default:
-            filteredUserFavorites = userFavorites
-            break
-        }
         
+        if shouldFilter {
+            filteredUserFavorites = runFilter(userFavorites, filterFor: currentfilterFlag)
+        } else {
+            filteredUserFavorites = userFavorites
+        }
+    
         delegate?.userProfileViewModelDidReceiveFavorites(self, favorites: filteredUserFavorites)
     }
     
     func runFilter(linksArray:[MediaLink], filterFor: MediaType) -> [MediaLink] {
         var currentFilterLinks: [MediaLink] = []
         
-        for links in linksArray {
-            switch(links.type){
+        for link in linksArray {
+            switch(link.type){
             case filterFor:
-                currentFilterLinks.append(links)
+                currentFilterLinks.append(link)
                 break
             default:
                 break
