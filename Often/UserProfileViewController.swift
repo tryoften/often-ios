@@ -13,8 +13,7 @@ let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
 class UserProfileViewController: MediaLinksCollectionBaseViewController,
     UserProfileHeaderDelegate,
     UserProfileViewModelDelegate,
-    SlideNavigationControllerDelegate,
-    FilterTabDelegate {
+    SlideNavigationControllerDelegate {
     
     var collectionType: UserProfileCollectionType = .Favorites
     var headerView: UserProfileHeaderView?
@@ -32,6 +31,7 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         
         super.init(collectionViewLayout: collectionViewLayout)
         self.viewModel.delegate = self
+        self.viewModel.filterButtons = contentFilterTabView.buttons
         
         do {
             try viewModel.requestData()
@@ -41,7 +41,6 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
             print("Failed to request data \(error)")
         }
         
-        contentFilterTabView.delegate = self
         
         view.addSubview(contentFilterTabView)
         view.backgroundColor = VeryLightGray
@@ -219,11 +218,6 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         headerDelegate?.userDidSelectTab(.Recents)
     }
     
-    func currentFilterState(filter: MediaType) {
-        
-        self.viewModel.filterUserRecents(filter)
-        self.viewModel.filterUserFavorites(filter)
-    }
 }
 
 enum UserProfileCollectionType {
