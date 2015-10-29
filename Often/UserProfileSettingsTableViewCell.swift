@@ -21,14 +21,16 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         case Nondisclosure
         case Detailed
         case Switch
+        case Logout
     }
     
-    var cellType: SettingsCellType
     var titleLabel: UILabel
     var secondaryTextLabel: UILabel
     var secondaryTextField: UITextField
     var settingSwitch: UISwitch
     var disclosureIndicator: UIImageView
+    var cellType: SettingsCellType
+    var delegate: SettingsCellUpdateDelegate?
     
     init(type: SettingsCellType) {
         cellType = type
@@ -56,6 +58,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             secondaryTextField.textColor = SettingsViewCellSecondaryTextColor
             secondaryTextField.font = UIFont(name: "OpenSans", size: 14.0)
             secondaryTextField.returnKeyType = .Done
+            secondaryTextField.userInteractionEnabled = false // no name changes yet
             
         case .Detailed:
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +79,10 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             
             settingSwitch.translatesAutoresizingMaskIntoConstraints = false
             settingSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
+        case .Logout:
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
+            titleLabel.textColor = UIColor.redColor()
         default:
             print("Cell Type not defined")
         }
@@ -86,21 +93,25 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         case .Default:
             addSubview(titleLabel)
             addSubview(disclosureIndicator)
-            
+            break
         case .Nondisclosure:
             secondaryTextField.delegate = self
             addSubview(titleLabel)
             addSubview(secondaryTextField)
-            
+            break
         case .Detailed:
             addSubview(titleLabel)
             addSubview(secondaryTextLabel)
             addSubview(disclosureIndicator)
-            
+            break
         case .Switch:
             settingSwitch.addTarget(self, action: "switchToggled", forControlEvents: .TouchUpInside)
             addSubview(titleLabel)
             addSubview(settingSwitch)
+            break
+        case .Logout:
+            addSubview(titleLabel)
+            break
         default:
             print("Cell Type not defined")
         }
@@ -139,6 +150,9 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if let newName = textField.text {
+            delegate?.userNameDidUpdate(newName)
+        }
         textField.resignFirstResponder()
         return true
     }
@@ -155,7 +169,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
                 disclosureIndicator.al_width == 16,
                 disclosureIndicator.al_height == 16
             ])
-            
+            break
         case .Nondisclosure:
             addConstraints([
                 titleLabel.al_left == al_left + 15,
@@ -164,7 +178,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
                 secondaryTextField.al_right == al_right - 13,
                 secondaryTextField.al_centerY == al_centerY
             ])
-            
+            break
         case .Detailed:
             addConstraints([
                 titleLabel.al_left == al_left + 15,
@@ -179,7 +193,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
                 disclosureIndicator.al_width == 16,
                 disclosureIndicator.al_height == 16
             ])
-            
+            break
         case .Switch:
             addConstraints([
                 titleLabel.al_left == al_left + 15,
@@ -188,8 +202,19 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
                 settingSwitch.al_right  == al_right - 10,
                 settingSwitch.al_centerY == al_centerY
             ])
+            break
+        case .Logout:
+            addConstraints([
+                titleLabel.al_centerX == al_centerX,
+                titleLabel.al_centerY == al_centerY
+            ])
+            break
         default:
             print("Cell Type not defined")
         }
     }
+}
+
+protocol SettingsCellUpdateDelegate {
+    func userNameDidUpdate(name: String)
 }
