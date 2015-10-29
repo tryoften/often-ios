@@ -103,9 +103,8 @@ class UserProfileViewModel: NSObject, SessionManagerObserver, FilterMapProtocol 
                         favoritesLinks.append(favoriteLink)
                     }
                 }
-                
-                self.userFavorites = favoritesLinks
             }
+            self.userFavorites = favoritesLinks
         })
         
     }
@@ -125,8 +124,8 @@ class UserProfileViewModel: NSObject, SessionManagerObserver, FilterMapProtocol 
                     }
                 }
                 
-                self.userRecents = recentsLinks
             }
+            self.userRecents = recentsLinks
         })
     }
     
