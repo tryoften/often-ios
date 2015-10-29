@@ -10,10 +10,11 @@ import UIKit
 
 let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
 
-class UserProfileViewController: SearchResultsCollectionBaseViewController,
+class UserProfileViewController: MediaLinksCollectionBaseViewController,
     UserProfileHeaderDelegate,
     UserProfileViewModelDelegate,
-    SlideNavigationControllerDelegate {
+    SlideNavigationControllerDelegate,
+    FilterTabDelegate {
     
     var collectionType: UserProfileCollectionType = .Favorites
     var headerView: UserProfileHeaderView?
@@ -22,6 +23,7 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
     var headerDelegate: UserScrollHeaderDelegate?
+   
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
@@ -38,6 +40,8 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
         } catch let error {
             print("Failed to request data \(error)")
         }
+        
+        contentFilterTabView.delegate = self
         
         view.addSubview(contentFilterTabView)
         view.backgroundColor = VeryLightGray
@@ -100,22 +104,22 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
 
         switch(collectionType) {
         case .Favorites:
-            return viewModel.userFavorites.count
+            return viewModel.filteredUserFavorites.count
         case .Recents:
-            return viewModel.userRecents.count
+            return viewModel.filteredUserRecents.count
         }
-
-        return 0
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell: SearchResultsCollectionViewCell
+        var cell: MediaLinkCollectionViewCell
+        
         switch(collectionType) {
         case .Favorites:
-            cell = parseSearchResultsData(viewModel.userFavorites, indexPath: indexPath, collectionView: collectionView)
+            cell = parseMediaLinkData(viewModel.filteredUserFavorites, indexPath: indexPath, collectionView: collectionView)
         case .Recents:
-            cell = parseSearchResultsData(viewModel.userRecents, indexPath: indexPath, collectionView: collectionView)
+            cell = parseMediaLinkData(viewModel.filteredUserRecents, indexPath: indexPath, collectionView: collectionView)
         }
+        
         animateCell(cell, indexPath: indexPath)
         
         return cell
@@ -166,12 +170,16 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
     }
     
     func userProfileViewModelDidReceiveFavorites(userProfileViewModel: UserProfileViewModel, favorites: [UserFavoriteLink]) {
-        collectionView?.reloadData()
-        PKHUD.sharedHUD.hide(animated: true)
+        reloadCollectionView()
     }
     
     func userProfileViewModelDidReceiveRecents(userProfileViewModel: UserProfileViewModel, recents: [UserRecentLink]) {
-        
+        reloadCollectionView()
+    }
+    
+    func reloadCollectionView() {
+        collectionView?.reloadSections(NSIndexSet(index: 0))
+        PKHUD.sharedHUD.hide(animated: true)
     }
     
     func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
@@ -211,6 +219,15 @@ class UserProfileViewController: SearchResultsCollectionBaseViewController,
         headerDelegate?.userDidSelectTab(.Recents)
     }
     
+    func currentFilterState(filter: FilterFlag) {
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        
+        delay(0.3) {
+            self.viewModel.filterUserRecents(filter)
+            self.viewModel.filterUserFavorites(filter)
+        }
+    }
 }
 
 enum UserProfileCollectionType {

@@ -1,5 +1,5 @@
 //
-//  SearchResultsCollectionViewCell.swift
+//  MediaLinkCollectionViewCell.swift
 //  Surf
 //
 //  Created by Komran Ghahremani on 7/31/15.
@@ -9,8 +9,8 @@
 import UIKit
 import Spring
 
-class SearchResultsCollectionViewCell: UICollectionViewCell {
-    weak var delegate: SearchResultsCollectionViewCellDelegate?
+class MediaLinkCollectionViewCell: UICollectionViewCell {
+    weak var delegate: MediaLinkCollectionViewCellDelegate?
     
     var informationContainerView: UIView
     var sourceLogoView: UIImageView
@@ -61,7 +61,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var searchResult: SearchResult?
+    var mediaLink: MediaLink?
 
     
     override init(frame: CGRect) {
@@ -179,17 +179,17 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     
     func didTapFavoriteButton() {
         overlayView.favoriteButton.selected = !overlayView.favoriteButton.selected
-        delegate?.searchResultsCollectionViewCellDidToggleFavoriteButton(self, selected: overlayView.favoriteButton.selected)
+        delegate?.mediaLinkCollectionViewCellDidToggleFavoriteButton(self, selected: overlayView.favoriteButton.selected)
     }
     
     func didTapCancelButton() {
         overlayView.cancelButton.selected = !overlayView.cancelButton.selected
-        delegate?.searchResultsCollectionViewCellDidToggleCancelButton(self, selected: overlayView.cancelButton.selected)
+        delegate?.mediaLinkCollectionViewCellDidToggleCancelButton(self, selected: overlayView.cancelButton.selected)
     }
     
     func didTapInsertButton() {
         overlayView.insertButton.selected = !overlayView.insertButton.selected
-        delegate?.searchResultsCollectionViewCellDidToggleInsertButton(self, selected: overlayView.insertButton.selected)
+        delegate?.mediaLinkCollectionViewCellDidToggleInsertButton(self, selected: overlayView.insertButton.selected)
     }
     
     func didTouchUpButton(button: SpringButton?) {
@@ -246,6 +246,7 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
             
             rightSupplementLabel.al_right == mainTextLabel.al_right,
             rightSupplementLabel.al_centerY == leftSupplementLabel.al_centerY,
+            rightSupplementLabel.al_left == centerSupplementLabel.al_right + 5,
             
             rightCornerImageView.al_top == informationContainerView.al_top + 10,
             rightCornerImageView.al_right == contentImageView.al_left - 15,
@@ -263,8 +264,8 @@ class SearchResultsCollectionViewCell: UICollectionViewCell {
     }
 }
 
-protocol SearchResultsCollectionViewCellDelegate: class {
-    func searchResultsCollectionViewCellDidToggleFavoriteButton(cell: SearchResultsCollectionViewCell, selected: Bool)
-    func searchResultsCollectionViewCellDidToggleCancelButton(cell: SearchResultsCollectionViewCell, selected: Bool)
-    func searchResultsCollectionViewCellDidToggleInsertButton(cell: SearchResultsCollectionViewCell, selected: Bool)
+protocol MediaLinkCollectionViewCellDelegate: class {
+    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool)
+    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaLinkCollectionViewCell, selected: Bool)
+    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool)
 }

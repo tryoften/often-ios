@@ -1,5 +1,5 @@
 //
-//  ArticleSearchResult.swift
+//  ArticleMediaLink.swift
 //  Often
 //
 //  Created by Luc Succes on 10/1/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ArticleSearchResult: SearchResult {
+class ArticleMediaLink: MediaLink {
     var title: String
     var link: String
     var date: NSDate?

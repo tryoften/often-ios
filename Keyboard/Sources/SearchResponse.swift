@@ -10,7 +10,7 @@ import UIKit
 
 struct SearchResponse: Equatable {
     var id: String
-    var results: [SearchResult] = []
+    var results: [MediaLink] = []
     var timeModified: NSDate
 }
 

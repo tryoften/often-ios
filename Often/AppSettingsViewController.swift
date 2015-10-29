@@ -15,7 +15,8 @@ class AppSettingsViewController: UIViewController,
     MFMailComposeViewControllerDelegate,
     UIActionSheetDelegate,
     SlideNavigationControllerDelegate,
-    SettingsCellUpdateDelegate {
+    TableViewCellDelegate {
+    
     var tableView: UITableView
     var viewModel: SettingsViewModel
     
@@ -147,7 +148,6 @@ class AppSettingsViewController: UIViewController,
                 break
             case .Actions:
                 if indexPath.row == 0 { // How to Install
-                    let installationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: SignupViewModel(sessionManager: SessionManager.defaultManager))
                     RootViewController.sharedInstance().popToRootAndSwitchToViewController(UIViewController(), withSlideOutAnimation: true, andCompletion: {
                     })
                 } else if indexPath.row == 1 { // Rate in App Store
@@ -226,14 +226,13 @@ class AppSettingsViewController: UIViewController,
                 if indexPath.row == 0 { // name
                     let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
                     cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.secondaryTextField.text = "Regy Perlera"
+                    cell.secondaryTextField.text = viewModel.currentUser?.name
                     cell.delegate = self
-                    print(viewModel.currentUser?.name)
                     return cell
                 } else if indexPath.row == 1 { // email
                     let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
                     cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.secondaryTextField.text = "regy@tryoften.com"
+                    cell.secondaryTextField.text = viewModel.currentUser?.email
                     cell.userInteractionEnabled = false
                     return cell
                 } else if indexPath.row == 2 { // password
@@ -282,6 +281,12 @@ class AppSettingsViewController: UIViewController,
         presentViewController(mc, animated: true, completion: nil)
     }
     
+//    override func presentViewController(viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
+//        RootViewController.sharedInstance().popToRootAndSwitchToViewController(viewControllerToPresent, withSlideOutAnimation: flag, andCompletion: {
+//            completion?()
+//        })
+//    }
+    
     func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         switch result.rawValue {
         case MFMailComposeResultCancelled.rawValue:
@@ -298,11 +303,6 @@ class AppSettingsViewController: UIViewController,
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // MARK: SettingsCellUpdateDelegate
-    func userNameDidUpdate(name: String) {
-        viewModel.currentUser?.name = name
-    }
-    
     // MARK: UIActionSheetDelegate
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         switch buttonIndex {
@@ -317,6 +317,11 @@ class AppSettingsViewController: UIViewController,
         default:
             break
         }
+    }
+        
+    //MARK: TableViewCellDelegate
+    func didFinishEditingName(newName: String) {
+        viewModel.currentUser?.name = newName
     }
     
     func setupLayout() {

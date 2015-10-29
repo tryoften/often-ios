@@ -1,6 +1,6 @@
 //
 //  SearchTextField.swift
-//  Surf
+//  Often
 //
 //  Created by Luc Succes on 7/28/15.
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
@@ -64,6 +64,8 @@ class SearchTextField: UIControl, Layouteable {
     
     override var selected: Bool {
         didSet {
+            label.sizeToFit()
+            
             if selected {
                 becomeFirstResponder()
                 startBlinkingIndicator()
@@ -78,6 +80,7 @@ class SearchTextField: UIControl, Layouteable {
                 }
                 
                 UIView.animateWithDuration(0.3) {
+                    self.backgroundView.backgroundColor = UIColor.clearColor()
                     self.backgroundView.layer.borderColor = UIColor(fromHexString: "#C3C3C3").CGColor
                     self.cancelButton.alpha = 1.0
                     self.layoutIfNeeded()
@@ -95,9 +98,16 @@ class SearchTextField: UIControl, Layouteable {
                 }
                 
                 UIView.animateWithDuration(0.3) {
+                    let backgroundColor = UIColor(fromHexString: "#E3E3E3")
+                    
+                    if self.text == "" {
+                        self.backgroundView.backgroundColor = UIColor.clearColor()
+                    } else {
+                        self.backgroundView.backgroundColor = backgroundColor
+                    }
                     self.indicator.alpha = 0.0
                     self.cancelButton.alpha = 0.0
-                    self.backgroundView.layer.borderColor =  UIColor(fromHexString: "#E3E3E3").CGColor
+                    self.backgroundView.layer.borderColor = backgroundColor.CGColor
                     self.layoutIfNeeded()
                 }
                 editing = false
@@ -138,7 +148,6 @@ class SearchTextField: UIControl, Layouteable {
         editing = false
         inputPosition = 0
         text = ""
-        placeholder = placeholderText
         id = ""
         
         backgroundView = UIView()
@@ -251,8 +260,11 @@ class SearchTextField: UIControl, Layouteable {
         placeholder = placeholderText
         selected = false
         sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
-        NSNotificationCenter.defaultCenter().postNotificationName(KeyboardResetSearchBar, object: nil)
-        NSNotificationCenter.defaultCenter().postNotificationName(RestoreKeyboardEvent, object: nil)
+        
+        let center = NSNotificationCenter.defaultCenter()
+        center.postNotificationName(KeyboardResetSearchBar, object: nil)
+        center.postNotificationName(RestoreKeyboardEvent, object: nil)
+        center.postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
     }
     
     func setupLayout() {

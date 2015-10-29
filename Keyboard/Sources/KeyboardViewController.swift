@@ -14,6 +14,7 @@ let ResizeKeyboardEvent = "resizeKeyboard"
 let SwitchKeyboardEvent = "switchKeyboard"
 let CollapseKeyboardEvent = "collapseKeyboard"
 let RestoreKeyboardEvent = "restoreKeyboard"
+let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
 
 class KeyboardViewController: UIInputViewController, TextProcessingManagerDelegate {
     let locale: Language = .English
@@ -136,6 +137,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         center.addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
         center.addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
         center.addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvent, object: nil)
+
         togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
         
         view.addSubview(searchBar.view)
@@ -166,10 +169,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         setupLayout()
         
         let orientationSavvyBounds = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: false))
-        if (lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
-            // do nothing
-        }
-        else {
+        if !(lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
             let uppercase = shiftState.uppercase()
             let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
             
@@ -202,6 +202,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func setHeight(height: CGFloat) {
+        view.layer.rasterizationScale = UIScreen.mainScreen().scale
+        view.layer.shouldRasterize = true
+        
         if heightConstraint == nil {
             heightConstraint = NSLayoutConstraint(
                 item:view,
@@ -212,7 +215,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 multiplier:0,
                 constant:height)
             heightConstraint!.priority = 1000
-            
             view.addConstraint(heightConstraint!) // TODO: what if view already has constraint added?
         }
         else {
@@ -227,6 +229,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 window.frame = frame
             }
         }
+        
+        view.layer.shouldRasterize = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -261,13 +265,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         self.searchBar.view.frame = CGRectMake(0, 0, self.view.bounds.width, self.searchBarHeight)
         self.view.layoutIfNeeded()
-        
-        if height == 0 {
-            togglePanelButton.hidden = true
-        } else {
-            togglePanelButton.hidden = false
-        }
-
     }
     
     func collapseKeyboard() {
@@ -310,6 +307,15 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         } else {
             collapseKeyboard()
         }
+    }
+    
+    func toggleShowKeyboardButton(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+            let hide = userInfo["hide"] as? Bool else {
+                return
+        }
+        
+        togglePanelButton.hidden = hide
     }
     
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {

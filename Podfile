@@ -18,7 +18,6 @@ end
 target 'Often' do
   base_deps
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
-  pod 'Venmo-iOS-SDK', '~>1.3'
   pod 'Facebook-iOS-SDK', '~> 3.0'
   pod 'Parse'
   pod 'ParseTwitterUtils'

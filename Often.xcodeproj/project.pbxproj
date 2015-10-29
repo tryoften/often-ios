@@ -29,8 +29,8 @@
 		3B64A1951BC593560057F795 /* DropDownErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */; };
 		3B6B6FFE1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; };
 		3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; };
-		3B6EA4301BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift */; };
-		3B6EA4311BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift */; };
+		3B6EA4301BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */; };
+		3B6EA4311BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */; };
 		3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
 		3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
@@ -87,9 +87,7 @@
 		690003A61BD5954600C0DA9E /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */; };
 		690AE8AE1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */; };
 		690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */; };
-		690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
-		690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */; };
-		69192E581BBB9AF800903071 /* EmptySetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69192E571BBB9AF800903071 /* EmptySetView.swift */; settings = {ASSET_TAGS = (); }; };
+		69192E581BBB9AF800903071 /* EmptySetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69192E571BBB9AF800903071 /* EmptySetView.swift */; };
 		695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */; };
 		695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		696C2DA71BB6126B004AC9F6 /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */; };
@@ -104,23 +102,14 @@
 		69C663221B8B6FA60014433D /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C663211B8B6FA60014433D /* UserProfileViewModel.swift */; };
 		69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */; };
 		69E7FD8A1B8E0BD7003BC281 /* UserProfileFilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */; };
-		69E9104C1B59AF1D008BFBD6 /* VenmoAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */; };
 		74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */; };
 		8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
 		8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
 		8107F7E31BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
-		810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF21B5D7E95005AABEA /* VenmoSupplementaryViewController.swift */; };
-		810C4AF41B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF21B5D7E95005AABEA /* VenmoSupplementaryViewController.swift */; };
 		810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */; };
 		810C4AF81B5D81FA005AABEA /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */; };
-		810C4AFA1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF91B5D922B005AABEA /* VenmoContactsCollectionViewController.swift */; };
-		810C4AFB1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF91B5D922B005AABEA /* VenmoContactsCollectionViewController.swift */; };
-		810C4AFD1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AFC1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift */; };
-		810C4AFE1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AFC1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift */; };
-		810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AFF1B5DAAF4005AABEA /* VenmoRequestOrPayView.swift */; };
-		810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AFF1B5DAAF4005AABEA /* VenmoRequestOrPayView.swift */; };
 		81153C781BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; };
 		81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; };
 		81153CB11BBB267000A91EAD /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CB01BBB267000A91EAD /* SessionManager.swift */; };
@@ -153,12 +142,10 @@
 		816589041B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816589021B62E85700F7C9F5 /* TouchForwardingView.swift */; };
 		8176BEA01B72743000E1BDCD /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */; };
 		8176BEA11B72743000E1BDCD /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */; };
-		8176BEA31B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEA21B728F0300E1BDCD /* VenmoContactsViewModel.swift */; };
-		8176BEA41B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEA21B728F0300E1BDCD /* VenmoContactsViewModel.swift */; };
 		8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEC41B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift */; };
 		8176BEC61B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEC41B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift */; };
-		8176BECB1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */; };
-		8176BECC1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */; };
+		8176BECB1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BECA1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift */; };
+		8176BECC1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BECA1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift */; };
 		8176BEE61B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEE51B73F9A100E1BDCD /* KeyboardTheme.swift */; };
 		8176BEE71B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEE51B73F9A100E1BDCD /* KeyboardTheme.swift */; };
 		8176BEED1B7502C400E1BDCD /* BackspaceShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEEC1B7502C400E1BDCD /* BackspaceShape.swift */; };
@@ -203,12 +190,12 @@
 		81794EFE1A81ECD5009D4A71 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE01A81E649009D4A71 /* Security.framework */; };
 		81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE21A81E651009D4A71 /* Social.framework */; };
 		81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE61A81E660009D4A71 /* SystemConfiguration.framework */; };
-		817F78391BBDD2780087EBE8 /* TrackSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78381BBDD2780087EBE8 /* TrackSearchResult.swift */; };
-		817F783A1BBDD2780087EBE8 /* TrackSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78381BBDD2780087EBE8 /* TrackSearchResult.swift */; };
-		817F78461BBDD2A20087EBE8 /* ArticleSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78451BBDD2A20087EBE8 /* ArticleSearchResult.swift */; };
-		817F78471BBDD2A20087EBE8 /* ArticleSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78451BBDD2A20087EBE8 /* ArticleSearchResult.swift */; };
-		817F78491BBDD2FB0087EBE8 /* VideoSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78481BBDD2FB0087EBE8 /* VideoSearchResult.swift */; };
-		817F784A1BBDD2FB0087EBE8 /* VideoSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78481BBDD2FB0087EBE8 /* VideoSearchResult.swift */; };
+		817F78391BBDD2780087EBE8 /* TrackMediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78381BBDD2780087EBE8 /* TrackMediaLink.swift */; };
+		817F783A1BBDD2780087EBE8 /* TrackMediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78381BBDD2780087EBE8 /* TrackMediaLink.swift */; };
+		817F78461BBDD2A20087EBE8 /* ArticleMediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78451BBDD2A20087EBE8 /* ArticleMediaLink.swift */; };
+		817F78471BBDD2A20087EBE8 /* ArticleMediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78451BBDD2A20087EBE8 /* ArticleMediaLink.swift */; };
+		817F78491BBDD2FB0087EBE8 /* VideoMediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78481BBDD2FB0087EBE8 /* VideoMediaLink.swift */; };
+		817F784A1BBDD2FB0087EBE8 /* VideoMediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78481BBDD2FB0087EBE8 /* VideoMediaLink.swift */; };
 		817F784C1BC085440087EBE8 /* suffixNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F784B1BC085440087EBE8 /* suffixNumber.swift */; };
 		817F784D1BC085440087EBE8 /* suffixNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F784B1BC085440087EBE8 /* suffixNumber.swift */; };
 		8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60D1A142157007FA1CF /* AppDelegate.swift */; };
@@ -242,8 +229,8 @@
 		81D60ACE1B84BF2500347BCA /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60ACC1B84BF2500347BCA /* SearchRequest.swift */; };
 		81D60AD01B84BF3200347BCA /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60ACF1B84BF3200347BCA /* SearchResponse.swift */; };
 		81D60AD11B84BF3200347BCA /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60ACF1B84BF3200347BCA /* SearchResponse.swift */; };
-		81D60AD31B854D8500347BCA /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* SearchResult.swift */; };
-		81D60AD41B854D8500347BCA /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* SearchResult.swift */; };
+		81D60AD31B854D8500347BCA /* MediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* MediaLink.swift */; };
+		81D60AD41B854D8500347BCA /* MediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* MediaLink.swift */; };
 		81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AC21B84BD4200347BCA /* SearchViewModel.swift */; };
 		81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; };
 		81DF4BBB1BB462A7008B1A38 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; };
@@ -268,14 +255,6 @@
 		81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26DA51B68901100FC1F2F /* TrendingViewController.swift */; };
 		81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
-		81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */; };
-		81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */; };
-		81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */; };
-		81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */; };
-		81FFAF471B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */; };
-		81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */; };
-		81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF491B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift */; };
-		81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF491B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift */; };
 		81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */; };
 		81FFAF4E1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */; };
 /* End PBXBuildFile section */
@@ -367,7 +346,7 @@
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
 		3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownErrorMessage.swift; sourceTree = "<group>"; };
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
-		3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsCollectionBaseViewController.swift; sourceTree = "<group>"; };
+		3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaLinksCollectionBaseViewController.swift; sourceTree = "<group>"; };
 		3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsViewModel.swift; sourceTree = "<group>"; };
 		3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountHeaderView.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
@@ -409,7 +388,6 @@
 		690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
 		690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewController.swift; sourceTree = "<group>"; };
 		690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewCell.swift; sourceTree = "<group>"; };
-		690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoFriend.swift; path = Keyboard/Sources/VenmoFriend.swift; sourceTree = "<group>"; };
 		69192E571BBB9AF800903071 /* EmptySetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptySetView.swift; sourceTree = "<group>"; };
 		695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
@@ -423,15 +401,10 @@
 		69D51DBC1B3CDE0B00B2714D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileFilterTabView.swift; sourceTree = "<group>"; };
-		69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoAccountManager.swift; path = Keyboard/Sources/VenmoAccountManager.swift; sourceTree = "<group>"; };
 		7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
 		8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewModel.swift; path = Sources/SearchSuggestionsViewModel.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		810C4AF21B5D7E95005AABEA /* VenmoSupplementaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoSupplementaryViewController.swift; path = Sources/VenmoSupplementaryViewController.swift; sourceTree = "<group>"; };
 		810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarButton.swift; path = Sources/SearchBarButton.swift; sourceTree = "<group>"; };
-		810C4AF91B5D922B005AABEA /* VenmoContactsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsCollectionViewController.swift; path = Sources/VenmoContactsCollectionViewController.swift; sourceTree = "<group>"; };
-		810C4AFC1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsCollectionViewCell.swift; path = Sources/VenmoContactsCollectionViewCell.swift; sourceTree = "<group>"; };
-		810C4AFF1B5DAAF4005AABEA /* VenmoRequestOrPayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoRequestOrPayView.swift; path = Sources/VenmoRequestOrPayView.swift; sourceTree = "<group>"; };
 		81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsViewModel.swift; path = Sources/SearchResultsViewModel.swift; sourceTree = "<group>"; };
 		81153CB01BBB267000A91EAD /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Often/SessionManager.swift; sourceTree = "<group>"; };
 		81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TogglePanelButton.swift; path = Sources/TogglePanelButton.swift; sourceTree = "<group>"; };
@@ -458,9 +431,8 @@
 		816588F61B616A7300F7C9F5 /* KeyboardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardLayout.swift; path = Sources/KeyboardLayout.swift; sourceTree = "<group>"; };
 		816589021B62E85700F7C9F5 /* TouchForwardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchForwardingView.swift; path = Sources/TouchForwardingView.swift; sourceTree = "<group>"; };
 		8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzySearch.swift; sourceTree = "<group>"; };
-		8176BEA21B728F0300E1BDCD /* VenmoContactsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsViewModel.swift; path = Sources/VenmoContactsViewModel.swift; sourceTree = "<group>"; };
 		8176BEC41B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsCollectionViewController.swift; path = Sources/SearchResultsCollectionViewController.swift; sourceTree = "<group>"; };
-		8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsCollectionViewCell.swift; path = Sources/SearchResultsCollectionViewCell.swift; sourceTree = "<group>"; };
+		8176BECA1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaLinkCollectionViewCell.swift; path = Sources/MediaLinkCollectionViewCell.swift; sourceTree = "<group>"; };
 		8176BEE51B73F9A100E1BDCD /* KeyboardTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardTheme.swift; sourceTree = "<group>"; };
 		8176BEEC1B7502C400E1BDCD /* BackspaceShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackspaceShape.swift; sourceTree = "<group>"; };
 		8176BEEF1B7529DA00E1BDCD /* ArrowShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrowShape.swift; path = Sources/ArrowShape.swift; sourceTree = "<group>"; };
@@ -483,9 +455,9 @@
 		81794EE61A81E660009D4A71 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		81794EE81A81E666009D4A71 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		817F78381BBDD2780087EBE8 /* TrackSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackSearchResult.swift; path = Sources/TrackSearchResult.swift; sourceTree = "<group>"; };
-		817F78451BBDD2A20087EBE8 /* ArticleSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleSearchResult.swift; path = Sources/ArticleSearchResult.swift; sourceTree = "<group>"; };
-		817F78481BBDD2FB0087EBE8 /* VideoSearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoSearchResult.swift; path = Sources/VideoSearchResult.swift; sourceTree = "<group>"; };
+		817F78381BBDD2780087EBE8 /* TrackMediaLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackMediaLink.swift; path = Sources/TrackMediaLink.swift; sourceTree = "<group>"; };
+		817F78451BBDD2A20087EBE8 /* ArticleMediaLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArticleMediaLink.swift; path = Sources/ArticleMediaLink.swift; sourceTree = "<group>"; };
+		817F78481BBDD2FB0087EBE8 /* VideoMediaLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoMediaLink.swift; path = Sources/VideoMediaLink.swift; sourceTree = "<group>"; };
 		817F784B1BC085440087EBE8 /* suffixNumber.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = suffixNumber.swift; sourceTree = "<group>"; };
 		8180E6081A142157007FA1CF /* Often.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Often.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E60C1A142157007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -517,7 +489,7 @@
 		81D60AC21B84BD4200347BCA /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewModel.swift; path = Sources/SearchViewModel.swift; sourceTree = "<group>"; };
 		81D60ACC1B84BF2500347BCA /* SearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchRequest.swift; path = Sources/SearchRequest.swift; sourceTree = "<group>"; };
 		81D60ACF1B84BF3200347BCA /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResponse.swift; path = Sources/SearchResponse.swift; sourceTree = "<group>"; };
-		81D60AD21B854D8500347BCA /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResult.swift; path = Sources/SearchResult.swift; sourceTree = "<group>"; };
+		81D60AD21B854D8500347BCA /* MediaLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaLink.swift; path = Sources/MediaLink.swift; sourceTree = "<group>"; };
 		81DC114A1AF05CF400412BD2 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftyJSON; sourceTree = "<group>"; };
 		81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsCellOverlayView.swift; path = Sources/SearchResultsCellOverlayView.swift; sourceTree = "<group>"; };
 		81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutConstants.swift; path = Sources/LayoutConstants.swift; sourceTree = "<group>"; };
@@ -530,10 +502,6 @@
 		81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTextField.swift; path = Sources/SearchTextField.swift; sourceTree = "<group>"; };
 		81E26DA51B68901100FC1F2F /* TrendingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingViewController.swift; path = Sources/TrendingViewController.swift; sourceTree = "<group>"; };
 		81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AnimateImage.swift"; sourceTree = "<group>"; };
-		81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoServiceProvider.swift; path = Sources/VenmoServiceProvider.swift; sourceTree = "<group>"; };
-		81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoSearchBarButton.swift; path = Sources/VenmoSearchBarButton.swift; sourceTree = "<group>"; };
-		81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoContactsViewController.swift; path = Sources/VenmoContactsViewController.swift; sourceTree = "<group>"; };
-		81FFAF491B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VenmoMessageAmountViewController.swift; path = Sources/VenmoMessageAmountViewController.swift; sourceTree = "<group>"; };
 		81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderSupplementaryViewController.swift; path = Sources/ServiceProviderSupplementaryViewController.swift; sourceTree = "<group>"; };
 		85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		881DAADCE950D0B0D3A901F8 /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -638,13 +606,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		3BCDA5BA1B8FEBD200840095 /* Soundcloud */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Soundcloud;
-			sourceTree = "<group>";
-		};
 		69BA81FD1B2FA84A00233789 /* View Layouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,7 +621,7 @@
 				698B87291B755139001B5B86 /* UserProfileSectionHeaderView.swift */,
 				69E7FD891B8E0BD7003BC281 /* UserProfileFilterTabView.swift */,
 				696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */,
-				3B6EA42F1BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift */,
+				3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */,
 			);
 			name = "User Profile";
 			sourceTree = "<group>";
@@ -731,7 +692,6 @@
 		81331DFF1A17DF66003E4609 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				690CD5D41B5E996800EC0E73 /* VenmoFriend.swift */,
 				81B19EAA1B30AD9900D3575C /* User.swift */,
 				3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */,
 			);
@@ -938,7 +898,7 @@
 				81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */,
 				81D60ACC1B84BF2500347BCA /* SearchRequest.swift */,
 				81D60ACF1B84BF3200347BCA /* SearchResponse.swift */,
-				81D60AD21B854D8500347BCA /* SearchResult.swift */,
+				81D60AD21B854D8500347BCA /* MediaLink.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -947,8 +907,6 @@
 			isa = PBXGroup;
 			children = (
 				810C4AF51B5D7EB6005AABEA /* Base */,
-				3BCDA5BA1B8FEBD200840095 /* Soundcloud */,
-				81FFAF421B5C5A7500E2ABAC /* Venmo */,
 			);
 			name = Providers;
 			sourceTree = "<group>";
@@ -956,9 +914,9 @@
 		817F78441BBDD28A0087EBE8 /* Result Types */ = {
 			isa = PBXGroup;
 			children = (
-				817F78381BBDD2780087EBE8 /* TrackSearchResult.swift */,
-				817F78451BBDD2A20087EBE8 /* ArticleSearchResult.swift */,
-				817F78481BBDD2FB0087EBE8 /* VideoSearchResult.swift */,
+				817F78381BBDD2780087EBE8 /* TrackMediaLink.swift */,
+				817F78451BBDD2A20087EBE8 /* ArticleMediaLink.swift */,
+				817F78481BBDD2FB0087EBE8 /* VideoMediaLink.swift */,
 			);
 			name = "Result Types";
 			sourceTree = "<group>";
@@ -1055,7 +1013,7 @@
 				696C2DB01BB61357004AC9F6 /* ToolTip.swift */,
 				81E26D951B67C29D00FC1F2F /* Shape.swift */,
 				81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */,
-				8176BECA1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift */,
+				8176BECA1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift */,
 				8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */,
 				81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */,
 				8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */,
@@ -1116,7 +1074,6 @@
 				3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */,
 				3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */,
 				3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */,
-				69E9104B1B59AF1D008BFBD6 /* VenmoAccountManager.swift */,
 			);
 			name = "Account Managers";
 			sourceTree = "<group>";
@@ -1135,22 +1092,6 @@
 			);
 			name = PKHUD;
 			path = PKHUD/PKHUD;
-			sourceTree = "<group>";
-		};
-		81FFAF421B5C5A7500E2ABAC /* Venmo */ = {
-			isa = PBXGroup;
-			children = (
-				81FFAF3C1B5C592000E2ABAC /* VenmoServiceProvider.swift */,
-				81FFAF431B5C5F6800E2ABAC /* VenmoSearchBarButton.swift */,
-				8176BEA21B728F0300E1BDCD /* VenmoContactsViewModel.swift */,
-				81FFAF461B5C8FE100E2ABAC /* VenmoContactsViewController.swift */,
-				81FFAF491B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift */,
-				810C4AF21B5D7E95005AABEA /* VenmoSupplementaryViewController.swift */,
-				810C4AF91B5D922B005AABEA /* VenmoContactsCollectionViewController.swift */,
-				810C4AFC1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift */,
-				810C4AFF1B5DAAF4005AABEA /* VenmoRequestOrPayView.swift */,
-			);
-			name = Venmo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1428,7 +1369,6 @@
 				8184DC9F1BD57FE3001767AD /* SearchSuggestionTableViewCell.swift in Sources */,
 				696D8A5D1B93E8890016073C /* UserProfileSettingsTableViewCell.swift in Sources */,
 				8184DC931BD57A32001767AD /* RefreshResultsButton.swift in Sources */,
-				81FFAF471B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
 				8176BEED1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				817939041B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				699606271B422315004102BC /* KeyboardViewController.swift in Sources */,
@@ -1438,13 +1378,12 @@
 				3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */,
 				3BD971E31B9FD483007EAB5A /* SignupViewModel.swift in Sources */,
 				81B92D5E1BD6D77C00FFAC92 /* SearchSuggestion.swift in Sources */,
-				817F78461BBDD2A20087EBE8 /* ArticleSearchResult.swift in Sources */,
+				817F78461BBDD2A20087EBE8 /* ArticleMediaLink.swift in Sources */,
 				81E26D9C1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				69192E581BBB9AF800903071 /* EmptySetView.swift in Sources */,
 				3BA8945C1BB35D560000D5C0 /* SocialAccount.swift in Sources */,
-				81FFAF3D1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
-				81D60AD31B854D8500347BCA /* SearchResult.swift in Sources */,
+				81D60AD31B854D8500347BCA /* MediaLink.swift in Sources */,
 				81153CBE1BBC869200A91EAD /* TogglePanelButton.swift in Sources */,
 				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
 				81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
@@ -1452,21 +1391,18 @@
 				81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */,
 				695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */,
 				81E26D851B65B17A00FC1F2F /* Direction.swift in Sources */,
-				690CD5D51B5E996800EC0E73 /* VenmoFriend.swift in Sources */,
 				698B87231B75401E001B5B86 /* UserProfileHeaderView.swift in Sources */,
 				81D4BF371B39D25C006430AB /* FrameView.swift in Sources */,
 				8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
-				3B6EA4301BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift in Sources */,
+				3B6EA4301BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */,
 				3BDF98C61BA262DE00F383D8 /* CreateAccountViewController.swift in Sources */,
 				3BEB408E1BC8561500D36C4D /* HUDProgressView.swift in Sources */,
 				8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				817939071B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				69C663221B8B6FA60014433D /* UserProfileViewModel.swift in Sources */,
-				81FFAF441B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				3BEB40AE1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift in Sources */,
 				81E26D8E1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
-				810C4AF31B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
 				3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */,
 				81DF4BBB1BB462A7008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				3B6B6FFE1BB0899300669ACD /* StyleKit.swift in Sources */,
@@ -1477,10 +1413,8 @@
 				69BFB5101BC16F96001CC24D /* ToolTip.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
-				810C4AFD1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */,
 				816589031B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
 				8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
-				810C4AFA1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
 				30E00C7A1BC86CEA00DDF24C /* delay.swift in Sources */,
 				3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */,
 				817939001B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
@@ -1492,11 +1426,9 @@
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				81153C781BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
-				8176BEA31B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
 				3BD971DF1B9F911E007EAB5A /* SigninView.swift in Sources */,
 				3BD971D61B9E642D007EAB5A /* SignupView.swift in Sources */,
 				690AE8AE1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift in Sources */,
-				81FFAF4A1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				81153CB11BBB267000A91EAD /* SessionManager.swift in Sources */,
 				30A402041BC46D6F00BF0C0E /* SocialAccountsService.swift in Sources */,
 				3B100A2B1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift in Sources */,
@@ -1504,8 +1436,7 @@
 				3BD971C11B98B5FB007EAB5A /* FacebookAccountManager.swift in Sources */,
 				817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */,
-				69E9104C1B59AF1D008BFBD6 /* VenmoAccountManager.swift in Sources */,
-				8176BECB1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
+				8176BECB1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift in Sources */,
 				3BCDA6D31B910C1F00840095 /* SoundcloudAccountManager.swift in Sources */,
 				3BF60C4E1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */,
 				810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
@@ -1514,10 +1445,9 @@
 				30A402061BC46D8600BF0C0E /* Service.swift in Sources */,
 				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
-				817F78391BBDD2780087EBE8 /* TrackSearchResult.swift in Sources */,
+				817F78391BBDD2780087EBE8 /* TrackMediaLink.swift in Sources */,
 				81E26D961B67C29D00FC1F2F /* Shape.swift in Sources */,
 				3B100A221BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift in Sources */,
-				810C4B001B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				81B2BB711BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
 				3BD971BE1B98ABF4007EAB5A /* TwitterAccountManager.swift in Sources */,
 				69BFB5091BC16F60001CC24D /* ToolTipViewController.swift in Sources */,
@@ -1532,7 +1462,7 @@
 				69B2924E1BD7550800277EC2 /* SettingsViewModel.swift in Sources */,
 				3BDF98CB1BA2652F00F383D8 /* SigninViewController.swift in Sources */,
 				3BD971C41B98C882007EAB5A /* EmailAccountManager.swift in Sources */,
-				817F78491BBDD2FB0087EBE8 /* VideoSearchResult.swift in Sources */,
+				817F78491BBDD2FB0087EBE8 /* VideoMediaLink.swift in Sources */,
 				3BD971DD1B9F7C6E007EAB5A /* CreateAccountView.swift in Sources */,
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
@@ -1556,21 +1486,16 @@
 				8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */,
 				81D60AD11B84BF3200347BCA /* SearchResponse.swift in Sources */,
 				8176BEE71B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
-				810C4AFE1B5D9287005AABEA /* VenmoContactsCollectionViewCell.swift in Sources */,
 				8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
-				8176BEA41B728F0300E1BDCD /* VenmoContactsViewModel.swift in Sources */,
-				690CD5D91B5E9FEE00EC0E73 /* VenmoFriend.swift in Sources */,
 				8107F7E31BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
 				817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
-				3B6EA4311BDAC98E0011E172 /* SearchResultsCollectionBaseViewController.swift in Sources */,
+				3B6EA4311BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */,
 				8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				8180E6361A142199007FA1CF /* KeyboardViewController.swift in Sources */,
-				817F78471BBDD2A20087EBE8 /* ArticleSearchResult.swift in Sources */,
+				817F78471BBDD2A20087EBE8 /* ArticleMediaLink.swift in Sources */,
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
-				81FFAF481B5C8FE100E2ABAC /* VenmoContactsViewController.swift in Sources */,
-				81FFAF4B1B5C92CB00E2ABAC /* VenmoMessageAmountViewController.swift in Sources */,
 				81B92D5A1BD6CE5000FFAC92 /* SearchSuggestion.swift in Sources */,
 				81E26D8C1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
 				696C2DB11BB61357004AC9F6 /* ToolTip.swift in Sources */,
@@ -1579,8 +1504,6 @@
 				3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */,
 				3BA8945E1BB35E170000D5C0 /* SocialAccount.swift in Sources */,
 				816589041B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
-				810C4AF41B5D7E95005AABEA /* VenmoSupplementaryViewController.swift in Sources */,
-				81FFAF451B5C5F6800E2ABAC /* VenmoSearchBarButton.swift in Sources */,
 				816588F81B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
@@ -1598,7 +1521,6 @@
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
 				8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
-				810C4AFB1B5D922B005AABEA /* VenmoContactsCollectionViewController.swift in Sources */,
 				8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
 				81D60ACE1B84BF2500347BCA /* SearchRequest.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
@@ -1610,18 +1532,16 @@
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
-				817F783A1BBDD2780087EBE8 /* TrackSearchResult.swift in Sources */,
+				817F783A1BBDD2780087EBE8 /* TrackMediaLink.swift in Sources */,
 				8176BEC61B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
-				81FFAF3E1B5C592000E2ABAC /* VenmoServiceProvider.swift in Sources */,
-				810C4B011B5DAAF4005AABEA /* VenmoRequestOrPayView.swift in Sources */,
 				817938FE1B59A41A0064B0CF /* SearchBar.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
 				81D60AC31B84BD4200347BCA /* SearchViewModel.swift in Sources */,
 				8179388B1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
-				8176BECC1B72DAA400E1BDCD /* SearchResultsCollectionViewCell.swift in Sources */,
-				81D60AD41B854D8500347BCA /* SearchResult.swift in Sources */,
+				8176BECC1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift in Sources */,
+				81D60AD41B854D8500347BCA /* MediaLink.swift in Sources */,
 				81E26D861B65B17A00FC1F2F /* Direction.swift in Sources */,
-				817F784A1BBDD2FB0087EBE8 /* VideoSearchResult.swift in Sources */,
+				817F784A1BBDD2FB0087EBE8 /* VideoMediaLink.swift in Sources */,
 				81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1643,7 +1563,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1657,6 +1577,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1676,6 +1597,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "";
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1770,7 +1692,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1784,6 +1706,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1803,6 +1726,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "";
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1891,7 +1815,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1905,6 +1829,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Luc Succes";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Luc Succes";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1925,6 +1850,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

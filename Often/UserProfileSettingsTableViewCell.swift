@@ -23,14 +23,14 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         case Switch
         case Logout
     }
-    
+
     var titleLabel: UILabel
     var secondaryTextLabel: UILabel
     var secondaryTextField: UITextField
     var settingSwitch: UISwitch
     var disclosureIndicator: UIImageView
     var cellType: SettingsCellType
-    var delegate: SettingsCellUpdateDelegate?
+    var delegate: TableViewCellDelegate?
     
     init(type: SettingsCellType) {
         cellType = type
@@ -76,7 +76,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         case .Switch:
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
-            
+        
             settingSwitch.translatesAutoresizingMaskIntoConstraints = false
             settingSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
         case .Logout:
@@ -151,8 +151,9 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
     //MARK: UITextFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if let newName = textField.text {
-            delegate?.userNameDidUpdate(newName)
+            delegate?.didFinishEditingName(newName)
         }
+        
         textField.resignFirstResponder()
         return true
     }
@@ -215,6 +216,6 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
 }
 
-protocol SettingsCellUpdateDelegate {
-    func userNameDidUpdate(name: String)
+protocol TableViewCellDelegate {
+    func didFinishEditingName(newName: String)
 }

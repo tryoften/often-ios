@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VideoSearchResult: SearchResult {
+class VideoMediaLink: MediaLink {
     var title: String = ""
     var link: String = ""
     var owner: String = ""

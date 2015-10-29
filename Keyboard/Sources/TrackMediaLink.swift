@@ -1,5 +1,5 @@
 //
-//  TrackSearchResult.swift
+//  TrackMediaLink.swift
 //  Often
 //
 //  Created by Luc Succes on 10/1/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TrackSearchResult: SearchResult {
+class TrackMediaLink: MediaLink {
     var name: String = ""
     var albumName: String = ""
     var artistName: String = ""

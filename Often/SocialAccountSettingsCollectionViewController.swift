@@ -149,15 +149,6 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
                 
             }
             break
-        case .Venmo:
-            if selected {
-                viewModel.venmoAccountManager?.createRequest()
-            } else {
-                serviceSettingsCollectionView.settingSocialAccount.activeStatus = selected
-                viewModel.sessionManager.setSocialAccountOnCurrentUser(serviceSettingsCollectionView.settingSocialAccount, completion: { user,err  in
-                })
-            }
-            break
         default:
             break
         }

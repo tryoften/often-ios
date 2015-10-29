@@ -27,9 +27,6 @@ let SoundcloudConsumerSecret = "c0d98423d7a0afa24e40a419cea0c141"
 let OftenCallbackURL = "tryoften://"
 let AppSuiteName = "group.com.tryoften.often"
 let CrashlyticsAPIKey = "e4598140f72849daf847791f325b1eabae27a254"
-let VenmoAppSecret = "9Bexp2xAQ2hfN57LDVCBYCzRQXJXrRba"
-let VenmoAccessToken = "dpswtdsGaTL3cpCGZm9XYtwPzkVcDexA"
-let VenmoAppID = "2804"
 
 // Colors
 let BlueColor = UIColor(fromHexString: "#4575BF")

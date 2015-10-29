@@ -22,7 +22,7 @@ import UIKit
     Tweet Cell
 
 */
-class SearchResultsCollectionViewController: SearchResultsCollectionBaseViewController, UICollectionViewDelegateFlowLayout, SearchResultsCollectionViewCellDelegate {
+class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MediaLinkCollectionViewCellDelegate {
     var backgroundImageView: UIImageView
     var textProcessor: TextProcessingManager?
     var response: SearchResponse? {
@@ -63,7 +63,7 @@ class SearchResultsCollectionViewController: SearchResultsCollectionBaseViewCont
         
         // Register cell classes
         if let collectionView = collectionView {
-            collectionView.registerClass(SearchResultsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
+            collectionView.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
         }
         
         setupLayout()
@@ -120,12 +120,12 @@ class SearchResultsCollectionViewController: SearchResultsCollectionBaseViewCont
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = parseSearchResultsData(response?.results, indexPath: indexPath, collectionView: collectionView)
+        let cell = parseMediaLinkData(response?.results, indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.layer.shouldRasterize = true
 
-        if let result = cell.searchResult {
+        if let result = cell.mediaLink {
             if let favorited = viewModel?.checkFavorite(result) {
                 cell.itemFavorited = favorited
             } else {
@@ -141,8 +141,8 @@ class SearchResultsCollectionViewController: SearchResultsCollectionBaseViewCont
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? SearchResultsCollectionViewCell,
-            let cells = collectionView.visibleCells() as? [SearchResultsCollectionViewCell],
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaLinkCollectionViewCell,
+            let cells = collectionView.visibleCells() as? [MediaLinkCollectionViewCell],
             let result = response?.results[indexPath.row] else {
             return
         }
@@ -225,9 +225,9 @@ class SearchResultsCollectionViewController: SearchResultsCollectionBaseViewCont
         ])
     }
     
-    // SearchResultsCollectionViewCellDelegate
-    func searchResultsCollectionViewCellDidToggleFavoriteButton(cell: SearchResultsCollectionViewCell, selected: Bool) {
-        guard let result = cell.searchResult else {
+    // MediaLinkCollectionViewCellDelegate
+    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        guard let result = cell.mediaLink else {
             return
         }
         
@@ -235,12 +235,12 @@ class SearchResultsCollectionViewController: SearchResultsCollectionBaseViewCont
         cell.itemFavorited = selected
     }
     
-    func searchResultsCollectionViewCellDidToggleCancelButton(cell: SearchResultsCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
         cell.overlayVisible = false
     }
     
-    func searchResultsCollectionViewCellDidToggleInsertButton(cell: SearchResultsCollectionViewCell, selected: Bool) {
-        guard let result = cell.searchResult else {
+    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        guard let result = cell.mediaLink else {
             return
         }
 
