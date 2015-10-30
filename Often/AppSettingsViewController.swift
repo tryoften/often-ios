@@ -148,7 +148,10 @@ class AppSettingsViewController: UIViewController,
                 break
             case .Actions:
                 if indexPath.row == 0 { // How to Install
-                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(UIViewController(), withSlideOutAnimation: true, andCompletion: {
+                    let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
+                    let walkthroughViewController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
+                    walkthroughViewController.inAppDisplay = true
+                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(walkthroughViewController, withSlideOutAnimation: true, andCompletion: {
                     })
                 } else if indexPath.row == 1 { // Rate in App Store
                     
