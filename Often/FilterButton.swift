@@ -9,7 +9,16 @@
 import Foundation
 
 class FilterButton: UIButton {
-    var filterType: [MediaType] = DefaultFilterMode
-    weak var delegate: FilterMapProtocol?
-    override var selected: Bool { didSet { if selected { delegate?.currentFilterSet(filterType)} } }
+    var filterType: [MediaType]
+    
+    init(filter: [MediaType]) {
+        filterType = filter
+        
+        super.init(frame: CGRectZero)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
