@@ -27,7 +27,8 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     var pageTitle: [String]
     var pagesubTitle: [String]
     var viewModel: SignupViewModel
-    
+    var settingsButtonRightPositionConstraint: NSLayoutConstraint?
+    var inAppDisplay: Bool
     var currentPage: Int {
         return Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
     }
@@ -94,6 +95,8 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         pager.translatesAutoresizingMaskIntoConstraints = false
         pager.pageIndicatorTintColor = KeyboardInstallationWalkthroughViewControllerPageIndicatorTintColor
         pager.currentPageIndicatorTintColor = TealColor
+        
+        inAppDisplay = false
         
         settingsButton = UIButton()
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
@@ -197,6 +200,10 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         ])
         
         if currentPage == 4 {
+            if inAppDisplay == true {
+                settingsButtonRightPositionConstraint?.constant = 0
+                settingsButton.setTitle("Dismiss".uppercaseString, forState: .Normal)
+            }
             settingsButton.hidden = false
             nextButton.hidden = true
         }
@@ -221,16 +228,20 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     }
     
     func didTapSettingsButton(sender: UIButton) {
-        view.addSubview(visualEffectView)
-        view.addSubview(alertView)
-        view.addConstraints([
-            alertView.al_centerX == view.al_centerX,
-            alertView.al_centerY == view.al_centerY,
-            alertView.al_height == 200,
-            alertView.al_width == UIScreen.mainScreen().bounds.width - 40,
-        ])
-        
-        alertView.animate()
+        if inAppDisplay == true {
+            RootViewController.sharedInstance().popViewControllerAnimated(true)
+        } else {
+            view.addSubview(visualEffectView)
+            view.addSubview(alertView)
+            view.addConstraints([
+                alertView.al_centerX == view.al_centerX,
+                alertView.al_centerY == view.al_centerY,
+                alertView.al_height == 200,
+                alertView.al_width == UIScreen.mainScreen().bounds.width - 40,
+            ])
+            
+            alertView.animate()
+        }
     }
     
     func didTapNoButton(sender: UIButton) {
@@ -283,6 +294,8 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     }
     
     func setupLayout() {
+        settingsButtonRightPositionConstraint = settingsButton.al_right == toolbar.al_right - 10
+        
         view.addConstraints([
             toolbar.al_width == screenWidth,
             toolbar.al_height == 55,
@@ -300,8 +313,8 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             scrollView.al_left == view.al_left ,
             scrollView.al_right == view.al_right,
             
-            settingsButton.al_width == 120,
-            settingsButton.al_right == toolbar.al_right - 10,
+            settingsButton.al_width == 100,
+            settingsButtonRightPositionConstraint!,
             settingsButton.al_top == toolbar.al_top + 10,
             settingsButton.al_bottom == toolbar.al_bottom - 10,
             
