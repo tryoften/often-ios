@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 private let MusicFilterMap: [MediaType] = [.Album, .Track, .Artist]
 
 private let VideoFilterMap: [MediaType] = [.Video]
@@ -18,28 +17,18 @@ private let NewsFilterMap: [MediaType] = [.Article]
 
 private let AllFilterMap: [MediaType] = [.Other]
 
-enum FilterTag: String {
-    case Music = "music"
-    case Video = "video"
-    case Gifs = "gifs"
-    case News = "news"
-    case All = "all"
+enum FilterTag {
+    case Music
+    case Video
+    case Gifs
+    case News
+    case All
 }
 
-let FilterMap: [FilterTag: [MediaType]] = [
-    .Music: MusicFilterMap,
-    .Video: VideoFilterMap,
-    .Gifs: GifsFilterMap,
-    .News: NewsFilterMap,
-    .All: AllFilterMap
+let FilterMap: [FilterTag: FilterButton] = [
+    .Music: FilterButton(filter: MusicFilterMap),
+    .Video:FilterButton(filter: VideoFilterMap),
+    .Gifs: FilterButton(filter: GifsFilterMap),
+    .News: FilterButton(filter: NewsFilterMap),
+    .All:  FilterButton(filter: AllFilterMap)
 ]
-
-var DefaultFilterMode = FilterMap[.All]!
-var MusicFilterMode = FilterMap[.Music]!
-var VideoFilterMode = FilterMap[.Video]!
-var GifsFilterMode = FilterMap[.Gifs]!
-var NewsFilterMode = FilterMap[.News]!
-
-protocol FilterMapProtocol: class {
-    func currentFilterSet(filter: [MediaType])
-}
