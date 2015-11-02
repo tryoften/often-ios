@@ -25,11 +25,10 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     var headerDelegate: UserScrollHeaderDelegate?
     var emptyStateViewLayoutConstraint: NSLayoutConstraint?
     var emptyStateView: EmptySetView
-   
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
-        contentFilterTabView = MediaFilterTabView(filterMap: FilterMap)
+        contentFilterTabView = MediaFilterTabView(filterMap: DefaultFilterMap)
         contentFilterTabView.translatesAutoresizingMaskIntoConstraints = false
         
         emptyStateView = EmptySetView()
@@ -350,8 +349,8 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         
     }
     
-    func filterDidChange(filter: [MediaType]) {
-        viewModel.changeFilter(filter)
+    func filterDidChange(filters: [MediaType]) {
+        viewModel.filters = filters
     }
 }
 

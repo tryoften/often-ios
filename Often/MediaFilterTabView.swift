@@ -13,66 +13,38 @@ class MediaFilterTabView: UIView {
 
     let highlightBar: UIView
     var highlightBarLeftConstraint: NSLayoutConstraint?
-    let buttons: [UIButton]
+    var buttons: [UIButton]
+    private var buttonWidth: CGFloat
     
-    
-    init(filterMap: [FilterTag: FilterButton]) {
-        let allFilterButton = filterMap[.All]!
-        allFilterButton.translatesAutoresizingMaskIntoConstraints = false
-        allFilterButton.setTitle("all".uppercaseString, forState: .Normal)
-        allFilterButton.setTitleColor(BlackColor, forState: .Selected)
-        allFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        allFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
-        allFilterButton.selected = true
-    
-        
-        let songsFilterButton = filterMap[.Music]!
-        songsFilterButton.translatesAutoresizingMaskIntoConstraints = false
-        songsFilterButton.setTitle("songs".uppercaseString, forState: .Normal)
-        songsFilterButton.setTitleColor(BlackColor, forState: .Selected)
-        songsFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        songsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
-        
-        let videosFilterButton = filterMap[.Video]!
-        videosFilterButton.translatesAutoresizingMaskIntoConstraints = false
-        videosFilterButton.setTitle("videos".uppercaseString, forState: .Normal)
-        videosFilterButton.setTitleColor(BlackColor, forState: .Selected)
-        videosFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        videosFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
-        
-        let newsFilterButton = filterMap[.News]!
-        newsFilterButton.translatesAutoresizingMaskIntoConstraints = false
-        newsFilterButton.setTitle("news".uppercaseString, forState: .Normal)
-        newsFilterButton.setTitleColor(BlackColor, forState: .Selected)
-        newsFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        newsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
-        
-        let gifsFilterButton = filterMap[.Gifs]!
-        gifsFilterButton.translatesAutoresizingMaskIntoConstraints = false
-        gifsFilterButton.setTitle("gifs".uppercaseString, forState: .Normal)
-        gifsFilterButton.setTitleColor(BlackColor, forState: .Selected)
-        gifsFilterButton.setTitleColor(LightGrey, forState: .Normal)
-        gifsFilterButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
-       
+    init(filterMap: FilterMap) {
         highlightBar = UIView()
         highlightBar.translatesAutoresizingMaskIntoConstraints = false
         highlightBar.backgroundColor = TealColor
-        
-        buttons = [allFilterButton, songsFilterButton, videosFilterButton, newsFilterButton, gifsFilterButton]
-        
+        buttons = [UIButton]()
+        buttonWidth = 0
         
         super.init(frame: CGRectZero)
         
         backgroundColor = WhiteColor
         
-    
-        for button in buttons {
+        for (tag, filters) in filterMap {
+            let button = FilterButton(filters: filters)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.setTitle(tag.rawValue.uppercaseString, forState: .Normal)
+            button.setTitleColor(BlackColor, forState: .Selected)
+            button.setTitleColor(LightGrey, forState: .Normal)
+            button.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
             button.addTarget(self, action: "filterDidTapButtonTapped:", forControlEvents: .TouchUpInside)
             addSubview(button)
+            buttons.append(button)
+        }
+        buttonWidth = UIScreen.mainScreen().bounds.width / CGFloat(buttons.count)
+        
+        if let firstButton = buttons.first {
+            firstButton.selected = true
         }
         
         addSubview(highlightBar)
-        
         setupLayout()
         
         layer.shadowOffset = CGSizeMake(0, -1)
@@ -89,13 +61,11 @@ class MediaFilterTabView: UIView {
         highlightBarLeftConstraint = highlightBar.al_left == al_left
         
         for var i = 0; i < buttons.count; i++  {
-            let buttonWidth = UIScreen.mainScreen().bounds.width / 5
-            
             addConstraints([
                 buttons[i].al_top == al_top,
                 buttons[i].al_left == al_left + buttonWidth * CGFloat(i),
                 buttons[i].al_bottom == al_bottom,
-                buttons[i].al_width == UIScreen.mainScreen().bounds.width / 5,
+                buttons[i].al_width == buttonWidth,
             ])
         }
         
@@ -103,19 +73,17 @@ class MediaFilterTabView: UIView {
             highlightBarLeftConstraint!,
             highlightBar.al_bottom == al_bottom,
             highlightBar.al_height == 4.0,
-            highlightBar.al_width == UIScreen.mainScreen().bounds.width / 5
-            ])
+            highlightBar.al_width == buttonWidth
+        ])
     }
     
     //Filter Method
     func filterDidTapButtonTapped(button: FilterButton) {
-        let buttonWidth = UIScreen.mainScreen().bounds.width / 5
-        
         for var i = 0; i < buttons.count; i++ {
             if buttons[i] == button {
                 buttons[i].selected = true
                 highlightBarLeftConstraint?.constant = (buttonWidth * CGFloat(i))
-                delegate?.filterDidChange(button.filterType)
+                delegate?.filterDidChange(button.filterTypes)
                 
                 UIView.animateWithDuration(0.3) {
                     self.layoutIfNeeded()
@@ -129,6 +97,6 @@ class MediaFilterTabView: UIView {
 }
 
 protocol FilterTabDelegate: class {
-    func filterDidChange(filter:  [MediaType])
+    func filterDidChange(filters: [MediaType])
 }
 

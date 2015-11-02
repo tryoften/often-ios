@@ -20,26 +20,27 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
     let sessionManager: SessionManager
     var favoriteRef: Firebase?
     var recentsRef: Firebase?
+    var shouldFilter: Bool = false
+    
     var filteredUserRecents: [UserRecentLink]
     var filteredUserFavorites: [UserFavoriteLink]
-    var shouldFilter: Bool = false
-    var currentfilterFlag: [MediaType] = [.Other] {
+    
+    var filters: [MediaType] {
         didSet {
-        for filter in currentfilterFlag {
-               shouldFilter =  filter.isMusic || filter.isNews || filter.isVideo || filter.isGif
-            }
+            filterUserRecents()
+            filterUserFavorites()
         }
     }
     
     var userRecents: [UserRecentLink] {
         didSet {
-            filterUserRecents(currentfilterFlag)
+            filterUserRecents()
         }
     }
     
     var userFavorites: [UserFavoriteLink] {
         didSet {
-            filterUserFavorites(currentfilterFlag)
+            filterUserFavorites()
         }
     }
     
@@ -50,14 +51,9 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         userRecents = []
         filteredUserRecents = []
         filteredUserFavorites = []
+        filters = []
         
         super.init()
-        
-        self.sessionManager.addSessionObserver(self)
-    }
-    
-    deinit {
-        sessionManager.removeSessionObserver(self)
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) throws {
@@ -168,55 +164,32 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         return item
     }
     
-    func changeFilter(filter: [MediaType]) {
-        currentfilterFlag = filter
-        filterUserRecents(filter)
-        filterUserFavorites(filter)
-    }
 
-    func filterUserRecents(filterFlag: [MediaType]) {
-        filteredUserRecents = runFilter(userRecents, filterFor: currentfilterFlag)
-       
+    func filterUserRecents() {
+        filteredUserRecents = applyFilters(userRecents)
         delegate?.userProfileViewModelDidReceiveRecents(self, recents: filteredUserRecents)
     }
     
-    func filterUserFavorites(filterFlag: [MediaType]) {
-        filteredUserFavorites = runFilter(userFavorites, filterFor: currentfilterFlag)
-    
+    func filterUserFavorites() {
+        filteredUserFavorites = applyFilters(userFavorites)
         delegate?.userProfileViewModelDidReceiveFavorites(self, favorites: filteredUserFavorites)
     }
     
-    func runFilter(linksArray:[MediaLink], filterFor: [MediaType]) -> [MediaLink] {
-        var currentFilterLinks: [MediaLink] = []
-        
-        if shouldFilter {
-            for link in linksArray {
-                if filterFor.contains(link.type) {
-        
-                    currentFilterLinks.append(link)
-                    
-                }
-            }
-            
-        } else {
-            currentFilterLinks = linksArray
-            
+    func applyFilters(links: [MediaLink]) -> [MediaLink] {
+
+        if filters.isEmpty {
+            return links
         }
         
-        return currentFilterLinks
-    }
-    
-    func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
+        var filteredLinks: [MediaLink] = []
+        for link in links {
+            if filters.contains(link.type) {
+                filteredLinks.append(link)
+            }
+        }
         
+        return filteredLinks
     }
-    
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
-        delegate?.userProfileViewModelDidLoginUser(self, user: user)
-    }
-    
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
-    }
-    
 }
 
 protocol UserProfileViewModelDelegate: class {
