@@ -60,8 +60,7 @@ class SettingsWebViewController: UIViewController {
     }
     
     func closeTapped() {
-        SlideNavigationController.sharedInstance().portraitSlideOffset = 60.0
-        dismissViewControllerAnimated(true, completion: nil)
+        RootViewController.sharedInstance().popViewControllerAnimated(true)
        
     }
     
