@@ -16,7 +16,7 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     SlideNavigationControllerDelegate,
     FilterTabDelegate {
     
-    var collectionType: UserProfileCollectionType = .Favorites
+    var currentCollectionType: UserProfileCollectionType = .Favorites
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
     var contentFilterTabView: MediaFilterTabView
@@ -75,10 +75,9 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
-        let screenHeight = UIScreen.mainScreen().bounds.size.height
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 215)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight / 2)
+        flowLayout.parallaxHeaderReferenceSize = UserProfileHeaderView.preferredSize
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
@@ -121,7 +120,7 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        switch(collectionType) {
+        switch(currentCollectionType) {
         case .Favorites:
             return viewModel.filteredUserFavorites.count
         case .Recents:
@@ -132,7 +131,7 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: MediaLinkCollectionViewCell
         
-        switch(collectionType) {
+        switch(currentCollectionType) {
         case .Favorites:
             cell = parseMediaLinkData(viewModel.filteredUserFavorites, indexPath: indexPath, collectionView: collectionView)
         case .Recents:
@@ -183,7 +182,7 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
             
             emptyStateView.al_left == view.al_left,
             emptyStateView.al_right == view.al_right,
-            emptyStateView.al_top == view.al_top + UIScreen.mainScreen().bounds.size.height/2,
+            emptyStateView.al_top == view.al_top + UserProfileHeaderView.preferredSize.height,
             emptyStateView.al_bottom == view.al_bottom,
         ])
     }
@@ -203,9 +202,8 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     
     func reloadCollectionView() {
         collectionView?.reloadSections(NSIndexSet(index: 0))
-        isThereFavoitesAndRecentsLinks()
+        hasLinks()
         PKHUD.sharedHUD.hide(animated: true) 
-        
     }
     
     func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
@@ -226,22 +224,22 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     }
     
     func userFavoritesTabSelected() {
-        collectionType = .Favorites
+        currentCollectionType = .Favorites
         
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
-        isThereFavoitesAndRecentsLinks()
+        hasLinks()
         headerDelegate?.userDidSelectTab(.Favorites)
     }
     
     func userRecentsTabSelected() {
-        collectionType = .Recents
+        currentCollectionType = .Recents
         
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
-        isThereFavoitesAndRecentsLinks()
+        hasLinks()
         headerDelegate?.userDidSelectTab(.Recents)
     }
     
@@ -251,14 +249,14 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         collectionView?.scrollEnabled = false
         isKeyboardEnabled()
         isTwitterEnabled()
-        isThereFavoitesAndRecentsLinks()
+        hasLinks()
     }
     
-    func isThereFavoitesAndRecentsLinks() {
+    func hasLinks() {
         collectionView?.scrollEnabled = false
         
         if !((emptyStateView.userState == .NoTwitter) || (emptyStateView.userState == .NoKeyboard)) {
-            switch (collectionType) {
+            switch (currentCollectionType) {
             case .Favorites:
                 if (viewModel.userFavorites.count == 0) {
                     emptyStateView.updateEmptyStateContent(.NoFavorites)
@@ -341,7 +339,7 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     func didTapCancelButton() {
         emptyStateView.updateEmptyStateContent(.NonEmpty)
         isKeyboardEnabled()
-        isThereFavoitesAndRecentsLinks()
+        hasLinks()
     }
     
     func didTapTwitterButton() {

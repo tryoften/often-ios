@@ -19,6 +19,12 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     var descriptionLabelHeightConstraint: NSLayoutConstraint?
     var scoreLabelHeightConstraint: NSLayoutConstraint?
     var scoreNameLabelHeightConstraint: NSLayoutConstraint?
+    static var preferredSize: CGSize {
+        return CGSizeMake(
+            UIScreen.mainScreen().bounds.size.width,
+            UIScreen.mainScreen().bounds.size.height / 2
+        )
+    }
     
     var tabContainerView: UIView
     var favoritesTabButton: UIButton
