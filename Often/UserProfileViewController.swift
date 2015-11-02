@@ -220,13 +220,8 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     }
     
     func currentFilterState(filter: FilterFlag) {
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        
-        delay(0.3) {
-            self.viewModel.filterUserRecents(filter)
-            self.viewModel.filterUserFavorites(filter)
-        }
+        viewModel.filterUserRecents(filter)
+        viewModel.filterUserFavorites(filter)
     }
 }
 
