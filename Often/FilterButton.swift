@@ -9,10 +9,10 @@
 import Foundation
 
 class FilterButton: UIButton {
-    var filterType: [MediaType]
+    var filterTypes: [MediaType]
     
-    init(filter: [MediaType]) {
-        filterType = filter
+    init(filters: [MediaType]) {
+        filterTypes = filters
         
         super.init(frame: CGRectZero)
     }

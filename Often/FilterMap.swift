@@ -7,28 +7,21 @@
 //
 
 import Foundation
-private let MusicFilterMap: [MediaType] = [.Album, .Track, .Artist]
 
-private let VideoFilterMap: [MediaType] = [.Video]
-
-private let GifsFilterMap: [MediaType] = [.Gif]
-
-private let NewsFilterMap: [MediaType] = [.Article]
-
-private let AllFilterMap: [MediaType] = [.Other]
-
-enum FilterTag {
-    case Music
-    case Video
-    case Gifs
-    case News
-    case All
+enum FilterTag: String {
+    case Music = "Music"
+    case Video = "Video"
+    case Gifs = "Gifs"
+    case News = "News"
+    case All = "All"
 }
 
-let FilterMap: [FilterTag: FilterButton] = [
-    .Music: FilterButton(filter: MusicFilterMap),
-    .Video:FilterButton(filter: VideoFilterMap),
-    .Gifs: FilterButton(filter: GifsFilterMap),
-    .News: FilterButton(filter: NewsFilterMap),
-    .All:  FilterButton(filter: AllFilterMap)
+typealias FilterMap = [FilterTag: [MediaType]]
+
+let DefaultFilterMap: FilterMap = [
+    .Music: [.Album, .Track, .Artist],
+    .Video: [.Video],
+    .Gifs: [.Gif],
+    .News: [.Article],
+    .All:  []
 ]
