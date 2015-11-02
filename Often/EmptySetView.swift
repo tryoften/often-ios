@@ -28,7 +28,6 @@ class EmptySetView: UIView {
     override init(frame: CGRect) {
         imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .ScaleAspectFit
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +93,7 @@ class EmptySetView: UIView {
         switch (state) {
         case .NoTwitter:
             imageView.image = UIImage(named: "twitteremptystate")
+            imageView.contentMode = .ScaleAspectFit
             titleLabel.text = "Connect with Twitter"
             descriptionLabel.text = "Often works even better with Twitter. \n Any links you favorite there are saved here."
             twitterButton.hidden = false
@@ -101,12 +101,14 @@ class EmptySetView: UIView {
             settingbutton.hidden = true
         case .NoKeyboard:
             imageView.image = UIImage(named: "installoftenemptystate")
+            imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "Install Often"
             descriptionLabel.text = "Remember to install Often in your \nkeyboards settings and allow full-access."
             settingbutton.hidden = false
             cancelButton.hidden = true
         case .NoFavorites:
             imageView.image = UIImage(named: "favoritesemptystate")
+            imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No favorites yet!"
             descriptionLabel.text = "Double tap any cards to save them to your\n favorites & easily share them again later."
             settingbutton.hidden = true
@@ -114,6 +116,7 @@ class EmptySetView: UIView {
             cancelButton.hidden = true
         case .NoRecents:
             imageView.image = UIImage(named: "recentsemptystate")
+            imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No recents yet!"
             descriptionLabel.text = "Start using Often to easily access your\n most recently searched or used content."
             settingbutton.hidden = true
