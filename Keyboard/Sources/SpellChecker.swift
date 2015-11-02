@@ -29,7 +29,7 @@ class DictionaryItem: NSObject, NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        if let suggestions = aDecoder.decodeObjectForKey("suggestions") as? [Int]{
+        if let suggestions = aDecoder.decodeObjectForKey("suggestions") as? [Int] {
             self.suggestions = suggestions
         }
         
@@ -55,9 +55,34 @@ func ==(lhs: SuggestItem, rhs: SuggestItem) -> Bool {
     return lhs.term == rhs.term
 }
 
+let SpellCheckerCachedDictionaryFilename = "spellDict.dat"
+
 class SpellChecker: NSObject, NSCoding {
     private var editDistanceMax: Int = 2
     private var verbose: Int = 0
+    
+    static func spellCheckFromCachedDictionary(path: String) -> SpellChecker? {
+        
+        let fileManager = NSFileManager.defaultManager()
+        
+        if fileManager.fileExistsAtPath(path) {
+            if let spellChecker = NSKeyedUnarchiver.unarchiveObjectWithData(NSData(contentsOfFile: path)!) as? SpellChecker {
+                return spellChecker
+            }
+        }
+        
+        return nil
+    }
+    
+    static func getFileURL(fileName: String) -> NSURL? {
+        let manager = NSFileManager.defaultManager()
+        do {
+            let dirURL = try manager.URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
+            return dirURL.URLByAppendingPathComponent(fileName)
+        } catch {
+        }
+        return nil
+    }
     
     override init() {
         super.init()
@@ -114,30 +139,18 @@ class SpellChecker: NSObject, NSCoding {
     
     func createDictionary(corpus: String, language: String) {
         
-        let fileManager = NSFileManager.defaultManager()
+        let path = NSBundle.mainBundle().resourcePath! + "/" + corpus
+        var wordCount = 0
         
-        if let filePath = getFileURL("spellDict.dat")?.path where
-            fileManager.fileExistsAtPath(filePath) {
-            if let spellChecker = NSKeyedUnarchiver.unarchiveObjectWithData(NSData(contentsOfFile: filePath)!) as? SpellChecker {
-                self.dictionary = spellChecker.dictionary
-                self.wordList = spellChecker.wordList
-                self.maxLength = spellChecker.maxLength
+        if let streamReader = StreamReader(path: path) {
+            defer {
+                streamReader.close()
             }
             
-        } else {
-            let path = NSBundle.mainBundle().resourcePath! + "/" + corpus
-            var wordCount = 0
-            
-            if let streamReader = StreamReader(path: path) {
-                defer {
-                    streamReader.close()
-                }
-                
-                while let line = streamReader.nextLine() {
-                    for key in parseWords(line) {
-                        if createDictionaryEntry(key, language: language) {
-                            wordCount++
-                        }
+            while let line = streamReader.nextLine() {
+                for key in parseWords(line) {
+                    if createDictionaryEntry(key, language: language) {
+                        wordCount++
                     }
                 }
             }
@@ -145,18 +158,8 @@ class SpellChecker: NSObject, NSCoding {
         
     }
     
-    private func getFileURL(fileName: String) -> NSURL? {
-        let manager = NSFileManager.defaultManager()
-        do {
-            let dirURL = try manager.URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
-            return dirURL.URLByAppendingPathComponent(fileName)
-        } catch {
-        }
-        return nil
-    }
-    
     func saveDictionary() {
-        if let filePath = getFileURL("spellDict.dat")?.path {
+        if let filePath = SpellChecker.getFileURL(SpellCheckerCachedDictionaryFilename)?.path {
             print("Spell dictionary written to: \(filePath)")
             NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
         }

@@ -1,4 +1,4 @@
- //
+//
 //  TextProcessingManager.swift
 //  October
 //
@@ -13,10 +13,12 @@ let TextProcessingManagerProxyEvent = "textProcessingManager.setCurrentProxy"
 let TextProcessingManagedResetDefaultProxyEvent = "textProceesingManager.resetDefaultProxy"
 let TextProcessingManagerTextChangedEvent = "textProcesssingManager.textDidChange"
 
+
 class TextProcessingManager: NSObject, UITextInputDelegate {
     weak var delegate: TextProcessingManagerDelegate?
     var currentProxy: UITextDocumentProxy
-    var defaultProxy: UITextDocumentProxy
+    let defaultProxy: UITextDocumentProxy
+    var spellChecker: SpellChecker?
     var lastInsertedString: String?
     var lyricInserted = false
     var proxies: [String: UITextDocumentProxy]
@@ -28,6 +30,24 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         proxies["default"] = currentProxy
         
         super.init()
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            let fileManager = NSFileManager.defaultManager()
+            let filename = SpellCheckerCachedDictionaryFilename
+            var path: String = SpellChecker.getFileURL(filename)!.path!
+            
+            if !fileManager.fileExistsAtPath(path) {
+                path = NSBundle.mainBundle().resourcePath! + filename
+            }
+            
+            if let aSpellChecker = SpellChecker.spellCheckFromCachedDictionary(path) {
+                self.spellChecker = aSpellChecker
+            } else {
+                self.spellChecker = SpellChecker()
+                self.spellChecker!.createDictionary("big.txt", language: "")
+                self.spellChecker!.saveDictionary()
+            }
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSetCurrentProxy:", name: TextProcessingManagerProxyEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveResetDefaultProxy:", name: TextProcessingManagedResetDefaultProxyEvent, object: nil)
@@ -87,9 +107,15 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     func parseTextInCurrentDocumentProxy() {
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
+            
+            guard let firstToken = tokens.first, let lastWord = tokens.last else {
+                return
+            }
             print(tokens)
             
-            let firstToken = tokens[0]
+            if let suggestions = spellChecker?.lookup(lastWord, language: "", editDistanceMax: 2) {
+                print("Suggestions: ", suggestions)
+            }
             
             // check if first token is command call
             if firstToken.hasPrefix("#") {

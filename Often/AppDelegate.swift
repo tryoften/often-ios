@@ -71,11 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.makeKeyAndVisible()
         }
         
-        let spellChecker = SpellChecker()
-        spellChecker.createDictionary("big.txt", language: "")
-        print("Corrections for eting: ", spellChecker.correct("canddat", language: ""))
-        spellChecker.saveDictionary()
-        
         return true
     }
     
