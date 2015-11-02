@@ -72,7 +72,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         
-        viewModel.user.name = createAccountView.usernameTextField.text!
+        viewModel.user.username = createAccountView.usernameTextField.text!
         viewModel.user.email = createAccountView.emailTextField.text!
         viewModel.password = createAccountView.passwordTextField.text!
         

@@ -59,7 +59,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         }
         
         userData["email"] = user.email
-        userData["username"] = user.email
+        userData["username"] = user.username
         userData["password"] = password
         
         sessionManager.signupUser(.Email, data: userData, completion: { error -> () in
