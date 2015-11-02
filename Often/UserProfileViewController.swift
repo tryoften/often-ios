@@ -13,25 +13,39 @@ let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
 class UserProfileViewController: MediaLinksCollectionBaseViewController,
     UserProfileHeaderDelegate,
     UserProfileViewModelDelegate,
-    SlideNavigationControllerDelegate {
+    SlideNavigationControllerDelegate,
+    FilterTabDelegate {
     
     var collectionType: UserProfileCollectionType = .Favorites
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
-    var contentFilterTabView: UserProfileFilterTabView
+    var contentFilterTabView: MediaFilterTabView
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
     var headerDelegate: UserScrollHeaderDelegate?
+    var emptyStateViewLayoutConstraint: NSLayoutConstraint?
+    var emptyStateView: EmptySetView
    
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
-        contentFilterTabView = UserProfileFilterTabView()
+        contentFilterTabView = MediaFilterTabView(filterMap: FilterMap)
         contentFilterTabView.translatesAutoresizingMaskIntoConstraints = false
         
+        emptyStateView = EmptySetView()
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        emptyStateView.hidden = true
+    
         super.init(collectionViewLayout: collectionViewLayout)
+        
         self.viewModel.delegate = self
-        self.viewModel.filterButtons = contentFilterTabView.buttons
+        self.contentFilterTabView.delegate = self
+        
+        emptyStateView.settingbutton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
+        emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
+        emptyStateView.userInteractionEnabled = true
+        
         
         do {
             try viewModel.requestData()
@@ -41,9 +55,12 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
             print("Failed to request data \(error)")
         }
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        checkUserEmptyStateStatus()
         
         view.addSubview(contentFilterTabView)
         view.backgroundColor = VeryLightGray
+        view.addSubview(emptyStateView)
         view.layer.masksToBounds = true
         
         setupLayout()
@@ -51,6 +68,10 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
@@ -159,7 +180,12 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
             contentFilterTabView.al_bottom == view.al_bottom,
             contentFilterTabView.al_left == view.al_left,
             contentFilterTabView.al_right == view.al_right,
-            contentFilterTabView.al_height == 50
+            contentFilterTabView.al_height == 50,
+            
+            emptyStateView.al_left == view.al_left,
+            emptyStateView.al_right == view.al_right,
+            emptyStateView.al_top == view.al_top + UIScreen.mainScreen().bounds.size.height/2,
+            emptyStateView.al_bottom == view.al_bottom,
         ])
     }
 
@@ -178,7 +204,9 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     
     func reloadCollectionView() {
         collectionView?.reloadSections(NSIndexSet(index: 0))
-        PKHUD.sharedHUD.hide(animated: true)
+        isThereFavoitesAndRecentsLinks()
+        PKHUD.sharedHUD.hide(animated: true) 
+        
     }
     
     func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
@@ -204,7 +232,7 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
-        
+        isThereFavoitesAndRecentsLinks()
         headerDelegate?.userDidSelectTab(.Favorites)
     }
     
@@ -214,10 +242,117 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
-        
+        isThereFavoitesAndRecentsLinks()
         headerDelegate?.userDidSelectTab(.Recents)
     }
     
+    //Mark: Check for empty state
+    
+    func checkUserEmptyStateStatus() {
+        collectionView?.scrollEnabled = false
+        isKeyboardEnabled()
+        isTwitterEnabled()
+        isThereFavoitesAndRecentsLinks()
+    }
+    
+    func isThereFavoitesAndRecentsLinks() {
+        collectionView?.scrollEnabled = false
+        
+        if !((emptyStateView.userState == .NoTwitter) || (emptyStateView.userState == .NoKeyboard)) {
+            switch (collectionType) {
+            case .Favorites:
+                if (viewModel.userFavorites.count == 0) {
+                    emptyStateView.updateEmptyStateContent(.NoFavorites)
+                    emptyStateView.hidden = false
+                } else {
+                    emptyStateView.hidden = true
+                    collectionView?.scrollEnabled = true
+                }
+                
+                break
+            case .Recents:
+                
+                if (viewModel.userRecents.count == 0) {
+                    emptyStateView.updateEmptyStateContent(.NoRecents)
+                    emptyStateView.hidden = false
+                } else {
+                    emptyStateView.hidden = true
+                    collectionView?.scrollEnabled = true
+                }
+                
+                break
+            }
+        }
+    }
+    
+    func isKeyboardEnabled() {
+        if let keyboards = NSUserDefaults.standardUserDefaults().dictionaryRepresentation()["AppleKeyboards"] as? [String] {
+            if !keyboards.contains("com.tryoften.often.Keyboard") {
+                collectionView?.scrollEnabled = false
+                emptyStateView.updateEmptyStateContent(.NoKeyboard)
+                emptyStateView.hidden = false
+            } else {
+                emptyStateView.updateEmptyStateContent(.NonEmpty)
+            }
+        }
+        
+    }
+    
+    func isTwitterEnabled() {
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        
+        if let user = viewModel.sessionManager.currentUser {
+            
+            let twitterCheck = viewModel.sessionManager.firebase.childByAppendingPath("users/\(user.id)/accounts")
+            
+            twitterCheck.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+                PKHUD.sharedHUD.hide(animated: true)
+                if snapshot.exists() {
+                    if let value = snapshot.value as? [String: AnyObject] {
+                        if let twitterStuff = value["twitter"] as? [String: AnyObject] {
+                            let twitterAccount = SocialAccount()
+                            twitterAccount.setValuesForKeysWithDictionary(twitterStuff)
+                            
+                            if !twitterAccount.activeStatus {
+                                self.collectionView?.scrollEnabled = false
+                                self.emptyStateView.updateEmptyStateContent(.NoTwitter)
+                                self.emptyStateView.hidden = false
+                            }
+                            
+                        }
+                        
+                    }
+                } else {
+                }
+                }) { err -> Void in
+            }
+        }
+    }
+    
+
+    // Empty States button actions
+    func didTapSettingsButton() {
+        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+            UIApplication.sharedApplication().openURL(appSettings)
+        }
+        
+    }
+    
+    func didTapCancelButton() {
+        emptyStateView.updateEmptyStateContent(.NonEmpty)
+        isKeyboardEnabled()
+        isThereFavoitesAndRecentsLinks()
+    }
+    
+    func didTapTwitterButton() {
+        revealSetServicesViewDidTap()
+        
+    }
+    
+    func filterDidChange(filter: [MediaType]) {
+        viewModel.changeFilter(filter)
+    }
 }
 
 enum UserProfileCollectionType {

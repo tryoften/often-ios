@@ -15,22 +15,14 @@ enum UserProfileViewModelError: ErrorType {
     case RequestDataFailed
 }
 
-class UserProfileViewModel: NSObject, SessionManagerObserver, FilterMapProtocol {
+class UserProfileViewModel: NSObject, SessionManagerObserver {
     weak var delegate: UserProfileViewModelDelegate?
     let sessionManager: SessionManager
     var favoriteRef: Firebase?
     var recentsRef: Firebase?
     var filteredUserRecents: [UserRecentLink]
     var filteredUserFavorites: [UserFavoriteLink]
-    var filterButtons: [FilterButton]? {
-        didSet {
-            for button in filterButtons! {
-                button.delegate = self
-            }
-        }
-    }
     var shouldFilter: Bool = false
-    
     var currentfilterFlag: [MediaType] = [.Other] {
         didSet {
         for filter in currentfilterFlag {
@@ -38,6 +30,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver, FilterMapProtocol 
             }
         }
     }
+    
     var userRecents: [UserRecentLink] {
         didSet {
             filterUserRecents(currentfilterFlag)
@@ -89,6 +82,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver, FilterMapProtocol 
         delegate?.userProfileViewModelDidLoginUser(self, user: user)
     }
     
+
     func fetchFavorites() throws {
         guard let favoriteRef = favoriteRef else {
             throw UserProfileViewModelError.FetchingFavoritesDataFailed
@@ -174,7 +168,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver, FilterMapProtocol 
         return item
     }
     
-    func currentFilterSet(filter: [MediaType]) {
+    func changeFilter(filter: [MediaType]) {
         currentfilterFlag = filter
         filterUserRecents(filter)
         filterUserFavorites(filter)
@@ -197,18 +191,13 @@ class UserProfileViewModel: NSObject, SessionManagerObserver, FilterMapProtocol 
         
         if shouldFilter {
             for link in linksArray {
-                for filter in filterFor {
-                    switch(link.type){
-                    case filter:
-                        currentFilterLinks.append(link)
-                        break
-                        
-                    default:
-                        break
-                    }
+                if filterFor.contains(link.type) {
+        
+                    currentFilterLinks.append(link)
+                    
                 }
-                
             }
+            
         } else {
             currentFilterLinks = linksArray
             

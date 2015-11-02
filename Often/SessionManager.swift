@@ -53,6 +53,7 @@ class SessionManager: NSObject {
         SEGAnalytics.setupWithConfiguration(configuration)
         SEGAnalytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
+        Firebase.defaultConfig().persistenceEnabled = true
         
         firebase = Firebase(url: BaseURL)
         
