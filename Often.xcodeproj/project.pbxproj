@@ -106,6 +106,8 @@
 		69C663221B8B6FA60014433D /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C663211B8B6FA60014433D /* UserProfileViewModel.swift */; };
 		69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */; };
 		69E7FD8A1B8E0BD7003BC281 /* MediaFilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD891B8E0BD7003BC281 /* MediaFilterTabView.swift */; };
+		69F3BC181BE8FB7100080628 /* ToolTipLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */; };
+		69F3BC1B1BE9079300080628 /* ToolTipLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */; };
 		74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */; };
 		8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
 		8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
@@ -407,6 +409,7 @@
 		69D51DBC1B3CDE0B00B2714D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		69E7FD891B8E0BD7003BC281 /* MediaFilterTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaFilterTabView.swift; sourceTree = "<group>"; };
+		69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolTipLoadingView.swift; path = Sources/ToolTipLoadingView.swift; sourceTree = "<group>"; };
 		7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
 		8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewModel.swift; path = Sources/SearchSuggestionsViewModel.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -1022,6 +1025,7 @@
 				81E26D951B67C29D00FC1F2F /* Shape.swift */,
 				81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */,
 				8176BECA1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift */,
+				69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */,
 				8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */,
 				81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */,
 				8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */,
@@ -1426,6 +1430,7 @@
 				8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
 				30E00C7A1BC86CEA00DDF24C /* delay.swift in Sources */,
 				3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */,
+				69F3BC1B1BE9079300080628 /* ToolTipLoadingView.swift in Sources */,
 				817939001B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
@@ -1520,6 +1525,7 @@
 				8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
+				69F3BC181BE8FB7100080628 /* ToolTipLoadingView.swift in Sources */,
 				8176BEA11B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */,
