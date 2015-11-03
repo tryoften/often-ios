@@ -56,10 +56,10 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     var hasSeenTooltip: Bool {
         get {
-            return userDefaults.boolForKey("seenToolTips")
+            return userDefaults.boolForKey(KeyboardTooltipsDisplayedKey)
         }
         set(value) {
-            userDefaults.setBool(value, forKey: "seenToolTips")
+            userDefaults.setBool(value, forKey: KeyboardTooltipsDisplayedKey)
         }
     }
     var heightConstraint: NSLayoutConstraint?
@@ -156,7 +156,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         view.addSubview(keysContainerView)
         
         if hasSeenTooltip == false {
-            print("HAS SEEN TOOL TIPS WAS FALSE HERE")
             toolTipViewController = ToolTipViewController()
             toolTipViewController?.closeButtonDelegate = self
             toolTipViewController!.view.translatesAutoresizingMaskIntoConstraints = false
