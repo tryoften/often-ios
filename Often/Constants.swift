@@ -370,6 +370,9 @@ let WalkthroughViewControllerNextButtonBackgroundColor = UIColor(fromHexString: 
 //Settings View Cell
 let SettingsViewCellSecondaryTextColor = UIColor(fromHexString: "202020")
 
+// Tool Tips
+let KeyboardTooltipsDisplayedKey = "seenToolTips"
+
 // Main App
 let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 14)
 let FacebookButtonTitleTextColor = UIColor.whiteColor()
