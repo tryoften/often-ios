@@ -298,4 +298,5 @@ protocol TextProcessingManagerDelegate: class {
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType)
     func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter)
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter?
+    func textProcessingManagerDidReceiveSpellCheckSuggestions(TextProcessingManager: TextProcessingManager, suggestions: [SuggestItem])
 }

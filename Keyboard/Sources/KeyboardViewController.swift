@@ -521,5 +521,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
         return searchBar.suggestionsViewModel.checkFilterInQuery(text)
     }
+    
+    func textProcessingManagerDidReceiveSpellCheckSuggestions(TextProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
+        
+    }
 }
 
