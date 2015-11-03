@@ -72,7 +72,7 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
             addConstraints(constraints)
         } else if currentPage == 2 {
             let constraints: [NSLayoutConstraint] = [
-                imageView.al_bottom == textView.al_top + 8,
+                imageView.al_bottom == textView.al_top + 4,
                 imageView.al_centerX == al_centerX,
                 imageView.al_width == 275,
                 imageView.al_height == 75

@@ -16,7 +16,7 @@ let CollapseKeyboardEvent = "collapseKeyboard"
 let RestoreKeyboardEvent = "restoreKeyboard"
 let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
 
-class KeyboardViewController: UIInputViewController, TextProcessingManagerDelegate {
+class KeyboardViewController: UIInputViewController, TextProcessingManagerDelegate, ToolTipCloseButtonDelegate {
     let locale: Language = .English
     var textProcessor: TextProcessingManager!
     var keysContainerView: TouchRecognizerView!
@@ -40,6 +40,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var kludge: UIView?
     static var debugKeyboard = false
     var autoPeriodState: AutoPeriodState = .NoSpace
+    var toolTipViewController: ToolTipViewController?
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
     }
@@ -51,6 +52,14 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var shiftState: ShiftState {
         didSet {
             changeKeyboardLetterCases()
+        }
+    }
+    var hasSeenTooltip: Bool {
+        get {
+            return userDefaults.boolForKey("seenToolTips")
+        }
+        set(value) {
+            userDefaults.setBool(value, forKey: "seenToolTips")
         }
     }
     var heightConstraint: NSLayoutConstraint?
@@ -145,6 +154,15 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         view.addSubview(slidePanelContainerView)
         view.addSubview(togglePanelButton)
         view.addSubview(keysContainerView)
+        
+        if hasSeenTooltip == false {
+            print("HAS SEEN TOOL TIPS WAS FALSE HERE")
+            toolTipViewController = ToolTipViewController()
+            toolTipViewController?.closeButtonDelegate = self
+            toolTipViewController!.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(toolTipViewController!.view)
+        }
+        
         inputView!.backgroundColor = VeryLightGray
     }
     
@@ -336,6 +354,15 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             updateKeyCaps(shiftState.lettercase())
             constraintsAdded = true
         }
+        
+        if hasSeenTooltip == false {
+            view.addConstraints([
+                toolTipViewController!.view.al_top == view.al_top,
+                toolTipViewController!.view.al_left == view.al_left,
+                toolTipViewController!.view.al_right == view.al_right,
+                toolTipViewController!.view.al_bottom == view.al_bottom
+            ])
+        }
     }
     
     func setCapsIfNeeded() -> Bool {
@@ -520,6 +547,17 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
         return searchBar.suggestionsViewModel.checkFilterInQuery(text)
+    }
+    
+    // MARK: ToolTipCloseButtonDelegate
+    func toolTipCloseButtonDidTap() {
+        hasSeenTooltip = true
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.toolTipViewController!.view.alpha = 0.0
+            }, completion: { done in
+                self.toolTipViewController!.view.removeFromSuperview()
+        })
     }
 }
 
