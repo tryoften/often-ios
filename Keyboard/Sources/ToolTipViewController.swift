@@ -10,8 +10,8 @@ import UIKit
 
 class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     var closeButton: UIButton
-    weak var closeButtonDelegate: ToolTipCloseButtonDelegate?
-    weak var delegate: ToolTipViewControllerDelegate?
+    var nextIndicator: UIButton
+    var loadingView: ToolTipLoadingView
     var pageWidth: CGFloat
     var scrollView: UIScrollView
     var pageControl: UIPageControl
@@ -20,6 +20,8 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     var pageImages: [UIImage]
     var pageTexts: [String]
     var pageViews: [ToolTip]
+    weak var closeButtonDelegate: ToolTipCloseButtonDelegate?
+    weak var delegate: ToolTipViewControllerDelegate?
     
     var currentPage: Int {
         return Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
@@ -66,25 +68,36 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setImage(UIImage(named: "close artists"), forState: UIControlState.Normal)
+        closeButton.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
         closeButton.alpha = 0.0
+        closeButton.userInteractionEnabled = false
+        
+        nextIndicator = UIButton()
+        nextIndicator.translatesAutoresizingMaskIntoConstraints = false
+        nextIndicator.setImage(UIImage(named: "next"), forState: UIControlState.Normal)
+        
+        loadingView = ToolTipLoadingView()
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(nibName: nil, bundle: nil)
         
         scrollView.delegate = self
         
-        closeButton.addTarget(self, action: "closeTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        closeButton.addTarget(self, action: "closeTapped", forControlEvents: .TouchUpInside)
+        nextIndicator.addTarget(self, action: "nextIndicatorTapped", forControlEvents: .TouchUpInside)
         
         view.backgroundColor = UIColor.grayColor()
-        
         
         view.addSubview(scrollView)
         view.addSubview(pageControl)
         view.addSubview(closeButton)
+        view.addSubview(nextIndicator)
+        view.addSubview(loadingView)
         // view.addSubview(caretImageView)
         
         setupLayout()
         
+        loadingView.timedEndLoad()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -147,19 +160,40 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         /// Load the pages that are now on screen
         pageControl.currentPage = currentPage
         
-        if currentPage > 2 {
+        if currentPage > 3 {
+            closeButton.userInteractionEnabled = true
+            nextIndicator.userInteractionEnabled = false
+            
             UIView.animateWithDuration(0.5, animations: {
                 self.closeButton.alpha = 1.0
+                self.nextIndicator.alpha = 0.0
             })
         } else {
+            closeButton.userInteractionEnabled = false
+            nextIndicator.userInteractionEnabled = true
+            
             UIView.animateWithDuration(0.5, animations: {
                 self.closeButton.alpha = 0.0
+                self.nextIndicator.alpha = 1.0
+            })
+        }
+    }
+    
+    func nextIndicatorTapped() {
+        if currentPage < 4 {
+            UIView.animateWithDuration(0.4, animations: {
+                self.scrollView.contentOffset.x += self.scrollView.bounds.width
             })
         }
     }
     
     func setupLayout() {
         view.addConstraints([
+            loadingView.al_left == scrollView.al_left,
+            loadingView.al_right == scrollView.al_right,
+            loadingView.al_top == scrollView.al_top,
+            loadingView.al_bottom == scrollView.al_bottom,
+            
             pageControl.al_centerX == scrollView.al_centerX,
             pageControl.al_bottom == scrollView.al_bottom - 18,
             pageControl.al_height == 5,
@@ -169,10 +203,15 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             scrollView.al_height == view.al_height - 80,
             scrollView.al_left == view.al_left + 10,
             
-            closeButton.al_top == view.al_top + 15,
-            closeButton.al_right == view.al_right - 20,
-            closeButton.al_height == 25,
-            closeButton.al_width == 25
+            closeButton.al_top == view.al_top + 25,
+            closeButton.al_right == view.al_right - 25,
+            closeButton.al_height == 10,
+            closeButton.al_width == 10,
+            
+            nextIndicator.al_right == scrollView.al_right - 10,
+            nextIndicator.al_centerY == scrollView.al_centerY + 5,
+            nextIndicator.al_height == 20,
+            nextIndicator.al_width == 13
         ])
     }
     

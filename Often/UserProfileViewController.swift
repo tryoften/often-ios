@@ -16,22 +16,35 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     SlideNavigationControllerDelegate,
     FilterTabDelegate {
     
-    var collectionType: UserProfileCollectionType = .Favorites
+    var currentCollectionType: UserProfileCollectionType = .Favorites
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: UserProfileSectionHeaderView?
-    var contentFilterTabView: UserProfileFilterTabView
+    var contentFilterTabView: MediaFilterTabView
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
     var headerDelegate: UserScrollHeaderDelegate?
-   
+    var emptyStateViewLayoutConstraint: NSLayoutConstraint?
+    var emptyStateView: EmptySetView
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: UserProfileViewModel) {
         self.viewModel = viewModel
-        contentFilterTabView = UserProfileFilterTabView()
+        contentFilterTabView = MediaFilterTabView(filterMap: DefaultFilterMap)
         contentFilterTabView.translatesAutoresizingMaskIntoConstraints = false
         
+        emptyStateView = EmptySetView()
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        emptyStateView.hidden = true
+    
         super.init(collectionViewLayout: collectionViewLayout)
+        
         self.viewModel.delegate = self
+        self.contentFilterTabView.delegate = self
+        
+        emptyStateView.settingbutton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
+        emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
+        emptyStateView.userInteractionEnabled = true
+        
         
         do {
             try viewModel.requestData()
@@ -41,10 +54,12 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
             print("Failed to request data \(error)")
         }
         
-        contentFilterTabView.delegate = self
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        checkUserEmptyStateStatus()
         
         view.addSubview(contentFilterTabView)
         view.backgroundColor = VeryLightGray
+        view.addSubview(emptyStateView)
         view.layer.masksToBounds = true
         
         setupLayout()
@@ -54,12 +69,15 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
-        let screenHeight = UIScreen.mainScreen().bounds.size.height
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 215)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight / 2)
+        flowLayout.parallaxHeaderReferenceSize = UserProfileHeaderView.preferredSize
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
@@ -102,7 +120,7 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        switch(collectionType) {
+        switch(currentCollectionType) {
         case .Favorites:
             return viewModel.filteredUserFavorites.count
         case .Recents:
@@ -113,7 +131,7 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: MediaLinkCollectionViewCell
         
-        switch(collectionType) {
+        switch(currentCollectionType) {
         case .Favorites:
             cell = parseMediaLinkData(viewModel.filteredUserFavorites, indexPath: indexPath, collectionView: collectionView)
         case .Recents:
@@ -160,7 +178,12 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
             contentFilterTabView.al_bottom == view.al_bottom,
             contentFilterTabView.al_left == view.al_left,
             contentFilterTabView.al_right == view.al_right,
-            contentFilterTabView.al_height == 50
+            contentFilterTabView.al_height == 50,
+            
+            emptyStateView.al_left == view.al_left,
+            emptyStateView.al_right == view.al_right,
+            emptyStateView.al_top == view.al_top + UserProfileHeaderView.preferredSize.height,
+            emptyStateView.al_bottom == view.al_bottom,
         ])
     }
 
@@ -179,7 +202,8 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     
     func reloadCollectionView() {
         collectionView?.reloadSections(NSIndexSet(index: 0))
-        PKHUD.sharedHUD.hide(animated: true)
+        hasLinks()
+        PKHUD.sharedHUD.hide(animated: true) 
     }
     
     func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
@@ -200,28 +224,129 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     }
     
     func userFavoritesTabSelected() {
-        collectionType = .Favorites
+        currentCollectionType = .Favorites
         
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
-        
+        hasLinks()
         headerDelegate?.userDidSelectTab(.Favorites)
     }
     
     func userRecentsTabSelected() {
-        collectionType = .Recents
+        currentCollectionType = .Recents
         
         if let collectionView = collectionView {
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
-        
+        hasLinks()
         headerDelegate?.userDidSelectTab(.Recents)
     }
+
+    // MARK: Check for empty state
+    func checkUserEmptyStateStatus() {
+        collectionView?.scrollEnabled = false
+        isKeyboardEnabled()
+        isTwitterEnabled()
+        hasLinks()
+    }
     
-    func currentFilterState(filter: FilterFlag) {
-        viewModel.filterUserRecents(filter)
-        viewModel.filterUserFavorites(filter)
+    func hasLinks() {
+        collectionView?.scrollEnabled = false
+        
+        if !((emptyStateView.userState == .NoTwitter) || (emptyStateView.userState == .NoKeyboard)) {
+            switch (currentCollectionType) {
+            case .Favorites:
+                if (viewModel.userFavorites.count == 0) {
+                    emptyStateView.updateEmptyStateContent(.NoFavorites)
+                    emptyStateView.hidden = false
+                } else {
+                    emptyStateView.hidden = true
+                    collectionView?.scrollEnabled = true
+                }
+                
+                break
+            case .Recents:
+                
+                if (viewModel.userRecents.count == 0) {
+                    emptyStateView.updateEmptyStateContent(.NoRecents)
+                    emptyStateView.hidden = false
+                } else {
+                    emptyStateView.hidden = true
+                    collectionView?.scrollEnabled = true
+                }
+                
+                break
+            }
+        }
+    }
+    
+    func isKeyboardEnabled() {
+        if let keyboards = NSUserDefaults.standardUserDefaults().dictionaryRepresentation()["AppleKeyboards"] as? [String] {
+            if !keyboards.contains("com.tryoften.often.Keyboard") {
+                collectionView?.scrollEnabled = false
+                emptyStateView.updateEmptyStateContent(.NoKeyboard)
+                emptyStateView.hidden = false
+            } else {
+                emptyStateView.updateEmptyStateContent(.NonEmpty)
+            }
+        }
+        
+    }
+    
+    func isTwitterEnabled() {
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        
+        if let user = viewModel.sessionManager.currentUser {
+            
+            let twitterCheck = viewModel.sessionManager.firebase.childByAppendingPath("users/\(user.id)/accounts")
+            
+            twitterCheck.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
+                PKHUD.sharedHUD.hide(animated: true)
+                if snapshot.exists() {
+                    if let value = snapshot.value as? [String: AnyObject] {
+                        if let twitterStuff = value["twitter"] as? [String: AnyObject] {
+                            let twitterAccount = SocialAccount()
+                            twitterAccount.setValuesForKeysWithDictionary(twitterStuff)
+                            
+                            if !twitterAccount.activeStatus {
+                                self.collectionView?.scrollEnabled = false
+                                self.emptyStateView.updateEmptyStateContent(.NoTwitter)
+                                self.emptyStateView.hidden = false
+                            }
+                            
+                        }
+                        
+                    }
+                } else {
+                }
+                }) { err -> Void in
+            }
+        }
+    }
+    
+    // Empty States button actions
+    func didTapSettingsButton() {
+        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+           UIApplication.sharedApplication().openURL(appSettings)
+        }
+        
+    }
+    
+    func didTapCancelButton() {
+        emptyStateView.updateEmptyStateContent(.NonEmpty)
+        isKeyboardEnabled()
+        hasLinks()
+    }
+    
+    func didTapTwitterButton() {
+        revealSetServicesViewDidTap()
+        
+    }
+    
+    func filterDidChange(filters: [MediaType]) {
+        viewModel.filters = filters
     }
 }
 
