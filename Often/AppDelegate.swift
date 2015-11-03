@@ -19,7 +19,6 @@ private var TestKeyboard: Bool = false
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
-
     let sessionManager = SessionManager.defaultManager
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

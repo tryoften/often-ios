@@ -13,8 +13,10 @@ class AppSettingsViewController: UIViewController,
     UITableViewDataSource,
     UITableViewDelegate,
     MFMailComposeViewControllerDelegate,
+    UIActionSheetDelegate,
     SlideNavigationControllerDelegate,
     TableViewCellDelegate {
+    
     var tableView: UITableView
     var viewModel: SettingsViewModel
     
@@ -38,10 +40,15 @@ class AppSettingsViewController: UIViewController,
         "Licenses"
     ]
     
+    var logoutSettings = [
+        "Logout"
+    ]
+    
     enum ProfileSettingsSection: Int {
         case Account = 0
         case Actions = 1
         case About = 2
+        case Logout = 3
     }
     
     init(viewModel: SettingsViewModel) {
@@ -50,7 +57,7 @@ class AppSettingsViewController: UIViewController,
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = UIColor.clearColor()
-        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20.0, right: 0)
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
@@ -95,11 +102,13 @@ class AppSettingsViewController: UIViewController,
             return "Actions"
         case .About:
             return "About"
+        case .Logout:
+            return ""
         }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -111,6 +120,8 @@ class AppSettingsViewController: UIViewController,
                 return actionsSettings.count
             case .About:
                 return aboutSettings.count
+            case .Logout:
+                return logoutSettings.count
             }
         }
         
@@ -126,9 +137,7 @@ class AppSettingsViewController: UIViewController,
             switch settingsSection {
             case .Account:
                 if indexPath.row == 0 { // name
-                    // To allow name editing on same view inside of the cell
-                    let cell = tableView.cellForRowAtIndexPath(indexPath) as! UserProfileSettingsTableViewCell
-                    cell.secondaryTextField.becomeFirstResponder()
+                    
                 } else if indexPath.row == 1 { // email
                     
                 } else if indexPath.row == 2 { // password
@@ -136,29 +145,45 @@ class AppSettingsViewController: UIViewController,
                 } else { // push notifications
                     
                 }
+                break
             case .Actions:
                 if indexPath.row == 0 { // How to Install
-                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(UIViewController(), withSlideOutAnimation: true, andCompletion: {
+                    let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
+                    let walkthroughViewController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
+                    walkthroughViewController.inAppDisplay = true
+                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(walkthroughViewController, withSlideOutAnimation: true, andCompletion: {
                     })
                 } else if indexPath.row == 1 { // Rate in App Store
                     
                 } else { // Support
                     launchEmail(self)
                 }
+                break
             case .About:
                 if indexPath.row == 0 { // FAQ
-                    let vc = SettingsWebViewController(website: "http://www.google.com")
-                    presentViewController(vc, animated: true, completion: nil)
+                    let vc = SettingsWebViewController(website: "http://www.tryoften.com/faq.html")
+                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
+                    })
                 } else if indexPath.row == 1 { // Privacy Policy
-                    let vc = SettingsWebViewController(website: "http://www.google.com")
-                    presentViewController(vc, animated: true, completion: nil)
+                    let vc = SettingsWebViewController(website: "http://www.tryoften.com/privacypolicy.html")
+                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
+                    })
                 } else if indexPath.row == 2 { // Terms of Use
-                    let vc = SettingsWebViewController(website: "http://www.google.com")
-                    presentViewController(vc, animated: true, completion: nil)
+                    let vc = SettingsWebViewController(website: "http://www.tryoften.com/privacypolicy.html")
+                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
+                    })
                 } else { // Licenses
                     let vc = SettingsWebViewController(website: "http://www.google.com")
-                    presentViewController(vc, animated: true, completion: nil)
+                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
+                    })
                 }
+                break
+            case .Logout:
+                let actionSheet = UIActionSheet(title: "Are you sure you want to logout?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Logout")
+                actionSheet.showInView(view)
+                break
+            default:
+                break
             }
         }
         
@@ -174,6 +199,8 @@ class AppSettingsViewController: UIViewController,
             headerView.titleLabel.text = "ACTIONS"
         } else if ProfileSettingsSection.About.rawValue == section {
             headerView.titleLabel.text = "ABOUT"
+        } else if ProfileSettingsSection.Logout.rawValue == section {
+            
         }
         
         return headerView
@@ -230,6 +257,12 @@ class AppSettingsViewController: UIViewController,
                 let cell = UserProfileSettingsTableViewCell(type: .Default)
                 cell.titleLabel.text = aboutSettings[indexPath.row]
                 return cell
+            case .Logout:
+                let cell = UserProfileSettingsTableViewCell(type: .Logout)
+                cell.titleLabel.text = logoutSettings[indexPath.row]
+                return cell
+            default:
+                break
             }
         }
         let cell = UITableViewCell()
@@ -273,6 +306,22 @@ class AppSettingsViewController: UIViewController,
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // MARK: UIActionSheetDelegate
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        switch buttonIndex {
+        case 0:
+            print("logout")
+            viewModel.sessionManager.logout()
+            let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
+            let vc = SignupViewController(viewModel: signupViewModel)
+            RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
+            })
+            break
+        default:
+            break
+        }
+    }
+        
     //MARK: TableViewCellDelegate
     func didFinishEditingName(newName: String) {
         viewModel.currentUser?.name = newName

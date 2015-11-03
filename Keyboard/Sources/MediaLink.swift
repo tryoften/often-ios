@@ -41,7 +41,7 @@ enum MediaType: String {
         case .Article:
             return true
         default:
-            return true
+            return false
         }
     }
     
