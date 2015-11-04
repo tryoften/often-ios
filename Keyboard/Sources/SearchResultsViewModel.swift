@@ -17,7 +17,7 @@ class SearchResultsViewModel {
         let userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         favorites = []
         
-        guard let userId = userDefaults.objectForKey("userID") as? String else {
+        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
                 self.userId = ""
                 favoriteRef = Firebase()
             return nil

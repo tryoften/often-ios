@@ -9,14 +9,6 @@
 import Foundation
 import Crashlytics
 
-struct SessionManagerProperty {
-    static var userID = "userID"
-    static var userEmail = "email"
-    static var openSession = "openSession"
-    static var authData = "authData"
-    static var keyboardInstalled = "keyboardInstall"
-}
-
 class SessionManager: NSObject {
     var firebase: Firebase
     var socialAccountService: SocialAccountsService?
@@ -63,7 +55,7 @@ class SessionManager: NSObject {
             self.processAuthData(authData)
         }
         
-        if let userID = userDefaults.objectForKey(SessionManagerProperty.userID) as? String {
+        if let userID = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String {
             SEGAnalytics.sharedAnalytics().identify(userID)
             let crashlytics = Crashlytics.sharedInstance()
             crashlytics.setUserIdentifier(userID)
@@ -82,7 +74,7 @@ class SessionManager: NSObject {
     }
     
     func isUserLoggedIn() -> Bool {
-        return userDefaults.objectForKey(SessionManagerProperty.userID) != nil
+        return userDefaults.objectForKey(UserDefaultsProperty.userID) != nil
     }
     
     func isKeyboardInstalled() -> Bool {
@@ -139,12 +131,12 @@ class SessionManager: NSObject {
         PFUser.logOut()
         firebase.unauth()
         observers.removeAllObjects()
-        userDefaults.setValue(nil, forKey: SessionManagerProperty.userID)
-        userDefaults.setValue(nil, forKey: SessionManagerProperty.userEmail)
+        userDefaults.setValue(nil, forKey: UserDefaultsProperty.userID)
+        userDefaults.setValue(nil, forKey: UserDefaultsProperty.userEmail)
         userDefaults.setValue(nil, forKey: "facebook")
         userDefaults.setValue(nil, forKey: "twitter")
-        userDefaults.setValue(nil, forKey: SessionManagerProperty.openSession)
-        userDefaults.setValue(nil, forKey: SessionManagerProperty.authData)
+        userDefaults.setValue(nil, forKey: UserDefaultsProperty.openSession)
+        userDefaults.setValue(nil, forKey: UserDefaultsProperty.authData)
         userDefaults.synchronize()
         
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
@@ -160,7 +152,7 @@ class SessionManager: NSObject {
             self.currentUser = user
             
             if !self.isUserNew {
-                self.userDefaults.setObject(user.id, forKey: SessionManagerProperty.userID)
+                self.userDefaults.setObject(user.id, forKey: UserDefaultsProperty.userID)
                 self.userDefaults.synchronize()
             }
             
@@ -179,7 +171,7 @@ class SessionManager: NSObject {
             "uid": authData.uid,
             "provider": authData.provider,
             "token": authData.token
-        ], forKey: SessionManagerProperty.authData)
+        ], forKey: UserDefaultsProperty.authData)
         
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         
@@ -195,7 +187,7 @@ class SessionManager: NSObject {
                         persistUser(user)
                 }
             } else {
-                if self.userDefaults.boolForKey(SessionManagerProperty.userEmail) {
+                if self.userDefaults.boolForKey(UserDefaultsProperty.userEmail) {
                     var data = [String : AnyObject]()
                     
                     data["id"] = authData.uid
