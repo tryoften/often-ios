@@ -10,7 +10,7 @@ import Foundation
 import Crashlytics
 
 struct SessionManagerProperty {
-    static var user = "user"
+    static var userID = "userID"
     static var userEmail = "email"
     static var openSession = "openSession"
     static var authData = "authData"
@@ -63,13 +63,10 @@ class SessionManager: NSObject {
             self.processAuthData(authData)
         }
         
-        if let userData = userDefaults.objectForKey(SessionManagerProperty.user) as? [String: String] {
-            currentUser = User()
-            currentUser?.setValuesForKeysWithDictionary(userData)
-            SEGAnalytics.sharedAnalytics().identify(currentUser!.id)
-            socialAccountService = SocialAccountsService(user: currentUser!, root: firebase)
+        if let userID = userDefaults.objectForKey(SessionManagerProperty.userID) as? String {
+            SEGAnalytics.sharedAnalytics().identify(userID)
             let crashlytics = Crashlytics.sharedInstance()
-            crashlytics.setUserIdentifier(currentUser!.id)
+            crashlytics.setUserIdentifier(userID)
             
             if let user = currentUser {
                 crashlytics.setUserName(user.name)
@@ -85,7 +82,7 @@ class SessionManager: NSObject {
     }
     
     func isUserLoggedIn() -> Bool {
-        return userDefaults.objectForKey(SessionManagerProperty.user) != nil
+        return userDefaults.objectForKey(SessionManagerProperty.userID) != nil
     }
     
     func isKeyboardInstalled() -> Bool {
@@ -142,7 +139,7 @@ class SessionManager: NSObject {
         PFUser.logOut()
         firebase.unauth()
         observers.removeAllObjects()
-        userDefaults.setValue(nil, forKey: SessionManagerProperty.user)
+        userDefaults.setValue(nil, forKey: SessionManagerProperty.userID)
         userDefaults.setValue(nil, forKey: SessionManagerProperty.userEmail)
         userDefaults.setValue(nil, forKey: "facebook")
         userDefaults.setValue(nil, forKey: "twitter")
@@ -163,7 +160,7 @@ class SessionManager: NSObject {
             self.currentUser = user
             
             if !self.isUserNew {
-                self.userDefaults.setObject(user.dataChangedToDictionary(), forKey: SessionManagerProperty.user)
+                self.userDefaults.setObject(user.id, forKey: SessionManagerProperty.userID)
                 self.userDefaults.synchronize()
             }
             
@@ -213,7 +210,7 @@ class SessionManager: NSObject {
                     let newUser = User()
                     newUser.setValuesForKeysWithDictionary(data)
                     
-                    self.userRef?.setValue(data)
+                    self.userRef?.updateChildValues(data)
                     self.isUserNew = false
                     
                     persistUser(newUser)

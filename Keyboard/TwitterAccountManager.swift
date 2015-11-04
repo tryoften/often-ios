@@ -57,8 +57,9 @@ class TwitterAccountManager: NSObject {
                                         if err != nil {
                                             completion?(err)
                                         }
-                                    })
                                       completion?(nil)  
+                                    }
+                                    )
                                 }
   
                             })
@@ -121,7 +122,11 @@ class TwitterAccountManager: NSObject {
         data["description"] = (authData.providerData["cachedUserProfile"] as? [String: AnyObject])?["description"] as? String
         data["parseId"] = PFUser.currentUser()?.objectId
         
-        userRef.setValue(data)
+        userDefaults.setValue(authData.uid, forKey: SessionManagerProperty.userID)
+        userDefaults.synchronize()
+        
+        userRef.updateChildValues(data)
+        completion(nil)
 
     }
 

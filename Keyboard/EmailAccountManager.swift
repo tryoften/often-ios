@@ -31,6 +31,8 @@ class EmailAccountManager: NSObject {
                 completion?(error)
                 
             } else {
+                self.userDefaults.setValue(authData.uid, forKey: SessionManagerProperty.userID)
+                self.userDefaults.synchronize()
                 completion?(nil)
             }
         })
