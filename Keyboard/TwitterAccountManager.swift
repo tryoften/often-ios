@@ -58,6 +58,7 @@ class TwitterAccountManager: NSObject {
                                             completion?(err)
                                         }
                                     })
+                                      completion?(nil)  
                                 }
   
                             })
