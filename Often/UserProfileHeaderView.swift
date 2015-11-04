@@ -62,7 +62,6 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont(name: "Montserrat", size: 18.0)
-        nameLabel.text = "Regy Perlera"
         nameLabel.textAlignment = .Center
         
         descriptionLabel = UILabel()
