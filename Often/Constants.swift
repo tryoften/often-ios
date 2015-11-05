@@ -372,6 +372,7 @@ let SettingsViewCellSecondaryTextColor = UIColor(fromHexString: "202020")
 
 // Tool Tips
 let KeyboardTooltipsDisplayedKey = "seenToolTips"
+let SearchBarTooltipsDisplayedKey = "hasSeenSearchToolTip"
 
 // Main App
 let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 14)

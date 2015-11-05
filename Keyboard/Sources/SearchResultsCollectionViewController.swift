@@ -22,7 +22,7 @@ import UIKit
     Tweet Cell
 
 */
-class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MediaLinkCollectionViewCellDelegate {
+class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MediaLinkCollectionViewCellDelegate, ToolTipCloseButtonDelegate {
     var backgroundImageView: UIImageView
     var textProcessor: TextProcessingManager?
     var response: SearchResponse? {
@@ -37,8 +37,21 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     var refreshResultsButton: RefreshResultsButton
     var refreshResultsButtonTopConstraint: NSLayoutConstraint!
     var refreshTimer: NSTimer?
+    var searchBarToolTip: InKeyboardToolTip?
+    var userDefaults: NSUserDefaults
+    var hasSeenTooltip: Bool {
+        get {
+            return userDefaults.boolForKey(SearchBarTooltipsDisplayedKey)
+        }
+        set(value) {
+            userDefaults.setBool(value, forKey: SearchBarTooltipsDisplayedKey)
+        }
+    }
     
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        userDefaults.synchronize()
+        
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.contentMode = .Center
@@ -58,6 +71,13 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         view.addSubview(refreshResultsButton)
         view.backgroundColor = VeryLightGray
         collectionView?.backgroundColor = UIColor.clearColor()
+        
+        if hasSeenTooltip == false {
+            searchBarToolTip = InKeyboardToolTip()
+            searchBarToolTip!.translatesAutoresizingMaskIntoConstraints = false
+            searchBarToolTip?.closeButtonDelegate = self
+            view.addSubview(searchBarToolTip!)
+        }
         
         refreshResultsButton.addTarget(self, action: "didTapRefreshResultsButton", forControlEvents: .TouchUpInside)
         
@@ -223,6 +243,15 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
             refreshResultsButton.al_centerX == view.al_centerX,
             refreshResultsButtonTopConstraint
         ])
+        
+        if hasSeenTooltip == false {
+            view.addConstraints([
+                searchBarToolTip!.al_top == view.al_top - 30,
+                searchBarToolTip!.al_left == view.al_left,
+                searchBarToolTip!.al_right == view.al_right,
+                searchBarToolTip!.al_bottom == view.al_bottom
+            ])
+        }
     }
     
     // MediaLinkCollectionViewCellDelegate
@@ -245,5 +274,18 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         }
 
         textProcessor?.defaultProxy.insertText(result.getInsertableText())
+    }
+    
+    // MARK: ToolTipCloseButtonDelegate
+    func toolTipCloseButtonDidTap() {
+        hasSeenTooltip = true
+        
+        UIView.animateWithDuration(0.4, animations: {
+            self.searchBarToolTip?.alpha = 0.0
+        })
+        
+        delay(1.5, closure: {
+            self.searchBarToolTip?.removeFromSuperview()
+        })
     }
 }
