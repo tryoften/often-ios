@@ -23,6 +23,9 @@ class EmptySetView: UIView {
     var twitterButton: UIButton
     var settingbutton: UIButton
     var cancelButton: UIButton
+    var imageViewTopConstraint: NSLayoutConstraint?
+    var imageViewHeightConstraint: NSLayoutConstraint?
+    var imageViewWidthConstraint: NSLayoutConstraint?
     var userState: UserState 
     
     override init(frame: CGRect) {
@@ -92,6 +95,9 @@ class EmptySetView: UIView {
         userState = state
         switch (state) {
         case .NoTwitter:
+            imageViewWidthConstraint?.constant = 70
+            imageViewHeightConstraint?.constant = 70
+            imageViewTopConstraint?.constant = 50
             imageView.image = UIImage(named: "twitteremptystate")
             imageView.contentMode = .ScaleAspectFit
             titleLabel.text = "Connect with Twitter"
@@ -100,6 +106,9 @@ class EmptySetView: UIView {
             cancelButton.hidden = false
             settingbutton.hidden = true
         case .NoKeyboard:
+            imageViewWidthConstraint?.constant = 70
+            imageViewHeightConstraint?.constant = 70
+            imageViewTopConstraint?.constant = 50
             imageView.image = UIImage(named: "installoftenemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "Install Often"
@@ -107,6 +116,9 @@ class EmptySetView: UIView {
             settingbutton.hidden = false
             cancelButton.hidden = true
         case .NoFavorites:
+            imageViewWidthConstraint?.constant = 100
+            imageViewHeightConstraint?.constant = 100
+            imageViewTopConstraint?.constant = 70
             imageView.image = UIImage(named: "favoritesemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No favorites yet!"
@@ -115,6 +127,9 @@ class EmptySetView: UIView {
             twitterButton.hidden = true
             cancelButton.hidden = true
         case .NoRecents:
+            imageViewWidthConstraint?.constant = 100
+            imageViewHeightConstraint?.constant = 100
+            imageViewTopConstraint?.constant = 70
             imageView.image = UIImage(named: "recentsemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No recents yet!"
@@ -128,11 +143,15 @@ class EmptySetView: UIView {
     }
 
     func setupLayout() {
+        imageViewTopConstraint = imageView.al_top == al_top + 50
+        imageViewHeightConstraint = imageView.al_height == 70
+        imageViewWidthConstraint = imageView.al_width == 70
+        
         addConstraints([
             imageView.al_centerX == al_centerX,
-            imageView.al_top == al_top + 50,
-            imageView.al_height == 70,
-            imageView.al_width == 70,
+            imageViewTopConstraint!,
+            imageViewHeightConstraint!,
+            imageViewWidthConstraint!,
             
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_top == imageView.al_bottom + 20,
