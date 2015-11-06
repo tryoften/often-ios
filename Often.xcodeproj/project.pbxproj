@@ -1169,7 +1169,7 @@
 				TargetAttributes = {
 					8180E6071A142157007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = VPYJKM228K;
+						DevelopmentTeam = LMA3M32RE8;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1187,7 +1187,7 @@
 					};
 					8180E6301A142199007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = VPYJKM228K;
+						DevelopmentTeam = LMA3M32RE8;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
