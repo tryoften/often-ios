@@ -14,7 +14,8 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     UserProfileHeaderDelegate,
     UserProfileViewModelDelegate,
     SlideNavigationControllerDelegate,
-    FilterTabDelegate {
+    FilterTabDelegate,
+    MediaLinkCollectionViewCellDelegate {
     
     var currentCollectionType: UserProfileCollectionType = .Favorites
     var headerView: UserProfileHeaderView?
@@ -22,7 +23,6 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     var contentFilterTabView: MediaFilterTabView
     var viewModel: UserProfileViewModel
     var profileDelegate: UserProfileViewControllerDelegate?
-    var headerDelegate: UserScrollHeaderDelegate?
     var emptyStateViewLayoutConstraint: NSLayoutConstraint?
     var emptyStateView: EmptySetView
     
@@ -138,6 +138,16 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
             cell = parseMediaLinkData(viewModel.filteredUserRecents, indexPath: indexPath, collectionView: collectionView)
         }
         
+         cell.delegate = self
+        
+        if let result = cell.mediaLink {
+            if  viewModel.checkFavorite(result) {
+                cell.itemFavorited = true
+            } else {
+                cell.itemFavorited = false
+            }
+        }
+        
         animateCell(cell, indexPath: indexPath)
         
         return cell
@@ -165,7 +175,6 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
             if headerView == nil {
                 headerView = cell
                 headerView?.delegate = self
-                headerDelegate = headerView
             }
             
             return headerView!
@@ -231,7 +240,6 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
         hasLinks()
-        headerDelegate?.userDidSelectTab(.Favorites)
     }
     
     func userRecentsTabSelected() {
@@ -241,7 +249,6 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
             collectionView.reloadSections(NSIndexSet(index: 0))
         }
         hasLinks()
-        headerDelegate?.userDidSelectTab(.Recents)
     }
     
     //Mark: Check for empty state
@@ -327,6 +334,31 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         
         }
     
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaLinkCollectionViewCell,
+            let cells = collectionView.visibleCells() as? [MediaLinkCollectionViewCell],
+            let result = cell.mediaLink else {
+                return
+        }
+        
+    
+        for cell in cells {
+            cell.overlayVisible = false
+            cell.layer.shouldRasterize = false
+        }
+        
+        if  viewModel.checkFavorite(result) {
+            cell.itemFavorited = true
+        } else {
+            cell.itemFavorited = false
+        }
+        
+        cell.overlayVisible = true
+    }
+
+    
 
     // Empty States button actions
     func didTapSettingsButton() {
@@ -350,6 +382,30 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     func filterDidChange(filters: [MediaType]) {
         viewModel.filters = filters
     }
+    
+    // MediaLinkCollectionViewCellDelegate
+    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        guard let result = cell.mediaLink else {
+            return
+        }
+        
+        viewModel.toggleFavorite(selected, result: result)
+        cell.itemFavorited = selected
+    }
+    
+    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        cell.overlayVisible = false
+    }
+    
+    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        guard let result = cell.mediaLink else {
+            return
+        }
+        
+        UIPasteboard.generalPasteboard().string = result.getInsertableText()
+        
+    }
+
 }
 
 enum UserProfileCollectionType {
@@ -362,6 +418,3 @@ protocol UserProfileViewControllerDelegate {
     func recentsTabSelected()
 }
 
-protocol UserScrollHeaderDelegate  {
-    func userDidSelectTab(type: UserProfileCollectionType)
-}

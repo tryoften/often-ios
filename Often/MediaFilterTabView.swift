@@ -11,15 +11,19 @@ import UIKit
 class MediaFilterTabView: UIView {
     weak var delegate: FilterTabDelegate?
 
-    let highlightBar: UIView
-    var highlightBarLeftConstraint: NSLayoutConstraint?
+    let highlightPill: UIView
+    var highlightPillCenterConstraint: NSLayoutConstraint?
+    var highlightPillWidthConstraint: NSLayoutConstraint?
     var buttons: [UIButton]
     private var buttonWidth: CGFloat
     
     init(filterMap: FilterMap) {
-        highlightBar = UIView()
-        highlightBar.translatesAutoresizingMaskIntoConstraints = false
-        highlightBar.backgroundColor = TealColor
+        highlightPill = UIView()
+        highlightPill.translatesAutoresizingMaskIntoConstraints = false
+        highlightPill.backgroundColor = TealColor
+        highlightPill.layer.cornerRadius = 11.0
+        highlightPill.clipsToBounds = true
+        
         buttons = [UIButton]()
         buttonWidth = 0
         
@@ -27,24 +31,26 @@ class MediaFilterTabView: UIView {
         
         backgroundColor = WhiteColor
         
+        addSubview(highlightPill)
+        
         for (tag, filters) in filterMap {
             let button = FilterButton(filters: filters)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitle(tag.rawValue.uppercaseString, forState: .Normal)
-            button.setTitleColor(BlackColor, forState: .Selected)
+            button.setTitleColor(WhiteColor, forState: .Selected)
             button.setTitleColor(LightGrey, forState: .Normal)
             button.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
             button.addTarget(self, action: "filterDidTapButtonTapped:", forControlEvents: .TouchUpInside)
             addSubview(button)
             buttons.append(button)
         }
+        
         buttonWidth = UIScreen.mainScreen().bounds.width / CGFloat(buttons.count)
         
         if let firstButton = buttons.first {
             firstButton.selected = true
         }
         
-        addSubview(highlightBar)
         setupLayout()
         
         layer.shadowOffset = CGSizeMake(0, -1)
@@ -58,8 +64,12 @@ class MediaFilterTabView: UIView {
     }
     
     func setupLayout() {
-        highlightBarLeftConstraint = highlightBar.al_left == al_left
+        guard let firstButton = buttons.first else {
+            return
+        }
         
+        highlightPillCenterConstraint = highlightPill.al_centerX == firstButton.al_centerX
+
         for var i = 0; i < buttons.count; i++  {
             addConstraints([
                 buttons[i].al_top == al_top,
@@ -69,11 +79,15 @@ class MediaFilterTabView: UIView {
             ])
         }
         
+        layoutIfNeeded()
+        firstButton.sizeToFit()
+        highlightPillWidthConstraint = highlightPill.al_width == CGRectGetWidth(firstButton.titleLabel!.frame) + 30
+        
         addConstraints([
-            highlightBarLeftConstraint!,
-            highlightBar.al_bottom == al_bottom,
-            highlightBar.al_height == 4.0,
-            highlightBar.al_width == buttonWidth
+            highlightPillCenterConstraint!,
+            highlightPill.al_centerY == al_centerY,
+            highlightPill.al_height == 22,
+            highlightPillWidthConstraint!
         ])
     }
     
@@ -82,7 +96,8 @@ class MediaFilterTabView: UIView {
         for var i = 0; i < buttons.count; i++ {
             if buttons[i] == button {
                 buttons[i].selected = true
-                highlightBarLeftConstraint?.constant = (buttonWidth * CGFloat(i))
+                highlightPillCenterConstraint?.constant = (buttonWidth * CGFloat(i))
+                highlightPillWidthConstraint?.constant = CGRectGetWidth(button.titleLabel!.frame) + 30
                 delegate?.filterDidChange(button.filterTypes)
                 
                 UIView.animateWithDuration(0.3) {
