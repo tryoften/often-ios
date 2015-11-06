@@ -12,9 +12,8 @@ class RootViewController: SlideNavigationController {
     let sessionManager = SessionManager.defaultManager
     
     init() {
-        let userProfileViewModel = UserProfileViewModel(sessionManager: sessionManager)
-        
-        super.init(rootViewController: UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: userProfileViewModel))
+         
+        super.init(rootViewController: UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: UserProfileViewModel()))
         
         let animator = SlideNavigationContorllerAnimatorScaleAndFade(maximumFadeAlpha: 0.8, fadeColor: VeryLightGray, andMinimumScale: 0.8)
         

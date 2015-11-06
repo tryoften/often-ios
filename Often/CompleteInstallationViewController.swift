@@ -46,10 +46,6 @@ class CompleteInstallationViewController: UIViewController {
     }
     
     func didTapFinishedButton(sender: UIButton) {
-        
-        if (SlideNavigationController.sharedInstance() == nil) {
             presentViewController(RootViewController(), animated: true, completion: nil )
-            
-        }
     }
 }

@@ -356,7 +356,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         if hasSeenTooltip == false {
             view.addConstraints([
-                toolTipViewController!.view.al_top == view.al_top,
+                toolTipViewController!.view.al_top == view.al_top + searchBarHeight,
                 toolTipViewController!.view.al_left == view.al_left,
                 toolTipViewController!.view.al_right == view.al_right,
                 toolTipViewController!.view.al_bottom == view.al_bottom
