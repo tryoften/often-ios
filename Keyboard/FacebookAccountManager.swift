@@ -46,7 +46,7 @@ class FacebookAccountManager: NSObject {
                 })
             }
         }
-        userDefaults.setValue(true, forKey: SessionManagerProperty.openSession)
+        userDefaults.setValue(true, forKey: UserDefaultsProperty.openSession)
         userDefaults.synchronize()  
     }
     
