@@ -20,8 +20,8 @@ class SettingsWebViewController: UIViewController {
         
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setImage(UIImage(named: "close artists"), forState: UIControlState.Normal)
-        closeButton.imageView?.contentMode = .ScaleAspectFill
+        closeButton.setImage(UIImage(named: "close-white"), forState: UIControlState.Normal)
+        closeButton.contentEdgeInsets = UIEdgeInsetsMake(9.0, 9.0, 9.0, 9.0)
         
         let requestURL = NSURL(string: website)
         let request = NSURLRequest(URL: requestURL!)
@@ -73,10 +73,10 @@ class SettingsWebViewController: UIViewController {
         ])
         
         navigationBar.addConstraints([
-            closeButton.al_right == navigationBar.al_right,
-            closeButton.al_top == navigationBar.al_top,
-            closeButton.al_height == 50,
-            closeButton.al_width == 50
+            closeButton.al_right == navigationBar.al_right - 10,
+            closeButton.al_top == navigationBar.al_top + 10,
+            closeButton.al_height == 30,
+            closeButton.al_width == 30
         ])
     }
 }
