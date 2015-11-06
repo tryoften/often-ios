@@ -37,6 +37,7 @@ class CreateAccountView: UIView {
         subtitleLabel.text = "Save your favorite videos, links, GIFs and songs by creating an account!"
         subtitleLabel.numberOfLines = 2
         subtitleLabel.textAlignment = .Center
+        subtitleLabel.alpha = 0.74
         
         usernameTextField = UITextField()
         usernameTextField.translatesAutoresizingMaskIntoConstraints = false

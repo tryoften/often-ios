@@ -49,6 +49,7 @@ class SignupView: UIView {
         subtitleLabel.attributedText = subtitle
         subtitleLabel.numberOfLines = 2
         subtitleLabel.textAlignment = .Center
+        subtitleLabel.alpha = 0.54
         
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -117,8 +118,8 @@ class SignupView: UIView {
             titleLabel.al_height == 40,
             
             subtitleLabel.al_top == titleLabel.al_bottom,
-            subtitleLabel.al_left == al_left + 20,
-            subtitleLabel.al_right == al_right - 20,
+            subtitleLabel.al_left == al_left + 40,
+            subtitleLabel.al_right == al_right - 40,
             subtitleLabel.al_height == 60,
             
             scrollView.al_top == subtitleLabel.al_bottom + 10,
@@ -126,10 +127,10 @@ class SignupView: UIView {
             scrollView.al_right == al_right - 20,
             scrollView.al_bottom == pageControl.al_top - 20,
             
-            pageControl.al_bottom == createAccountButton.al_top - 30,
+            pageControl.al_bottom == createAccountButton.al_top - 20,
             pageControl.al_centerX == al_centerX,
             pageControl.al_height == 2,
-            pageControl.al_width == 50,
+            pageControl.al_width == 40,
             
             
             createAccountButton.al_bottom == skipButton.al_top - 10,
