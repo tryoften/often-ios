@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate {
+class UserProfileHeaderView: UICollectionReusableView {
     var profileImageView: UIImageView
     var nameLabel: UILabel
     var descriptionLabel: UILabel
@@ -26,16 +26,10 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         )
     }
     
-    var tabContainerView: UIView
-    var favoritesTabButton: UIButton
-    var recentsTabButton: UIButton
-    var highlightBarView: UIView
-    var leftHighlightBarPositionConstraint: NSLayoutConstraint?
+    var tabContainerView: FavoriteAndRecentTabView
     var offsetValue: CGFloat
-    
     var setServicesRevealButton: UIButton
     var settingsRevealButton: UIButton
-
     var delegate: UserProfileHeaderDelegate?
     
     var descriptionText: String {
@@ -81,26 +75,8 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         scoreNameLabel.font = UIFont(name: "OpenSans", size: 12.0)
         scoreNameLabel.textAlignment = .Center
         
-        tabContainerView = UIView()
+        tabContainerView = FavoriteAndRecentTabView()
         tabContainerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        favoritesTabButton = UIButton()
-        favoritesTabButton.translatesAutoresizingMaskIntoConstraints = false
-        favoritesTabButton.setTitle("FAVORITES", forState: .Normal)
-        favoritesTabButton.setTitleColor(BlackColor, forState: .Normal)
-        favoritesTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
-        favoritesTabButton.titleLabel?.textAlignment = .Center
-        
-        recentsTabButton = UIButton()
-        recentsTabButton.translatesAutoresizingMaskIntoConstraints = false
-        recentsTabButton.setTitle("RECENTS", forState: .Normal)
-        recentsTabButton.setTitleColor(BlackColor, forState: .Normal)
-        recentsTabButton.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
-        recentsTabButton.titleLabel?.textAlignment = .Center
-        
-        highlightBarView = UIView()
-        highlightBarView.translatesAutoresizingMaskIntoConstraints = false
-        highlightBarView.backgroundColor = TealColor
         
         setServicesRevealButton = UIButton()
         setServicesRevealButton.translatesAutoresizingMaskIntoConstraints = false
@@ -123,8 +99,8 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         
         setServicesRevealButton.addTarget(self, action: "setServicesRevealTapped", forControlEvents: .TouchUpInside)
         settingsRevealButton.addTarget(self, action: "settingsRevealTapped", forControlEvents: .TouchUpInside)
-        favoritesTabButton.addTarget(self, action: "favoritesTabTapped", forControlEvents: .TouchUpInside)
-        recentsTabButton.addTarget(self, action: "recentsTabTapped", forControlEvents: .TouchUpInside)
+        tabContainerView.favoritesTabButton.addTarget(self, action: "favoritesTabTapped", forControlEvents: .TouchUpInside)
+        tabContainerView.recentsTabButton.addTarget(self, action: "recentsTabTapped", forControlEvents: .TouchUpInside)
         
         addSubview(profileImageView)
         addSubview(nameLabel)
@@ -135,31 +111,12 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
         addSubview(settingsRevealButton)
         
         addSubview(tabContainerView)
-        tabContainerView.addSubview(favoritesTabButton)
-        tabContainerView.addSubview(recentsTabButton)
-        tabContainerView.addSubview(highlightBarView)
         
         setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // UserScrollHeaderDelegate
-    
-    func userDidSelectTab(type: UserProfileCollectionType) {
-        switch(type) {
-        case .Favorites:
-             leftHighlightBarPositionConstraint?.constant = 0.0
-        case .Recents:
-            leftHighlightBarPositionConstraint?.constant = UIScreen.mainScreen().bounds.width / 2
-        }
-        
-        UIView.animateWithDuration(0.3) {
-            self.layoutIfNeeded()
-        }
-
     }
     
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
@@ -174,7 +131,6 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
     }
     
     func setupLayout() {
-            leftHighlightBarPositionConstraint = highlightBarView.al_left == tabContainerView.al_left
             nameLabelHeightConstraint = nameLabel.al_bottom == tabContainerView.al_top - 115
             descriptionLabelHeightConstraint = descriptionLabel.al_bottom == scoreLabel.al_top
             scoreNameLabelHeightConstraint = scoreNameLabel.al_bottom == tabContainerView.al_top - 30
@@ -214,20 +170,6 @@ class UserProfileHeaderView: UICollectionReusableView, UserScrollHeaderDelegate 
             tabContainerView.al_right == al_right,
             tabContainerView.al_height == 60,
             
-            favoritesTabButton.al_left == tabContainerView.al_left,
-            favoritesTabButton.al_bottom == tabContainerView.al_bottom,
-            favoritesTabButton.al_top == tabContainerView.al_top,
-            favoritesTabButton.al_right == tabContainerView.al_centerX,
-            
-            recentsTabButton.al_bottom == tabContainerView.al_bottom,
-            recentsTabButton.al_top == tabContainerView.al_top,
-            recentsTabButton.al_right == tabContainerView.al_right,
-            recentsTabButton.al_left == tabContainerView.al_centerX,
-            
-            highlightBarView.al_bottom == tabContainerView.al_bottom,
-            highlightBarView.al_height == 4,
-            highlightBarView.al_width == tabContainerView.al_width / 2,
-            leftHighlightBarPositionConstraint!
         ])
     }
     
