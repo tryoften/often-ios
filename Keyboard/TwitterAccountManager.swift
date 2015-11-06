@@ -120,8 +120,7 @@ class TwitterAccountManager: NSObject {
         data["description"] = (authData.providerData["cachedUserProfile"] as? [String: AnyObject])?["description"] as? String
         data["parseId"] = PFUser.currentUser()?.objectId
         
-        userRef.setValue(data)
-
+        userRef.updateChildValues(data)
     }
 
 }

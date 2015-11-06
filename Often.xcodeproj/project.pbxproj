@@ -112,7 +112,7 @@
 		8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
 		8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
 		8107F7E31BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
-		810A242E1BE058250032AFC7 /* SpellChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810A242D1BE058250032AFC7 /* SpellChecker.swift */; settings = {ASSET_TAGS = (); }; };
+		810A242E1BE058250032AFC7 /* SpellChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810A242D1BE058250032AFC7 /* SpellChecker.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */; };
@@ -126,6 +126,18 @@
 		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
+		811961851BEADB960014B25B /* CachedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961841BEADB960014B25B /* CachedDictionary.swift */; };
+		811961861BEADB960014B25B /* CachedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961841BEADB960014B25B /* CachedDictionary.swift */; };
+		811961881BEAE9330014B25B /* TermDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961871BEAE9330014B25B /* TermDictionary.swift */; };
+		811961891BEAE9330014B25B /* TermDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961871BEAE9330014B25B /* TermDictionary.swift */; };
+		811961901BEC18340014B25B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; };
+		811961911BEC18340014B25B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
+		811FA2831BED15E700E07660 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; };
+		811FA2841BED15E700E07660 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
+		811FA2851BED160400E07660 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; };
+		811FA2861BED160400E07660 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		811FA2871BED160400E07660 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
+		811FA2881BED160400E07660 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; };
 		8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; };
 		8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */; };
@@ -223,15 +235,15 @@
 		81B92D5E1BD6D77C00FFAC92 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; };
 		81BD904F1BD58834002F7D32 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD904E1BD58834002F7D32 /* RootViewController.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
-		81CD99551BE80BA700094FA3 /* spellDict.dat in Resources */ = {isa = PBXBuildFile; fileRef = 81CD99541BE80BA700094FA3 /* spellDict.dat */; settings = {ASSET_TAGS = (); }; };
-		81CD99561BE80BA700094FA3 /* spellDict.dat in Resources */ = {isa = PBXBuildFile; fileRef = 81CD99541BE80BA700094FA3 /* spellDict.dat */; settings = {ASSET_TAGS = (); }; };
-		81D09D881BE17AC500AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; settings = {ASSET_TAGS = (); }; };
-		81D09D8C1BE17ACA00AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; settings = {ASSET_TAGS = (); }; };
-		81D09D8E1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; settings = {ASSET_TAGS = (); }; };
-		81D09D8F1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; settings = {ASSET_TAGS = (); }; };
-		81D09D901BE2BAE500AFBEC0 /* SpellChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810A242D1BE058250032AFC7 /* SpellChecker.swift */; settings = {ASSET_TAGS = (); }; };
-		81D09D921BE2C72900AFBEC0 /* small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D911BE2C72900AFBEC0 /* small.txt */; settings = {ASSET_TAGS = (); }; };
-		81D09D931BE2C72900AFBEC0 /* small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D911BE2C72900AFBEC0 /* small.txt */; settings = {ASSET_TAGS = (); }; };
+		81CD99551BE80BA700094FA3 /* spellDict.dat in Resources */ = {isa = PBXBuildFile; fileRef = 81CD99541BE80BA700094FA3 /* spellDict.dat */; };
+		81CD99561BE80BA700094FA3 /* spellDict.dat in Resources */ = {isa = PBXBuildFile; fileRef = 81CD99541BE80BA700094FA3 /* spellDict.dat */; };
+		81D09D881BE17AC500AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
+		81D09D8C1BE17ACA00AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
+		81D09D8E1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
+		81D09D8F1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
+		81D09D901BE2BAE500AFBEC0 /* SpellChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810A242D1BE058250032AFC7 /* SpellChecker.swift */; };
+		81D09D921BE2C72900AFBEC0 /* small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D911BE2C72900AFBEC0 /* small.txt */; };
+		81D09D931BE2C72900AFBEC0 /* small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D911BE2C72900AFBEC0 /* small.txt */; };
 		81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; };
 		81D0CDC41BD542C20009859D /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; };
 		81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1A1B38F6DA006430AB /* PKHUD.swift */; };
@@ -269,8 +281,8 @@
 		81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */; };
 		81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26DA51B68901100FC1F2F /* TrendingViewController.swift */; };
 		81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26DA51B68901100FC1F2F /* TrendingViewController.swift */; };
-		81E881751BE7DDD600523ECC /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E881741BE7DDD600523ECC /* StreamReader.swift */; settings = {ASSET_TAGS = (); }; };
-		81E881761BE7DDD600523ECC /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E881741BE7DDD600523ECC /* StreamReader.swift */; settings = {ASSET_TAGS = (); }; };
+		81E881751BE7DDD600523ECC /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E881741BE7DDD600523ECC /* StreamReader.swift */; };
+		81E881761BE7DDD600523ECC /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E881741BE7DDD600523ECC /* StreamReader.swift */; };
 		81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */; };
@@ -324,7 +336,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				811FA2861BED160400E07660 /* Realm.framework in Embed Frameworks */,
 				30E00C6F1BC8523400DDF24C /* OAuthSwift.framework in Embed Frameworks */,
+				811FA2881BED160400E07660 /* RealmSwift.framework in Embed Frameworks */,
 				30E00C781BC86C3D00DDF24C /* Spring.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -433,6 +447,10 @@
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		811961841BEADB960014B25B /* CachedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CachedDictionary.swift; path = Sources/CachedDictionary.swift; sourceTree = "<group>"; };
+		811961871BEAE9330014B25B /* TermDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TermDictionary.swift; path = Sources/TermDictionary.swift; sourceTree = "<group>"; };
+		8119618E1BEC18340014B25B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		8119618F1BEC18340014B25B /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewController.swift; path = Sources/SearchSuggestionsViewController.swift; sourceTree = "<group>"; };
 		8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionTableViewCell.swift; path = Sources/SearchSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionTableHeaderView.swift; path = Sources/SearchSuggestionTableHeaderView.swift; sourceTree = "<group>"; };
@@ -551,6 +569,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				811FA2871BED160400E07660 /* RealmSwift.framework in Frameworks */,
 				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */,
 				3BD971CD1B992E49007EAB5A /* Spotify.framework in Frameworks */,
@@ -560,8 +579,11 @@
 				812E3F0D1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */,
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
 				812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
+				811FA2851BED160400E07660 /* Realm.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
 				81794EE11A81E649009D4A71 /* Security.framework in Frameworks */,
+				811961901BEC18340014B25B /* Realm.framework in Frameworks */,
+				811961911BEC18340014B25B /* RealmSwift.framework in Frameworks */,
 				30E00C771BC86C3D00DDF24C /* Spring.framework in Frameworks */,
 				81794EDF1A81E642009D4A71 /* QuartzCore.framework in Frameworks */,
 				81794EDD1A81E63B009D4A71 /* MobileCoreServices.framework in Frameworks */,
@@ -580,6 +602,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				811FA2831BED15E700E07660 /* Realm.framework in Frameworks */,
+				811FA2841BED15E700E07660 /* RealmSwift.framework in Frameworks */,
 				30E00C721BC8527300DDF24C /* OAuthSwift.framework in Frameworks */,
 				81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */,
@@ -656,6 +680,8 @@
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8119618E1BEC18340014B25B /* Realm.framework */,
+				8119618F1BEC18340014B25B /* RealmSwift.framework */,
 				30E00C761BC86C3D00DDF24C /* Spring.framework */,
 				30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */,
 				3BD971C51B99254F007EAB5A /* Spotify.framework */,
@@ -800,6 +826,8 @@
 			children = (
 				8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */,
 				810A242D1BE058250032AFC7 /* SpellChecker.swift */,
+				811961841BEADB960014B25B /* CachedDictionary.swift */,
+				811961871BEAE9330014B25B /* TermDictionary.swift */,
 			);
 			name = "Text Processing";
 			sourceTree = "<group>";
@@ -1413,6 +1441,7 @@
 				696D8A5D1B93E8890016073C /* UserProfileSettingsTableViewCell.swift in Sources */,
 				8184DC931BD57A32001767AD /* RefreshResultsButton.swift in Sources */,
 				8176BEED1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
+				811961881BEAE9330014B25B /* TermDictionary.swift in Sources */,
 				817939041B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				699606271B422315004102BC /* KeyboardViewController.swift in Sources */,
 				8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
@@ -1432,6 +1461,7 @@
 				81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
 				816588F71B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */,
+				811961851BEADB960014B25B /* CachedDictionary.swift in Sources */,
 				695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */,
 				81E26D851B65B17A00FC1F2F /* Direction.swift in Sources */,
 				698B87231B75401E001B5B86 /* UserProfileHeaderView.swift in Sources */,
@@ -1570,6 +1600,7 @@
 				817939011B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81E26D891B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
+				811961861BEADB960014B25B /* CachedDictionary.swift in Sources */,
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
 				8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
@@ -1595,6 +1626,7 @@
 				8176BECC1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift in Sources */,
 				81D60AD41B854D8500347BCA /* MediaLink.swift in Sources */,
 				81E26D861B65B17A00FC1F2F /* Direction.swift in Sources */,
+				811961891BEAE9330014B25B /* TermDictionary.swift in Sources */,
 				817F784A1BBDD2FB0087EBE8 /* VideoMediaLink.swift in Sources */,
 				81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
 			);

@@ -19,31 +19,12 @@
 //
 
 import Foundation
+import RealmSwift
 
-class DictionaryItem: NSObject, NSCoding {
-    var suggestions: [Int] = []
+class DictionaryItem: Object {
+    var suggestions = List<Index>()
     var count: Int = 0
-    
-    override init() {
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        if let suggestions = aDecoder.decodeObjectForKey("suggestions") as? [Int] {
-            self.suggestions = suggestions
-        }
-        
-        if let count = aDecoder.decodeObjectForKey("count") as? Int {
-            self.count = count
-        }
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(count, forKey: "count")
-        aCoder.encodeObject(suggestions, forKey: "suggestions")
-    }
 }
-
 
 struct SuggestItem: Equatable {
     var term: String = ""
@@ -57,65 +38,17 @@ func ==(lhs: SuggestItem, rhs: SuggestItem) -> Bool {
 
 let SpellCheckerCachedDictionaryFilename = "spellDict.dat"
 
-class SpellChecker: NSObject, NSCoding {
+class SpellChecker {
     private var editDistanceMax: Int = 2
     private var verbose: Int = 0
-    
-    static func spellCheckFromCachedDictionary(path: String) -> SpellChecker? {
-        
-        let fileManager = NSFileManager.defaultManager()
-        
-        if fileManager.fileExistsAtPath(path) {
-            if let spellChecker = NSKeyedUnarchiver.unarchiveObjectWithData(NSData(contentsOfFile: path)!) as? SpellChecker {
-                return spellChecker
-            }
-        }
-        
-        return nil
-    }
-    
-    static func getFileURL(fileName: String) -> NSURL? {
-        let manager = NSFileManager.defaultManager()
-        do {
-            let dirURL = try manager.URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
-            return dirURL.URLByAppendingPathComponent(fileName)
-        } catch {
-        }
-        return nil
-    }
-    
-    override init() {
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        if let dictionary = aDecoder.decodeObjectForKey("dictionary") as? [String: AnyObject] {
-            self.dictionary = dictionary
-        }
-        
-        if let wordList = aDecoder.decodeObjectForKey("wordList") as? [String] {
-            self.wordList = wordList
-        }
-        
-        if let maxLength = aDecoder.decodeObjectForKey("maxLength") as? Int {
-            self.maxLength = maxLength
-        }
-        
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(dictionary, forKey: "dictionary")
-        aCoder.encodeObject(maxLength, forKey: "maxLength")
-        aCoder.encodeObject(wordList, forKey: "wordList")
-    }
     
     //Dictionary that contains both the original words and the deletes derived from them. A term might be both word and delete from another word at the same time.
     //For space reduction a item might be either of type dictionaryItem or Int.
     //A dictionaryItem is used for word, word/delete, and delete with multiple suggestions. Int is used for deletes with a single suggestion (the majority of entries).
-    private var dictionary = [String: AnyObject]()
+    private var dictionary = CachedDictionary<Term>()
     
     //List of unique words. By using the suggestions (Int) as index for this list they are translated into the original string.
-    private var wordList = [String]()
+    private var wordList = CachedArray<Term>()
     
     //create a non-unique wordlist from sample text
     //language independent (e.g. works with Chinese characters)
@@ -155,14 +88,9 @@ class SpellChecker: NSObject, NSCoding {
                 }
             }
         }
-        
     }
     
     func saveDictionary() {
-        if let filePath = SpellChecker.getFileURL(SpellCheckerCachedDictionaryFilename)?.path {
-            print("Spell dictionary written to: \(filePath)")
-            NSKeyedArchiver.archiveRootObject(self, toFile: filePath)
-        }
     }
     
     func correct(input: String, language: String) {
@@ -183,7 +111,7 @@ class SpellChecker: NSObject, NSCoding {
         if let value = dictionary[language + key] {
             if let valueInt = value as? Int {
                 let item = DictionaryItem()
-                item.suggestions.append(valueInt)
+                item.suggestions.append(Index(int: valueInt))
                 
                 dictionary[ language + key ] = item
                 newVal = item
@@ -219,8 +147,11 @@ class SpellChecker: NSObject, NSCoding {
         if newVal?.count == 1 {
             
             //word2index
-            wordList.append(key)
             let keyInt = wordList.count - 1
+            let term = Term()
+            term.term = key
+            term.id = keyInt
+            wordList.append(term)
             
             result = true
             
@@ -235,16 +166,16 @@ class SpellChecker: NSObject, NSCoding {
                     //int or dictionaryItem? single delete existed before!
                     if let tmp = value2 as? Int {
                         var item = DictionaryItem()
-                        item.suggestions.append(tmp)
+                        item.suggestions.append(Index(int: tmp))
                         
-                        if !item.suggestions.contains(keyInt) {
+                        if !item.suggestions.contains(Index(int: keyInt)) {
                             addLowestDistance(&item, suggestion: key, suggestionInt: keyInt, delete: delete)
                         }
                         
                         dictionary[language + delete] = item
                         
                     } else if var dict = value2 as? DictionaryItem {
-                        if !dict.suggestions.contains(keyInt) {
+                        if !dict.suggestions.contains(Index(int: keyInt)) {
                             addLowestDistance(&dict, suggestion: key, suggestionInt: keyInt, delete: delete)
                         }
                     }
@@ -293,15 +224,15 @@ class SpellChecker: NSObject, NSCoding {
         //index2word
         if verbose < 2
             && item.suggestions.count > 0
-            && wordList[item.suggestions[0]].length - delete.length > suggestion.length - delete.length {
+            && wordList[item.suggestions[0].value]!.term.length - delete.length > suggestion.length - delete.length {
                 item.suggestions.removeAll()
         }
         
         //do not add suggestion of higher distance than existing, if verbose<2
         if verbose == 2
             || item.suggestions.count == 0
-            || wordList[item.suggestions[0]].length - delete.length >= suggestion.length - delete.length {
-                item.suggestions.append(suggestionInt)
+            || wordList[item.suggestions[0].value]!.term.length - delete.length >= suggestion.length - delete.length {
+                item.suggestions.append(Index(int: suggestionInt))
         }
     }
     
@@ -328,14 +259,14 @@ class SpellChecker: NSObject, NSCoding {
             return [SuggestItem]()
         }
         
-        var candidates = [String]()
-        var set1 = Set<String>()
+        var candidates = [Term]()
+        var set1 = Set<Term>()
         
         var suggestions = [SuggestItem]()
-        var set2 = Set<String>()
+        var set2 = Set<Term>()
         
         //add original term
-        candidates.append(input)
+        candidates.append(Term(string: input))
         
         while candidates.count > 0 {
             let candidate = candidates[0]
@@ -349,11 +280,11 @@ class SpellChecker: NSObject, NSCoding {
             }
             
             //read candidate entry from dictionary
-            if let value = dictionary[language + candidate] {
+            if let value = dictionary[language + candidate.term] {
                 var item = DictionaryItem()
                 
                 if let valueInt = value as? Int {
-                    item.suggestions.append(valueInt)
+                    item.suggestions.append(Index(int: valueInt))
                 } else if let valueDict = value as? DictionaryItem {
                     item = valueDict
                 }
@@ -361,7 +292,7 @@ class SpellChecker: NSObject, NSCoding {
                 if (item.count > 0) && !set2.contains(candidate) {
                     set2.insert(candidate)
                     var suggestionItem = SuggestItem()
-                    suggestionItem.term = candidate
+                    suggestionItem.term = candidate.term
                     suggestionItem.count = item.count
                     suggestionItem.distance = input.length - candidate.length
                     suggestions.append(suggestionItem)
@@ -373,7 +304,10 @@ class SpellChecker: NSObject, NSCoding {
                 }
 
                 for suggestionInt in item.suggestions {
-                    let suggestion = wordList[suggestionInt]
+                    guard let suggestion = wordList[suggestionInt.value] else {
+                        continue
+                    }
+                    let term = suggestion.term
                     
                     if !set2.contains(suggestion) {
                         set2.insert(suggestion)
@@ -388,31 +322,31 @@ class SpellChecker: NSObject, NSCoding {
                         var distance = 0
                         
                         if suggestion != input {
-                            if suggestion.length == candidate.length {
+                            if term.length == candidate.length {
                                 distance = input.length - candidate.length
                             }
                             
                             else if input.length == candidate.length {
-                                distance = suggestion.length - candidate.length
+                                distance = term.length - candidate.length
                             }
                             
                             //common prefixes and suffixes are ignored, because this speeds up the Damerau-levenshtein-Distance calculation without changing it.
                             else {
                                 var ii = 0, jj = 0
 
-                                while ii < suggestion.length && ii < input.length && (suggestion[suggestion.startIndex.advancedBy(ii)] == input[input.startIndex.advancedBy(ii)]) {
+                                while ii < term.length && ii < input.length && (term[term.startIndex.advancedBy(ii)] == input[input.startIndex.advancedBy(ii)]) {
                                     ii++
                                 }
                                 
-                                while (jj < suggestion.length - ii) && (jj < input.length - ii)
-                                    && (suggestion[suggestion.startIndex.advancedBy(suggestion.length - jj - 1)] == input[input.startIndex.advancedBy(input.length - jj - 1)]) {
+                                while (jj < term.length - ii) && (jj < input.length - ii)
+                                    && (term[term.startIndex.advancedBy(term.length - jj - 1)] == input[input.startIndex.advancedBy(input.length - jj - 1)]) {
                                     jj++
                                 }
                                 
                                 if ii > 0 || jj > 0 {
-                                    distance = DamerauLevenshteinDistance(suggestion[ii..<suggestion.length - jj], target: input[ii..<input.length - jj])
+                                    distance = DamerauLevenshteinDistance(term[ii..<term.length - jj], target: input[ii..<input.length - jj])
                                 } else {
-                                    distance = DamerauLevenshteinDistance(suggestion, target: input)
+                                    distance = DamerauLevenshteinDistance(term, target: input)
                                 }
                             }
                         }
@@ -429,9 +363,9 @@ class SpellChecker: NSObject, NSCoding {
                         }
                         
                         if distance <= editDistanceMax {
-                            if let val = dictionary[language + suggestion] {
+                            if let val = dictionary[language + term] {
                                 var suggestionItem = SuggestItem()
-                                suggestionItem.term = suggestion
+                                suggestionItem.term = term
                                 if let si = val as? DictionaryItem {
                                     suggestionItem.count = si.count
                                 }
@@ -453,8 +387,9 @@ class SpellChecker: NSObject, NSCoding {
                 }
                 
                 for var i = 0; i < candidate.length; i++ {
-                    var delete = candidate
-                    delete.removeAtIndex(delete.startIndex.advancedBy(i))
+                    var term = candidate.term
+                    term.removeAtIndex(term.startIndex.advancedBy(i))
+                    let delete = Term(string: term)
                     
                     if !set1.contains(delete) {
                         set1.insert(delete)

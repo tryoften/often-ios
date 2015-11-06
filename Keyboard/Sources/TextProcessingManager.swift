@@ -31,24 +31,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         
         super.init()
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            let fileManager = NSFileManager.defaultManager()
-            let filename = SpellCheckerCachedDictionaryFilename
-            var path: String = SpellChecker.getFileURL(filename)!.path!
-            
-            if !fileManager.fileExistsAtPath(path) {
-                path = NSBundle.mainBundle().resourcePath! + filename
-            }
-            
-            if let aSpellChecker = SpellChecker.spellCheckFromCachedDictionary(path) {
-                self.spellChecker = aSpellChecker
-            } else {
-                self.spellChecker = SpellChecker()
-                self.spellChecker!.createDictionary("big.txt", language: "")
-                self.spellChecker!.saveDictionary()
-            }
-        }
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSetCurrentProxy:", name: TextProcessingManagerProxyEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveResetDefaultProxy:", name: TextProcessingManagedResetDefaultProxyEvent, object: nil)
     }
@@ -114,7 +96,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
             print(tokens)
             
             if let suggestions = spellChecker?.lookup(lastWord, language: "", editDistanceMax: 2) {
-                print("Suggestions: ", suggestions)
+                delegate?.textProcessingManagerDidReceiveSpellCheckSuggestions(self, suggestions: suggestions)
             }
             
             // check if first token is command call

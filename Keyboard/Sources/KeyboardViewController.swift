@@ -51,7 +51,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var shiftStartingState: ShiftState?
     var shiftState: ShiftState {
         didSet {
-            changeKeyboardLetterCases()
+            updateKeyboardLetterCases()
         }
     }
     var hasSeenTooltip: Bool {
@@ -485,7 +485,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 if key.hasOutput {
                     keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
                 }
-                self.changeKeyboardLetterCases()
+                self.updateKeyboardLetterCases()
+                
                 return keyView
             }
             return nil
@@ -507,7 +508,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         setupKeys()
     }
 
-    func changeKeyboardLetterCases() {
+    func updateKeyboardLetterCases() {
         for button in allKeys {
             if let key = button.key {
                 switch(key) {
@@ -549,7 +550,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
-
+        print("Suggestions", suggestions)
     }
 
     // MARK: ToolTipCloseButtonDelegate

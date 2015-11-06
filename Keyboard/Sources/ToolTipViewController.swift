@@ -52,8 +52,6 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.pagingEnabled = true
-        scrollView.layer.cornerRadius = 3.0
-        scrollView.backgroundColor = UIColor(fromHexString: "#121314")
         scrollView.showsHorizontalScrollIndicator = false
         
         pageControl = UIPageControl()
@@ -198,9 +196,9 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             pageControl.al_bottom == scrollView.al_bottom - 18,
             pageControl.al_height == 5,
             
-            scrollView.al_top == view.al_top + 10,
+            scrollView.al_centerY == view.al_centerY,
             scrollView.al_width == view.al_width - 20,
-            scrollView.al_height == view.al_height - 80,
+            scrollView.al_height == view.al_height - 40,
             scrollView.al_left == view.al_left + 10,
             
             closeButton.al_top == view.al_top + 25,
