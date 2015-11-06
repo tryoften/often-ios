@@ -460,6 +460,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                     
                     keyView.addTarget(self, action: "didTapCallKey:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseCallKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
+                case .modifier(.GoToBrowse, _):
+                    keyView.addTarget(self, action: "didTapGoToBrowseKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
                 case .modifier(.Enter, _):
                     keyView.addTarget(self, action: "didTapEnterKey:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseEnterKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])

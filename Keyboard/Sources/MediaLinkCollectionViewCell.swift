@@ -22,7 +22,6 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
     var rightCornerImageView: UIImageView
     var overlayView: SearchResultsCellOverlayView
     var favoriteRibbon: UIImageView
-    
     var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
     var contentImageViewWidthConstraint: NSLayoutConstraint?

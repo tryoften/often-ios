@@ -285,6 +285,10 @@ extension KeyboardViewController {
         
     }
     
+    func didTapGoToBrowseKey(button: KeyboardKeyButton?) {
+       
+    }
+    
     func shiftUp(button: KeyboardKeyButton?) {
         if let button = button {
             if !shiftWasMultitapped {
