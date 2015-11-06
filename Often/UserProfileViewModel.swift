@@ -59,11 +59,11 @@ class UserProfileViewModel {
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) throws {
-        guard let userId = userDefaults.objectForKey(SessionManagerProperty.userID) as? String else {
+        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
                 throw UserProfileViewModelError.NoUser
         }
         
-        guard userDefaults.boolForKey(SessionManagerProperty.openSession) else {
+        guard userDefaults.boolForKey(UserDefaultsProperty.openSession) else {
             throw UserProfileViewModelError.RequestDataFailed
         }
         
