@@ -1,5 +1,5 @@
 //
-//  UserProfileViewModel.swift
+//  MediaLinksViewModel.swift
 //  Often
 //
 
@@ -15,7 +15,7 @@ enum UserProfileViewModelError: ErrorType {
     case RequestDataFailed
 }
 
-class UserProfileViewModel {
+class MediaLinksViewModel {
     weak var delegate: UserProfileViewModelDelegate?
     let userId: String
     let baseRef: Firebase
@@ -26,24 +26,30 @@ class UserProfileViewModel {
     var favorites: [String]
     var shouldFilter: Bool = false
     let userDefaults: NSUserDefaults
+    var mediaLinksCollections: [MediaLink]
     var filteredUserRecents: [UserRecentLink]
     var filteredUserFavorites: [UserFavoriteLink]
+    var currentCollectionType: UserProfileCollectionType  {
+        didSet {
+            filterMediaLinks()
+        }
+    }
+    
     var filters: [MediaType] {
         didSet {
-            filterUserRecents()
-            filterUserFavorites()
+            filterMediaLinks()
         }
     }
     
     var userRecents: [UserRecentLink] {
         didSet {
-            filterUserRecents()
+            filterMediaLinks()
         }
     }
     
     var userFavorites: [UserFavoriteLink] {
         didSet {
-            filterUserFavorites()
+            filterMediaLinks()
         }
     }
     
@@ -54,7 +60,9 @@ class UserProfileViewModel {
         userRecents = []
         filteredUserRecents = []
         filteredUserFavorites = []
+        mediaLinksCollections = []
         filters = []
+        currentCollectionType = .Favorites
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         self.userId = ""
         
@@ -190,14 +198,16 @@ class UserProfileViewModel {
     }
     
 
-    func filterUserRecents() {
-        filteredUserRecents = applyFilters(userRecents)
-        delegate?.userProfileViewModelDidReceiveRecents(self, recents: filteredUserRecents)
-    }
-    
-    func filterUserFavorites() {
-        filteredUserFavorites = applyFilters(userFavorites)
-        delegate?.userProfileViewModelDidReceiveFavorites(self, favorites: filteredUserFavorites)
+    func filterMediaLinks() {
+        switch(currentCollectionType) {
+        case .Favorites:
+            mediaLinksCollections = applyFilters(userFavorites)
+            break
+        case .Recents:
+            mediaLinksCollections = applyFilters(userRecents)
+            break
+        }
+        delegate?.userProfileViewModelDidReceiveMediaLinks(self, links: mediaLinksCollections)
     }
     
     func toggleFavorite(selected: Bool, result: MediaLink) {
@@ -252,9 +262,13 @@ class UserProfileViewModel {
     }
 }
 
+enum UserProfileCollectionType {
+    case Favorites
+    case Recents
+}
+
 protocol UserProfileViewModelDelegate: class {
-    func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel)
-    func userProfileViewModelDidReceiveFavorites(userProfileViewModel: UserProfileViewModel, favorites: [UserFavoriteLink])
-    func userProfileViewModelDidReceiveRecents(userProfileViewModel: UserProfileViewModel, recents: [UserRecentLink])
+    func userProfileViewModelDidLoginUser(userProfileViewModel: MediaLinksViewModel)
+    func userProfileViewModelDidReceiveMediaLinks(userProfileViewModel: MediaLinksViewModel, links: [MediaLink])
 }
 

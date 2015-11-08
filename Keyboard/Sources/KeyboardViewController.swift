@@ -41,6 +41,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     static var debugKeyboard = false
     var autoPeriodState: AutoPeriodState = .NoSpace
     var toolTipViewController: ToolTipViewController?
+    var favoriteAndRecentViewController: KeyboardFavoriteAndRecentViewController?
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
     }
@@ -100,7 +101,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        userDefaults.setBool(true, forKey: "keyboardInstall")
+        userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
         userDefaults.synchronize()
         
         messageChannel = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: nil)
@@ -149,7 +150,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvent, object: nil)
 
         togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
-        
+    
         view.addSubview(searchBar.view)
         view.addSubview(slidePanelContainerView)
         view.addSubview(togglePanelButton)

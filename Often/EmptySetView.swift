@@ -69,7 +69,7 @@ class EmptySetView: UIView {
         cancelButton.alpha = 0.54
         cancelButton.hidden = true
         
-        userState = .NoTwitter
+        userState = .NonEmpty
         
         super.init(frame: frame)
         
