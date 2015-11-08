@@ -20,10 +20,16 @@
 
 import Foundation
 import RealmSwift
+import Realm
 
 class DictionaryItem: Object {
-    var suggestions = List<Index>()
-    var count: Int = 0
+    dynamic var id: String = ""
+    dynamic var count: Int = 0
+    let suggestions = List<Term>()
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
 }
 
 struct SuggestItem: Equatable {
@@ -36,19 +42,22 @@ func ==(lhs: SuggestItem, rhs: SuggestItem) -> Bool {
     return lhs.term == rhs.term
 }
 
-let SpellCheckerCachedDictionaryFilename = "spellDict.dat"
+let SpellCheckerCachedDictionaryFilename = "db.realm"
+let SpellCheckerMaxLengthKey = "SpellChecker.maxLength"
 
 class SpellChecker {
     private var editDistanceMax: Int = 2
     private var verbose: Int = 0
+    private var userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+    private var realm: Realm
     
     //Dictionary that contains both the original words and the deletes derived from them. A term might be both word and delete from another word at the same time.
     //For space reduction a item might be either of type dictionaryItem or Int.
     //A dictionaryItem is used for word, word/delete, and delete with multiple suggestions. Int is used for deletes with a single suggestion (the majority of entries).
-    private var dictionary = CachedDictionary<Term>()
+    private var dictionary: CachedDictionary<NSString, DictionaryItem>
     
     //List of unique words. By using the suggestions (Int) as index for this list they are translated into the original string.
-    private var wordList = CachedArray<Term>()
+    private var wordList: CachedArray<Term>
     
     //create a non-unique wordlist from sample text
     //language independent (e.g. works with Chinese characters)
@@ -68,7 +77,32 @@ class SpellChecker {
         return []
     }
     
-    internal var maxLength = 0
+    internal var maxLength = 0 {
+        didSet {
+            userDefaults.setInteger(maxLength, forKey: SpellCheckerMaxLengthKey)
+        }
+    }
+    
+    init() {
+        let fileManager: NSFileManager = NSFileManager.defaultManager()
+        let directory: NSURL = fileManager.containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        let realmPath = directory.URLByAppendingPathComponent(SpellCheckerCachedDictionaryFilename).path!
+        
+        if !fileManager.fileExistsAtPath(realmPath) {
+            let bundledDB = NSBundle.mainBundle().resourcePath! + "/" + SpellCheckerCachedDictionaryFilename
+            do {
+                try fileManager.copyItemAtPath(bundledDB, toPath: realmPath)
+            } catch let error {
+                print("Copying dictionary database failed ", error)
+            }
+        }
+    
+        RLMRealm.setDefaultRealmPath(realmPath)
+        maxLength = userDefaults.integerForKey(SpellCheckerMaxLengthKey)
+        realm = try! Realm()
+        dictionary = CachedDictionary<NSString, DictionaryItem>(realm: realm)
+        wordList = CachedArray<Term>(realm: realm)
+    }
     
     func createDictionary(corpus: String, language: String) {
         
@@ -80,13 +114,17 @@ class SpellChecker {
                 streamReader.close()
             }
             
+            realm.beginWrite()
             while let line = streamReader.nextLine() {
-                for key in parseWords(line) {
-                    if createDictionaryEntry(key, language: language) {
-                        wordCount++
+                autoreleasepool {
+                    for key in parseWords(line) {
+                        if createDictionaryEntry(key, language: language) {
+                            wordCount++
+                        }
                     }
                 }
             }
+            try! realm.commitWrite()
         }
     }
     
@@ -108,31 +146,20 @@ class SpellChecker {
         var result = false
         var newVal: DictionaryItem?
         
+        
         if let value = dictionary[language + key] {
-            if let valueInt = value as? Int {
-                let item = DictionaryItem()
-                item.suggestions.append(Index(int: valueInt))
-                
-                dictionary[ language + key ] = item
-                newVal = item
-            }
-                
-            //already exists:
-            //1. word appears several times
-            //2. word1==deletes(word2)
-            else if let valueDictItem = value as? DictionaryItem {
-                newVal = valueDictItem
-            }
+            newVal = value
             
             //prevent overflow
-            if newVal?.count < Int.max {
-                newVal?.count++
+            if value.count < Int.max {
+                value.count++
             }
         } else if wordList.count < Int.max {
             newVal = DictionaryItem()
-            newVal?.count++
-            
-            dictionary[ language + key ] = newVal
+            newVal!.id = language + key
+            newVal!.count++
+
+            dictionary.setObject(newVal!, forKey: language + key)
             
             if key.characters.count > maxLength {
                 maxLength = key.characters.count
@@ -147,52 +174,41 @@ class SpellChecker {
         if newVal?.count == 1 {
             
             //word2index
-            let keyInt = wordList.count - 1
             let term = Term()
             term.term = key
-            term.id = keyInt
             wordList.append(term)
+            
+            
+            let keyInt = wordList.count - 1
+            term.id = String(keyInt)
+            
+            realm.add(term, update: true)
             
             result = true
             
             //create deletes
             for delete in edits(key, editDistance: 0, deletes: Set<String>()) {
                 
-                if let value2 = dictionary[language+delete] {
-                    
+                if var value2 = dictionary[language+delete] {
                     //already exists:
                     //1. word1==deletes(word2)
                     //2. deletes(word1)==deletes(word2)
                     //int or dictionaryItem? single delete existed before!
-                    if let tmp = value2 as? Int {
-                        var item = DictionaryItem()
-                        item.suggestions.append(Index(int: tmp))
-                        
-                        if !item.suggestions.contains(Index(int: keyInt)) {
-                            addLowestDistance(&item, suggestion: key, suggestionInt: keyInt, delete: delete)
-                        }
-                        
-                        dictionary[language + delete] = item
-                        
-                    } else if var dict = value2 as? DictionaryItem {
-                        if !dict.suggestions.contains(Index(int: keyInt)) {
-                            addLowestDistance(&dict, suggestion: key, suggestionInt: keyInt, delete: delete)
-                        }
+                    if !value2.suggestions.contains(term) {
+                        addLowestDistance(&value2, suggestion: term, delete: delete)
                     }
+    
                 } else {
-                    dictionary[language + delete] = keyInt
+                    let item = DictionaryItem()
+                    item.id = language + delete
+                    item.suggestions.append(term)
+                    dictionary.setObject(item, forKey: language + delete)
                 }
                 
             }
         }
         
         return result
-    }
-    
-    
-    // shortcut to get length of a string
-    private func l(string: String) -> Int {
-        return string.characters.count
     }
     
     //inexpensive and language independent: only deletes, no transposes + replaces + inserts
@@ -219,21 +235,28 @@ class SpellChecker {
     }
     
     //save some time and space
-    private func addLowestDistance(inout item: DictionaryItem, suggestion: String, suggestionInt: Int, delete: String) {
+    private func addLowestDistance(inout item: DictionaryItem, suggestion: Term, delete: String) {
         //remove all existing suggestions of higher distance, if verbose<2
         //index2word
+        guard item.suggestions.count != 0 else {
+            return
+        }
+        let word = suggestion.term
+        
         if verbose < 2
             && item.suggestions.count > 0
-            && wordList[item.suggestions[0].value]!.term.length - delete.length > suggestion.length - delete.length {
+            && word.length - delete.length > suggestion.length - delete.length {
                 item.suggestions.removeAll()
         }
         
         //do not add suggestion of higher distance than existing, if verbose<2
         if verbose == 2
             || item.suggestions.count == 0
-            || wordList[item.suggestions[0].value]!.term.length - delete.length >= suggestion.length - delete.length {
-                item.suggestions.append(Index(int: suggestionInt))
+            || word.length - delete.length >= suggestion.length - delete.length {
+                item.suggestions.append(suggestion)
         }
+        
+        realm.add(item, update: true)
     }
     
     private func sort(var suggestions: [SuggestItem]) -> [SuggestItem] {
@@ -255,10 +278,6 @@ class SpellChecker {
     }
     
     func lookup(input: String, language: String, editDistanceMax: Int) -> [SuggestItem] {
-        if input.length - editDistanceMax > maxLength {
-            return [SuggestItem]()
-        }
-        
         var candidates = [Term]()
         var set1 = Set<Term>()
         
@@ -280,16 +299,9 @@ class SpellChecker {
             }
             
             //read candidate entry from dictionary
-            if let value = dictionary[language + candidate.term] {
-                var item = DictionaryItem()
-                
-                if let valueInt = value as? Int {
-                    item.suggestions.append(Index(int: valueInt))
-                } else if let valueDict = value as? DictionaryItem {
-                    item = valueDict
-                }
-                
-                if (item.count > 0) && !set2.contains(candidate) {
+            if let item = dictionary[language + candidate.term] {
+
+                if item.count > 0 {
                     set2.insert(candidate)
                     var suggestionItem = SuggestItem()
                     suggestionItem.term = candidate.term
@@ -303,10 +315,7 @@ class SpellChecker {
                     }
                 }
 
-                for suggestionInt in item.suggestions {
-                    guard let suggestion = wordList[suggestionInt.value] else {
-                        continue
-                    }
+                for suggestion in item.suggestions {
                     let term = suggestion.term
                     
                     if !set2.contains(suggestion) {
@@ -366,9 +375,7 @@ class SpellChecker {
                             if let val = dictionary[language + term] {
                                 var suggestionItem = SuggestItem()
                                 suggestionItem.term = term
-                                if let si = val as? DictionaryItem {
-                                    suggestionItem.count = si.count
-                                }
+                                suggestionItem.count = val.count
                                 suggestionItem.distance = distance
                                 suggestions.append(suggestionItem)
                             }
@@ -404,8 +411,8 @@ class SpellChecker {
     }
     
     private func DamerauLevenshteinDistance(source: String, target: String) -> Int {
-        let m: Int = l(source)
-        let n: Int = l(target)
+        let m: Int = source.length
+        let n: Int = target.length
         var H = [[Int]]()
         
         for _ in 0..<m+2 {

@@ -126,8 +126,8 @@
 		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
-		811961851BEADB960014B25B /* CachedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961841BEADB960014B25B /* CachedDictionary.swift */; };
-		811961861BEADB960014B25B /* CachedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961841BEADB960014B25B /* CachedDictionary.swift */; };
+		811961851BEADB960014B25B /* CachedCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961841BEADB960014B25B /* CachedCollectionType.swift */; };
+		811961861BEADB960014B25B /* CachedCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961841BEADB960014B25B /* CachedCollectionType.swift */; };
 		811961881BEAE9330014B25B /* TermDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961871BEAE9330014B25B /* TermDictionary.swift */; };
 		811961891BEAE9330014B25B /* TermDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961871BEAE9330014B25B /* TermDictionary.swift */; };
 		811961901BEC18340014B25B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; };
@@ -138,6 +138,8 @@
 		811FA2861BED160400E07660 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		811FA2871BED160400E07660 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
 		811FA2881BED160400E07660 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		811FA28D1BEF18E900E07660 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = 811FA28C1BEF18E900E07660 /* db.realm */; };
+		811FA28E1BEF18E900E07660 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = 811FA28C1BEF18E900E07660 /* db.realm */; };
 		8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; };
 		8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; };
 		8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */; };
@@ -235,8 +237,6 @@
 		81B92D5E1BD6D77C00FFAC92 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; };
 		81BD904F1BD58834002F7D32 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD904E1BD58834002F7D32 /* RootViewController.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
-		81CD99551BE80BA700094FA3 /* spellDict.dat in Resources */ = {isa = PBXBuildFile; fileRef = 81CD99541BE80BA700094FA3 /* spellDict.dat */; };
-		81CD99561BE80BA700094FA3 /* spellDict.dat in Resources */ = {isa = PBXBuildFile; fileRef = 81CD99541BE80BA700094FA3 /* spellDict.dat */; };
 		81D09D881BE17AC500AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
 		81D09D8C1BE17ACA00AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
 		81D09D8E1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
@@ -447,10 +447,11 @@
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
-		811961841BEADB960014B25B /* CachedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CachedDictionary.swift; path = Sources/CachedDictionary.swift; sourceTree = "<group>"; };
+		811961841BEADB960014B25B /* CachedCollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CachedCollectionType.swift; path = Sources/CachedCollectionType.swift; sourceTree = "<group>"; };
 		811961871BEAE9330014B25B /* TermDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TermDictionary.swift; path = Sources/TermDictionary.swift; sourceTree = "<group>"; };
 		8119618E1BEC18340014B25B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		8119618F1BEC18340014B25B /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		811FA28C1BEF18E900E07660 /* db.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.realm; sourceTree = "<group>"; };
 		8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewController.swift; path = Sources/SearchSuggestionsViewController.swift; sourceTree = "<group>"; };
 		8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionTableViewCell.swift; path = Sources/SearchSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionTableHeaderView.swift; path = Sources/SearchSuggestionTableHeaderView.swift; sourceTree = "<group>"; };
@@ -515,7 +516,6 @@
 		81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderSuggestionTableViewCell.swift; path = Sources/ServiceProviderSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestion.swift; path = Sources/SearchSuggestion.swift; sourceTree = "<group>"; };
 		81BD904E1BD58834002F7D32 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		81CD99541BE80BA700094FA3 /* spellDict.dat */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = spellDict.dat; sourceTree = "<group>"; };
 		81D09D871BE17AC500AFBEC0 /* big.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = big.txt; sourceTree = "<group>"; };
 		81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		81D09D911BE2C72900AFBEC0 /* small.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = small.txt; sourceTree = "<group>"; };
@@ -826,7 +826,7 @@
 			children = (
 				8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */,
 				810A242D1BE058250032AFC7 /* SpellChecker.swift */,
-				811961841BEADB960014B25B /* CachedDictionary.swift */,
+				811961841BEADB960014B25B /* CachedCollectionType.swift */,
 				811961871BEAE9330014B25B /* TermDictionary.swift */,
 			);
 			name = "Text Processing";
@@ -1100,7 +1100,7 @@
 		81B35FAE1A7A10B6001A546C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				81CD99541BE80BA700094FA3 /* spellDict.dat */,
+				811FA28C1BEF18E900E07660 /* db.realm */,
 				81D09D911BE2C72900AFBEC0 /* small.txt */,
 				81D09D871BE17AC500AFBEC0 /* big.txt */,
 				81E26D901B65DC4800FC1F2F /* font_icons8.ttf */,
@@ -1210,6 +1210,9 @@
 		8180E6001A142157007FA1CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0710;
@@ -1305,6 +1308,7 @@
 				695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */,
 				3BAAB1A41B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
+				811FA28D1BEF18E900E07660 /* db.realm in Resources */,
 				3BAAB1A91B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				81D09D881BE17AC500AFBEC0 /* big.txt in Resources */,
 				3BAAB1961B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
@@ -1315,7 +1319,6 @@
 				81D09D921BE2C72900AFBEC0 /* small.txt in Resources */,
 				3BAAB19C1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
 				3BAAB19E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
-				81CD99551BE80BA700094FA3 /* spellDict.dat in Resources */,
 				3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
 				8180E6151A142157007FA1CF /* Images.xcassets in Resources */,
 				81E26D911B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
@@ -1331,6 +1334,7 @@
 				81DF4BBE1BB49371008B1A38 /* Montserrat-Regular.ttf in Resources */,
 				3BAAB1AA1B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */,
+				811FA28E1BEF18E900E07660 /* db.realm in Resources */,
 				3BAAB19D1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
 				81D09D8C1BE17ACA00AFBEC0 /* big.txt in Resources */,
 				3BAAB1991B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
@@ -1341,7 +1345,6 @@
 				81D09D931BE2C72900AFBEC0 /* small.txt in Resources */,
 				3BAAB1A31B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
 				3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
-				81CD99561BE80BA700094FA3 /* spellDict.dat in Resources */,
 				3BAAB1951B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
 				81E26D921B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
 				3BAAB1971B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
@@ -1461,7 +1464,7 @@
 				81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
 				816588F71B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */,
-				811961851BEADB960014B25B /* CachedDictionary.swift in Sources */,
+				811961851BEADB960014B25B /* CachedCollectionType.swift in Sources */,
 				695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */,
 				81E26D851B65B17A00FC1F2F /* Direction.swift in Sources */,
 				698B87231B75401E001B5B86 /* UserProfileHeaderView.swift in Sources */,
@@ -1600,7 +1603,7 @@
 				817939011B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81E26D891B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
-				811961861BEADB960014B25B /* CachedDictionary.swift in Sources */,
+				811961861BEADB960014B25B /* CachedCollectionType.swift in Sources */,
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
 				8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
@@ -1727,7 +1730,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a5cbca95-f33f-4520-a71c-03ce12cee828";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1766,7 +1769,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8e7be0f7-ed4b-4eb7-ba2a-322b152afca6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1851,7 +1854,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a5cbca95-f33f-4520-a71c-03ce12cee828";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1889,7 +1892,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8e7be0f7-ed4b-4eb7-ba2a-322b152afca6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1975,7 +1978,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a5cbca95-f33f-4520-a71c-03ce12cee828";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2013,7 +2016,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8e7be0f7-ed4b-4eb7-ba2a-322b152afca6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};

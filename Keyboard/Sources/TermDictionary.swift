@@ -8,12 +8,13 @@
 
 import Foundation
 import RealmSwift
+import Realm
 
 class Term: Object, Equatable, Hashable {
-    var id: Int = -1
-    var term: String = ""
+    dynamic var id: String = ""
+    dynamic var term: String = ""
     
-    var length: Int {
+    dynamic var length: Int {
         return term.length
     }
     
@@ -25,29 +26,20 @@ class Term: Object, Equatable, Hashable {
         term = string
         super.init()
     }
+    
+    override init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
+    }
 
     required convenience init() {
         self.init(string: "")
+    }
+    
+    override class func primaryKey() -> String? {
+        return "id"
     }
 }
 
 func ==(lhs: Term, rhs: Term) -> Bool {
     return lhs.term == rhs.term
-}
-
-class Index: Object, Equatable {
-    var value: Int
-
-    init(int: Int) {
-        self.value = int
-        super.init()
-    }
-
-    required init() {
-        fatalError("init() has not been implemented")
-    }
-}
-
-func ==(lhs: Index, rhs: Index) -> Bool {
-    return lhs.value == rhs.value
 }

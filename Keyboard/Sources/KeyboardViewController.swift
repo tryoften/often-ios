@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import Realm
 
 let ShiftStateUserDefaultsKey = "kShiftState"
 let ResizeKeyboardEvent = "resizeKeyboard"
