@@ -99,8 +99,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         
         setServicesRevealButton.addTarget(self, action: "setServicesRevealTapped", forControlEvents: .TouchUpInside)
         settingsRevealButton.addTarget(self, action: "settingsRevealTapped", forControlEvents: .TouchUpInside)
-        tabContainerView.favoritesTabButton.addTarget(self, action: "favoritesTabTapped", forControlEvents: .TouchUpInside)
-        tabContainerView.recentsTabButton.addTarget(self, action: "recentsTabTapped", forControlEvents: .TouchUpInside)
         
         addSubview(profileImageView)
         addSubview(nameLabel)
@@ -186,22 +184,9 @@ class UserProfileHeaderView: UICollectionReusableView {
         }
     }
     
-    func favoritesTabTapped() {
-        if let delegate = delegate {
-            delegate.userFavoritesTabSelected()
-        }
-    }
-    
-    func recentsTabTapped() {
-        if let delegate = delegate {
-            delegate.userRecentsTabSelected()
-        }
-    }
 }
 
 protocol UserProfileHeaderDelegate {
     func revealSetServicesViewDidTap()
     func revealSettingsViewDidTap()
-    func userFavoritesTabSelected()
-    func userRecentsTabSelected()
 }

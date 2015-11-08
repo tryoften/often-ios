@@ -13,6 +13,7 @@ class FavoriteAndRecentTabView: UIView {
     var highlightBarLeftConstraint: NSLayoutConstraint?
     var favoritesTabButton: UIButton
     var recentsTabButton: UIButton
+    var delegate: FavoriteAndRecentTabDelegate?
     
     override init(frame: CGRect) {
         favoritesTabButton = UIButton()
@@ -36,8 +37,8 @@ class FavoriteAndRecentTabView: UIView {
         super.init(frame: frame)
         backgroundColor = WhiteColor
         
-        favoritesTabButton.addTarget(self, action: "buttonDidTabTapped:", forControlEvents: .TouchUpInside)
-        recentsTabButton.addTarget(self, action: "buttonDidTabTapped:", forControlEvents: .TouchUpInside)
+        favoritesTabButton.addTarget(self, action: "favoritesButtonDidTabTapped:", forControlEvents: .TouchUpInside)
+        recentsTabButton.addTarget(self, action: "recentsButtonDidTabTapped:", forControlEvents: .TouchUpInside)
         
         addSubview(favoritesTabButton)
         addSubview(recentsTabButton)
@@ -71,13 +72,29 @@ class FavoriteAndRecentTabView: UIView {
             ])
     }
     
-    func buttonDidTabTapped(sender: UIButton) {
-        highlightBarLeftConstraint?.constant =  highlightBarLeftConstraint?.constant == 0.0 ? UIScreen.mainScreen().bounds.width / 2 : 0.0
+    func favoritesButtonDidTabTapped(sender: UIButton) {
+        highlightBarLeftConstraint?.constant = 0.0
         
         UIView.animateWithDuration(0.3) {
             self.layoutIfNeeded()
         }
+        
+        delegate?.userFavoritesTabSelected()
     }
     
+    func recentsButtonDidTabTapped(sender: UIButton) {
+        highlightBarLeftConstraint?.constant =  UIScreen.mainScreen().bounds.width / 2
+
+        UIView.animateWithDuration(0.3) {
+            self.layoutIfNeeded()
+        }
+        
+        delegate?.userRecentsTabSelected()
+    }
     
+}
+
+protocol FavoriteAndRecentTabDelegate {
+    func userFavoritesTabSelected()
+    func userRecentsTabSelected()
 }
