@@ -146,9 +146,9 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-
+            
             let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier:UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileHeaderView
-            if let user = viewModel.sessionManager.currentUser {
+            if let user = viewModel.currentUser {
                 cell.descriptionText = user.userDescription
                 cell.nameLabel.text = user.name
                 if let imageURL = NSURL(string: user.profileImageLarge) {
@@ -158,15 +158,16 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
                             print("Failed to load image: \(imageURL)")
                     })
                 }
-                
             }
-
+            
+            
+            
             if headerView == nil {
                 headerView = cell
                 headerView?.delegate = self
                 headerDelegate = headerView
             }
-
+            
             return headerView!
         }
         
@@ -187,7 +188,7 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         ])
     }
 
-    func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User) {
+    func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel) {
         collectionView?.reloadData()
         
     }
@@ -298,9 +299,8 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         
-        if let user = viewModel.sessionManager.currentUser {
-            
-            let twitterCheck = viewModel.sessionManager.firebase.childByAppendingPath("users/\(user.id)/accounts")
+        if let user = viewModel.currentUser {
+            let twitterCheck = viewModel.baseRef.childByAppendingPath("users/\(user.id)/accounts")
             
             twitterCheck.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
@@ -319,12 +319,12 @@ class UserProfileViewController: MediaLinksCollectionBaseViewController,
                         }
                         
                     }
-                } else {
                 }
-                }) { err -> Void in
-            }
+            })
+            
         }
-    }
+        
+        }
     
     // Empty States button actions
     func didTapSettingsButton() {

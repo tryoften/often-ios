@@ -15,16 +15,18 @@ enum UserProfileViewModelError: ErrorType {
     case RequestDataFailed
 }
 
-class UserProfileViewModel: NSObject, SessionManagerObserver {
+class UserProfileViewModel {
     weak var delegate: UserProfileViewModelDelegate?
-    let sessionManager: SessionManager
+    let userId: String
+    let baseRef: Firebase
+    var userRef: Firebase?
     var favoriteRef: Firebase?
     var recentsRef: Firebase?
+    var currentUser: User?
     var shouldFilter: Bool = false
-    
+    let userDefaults: NSUserDefaults
     var filteredUserRecents: [UserRecentLink]
     var filteredUserFavorites: [UserFavoriteLink]
-    
     var filters: [MediaType] {
         didSet {
             filterUserRecents()
@@ -44,38 +46,50 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
         }
     }
     
-    init(sessionManager: SessionManager) {
-        self.sessionManager = sessionManager
-        
+    init()  {
+        baseRef = Firebase(url: BaseURL)
         userFavorites = []
         userRecents = []
         filteredUserRecents = []
         filteredUserFavorites = []
         filters = []
+        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        self.userId = ""
         
-        super.init()
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) throws {
-        guard let user = sessionManager.currentUser else {
-            throw UserProfileViewModelError.NoUser
+        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
+                throw UserProfileViewModelError.NoUser
         }
         
-        guard sessionManager.userDefaults.boolForKey(SessionManagerProperty.openSession) else {
+        guard userDefaults.boolForKey(UserDefaultsProperty.openSession) else {
             throw UserProfileViewModelError.RequestDataFailed
         }
         
-        let root = Firebase(url: BaseURL)
-        favoriteRef = root.childByAppendingPath("users/\(user.id)/favorites")
+        userRef = baseRef.childByAppendingPath("users/\(userId)")
+        userRef?.keepSynced(true)
+        
+        userRef?.observeEventType(.Value, withBlock: { snapshot in
+            if snapshot.exists() {
+                if let _ = snapshot.key,
+                    let value = snapshot.value as? [String: AnyObject] {
+                        self.currentUser = User()
+                        self.currentUser?.setValuesForKeysWithDictionary(value)
+                }
+            }
+            self.delegate?.userProfileViewModelDidLoginUser(self)
+        })
+        
+        favoriteRef = baseRef.childByAppendingPath("users/\(userId)/favorites")
         favoriteRef?.keepSynced(true)
         
-        recentsRef = root.childByAppendingPath("users/\(user.id)/recents")
+        recentsRef = baseRef.childByAppendingPath("users/\(userId)/recents")
         recentsRef?.keepSynced(true)
         
         try fetchFavorites()
         try fetchRecents()
 
-        delegate?.userProfileViewModelDidLoginUser(self, user: user)
     }
     
 
@@ -194,7 +208,7 @@ class UserProfileViewModel: NSObject, SessionManagerObserver {
 }
 
 protocol UserProfileViewModelDelegate: class {
-    func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel, user: User)
+    func userProfileViewModelDidLoginUser(userProfileViewModel: UserProfileViewModel)
     func userProfileViewModelDidReceiveFavorites(userProfileViewModel: UserProfileViewModel, favorites: [UserFavoriteLink])
     func userProfileViewModelDidReceiveRecents(userProfileViewModel: UserProfileViewModel, recents: [UserRecentLink])
 }

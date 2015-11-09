@@ -52,6 +52,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.pagingEnabled = true
+        scrollView.backgroundColor = ClearColor
         scrollView.showsHorizontalScrollIndicator = false
         
         pageControl = UIPageControl()
@@ -59,7 +60,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         pageControl.currentPage = 0
         pageControl.transform = CGAffineTransformMakeScale(0.75, 0.75)
         pageControl.pageIndicatorTintColor = DarkGrey
-        pageControl.currentPageIndicatorTintColor = TealColor
+        pageControl.currentPageIndicatorTintColor = TealColor.colorWithAlphaComponent(0.75)
         
         pagesScrollViewSize = scrollView.frame.size
         pageCount = 5
@@ -67,12 +68,14 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
+        closeButton.contentEdgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)
         closeButton.alpha = 0.0
         closeButton.userInteractionEnabled = false
         
         nextIndicator = UIButton()
         nextIndicator.translatesAutoresizingMaskIntoConstraints = false
         nextIndicator.setImage(UIImage(named: "next"), forState: UIControlState.Normal)
+        nextIndicator.contentEdgeInsets = UIEdgeInsetsMake(9.0, 7.0, 9.0, 7.0)
         
         loadingView = ToolTipLoadingView()
         loadingView.translatesAutoresizingMaskIntoConstraints = false
@@ -195,21 +198,21 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             pageControl.al_centerX == scrollView.al_centerX,
             pageControl.al_bottom == scrollView.al_bottom - 18,
             pageControl.al_height == 5,
-            
+
             scrollView.al_centerY == view.al_centerY,
             scrollView.al_width == view.al_width - 20,
             scrollView.al_height == view.al_height - 40,
             scrollView.al_left == view.al_left + 10,
             
-            closeButton.al_top == view.al_top + 25,
-            closeButton.al_right == view.al_right - 25,
-            closeButton.al_height == 10,
-            closeButton.al_width == 10,
+            closeButton.al_top == scrollView.al_top + 5,
+            closeButton.al_right == scrollView.al_right - 5,
+            closeButton.al_height == 30,
+            closeButton.al_width == 30,
             
             nextIndicator.al_right == scrollView.al_right - 10,
             nextIndicator.al_centerY == scrollView.al_centerY + 5,
-            nextIndicator.al_height == 20,
-            nextIndicator.al_width == 13
+            nextIndicator.al_height == 40,
+            nextIndicator.al_width == 26
         ])
     }
     

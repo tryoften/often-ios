@@ -28,6 +28,14 @@ let OftenCallbackURL = "tryoften://"
 let AppSuiteName = "group.com.tryoften.often"
 let CrashlyticsAPIKey = "e4598140f72849daf847791f325b1eabae27a254"
 
+struct UserDefaultsProperty {
+    static var userID = "userID"
+    static var userEmail = "email"
+    static var openSession = "openSession"
+    static var authData = "authData"
+    static var keyboardInstalled = "keyboardInstall"
+}
+
 // Colors
 let BlueColor = UIColor(fromHexString: "#4575BF")
 let DarkGrey = UIColor(fromHexString: "#d8d8d8")
@@ -372,6 +380,7 @@ let SettingsViewCellSecondaryTextColor = UIColor(fromHexString: "202020")
 
 // Tool Tips
 let KeyboardTooltipsDisplayedKey = "seenToolTips"
+let SearchBarTooltipsDisplayedKey = "hasSeenSearchToolTip"
 
 // Main App
 let FacebookButtonTitleFont = UIFont(name: "OpenSans", size: 14)
