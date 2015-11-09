@@ -40,13 +40,15 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
             UIImage(named: "productWalkthroughStep_2")!,
             UIImage(named: "productWalkthroughStep_3")!,
             UIImage(named: "productWalkthroughStep_4")!,
+            UIImage(named: "productWalkthroughStep_5")!,
         ]
         
         pagesubTitle = [
-            "The non-basic keyboard. Share the latest videos, songs, GIFs & news from any app.",
-            "The first Hip Hop and Pop Culture powered search experience. No Bullsh*t.",
-            "Know what you’re looking for? Use an app directly by hashtagging it’s name. #Easy",
-            "Save your favorite songs, videos, GIF’s and links to easily share them again later."
+            "Share the latest videos, songs, & news wherever you are, right from your keyboard",
+            "See what's trending before you even search. Always keep conversations up to date",
+            "The first Hip Hop & Pop Culture powered search experience. No Bullsh*t",
+            "Filter by app or website by adding a hashtag to beginning of your search",
+            "Save all your favorites right to your keyboard and easily share them again later"
         ]
 
         super.init(nibName: nil, bundle: nil)
@@ -78,14 +80,14 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = pageImages[page]
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .Center
         
         signupView.scrollView.addSubview(imageView)
         
         signupView.scrollView.addConstraints([
             imageView.al_top == signupView.scrollView.al_top,
             imageView.al_height == signupView.scrollView.al_height,
-            imageView.al_width == signupView.scrollView.al_width,
+            imageView.al_width == pageWidth,
             imageView.al_left == signupView.scrollView.al_left + pageWidth * CGFloat(page)
             ])
         

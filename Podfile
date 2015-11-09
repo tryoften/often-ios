@@ -8,7 +8,7 @@ xcodeproj 'Often.xcodeproj'
 
 def base_deps
   pod 'Firebase', '>= 2.0.2'
-  pod 'AFNetworking', '~> 2.0'
+  pod 'AFNetworking', '2.6.0'
   pod 'TOMSMorphingLabel', '~> 0.5'
   pod 'DateTools', '~> 1.6'
   pod 'MMWormhole', '~> 2.0.0'

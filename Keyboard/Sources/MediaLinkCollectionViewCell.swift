@@ -10,7 +10,7 @@ import UIKit
 import Spring
 
 class MediaLinkCollectionViewCell: UICollectionViewCell {
-    weak var delegate: MediaLinkCollectionViewCellDelegate?
+    weak var delegate: MediaLinksCollectionViewCellDelegate?
     
     var informationContainerView: UIView
     var sourceLogoView: UIImageView
@@ -22,7 +22,6 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
     var rightCornerImageView: UIImageView
     var overlayView: SearchResultsCellOverlayView
     var favoriteRibbon: UIImageView
-    
     var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
     var contentImageViewWidthConstraint: NSLayoutConstraint?
@@ -264,7 +263,7 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
     }
 }
 
-protocol MediaLinkCollectionViewCellDelegate: class {
+protocol MediaLinksCollectionViewCellDelegate: class {
     func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool)
     func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaLinkCollectionViewCell, selected: Bool)
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool)

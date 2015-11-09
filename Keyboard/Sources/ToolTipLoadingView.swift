@@ -30,7 +30,7 @@ class ToolTipLoadingView: UIView {
     }
     
     func timedEndLoad() {
-        delay(1.5, closure: {
+        delay(1.25, closure: {
             UIView.animateWithDuration(0.5, animations: {
                 self.alpha = 0.0
             })
@@ -45,8 +45,8 @@ class ToolTipLoadingView: UIView {
         addConstraints([
             oftenLogo.al_centerY == al_centerY,
             oftenLogo.al_centerX == al_centerX,
-            oftenLogo.al_width == 70,
-            oftenLogo.al_height == 25
+            oftenLogo.al_width == 72,
+            oftenLogo.al_height == 20
         ])
     }
 }

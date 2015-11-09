@@ -285,6 +285,20 @@ extension KeyboardViewController {
         
     }
     
+    func didTapGoToBrowseKey(button: KeyboardKeyButton?) {
+        view.addSubview(favoritesAndRecentsViewController!.view)
+        view.addConstraints([
+            favoritesAndRecentsViewController!.view.al_top == view.al_top,
+            favoritesAndRecentsViewController!.view.al_left == view.al_left,
+            favoritesAndRecentsViewController!.view.al_bottom == view.al_bottom,
+            favoritesAndRecentsViewController!.view.al_right == view.al_right
+            ])
+        
+        slidePanelContainerView.hidden = false
+        collapseKeyboard()
+        
+    }
+    
     func shiftUp(button: KeyboardKeyButton?) {
         if let button = button {
             if !shiftWasMultitapped {

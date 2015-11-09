@@ -71,24 +71,21 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             UIImage(named: "keyboardWalkthroughStep_1")!,
             UIImage(named: "keyboardWalkthroughStep_2")!,
             UIImage(named: "keyboardWalkthroughStep_3")!,
-            UIImage(named: "keyboardWalkthroughStep_4")!,
-            UIImage(named: "keyboardWalkthroughStep_5")!
+            UIImage(named: "keyboardWalkthroughStep_4")!
         ]
         
         pageTitle = [
             "Let’s install this ishh",
-            "Add New Keyboard",
-            "Choose Often",
-            "Allow Full-Access",
+            "Add Often",
+            "Turn On Full-Access",
             "Use Often"
         ]
         
         pagesubTitle = [
-            "Start by opening Settings on your iPhone and \r\n tapping on \"General\". Scroll down and tap \r\n on \"Keyboard\".",
-            "Next, tap \"Keyboards\". Here you'll see all \r\n your currently installed keyboards. Tap \r\n \"Add New Keyboard\".",
-            "Here we'll choose \"Often\" under Third- \r\n Party Keyboards. After you've added it, \r\n tap on Often.",
-            "Full access let’s us use the internet inside \r\n the keyboard to show you search results. \r\n We never save or read any info! See FAQ in \r\n settings for more details or email us directly.",
-            "Open up any app that uses a keyboard, tap \r\n and hold the \"Globe\" icon and select Often. \r\n See this tutorial again anytime in settings."
+            "Step 1. Open Settings and tap \"General\". Scroll down and tap on \"Keyboard\". In \"Keyboards\", tap \"Add New Keyboard\".",
+            "Step 2. Add \"Often\" from Third-Party Keyboards.",
+            "Step 3. Full access let’s us use the internet inside the keyboard to show you search results. \r\n We never save or read any info! See FAQ for more details or email us directly.",
+            "Step 4. Go to iMessage, tap \r\n and hold the \"Globe\" icon and open Often. \r\n See this tutorial again anytime in settings."
         ]
         
         pager = UIPageControl()
@@ -199,7 +196,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             "page": currentPage
         ])
         
-        if currentPage == 4 {
+        if currentPage == 3 {
             if inAppDisplay == true {
                 settingsButtonRightPositionConstraint?.constant = 0
                 settingsButton.setTitle("Dismiss".uppercaseString, forState: .Normal)
