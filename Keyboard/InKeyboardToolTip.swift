@@ -31,7 +31,7 @@ class InKeyboardToolTip: UIView {
         messageLabel.backgroundColor = UIColor.clearColor()
         messageLabel.textColor = UIColor.blackColor()
         messageLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        messageLabel.text = "Tap to open and close the keyboard whenever you need to type or edit your message!"
+        messageLabel.text = "Tap to open and close the keyboard whenever \n you need to type or edit your message!"
         
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -88,14 +88,15 @@ class InKeyboardToolTip: UIView {
             tipView.al_bottom == al_bottom - 70,
             
             messageLabel.al_centerX == tipView.al_centerX,
-            messageLabel.al_width == UIScreen.mainScreen().bounds.width - 40,
             messageLabel.al_height == 50,
             messageLabel.al_centerY == tipView.al_centerY,
+            messageLabel.al_left == tipView.al_left + 40,
+            messageLabel.al_right == tipView.al_right - 40,
             
-            closeButton.al_top == tipView.al_top + 10,
-            closeButton.al_right == tipView.al_right - 10,
-            closeButton.al_height == 10,
-            closeButton.al_width == 10,
+            closeButton.al_top == tipView.al_top + 12,
+            closeButton.al_right == tipView.al_right - 12,
+            closeButton.al_height == 11,
+            closeButton.al_width == 11,
             
             caretView.al_height == 30,
             caretView.al_width == 30,
