@@ -146,12 +146,12 @@ class SigninView: UIView {
             signinButton.al_top == passwordTextFieldDivider.al_bottom + 20,
             signinButton.al_left == al_left + 40,
             signinButton.al_right == al_right - 40,
-            signinButton.al_height == 40,
+            signinButton.al_height == 50,
             
             signinTwitterButton.al_top == signinButton.al_bottom + 20,
             signinTwitterButton.al_left == al_left + 40,
             signinTwitterButton.al_right == al_right - 40,
-            signinTwitterButton.al_height == 40,
+            signinTwitterButton.al_height == 50,
             ])
     }
     

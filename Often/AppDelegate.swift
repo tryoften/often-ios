@@ -13,7 +13,6 @@ import Crashlytics
 import Realm
 import OAuthSwift
 
-
 private var TestKeyboard: Bool = false
 
 @UIApplicationMain

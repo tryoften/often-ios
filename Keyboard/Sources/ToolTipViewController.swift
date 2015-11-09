@@ -39,11 +39,11 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         ]
         
         pageTexts = [
-            "Find & Share whatever you're looking\n for by tapping on the search icon above.",
-            "Use your favorite apps by typing\n #(appname) in the message space above.",
-            "Save any link, song, video or GIF by\n tapping on a card & adding it to favorites.",
-            "See all of your favorites by tapping\n the Often key. Easily edit them in-app.",
-            "Remember to allow full-access for Often to\n work. We never access you private info!"
+            "Search trending songs, videos and news\n right from the search field above",
+            "Filter your search by app or website by adding\n a # at the beginning of your search",
+            "Save your favorite songs, videos or news\n by tapping on a card & adding it to favorites",
+            "See all of your favorites by tapping\n the Often key or see them in the main app",
+            "Remember to allow full-access for Often to\n work. We never access your private info fam!"
         ]
         
         pageViews = [ToolTip]()
@@ -88,6 +88,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         nextIndicator.addTarget(self, action: "nextIndicatorTapped", forControlEvents: .TouchUpInside)
         
         view.backgroundColor = UIColor.grayColor()
+        
         
         view.addSubview(scrollView)
         view.addSubview(pageControl)
@@ -206,13 +207,13 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             
             closeButton.al_top == scrollView.al_top + 5,
             closeButton.al_right == scrollView.al_right - 5,
-            closeButton.al_height == 30,
-            closeButton.al_width == 30,
+            closeButton.al_height == 32,
+            closeButton.al_width == 32,
             
             nextIndicator.al_right == scrollView.al_right - 10,
-            nextIndicator.al_centerY == scrollView.al_centerY + 5,
-            nextIndicator.al_height == 40,
-            nextIndicator.al_width == 26
+            nextIndicator.al_centerY == scrollView.al_centerY - 2,
+            nextIndicator.al_height == 36,
+            nextIndicator.al_width == 24
         ])
     }
     

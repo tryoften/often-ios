@@ -42,7 +42,8 @@ class EmptySetView: UIView {
         descriptionLabel.font = UIFont(name: "OpenSans", size: 12.0)
         descriptionLabel.textColor = UIColor(fromHexString: "#202020")
         descriptionLabel.textAlignment = .Center
-        descriptionLabel.numberOfLines = 2 
+        descriptionLabel.numberOfLines = 2
+        descriptionLabel.alpha = 0.54
         
         twitterButton = UIButton()
         twitterButton.translatesAutoresizingMaskIntoConstraints = false
@@ -65,11 +66,11 @@ class EmptySetView: UIView {
         
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.setImage(StyleKit.imageOfButtonclose(scale: 0.5), forState: .Normal)
+        cancelButton.setImage(StyleKit.imageOfButtonclose(scale: 0.75), forState: .Normal)
         cancelButton.alpha = 0.54
         cancelButton.hidden = true
         
-        userState = .NoTwitter
+        userState = .NonEmpty
         
         super.init(frame: frame)
         

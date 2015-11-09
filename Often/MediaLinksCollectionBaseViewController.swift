@@ -10,7 +10,7 @@ import Foundation
 
 let MediaLinkCollectionViewCellReuseIdentifier = "MediaLinksCollectionViewCell"
 
-class MediaLinksCollectionBaseViewController: UICollectionViewController {
+class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaLinksCollectionViewCellDelegate {
    var cellsAnimated: [NSIndexPath: Bool]
    
     override init(collectionViewLayout layout: UICollectionViewLayout) {
@@ -119,5 +119,19 @@ class MediaLinksCollectionBaseViewController: UICollectionViewController {
         
         cellsAnimated[indexPath] = true
     }
+    
+    // MediaLinkCollectionViewCellDelegate
+    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        
+    }
+    
+    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        cell.overlayVisible = false
+    }
+    
+    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        
+    }
+
 
 }

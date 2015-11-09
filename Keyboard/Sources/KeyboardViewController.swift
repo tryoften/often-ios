@@ -42,6 +42,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     static var debugKeyboard = false
     var autoPeriodState: AutoPeriodState = .NoSpace
     var toolTipViewController: ToolTipViewController?
+    var favoritesAndRecentsViewController: KeyboardFavoritesAndRecentsViewController?
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
     }
@@ -101,7 +102,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        userDefaults.setBool(true, forKey: "keyboardInstall")
+        userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
         userDefaults.synchronize()
         
         messageChannel = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: nil)
@@ -114,6 +115,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 Firebase.defaultConfig().persistenceEnabled = true
             }
         }
+        
+        favoritesAndRecentsViewController = KeyboardFavoritesAndRecentsViewController(collectionViewLayout: KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout(), viewModel: MediaLinksViewModel(), textProcessor: textProcessor)
         
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBarHeight = KeyboardSearchBarHeight
@@ -150,7 +153,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvent, object: nil)
 
         togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
-        
+    
         view.addSubview(searchBar.view)
         view.addSubview(slidePanelContainerView)
         view.addSubview(togglePanelButton)
@@ -461,6 +464,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                     
                     keyView.addTarget(self, action: "didTapCallKey:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseCallKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
+                case .modifier(.GoToBrowse, _):
+                    keyView.addTarget(self, action: "didTapGoToBrowseKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
                 case .modifier(.Enter, _):
                     keyView.addTarget(self, action: "didTapEnterKey:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseEnterKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])

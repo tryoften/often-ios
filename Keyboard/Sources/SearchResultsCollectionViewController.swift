@@ -22,7 +22,7 @@ import UIKit
     Tweet Cell
 
 */
-class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MediaLinkCollectionViewCellDelegate, ToolTipCloseButtonDelegate {
+class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, ToolTipCloseButtonDelegate {
     var backgroundImageView: UIImageView
     var textProcessor: TextProcessingManager?
     var response: SearchResponse? {
@@ -142,9 +142,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = parseMediaLinkData(response?.results, indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
-        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
-        cell.layer.shouldRasterize = true
-
+        
         if let result = cell.mediaLink {
             if let favorited = viewModel?.checkFavorite(result) {
                 cell.itemFavorited = favorited
@@ -255,7 +253,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     }
     
     // MediaLinkCollectionViewCellDelegate
-    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }
@@ -264,11 +262,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         cell.itemFavorited = selected
     }
     
-    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
-        cell.overlayVisible = false
-    }
-    
-    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }
