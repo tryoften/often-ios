@@ -79,13 +79,6 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     }
     
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return viewModel.mediaLinks.count
-    
-    }
-    
-    
-    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier:UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileHeaderView
@@ -114,6 +107,24 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         return UICollectionReusableView()
     }
     
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        var cell: MediaLinkCollectionViewCell
+        cell = parseMediaLinkData(viewModel.mediaLinks, indexPath: indexPath, collectionView: collectionView)
+        cell.delegate = self
+        cell.inMainApp = true
+        
+        if let result = cell.mediaLink {
+            if  viewModel.checkFavorite(result) {
+                cell.itemFavorited = true
+            } else {
+                cell.itemFavorited = false
+            }
+        }
+        
+        animateCell(cell, indexPath: indexPath)
+        
+        return cell
+    }
 
     func setupLayout() {
         view.addConstraints([
@@ -223,18 +234,6 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         revealSetServicesViewDidTap()
         
     }
-    
-    // MediaLinkCollectionViewCellDelegate
-    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
-        guard let result = cell.mediaLink else {
-            return
-        }
-        
-        UIPasteboard.generalPasteboard().string = result.getInsertableText()
-    }
-
-    
-    
   
 }
 
