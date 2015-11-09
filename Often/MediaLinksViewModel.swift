@@ -108,7 +108,8 @@ class MediaLinksViewModel {
             throw UserProfileViewModelError.FetchingFavoritesDataFailed
         }
         
-        favoriteRef.observeEventType(.Value, withBlock: { snapshot in
+        favoriteRef
+            .observeEventType(.Value, withBlock: { snapshot in
             var favoritesLinks: [UserFavoriteLink] = []
             
             if let data = snapshot.value as? [String: AnyObject] {
