@@ -59,8 +59,8 @@ class KeyboardWalkthroughView: UIView {
                 titleLabel.al_height == 18,
                 
                 subtitleLabel.al_top == titleLabel.al_bottom + 10,
-                subtitleLabel.al_left == al_left + 30,
-                subtitleLabel.al_right == al_right - 30,
+                subtitleLabel.al_left == al_left + 50,
+                subtitleLabel.al_right == al_right - 50,
                 subtitleLabel.al_height == 70,
                 
                 iphoneImageView.al_top == subtitleLabel.al_bottom + 20,
@@ -68,7 +68,24 @@ class KeyboardWalkthroughView: UIView {
                 iphoneImageView.al_right == al_right - 40,
                 iphoneImageView.al_bottom == al_bottom + 50
             ])
-        case  3:
+        case  1:
+            addConstraints([
+                titleLabel.al_top == al_top + 80,
+                titleLabel.al_left == al_left + 40,
+                titleLabel.al_right == al_right - 40,
+                titleLabel.al_height == 18,
+                
+                subtitleLabel.al_top == titleLabel.al_bottom + 10,
+                subtitleLabel.al_left == al_left + 95,
+                subtitleLabel.al_right == al_right - 95,
+                subtitleLabel.al_height == 70,
+                
+                iphoneImageView.al_top == subtitleLabel.al_bottom + 20,
+                iphoneImageView.al_left == al_left + 40,
+                iphoneImageView.al_right == al_right - 40,
+                iphoneImageView.al_bottom == al_bottom + 50
+                ])
+        case  2:
             addConstraints([
                 titleLabel.al_top == al_top + 80,
                 titleLabel.al_left == al_left + 40,
