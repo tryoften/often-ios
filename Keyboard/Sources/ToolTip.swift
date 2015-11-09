@@ -25,9 +25,8 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
         textView.textAlignment = .Center
         textView.numberOfLines = 2
         textView.backgroundColor = UIColor.clearColor()
-        textView.textColor = UIColor.blackColor()
+        textView.textColor = UIColor.blackColor().colorWithAlphaComponent(0.74)
         textView.font = UIFont(name: "OpenSans", size: 12.0)
-        textView.alpha = 0.74
         
         super.init(frame: frame)
         
