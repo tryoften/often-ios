@@ -54,13 +54,13 @@ class SignupView: UIView {
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.pagingEnabled = true
-        scrollView.backgroundColor = UIColor.whiteColor()
+        scrollView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
         scrollView.showsHorizontalScrollIndicator = false
         
         pageControl = UIPageControl()
         pageControl.currentPageIndicatorTintColor = SignupViewPageControlHighlightColor
-        pageControl.numberOfPages = 4
-        pageControl.pageIndicatorTintColor = UIColor(fromHexString: "#D2D2D2")
+        pageControl.numberOfPages = 5
+        pageControl.pageIndicatorTintColor = UIColor(fromHexString: "#DDDDDD")
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         
         createAccountButton = UIButton()
@@ -88,11 +88,11 @@ class SignupView: UIView {
         
         buttonDivider = UIView()
         buttonDivider.translatesAutoresizingMaskIntoConstraints = false
-        buttonDivider.backgroundColor = UIColor(fromHexString: "#D2D2D2")
+        buttonDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
         addSubview(titleLabel)
         addSubview(scrollView)
@@ -112,39 +112,39 @@ class SignupView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 40,
+            titleLabel.al_top == al_top + 50,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_height == 40,
             
             subtitleLabel.al_top == titleLabel.al_bottom,
-            subtitleLabel.al_left == al_left + 40,
-            subtitleLabel.al_right == al_right - 40,
+            subtitleLabel.al_left == al_left + 45,
+            subtitleLabel.al_right == al_right - 45,
             subtitleLabel.al_height == 60,
             
             scrollView.al_top == subtitleLabel.al_bottom + 10,
             scrollView.al_left == al_left + 20,
             scrollView.al_right == al_right - 20,
-            scrollView.al_bottom == pageControl.al_top - 20,
+            scrollView.al_bottom == pageControl.al_top - 3,
             
-            pageControl.al_bottom == createAccountButton.al_top - 20,
+            pageControl.al_bottom == createAccountButton.al_top - 25,
             pageControl.al_centerX == al_centerX,
             pageControl.al_height == 2,
             pageControl.al_width == 40,
             
             
             createAccountButton.al_bottom == skipButton.al_top - 10,
-            createAccountButton.al_left == al_left + 60,
-            createAccountButton.al_right == al_right - 60,
+            createAccountButton.al_left == al_left + 52,
+            createAccountButton.al_right == al_right - 52,
             createAccountButton.al_height == 50,
             
-            skipButton.al_bottom == al_bottom - 15,
+            skipButton.al_bottom == al_bottom - 30,
             skipButton.al_left == al_left + 20,
             skipButton.al_right == buttonDivider.al_left,
             skipButton.al_height == 60,
             skipButton.al_width == al_width/2 - 20,
             
-            signinButton.al_bottom == al_bottom - 15,
+            signinButton.al_bottom == al_bottom - 30,
             signinButton.al_left == buttonDivider.al_right,
             signinButton.al_right == al_right - 20,
             signinButton.al_height == 60,
