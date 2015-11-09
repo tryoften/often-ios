@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "tooltip2.png",
+      "filename" : "serviceicons.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tooltip2@2x.png",
+      "filename" : "serviceicons@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tooltip2@3x.png",
+      "filename" : "serviceicons@3x.png",
       "scale" : "3x"
     }
   ],
