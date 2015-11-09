@@ -882,22 +882,22 @@ public class StyleKit : NSObject {
 
         //// icon
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 5.5, frame.minY + 10.48)
+        CGContextTranslateCTM(context, frame.minX + 0.50143 * frame.width, frame.minY + 0.48750 * frame.height)
         CGContextScaleCTM(context, scale, scale)
 
 
 
         //// Rectangle-387 Drawing
         let rectangle387Path = UIBezierPath()
-        rectangle387Path.moveToPoint(CGPointMake(1, 19.88))
-        rectangle387Path.addCurveToPoint(CGPointMake(0, 20.88), controlPoint1: CGPointMake(0.45, 19.88), controlPoint2: CGPointMake(0, 20.32))
-        rectangle387Path.addLineToPoint(CGPointMake(0, 25.53))
-        rectangle387Path.addCurveToPoint(CGPointMake(1, 26.53), controlPoint1: CGPointMake(0, 26.08), controlPoint2: CGPointMake(0.45, 26.53))
-        rectangle387Path.addLineToPoint(CGPointMake(47, 26.53))
-        rectangle387Path.addCurveToPoint(CGPointMake(48, 25.53), controlPoint1: CGPointMake(47.55, 26.53), controlPoint2: CGPointMake(48, 26.08))
-        rectangle387Path.addLineToPoint(CGPointMake(48, 20.88))
-        rectangle387Path.addCurveToPoint(CGPointMake(47, 19.88), controlPoint1: CGPointMake(48, 20.32), controlPoint2: CGPointMake(47.55, 19.88))
-        rectangle387Path.addLineToPoint(CGPointMake(1, 19.88))
+        rectangle387Path.moveToPoint(CGPointMake(-23.1, 6.7))
+        rectangle387Path.addCurveToPoint(CGPointMake(-24.1, 7.7), controlPoint1: CGPointMake(-23.65, 6.7), controlPoint2: CGPointMake(-24.1, 7.15))
+        rectangle387Path.addLineToPoint(CGPointMake(-24.1, 12.35))
+        rectangle387Path.addCurveToPoint(CGPointMake(-23.1, 13.35), controlPoint1: CGPointMake(-24.1, 12.9), controlPoint2: CGPointMake(-23.65, 13.35))
+        rectangle387Path.addLineToPoint(CGPointMake(22.9, 13.35))
+        rectangle387Path.addCurveToPoint(CGPointMake(23.9, 12.35), controlPoint1: CGPointMake(23.45, 13.35), controlPoint2: CGPointMake(23.9, 12.9))
+        rectangle387Path.addLineToPoint(CGPointMake(23.9, 7.7))
+        rectangle387Path.addCurveToPoint(CGPointMake(22.9, 6.7), controlPoint1: CGPointMake(23.9, 7.15), controlPoint2: CGPointMake(23.45, 6.7))
+        rectangle387Path.addLineToPoint(CGPointMake(-23.1, 6.7))
         rectangle387Path.closePath()
         rectangle387Path.miterLimit = 4;
 
@@ -909,15 +909,15 @@ public class StyleKit : NSObject {
 
         //// Rectangle-340 Drawing
         let rectangle340Path = UIBezierPath()
-        rectangle340Path.moveToPoint(CGPointMake(1, 9.85))
-        rectangle340Path.addCurveToPoint(CGPointMake(0, 10.85), controlPoint1: CGPointMake(0.45, 9.85), controlPoint2: CGPointMake(0, 10.29))
-        rectangle340Path.addLineToPoint(CGPointMake(0, 15.5))
-        rectangle340Path.addCurveToPoint(CGPointMake(1, 16.5), controlPoint1: CGPointMake(0, 16.05), controlPoint2: CGPointMake(0.45, 16.5))
-        rectangle340Path.addLineToPoint(CGPointMake(5.51, 16.5))
-        rectangle340Path.addCurveToPoint(CGPointMake(6.51, 15.5), controlPoint1: CGPointMake(6.06, 16.5), controlPoint2: CGPointMake(6.51, 16.05))
-        rectangle340Path.addLineToPoint(CGPointMake(6.51, 10.85))
-        rectangle340Path.addCurveToPoint(CGPointMake(5.51, 9.85), controlPoint1: CGPointMake(6.51, 10.29), controlPoint2: CGPointMake(6.06, 9.85))
-        rectangle340Path.addLineToPoint(CGPointMake(1, 9.85))
+        rectangle340Path.moveToPoint(CGPointMake(-23.1, -3.33))
+        rectangle340Path.addCurveToPoint(CGPointMake(-24.1, -2.33), controlPoint1: CGPointMake(-23.65, -3.33), controlPoint2: CGPointMake(-24.1, -2.88))
+        rectangle340Path.addLineToPoint(CGPointMake(-24.1, 2.32))
+        rectangle340Path.addCurveToPoint(CGPointMake(-23.1, 3.32), controlPoint1: CGPointMake(-24.1, 2.87), controlPoint2: CGPointMake(-23.65, 3.32))
+        rectangle340Path.addLineToPoint(CGPointMake(-18.59, 3.32))
+        rectangle340Path.addCurveToPoint(CGPointMake(-17.59, 2.32), controlPoint1: CGPointMake(-18.04, 3.32), controlPoint2: CGPointMake(-17.59, 2.87))
+        rectangle340Path.addLineToPoint(CGPointMake(-17.59, -2.33))
+        rectangle340Path.addCurveToPoint(CGPointMake(-18.59, -3.33), controlPoint1: CGPointMake(-17.59, -2.88), controlPoint2: CGPointMake(-18.04, -3.33))
+        rectangle340Path.addLineToPoint(CGPointMake(-23.1, -3.33))
         rectangle340Path.closePath()
         rectangle340Path.miterLimit = 4;
 
@@ -928,49 +928,49 @@ public class StyleKit : NSObject {
 
 
         //// Rectangle-340-Copy Drawing
-        let rectangle340CopyPath = UIBezierPath(roundedRect: CGRectMake(10.45, 9.85, 6.5, 6.65), cornerRadius: 1)
+        let rectangle340CopyPath = UIBezierPath(roundedRect: CGRectMake(-13.65, -3.33, 6.5, 6.65), cornerRadius: 1)
         color.setFill()
         rectangle340CopyPath.fill()
 
 
         //// Rectangle-340-Copy-2 Drawing
-        let rectangle340Copy2Path = UIBezierPath(roundedRect: CGRectMake(20.85, 9.85, 6.5, 6.65), cornerRadius: 1)
+        let rectangle340Copy2Path = UIBezierPath(roundedRect: CGRectMake(-3.25, -3.33, 6.5, 6.65), cornerRadius: 1)
         color.setFill()
         rectangle340Copy2Path.fill()
 
 
         //// Rectangle-340-Copy-3 Drawing
-        let rectangle340Copy3Path = UIBezierPath(roundedRect: CGRectMake(31.3, 9.85, 6.5, 6.65), cornerRadius: 1)
+        let rectangle340Copy3Path = UIBezierPath(roundedRect: CGRectMake(7.2, -3.33, 6.5, 6.65), cornerRadius: 1)
         color.setFill()
         rectangle340Copy3Path.fill()
 
 
         //// Rectangle-340-Copy-8 Drawing
-        let rectangle340Copy8Path = UIBezierPath(roundedRect: CGRectMake(41.05, 9.85, 6.5, 6.65), cornerRadius: 1)
+        let rectangle340Copy8Path = UIBezierPath(roundedRect: CGRectMake(16.95, -3.33, 6.5, 6.65), cornerRadius: 1)
         color.setFill()
         rectangle340Copy8Path.fill()
 
 
         //// Rectangle-340-Copy-7 Drawing
-        let rectangle340Copy7Path = UIBezierPath(roundedRect: CGRectMake(5.2, -0, 6.5, 6.65), cornerRadius: 1)
+        let rectangle340Copy7Path = UIBezierPath(roundedRect: CGRectMake(-18.9, -13.18, 6.5, 6.65), cornerRadius: 1)
         color.setFill()
         rectangle340Copy7Path.fill()
 
 
         //// Rectangle-340-Copy-6 Drawing
-        let rectangle340Copy6Path = UIBezierPath(roundedRect: CGRectMake(15.65, -0, 6.5, 6.65), cornerRadius: 1)
+        let rectangle340Copy6Path = UIBezierPath(roundedRect: CGRectMake(-8.45, -13.18, 6.5, 6.65), cornerRadius: 1)
         color.setFill()
         rectangle340Copy6Path.fill()
 
 
         //// Rectangle-340-Copy-5 Drawing
-        let rectangle340Copy5Path = UIBezierPath(roundedRect: CGRectMake(26.05, -0, 6.5, 6.65), cornerRadius: 1)
+        let rectangle340Copy5Path = UIBezierPath(roundedRect: CGRectMake(1.95, -13.18, 6.5, 6.65), cornerRadius: 1)
         color.setFill()
         rectangle340Copy5Path.fill()
 
 
         //// Rectangle-340-Copy-4 Drawing
-        let rectangle340Copy4Path = UIBezierPath(roundedRect: CGRectMake(36.5, -0, 6.5, 6.65), cornerRadius: 1)
+        let rectangle340Copy4Path = UIBezierPath(roundedRect: CGRectMake(12.4, -13.18, 6.5, 6.65), cornerRadius: 1)
         color.setFill()
         rectangle340Copy4Path.fill()
 
@@ -997,6 +997,10 @@ public class StyleKit : NSObject {
         let selectedHighlightColor = selected ? UIColor(red: 1, green: 1, blue: 1, alpha: 1) : color
         let strokeColor = selected ? highlightedColor : color
 
+        //// Frames
+        let frame = CGRectMake(14, 16, 50, 50)
+
+
         //// icon
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, 5.5, 4.5)
@@ -1015,9 +1019,9 @@ public class StyleKit : NSObject {
 
         //// Path-931 Drawing
         let path931Path = UIBezierPath()
-        path931Path.moveToPoint(CGPointMake(28.25, 26.64))
-        path931Path.addLineToPoint(CGPointMake(18.89, 36.12))
-        path931Path.addLineToPoint(CGPointMake(28.25, 44.36))
+        path931Path.moveToPoint(CGPointMake(frame.minX + 14.25, frame.minY + 10.64))
+        path931Path.addLineToPoint(CGPointMake(frame.minX + 4.89, frame.minY + 20.12))
+        path931Path.addLineToPoint(CGPointMake(frame.minX + 14.25, frame.minY + 28.36))
         path931Path.miterLimit = 4;
 
         path931Path.lineCapStyle = .Round;
@@ -1033,11 +1037,11 @@ public class StyleKit : NSObject {
 
         //// Path-145 Drawing
         let path145Path = UIBezierPath()
-        path145Path.moveToPoint(CGPointMake(42.5, 51.5))
-        path145Path.addLineToPoint(CGPointMake(54.5, 51.5))
-        path145Path.addCurveToPoint(CGPointMake(62.5, 43.5), controlPoint1: CGPointMake(54.5, 51.5), controlPoint2: CGPointMake(62.5, 51.21))
-        path145Path.addCurveToPoint(CGPointMake(54.5, 35.5), controlPoint1: CGPointMake(62.5, 35.79), controlPoint2: CGPointMake(54.5, 35.5))
-        path145Path.addLineToPoint(CGPointMake(19.5, 35.5))
+        path145Path.moveToPoint(CGPointMake(frame.minX + 28.5, frame.minY + 35.5))
+        path145Path.addLineToPoint(CGPointMake(frame.minX + 40.5, frame.minY + 35.5))
+        path145Path.addCurveToPoint(CGPointMake(frame.minX + 48.5, frame.minY + 27.5), controlPoint1: CGPointMake(frame.minX + 40.5, frame.minY + 35.5), controlPoint2: CGPointMake(frame.minX + 48.5, frame.minY + 35.21))
+        path145Path.addCurveToPoint(CGPointMake(frame.minX + 40.5, frame.minY + 19.5), controlPoint1: CGPointMake(frame.minX + 48.5, frame.minY + 19.79), controlPoint2: CGPointMake(frame.minX + 40.5, frame.minY + 19.5))
+        path145Path.addLineToPoint(CGPointMake(frame.minX + 5.5, frame.minY + 19.5))
         path145Path.miterLimit = 4;
 
         path145Path.lineCapStyle = .Round;
