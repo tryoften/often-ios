@@ -22,7 +22,7 @@ import UIKit
     Tweet Cell
 
 */
-class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MediaLinkCollectionViewCellDelegate, ToolTipCloseButtonDelegate {
+class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MediaLinkCollectionViewCellDelegate, ToolTipCloseButtonDelegate, MessageBarDelegate {
     var backgroundImageView: UIImageView
     var textProcessor: TextProcessingManager?
     var response: SearchResponse? {
@@ -38,7 +38,10 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     var refreshResultsButtonTopConstraint: NSLayoutConstraint!
     var refreshTimer: NSTimer?
     var searchBarToolTip: InKeyboardToolTip?
+    var messageBarView: MessageBarView
+    var messageBarVisibleConstraint: NSLayoutConstraint?
     var userDefaults: NSUserDefaults
+    var isFullAccessEnabled: Bool
     var hasSeenTooltip: Bool {
         get {
             return userDefaults.boolForKey(SearchBarTooltipsDisplayedKey)
@@ -62,6 +65,10 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         refreshResultsButton = RefreshResultsButton()
         refreshResultsButton.translatesAutoresizingMaskIntoConstraints = false
         
+        messageBarView = MessageBarView()
+        
+        isFullAccessEnabled = false
+        
         self.textProcessor = textProcessor
         
         super.init(collectionViewLayout: layout)
@@ -71,6 +78,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         view.addSubview(refreshResultsButton)
         view.backgroundColor = VeryLightGray
         collectionView?.backgroundColor = UIColor.clearColor()
+        view.addSubview(messageBarView)
         
         if hasSeenTooltip == false {
             searchBarToolTip = InKeyboardToolTip()
@@ -78,6 +86,8 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
             searchBarToolTip?.closeButtonDelegate = self
             view.addSubview(searchBarToolTip!)
         }
+        
+        messageBarView.delegate = self
         
         refreshResultsButton.addTarget(self, action: "didTapRefreshResultsButton", forControlEvents: .TouchUpInside)
         
@@ -100,6 +110,16 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(animated: Bool) {        
+        let pbWrapped: UIPasteboard? = UIPasteboard.generalPasteboard()
+        if let pb = pbWrapped {
+            let fa = viewModel?.isFullAccessEnabled
+            hideMessageBar()
+        } else {
+            showMessageBar()
+        }
     }
     
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
@@ -252,6 +272,15 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
                 searchBarToolTip!.al_bottom == view.al_bottom
             ])
         }
+        
+        messageBarVisibleConstraint = messageBarView.al_bottom == view.al_top
+        
+        view.addConstraints([
+            messageBarView.al_left == view.al_left,
+            messageBarView.al_right == view.al_right,
+            messageBarVisibleConstraint!,
+            messageBarView.al_height == 39
+        ])
     }
     
     // MediaLinkCollectionViewCellDelegate
@@ -286,6 +315,23 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         
         delay(1.5, closure: {
             self.searchBarToolTip?.removeFromSuperview()
+        })
+    }
+    
+    // MARK: MessageBarViewDelegate
+    func showMessageBar() {
+        messageBarVisibleConstraint?.constant = 39
+        
+        UIView.animateWithDuration(0.4, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func hideMessageBar() {
+        messageBarVisibleConstraint?.constant = 0
+        
+        UIView.animateWithDuration(0.4, animations: {
+            self.view.layoutIfNeeded()
         })
     }
 }

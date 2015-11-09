@@ -11,11 +11,13 @@ class SearchResultsViewModel {
     let favoriteRef: Firebase
     let userId: String
     var favorites: [String]
+    var fullAccessEnabled: Bool
     
     init?() {
         let baseRef = Firebase(url: BaseURL)
         let userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         favorites = []
+        fullAccessEnabled = false
         
         guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
                 self.userId = ""
@@ -76,5 +78,16 @@ class SearchResultsViewModel {
             "user": userId,
             "result": result.toDictionary()
         ])
+    }
+    
+    func isFullAccessEnabled() -> Bool {
+        let pbWrapped: UIPasteboard? = UIPasteboard.generalPasteboard()
+        if let pb = pbWrapped {
+            fullAccessEnabled = true
+            return true
+        } else {
+            fullAccessEnabled = false
+            return false
+        }
     }
 }

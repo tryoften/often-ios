@@ -92,6 +92,9 @@
 		690AE8AE1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */; };
 		690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */; };
 		69192E581BBB9AF800903071 /* EmptySetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69192E571BBB9AF800903071 /* EmptySetView.swift */; };
+		69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */; };
+		69428AE11BEEAD5600282B8D /* MessageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428AE01BEEAD5600282B8D /* MessageBarView.swift */; };
+		69428AE21BEEB30900282B8D /* MessageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428AE01BEEAD5600282B8D /* MessageBarView.swift */; };
 		695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */; };
 		695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		696C2DA71BB6126B004AC9F6 /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */; };
@@ -399,6 +402,8 @@
 		690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewController.swift; sourceTree = "<group>"; };
 		690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewCell.swift; sourceTree = "<group>"; };
 		69192E571BBB9AF800903071 /* EmptySetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptySetView.swift; sourceTree = "<group>"; };
+		69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewModel.swift; path = Sources/KeyboardViewModel.swift; sourceTree = "<group>"; };
+		69428AE01BEEAD5600282B8D /* MessageBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageBarView.swift; path = Sources/MessageBarView.swift; sourceTree = "<group>"; };
 		695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolTipViewController.swift; path = Sources/ToolTipViewController.swift; sourceTree = "<group>"; };
@@ -1030,6 +1035,7 @@
 				81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */,
 				8176BECA1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift */,
 				69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */,
+				69428AE01BEEAD5600282B8D /* MessageBarView.swift */,
 				8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */,
 				81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */,
 				8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */,
@@ -1077,6 +1083,7 @@
 		81B6D58D1A95B07B0089767B /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */,
 				8150EDE91BD56D5E002A23B2 /* Search View Models */,
 			);
 			name = "View Models";
@@ -1187,7 +1194,7 @@
 					};
 					8180E6301A142199007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = LMA3M32RE8;
+						DevelopmentTeam = VPYJKM228K;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1478,6 +1485,7 @@
 				81BD904F1BD58834002F7D32 /* RootViewController.swift in Sources */,
 				817F784C1BC085440087EBE8 /* suffixNumber.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
+				69428AE21BEEB30900282B8D /* MessageBarView.swift in Sources */,
 				69B2924E1BD7550800277EC2 /* SettingsViewModel.swift in Sources */,
 				3BDF98CB1BA2652F00F383D8 /* SigninViewController.swift in Sources */,
 				3BD971C41B98C882007EAB5A /* EmailAccountManager.swift in Sources */,
@@ -1540,6 +1548,7 @@
 				817939011B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81E26D891B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
+				69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */,
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
 				8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
@@ -1552,6 +1561,7 @@
 				81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
+				69428AE11BEEAD5600282B8D /* MessageBarView.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
 				3BEE47191BE16516002E4394 /* FilterMap.swift in Sources */,

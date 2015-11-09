@@ -20,7 +20,7 @@ class SearchTextField: UIControl, Layouteable {
     private var label: UILabel
     private var indicator: UIView
     private var searchIcon: UIImageView
-    private var cancelButton: UIButton
+    private var clearButton: UIButton
     private var labelContainerLeftConstraint: NSLayoutConstraint!
     private var cancelButtonLeftConstraint: NSLayoutConstraint!
     private var leftViewLeftConstraint: NSLayoutConstraint!
@@ -41,7 +41,7 @@ class SearchTextField: UIControl, Layouteable {
     
     var enableCancelButton: Bool {
         didSet {
-            cancelButton.hidden = !enableCancelButton
+            clearButton.hidden = !enableCancelButton
         }
     }
     
@@ -72,17 +72,19 @@ class SearchTextField: UIControl, Layouteable {
                 if !editing {
                     sendActionsForControlEvents(UIControlEvents.EditingDidBegin)
                 }
-                text = "\(text!)"
-                cancelButtonLeftConstraint.constant = -CGRectGetHeight(cancelButton.frame) - 5
+                
+                // text = "\(text!)"
+                label.alpha = 0.45
+                
+                cancelButtonLeftConstraint.constant = -CGRectGetHeight(clearButton.frame) - 15
                 
                 if leftView != nil {
                     leftViewLeftConstraint.constant = 0
                 }
                 
                 UIView.animateWithDuration(0.3) {
-                    self.backgroundView.backgroundColor = UIColor.clearColor()
-                    self.backgroundView.layer.borderColor = UIColor(fromHexString: "#C3C3C3").CGColor
-                    self.cancelButton.alpha = 1.0
+                    self.backgroundView.backgroundColor = UIColor(fromHexString: "#F3F3F3")
+                    self.clearButton.alpha = 1.0
                     self.layoutIfNeeded()
                 }
                 editing = true
@@ -98,15 +100,15 @@ class SearchTextField: UIControl, Layouteable {
                 }
                 
                 UIView.animateWithDuration(0.3) {
-                    let backgroundColor = UIColor(fromHexString: "#E3E3E3")
+                    let backgroundColor = UIColor(fromHexString: "#EBEBEB")
                     
                     if self.text == "" {
-                        self.backgroundView.backgroundColor = UIColor.clearColor()
+                        self.backgroundView.backgroundColor = backgroundColor
                     } else {
                         self.backgroundView.backgroundColor = backgroundColor
                     }
                     self.indicator.alpha = 0.0
-                    self.cancelButton.alpha = 0.0
+                    self.clearButton.alpha = 0.0
                     self.backgroundView.layer.borderColor = backgroundColor.CGColor
                     self.layoutIfNeeded()
                 }
@@ -125,7 +127,7 @@ class SearchTextField: UIControl, Layouteable {
                 removeConstraint(labelContainerLeftConstraint)
                 leftView.translatesAutoresizingMaskIntoConstraints = false
                 
-                labelContainerLeftConstraint = labelContainer.al_left == leftView.al_right + 10
+                labelContainerLeftConstraint = labelContainer.al_left == leftView.al_right + 5
                 leftViewLeftConstraint = leftView.al_left == al_left
                 
                 addSubview(leftView)
@@ -152,9 +154,8 @@ class SearchTextField: UIControl, Layouteable {
         
         backgroundView = UIView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.layer.borderWidth = 1
-        backgroundView.layer.borderColor = UIColor(fromHexString: "#E3E3E3").CGColor
-        backgroundView.layer.cornerRadius = 4
+        backgroundView.backgroundColor = UIColor(fromHexString: "#EBEBEB")
+        backgroundView.layer.cornerRadius = 5
         backgroundView.userInteractionEnabled = false
         
         labelContainer = UIView()
@@ -175,29 +176,32 @@ class SearchTextField: UIControl, Layouteable {
         let searchIconFrame = CGRectMake(0, 0, 40, 30)
         let iconScale: CGFloat = 0.5
         
-        cancelButton = UIButton()
-        cancelButton.setImage(StyleKit.imageOfClose(frame: iconFrame, color: UIColor.blackColor(), scale: iconScale), forState: .Normal)
-        cancelButton.setImage(StyleKit.imageOfClose(frame: iconFrame, color: TealColor, scale: iconScale), forState: .Selected)
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.alpha = 0.0
+        clearButton = UIButton()
+        //clearButton.setImage(StyleKit.imageOfClose(frame: iconFrame, color: UIColor.blackColor(), scale: iconScale), forState: .Normal)
+        //clearButton.setImage(StyleKit.imageOfClose(frame: iconFrame, color: TealColor, scale: iconScale), forState: .Selected)
+        clearButton.setImage(UIImage(named: "close-textfield"), forState: .Normal)
+        clearButton.translatesAutoresizingMaskIntoConstraints = false
+        clearButton.alpha = 0.0
         
-        searchIcon = UIImageView(image: StyleKit.imageOfSearch(frame: searchIconFrame, color: UIColor.blackColor(), scale: iconScale))
+        //searchIcon = UIImageView(image: StyleKit.imageOfSearch(frame: searchIconFrame, color: UIColor.blackColor(), scale: iconScale))
+        searchIcon = UIImageView(image: UIImage(named: "search"))
+        searchIcon.translatesAutoresizingMaskIntoConstraints = false
         searchIcon.contentMode = .ScaleAspectFit
         
         super.init(frame: frame)
         
         id = description
 
-        cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        clearButton.addTarget(self, action: "didTapClearButton", forControlEvents: .TouchUpInside)
         
         addSubview(backgroundView)
         addSubview(labelContainer)
         addSubview(indicator)
-        addSubview(cancelButton)
+        addSubview(clearButton)
         
         labelContainer.addSubview(searchIcon)
         labelContainer.addSubview(label)
-        cancelButtonLeftConstraint = cancelButton.al_left == al_right
+        cancelButtonLeftConstraint = clearButton.al_left == al_right - 15
         setupLayout()
     }
 
@@ -267,6 +271,11 @@ class SearchTextField: UIControl, Layouteable {
         center.postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
     }
     
+    func didTapClearButton() {
+        text = ""
+        placeholder = placeholderText
+    }
+    
     func setupLayout() {
         addConstraints([
             cancelButtonLeftConstraint,
@@ -277,14 +286,16 @@ class SearchTextField: UIControl, Layouteable {
             backgroundView.al_bottom == labelContainer.al_bottom,
             
             searchIcon.al_left == labelContainer.al_left + 10,
-            searchIcon.al_centerY == labelContainer.al_centerY,
+            searchIcon.al_centerY == labelContainer.al_centerY - 1,
+            searchIcon.al_height == 15,
+            searchIcon.al_width == 20,
             
             labelContainer.al_left == al_left,
-            labelContainer.al_height == al_height,
+            labelContainer.al_height == al_height - 2,
             labelContainer.al_top == al_top,
             labelContainer.al_right == al_right,
             
-            label.al_left == searchIcon.al_right,
+            label.al_left == searchIcon.al_right + 3,
             label.al_centerY == labelContainer.al_centerY,
             label.al_height >= 19.5,
             
@@ -293,9 +304,9 @@ class SearchTextField: UIControl, Layouteable {
             indicator.al_left == label.al_right,
             indicator.al_bottom == label.al_bottom,
             
-            cancelButton.al_height == al_height,
-            cancelButton.al_width == cancelButton.al_height,
-            cancelButton.al_centerY == al_centerY
+            clearButton.al_height == 15,
+            clearButton.al_width == clearButton.al_height,
+            clearButton.al_centerY == al_centerY
         ])
     }
 }
