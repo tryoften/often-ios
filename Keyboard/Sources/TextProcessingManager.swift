@@ -20,8 +20,9 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     let defaultProxy: UITextDocumentProxy
     var spellChecker: SpellChecker?
     var lastInsertedString: String?
-    var lyricInserted = false
     var proxies: [String: UITextDocumentProxy]
+    var autocorrectEnabled = true
+    var parsingText = false
 
     init(textDocumentProxy: UITextDocumentProxy) {
         proxies = [:]
@@ -89,16 +90,42 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func parseTextInCurrentDocumentProxy() {
+        if parsingText {
+            return
+        }
+        parsingText = true
+        
+        defer {
+            parsingText = false
+        }
+        
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
+ 
             
-            guard let firstToken = tokens.first, let lastWord = tokens.last else {
+            guard let firstToken = tokens.first, var lastWord = tokens.last else {
                 return
             }
             print(tokens)
+            let query = lastWord == "" && tokens.count > 1 ? tokens[tokens.count - 2] : lastWord
             
-            if let suggestions = spellChecker?.lookup(lastWord, language: "", editDistanceMax: 2) {
+            if let suggestions = spellChecker?.lookup(query, language: "", editDistanceMax: 2) {
                 delegate?.textProcessingManagerDidReceiveSpellCheckSuggestions(self, suggestions: suggestions)
+                
+                guard let firstSuggestion = suggestions.first else {
+                    return
+                }
+                
+                print("lastWord: ", lastWord)
+                if autocorrectEnabled && lastWord == "" {
+                    lastWord = tokens[tokens.count - 2]
+                    
+                    for _ in 0...lastWord.length {
+                        currentProxy.deleteBackward()
+                    }
+                    
+                    currentProxy.insertText(firstSuggestion.term + " ")
+                }
             }
             
             // check if first token is command call
