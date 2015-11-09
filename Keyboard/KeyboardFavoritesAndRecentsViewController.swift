@@ -8,22 +8,31 @@
 
 import Foundation
 
-class KeyboardFavoriteAndRecentViewController: FavoritesAndRecentsBaseViewController {
-    var favoriteAndRecentTabView: FavoriteAndRecentTabView
+class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewController {
+    var favoritesAndRecentsTabView: FavoritesAndRecentsTabView
     var searchResultsContainerView: UIView?
+    var textProcessor: TextProcessingManager?
+    var spacer: UIView
     
-    override init(collectionViewLayout layout: UICollectionViewLayout, viewModel: MediaLinksViewModel) {
-        favoriteAndRecentTabView = FavoriteAndRecentTabView()
-        favoriteAndRecentTabView.translatesAutoresizingMaskIntoConstraints = false
-        favoriteAndRecentTabView.userInteractionEnabled = true
+    init(collectionViewLayout layout: UICollectionViewLayout, viewModel: MediaLinksViewModel, textProcessor: TextProcessingManager?) {
+        self.textProcessor = textProcessor
+        
+        favoritesAndRecentsTabView = FavoritesAndRecentsTabView()
+        favoritesAndRecentsTabView.translatesAutoresizingMaskIntoConstraints = false
+        favoritesAndRecentsTabView.userInteractionEnabled = true
+        
+        spacer = UIView()
+        spacer.translatesAutoresizingMaskIntoConstraints = false
+        spacer.backgroundColor = VeryLightGray
         
        super.init(collectionViewLayout: layout, viewModel: viewModel)
         
-        favoriteAndRecentTabView.delegate = self
+        favoritesAndRecentsTabView.delegate = self
         emptyStateView.userInteractionEnabled = true
         
         view.backgroundColor = VeryLightGray
-        view.addSubview(favoriteAndRecentTabView)
+        view.addSubview(favoritesAndRecentsTabView)
+        view.addSubview(spacer)
 
         setupLayout()
     }
@@ -52,15 +61,20 @@ class KeyboardFavoriteAndRecentViewController: FavoritesAndRecentsBaseViewContro
     
     func setupLayout() {
         view.addConstraints([
-            favoriteAndRecentTabView.al_top == view.al_top,
-            favoriteAndRecentTabView.al_left == view.al_left,
-            favoriteAndRecentTabView.al_right == view.al_right,
-            favoriteAndRecentTabView.al_height == KeyboardSearchBarHeight,
+            favoritesAndRecentsTabView.al_top == view.al_top,
+            favoritesAndRecentsTabView.al_left == view.al_left,
+            favoritesAndRecentsTabView.al_right == view.al_right,
+            favoritesAndRecentsTabView.al_height == KeyboardSearchBarHeight,
             
             contentFilterTabView.al_top == view.al_top + KeyboardSearchBarHeight + 1,
             contentFilterTabView.al_left == view.al_left,
             contentFilterTabView.al_right == view.al_right,
             contentFilterTabView.al_height == KeyboardSearchBarHeight,
+            
+            spacer.al_top == favoritesAndRecentsTabView.al_bottom,
+            spacer.al_left == view.al_left,
+            spacer.al_right == view.al_right,
+            spacer.al_bottom == contentFilterTabView.al_top,
             
             emptyStateView.al_top == contentFilterTabView.al_bottom,
             emptyStateView.al_left == view.al_left,
@@ -70,14 +84,14 @@ class KeyboardFavoriteAndRecentViewController: FavoritesAndRecentsBaseViewContro
             ])
         
     }
-
+    
     // MediaLinkCollectionViewCellDelegate
     override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
-             return
+            return
         }
         
-        UIPasteboard.generalPasteboard().string = result.getInsertableText()
+        textProcessor?.defaultProxy.insertText(result.getInsertableText())
     }
 
 

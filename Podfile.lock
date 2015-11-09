@@ -1,23 +1,23 @@
 PODS:
-  - AFNetworking (2.6.1):
-    - AFNetworking/NSURLConnection (= 2.6.1)
-    - AFNetworking/NSURLSession (= 2.6.1)
-    - AFNetworking/Reachability (= 2.6.1)
-    - AFNetworking/Security (= 2.6.1)
-    - AFNetworking/Serialization (= 2.6.1)
-    - AFNetworking/UIKit (= 2.6.1)
-  - AFNetworking/NSURLConnection (2.6.1):
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.1):
+  - AFNetworking/NSURLSession (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.1)
-  - AFNetworking/Security (2.6.1)
-  - AFNetworking/Serialization (2.6.1)
-  - AFNetworking/UIKit (2.6.1):
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Analytics/Core-iOS (1.11.3):
@@ -60,7 +60,7 @@ PODS:
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.0)
+  - AFNetworking (= 2.6.0)
   - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
   - CSStickyHeaderFlowLayout
   - DateTools (~> 1.6)
@@ -89,7 +89,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/washingtonmiranda/iOS-Slide-Menu.git
 
 SPEC CHECKSUMS:
-  AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
   Bolts: 0e9bce58b9b9f5e8a7a4d47b16d2fabec289072b
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776

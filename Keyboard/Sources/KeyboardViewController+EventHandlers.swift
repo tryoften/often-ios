@@ -286,13 +286,12 @@ extension KeyboardViewController {
     }
     
     func didTapGoToBrowseKey(button: KeyboardKeyButton?) {
-       favoriteAndRecentViewController = KeyboardFavoriteAndRecentViewController(collectionViewLayout: KeyboardFavoriteAndRecentViewController.provideCollectionViewFlowLayout(), viewModel: MediaLinksViewModel())
-        view.addSubview(favoriteAndRecentViewController!.view)
+        view.addSubview(favoritesAndRecentsViewController!.view)
         view.addConstraints([
-            favoriteAndRecentViewController!.view.al_top == view.al_top,
-            favoriteAndRecentViewController!.view.al_left == view.al_left,
-            favoriteAndRecentViewController!.view.al_bottom == view.al_bottom,
-            favoriteAndRecentViewController!.view.al_right == view.al_right
+            favoritesAndRecentsViewController!.view.al_top == view.al_top,
+            favoritesAndRecentsViewController!.view.al_left == view.al_left,
+            favoritesAndRecentsViewController!.view.al_bottom == view.al_bottom,
+            favoritesAndRecentsViewController!.view.al_right == view.al_right
             ])
         
         slidePanelContainerView.hidden = false

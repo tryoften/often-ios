@@ -41,7 +41,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     static var debugKeyboard = false
     var autoPeriodState: AutoPeriodState = .NoSpace
     var toolTipViewController: ToolTipViewController?
-    var favoriteAndRecentViewController: KeyboardFavoriteAndRecentViewController?
+    var favoritesAndRecentsViewController: KeyboardFavoritesAndRecentsViewController?
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
     }
@@ -114,6 +114,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 Firebase.defaultConfig().persistenceEnabled = true
             }
         }
+        
+        favoritesAndRecentsViewController = KeyboardFavoritesAndRecentsViewController(collectionViewLayout: KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout(), viewModel: MediaLinksViewModel(), textProcessor: textProcessor)
         
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBarHeight = KeyboardSearchBarHeight

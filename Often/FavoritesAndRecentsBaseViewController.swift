@@ -11,7 +11,7 @@ import Foundation
 class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewController,
     UserProfileViewModelDelegate,
     FilterTabDelegate,
-    FavoriteAndRecentTabDelegate {
+    FavoritesAndRecentsTabDelegate {
     var sectionHeaderView: UserProfileSectionHeaderView?
     var contentFilterTabView: MediaFilterTabView
     var viewModel: MediaLinksViewModel
@@ -131,13 +131,13 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.mediaLinksCollections.count
+        return viewModel.mediaLinks.count
         
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: MediaLinkCollectionViewCell
-        cell = parseMediaLinkData(viewModel.mediaLinksCollections, indexPath: indexPath, collectionView: collectionView)
+        cell = parseMediaLinkData(viewModel.mediaLinks, indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
         
         

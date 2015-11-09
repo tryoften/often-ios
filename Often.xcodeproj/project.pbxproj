@@ -75,11 +75,11 @@
 		3BD971E31B9FD483007EAB5A /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E21B9FD483007EAB5A /* SignupViewModel.swift */; };
 		3BDF98C61BA262DE00F383D8 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */; };
 		3BDF98CB1BA2652F00F383D8 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */; };
-		3BE0BC891BEBFA9200037E21 /* FavoriteAndRecentTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FavoriteAndRecentTabView.swift */; };
-		3BE0BC971BED4CEE00037E21 /* KeyboardFavoriteAndRecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC961BED4CEE00037E21 /* KeyboardFavoriteAndRecentViewController.swift */; };
-		3BE0BC9C1BED51EB00037E21 /* FavoriteAndRecentTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FavoriteAndRecentTabView.swift */; };
+		3BE0BC891BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */; };
+		3BE0BC971BED4CEE00037E21 /* KeyboardFavoritesAndRecentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC961BED4CEE00037E21 /* KeyboardFavoritesAndRecentsViewController.swift */; };
+		3BE0BC9C1BED51EB00037E21 /* FavoritesAndRecentsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */; };
 		3BE0BCA01BED530800037E21 /* MediaFilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD891B8E0BD7003BC281 /* MediaFilterTabView.swift */; };
-		3BE0BCA21BED58AA00037E21 /* KeyboardFavoriteAndRecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC961BED4CEE00037E21 /* KeyboardFavoriteAndRecentViewController.swift */; };
+		3BE0BCA21BED58AA00037E21 /* KeyboardFavoritesAndRecentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC961BED4CEE00037E21 /* KeyboardFavoritesAndRecentsViewController.swift */; };
 		3BE0BCA31BEDB8B700037E21 /* MediaLinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C663211B8B6FA60014433D /* MediaLinksViewModel.swift */; };
 		3BE0BCA41BEDB8BD00037E21 /* EmptySetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69192E571BBB9AF800903071 /* EmptySetView.swift */; };
 		3BE0BCA71BEDBF2000037E21 /* UserProfileSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698B87291B755139001B5B86 /* UserProfileSectionHeaderView.swift */; };
@@ -394,8 +394,8 @@
 		3BD971E21B9FD483007EAB5A /* SignupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
-		3BE0BC881BEBFA9200037E21 /* FavoriteAndRecentTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteAndRecentTabView.swift; sourceTree = "<group>"; };
-		3BE0BC961BED4CEE00037E21 /* KeyboardFavoriteAndRecentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardFavoriteAndRecentViewController.swift; sourceTree = "<group>"; };
+		3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesAndRecentsTabView.swift; sourceTree = "<group>"; };
+		3BE0BC961BED4CEE00037E21 /* KeyboardFavoritesAndRecentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardFavoritesAndRecentsViewController.swift; sourceTree = "<group>"; };
 		3BE12EF11BEF020800F300FA /* FavoritesAndRecentsBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesAndRecentsBaseViewController.swift; sourceTree = "<group>"; };
 		3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDProgressView.swift; sourceTree = "<group>"; };
 		3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotificationsAlertView.swift; sourceTree = "<group>"; };
@@ -883,7 +883,7 @@
 			isa = PBXGroup;
 			children = (
 				690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */,
-				3BE0BC881BEBFA9200037E21 /* FavoriteAndRecentTabView.swift */,
+				3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */,
 				3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */,
 				3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */,
 				3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */,
@@ -1060,7 +1060,7 @@
 				3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */,
 				8176BEC41B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift */,
 				696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */,
-				3BE0BC961BED4CEE00037E21 /* KeyboardFavoriteAndRecentViewController.swift */,
+				3BE0BC961BED4CEE00037E21 /* KeyboardFavoritesAndRecentsViewController.swift */,
 				817939061B5C29560064B0CF /* SearchBarController.swift */,
 				81E26DA51B68901100FC1F2F /* TrendingViewController.swift */,
 				8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */,
@@ -1419,7 +1419,7 @@
 				81153CBE1BBC869200A91EAD /* TogglePanelButton.swift in Sources */,
 				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
 				81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */,
-				3BE0BCA21BED58AA00037E21 /* KeyboardFavoriteAndRecentViewController.swift in Sources */,
+				3BE0BCA21BED58AA00037E21 /* KeyboardFavoritesAndRecentsViewController.swift in Sources */,
 				816588F71B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */,
 				695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */,
@@ -1446,7 +1446,7 @@
 				3BEB40B91BD03A3500D36C4D /* TextMessageOnBoardingView.swift in Sources */,
 				69BFB5101BC16F96001CC24D /* ToolTip.swift in Sources */,
 				81A1A4F61A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
-				3BE0BC891BEBFA9200037E21 /* FavoriteAndRecentTabView.swift in Sources */,
+				3BE0BC891BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift in Sources */,
 				81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				816589031B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
 				8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
@@ -1558,7 +1558,7 @@
 				816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */,
 				3BE0BCA41BEDB8BD00037E21 /* EmptySetView.swift in Sources */,
-				3BE0BC971BED4CEE00037E21 /* KeyboardFavoriteAndRecentViewController.swift in Sources */,
+				3BE0BC971BED4CEE00037E21 /* KeyboardFavoritesAndRecentsViewController.swift in Sources */,
 				81153CBD1BBC7FC000A91EAD /* TogglePanelButton.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				3BF60C4F1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */,
@@ -1576,7 +1576,7 @@
 				3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */,
 				81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
-				3BE0BC9C1BED51EB00037E21 /* FavoriteAndRecentTabView.swift in Sources */,
+				3BE0BC9C1BED51EB00037E21 /* FavoritesAndRecentsTabView.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
@@ -1691,7 +1691,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8e59eff7-3e58-4919-a616-8b99c9b6971a";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1730,7 +1730,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "78bb5604-5d92-44e0-acf5-c0fe2988f2da";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1815,7 +1815,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8e59eff7-3e58-4919-a616-8b99c9b6971a";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1853,7 +1853,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "78bb5604-5d92-44e0-acf5-c0fe2988f2da";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1939,7 +1939,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8e59eff7-3e58-4919-a616-8b99c9b6971a";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1977,7 +1977,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "78bb5604-5d92-44e0-acf5-c0fe2988f2da";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};

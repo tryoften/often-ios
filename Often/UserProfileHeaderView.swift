@@ -26,7 +26,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         )
     }
     
-    var tabContainerView: FavoriteAndRecentTabView
+    var tabContainerView: FavoritesAndRecentsTabView
     var offsetValue: CGFloat
     var setServicesRevealButton: UIButton
     var settingsRevealButton: UIButton
@@ -75,7 +75,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         scoreNameLabel.font = UIFont(name: "OpenSans", size: 12.0)
         scoreNameLabel.textAlignment = .Center
         
-        tabContainerView = FavoriteAndRecentTabView()
+        tabContainerView = FavoritesAndRecentsTabView()
         tabContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         setServicesRevealButton = UIButton()

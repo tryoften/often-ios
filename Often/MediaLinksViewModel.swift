@@ -17,18 +17,18 @@ enum UserProfileViewModelError: ErrorType {
 
 class MediaLinksViewModel {
     weak var delegate: UserProfileViewModelDelegate?
-    let userId: String
+    private let userId: String
     let baseRef: Firebase
-    var userRef: Firebase?
-    var favoriteRef: Firebase?
-    var recentsRef: Firebase?
+    private var userRef: Firebase?
+    private var favoriteRef: Firebase?
+    private var recentsRef: Firebase?
     var currentUser: User?
-    var favorites: [String]
-    var shouldFilter: Bool = false
-    let userDefaults: NSUserDefaults
-    var mediaLinksCollections: [MediaLink]
-    var filteredUserRecents: [UserRecentLink]
-    var filteredUserFavorites: [UserFavoriteLink]
+    private var favorites: [String]
+    private var shouldFilter: Bool = false
+    private let userDefaults: NSUserDefaults
+    var mediaLinks: [MediaLink]
+    private var filteredUserRecents: [UserRecentLink]
+    private var filteredUserFavorites: [UserFavoriteLink]
     var currentCollectionType: UserProfileCollectionType  {
         didSet {
             filterMediaLinks()
@@ -60,7 +60,7 @@ class MediaLinksViewModel {
         userRecents = []
         filteredUserRecents = []
         filteredUserFavorites = []
-        mediaLinksCollections = []
+        mediaLinks = []
         filters = []
         currentCollectionType = .Favorites
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
@@ -201,13 +201,13 @@ class MediaLinksViewModel {
     func filterMediaLinks() {
         switch(currentCollectionType) {
         case .Favorites:
-            mediaLinksCollections = applyFilters(userFavorites)
+            mediaLinks = applyFilters(userFavorites)
             break
         case .Recents:
-            mediaLinksCollections = applyFilters(userRecents)
+            mediaLinks = applyFilters(userRecents)
             break
         }
-        delegate?.userProfileViewModelDidReceiveMediaLinks(self, links: mediaLinksCollections)
+        delegate?.userProfileViewModelDidReceiveMediaLinks(self, links: mediaLinks)
     }
     
     func toggleFavorite(selected: Bool, result: MediaLink) {

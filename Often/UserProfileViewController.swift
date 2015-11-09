@@ -80,7 +80,7 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return viewModel.mediaLinksCollections.count
+            return viewModel.mediaLinks.count
     
     }
     
@@ -154,7 +154,7 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         SlideNavigationController.sharedInstance().openMenu(MenuRight, withCompletion: nil)
     }
     
-       //MARK: Check for empty state
+    //MARK: Check for empty state
     func checkUserEmptyStateStatus() {
         collectionView?.scrollEnabled = false
         isKeyboardEnabled()
@@ -223,6 +223,16 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         revealSetServicesViewDidTap()
         
     }
+    
+    // MediaLinkCollectionViewCellDelegate
+    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        guard let result = cell.mediaLink else {
+            return
+        }
+        
+        UIPasteboard.generalPasteboard().string = result.getInsertableText()
+    }
+
     
     
   

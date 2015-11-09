@@ -8,12 +8,12 @@
 
 import Foundation
 
-class FavoriteAndRecentTabView: UIView {
+class FavoritesAndRecentsTabView: UIView {
     let highlightBarView: UIView
     var highlightBarLeftConstraint: NSLayoutConstraint?
     var favoritesTabButton: UIButton
     var recentsTabButton: UIButton
-    var delegate: FavoriteAndRecentTabDelegate?
+    var delegate: FavoritesAndRecentsTabDelegate?
     
     override init(frame: CGRect) {
         favoritesTabButton = UIButton()
@@ -94,7 +94,7 @@ class FavoriteAndRecentTabView: UIView {
     
 }
 
-protocol FavoriteAndRecentTabDelegate {
+protocol FavoritesAndRecentsTabDelegate {
     func userFavoritesTabSelected()
     func userRecentsTabSelected()
 }

@@ -10,7 +10,7 @@ import Foundation
 
 let MediaLinkCollectionViewCellReuseIdentifier = "MediaLinksCollectionViewCell"
 
-class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaLinkCollectionViewCellDelegate {
+class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaLinksCollectionViewCellDelegate {
    var cellsAnimated: [NSIndexPath: Bool]
    
     override init(collectionViewLayout layout: UICollectionViewLayout) {
