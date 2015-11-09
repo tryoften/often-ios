@@ -60,7 +60,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         pageControl.currentPage = 0
         pageControl.transform = CGAffineTransformMakeScale(0.75, 0.75)
         pageControl.pageIndicatorTintColor = DarkGrey
-        pageControl.currentPageIndicatorTintColor = TealColor
+        pageControl.currentPageIndicatorTintColor = TealColor.colorWithAlphaComponent(0.75)
         
         pagesScrollViewSize = scrollView.frame.size
         pageCount = 5
@@ -199,11 +199,11 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             pageControl.al_centerX == scrollView.al_centerX,
             pageControl.al_bottom == scrollView.al_bottom - 18,
             pageControl.al_height == 5,
-            
-            scrollView.al_width == view.al_width - 20,
-            scrollView.al_height == view.al_height - 30,
+
             scrollView.al_centerY == view.al_centerY,
-            scrollView.al_centerX == view.al_centerX,
+            scrollView.al_width == view.al_width - 20,
+            scrollView.al_height == view.al_height - 40,
+            scrollView.al_left == view.al_left + 10,
             
             closeButton.al_top == scrollView.al_top + 5,
             closeButton.al_right == scrollView.al_right - 5,

@@ -144,6 +144,25 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
     
     func updateKeyCap(key: KeyboardKeyButton, model: KeyboardKey, fullReset: Bool, uppercase: Bool, characterUppercase: Bool, shiftState: ShiftState) {
         key.key = model
+        
+        switch(model) {
+        case .letter (let character):
+            let str = String(character.rawValue)
+            if shiftState.uppercase() {
+                key.text = str
+            } else {
+                key.text = str.lowercaseString
+            }
+            break
+        case .modifier(.CapsLock, _):
+            if shiftState.uppercase() {
+                key.selected = true
+            } else {
+                key.selected = false
+            }
+        default:
+            break
+        }
     }
     
     // TODO: avoid array copies

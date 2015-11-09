@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  Often
@@ -113,15 +114,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-}
-
-extension String {
-    subscript(index:Int) -> Character{
-        return self[self.startIndex.advancedBy(index)]
-    }
-    
-    func substringFromIndex(index:Int) -> String {
-        return self.substringFromIndex(self.startIndex.advancedBy(index))
     }
 }
