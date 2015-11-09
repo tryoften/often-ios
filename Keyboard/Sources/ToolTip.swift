@@ -27,6 +27,7 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
         textView.backgroundColor = UIColor.clearColor()
         textView.textColor = UIColor.blackColor()
         textView.font = UIFont(name: "OpenSans", size: 12.0)
+        textView.alpha = 0.74
         
         super.init(frame: frame)
         
@@ -47,53 +48,40 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
     }
     
     func setupLayout() {
-        addConstraints([
+        var constraints: [NSLayoutConstraint] = [
             textView.al_centerX == al_centerX,
             textView.al_width == 270,
-            textView.al_height == 50,
-            textView.al_bottom == al_bottom - 35
-        ])
-        
-        if currentPage == 0 {
-            let constraints: [NSLayoutConstraint] = [
+            textView.al_height == 55,
+            textView.al_bottom == al_bottom - 36,
+            imageView.al_centerX == al_centerX
+        ]
+
+        if currentPage == 0 || currentPage == 2 {
+            constraints += [
                 imageView.al_bottom == textView.al_top + 1,
-                imageView.al_centerX == al_centerX,
-                imageView.al_width == 270,
-                imageView.al_height == 80
+                imageView.al_width == 225,
+                imageView.al_height == 70
             ]
-            addConstraints(constraints)
         } else if currentPage == 1 {
-            let constraints: [NSLayoutConstraint] = [
-                imageView.al_bottom == textView.al_top + 8,
-                imageView.al_centerX == al_centerX,
-                imageView.al_width == 250,
-                imageView.al_height == 75
+            constraints += [
+                imageView.al_bottom == textView.al_top + 1,
+                imageView.al_width == 200,
+                imageView.al_height == 70
             ]
-            addConstraints(constraints)
-        } else if currentPage == 2 {
-            let constraints: [NSLayoutConstraint] = [
-                imageView.al_bottom == textView.al_top + 4,
-                imageView.al_centerX == al_centerX,
-                imageView.al_width == 275,
-                imageView.al_height == 75
+        } else if currentPage == 3 || currentPage == 4 {
+            constraints += [
+                imageView.al_bottom == textView.al_top + 1,
+                imageView.al_width == 205,
+                imageView.al_height == 70
             ]
-            addConstraints(constraints)
-        } else if currentPage == 3 {
-            let constraints: [NSLayoutConstraint] = [
-                imageView.al_bottom == textView.al_top + 8,
-                imageView.al_centerX == al_centerX,
-                imageView.al_width == 265,
-                imageView.al_height == 65
-            ]
-            addConstraints(constraints)
         } else {
-            let constraints: [NSLayoutConstraint] = [
-                imageView.al_bottom == textView.al_top + 8,
-                imageView.al_centerX == al_centerX,
-                imageView.al_width == 275,
-                imageView.al_height == 75
+            constraints += [
+                imageView.al_bottom == textView.al_top + 2,
+                imageView.al_width == 225,
+                imageView.al_height == 70
             ]
-            addConstraints(constraints)
         }
+        
+        addConstraints(constraints)
     }
 }
