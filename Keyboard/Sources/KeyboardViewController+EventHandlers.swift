@@ -286,17 +286,30 @@ extension KeyboardViewController {
     }
     
     func didTapGoToBrowseKey(button: KeyboardKeyButton?) {
-        view.addSubview(favoritesAndRecentsViewController!.view)
-        view.addConstraints([
-            favoritesAndRecentsViewController!.view.al_top == view.al_top,
-            favoritesAndRecentsViewController!.view.al_left == view.al_left,
-            favoritesAndRecentsViewController!.view.al_bottom == view.al_bottom,
-            favoritesAndRecentsViewController!.view.al_right == view.al_right
+        
+        if favoritesAndRecentsViewController == nil {
+            favoritesAndRecentsViewController = KeyboardFavoritesAndRecentsViewController(collectionViewLayout: KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout(), viewModel: MediaLinksViewModel(), textProcessor: textProcessor)
+            
+            let mediaLinksView = favoritesAndRecentsViewController!.view
+            
+            mediaLinksView.translatesAutoresizingMaskIntoConstraints = false
+            view.insertSubview(mediaLinksView, aboveSubview: slidePanelContainerView)
+            view.addConstraints([
+                mediaLinksView.al_top == view.al_top,
+                mediaLinksView.al_left == view.al_left,
+                mediaLinksView.al_bottom == view.al_bottom,
+                mediaLinksView.al_right == view.al_right
             ])
+        }
         
-        slidePanelContainerView.hidden = false
+        NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
+            "height": 100.0
+        ])
+
+        togglePanelButton.mode = .ClosePanel
+        favoritesAndRecentsViewController?.view.hidden = false
+        slidePanelContainerView.hidden = true
         collapseKeyboard()
-        
     }
     
     func shiftUp(button: KeyboardKeyButton?) {

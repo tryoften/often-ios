@@ -21,7 +21,6 @@ typealias FilterMap = [FilterTag: [MediaType]]
 let DefaultFilterMap: FilterMap = [
     .Music: [.Album, .Track, .Artist],
     .Video: [.Video],
-    .Gifs: [.Gif],
     .News: [.Article],
     .All:  []
 ]
