@@ -183,14 +183,4 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         viewModel.toggleFavorite(selected, result: result)
         cell.itemFavorited = selected
     }
-    
-    override func mediaLinkCollectionViewCellDidToggleDeleteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
-        guard let result = cell.mediaLink else {
-            return
-        }
-        
-        viewModel.toggleFavorite(!selected, result: result)
-        cell.itemFavorited = !selected
-    }
-    
 }

@@ -15,7 +15,6 @@ class SearchResultsCellOverlayView: UIView {
     let favoriteButton: SpringButton
     let cancelButton: SpringButton
     let doneButton: SpringButton
-    let deleteButton: SpringButton
     let copyButton: SpringButton
     
     let rightLabel: UILabel
@@ -33,7 +32,7 @@ class SearchResultsCellOverlayView: UIView {
         favoriteButton = SpringButton()
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.setImage(StyleKit.imageOfFavorite(scale: 0.5), forState: .Normal)
-        favoriteButton.setImage(StyleKit.imageOfFavorite(scale: 0.5, selected: true), forState: .Selected)
+        favoriteButton.setImage(StyleKit.imageOfFavorite(scale: 0.5, favorited: true), forState: .Selected)
         
         cancelButton = SpringButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
@@ -44,12 +43,6 @@ class SearchResultsCellOverlayView: UIView {
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.setImage(StyleKit.imageOfCheckmark(scale: 0.5), forState: .Normal)
         doneButton.hidden = true
-        
-        deleteButton = SpringButton()
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.setImage(StyleKit.imageOfTrash(scale: 0.5), forState: .Normal)
-        deleteButton.setImage(StyleKit.imageOfUndo(scale: 0.5, selected: true), forState: .Selected)
-        deleteButton.hidden = true
         
         copyButton = SpringButton()
         copyButton.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +78,6 @@ class SearchResultsCellOverlayView: UIView {
         addSubview(favoriteButton)
         addSubview(cancelButton)
         addSubview(doneButton)
-        addSubview(deleteButton)
         addSubview(copyButton)
         
         addSubview(rightLabel)
@@ -114,9 +106,6 @@ class SearchResultsCellOverlayView: UIView {
 
         setupAnimation(favoriteButton)
         favoriteButton.animate()
-        
-        setupAnimation(deleteButton)
-        deleteButton.animate()
         
         setupAnimation(cancelButton)
         cancelButton.delay = 0.1
@@ -152,10 +141,6 @@ class SearchResultsCellOverlayView: UIView {
             favoriteButton.al_width == 60,
             favoriteButton.al_height == favoriteButton.al_width,
             
-            deleteButton.al_centerY == cancelButton.al_centerY,
-            deleteButton.al_width == 60,
-            deleteButton.al_height == favoriteButton.al_width,
-            
             cancelButton.al_centerY == al_centerY - 15,
             cancelButton.al_width == 60,
             cancelButton.al_height == cancelButton.al_width,
@@ -167,7 +152,6 @@ class SearchResultsCellOverlayView: UIView {
             cancelButton.al_centerX == al_centerX,
             doneButton.al_centerX == al_centerX,
             favoriteButton.al_right == cancelButton.al_left - 40,
-            deleteButton.al_right == cancelButton.al_left - 40,
             insertButton.al_left == cancelButton.al_right + 40,
             copyButton.al_left == cancelButton.al_right + 40,
             
