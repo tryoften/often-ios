@@ -997,10 +997,6 @@ public class StyleKit : NSObject {
         let selectedHighlightColor = selected ? UIColor(red: 1, green: 1, blue: 1, alpha: 1) : color
         let strokeColor = selected ? highlightedColor : color
 
-        //// Frames
-        let frame = CGRectMake(14, 16, 50, 50)
-
-
         //// icon
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, 5.5, 4.5)
@@ -1019,9 +1015,9 @@ public class StyleKit : NSObject {
 
         //// Path-931 Drawing
         let path931Path = UIBezierPath()
-        path931Path.moveToPoint(CGPointMake(frame.minX + 14.25, frame.minY + 10.64))
-        path931Path.addLineToPoint(CGPointMake(frame.minX + 4.89, frame.minY + 20.12))
-        path931Path.addLineToPoint(CGPointMake(frame.minX + 14.25, frame.minY + 28.36))
+        path931Path.moveToPoint(CGPointMake(28.25, 26.64))
+        path931Path.addLineToPoint(CGPointMake(18.89, 36.12))
+        path931Path.addLineToPoint(CGPointMake(28.25, 44.36))
         path931Path.miterLimit = 4;
 
         path931Path.lineCapStyle = .Round;
@@ -1037,11 +1033,11 @@ public class StyleKit : NSObject {
 
         //// Path-145 Drawing
         let path145Path = UIBezierPath()
-        path145Path.moveToPoint(CGPointMake(frame.minX + 28.5, frame.minY + 35.5))
-        path145Path.addLineToPoint(CGPointMake(frame.minX + 40.5, frame.minY + 35.5))
-        path145Path.addCurveToPoint(CGPointMake(frame.minX + 48.5, frame.minY + 27.5), controlPoint1: CGPointMake(frame.minX + 40.5, frame.minY + 35.5), controlPoint2: CGPointMake(frame.minX + 48.5, frame.minY + 35.21))
-        path145Path.addCurveToPoint(CGPointMake(frame.minX + 40.5, frame.minY + 19.5), controlPoint1: CGPointMake(frame.minX + 48.5, frame.minY + 19.79), controlPoint2: CGPointMake(frame.minX + 40.5, frame.minY + 19.5))
-        path145Path.addLineToPoint(CGPointMake(frame.minX + 5.5, frame.minY + 19.5))
+        path145Path.moveToPoint(CGPointMake(42.5, 51.5))
+        path145Path.addLineToPoint(CGPointMake(54.5, 51.5))
+        path145Path.addCurveToPoint(CGPointMake(62.5, 43.5), controlPoint1: CGPointMake(54.5, 51.5), controlPoint2: CGPointMake(62.5, 51.21))
+        path145Path.addCurveToPoint(CGPointMake(54.5, 35.5), controlPoint1: CGPointMake(62.5, 35.79), controlPoint2: CGPointMake(54.5, 35.5))
+        path145Path.addLineToPoint(CGPointMake(19.5, 35.5))
         path145Path.miterLimit = 4;
 
         path145Path.lineCapStyle = .Round;
@@ -1053,6 +1049,59 @@ public class StyleKit : NSObject {
         selectedHighlightColor.setStroke()
         path145Path.lineWidth = 4
         path145Path.stroke()
+
+
+
+        CGContextRestoreGState(context)
+    }
+
+    public class func drawClosebutton(frame frame: CGRect = CGRectMake(0, 0, 35, 35), scale: CGFloat = 0.5) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()
+
+        //// Color Declarations
+        let fillColor6 = UIColor(red: 0.812, green: 0.812, blue: 0.812, alpha: 0.540)
+        let fillColor7 = UIColor(red: 0.383, green: 0.383, blue: 0.387, alpha: 1.000)
+
+        //// icon
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
+        CGContextScaleCTM(context, scale, scale)
+
+
+
+        //// Oval-77 Drawing
+        let oval77Path = UIBezierPath(ovalInRect: CGRectMake(-35, -35, 70, 70))
+        fillColor6.setFill()
+        oval77Path.fill()
+
+
+        //// Rectangle-614 Drawing
+        let rectangle614Path = UIBezierPath()
+        rectangle614Path.moveToPoint(CGPointMake(2.83, -1))
+        rectangle614Path.addLineToPoint(CGPointMake(10.61, -8.78))
+        rectangle614Path.addCurveToPoint(CGPointMake(10.61, -11.61), controlPoint1: CGPointMake(11.39, -9.56), controlPoint2: CGPointMake(11.39, -10.83))
+        rectangle614Path.addCurveToPoint(CGPointMake(7.78, -11.61), controlPoint1: CGPointMake(9.82, -12.39), controlPoint2: CGPointMake(8.56, -12.39))
+        rectangle614Path.addLineToPoint(CGPointMake(0, -3.83))
+        rectangle614Path.addLineToPoint(CGPointMake(-7.78, -11.61))
+        rectangle614Path.addCurveToPoint(CGPointMake(-10.61, -11.61), controlPoint1: CGPointMake(-8.56, -12.39), controlPoint2: CGPointMake(-9.83, -12.39))
+        rectangle614Path.addCurveToPoint(CGPointMake(-10.61, -8.78), controlPoint1: CGPointMake(-11.39, -10.82), controlPoint2: CGPointMake(-11.39, -9.56))
+        rectangle614Path.addLineToPoint(CGPointMake(-2.83, -1))
+        rectangle614Path.addLineToPoint(CGPointMake(-10.61, 6.78))
+        rectangle614Path.addCurveToPoint(CGPointMake(-10.61, 9.61), controlPoint1: CGPointMake(-11.39, 7.56), controlPoint2: CGPointMake(-11.39, 8.83))
+        rectangle614Path.addCurveToPoint(CGPointMake(-7.78, 9.61), controlPoint1: CGPointMake(-9.82, 10.39), controlPoint2: CGPointMake(-8.56, 10.39))
+        rectangle614Path.addLineToPoint(CGPointMake(0, 1.83))
+        rectangle614Path.addLineToPoint(CGPointMake(7.78, 9.61))
+        rectangle614Path.addCurveToPoint(CGPointMake(10.61, 9.61), controlPoint1: CGPointMake(8.56, 10.39), controlPoint2: CGPointMake(9.83, 10.39))
+        rectangle614Path.addCurveToPoint(CGPointMake(10.61, 6.78), controlPoint1: CGPointMake(11.39, 8.82), controlPoint2: CGPointMake(11.39, 7.56))
+        rectangle614Path.addLineToPoint(CGPointMake(2.83, -1))
+        rectangle614Path.closePath()
+        rectangle614Path.miterLimit = 4;
+
+        rectangle614Path.usesEvenOddFillRule = true;
+
+        fillColor7.setFill()
+        rectangle614Path.fill()
 
 
 
@@ -1302,6 +1351,16 @@ public class StyleKit : NSObject {
         UIGraphicsEndImageContext()
 
         return imageOfUndo
+    }
+
+    public class func imageOfClosebutton(frame frame: CGRect = CGRectMake(0, 0, 35, 35), scale: CGFloat = 0.5) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+            StyleKit.drawClosebutton(frame: CGRectMake(0, 0, frame.size.width, frame.size.height), scale: scale)
+
+        let imageOfClosebutton = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return imageOfClosebutton
     }
 
     public class func imageOfUser(frame frame: CGRect = CGRectMake(5, 6, 30, 30), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {

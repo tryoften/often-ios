@@ -178,6 +178,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
             cell.itemFavorited = false
         }
         
+        cell.prepareOverlayView()
         cell.overlayVisible = true
     }
     
@@ -260,6 +261,15 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         
         viewModel?.toggleFavorite(selected, result: result)
         cell.itemFavorited = selected
+    }
+    
+    override func mediaLinkCollectionViewCellDidToggleDeleteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        guard let result = cell.mediaLink else {
+            return
+        }
+        
+        viewModel?.toggleFavorite(!selected, result: result)
+        cell.itemFavorited = !selected
     }
     
     override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
