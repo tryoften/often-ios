@@ -132,6 +132,17 @@ class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaL
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
         
     }
+    
+    func mediaLinkCollectionViewCellDidToggleDeleteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    }
+    
+    func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        guard let result = cell.mediaLink else {
+            return
+        }
+        UIPasteboard.generalPasteboard().string = result.getInsertableText()
+    }
+
 
 
 }

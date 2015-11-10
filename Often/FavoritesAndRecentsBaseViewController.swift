@@ -140,7 +140,6 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         cell = parseMediaLinkData(viewModel.mediaLinks, indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
         
-        
         if let result = cell.mediaLink {
             if  viewModel.checkFavorite(result) {
                 cell.itemFavorited = true
@@ -171,7 +170,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         } else {
             cell.itemFavorited = false
         }
-        
+        cell.prepareOverlayView()
         cell.overlayVisible = true
     }
     
@@ -185,5 +184,13 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         cell.itemFavorited = selected
     }
     
+    override func mediaLinkCollectionViewCellDidToggleDeleteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        guard let result = cell.mediaLink else {
+            return
+        }
+        
+        viewModel.toggleFavorite(!selected, result: result)
+        cell.itemFavorited = !selected
+    }
     
 }
