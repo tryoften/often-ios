@@ -9,23 +9,30 @@
 import Foundation
 
 class DropDownErrorMessage: UIButton {
-    var errorMessageLabel: UILabel
+    private var errorMessageTitleLabel: UILabel
+    private var errorMessageSubtitle: UILabel
     weak var delegate: DropDownErrorMessageDelegate?
-    var isShowing: Bool = false
-    let dropDownErrorViewHeight: CGFloat = 90
-    var animationDuration: NSTimeInterval = 0.3
+    private var isShowing: Bool = false
+    private let dropDownErrorViewHeight: CGFloat = 90
+    private var animationDuration: NSTimeInterval = 0.3
+    private var dropDownDuration: NSTimeInterval = 1.3
     
     override init(frame: CGRect) {
-        errorMessageLabel = UILabel()
-        errorMessageLabel.font = ErrorMessageFont
-        errorMessageLabel.textColor = ErrorMessageFontColor
-        errorMessageLabel.textAlignment = .Center
-        errorMessageLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorMessageTitleLabel = UILabel()
+        errorMessageTitleLabel.font = ErrorMessageFont
+        errorMessageTitleLabel.textColor = ErrorMessageFontColor
+        errorMessageTitleLabel.textAlignment = .Center
+        errorMessageTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        errorMessageSubtitle = UILabel()
+        errorMessageSubtitle.font = UIFont(name: "OpenSans", size: 11)
+        errorMessageSubtitle.textColor = ErrorMessageFontColor
+        errorMessageSubtitle.textAlignment = .Center
+        errorMessageSubtitle.translatesAutoresizingMaskIntoConstraints = false
         super.init(frame: frame)
         
-        addSubview(errorMessageLabel)
-        
+        addSubview(errorMessageTitleLabel)
+        addSubview(errorMessageSubtitle)
         setupLayout()
         
         self.addTarget(self, action: "hideView:", forControlEvents: .TouchUpInside)
@@ -45,12 +52,18 @@ class DropDownErrorMessage: UIButton {
     
     func setupLayout() {
         addConstraints([
-            errorMessageLabel.al_top == al_top ,
-            errorMessageLabel.al_left == al_left + 10,
-            errorMessageLabel.al_right == al_right - 10,
-            errorMessageLabel.al_bottom == al_bottom
+            errorMessageTitleLabel.al_top == al_top + dropDownErrorViewHeight/3,
+            errorMessageTitleLabel.al_left == al_left + 10,
+            errorMessageTitleLabel.al_right == al_right - 10,
+            errorMessageTitleLabel.al_bottom == al_centerY,
+            
+            errorMessageSubtitle.al_top == errorMessageTitleLabel.al_top,
+            errorMessageSubtitle.al_left == al_left + 10,
+            errorMessageSubtitle.al_right == al_right - 10,
+            errorMessageSubtitle.al_bottom == al_bottom,
             ])
     }
+    
     
     func viewWasTapped(alertView: UIButton) {
         self.delegate?.dropdownAlertWasTapped(self)
@@ -74,6 +87,10 @@ class DropDownErrorMessage: UIButton {
     DropDownErrorMessage(frame: CGRectMake(0, -dropDownErrorViewHeight, UIScreen.mainScreen().bounds.size.width, dropDownErrorViewHeight)).setErrorMessage(message, errorBackgroundColor: errorBackgroundColor)
     }
     
+    func setMessage(title: String, subtitle: String, duration: NSTimeInterval, errorBackgroundColor: UIColor) {
+        DropDownErrorMessage(frame: CGRectMake(0, -dropDownErrorViewHeight, UIScreen.mainScreen().bounds.size.width, dropDownErrorViewHeight)).setErrorMessage(title, duration: duration, subtitle: subtitle,  errorBackgroundColor: errorBackgroundColor)
+    }
+    
     func dismissAlertView() {
         self.hideView(self)
     }
@@ -84,8 +101,15 @@ class DropDownErrorMessage: UIButton {
             delegate?.dropdownAlertWasDismissed(true)
     }
     
+    private func setErrorMessage(title: String, duration: NSTimeInterval, subtitle: String, errorBackgroundColor: UIColor) {
+        dropDownDuration = duration
+        errorMessageSubtitle.text = subtitle
+        
+        setErrorMessage(title, errorBackgroundColor: errorBackgroundColor)
+    }
+    
     private func setErrorMessage(message: String, errorBackgroundColor: UIColor) {
-        errorMessageLabel.text = message
+        errorMessageTitleLabel.text = message
         self.backgroundColor = errorBackgroundColor
         
         
@@ -98,14 +122,14 @@ class DropDownErrorMessage: UIButton {
         
         isShowing = true
         
-        UIView.animateWithDuration(animationDuration, delay: 0.0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.0, options: [], animations: {
+        UIView.animateWithDuration(animationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: [], animations: {
             var frame: CGRect = self.frame
-            frame.origin.y = 0
+            frame.origin.y = -10
             self.frame = frame
             }, completion: nil)
         
         
-        self.performSelector("viewWasTapped:", withObject: self, afterDelay: 1.6)
+        self.performSelector("viewWasTapped:", withObject: self, afterDelay: dropDownDuration)
         
     }
     
