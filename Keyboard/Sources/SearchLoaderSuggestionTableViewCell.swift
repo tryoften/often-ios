@@ -13,10 +13,10 @@ class SearchLoaderSuggestionTableViewCell: UITableViewCell {
     var loadBarLengthConstraint: NSLayoutConstraint?
     var short: Bool {
         didSet(value) {
-            if value == false {
-                loadBarLengthConstraint?.constant = 20
-            } else {
+            if value {
                 loadBarLengthConstraint?.constant = -20
+            } else {
+                loadBarLengthConstraint?.constant = 20
             }
         }
     }

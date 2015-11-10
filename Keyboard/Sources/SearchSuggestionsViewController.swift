@@ -46,7 +46,7 @@ class SearchSuggestionsViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let suggestions = suggestions {
-            if suggestions.count == 0 {
+            if suggestions.isEmpty {
                 return 3
             } else {
                 return suggestions.count
@@ -75,7 +75,7 @@ class SearchSuggestionsViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell = UITableViewCell()
         
-        if suggestions?.count == 0 {
+        if suggestions?.isEmpty == true {
             let loaderCell = tableView.dequeueReusableCellWithIdentifier(SearchLoaderSuggestionCellReuseIdentifier, forIndexPath: indexPath) as? SearchLoaderSuggestionTableViewCell
             
             if indexPath.row % 2 == 0 {
