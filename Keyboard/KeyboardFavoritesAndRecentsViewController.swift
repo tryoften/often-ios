@@ -91,12 +91,17 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
             return
         }
         
-        textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        if selected {
+            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        } else {
+            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
+                textProcessor?.defaultProxy.deleteBackward()
+            }
+        }
     }
-
-
+    
     
 }
 
 
-    
+

@@ -293,21 +293,18 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         cell.itemFavorited = selected
     }
     
-    override func mediaLinkCollectionViewCellDidToggleDeleteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
-        guard let result = cell.mediaLink else {
-            return
-        }
-        
-        viewModel?.toggleFavorite(!selected, result: result)
-        cell.itemFavorited = !selected
-    }
-    
     override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }
 
-        textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        if selected {
+            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        } else {
+            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
+                textProcessor?.defaultProxy.deleteBackward()
+            }
+        }
     }
     
     // MARK: ToolTipCloseButtonDelegate
