@@ -127,7 +127,6 @@ class TwitterAccountManager: NSObject {
         
         userRef.updateChildValues(data)
         completion(nil)
-
     }
 
 }

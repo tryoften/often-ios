@@ -127,6 +127,7 @@
 		8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
 		8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
 		8107F7E31BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
+		810A242E1BE058250032AFC7 /* SpellChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810A242D1BE058250032AFC7 /* SpellChecker.swift */; };
 		810C40651A21125C00170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */; };
@@ -140,6 +141,22 @@
 		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
 		81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
+		811961851BEADB960014B25B /* CachedCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961841BEADB960014B25B /* CachedCollectionType.swift */; };
+		811961861BEADB960014B25B /* CachedCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961841BEADB960014B25B /* CachedCollectionType.swift */; };
+		811961881BEAE9330014B25B /* TermDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961871BEAE9330014B25B /* TermDictionary.swift */; };
+		811961891BEAE9330014B25B /* TermDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961871BEAE9330014B25B /* TermDictionary.swift */; };
+		811961901BEC18340014B25B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; };
+		811961911BEC18340014B25B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
+		811FA2831BED15E700E07660 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; };
+		811FA2841BED15E700E07660 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
+		811FA2851BED160400E07660 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; };
+		811FA2861BED160400E07660 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		811FA2871BED160400E07660 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
+		811FA2881BED160400E07660 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		811FA28D1BEF18E900E07660 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = 811FA28C1BEF18E900E07660 /* db.realm */; };
+		811FA28E1BEF18E900E07660 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = 811FA28C1BEF18E900E07660 /* db.realm */; };
+		811FA2941BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FA2931BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift */; };
+		811FA2951BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FA2931BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift */; };
 		8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; };
 		8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; };
 		8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */; };
@@ -237,6 +254,13 @@
 		81B92D5E1BD6D77C00FFAC92 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; };
 		81BD904F1BD58834002F7D32 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD904E1BD58834002F7D32 /* RootViewController.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
+		81D09D881BE17AC500AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
+		81D09D8C1BE17ACA00AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
+		81D09D8E1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
+		81D09D8F1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
+		81D09D901BE2BAE500AFBEC0 /* SpellChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810A242D1BE058250032AFC7 /* SpellChecker.swift */; };
+		81D09D921BE2C72900AFBEC0 /* small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D911BE2C72900AFBEC0 /* small.txt */; };
+		81D09D931BE2C72900AFBEC0 /* small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D911BE2C72900AFBEC0 /* small.txt */; };
 		81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; };
 		81D0CDC41BD542C20009859D /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; };
 		81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1A1B38F6DA006430AB /* PKHUD.swift */; };
@@ -274,6 +298,8 @@
 		81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */; };
 		81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26DA51B68901100FC1F2F /* TrendingViewController.swift */; };
 		81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26DA51B68901100FC1F2F /* TrendingViewController.swift */; };
+		81E881751BE7DDD600523ECC /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E881741BE7DDD600523ECC /* StreamReader.swift */; };
+		81E881761BE7DDD600523ECC /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E881741BE7DDD600523ECC /* StreamReader.swift */; };
 		81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */; };
@@ -327,7 +353,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				811FA2861BED160400E07660 /* Realm.framework in Embed Frameworks */,
 				30E00C6F1BC8523400DDF24C /* OAuthSwift.framework in Embed Frameworks */,
+				811FA2881BED160400E07660 /* RealmSwift.framework in Embed Frameworks */,
 				30E00C781BC86C3D00DDF24C /* Spring.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -433,6 +461,7 @@
 		69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolTipLoadingView.swift; path = Sources/ToolTipLoadingView.swift; sourceTree = "<group>"; };
 		7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
 		8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewModel.swift; path = Sources/SearchSuggestionsViewModel.swift; sourceTree = "<group>"; };
+		810A242D1BE058250032AFC7 /* SpellChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpellChecker.swift; path = Sources/SpellChecker.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarButton.swift; path = Sources/SearchBarButton.swift; sourceTree = "<group>"; };
 		81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsViewModel.swift; path = Sources/SearchResultsViewModel.swift; sourceTree = "<group>"; };
@@ -441,6 +470,12 @@
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		81164A8E1A9D699800AE5B30 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		811961841BEADB960014B25B /* CachedCollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CachedCollectionType.swift; path = Sources/CachedCollectionType.swift; sourceTree = "<group>"; };
+		811961871BEAE9330014B25B /* TermDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TermDictionary.swift; path = Sources/TermDictionary.swift; sourceTree = "<group>"; };
+		8119618E1BEC18340014B25B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		8119618F1BEC18340014B25B /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		811FA28C1BEF18E900E07660 /* db.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.realm; sourceTree = "<group>"; };
+		811FA2931BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AutocorrectSuggestionsViewController.swift; path = Sources/AutocorrectSuggestionsViewController.swift; sourceTree = "<group>"; };
 		8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewController.swift; path = Sources/SearchSuggestionsViewController.swift; sourceTree = "<group>"; };
 		8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionTableViewCell.swift; path = Sources/SearchSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionTableHeaderView.swift; path = Sources/SearchSuggestionTableHeaderView.swift; sourceTree = "<group>"; };
@@ -505,6 +540,9 @@
 		81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderSuggestionTableViewCell.swift; path = Sources/ServiceProviderSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestion.swift; path = Sources/SearchSuggestion.swift; sourceTree = "<group>"; };
 		81BD904E1BD58834002F7D32 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		81D09D871BE17AC500AFBEC0 /* big.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = big.txt; sourceTree = "<group>"; };
+		81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		81D09D911BE2C72900AFBEC0 /* small.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = small.txt; sourceTree = "<group>"; };
 		81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBaseViewModel.swift; path = Sources/SearchBaseViewModel.swift; sourceTree = "<group>"; };
 		81D43B331B46E49800453BBF /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		81D43B341B46E49800453BBF /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
@@ -531,6 +569,7 @@
 		81E26D951B67C29D00FC1F2F /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shape.swift; path = Sources/Shape.swift; sourceTree = "<group>"; };
 		81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTextField.swift; path = Sources/SearchTextField.swift; sourceTree = "<group>"; };
 		81E26DA51B68901100FC1F2F /* TrendingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingViewController.swift; path = Sources/TrendingViewController.swift; sourceTree = "<group>"; };
+		81E881741BE7DDD600523ECC /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 		81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AnimateImage.swift"; sourceTree = "<group>"; };
 		81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderSupplementaryViewController.swift; path = Sources/ServiceProviderSupplementaryViewController.swift; sourceTree = "<group>"; };
 		85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -554,6 +593,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				811FA2871BED160400E07660 /* RealmSwift.framework in Frameworks */,
 				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */,
 				3BD971CD1B992E49007EAB5A /* Spotify.framework in Frameworks */,
@@ -563,8 +603,11 @@
 				812E3F0D1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */,
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
 				812E3F0B1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
+				811FA2851BED160400E07660 /* Realm.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
 				81794EE11A81E649009D4A71 /* Security.framework in Frameworks */,
+				811961901BEC18340014B25B /* Realm.framework in Frameworks */,
+				811961911BEC18340014B25B /* RealmSwift.framework in Frameworks */,
 				30E00C771BC86C3D00DDF24C /* Spring.framework in Frameworks */,
 				81794EDF1A81E642009D4A71 /* QuartzCore.framework in Frameworks */,
 				81794EDD1A81E63B009D4A71 /* MobileCoreServices.framework in Frameworks */,
@@ -583,6 +626,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				811FA2831BED15E700E07660 /* Realm.framework in Frameworks */,
+				811FA2841BED15E700E07660 /* RealmSwift.framework in Frameworks */,
 				30E00C721BC8527300DDF24C /* OAuthSwift.framework in Frameworks */,
 				81794F011A81ECE9009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */,
@@ -657,6 +702,8 @@
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8119618E1BEC18340014B25B /* Realm.framework */,
+				8119618F1BEC18340014B25B /* RealmSwift.framework */,
 				30E00C761BC86C3D00DDF24C /* Spring.framework */,
 				30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */,
 				3BD971C51B99254F007EAB5A /* Spotify.framework */,
@@ -796,12 +843,15 @@
 			name = "View Models";
 			sourceTree = "<group>";
 		};
-		8142F79B1B534F180061AE90 /* Managers */ = {
+		8142F79B1B534F180061AE90 /* Text Processing */ = {
 			isa = PBXGroup;
 			children = (
 				8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */,
+				810A242D1BE058250032AFC7 /* SpellChecker.swift */,
+				811961841BEADB960014B25B /* CachedCollectionType.swift */,
+				811961871BEAE9330014B25B /* TermDictionary.swift */,
 			);
-			name = Managers;
+			name = "Text Processing";
 			sourceTree = "<group>";
 		};
 		8150EDE91BD56D5E002A23B2 /* Search View Models */ = {
@@ -858,6 +908,8 @@
 				81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */,
 				30E00C791BC86CEA00DDF24C /* delay.swift */,
 				817F784B1BC085440087EBE8 /* suffixNumber.swift */,
+				81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */,
+				81E881741BE7DDD600523ECC /* StreamReader.swift */,
 				3BEE47171BE16516002E4394 /* FilterMap.swift */,
 				3BEE471A1BE17D5D002E4394 /* FilterButton.swift */,
 			);
@@ -1016,7 +1068,7 @@
 				816588F91B616A8F00F7C9F5 /* Keyboard Layout */,
 				817939021B5BFF110064B0CF /* Providers */,
 				8179387C1B5582520064B0CF /* Models */,
-				8142F79B1B534F180061AE90 /* Managers */,
+				8142F79B1B534F180061AE90 /* Text Processing */,
 				813138841B13AD92001AF9AC /* Keyboard.entitlements */,
 				81B6D58D1A95B07B0089767B /* View Models */,
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
@@ -1070,6 +1122,7 @@
 				817939061B5C29560064B0CF /* SearchBarController.swift */,
 				81E26DA51B68901100FC1F2F /* TrendingViewController.swift */,
 				8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */,
+				811FA2931BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1077,6 +1130,9 @@
 		81B35FAE1A7A10B6001A546C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				811FA28C1BEF18E900E07660 /* db.realm */,
+				81D09D911BE2C72900AFBEC0 /* small.txt */,
+				81D09D871BE17AC500AFBEC0 /* big.txt */,
 				81E26D901B65DC4800FC1F2F /* font_icons8.ttf */,
 				3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */,
 				3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */,
@@ -1185,6 +1241,9 @@
 		8180E6001A142157007FA1CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0710;
@@ -1280,12 +1339,15 @@
 				695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */,
 				3BAAB1A41B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
+				811FA28D1BEF18E900E07660 /* db.realm in Resources */,
 				3BAAB1A91B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
+				81D09D881BE17AC500AFBEC0 /* big.txt in Resources */,
 				3BAAB1961B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
 				3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
 				3BAAB19A1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				3BAAB1A01B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
 				3BAAB1AB1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
+				81D09D921BE2C72900AFBEC0 /* small.txt in Resources */,
 				3BAAB19C1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
 				3BAAB19E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
 				3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
@@ -1303,12 +1365,15 @@
 				81DF4BBE1BB49371008B1A38 /* Montserrat-Regular.ttf in Resources */,
 				3BAAB1AA1B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */,
+				811FA28E1BEF18E900E07660 /* db.realm in Resources */,
 				3BAAB19D1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
+				81D09D8C1BE17ACA00AFBEC0 /* big.txt in Resources */,
 				3BAAB1991B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				3BAAB19F1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
 				3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
 				3BAAB19B1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
+				81D09D931BE2C72900AFBEC0 /* small.txt in Resources */,
 				3BAAB1A31B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
 				3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				3BAAB1951B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
@@ -1405,10 +1470,12 @@
 			files = (
 				3B64A1951BC593560057F795 /* DropDownErrorMessage.swift in Sources */,
 				3BEB40BD1BD04CDB00D36C4D /* TextMessageViewController.swift in Sources */,
+				81D09D901BE2BAE500AFBEC0 /* SpellChecker.swift in Sources */,
 				8184DC9F1BD57FE3001767AD /* SearchSuggestionTableViewCell.swift in Sources */,
 				696D8A5D1B93E8890016073C /* UserProfileSettingsTableViewCell.swift in Sources */,
 				8184DC931BD57A32001767AD /* RefreshResultsButton.swift in Sources */,
 				8176BEED1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
+				811961881BEAE9330014B25B /* TermDictionary.swift in Sources */,
 				817939041B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				699606271B422315004102BC /* KeyboardViewController.swift in Sources */,
 				8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
@@ -1429,6 +1496,7 @@
 				3BE0BCA21BED58AA00037E21 /* KeyboardFavoritesAndRecentsViewController.swift in Sources */,
 				816588F71B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */,
+				811961851BEADB960014B25B /* CachedCollectionType.swift in Sources */,
 				695FEEA01B73DE1B0048E5B7 /* UserProfileViewController.swift in Sources */,
 				81E26D851B65B17A00FC1F2F /* Direction.swift in Sources */,
 				698B87231B75401E001B5B86 /* UserProfileHeaderView.swift in Sources */,
@@ -1469,6 +1537,7 @@
 				8176BEF01B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
+				811FA2941BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */,
 				81153C781BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
 				3BD971DF1B9F911E007EAB5A /* SigninView.swift in Sources */,
 				3BD971D61B9E642D007EAB5A /* SignupView.swift in Sources */,
@@ -1479,6 +1548,7 @@
 				8184DC9B1BD57F02001767AD /* SearchSuggestionsViewController.swift in Sources */,
 				3BD971C11B98B5FB007EAB5A /* FacebookAccountManager.swift in Sources */,
 				817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
+				81D09D8E1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */,
 				690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */,
 				8176BECB1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift in Sources */,
 				3BCDA6D31B910C1F00840095 /* SoundcloudAccountManager.swift in Sources */,
@@ -1499,6 +1569,7 @@
 				81E26D8B1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				81D60AD01B84BF3200347BCA /* SearchResponse.swift in Sources */,
+				81E881751BE7DDD600523ECC /* StreamReader.swift in Sources */,
 				3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */,
 				81D4BF261B38F6DA006430AB /* WindowRootViewController.swift in Sources */,
 				81BD904F1BD58834002F7D32 /* RootViewController.swift in Sources */,
@@ -1538,6 +1609,7 @@
 				8107F7E31BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
 				817939051B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift in Sources */,
 				3B6EA4311BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */,
+				810A242E1BE058250032AFC7 /* SpellChecker.swift in Sources */,
 				8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
@@ -1555,6 +1627,7 @@
 				3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */,
 				3BA8945E1BB35E170000D5C0 /* SocialAccount.swift in Sources */,
 				816589041B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
+				811FA2951BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */,
 				816588F81B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
 				81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
@@ -1565,6 +1638,7 @@
 				8176BEA11B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */,
+				81D09D8F1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */,
 				3BE0BCA41BEDB8BD00037E21 /* EmptySetView.swift in Sources */,
 				3BE0BC971BED4CEE00037E21 /* KeyboardFavoritesAndRecentsViewController.swift in Sources */,
 				81153CBD1BBC7FC000A91EAD /* TogglePanelButton.swift in Sources */,
@@ -1574,6 +1648,7 @@
 				81E26D891B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */,
+				811961861BEADB960014B25B /* CachedCollectionType.swift in Sources */,
 				8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */,
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
 				8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
@@ -1585,6 +1660,7 @@
 				3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */,
 				81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* SearchTextField.swift in Sources */,
+				81E881761BE7DDD600523ECC /* StreamReader.swift in Sources */,
 				3BE0BC9C1BED51EB00037E21 /* FavoritesAndRecentsTabView.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
 				69428AE11BEEAD5600282B8D /* MessageBarView.swift in Sources */,
@@ -1600,6 +1676,7 @@
 				8176BECC1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift in Sources */,
 				81D60AD41B854D8500347BCA /* MediaLink.swift in Sources */,
 				81E26D861B65B17A00FC1F2F /* Direction.swift in Sources */,
+				811961891BEAE9330014B25B /* TermDictionary.swift in Sources */,
 				6970EC1C1BE9E21C00BEE619 /* InKeyboardToolTip.swift in Sources */,
 				817F784A1BBDD2FB0087EBE8 /* VideoMediaLink.swift in Sources */,
 				81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
@@ -1701,7 +1778,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "8e59eff7-3e58-4919-a616-8b99c9b6971a";
+				PROVISIONING_PROFILE = "a5cbca95-f33f-4520-a71c-03ce12cee828";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1740,7 +1817,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "78bb5604-5d92-44e0-acf5-c0fe2988f2da";
+				PROVISIONING_PROFILE = "8e7be0f7-ed4b-4eb7-ba2a-322b152afca6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1825,7 +1902,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "8e59eff7-3e58-4919-a616-8b99c9b6971a";
+				PROVISIONING_PROFILE = "a5cbca95-f33f-4520-a71c-03ce12cee828";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1863,7 +1940,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "78bb5604-5d92-44e0-acf5-c0fe2988f2da";
+				PROVISIONING_PROFILE = "8e7be0f7-ed4b-4eb7-ba2a-322b152afca6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1949,7 +2026,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "8e59eff7-3e58-4919-a616-8b99c9b6971a";
+				PROVISIONING_PROFILE = "a5cbca95-f33f-4520-a71c-03ce12cee828";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1987,7 +2064,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "78bb5604-5d92-44e0-acf5-c0fe2988f2da";
+				PROVISIONING_PROFILE = "8e7be0f7-ed4b-4eb7-ba2a-322b152afca6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
