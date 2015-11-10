@@ -115,9 +115,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 Firebase.defaultConfig().persistenceEnabled = true
             }
         }
-        
-        favoritesAndRecentsViewController = KeyboardFavoritesAndRecentsViewController(collectionViewLayout: KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout(), viewModel: MediaLinksViewModel(), textProcessor: textProcessor)
-        
+
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBarHeight = KeyboardSearchBarHeight
         
@@ -126,6 +124,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         togglePanelButton = TogglePanelButton()
         togglePanelButton.hidden = true
+        togglePanelButton.mode = .ToggleKeyboard
         
         shiftState = .Enabled
         
@@ -318,15 +317,25 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             }) { done in
                 if self.keyboardHeight == KeyboardHeight {
                     self.togglePanelButton.hidden = true
+                    self.favoritesAndRecentsViewController?.view.hidden = true
                 }
         }
     }
     
     func toggleKeyboard() {
-        if togglePanelButton.collapsed {
+        switch (togglePanelButton.mode) {
+        case .ToggleKeyboard:
+            if togglePanelButton.collapsed {
+                restoreKeyboard()
+            } else {
+                collapseKeyboard()
+            }
+        case .ClosePanel:
+            searchBar.resetSearchBar()
             restoreKeyboard()
-        } else {
-            collapseKeyboard()
+            togglePanelButton.hidden = true
+            favoritesAndRecentsViewController?.view.hidden = true
+            togglePanelButton.mode = .ToggleKeyboard
         }
     }
     
@@ -557,6 +566,10 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
         print("Suggestions", suggestions)
+    }
+    
+    func textProcessingManagerDidSendText(textProcessingManager: TextProcessingManager) {
+        
     }
 
     // MARK: ToolTipCloseButtonDelegate

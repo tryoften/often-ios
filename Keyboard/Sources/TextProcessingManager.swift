@@ -79,6 +79,9 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func textDidChange(textInput: UITextInput?) {
+        if !defaultProxy.hasText() {
+            
+        }
     }
 
     func selectionWillChange(textInput: UITextInput?) {
@@ -309,5 +312,6 @@ protocol TextProcessingManagerDelegate: class {
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType)
     func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter)
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter?
+    func textProcessingManagerDidSendText(textProcessingManager: TextProcessingManager)
     func textProcessingManagerDidReceiveSpellCheckSuggestions(TextProcessingManager: TextProcessingManager, suggestions: [SuggestItem])
 }
