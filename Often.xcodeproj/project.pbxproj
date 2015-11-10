@@ -123,6 +123,8 @@
 		69E7FD8A1B8E0BD7003BC281 /* MediaFilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD891B8E0BD7003BC281 /* MediaFilterTabView.swift */; };
 		69F3BC181BE8FB7100080628 /* ToolTipLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */; };
 		69F3BC1B1BE9079300080628 /* ToolTipLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */; };
+		69FEDDE21BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FEDDE11BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift */; };
+		69FEDDE61BF1B80800F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FEDDE11BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift */; };
 		74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */; };
 		8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
 		8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
@@ -459,6 +461,7 @@
 		69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		69E7FD891B8E0BD7003BC281 /* MediaFilterTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaFilterTabView.swift; sourceTree = "<group>"; };
 		69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolTipLoadingView.swift; path = Sources/ToolTipLoadingView.swift; sourceTree = "<group>"; };
+		69FEDDE11BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchLoaderSuggestionTableViewCell.swift; path = Sources/SearchLoaderSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
 		8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewModel.swift; path = Sources/SearchSuggestionsViewModel.swift; sourceTree = "<group>"; };
 		810A242D1BE058250032AFC7 /* SpellChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpellChecker.swift; path = Sources/SpellChecker.swift; sourceTree = "<group>"; };
@@ -1105,6 +1108,7 @@
 				69428AE01BEEAD5600282B8D /* MessageBarView.swift */,
 				8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */,
 				81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */,
+				69FEDDE11BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift */,
 				8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */,
 				81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */,
 			);
@@ -1544,6 +1548,7 @@
 				690AE8AE1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift in Sources */,
 				81153CB11BBB267000A91EAD /* SessionManager.swift in Sources */,
 				30A402041BC46D6F00BF0C0E /* SocialAccountsService.swift in Sources */,
+				69FEDDE61BF1B80800F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
 				3B100A2B1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift in Sources */,
 				8184DC9B1BD57F02001767AD /* SearchSuggestionsViewController.swift in Sources */,
 				3BD971C11B98B5FB007EAB5A /* FacebookAccountManager.swift in Sources */,
@@ -1663,6 +1668,7 @@
 				81E881761BE7DDD600523ECC /* StreamReader.swift in Sources */,
 				3BE0BC9C1BED51EB00037E21 /* FavoritesAndRecentsTabView.swift in Sources */,
 				81B19EAC1B30AD9900D3575C /* User.swift in Sources */,
+				69FEDDE21BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
 				69428AE11BEEAD5600282B8D /* MessageBarView.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,

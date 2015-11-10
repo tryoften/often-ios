@@ -10,6 +10,7 @@ import UIKit
 
 let SearchSuggestionCellReuseIdentifier = "SearchSuggestionsCell"
 let ServiceProviderSuggestionCellReuseIdentifier = "ServiceProviderSuggestionCell"
+let SearchLoaderSuggestionCellReuseIdentifier = "SearchLoaderSuggestionsCell"
 
 class SearchSuggestionsViewController: UITableViewController {
     var delegate: SearchSuggestionViewControllerDelegate?
@@ -25,6 +26,7 @@ class SearchSuggestionsViewController: UITableViewController {
 
         tableView.registerClass(SearchSuggestionTableViewCell.self, forCellReuseIdentifier: SearchSuggestionCellReuseIdentifier)
         tableView.registerClass(ServiceProviderSuggestionTableViewCell.self, forCellReuseIdentifier: ServiceProviderSuggestionCellReuseIdentifier)
+        tableView.registerClass(SearchLoaderSuggestionTableViewCell.self, forCellReuseIdentifier: SearchLoaderSuggestionCellReuseIdentifier)
         tableView.separatorColor = DarkGrey
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.contentInset = UIEdgeInsetsZero
@@ -44,8 +46,13 @@ class SearchSuggestionsViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let suggestions = suggestions {
-            return suggestions.count
+            if suggestions.count == 0 {
+                return 3
+            } else {
+                return suggestions.count
+            }
         }
+        
         return 0
     }
     
@@ -67,6 +74,18 @@ class SearchSuggestionsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell = UITableViewCell()
+        
+        if suggestions?.count == 0 {
+            let loaderCell = tableView.dequeueReusableCellWithIdentifier(SearchLoaderSuggestionCellReuseIdentifier, forIndexPath: indexPath) as? SearchLoaderSuggestionTableViewCell
+            
+            if indexPath.row % 2 == 0 {
+                loaderCell?.short = true
+            } else {
+                loaderCell?.short = false
+            }
+            
+            return loaderCell!
+        }
         
         guard let suggestion = suggestions?[indexPath.row] else {
             return cell
