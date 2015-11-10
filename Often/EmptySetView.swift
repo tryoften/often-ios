@@ -102,7 +102,7 @@ class EmptySetView: UIView {
             imageView.image = UIImage(named: "twitteremptystate")
             imageView.contentMode = .ScaleAspectFit
             titleLabel.text = "Connect with Twitter"
-            descriptionLabel.text = "Often works even better with Twitter. \n Any links you favorite there are saved here."
+            descriptionLabel.text = "Often works even better with Twitter. \n In the future, anyy links you like there are saved here."
             twitterButton.hidden = false
             cancelButton.hidden = false
             settingbutton.hidden = true
@@ -119,7 +119,7 @@ class EmptySetView: UIView {
         case .NoFavorites:
             imageViewWidthConstraint?.constant = 100
             imageViewHeightConstraint?.constant = 100
-            imageViewTopConstraint?.constant = 70
+            imageViewTopConstraint?.constant = 65
             imageView.image = UIImage(named: "favoritesemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No favorites yet!"
@@ -130,7 +130,7 @@ class EmptySetView: UIView {
         case .NoRecents:
             imageViewWidthConstraint?.constant = 100
             imageViewHeightConstraint?.constant = 100
-            imageViewTopConstraint?.constant = 70
+            imageViewTopConstraint?.constant = 65
             imageView.image = UIImage(named: "recentsemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No recents yet!"
