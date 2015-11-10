@@ -19,6 +19,7 @@ class SearchTextField: UIControl, Layouteable {
     private var labelContainer: UIView
     private var label: UILabel
     private var indicator: UIView
+    private var indicatorPositionConstraint: NSLayoutConstraint!
     private var searchIcon: UIImageView
     private var clearButton: UIButton
     private var labelContainerLeftConstraint: NSLayoutConstraint!
@@ -49,6 +50,12 @@ class SearchTextField: UIControl, Layouteable {
         didSet {
             label.alpha = 1.0
             label.text = text
+            if text == "" {
+                placeholder = placeholderText
+                indicatorPositionConstraint.constant = -40
+            } else {
+                indicatorPositionConstraint.constant = 0
+            }
         }
     }
     
@@ -125,10 +132,8 @@ class SearchTextField: UIControl, Layouteable {
             }
             
             if let leftView = leftView {
-                //removeConstraint(labelContainerLeftConstraint)
                 leftView.translatesAutoresizingMaskIntoConstraints = false
                 
-                //labelContainerLeftConstraint = labelContainer.al_left == leftView.al_right + 5
                 leftViewLeftConstraint = leftView.al_left == al_left
                 
                 addSubview(leftView)
@@ -173,10 +178,6 @@ class SearchTextField: UIControl, Layouteable {
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.alpha = 0.0
         
-        let iconFrame = CGRectMake(0, 0, KeyboardSearchBarHeight, KeyboardSearchBarHeight)
-        let searchIconFrame = CGRectMake(0, 0, 40, 30)
-        let iconScale: CGFloat = 0.5
-        
         clearButton = UIButton()
         clearButton.setImage(UIImage(named: "close-textfield"), forState: .Normal)
         clearButton.translatesAutoresizingMaskIntoConstraints = false
@@ -201,6 +202,7 @@ class SearchTextField: UIControl, Layouteable {
         labelContainer.addSubview(label)
         cancelButtonLeftConstraint = clearButton.al_left == al_right - 15
         labelContainerLeftConstraint = labelContainer.al_left == al_left
+        indicatorPositionConstraint =  indicator.al_left == label.al_right - 40
         setupLayout()
     }
 
@@ -300,7 +302,7 @@ class SearchTextField: UIControl, Layouteable {
             
             indicator.al_height == 2.0,
             indicator.al_width == 10,
-            indicator.al_left == label.al_right,
+            indicatorPositionConstraint,
             indicator.al_bottom == label.al_bottom,
             
             clearButton.al_height == 15,
