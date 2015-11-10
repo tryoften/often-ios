@@ -38,7 +38,7 @@ class MediaFilterTabView: UIView {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitle(tag.rawValue.uppercaseString, forState: .Normal)
             button.setTitleColor(WhiteColor, forState: .Selected)
-            button.setTitleColor(LightGrey, forState: .Normal)
+            button.setTitleColor(UnactiveTextColor, forState: .Normal)
             button.titleLabel?.font = UIFont(name: "Montserrat", size: 10.5)
             button.addTarget(self, action: "filterDidTapButtonTapped:", forControlEvents: .TouchUpInside)
             addSubview(button)
