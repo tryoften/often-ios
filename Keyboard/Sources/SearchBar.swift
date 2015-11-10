@@ -16,11 +16,11 @@ class SearchBar: UIView {
 
     var textInput: SearchTextField
     var textInputLeftConstraint: NSLayoutConstraint?
-    var shareButtonLeftConstraint: NSLayoutConstraint!
+    var cancelButtonLeftConstraint: NSLayoutConstraint!
 
-    var shareButton: UIButton
-    var shareButtonLeftPadding: CGFloat {
-        return CGRectGetWidth(frame) - 45
+    var cancelButton: UIButton
+    var cancelButtonLeftPadding: CGFloat {
+        return CGRectGetWidth(frame) - 70
     }
     
     private var filterButton: UIButton?
@@ -39,17 +39,24 @@ class SearchBar: UIView {
         bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
         bottomSeperator.backgroundColor = DarkGrey
 
-        shareButton = UIButton()
-        shareButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton = UIButton()
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.setTitle("CANCEL", forState: .Normal)
+        cancelButton.setTitle("DONE", forState: .Selected)
+        cancelButton.setTitleColor(BlackColor, forState: .Normal)
+        cancelButton.titleLabel?.font = UIFont(name: "Montserrat", size: 11)
+        cancelButton.titleLabel?.textAlignment = .Center
         
         super.init(frame: frame)
         
         textInput.addTarget(self, action: "textFieldEditingDidBegin", forControlEvents: .EditingDidBegin)
         textInput.addTarget(self, action: "textFieldEditingDidEnd", forControlEvents: .EditingDidEnd)
 
-        backgroundColor = UIColor.whiteColor()
+        cancelButton.addTarget(self, action: "cancelButtonDidTap", forControlEvents: .TouchUpInside)
+        
+        backgroundColor = WhiteColor
         addSubview(textInput)
-        addSubview(shareButton)
+        addSubview(cancelButton)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
 
@@ -64,18 +71,17 @@ class SearchBar: UIView {
         }
         
         toggleShareButton()
-        shareButton.setImage(StyleKit.imageOfShare(frame: CGRectMake(0, 0, CGRectGetHeight(bounds), CGRectGetHeight(bounds)), color: UIColor.blackColor()), forState: .Normal)
     }
     
     func textFieldEditingDidBegin() {
-        shareButtonLeftConstraint.constant = CGRectGetWidth(frame)
+        cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
         UIView.animateWithDuration(0.3) {
             self.layoutIfNeeded()
         }
     }
     
     func textFieldEditingDidEnd() {
-        shareButtonLeftConstraint.constant = CGRectGetWidth(frame) / 2
+        cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
         UIView.animateWithDuration(0.3) {
             self.layoutIfNeeded()
         }
@@ -135,7 +141,7 @@ class SearchBar: UIView {
         if let lastButton = filterButton {
             self.textInputLeftConstraint?.constant = CGRectGetMaxX(lastButton.frame) + 5
         } else {
-            self.textInputLeftConstraint?.constant = 10
+            self.textInputLeftConstraint?.constant = 3
         }
         UIView.animateWithDuration(0.2) {
             self.layoutIfNeeded()
@@ -144,9 +150,9 @@ class SearchBar: UIView {
     
     func toggleShareButton(animated: Bool = false) {
         if shouldShowShareButton() {
-            shareButtonLeftConstraint.constant = CGRectGetWidth(frame)
+            cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
         } else {
-            shareButtonLeftConstraint.constant = shareButtonLeftPadding
+            cancelButtonLeftConstraint.constant = CGRectGetWidth(frame)
         }
         
         if animated {
@@ -159,15 +165,23 @@ class SearchBar: UIView {
     func shouldShowShareButton() -> Bool {
         return textInput.selected || filterButton != nil
     }
+    
+    func cancelButtonDidTap() {
+        if cancelButton.selected == true {
+            cancelButton.selected = false
+        }
+        
+        textInput.didTapCancelButton()
+    }
 
     func setupLayout() {
-        textInputLeftConstraint = textInput.al_left == al_left + 5
-        shareButtonLeftConstraint = shareButton.al_left == al_left + shareButtonLeftPadding
+        textInputLeftConstraint = textInput.al_left == al_left + 3
+        cancelButtonLeftConstraint = cancelButton.al_left == al_left + cancelButtonLeftPadding
 
         addConstraints([
             textInput.al_top == al_top + 5,
             textInputLeftConstraint!,
-            textInput.al_right == shareButton.al_left - 5,
+            textInput.al_right == cancelButton.al_left - 5,
             textInput.al_bottom == al_bottom - 5,
 
             topSeperator.al_top == al_top,
@@ -180,10 +194,10 @@ class SearchBar: UIView {
             bottomSeperator.al_width == al_width,
             bottomSeperator.al_height == 0.6,
             
-            shareButtonLeftConstraint,
-            shareButton.al_width == 40,
-            shareButton.al_top == al_top,
-            shareButton.al_height == al_height
+            cancelButtonLeftConstraint,
+            cancelButton.al_width == 60,
+            cancelButton.al_top == al_top,
+            cancelButton.al_height == al_height
         ])
     }
 

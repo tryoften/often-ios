@@ -231,6 +231,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             isNewSearch = true
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.textInput.text = suggestion.text
+            searchBar.cancelButton.selected = true
             submitSearchRequest()
             break
         case .Filter:

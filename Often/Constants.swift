@@ -391,3 +391,6 @@ let FacebookButtonHighlightedBackgroundColor = UIColor(fromHexString: "#4d75c7")
 
 let HomeViewBackgroundColor = UIColor(fromHexString: "#f7f7f7")
 let HomeViewSubtitle = UIFont(name: "OpenSans", size: 14)
+
+// Search Bar 
+let SearchBarBackgroundColor = UIColor(fromHexString: "F3F3F3")
