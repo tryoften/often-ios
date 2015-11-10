@@ -142,7 +142,7 @@ class KeyboardKeyButton: UIControl {
             self.underView?.opaque = false
             self.borderView?.opaque = false
             
-            self.shadowLayer.shadowOpacity = 0.24
+            self.shadowLayer.shadowOpacity = 0.32
             self.shadowLayer.shadowRadius = 5
             self.shadowLayer.shadowOffset = CGSizeMake(0, 4)
             self.shadowLayer.backgroundColor = UIColor.blackColor().CGColor
@@ -162,7 +162,7 @@ class KeyboardKeyButton: UIControl {
     
         func setupKey() {
             if let key = key {
-                label.font = UIFont(name: "OpenSans", size: 19.0)
+                label.font = UIFont(name: "OpenSans", size: 18.75)
                 color = theme.keyboardKeyBackgroundColor
                 textColor = theme.keyboardKeyTextColor
                 underColor = theme.keyboardKeyUnderColor
@@ -193,7 +193,7 @@ class KeyboardKeyButton: UIControl {
                         underColor = UIColor.clearColor()
                         shape = ArrowShape(color: theme.keyboardKeyTextColor)
                         background.layer.cornerRadius = 5.0
-                        background.layer.borderWidth = 1.6
+                        background.layer.borderWidth = 1.8
                         background.layer.borderColor = UIColor.clearColor().CGColor
                         break
                     case .SwitchKeyboard:
@@ -218,10 +218,13 @@ class KeyboardKeyButton: UIControl {
                         break
                     case .CallService:
                         text = "#"
-                        label.font = UIFont(name: "OpenSans-Semibold", size: 12)
+                        label.font = UIFont(name: "OpenSans-Semibold", size: 16)
                         color = WhiteColor
                         textColor = BlackColor
                         background.userInteractionEnabled = true
+                        background.layer.cornerRadius = 5.0
+                        background.layer.borderWidth = 1.8
+                        background.layer.borderColor = LightBlackColor.CGColor
                     default:
                         break
                     }
@@ -407,11 +410,12 @@ class KeyboardKeyButton: UIControl {
                     }
                 case .CapsLock:
                     if selected {
-                        background.layer.borderColor = theme.shiftKeyBorderColor.CGColor
-                        shape?.color = theme.shiftKeyBorderColor
+                        color = LightBlackColor
+                        shape?.color = UIColor.whiteColor()
                     } else {
-                        background.layer.borderColor = UIColor.clearColor().CGColor
-                        shape?.color = theme.keyboardKeyTextColor
+                        color = UIColor.clearColor()
+                        background.layer.borderColor = LightBlackColor.CGColor
+                        shape?.color = LightBlackColor
                     }
                 case .Space:
                     if selected {
@@ -451,7 +455,6 @@ class KeyboardKeyButton: UIControl {
         borderView?.strokeColor = borderColor
         label.textColor = textColor
         popupLabel?.textColor = textColor
-        shape?.color = textColor
         
         if popup != nil {
             displayView.fillColor = popupColor

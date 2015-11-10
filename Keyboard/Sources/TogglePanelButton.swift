@@ -30,7 +30,7 @@ class TogglePanelButton: UIButton {
                 setImage(StyleKit.imageOfKeyboard(frame: CGRectMake(0, 0, 48, 30), color: BlackColor.colorWithAlphaComponent(0.8), scale: 0.5), forState: .Selected)
                 break
             case .ClosePanel:
-                setImage(StyleKit.imageOfClosebutton(frame: CGRectMake(0, 5, 50, 45), scale: 0.65), forState: .Normal)
+                setImage(StyleKit.imageOfClosebutton(frame: CGRectMake(0, 8, 50, 45), scale: 0.62), forState: .Normal)
             }
         }
     }

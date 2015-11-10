@@ -51,16 +51,16 @@ let DarkTheme: KeyboardTheme = KeyboardTheme(dictionary: [
 ])
 
 let LightTheme: KeyboardTheme = KeyboardTheme(dictionary: [
-    "keyboardBackgroundColor": UIColor(fromHexString: "#EDEDED"),
+    "keyboardBackgroundColor": UIColor(fromHexString: "#E9E9E9"),
     "keyboardKeyBackgroundColor": UIColor.whiteColor(),
-    "keyboardKeyUnderColor": DarkGrey,
+    "keyboardKeyUnderColor": UIColor(fromHexString: "#C4C4C4"),
     "keyboardKeyBorderColor": UIColor.whiteColor(),
     "keyboardKeyPopupColor": UIColor.whiteColor(),
     "keyboardKeyBackgroundShadowColor": DarkGrey,
-    "keyboardKeyTextColor": UIColor.blackColor(),
+    "keyboardKeyTextColor": UIColor(fromHexString: "#202020"),
     "shiftKeyBorderColor": UIColor.blackColor(),
     "enterKeyBackgroundColor": UIColor.whiteColor(),
-    "spaceKeyHighlightedBackgroundColor": UIColor(fromHexString: "#EDEDED"),
+    "spaceKeyHighlightedBackgroundColor": UIColor(fromHexString: "#E9E9E9"),
     "backspaceKeyTextColor": UIColor.blackColor()
 ])
 
