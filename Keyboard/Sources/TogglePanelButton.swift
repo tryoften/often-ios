@@ -26,7 +26,7 @@ class TogglePanelButton: UIButton {
         didSet {
             switch(mode) {
             case .ToggleKeyboard:
-                setImage(StyleKit.imageOfKeyboard(frame: CGRectMake(0, 0, 48, 30), color: UIColor(fromHexString: "#E3E3E3"), scale: 0.5), forState: .Normal)
+                setImage(StyleKit.imageOfKeyboard(frame: CGRectMake(0, 0, 48, 30), color: UIColor(fromHexString: "#BEBEBE"), scale: 0.5), forState: .Normal)
                 setImage(StyleKit.imageOfKeyboard(frame: CGRectMake(0, 0, 48, 30), color: BlackColor.colorWithAlphaComponent(0.8), scale: 0.5), forState: .Selected)
                 break
             case .ClosePanel:

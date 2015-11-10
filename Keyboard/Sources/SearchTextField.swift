@@ -285,18 +285,18 @@ class SearchTextField: UIControl, Layouteable {
             backgroundView.al_bottom == al_bottom,
             
             searchIcon.al_left == labelContainer.al_left + 10,
-            searchIcon.al_centerY == labelContainer.al_centerY - 1,
+            searchIcon.al_centerY == labelContainer.al_centerY,
             searchIcon.al_height == 15,
             searchIcon.al_width == 20,
             
             labelContainer.al_left == al_left,
-            labelContainer.al_height == al_height - 2,
+            labelContainer.al_height == al_height,
             labelContainer.al_top == al_top,
             labelContainer.al_right == al_right,
             
             label.al_left == searchIcon.al_right + 3,
             label.al_centerY == labelContainer.al_centerY,
-            label.al_height >= 19.5,
+            label.al_height == 20,
             
             indicator.al_height == 2.0,
             indicator.al_width == 10,
