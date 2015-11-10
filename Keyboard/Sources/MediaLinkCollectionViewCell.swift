@@ -102,6 +102,7 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         rightSupplementLabel.translatesAutoresizingMaskIntoConstraints = false
         rightSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
         rightSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
+        rightSupplementLabel.textAlignment = .Right
         
         rightCornerImageView = UIImageView()
         rightCornerImageView.translatesAutoresizingMaskIntoConstraints = false

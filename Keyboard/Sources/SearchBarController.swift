@@ -97,6 +97,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func resetSearchBar() {
+        filter = nil
         searchBar.resetSearchBar()
         searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
         NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
@@ -201,6 +202,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     // MARK: SearchViewModelDelegate
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
+        // TODO(luc): don't do anything if the keyboard is restored
         if response.results.isEmpty {
             return
         }
