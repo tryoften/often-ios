@@ -8,11 +8,30 @@
 
 import UIKit
 
+
 class TogglePanelButton: UIButton {
+    
+    enum TogglePanelButtonMode {
+        case ToggleKeyboard
+        case ClosePanel
+    }
 
     var collapsed: Bool {
         didSet {
             hidden = false
+        }
+    }
+    
+    var mode: TogglePanelButtonMode {
+        didSet {
+            switch(mode) {
+            case .ToggleKeyboard:
+                setImage(StyleKit.imageOfKeyboard(frame: CGRectMake(0, 0, 48, 30), color: UIColor(fromHexString: "#BEBEBE"), scale: 0.5), forState: .Normal)
+                setImage(StyleKit.imageOfKeyboard(frame: CGRectMake(0, 0, 48, 30), color: BlackColor.colorWithAlphaComponent(0.8), scale: 0.5), forState: .Selected)
+                break
+            case .ClosePanel:
+                setImage(StyleKit.imageOfClosebutton(frame: CGRectMake(0, 8, 50, 45), scale: 0.62), forState: .Normal)
+            }
         }
     }
     
@@ -35,11 +54,11 @@ class TogglePanelButton: UIButton {
         rightBackgroundView = UIImageView(image: capBgImage)
         rightBackgroundView.contentMode = .ScaleToFill
         rightBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-
+        
+        mode = .ToggleKeyboard
         
         super.init(frame: frame)
-        
-        contentEdgeInsets = UIEdgeInsets(top: 2, left: 5, bottom: 2, right: 5)
+
         userInteractionEnabled = true
         
         guard let imageView = imageView else {
@@ -53,8 +72,7 @@ class TogglePanelButton: UIButton {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .ScaleAspectFit
         
-        setImage(StyleKit.imageOfKeyboard(frame: CGRectMake(0, 0, 48, 27), color: DarkGrey, scale: 0.6), forState: .Normal)
-        setImage(StyleKit.imageOfKeyboard(frame: CGRectMake(0, 0, 48, 27), color: BlackColor, scale: 0.6), forState: .Normal)
+
         
         addConstraints([
             leftBackgroundView.al_left == al_left,
@@ -72,8 +90,9 @@ class TogglePanelButton: UIButton {
             rightBackgroundView.al_bottom == al_bottom,
             rightBackgroundView.al_height == leftBackgroundView.al_height,
             
-            imageView.al_top == centerBackgroundView.al_top + 15,
-            imageView.al_bottom == centerBackgroundView.al_bottom - 10,
+            imageView.al_top == centerBackgroundView.al_top + 10,
+            imageView.al_height == al_height + 10,
+            imageView.al_bottom == centerBackgroundView.al_bottom,
             imageView.al_centerX == centerBackgroundView.al_centerX
         ])
     }

@@ -35,6 +35,7 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
         view.addSubview(spacer)
 
         setupLayout()
+        reloadCollectionView()
     }
     
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
@@ -76,7 +77,7 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
             spacer.al_right == view.al_right,
             spacer.al_bottom == contentFilterTabView.al_top,
             
-            emptyStateView.al_top == contentFilterTabView.al_bottom,
+            emptyStateView.al_top == favoritesAndRecentsTabView.al_bottom,
             emptyStateView.al_left == view.al_left,
             emptyStateView.al_right == view.al_right,
             emptyStateView.al_bottom == view.al_bottom,
@@ -91,12 +92,17 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
             return
         }
         
-        textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        if selected {
+            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        } else {
+            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
+                textProcessor?.defaultProxy.deleteBackward()
+            }
+        }
     }
-
-
+    
     
 }
 
 
-    
+

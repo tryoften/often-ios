@@ -173,7 +173,6 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         hasLinks()
     }
     
-    
     func isKeyboardEnabled() {
         if let keyboards = NSUserDefaults.standardUserDefaults().dictionaryRepresentation()["AppleKeyboards"] as? [String] {
             if !keyboards.contains("com.tryoften.often.Keyboard") {
@@ -233,6 +232,14 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     func didTapTwitterButton() {
         revealSetServicesViewDidTap()
         
+    }
+    
+    override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+        super.mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: selected)
+        
+        if selected {
+            DropDownErrorMessage().setMessage("Copied link!".uppercaseString, subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+        }
     }
   
 }

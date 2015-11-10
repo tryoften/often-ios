@@ -102,6 +102,7 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         rightSupplementLabel.translatesAutoresizingMaskIntoConstraints = false
         rightSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
         rightSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
+        rightSupplementLabel.textAlignment = .Right
         
         rightCornerImageView = UIImageView()
         rightCornerImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -164,10 +165,9 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         overlayView.cancelButton.addTarget(self, action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
         overlayView.doneButton.addTarget(self, action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
         overlayView.insertButton.addTarget(self, action: "didTapInsertButton:", forControlEvents: .TouchUpInside)
-        overlayView.deleteButton.addTarget(self, action: "didTapDeleteButton:", forControlEvents: .TouchUpInside)
         overlayView.copyButton.addTarget(self, action: "didTapCopyButton:", forControlEvents: .TouchUpInside)
         
-        for button in [overlayView.favoriteButton, overlayView.insertButton, overlayView.copyButton, overlayView.doneButton, overlayView.deleteButton] {
+        for button in [overlayView.favoriteButton, overlayView.insertButton, overlayView.copyButton, overlayView.doneButton] {
             button.addTarget(self, action: "didTouchUpButton:", forControlEvents: .TouchUpInside)
         }
         
@@ -193,8 +193,8 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         overlayView.doneButton.hidden = true
         overlayView.copyButton.selected = false
         overlayView.rightLabel.text = "share".uppercaseString
+        overlayView.leftLabel.text = "favorite".uppercaseString
         showCopyButton()
-        showDeleteButton()
     }
    
     func didTapFavoriteButton(button: SpringButton) {
@@ -204,12 +204,6 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         delegate?.mediaLinkCollectionViewCellDidToggleFavoriteButton(self, selected: overlayView.favoriteButton.selected)
     }
     
-    func didTapDeleteButton(button: SpringButton) {
-        overlayView.deleteButton.selected = !overlayView.deleteButton.selected
-        updatedButtonLabels(button)
-       
-        delegate?.mediaLinkCollectionViewCellDidToggleDeleteButton(self, selected: overlayView.deleteButton.selected)
-    }
     
     func didTapCancelButton(button: SpringButton) {
         overlayView.cancelButton.selected = !overlayView.cancelButton.selected
@@ -227,21 +221,23 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         overlayView.copyButton.selected = !overlayView.copyButton.selected
         updatedButtonLabels(button)
         
-        delegate?.mediaLinkCollectionViewCellDidToggleCopyButton(self, selected: overlayView.insertButton.selected)
+        delegate?.mediaLinkCollectionViewCellDidToggleCopyButton(self, selected: overlayView.copyButton.selected)
     }
     
     func didTouchUpButton(button: SpringButton?) {
         if let button = button {
             animateButton(button)
-            
         }
     }
     
     //MARK: Button Animation
     func animateButton(button: SpringButton) {
-        button.animation = "pop"
-        button.duration = 0.3
-        button.curve = "easeIn"
+        if !(button == overlayView.insertButton || button == overlayView.copyButton) {
+            button.animation = "pop"
+            button.duration = 0.3
+            button.curve = "easeIn"
+        }
+        
         button.animate()
         
         if button == overlayView.insertButton {
@@ -261,23 +257,7 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    
     //MARK: Show Buttons
-    func showDeleteButton() {
-        if overlayView.favoriteButton.selected {
-            overlayView.favoriteButton.hidden = true
-            overlayView.deleteButton.hidden = false
-            overlayView.deleteButton.selected = false
-            overlayView.leftLabel.text = "delete".uppercaseString
-            
-        } else {
-            overlayView.deleteButton.selected = false
-            overlayView.deleteButton.hidden = true
-            overlayView.favoriteButton.hidden = false
-            overlayView.leftLabel.text = "favorite".uppercaseString
-        }
-    }
-    
     func showCopyButton() {
         if inMainApp {
             self.overlayView.copyButton.hidden = !self.inMainApp
@@ -295,15 +275,6 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
             }
         }
         
-        if button == overlayView.deleteButton {
-            if overlayView.deleteButton.selected {
-                overlayView.leftLabel.text = "undo".uppercaseString
-            } else {
-                overlayView.leftLabel.text = "delete".uppercaseString
-            }
-        }
-
-        
         if button == overlayView.insertButton {
             if overlayView.insertButton.selected {
                 overlayView.rightLabel.text = "Remove".uppercaseString
@@ -312,7 +283,6 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
             }
         }
 
-        
         if button == overlayView.copyButton {
             if overlayView.copyButton.selected {
                 overlayView.rightLabel.text = "Copied".uppercaseString
@@ -322,7 +292,6 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
 
         }
 
-        
         overlayView.cancelButton.hidden = true
         overlayView.middleLabel.text = "Done".uppercaseString
         overlayView.doneButton.hidden = false
@@ -392,6 +361,5 @@ protocol MediaLinksCollectionViewCellDelegate: class {
     func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool)
     func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaLinkCollectionViewCell, selected: Bool)
     func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaLinkCollectionViewCell, selected: Bool)
-    func mediaLinkCollectionViewCellDidToggleDeleteButton(cell: MediaLinkCollectionViewCell, selected: Bool)
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool)
 }

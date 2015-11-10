@@ -302,8 +302,6 @@
 		81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26DA51B68901100FC1F2F /* TrendingViewController.swift */; };
 		81E881751BE7DDD600523ECC /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E881741BE7DDD600523ECC /* StreamReader.swift */; };
 		81E881761BE7DDD600523ECC /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E881741BE7DDD600523ECC /* StreamReader.swift */; };
-		81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
-		81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */; };
 		81FFAF4D1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */; };
 		81FFAF4E1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */; };
 /* End PBXBuildFile section */
@@ -573,7 +571,6 @@
 		81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTextField.swift; path = Sources/SearchTextField.swift; sourceTree = "<group>"; };
 		81E26DA51B68901100FC1F2F /* TrendingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingViewController.swift; path = Sources/TrendingViewController.swift; sourceTree = "<group>"; };
 		81E881741BE7DDD600523ECC /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
-		81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AnimateImage.swift"; sourceTree = "<group>"; };
 		81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderSupplementaryViewController.swift; path = Sources/ServiceProviderSupplementaryViewController.swift; sourceTree = "<group>"; };
 		85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		881DAADCE950D0B0D3A901F8 /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -760,6 +757,15 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		811FA29F1BF13BE500E07660 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3BEE47171BE16516002E4394 /* FilterMap.swift */,
+				3BEE471A1BE17D5D002E4394 /* FilterButton.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		813092DD1BC43F3100DC6736 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -906,15 +912,10 @@
 				3BF60C4C1B83EDC900DD6E31 /* TwitterAuthHelper.h */,
 				3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */,
 				3B9AD78A1B27DFF600727E79 /* Validation.swift */,
-				3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */,
-				3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */,
-				81EBFC871B40BC51005C6E76 /* UIImageView+AnimateImage.swift */,
 				30E00C791BC86CEA00DDF24C /* delay.swift */,
 				817F784B1BC085440087EBE8 /* suffixNumber.swift */,
 				81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */,
 				81E881741BE7DDD600523ECC /* StreamReader.swift */,
-				3BEE47171BE16516002E4394 /* FilterMap.swift */,
-				3BEE471A1BE17D5D002E4394 /* FilterButton.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -942,6 +943,8 @@
 		816FE5A21A86E67100E42C17 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */,
+				3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */,
 				690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */,
 				3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */,
 				3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */,
@@ -1036,6 +1039,7 @@
 			isa = PBXGroup;
 			children = (
 				813138881B13ADA3001AF9AC /* Often.entitlements */,
+				811FA29F1BF13BE500E07660 /* Models */,
 				816EB96C1AE5EB7F000620E2 /* Utilities */,
 				816CE0741A992E7100D718E1 /* Categories */,
 				69BA81FD1B2FA84A00233789 /* View Layouts */,
@@ -1563,7 +1567,6 @@
 				8176BEE61B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
 				30A402061BC46D8600BF0C0E /* Service.swift in Sources */,
 				6970EC201BE9E5EE00BEE619 /* InKeyboardToolTip.swift in Sources */,
-				81EBFC881B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
 				817F78391BBDD2780087EBE8 /* TrackMediaLink.swift in Sources */,
 				81E26D961B67C29D00FC1F2F /* Shape.swift in Sources */,
@@ -1637,7 +1640,6 @@
 				81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
-				81EBFC891B40BC51005C6E76 /* UIImageView+AnimateImage.swift in Sources */,
 				69F3BC181BE8FB7100080628 /* ToolTipLoadingView.swift in Sources */,
 				3BE0BCA01BED530800037E21 /* MediaFilterTabView.swift in Sources */,
 				8176BEA11B72743000E1BDCD /* FuzzySearch.swift in Sources */,
