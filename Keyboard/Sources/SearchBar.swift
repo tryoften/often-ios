@@ -71,7 +71,6 @@ class SearchBar: UIView {
         }
         
         toggleShareButton()
-        //shareButton.setImage(StyleKit.imageOfShare(frame: CGRectMake(0, 0, CGRectGetHeight(bounds), CGRectGetHeight(bounds)), color: UIColor.blackColor()), forState: .Normal)
     }
     
     func textFieldEditingDidBegin() {
@@ -82,7 +81,7 @@ class SearchBar: UIView {
     }
     
     func textFieldEditingDidEnd() {
-        cancelButtonLeftConstraint.constant = CGRectGetWidth(frame)
+        cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
         UIView.animateWithDuration(0.3) {
             self.layoutIfNeeded()
         }
