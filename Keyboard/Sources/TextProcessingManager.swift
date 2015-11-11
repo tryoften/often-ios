@@ -36,7 +36,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         super.init()
         
         spellChecker = SpellChecker()
-//        spellChecker?.createDictionary("big.txt", language: "")
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSetCurrentProxy:", name: TextProcessingManagerProxyEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveResetDefaultProxy:", name: TextProcessingManagedResetDefaultProxyEvent, object: nil)
