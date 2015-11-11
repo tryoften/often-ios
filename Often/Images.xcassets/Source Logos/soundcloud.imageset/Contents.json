@@ -2,18 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "Soundcloud Fav (deleted 0679f9643bed3c716cd7bb1ce9283f9a).png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Soundcloud Fav.png"
+      "filename" : "Soundcloud Fav.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "Soundcloud Fav Copy 2.png"
+      "filename" : "Soundcloud Fav Copy 2.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

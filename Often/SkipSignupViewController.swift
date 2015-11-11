@@ -122,6 +122,7 @@ class SkipSignupViewController: UIViewController {
         
     }
     
+
     func setupLayout() {
         view.addConstraints([
             servicesMenuButton.al_left == view.al_left + 15,

@@ -23,6 +23,8 @@ import UIKit
 
 */
 
+let SearchResultsInsertLinkEvent = "SearchResultsCollectionViewCell.insertButton"
+
 class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, ToolTipCloseButtonDelegate, MessageBarDelegate {
     var backgroundImageView: UIImageView
     var textProcessor: TextProcessingManager?
@@ -300,6 +302,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
 
         if selected {
             self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
+            NSNotificationCenter.defaultCenter().postNotificationName(SearchResultsInsertLinkEvent, object: cell.mediaLink)
         } else {
             for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
                 textProcessor?.defaultProxy.deleteBackward()

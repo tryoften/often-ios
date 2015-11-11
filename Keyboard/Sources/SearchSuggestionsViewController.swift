@@ -118,6 +118,10 @@ class SearchSuggestionsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if suggestions?.isEmpty == true {
+            return
+        }
+    
         if let suggestion = suggestions?[indexPath.row] {
             delegate?.searchSuggestionViewControllerDidTapSuggestion(self, suggestion: suggestion)
         }

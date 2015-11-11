@@ -78,7 +78,10 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func textWillChange(textInput: UITextInput?) {
-        textBuffer = defaultProxy.documentContextBeforeInput! + defaultProxy.documentContextAfterInput!
+        if let beforeInput = defaultProxy.documentContextBeforeInput {
+            textBuffer = beforeInput
+        }
+        
         NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagedResetDefaultProxyEvent, object: self, userInfo: nil)
     }
     

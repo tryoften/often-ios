@@ -12,8 +12,9 @@ class SettingsWebViewController: UIViewController {
     var navigationBar: UIView
     var closeButton: UIButton
     var webView: UIWebView
+    var titleBar: UILabel
     
-    init(website: String) {
+    init(title: String, website: String) {
         navigationBar = UIView()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         navigationBar.backgroundColor = SettingsTableViewControllerNavBarBackgroundColor
@@ -22,6 +23,16 @@ class SettingsWebViewController: UIViewController {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.setImage(UIImage(named: "close-white"), forState: UIControlState.Normal)
         closeButton.contentEdgeInsets = UIEdgeInsetsMake(9.0, 9.0, 9.0, 9.0)
+        
+        titleBar = UILabel()
+        titleBar.translatesAutoresizingMaskIntoConstraints = false
+        titleBar.font = UIFont(name: "OpenSans", size: 14)
+        titleBar.text = title.uppercaseString
+        titleBar.backgroundColor = UIColor.clearColor()
+        titleBar.numberOfLines = 0
+        titleBar.textAlignment = .Center
+        titleBar.textColor = WhiteColor
+        
         
         let requestURL = NSURL(string: website)
         let request = NSURLRequest(URL: requestURL!)
@@ -35,7 +46,9 @@ class SettingsWebViewController: UIViewController {
         
         view.addSubview(webView)
         view.addSubview(navigationBar)
+        navigationBar.addSubview(titleBar)
         navigationBar.addSubview(closeButton)
+        
         
         setupLayout()
         
@@ -77,6 +90,11 @@ class SettingsWebViewController: UIViewController {
         ])
         
         navigationBar.addConstraints([
+            titleBar.al_left == navigationBar.al_left,
+            titleBar.al_right == navigationBar.al_right,
+            titleBar.al_bottom == navigationBar.al_bottom,
+            titleBar.al_top == navigationBar.al_top,
+            
             closeButton.al_right == navigationBar.al_right - 10,
             closeButton.al_top == navigationBar.al_top + 10,
             closeButton.al_height == 30,

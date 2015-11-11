@@ -31,10 +31,10 @@ class SearchLoaderSuggestionTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = ClearColor
-        
         addSubview(loadBar)
-        
         setupLayout()
+        
+        userInteractionEnabled = false
     }
 
     required init?(coder aDecoder: NSCoder) {
