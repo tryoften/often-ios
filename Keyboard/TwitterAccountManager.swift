@@ -13,6 +13,8 @@ class TwitterAccountManager: NSObject {
     var userDefaults: NSUserDefaults
     let sessionManager = SessionManager.defaultManager
     var isInternetReachable: Bool
+    let manager: AFHTTPRequestOperationManager
+    var userRef: Firebase?
     
     enum ResultType {
         case Success(r: Bool)
@@ -25,6 +27,7 @@ class TwitterAccountManager: NSObject {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
         isInternetReachable = reachabilitymanager.reachable
+        manager = AFHTTPRequestOperationManager()
         
         super.init()
         
@@ -34,42 +37,37 @@ class TwitterAccountManager: NSObject {
         reachabilitymanager.startMonitoring()
     }
         
-    func openSessionWithTwitter(completion: ((NSError?) -> ())? = nil) {
-        userDefaults.setValue(true, forKey: "twitter")
+    func openSessionWithTwitter(completion: (results: ResultType) -> Void) {
+        guard let userId = PFTwitterUtils.twitter()?.userId, twitterToken = PFTwitterUtils.twitter()?.authToken else {
+            completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
+            return
+        }
         
-        let twitterAuthHelper = TwitterAuthHelper(firebaseRef: firebase, apiKey: TwitterConsumerKey)
-        twitterAuthHelper.selectTwitterAccountWithCallback { error, accounts in
-            if error != nil {
-                // Error retrieving Twitter accounts
-                completion?(error)
-            } else if !accounts.isEmpty {
+        let twitterAuth = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
+        twitterAuth.setValue([
+            "task": "createToken",
+            "user": "twitter:\(userId)",
+            "data": ["token": twitterToken]
+            ])
     
-                for account in accounts {
-                    if let userName = PFTwitterUtils.twitter()?.screenName {
-                        if account.username == userName {
-                            
-                            twitterAuthHelper.authenticateAccount(account as! ACAccount, withCallback: { error, authData in
-                                if error != nil {
-                                    print("Login failed. \(error)")
-                                    completion?(error)
-                                } else {
-                                    self.getTwitterUserInfo(authData, completion: { err in
-                                        if err != nil {
-                                            completion?(err)
-                                        }
-                                      completion?(nil)  
-                                    }
-                                    )
-                                }
-  
-                            })
+        
+        userRef = firebase.childByAppendingPath("users/\("twitter:\(userId)")")
+        
+        userRef?.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            if snapshot.exists() {
+                if let value = snapshot.value as? [String: AnyObject] {
+                    self.firebase.authWithCustomToken(value["auth_token"] as? String, withCompletionBlock: { (err, aut ) -> Void in
+                        if err == nil {
+                            self.getTwitterUserInfo(completion)
+                        } else {
+                             completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
                         }
-                    }
+                    })
                     
                 }
             }
-        }
-
+        })
+        
         userDefaults.setValue(true, forKey: UserDefaultsProperty.openSession)
         userDefaults.synchronize()
     }
@@ -83,13 +81,7 @@ class TwitterAccountManager: NSObject {
         PFTwitterUtils.logInWithBlock({ (user, error) in
             if error == nil {
                 if user != nil {
-                    self.openSessionWithTwitter({ err in
-                        if err == nil {
-                            completion(results: ResultType.Success(r: true))
-                        } else {
-                            completion(results: ResultType.SystemError(e: err!))
-                        }
-                    })
+                    self.openSessionWithTwitter(completion)
                 } else {
                     completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
                 }
@@ -100,33 +92,65 @@ class TwitterAccountManager: NSObject {
         })
     }
     
-    func getTwitterUserInfo(authData:FAuthData, completion: (NSError?) -> ()) {
-        let userRef = firebase.childByAppendingPath("users/\(authData.uid)")
-        var data = [String : AnyObject]()
-        var socialAccounts = sessionManager.createSocialAccount()
+    func getTwitterUserInfo(completion: (results: ResultType) -> Void) {
+        func updateUserInfo(data: AnyObject) {
+            if let userdata = data as? [String: AnyObject] {
+                var firebaseData = [String: AnyObject]()
+                var socialAccounts = sessionManager.createSocialAccount()
+                
+                if let accessToken = PFTwitterUtils.twitter()?.authToken {
+                    let twitter = SocialAccount()
+                    twitter.type = .Twitter
+                    twitter.activeStatus = true
+                    twitter.token = accessToken
+                    socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
+                }
+                
+                let urlString = userdata["profile_image_url_https"] as? String
+                let hiResUrlString = urlString!.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+
+                
+                firebaseData["accounts"] = socialAccounts
+                firebaseData["id"] = PFTwitterUtils.twitter()?.authToken
+                firebaseData["profileImageURL"] = hiResUrlString
+                firebaseData["name"] = userdata["name"] as! String
+                firebaseData["username"] = userdata["screen_name"] as? String
+                firebaseData["description"] = userdata["description"] as? String
+                firebaseData["parseId"] = PFUser.currentUser()?.objectId
+                
+                if let userID = PFTwitterUtils.twitter()?.userId {
+                    
+                    userDefaults.setValue("twitter:\(userID)", forKey: UserDefaultsProperty.userID)
+                    userDefaults.synchronize()
+                    
+                    userRef?.updateChildValues(firebaseData)
+                    completion(results: ResultType.Success(r: true))
+                    
+                }
+            }
+        }
+
+        let verify = NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json")
+        let request = NSMutableURLRequest(URL: verify!)
+        PFTwitterUtils.twitter()?.signRequest(request)
         
-        if let accessToken = authData.providerData["accessToken"] as? String {
-            let twitter = SocialAccount()
-            twitter.type = .Twitter
-            twitter.activeStatus = true
-            twitter.token = accessToken
-            socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
+        var response: NSURLResponse?
+        
+        do {
+            let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
+            
+            do {
+                let result = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+                updateUserInfo(result)
+                
+            } catch {
+                completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
+            }
+        } catch {
+            completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
         }
         
-        data["accounts"] = socialAccounts
-        data["id"] = authData.uid
-        data["profileImageURL"] = authData.providerData["profileImageURL"] as? String
-        data["name"] = authData.providerData["displayName"] as? String
-        data["username"] = authData.providerData["username"] as? String
-        data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
-        data["description"] = (authData.providerData["cachedUserProfile"] as? [String: AnyObject])?["description"] as? String
-        data["parseId"] = PFUser.currentUser()?.objectId
         
-        userDefaults.setValue(authData.uid, forKey: UserDefaultsProperty.userID)
-        userDefaults.synchronize()
-        
-        userRef.updateChildValues(data)
-        completion(nil)
     }
 
 }
@@ -134,4 +158,5 @@ class TwitterAccountManager: NSObject {
 enum TwitterAccountManagerError: ErrorType {
     case ReturnedEmptyUserObject
     case NotConnectedOnline
+    case ReturnedNoTwitterData
 }

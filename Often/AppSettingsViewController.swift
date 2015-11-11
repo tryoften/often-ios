@@ -161,22 +161,18 @@ class AppSettingsViewController: UIViewController,
                 break
             case .About:
                 if indexPath.row == 0 { // FAQ
-                    let vc = SettingsWebViewController(website: "http://www.tryoften.com/faq.html")
+                    let vc = SettingsWebViewController(title:"faq", website: "http://www.tryoften.com/faq.html")
                     RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
                     })
                 } else if indexPath.row == 1 { // Privacy Policy
-                    let vc = SettingsWebViewController(website: "http://www.tryoften.com/privacypolicy.html")
+                    let vc = SettingsWebViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html")
                     RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
                     })
                 } else if indexPath.row == 2 { // Terms of Use
-                    let vc = SettingsWebViewController(website: "http://www.tryoften.com/privacypolicy.html")
+                    let vc = SettingsWebViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html")
                     RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
                     })
-                } else { // Licenses
-                    let vc = SettingsWebViewController(website: "http://www.google.com")
-                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
-                    })
-                }
+                } 
                 break
             case .Logout:
                 let actionSheet = UIActionSheet(title: "Are you sure you want to logout?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Logout")

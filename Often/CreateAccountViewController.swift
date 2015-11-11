@@ -92,7 +92,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didTapTermsOfUseButton(sender: UIButton) {
-        self.presentViewController(SettingsWebViewController(website: "http://www.tryoften.com/privacypolicy.html"), animated: true, completion: nil)
+        self.presentViewController(TermsOfUseViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html"), animated: true, completion: nil)
         
     }
     func createKeyboardInstallationWalkthroughViewController() {
