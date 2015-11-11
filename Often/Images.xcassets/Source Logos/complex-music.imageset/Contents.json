@@ -2,18 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "Complex Fav (deleted 3a6d87be750ff88089ace2f4087a8e9c).png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Complex Fav.png"
+      "filename" : "Complex Fav.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "Complex Fav Copy 2.png"
+      "filename" : "Complex Fav Copy 2.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

@@ -76,6 +76,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         
         signupView.createAccountButton.addTarget(self,  action: "didTapcreateAccountButton:", forControlEvents: .TouchUpInside)
         signupView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
+        signupView.skipButton.addTarget(self, action: "didTapSkipButton:", forControlEvents: .TouchUpInside)
         setupPages()
         loadVisiblePages()
     }
@@ -145,6 +146,11 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         timer?.invalidate()
         let signinAccount = SigninViewController(viewModel:self.viewModel)
         presentViewController(signinAccount, animated: true, completion: nil)
+    }
+    
+    func didTapSkipButton(sender: UIButton) {
+        let walkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
+        presentViewController(walkthrough, animated: true, completion: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {

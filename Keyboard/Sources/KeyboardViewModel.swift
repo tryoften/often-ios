@@ -19,6 +19,7 @@ class KeyboardViewModel: NSObject {
             userDefaults.setBool(value, forKey: KeyboardTooltipsDisplayedKey)
         }
     }
+    var firebaseRef: Firebase
     
     override init() {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
@@ -26,11 +27,21 @@ class KeyboardViewModel: NSObject {
         userDefaults.synchronize()
         
         isFullAccessEnabled = false
+        firebaseRef = Firebase(url: BaseURL)
         
         super.init()
     }
     
-    func logTextSendEvent() {
+    func logTextSendEvent(mediaLink: MediaLink) {
+        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
+            print("User Id not found")
+            return
+        }
         
+        firebaseRef.childByAppendingPath("queues/user/tasks").childByAutoId().setValue([
+            "task": "addRecent",
+            "user": userId,
+            "result": mediaLink.toDictionary()
+        ])
     }
 }

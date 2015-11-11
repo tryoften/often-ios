@@ -38,6 +38,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var lastLayoutBounds: CGRect?
     var userDefaults: NSUserDefaults
     var messageChannel: MMWormhole
+    var mediaLink: MediaLink?
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
@@ -94,6 +95,14 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     static var once_predicate: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        // Only setup firebase once because this view controller gets instantiated
+        // everytime the keyboard is spawned
+        dispatch_once(&KeyboardViewController.once_predicate) {
+            if (!KeyboardViewController.debugKeyboard) {
+                Firebase.defaultConfig().persistenceEnabled = true
+            }
+        }
+
         viewModel = KeyboardViewModel()
         
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
@@ -103,13 +112,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         messageChannel = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: nil)
         messageChannel.passMessageObject("open", identifier: "keyboardOpen")
         
-        // Only setup firebase once because this view controller gets instantiated
-        // everytime the keyboard is spawned
-        dispatch_once(&KeyboardViewController.once_predicate) {
-            if (!KeyboardViewController.debugKeyboard) {
-                Firebase.defaultConfig().persistenceEnabled = true
-            }
-        }
 
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBarHeight = KeyboardSearchBarHeight
@@ -145,7 +147,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         center.addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
         center.addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
         center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvent, object: nil)
-
+        center.addObserver(self, selector: "didTapOnMediaLink:", name: SearchResultsInsertLinkEvent, object: nil)
         togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
     
         view.addSubview(searchBar.view)
@@ -400,28 +402,20 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     override func textDidChange(textInput: UITextInput?) {
-        if let textInput = textInput {
-             textProcessor.textDidChange(textInput)
-        }
+            textProcessor.textDidChange(textInput)
     }
     
     override func textWillChange(textInput: UITextInput?) {
-        if let textInput = textInput {
-            textProcessor.textWillChange(textInput)
-        }
+        textProcessor.textWillChange(textInput)
     }
    
     
     override func selectionWillChange(textInput: UITextInput?) {
-        if let textInput = textInput {
-             textProcessor.selectionWillChange(textInput)
-        }
+        textProcessor.selectionWillChange(textInput)
     }
     
     override func selectionDidChange(textInput: UITextInput?) {
-        if let textInput = textInput {
-            textProcessor.selectionDidChange(textInput)
-        }
+        textProcessor.selectionDidChange(textInput)
     }
     
     func setupKludge() {
@@ -565,7 +559,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
-        viewModel.logTextSendEvent()
+        if let mediaLink = mediaLink {
+            viewModel.logTextSendEvent(mediaLink)
+        }
     }
 
     // MARK: ToolTipCloseButtonDelegate
@@ -577,6 +573,13 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             }, completion: { done in
                 self.toolTipViewController!.view.removeFromSuperview()
         })
+    }
+    
+    func didTapOnMediaLink(notification: NSNotification) {
+        guard let mediaLink = notification.object as? MediaLink else {
+            return
+        }
+        self.mediaLink = mediaLink
     }
 }
 
