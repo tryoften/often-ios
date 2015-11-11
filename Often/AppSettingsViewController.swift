@@ -36,8 +36,7 @@ class AppSettingsViewController: UIViewController,
     var aboutSettings = [
         "FAQ",
         "Privacy Policy",
-        "Terms of Use",
-        "Licenses"
+        "Terms of Use"
     ]
     
     var logoutSettings = [
@@ -170,10 +169,6 @@ class AppSettingsViewController: UIViewController,
                     })
                 } else if indexPath.row == 2 { // Terms of Use
                     let vc = SettingsWebViewController(website: "http://www.tryoften.com/privacypolicy.html")
-                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
-                    })
-                } else { // Licenses
-                    let vc = SettingsWebViewController(website: "http://www.google.com")
                     RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
                     })
                 }
