@@ -136,7 +136,9 @@ class TwitterAccountManager: NSObject {
         do {
         let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
         let result = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
-            parseUserData(result)
+        
+        parseUserData(result)
+            
         } catch {
             completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
         }
