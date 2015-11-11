@@ -21,7 +21,6 @@
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
-		3B1F62A41BD19F7100CC24F4 /* CompleteInstallationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F62A31BD19F7100CC24F4 /* CompleteInstallationViewController.swift */; };
 		3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
@@ -89,7 +88,6 @@
 		3BEB40AE1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */; };
 		3BEB40B91BD03A3500D36C4D /* TextMessageOnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */; };
 		3BEB40BB1BD03A8C00D36C4D /* CompleteInstallationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */; };
-		3BEB40BD1BD04CDB00D36C4D /* TextMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40BC1BD04CDB00D36C4D /* TextMessageViewController.swift */; };
 		3BEE47181BE16516002E4394 /* FilterMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEE47171BE16516002E4394 /* FilterMap.swift */; };
 		3BEE47191BE16516002E4394 /* FilterMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEE47171BE16516002E4394 /* FilterMap.swift */; };
 		3BEE471B1BE17D5D002E4394 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEE471A1BE17D5D002E4394 /* FilterButton.swift */; };
@@ -394,7 +392,6 @@
 		3B1D6BF31B8F61AF004868E5 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotifyAccountManager.swift; path = Keyboard/SpotifyAccountManager.swift; sourceTree = "<group>"; };
-		3B1F62A31BD19F7100CC24F4 /* CompleteInstallationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteInstallationViewController.swift; sourceTree = "<group>"; };
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeyboardViewController+EventHandlers.swift"; path = "Sources/KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
 		3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownErrorMessage.swift; sourceTree = "<group>"; };
@@ -436,7 +433,6 @@
 		3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotificationsAlertView.swift; sourceTree = "<group>"; };
 		3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessageOnBoardingView.swift; sourceTree = "<group>"; };
 		3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteInstallationView.swift; sourceTree = "<group>"; };
-		3BEB40BC1BD04CDB00D36C4D /* TextMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessageViewController.swift; sourceTree = "<group>"; };
 		3BEE47171BE16516002E4394 /* FilterMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterMap.swift; sourceTree = "<group>"; };
 		3BEE471A1BE17D5D002E4394 /* FilterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		3BF60C461B83B3F100DD6E31 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -932,8 +928,6 @@
 				3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */,
 				3BE12EF11BEF020800F300FA /* FavoritesAndRecentsBaseViewController.swift */,
 				3BD971E01B9FD374007EAB5A /* SignupViewController.swift */,
-				3BEB40BC1BD04CDB00D36C4D /* TextMessageViewController.swift */,
-				3B1F62A31BD19F7100CC24F4 /* CompleteInstallationViewController.swift */,
 				3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */,
 				3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */,
 				3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */,
@@ -1485,7 +1479,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B64A1951BC593560057F795 /* DropDownErrorMessage.swift in Sources */,
-				3BEB40BD1BD04CDB00D36C4D /* TextMessageViewController.swift in Sources */,
 				81D09D901BE2BAE500AFBEC0 /* SpellChecker.swift in Sources */,
 				8184DC9F1BD57FE3001767AD /* SearchSuggestionTableViewCell.swift in Sources */,
 				696D8A5D1B93E8890016073C /* UserProfileSettingsTableViewCell.swift in Sources */,
@@ -1602,7 +1595,6 @@
 				3BD971DD1B9F7C6E007EAB5A /* CreateAccountView.swift in Sources */,
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
-				3B1F62A41BD19F7100CC24F4 /* CompleteInstallationViewController.swift in Sources */,
 				69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */,
 				698B872A1B755139001B5B86 /* UserProfileSectionHeaderView.swift in Sources */,
 				3BD971E11B9FD374007EAB5A /* SignupViewController.swift in Sources */,
