@@ -114,26 +114,22 @@ class SkipSignupViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func didSelectTwitterSignupButton() {
-        do {
-            try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
-                PKHUD.sharedHUD.hide(animated: true)
-                switch results {
-                case .Success(_): self.collectionView?.reloadData()
-                case .Error(let e): print("Error", e)
-                default: break
-                }
-            })
-        } catch {
-            
-        }
-    }
+//    func didSelectTwitterSignupButton() {
+//        do {
+//            try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
+//                PKHUD.sharedHUD.hide(animated: true)
+//                switch results {
+//                case .Success(_): self.collectionView?.reloadData()
+//                case .Error(let e): print("Error", e)
+//                default: break
+//                }
+//            })
+//        } catch {
+//            
+//        }
+//    }
     
-    func didSelectOftenAccountButton() {
-        let createAccount = CreateAccountViewController(viewModel:self.viewModel)
-        presentViewController(createAccount, animated: true, completion: nil)
-    }
-    
+
     func setupLayout() {
         view.addConstraints([
             servicesMenuButton.al_left == view.al_left + 15,
