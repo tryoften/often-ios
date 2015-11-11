@@ -105,53 +105,64 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
  
+            processAutocorrectSuggestions(text, tokens: tokens)
+            processFilters(text, tokens: tokens)
+        }
+
+        delegate?.textProcessingManagerDidChangeText(self)
+    }
+    
+    func processAutocorrectSuggestions(text: String, tokens: [String]) {
+        guard var lastWord = tokens.last else {
+            return
+        }
+        print(tokens)
+        let query = lastWord == "" && tokens.count > 1 ? tokens[tokens.count - 2] : lastWord
+        
+        if let suggestions = spellChecker?.lookup(query, language: "", editDistanceMax: 2) {
+            delegate?.textProcessingManagerDidReceiveSpellCheckSuggestions(self, suggestions: suggestions)
             
-            guard let firstToken = tokens.first, var lastWord = tokens.last else {
+            guard let firstSuggestion = suggestions.first else {
                 return
             }
-            print(tokens)
-            let query = lastWord == "" && tokens.count > 1 ? tokens[tokens.count - 2] : lastWord
             
-            if let suggestions = spellChecker?.lookup(query, language: "", editDistanceMax: 2) {
-                delegate?.textProcessingManagerDidReceiveSpellCheckSuggestions(self, suggestions: suggestions)
+            print("lastWord: ", lastWord)
+            if autocorrectEnabled && lastWord == "" {
+                lastWord = tokens[tokens.count - 2]
                 
-                guard let firstSuggestion = suggestions.first else {
-                    return
+                for _ in 0...lastWord.length {
+                    currentProxy.deleteBackward()
                 }
                 
-                print("lastWord: ", lastWord)
-                if autocorrectEnabled && lastWord == "" {
-                    lastWord = tokens[tokens.count - 2]
-                    
-                    for _ in 0...lastWord.length {
-                        currentProxy.deleteBackward()
-                    }
-                    
-                    currentProxy.insertText(firstSuggestion.term + " ")
-                }
-            }
-            
-            // check if first token is command call
-            if firstToken.hasPrefix("#") {
-                
-                if let filter = delegate?.textProcessingManagerDidTextContainerFilter(text) {
-                    for _ in 0...filter.text.characters.count {
-                        currentProxy.deleteBackward()
-                    }
-                    delegate?.textProcessingManagerDidDetectFilter(self, filter: filter)
-                }
-                
-                let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
-                if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
-                    print(serviceProviderType)
-                    for _ in 0...firstToken.characters.count {
-                        currentProxy.deleteBackward()
-                    }
-                    delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
-                }
+                currentProxy.insertText(firstSuggestion.term + " ")
             }
         }
-        delegate?.textProcessingManagerDidChangeText(self)
+    }
+    
+    func processFilters(text: String, tokens: [String]) {
+        guard let firstToken = tokens.first else {
+            return
+        }
+        
+        // check if first token is command call
+        if firstToken.hasPrefix("#") {
+            
+            if let filter = delegate?.textProcessingManagerDidTextContainerFilter(text) {
+                for _ in 0...filter.text.characters.count {
+                    currentProxy.deleteBackward()
+                }
+                delegate?.textProcessingManagerDidDetectFilter(self, filter: filter)
+            }
+            
+            let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
+            if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
+                print(serviceProviderType)
+                for _ in 0...firstToken.characters.count {
+                    currentProxy.deleteBackward()
+                }
+                delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
+            }
+        }
     }
     
     func clearInput() {
@@ -312,6 +323,6 @@ protocol TextProcessingManagerDelegate: class {
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType)
     func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter)
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter?
-    func textProcessingManagerDidSendText(textProcessingManager: TextProcessingManager)
+    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String)
     func textProcessingManagerDidReceiveSpellCheckSuggestions(TextProcessingManager: TextProcessingManager, suggestions: [SuggestItem])
 }
