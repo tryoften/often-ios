@@ -13,7 +13,6 @@ class TwitterAccountManager: NSObject {
     var userDefaults: NSUserDefaults
     let sessionManager = SessionManager.defaultManager
     var isInternetReachable: Bool
-    let manager: AFHTTPRequestOperationManager
     var userRef: Firebase?
     
     enum ResultType {
@@ -27,7 +26,6 @@ class TwitterAccountManager: NSObject {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
         isInternetReachable = reachabilitymanager.reachable
-        manager = AFHTTPRequestOperationManager()
         
         super.init()
         
@@ -93,7 +91,7 @@ class TwitterAccountManager: NSObject {
     }
     
     func getTwitterUserInfo(completion: (results: ResultType) -> Void) {
-        func updateUserInfo(data: AnyObject) {
+        func parseUserData(data: AnyObject) {
             if let userdata = data as? [String: AnyObject] {
                 var firebaseData = [String: AnyObject]()
                 var socialAccounts = sessionManager.createSocialAccount()
@@ -107,8 +105,8 @@ class TwitterAccountManager: NSObject {
                 }
                 
                 let urlString = userdata["profile_image_url_https"] as? String
-                let hiResUrlString = urlString!.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-
+                let hiResUrlString = urlString?.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                
                 
                 firebaseData["accounts"] = socialAccounts
                 firebaseData["id"] = PFTwitterUtils.twitter()?.authToken
@@ -129,28 +127,25 @@ class TwitterAccountManager: NSObject {
                 }
             }
         }
-
+        
         let verify = NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json")
         let request = NSMutableURLRequest(URL: verify!)
         PFTwitterUtils.twitter()?.signRequest(request)
-        
         var response: NSURLResponse?
+        var data = NSData()
         
         do {
-            let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
-            
-            do {
-                let result = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
-                updateUserInfo(result)
-                
-            } catch {
-                completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
-            }
+             data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
         } catch {
             completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
         }
         
-        
+        do {
+            let result = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+            parseUserData(result)
+        } catch {
+            completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
+        }
     }
 
 }
