@@ -36,6 +36,7 @@ struct SuggestItem: Equatable {
     var term: String = ""
     var distance: Int = 0
     var count: Int = 0
+    var isInput: Bool = false
 }
 
 func ==(lhs: SuggestItem, rhs: SuggestItem) -> Bool {
@@ -151,9 +152,8 @@ class SpellChecker {
             newVal = value
             
             //prevent overflow
-            if value.count < Int.max {
-                value.count++
-            }
+            value.count++
+            print(key, " ", value.count)
         } else if wordList.count < Int.max {
             newVal = DictionaryItem()
             newVal!.id = language + key

@@ -23,16 +23,20 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     var proxies: [String: UITextDocumentProxy]
     var autocorrectEnabled = true
     var parsingText = false
+    
+    private var textBuffer: String
 
     init(textDocumentProxy: UITextDocumentProxy) {
         proxies = [:]
         currentProxy = textDocumentProxy
         defaultProxy = textDocumentProxy
         proxies["default"] = currentProxy
+        textBuffer = ""
         
         super.init()
         
         spellChecker = SpellChecker()
+//        spellChecker?.createDictionary("big.txt", language: "")
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSetCurrentProxy:", name: TextProcessingManagerProxyEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveResetDefaultProxy:", name: TextProcessingManagedResetDefaultProxyEvent, object: nil)
@@ -75,12 +79,13 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func textWillChange(textInput: UITextInput?) {
+        textBuffer = defaultProxy.documentContextBeforeInput! + defaultProxy.documentContextAfterInput!
         NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagedResetDefaultProxyEvent, object: self, userInfo: nil)
     }
     
     func textDidChange(textInput: UITextInput?) {
         if !defaultProxy.hasText() {
-            
+            delegate?.textProcessingManagerDidClearTextBuffer(self, text: textBuffer)
         }
     }
 
@@ -113,29 +118,32 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     }
     
     func processAutocorrectSuggestions(text: String, tokens: [String]) {
-        guard var lastWord = tokens.last else {
+        guard let lastWord = tokens.last else {
             return
         }
         print(tokens)
         let query = lastWord == "" && tokens.count > 1 ? tokens[tokens.count - 2] : lastWord
         
-        if let suggestions = spellChecker?.lookup(query, language: "", editDistanceMax: 2) {
+        
+        var suggestions = [SuggestItem]()
+        
+        var inputSuggestion = SuggestItem()
+        inputSuggestion.term = query
+        inputSuggestion.distance = 0
+        inputSuggestion.isInput = true
+        
+        suggestions.append(inputSuggestion)
+        
+        if let engineSuggestions = spellChecker?.lookup(query, language: "", editDistanceMax: 2) {
+            for engineSuggestion in engineSuggestions {
+                if engineSuggestion != inputSuggestion {
+                    suggestions.append(engineSuggestion)
+                }
+            }
             delegate?.textProcessingManagerDidReceiveSpellCheckSuggestions(self, suggestions: suggestions)
             
-            guard let firstSuggestion = suggestions.first else {
-                return
-            }
-            
-            print("lastWord: ", lastWord)
-            if autocorrectEnabled && lastWord == "" {
-                lastWord = tokens[tokens.count - 2]
-                
-                for _ in 0...lastWord.length {
-                    currentProxy.deleteBackward()
-                }
-                
-                currentProxy.insertText(firstSuggestion.term + " ")
-            }
+        } else {
+            delegate?.textProcessingManagerDidReceiveSpellCheckSuggestions(self, suggestions: suggestions)
         }
     }
     
@@ -163,6 +171,55 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                 delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
             }
         }
+    }
+    
+    func applyTextSuggestion(suggestion: SuggestItem) {
+        guard var text = currentProxy.documentContextBeforeInput else {
+            return
+        }
+        print("text ", text)
+        
+        let characterSet = NSMutableCharacterSet.punctuationCharacterSet()
+        characterSet.formUnionWithCharacterSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        let tokens = text.componentsSeparatedByCharactersInSet(characterSet)
+        var word: String?
+        
+        for token in tokens.reverse() {
+            if token.isEmpty {
+                continue
+            }
+            
+            var found = false
+            for character in token.unicodeScalars {
+                if characterSet.longCharacterIsMember(character.value) {
+                    found = true
+                    break
+                }
+                
+            }
+            
+            if !found {
+                word = token
+                break
+            }
+        }
+        
+        guard var lastWord = word else {
+            return
+        }
+        
+        print("lastWord: ", lastWord)
+        
+        if let range = text.rangeOfString(lastWord) {
+            text.replaceRange(range, with: suggestion.term)
+        }
+        
+        for _ in 0...text.length {
+            currentProxy.deleteBackward()
+        }
+        
+        currentProxy.insertText(text + " ")
     }
     
     func clearInput() {

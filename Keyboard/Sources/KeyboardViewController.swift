@@ -561,6 +561,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
         print("Suggestions", suggestions)
+        searchBar.updateSuggestions(suggestions)
     }
     
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
