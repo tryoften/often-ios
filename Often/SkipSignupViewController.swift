@@ -43,7 +43,7 @@ class SkipSignupViewController: UIViewController {
         
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.text = "Often works even better with Twitter. In the future, any links you like there are saved here."
+        subtitleLabel.text = "Often works even better with Twitter. In the\n future, any links you like there are saved here."
         subtitleLabel.font = UIFont(name: "OpenSans", size: 12.0)
         subtitleLabel.textAlignment = .Center
         subtitleLabel.numberOfLines = 2
@@ -77,7 +77,7 @@ class SkipSignupViewController: UIViewController {
         orLabel.translatesAutoresizingMaskIntoConstraints = false
         orLabel.text = "Or" 
         orLabel.textColor = LightGrey
-        orLabel.font = UIFont(name: "OpenSans-Italics", size: 12.0)
+        orLabel.font = UIFont(name: "OpenSans-Italic", size: 12.0)
         
         super.init(nibName: nil, bundle: nil)
         
@@ -113,27 +113,27 @@ class SkipSignupViewController: UIViewController {
     
     func setupLayout() {
         view.addConstraints([
-            servicesMenuButton.al_left == view.al_left + 10,
-            servicesMenuButton.al_top == view.al_top + 10,
-            servicesMenuButton.al_width == 30,
-            servicesMenuButton.al_height == 30,
+            servicesMenuButton.al_left == view.al_left + 15,
+            servicesMenuButton.al_top == view.al_top + 15,
+            servicesMenuButton.al_width == 15,
+            servicesMenuButton.al_height == 15,
             
-            settingsMenuButton.al_right == view.al_right + 10,
-            settingsMenuButton.al_top == view.al_top + 10,
-            settingsMenuButton.al_width == 30,
-            settingsMenuButton.al_height == 30,
+            settingsMenuButton.al_right == view.al_right - 15,
+            settingsMenuButton.al_top == view.al_top + 15,
+            settingsMenuButton.al_width == 20,
+            settingsMenuButton.al_height == 20,
             
             twitterLogoImageView.al_centerX == view.al_centerX,
-            twitterLogoImageView.al_bottom == titleLabel.al_top - 20,
+            twitterLogoImageView.al_bottom == titleLabel.al_top - 15,
             twitterLogoImageView.al_width == 80,
             twitterLogoImageView.al_height == 80,
             
-            titleLabel.al_bottom == subtitleLabel.al_top - 5,
+            titleLabel.al_bottom == subtitleLabel.al_top,
             titleLabel.al_centerX == view.al_centerX,
-            titleLabel.al_height == 40,
+            titleLabel.al_height == 17,
             titleLabel.al_width == 200,
             
-            subtitleLabel.al_bottom == twitterSignupButton.al_top - 5,
+            subtitleLabel.al_bottom == twitterSignupButton.al_top - 10,
             subtitleLabel.al_centerX == view.al_centerX,
             subtitleLabel.al_height == 80,
             subtitleLabel.al_width == 300,
@@ -142,28 +142,28 @@ class SkipSignupViewController: UIViewController {
             twitterSignupButton.al_centerX == view.al_centerX,
             twitterSignupButton.al_left == view.al_left + 40,
             twitterSignupButton.al_right == view.al_right - 40,
-            twitterSignupButton.al_height == 40,
+            twitterSignupButton.al_height == 50,
             
             orLabel.al_centerX == view.al_centerX,
-            orLabel.al_top == twitterSignupButton.al_bottom + 5,
+            orLabel.al_top == twitterSignupButton.al_bottom + 10,
             orLabel.al_width == 20,
             orLabel.al_height == 20,
             
             leftDividerLine.al_left == twitterSignupButton.al_left,
-            leftDividerLine.al_right == orLabel.al_left - 10,
-            leftDividerLine.al_height == 2,
+            leftDividerLine.al_right == orLabel.al_left - 20,
+            leftDividerLine.al_height == 1,
             leftDividerLine.al_centerY == orLabel.al_centerY,
 
             rightDividerLine.al_right == twitterSignupButton.al_right,
-            rightDividerLine.al_left == orLabel.al_right + 10,
-            rightDividerLine.al_height == 2,
+            rightDividerLine.al_left == orLabel.al_right + 20,
+            rightDividerLine.al_height == 1,
             rightDividerLine.al_centerY == orLabel.al_centerY,
             
-            oftenAccountButton.al_top == orLabel.al_bottom + 5,
+            oftenAccountButton.al_top == orLabel.al_bottom + 10,
             oftenAccountButton.al_centerX == view.al_centerX,
             oftenAccountButton.al_left == view.al_left + 40,
             oftenAccountButton.al_right == view.al_right - 40,
-            oftenAccountButton.al_height == 40
+            oftenAccountButton.al_height == 50
         ])
     }
 }
