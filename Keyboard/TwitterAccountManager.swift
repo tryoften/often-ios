@@ -132,20 +132,16 @@ class TwitterAccountManager: NSObject {
         let request = NSMutableURLRequest(URL: verify!)
         PFTwitterUtils.twitter()?.signRequest(request)
         var response: NSURLResponse?
-        var data = NSData()
         
         do {
-             data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
-        } catch {
-            completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
-        }
-        
-        do {
-            let result = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+        let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
+        let result = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
             parseUserData(result)
         } catch {
             completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
         }
+        
+        
     }
 
 }
