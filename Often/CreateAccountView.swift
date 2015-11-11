@@ -23,6 +23,9 @@ class CreateAccountView: UIView {
     let orSpacerTwo: UIView
     let orLabel: UILabel
     let cancelButton: UIButton
+    let termsOfUseAndPrivacyPolicyButton: UIButton
+
+
     
     override init(frame: CGRect) {
         titleLabel = UILabel()
@@ -104,6 +107,15 @@ class CreateAccountView: UIView {
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setImage(StyleKit.imageOfButtonclose(scale: 1.0), forState: .Normal)
         
+        termsOfUseAndPrivacyPolicyButton = UIButton()
+        termsOfUseAndPrivacyPolicyButton.translatesAutoresizingMaskIntoConstraints = false
+        termsOfUseAndPrivacyPolicyButton.setTitle("By creating an account, I agree to Oftens \n Terms of use and Privacy Policy", forState: .Normal)
+        termsOfUseAndPrivacyPolicyButton.titleLabel!.font = UIFont(name: "Montserrat", size: 8)
+        termsOfUseAndPrivacyPolicyButton.titleLabel!.numberOfLines = 0
+        termsOfUseAndPrivacyPolicyButton.titleLabel!.textAlignment = .Center
+        termsOfUseAndPrivacyPolicyButton.setTitleColor(BlackColor , forState: .Normal)
+        termsOfUseAndPrivacyPolicyButton.alpha = 0.36
+        
         super.init(frame: frame)
         
         backgroundColor = UIColor.whiteColor()
@@ -122,6 +134,7 @@ class CreateAccountView: UIView {
         addSubview(orSpacerTwo)
         addSubview(orLabel)
         addSubview(cancelButton)
+        addSubview(termsOfUseAndPrivacyPolicyButton)
         
         setupLayout()
     }
@@ -200,6 +213,11 @@ class CreateAccountView: UIView {
             signupTwitterButton.al_left == al_left + 40,
             signupTwitterButton.al_right == al_right - 40,
             signupTwitterButton.al_height == 50,
+            
+            termsOfUseAndPrivacyPolicyButton.al_top == signupTwitterButton.al_bottom + 10,
+            termsOfUseAndPrivacyPolicyButton.al_left == al_left + 40,
+            termsOfUseAndPrivacyPolicyButton.al_right == al_right - 40,
+            termsOfUseAndPrivacyPolicyButton.al_height == 36,
             ])
     }
 }

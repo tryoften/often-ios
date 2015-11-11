@@ -18,6 +18,7 @@ let RestoreKeyboardEvent = "restoreKeyboard"
 let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
 
 class KeyboardViewController: UIInputViewController, TextProcessingManagerDelegate, ToolTipCloseButtonDelegate {
+    var viewModel: KeyboardViewModel
     let locale: Language = .English
     var textProcessor: TextProcessingManager!
     var keysContainerView: TouchRecognizerView!
@@ -54,14 +55,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var shiftState: ShiftState {
         didSet {
             updateKeyboardLetterCases()
-        }
-    }
-    var hasSeenTooltip: Bool {
-        get {
-            return userDefaults.boolForKey(KeyboardTooltipsDisplayedKey)
-        }
-        set(value) {
-            userDefaults.setBool(value, forKey: KeyboardTooltipsDisplayedKey)
         }
     }
     var heightConstraint: NSLayoutConstraint?
@@ -101,6 +94,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     static var once_predicate: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        viewModel = KeyboardViewModel()
+        
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
         userDefaults.synchronize()
@@ -158,7 +153,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         view.addSubview(togglePanelButton)
         view.addSubview(keysContainerView)
         
-        if hasSeenTooltip == false {
+        if viewModel.hasSeenTooltip == false {
             toolTipViewController = ToolTipViewController()
             toolTipViewController?.closeButtonDelegate = self
             toolTipViewController!.view.translatesAutoresizingMaskIntoConstraints = false
@@ -367,7 +362,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             constraintsAdded = true
         }
         
-        if hasSeenTooltip == false {
+        if viewModel.hasSeenTooltip == false {
             view.addConstraints([
                 toolTipViewController!.view.al_top == view.al_top + searchBarHeight,
                 toolTipViewController!.view.al_left == view.al_left,
@@ -566,15 +561,16 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
         print("Suggestions", suggestions)
+        searchBar.updateSuggestions(suggestions)
     }
     
-    func textProcessingManagerDidSendText(textProcessingManager: TextProcessingManager) {
-        
+    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
+        viewModel.logTextSendEvent()
     }
 
     // MARK: ToolTipCloseButtonDelegate
     func toolTipCloseButtonDidTap() {
-        hasSeenTooltip = true
+        viewModel.hasSeenTooltip = true
         
         UIView.animateWithDuration(0.3, animations: {
             self.toolTipViewController!.view.alpha = 0.0

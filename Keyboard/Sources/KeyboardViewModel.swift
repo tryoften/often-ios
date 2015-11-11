@@ -29,4 +29,8 @@ class KeyboardViewModel: NSObject {
         
         super.init()
     }
+    
+    func logTextSendEvent() {
+        
+    }
 }

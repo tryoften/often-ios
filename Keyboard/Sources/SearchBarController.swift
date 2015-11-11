@@ -9,7 +9,9 @@
 import UIKit
 
 class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewModelDelegate,
-    SearchSuggestionViewControllerDelegate, SearchSuggestionsViewModelDelegate {
+    SearchSuggestionViewControllerDelegate, SearchSuggestionsViewModelDelegate,
+    AutocorrectSuggestionsViewControllerDelegate {
+
     var viewModel: SearchViewModel!
     var suggestionsViewModel: SearchSuggestionsViewModel!
     var searchBar: SearchBar!
@@ -20,6 +22,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         }
     }
     var filter: Filter?
+    var autocorrectSuggestionsViewController: AutocorrectSuggestionsViewController?
     var searchSuggestionsViewController: SearchSuggestionsViewController?
     var searchResultsViewController: SearchResultsCollectionViewController?
     var searchResultsContainerView: UIView?
@@ -44,6 +47,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         searchSuggestionsViewController!.delegate = self
         searchSuggestionsViewController!.view.translatesAutoresizingMaskIntoConstraints = false
         
+        autocorrectSuggestionsViewController = AutocorrectSuggestionsViewController()
+        autocorrectSuggestionsViewController!.delegate = self
+        autocorrectSuggestionsViewController!.view.translatesAutoresizingMaskIntoConstraints = false
+        
         bottomSeperator = UIView()
         bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
         bottomSeperator.backgroundColor = DarkGrey
@@ -58,13 +65,33 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         
         view.addSubview(searchSuggestionsViewController!.view)
         view.addSubview(searchBar)
+        view.addSubview(autocorrectSuggestionsViewController!.view)
         view.addSubview(bottomSeperator)
         
+        setupLayout()
+        
+        let center = NSNotificationCenter.defaultCenter()
+        
+        center.addObserver(self, selector: "resetSearchBar", name: KeyboardResetSearchBar, object: nil)
+        center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
+        center.addObserver(self, selector: "keyboardDidRestore", name: RestoreKeyboardEvent, object: nil)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func setupLayout() {
         view.addConstraints([
             searchBar.al_top == view.al_top,
             searchBar.al_width == view.al_width,
             searchBar.al_left == view.al_left,
             searchBar.al_height == KeyboardSearchBarHeight,
+            
+            autocorrectSuggestionsViewController!.view.al_top == searchBar.al_top,
+            autocorrectSuggestionsViewController!.view.al_height == KeyboardSearchBarHeight,
+            autocorrectSuggestionsViewController!.view.al_left == searchBar.al_left,
+            autocorrectSuggestionsViewController!.view.al_right == searchBar.al_right,
             
             searchSuggestionsViewController!.view.al_top == searchBar.al_bottom,
             searchSuggestionsViewController!.view.al_bottom == view.al_bottom,
@@ -76,16 +103,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             bottomSeperator.al_width == view.al_width,
             bottomSeperator.al_height == 0.6
         ])
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "resetSearchBar", name: KeyboardResetSearchBar, object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidRestore", name: RestoreKeyboardEvent, object: nil)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -128,6 +145,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         } else {
             suggestionsViewModel.sendRequestForQuery(query, autocomplete: true)
         }
+    }
+    
+    func updateSuggestions(suggestions: [SuggestItem]) {
+        autocorrectSuggestionsViewController?.suggestions = suggestions
     }
     
     func keyboardDidRestore() {
@@ -235,17 +256,26 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             searchBar.textInput.text = suggestion.text
             searchBar.cancelButton.selected = true
             submitSearchRequest()
-            break
         case .Filter:
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.textInput.text = ""
             if let filter = suggestionsViewModel.checkFilterInQuery(suggestion.text) {
                 setFilter(filter)
             }
-            
-            break
         case .Unknown:
             break
         }
+    }
+    
+    // MARK: AutocorrectSuggestionsViewControllerDelegate
+    func autocorrectSuggestionsViewControllerDidSelectSuggestion(autocorrectSuggestions: AutocorrectSuggestionsViewController, suggestion: SuggestItem) {
+        textProcessor?.applyTextSuggestion(suggestion)
+    }
+    
+    func autocorrectSuggestionsViewControllerShouldShowSuggestions(autocorrectSuggestions: AutocorrectSuggestionsViewController) -> Bool {
+        if searchBar.textInput.selected {
+            return false
+        }
+        return true
     }
 }

@@ -38,6 +38,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         createAccountView.cancelButton.addTarget(self,  action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupButton.addTarget(self, action: "didTapSignupButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupTwitterButton.addTarget(self, action: "didTapSignupTwitterButton:", forControlEvents: .TouchUpInside)
+        createAccountView.termsOfUseAndPrivacyPolicyButton.addTarget(self, action: "didTapTermsOfUseButton:", forControlEvents: .TouchUpInside)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -90,6 +91,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    func didTapTermsOfUseButton(sender: UIButton) {
+        self.presentViewController(SettingsWebViewController(website: "http://www.tryoften.com/privacypolicy.html"), animated: true, completion: nil)
+        
+    }
     func createKeyboardInstallationWalkthroughViewController() {
         let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
         self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)

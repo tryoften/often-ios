@@ -19,6 +19,11 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     var pageViews: [UIImageView]
     var pageImages: [UIImage]
     var pagesubTitle: [String]
+    var timer: NSTimer?
+    
+    var currentPage: Int {
+        return Int(floor((signupView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
+    }
 
     
     init (viewModel: SignupViewModel) {
@@ -45,10 +50,10 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         
         pagesubTitle = [
             "Share the latest videos, songs, & news wherever you are, right from your keyboard",
-            "See what's trending before you even search. Always keep conversations up to date",
+            "See what's trending before you even search. Always keep convos up to date",
             "The first Hip Hop & Pop Culture powered search experience. No Bullsh*t",
-            "Filter by app or website by adding a hashtag to beginning of your search",
-            "Save all your favorites right to your keyboard and easily share them again later"
+            "Filter by app or website by adding a hashtag to the beginning of your search",
+            "Favorites are saved right in your keyboard to easily share them again later"
         ]
 
         super.init(nibName: nil, bundle: nil)
@@ -57,6 +62,13 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         
         view.addSubview(signupView)
         setupLayout()
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(4.25, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+    }
+
+    func scrollToNextPage() {
+        let xOffset = pageWidth * CGFloat((currentPage + 1) % pageCount)
+        signupView.scrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: true)
     }
 
     override func viewDidLoad() {
@@ -125,11 +137,13 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func didTapcreateAccountButton(sender: UIButton) {
+        timer?.invalidate()
         let createAccount = CreateAccountViewController(viewModel:self.viewModel)
         presentViewController(createAccount, animated: true, completion: nil)
     }
     
     func didTapSigninButton(sender: UIButton) {
+        timer?.invalidate()
         let signinAccount = SigninViewController(viewModel:self.viewModel)
         presentViewController(signinAccount, animated: true, completion: nil)
     }
@@ -141,10 +155,6 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    var currentPage: Int {
-        return Int(floor((signupView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
     }
     
     func setupLayout() {

@@ -56,7 +56,7 @@ let ClearColor = UIColor.clearColor()
 let UnactiveTextColor = UIColor(fromHexString: "#808692")
 //Font
 let BaseFont = UIFont(name: "OpenSans-Light", size: 20)
-let MediumRegularFont = UIFont(name: "OpenSans-Regular", size: 18)
+let MediumRegularFont = UIFont(name: "OpenSans", size: 18)
 let SubtitleFont = UIFont(name: "OpenSans", size: 12)
 let ButtonFont = UIFont(name: "OpenSans", size: 15)
 let TitleFont = UIFont(name: "Oswald-Regular", size: 19)

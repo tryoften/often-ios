@@ -22,7 +22,7 @@ class SignupView: UIView {
         let titleString = "often".uppercaseString
         let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
-        let subtitleString = "The non-basic keyboard. Share the latest videos, songs, GIFs & news from any app."
+        let subtitleString = "Share the latest videos, songs, & news wherever you are, right from your keyboard"
         let subtitleRange = NSMakeRange(0, subtitleString.characters.count)
         let subtitle = NSMutableAttributedString(string: subtitleString)
         let paragraphStyle = NSMutableParagraphStyle()
