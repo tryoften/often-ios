@@ -19,7 +19,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     var pageViews: [UIImageView]
     var pageImages: [UIImage]
     var pagesubTitle: [String]
-    var timer: NSTimer
+    var timer: NSTimer?
     
     var currentPage: Int {
         return Int(floor((signupView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
@@ -136,13 +136,13 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func didTapcreateAccountButton(sender: UIButton) {
-        timer.invalidate()
+        timer?.invalidate()
         let createAccount = CreateAccountViewController(viewModel:self.viewModel)
         presentViewController(createAccount, animated: true, completion: nil)
     }
     
     func didTapSigninButton(sender: UIButton) {
-        timer.invalidate()
+        timer?.invalidate()
         let signinAccount = SigninViewController(viewModel:self.viewModel)
         presentViewController(signinAccount, animated: true, completion: nil)
     }
