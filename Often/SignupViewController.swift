@@ -135,8 +135,8 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func didTapSkipButton(sender: UIButton) {
-        let skipSignup = SkipSignupViewController()
-        presentViewController(skipSignup, animated: true, completion: nil)
+        let walkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
+        presentViewController(walkthrough, animated: true, completion: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
