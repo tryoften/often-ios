@@ -26,7 +26,7 @@ class SettingsWebViewController: UIViewController {
         
         titleBar = UILabel()
         titleBar.translatesAutoresizingMaskIntoConstraints = false
-        titleBar.font = UIFont(name: "OpenSans", size: 18)
+        titleBar.font = UIFont(name: "OpenSans", size: 14)
         titleBar.text = title.uppercaseString
         titleBar.backgroundColor = UIColor.clearColor()
         titleBar.numberOfLines = 0
@@ -46,8 +46,9 @@ class SettingsWebViewController: UIViewController {
         
         view.addSubview(webView)
         view.addSubview(navigationBar)
-        navigationBar.addSubview(closeButton)
         navigationBar.addSubview(titleBar)
+        navigationBar.addSubview(closeButton)
+        
         
         setupLayout()
         
@@ -90,7 +91,7 @@ class SettingsWebViewController: UIViewController {
         
         navigationBar.addConstraints([
             titleBar.al_left == navigationBar.al_left,
-            titleBar.al_right == closeButton.al_left,
+            titleBar.al_right == navigationBar.al_right,
             titleBar.al_bottom == navigationBar.al_bottom,
             titleBar.al_top == navigationBar.al_top,
             
