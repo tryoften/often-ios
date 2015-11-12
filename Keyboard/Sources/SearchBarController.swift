@@ -166,6 +166,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func didTapEnterButton(button: KeyboardKeyButton?) {
+        if searchBar.textInput.text == "" {
+            return
+        }
+        
         isNewSearch = true
         submitSearchRequest()
         delay(0.5) {

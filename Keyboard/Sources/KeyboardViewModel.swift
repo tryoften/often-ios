@@ -29,8 +29,21 @@ class KeyboardViewModel: NSObject {
         isFullAccessEnabled = false
         firebaseRef = Firebase(url: BaseURL)
         
+        
+        
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
+
+        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
+        PFConfig.getConfigInBackgroundWithBlock { (config, error) in
+            if let newBaseURL = PFConfig.currentConfig().objectForKey("firebase_root") as? String {
+                BaseURL = newBaseURL
+            }
+            
+            if let newAppStoreLink = PFConfig.currentConfig().objectForKey("AppStoreLink") as? String {
+                AppStoreLink = newAppStoreLink
+            }
+        }
         
         super.init()
         

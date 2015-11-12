@@ -9,11 +9,11 @@
 import Foundation
 
 #if DEBUG
-    let BaseURL = "https://often-dev.firebaseio.com/"
+    var BaseURL = "https://often-prod.firebaseio.com/"
 #else
-    let BaseURL = "https://often-dev.firebaseio.com/"
+    var BaseURL = "https://often-prod.firebaseio.com/"
 #endif
-let AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
+var AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let ParseAppID = "zOkdtEf6pbq3wHN7aTWVGe6tH236I6n934Wsr59g"
 let ParseClientKey = "sojWTShuzJqnaXzusIihvyIiaCnksrlvuj9z7OKV"
 let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"

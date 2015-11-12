@@ -105,7 +105,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 Flurry.startSession(FlurryClientKey)
             }
         }
-
+        
         viewModel = KeyboardViewModel()
         
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
