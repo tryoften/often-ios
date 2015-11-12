@@ -34,6 +34,7 @@ struct UserDefaultsProperty {
     static var openSession = "openSession"
     static var authData = "authData"
     static var keyboardInstalled = "keyboardInstall"
+    static var anonymousUser = "anonymousUser"
 }
 
 // Colors

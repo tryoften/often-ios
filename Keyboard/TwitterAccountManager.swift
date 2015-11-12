@@ -8,33 +8,10 @@
 
 import Foundation
 
-class TwitterAccountManager: NSObject {
-    var firebase: Firebase
-    var userDefaults: NSUserDefaults
+class TwitterAccountManager: AccountManager {
     let sessionManager = SessionManager.defaultManager
-    var isInternetReachable: Bool
     var userRef: Firebase?
     
-    enum ResultType {
-        case Success(r: Bool)
-        case Error(e: ErrorType)
-        case SystemError(e: NSError)
-    }
-    
-    init(firebase: Firebase) {
-        self.firebase = firebase
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
-        isInternetReachable = reachabilitymanager.reachable
-        
-        super.init()
-        
-        reachabilitymanager.setReachabilityStatusChangeBlock { status in
-            self.isInternetReachable = reachabilitymanager.reachable
-        }
-        reachabilitymanager.startMonitoring()
-    }
-        
     func openSessionWithTwitter(completion: (results: ResultType) -> Void) {
         guard let userId = PFTwitterUtils.twitter()?.userId, twitterToken = PFTwitterUtils.twitter()?.authToken else {
             completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))

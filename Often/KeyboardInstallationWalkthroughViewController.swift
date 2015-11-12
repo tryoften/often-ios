@@ -29,7 +29,6 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     var viewModel: SignupViewModel
     var settingsButtonRightPositionConstraint: NSLayoutConstraint?
     var inAppDisplay: Bool
-    var skipSignupDisplay: Bool
     var currentPage: Int {
         return Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
     }
@@ -95,8 +94,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         pager.currentPageIndicatorTintColor = TealColor
         
         inAppDisplay = false
-        skipSignupDisplay = false
-        
+    
         settingsButton = UIButton()
         settingsButton.translatesAutoresizingMaskIntoConstraints = false
         settingsButton.setTitle("go to settings".uppercaseString, forState: UIControlState.Normal)
@@ -199,7 +197,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         ])
         
         if currentPage == 3 {
-            if inAppDisplay || skipSignupDisplay {
+            if inAppDisplay || viewModel.sessionManager.isUserAnonymous() {
                 settingsButtonRightPositionConstraint?.constant = 0
                 settingsButton.setTitle("Dismiss".uppercaseString, forState: .Normal)
             }
@@ -208,9 +206,8 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         }
     }
     
-    func displayTextMessageWalktrough() {
-        let textMessageController = TextMessageViewController(viewModel: self.viewModel)
-        presentViewController(textMessageController, animated: true, completion: nil )
+    func directToRootViewController() {
+        presentViewController(RootViewController(), animated: true, completion: nil)
     }
     
     func didTapNextButton(sender: UIButton) {
@@ -229,8 +226,8 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     func didTapSettingsButton(sender: UIButton) {
         if inAppDisplay == true {
             RootViewController.sharedInstance().popViewControllerAnimated(true)
-        } else if skipSignupDisplay {
-            let skipView = SkipSignupViewController()
+        } else if viewModel.sessionManager.isUserAnonymous() {
+            let skipView = SkipSignupViewController(viewModel: self.viewModel)
             presentViewController(skipView, animated: true, completion: nil)
         } else {
             view.addSubview(visualEffectView)
@@ -251,7 +248,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             UIApplication.sharedApplication().openURL(appSettings)
         }
         
-        displayTextMessageWalktrough()
+        directToRootViewController()
     }
     
     func didTapYesButton(sender: UIButton) {
@@ -260,7 +257,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             UIApplication.sharedApplication().openURL(appSettings)
         }
         
-        displayTextMessageWalktrough()
+        directToRootViewController()
     }
     
     func sendNotificationMessages() {
@@ -282,7 +279,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             let localNotification:UILocalNotification = UILocalNotification()
             localNotification.alertBody = message
             localNotification.fireDate = NSDate(timeIntervalSinceNow: timeStamp)
-            timeStamp += 2
+            timeStamp += 3.5
             UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
         }
     }

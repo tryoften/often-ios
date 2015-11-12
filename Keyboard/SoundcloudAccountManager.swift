@@ -9,15 +9,15 @@
 import Foundation
 import OAuthSwift
 
-class SoundcloudAccountManager: NSObject {
+class SoundcloudAccountManager: AccountManager {
     let manager: AFHTTPRequestOperationManager
     var soundcloudAccount: SocialAccount?
     weak var delegate: SoundcloudAccountManagerDelegate?
     
-    override init() {
+     override init(firebase: Firebase) {
         manager = AFHTTPRequestOperationManager()
 
-        super.init()
+        super.init(firebase: firebase)
     }
     
     func sendRequest(completion:(NSError?) -> ()) {
@@ -72,18 +72,28 @@ class SoundcloudAccountManager: NSObject {
         })
     }
     
-    func getSoundcloudUserActivities (session: String) {
+    func getSoundcloudUserActivities(session: String) {
         manager.GET(
             "https://api.soundcloud.com/me/activities?limit=1&oauth_token=\(session)",
             parameters: [],
             success: { (operation: AFHTTPRequestOperation!,responseObject: AnyObject!) in
                 print("Success: \n\(responseObject.description)")
+                self.updateUserData(responseObject)
                 
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) in
                 print("Failure: \(error.localizedDescription)")
         })
     }
     
+    func updateUserData(data: AnyObject) {
+        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
+            return
+        }
+        if let data = data as? [String : AnyObject] {
+            let userRef = firebase.childByAppendingPath("users/\(userId)")
+            userRef.updateChildValues(["soundCloudUserData":data])
+        }
+    }
 }
 
 protocol SoundcloudAccountManagerDelegate: class {

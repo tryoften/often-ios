@@ -38,9 +38,6 @@ class SessionManager: NSObject {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         isUserNew = true
 
-        spotifyAccountManager = SpotifyAccountManager()
-        soundcloudAccountManager = SoundcloudAccountManager()
-        
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         SEGAnalytics.sharedAnalytics().screen("Service_Loaded")
@@ -50,6 +47,10 @@ class SessionManager: NSObject {
         firebase = Firebase(url: BaseURL)
         
         super.init()
+        
+        spotifyAccountManager = SpotifyAccountManager(firebase: firebase)
+        soundcloudAccountManager = SoundcloudAccountManager(firebase:firebase)
+
         
         firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
@@ -77,6 +78,10 @@ class SessionManager: NSObject {
         return userDefaults.objectForKey(UserDefaultsProperty.userID) != nil
     }
     
+    func isUserAnonymous() -> Bool {
+        return userDefaults.boolForKey(UserDefaultsProperty.anonymousUser)
+    }
+    
     func isKeyboardInstalled() -> Bool {
         return userDefaults.boolForKey("keyboardInstall")
     }
@@ -89,6 +94,19 @@ class SessionManager: NSObject {
         } catch {
             
         }
+    }
+    
+    func signupWithAnonymousUser (completion: (results: ResultType) -> Void) {
+        let anonymousAccountManager = AnonymousAccountManager(firebase: firebase)
+       
+        anonymousAccountManager.createAnonymousUser { results -> Void in
+            switch results {
+            case .Success(let value): completion(results: ResultType.Success(r: value))
+            case .Error(let err): completion(results: ResultType.Error(e: err))
+            case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+            }
+        }
+        
     }
     
     func login(loginType: LoginType, completion: (results: ResultType) -> Void) throws {
