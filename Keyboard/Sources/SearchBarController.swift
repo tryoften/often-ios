@@ -27,6 +27,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     var searchResultsViewController: SearchResultsCollectionViewController?
     var searchResultsContainerView: UIView?
     var primaryTextDocumentProxy: UITextDocumentProxy?
+    var noResultsTimer: NSTimer?
 
     var isNewSearch: Bool = false
 
@@ -144,6 +145,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             suggestionsViewModel.sendRequestForQuery("#filters-list", autocomplete: true)
         } else {
             suggestionsViewModel.sendRequestForQuery(query, autocomplete: true)
+            noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
+            searchResultsViewController?.updateEmptySetVisible(false)
         }
     }
     
@@ -163,6 +166,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func didTapEnterButton(button: KeyboardKeyButton?) {
         isNewSearch = true
         submitSearchRequest()
+    }
+    
+    func showNoResultsEmptyState() {
+        searchResultsViewController!.updateEmptySetVisible(true)
     }
     
     // MARK: UITextFieldDelegate
@@ -228,6 +235,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         if response.results.isEmpty {
             return
         }
+        
+        noResultsTimer?.invalidate()
         
         if isNewSearch {
             searchResultsViewController?.view.hidden = false
