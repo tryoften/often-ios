@@ -22,12 +22,13 @@ class SearchTextField: UIControl, Layouteable {
     private var indicatorPositionConstraint: NSLayoutConstraint!
     private var searchIcon: UIImageView
     private var clearButton: UIButton
-    private var shareButton: UIButton
     private var labelContainerLeftConstraint: NSLayoutConstraint!
     private var cancelButtonLeftConstraint: NSLayoutConstraint!
     private var leftViewLeftConstraint: NSLayoutConstraint!
     private var inputPosition: Int
     private var indicatorBlinkingTimer: NSTimer?
+    
+    var shareButton: UIButton
     
     var font: UIFont? {
         didSet {
