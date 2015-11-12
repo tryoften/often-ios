@@ -31,6 +31,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     var response: SearchResponse? {
         didSet {
             refreshTimer?.invalidate()
+            emptyStateView.alpha = 0.0
         }
     }
     
@@ -357,14 +358,21 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     }
     
     // MARK: EmptySetDelegate
-    func updateEmptySetVisible(visible: Bool) {
-        UIView.animateWithDuration(0.3) {
-            if visible {
-                self.emptyStateView.updateEmptyStateContent(.NoResults)
-                self.emptyStateView.alpha = 1.0
-            } else {
-                self.emptyStateView.alpha = 0.0
-            }
+    func updateEmptySetVisible(visible: Bool, animated: Bool = false) {
+        if animated {
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDuration(0.3)
+        }
+        
+        if visible {
+            self.emptyStateView.updateEmptyStateContent(.NoResults)
+            self.emptyStateView.alpha = 1.0
+        } else {
+            self.emptyStateView.alpha = 0.0
+        }
+        
+        if animated {
+            UIView.commitAnimations()
         }
     }
     
