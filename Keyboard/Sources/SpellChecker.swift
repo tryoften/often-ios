@@ -50,7 +50,7 @@ class SpellChecker {
     private var editDistanceMax: Int = 2
     private var verbose: Int = 0
     private var userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-    private var realm: Realm
+    private var realm: Realm?
     
     //Dictionary that contains both the original words and the deletes derived from them. A term might be both word and delete from another word at the same time.
     //For space reduction a item might be either of type dictionaryItem or Int.
@@ -86,7 +86,7 @@ class SpellChecker {
     
     init() {
         let fileManager: NSFileManager = NSFileManager.defaultManager()
-        let directory: NSURL = fileManager.containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        let directory: NSURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
         let realmPath = directory.URLByAppendingPathComponent(SpellCheckerCachedDictionaryFilename).path!
         
         if !fileManager.fileExistsAtPath(realmPath) {
@@ -100,9 +100,22 @@ class SpellChecker {
     
         RLMRealm.setDefaultRealmPath(realmPath)
         maxLength = userDefaults.integerForKey(SpellCheckerMaxLengthKey)
-        realm = try! Realm()
-        dictionary = CachedDictionary<NSString, DictionaryItem>(realm: realm)
-        wordList = CachedArray<Term>(realm: realm)
+        
+        do {
+            if fileManager.isWritableFileAtPath(realmPath) {
+                realm = try Realm()
+            } else {
+                realm = try Realm(path: realmPath, readOnly: true)
+            }
+            dictionary = CachedDictionary<NSString, DictionaryItem>(realm: realm)
+            wordList = CachedArray<Term>(realm: realm)
+            return
+        } catch {
+            print("failed to open realm db")
+        }
+        
+        dictionary = CachedDictionary<NSString, DictionaryItem>(realm: nil)
+        wordList = CachedArray<Term>(realm: nil)
     }
     
     func createDictionary(corpus: String, language: String) {
@@ -115,7 +128,7 @@ class SpellChecker {
                 streamReader.close()
             }
             
-            realm.beginWrite()
+            realm?.beginWrite()
             while let line = streamReader.nextLine() {
                 autoreleasepool {
                     for key in parseWords(line) {
@@ -125,7 +138,11 @@ class SpellChecker {
                     }
                 }
             }
-            try! realm.commitWrite()
+            do {
+                try realm?.commitWrite()
+            } catch {
+                print("realm: could not write data")
+            }
         }
     }
     
@@ -143,7 +160,7 @@ class SpellChecker {
     //for every word there all deletes with an edit distance of 1..editDistanceMax created and added to the dictionary
     //every delete entry has a suggestions list, which points to the original term(s) it was created from
     //The dictionary may be dynamically updated (word frequency and new words) at any time by calling createDictionaryEntry
-    private func createDictionaryEntry(key: String, language: String) -> Bool {
+    func createDictionaryEntry(key: String, language: String) -> Bool {
         var result = false
         var newVal: DictionaryItem?
         
@@ -182,7 +199,7 @@ class SpellChecker {
             let keyInt = wordList.count - 1
             term.id = String(keyInt)
             
-            realm.add(term, update: true)
+            realm?.add(term, update: true)
             
             result = true
             
@@ -256,7 +273,7 @@ class SpellChecker {
                 item.suggestions.append(suggestion)
         }
         
-        realm.add(item, update: true)
+        realm?.add(item, update: true)
     }
     
     private func sort(var suggestions: [SuggestItem]) -> [SuggestItem] {

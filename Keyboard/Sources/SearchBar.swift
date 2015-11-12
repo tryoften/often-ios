@@ -27,7 +27,6 @@ class SearchBar: UIView {
 
     override init(frame: CGRect) {
         textInput = SearchTextField()
-        textInput.backgroundColor = UIColor.whiteColor()
         textInput.translatesAutoresizingMaskIntoConstraints = false
         textInput.textColor = UIColor.blackColor()
         
@@ -51,10 +50,9 @@ class SearchBar: UIView {
         
         textInput.addTarget(self, action: "textFieldEditingDidBegin", forControlEvents: .EditingDidBegin)
         textInput.addTarget(self, action: "textFieldEditingDidEnd", forControlEvents: .EditingDidEnd)
-
         cancelButton.addTarget(self, action: "cancelButtonDidTap", forControlEvents: .TouchUpInside)
         
-        backgroundColor = WhiteColor
+        backgroundColor = VeryLightGray
         addSubview(textInput)
         addSubview(cancelButton)
         addSubview(topSeperator)
@@ -76,6 +74,7 @@ class SearchBar: UIView {
     func textFieldEditingDidBegin() {
         cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
         UIView.animateWithDuration(0.3) {
+            self.backgroundColor = WhiteColor
             self.layoutIfNeeded()
         }
     }
@@ -83,6 +82,7 @@ class SearchBar: UIView {
     func textFieldEditingDidEnd() {
         cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
         UIView.animateWithDuration(0.3) {
+            self.backgroundColor = DefaultTheme.keyboardBackgroundColor
             self.layoutIfNeeded()
         }
     }
@@ -131,9 +131,9 @@ class SearchBar: UIView {
             filterButton = nil
         }
         repositionSearchTextField()
-        textInput.selected = false
         textInput.text = ""
         textInput.placeholder = textInput.placeholderText
+        textInput.selected = false
         toggleShareButton(true)
     }
     
@@ -199,6 +199,9 @@ class SearchBar: UIView {
             cancelButton.al_top == al_top,
             cancelButton.al_height == al_height
         ])
+        
+        layoutIfNeeded()
+        textInput.selected = false
     }
 
     required init?(coder aDecoder: NSCoder) {

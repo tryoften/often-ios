@@ -61,8 +61,11 @@ class SearchTextField: UIControl, Layouteable {
     
     var placeholder: String? {
         didSet {
-            label.alpha = 0.65
+            label.alpha = 0.80
             label.text = placeholder
+            if !selected {
+                labelContainerLeftConstraint.constant = labelContainerCenterMargin
+            }
         }
     }
     
@@ -82,13 +85,15 @@ class SearchTextField: UIControl, Layouteable {
                 label.alpha = 0.45
                 
                 cancelButtonLeftConstraint.constant = -CGRectGetHeight(clearButton.frame) - 15
-                labelContainerLeftConstraint.constant = UIScreen.mainScreen().bounds.width / 2
+                labelContainerLeftConstraint.constant = 0
                 
                 if leftView != nil {
                     leftViewLeftConstraint.constant = 0
                 }
                 
                 UIView.animateWithDuration(0.3) {
+                    self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: UIColor(fromHexString: "#BEBEBE"), scale: 1.0)
+                    self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
                     self.backgroundView.backgroundColor = UIColor(fromHexString: "#F3F3F3")
                     self.clearButton.alpha = 1.0
                     self.layoutIfNeeded()
@@ -100,29 +105,41 @@ class SearchTextField: UIControl, Layouteable {
                     sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
                 }
                 
-                cancelButtonLeftConstraint.constant = 0
-                labelContainerLeftConstraint.constant = 0
-                
                 if text == "" && placeholder != nil {
                     placeholder = placeholderText
                 }
                 
                 UIView.animateWithDuration(0.3) {
-                    let backgroundColor = UIColor(fromHexString: "#EBEBEB")
-                    
                     if self.text == "" {
-                        self.backgroundView.backgroundColor = backgroundColor
+                        self.textColor = LightBlackColor
+                        self.cancelButtonLeftConstraint.constant = 0
+                        self.backgroundView.layer.borderColor = UIColor(fromHexString: "#E3E3E3").CGColor
+                        self.labelContainerLeftConstraint.constant = self.labelContainerCenterMargin
+                        self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: LightBlackColor, scale: 1.0)
                     } else {
-                        self.backgroundView.backgroundColor = backgroundColor
+                        self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
+                        self.labelContainerLeftConstraint.constant = 0
                     }
+                    
+                    self.backgroundView.backgroundColor = WhiteColor
                     self.indicator.alpha = 0.0
                     self.clearButton.alpha = 0.0
-                    self.backgroundView.layer.borderColor = backgroundColor.CGColor
                     self.layoutIfNeeded()
                 }
                 editing = false
             }
         }
+    }
+    
+    
+    var labelContainerCenterMargin: CGFloat {
+        label.sizeToFit()
+
+        let containerWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
+        let labelWidth = (CGRectGetWidth(label.frame) + CGRectGetWidth(searchIcon.frame) + 40)
+        
+        print("Container width: ", containerWidth, " labelWidth: ", labelWidth)
+        return (containerWidth / 2) - labelWidth / 2
     }
     
     var leftView: UIView? {
@@ -133,7 +150,6 @@ class SearchTextField: UIControl, Layouteable {
             
             if let leftView = leftView {
                 leftView.translatesAutoresizingMaskIntoConstraints = false
-                
                 leftViewLeftConstraint = leftView.al_left == al_left
                 
                 addSubview(leftView)
@@ -160,9 +176,10 @@ class SearchTextField: UIControl, Layouteable {
         
         backgroundView = UIView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.backgroundColor = UIColor(fromHexString: "#EBEBEB")
-        backgroundView.layer.cornerRadius = 5
+        backgroundView.backgroundColor = WhiteColor
         backgroundView.userInteractionEnabled = false
+        backgroundView.layer.borderWidth = 1.0
+        backgroundView.layer.cornerRadius = 3.0
         
         labelContainer = UIView()
         labelContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -183,12 +200,13 @@ class SearchTextField: UIControl, Layouteable {
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         clearButton.alpha = 0.0
         
-        searchIcon = UIImageView(image: UIImage(named: "search"))
+        searchIcon = UIImageView(image: StyleKit.imageOfSearchbaricon(color: LightBlackColor, scale: 1.0))
         searchIcon.translatesAutoresizingMaskIntoConstraints = false
         searchIcon.contentMode = .ScaleAspectFit
         
         super.init(frame: frame)
         
+        backgroundColor = UIColor.clearColor()
         id = description
 
         clearButton.addTarget(self, action: "didTapClearButton", forControlEvents: .TouchUpInside)
@@ -264,6 +282,7 @@ class SearchTextField: UIControl, Layouteable {
         text = ""
         placeholder = placeholderText
         selected = false
+        endBlinkingIndicator()
         sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
         
         let center = NSNotificationCenter.defaultCenter()
@@ -283,7 +302,7 @@ class SearchTextField: UIControl, Layouteable {
 
             backgroundView.al_left == al_left + 5,
             backgroundView.al_right == al_right - 5,
-            backgroundView.al_top == al_top + 1.5,
+            backgroundView.al_top == al_top,
             backgroundView.al_bottom == al_bottom,
             
             searchIcon.al_left == labelContainer.al_left + 10,
@@ -291,14 +310,14 @@ class SearchTextField: UIControl, Layouteable {
             searchIcon.al_height == 15,
             searchIcon.al_width == 20,
             
-            labelContainer.al_left == al_left,
+            labelContainerLeftConstraint,
             labelContainer.al_height == al_height,
             labelContainer.al_top == al_top,
-            labelContainer.al_right == al_right,
+            labelContainer.al_right == backgroundView.al_right,
             
             label.al_left == searchIcon.al_right + 3,
             label.al_centerY == labelContainer.al_centerY,
-            label.al_height == 20,
+            label.al_height == 16.5,
             
             indicator.al_height == 2.0,
             indicator.al_width == 10,
@@ -310,6 +329,7 @@ class SearchTextField: UIControl, Layouteable {
             clearButton.al_centerY == al_centerY
         ])
     }
+    
 }
 
 extension SearchTextField: UITextDocumentProxy {

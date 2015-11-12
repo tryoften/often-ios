@@ -27,7 +27,7 @@ class AutocorrectSuggestionsViewController: UIViewController {
                 return
             }
             
-            if suggestions.isEmpty {
+            if suggestions.isEmpty || suggestions[0].term == "#" {
                 view.hidden = true
                 return
             }
@@ -91,13 +91,17 @@ class AutocorrectSuggestionsViewController: UIViewController {
             ]
             
             if previousView == nil {
-                constraints += [suggestionView.al_left == view.al_left + 5]
+                constraints += [suggestionView.al_left == view.al_left + 10]
             } else {
                 constraints += [suggestionView.al_left == previousView!.al_right + 5]
             }
             
-            constraints += [suggestionView.al_width == (view.al_width / CGFloat(suggestions.count)) - 10]
+            constraints += [suggestionView.al_width <= (view.al_width / CGFloat(suggestions.count)) - 10]
             previousView = suggestionView
+        }
+        
+        if let previousView = previousView {
+            constraints += [previousView.al_right == view.al_right - 10]
         }
 
         view.addConstraints(constraints)

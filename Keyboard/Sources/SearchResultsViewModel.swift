@@ -73,16 +73,19 @@ class SearchResultsViewModel {
     
     private func sendTask(task: String, result: MediaLink) {
         let favoriteQueueRef = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
-        favoriteQueueRef.setValue([
+        let data = [
             "task": task,
             "user": userId,
             "result": result.toDictionary()
-        ])
+        ]
+        
+        SEGAnalytics.sharedAnalytics().track(task, properties: data as [NSObject : AnyObject])
+        favoriteQueueRef.setValue(data)
     }
     
     func isFullAccessEnabled() -> Bool {
         let pbWrapped: UIPasteboard? = UIPasteboard.generalPasteboard()
-        if let pb = pbWrapped {
+        if let _ = pbWrapped {
             fullAccessEnabled = true
             return true
         } else {
