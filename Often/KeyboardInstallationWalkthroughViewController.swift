@@ -206,9 +206,8 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         }
     }
     
-    func displayTextMessageWalktrough() {
-        let textMessageController = TextMessageViewController(viewModel: self.viewModel)
-        presentViewController(textMessageController, animated: true, completion: nil )
+    func directToRootViewController() {
+        presentViewController(RootViewController(), animated: true, completion: nil)
     }
     
     func didTapNextButton(sender: UIButton) {
@@ -249,7 +248,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             UIApplication.sharedApplication().openURL(appSettings)
         }
         
-        displayTextMessageWalktrough()
+        directToRootViewController()
     }
     
     func didTapYesButton(sender: UIButton) {
@@ -258,7 +257,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             UIApplication.sharedApplication().openURL(appSettings)
         }
         
-        displayTextMessageWalktrough()
+        directToRootViewController()
     }
     
     func sendNotificationMessages() {

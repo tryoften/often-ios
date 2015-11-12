@@ -219,6 +219,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func setFilter(filter: Filter) {
         self.filter = filter
         searchBar?.setFilterButton(filter)
+        suggestionsViewModel.sendRequestForQuery("#top-searches:10", autocomplete: true)
     }
     
     // MARK: SearchViewModelDelegate

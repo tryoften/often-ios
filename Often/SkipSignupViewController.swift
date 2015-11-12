@@ -26,7 +26,6 @@ class SkipSignupViewController: UIViewController {
         view.addSubview(skipSignupView)
         
         setupLayout()
-        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -44,6 +43,7 @@ class SkipSignupViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+
     func didSelectTwitterSignupButton(sender: UIButton) {
         self.view.endEditing(true)
         PKHUD.sharedHUD.contentView = HUDProgressView()
@@ -87,7 +87,6 @@ class SkipSignupViewController: UIViewController {
             break
         default: break
         }
-        
     }
     
     func createProfileViewController() {

@@ -59,7 +59,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         }
         
         userData["email"] = user.email
-        userData["username"] = user.username
+        userData["username"] = user.username.lowercaseString
         userData["password"] = password
         
         sessionManager.signupUser(.Email, data: userData, completion: { error -> () in
@@ -89,7 +89,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             throw SignupError.PasswordNotVaild
         }
         
-        sessionManager.loginWithUsername(username, password: password) { error  in
+        sessionManager.loginWithUsername(username.lowercaseString, password: password) { error  in
             if error == nil {
                 print("all good in the hood")
                 completion(results: ResultType.Success(r: true))

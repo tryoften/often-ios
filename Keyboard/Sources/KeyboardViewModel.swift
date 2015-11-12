@@ -29,7 +29,15 @@ class KeyboardViewModel: NSObject {
         isFullAccessEnabled = false
         firebaseRef = Firebase(url: BaseURL)
         
+        let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
+        SEGAnalytics.setupWithConfiguration(configuration)
+        
         super.init()
+        
+        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
+            return
+        }
+        SEGAnalytics.sharedAnalytics().identify(userId)
     }
     
     func logTextSendEvent(mediaLink: MediaLink) {
@@ -38,10 +46,13 @@ class KeyboardViewModel: NSObject {
             return
         }
         
-        firebaseRef.childByAppendingPath("queues/user/tasks").childByAutoId().setValue([
+        let data = [
             "task": "addRecent",
             "user": userId,
             "result": mediaLink.toDictionary()
-        ])
+        ]
+        
+        SEGAnalytics.sharedAnalytics().track("addRecent", properties: data as [NSObject : AnyObject])
+        firebaseRef.childByAppendingPath("queues/user/tasks").childByAutoId().setValue(data)
     }
 }
