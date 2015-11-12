@@ -279,7 +279,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             let localNotification:UILocalNotification = UILocalNotification()
             localNotification.alertBody = message
             localNotification.fireDate = NSDate(timeIntervalSinceNow: timeStamp)
-            timeStamp += 2
+            timeStamp += 3.5
             UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
         }
     }

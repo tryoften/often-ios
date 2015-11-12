@@ -14,6 +14,7 @@ public enum UserState {
     case NoRecents
     case NoKeyboard
     case NonEmpty
+    case NoResults
 }
 
 class EmptySetView: UIView {
@@ -135,6 +136,17 @@ class EmptySetView: UIView {
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No recents yet!"
             descriptionLabel.text = "Start using Often to easily access your\n most recently searched or used content."
+            settingbutton.hidden = true
+            twitterButton.hidden = true
+            cancelButton.hidden = true
+        case .NoResults:
+            imageViewWidthConstraint?.constant = 120
+            imageViewHeightConstraint?.constant = 120
+            imageViewTopConstraint?.constant = 50
+            imageView.image = UIImage(named: "noresultsemptystate")
+            imageView.contentMode = .ScaleAspectFill
+            titleLabel.text = "Oh snap! Our bad"
+            descriptionLabel.text = "Seems like search went to sleep for a sec.\n Try again or make another Search :)"
             settingbutton.hidden = true
             twitterButton.hidden = true
             cancelButton.hidden = true

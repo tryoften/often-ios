@@ -63,7 +63,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         view.addSubview(signupView)
         setupLayout()
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(4.25, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
 
     func scrollToNextPage() {

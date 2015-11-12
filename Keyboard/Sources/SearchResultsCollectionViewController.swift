@@ -41,6 +41,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     var refreshResultsButtonTopConstraint: NSLayoutConstraint!
     var refreshTimer: NSTimer?
     var searchBarToolTip: InKeyboardToolTip?
+    var emptyStateView: EmptySetView
     var messageBarView: MessageBarView
     var messageBarVisibleConstraint: NSLayoutConstraint?
     var userDefaults: NSUserDefaults
@@ -72,9 +73,18 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         
         isFullAccessEnabled = false
         
+        emptyStateView = EmptySetView()
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        emptyStateView.alpha = 0.0
+        
         self.textProcessor = textProcessor
         
         super.init(collectionViewLayout: layout)
+        
+        emptyStateView.settingbutton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
+        emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
+        emptyStateView.userInteractionEnabled = true
         
         view.layer.masksToBounds = true
         view.insertSubview(backgroundImageView, belowSubview: collectionView!)
@@ -82,6 +92,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         view.backgroundColor = VeryLightGray
         collectionView?.backgroundColor = UIColor.clearColor()
         view.addSubview(messageBarView)
+        view.addSubview(emptyStateView)
         
         if hasSeenTooltip == false {
             searchBarToolTip = InKeyboardToolTip()
@@ -281,7 +292,12 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
             messageBarView.al_left == view.al_left,
             messageBarView.al_right == view.al_right,
             messageBarVisibleConstraint!,
-            messageBarView.al_height == 39
+            messageBarView.al_height == 39,
+            
+            emptyStateView.al_left == view.al_left,
+            emptyStateView.al_right == view.al_right,
+            emptyStateView.al_height == 100,
+            emptyStateView.al_top == view.al_top
         ])
     }
     
@@ -339,4 +355,18 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
             self.view.layoutIfNeeded()
         })
     }
+    
+    // MARK: EmptySetDelegate
+    func updateEmptySetVisible(visible: Bool) {
+        UIView.animateWithDuration(0.3) {
+            if visible {
+                self.emptyStateView.updateEmptyStateContent(.NoResults)
+                self.emptyStateView.alpha = 1.0
+            } else {
+                self.emptyStateView.alpha = 0.0
+            }
+        }
+    }
+    
 }
+
