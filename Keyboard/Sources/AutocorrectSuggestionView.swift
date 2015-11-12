@@ -35,9 +35,9 @@ class AutocorrectSuggestionView: UIButton {
         
         layer.cornerRadius = 3.0
         layer.shadowColor = UIColor.blackColor().CGColor
-        layer.shadowOpacity = 0.17
-        layer.shadowOffset = CGSizeMake(0, 1)
-        layer.shadowRadius = 2.0
+        layer.shadowOpacity = 0.15
+        layer.shadowOffset = CGSizeMake(0, 0.5)
+        layer.shadowRadius = 1.5
         
         setupLayout()
     }
