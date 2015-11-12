@@ -26,11 +26,13 @@ class TwitterAccountManager: AccountManager {
             ])
     
         
-        userRef = firebase.childByAppendingPath("users/\("twitter:\(userId)")")
+        userRef = firebase.childByAppendingPath("users/twitter:\(userId)")
         
-        userRef?.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        
+        userRef?.observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
                 if let value = snapshot.value as? [String: AnyObject] {
+                    self.userRef?.removeAllObservers()
                     self.firebase.authWithCustomToken(value["auth_token"] as? String, withCompletionBlock: { (err, aut ) -> Void in
                         if err == nil {
                             self.getTwitterUserInfo(completion)
