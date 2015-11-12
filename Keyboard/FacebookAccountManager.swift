@@ -8,24 +8,13 @@
 
 import Foundation
 
-class FacebookAccountManager: NSObject {
-    var firebase: Firebase
-    var userDefaults: NSUserDefaults
-    
+class FacebookAccountManager: AccountManager {
     let permissions = [
         "public_profile",
         "user_actions.music",
         "user_likes",
         "email"
     ]
-    
-    init(firebase: Firebase) {
-        self.firebase = firebase
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        
-        super.init()
-        
-    }
     
     func openSessionWithFacebook(completion: ((NSError?) -> ())? = nil) {
         userDefaults.setValue(true, forKey: "facebook")

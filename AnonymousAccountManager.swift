@@ -8,22 +8,7 @@
 
 import Foundation
 
-class AnonymousAccountManager: NSObject {
-    var firebase: Firebase
-    var userDefaults: NSUserDefaults
-    
-    enum ResultType {
-        case Success(r: Bool)
-        case Error(e: ErrorType)
-        case SystemError(e: NSError)
-    }
-    
-    init(firebase: Firebase) {
-        self.firebase = firebase
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        
-        super.init()
-    }
+class AnonymousAccountManager: AccountManager {
     
     func openSessionWithAnonymous(completion: (results: ResultType) -> Void) {
         userDefaults.setValue(true, forKey: UserDefaultsProperty.userEmail)
