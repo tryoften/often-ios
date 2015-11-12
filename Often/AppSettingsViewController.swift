@@ -36,7 +36,7 @@ class AppSettingsViewController: UIViewController,
     var aboutSettings = [
         "FAQ",
         "Privacy Policy",
-        "Terms of Use"
+        "Terms of Use & Privacy Policy"
     ]
     
     var logoutSettings = [
@@ -167,11 +167,7 @@ class AppSettingsViewController: UIViewController,
                     let vc = SettingsWebViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html")
                     RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
                     })
-                } else if indexPath.row == 2 { // Terms of Use
-                    let vc = SettingsWebViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html")
-                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
-                    })
-                }
+                } 
                 break
             case .Logout:
                 let actionSheet = UIActionSheet(title: "Are you sure you want to logout?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Logout")
@@ -274,14 +270,12 @@ class AppSettingsViewController: UIViewController,
         mc.setMessageBody(messageBody, isHTML: false)
         mc.setToRecipients(toRecipents)
         
-        presentViewController(mc, animated: true, completion: nil)
+        mc.modalTransitionStyle = .CoverVertical
+        RootViewController.sharedInstance().closeMenuWithCompletion {
+            RootViewController.sharedInstance().topViewController?.presentViewController(mc, animated: true, completion: nil)
+        }
     }
     
-//    override func presentViewController(viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
-//        RootViewController.sharedInstance().popToRootAndSwitchToViewController(viewControllerToPresent, withSlideOutAnimation: flag, andCompletion: {
-//            completion?()
-//        })
-//    }
     
     func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         switch result.rawValue {
@@ -296,7 +290,7 @@ class AppSettingsViewController: UIViewController,
         default:
             break
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: UIActionSheetDelegate
