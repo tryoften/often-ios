@@ -35,7 +35,9 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         
         super.init()
         
-        spellChecker = SpellChecker()
+        delay(1.0) {
+            self.spellChecker = SpellChecker()
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSetCurrentProxy:", name: TextProcessingManagerProxyEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveResetDefaultProxy:", name: TextProcessingManagedResetDefaultProxyEvent, object: nil)
@@ -175,11 +177,17 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         }
     }
     
-    func applyTextSuggestion(suggestion: SuggestItem) {
+    func applyTextSuggestion(var suggestion: SuggestItem) {
         guard var text = currentProxy.documentContextBeforeInput else {
             return
         }
         print("text ", text)
+        
+        
+        if suggestion.isInput {
+            suggestion.count = 100000
+            spellChecker?.createDictionaryEntry(suggestion.term, language: "")
+        }
         
         let characterSet = NSMutableCharacterSet.punctuationCharacterSet()
         characterSet.formUnionWithCharacterSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())

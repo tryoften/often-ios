@@ -143,7 +143,7 @@ class SpellChecker {
     //for every word there all deletes with an edit distance of 1..editDistanceMax created and added to the dictionary
     //every delete entry has a suggestions list, which points to the original term(s) it was created from
     //The dictionary may be dynamically updated (word frequency and new words) at any time by calling createDictionaryEntry
-    private func createDictionaryEntry(key: String, language: String) -> Bool {
+    func createDictionaryEntry(key: String, language: String) -> Bool {
         var result = false
         var newVal: DictionaryItem?
         

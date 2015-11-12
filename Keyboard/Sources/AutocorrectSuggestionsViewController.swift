@@ -91,7 +91,7 @@ class AutocorrectSuggestionsViewController: UIViewController {
             ]
             
             if previousView == nil {
-                constraints += [suggestionView.al_left == view.al_left + 5]
+                constraints += [suggestionView.al_left == view.al_left + 10]
             } else {
                 constraints += [suggestionView.al_left == previousView!.al_right + 5]
             }

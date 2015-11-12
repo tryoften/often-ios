@@ -162,7 +162,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             view.addSubview(toolTipViewController!.view)
         }
         
-        inputView!.backgroundColor = VeryLightGray
+        inputView!.backgroundColor = DefaultTheme.keyboardBackgroundColor
     }
     
     convenience init(debug: Bool = false) {
