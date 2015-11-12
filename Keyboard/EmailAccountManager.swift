@@ -8,20 +8,8 @@
 
 import Foundation
 
-class EmailAccountManager: NSObject {
-    var firebase: Firebase
-    var userDefaults: NSUserDefaults
+class EmailAccountManager: AccountManager {
     
-    enum EmailAccountManagerError: ErrorType {
-        case MissingUserData
-    }
-    
-    init(firebase: Firebase) {
-        self.firebase = firebase
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        
-        super.init()
-    }
     
     func openSessionWithEmail(username: String, password: String, completion: ((NSError?) -> ())? = nil) {
         userDefaults.setValue(true, forKey: UserDefaultsProperty.userEmail)
@@ -82,4 +70,8 @@ class EmailAccountManager: NSObject {
         
         
     }
+}
+
+enum EmailAccountManagerError: ErrorType {
+    case MissingUserData
 }

@@ -22,6 +22,10 @@
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
 		3B5F255F1BF3386E00AA7A98 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */; };
+		3B5F25621BF3E85300AA7A98 /* SkipSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */; };
+		3B5F25681BF4032500AA7A98 /* AnonymousAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */; };
+		3B5F25691BF40C5C00AA7A98 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */; };
+		3B5F256B1BF4342E00AA7A98 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F256A1BF4342E00AA7A98 /* AccountManager.swift */; };
 		3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
@@ -73,7 +77,6 @@
 		3BD971DF1B9F911E007EAB5A /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971DE1B9F911E007EAB5A /* SigninView.swift */; };
 		3BD971E11B9FD374007EAB5A /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E01B9FD374007EAB5A /* SignupViewController.swift */; };
 		3BD971E31B9FD483007EAB5A /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E21B9FD483007EAB5A /* SignupViewModel.swift */; };
-		3BDF98C61BA262DE00F383D8 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */; };
 		3BDF98CB1BA2652F00F383D8 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */; };
 		3BE0BC891BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */; };
 		3BE0BC971BED4CEE00037E21 /* KeyboardFavoritesAndRecentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC961BED4CEE00037E21 /* KeyboardFavoritesAndRecentsViewController.swift */; };
@@ -394,6 +397,9 @@
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotifyAccountManager.swift; path = Keyboard/SpotifyAccountManager.swift; sourceTree = "<group>"; };
 		3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
+		3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkipSignupView.swift; sourceTree = "<group>"; };
+		3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnonymousAccountManager.swift; sourceTree = "<group>"; };
+		3B5F256A1BF4342E00AA7A98 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeyboardViewController+EventHandlers.swift"; path = "Sources/KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
 		3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownErrorMessage.swift; sourceTree = "<group>"; };
@@ -948,6 +954,7 @@
 			isa = PBXGroup;
 			children = (
 				3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */,
+				3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */,
 				3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */,
 				690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */,
 				3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */,
@@ -1177,11 +1184,13 @@
 		81BD90531BD58EBA002F7D32 /* Account Managers */ = {
 			isa = PBXGroup;
 			children = (
+				3B5F256A1BF4342E00AA7A98 /* AccountManager.swift */,
 				3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */,
 				3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */,
 				3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */,
 				3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */,
 				3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */,
+				3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */,
 			);
 			name = "Account Managers";
 			sourceTree = "<group>";
@@ -1518,11 +1527,11 @@
 				8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				3B6EA4301BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */,
-				3BDF98C61BA262DE00F383D8 /* CreateAccountViewController.swift in Sources */,
 				3BEB408E1BC8561500D36C4D /* HUDProgressView.swift in Sources */,
 				8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				817939071B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				69C663221B8B6FA60014433D /* MediaLinksViewModel.swift in Sources */,
+				3B5F25681BF4032500AA7A98 /* AnonymousAccountManager.swift in Sources */,
 				3BEB40AE1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift in Sources */,
 				81E26D8E1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */,
@@ -1540,6 +1549,7 @@
 				816589031B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
 				8127A8FA1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
 				30E00C7A1BC86CEA00DDF24C /* delay.swift in Sources */,
+				3B5F256B1BF4342E00AA7A98 /* AccountManager.swift in Sources */,
 				3BE12EF21BEF020800F300FA /* FavoritesAndRecentsBaseViewController.swift in Sources */,
 				3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */,
 				69F3BC1B1BE9079300080628 /* ToolTipLoadingView.swift in Sources */,
@@ -1550,6 +1560,7 @@
 				3B5F255F1BF3386E00AA7A98 /* TermsOfUseViewController.swift in Sources */,
 				8176BEA01B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				8176BEF01B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
+				3B5F25691BF40C5C00AA7A98 /* CreateAccountViewController.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				811FA2941BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */,
@@ -1595,6 +1606,7 @@
 				69B2924E1BD7550800277EC2 /* SettingsViewModel.swift in Sources */,
 				3BDF98CB1BA2652F00F383D8 /* SigninViewController.swift in Sources */,
 				3BD971C41B98C882007EAB5A /* EmailAccountManager.swift in Sources */,
+				3B5F25621BF3E85300AA7A98 /* SkipSignupView.swift in Sources */,
 				817F78491BBDD2FB0087EBE8 /* VideoMediaLink.swift in Sources */,
 				3BD971DD1B9F7C6E007EAB5A /* CreateAccountView.swift in Sources */,
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,

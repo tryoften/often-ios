@@ -8,13 +8,13 @@
 
 import Foundation
 
-class SpotifyAccountManager: NSObject {
+class SpotifyAccountManager: AccountManager {
     var authCallback: SPTAuthCallback?
     var spotifyAccount: SocialAccount?
     weak var delegate: SpotifyAccountManagerDelegate?
    
-    override init() {
-        super.init()
+     override init(firebase: Firebase) {
+        super.init(firebase: firebase)
         authCallback = { (error: NSError!, session: SPTSession!) in
             if (error != nil) {
                 print("there's an error \(error)", terminator: "")
