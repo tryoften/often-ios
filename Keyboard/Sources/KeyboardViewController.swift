@@ -37,7 +37,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var firstWordQuickDeleted: Bool = false
     var lastLayoutBounds: CGRect?
     var userDefaults: NSUserDefaults
-    var messageChannel: MMWormhole
     var mediaLink: MediaLink?
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
@@ -109,10 +108,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
         userDefaults.synchronize()
         
-        messageChannel = MMWormhole(applicationGroupIdentifier: AppSuiteName, optionalDirectory: nil)
-        messageChannel.passMessageObject("open", identifier: "keyboardOpen")
-        
-
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBarHeight = KeyboardSearchBarHeight
         

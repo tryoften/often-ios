@@ -38,9 +38,6 @@ class SessionManager: NSObject {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         isUserNew = true
 
-        spotifyAccountManager = SpotifyAccountManager()
-        soundcloudAccountManager = SoundcloudAccountManager()
-        
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         SEGAnalytics.sharedAnalytics().screen("Service_Loaded")
@@ -50,6 +47,10 @@ class SessionManager: NSObject {
         firebase = Firebase(url: BaseURL)
         
         super.init()
+        
+        spotifyAccountManager = SpotifyAccountManager(firebase: firebase)
+        soundcloudAccountManager = SoundcloudAccountManager(firebase:firebase)
+
         
         firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
