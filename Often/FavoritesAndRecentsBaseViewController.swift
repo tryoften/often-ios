@@ -28,7 +28,6 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         emptyStateView.hidden = true
         didReturnResults = false
-        
         super.init(collectionViewLayout: collectionViewLayout)
         
         self.viewModel.delegate = self
@@ -46,8 +45,6 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         } catch let error {
             print("Failed to request data \(error)")
         }
-        
-        
         
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
@@ -158,10 +155,6 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         animateCell(cell, indexPath: indexPath)
         
         return cell
-    }
-    
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        return UICollectionReusableView()
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

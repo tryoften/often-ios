@@ -9,7 +9,7 @@
 import UIKit
 
 let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
-let UserProfileSectionViewReuseIdentifier = "UserSectionHeaderView"
+
 
 class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     UserProfileHeaderDelegate,
@@ -63,7 +63,6 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileSectionViewReuseIdentifier)
-            
         }
     }
     
@@ -117,7 +116,7 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
             sectionheaderTitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 10.0)!, range: headerTitleRange)
             sectionheaderTitle.addAttribute(NSKernAttributeName, value: 1.0, range: headerTitleRange)
            sectionView.trendingLabel.attributedText = sectionheaderTitle
-            return sectionView
+        return sectionView
         }
         
         return UICollectionReusableView()
@@ -142,9 +141,6 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
-    }
 
     func setupLayout() {
         view.addConstraints([
@@ -233,6 +229,10 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
                 }
             })
         }
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
     
     // Empty States button actions
