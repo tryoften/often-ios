@@ -9,9 +9,9 @@
 import Foundation
 
 #if DEBUG
-    var BaseURL = "https://often-dev.firebaseio.com/"
+    var BaseURL = "https://often-prod.firebaseio.com/"
 #else
-    var BaseURL = "https://often-dev.firebaseio.com/"
+    var BaseURL = "https://often-prod.firebaseio.com/"
 #endif
 var AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let ParseAppID = "zOkdtEf6pbq3wHN7aTWVGe6tH236I6n934Wsr59g"
