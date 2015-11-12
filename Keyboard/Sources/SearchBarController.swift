@@ -127,6 +127,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func submitSearchRequest() {
         let query = filter != nil ? filter!.text + " " + searchBar.textInput.text : searchBar.textInput.text
         viewModel.sendRequestForQuery(query, autocomplete: false)
+        noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
+        searchResultsViewController?.updateEmptySetVisible(false)
         
         if searchBar.textInput.selected {
             searchResultsViewController?.response = nil
@@ -145,8 +147,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             suggestionsViewModel.sendRequestForQuery("#filters-list", autocomplete: true)
         } else {
             suggestionsViewModel.sendRequestForQuery(query, autocomplete: true)
-            noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
-            searchResultsViewController?.updateEmptySetVisible(false)
         }
     }
     
@@ -166,6 +166,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func didTapEnterButton(button: KeyboardKeyButton?) {
         isNewSearch = true
         submitSearchRequest()
+        searchBar.textInput.resignFirstResponder()
     }
     
     func showNoResultsEmptyState() {
@@ -266,6 +267,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             searchBar.textInput.text = suggestion.text
             searchBar.cancelButton.selected = true
             submitSearchRequest()
+            searchBar.textInput.resignFirstResponder()
         case .Filter:
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.textInput.text = ""
@@ -283,6 +285,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func autocorrectSuggestionsViewControllerShouldShowSuggestions(autocorrectSuggestions: AutocorrectSuggestionsViewController) -> Bool {
+        if !viewModel.hasReceivedResponse {
+            return false
+        }
+        
         if searchBar.textInput.selected {
             return false
         }

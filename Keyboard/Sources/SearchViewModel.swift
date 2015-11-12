@@ -59,14 +59,6 @@ class SearchViewModel: SearchBaseViewModel {
         }
         self.isDataLoaded = true
         self.delegate?.searchViewModelDidReceiveResponse(self, response: response, responseChanged: responseChanged)
-        
-        // We already have data so wait another 300ms before displaying in case more data comes in by then
-        delay(0.5) {
-            if (!self.isDataLoaded) {
-                self.delegate?.searchViewModelDidReceiveResponse(self, response: response, responseChanged: responseChanged)
-                self.isDataLoaded = true
-            }
-        }
 
     }
     

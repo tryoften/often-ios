@@ -145,8 +145,8 @@ class EmptySetView: UIView {
             imageViewTopConstraint?.constant = 50
             imageView.image = UIImage(named: "noresultsemptystate")
             imageView.contentMode = .ScaleAspectFill
-            titleLabel.text = "No Results :("
-            descriptionLabel.text = "Sorry fam, seems like we couldn't find what\n you were looking for. Try another Search :)"
+            titleLabel.text = "Oh snap! Our bad"
+            descriptionLabel.text = "Seems like search went to sleep for a sec.\n Try again or make another Search :)"
             settingbutton.hidden = true
             twitterButton.hidden = true
             cancelButton.hidden = true

@@ -75,7 +75,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         
         emptyStateView = EmptySetView()
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
-        emptyStateView.hidden = true
+        emptyStateView.alpha = 0.0
         
         self.textProcessor = textProcessor
         
@@ -358,11 +358,13 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     
     // MARK: EmptySetDelegate
     func updateEmptySetVisible(visible: Bool) {
-        if visible {
-            emptyStateView.updateEmptyStateContent(.NoResults)
-            emptyStateView.hidden = false
-        } else {
-            emptyStateView.hidden = true
+        UIView.animateWithDuration(0.3) {
+            if visible {
+                self.emptyStateView.updateEmptyStateContent(.NoResults)
+                self.emptyStateView.alpha = 1.0
+            } else {
+                self.emptyStateView.alpha = 0.0
+            }
         }
     }
     

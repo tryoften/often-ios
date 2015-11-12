@@ -82,7 +82,7 @@ class SearchTextField: UIControl, Layouteable {
                     sendActionsForControlEvents(UIControlEvents.EditingDidBegin)
                 }
                 
-                label.alpha = 0.45
+                label.alpha = text == "" ? 0.45 : 1.0
                 
                 cancelButtonLeftConstraint.constant = -CGRectGetHeight(clearButton.frame) - 15
                 labelContainerLeftConstraint.constant = 0
