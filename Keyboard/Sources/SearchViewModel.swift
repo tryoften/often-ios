@@ -55,16 +55,10 @@ class SearchViewModel: SearchBaseViewModel {
                 print("doneUpdating")
                 self.currentResponseRef?.removeAllObservers()
                 self.currentRequest = nil
-                self.isDataLoaded = true
-                if NSThread.isMainThread() {
-                    self.delegate?.searchViewModelDidReceiveResponse(self, response: response, responseChanged: responseChanged)
-                } else {
-                    NSOperationQueue.mainQueue().addOperationWithBlock {
-                        self.delegate?.searchViewModelDidReceiveResponse(self, response: response, responseChanged: responseChanged)
-                    }
-                }
             }
         }
+        self.isDataLoaded = true
+        self.delegate?.searchViewModelDidReceiveResponse(self, response: response, responseChanged: responseChanged)
         
         // We already have data so wait another 300ms before displaying in case more data comes in by then
         delay(0.5) {
