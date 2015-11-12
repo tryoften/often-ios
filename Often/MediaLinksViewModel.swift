@@ -262,9 +262,9 @@ class MediaLinksViewModel {
     }
 }
 
-enum UserProfileCollectionType {
-    case Favorites
-    case Recents
+enum UserProfileCollectionType: String {
+    case Favorites = "Favorites"
+    case Recents = "Recents"
 }
 
 protocol UserProfileViewModelDelegate: class {

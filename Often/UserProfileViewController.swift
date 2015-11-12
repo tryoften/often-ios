@@ -9,6 +9,7 @@
 import UIKit
 
 let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
+let UserProfileSectionViewReuseIdentifier = "UserSectionHeaderView"
 
 class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     UserProfileHeaderDelegate,
@@ -46,7 +47,7 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 70.0, right: 10.0)
+        layout.sectionInset = UIEdgeInsets(top: 0.0, left: 10.0, bottom: 70.0, right: 10.0)
 
         return layout
     }
@@ -61,6 +62,7 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
+            collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileSectionViewReuseIdentifier)
             
         }
     }
@@ -104,6 +106,20 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
             return headerView!
         }
         
+        if (kind == UICollectionElementKindSectionHeader) {
+            // Create Header
+            let sectionView : UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileSectionHeaderView
+            
+            let headerTitle =  "\(viewModel.mediaLinks.count)" + " " + viewModel.currentCollectionType.rawValue
+            let headerTitleRange = NSMakeRange(0, headerTitle.characters.count)
+            let sectionheaderTitle = NSMutableAttributedString(string: headerTitle.uppercaseString)
+            
+            sectionheaderTitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 10.0)!, range: headerTitleRange)
+            sectionheaderTitle.addAttribute(NSKernAttributeName, value: 1.0, range: headerTitleRange)
+           sectionView.trendingLabel.attributedText = sectionheaderTitle
+            return sectionView
+        }
+        
         return UICollectionReusableView()
     }
     
@@ -124,6 +140,10 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         animateCell(cell, indexPath: indexPath)
         
         return cell
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
 
     func setupLayout() {

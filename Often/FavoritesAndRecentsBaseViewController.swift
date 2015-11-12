@@ -16,6 +16,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
     var contentFilterTabView: MediaFilterTabView
     var viewModel: MediaLinksViewModel
     var emptyStateView: EmptySetView
+    var didReturnResults: Bool
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel ) {
         self.viewModel = viewModel
@@ -26,6 +27,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         emptyStateView = EmptySetView()
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         emptyStateView.hidden = true
+        didReturnResults = false
         
         super.init(collectionViewLayout: collectionViewLayout)
         
@@ -44,6 +46,8 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         } catch let error {
             print("Failed to request data \(error)")
         }
+        
+        
         
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
@@ -68,6 +72,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
     }
     
     func reloadCollectionView() {
+        didReturnResults = true
         collectionView?.reloadSections(NSIndexSet(index: 0))
         hasLinks()
     }
@@ -95,32 +100,34 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
     }
     
     func hasLinks() {
-        collectionView?.scrollEnabled = false
-        
-        if !((emptyStateView.userState == .NoTwitter) || (emptyStateView.userState == .NoKeyboard)) {
-            switch (viewModel.currentCollectionType) {
-            case .Favorites:
-                if (viewModel.userFavorites.isEmpty) {
-                    emptyStateView.updateEmptyStateContent(.NoFavorites)
-                    emptyStateView.hidden = false
-                } else {
-                    emptyStateView.hidden = true
-                    collectionView?.scrollEnabled = true
+        if didReturnResults {
+            collectionView?.scrollEnabled = false
+            if !((emptyStateView.userState == .NoTwitter) || (emptyStateView.userState == .NoKeyboard)) {
+                switch (viewModel.currentCollectionType) {
+                case .Favorites:
+                    if (viewModel.userFavorites.isEmpty) {
+                        emptyStateView.updateEmptyStateContent(.NoFavorites)
+                        emptyStateView.hidden = false
+                    } else {
+                        emptyStateView.hidden = true
+                        collectionView?.scrollEnabled = true
+                    }
+                    
+                    break
+                case .Recents:
+                    
+                    if (viewModel.userRecents.isEmpty) {
+                        emptyStateView.updateEmptyStateContent(.NoRecents)
+                        emptyStateView.hidden = false
+                    } else {
+                        emptyStateView.hidden = true
+                        collectionView?.scrollEnabled = true
+                    }
+                    
+                    break
                 }
-                
-                break
-            case .Recents:
-                
-                if (viewModel.userRecents.isEmpty) {
-                    emptyStateView.updateEmptyStateContent(.NoRecents)
-                    emptyStateView.hidden = false
-                } else {
-                    emptyStateView.hidden = true
-                    collectionView?.scrollEnabled = true
-                }
-                
-                break
             }
+
         }
     }
     
@@ -151,6 +158,10 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         animateCell(cell, indexPath: indexPath)
         
         return cell
+    }
+    
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        return UICollectionReusableView()
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

@@ -302,7 +302,7 @@ let TrendingLyricViewCellTouchViewBackgroundColor = UIColor.clearColor()
 
 //Trending Section Header View
 let TrendingSectionHeaderViewBackgroundColor = UIColor(fromHexString: "#ffffff")
-let TrendingSectionHeaderViewTrendingLabelFont = UIFont(name: "OpenSans", size: 10.0)
+let TrendingSectionHeaderViewTrendingLabelFont = UIFont(name: "OpenSans-Semibold", size: 10.0)
 let TrendingSectionHeaderViewBottomLineBreakBackgroundColor = UIColor(fromHexString: "#d3d3d3")
 
 //User Profile Header View
