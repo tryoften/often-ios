@@ -115,9 +115,11 @@ class SkipSignupViewController: UIViewController {
     }
     
     func didSelectTwitterSignupButton() {
+       
     }
     
     func didSelectOftenAccountButton() {
+        
     }
     
 
