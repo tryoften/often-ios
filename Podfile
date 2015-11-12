@@ -13,13 +13,13 @@ def base_deps
   pod 'DateTools', '~> 1.6'
   pod 'MMWormhole', '~> 2.0.0'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
+  pod 'Parse'
 end
 
 target 'Often' do
   base_deps
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
   pod 'Facebook-iOS-SDK', '~> 3.0'
-  pod 'Parse'
   pod 'ParseTwitterUtils'
   pod 'ParseFacebookUtils'
   pod 'CSStickyHeaderFlowLayout'

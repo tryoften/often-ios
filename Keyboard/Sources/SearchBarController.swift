@@ -127,8 +127,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func submitSearchRequest() {
         let query = filter != nil ? filter!.text + " " + searchBar.textInput.text : searchBar.textInput.text
         viewModel.sendRequestForQuery(query, autocomplete: false)
-        noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
         searchResultsViewController?.updateEmptySetVisible(false)
+        
+        noResultsTimer?.invalidate()
+        noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
         
         if searchBar.textInput.selected {
             searchResultsViewController?.response = nil
@@ -164,13 +166,19 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func didTapEnterButton(button: KeyboardKeyButton?) {
+        if searchBar.textInput.text == "" {
+            return
+        }
+        
         isNewSearch = true
         submitSearchRequest()
-        searchBar.textInput.resignFirstResponder()
+        delay(0.5) {
+            self.searchBar.textInput.resignFirstResponder()
+        }
     }
     
     func showNoResultsEmptyState() {
-        searchResultsViewController!.updateEmptySetVisible(true)
+        searchResultsViewController!.updateEmptySetVisible(true, animated: true)
     }
     
     // MARK: UITextFieldDelegate
