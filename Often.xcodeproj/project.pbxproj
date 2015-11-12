@@ -642,7 +642,6 @@
 				3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */,
 				81164A9A1A9D6E7500AE5B30 /* StoreKit.framework in Frameworks */,
 				81164A941A9D6E4E00AE5B30 /* libstdc++.6.dylib in Frameworks */,
-				812E3F0C1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
 				81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */,
 				81794EFE1A81ECD5009D4A71 /* Security.framework in Frameworks */,
 				3BD971CC1B992E43007EAB5A /* Spotify.framework in Frameworks */,
@@ -653,6 +652,7 @@
 				81794EFA1A81EC8C009D4A71 /* libz.dylib in Frameworks */,
 				81794EF91A81EC85009D4A71 /* libsqlite3.dylib in Frameworks */,
 				81794EF81A81EC74009D4A71 /* CoreGraphics.framework in Frameworks */,
+				812E3F0C1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
 				81794EF71A81EC6D009D4A71 /* CFNetwork.framework in Frameworks */,
 				81794EF61A81EC62009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794EF51A81EC58009D4A71 /* Accounts.framework in Frameworks */,
@@ -1802,7 +1802,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "8e59eff7-3e58-4919-a616-8b99c9b6971a";
+				PROVISIONING_PROFILE = "a5cbca95-f33f-4520-a71c-03ce12cee828";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1841,7 +1841,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "78bb5604-5d92-44e0-acf5-c0fe2988f2da";
+				PROVISIONING_PROFILE = "8e7be0f7-ed4b-4eb7-ba2a-322b152afca6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -1926,7 +1926,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "8e59eff7-3e58-4919-a616-8b99c9b6971a";
+				PROVISIONING_PROFILE = "a5cbca95-f33f-4520-a71c-03ce12cee828";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1964,7 +1964,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "78bb5604-5d92-44e0-acf5-c0fe2988f2da";
+				PROVISIONING_PROFILE = "8e7be0f7-ed4b-4eb7-ba2a-322b152afca6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};
@@ -2050,7 +2050,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "8e59eff7-3e58-4919-a616-8b99c9b6971a";
+				PROVISIONING_PROFILE = "a5cbca95-f33f-4520-a71c-03ce12cee828";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2088,7 +2088,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "78bb5604-5d92-44e0-acf5-c0fe2988f2da";
+				PROVISIONING_PROFILE = "8e7be0f7-ed4b-4eb7-ba2a-322b152afca6";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 			};

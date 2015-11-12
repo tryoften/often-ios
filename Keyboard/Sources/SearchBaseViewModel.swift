@@ -59,6 +59,11 @@ class SearchBaseViewModel {
     }
     
     func sendRequestForQuery(query: String, autocomplete: Bool) -> SearchRequest {
+        SEGAnalytics.sharedAnalytics().track("Sent Query", properties: [
+            "query": query,
+            "autocomplete": autocomplete
+        ])
+
         //TODO(luc): add actual user ID to request
         let request = SearchRequest(id: SearchRequest.idFromQuery(query), query: query, userId: "anon", timestamp: NSDate().timeIntervalSince1970 * 1000, isFulfilled: false, autocomplete: autocomplete)
         sendRequest(request)

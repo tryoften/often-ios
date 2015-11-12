@@ -14,7 +14,7 @@ import Realm
 class CachedCollectionType<T: Object>: NSCache {
     var realm: Realm?
     
-    init(realm aRealm: Realm) {
+    init(realm aRealm: Realm?) {
         realm = aRealm
     }
     
@@ -50,7 +50,7 @@ class CachedCollectionType<T: Object>: NSCache {
 // Dictionary class backed by
 class CachedDictionary<S, T: Object>: CachedCollectionType<T> {
     
-    override init(realm: Realm) {
+    override init(realm: Realm?) {
         super.init(realm: realm)
     }
     
@@ -75,11 +75,13 @@ class CachedDictionary<S, T: Object>: CachedCollectionType<T> {
 class CachedArray<T: Object>: CachedCollectionType<T> {
     var count: Int
     
-    override init(realm: Realm) {
+    override init(realm: Realm?) {
         count = 0
         super.init(realm: realm)
         
-        count = realm.objects(T).count
+        if let realm = realm {
+            count = realm.objects(T).count
+        }
     }
     
     func append(element: T) {

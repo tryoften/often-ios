@@ -9,6 +9,8 @@
 import UIKit
 import AudioToolbox
 import Realm
+import Fabric
+import Crashlytics
 
 let ShiftStateUserDefaultsKey = "kShiftState"
 let ResizeKeyboardEvent = "resizeKeyboard"
@@ -100,6 +102,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         dispatch_once(&KeyboardViewController.once_predicate) {
             if (!KeyboardViewController.debugKeyboard) {
                 Firebase.defaultConfig().persistenceEnabled = true
+                Fabric.with([Crashlytics()])
+                Flurry.startSession(FlurryClientKey)
             }
         }
 

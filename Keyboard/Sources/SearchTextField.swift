@@ -150,7 +150,6 @@ class SearchTextField: UIControl, Layouteable {
             
             if let leftView = leftView {
                 leftView.translatesAutoresizingMaskIntoConstraints = false
-                
                 leftViewLeftConstraint = leftView.al_left == al_left
                 
                 addSubview(leftView)
@@ -283,6 +282,7 @@ class SearchTextField: UIControl, Layouteable {
         text = ""
         placeholder = placeholderText
         selected = false
+        endBlinkingIndicator()
         sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
         
         let center = NSNotificationCenter.defaultCenter()
