@@ -95,6 +95,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         self.presentViewController(TermsOfUseViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html"), animated: true, completion: nil)
         
     }
+    
     func createKeyboardInstallationWalkthroughViewController() {
         let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
         self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)

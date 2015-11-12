@@ -52,9 +52,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 if sessionManager.isUserLoggedIn() {
                     if sessionManager.isKeyboardInstalled() {
-                        let mainViewController = RootViewController()
-                        mainController = mainViewController
+                        if sessionManager.isUserAnonymous() {
+                            mainController = SkipSignupViewController(viewModel: SignupViewModel(sessionManager: sessionManager))
+                        } else {
+                            let mainViewController = RootViewController()
+                            mainController = mainViewController
+                        }
                     } else {
+                        
                         let signupViewModel = SignupViewModel(sessionManager: sessionManager)
                         mainController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
                     }

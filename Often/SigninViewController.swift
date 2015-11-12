@@ -118,11 +118,12 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
             signinView.al_left == view.al_left,
             signinView.al_right == view.al_right,
             ]
-        
         view.addConstraints(constraints)
     }
     
     func createProfileViewController() {
+        viewModel.sessionManager.userDefaults.setValue(false, forKey: UserDefaultsProperty.anonymousUser)
+        viewModel.sessionManager.userDefaults.synchronize()
         presentViewController(RootViewController(), animated: true, completion: nil)
     }
     

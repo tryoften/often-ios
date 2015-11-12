@@ -12,10 +12,6 @@ class EmailAccountManager: NSObject {
     var firebase: Firebase
     var userDefaults: NSUserDefaults
     
-    enum EmailAccountManagerError: ErrorType {
-        case MissingUserData
-    }
-    
     init(firebase: Firebase) {
         self.firebase = firebase
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
@@ -82,4 +78,8 @@ class EmailAccountManager: NSObject {
         
         
     }
+}
+
+enum EmailAccountManagerError: ErrorType {
+    case MissingUserData
 }
