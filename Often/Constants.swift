@@ -302,7 +302,7 @@ let TrendingLyricViewCellTouchViewBackgroundColor = UIColor.clearColor()
 
 //Trending Section Header View
 let TrendingSectionHeaderViewBackgroundColor = UIColor(fromHexString: "#ffffff")
-let TrendingSectionHeaderViewTrendingLabelFont = UIFont(name: "OpenSans", size: 10.0)
+let TrendingSectionHeaderViewTrendingLabelFont = UIFont(name: "OpenSans-Semibold", size: 10.0)
 let TrendingSectionHeaderViewBottomLineBreakBackgroundColor = UIColor(fromHexString: "#d3d3d3")
 
 //User Profile Header View
@@ -376,6 +376,7 @@ let SigninViewSigninTwitterButtonColor = WhiteColor
 //WalkthroughViewController
 let WalkthroughViewControllerNextButtonFont = UIFont(name: "OpenSans-Semibold", size: 15)
 let WalkthroughViewControllerNextButtonBackgroundColor = UIColor(fromHexString: "#2CD2B4")
+let UserProfileSectionViewReuseIdentifier = "UserSectionHeaderView"
 
 //Settings View Cell
 let SettingsViewCellSecondaryTextColor = UIColor(fromHexString: "202020")

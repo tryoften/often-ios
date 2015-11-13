@@ -53,6 +53,7 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
         
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
+             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileSectionViewReuseIdentifier)
         }
     }
     
@@ -84,6 +85,29 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
         
             ])
         
+    }
+    
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        if (kind == UICollectionElementKindSectionHeader) {
+            // Create Header
+            let sectionView : UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileSectionHeaderView
+            
+            let headerTitle =  "\(viewModel.mediaLinks.count)" + " " + viewModel.currentCollectionType.rawValue
+            let headerTitleRange = NSMakeRange(0, headerTitle.characters.count)
+            let sectionheaderTitle = NSMutableAttributedString(string: headerTitle.uppercaseString)
+            
+            sectionheaderTitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 10.0)!, range: headerTitleRange)
+            sectionheaderTitle.addAttribute(NSKernAttributeName, value: 1.0, range: headerTitleRange)
+            sectionView.trendingLabel.attributedText = sectionheaderTitle
+            return sectionView
+        }
+        
+        return UICollectionReusableView()
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
     
     // MediaLinkCollectionViewCellDelegate

@@ -9,28 +9,21 @@
 import UIKit
 
 class UserProfileSectionHeaderView: UICollectionReusableView {
-    var trendingLabel: UILabel
-    var bottomLineBreak: UIView
-    var screenWidth: CGFloat
-    
+    var trendingLabel: UILabel     
     override init(frame: CGRect) {
-        screenWidth = UIScreen.mainScreen().bounds.width
-        
         trendingLabel = UILabel()
         trendingLabel.translatesAutoresizingMaskIntoConstraints = false
         trendingLabel.font = TrendingSectionHeaderViewTrendingLabelFont
-        trendingLabel.text = "1 Service"
+        trendingLabel.textColor = UIColor(fromHexString: "#121314")
+        trendingLabel.alpha = 0.54
+        trendingLabel.text = "1 Service".uppercaseString
         
-        bottomLineBreak = UIView()
-        bottomLineBreak.translatesAutoresizingMaskIntoConstraints = false
-        bottomLineBreak.backgroundColor = TrendingSectionHeaderViewBottomLineBreakBackgroundColor
         
         super.init(frame: frame)
         
-        backgroundColor = TrendingSectionHeaderViewBackgroundColor
+        backgroundColor = VeryLightGray
         
         addSubview(trendingLabel)
-        addSubview(bottomLineBreak)
         
         setLayout()
     }
@@ -41,12 +34,10 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
     
     func setLayout() {
         addConstraints([
-            trendingLabel.al_bottom == al_bottom - 12,
+            trendingLabel.al_top == al_top + 6,
+            trendingLabel.al_bottom == al_bottom - 4,
             trendingLabel.al_left == al_left + 17,
-            
-            bottomLineBreak.al_bottom == al_bottom,
-            bottomLineBreak.al_width == UIScreen.mainScreen().bounds.width,
-            bottomLineBreak.al_height == 1/2
+        
         ])
     }
 }

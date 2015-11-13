@@ -16,6 +16,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
     var contentFilterTabView: MediaFilterTabView
     var viewModel: MediaLinksViewModel
     var emptyStateView: EmptySetView
+    var didReturnResults: Bool
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel ) {
         self.viewModel = viewModel
@@ -26,7 +27,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         emptyStateView = EmptySetView()
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         emptyStateView.hidden = true
-        
+        didReturnResults = false
         super.init(collectionViewLayout: collectionViewLayout)
         
         self.viewModel.delegate = self
@@ -68,6 +69,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
     }
     
     func reloadCollectionView() {
+        didReturnResults = true
         collectionView?.reloadSections(NSIndexSet(index: 0))
         hasLinks()
     }
@@ -95,32 +97,34 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
     }
     
     func hasLinks() {
-        collectionView?.scrollEnabled = false
-        
-        if !((emptyStateView.userState == .NoTwitter) || (emptyStateView.userState == .NoKeyboard)) {
-            switch (viewModel.currentCollectionType) {
-            case .Favorites:
-                if (viewModel.userFavorites.isEmpty) {
-                    emptyStateView.updateEmptyStateContent(.NoFavorites)
-                    emptyStateView.hidden = false
-                } else {
-                    emptyStateView.hidden = true
-                    collectionView?.scrollEnabled = true
+        if didReturnResults {
+            collectionView?.scrollEnabled = false
+            if !((emptyStateView.userState == .NoTwitter) || (emptyStateView.userState == .NoKeyboard)) {
+                switch (viewModel.currentCollectionType) {
+                case .Favorites:
+                    if (viewModel.userFavorites.isEmpty) {
+                        emptyStateView.updateEmptyStateContent(.NoFavorites)
+                        emptyStateView.hidden = false
+                    } else {
+                        emptyStateView.hidden = true
+                        collectionView?.scrollEnabled = true
+                    }
+                    
+                    break
+                case .Recents:
+                    
+                    if (viewModel.userRecents.isEmpty) {
+                        emptyStateView.updateEmptyStateContent(.NoRecents)
+                        emptyStateView.hidden = false
+                    } else {
+                        emptyStateView.hidden = true
+                        collectionView?.scrollEnabled = true
+                    }
+                    
+                    break
                 }
-                
-                break
-            case .Recents:
-                
-                if (viewModel.userRecents.isEmpty) {
-                    emptyStateView.updateEmptyStateContent(.NoRecents)
-                    emptyStateView.hidden = false
-                } else {
-                    emptyStateView.hidden = true
-                    collectionView?.scrollEnabled = true
-                }
-                
-                break
             }
+
         }
     }
     

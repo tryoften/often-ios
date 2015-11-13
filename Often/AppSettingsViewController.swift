@@ -35,7 +35,6 @@ class AppSettingsViewController: UIViewController,
     
     var aboutSettings = [
         "FAQ",
-        "Privacy Policy",
         "Terms of Use & Privacy Policy"
     ]
     
@@ -163,7 +162,7 @@ class AppSettingsViewController: UIViewController,
                     let vc = SettingsWebViewController(title:"faq", website: "http://www.tryoften.com/faq.html")
                     RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
                     })
-                } else if indexPath.row == 1 { // Privacy Policy
+                } else if indexPath.row == 1 {
                     let vc = SettingsWebViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html")
                     RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
                     })
