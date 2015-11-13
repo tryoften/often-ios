@@ -85,7 +85,7 @@ class AppSettingsViewController: UIViewController,
         
         do {
             try viewModel.requestData()
-        } catch UserProfileViewModelError.RequestDataFailed {
+        } catch SettingsViewModelError.RequestDataFailed {
             print("Failed to request data")
         } catch let error {
             print("Failed to request data \(error)")
