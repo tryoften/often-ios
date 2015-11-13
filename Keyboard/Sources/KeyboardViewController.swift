@@ -276,11 +276,16 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         let keysContainerViewHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
         
+        keysContainerView.layer.shouldRasterize = true
+        keysContainerView.layer.rasterizationScale = UIScreen.mainScreen().scale
+        
         searchBarHeight = height + KeyboardSearchBarHeight
         keyboardHeight = keysContainerViewHeight + searchBarHeight
         
         self.searchBar.view.frame = CGRectMake(0, 0, self.view.bounds.width, self.searchBarHeight)
         self.view.layoutIfNeeded()
+        
+        keysContainerView.layer.shouldRasterize = false
     }
     
     func collapseKeyboard() {
