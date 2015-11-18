@@ -53,8 +53,8 @@ class SearchViewModel: SearchBaseViewModel {
         if let doneUpdating = data["doneUpdating"] as? Bool {
             if doneUpdating {
                 print("doneUpdating")
-                self.currentResponseRef?.removeAllObservers()
-                self.currentRequest = nil
+//                self.currentResponseRef?.removeAllObservers()
+//                self.currentRequest = nil
             }
         }
         self.isDataLoaded = true

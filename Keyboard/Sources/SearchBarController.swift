@@ -28,6 +28,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     var searchResultsContainerView: UIView?
     var primaryTextDocumentProxy: UITextDocumentProxy?
     var noResultsTimer: NSTimer?
+    var autocompleteTimer: NSTimer?
 
     var isNewSearch: Bool = false
 
@@ -148,6 +149,11 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         }
     }
     
+    func scheduleAutocompleteRequestTimer() {
+        autocompleteTimer?.invalidate()
+        autocompleteTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: "requestAutocompleteSuggestions", userInfo: nil, repeats: false)
+    }
+    
     func requestAutocompleteSuggestions() {
         let query = searchBar.textInput.text
         
@@ -192,7 +198,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     // MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("search")
-        requestAutocompleteSuggestions()
+        scheduleAutocompleteRequestTimer()
         
         let center = NSNotificationCenter.defaultCenter()
         
@@ -228,7 +234,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
 
         if viewModel.hasReceivedResponse {
-            requestAutocompleteSuggestions()
+            scheduleAutocompleteRequestTimer()
             isNewSearch = true
             searchResultsContainerView?.hidden = true
             NSNotificationCenter.defaultCenter().postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
