@@ -15,11 +15,10 @@ class SearchResultsViewModel {
     
     init?() {
         let baseRef = Firebase(url: BaseURL)
-        let userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         favorites = []
         fullAccessEnabled = false
         
-        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
+        guard let userId = KeyboardViewModel.userId else {
                 self.userId = ""
                 favoriteRef = Firebase()
             return nil

@@ -9,7 +9,7 @@
 import Foundation
 
 #if DEBUG
-    var BaseURL = "https://often-prod.firebaseio.com/"
+    var BaseURL = "https://often-dev.firebaseio.com/"
 #else
     var BaseURL = "https://often-prod.firebaseio.com/"
 #endif

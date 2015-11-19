@@ -59,13 +59,22 @@ class SearchBaseViewModel {
     }
     
     func sendRequestForQuery(query: String, autocomplete: Bool) -> SearchRequest {
+        let idHash = SearchRequest.idFromQuery(query)
+        let id = autocomplete ? "autocomplete:" + idHash : idHash
+        
+        var userId: String = "anon"
+        if let uId = KeyboardViewModel.userId {
+            userId = uId
+        }
+        
         SEGAnalytics.sharedAnalytics().track("Sent Query", properties: [
             "query": query,
-            "autocomplete": autocomplete
+            "autocomplete": autocomplete,
+            "userId": userId
         ])
-
+        
         //TODO(luc): add actual user ID to request
-        let request = SearchRequest(id: SearchRequest.idFromQuery(query), query: query, userId: "anon", timestamp: NSDate().timeIntervalSince1970 * 1000, isFulfilled: false, autocomplete: autocomplete)
+        let request = SearchRequest(id: id, query: query, userId: userId, timestamp: NSDate().timeIntervalSince1970 * 1000, isFulfilled: false, autocomplete: autocomplete)
         sendRequest(request)
         return request
     }
