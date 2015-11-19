@@ -122,6 +122,10 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         signupView.subtitleLabel.text = subtitleString
         signupView.subtitleLabel.attributedText = subtitle
         signupView.subtitleLabel.textAlignment = .Center
+        
+        timer?.invalidate(
+        timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        )
     }
     
     override func prefersStatusBarHidden() -> Bool {
