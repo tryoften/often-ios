@@ -48,17 +48,9 @@
 				<string>tryoften</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>tryoften://logindone</string>
-			</array>
-		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1009</string>
+	<string>1011</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

@@ -28,6 +28,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     var searchResultsContainerView: UIView?
     var primaryTextDocumentProxy: UITextDocumentProxy?
     var noResultsTimer: NSTimer?
+    var autocompleteTimer: NSTimer?
 
     var isNewSearch: Bool = false
 
@@ -38,6 +39,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
         searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
         searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
+        searchBar.textInput.shareButton.addTarget(self, action: "didTapShareButton", forControlEvents: .TouchUpInside)
+        
         if let textProcessor = textProcessor {
             textProcessor.proxies["search"] = searchBar.textInput
         }
@@ -140,6 +143,17 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         }
     }
     
+    func didTapShareButton() {
+        if let shareText = PFConfig.currentConfig().objectForKey("shareText") as? String {
+            textProcessor?.insertText(shareText)
+        }
+    }
+    
+    func scheduleAutocompleteRequestTimer() {
+        autocompleteTimer?.invalidate()
+        autocompleteTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: "requestAutocompleteSuggestions", userInfo: nil, repeats: false)
+    }
+    
     func requestAutocompleteSuggestions() {
         let query = searchBar.textInput.text
         
@@ -184,7 +198,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     // MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("search")
-        requestAutocompleteSuggestions()
+        scheduleAutocompleteRequestTimer()
         
         let center = NSNotificationCenter.defaultCenter()
         
@@ -220,7 +234,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
 
         if viewModel.hasReceivedResponse {
-            requestAutocompleteSuggestions()
+            scheduleAutocompleteRequestTimer()
             isNewSearch = true
             searchResultsContainerView?.hidden = true
             NSNotificationCenter.defaultCenter().postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])

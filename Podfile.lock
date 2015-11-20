@@ -55,7 +55,7 @@ PODS:
   - ParseTwitterUtils (1.9.0):
     - Bolts/Tasks (>= 1.3.0)
     - Parse (~> 1.9)
-  - Reveal-iOS-SDK (1.6.1)
+  - Reveal-iOS-SDK (1.6.2)
   - TOMSMorphingLabel (0.5.1)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
 
@@ -102,8 +102,8 @@ SPEC CHECKSUMS:
   Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
   ParseFacebookUtils: 5e8cecf2b352f50a6780ba41c9268359032d686f
   ParseTwitterUtils: 0155d1a4e388690aa5d80405a586474e66606968
-  Reveal-iOS-SDK: ceae964076cebe3efe63e5e9abe3152efce46aa8
+  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   TOMSMorphingLabel: 3e88a2bf5257f8993ebc51fb3109187a0bfb2c4d
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0
