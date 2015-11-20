@@ -15,7 +15,8 @@ class AppSettingsViewController: UIViewController,
     MFMailComposeViewControllerDelegate,
     UIActionSheetDelegate,
     SlideNavigationControllerDelegate,
-    TableViewCellDelegate {
+    TableViewCellDelegate,
+    SettingsViewModelDelegate {
     
     var tableView: UITableView
     var viewModel: SettingsViewModel
@@ -63,6 +64,8 @@ class AppSettingsViewController: UIViewController,
         
         super.init(nibName: nil, bundle: nil)
         
+        viewModel.delegate = self
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -79,6 +82,14 @@ class AppSettingsViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        do {
+            try viewModel.requestData()
+        } catch SettingsViewModelError.RequestDataFailed {
+            print("Failed to request data")
+        } catch let error {
+            print("Failed to request data \(error)")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -311,6 +322,10 @@ class AppSettingsViewController: UIViewController,
     //MARK: TableViewCellDelegate
     func didFinishEditingName(newName: String) {
         viewModel.currentUser?.name = newName
+    }
+    
+    func settingsViewModelDidReceiveUserData(userProfileViewModel: SettingsViewModel) {
+        tableView.reloadData()
     }
     
     func setupLayout() {
