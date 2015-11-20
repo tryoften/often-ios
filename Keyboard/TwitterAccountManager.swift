@@ -10,6 +10,7 @@ import Foundation
 
 class TwitterAccountManager: AccountManager {
     let sessionManager = SessionManager.defaultManager
+    var userRef: Firebase?
     
     func openSessionWithTwitter(completion: (results: ResultType) -> Void) {
         guard let userId = PFTwitterUtils.twitter()?.userId, twitterToken = PFTwitterUtils.twitter()?.authToken else {
