@@ -98,30 +98,24 @@ class SpellChecker {
             }
         }
     
-        
-        
+        RLMRealm.setDefaultRealmPath(realmPath)
         maxLength = userDefaults.integerForKey(SpellCheckerMaxLengthKey)
+        
+        do {
+            if fileManager.isWritableFileAtPath(realmPath) {
+                realm = try Realm()
+            } else {
+                realm = try Realm(path: realmPath, readOnly: true)
+            }
+            dictionary = CachedDictionary<NSString, DictionaryItem>(realm: realm)
+            wordList = CachedArray<Term>(realm: realm)
+            return
+        } catch {
+            print("failed to open realm db")
+        }
         
         dictionary = CachedDictionary<NSString, DictionaryItem>(realm: nil)
         wordList = CachedArray<Term>(realm: nil)
-        
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)){
-            RLMRealm.setDefaultRealmPath(realmPath)
-            do {
-                if fileManager.isWritableFileAtPath(realmPath) {
-                    self.realm = try Realm()
-                } else {
-                    self.realm = try Realm(path: realmPath, readOnly: true)
-                }
-                
-                self.dictionary = CachedDictionary<NSString, DictionaryItem>(realm: self.realm)
-                self.wordList = CachedArray<Term>(realm: self.realm)
-                return
-            } catch {
-                print("failed to open realm db")
-            }
-
-        }
     }
     
     func createDictionary(corpus: String, language: String) {
