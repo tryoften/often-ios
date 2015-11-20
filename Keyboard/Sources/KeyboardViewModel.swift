@@ -21,6 +21,22 @@ class KeyboardViewModel: NSObject {
     }
     var firebaseRef: Firebase
     
+    static var userId: String? {
+        get {
+            guard let userDefaults = NSUserDefaults(suiteName: AppSuiteName) else {
+                return nil
+            }
+            return userDefaults.objectForKey(UserDefaultsProperty.userID) as? String
+        }
+        
+        set(value) {
+            guard let userDefaults = NSUserDefaults(suiteName: AppSuiteName) else {
+                return
+            }
+            userDefaults.setObject(value, forKey: UserDefaultsProperty.userID)
+        }
+    }
+    
     override init() {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         userDefaults.setBool(true, forKey: "keyboardInstall")
@@ -29,32 +45,22 @@ class KeyboardViewModel: NSObject {
         isFullAccessEnabled = false
         firebaseRef = Firebase(url: BaseURL)
         
-        
+        _ = ParseConfig.defaultConfig
         
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
-
-        Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
-        PFConfig.getConfigInBackgroundWithBlock { (config, error) in
-            if let newBaseURL = PFConfig.currentConfig().objectForKey("firebase_root") as? String {
-                BaseURL = newBaseURL
-            }
-            
-            if let newAppStoreLink = PFConfig.currentConfig().objectForKey("AppStoreLink") as? String {
-                AppStoreLink = newAppStoreLink
-            }
-        }
         
         super.init()
         
-        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
+        guard let userId = KeyboardViewModel.userId else {
             return
         }
+        print("User authenticated: ", userId)
         SEGAnalytics.sharedAnalytics().identify(userId)
     }
     
     func logTextSendEvent(mediaLink: MediaLink) {
-        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
+        guard let userId = KeyboardViewModel.userId else {
             print("User Id not found")
             return
         }
