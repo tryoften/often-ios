@@ -38,7 +38,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var backspaceStartTime: CFAbsoluteTime!
     var firstWordQuickDeleted: Bool = false
     var lastLayoutBounds: CGRect?
-    var userDefaults: NSUserDefaults
     var mediaLink: MediaLink?
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
@@ -108,10 +107,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         viewModel = KeyboardViewModel()
         
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
-        userDefaults.synchronize()
-        
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBarHeight = KeyboardSearchBarHeight
         
@@ -136,19 +131,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         super.init(nibName: nil, bundle: nil)
         
-        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
-        textProcessor.delegate = self
-        searchBar.textProcessor = textProcessor
-        
-        let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "didTapOnMediaLink:", name: SearchResultsInsertLinkEvent, object: nil)
-        togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
-    
         view.addSubview(searchBar.view)
         view.addSubview(slidePanelContainerView)
         view.addSubview(togglePanelButton)
@@ -175,6 +157,23 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
+        viewModel.userDefaults.synchronize()
+        
+        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
+        textProcessor.delegate = self
+        searchBar.textProcessor = textProcessor
+        
+        let center = NSNotificationCenter.defaultCenter()
+        center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "collapseKeyboard", name: CollapseKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "restoreKeyboard", name: RestoreKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "didTapOnMediaLink:", name: SearchResultsInsertLinkEvent, object: nil)
+        
+        togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
+
     }
     
     override func viewDidLayoutSubviews() {

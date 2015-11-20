@@ -32,8 +32,8 @@ class TwitterAccountManager: AccountManager {
         userRef?.observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
                 if let value = snapshot.value as? [String: AnyObject] {
-                    self.userRef?.removeAllObservers()
                     self.firebase.authWithCustomToken(value["auth_token"] as? String, withCompletionBlock: { (err, aut ) -> Void in
+                        self.userRef?.removeAllObservers()
                         if err == nil {
                             self.getTwitterUserInfo(completion)
                         } else {
