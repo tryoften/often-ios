@@ -1231,7 +1231,6 @@
 				812E3F021B4BB95100C0F3BE /* Upload symbols to crashlytics */,
 				30E00C701BC8523500DDF24C /* Embed Frameworks */,
 				81B2EE761BF49FDA00C9B15B /* Copy Frameworks (Carthage) */,
-				6E2F3F1565648AB5E68A546C /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1253,7 +1252,6 @@
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
 				30A402071BC46FF600BF0C0E /* CopyFiles */,
-				EFD55EDA16349C79E4236E17 /* Embed Pods Frameworks */,
 				81A281CE1BF4C0780099419A /* ShellScript */,
 			);
 			buildRules = (
@@ -1468,21 +1466,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6E2F3F1565648AB5E68A546C /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		812E3F021B4BB95100C0F3BE /* Upload symbols to crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1541,21 +1524,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		EFD55EDA16349C79E4236E17 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

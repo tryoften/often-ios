@@ -203,6 +203,7 @@ class SessionManager: NSObject {
                         user.setValuesForKeysWithDictionary(value)
                         user.id = authData.uid
                         self.isUserNew = false
+                        self.userIsLoggingIn = true
                         persistUser(user)
                 }
             } else {

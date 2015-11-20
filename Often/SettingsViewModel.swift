@@ -8,52 +8,48 @@
 
 import UIKit
 
-enum SettingsViewModelError: ErrorType {
-    case NoUser
-    case RequestDataFailed
-}
-
-class SettingsViewModel {
+class SettingsViewModel: NSObject, SessionManagerObserver {
     weak var delegate: SettingsViewModelDelegate?
-    let baseRef: Firebase
-    private let userDefaults: NSUserDefaults
     var sessionManager: SessionManager
     var currentUser: User?
     
     init(sessionManager: SessionManager) {
-        baseRef = Firebase(url: BaseURL)
         self.sessionManager = sessionManager
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        
+        super.init()
+        self.sessionManager.addSessionObserver(self)
+        self.requestData(nil)
     }
     
-    func requestData(completion: ((Bool) -> ())? = nil) throws {
-        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
-            throw SettingsViewModelError.NoUser
-        }
-        
-        guard userDefaults.boolForKey(UserDefaultsProperty.openSession) else {
-            throw SettingsViewModelError.RequestDataFailed
-        }
-        
-        let userRef = baseRef.childByAppendingPath("users/\(userId)")
-        userRef.keepSynced(true)
-        
-        userRef.observeEventType(.Value, withBlock: { snapshot in
-            if snapshot.exists() {
-                if let _ = snapshot.key,
-                    let value = snapshot.value as? [String: AnyObject] {
-                        self.currentUser = User()
-                        self.currentUser?.setValuesForKeysWithDictionary(value)
-                }
+    deinit {
+        sessionManager.removeSessionObserver(self)
+    }
+    
+    func requestData(completion: ((Bool) -> ())? = nil) {
+        if sessionManager.userDefaults.boolForKey(UserDefaultsProperty.openSession) {
+            if let user = sessionManager.currentUser {
+                currentUser = user
+                
             }
-            self.delegate?.settingsViewModelDidReceiveUserData(self)
-        })
-
+        }
     }
     
+    func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
+        
+    }
+    
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
+        currentUser = user
+        if let userData = currentUser {
+            delegate?.settingsViewModelDidReceiveUserData(self, user: userData, isNewUser: isNewUser)
+        } else {
+            print("No User Data")
+        }
+    }
+    
+    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
+    }
 }
 
 protocol SettingsViewModelDelegate: class {
-    func settingsViewModelDidReceiveUserData(userProfileViewModel: SettingsViewModel)
+    func settingsViewModelDidReceiveUserData(userProfileViewModel: SettingsViewModel, user: User, isNewUser: Bool)
 }
