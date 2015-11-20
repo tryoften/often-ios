@@ -36,6 +36,8 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
 
         setupLayout()
         reloadCollectionView()
+        
+        collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 10, 0, 0, 0)
     }
     
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
@@ -44,7 +46,7 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 2 * KeyboardSearchBarHeight + 10, left: 10.0, bottom: 100.0, right: 10.0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10.0, bottom: 80.0, right: 10.0)
         return layout
     }
     
@@ -83,7 +85,7 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
             emptyStateView.al_right == view.al_right,
             emptyStateView.al_bottom == view.al_bottom,
         
-            ])
+        ])
         
     }
     
