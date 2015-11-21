@@ -108,15 +108,8 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         if (kind == UICollectionElementKindSectionHeader) {
             // Create Header
             let sectionView : UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileSectionHeaderView
-            
-            let headerTitle =  "\(viewModel.mediaLinks.count)" + " " + viewModel.currentCollectionType.rawValue
-            let headerTitleRange = NSMakeRange(0, headerTitle.characters.count)
-            let sectionheaderTitle = NSMutableAttributedString(string: headerTitle.uppercaseString)
-            
-            sectionheaderTitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 10.0)!, range: headerTitleRange)
-            sectionheaderTitle.addAttribute(NSKernAttributeName, value: 1.0, range: headerTitleRange)
-           sectionView.trendingLabel.attributedText = sectionheaderTitle
-        return sectionView
+            sectionView.trendingLabel.attributedText = sectionHeaderTitle()
+            return sectionView
         }
         
         return UICollectionReusableView()
@@ -237,7 +230,13 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     
     // Empty States button actions
     func didTapSettingsButton() {
-        if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+        var appSettingsString = UIApplicationOpenSettingsURLString
+        
+        if NSProcessInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 8, minorVersion: 0, patchVersion: 0)) {
+            appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
+        }
+        
+        if let appSettings = NSURL(string: appSettingsString) {
            UIApplication.sharedApplication().openURL(appSettings)
         }
         
