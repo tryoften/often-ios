@@ -87,6 +87,9 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         }
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        viewModel.delegate = nil
+    }
     
     func loadVisiblePages() {
         for index in 0...pageCount - 1 {
@@ -195,8 +198,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
                 mainController = mainViewController
             }
         } else {
-            let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
-            mainController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
+            mainController = KeyboardInstallationWalkthroughViewController(viewModel: SignupViewModel(sessionManager: viewModel.sessionManager))
         }
         
         self.presentViewController(mainController, animated: true, completion: nil)
