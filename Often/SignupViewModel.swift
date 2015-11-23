@@ -40,6 +40,10 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         self.sessionManager.addSessionObserver(self)
     }
     
+    deinit {
+        sessionManager.removeSessionObserver(self)
+    }
+    
     func signUpUser(completion: (results: ResultType) -> Void) throws {
         var userData = [String: String]()
         
@@ -58,7 +62,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             throw SignupError.PasswordNotVaild
         }
         
-        userData["email"] = user.email
+        userData["email"] = user.email.lowercaseString
         userData["username"] = user.username.lowercaseString
         userData["password"] = password
         
@@ -112,6 +116,10 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
     }
+    
+    func sessionManagerNoUserFound(sessionManager: SessionManager) {
+        delegate?.signupViewModelNoUserFound(self)
+    }
 }
  
  enum SignupError: ErrorType {
@@ -121,5 +129,6 @@ class SignupViewModel: NSObject, SessionManagerObserver {
  }
  
 protocol SignupViewModelDelegate: class {
-    func signupViewModelDidLoginUser(userProfileViewModel: SignupViewModel, user: User, isNewUser: Bool)
+    func signupViewModelDidLoginUser(userProfileViewModel: SignupViewModel, user: User?, isNewUser: Bool)
+    func signupViewModelNoUserFound(userProfileViewModel: SignupViewModel)
 }

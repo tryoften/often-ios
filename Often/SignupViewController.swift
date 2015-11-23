@@ -8,7 +8,8 @@
 
 import Foundation
 
-class SignupViewController: UIViewController, UIScrollViewDelegate {
+class SignupViewController: UIViewController, UIScrollViewDelegate,
+    SignupViewModelDelegate {
     var viewModel: SignupViewModel
     var signupView: SignupView
     var screenWidth = UIScreen.mainScreen().bounds.width
@@ -57,7 +58,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         ]
 
         super.init(nibName: nil, bundle: nil)
-        
+        viewModel.delegate = self
         signupView.scrollView.delegate = self
         
         view.addSubview(signupView)
@@ -79,6 +80,11 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         signupView.skipButton.addTarget(self, action: "didTapSkipButton:", forControlEvents: .TouchUpInside)
         setupPages()
         loadVisiblePages()
+        
+        if viewModel.sessionManager.isUserLoggedIn() {
+            PKHUD.sharedHUD.contentView = HUDProgressView()
+            PKHUD.sharedHUD.show()
+        }
     }
     
     
@@ -168,7 +174,6 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
     
     func setupLayout() {
         let constraints: [NSLayoutConstraint] = [
-            
             signupView.al_bottom == view.al_bottom,
             signupView.al_top == view.al_top,
             signupView.al_left == view.al_left,
@@ -177,5 +182,27 @@ class SignupViewController: UIViewController, UIScrollViewDelegate {
         
         view.addConstraints(constraints)
     }
-
+    
+    func signupViewModelDidLoginUser(userProfileViewModel: SignupViewModel, user: User?, isNewUser: Bool) {
+        PKHUD.sharedHUD.hide(animated: true)
+        
+        var mainController: UIViewController
+        if viewModel.sessionManager.isKeyboardInstalled() {
+            if viewModel.sessionManager.isUserAnonymous() {
+                mainController = SkipSignupViewController(viewModel: SignupViewModel(sessionManager: viewModel.sessionManager))
+            } else {
+                let mainViewController = RootViewController()
+                mainController = mainViewController
+            }
+        } else {
+            let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
+            mainController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
+        }
+        
+        self.presentViewController(mainController, animated: true, completion: nil)
+    }
+    
+    func signupViewModelNoUserFound(userProfileViewModel: SignupViewModel) {
+        PKHUD.sharedHUD.hide(animated: true)
+    }
 }

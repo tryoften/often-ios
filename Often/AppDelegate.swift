@@ -49,25 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window.clipsToBounds = true
                 mainController = KeyboardViewController(debug: true)
             } else {
-
-                if sessionManager.isUserLoggedIn() {
-                    if sessionManager.isKeyboardInstalled() {
-                        if sessionManager.isUserAnonymous() {
-                            mainController = SkipSignupViewController(viewModel: SignupViewModel(sessionManager: sessionManager))
-                        } else {
-                            let mainViewController = RootViewController()
-                            mainController = mainViewController
-                        }
-                    } else {
-                        
-                        let signupViewModel = SignupViewModel(sessionManager: sessionManager)
-                        mainController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
-                    }
-                } else {
-                    let signupViewModel = SignupViewModel(sessionManager: sessionManager)
-                    mainController = SignupViewController(viewModel: signupViewModel)
-                }
-                
+                let signupViewModel = SignupViewModel(sessionManager: sessionManager)
+                mainController = SignupViewController(viewModel: signupViewModel)
             }
             UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Fade)
             window.rootViewController = mainController
