@@ -232,7 +232,7 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     func didTapSettingsButton() {
         var appSettingsString = UIApplicationOpenSettingsURLString
         
-        if NSProcessInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 8, minorVersion: 0, patchVersion: 0)) {
+        if #available(iOS 9, *)  {
             appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
         }
         
