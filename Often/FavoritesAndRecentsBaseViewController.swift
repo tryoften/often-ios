@@ -96,6 +96,22 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         viewModel.filters = filters
     }
     
+    func sectionHeaderTitle() -> NSAttributedString {
+        var headerTitle = ""
+        if viewModel.filters.isEmpty {
+            headerTitle =  "\(viewModel.mediaLinks.count)" + " " + viewModel.currentCollectionType.rawValue
+        } else {
+            headerTitle =  "\(viewModel.mediaLinks.count)" + " \(viewModel.filters[0].rawValue.uppercaseString)s"
+        }
+        
+        let headerTitleRange = NSMakeRange(0, headerTitle.characters.count)
+        let sectionheaderTitle = NSMutableAttributedString(string: headerTitle.uppercaseString)
+        
+        sectionheaderTitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 10.0)!, range: headerTitleRange)
+        sectionheaderTitle.addAttribute(NSKernAttributeName, value: 1.0, range: headerTitleRange)
+        return sectionheaderTitle
+    }
+    
     func hasLinks() {
         if didReturnResults {
             collectionView?.scrollEnabled = false
