@@ -140,7 +140,7 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
             contentFilterTabView.al_bottom == view.al_bottom,
             contentFilterTabView.al_left == view.al_left,
             contentFilterTabView.al_right == view.al_right,
-            contentFilterTabView.al_height == 50,
+            contentFilterTabView.al_height == 40,
             
             emptyStateView.al_left == view.al_left,
             emptyStateView.al_right == view.al_right,
