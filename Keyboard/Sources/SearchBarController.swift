@@ -39,7 +39,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
         searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
         searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
-        searchBar.textInput.shareButton.addTarget(self, action: "didTapShareButton", forControlEvents: .TouchUpInside)
+        searchBar.shareButton.addTarget(self, action: "didTapShareButton", forControlEvents: .TouchUpInside)
         
         if let textProcessor = textProcessor {
             textProcessor.proxies["search"] = searchBar.textInput

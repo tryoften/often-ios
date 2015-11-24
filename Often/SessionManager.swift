@@ -1,4 +1,4 @@
-//
+ //
 //  SessionManager.swift
 //  Often
 //
@@ -226,7 +226,8 @@ class SessionManager: NSObject {
                     self.isUserNew = false
                     
                     persistUser(newUser)
-                    
+                } else {
+                    self.broadcastNoUserFoundEvent()
                 }
             }
             }, withCancelBlock: { error in
@@ -312,6 +313,13 @@ class SessionManager: NSObject {
             }
         }
     }
+    
+    private func broadcastNoUserFoundEvent() {
+            for observer in observers {
+                observer.sessionManagerNoUserFound?(self)
+            }
+    }
+    
 }
 
 enum SessionManagerError: ErrorType {
@@ -327,5 +335,6 @@ enum LoginType {
 @objc protocol SessionManagerObserver: class {
     optional func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
     optional func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
+    optional func sessionManagerNoUserFound(sessionManager: SessionManager)
     optional func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String : AnyObject]?)
 }

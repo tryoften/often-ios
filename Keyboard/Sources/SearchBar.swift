@@ -17,7 +17,8 @@ class SearchBar: UIView {
     var textInput: SearchTextField
     var textInputLeftConstraint: NSLayoutConstraint?
     var cancelButtonLeftConstraint: NSLayoutConstraint!
-
+    
+    var shareButton: UIButton
     var cancelButton: UIButton
     var cancelButtonLeftPadding: CGFloat {
         return CGRectGetWidth(frame) - 70
@@ -46,6 +47,11 @@ class SearchBar: UIView {
         cancelButton.titleLabel?.font = UIFont(name: "Montserrat", size: 11)
         cancelButton.titleLabel?.textAlignment = .Center
         
+        shareButton = UIButton()
+        shareButton.translatesAutoresizingMaskIntoConstraints = false
+        shareButton.setImage(StyleKit.imageOfSharebutton(), forState: .Normal)
+        shareButton.alpha = 0.40
+        
         super.init(frame: frame)
         
         textInput.addTarget(self, action: "textFieldEditingDidBegin", forControlEvents: .EditingDidBegin)
@@ -57,6 +63,8 @@ class SearchBar: UIView {
         addSubview(cancelButton)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
+        addSubview(shareButton)
+        
 
         setupLayout()
     }
@@ -73,6 +81,7 @@ class SearchBar: UIView {
     
     func textFieldEditingDidBegin() {
         cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
+        shareButton.hidden = true
         UIView.animateWithDuration(0.3) {
             self.backgroundColor = WhiteColor
             self.layoutIfNeeded()
@@ -153,6 +162,7 @@ class SearchBar: UIView {
             cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
         } else {
             cancelButtonLeftConstraint.constant = CGRectGetWidth(frame)
+            shareButton.hidden = false
         }
         
         if animated {
@@ -197,7 +207,12 @@ class SearchBar: UIView {
             cancelButtonLeftConstraint,
             cancelButton.al_width == 60,
             cancelButton.al_top == al_top,
-            cancelButton.al_height == al_height
+            cancelButton.al_height == al_height,
+            
+            shareButton.al_top == textInput.al_top,
+            shareButton.al_right == textInput.al_right,
+            shareButton.al_width == 40,
+            shareButton.al_bottom == textInput.al_bottom,
         ])
         
         layoutIfNeeded()
