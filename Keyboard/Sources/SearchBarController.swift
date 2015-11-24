@@ -101,7 +101,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             searchSuggestionsViewController!.view.al_bottom == view.al_bottom,
             searchSuggestionsViewController!.view.al_left == view.al_left,
             searchSuggestionsViewController!.view.al_width == view.al_width,
-            
+
             bottomSeperator.al_bottom == view.al_bottom,
             bottomSeperator.al_left == view.al_left,
             bottomSeperator.al_width == view.al_width,
@@ -146,6 +146,8 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func didTapShareButton() {
         if let shareText = PFConfig.currentConfig().objectForKey("shareText") as? String {
             textProcessor?.insertText(shareText)
+        } else {
+            textProcessor?.insertText("Download Often at oftn.me/app")
         }
     }
     
