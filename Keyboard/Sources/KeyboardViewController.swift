@@ -93,18 +93,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     static var once_predicate: dispatch_once_t = 0
+    var viewModelsLoaded: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        // Only setup firebase once because this view controller gets instantiated
-        // everytime the keyboard is spawned
-        dispatch_once(&KeyboardViewController.once_predicate) {
-            if (!KeyboardViewController.debugKeyboard) {
-                Fabric.with([Crashlytics()])
-                Flurry.startSession(FlurryClientKey)
-            }
-            Firebase.defaultConfig().persistenceEnabled = true
-        }
-        
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBarHeight = KeyboardSearchBarHeight
         
@@ -125,7 +116,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         slidePanelContainerView = UIView()
         slidePanelContainerView.accessibilityIdentifier = "Slide Panel"
-        searchBar.searchResultsContainerView = slidePanelContainerView
         
         super.init(nibName: nil, bundle: nil)
         
@@ -146,6 +136,18 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        viewModelsLoaded = 0
+        searchBar.viewModel?.delegate = nil
+        searchBar.suggestionsViewModel?.delegate = nil
+        searchBar.viewModel = nil
+        searchBar.textProcessor = nil
+        searchBar.suggestionsViewModel = nil
+        searchBar.searchResultsContainerView = nil
+        textProcessor?.delegate = nil
+        textProcessor = nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -162,14 +164,41 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     override func viewDidAppear(animated: Bool) {
-        textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
-        textProcessor?.delegate = self
-
+        // Only setup firebase once because this view controller gets instantiated
+        // everytime the keyboard is spawned
+        dispatch_once(&KeyboardViewController.once_predicate) {
+            if (!KeyboardViewController.debugKeyboard) {
+                Fabric.with([Crashlytics()])
+                Flurry.startSession(FlurryClientKey)
+            }
+            Firebase.defaultConfig().persistenceEnabled = true
+        }
+        
+        dispatch_once(&viewModelsLoaded) {
+            self.setupViewModels()
+        }
+    }
+    
+    func setupViewModels() {
+        self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
+        self.textProcessor?.delegate = self
+        
         viewModel = KeyboardViewModel()
         viewModel?.userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
         viewModel?.userDefaults.synchronize()
         
+        let baseURL = Firebase(url: BaseURL)
+        let searchViewModel = SearchViewModel(base: baseURL)
+        searchViewModel.delegate = searchBar
+        
+        let suggestionsViewModel = SearchSuggestionsViewModel(base: baseURL)
+        suggestionsViewModel.delegate = searchBar
+        suggestionsViewModel.suggestionsDelegate = searchBar
+        
         searchBar.textProcessor = textProcessor
+        searchBar.searchResultsContainerView = slidePanelContainerView
+        searchBar.viewModel = searchViewModel
+        searchBar.suggestionsViewModel = suggestionsViewModel
         
         if viewModel?.hasSeenTooltip == false {
             toolTipViewController = ToolTipViewController()
@@ -552,7 +581,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
-        return searchBar.suggestionsViewModel.checkFilterInQuery(text)
+        return searchBar.suggestionsViewModel?.checkFilterInQuery(text)
     }
     
     func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {

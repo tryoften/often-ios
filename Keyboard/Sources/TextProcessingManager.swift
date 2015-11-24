@@ -35,7 +35,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         
         super.init()
         
-        delay(1.0) {
+        delay(0.5) {
             self.spellChecker = SpellChecker()
         }
         

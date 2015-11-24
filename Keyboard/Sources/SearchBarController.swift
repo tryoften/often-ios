@@ -12,11 +12,11 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     SearchSuggestionViewControllerDelegate, SearchSuggestionsViewModelDelegate,
     AutocorrectSuggestionsViewControllerDelegate {
 
-    var viewModel: SearchViewModel!
-    var suggestionsViewModel: SearchSuggestionsViewModel!
+    var viewModel: SearchViewModel?
+    var suggestionsViewModel: SearchSuggestionsViewModel?
     var searchBar: SearchBar!
     var bottomSeperator: UIView!
-    var textProcessor: TextProcessingManager? {
+    weak var textProcessor: TextProcessingManager? {
         didSet {
             primaryTextDocumentProxy = textProcessor?.currentProxy
         }
@@ -25,7 +25,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     var autocorrectSuggestionsViewController: AutocorrectSuggestionsViewController?
     var searchSuggestionsViewController: SearchSuggestionsViewController?
     var searchResultsViewController: SearchResultsCollectionViewController?
-    var searchResultsContainerView: UIView?
+    weak var searchResultsContainerView: UIView?
     var primaryTextDocumentProxy: UITextDocumentProxy?
     var noResultsTimer: NSTimer?
     var autocompleteTimer: NSTimer?
@@ -58,14 +58,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         bottomSeperator = UIView()
         bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
         bottomSeperator.backgroundColor = DarkGrey
-
-        let baseURL = Firebase(url: BaseURL)
-        viewModel = SearchViewModel(base: baseURL)
-        viewModel.delegate = self
-        
-        suggestionsViewModel = SearchSuggestionsViewModel(base: baseURL)
-        suggestionsViewModel.delegate = self
-        suggestionsViewModel.suggestionsDelegate = self
         
         view.addSubview(searchSuggestionsViewController!.view)
         view.addSubview(searchBar)
@@ -129,7 +121,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func submitSearchRequest() {
         let query = filter != nil ? filter!.text + " " + searchBar.textInput.text : searchBar.textInput.text
-        viewModel.sendRequestForQuery(query, autocomplete: false)
+        viewModel?.sendRequestForQuery(query, autocomplete: false)
         searchResultsViewController?.updateEmptySetVisible(false)
         
         noResultsTimer?.invalidate()
@@ -160,11 +152,11 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         let query = searchBar.textInput.text
         
         if query.isEmpty {
-            suggestionsViewModel.sendRequestForQuery("#top-searches:10", autocomplete: true)
+            suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
         } else if query == "#" {
-            suggestionsViewModel.sendRequestForQuery("#filters-list", autocomplete: true)
+            suggestionsViewModel?.sendRequestForQuery("#filters-list", autocomplete: true)
         } else {
-            suggestionsViewModel.sendRequestForQuery(query, autocomplete: true)
+            suggestionsViewModel?.sendRequestForQuery(query, autocomplete: true)
         }
     }
     
@@ -235,7 +227,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         textProcessor?.parseTextInCurrentDocumentProxy()
         searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
 
-        if viewModel.hasReceivedResponse {
+        if viewModel?.hasReceivedResponse == true {
             scheduleAutocompleteRequestTimer()
             isNewSearch = true
             searchResultsContainerView?.hidden = true
@@ -251,7 +243,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func setFilter(filter: Filter) {
         self.filter = filter
         searchBar?.setFilterButton(filter)
-        suggestionsViewModel.sendRequestForQuery("#top-searches:10", autocomplete: true)
+        suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
     }
     
     // MARK: SearchViewModelDelegate
@@ -295,7 +287,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         case .Filter:
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.textInput.text = ""
-            if let filter = suggestionsViewModel.checkFilterInQuery(suggestion.text) {
+            if let filter = suggestionsViewModel?.checkFilterInQuery(suggestion.text) {
                 setFilter(filter)
             }
         case .Unknown:
@@ -309,7 +301,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func autocorrectSuggestionsViewControllerShouldShowSuggestions(autocorrectSuggestions: AutocorrectSuggestionsViewController) -> Bool {
-        if !viewModel.hasReceivedResponse {
+        if viewModel?.hasReceivedResponse == false {
             return false
         }
         

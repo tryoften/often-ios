@@ -111,7 +111,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
             imageView.al_height == signupView.scrollView.al_height,
             imageView.al_width == pageWidth,
             imageView.al_left == signupView.scrollView.al_left + pageWidth * CGFloat(page)
-            ])
+        ])
         
         pageViews.append(imageView)
     }
@@ -131,6 +131,9 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         signupView.subtitleLabel.text = subtitleString
         signupView.subtitleLabel.attributedText = subtitle
         signupView.subtitleLabel.textAlignment = .Center
+        
+        timer?.invalidate()
+        timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
     
     override func prefersStatusBarHidden() -> Bool {

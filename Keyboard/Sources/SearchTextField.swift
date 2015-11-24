@@ -131,8 +131,7 @@ class SearchTextField: UIControl, Layouteable {
 
         let containerWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
         let labelWidth = (CGRectGetWidth(label.frame) + CGRectGetWidth(searchIcon.frame) + 40)
-        
-        print("Container width: ", containerWidth, " labelWidth: ", labelWidth)
+
         return (containerWidth / 2) - labelWidth / 2
     }
     

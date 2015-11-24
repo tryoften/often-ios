@@ -39,7 +39,7 @@ class KeyboardViewModel: NSObject {
     
     override init() {
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        userDefaults.setBool(true, forKey: "keyboardInstall")
+        userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
         userDefaults.synchronize()
         
         isFullAccessEnabled = false
