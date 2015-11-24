@@ -182,7 +182,8 @@ class SessionManager: NSObject {
             self.fetchSocialAccount()
         }
         
-        guard let authData = authData, let uid = PFUser.currentUser()?.objectId else {
+        guard let authData = authData, let _ = userDefaults.stringForKey(UserDefaultsProperty.userID) else {
+                self.broadcastNoUserFoundEvent()
                 return
         }
         
@@ -210,22 +211,25 @@ class SessionManager: NSObject {
                 if self.userDefaults.boolForKey(UserDefaultsProperty.userEmail) {
                     var data = [String : AnyObject]()
                     
-                    data["id"] = authData.uid
-                    data["email"] = PFUser.currentUser()?.email
-                    data["phone"] = PFUser.currentUser()?.objectForKey("phone") as? String
-                    data["username"] = PFUser.currentUser()?.username
-                    data["displayName"] = PFUser.currentUser()?.objectForKey("fullName") as? String
-                    data["name"] = PFUser.currentUser()?.objectForKey("fullName") as? String
-                    data["parseId"] = uid
-                    data["accounts"] = self.createSocialAccount()
+                    if let currentUser = PFUser.currentUser() {
+                        data["id"] = authData.uid
+                        data["email"] = currentUser.email
+                        data["phone"] = currentUser.objectForKey("phone") as? String
+                        data["username"] = currentUser.username
+                        data["displayName"] = currentUser.objectForKey("fullName") as? String
+                        data["name"] = currentUser.objectForKey("fullName") as? String
+                        data["parseId"] = currentUser.objectId
+                        data["accounts"] = self.createSocialAccount()
+                        
+                        let newUser = User()
+                        newUser.setValuesForKeysWithDictionary(data)
+                        
+                        self.userRef?.updateChildValues(data)
+                        self.isUserNew = false
+                        
+                        persistUser(newUser)
+                    }
                     
-                    let newUser = User()
-                    newUser.setValuesForKeysWithDictionary(data)
-                    
-                    self.userRef?.updateChildValues(data)
-                    self.isUserNew = false
-                    
-                    persistUser(newUser)
                 } else {
                     self.broadcastNoUserFoundEvent()
                 }
