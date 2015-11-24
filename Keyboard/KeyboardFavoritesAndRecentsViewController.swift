@@ -37,7 +37,7 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
         setupLayout()
         reloadCollectionView()
         
-        collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 10, 0, 0, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
     }
     
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
