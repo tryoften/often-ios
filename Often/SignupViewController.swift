@@ -18,9 +18,11 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     var pagesScrollViewSize: CGSize
     var pageCount: Int
     var pageViews: [UIImageView]
+    var splashScreen: UIImageView
     var pageImages: [UIImage]
     var pagesubTitle: [String]
     var timer: NSTimer?
+    var splashScreenTimer: NSTimer?
     
     var currentPage: Int {
         return Int(floor((signupView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
@@ -56,15 +58,22 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
             "Filter by app or website by adding a hashtag to the beginning of your search",
             "Favorites are saved right in your keyboard to easily share them again later"
         ]
+        
+        splashScreen = UIImageView(image: UIImage(named:  "LaunchImage"))
+        splashScreen.contentMode = .ScaleAspectFill
+        splashScreen.translatesAutoresizingMaskIntoConstraints = false
+        splashScreen.hidden = true
 
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
         signupView.scrollView.delegate = self
         
         view.addSubview(signupView)
+        view.addSubview(splashScreen)
         setupLayout()
         
         timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        splashScreenTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
     }
 
     func scrollToNextPage() {
@@ -82,8 +91,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         loadVisiblePages()
         
         if viewModel.sessionManager.isUserLoggedIn() {
-            PKHUD.sharedHUD.contentView = HUDProgressView()
-            PKHUD.sharedHUD.show()
+            splashScreen.hidden = false
         }
     }
     
@@ -184,30 +192,39 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
             signupView.al_top == view.al_top,
             signupView.al_left == view.al_left,
             signupView.al_right == view.al_right,
+            
+            splashScreen.al_bottom == view.al_bottom,
+            splashScreen.al_top == view.al_top,
+            splashScreen.al_left == view.al_left,
+            splashScreen.al_right == view.al_right,
         ]
         
         view.addConstraints(constraints)
     }
     
     func signupViewModelDidLoginUser(userProfileViewModel: SignupViewModel, user: User?, isNewUser: Bool) {
-        PKHUD.sharedHUD.hide(animated: true)
-        
+        splashScreen.hidden = true
+        splashScreenTimer?.invalidate()
         var mainController: UIViewController
-        if viewModel.sessionManager.isKeyboardInstalled() {
+        
             if viewModel.sessionManager.isUserAnonymous() {
                 mainController = SkipSignupViewController(viewModel: SignupViewModel(sessionManager: viewModel.sessionManager))
             } else {
                 let mainViewController = RootViewController()
                 mainController = mainViewController
             }
-        } else {
-            mainController = KeyboardInstallationWalkthroughViewController(viewModel: SignupViewModel(sessionManager: viewModel.sessionManager))
-        }
-        
+            
         self.presentViewController(mainController, animated: true, completion: nil)
     }
     
+    func userDataTimeOut() {
+        splashScreenTimer?.invalidate()
+        splashScreen.hidden = true
+        viewModel.delegate = nil
+    }
+    
     func signupViewModelNoUserFound(userProfileViewModel: SignupViewModel) {
-        PKHUD.sharedHUD.hide(animated: true)
+        splashScreenTimer?.invalidate()
+        splashScreen.hidden = true
     }
 }
