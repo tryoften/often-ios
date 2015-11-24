@@ -84,7 +84,7 @@ class SessionManager: NSObject {
     }
     
     func isKeyboardInstalled() -> Bool {
-        return userDefaults.boolForKey("keyboardInstall")
+        return userDefaults.boolForKey(UserDefaultsProperty.keyboardInstalled)
     }
     
     func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {

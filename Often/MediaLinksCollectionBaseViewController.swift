@@ -98,8 +98,6 @@ class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaL
         
         cell.sourceLogoView.image = result.iconImageForSource()
         
-        
-        
         return cell
     }
     
@@ -114,7 +112,7 @@ class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaL
             UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 cell.alpha = 1.0
                 cell.frame = finalFrame
-                }, completion: nil)
+            }, completion: nil)
         }
         
         cellsAnimated[indexPath] = true
