@@ -95,14 +95,16 @@ class TwitterAccountManager: AccountManager {
                 firebaseData["description"] = userdata["description"] as? String
                 firebaseData["parseId"] = PFUser.currentUser()?.objectId
                 
-                if let userID = PFTwitterUtils.twitter()?.userId {
-                    
-                    userDefaults.setValue("twitter:\(userID)", forKey: UserDefaultsProperty.userID)
-                    userDefaults.synchronize()
-                    
-                    userRef?.updateChildValues(firebaseData)
-                    completion(results: ResultType.Success(r: true))
-                    
+                if userDefaults.objectForKey(UserDefaultsProperty.userID) == nil {
+                    if let userID = PFTwitterUtils.twitter()?.userId {
+                        userDefaults.setValue("twitter:\(userID)", forKey: UserDefaultsProperty.userID)
+                        userDefaults.synchronize()
+                        
+                        userRef?.updateChildValues(firebaseData)
+                        completion(results: ResultType.Success(r: true))
+                        
+                    }
+
                 }
             }
         }

@@ -119,6 +119,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     
     func sessionManagerNoUserFound(sessionManager: SessionManager) {
         delegate?.signupViewModelNoUserFound(self)
+        sessionManager.logout()
     }
 }
  
