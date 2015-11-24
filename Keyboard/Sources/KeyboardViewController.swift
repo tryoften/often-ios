@@ -20,9 +20,9 @@ let RestoreKeyboardEvent = "restoreKeyboard"
 let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
 
 class KeyboardViewController: UIInputViewController, TextProcessingManagerDelegate, ToolTipCloseButtonDelegate {
-    var viewModel: KeyboardViewModel
+    var viewModel: KeyboardViewModel?
     let locale: Language = .English
-    var textProcessor: TextProcessingManager!
+    var textProcessor: TextProcessingManager?
     var keysContainerView: TouchRecognizerView!
     var togglePanelButton: TogglePanelButton!
     var slidePanelContainerView: UIView
@@ -95,17 +95,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     static var once_predicate: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        // Only setup firebase once because this view controller gets instantiated
-        // everytime the keyboard is spawned
-        dispatch_once(&KeyboardViewController.once_predicate) {
-            if (!KeyboardViewController.debugKeyboard) {
-                Firebase.defaultConfig().persistenceEnabled = true
-                Fabric.with([Crashlytics()])
-                Flurry.startSession(FlurryClientKey)
-            }
-        }
-        
-        viewModel = KeyboardViewModel()
+        Firebase.defaultConfig().persistenceEnabled = true
         
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBarHeight = KeyboardSearchBarHeight
@@ -136,13 +126,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         view.addSubview(togglePanelButton)
         view.addSubview(keysContainerView)
         
-        if viewModel.hasSeenTooltip == false {
-            toolTipViewController = ToolTipViewController()
-            toolTipViewController?.closeButtonDelegate = self
-            toolTipViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(toolTipViewController!.view)
-        }
-        
         inputView!.backgroundColor = DefaultTheme.keyboardBackgroundColor
     }
     
@@ -157,12 +140,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
-        viewModel.userDefaults.synchronize()
-        
-        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
-        textProcessor.delegate = self
-        searchBar.textProcessor = textProcessor
         
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
@@ -174,6 +151,40 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         
         togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
 
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        // Only setup firebase once because this view controller gets instantiated
+        // everytime the keyboard is spawned
+        dispatch_once(&KeyboardViewController.once_predicate) {
+            if (!KeyboardViewController.debugKeyboard) {
+                Fabric.with([Crashlytics()])
+                Flurry.startSession(FlurryClientKey)
+            }
+            
+            self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
+            self.textProcessor?.delegate = self
+            self.searchBar.textProcessor = self.textProcessor
+        }
+        
+        viewModel = KeyboardViewModel()
+
+        self.viewModel?.userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
+        self.viewModel?.userDefaults.synchronize()
+        
+        if viewModel?.hasSeenTooltip == false {
+            toolTipViewController = ToolTipViewController()
+            toolTipViewController?.closeButtonDelegate = self
+            toolTipViewController!.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(toolTipViewController!.view)
+            view.addConstraints([
+                toolTipViewController!.view.al_top == view.al_top + searchBarHeight,
+                toolTipViewController!.view.al_left == view.al_left,
+                toolTipViewController!.view.al_right == view.al_right,
+                toolTipViewController!.view.al_bottom == view.al_bottom
+            ])
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -366,19 +377,10 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             updateKeyCaps(shiftState.lettercase())
             constraintsAdded = true
         }
-        
-        if viewModel.hasSeenTooltip == false {
-            view.addConstraints([
-                toolTipViewController!.view.al_top == view.al_top + searchBarHeight,
-                toolTipViewController!.view.al_left == view.al_left,
-                toolTipViewController!.view.al_right == view.al_right,
-                toolTipViewController!.view.al_bottom == view.al_bottom
-            ])
-        }
     }
     
     func setCapsIfNeeded() -> Bool {
-        if textProcessor.shouldAutoCapitalize() {
+        if textProcessor?.shouldAutoCapitalize() == true {
             switch shiftState {
             case .Disabled:
                 shiftState = .Enabled
@@ -405,20 +407,19 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     override func textDidChange(textInput: UITextInput?) {
-            textProcessor.textDidChange(textInput)
+        textProcessor?.textDidChange(textInput)
     }
     
     override func textWillChange(textInput: UITextInput?) {
-        textProcessor.textWillChange(textInput)
+        textProcessor?.textWillChange(textInput)
     }
-   
     
     override func selectionWillChange(textInput: UITextInput?) {
-        textProcessor.selectionWillChange(textInput)
+        textProcessor?.selectionWillChange(textInput)
     }
     
     override func selectionDidChange(textInput: UITextInput?) {
-        textProcessor.selectionDidChange(textInput)
+        textProcessor?.selectionDidChange(textInput)
     }
     
     func setupKludge() {
@@ -563,13 +564,13 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
         if let mediaLink = mediaLink {
-            viewModel.logTextSendEvent(mediaLink)
+            viewModel?.logTextSendEvent(mediaLink)
         }
     }
 
     // MARK: ToolTipCloseButtonDelegate
     func toolTipCloseButtonDidTap() {
-        viewModel.hasSeenTooltip = true
+        viewModel?.hasSeenTooltip = true
         
         UIView.animateWithDuration(0.3, animations: {
             self.toolTipViewController!.view.alpha = 0.0
