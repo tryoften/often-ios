@@ -28,8 +28,6 @@ class SearchTextField: UIControl, Layouteable {
     private var inputPosition: Int
     private var indicatorBlinkingTimer: NSTimer?
     
-    var shareButton: UIButton
-    
     var font: UIFont? {
         didSet {
             label.font = font
@@ -88,7 +86,6 @@ class SearchTextField: UIControl, Layouteable {
                 
                 cancelButtonLeftConstraint.constant = -CGRectGetHeight(clearButton.frame) - 15
                 labelContainerLeftConstraint.constant = 0
-                shareButton.hidden = true
                 
                 if leftView != nil {
                     leftViewLeftConstraint.constant = 0
@@ -107,9 +104,6 @@ class SearchTextField: UIControl, Layouteable {
                 
                 if text == "" && placeholder != nil {
                     placeholder = placeholderText
-                    shareButton.hidden = false
-                } else {
-                    shareButton.hidden = true
                 }
                 
                 if self.text == "" {
@@ -203,13 +197,7 @@ class SearchTextField: UIControl, Layouteable {
         searchIcon = UIImageView(image: StyleKit.imageOfSearchbaricon(color: LightBlackColor, scale: 1.0))
         searchIcon.translatesAutoresizingMaskIntoConstraints = false
         searchIcon.contentMode = .ScaleAspectFit
-        
-        shareButton = UIButton()
-        shareButton.translatesAutoresizingMaskIntoConstraints = false
-        shareButton.setImage(StyleKit.imageOfSharebutton(), forState: .Normal)
-        shareButton.alpha = 0.40
-        shareButton.hidden = true
-        
+    
         super.init(frame: frame)
         
         backgroundColor = UIColor.clearColor()
@@ -224,7 +212,6 @@ class SearchTextField: UIControl, Layouteable {
         
         labelContainer.addSubview(searchIcon)
         labelContainer.addSubview(label)
-        labelContainer.addSubview(shareButton)
         
         cancelButtonLeftConstraint = clearButton.al_left == al_right - 15
         labelContainerLeftConstraint = labelContainer.al_left == al_left
@@ -291,6 +278,7 @@ class SearchTextField: UIControl, Layouteable {
         placeholder = placeholderText
         selected = false
         endBlinkingIndicator()
+        
         sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
         
         let center = NSNotificationCenter.defaultCenter()
@@ -335,9 +323,6 @@ class SearchTextField: UIControl, Layouteable {
             clearButton.al_height == 15,
             clearButton.al_width == clearButton.al_height,
             clearButton.al_centerY == al_centerY,
-            
-            shareButton.al_right == labelContainer.al_right,
-            shareButton.al_centerY == labelContainer.al_centerY
         ])
     }
     

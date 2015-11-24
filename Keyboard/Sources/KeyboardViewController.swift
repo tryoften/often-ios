@@ -162,14 +162,14 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
-        self.textProcessor?.delegate = self
+        textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
+        textProcessor?.delegate = self
 
-        
         viewModel = KeyboardViewModel()
-
-        self.viewModel?.userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
-        self.viewModel?.userDefaults.synchronize()
+        viewModel?.userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
+        viewModel?.userDefaults.synchronize()
+        
+        searchBar.textProcessor = textProcessor
         
         if viewModel?.hasSeenTooltip == false {
             toolTipViewController = ToolTipViewController()

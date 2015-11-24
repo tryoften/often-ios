@@ -19,7 +19,7 @@ enum FilterTag: String {
 typealias FilterMap = [FilterTag: [MediaType]]
 
 let DefaultFilterMap: FilterMap = [
-    .Music: [.Album, .Track, .Artist],
+    .Music: [.Track, .Album, .Artist],
     .Video: [.Video],
     .News: [.Article],
     .All:  []
