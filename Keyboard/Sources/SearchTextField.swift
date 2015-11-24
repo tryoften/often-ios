@@ -94,13 +94,10 @@ class SearchTextField: UIControl, Layouteable {
                     leftViewLeftConstraint.constant = 0
                 }
                 
-                UIView.animateWithDuration(0.3) {
-                    self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: UIColor(fromHexString: "#BEBEBE"), scale: 1.0)
-                    self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
-                    self.backgroundView.backgroundColor = UIColor(fromHexString: "#F3F3F3")
-                    self.clearButton.alpha = 1.0
-                    self.layoutIfNeeded()
-                }
+                self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: UIColor(fromHexString: "#BEBEBE"), scale: 1.0)
+                self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
+                self.backgroundView.backgroundColor = UIColor(fromHexString: "#F3F3F3")
+                self.clearButton.alpha = 1.0
                 editing = true
             } else {
                 endBlinkingIndicator()
@@ -115,23 +112,20 @@ class SearchTextField: UIControl, Layouteable {
                     shareButton.hidden = true
                 }
                 
-                UIView.animateWithDuration(0.3) {
-                    if self.text == "" {
-                        self.textColor = LightBlackColor
-                        self.cancelButtonLeftConstraint.constant = 0
-                        self.backgroundView.layer.borderColor = UIColor(fromHexString: "#E3E3E3").CGColor
-                        self.labelContainerLeftConstraint.constant = self.labelContainerCenterMargin
-                        self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: LightBlackColor, scale: 1.0)
-                    } else {
-                        self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
-                        self.labelContainerLeftConstraint.constant = 0
-                    }
-                    
-                    self.backgroundView.backgroundColor = WhiteColor
-                    self.indicator.alpha = 0.0
-                    self.clearButton.alpha = 0.0
-                    self.layoutIfNeeded()
+                if self.text == "" {
+                    self.textColor = LightBlackColor
+                    self.cancelButtonLeftConstraint.constant = 0
+                    self.backgroundView.layer.borderColor = UIColor(fromHexString: "#E3E3E3").CGColor
+                    self.labelContainerLeftConstraint.constant = self.labelContainerCenterMargin
+                    self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: LightBlackColor, scale: 1.0)
+                } else {
+                    self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
+                    self.labelContainerLeftConstraint.constant = 0
                 }
+                
+                self.backgroundView.backgroundColor = WhiteColor
+                self.indicator.alpha = 0.0
+                self.clearButton.alpha = 0.0
                 editing = false
             }
         }

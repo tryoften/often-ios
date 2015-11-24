@@ -26,7 +26,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var keysContainerView: TouchRecognizerView!
     var togglePanelButton: TogglePanelButton!
     var slidePanelContainerView: UIView
-    var searchBar: SearchBarController!
+    var searchBar: SearchBarController
     var layout: KeyboardLayout
     var constraintsAdded: Bool = false
     var currentPage: Int = 0
@@ -95,7 +95,15 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     static var once_predicate: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        Firebase.defaultConfig().persistenceEnabled = true
+        // Only setup firebase once because this view controller gets instantiated
+        // everytime the keyboard is spawned
+        dispatch_once(&KeyboardViewController.once_predicate) {
+            if (!KeyboardViewController.debugKeyboard) {
+                Fabric.with([Crashlytics()])
+                Flurry.startSession(FlurryClientKey)
+            }
+            Firebase.defaultConfig().persistenceEnabled = true
+        }
         
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBarHeight = KeyboardSearchBarHeight
@@ -154,19 +162,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     override func viewDidAppear(animated: Bool) {
-        
-        // Only setup firebase once because this view controller gets instantiated
-        // everytime the keyboard is spawned
-        dispatch_once(&KeyboardViewController.once_predicate) {
-            if (!KeyboardViewController.debugKeyboard) {
-                Fabric.with([Crashlytics()])
-                Flurry.startSession(FlurryClientKey)
-            }
-            
-            self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
-            self.textProcessor?.delegate = self
-            self.searchBar.textProcessor = self.textProcessor
-        }
+        self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
+        self.textProcessor?.delegate = self
+
         
         viewModel = KeyboardViewModel()
 

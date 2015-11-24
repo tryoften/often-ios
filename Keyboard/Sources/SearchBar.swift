@@ -68,27 +68,21 @@ class SearchBar: UIView {
             return
         }
         
-        toggleShareButton()
+        toggleCancelButton()
     }
     
     func textFieldEditingDidBegin() {
         cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
-        UIView.animateWithDuration(0.3) {
-            self.backgroundColor = WhiteColor
-            self.layoutIfNeeded()
-        }
+        self.backgroundColor = WhiteColor
     }
     
     func textFieldEditingDidEnd() {
         cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
-        UIView.animateWithDuration(0.3) {
-            self.backgroundColor = DefaultTheme.keyboardBackgroundColor
-            self.layoutIfNeeded()
-        }
+        self.backgroundColor = DefaultTheme.keyboardBackgroundColor
+
     }
     
     func setFilterButton(filter: Filter) {
-
         
         var constraints: [NSLayoutConstraint] = []
         
@@ -134,7 +128,7 @@ class SearchBar: UIView {
         textInput.text = ""
         textInput.placeholder = textInput.placeholderText
         textInput.selected = false
-        toggleShareButton(true)
+        toggleCancelButton()
     }
     
     func repositionSearchTextField() {
@@ -143,12 +137,9 @@ class SearchBar: UIView {
         } else {
             self.textInputLeftConstraint?.constant = 3
         }
-        UIView.animateWithDuration(0.2) {
-            self.layoutIfNeeded()
-        }
     }
     
-    func toggleShareButton(animated: Bool = false) {
+    func toggleCancelButton(animated: Bool = false) {
         if shouldShowShareButton() {
             cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
         } else {

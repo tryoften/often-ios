@@ -101,7 +101,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             searchSuggestionsViewController!.view.al_bottom == view.al_bottom,
             searchSuggestionsViewController!.view.al_left == view.al_left,
             searchSuggestionsViewController!.view.al_width == view.al_width,
-            
+
             bottomSeperator.al_bottom == view.al_bottom,
             bottomSeperator.al_left == view.al_left,
             bottomSeperator.al_width == view.al_width,
