@@ -34,7 +34,7 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
     
     func setLayout() {
         addConstraints([
-            trendingLabel.al_top == al_top + 6,
+            trendingLabel.al_top == al_top + 4,
             trendingLabel.al_bottom == al_bottom - 4,
             trendingLabel.al_left == al_left + 17,
         

@@ -101,8 +101,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             if (!KeyboardViewController.debugKeyboard) {
                 Fabric.with([Crashlytics()])
                 Flurry.startSession(FlurryClientKey)
+                Firebase.defaultConfig().persistenceEnabled = true
             }
-            Firebase.defaultConfig().persistenceEnabled = true
         }
         
         searchBar = SearchBarController(nibName: nil, bundle: nil)

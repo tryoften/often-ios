@@ -200,7 +200,7 @@ class SearchBar: UIView {
             cancelButton.al_height == al_height,
             
             shareButton.al_top == textInput.al_top,
-            shareButton.al_right == textInput.al_right,
+            shareButton.al_right == textInput.al_right - 3,
             shareButton.al_width == 40,
             shareButton.al_bottom == textInput.al_bottom,
         ])
