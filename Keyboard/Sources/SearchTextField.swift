@@ -110,11 +110,9 @@ class SearchTextField: UIControl, Layouteable {
                     self.textColor = LightBlackColor
                     self.cancelButtonLeftConstraint.constant = 0
                     self.backgroundView.layer.borderColor = UIColor(fromHexString: "#E3E3E3").CGColor
-                    self.labelContainerLeftConstraint.constant = self.labelContainerCenterMargin
                     self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: LightBlackColor, scale: 1.0)
                 } else {
                     self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
-                    self.labelContainerLeftConstraint.constant = 0
                 }
                 
                 self.backgroundView.backgroundColor = WhiteColor
@@ -160,6 +158,7 @@ class SearchTextField: UIControl, Layouteable {
             }
         }
     }
+
     override init(frame: CGRect) {
         enableCancelButton = true
         editing = false
@@ -289,6 +288,18 @@ class SearchTextField: UIControl, Layouteable {
     func didTapClearButton() {
         text = ""
         placeholder = placeholderText
+    }
+    
+    func updateButtonPositions() {
+        if !selected {
+            if text == "" {
+                labelContainerLeftConstraint.constant = labelContainerCenterMargin
+            } else {
+                labelContainerLeftConstraint.constant = 0
+            }
+        } else {
+            labelContainerLeftConstraint.constant = 0
+        }
     }
     
     func setupLayout() {

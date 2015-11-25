@@ -238,6 +238,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func textFieldDidEndEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("default")
         searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
+        searchBar?.textInput.updateButtonPositions()
     }
     
     func setFilter(filter: Filter) {
@@ -293,6 +294,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         case .Unknown:
             break
         }
+    }
+    
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        searchBar.textInput.selected = searchBar.textInput.selected
     }
     
     // MARK: AutocorrectSuggestionsViewControllerDelegate
