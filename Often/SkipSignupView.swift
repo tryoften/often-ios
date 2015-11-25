@@ -49,7 +49,7 @@ class SkipSignupView: UIView {
         oftenAccountButton = UIButton()
         oftenAccountButton.translatesAutoresizingMaskIntoConstraints = false
         oftenAccountButton.layer.cornerRadius = 5
-        oftenAccountButton.setTitle("CREATE A FREE ACCOUNT", forState: .Normal)
+        oftenAccountButton.setTitle("CREATE AN ACCOUNT", forState: .Normal)
         oftenAccountButton.setTitleColor(WhiteColor, forState: .Normal)
         oftenAccountButton
             .titleLabel?.font = UIFont(name: "Montserrat", size: 11.0)

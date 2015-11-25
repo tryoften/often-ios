@@ -159,7 +159,9 @@ class SessionManager: NSObject {
         userDefaults.setValue(nil, forKey: UserDefaultsProperty.anonymousUser)
         userDefaults.synchronize()
         
-        let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
+        guard let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
+            return
+        }
         
         do {
             try NSFileManager.defaultManager().removeItemAtPath(directory.path!)
