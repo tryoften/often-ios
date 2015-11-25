@@ -388,6 +388,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         keyboardHeight = heightForOrientation(toInterfaceOrientation, withTopBanner: true)
+        searchBar.searchBar.textInput.updateButtonPositions()
     }
     
     func switchKeyboard() {
