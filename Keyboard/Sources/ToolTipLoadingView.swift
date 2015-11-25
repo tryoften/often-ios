@@ -30,8 +30,8 @@ class ToolTipLoadingView: UIView {
     }
     
     func timedEndLoad() {
-        delay(1.25, closure: {
-            UIView.animateWithDuration(0.5, animations: {
+        delay(0.3, closure: {
+            UIView.animateWithDuration(0.3, animations: {
                 self.alpha = 0.0
             })
         })

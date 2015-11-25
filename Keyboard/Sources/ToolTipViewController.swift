@@ -166,7 +166,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             closeButton.userInteractionEnabled = true
             nextIndicator.userInteractionEnabled = false
             
-            UIView.animateWithDuration(0.5, animations: {
+            UIView.animateWithDuration(0.3, animations: {
                 self.closeButton.alpha = 1.0
                 self.nextIndicator.alpha = 0.0
             })
@@ -174,7 +174,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             closeButton.userInteractionEnabled = false
             nextIndicator.userInteractionEnabled = true
             
-            UIView.animateWithDuration(0.5, animations: {
+            UIView.animateWithDuration(0.3, animations: {
                 self.closeButton.alpha = 0.0
                 self.nextIndicator.alpha = 1.0
             })
@@ -183,7 +183,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     
     func nextIndicatorTapped() {
         if currentPage < 4 {
-            UIView.animateWithDuration(0.4, animations: {
+            UIView.animateWithDuration(0.3, animations: {
                 self.scrollView.contentOffset.x += self.scrollView.bounds.width
             })
         }

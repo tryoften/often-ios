@@ -11,6 +11,7 @@ import Foundation
 class SigninViewController: UIViewController, UITextFieldDelegate {
     var viewModel: SignupViewModel
     var signinView: SigninView
+    var timeOutTimer: NSTimer?
 
     
     init (viewModel: SignupViewModel) {
@@ -47,9 +48,11 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
+        timeOutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "signInTimeOut", userInfo: nil, repeats: true)
         
         do {
             try viewModel.signInUser(signinView.emailTextField.text!, password: signinView.passwordTextField.text!) { results in
+                self.timeOutTimer?.invalidate()
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
@@ -68,8 +71,10 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
+        timeOutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "signInTimeOut", userInfo: nil, repeats: true)
         do {
             try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
+                self.timeOutTimer?.invalidate()
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
@@ -80,8 +85,6 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         } catch {
             
         }
-        
-        
     }
     
     func showErrorView(error:ErrorType) {
@@ -101,9 +104,15 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         case SignupError.PasswordNotVaild:
             DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
             break
-        default: break
+        default:
+             DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         }
-        
+    }
+    
+    func signInTimeOut() {
+        self.timeOutTimer?.invalidate()
+        PKHUD.sharedHUD.hide(animated: true)
+        showErrorView(SignupError.TimeOut)
     }
     
     func didTapcancelButton(sender: UIButton) {

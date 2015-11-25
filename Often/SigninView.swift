@@ -77,6 +77,7 @@ class SigninView: UIView {
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setImage(StyleKit.imageOfButtonclose(scale: 1.0), forState: .Normal)
+        cancelButton.contentEdgeInsets = UIEdgeInsets(top: 17, left: 20, bottom: 20, right: 15)
         
         
         super.init(frame: frame)
@@ -103,10 +104,10 @@ class SigninView: UIView {
     
     func setupLayout() {
         addConstraints([
-            cancelButton.al_top == al_top + 20,
-            cancelButton.al_right == al_right - 20,
-            cancelButton.al_width == 20,
-            cancelButton.al_height == 20,
+            cancelButton.al_top == al_top ,
+            cancelButton.al_right == al_right,
+            cancelButton.al_width == 55,
+            cancelButton.al_height == 59,
             
             titleLabel.al_top == al_top + 120,
             titleLabel.al_left == al_left,

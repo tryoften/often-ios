@@ -35,7 +35,7 @@ class InKeyboardToolTip: UIView {
         
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
+        closeButton.setImage(StyleKit.imageOfClose(scale:0.5), forState: UIControlState.Normal)
         closeButton.userInteractionEnabled = true
         
         caretView = UIImageView()
@@ -95,8 +95,8 @@ class InKeyboardToolTip: UIView {
             
             closeButton.al_top == tipView.al_top + 12,
             closeButton.al_right == tipView.al_right - 12,
-            closeButton.al_height == 11,
-            closeButton.al_width == 11,
+            closeButton.al_height == 20,
+            closeButton.al_width == 20,
             
             caretView.al_height == 30,
             caretView.al_width == 30,

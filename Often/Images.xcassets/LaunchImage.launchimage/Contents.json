@@ -29,9 +29,9 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
+      "filename" : "often - splash screen - 4s-1.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "often - splash screen - 4s-1.png",
       "scale" : "2x"
     },
     {
@@ -80,15 +80,15 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
-      "extent" : "full-screen",
       "filename" : "often - splash screen - 4s.png",
+      "extent" : "full-screen",
       "scale" : "2x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
-      "extent" : "full-screen",
       "filename" : "often - splash screen - 5.png",
+      "extent" : "full-screen",
       "subtype" : "retina4",
       "scale" : "2x"
     },

@@ -106,6 +106,7 @@ class CreateAccountView: UIView {
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setImage(StyleKit.imageOfButtonclose(scale: 1.0), forState: .Normal)
+        cancelButton.contentEdgeInsets = UIEdgeInsets(top: 17, left: 20, bottom: 20, right: 15)
         
         termsOfUseAndPrivacyPolicyButton = UIButton()
         termsOfUseAndPrivacyPolicyButton.translatesAutoresizingMaskIntoConstraints = false
@@ -150,10 +151,10 @@ class CreateAccountView: UIView {
             titleLabel.al_right == al_right,
             titleLabel.al_height == 30,
             
-            cancelButton.al_top == al_top + 20,
-            cancelButton.al_right == al_right - 20,
-            cancelButton.al_width == 20,
-            cancelButton.al_height == 20,
+            cancelButton.al_top == al_top,
+            cancelButton.al_right == al_right,
+            cancelButton.al_width == 55,
+            cancelButton.al_height == 59,
 
             subtitleLabel.al_top == titleLabel.al_bottom + 8,
             subtitleLabel.al_left == al_left  + 80,
