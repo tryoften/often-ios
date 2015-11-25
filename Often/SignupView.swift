@@ -16,6 +16,7 @@ class SignupView: UIView {
     let createAccountButton: UIButton
     let skipButton: UIButton
     var buttonDivider: UIView
+    var splashScreen: UIImageView
     let signinButton: UIButton
     
     override init(frame: CGRect) {
@@ -90,6 +91,20 @@ class SignupView: UIView {
         buttonDivider.translatesAutoresizingMaskIntoConstraints = false
         buttonDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
+        var splashImage: UIImage = UIImage(named: "LaunchImage-800-667h@2x")!
+        
+        if Diagnostics.platformString().number == 5 {
+            splashImage = UIImage(named: "LaunchImage-568h@2x")!
+        }
+        
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+            splashImage = UIImage(named: "LaunchImage-800-Portrait-736h@3x")!
+        }
+        
+        splashScreen = UIImageView(image: splashImage)
+        splashScreen.contentMode = .ScaleAspectFit
+        splashScreen.translatesAutoresizingMaskIntoConstraints = false
+        
         super.init(frame: frame)
         
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
@@ -102,6 +117,7 @@ class SignupView: UIView {
         addSubview(buttonDivider)
         addSubview(skipButton)
         addSubview(signinButton)
+        addSubview(splashScreen)
         
         setupLayout()
     }
@@ -152,6 +168,13 @@ class SignupView: UIView {
             buttonDivider.al_centerX == al_centerX,
             buttonDivider.al_height == 30,
             buttonDivider.al_width == 1.0,
+            
+            splashScreen.al_bottom == al_bottom,
+            splashScreen.al_top == al_top,
+            splashScreen.al_left == al_left,
+            splashScreen.al_right == al_right,
+            splashScreen.al_centerX == al_centerX,
+            splashScreen.al_centerY == al_centerY,
         ]
         
         if Diagnostics.platformString().number == 5 {

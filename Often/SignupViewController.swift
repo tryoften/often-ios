@@ -18,7 +18,6 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     var pagesScrollViewSize: CGSize
     var pageCount: Int
     var pageViews: [UIImageView]
-    var splashScreen: UIImageView
     var pageImages: [UIImage]
     var pagesubTitle: [String]
     var timer: NSTimer?
@@ -58,18 +57,25 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
             "Filter by app or website by adding a hashtag to the beginning of your search",
             "Favorites are saved right in your keyboard to easily share them again later"
         ]
+        var splashImage: UIImage = UIImage(named: "LaunchImage-800-667h@2x")!
         
-        splashScreen = UIImageView(image: UIImage(named:  "LaunchImage-568h@2x"))
-        splashScreen.contentMode = .ScaleToFill
-        splashScreen.translatesAutoresizingMaskIntoConstraints = false
-        splashScreen.hidden = true
-
+        if Diagnostics.platformString().number == 5 {
+        splashImage = UIImage(named: "LaunchImage-800-667h@2x")!
+        }
+        
+        if Diagnostics.platformString().number == 6 {
+            splashImage = UIImage(named: "LaunchImage-800-667h@2x")!
+        }
+        
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+            splashImage = UIImage(named: "LaunchImage-800-Portrait-736h@3x")!
+        }
+        
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
         signupView.scrollView.delegate = self
         
         view.addSubview(signupView)
-        view.addSubview(splashScreen)
         setupLayout()
         
         timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
@@ -91,7 +97,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         loadVisiblePages()
         
         if viewModel.sessionManager.isUserLoggedIn() {
-            splashScreen.hidden = false
+            signupView.splashScreen.hidden = false
         } 
     }
     
@@ -192,13 +198,6 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
             signupView.al_top == view.al_top,
             signupView.al_left == view.al_left,
             signupView.al_right == view.al_right,
-            
-            splashScreen.al_bottom == view.al_bottom,
-            splashScreen.al_top == view.al_top,
-            splashScreen.al_left == view.al_left,
-            splashScreen.al_right == view.al_right,
-            splashScreen.al_centerX == view.al_centerX,
-            splashScreen.al_centerY == view.al_centerY,
         ]
         
         view.addConstraints(constraints)
@@ -220,12 +219,12 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     
     func userDataTimeOut() {
         splashScreenTimer?.invalidate()
-        splashScreen.hidden = true
+        signupView.splashScreen.hidden = true
         viewModel.delegate = nil
     }
     
     func signupViewModelNoUserFound(userProfileViewModel: SignupViewModel) {
         splashScreenTimer?.invalidate()
-        splashScreen.hidden = true
+        signupView.splashScreen.hidden = true
     }
 }
