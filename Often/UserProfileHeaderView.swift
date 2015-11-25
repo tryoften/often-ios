@@ -16,9 +16,15 @@ class UserProfileHeaderView: UICollectionReusableView {
     var scoreNameLabel: UILabel
     var nameLabelHeightConstraint: NSLayoutConstraint?
     var nameLabelHorizontalConstraint: NSLayoutConstraint?
-    var descriptionLabelHeightConstraint: NSLayoutConstraint?
+    var descriptionLabelTopConstraint: NSLayoutConstraint?
     var scoreLabelHeightConstraint: NSLayoutConstraint?
     var scoreNameLabelHeightConstraint: NSLayoutConstraint?
+    var tabContainerView: FavoritesAndRecentsTabView
+    var offsetValue: CGFloat
+    var setServicesRevealButton: UIButton
+    var settingsRevealButton: UIButton
+    var delegate: UserProfileHeaderDelegate?
+    
     static var preferredSize: CGSize {
         return CGSizeMake(
             UIScreen.mainScreen().bounds.size.width,
@@ -26,11 +32,35 @@ class UserProfileHeaderView: UICollectionReusableView {
         )
     }
     
-    var tabContainerView: FavoritesAndRecentsTabView
-    var offsetValue: CGFloat
-    var setServicesRevealButton: UIButton
-    var settingsRevealButton: UIButton
-    var delegate: UserProfileHeaderDelegate?
+    
+    var nameLabelHeightTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 70
+        }
+        return 115
+    }
+    
+    var descriptionTextTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 15
+        }
+        return 30
+    }
+    
+    var tabContainerViewHeight: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 50
+        }
+        return 60
+    }
+    
+    var profileImageViewWidth: CGFloat {
+        if Diagnostics.platformString().number == 6 {
+            return 80
+        }
+        
+        return 68
+    }
     
     var descriptionText: String {
         didSet {
@@ -88,7 +118,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         settingsRevealButton.setImage(UIImage(named: "settings"), forState: .Normal)
         settingsRevealButton.contentEdgeInsets = UIEdgeInsets(top: 17, left: 20, bottom: 20, right: 15)
         
-        
         offsetValue = 0.0
         descriptionText = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
         
@@ -122,16 +151,16 @@ class UserProfileHeaderView: UICollectionReusableView {
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             let progressiveness = attributes.progressiveness
             
-            nameLabelHeightConstraint?.constant = (-115 * progressiveness)
-            descriptionLabelHeightConstraint?.constant = (14 *  progressiveness)
+            nameLabelHeightConstraint?.constant = (-nameLabelHeightTopMargin * progressiveness)
+            descriptionLabelTopConstraint?.constant = (descriptionTextTopMargin *  progressiveness)
             descriptionLabel.alpha = progressiveness - 0.2
         }
     }
     
     func setupLayout() {
-            nameLabelHeightConstraint = nameLabel.al_bottom == tabContainerView.al_top - 115
-            descriptionLabelHeightConstraint = descriptionLabel.al_bottom == scoreLabel.al_top
-            scoreNameLabelHeightConstraint = scoreNameLabel.al_bottom == tabContainerView.al_top - 30
+        nameLabelHeightConstraint = nameLabel.al_bottom == tabContainerView.al_top - nameLabelHeightTopMargin
+        descriptionLabelTopConstraint = descriptionLabel.al_top == nameLabel.al_bottom + descriptionTextTopMargin
+        scoreNameLabelHeightConstraint = scoreNameLabel.al_bottom == tabContainerView.al_top - descriptionTextTopMargin
         
         addConstraints([
             setServicesRevealButton.al_left == al_left,
@@ -146,13 +175,13 @@ class UserProfileHeaderView: UICollectionReusableView {
             
             profileImageView.al_bottom == nameLabel.al_top - 10,
             profileImageView.al_centerX == al_centerX,
-            profileImageView.al_height == 68,
-            profileImageView.al_width == 68,
+            profileImageView.al_width == profileImageViewWidth,
+            profileImageView.al_height == profileImageView.al_width,
             
             nameLabelHeightConstraint!,
             nameLabel.al_centerX == al_centerX,
             
-            descriptionLabelHeightConstraint!,
+            descriptionLabelTopConstraint!,
             descriptionLabel.al_centerX == al_centerX,
             descriptionLabel.al_width == 250,
             
@@ -166,8 +195,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             tabContainerView.al_bottom == al_bottom,
             tabContainerView.al_left == al_left,
             tabContainerView.al_right == al_right,
-            tabContainerView.al_height == 60,
-            
+            tabContainerView.al_height == tabContainerViewHeight,
         ])
     }
     
