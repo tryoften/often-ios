@@ -59,8 +59,8 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
             "Favorites are saved right in your keyboard to easily share them again later"
         ]
         
-        splashScreen = UIImageView(image: UIImage(named:  "LaunchImage"))
-        splashScreen.contentMode = .ScaleAspectFill
+        splashScreen = UIImageView(image: UIImage(named:  "LaunchImage-568h@2x"))
+        splashScreen.contentMode = .ScaleToFill
         splashScreen.translatesAutoresizingMaskIntoConstraints = false
         splashScreen.hidden = true
 
@@ -92,7 +92,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         
         if viewModel.sessionManager.isUserLoggedIn() {
             splashScreen.hidden = false
-        }
+        } 
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -197,13 +197,14 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
             splashScreen.al_top == view.al_top,
             splashScreen.al_left == view.al_left,
             splashScreen.al_right == view.al_right,
+            splashScreen.al_centerX == view.al_centerX,
+            splashScreen.al_centerY == view.al_centerY,
         ]
         
         view.addConstraints(constraints)
     }
     
     func signupViewModelDidLoginUser(userProfileViewModel: SignupViewModel, user: User?, isNewUser: Bool) {
-        splashScreen.hidden = true
         splashScreenTimer?.invalidate()
         var mainController: UIViewController
         

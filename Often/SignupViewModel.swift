@@ -126,6 +126,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     case EmailNotVaild
     case PasswordNotVaild
     case NotConnectedOnline
+    case TimeOut
  }
  
 protocol SignupViewModelDelegate: class {
