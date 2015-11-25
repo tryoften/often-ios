@@ -16,11 +16,13 @@ enum FilterTag: String {
     case All = "All"
 }
 
-typealias FilterMap = [FilterTag: [MediaType]]
+typealias FilterMap = [(FilterTag, [MediaType])]
 
 let DefaultFilterMap: FilterMap = [
-    .Music: [.Track, .Album, .Artist],
-    .Video: [.Video],
-    .News: [.Article],
-    .All:  []
+    (.All, []),
+    (.Music, [.Track, .Album, .Artist]),
+    (.Video, [.Video]),
+    (.News, [.Article])
 ]
+
+

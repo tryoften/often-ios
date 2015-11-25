@@ -111,7 +111,7 @@ class SignupView: UIView {
     }
     
     func setupLayout() {
-        addConstraints([
+        var constraints = [
             titleLabel.al_top == al_top + 50,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
@@ -123,37 +123,49 @@ class SignupView: UIView {
             subtitleLabel.al_height == 60,
             
             scrollView.al_top == subtitleLabel.al_bottom + 10,
+            
             scrollView.al_left == al_left + 20,
             scrollView.al_right == al_right - 20,
-            scrollView.al_bottom == pageControl.al_top - 3,
             
             pageControl.al_bottom == createAccountButton.al_top - 25,
             pageControl.al_centerX == al_centerX,
             pageControl.al_height == 2,
             pageControl.al_width == 40,
             
-            
             createAccountButton.al_bottom == skipButton.al_top - 10,
             createAccountButton.al_left == al_left + 52,
             createAccountButton.al_right == al_right - 52,
             createAccountButton.al_height == 50,
             
-            skipButton.al_bottom == al_bottom - 30,
             skipButton.al_left == al_left + 20,
             skipButton.al_right == buttonDivider.al_left,
             skipButton.al_height == 60,
             skipButton.al_width == al_width/2 - 20,
             
-            signinButton.al_bottom == al_bottom - 30,
+            signinButton.al_centerY == skipButton.al_centerY,
             signinButton.al_left == buttonDivider.al_right,
             signinButton.al_right == al_right - 20,
-            signinButton.al_height == 60,
-            signinButton.al_width == al_width/2 - 20,
+            signinButton.al_height == skipButton.al_height,
+            signinButton.al_width == skipButton.al_width,
             
             buttonDivider.al_centerY == signinButton.al_centerY,
             buttonDivider.al_centerX == al_centerX,
             buttonDivider.al_height == 30,
             buttonDivider.al_width == 1.0,
-            ])
+        ]
+        
+        if Diagnostics.platformString().number == 5 {
+            constraints += [
+                skipButton.al_bottom == al_bottom - 10,
+                scrollView.al_bottom == pageControl.al_top - 18,
+            ]
+        } else {
+            constraints += [
+                skipButton.al_bottom == al_bottom - 30,
+                scrollView.al_bottom == pageControl.al_top - 3,
+            ]
+        }
+        
+        addConstraints(constraints)
     }
 }

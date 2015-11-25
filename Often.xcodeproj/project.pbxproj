@@ -957,6 +957,7 @@
 		816FE5A21A86E67100E42C17 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				69FE381D1BD82FE2007A63FB /* User Profile */,
 				3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */,
 				3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */,
 				3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */,
@@ -971,7 +972,6 @@
 				3BD971DE1B9F911E007EAB5A /* SigninView.swift */,
 				3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */,
 				69E7FD891B8E0BD7003BC281 /* MediaFilterTabView.swift */,
-				69FE381D1BD82FE2007A63FB /* User Profile */,
 				69192E571BBB9AF800903071 /* EmptySetView.swift */,
 			);
 			name = Views;
