@@ -57,19 +57,6 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
             "Filter by app or website by adding a hashtag to the beginning of your search",
             "Favorites are saved right in your keyboard to easily share them again later"
         ]
-        var splashImage: UIImage = UIImage(named: "LaunchImage-800-667h@2x")!
-        
-        if Diagnostics.platformString().number == 5 {
-        splashImage = UIImage(named: "LaunchImage-800-667h@2x")!
-        }
-        
-        if Diagnostics.platformString().number == 6 {
-            splashImage = UIImage(named: "LaunchImage-800-667h@2x")!
-        }
-        
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
-            splashImage = UIImage(named: "LaunchImage-800-Portrait-736h@3x")!
-        }
         
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
