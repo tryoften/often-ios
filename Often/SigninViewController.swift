@@ -49,7 +49,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.show()
         
         do {
-            try viewModel.signInUser(signinView.emailTextField.text!, password: signinView.passwordTextField.text!) { results -> Void in
+            try viewModel.signInUser(signinView.emailTextField.text!, password: signinView.passwordTextField.text!) { results in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()

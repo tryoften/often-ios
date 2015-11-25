@@ -48,6 +48,7 @@ class SkipSignupViewController: UIViewController {
         self.view.endEditing(true)
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
+        viewModel.sessionManager.logout()
         do {
             try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
@@ -63,6 +64,7 @@ class SkipSignupViewController: UIViewController {
     }
     
     func didTapCreateAccountButton(sender: UIButton) {
+        viewModel.sessionManager.logout()
         let signinAccount = CreateAccountViewController(viewModel:self.viewModel)
         presentViewController(signinAccount, animated: true, completion: nil)
         

@@ -156,6 +156,7 @@ class SessionManager: NSObject {
         userDefaults.setValue(nil, forKey: "twitter")
         userDefaults.setValue(nil, forKey: UserDefaultsProperty.openSession)
         userDefaults.setValue(nil, forKey: UserDefaultsProperty.authData)
+        userDefaults.setValue(nil, forKey: UserDefaultsProperty.anonymousUser)
         userDefaults.synchronize()
         
         let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName)!
@@ -181,9 +182,10 @@ class SessionManager: NSObject {
             }
             self.fetchSocialAccount()
         }
-        
-        guard let authData = authData, let _ = userDefaults.stringForKey(UserDefaultsProperty.userID) else {
+         
+        guard let authData = authData, _ = userDefaults.objectForKey(UserDefaultsProperty.openSession) else {
                 self.broadcastNoUserFoundEvent()
+                logout()
                 return
         }
         
@@ -232,6 +234,7 @@ class SessionManager: NSObject {
                     
                 } else {
                     self.broadcastNoUserFoundEvent()
+                    self.logout()
                 }
             }
             }, withCancelBlock: { error in
