@@ -58,11 +58,13 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
             let id = userInfo["id"] as? String else {
                 return
         }
-        
+
         if let currentProxy = currentProxy as? UIResponder {
+            // swiftlint:disable force_cast
             if (currentProxy as NSObject) != (proxy as! NSObject) {
                 currentProxy.resignFirstResponder()
             }
+            // swiftlint:enable force_cast
         }
         
         proxies[id] = proxy

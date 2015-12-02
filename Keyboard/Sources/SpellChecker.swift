@@ -16,7 +16,7 @@
 //  http://www.opensource.org/licenses/LGPL-3.0
 //
 //  Adapted to Swift by Luc Succes on 10/27/15.
-//
+//  swiftlint:disable function_body_length
 
 import Foundation
 import RealmSwift

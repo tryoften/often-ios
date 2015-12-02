@@ -5,15 +5,15 @@
 //  Created by Luc Succes on 7/26/15.
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
 //
+//  swiftlint:disable function_body_length
 
 import UIKit
 
 class KeyboardKeyBackground: UIView, Connectable {
-    
     var fillPath: UIBezierPath?
     var underPath: UIBezierPath?
     var edgePaths: [UIBezierPath]?
-    
+
     // do not set this manually
     var cornerRadius: CGFloat
     var underOffset: CGFloat
@@ -219,15 +219,15 @@ class KeyboardKeyBackground: UIView, Connectable {
                 
                 prevPoint = self.segmentPoints[(i + 1) % 4].0
             }
-            
+
             edgePath?.applyTransform(CGAffineTransformMakeTranslation(0, -self.underOffset))
-            
+
             if edgePath != nil { edgePaths.append(edgePath!) }
         }
-        
+
         fillPath.closePath()
         fillPath.applyTransform(CGAffineTransformMakeTranslation(0, -self.underOffset))
-        
+
         let underPath = { () -> UIBezierPath in
             let underPath = UIBezierPath()
             
@@ -247,13 +247,15 @@ class KeyboardKeyBackground: UIView, Connectable {
             
             startAngle = self.arcStartingAngles[1]
             endAngle = startAngle - CGFloat(M_PI/2.0)
-            underPath.addArcWithCenter(CGPointMake(self.arcCenters[0].x, self.arcCenters[0].y - self.underOffset), radius: CGFloat(self.cornerRadius), startAngle: startAngle, endAngle: endAngle, clockwise: false)
+            underPath.addArcWithCenter(CGPointMake(self.arcCenters[0].x, self.arcCenters[0].y - self.underOffset),
+                radius: CGFloat(self.cornerRadius), startAngle: startAngle, endAngle: endAngle, clockwise: false)
             
             underPath.addLineToPoint(CGPointMake(self.segmentPoints[2].1.x - self.cornerRadius, self.segmentPoints[2].1.y + self.cornerRadius - self.underOffset))
             
             startAngle = self.arcStartingAngles[0]
             endAngle = startAngle - CGFloat(M_PI/2.0)
-            underPath.addArcWithCenter(CGPointMake(self.arcCenters[3].x, self.arcCenters[3].y - self.underOffset), radius: CGFloat(self.cornerRadius), startAngle: startAngle, endAngle: endAngle, clockwise: false)
+            underPath.addArcWithCenter(CGPointMake(self.arcCenters[3].x, self.arcCenters[3].y - self.underOffset),
+                radius: CGFloat(self.cornerRadius), startAngle: startAngle, endAngle: endAngle, clockwise: false)
             
             underPath.closePath()
             

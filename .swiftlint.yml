@@ -1,0 +1,15 @@
+disabled_rules:
+  - type_name
+  - type_body_length
+  - variable_name
+  - todo
+  - trailing_whitespace
+excluded: # paths to ignore during linting. overridden by `included`.
+  - Carthage
+  - Pods
+  - Vendors
+  - Keyboard/StyleKit.swift
+
+line_length: 
+  - 180
+  - 300

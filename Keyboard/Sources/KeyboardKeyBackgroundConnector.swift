@@ -5,16 +5,7 @@
 //  Created by Luc Succes on 7/26/15.
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
 //
-
-import Foundation
-
-//
-//  KeyboardConnector.swift
-//  TransliteratingKeyboard
-//
-//  Created by Alexei Baboulevitch on 7/19/14.
-//  Copyright (c) 2014 Apple. All rights reserved.
-//
+//  swiftlint:disable function_body_length
 
 import UIKit
 
@@ -41,7 +32,8 @@ class KeyboardConnector: KeyboardKeyBackground {
     var offset: CGPoint
     
     // TODO: until bug is fixed, make sure start/end and startConnectable/endConnectable are the same object
-    init(cornerRadius: CGFloat, underOffset: CGFloat, start s: UIView, end e: UIView, startConnectable sC: Connectable, endConnectable eC: Connectable, startDirection: Direction, endDirection: Direction) {
+    init(cornerRadius: CGFloat, underOffset: CGFloat, start s: UIView, end e: UIView, startConnectable sC: Connectable,
+            endConnectable eC: Connectable, startDirection: Direction, endDirection: Direction) {
         start = s
         end = e
         startDir = startDirection

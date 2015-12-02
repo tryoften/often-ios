@@ -91,19 +91,14 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         switch error {
         case TwitterAccountManagerError.ReturnedEmptyUserObject:
             DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
         case TwitterAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
             DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
         case SessionManagerError.UnvalidSignUp:
             DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
         case SignupError.EmailNotVaild:
             DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
         case SignupError.PasswordNotVaild:
             DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
         default:
              DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         }

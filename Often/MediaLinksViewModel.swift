@@ -120,11 +120,13 @@ class MediaLinksViewModel {
                 
                 self.favorites = ids
                 
-                for (_, favoritesData) in data {
-                    if let favoriteLink = self.processMediaLinkData(favoritesData as! [String: AnyObject]) {
-                        favoritesLinks.append(favoriteLink)
-                        
+                for (_, item) in data {
+                    guard let favoritesData = item as? [String: AnyObject],
+                        let favoriteLink = self.processMediaLinkData(favoritesData) else {
+                        continue
                     }
+
+                    favoritesLinks.append(favoriteLink)
                 }
             }
             self.userFavorites = favoritesLinks
@@ -141,10 +143,12 @@ class MediaLinksViewModel {
             var recentsLinks: [UserRecentLink] = []
             
             if let data = snapshot.value as? [String: AnyObject] {
-                for (_, recentsData) in data {
-                    if let recentLink = self.processMediaLinkData(recentsData as! [String : AnyObject]) {
-                        recentsLinks.append(recentLink)
+                for (_, item) in data {
+                    guard let recentsData = item as? [String: AnyObject],
+                        let recentLink = self.processMediaLinkData(recentsData) else {
+                            continue
                     }
+                    recentsLinks.append(recentLink)
                 }
                 
             }
