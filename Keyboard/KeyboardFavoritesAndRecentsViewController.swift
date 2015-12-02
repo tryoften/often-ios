@@ -20,12 +20,12 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
         favoritesAndRecentsTabView = FavoritesAndRecentsTabView()
         favoritesAndRecentsTabView.translatesAutoresizingMaskIntoConstraints = false
         favoritesAndRecentsTabView.userInteractionEnabled = true
-        
+
         spacer = UIView()
         spacer.translatesAutoresizingMaskIntoConstraints = false
         spacer.backgroundColor = VeryLightGray
-        
-       super.init(collectionViewLayout: layout, viewModel: viewModel)
+
+        super.init(collectionViewLayout: layout, viewModel: viewModel)
         
         favoritesAndRecentsTabView.delegate = self
         emptyStateView.userInteractionEnabled = true
@@ -36,10 +36,10 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
 
         setupLayout()
         reloadCollectionView()
-        
+
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
     }
-    
+
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
@@ -52,51 +52,52 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
-             collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileSectionViewReuseIdentifier)
+             collectionView.registerClass(UserProfileSectionHeaderView.self,
+                forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+                withReuseIdentifier: UserProfileSectionViewReuseIdentifier)
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setupLayout() {
         view.addConstraints([
             favoritesAndRecentsTabView.al_top == view.al_top,
             favoritesAndRecentsTabView.al_left == view.al_left,
             favoritesAndRecentsTabView.al_right == view.al_right,
             favoritesAndRecentsTabView.al_height == KeyboardSearchBarHeight,
-            
+
             contentFilterTabView.al_top == view.al_top + KeyboardSearchBarHeight + 1,
             contentFilterTabView.al_left == view.al_left,
             contentFilterTabView.al_right == view.al_right,
             contentFilterTabView.al_height == KeyboardSearchBarHeight,
-            
+
             spacer.al_top == favoritesAndRecentsTabView.al_bottom,
             spacer.al_left == view.al_left,
             spacer.al_right == view.al_right,
             spacer.al_bottom == contentFilterTabView.al_top,
-            
+
             emptyStateView.al_top == favoritesAndRecentsTabView.al_bottom,
             emptyStateView.al_left == view.al_left,
             emptyStateView.al_right == view.al_right,
-            emptyStateView.al_bottom == view.al_bottom,
-        
+            emptyStateView.al_bottom == view.al_bottom
         ])
-        
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         if (kind == UICollectionElementKindSectionHeader) {
             // Create Header
-            let sectionView : UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileSectionHeaderView
-            
+            if let sectionView: UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                    withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileSectionHeaderView {
                 sectionView.trendingLabel.attributedText = sectionHeaderTitle()
-            return sectionView
+                        return sectionView
+            }
         }
         
         return UICollectionReusableView()

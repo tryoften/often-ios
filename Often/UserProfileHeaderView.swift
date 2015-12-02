@@ -32,7 +32,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         )
     }
     
-    
     var nameLabelHeightTopMargin: CGFloat {
         if Diagnostics.platformString().number == 5 {
             return 70

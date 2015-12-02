@@ -216,10 +216,6 @@ extension KeyboardViewController {
             backspaceLongPressed()
         }
     }
-    
-    func callServiceLongPressed(gestureRecognizer: UIGestureRecognizer) {
-        collapseKeyboard()
-    }
 
     /**
     Deleting whole word method. Looks at the number of characters from cursor back to first whitespace

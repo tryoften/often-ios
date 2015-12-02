@@ -5,6 +5,7 @@
 //  Created by Luc Succes on 7/26/15.
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
 //
+//  swiftlint:disable function_body_length
 
 import Foundation
 
@@ -359,9 +360,12 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
         let flexibleEndRowM = (isLandscape ? self.layoutConstants.flexibleEndRowTotalWidthToKeyWidthMLandscape : self.layoutConstants.flexibleEndRowTotalWidthToKeyWidthMPortrait)
         let flexibleEndRowC = (isLandscape ? self.layoutConstants.flexibleEndRowTotalWidthToKeyWidthCLandscape : self.layoutConstants.flexibleEndRowTotalWidthToKeyWidthCPortrait)
         
-        let lastRowLeftSideRatio = (isLandscape ? self.layoutConstants.lastRowLandscapeFirstTwoButtonAreaWidthToKeyboardAreaWidth : self.layoutConstants.lastRowPortraitFirstTwoButtonAreaWidthToKeyboardAreaWidth)
-        let lastRowRightSideRatio = (isLandscape ? self.layoutConstants.lastRowLandscapeLastButtonAreaWidthToKeyboardAreaWidth : self.layoutConstants.lastRowPortraitLastButtonAreaWidthToKeyboardAreaWidth)
-        let lastRowKeyGap = (isLandscape ? self.layoutConstants.lastRowKeyGapLandscape(bounds.width) : self.layoutConstants.lastRowKeyGapPortrait)
+        let lastRowLeftSideRatio = (isLandscape ? self.layoutConstants.lastRowLandscapeFirstTwoButtonAreaWidthToKeyboardAreaWidth
+            : self.layoutConstants.lastRowPortraitFirstTwoButtonAreaWidthToKeyboardAreaWidth)
+        let lastRowRightSideRatio = (isLandscape ? self.layoutConstants.lastRowLandscapeLastButtonAreaWidthToKeyboardAreaWidth
+            : self.layoutConstants.lastRowPortraitLastButtonAreaWidthToKeyboardAreaWidth)
+        let lastRowKeyGap = (isLandscape ? self.layoutConstants.lastRowKeyGapLandscape(bounds.width)
+            : self.layoutConstants.lastRowKeyGapPortrait)
         
         for (p, page) in model.pages.enumerate() {
             if p != pageToLayout {
@@ -380,7 +384,8 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
             
             let rowGapTotal = CGFloat(numRows - 1 - 1) * rowGap + lastRowGap
             
-            let keyGap: CGFloat = (isLandscape ? self.layoutConstants.keyGapLandscape(bounds.width, rowCharacterCount: mostKeysInRow) : self.layoutConstants.keyGapPortrait(bounds.width, rowCharacterCount: mostKeysInRow))
+            let keyGap: CGFloat = (isLandscape ? self.layoutConstants.keyGapLandscape(bounds.width, rowCharacterCount: mostKeysInRow)
+                : self.layoutConstants.keyGapPortrait(bounds.width, rowCharacterCount: mostKeysInRow))
             
             let keyHeight: CGFloat = {
                 let totalGaps = bottomEdge + topEdge + rowGapTotal
@@ -419,7 +424,8 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
                     
                     // bottom row with things like space, return, etc.
                 else {
-                    frames = self.layoutSpecialKeysRow(row, keyWidth: letterKeyWidth, gapWidth: lastRowKeyGap, leftSideRatio: lastRowLeftSideRatio, rightSideRatio: lastRowRightSideRatio, micButtonRatio: self.layoutConstants.micButtonPortraitWidthRatioToOtherSpecialButtons, isLandscape: isLandscape, frame: frame)
+                    frames = self.layoutSpecialKeysRow(row, keyWidth: letterKeyWidth, gapWidth: lastRowKeyGap, leftSideRatio: lastRowLeftSideRatio,
+                        rightSideRatio: lastRowRightSideRatio, micButtonRatio: self.layoutConstants.micButtonPortraitWidthRatioToOtherSpecialButtons, isLandscape: isLandscape, frame: frame)
                 }
                 
                 processRow(row, frames, &keyMap)
@@ -524,21 +530,20 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
         return frames
     }
     
-    func layoutSpecialKeysRow(row: [KeyboardKey], keyWidth: CGFloat, gapWidth: CGFloat, leftSideRatio: CGFloat, rightSideRatio: CGFloat, micButtonRatio: CGFloat, isLandscape: Bool, frame: CGRect) -> [CGRect] {
+    func layoutSpecialKeysRow(row: [KeyboardKey], keyWidth: CGFloat, gapWidth: CGFloat, leftSideRatio: CGFloat,
+        rightSideRatio: CGFloat, micButtonRatio: CGFloat, isLandscape: Bool, frame: CGRect) -> [CGRect] {
         var frames = [CGRect]()
-        
+
         var keysBeforeSpace = 0
         var keysAfterSpace = 0
         var reachedSpace = false
         for (_, key) in row.enumerate() {
             if key.isSpace {
                 reachedSpace = true
-            }
-            else {
+            } else {
                 if !reachedSpace {
                     keysBeforeSpace += 1
-                }
-                else {
+                } else {
                     keysAfterSpace += 1
                 }
             }
@@ -572,18 +577,15 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
                 frames.append(CGRectMake(rounded(currentOrigin), frame.origin.y, spaceWidth, frame.height))
                 currentOrigin += (spaceWidth + gapWidth)
                 beforeSpace = false
-            }
-            else if beforeSpace {
+            } else if beforeSpace {
                 if hasButtonInMicButtonPosition && k == 2 { //mic button position
                     frames.append(CGRectMake(rounded(currentOrigin), frame.origin.y, micButtonWidth, frame.height))
                     currentOrigin += (micButtonWidth + gapWidth)
-                }
-                else {
+                } else {
                     frames.append(CGRectMake(rounded(currentOrigin), frame.origin.y, leftButtonWidth, frame.height))
                     currentOrigin += (leftButtonWidth + gapWidth)
                 }
-            }
-            else {
+            } else {
                 frames.append(CGRectMake(rounded(currentOrigin), frame.origin.y, rightButtonWidth, frame.height))
                 currentOrigin += (rightButtonWidth + gapWidth)
             }
