@@ -19,6 +19,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     weak var textProcessor: TextProcessingManager? {
         didSet {
             primaryTextDocumentProxy = textProcessor?.currentProxy
+
+            if let textProcessor = textProcessor {
+                textProcessor.proxies["search"] = searchBar.textInput
+            }
         }
     }
     var filter: Filter?
@@ -40,10 +44,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
         searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
         searchBar.shareButton.addTarget(self, action: "didTapShareButton", forControlEvents: .TouchUpInside)
-        
-        if let textProcessor = textProcessor {
-            textProcessor.proxies["search"] = searchBar.textInput
-        }
+  
         searchBar.textInput.placeholder = searchBar.textInput.placeholderText
         
         searchResultsContainerView?.hidden = true

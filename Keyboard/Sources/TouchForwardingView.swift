@@ -201,6 +201,8 @@ class TouchRecognizerView: UIView {
             
             let touchPosition = touch.locationInView(self)
             
+            print("touchPosition", touchPosition)
+            
             if self.bounds.contains(touchPosition) {
                 self.handleControl(view, controlEvent: .TouchUpInside)
             }

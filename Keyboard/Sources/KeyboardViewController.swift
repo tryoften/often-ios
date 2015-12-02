@@ -1,10 +1,11 @@
-    //
+//
 //  KeyboardViewController.swift
 //  Surf
 //
 //  Created by Luc Success on 1/6/15.
 //  Copyright (c) 2015 Surf. All rights reserved.
 //
+//  swiftlint:disable variable_name
 
 import UIKit
 import AudioToolbox
@@ -63,8 +64,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         get {
             if let constraint = heightConstraint {
                 return constraint.constant
-            }
-            else {
+            } else {
                 return 0
             }
         }
@@ -92,7 +92,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         case FirstSpace
     }
     
-    static var once_predicate: dispatch_once_t = 0
+    static var oncePredicate: dispatch_once_t = 0
     var viewModelsLoaded: dispatch_once_t = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -131,7 +131,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         KeyboardViewController.debugKeyboard = debug
         self.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -147,10 +147,10 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         textProcessor?.delegate = nil
         textProcessor = nil
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
         center.addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
@@ -166,7 +166,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     override func viewDidAppear(animated: Bool) {
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
-        dispatch_once(&KeyboardViewController.once_predicate) {
+        dispatch_once(&KeyboardViewController.oncePredicate) {
             if (!KeyboardViewController.debugKeyboard) {
                 Fabric.with([Crashlytics()])
                 Flurry.startSession(FlurryClientKey)
@@ -180,8 +180,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     func setupViewModels() {
-        self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
-        self.textProcessor?.delegate = self
+        textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
+        textProcessor?.delegate = self
         
         viewModel = KeyboardViewModel()
         viewModel?.sessionManagerFlags.userHasOpenedKeyboard = true
@@ -466,7 +466,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             self.kludge = kludge
         }
     }
-    
+
     func setupKeys() {
         let setupKey: (KeyboardKey) -> (KeyboardKeyButton?) = { key in
             if let keyView = self.layoutEngine?.viewForKey(key) {
@@ -475,7 +475,13 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                 case .modifier(.SwitchKeyboard, _):
                     keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
                 case .modifier(.Backspace, _):
-                    let cancelEvents: UIControlEvents = [UIControlEvents.TouchUpInside, UIControlEvents.TouchUpInside, UIControlEvents.TouchDragExit, UIControlEvents.TouchUpOutside, UIControlEvents.TouchCancel, UIControlEvents.TouchDragOutside]
+                    let cancelEvents: UIControlEvents = [
+                        UIControlEvents.TouchUpInside,
+                        UIControlEvents.TouchDragExit,
+                        UIControlEvents.TouchUpOutside,
+                        UIControlEvents.TouchCancel,
+                        UIControlEvents.TouchDragOutside
+                    ]
                     keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
                 case .modifier(.CapsLock, _):
@@ -486,11 +492,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
                     keyView.addTarget(self, action: "didTapSpaceButton:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseSpaceButton:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
                 case .modifier(.CallService, _):
-                    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "callServiceLongPressed:")
-                    longPressRecognizer.minimumPressDuration = 1.0
-                    keyView.background.addGestureRecognizer(longPressRecognizer)
-                    keyView.userInteractionEnabled = true
-                    
                     keyView.addTarget(self, action: "didTapCallKey:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseCallKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
                 case .modifier(.GoToBrowse, _):
@@ -567,28 +568,28 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             }
         }
     }
-    
+
     // MARK: TextProcessingManagerDelegate
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
         setCapsIfNeeded()
     }
-    
+
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType) {
     }
-    
+
     func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
         searchBar.setFilter(filter)
     }
-    
+
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
         return searchBar.suggestionsViewModel?.checkFilterInQuery(text)
     }
-    
+
     func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
         print("Suggestions", suggestions)
         searchBar.updateSuggestions(suggestions)
     }
-    
+
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
         if let mediaLink = mediaLink {
             viewModel?.logTextSendEvent(mediaLink)

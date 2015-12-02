@@ -87,7 +87,7 @@ class TwitterAccountManager: AccountManager {
                 firebaseData["accounts"] = socialAccounts
                 firebaseData["id"] = PFTwitterUtils.twitter()?.authToken
                 firebaseData["profileImageURL"] = hiResUrlString
-                firebaseData["name"] = userdata["name"] as! String
+                firebaseData["name"] = userdata["name"] as? String
                 firebaseData["username"] = userdata["screen_name"] as? String
                 firebaseData["description"] = userdata["description"] as? String
                 firebaseData["parseId"] = PFUser.currentUser()?.objectId

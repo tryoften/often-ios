@@ -10,8 +10,7 @@ import UIKit
 
 let ServiceSettingsViewCell = "serviceCell"
 
-
-class SocialAccountSettingsCollectionViewController: UICollectionViewController, AddServiceProviderDelegate, SocialAccountSettingsViewModelDelegate  {
+class SocialAccountSettingsCollectionViewController: UICollectionViewController, AddServiceProviderDelegate, SocialAccountSettingsViewModelDelegate {
     var headerView: UserProfileHeaderView?
     var viewModel: SocialAccountSettingsViewModel
     var sectionHeaderView: SocialAccountHeaderView?
@@ -44,7 +43,7 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(SocialAccountSettingsCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
+            collectionView.registerClass(SocialAccountSettingsCollectionViewCell.self, forCellWithReuseIdentifier: ServiceSettingsViewCell)
             collectionView.registerClass(SocialAccountHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
         }
         
@@ -77,32 +76,33 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionHeader {
-            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! SocialAccountHeaderView
-            sectionHeaderView = cell
-            
-            return cell
+            if let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as? SocialAccountHeaderView {
+                sectionHeaderView = cell
+                return cell
+            }
         } else {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SocialAccountSettingsCollectionViewCell
-            return cell
-            
+            if let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ServiceSettingsViewCell, forIndexPath: indexPath) as? SocialAccountSettingsCollectionViewCell {
+                return cell
+            }
         }
-        
+        return UICollectionReusableView()
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("serviceCell", forIndexPath: indexPath) as! SocialAccountSettingsCollectionViewCell
-            if  viewModel.socialAccounts.count > indexPath.row {
-                let socialAccount = viewModel.socialAccounts[indexPath.row]
-                serviceSettingsCell = cell
-                serviceSettingsCell?.delegate = self
-                cell.settingSocialAccount = socialAccount
-                cell.serviceSwitch.on = socialAccount.activeStatus
-                cell.serviceSwitch.tag = indexPath.row
-                cell.checkButtonStatus(socialAccount.activeStatus)
-            }
-            
-            return cell
-        
+        guard viewModel.socialAccounts.count > indexPath.row,
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ServiceSettingsViewCell, forIndexPath: indexPath) as? SocialAccountSettingsCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+
+        let socialAccount = viewModel.socialAccounts[indexPath.row]
+        serviceSettingsCell = cell
+        serviceSettingsCell?.delegate = self
+        cell.settingSocialAccount = socialAccount
+        cell.serviceSwitch.on = socialAccount.activeStatus
+        cell.serviceSwitch.tag = indexPath.row
+        cell.checkButtonStatus(socialAccount.activeStatus)
+
+        return cell
     }
     
     func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool, buttonTag: Int) {
@@ -133,20 +133,18 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
                 UIApplication.sharedApplication().openURL(SPTAuth.defaultInstance().loginURL)
             } else {
                 serviceSettingsCollectionView.settingSocialAccount.activeStatus = selected
-                viewModel.sessionManager.setSocialAccountOnCurrentUser(serviceSettingsCollectionView.settingSocialAccount, completion: { user,err  in
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(serviceSettingsCollectionView.settingSocialAccount, completion: { user, err  in
                 })
             }
             break
         case .Soundcloud:
             if selected {
                 viewModel.soundcloudAccountManager?.sendRequest({ err  in
-                    print("it worked")
                 })
             } else {
                 serviceSettingsCollectionView.settingSocialAccount.activeStatus = selected
-                viewModel.sessionManager.setSocialAccountOnCurrentUser(serviceSettingsCollectionView.settingSocialAccount, completion: { user,err  in
+                viewModel.sessionManager.setSocialAccountOnCurrentUser(serviceSettingsCollectionView.settingSocialAccount, completion: { user, err  in
                 })
-                
             }
             break
         default:
@@ -163,8 +161,8 @@ class SocialAccountSettingsCollectionViewController: UICollectionViewController,
     }
     
     func socialAccountSettingsViewModelDidLoadSocialAccount(socialAccountSettingsViewModel: SocialAccountSettingsViewModel, socialAccount: SocialAccount) {
-        self.viewModel.sessionManager.setSocialAccountOnCurrentUser(socialAccount, completion: { user,err  in
-            print("we did it")
+        self.viewModel.sessionManager.setSocialAccountOnCurrentUser(socialAccount, completion: { user, err  in
+
         })
     }
     

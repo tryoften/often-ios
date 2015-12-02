@@ -5,6 +5,7 @@
 //  Created by Luc Succes on 7/15/15.
 //  Copyright (c) 2015 October Labs Inc. All rights reserved.
 //
+//  swiftlint:disable line_length
 
 import Foundation
 

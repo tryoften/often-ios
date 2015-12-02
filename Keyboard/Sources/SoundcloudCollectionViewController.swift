@@ -71,7 +71,9 @@ class SoundcloudCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(soundcloudCellReuseIdentifier, forIndexPath: indexPath) as! SoundcloudCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(soundcloudCellReuseIdentifier, forIndexPath: indexPath) as? SoundcloudCollectionViewCell else {
+            return UICollectionViewCell()
+        }
     
         cell.usernameLabel.text = "octobersveryown"
         cell.trackLabel.text = "Back to Back Freestyle"

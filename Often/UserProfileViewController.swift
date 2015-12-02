@@ -82,7 +82,10 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier:UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileHeaderView
+            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
+                withReuseIdentifier: UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileHeaderView else {
+                return UICollectionReusableView()
+            }
             
             if let user = viewModel.currentUser {
                 cell.descriptionText = user.userDescription
@@ -107,9 +110,11 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         
         if (kind == UICollectionElementKindSectionHeader) {
             // Create Header
-            let sectionView : UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as! UserProfileSectionHeaderView
-            sectionView.trendingLabel.attributedText = sectionHeaderTitle()
-            return sectionView
+            if let sectionView : UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileSectionHeaderView {
+                sectionView.trendingLabel.attributedText = sectionHeaderTitle()
+                return sectionView
+            }
         }
         
         return UICollectionReusableView()
@@ -232,14 +237,13 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     func didTapSettingsButton() {
         var appSettingsString = UIApplicationOpenSettingsURLString
         
-        if #available(iOS 9, *)  {
+        if #available(iOS 9, *) {
             appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
         }
         
         if let appSettings = NSURL(string: appSettingsString) {
            UIApplication.sharedApplication().openURL(appSettings)
         }
-        
     }
     
     func didTapCancelButton() {
@@ -257,9 +261,9 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         super.mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: selected)
         
         if selected {
-            DropDownErrorMessage().setMessage("Copied link!".uppercaseString, subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
+                subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
         }
     }
   
 }
-

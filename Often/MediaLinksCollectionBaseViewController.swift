@@ -5,6 +5,7 @@
 //  Created by Kervins Valcourt on 10/23/15.
 //  Copyright © 2015 Surf Inc. All rights reserved.
 //
+//  swiftlint:disable force_cast
 
 import Foundation
 
@@ -26,7 +27,9 @@ class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaL
     }
     
     func parseMediaLinkData(searchResultsData: [MediaLink]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaLinkCollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaLinkCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as! MediaLinkCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaLinkCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? MediaLinkCollectionViewCell else {
+            return MediaLinkCollectionViewCell()
+        }
 
         if indexPath.row >= searchResultsData?.count {
             return cell

@@ -95,7 +95,9 @@ class SearchSuggestionsViewController: UITableViewController {
         case .Filter:
             cell = tableView.dequeueReusableCellWithIdentifier(ServiceProviderSuggestionCellReuseIdentifier, forIndexPath: indexPath)
             
-            let filterCell = cell as! ServiceProviderSuggestionTableViewCell
+            guard let filterCell = cell as? ServiceProviderSuggestionTableViewCell else {
+                return cell
+            }
             if let image = suggestion.image {
                 filterCell.serviceProviderLogo.image = UIImage(named: image)
             } else {
@@ -107,9 +109,9 @@ class SearchSuggestionsViewController: UITableViewController {
             cell = tableView.dequeueReusableCellWithIdentifier(SearchSuggestionCellReuseIdentifier, forIndexPath: indexPath)
             cell.textLabel!.text = suggestion.text.capitalizedString
             
-            let searchCell = cell as! SearchSuggestionTableViewCell
-            searchCell.resultsCount = suggestion.resultsCount
-            
+            if let searchCell = cell as? SearchSuggestionTableViewCell {
+                searchCell.resultsCount = suggestion.resultsCount
+            }
         case .Unknown:
             break
         }

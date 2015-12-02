@@ -5,6 +5,7 @@
 //  Created by Kervins Valcourt on 8/25/15.
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
 //
+//  swiftlint:disable force_cast
 
 import Foundation
 
@@ -44,7 +45,6 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
         if let socialAccounts = socialAccounts {
             for accounts in socialAccounts.values {
-                print(accounts)
                 let socialAccount = SocialAccount()
                 socialAccount.setValuesForKeysWithDictionary(accounts as! [String : AnyObject])
                 self.socialAccounts.append(socialAccount)

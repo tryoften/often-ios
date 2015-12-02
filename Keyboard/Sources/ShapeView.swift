@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ShapeView : UIView {
+class ShapeView: UIView {
     var shapeLayer: CAShapeLayer?
     /*
     PERFORMANCE NOTES
@@ -29,8 +29,7 @@ class ShapeView : UIView {
         didSet {
             if let layer = shapeLayer {
                 layer.path = curve?.CGPath
-            }
-            else {
+            } else {
                 setNeedsDisplay()
             }
         }
@@ -40,8 +39,7 @@ class ShapeView : UIView {
         didSet {
             if let layer = shapeLayer {
                 layer.fillColor = fillColor?.CGColor
-            }
-            else {
+            } else {
                 setNeedsDisplay()
             }
         }
@@ -51,8 +49,7 @@ class ShapeView : UIView {
         didSet {
             if let layer = shapeLayer {
                 layer.strokeColor = strokeColor?.CGColor
-            }
-            else {
+            } else {
                 self.setNeedsDisplay()
             }
         }
@@ -64,8 +61,7 @@ class ShapeView : UIView {
                 if let lineWidth = self.lineWidth {
                     layer.lineWidth = lineWidth
                 }
-            }
-            else {
+            } else {
                 self.setNeedsDisplay()
             }
         }

@@ -162,7 +162,7 @@ class SignUpFormViewController: UIViewController,
                     
                     self.presentViewController(homeVC, animated: true, completion: nil)
                 } else {
-                    var errorMessage = (error?.userInfo as! [String: AnyObject])["error"] as! String
+                    var errorMessage = (error?.userInfo as? [String: AnyObject])["error"] as? String ?? ""
                     var alertView = UIAlertView(title: "Sign up failed", message: "Sorry! \(errorMessage)", delegate: self, cancelButtonTitle: "Try again")
                     alertView.show()
 
