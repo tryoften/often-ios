@@ -83,7 +83,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         setupPages()
         loadVisiblePages()
         
-        if viewModel.sessionManager.isUserLoggedIn() {
+        if viewModel.sessionManager.sessionManagerFlags.isUserLoggedIn {
             signupView.splashScreen.hidden = false
         } 
     }
@@ -194,7 +194,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         splashScreenTimer?.invalidate()
         var mainController: UIViewController
         
-            if viewModel.sessionManager.isUserAnonymous() {
+            if viewModel.sessionManager.sessionManagerFlags.userIsAnonymous {
                 mainController = SkipSignupViewController(viewModel: SignupViewModel(sessionManager: viewModel.sessionManager))
             } else {
                 let mainViewController = RootViewController()

@@ -92,8 +92,7 @@ class SkipSignupViewController: UIViewController {
     }
     
     func createProfileViewController() {
-        viewModel.sessionManager.userDefaults.setValue(false, forKey: UserDefaultsProperty.anonymousUser)
-        viewModel.sessionManager.userDefaults.synchronize()
+        viewModel.sessionManager.sessionManagerFlags.userIsAnonymous = false
         presentViewController(RootViewController(), animated: true, completion: nil)
     }
 

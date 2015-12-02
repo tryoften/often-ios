@@ -10,6 +10,7 @@ import Foundation
 import Crashlytics
 
 class SessionManager: NSObject {
+    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     var firebase: Firebase
     var socialAccountService: SocialAccountsService?
     var twitterAccountManager: TwitterAccountManager?
@@ -19,7 +20,6 @@ class SessionManager: NSObject {
     var soundcloudAccountManager: SoundcloudAccountManager?
     var userRef: Firebase?
     var currentUser: User?
-    var userDefaults: NSUserDefaults
     var currentSession: FBSession?
     var isUserNew: Bool
     var userIsLoggingIn = false
@@ -35,7 +35,6 @@ class SessionManager: NSObject {
     
     override init() {
         observers = NSMutableArray()
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         isUserNew = true
 
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
@@ -57,7 +56,7 @@ class SessionManager: NSObject {
             self.processAuthData(authData)
         }
         
-        if let userID = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String {
+        if let userID = sessionManagerFlags.userId {
             SEGAnalytics.sharedAnalytics().identify(userID)
             let crashlytics = Crashlytics.sharedInstance()
             crashlytics.setUserIdentifier(userID)
@@ -68,23 +67,6 @@ class SessionManager: NSObject {
             }
         }
         
-    }
-    
-    func setUserDefaultsValue(value:AnyObject, forKey:String ) {
-        userDefaults.setValue(false, forKey: forKey)
-        userDefaults.synchronize()
-    }
-    
-    func isUserLoggedIn() -> Bool {
-        return userDefaults.objectForKey(UserDefaultsProperty.userID) != nil
-    }
-    
-    func isUserAnonymous() -> Bool {
-        return userDefaults.boolForKey(UserDefaultsProperty.anonymousUser)
-    }
-    
-    func isKeyboardInstalled() -> Bool {
-        return userDefaults.boolForKey(UserDefaultsProperty.keyboardInstalled)
     }
     
     func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {
@@ -150,14 +132,7 @@ class SessionManager: NSObject {
         PFUser.logOut()
         firebase.unauth()
         observers.removeAllObjects()
-        userDefaults.setValue(nil, forKey: UserDefaultsProperty.userID)
-        userDefaults.setValue(nil, forKey: UserDefaultsProperty.userEmail)
-        userDefaults.setValue(nil, forKey: "facebook")
-        userDefaults.setValue(nil, forKey: "twitter")
-        userDefaults.setValue(nil, forKey: UserDefaultsProperty.openSession)
-        userDefaults.setValue(nil, forKey: UserDefaultsProperty.authData)
-        userDefaults.setValue(nil, forKey: UserDefaultsProperty.anonymousUser)
-        userDefaults.synchronize()
+        sessionManagerFlags.clearSessionFlags()
         
         guard let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
             return
@@ -174,8 +149,7 @@ class SessionManager: NSObject {
             self.currentUser = user
             
             if !self.isUserNew {
-                self.userDefaults.setObject(user.id, forKey: UserDefaultsProperty.userID)
-                self.userDefaults.synchronize()
+                self.sessionManagerFlags.userId = user.id
             }
             
             if self.userIsLoggingIn {
@@ -184,18 +158,19 @@ class SessionManager: NSObject {
             }
             self.fetchSocialAccount()
         }
-         
-        guard let authData = authData, _ = userDefaults.objectForKey(UserDefaultsProperty.openSession) else {
-                self.broadcastNoUserFoundEvent()
-                logout()
-                return
+
+        if !sessionManagerFlags.openSession {
+            self.broadcastNoUserFoundEvent()
+            logout()
+            return
         }
-        
-        userDefaults.setObject([
-            "uid": authData.uid,
-            "provider": authData.provider,
-            "token": authData.token
-        ], forKey: UserDefaultsProperty.authData)
+
+        guard let authData = authData else {
+            self.broadcastNoUserFoundEvent()
+            logout()
+            return
+
+        }
         
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         
@@ -212,32 +187,9 @@ class SessionManager: NSObject {
                         persistUser(user)
                 }
             } else {
-                if self.userDefaults.boolForKey(UserDefaultsProperty.userEmail) {
-                    var data = [String : AnyObject]()
-                    
-                    if let currentUser = PFUser.currentUser() {
-                        data["id"] = authData.uid
-                        data["email"] = currentUser.email
-                        data["phone"] = currentUser.objectForKey("phone") as? String
-                        data["username"] = currentUser.username
-                        data["displayName"] = currentUser.objectForKey("fullName") as? String
-                        data["name"] = currentUser.objectForKey("fullName") as? String
-                        data["parseId"] = currentUser.objectId
-                        data["accounts"] = self.createSocialAccount()
-                        
-                        let newUser = User()
-                        newUser.setValuesForKeysWithDictionary(data)
-                        
-                        self.userRef?.updateChildValues(data)
-                        self.isUserNew = false
-                        
-                        persistUser(newUser)
-                    }
-                    
-                } else {
                     self.broadcastNoUserFoundEvent()
                     self.logout()
-                }
+                
             }
             }, withCancelBlock: { error in
                 

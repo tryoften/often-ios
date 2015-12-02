@@ -86,7 +86,7 @@ class SoundcloudAccountManager: AccountManager {
     }
     
     func updateUserData(data: AnyObject) {
-        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
+        guard let userId = sessionManagerFlags.userId else {
             return
         }
         if let data = data as? [String : AnyObject] {

@@ -9,14 +9,12 @@ import UIKit
 
 class Service {
     var rootURL: Firebase
-    var userDefaults: NSUserDefaults
     weak var delegate: ServiceDelegate?
     var isInternetReachable: Bool
     var dataLoaded: Bool
     
     init(root: Firebase) {
         rootURL = root
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         dataLoaded = false
         
         let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()

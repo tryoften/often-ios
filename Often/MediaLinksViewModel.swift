@@ -17,6 +17,7 @@ enum UserProfileViewModelError: ErrorType {
 
 class MediaLinksViewModel {
     weak var delegate: UserProfileViewModelDelegate?
+    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     private let userId: String
     let baseRef: Firebase
     private var userRef: Firebase?
@@ -25,7 +26,6 @@ class MediaLinksViewModel {
     var currentUser: User?
     private var favorites: [String]
     private var shouldFilter: Bool = false
-    private let userDefaults: NSUserDefaults
     var mediaLinks: [MediaLink]
     private var filteredUserRecents: [UserRecentLink]
     private var filteredUserFavorites: [UserFavoriteLink]
@@ -63,17 +63,16 @@ class MediaLinksViewModel {
         mediaLinks = []
         filters = []
         currentCollectionType = .Favorites
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         self.userId = ""
         
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) throws {
-        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
+        if sessionManagerFlags.isUserLoggedIn {
                 throw UserProfileViewModelError.NoUser
         }
         
-        guard userDefaults.boolForKey(UserDefaultsProperty.openSession) else {
+        if !sessionManagerFlags.openSession {
             throw UserProfileViewModelError.RequestDataFailed
         }
         

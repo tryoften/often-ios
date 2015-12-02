@@ -18,7 +18,7 @@ class SearchResultsViewModel {
         favorites = []
         fullAccessEnabled = false
         
-        guard let userId = KeyboardViewModel.userId else {
+        guard let userId = SessionManagerFlags.defaultManagerFlags.userId else {
                 self.userId = ""
                 favoriteRef = Firebase()
             return nil

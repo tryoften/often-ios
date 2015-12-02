@@ -25,7 +25,7 @@ class SettingsViewModel: NSObject, SessionManagerObserver {
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
-        if sessionManager.userDefaults.boolForKey(UserDefaultsProperty.openSession) {
+        if sessionManager.sessionManagerFlags.openSession {
             if let user = sessionManager.currentUser {
                 currentUser = user
                 

@@ -17,8 +17,6 @@ class FacebookAccountManager: AccountManager {
     ]
     
     func openSessionWithFacebook(completion: ((NSError?) -> ())? = nil) {
-        userDefaults.setValue(true, forKey: "facebook")
-        
         if let session = FBSession.activeSession() {
             let accessTokenData = session.accessTokenData
             
@@ -35,8 +33,7 @@ class FacebookAccountManager: AccountManager {
                 })
             }
         }
-        userDefaults.setValue(true, forKey: UserDefaultsProperty.openSession)
-        userDefaults.synchronize()  
+        sessionManagerFlags.openSession = true
     }
     
     func login(completion: ((NSError?) -> ())? = nil) {

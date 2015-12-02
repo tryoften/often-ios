@@ -8,15 +8,15 @@
 
 import Foundation
 class AccountManager: NSObject {
+    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     var firebase: Firebase
-    var userDefaults: NSUserDefaults
+    var userRef: Firebase?
     var isInternetReachable: Bool
 
     
     init(firebase: Firebase) {
         self.firebase = firebase
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        
+       
         let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
         isInternetReachable = reachabilitymanager.reachable
         
@@ -25,6 +25,7 @@ class AccountManager: NSObject {
         reachabilitymanager.setReachabilityStatusChangeBlock { status in
             self.isInternetReachable = reachabilitymanager.reachable
         }
+        
         reachabilitymanager.startMonitoring()
     }
     

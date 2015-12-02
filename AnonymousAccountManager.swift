@@ -11,7 +11,6 @@ import Foundation
 class AnonymousAccountManager: AccountManager {
     
     func openSessionWithAnonymous(completion: (results: ResultType) -> Void) {
-        userDefaults.setValue(true, forKey: UserDefaultsProperty.userEmail)
         let ref = firebase
         
         ref.authAnonymouslyWithCompletionBlock { (err, auth) -> Void in
@@ -22,9 +21,8 @@ class AnonymousAccountManager: AccountManager {
                 completion(results: ResultType.Success(r: true))
             }
         }
-        userDefaults.setValue(true, forKey: UserDefaultsProperty.anonymousUser)
-        userDefaults.setValue(true, forKey: UserDefaultsProperty.openSession)
-        userDefaults.synchronize()
+        sessionManagerFlags.openSession = true
+        sessionManagerFlags.userIsAnonymous = true
     }
     
     func createAnonymousUser(completion: (results: ResultType) -> Void)  {
