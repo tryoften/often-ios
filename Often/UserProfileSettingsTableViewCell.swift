@@ -83,8 +83,6 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             titleLabel.textColor = UIColor.redColor()
-        default:
-            print("Cell Type not defined")
         }
         
         super.init(style: .Default, reuseIdentifier: "SettingsCell")

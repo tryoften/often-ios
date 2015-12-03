@@ -18,7 +18,7 @@ enum UserProfileViewModelError: ErrorType {
 class MediaLinksViewModel {
     weak var delegate: UserProfileViewModelDelegate?
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    private let userId: String
+    private var userId: String
     let baseRef: Firebase
     private var userRef: Firebase?
     private var favoriteRef: Firebase?
@@ -68,13 +68,16 @@ class MediaLinksViewModel {
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) throws {
-        if sessionManagerFlags.isUserLoggedIn {
+    
+        guard let userId = sessionManagerFlags.userId else {
                 throw UserProfileViewModelError.NoUser
         }
         
         if !sessionManagerFlags.openSession {
             throw UserProfileViewModelError.RequestDataFailed
         }
+        
+        self.userId = userId
         
         userRef = baseRef.childByAppendingPath("users/\(userId)")
         userRef?.keepSynced(true)

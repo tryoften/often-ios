@@ -105,7 +105,6 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         
     }
 
-    
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
     }
     
