@@ -37,7 +37,7 @@ class AccountManager: NSObject {
     }
 
     func openSession(completion: (results: ResultType) -> Void) {sessionManagerFlags.openSession = true }
-    func login(data: [String: String]?, completion: (results: ResultType) -> Void) {}
+    func login(userData: User?, completion: (results: ResultType) -> Void) {}
     func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {}
 }
 

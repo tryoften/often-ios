@@ -16,6 +16,7 @@ class User: NSObject {
     var email: String = ""
     var phone: String = ""
     var userDescription: String = ""
+    var password: String = ""
 
     override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
 
@@ -79,7 +80,8 @@ class User: NSObject {
             "email": email,
             "phone": phone,
             "backgroundImage": name,
-            "description": userDescription
+            "description": userDescription,
+            "password": password
         ]
         return userData
     }

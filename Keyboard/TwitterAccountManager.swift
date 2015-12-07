@@ -45,7 +45,7 @@ class TwitterAccountManager: AccountManager {
         sessionManagerFlags.openSession = true
     }
     
-    override func login(data: [String: String]?, completion: (results: ResultType) -> Void) {
+    override func login(userData: User?, completion: (results: ResultType) -> Void) {
         guard isInternetReachable else {
             completion(results: ResultType.Error(e: TwitterAccountManagerError.NotConnectedOnline))
             return

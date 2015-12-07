@@ -78,7 +78,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         viewModel.password = createAccountView.passwordTextField.text!
         
         do {
-            try viewModel.signUpUser({ results -> Void in
+            try viewModel.createNewEmailUser(createAccountView.usernameTextField.text!, email: createAccountView.emailTextField.text!, password: createAccountView.passwordTextField.text!, completion: ({ results -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
@@ -86,9 +86,9 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
-            
+            )
         } catch {}
-        
+
     }
     
     func didTapTermsOfUseButton(sender: UIButton) {

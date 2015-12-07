@@ -44,9 +44,8 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         sessionManager.removeSessionObserver(self)
     }
     
-    func signUpUser(completion: (results: ResultType) -> Void) throws {
-        var userData = [String: String]()
-        
+    func createNewEmailUser(username: String, email: String, password: String, completion: (results: ResultType) -> Void) throws {
+
         guard AFNetworkReachabilityManager.sharedManager().reachable else {
             completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
             throw SignupError.EmailNotVaild
@@ -62,11 +61,13 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             throw SignupError.PasswordNotVaild
         }
         
-        userData["email"] = user.email.lowercaseString
-        userData["username"] = user.username.lowercaseString
-        userData["password"] = password
+        user.username = username.lowercaseString
+        user.email = user.email.lowercaseString
+        user.password = password
+        user.isNew = true
+
         do {
-            try sessionManager.login(.Email, userData: userData) { (results) -> Void in
+            try sessionManager.login(.Email, userData: user) { (results) -> Void in
                 switch results {
                 case .Success(_): completion(results: ResultType.Success(r: true))
                 case .Error(let err): completion(results: ResultType.Error(e: err))
@@ -78,7 +79,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         }
     }
     
-    func signInUser(username:String, password:String, completion: (results: ResultType) -> Void) throws {
+    func signInUser(username: String, password: String, completion: (results: ResultType) -> Void) throws {
         guard isInternetReachable else {
             completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
             throw SignupError.NotConnectedOnline
@@ -94,13 +95,13 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             throw SignupError.PasswordNotVaild
         }
 
-        var userData = [String: String]()
-        userData["email"] = username.lowercaseString
-        userData["username"] = username.lowercaseString
-        userData["password"] = password
+
+        user.email = username.lowercaseString
+        user.password = password
+        user.isNew = false
         
         do {
-            try sessionManager.login(.Email, userData: userData) { (results) -> Void in
+            try sessionManager.login(.Email, userData: user) { (results) -> Void in
                 switch results {
                 case .Success(_): completion(results: ResultType.Success(r: true))
                 case .Error(let err): completion(results: ResultType.Error(e: err))

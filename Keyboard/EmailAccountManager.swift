@@ -12,14 +12,13 @@ class EmailAccountManager: AccountManager {
     var userData: [String: String]?
     
     override func openSession(completion: (results: ResultType) -> Void) {
-        guard let _ = userData!["email"],
-            let username = userData!["username"],
+        guard let email = userData?["email"],
             let password = userData!["password"] else {
                 completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
                 return
         }
-
-        self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
+        
+        self.firebase.authUser(email, password: password, withCompletionBlock: { error, authData -> Void in
             if error != nil {
                  completion(results: ResultType.SystemError(e: error!))
                 
@@ -31,21 +30,21 @@ class EmailAccountManager: AccountManager {
         sessionManagerFlags.openSession = true
     }
     
-    override func login(data: [String: String]?, completion: (results: ResultType) -> Void) {
-        guard let data = data, let email = data["email"],
-            let username = data["username"],
-            let password = data["password"] else {
+    override func login(userData: User?, completion: (results: ResultType) -> Void) {
+        guard let user = userData,
+            let email = userData?.email,
+            let password = userData?.password else {
                  completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
                 return
         }
 
-        userData = data
+        self.userData = user.dataChangedToDictionary()
 
-        if isNewUser {
-            createUser(data, completion: completion)
+        if user.isNew {
+            createUser(completion)
 
         } else {
-            PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
+            PFUser.logInWithUsernameInBackground(email, password: password) { (user, error) in
                 if error == nil {
                     if user != nil {
                         self.openSession(completion)
@@ -57,14 +56,13 @@ class EmailAccountManager: AccountManager {
                     completion(results: ResultType.SystemError(e: error!))
                 }
             }
-
         }
     }
     
-    func createUser(data: [String: String], completion: (results: ResultType) -> Void) {
-        guard let email = data["email"],
-            let username = data["username"],
-            let password = data["password"] else {
+    func createUser(completion: (results: ResultType) -> Void) {
+        guard let email = userData?["email"],
+            let username = userData?["username"],
+            let password = userData?["password"] else {
                 completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
                 return
         }

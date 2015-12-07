@@ -71,7 +71,7 @@ class SessionManager: NSObject {
     }
     
 
-    func login(loginType: LoginType, userData: [String: String]?, completion: (results: ResultType) -> Void) throws {
+    func login(loginType: LoginType, userData: User?, completion: (results: ResultType) -> Void) throws {
         userIsLoggingIn = true
         switch loginType {
         case .Twitter:
