@@ -160,7 +160,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         center.addObserver(self, selector: "didTapOnMediaLink:", name: SearchResultsInsertLinkEvent, object: nil)
         
         togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
-
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -329,7 +328,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         togglePanelButton.collapsed = true
         keysContainerView.collapsed = true
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn, animations: {
-            
             let height = CGRectGetHeight(self.view.frame) - 30
             var keysContainerViewFrame = self.keysContainerView.frame
             keysContainerViewFrame.origin.y = CGRectGetHeight(self.view.frame)
@@ -587,7 +585,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
 
     func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
-        print("Suggestions", suggestions)
         searchBar.updateSuggestions(suggestions)
     }
 

@@ -15,6 +15,7 @@ enum UserProfileViewModelError: ErrorType {
     case RequestDataFailed
 }
 
+
 class MediaLinksViewModel {
     weak var delegate: UserProfileViewModelDelegate?
     private let userId: String
@@ -29,7 +30,7 @@ class MediaLinksViewModel {
     var mediaLinks: [MediaLink]
     private var filteredUserRecents: [UserRecentLink]
     private var filteredUserFavorites: [UserFavoriteLink]
-    var currentCollectionType: UserProfileCollectionType  {
+    var currentCollectionType: UserProfileCollectionType {
         didSet {
             filterMediaLinks()
         }
@@ -53,8 +54,9 @@ class MediaLinksViewModel {
         }
     }
     
-    init()  {
-        baseRef = Firebase(url: BaseURL)
+    init(baseRef: Firebase! = Firebase(url: BaseURL)) {
+        self.userId = ""
+        self.baseRef = baseRef
         favorites = []
         userFavorites = []
         userRecents = []
@@ -64,8 +66,6 @@ class MediaLinksViewModel {
         filters = []
         currentCollectionType = .Favorites
         userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        self.userId = ""
-        
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) throws {
@@ -101,7 +101,6 @@ class MediaLinksViewModel {
         try fetchRecents()
     
     }
-    
 
     func fetchFavorites() throws {
         guard let favoriteRef = favoriteRef else {

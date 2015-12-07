@@ -12,11 +12,10 @@ class RootViewController: SlideNavigationController {
     let sessionManager = SessionManager.defaultManager
     
     init() {
-         
         super.init(rootViewController: UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: MediaLinksViewModel()))
-        
+
         let animator = SlideNavigationContorllerAnimatorScaleAndFade(maximumFadeAlpha: 0.8, fadeColor: VeryLightGray, andMinimumScale: 0.8)
-        
+
         navigationBar.hidden = true
         menuRevealAnimator = animator
         enableShadow = false
@@ -49,4 +48,7 @@ class RootViewController: SlideNavigationController {
         view.layer.shadowRadius = 4
     }
 
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
 }

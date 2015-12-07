@@ -214,4 +214,11 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         splashScreenTimer?.invalidate()
         signupView.splashScreen.hidden = true
     }
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        if UI_USER_INTERFACE_IDIOM() == .Phone {
+            return .Portrait
+        }
+        return .All
+    }
 }

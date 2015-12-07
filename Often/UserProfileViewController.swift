@@ -139,7 +139,6 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         return cell
     }
 
-
     func setupLayout() {
         view.addConstraints([
             contentFilterTabView.al_bottom == view.al_bottom,
@@ -153,7 +152,6 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
             emptyStateView.al_bottom == view.al_bottom,
         ])
     }
-    
     
     override func userProfileViewModelDidReceiveMediaLinks(userProfileViewModel: MediaLinksViewModel, links: [MediaLink]) {
         super.userProfileViewModelDidReceiveMediaLinks(userProfileViewModel, links: links)
