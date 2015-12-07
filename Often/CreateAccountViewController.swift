@@ -55,7 +55,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         do {
-            try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
+            try viewModel.sessionManager.login(.Twitter, userData:nil, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createKeyboardInstallationWalkthroughViewController()

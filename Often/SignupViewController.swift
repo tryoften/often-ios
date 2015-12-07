@@ -162,19 +162,21 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     }
     
     func didTapSkipButton(sender: UIButton) {
-        viewModel.sessionManager.signupWithAnonymousUser { results -> Void in
-            switch results {
-            case .Success(_):
-                let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
-                self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
-                break
-            case .Error(let err): print(err)
-            case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            }
-        }
+        do {
+            try  viewModel.sessionManager.login(.Anonymous, userData: nil, completion: { results -> Void in
+                switch results {
+                case .Success(_):
+                    let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
+                    self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
+                    break
+                case .Error(let err): print(err)
+                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                }
+            })
+        } catch {
 
+        }
     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

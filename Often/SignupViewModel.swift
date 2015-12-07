@@ -65,16 +65,17 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         userData["email"] = user.email.lowercaseString
         userData["username"] = user.username.lowercaseString
         userData["password"] = password
-        
-        sessionManager.signupUser(.Email, data: userData, completion: { error -> () in
-            if error == nil {
-                print("all good in the hood")
-                completion(results: ResultType.Success(r: true))
-            } else {
-                print("no good mang")
-                completion(results: ResultType.SystemError(e: error!))
+        do {
+            try sessionManager.login(.Email, userData: userData) { (results) -> Void in
+                switch results {
+                case .Success(_): completion(results: ResultType.Success(r: true))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
             }
-        })
+        } catch {
+
+        }
     }
     
     func signInUser(username:String, password:String, completion: (results: ResultType) -> Void) throws {
@@ -92,17 +93,23 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             completion(results: ResultType.Error(e: SignupError.PasswordNotVaild))
             throw SignupError.PasswordNotVaild
         }
+
+        var userData = [String: String]()
+        userData["email"] = username.lowercaseString
+        userData["username"] = username.lowercaseString
+        userData["password"] = password
         
-        sessionManager.loginWithUsername(username.lowercaseString, password: password) { error  in
-            if error == nil {
-                print("all good in the hood")
-                completion(results: ResultType.Success(r: true))
-            } else {
-                print("no good mang")
-                completion(results: ResultType.SystemError(e: error!))
+        do {
+            try sessionManager.login(.Email, userData: userData) { (results) -> Void in
+                switch results {
+                case .Success(_): completion(results: ResultType.Success(r: true))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
             }
+        } catch {
+
         }
-        
     }
 
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {

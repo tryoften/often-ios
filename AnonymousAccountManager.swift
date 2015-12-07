@@ -10,7 +10,7 @@ import Foundation
 
 class AnonymousAccountManager: AccountManager {
     
-    func openSessionWithAnonymous(completion: (results: ResultType) -> Void) {
+    override func openSession(completion: (results: ResultType) -> Void) {
         let ref = firebase
         
         ref.authAnonymouslyWithCompletionBlock { (err, auth) -> Void in
@@ -25,14 +25,14 @@ class AnonymousAccountManager: AccountManager {
         sessionManagerFlags.userIsAnonymous = true
     }
     
-    func createAnonymousUser(completion: (results: ResultType) -> Void)  {
-        
+     override func login(data: [String: String]?, completion: (results: ResultType) -> Void)  {
+
         PFAnonymousUtils.logInWithBlock {
             (user: PFUser?, error: NSError?) -> Void in
             if ((error) != nil) {
                 completion(results: ResultType.Error(e: AnonymousAccountManagerError.ReturnedEmptyUserObject))
             } else {
-                 self.openSessionWithAnonymous(completion)
+                 self.openSession(completion)
             }
         }
         

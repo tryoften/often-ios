@@ -8,6 +8,7 @@
 
 class User: NSObject {
     var id: String = ""
+    var isNew: Bool = false
     var name: String = ""
     var username: String = ""
     var profileImageSmall: String = ""

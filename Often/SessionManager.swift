@@ -1,4 +1,4 @@
- //
+//
 //  SessionManager.swift
 //  Often
 //
@@ -18,6 +18,7 @@ class SessionManager: NSObject {
     var emailAccountManager: EmailAccountManager?
     var spotifyAccountManager: SpotifyAccountManager?
     var soundcloudAccountManager: SoundcloudAccountManager?
+    var anonymousAccountManager: AnonymousAccountManager?
     var userRef: Firebase?
     var currentUser: User?
     var currentSession: FBSession?
@@ -69,35 +70,13 @@ class SessionManager: NSObject {
         
     }
     
-    func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {
-        emailAccountManager = EmailAccountManager(firebase: firebase)
-        do {
-            try emailAccountManager?.createUser(data, completion: completion)
-            
-        } catch {
-            
-        }
-    }
-    
-    func signupWithAnonymousUser (completion: (results: ResultType) -> Void) {
-        let anonymousAccountManager = AnonymousAccountManager(firebase: firebase)
-       
-        anonymousAccountManager.createAnonymousUser { results -> Void in
-            switch results {
-            case .Success(let value): completion(results: ResultType.Success(r: value))
-            case .Error(let err): completion(results: ResultType.Error(e: err))
-            case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
-            }
-        }
-        
-    }
-    
-    func login(loginType: LoginType, completion: (results: ResultType) -> Void) throws {
+
+    func login(loginType: LoginType, userData: [String: String]?, completion: (results: ResultType) -> Void) throws {
         userIsLoggingIn = true
         switch loginType {
         case .Twitter:
             twitterAccountManager = TwitterAccountManager(firebase: firebase)
-            twitterAccountManager?.login({ results in
+            twitterAccountManager?.login(nil, completion: { results in
                 switch results {
                 case .Success(let value): completion(results: ResultType.Success(r: value))
                 case .Error(let err): completion(results: ResultType.Error(e: err))
@@ -115,19 +94,33 @@ class SessionManager: NSObject {
                 }
             })
             break
+        case .Email:
+            emailAccountManager = EmailAccountManager(firebase: firebase)
+            emailAccountManager?.login(userData, completion: { results in
+                switch results {
+                case .Success(let value): completion(results: ResultType.Success(r: value))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
+            })
+            break
+        case .Anonymous:
+            anonymousAccountManager = AnonymousAccountManager(firebase: firebase)
+            anonymousAccountManager?.login(nil, completion: { results in
+                switch results {
+                case .Success(let value): completion(results: ResultType.Success(r: value))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
+            })
+            break
         default:
             completion(results: ResultType.Error(e: SessionManagerError.UnvalidSignUp))
             throw SessionManagerError.UnvalidSignUp
         }
     }
     
-    func loginWithUsername(username: String, password: String,completion: (NSError?) -> ()) {
-        userIsLoggingIn = true
-        emailAccountManager = EmailAccountManager(firebase: firebase)
-        emailAccountManager?.loginWithUsername(username, password: password, completion: completion)
-    }
-    
-    
+
     func logout() {
         PFUser.logOut()
         firebase.unauth()
@@ -173,7 +166,6 @@ class SessionManager: NSObject {
         }
         
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
-        
         userRef?.observeSingleEventOfType(.Value, withBlock: { snapshot in
             // TODO(kervs): create user model with data and send event
             if snapshot.exists() {
@@ -291,6 +283,7 @@ enum LoginType {
     case Email
     case Facebook
     case Twitter
+    case Anonymous
 }
 
 @objc protocol SessionManagerObserver: class {

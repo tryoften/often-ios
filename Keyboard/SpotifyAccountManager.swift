@@ -11,8 +11,7 @@ import Foundation
 class SpotifyAccountManager: AccountManager {
     var authCallback: SPTAuthCallback?
     var spotifyAccount: SocialAccount?
-    weak var delegate: SpotifyAccountManagerDelegate?
-   
+
      override init(firebase: Firebase) {
         super.init(firebase: firebase)
         authCallback = { (error: NSError!, session: SPTSession!) in
@@ -42,12 +41,8 @@ class SpotifyAccountManager: AccountManager {
         self.spotifyAccount?.activeStatus = true
         self.spotifyAccount?.tokenExpirationDate = session.expirationDate.description
         if let spotifyAccount = self.spotifyAccount {
-            self.delegate?.spotifyAccountManagerDidPullToken(self, account: spotifyAccount)
+            self.delegate?.addedNewSocialAccount(self, account: spotifyAccount)
         }
     }
 
-}
-
-protocol SpotifyAccountManagerDelegate: class {
-    func spotifyAccountManagerDidPullToken(userProfileViewModel: SpotifyAccountManager, account: SocialAccount)
 }

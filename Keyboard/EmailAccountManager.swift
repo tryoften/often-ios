@@ -9,37 +9,64 @@
 import Foundation
 
 class EmailAccountManager: AccountManager {
+    var userData: [String: String]?
     
-    
-    func openSessionWithEmail(username: String, password: String, completion: ((NSError?) -> ())? = nil) {
+    override func openSession(completion: (results: ResultType) -> Void) {
+        guard let _ = userData!["email"],
+            let username = userData!["username"],
+            let password = userData!["password"] else {
+                completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
+                return
+        }
+
         self.firebase.authUser(username, password: password, withCompletionBlock: { error, authData -> Void in
             if error != nil {
-                print(error)
-                completion?(error)
+                 completion(results: ResultType.SystemError(e: error!))
                 
             } else {
-                self.getUserInfo(authData, completion: completion)
+                self.fetchUserData(authData, completion: completion)
 
             }
         })
         sessionManagerFlags.openSession = true
     }
     
-    func loginWithUsername(username: String, password: String, completion: (NSError?) -> ()) {
-        PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
-            if user != nil {
-                self.openSessionWithEmail(username, password: password, completion:completion)
-            } else {
-                completion(error)
+    override func login(data: [String: String]?, completion: (results: ResultType) -> Void) {
+        guard let data = data, let email = data["email"],
+            let username = data["username"],
+            let password = data["password"] else {
+                 completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
+                return
+        }
+
+        userData = data
+
+        if isNewUser {
+            createUser(data, completion: completion)
+
+        } else {
+            PFUser.logInWithUsernameInBackground(username, password: password) { (user, error) in
+                if error == nil {
+                    if user != nil {
+                        self.openSession(completion)
+                    } else {
+                        completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
+                    }
+
+                } else {
+                    completion(results: ResultType.SystemError(e: error!))
+                }
             }
+
         }
     }
     
-    func createUser( data: [String: String], completion: ((NSError?) -> ())? = nil) throws {
+    func createUser(data: [String: String], completion: (results: ResultType) -> Void) {
         guard let email = data["email"],
             let username = data["username"],
             let password = data["password"] else {
-                throw EmailAccountManagerError.MissingUserData
+                completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
+                return
         }
         
         let user = PFUser()
@@ -52,24 +79,21 @@ class EmailAccountManager: AccountManager {
             if error == nil {
                 self.firebase.createUser(email, password: password, withValueCompletionBlock: { error, result -> Void in
                     if error != nil {
-                        print("Login failed. \(error)")
-                        completion?(error)
+                        completion(results: ResultType.SystemError(e: error))
                     } else {
-                        print("Logged in! \(result)")
-                        self.openSessionWithEmail(email, password: password, completion:completion)
+                        self.openSession(completion)
                     }
                 })
-                completion?(nil)
             } else {
-                completion?(error)
+                completion(results: ResultType.SystemError(e: error!))
             }
         }
     }
     
-    func getUserInfo(authData: FAuthData, completion: ((NSError?) -> ())? = nil) {
+    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         sessionManagerFlags.userId = authData.uid
-        
+
         var data = [String : AnyObject]()
         
         if let currentUser = PFUser.currentUser() {
@@ -86,7 +110,8 @@ class EmailAccountManager: AccountManager {
             newUser.setValuesForKeysWithDictionary(data)
             
             self.userRef?.updateChildValues(data)
-            completion?(nil)
+            completion(results: ResultType.Success(r: true))
+            delegate?.userLogin(self)
         }
     }
 }
