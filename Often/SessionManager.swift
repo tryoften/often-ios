@@ -83,17 +83,15 @@ class SessionManager: NSObject {
                 case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
                 }
             })
-            break
         case .Facebook:
             facebookAccountManager = FacebookAccountManager(firebase: firebase)
-            facebookAccountManager?.login({ err in
-                if err != nil {
-                    completion(results: ResultType.SystemError(e: err!))
-                } else {
-                    completion(results: ResultType.Success(r: true))
+            facebookAccountManager?.login(nil, completion: { results in
+                switch results {
+                case .Success(let value): completion(results: ResultType.Success(r: value))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
                 }
             })
-            break
         case .Email:
             emailAccountManager = EmailAccountManager(firebase: firebase)
             emailAccountManager?.login(userData, completion: { results in
@@ -103,7 +101,6 @@ class SessionManager: NSObject {
                 case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
                 }
             })
-            break
         case .Anonymous:
             anonymousAccountManager = AnonymousAccountManager(firebase: firebase)
             anonymousAccountManager?.login(nil, completion: { results in
@@ -113,10 +110,6 @@ class SessionManager: NSObject {
                 case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
                 }
             })
-            break
-        default:
-            completion(results: ResultType.Error(e: SessionManagerError.UnvalidSignUp))
-            throw SessionManagerError.UnvalidSignUp
         }
     }
     
