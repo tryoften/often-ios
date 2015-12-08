@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewController,
+class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewController,
     UserProfileViewModelDelegate,
     FilterTabDelegate,
     FavoritesAndRecentsTabDelegate {
@@ -18,7 +18,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
     var emptyStateView: EmptySetView
     var didReturnResults: Bool
     
-    init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel ) {
+    init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel) {
         self.viewModel = viewModel
         
         contentFilterTabView = MediaFilterTabView(filterMap: DefaultFilterMap)
@@ -45,7 +45,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         } catch let error {
             print("Failed to request data \(error)")
         }
-        
+
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
         

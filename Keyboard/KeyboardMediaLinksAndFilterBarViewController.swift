@@ -1,5 +1,5 @@
 //
-//  KeyboardFavoriteAndRecentViewController.swift
+//  KeyboardMediaLinksAndFilterBarViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 11/6/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewController {
+class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewController {
     var favoritesAndRecentsTabView: FavoritesAndRecentsTabView
     var searchResultsContainerView: UIView?
     var textProcessor: TextProcessingManager?
