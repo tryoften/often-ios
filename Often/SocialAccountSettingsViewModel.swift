@@ -60,11 +60,6 @@ class SocialAccountSettingsViewModel: NSObject, SessionManagerObserver, AccountM
         delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
       
     }
-    
-    func soundcloudAccountManagerDidPullToken(userProfileViewModel: SoundcloudAccountManager, account: SocialAccount) {
-        delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
-    }
-
 }
 
 protocol SocialAccountSettingsViewModelDelegate: class {

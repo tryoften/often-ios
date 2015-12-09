@@ -13,12 +13,9 @@ class SessionManager: NSObject {
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     var firebase: Firebase
     var socialAccountService: SocialAccountsService?
-    var twitterAccountManager: TwitterAccountManager?
-    var facebookAccountManager: FacebookAccountManager?
-    var emailAccountManager: EmailAccountManager?
+    var accountManager: AccountManager?
     var spotifyAccountManager: SpotifyAccountManager?
     var soundcloudAccountManager: SoundcloudAccountManager?
-    var anonymousAccountManager: AnonymousAccountManager?
     var userRef: Firebase?
     var currentUser: User?
     var currentSession: FBSession?
@@ -73,46 +70,26 @@ class SessionManager: NSObject {
 
     func login(loginType: LoginType, userData: User?, completion: (results: ResultType) -> Void) throws {
         userIsLoggingIn = true
+
         switch loginType {
         case .Twitter:
-            twitterAccountManager = TwitterAccountManager(firebase: firebase)
-            twitterAccountManager?.login(nil, completion: { results in
-                switch results {
-                case .Success(let value): completion(results: ResultType.Success(r: value))
-                case .Error(let err): completion(results: ResultType.Error(e: err))
-                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
-                }
-            })
+            accountManager = TwitterAccountManager(firebase: firebase)
         case .Facebook:
-            facebookAccountManager = FacebookAccountManager(firebase: firebase)
-            facebookAccountManager?.login(nil, completion: { results in
-                switch results {
-                case .Success(let value): completion(results: ResultType.Success(r: value))
-                case .Error(let err): completion(results: ResultType.Error(e: err))
-                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
-                }
-            })
+            accountManager = FacebookAccountManager(firebase: firebase)
         case .Email:
-            emailAccountManager = EmailAccountManager(firebase: firebase)
-            emailAccountManager?.login(userData, completion: { results in
-                switch results {
-                case .Success(let value): completion(results: ResultType.Success(r: value))
-                case .Error(let err): completion(results: ResultType.Error(e: err))
-                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
-                }
-            })
+            accountManager = EmailAccountManager(firebase: firebase)
         case .Anonymous:
-            anonymousAccountManager = AnonymousAccountManager(firebase: firebase)
-            anonymousAccountManager?.login(nil, completion: { results in
-                switch results {
-                case .Success(let value): completion(results: ResultType.Success(r: value))
-                case .Error(let err): completion(results: ResultType.Error(e: err))
-                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
-                }
-            })
+            accountManager = AnonymousAccountManager(firebase: firebase)
         }
+        accountManager?.login(userData, completion: { results in
+            switch results {
+            case .Success(let value): completion(results: ResultType.Success(r: value))
+            case .Error(let err): completion(results: ResultType.Error(e: err))
+            case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+            }
+        })
     }
-    
+
 
     func logout() {
         PFUser.logOut()
