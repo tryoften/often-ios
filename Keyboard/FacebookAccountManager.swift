@@ -16,59 +16,85 @@ class FacebookAccountManager: AccountManager {
         "email"
     ]
 
-    func openSessionWithFacebook(completion: ((NSError?) -> ())? = nil) {
-        userDefaults.setValue(true, forKey: "facebook")
-
+    override func openSession(completion: (results: ResultType) -> Void) {
         if let session = FBSession.activeSession() {
             let accessTokenData = session.accessTokenData
-            
+
             if accessTokenData != nil {
                 let accessToken = accessTokenData.accessToken
                 firebase.authWithOAuthProvider("facebook", token: accessToken,
-                    withCompletionBlock: { error, authData in
+                    withCompletionBlock: { error, accessToken in
                         if error != nil {
-                            print("Login failed. \(error)")
+                            completion(results: ResultType.SystemError(e: error!))
                         } else {
-                            print( "session Opened. \(authData.providerData)")
+                            self.fetchUserData(accessToken, completion: completion)
                         }
-                        completion?(error)
                 })
             }
+        } else {
+            completion(results: ResultType.Error(e: FacebookAccountManagerError.MissingUserData))
         }
-        userDefaults.setValue(true, forKey: UserDefaultsProperty.openSession)
-        userDefaults.synchronize()
+
+        sessionManagerFlags.openSession = true
     }
 
-    func login(completion: ((NSError?) -> ())? = nil) {
+     override func login(userData: User?, completion: (results: ResultType) -> Void) {
+        guard isInternetReachable else {
+            completion(results: ResultType.Error(e: FacebookAccountManagerError.NotConnectedOnline))
+            return
+        }
+        
         PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
             if error == nil {
-                self.openSessionWithFacebook(completion)
+                if user != nil {
+                    self.openSession(completion)
+                } else {
+                    completion(results: ResultType.Error(e: FacebookAccountManagerError.ReturnedEmptyUserObject))
+                }
             } else {
-                completion?(error)
+                 completion(results: ResultType.SystemError(e: error!))
             }
         })
 
     }
     
-    func getFacebookUserInfo(completion: (NSDictionary?, NSError?) -> ()) {
+    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+        userRef = firebase.childByAppendingPath("users/twitter:\(authData.uid)")
+
         let request = FBRequest.requestForMe()
         request.startWithCompletionHandler({ (connection, result, error) in
-
             if error == nil {
-                guard let data = (result as? NSDictionary)?.mutableCopy() as? NSMutableDictionary,
+                guard let data = (result as? NSDictionary)?.mutableCopy() as? [String : AnyObject],
                     let userId = data["id"] as? String else {
-                    return
+                        completion(results: ResultType.Error(e: FacebookAccountManagerError.MissingUserData))
+                        return
                 }
+
+                var userData = data
 
                 let profilePicURLTemplate = "https://graph.facebook.com/%@/picture?type=%@"
 
-                data["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
-                data["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
+                userData["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
+                userData["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
 
-                completion(data, nil)
+                self.newUser = User()
+                self.newUser?.setValuesForKeysWithDictionary(userData)
+                self.userRef?.updateChildValues(userData)
+
+                if let user = self.newUser {
+                    completion(results: ResultType.Success(r: true))
+                    self.delegate?.accountManagerUserDidLogin(self, user: user)
+                }
+
             } else {
-                completion(nil, error)
+                completion(results: ResultType.SystemError(e: error!))
             }
         })
     }
+}
+
+enum FacebookAccountManagerError: ErrorType {
+    case MissingUserData
+    case ReturnedEmptyUserObject
+    case NotConnectedOnline
 }

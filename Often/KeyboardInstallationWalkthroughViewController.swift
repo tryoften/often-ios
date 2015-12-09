@@ -197,7 +197,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         ])
         
         if currentPage == 3 {
-            if inAppDisplay || viewModel.sessionManager.isUserAnonymous() {
+            if inAppDisplay || viewModel.sessionManager.sessionManagerFlags.userIsAnonymous {
                 settingsButtonRightPositionConstraint?.constant = 0
                 settingsButton.setTitle("Dismiss".uppercaseString, forState: .Normal)
             }
@@ -222,11 +222,11 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         
         self.scrollView.setContentOffset(CGPoint(x: slideToX, y: 0), animated: true)
     }
-    
+
     func didTapSettingsButton(sender: UIButton) {
         if inAppDisplay == true {
             RootViewController.sharedInstance().popViewControllerAnimated(true)
-        } else if viewModel.sessionManager.isUserAnonymous() {
+        } else if viewModel.sessionManager.sessionManagerFlags.userIsAnonymous {
             let skipView = SkipSignupViewController(viewModel: self.viewModel)
             presentViewController(skipView, animated: true, completion: nil)
         } else {

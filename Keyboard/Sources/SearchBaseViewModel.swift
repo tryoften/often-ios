@@ -63,7 +63,7 @@ class SearchBaseViewModel {
         let id = autocomplete ? "autocomplete:" + idHash : idHash
         
         var userId: String = "anon"
-        if let uId = KeyboardViewModel.userId {
+        if let uId = SessionManagerFlags.defaultManagerFlags.userId {
             userId = uId
         }
         

@@ -12,7 +12,6 @@ import OAuthSwift
 class SoundcloudAccountManager: AccountManager {
     let manager: AFHTTPRequestOperationManager
     var soundcloudAccount: SocialAccount?
-    weak var delegate: SoundcloudAccountManagerDelegate?
     
      override init(firebase: Firebase) {
         manager = AFHTTPRequestOperationManager()
@@ -54,7 +53,7 @@ class SoundcloudAccountManager: AccountManager {
         soundcloudAccount?.activeStatus = true
         
         if let soundcloudAccount = self.soundcloudAccount {
-            self.delegate?.soundcloudAccountManagerDidPullToken(self, account: soundcloudAccount)
+            self.delegate?.addedNewSocialAccount(self, account: soundcloudAccount)
         }
         getSoundcloudUserInfo(session)
         getSoundcloudUserActivities(session)
@@ -86,7 +85,7 @@ class SoundcloudAccountManager: AccountManager {
     }
     
     func updateUserData(data: AnyObject) {
-        guard let userId = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String else {
+        guard let userId = sessionManagerFlags.userId else {
             return
         }
         if let data = data as? [String : AnyObject] {
@@ -94,8 +93,4 @@ class SoundcloudAccountManager: AccountManager {
             userRef.updateChildValues(["soundCloudUserData":data])
         }
     }
-}
-
-protocol SoundcloudAccountManagerDelegate: class {
-    func soundcloudAccountManagerDidPullToken(userProfileViewModel: SoundcloudAccountManager, account: SocialAccount)
 }

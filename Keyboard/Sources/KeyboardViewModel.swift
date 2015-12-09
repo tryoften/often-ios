@@ -9,39 +9,12 @@
 import UIKit
 
 class KeyboardViewModel: NSObject {
-    var userDefaults: NSUserDefaults
+    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     var isFullAccessEnabled: Bool
-    var hasSeenTooltip: Bool {
-        get {
-            return userDefaults.boolForKey(KeyboardTooltipsDisplayedKey)
-        }
-        set(value) {
-            userDefaults.setBool(value, forKey: KeyboardTooltipsDisplayedKey)
-        }
-    }
     var firebaseRef: Firebase
     
-    static var userId: String? {
-        get {
-            guard let userDefaults = NSUserDefaults(suiteName: AppSuiteName) else {
-                return nil
-            }
-            return userDefaults.objectForKey(UserDefaultsProperty.userID) as? String
-        }
-        
-        set(value) {
-            guard let userDefaults = NSUserDefaults(suiteName: AppSuiteName) else {
-                return
-            }
-            userDefaults.setObject(value, forKey: UserDefaultsProperty.userID)
-        }
-    }
-    
     override init() {
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
-        userDefaults.synchronize()
-        
+        sessionManagerFlags.userHasOpenedKeyboard = true
         isFullAccessEnabled = false
         firebaseRef = Firebase(url: BaseURL)
         
@@ -52,7 +25,7 @@ class KeyboardViewModel: NSObject {
         
         super.init()
         
-        guard let userId = KeyboardViewModel.userId else {
+        guard let userId = sessionManagerFlags.userId else {
             return
         }
         print("User authenticated: ", userId)
@@ -60,7 +33,7 @@ class KeyboardViewModel: NSObject {
     }
     
     func logTextSendEvent(mediaLink: MediaLink) {
-        guard let userId = KeyboardViewModel.userId else {
+        guard let userId = sessionManagerFlags.userId else {
             print("User Id not found")
             return
         }

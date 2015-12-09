@@ -1,4 +1,4 @@
- //
+//
 //  SessionManager.swift
 //  Often
 //
@@ -10,16 +10,14 @@ import Foundation
 import Crashlytics
 
 class SessionManager: NSObject {
+    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     var firebase: Firebase
     var socialAccountService: SocialAccountsService?
-    var twitterAccountManager: TwitterAccountManager?
-    var facebookAccountManager: FacebookAccountManager?
-    var emailAccountManager: EmailAccountManager?
+    var accountManager: AccountManager?
     var spotifyAccountManager: SpotifyAccountManager?
     var soundcloudAccountManager: SoundcloudAccountManager?
     var userRef: Firebase?
     var currentUser: User?
-    var userDefaults: NSUserDefaults
     var currentSession: FBSession?
     var isUserNew: Bool
     var userIsLoggingIn = false
@@ -35,7 +33,6 @@ class SessionManager: NSObject {
     
     override init() {
         observers = NSMutableArray()
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
         isUserNew = true
 
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
@@ -57,7 +54,7 @@ class SessionManager: NSObject {
             self.processAuthData(authData)
         }
         
-        if let userID = userDefaults.objectForKey(UserDefaultsProperty.userID) as? String {
+        if let userID = sessionManagerFlags.userId {
             SEGAnalytics.sharedAnalytics().identify(userID)
             let crashlytics = Crashlytics.sharedInstance()
             crashlytics.setUserIdentifier(userID)
@@ -70,94 +67,36 @@ class SessionManager: NSObject {
         
     }
     
-    func setUserDefaultsValue(value:AnyObject, forKey:String ) {
-        userDefaults.setValue(false, forKey: forKey)
-        userDefaults.synchronize()
-    }
-    
-    func isUserLoggedIn() -> Bool {
-        return userDefaults.objectForKey(UserDefaultsProperty.userID) != nil
-    }
-    
-    func isUserAnonymous() -> Bool {
-        return userDefaults.boolForKey(UserDefaultsProperty.anonymousUser)
-    }
-    
-    func isKeyboardInstalled() -> Bool {
-        return userDefaults.boolForKey(UserDefaultsProperty.keyboardInstalled)
-    }
-    
-    func signupUser(loginType: LoginType, data: [String: String], completion: (NSError?) -> ()) {
-        emailAccountManager = EmailAccountManager(firebase: firebase)
-        do {
-            try emailAccountManager?.createUser(data, completion: completion)
-            
-        } catch {
-            
+
+    func login(loginType: LoginType, userData: User?, completion: (results: ResultType) -> Void) throws {
+        userIsLoggingIn = true
+
+        switch loginType {
+        case .Twitter:
+            accountManager = TwitterAccountManager(firebase: firebase)
+        case .Facebook:
+            accountManager = FacebookAccountManager(firebase: firebase)
+        case .Email:
+            accountManager = EmailAccountManager(firebase: firebase)
+        case .Anonymous:
+            accountManager = AnonymousAccountManager(firebase: firebase)
         }
-    }
-    
-    func signupWithAnonymousUser (completion: (results: ResultType) -> Void) {
-        let anonymousAccountManager = AnonymousAccountManager(firebase: firebase)
-       
-        anonymousAccountManager.createAnonymousUser { results -> Void in
+
+        accountManager?.login(userData, completion: { results in
             switch results {
             case .Success(let value): completion(results: ResultType.Success(r: value))
             case .Error(let err): completion(results: ResultType.Error(e: err))
             case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
             }
-        }
-        
+        })
     }
-    
-    func login(loginType: LoginType, completion: (results: ResultType) -> Void) throws {
-        userIsLoggingIn = true
-        switch loginType {
-        case .Twitter:
-            twitterAccountManager = TwitterAccountManager(firebase: firebase)
-            twitterAccountManager?.login({ results in
-                switch results {
-                case .Success(let value): completion(results: ResultType.Success(r: value))
-                case .Error(let err): completion(results: ResultType.Error(e: err))
-                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
-                }
-            })
-            break
-        case .Facebook:
-            facebookAccountManager = FacebookAccountManager(firebase: firebase)
-            facebookAccountManager?.login({ err in
-                if err != nil {
-                    completion(results: ResultType.SystemError(e: err!))
-                } else {
-                    completion(results: ResultType.Success(r: true))
-                }
-            })
-            break
-        default:
-            completion(results: ResultType.Error(e: SessionManagerError.UnvalidSignUp))
-            throw SessionManagerError.UnvalidSignUp
-        }
-    }
-    
-    func loginWithUsername(username: String, password: String,completion: (NSError?) -> ()) {
-        userIsLoggingIn = true
-        emailAccountManager = EmailAccountManager(firebase: firebase)
-        emailAccountManager?.loginWithUsername(username, password: password, completion: completion)
-    }
-    
-    
+
+
     func logout() {
         PFUser.logOut()
         firebase.unauth()
         observers.removeAllObjects()
-        userDefaults.setValue(nil, forKey: UserDefaultsProperty.userID)
-        userDefaults.setValue(nil, forKey: UserDefaultsProperty.userEmail)
-        userDefaults.setValue(nil, forKey: "facebook")
-        userDefaults.setValue(nil, forKey: "twitter")
-        userDefaults.setValue(nil, forKey: UserDefaultsProperty.openSession)
-        userDefaults.setValue(nil, forKey: UserDefaultsProperty.authData)
-        userDefaults.setValue(nil, forKey: UserDefaultsProperty.anonymousUser)
-        userDefaults.synchronize()
+        sessionManagerFlags.clearSessionFlags()
         
         guard let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
             return
@@ -174,8 +113,7 @@ class SessionManager: NSObject {
             self.currentUser = user
             
             if !self.isUserNew {
-                self.userDefaults.setObject(user.id, forKey: UserDefaultsProperty.userID)
-                self.userDefaults.synchronize()
+                self.sessionManagerFlags.userId = user.id
             }
             
             if self.userIsLoggingIn {
@@ -184,21 +122,21 @@ class SessionManager: NSObject {
             }
             self.fetchSocialAccount()
         }
-         
-        guard let authData = authData, _ = userDefaults.objectForKey(UserDefaultsProperty.openSession) else {
-                self.broadcastNoUserFoundEvent()
-                logout()
-                return
+
+        if !sessionManagerFlags.openSession {
+            self.broadcastNoUserFoundEvent()
+            logout()
+            return
+        }
+
+        guard let authData = authData else {
+            self.broadcastNoUserFoundEvent()
+            logout()
+            return
+
         }
         
-        userDefaults.setObject([
-            "uid": authData.uid,
-            "provider": authData.provider,
-            "token": authData.token
-        ], forKey: UserDefaultsProperty.authData)
-        
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
-        
         userRef?.observeSingleEventOfType(.Value, withBlock: { snapshot in
             // TODO(kervs): create user model with data and send event
             if snapshot.exists() {
@@ -212,32 +150,9 @@ class SessionManager: NSObject {
                         persistUser(user)
                 }
             } else {
-                if self.userDefaults.boolForKey(UserDefaultsProperty.userEmail) {
-                    var data = [String : AnyObject]()
-                    
-                    if let currentUser = PFUser.currentUser() {
-                        data["id"] = authData.uid
-                        data["email"] = currentUser.email
-                        data["phone"] = currentUser.objectForKey("phone") as? String
-                        data["username"] = currentUser.username
-                        data["displayName"] = currentUser.objectForKey("fullName") as? String
-                        data["name"] = currentUser.objectForKey("fullName") as? String
-                        data["parseId"] = currentUser.objectId
-                        data["accounts"] = self.createSocialAccount()
-                        
-                        let newUser = User()
-                        newUser.setValuesForKeysWithDictionary(data)
-                        
-                        self.userRef?.updateChildValues(data)
-                        self.isUserNew = false
-                        
-                        persistUser(newUser)
-                    }
-                    
-                } else {
                     self.broadcastNoUserFoundEvent()
                     self.logout()
-                }
+                
             }
             }, withCancelBlock: { error in
                 
@@ -339,6 +254,7 @@ enum LoginType {
     case Email
     case Facebook
     case Twitter
+    case Anonymous
 }
 
 @objc protocol SessionManagerObserver: class {

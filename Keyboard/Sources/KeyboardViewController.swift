@@ -184,9 +184,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         textProcessor?.delegate = self
         
         viewModel = KeyboardViewModel()
-        viewModel?.userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
-        viewModel?.userDefaults.synchronize()
-        
+        viewModel?.sessionManagerFlags.userHasOpenedKeyboard = true
+
         let baseURL = Firebase(url: BaseURL)
         let searchViewModel = SearchViewModel(base: baseURL)
         searchViewModel.delegate = searchBar
@@ -200,7 +199,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         searchBar.viewModel = searchViewModel
         searchBar.suggestionsViewModel = suggestionsViewModel
         
-        if viewModel?.hasSeenTooltip == false {
+        if viewModel?.sessionManagerFlags.hasSeenKeyboardGeneralToolTips == false {
             toolTipViewController = ToolTipViewController()
             toolTipViewController?.closeButtonDelegate = self
             toolTipViewController!.view.translatesAutoresizingMaskIntoConstraints = false
@@ -599,7 +598,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
 
     // MARK: ToolTipCloseButtonDelegate
     func toolTipCloseButtonDidTap() {
-        viewModel?.hasSeenTooltip = true
+        viewModel?.sessionManagerFlags.hasSeenKeyboardGeneralToolTips = true
         
         UIView.animateWithDuration(0.3, animations: {
             self.toolTipViewController!.view.alpha = 0.0

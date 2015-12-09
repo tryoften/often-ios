@@ -300,6 +300,7 @@ class AppSettingsViewController: UIViewController,
             viewModel.sessionManager.logout()
             let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
             let vc = SignupViewController(viewModel: signupViewModel)
+            vc.signupView.splashScreen.hidden = true
             RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
             })
             break

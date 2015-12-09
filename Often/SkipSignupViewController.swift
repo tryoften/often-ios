@@ -50,7 +50,7 @@ class SkipSignupViewController: UIViewController {
         PKHUD.sharedHUD.show()
         viewModel.sessionManager.logout()
         do {
-            try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
+            try viewModel.sessionManager.login(.Twitter, userData: nil,  completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
@@ -92,8 +92,7 @@ class SkipSignupViewController: UIViewController {
     }
     
     func createProfileViewController() {
-        viewModel.sessionManager.userDefaults.setValue(false, forKey: UserDefaultsProperty.anonymousUser)
-        viewModel.sessionManager.userDefaults.synchronize()
+        viewModel.sessionManager.sessionManagerFlags.userIsAnonymous = false
         presentViewController(RootViewController(), animated: true, completion: nil)
     }
 

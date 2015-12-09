@@ -44,9 +44,8 @@ class SignupViewModel: NSObject, SessionManagerObserver {
         sessionManager.removeSessionObserver(self)
     }
     
-    func signUpUser(completion: (results: ResultType) -> Void) throws {
-        var userData = [String: String]()
-        
+    func createNewEmailUser(username: String, email: String, password: String, completion: (results: ResultType) -> Void) throws {
+
         guard AFNetworkReachabilityManager.sharedManager().reachable else {
             completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
             throw SignupError.EmailNotVaild
@@ -62,22 +61,25 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             throw SignupError.PasswordNotVaild
         }
         
-        userData["email"] = user.email.lowercaseString
-        userData["username"] = user.username.lowercaseString
-        userData["password"] = password
-        
-        sessionManager.signupUser(.Email, data: userData, completion: { error -> () in
-            if error == nil {
-                print("all good in the hood")
-                completion(results: ResultType.Success(r: true))
-            } else {
-                print("no good mang")
-                completion(results: ResultType.SystemError(e: error!))
+        user.username = username.lowercaseString
+        user.email = user.email.lowercaseString
+        user.password = password
+        user.isNew = true
+
+        do {
+            try sessionManager.login(.Email, userData: user) { (results) -> Void in
+                switch results {
+                case .Success(_): completion(results: ResultType.Success(r: true))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
             }
-        })
+        } catch {
+
+        }
     }
     
-    func signInUser(username:String, password:String, completion: (results: ResultType) -> Void) throws {
+    func signInUser(username: String, password: String, completion: (results: ResultType) -> Void) throws {
         guard isInternetReachable else {
             completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
             throw SignupError.NotConnectedOnline
@@ -92,20 +94,25 @@ class SignupViewModel: NSObject, SessionManagerObserver {
             completion(results: ResultType.Error(e: SignupError.PasswordNotVaild))
             throw SignupError.PasswordNotVaild
         }
+
+
+        user.email = username.lowercaseString
+        user.password = password
+        user.isNew = false
         
-        sessionManager.loginWithUsername(username.lowercaseString, password: password) { error  in
-            if error == nil {
-                print("all good in the hood")
-                completion(results: ResultType.Success(r: true))
-            } else {
-                print("no good mang")
-                completion(results: ResultType.SystemError(e: error!))
+        do {
+            try sessionManager.login(.Email, userData: user) { (results) -> Void in
+                switch results {
+                case .Success(_): completion(results: ResultType.Success(r: true))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
             }
+        } catch {
+
         }
-        
     }
 
-    
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
     }
     
