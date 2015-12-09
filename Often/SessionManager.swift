@@ -81,6 +81,7 @@ class SessionManager: NSObject {
         case .Anonymous:
             accountManager = AnonymousAccountManager(firebase: firebase)
         }
+
         accountManager?.login(userData, completion: { results in
             switch results {
             case .Success(let value): completion(results: ResultType.Success(r: value))
