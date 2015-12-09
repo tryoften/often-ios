@@ -13,8 +13,8 @@ class AccountManager: NSObject {
     var userRef: Firebase?
     weak var delegate: AccountManagerDelegate?
     var isInternetReachable: Bool
-    var isNewUser = false
-    
+    var newUser: User?
+
     enum ResultType {
         case Success(r: Bool)
         case Error(e: ErrorType)
@@ -36,12 +36,12 @@ class AccountManager: NSObject {
         reachabilitymanager.startMonitoring()
     }
 
-    func openSession(completion: (results: ResultType) -> Void) {sessionManagerFlags.openSession = true }
+    func openSession(completion: (results: ResultType) -> Void) {}
     func login(userData: User?, completion: (results: ResultType) -> Void) {}
     func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {}
 }
 
 protocol AccountManagerDelegate: class {
-    func userLogin(accountManager: AccountManager)
-    func addedNewSocialAccount(accountManager: AccountManager, account: SocialAccount)
+    func accountManagerUserDidLogin(accountManager: AccountManager, user: User)
+    func accountManagerDidAddSocialAccount(accountManager: AccountManager, account: SocialAccount)
 }

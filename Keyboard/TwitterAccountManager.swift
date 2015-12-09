@@ -94,10 +94,14 @@ class TwitterAccountManager: AccountManager {
                     if let userID = PFTwitterUtils.twitter()?.userId {
                        sessionManagerFlags.userId =  "twitter:\(userID)"
 
-                        userRef?.updateChildValues(firebaseData)
-                        completion(results: ResultType.Success(r: true))
-                        delegate?.userLogin(self)
-                        
+                        newUser = User()
+                        newUser?.setValuesForKeysWithDictionary(firebaseData)
+
+                        if let user = newUser {
+                            userRef?.updateChildValues(user.dataChangedToDictionary())
+                            completion(results: ResultType.Success(r: true))
+                            delegate?.accountManagerUserDidLogin(self, user: user)
+                        }
                     }
 
                 }

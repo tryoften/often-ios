@@ -58,28 +58,34 @@ class FacebookAccountManager: AccountManager {
 
     }
     
-     override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
         userRef = firebase.childByAppendingPath("users/twitter:\(authData.uid)")
 
         let request = FBRequest.requestForMe()
         request.startWithCompletionHandler({ (connection, result, error) in
-
             if error == nil {
-                guard let data = (result as? NSDictionary)?.mutableCopy() as? NSMutableDictionary,
+                guard let data = (result as? NSDictionary)?.mutableCopy() as? [String : AnyObject],
                     let userId = data["id"] as? String else {
-                    completion(results: ResultType.Error(e: FacebookAccountManagerError.MissingUserData))
-                    return
+                        completion(results: ResultType.Error(e: FacebookAccountManagerError.MissingUserData))
+                        return
                 }
+
+                var userData = data
 
                 let profilePicURLTemplate = "https://graph.facebook.com/%@/picture?type=%@"
 
-                data["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
-                data["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
+                userData["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
+                userData["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
 
-                self.userRef?.setValue(data)
+                self.newUser = User()
+                self.newUser?.setValuesForKeysWithDictionary(userData)
+                self.userRef?.updateChildValues(userData)
 
-                completion(results: ResultType.Success(r: true))
-                self.delegate?.userLogin(self)
+                if let user = self.newUser {
+                    completion(results: ResultType.Success(r: true))
+                    self.delegate?.accountManagerUserDidLogin(self, user: user)
+                }
+
             } else {
                 completion(results: ResultType.SystemError(e: error!))
             }

@@ -9,11 +9,10 @@
 import Foundation
 
 class EmailAccountManager: AccountManager {
-    var userData: [String: String]?
-    
+
     override func openSession(completion: (results: ResultType) -> Void) {
-        guard let email = userData?["email"],
-            let password = userData!["password"] else {
+        guard let email = newUser?.email,
+            let password = newUser?.password else {
                 completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
                 return
         }
@@ -38,7 +37,7 @@ class EmailAccountManager: AccountManager {
                 return
         }
 
-        self.userData = user.dataChangedToDictionary()
+        self.newUser = user
 
         if user.isNew {
             createUser(completion)
@@ -60,9 +59,9 @@ class EmailAccountManager: AccountManager {
     }
     
     func createUser(completion: (results: ResultType) -> Void) {
-        guard let email = userData?["email"],
-            let username = userData?["username"],
-            let password = userData?["password"] else {
+        guard let email = newUser?.email,
+            let username = newUser?.username,
+            let password = newUser?.password else {
                 completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
                 return
         }
@@ -109,7 +108,7 @@ class EmailAccountManager: AccountManager {
             
             self.userRef?.updateChildValues(data)
             completion(results: ResultType.Success(r: true))
-            delegate?.userLogin(self)
+            delegate?.accountManagerUserDidLogin(self, user: newUser)
         }
     }
 }

@@ -14,7 +14,7 @@ class AnonymousAccountManager: AccountManager {
         let ref = firebase
         
         ref.authAnonymouslyWithCompletionBlock { (err, auth) -> Void in
-            if ((err) != nil) {
+            if err != nil {
                 print(err)
                 completion(results: ResultType.Error(e: AnonymousAccountManagerError.ReturnedEmptyUserObject))
             } else {
@@ -29,7 +29,7 @@ class AnonymousAccountManager: AccountManager {
 
         PFAnonymousUtils.logInWithBlock {
             (user: PFUser?, error: NSError?) -> Void in
-            if ((error) != nil) {
+            if error != nil {
                 completion(results: ResultType.Error(e: AnonymousAccountManagerError.ReturnedEmptyUserObject))
             } else {
                  self.openSession(completion)

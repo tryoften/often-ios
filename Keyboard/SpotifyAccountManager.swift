@@ -41,7 +41,7 @@ class SpotifyAccountManager: AccountManager {
         self.spotifyAccount?.activeStatus = true
         self.spotifyAccount?.tokenExpirationDate = session.expirationDate.description
         if let spotifyAccount = self.spotifyAccount {
-            self.delegate?.addedNewSocialAccount(self, account: spotifyAccount)
+            self.delegate?.accountManagerDidAddSocialAccount(self, account: spotifyAccount)
         }
     }
 

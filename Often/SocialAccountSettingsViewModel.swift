@@ -53,12 +53,11 @@ class SocialAccountSettingsViewModel: NSObject, SessionManagerObserver, AccountM
         }
     }
 
-    func userLogin(accountManager: AccountManager) {
+    func accountManagerUserDidLogin(accountManager: AccountManager, user: User) {
     }
 
-    func addedNewSocialAccount(accountManager: AccountManager, account: SocialAccount) {
+    func accountManagerDidAddSocialAccount(accountManager: AccountManager, account: SocialAccount) {
         delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
-      
     }
 }
 
