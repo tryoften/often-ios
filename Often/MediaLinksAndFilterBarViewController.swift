@@ -1,5 +1,5 @@
 //
-//  FavoritesAndRecentsBaseViewController.swift
+//  MediaLinksAndFilterBarViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 11/7/15.

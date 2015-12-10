@@ -12,8 +12,8 @@ import Foundation
 let MediaLinkCollectionViewCellReuseIdentifier = "MediaLinksCollectionViewCell"
 
 class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaLinksCollectionViewCellDelegate {
-   var cellsAnimated: [NSIndexPath: Bool]
-   
+    var cellsAnimated: [NSIndexPath: Bool]
+
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         cellsAnimated = [:]
 
@@ -25,7 +25,7 @@ class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaL
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func parseMediaLinkData(searchResultsData: [MediaLink]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaLinkCollectionViewCell {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaLinkCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? MediaLinkCollectionViewCell else {
             return MediaLinkCollectionViewCell()
@@ -45,41 +45,41 @@ class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaL
         case .Article:
             let article = (result as! ArticleMediaLink)
             cell.mainTextLabel.text = article.title
-            cell.leftSupplementLabel.text = article.author
-            cell.headerLabel.text = article.sourceName
-            cell.rightSupplementLabel.text = article.date?.timeAgoSinceNow()
-            cell.centerSupplementLabel.text = nil
+            cell.leftMetadataLabel.text = article.author
+            cell.leftHeaderLabel.text = article.sourceName
+            cell.rightMetadataLabel.text = article.date?.timeAgoSinceNow()
+            cell.centerMetadataLabel.text = nil
         case .Track:
             let track = (result as! TrackMediaLink)
             cell.mainTextLabel.text = track.name
-            cell.rightSupplementLabel.text = track.formattedCreatedDate
+            cell.rightMetadataLabel.text = track.formattedCreatedDate
             
             switch(result.source) {
             case .Spotify:
-                cell.headerLabel.text = "Spotify"
+                cell.leftHeaderLabel.text = "Spotify"
                 cell.mainTextLabel.text = "\(track.name)"
-                cell.leftSupplementLabel.text = track.artistName
-                cell.rightSupplementLabel.text = track.albumName
+                cell.leftMetadataLabel.text = track.artistName
+                cell.rightMetadataLabel.text = track.albumName
             case .Soundcloud:
-                cell.headerLabel.text = track.artistName
-                cell.leftSupplementLabel.text = track.formattedPlays()
+                cell.leftHeaderLabel.text = track.artistName
+                cell.leftMetadataLabel.text = track.formattedPlays()
             default:
                 break
             }
         case .Video:
             let video = (result as! VideoMediaLink)
             cell.mainTextLabel.text = video.title
-            cell.headerLabel.text = video.owner
+            cell.leftHeaderLabel.text = video.owner
             
             if let viewCount = video.viewCount {
-                cell.leftSupplementLabel.text = "\(Double(viewCount).suffixNumber) views"
+                cell.leftMetadataLabel.text = "\(Double(viewCount).suffixNumber) views"
             }
             
             if let likeCount = video.likeCount {
-                cell.centerSupplementLabel.text = "\(Double(likeCount).suffixNumber) likes"
+                cell.centerMetadataLabel.text = "\(Double(likeCount).suffixNumber) likes"
             }
             
-            cell.rightSupplementLabel.text = video.date?.timeAgoSinceNow()
+            cell.rightMetadataLabel.text = video.date?.timeAgoSinceNow()
             
         default:
             break

@@ -13,19 +13,21 @@ import Spring
 class MediaLinkCollectionViewCell: UICollectionViewCell {
     weak var delegate: MediaLinksCollectionViewCellDelegate?
     
-    var informationContainerView: UIView
+    var metadataContentView: UIView
     var sourceLogoView: UIImageView
-    var headerLabel: UILabel
+    var leftHeaderLabel: UILabel
+    var rightHeaderLabel: UILabel
     var mainTextLabel: UILabel
-    var leftSupplementLabel: UILabel
-    var centerSupplementLabel: UILabel
-    var rightSupplementLabel: UILabel
+    var leftMetadataLabel: UILabel
+    var centerMetadataLabel: UILabel
+    var rightMetadataLabel: UILabel
     var rightCornerImageView: UIImageView
     var overlayView: SearchResultsCellOverlayView
     var favoriteRibbon: UIImageView
+    var contentEdgeInsets: UIEdgeInsets
     var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
-    var contentImageViewWidthConstraint: NSLayoutConstraint?
+    var contentImageViewWidthConstraint: NSLayoutConstraint
     var contentImage: UIImage? {
         didSet(value) {
             contentImageView.alpha = 0
@@ -38,6 +40,11 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
             UIView.animateWithDuration(0.3) {
                 self.contentImageView.alpha = 1.0
             }
+        }
+    }
+    var showImageView: Bool {
+        didSet {
+            contentImageViewWidthConstraint.constant = showImageView ? 105 : 0
         }
     }
     
@@ -71,8 +78,10 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
 
     
     override init(frame: CGRect) {
-        informationContainerView = UIView()
-        informationContainerView.translatesAutoresizingMaskIntoConstraints = false
+        metadataContentView = UIView()
+        metadataContentView.translatesAutoresizingMaskIntoConstraints = false
+
+        contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
         
         sourceLogoView = UIImageView()
         sourceLogoView.translatesAutoresizingMaskIntoConstraints = false
@@ -80,30 +89,34 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         sourceLogoView.layer.cornerRadius = 2.0
         sourceLogoView.clipsToBounds = true
         
-        headerLabel = UILabel()
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
-        
+        leftHeaderLabel = UILabel()
+        leftHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
+        leftHeaderLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
+
+        rightHeaderLabel = UILabel()
+        rightHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
+        rightHeaderLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
+
         mainTextLabel = UILabel()
         mainTextLabel.translatesAutoresizingMaskIntoConstraints = false
         mainTextLabel.font = UIFont(name: "OpenSans", size: 11.0)
         mainTextLabel.numberOfLines = 2
         
-        centerSupplementLabel = UILabel()
-        centerSupplementLabel.translatesAutoresizingMaskIntoConstraints = false
-        centerSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
-        centerSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
+        centerMetadataLabel = UILabel()
+        centerMetadataLabel.translatesAutoresizingMaskIntoConstraints = false
+        centerMetadataLabel.font = UIFont(name: "OpenSans", size: 10.0)
+        centerMetadataLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
         
-        leftSupplementLabel = UILabel()
-        leftSupplementLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
-        leftSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
+        leftMetadataLabel = UILabel()
+        leftMetadataLabel.translatesAutoresizingMaskIntoConstraints = false
+        leftMetadataLabel.font = UIFont(name: "OpenSans", size: 10.0)
+        leftMetadataLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
         
-        rightSupplementLabel = UILabel()
-        rightSupplementLabel.translatesAutoresizingMaskIntoConstraints = false
-        rightSupplementLabel.font = UIFont(name: "OpenSans", size: 10.0)
-        rightSupplementLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
-        rightSupplementLabel.textAlignment = .Right
+        rightMetadataLabel = UILabel()
+        rightMetadataLabel.translatesAutoresizingMaskIntoConstraints = false
+        rightMetadataLabel.font = UIFont(name: "OpenSans", size: 10.0)
+        rightMetadataLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
+        rightMetadataLabel.textAlignment = .Right
         
         rightCornerImageView = UIImageView()
         rightCornerImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +137,7 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         favoriteRibbon.image = StyleKit.imageOfFavoritedstate(frame: CGRectMake(0, 0, 62, 62), scale: 0.5)
         favoriteRibbon.hidden = true
         
-        contentImageViewWidthConstraint = contentImageView.al_width == 100
+        contentImageViewWidthConstraint = contentImageView.al_width == 105
         
         overlayView = SearchResultsCellOverlayView()
         overlayView.hidden = true
@@ -133,6 +146,7 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         overlayVisible = false
         itemFavorited = false
         inMainApp = false
+        showImageView = true
         
         super.init(frame: frame)
         
@@ -145,19 +159,20 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         
         contentView.layer.cornerRadius = 2.0
         contentView.clipsToBounds = true
-        contentView.addSubview(informationContainerView)
+        contentView.addSubview(metadataContentView)
         contentView.addSubview(contentPlaceholderImageView)
         contentView.addSubview(contentImageView)
         contentView.addSubview(favoriteRibbon)
         contentView.addSubview(overlayView)
         
-        informationContainerView.addSubview(sourceLogoView)
-        informationContainerView.addSubview(headerLabel)
-        informationContainerView.addSubview(mainTextLabel)
-        informationContainerView.addSubview(leftSupplementLabel)
-        informationContainerView.addSubview(centerSupplementLabel)
-        informationContainerView.addSubview(rightSupplementLabel)
-        informationContainerView.addSubview(rightCornerImageView)
+        metadataContentView.addSubview(sourceLogoView)
+        metadataContentView.addSubview(leftHeaderLabel)
+        metadataContentView.addSubview(rightHeaderLabel)
+        metadataContentView.addSubview(mainTextLabel)
+        metadataContentView.addSubview(leftMetadataLabel)
+        metadataContentView.addSubview(centerMetadataLabel)
+        metadataContentView.addSubview(rightMetadataLabel)
+        metadataContentView.addSubview(rightCornerImageView)
         
         setupLayout()
         layoutIfNeeded()
@@ -180,12 +195,15 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
     
     func reset() {
         sourceLogoView.image = nil
-        headerLabel.text = ""
+        leftHeaderLabel.text = ""
+        rightHeaderLabel.text = ""
         mainTextLabel.text = ""
-        leftSupplementLabel.text = ""
-        centerSupplementLabel.text = ""
-        rightSupplementLabel.text = ""
+        leftMetadataLabel.text = ""
+        centerMetadataLabel.text = ""
+        rightMetadataLabel.text = ""
         rightCornerImageView.image = nil
+        showImageView = true
+        overlayVisible = false
     }
     
     func prepareOverlayView() {
@@ -300,49 +318,51 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
    
     
     func setupLayout() {
-        contentImageViewWidthConstraint = contentImageView.al_width == al_height
-
         addConstraints([
-            informationContainerView.al_left == al_left,
-            informationContainerView.al_top == al_top,
-            informationContainerView.al_bottom == al_bottom,
-            informationContainerView.al_right == contentImageView.al_left,
+            metadataContentView.al_left == al_left,
+            metadataContentView.al_top == al_top,
+            metadataContentView.al_bottom == al_bottom,
+            metadataContentView.al_right == contentImageView.al_left,
             
             contentImageView.al_right == al_right,
             contentImageView.al_top == al_top,
             contentImageView.al_bottom == al_bottom,
-            contentImageViewWidthConstraint!,
+            contentImageViewWidthConstraint,
             
             contentPlaceholderImageView.al_right == al_right,
             contentPlaceholderImageView.al_top == al_top,
             contentPlaceholderImageView.al_bottom == al_bottom,
             contentPlaceholderImageView.al_width == contentImageView.al_width,
             
-            sourceLogoView.al_left == informationContainerView.al_left + 15,
-            sourceLogoView.al_top == informationContainerView.al_top + 10,
+            sourceLogoView.al_left == metadataContentView.al_left + contentEdgeInsets.left,
+            sourceLogoView.al_top == metadataContentView.al_top + contentEdgeInsets.top,
             sourceLogoView.al_width == 18,
             sourceLogoView.al_height == 18,
             
-            headerLabel.al_left == sourceLogoView.al_right + 5,
-            headerLabel.al_centerY == sourceLogoView.al_centerY,
-            headerLabel.al_height == 16,
+            leftHeaderLabel.al_left == sourceLogoView.al_right + 5,
+            leftHeaderLabel.al_centerY == sourceLogoView.al_centerY,
+            leftHeaderLabel.al_height == 16,
+
+            rightHeaderLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
+            rightHeaderLabel.al_centerY == sourceLogoView.al_centerY,
+            rightHeaderLabel.al_height == 16,
             
-            mainTextLabel.al_left == informationContainerView.al_left + 15,
-            mainTextLabel.al_top == headerLabel.al_bottom + 8,
-            mainTextLabel.al_right == contentImageView.al_left - 15,
+            mainTextLabel.al_left == metadataContentView.al_left + contentEdgeInsets.left,
+            mainTextLabel.al_top == leftHeaderLabel.al_bottom + 8,
+            mainTextLabel.al_right == contentImageView.al_left - contentEdgeInsets.right,
             
-            leftSupplementLabel.al_left == mainTextLabel.al_left,
-            leftSupplementLabel.al_bottom == informationContainerView.al_bottom - 10,
-            leftSupplementLabel.al_height == 15,
+            leftMetadataLabel.al_left == mainTextLabel.al_left,
+            leftMetadataLabel.al_bottom == metadataContentView.al_bottom - 10,
+            leftMetadataLabel.al_height == 15,
             
-            centerSupplementLabel.al_left == leftSupplementLabel.al_right + 15,
-            centerSupplementLabel.al_centerY == leftSupplementLabel.al_centerY,
+            centerMetadataLabel.al_left == leftMetadataLabel.al_right + 15,
+            centerMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
             
-            rightSupplementLabel.al_right == mainTextLabel.al_right,
-            rightSupplementLabel.al_centerY == leftSupplementLabel.al_centerY,
-            rightSupplementLabel.al_left == centerSupplementLabel.al_right + 5,
+            rightMetadataLabel.al_right == mainTextLabel.al_right,
+            rightMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
+            rightMetadataLabel.al_left == centerMetadataLabel.al_right + 5,
             
-            rightCornerImageView.al_top == informationContainerView.al_top + 10,
+            rightCornerImageView.al_top == metadataContentView.al_top + 10,
             rightCornerImageView.al_right == contentImageView.al_left - 15,
             rightCornerImageView.al_height == 20,
             rightCornerImageView.al_width == 20,
@@ -350,10 +370,10 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
             favoriteRibbon.al_right == al_right,
             favoriteRibbon.al_bottom == al_bottom,
             
-            overlayView.al_top == contentView.al_top,
-            overlayView.al_bottom == contentView.al_bottom,
-            overlayView.al_left == contentView.al_left,
-            overlayView.al_right == contentView.al_right
+            overlayView.al_top == metadataContentView.al_top,
+            overlayView.al_bottom == metadataContentView.al_bottom,
+            overlayView.al_left == metadataContentView.al_left,
+            overlayView.al_right == metadataContentView.al_right
         ])
     }
 }

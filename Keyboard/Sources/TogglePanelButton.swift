@@ -5,6 +5,7 @@
 //  Created by Luc Succes on 9/30/15.
 //  Copyright © 2015 Surf Inc. All rights reserved.
 //
+//  swiftlint:disable nesting
 
 import UIKit
 
@@ -14,6 +15,7 @@ class TogglePanelButton: UIButton {
     enum TogglePanelButtonMode {
         case ToggleKeyboard
         case ClosePanel
+        case SwitchKeyboard
     }
 
     var collapsed: Bool {
@@ -31,6 +33,8 @@ class TogglePanelButton: UIButton {
                 break
             case .ClosePanel:
                 setImage(StyleKit.imageOfClosebutton(frame: CGRectMake(0, 8, 50, 45), scale: 0.62), forState: .Normal)
+            case .SwitchKeyboard:
+                setImage(StyleKit.imageOfGlobebutton(frame: CGRectMake(0, 8, 50, 45), scale: 0.62), forState: .Normal)
             }
         }
     }

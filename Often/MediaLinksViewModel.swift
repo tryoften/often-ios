@@ -53,8 +53,8 @@ class MediaLinksViewModel {
         }
     }
     
-    init()  {
-        baseRef = Firebase(url: BaseURL)
+    init(ref: Firebase = Firebase(url: BaseURL)) {
+        baseRef = ref
         favorites = []
         userFavorites = []
         userRecents = []

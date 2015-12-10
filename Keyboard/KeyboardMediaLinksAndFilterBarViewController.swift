@@ -38,6 +38,8 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
         reloadCollectionView()
 
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
+        emptyStateView.imageViewTopPadding = 0
+        emptyStateView.updateEmptyStateContent(emptyStateView.userState)
     }
 
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {

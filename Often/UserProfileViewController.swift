@@ -11,7 +11,7 @@ import UIKit
 let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
 
 
-class UserProfileViewController: FavoritesAndRecentsBaseViewController,
+class UserProfileViewController: MediaLinksAndFilterBarViewController,
     UserProfileHeaderDelegate,
     SlideNavigationControllerDelegate {
     var headerView: UserProfileHeaderView?

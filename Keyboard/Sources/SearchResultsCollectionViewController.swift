@@ -129,8 +129,8 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     
     override func viewDidAppear(animated: Bool) {        
         let pbWrapped: UIPasteboard? = UIPasteboard.generalPasteboard()
-        if let pb = pbWrapped {
-            let fa = viewModel?.isFullAccessEnabled
+        if let _ = pbWrapped {
+            let _ = viewModel?.isFullAccessEnabled
             hideMessageBar()
         } else {
             showMessageBar()

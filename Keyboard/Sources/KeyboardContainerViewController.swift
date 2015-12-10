@@ -107,7 +107,7 @@ class KeyboardContainerViewController: BaseKeyboardContainerViewController, Text
         view.addSubview(slidePanelContainerView)
         view.addSubview(togglePanelButton)
         view.addSubview(keysContainerView)
-        
+
         inputView!.backgroundColor = DefaultTheme.keyboardBackgroundColor
     }
 
@@ -303,6 +303,8 @@ class KeyboardContainerViewController: BaseKeyboardContainerViewController, Text
             togglePanelButton.hidden = true
             favoritesAndRecentsViewController?.view.hidden = true
             togglePanelButton.mode = .ToggleKeyboard
+        case .SwitchKeyboard:
+            break
         }
     }
     
@@ -344,8 +346,7 @@ class KeyboardContainerViewController: BaseKeyboardContainerViewController, Text
             }
             
             return true
-        }
-        else {
+        } else {
             switch shiftState {
             case .Disabled:
                 shiftState = .Disabled

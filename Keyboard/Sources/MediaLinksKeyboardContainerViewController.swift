@@ -12,9 +12,10 @@ import Crashlytics
 
 class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewController, TextProcessingManagerDelegate {
     var mediaLink: MediaLink?
-    var viewModel: KeyboardViewModel?
+    var viewModel: MediaLinksViewModel?
     var textProcessor: TextProcessingManager?
     var mediaLinksViewController: KeyboardMediaLinksAndFilterBarViewController?
+    var trendingViewController: TrendingLyricsViewController?
     var togglePanelButton: TogglePanelButton
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
 
@@ -23,7 +24,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     override init(extraHeight: CGFloat, debug: Bool) {
         togglePanelButton = TogglePanelButton()
-        togglePanelButton.mode = .ToggleKeyboard
+        togglePanelButton.mode = .SwitchKeyboard
 
         super.init(extraHeight: extraHeight, debug: debug)
 
@@ -37,12 +38,16 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
             }
         }
 
-        mediaLinksViewController = KeyboardMediaLinksAndFilterBarViewController(collectionViewLayout: KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout(), viewModel: MediaLinksViewModel(), textProcessor: nil)
+        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
+        textProcessor!.delegate = self
+
+        viewModel = MediaLinksViewModel()
+        trendingViewController = TrendingLyricsViewController(viewModel: TrendingLyricsViewModel())
 
         view.backgroundColor = DefaultTheme.keyboardBackgroundColor
         mediaLinksView = mediaLinksViewController!.view
 
-        containerView.addSubview(mediaLinksView!)
+        containerView.addSubview(trendingViewController!.view)
         containerView.addSubview(togglePanelButton)
     }
 
@@ -61,7 +66,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvent, object: nil)
         center.addObserver(self, selector: "didTapOnMediaLink:", name: SearchResultsInsertLinkEvent, object: nil)
 
-//        togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
+        togglePanelButton.addTarget(self, action: "switchKeyboard", forControlEvents: .TouchUpInside)
     }
 
     override func viewDidLayoutSubviews() {
@@ -71,6 +76,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
 
         mediaLinksView!.frame = containerView.bounds
+        trendingViewController!.view.frame = containerView.bounds
 
         let height = CGRectGetHeight(view.frame) - 30
         var togglePanelButtonFrame = containerView.frame
@@ -82,13 +88,9 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
     func setupViewModels() {
         textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
         textProcessor?.delegate = self
-
-        viewModel = KeyboardViewModel()
-        viewModel?.userDefaults.setBool(true, forKey: UserDefaultsProperty.keyboardInstalled)
-        viewModel?.userDefaults.synchronize()
-
         mediaLinksViewController?.textProcessor = textProcessor
     }
+
 
     // MARK: TextProcessingManagerDelegate
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
@@ -108,9 +110,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
     }
 
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
-        if let mediaLink = mediaLink {
-            viewModel?.logTextSendEvent(mediaLink)
-        }
     }
 
 }

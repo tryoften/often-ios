@@ -120,11 +120,11 @@ let CategoryCollectionViewCellHighlightColors = [
 
 let ArtistCollectionViewCloseButtonBackgroundColor = UIColor(fromHexString: "#121314")
 
-let ArtistCollectionViewCellBackgroundColor = UIColor(fromHexString: "#121314")
-let ArtistCollectionViewCellTitleTextColor = UIColor.whiteColor()
-let ArtistCollectionViewCellSubtitleTextColor = CategoryCollectionViewCellSubtitleTextColor
-let ArtistCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 16)
-let ArtistCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 10)
+let ArtistCollectionViewCellBackgroundColor = UIColor.whiteColor()
+let ArtistCollectionViewCellTitleTextColor = UIColor(fromHexString: "#121314")
+let ArtistCollectionViewCellSubtitleTextColor = UIColor(fromHexString: "#202020")
+let ArtistCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 15)
+let ArtistCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 9)
 let ArtistCollectionViewCellWidth: CGFloat = 135
 let ArtistCollectionViewCellImageViewLeftMargin: CGFloat = 32
 
