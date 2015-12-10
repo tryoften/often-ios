@@ -7,6 +7,7 @@
 //
 //  swiftlint:disable line_length
 //  swiftlint:disable trailing_newline
+//  swiftlint:disable force_cast
 
 import UIKit
 
@@ -34,15 +35,24 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         placeholderImageView.image = UIImage(named: "placeholder")
         placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
 
+        var layer = CAShapeLayer()
+        layer.path = ArtistCollectionViewCell.drawImageMask().CGPath
+        layer.fillColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.frame = CGRectMake(0, 0, ArtistCollectionViewCellWidth, ArtistCollectionViewCellWidth)
+        placeholderImageView.layer.mask = layer
+
         imageView = UIImageView()
         imageView.backgroundColor = ArtistCollectionViewImageViewBackgroundColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
 
-        let layer = CAShapeLayer()
+        layer = CAShapeLayer()
         layer.path = ArtistCollectionViewCell.drawImageMask().CGPath
         layer.fillColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.frame = CGRectMake(0, 0, ArtistCollectionViewCellWidth, ArtistCollectionViewCellWidth)
         imageView.layer.mask = layer
 
         titleLabel = UILabel()
@@ -67,14 +77,13 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         addSubview(titleLabel)
         addSubview(subtitleLabel)
 
-        layer.cornerRadius = 3.0
-        layer.shadowColor = UIColor.blackColor().CGColor
-        layer.shadowOpacity = 0.19
-        layer.shadowOffset = CGSizeMake(0, 0.0)
-        layer.shadowRadius = 2
-        layer.masksToBounds = true
-        selected = false
+        self.layer.cornerRadius = 3.0
+        self.layer.shadowColor = UIColor.blackColor().CGColor
+        self.layer.shadowOpacity = 0.19
+        self.layer.shadowOffset = CGSizeMake(0, 0.0)
+        self.layer.shadowRadius = 2
 
+        selected = false
         setupLayout()
     }
 

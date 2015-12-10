@@ -312,14 +312,12 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
         if self.dynamicType.shouldPoolKeys {
             if let shape = self.shapePool[className] {
                 return shape
-            }
-            else {
+            } else {
                 let shape = shapeClass.init(frame: CGRectZero)
                 self.shapePool[className] = shape
                 return shape
             }
-        }
-        else {
+        } else {
             return shapeClass.init(frame: CGRectZero)
         }
     }

@@ -29,7 +29,7 @@ class MediaLinksViewModel {
     var mediaLinks: [MediaLink]
     private var filteredUserRecents: [UserRecentLink]
     private var filteredUserFavorites: [UserFavoriteLink]
-    var currentCollectionType: UserProfileCollectionType  {
+    var currentCollectionType: UserProfileCollectionType {
         didSet {
             filterMediaLinks()
         }

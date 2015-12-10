@@ -18,8 +18,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var trendingViewController: TrendingLyricsViewController?
     var togglePanelButton: TogglePanelButton
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
-
-    var mediaLinksView: UIView?
     var viewModelsLoaded: dispatch_once_t = 0
 
     override init(extraHeight: CGFloat, debug: Bool) {
@@ -45,7 +43,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         trendingViewController = TrendingLyricsViewController(viewModel: TrendingLyricsViewModel())
 
         view.backgroundColor = DefaultTheme.keyboardBackgroundColor
-        mediaLinksView = mediaLinksViewController!.view
 
         containerView.addSubview(trendingViewController!.view)
         containerView.addSubview(togglePanelButton)
@@ -75,7 +72,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
             return
         }
 
-        mediaLinksView!.frame = containerView.bounds
         trendingViewController!.view.frame = containerView.bounds
 
         let height = CGRectGetHeight(view.frame) - 30

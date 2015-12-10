@@ -18,7 +18,8 @@ class TrendingLyricsSectionHeaderView: UICollectionReusableView {
         didSet {
             let attributes: [String: AnyObject] = [
                 NSKernAttributeName: NSNumber(float: 1.5),
-                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10)!
+                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10)!,
+                NSForegroundColorAttributeName: BlackColor
             ]
             let attributedString = NSAttributedString(string: title!.uppercaseString, attributes: attributes)
             titleLabel.attributedText = attributedString
