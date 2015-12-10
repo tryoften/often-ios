@@ -38,14 +38,6 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
         emptyStateView.userInteractionEnabled = true
         
-        do {
-            try viewModel.requestData()
-        } catch UserProfileViewModelError.RequestDataFailed {
-            print("Failed to request data")
-        } catch let error {
-            print("Failed to request data \(error)")
-        }
-        
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
         
@@ -59,10 +51,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
     }
     
     
-    func userProfileViewModelDidLoginUser(userProfileViewModel: MediaLinksViewModel) {
-        collectionView?.reloadData()
-        
-    }
+    func userProfileViewModelDidLoginUser(userProfileViewModel: MediaLinksViewModel) {}
     
     func userProfileViewModelDidReceiveMediaLinks(userProfileViewModel: MediaLinksViewModel, links: [MediaLink]) {
         reloadCollectionView()
