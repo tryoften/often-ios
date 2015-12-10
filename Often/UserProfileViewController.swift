@@ -86,29 +86,25 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController,
                 withReuseIdentifier: UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileHeaderView else {
                 return UICollectionReusableView()
             }
-            
-            if let user = viewModel.currentUser {
-                cell.descriptionText = user.userDescription
-                cell.nameLabel.text = user.name
-                if let imageURL = NSURL(string: user.profileImageLarge) {
-                    cell.profileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
-                        cell.profileImageView.image = image
-                        }, failure: { (req, res, error) in
-                            print("Failed to load image: \(imageURL)")
-                    })
-                }
-            }
-            
+
             if headerView == nil {
                 headerView = cell
                 headerView?.delegate = self
                 headerView?.tabContainerView.delegate = self
+
+                do {
+                    try viewModel.requestData()
+                } catch UserProfileViewModelError.RequestDataFailed {
+                    print("Failed to request data")
+                } catch let error {
+                    print("Failed to request data \(error)")
+                }
             }
-            
+
             return headerView!
         }
         
-        if (kind == UICollectionElementKindSectionHeader) {
+        if kind == UICollectionElementKindSectionHeader {
             // Create Header
             if let sectionView : UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileSectionHeaderView {
@@ -229,7 +225,24 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController,
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
-    
+
+    override func userProfileViewModelDidLoginUser(userProfileViewModel: MediaLinksViewModel) {
+        if  let headerView = headerView {
+            if let user = viewModel.currentUser {
+                headerView.descriptionText = user.userDescription
+                headerView.nameLabel.text = user.name
+                if let imageURL = NSURL(string: user.profileImageLarge) {
+                    headerView.profileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
+                        headerView.profileImageView.image = image
+                        }, failure: { (req, res, error) in
+                            print("Failed to load image: \(imageURL)")
+                    })
+                }
+            }
+
+        }
+    }
+
     // Empty States button actions
     func didTapSettingsButton() {
         var appSettingsString = UIApplicationOpenSettingsURLString

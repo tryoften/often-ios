@@ -53,7 +53,7 @@ class SoundcloudAccountManager: AccountManager {
         soundcloudAccount?.activeStatus = true
         
         if let soundcloudAccount = self.soundcloudAccount {
-            self.delegate?.addedNewSocialAccount(self, account: soundcloudAccount)
+            self.delegate?.accountManagerDidAddSocialAccount(self, account: soundcloudAccount)
         }
         getSoundcloudUserInfo(session)
         getSoundcloudUserActivities(session)

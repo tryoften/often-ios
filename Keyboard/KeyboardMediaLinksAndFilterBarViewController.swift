@@ -29,6 +29,14 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
         
         favoritesAndRecentsTabView.delegate = self
         emptyStateView.userInteractionEnabled = true
+
+        do {
+            try viewModel.requestData()
+        } catch UserProfileViewModelError.RequestDataFailed {
+            print("Failed to request data")
+        } catch let error {
+            print("Failed to request data \(error)")
+        }
         
         view.backgroundColor = VeryLightGray
         view.addSubview(favoritesAndRecentsTabView)

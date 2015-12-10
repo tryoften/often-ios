@@ -37,7 +37,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
         emptyStateView.userInteractionEnabled = true
-        
+
         do {
             try viewModel.requestData()
         } catch UserProfileViewModelError.RequestDataFailed {
@@ -59,10 +59,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     }
     
     
-    func userProfileViewModelDidLoginUser(userProfileViewModel: MediaLinksViewModel) {
-        collectionView?.reloadData()
-        
-    }
+    func userProfileViewModelDidLoginUser(userProfileViewModel: MediaLinksViewModel) {}
     
     func userProfileViewModelDidReceiveMediaLinks(userProfileViewModel: MediaLinksViewModel, links: [MediaLink]) {
         reloadCollectionView()
