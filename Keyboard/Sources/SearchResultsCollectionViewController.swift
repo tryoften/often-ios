@@ -45,21 +45,10 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     var emptyStateView: EmptySetView
     var messageBarView: MessageBarView
     var messageBarVisibleConstraint: NSLayoutConstraint?
-    var userDefaults: NSUserDefaults
     var isFullAccessEnabled: Bool
-    var hasSeenTooltip: Bool {
-        get {
-            return userDefaults.boolForKey(SearchBarTooltipsDisplayedKey)
-        }
-        set(value) {
-            userDefaults.setBool(value, forKey: SearchBarTooltipsDisplayedKey)
-        }
-    }
+
     
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        userDefaults.synchronize()
-        
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.contentMode = .Center
@@ -95,7 +84,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         view.addSubview(messageBarView)
         view.addSubview(emptyStateView)
         
-        if hasSeenTooltip == false {
+        if SessionManagerFlags.defaultManagerFlags.hasSeenKeyboardSearchBarToolTips == false {
             searchBarToolTip = InKeyboardToolTip()
             searchBarToolTip!.translatesAutoresizingMaskIntoConstraints = false
             searchBarToolTip?.closeButtonDelegate = self
@@ -278,7 +267,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
             refreshResultsButtonTopConstraint
         ])
         
-        if hasSeenTooltip == false {
+        if SessionManagerFlags.defaultManagerFlags.hasSeenKeyboardSearchBarToolTips == false {
             view.addConstraints([
                 searchBarToolTip!.al_top == view.al_top - 30,
                 searchBarToolTip!.al_left == view.al_left,
@@ -329,7 +318,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     
     // MARK: ToolTipCloseButtonDelegate
     func toolTipCloseButtonDidTap() {
-        hasSeenTooltip = true
+        SessionManagerFlags.defaultManagerFlags.hasSeenKeyboardSearchBarToolTips = true
         
         UIView.animateWithDuration(0.4, animations: {
             self.searchBarToolTip?.alpha = 0.0

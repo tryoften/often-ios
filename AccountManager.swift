@@ -8,15 +8,22 @@
 
 import Foundation
 class AccountManager: NSObject {
+    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     var firebase: Firebase
-    var userDefaults: NSUserDefaults
+    var userRef: Firebase?
+    weak var delegate: AccountManagerDelegate?
     var isInternetReachable: Bool
+    var newUser: User?
 
+    enum ResultType {
+        case Success(r: Bool)
+        case Error(e: ErrorType)
+        case SystemError(e: NSError)
+    }
     
     init(firebase: Firebase) {
         self.firebase = firebase
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
-        
+       
         let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
         isInternetReachable = reachabilitymanager.reachable
         
@@ -25,14 +32,16 @@ class AccountManager: NSObject {
         reachabilitymanager.setReachabilityStatusChangeBlock { status in
             self.isInternetReachable = reachabilitymanager.reachable
         }
+        
         reachabilitymanager.startMonitoring()
     }
-    
-    enum ResultType {
-        case Success(r: Bool)
-        case Error(e: ErrorType)
-        case SystemError(e: NSError)
-    }
-    
-    
+
+    func openSession(completion: (results: ResultType) -> Void) {}
+    func login(userData: User?, completion: (results: ResultType) -> Void) {}
+    func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {}
+}
+
+protocol AccountManagerDelegate: class {
+    func accountManagerUserDidLogin(accountManager: AccountManager, user: User)
+    func accountManagerDidAddSocialAccount(accountManager: AccountManager, account: SocialAccount)
 }

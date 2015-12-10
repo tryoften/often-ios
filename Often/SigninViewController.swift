@@ -11,7 +11,6 @@ import Foundation
 class SigninViewController: UIViewController, UITextFieldDelegate {
     var viewModel: SignupViewModel
     var signinView: SigninView
-    var timeOutTimer: NSTimer?
 
     
     init (viewModel: SignupViewModel) {
@@ -48,11 +47,8 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
-        timeOutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "signInTimeOut", userInfo: nil, repeats: true)
-        
         do {
             try viewModel.signInUser(signinView.emailTextField.text!, password: signinView.passwordTextField.text!) { results in
-                self.timeOutTimer?.invalidate()
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
@@ -71,10 +67,8 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
-        timeOutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "signInTimeOut", userInfo: nil, repeats: true)
         do {
-            try viewModel.sessionManager.login(.Twitter, completion: { results  -> Void in
-                self.timeOutTimer?.invalidate()
+            try viewModel.sessionManager.login(.Twitter, userData: nil,  completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
@@ -105,7 +99,6 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signInTimeOut() {
-        self.timeOutTimer?.invalidate()
         PKHUD.sharedHUD.hide(animated: true)
         showErrorView(SignupError.TimeOut)
     }
@@ -126,8 +119,8 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
     }
     
     func createProfileViewController() {
-        viewModel.sessionManager.userDefaults.setValue(false, forKey: UserDefaultsProperty.anonymousUser)
-        viewModel.sessionManager.userDefaults.synchronize()
+        viewModel.sessionManager.sessionManagerFlags.userIsAnonymous = false
+        
         presentViewController(RootViewController(), animated: true, completion: nil)
     }
     

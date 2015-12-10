@@ -9,7 +9,7 @@
 
 import Foundation
 
-class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAccountManagerDelegate, SoundcloudAccountManagerDelegate {
+class SocialAccountSettingsViewModel: NSObject, SessionManagerObserver, AccountManagerDelegate {
     weak var delegate: SocialAccountSettingsViewModelDelegate?
     var sessionManager: SessionManager
     var socialAccounts: [SocialAccount]
@@ -32,7 +32,7 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
     deinit {
         sessionManager.removeSessionObserver(self)
     }
-    
+
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
         
     }
@@ -52,16 +52,13 @@ class SocialAccountSettingsViewModel:NSObject, SessionManagerObserver, SpotifyAc
             delegate?.socialAccountSettingsViewModelDidLoadSocialAccountList(self, socialAccount: self.socialAccounts)
         }
     }
-    
-    func spotifyAccountManagerDidPullToken(userProfileViewModel: SpotifyAccountManager, account: SocialAccount) {
-        delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
-      
-    }
-    
-    func soundcloudAccountManagerDidPullToken(userProfileViewModel: SoundcloudAccountManager, account: SocialAccount) {
-        delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
+
+    func accountManagerUserDidLogin(accountManager: AccountManager, user: User) {
     }
 
+    func accountManagerDidAddSocialAccount(accountManager: AccountManager, account: SocialAccount) {
+        delegate?.socialAccountSettingsViewModelDidLoadSocialAccount(self, socialAccount: account)
+    }
 }
 
 protocol SocialAccountSettingsViewModelDelegate: class {

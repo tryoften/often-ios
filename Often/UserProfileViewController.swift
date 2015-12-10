@@ -188,16 +188,13 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController,
     }
     
     func isKeyboardEnabled() {
-        if let keyboards = NSUserDefaults.standardUserDefaults().dictionaryRepresentation()["AppleKeyboards"] as? [String] {
-            if !keyboards.contains("com.tryoften.often.Keyboard") {
-                collectionView?.scrollEnabled = false
-                emptyStateView.updateEmptyStateContent(.NoKeyboard)
-                emptyStateView.hidden = false
-            } else {
-                emptyStateView.updateEmptyStateContent(.NonEmpty)
-            }
+        if viewModel.sessionManagerFlags.isKeyboardInstalled {
+            emptyStateView.updateEmptyStateContent(.NonEmpty)
+        } else {
+            collectionView?.scrollEnabled = false
+            emptyStateView.updateEmptyStateContent(.NoKeyboard)
+            emptyStateView.hidden = false
         }
-        
     }
     
     func isTwitterEnabled() {

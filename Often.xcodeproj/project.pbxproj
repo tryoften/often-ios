@@ -100,6 +100,8 @@
 		3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4E1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */; };
 		3BF60C4F1B83EDC900DD6E31 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */; };
+		3BFAB2A31C0CC8CA003DE25A /* SessionManagerFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */; };
+		3BFAB2A41C0CEEE7003DE25A /* SessionManagerFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */; };
 		690003A61BD5954600C0DA9E /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */; };
 		690AE8AE1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */; };
 		690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */; };
@@ -464,6 +466,7 @@
 		3BF60C461B83B3F100DD6E31 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		3BF60C4C1B83EDC900DD6E31 /* TwitterAuthHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAuthHelper.h; sourceTree = "<group>"; };
 		3BF60C4D1B83EDC900DD6E31 /* TwitterAuthHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAuthHelper.m; sourceTree = "<group>"; };
+		3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManagerFlags.swift; sourceTree = "<group>"; };
 		45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.release.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.release.xcconfig"; sourceTree = "<group>"; };
 		690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
 		690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsCollectionViewController.swift; sourceTree = "<group>"; };
@@ -916,6 +919,7 @@
 			children = (
 				81BD90531BD58EBA002F7D32 /* Account Managers */,
 				81153CB01BBB267000A91EAD /* SessionManager.swift */,
+				3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */,
 			);
 			name = Managers;
 			sourceTree = SOURCE_ROOT;
@@ -1280,6 +1284,7 @@
 				30E00C701BC8523500DDF24C /* Embed Frameworks */,
 				81F833241C0F70A7001B8662 /* Run SwiftLint */,
 				81B2EE761BF49FDA00C9B15B /* Copy Frameworks (Carthage) */,
+				E7505F798119BDC8CE159AE6 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1573,6 +1578,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
+
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 		81F833281C0F70E8001B8662 /* Run SwiftLint */ = {
@@ -1602,6 +1608,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E7505F798119BDC8CE159AE6 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1724,6 +1745,7 @@
 				3BD971BE1B98ABF4007EAB5A /* TwitterAccountManager.swift in Sources */,
 				69BFB5091BC16F60001CC24D /* ToolTipViewController.swift in Sources */,
 				81E26D8B1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
+				3BFAB2A31C0CC8CA003DE25A /* SessionManagerFlags.swift in Sources */,
 				810C40651A21125C00170DB4 /* Constants.swift in Sources */,
 				81D60AD01B84BF3200347BCA /* SearchResponse.swift in Sources */,
 				81E881751BE7DDD600523ECC /* StreamReader.swift in Sources */,
@@ -1785,6 +1807,7 @@
 				810C4AF81B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
 				3BE12EF31BEF020800F300FA /* MediaLinksAndFilterBarViewController.swift in Sources */,
 				3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */,
+				3BFAB2A41C0CEEE7003DE25A /* SessionManagerFlags.swift in Sources */,
 				3BA8945E1BB35E170000D5C0 /* SocialAccount.swift in Sources */,
 				816589041B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
 				811FA2951BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */,
