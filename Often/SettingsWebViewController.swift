@@ -73,12 +73,7 @@ class SettingsWebViewController: UIViewController {
     }
     
     func closeTapped() {
-        if RootViewController.sharedInstance() == nil {
             dismissViewControllerAnimated(true, completion: nil)
-        } else {
-            RootViewController.sharedInstance().popViewControllerAnimated(true)
-        }
-       
     }
     
     func setupLayout() {
