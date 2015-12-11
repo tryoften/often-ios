@@ -14,9 +14,7 @@ class AppSettingsViewController: UIViewController,
     UITableViewDelegate,
     MFMailComposeViewControllerDelegate,
     UIActionSheetDelegate,
-    SlideNavigationControllerDelegate,
     TableViewCellDelegate {
-    
     var tableView: UITableView
     var viewModel: SettingsViewModel
     
@@ -93,7 +91,7 @@ class AppSettingsViewController: UIViewController,
             return nil
         }
         
-        switch(enumVal) {
+        switch enumVal {
         case .Account:
             return "Account"
         case .Actions:
@@ -111,7 +109,7 @@ class AppSettingsViewController: UIViewController,
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let settingsSection = ProfileSettingsSection(rawValue: section) {
-            switch(settingsSection) {
+            switch settingsSection {
             case .Account:
                 return accountSettings.count
             case .Actions:
@@ -143,35 +141,30 @@ class AppSettingsViewController: UIViewController,
                 } else { // push notifications
                     
                 }
-                break
             case .Actions:
                 if indexPath.row == 0 { // How to Install
                     let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
                     let walkthroughViewController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
                     walkthroughViewController.inAppDisplay = true
-                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(walkthroughViewController, withSlideOutAnimation: true, andCompletion: {
-                    })
                 } else if indexPath.row == 1 { // Rate in App Store
                     
                 } else { // Support
                     launchEmail(self)
                 }
-                break
             case .About:
+                var vc: SettingsWebViewController?
                 if indexPath.row == 0 { // FAQ
-                    let vc = SettingsWebViewController(title:"faq", website: "http://www.tryoften.com/faq.html")
-                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
-                    })
+                    vc = SettingsWebViewController(title:"faq", website: "http://www.tryoften.com/faq.html")
                 } else if indexPath.row == 1 {
-                    let vc = SettingsWebViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html")
-                    RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
-                    })
-                } 
-                break
+                    vc = SettingsWebViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html")
+                }
+
+                if let vc = vc {
+                    presentViewController(vc, animated: true, completion: nil)
+                }
             case .Logout:
                 let actionSheet = UIActionSheet(title: "Are you sure you want to logout?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Logout")
                 actionSheet.showInView(view)
-                break
             }
         }
         
@@ -200,7 +193,7 @@ class AppSettingsViewController: UIViewController,
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if let settingsSection = ProfileSettingsSection(rawValue: section) {
-            switch(settingsSection) {
+            switch settingsSection {
             case .About:
                 return 50
             default:
@@ -249,8 +242,6 @@ class AppSettingsViewController: UIViewController,
                 let cell = UserProfileSettingsTableViewCell(type: .Logout)
                 cell.titleLabel.text = logoutSettings[indexPath.row]
                 return cell
-            default:
-                break
             }
         }
         let cell = UITableViewCell()
@@ -270,13 +261,11 @@ class AppSettingsViewController: UIViewController,
         mc.setToRecipients(toRecipents)
         
         mc.modalTransitionStyle = .CoverVertical
-        RootViewController.sharedInstance().closeMenuWithCompletion {
-            RootViewController.sharedInstance().topViewController?.presentViewController(mc, animated: true, completion: nil)
-        }
+        presentViewController(mc, animated: true, completion: nil)
     }
     
     
-    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         switch result.rawValue {
         case MFMailComposeResultCancelled.rawValue:
             print("Mail cancelled")
@@ -301,9 +290,7 @@ class AppSettingsViewController: UIViewController,
             let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
             let vc = SignupViewController(viewModel: signupViewModel)
             vc.signupView.splashScreen.hidden = true
-            RootViewController.sharedInstance().popToRootAndSwitchToViewController(vc, withSlideOutAnimation: true, andCompletion: {
-            })
-            break
+            presentViewController(vc, animated: true, completion: nil)
         default:
             break
         }
@@ -316,7 +303,7 @@ class AppSettingsViewController: UIViewController,
     
     func setupLayout() {
         view.addConstraints([
-            tableView.al_left == view.al_left + 60,
+            tableView.al_left == view.al_left,
             tableView.al_top == view.al_top,
             tableView.al_right == view.al_right,
             tableView.al_bottom == view.al_bottom

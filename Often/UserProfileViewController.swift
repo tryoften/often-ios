@@ -11,9 +11,7 @@ import UIKit
 let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
 
 
-class UserProfileViewController: FavoritesAndRecentsBaseViewController,
-    UserProfileHeaderDelegate,
-    SlideNavigationControllerDelegate {
+class UserProfileViewController: FavoritesAndRecentsBaseViewController {
     var headerView: UserProfileHeaderView?
     
      override init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel) {
@@ -39,7 +37,7 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let layout = CSStickyHeaderFlowLayout()
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 215)
+        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 175)
         layout.parallaxHeaderReferenceSize = UserProfileHeaderView.preferredSize
         layout.parallaxHeaderAlwaysOnTop = true
         layout.disableStickyHeaders = false
@@ -89,7 +87,6 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
 
             if headerView == nil {
                 headerView = cell
-                headerView?.delegate = self
                 headerView?.tabContainerView.delegate = self
 
                 do {
@@ -109,6 +106,12 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
             if let sectionView : UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileSectionHeaderView {
                 sectionView.trendingLabel.attributedText = sectionHeaderTitle()
+                sectionView.layer.shadowOffset = CGSizeMake(0, 0)
+                sectionView.layer.shadowOpacity = 0.9
+                sectionView.layer.shadowColor = DarkGrey.CGColor
+                sectionView.layer.shadowRadius = 1
+
+
                 return sectionView
             }
         }
@@ -138,11 +141,6 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
 
     func setupLayout() {
         view.addConstraints([
-            contentFilterTabView.al_bottom == view.al_bottom,
-            contentFilterTabView.al_left == view.al_left,
-            contentFilterTabView.al_right == view.al_right,
-            contentFilterTabView.al_height == 40,
-            
             emptyStateView.al_left == view.al_left,
             emptyStateView.al_right == view.al_right,
             emptyStateView.al_top == view.al_top + UserProfileHeaderView.preferredSize.height,
@@ -155,26 +153,7 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
         super.userProfileViewModelDidReceiveMediaLinks(userProfileViewModel, links: links)
         PKHUD.sharedHUD.hide(animated: true)
     }
-    
-    
-    
-    func slideNavigationControllerShouldDisplayLeftMenu() -> Bool {
-        return true
-    }
-    
-    func slideNavigationControllerShouldDisplayRightMenu() -> Bool {
-        return true
-    }
-    
-    // MARK: UserProfileHeaderDelegate
-    func revealSetServicesViewDidTap() {
-        SlideNavigationController.sharedInstance().openMenu(MenuLeft, withCompletion: nil)
-    }
-    
-    func revealSettingsViewDidTap() {
-        SlideNavigationController.sharedInstance().openMenu(MenuRight, withCompletion: nil)
-    }
-    
+
     //MARK: Check for empty state
     func checkUserEmptyStateStatus() {
         collectionView?.scrollEnabled = false
@@ -263,7 +242,7 @@ class UserProfileViewController: FavoritesAndRecentsBaseViewController,
     }
     
     func didTapTwitterButton() {
-        revealSetServicesViewDidTap()
+        print("did tap")
         
     }
     
