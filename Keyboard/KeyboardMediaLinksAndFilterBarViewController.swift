@@ -1,5 +1,5 @@
 //
-//  KeyboardFavoriteAndRecentViewController.swift
+//  KeyboardMediaLinksAndFilterBarViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 11/6/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewController {
+class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewController {
     var favoritesAndRecentsTabView: FavoritesAndRecentsTabView
     var searchResultsContainerView: UIView?
     var textProcessor: TextProcessingManager?
@@ -40,6 +40,8 @@ class KeyboardFavoritesAndRecentsViewController: FavoritesAndRecentsBaseViewCont
         reloadCollectionView()
 
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
+        emptyStateView.imageViewTopPadding = 0
+        emptyStateView.updateEmptyStateContent(emptyStateView.userState)
     }
 
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {

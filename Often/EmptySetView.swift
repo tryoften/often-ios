@@ -27,6 +27,7 @@ class EmptySetView: UIView {
     var imageViewTopConstraint: NSLayoutConstraint?
     var imageViewHeightConstraint: NSLayoutConstraint?
     var imageViewWidthConstraint: NSLayoutConstraint?
+    var imageViewTopPadding: CGFloat = 30
     var userState: UserState 
     
     override init(frame: CGRect) {
@@ -99,7 +100,7 @@ class EmptySetView: UIView {
         case .NoTwitter:
             imageViewWidthConstraint?.constant = 70
             imageViewHeightConstraint?.constant = 70
-            imageViewTopConstraint?.constant = 50
+            imageViewTopConstraint?.constant = imageViewTopPadding + 20
             imageView.image = UIImage(named: "twitteremptystate")
             imageView.contentMode = .ScaleAspectFit
             titleLabel.text = "Connect with Twitter"
@@ -110,7 +111,7 @@ class EmptySetView: UIView {
         case .NoKeyboard:
             imageViewWidthConstraint?.constant = 70
             imageViewHeightConstraint?.constant = 70
-            imageViewTopConstraint?.constant = 50
+            imageViewTopConstraint?.constant = imageViewTopPadding + 35
             imageView.image = UIImage(named: "installoftenemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "Install Often"
@@ -120,7 +121,7 @@ class EmptySetView: UIView {
         case .NoFavorites:
             imageViewWidthConstraint?.constant = 100
             imageViewHeightConstraint?.constant = 100
-            imageViewTopConstraint?.constant = 65
+            imageViewTopConstraint?.constant = imageViewTopPadding + 35
             imageView.image = UIImage(named: "favoritesemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No favorites yet!"
@@ -131,7 +132,7 @@ class EmptySetView: UIView {
         case .NoRecents:
             imageViewWidthConstraint?.constant = 100
             imageViewHeightConstraint?.constant = 100
-            imageViewTopConstraint?.constant = 65
+            imageViewTopConstraint?.constant = imageViewTopPadding + 35
             imageView.image = UIImage(named: "recentsemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No recents yet!"
@@ -142,7 +143,7 @@ class EmptySetView: UIView {
         case .NoResults:
             imageViewWidthConstraint?.constant = 120
             imageViewHeightConstraint?.constant = 120
-            imageViewTopConstraint?.constant = 50
+            imageViewTopConstraint?.constant = imageViewTopPadding + 35
             imageView.image = UIImage(named: "noresultsemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "Oh snap! Our bad"

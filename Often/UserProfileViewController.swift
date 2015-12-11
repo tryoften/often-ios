@@ -8,10 +8,7 @@
 
 import UIKit
 
-let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
-
-
-class UserProfileViewController: FavoritesAndRecentsBaseViewController {
+class UserProfileViewController: MediaLinksAndFilterBarViewController {
     var headerView: UserProfileHeaderView?
     
      override init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel) {

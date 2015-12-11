@@ -20,7 +20,7 @@ let CollapseKeyboardEvent = "collapseKeyboard"
 let RestoreKeyboardEvent = "restoreKeyboard"
 let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
 
-class KeyboardViewController: UIInputViewController, TextProcessingManagerDelegate, ToolTipCloseButtonDelegate {
+class KeyboardContainerViewController: BaseKeyboardContainerViewController, TextProcessingManagerDelegate, ToolTipCloseButtonDelegate {
     var viewModel: KeyboardViewModel?
     let locale: Language = .English
     var textProcessor: TextProcessingManager?
@@ -29,7 +29,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var slidePanelContainerView: UIView
     var searchBar: SearchBarController
     var layout: KeyboardLayout
-    var constraintsAdded: Bool = false
     var currentPage: Int = 0
     var layoutEngine: KeyboardLayoutEngine?
     var keyWithDelayedPopup: KeyboardKeyButton?
@@ -38,14 +37,13 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     let backspaceRepeat: NSTimeInterval = 0.07
     var backspaceStartTime: CFAbsoluteTime!
     var firstWordQuickDeleted: Bool = false
-    var lastLayoutBounds: CGRect?
     var mediaLink: MediaLink?
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var kludge: UIView?
     static var debugKeyboard = false
     var autoPeriodState: AutoPeriodState = .NoSpace
     var toolTipViewController: ToolTipViewController?
-    var favoritesAndRecentsViewController: KeyboardFavoritesAndRecentsViewController?
+    var favoritesAndRecentsViewController: KeyboardMediaLinksAndFilterBarViewController?
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
     }
@@ -57,19 +55,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     var shiftState: ShiftState {
         didSet {
             updateKeyboardLetterCases()
-        }
-    }
-    var heightConstraint: NSLayoutConstraint?
-    var keyboardHeight: CGFloat {
-        get {
-            if let constraint = heightConstraint {
-                return constraint.constant
-            } else {
-                return 0
-            }
-        }
-        set {
-            setHeight(newValue)
         }
     }
     var allKeys: [KeyboardKeyButton] {
@@ -92,10 +77,9 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         case FirstSpace
     }
     
-    static var oncePredicate: dispatch_once_t = 0
     var viewModelsLoaded: dispatch_once_t = 0
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(extraHeight: CGFloat, debug: Bool = false) {
         searchBar = SearchBarController(nibName: nil, bundle: nil)
         searchBarHeight = KeyboardSearchBarHeight
         
@@ -117,19 +101,14 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         slidePanelContainerView = UIView()
         slidePanelContainerView.accessibilityIdentifier = "Slide Panel"
         
-        super.init(nibName: nil, bundle: nil)
+        super.init(extraHeight: extraHeight, debug: debug)
         
         view.addSubview(searchBar.view)
         view.addSubview(slidePanelContainerView)
         view.addSubview(togglePanelButton)
         view.addSubview(keysContainerView)
-        
+
         inputView!.backgroundColor = DefaultTheme.keyboardBackgroundColor
-    }
-    
-    convenience init(debug: Bool = false) {
-        KeyboardViewController.debugKeyboard = debug
-        self.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -160,18 +139,17 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         center.addObserver(self, selector: "didTapOnMediaLink:", name: SearchResultsInsertLinkEvent, object: nil)
         
         togglePanelButton.addTarget(self, action: "toggleKeyboard", forControlEvents: .TouchUpInside)
-
     }
     
     override func viewDidAppear(animated: Bool) {
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
-        dispatch_once(&KeyboardViewController.oncePredicate) {
-            if (!KeyboardViewController.debugKeyboard) {
+        dispatch_once(&BaseKeyboardContainerViewController.oncePredicate) {
+            if (!self.debugKeyboard) {
                 Fabric.with([Crashlytics()])
                 Flurry.startSession(FlurryClientKey)
+                Firebase.defaultConfig().persistenceEnabled = true
             }
-            Firebase.defaultConfig().persistenceEnabled = true
         }
         
         dispatch_once(&viewModelsLoaded) {
@@ -219,7 +197,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         }
         
         setupLayout()
-        
+
         let orientationSavvyBounds = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: false))
         if !(lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
             let uppercase = shiftState.uppercase()
@@ -249,57 +227,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         searchBar.view.hidden = false
-        keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: true)
-    }
-    
-    func setHeight(height: CGFloat) {
-        view.layer.rasterizationScale = UIScreen.mainScreen().scale
-        view.layer.shouldRasterize = true
-        
-        if heightConstraint == nil {
-            heightConstraint = NSLayoutConstraint(
-                item:view,
-                attribute:NSLayoutAttribute.Height,
-                relatedBy:NSLayoutRelation.Equal,
-                toItem:nil,
-                attribute:NSLayoutAttribute.NotAnAttribute,
-                multiplier:0,
-                constant:height)
-            heightConstraint!.priority = 1000
-            view.addConstraint(heightConstraint!) // TODO: what if view already has constraint added?
-        }
-        else {
-            heightConstraint?.constant = height
-        }
-        
-        if (KeyboardViewController.debugKeyboard) {
-            if let window = view.window {
-                var frame = window.frame
-                frame.origin.y = UIScreen.mainScreen().bounds.size.height - height
-                frame.size.height = height
-                window.frame = frame
-            }
-        }
-        
-        view.layer.shouldRasterize = false
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated
-    }
-    
-    func heightForOrientation(orientation: UIInterfaceOrientation, withTopBanner: Bool) -> CGFloat {
-        let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
-        
-        //TODO: hardcoded stuff
-        let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
-        let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
-        let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
-        let topBannerHeight: CGFloat = withTopBanner ? searchBarHeight : 0.0
-        
-        return CGFloat(orientation.isPortrait ? canonicalPortraitHeight : canonicalLandscapeHeight) + topBannerHeight
     }
     
     func resizeKeyboard(notification: NSNotification) {
@@ -316,7 +245,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
         keysContainerView.layer.rasterizationScale = UIScreen.mainScreen().scale
         
         searchBarHeight = height + KeyboardSearchBarHeight
-        keyboardHeight = keysContainerViewHeight + searchBarHeight
+        keyboardHeight = keysContainerViewHeight + 100
         
         self.searchBar.view.frame = CGRectMake(0, 0, self.view.bounds.width, self.searchBarHeight)
         self.view.layoutIfNeeded()
@@ -373,6 +302,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             togglePanelButton.hidden = true
             favoritesAndRecentsViewController?.view.hidden = true
             togglePanelButton.mode = .ToggleKeyboard
+        case .SwitchKeyboard:
+            break
         }
     }
     
@@ -386,12 +317,8 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     }
     
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        keyboardHeight = heightForOrientation(toInterfaceOrientation, withTopBanner: true)
+        super.willRotateToInterfaceOrientation(toInterfaceOrientation, duration: duration)
         searchBar.searchBar.textInput.updateButtonPositions()
-    }
-    
-    func switchKeyboard() {
-        advanceToNextInputMode()
     }
     
     func setupLayout() {
@@ -418,8 +345,7 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
             }
             
             return true
-        }
-        else {
+        } else {
             switch shiftState {
             case .Disabled:
                 shiftState = .Disabled
@@ -447,24 +373,6 @@ class KeyboardViewController: UIInputViewController, TextProcessingManagerDelega
     
     override func selectionDidChange(textInput: UITextInput?) {
         textProcessor?.selectionDidChange(textInput)
-    }
-    
-    func setupKludge() {
-        if kludge == nil {
-            let kludge = UIView()
-            view.addSubview(kludge)
-            kludge.translatesAutoresizingMaskIntoConstraints = false
-            kludge.hidden = true
-            
-            view.addConstraints([
-                kludge.al_left == view.al_left,
-                kludge.al_right == view.al_left,
-                kludge.al_top == view.al_top,
-                kludge.al_bottom == view.al_bottom
-            ])
-            
-            self.kludge = kludge
-        }
     }
 
     func setupKeys() {

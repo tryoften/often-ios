@@ -344,7 +344,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawFavorite(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) {
+    public class func drawFavorite(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true, favorited: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -507,7 +507,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawTrash(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawTrash(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -587,7 +587,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawClipboard(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawClipboard(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -657,7 +657,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawCheckmark(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawCheckmark(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -717,7 +717,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawCancel(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawCancel(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -787,7 +787,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawInsert(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawInsert(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -982,7 +982,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawUndo(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawUndo(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -1195,6 +1195,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
+
     public class func drawSettings(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
@@ -1245,6 +1246,7 @@ public class StyleKit : NSObject {
 
         CGContextRestoreGState(context)
     }
+
 
     public class func drawTrending(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
@@ -1563,7 +1565,7 @@ public class StyleKit : NSObject {
         return imageOfButtonclose
     }
 
-    public class func imageOfFavorite(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) -> UIImage {
+    public class func imageOfFavorite(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true, favorited: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)
             StyleKit.drawFavorite(color: color, scale: scale, selected: selected, favorited: favorited)
 
@@ -1593,7 +1595,7 @@ public class StyleKit : NSObject {
         return imageOfRefresharrow
     }
 
-    public class func imageOfTrash(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfTrash(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)
             StyleKit.drawTrash(color: color, scale: scale, selected: selected)
 
@@ -1603,7 +1605,7 @@ public class StyleKit : NSObject {
         return imageOfTrash
     }
 
-    public class func imageOfClipboard(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfClipboard(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)
             StyleKit.drawClipboard(color: color, scale: scale, selected: selected)
 
@@ -1613,7 +1615,7 @@ public class StyleKit : NSObject {
         return imageOfClipboard
     }
 
-    public class func imageOfCheckmark(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfCheckmark(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)
             StyleKit.drawCheckmark(color: color, scale: scale, selected: selected)
 
@@ -1623,7 +1625,7 @@ public class StyleKit : NSObject {
         return imageOfCheckmark
     }
 
-    public class func imageOfCancel(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfCancel(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)
             StyleKit.drawCancel(color: color, scale: scale, selected: selected)
 
@@ -1633,7 +1635,7 @@ public class StyleKit : NSObject {
         return imageOfCancel
     }
 
-    public class func imageOfInsert(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfInsert(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)
             StyleKit.drawInsert(color: color, scale: scale, selected: selected)
 
@@ -1653,7 +1655,7 @@ public class StyleKit : NSObject {
         return imageOfKeyboard
     }
 
-    public class func imageOfUndo(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfUndo(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)
             StyleKit.drawUndo(color: color, scale: scale, selected: selected)
 
@@ -1692,6 +1694,7 @@ public class StyleKit : NSObject {
 
         return imageOfSharebutton
     }
+
 
     public class func imageOfSettings(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)

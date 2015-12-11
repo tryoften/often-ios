@@ -12,7 +12,7 @@ import AudioToolbox
 let KeyboardEnterKeyTappedEvent = "keyboard.enterKey"
 let KeyboardResetSearchBar = "SearchBarController.resetSearchBar"
 
-extension KeyboardViewController {
+extension KeyboardContainerViewController {
     func updateKeyCaps(lettercase: Lettercase) {
         let uppercase: Bool = lettercase == .Uppercase
         let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
@@ -290,7 +290,7 @@ extension KeyboardViewController {
     func didTapGoToBrowseKey(button: KeyboardKeyButton?) {
         
         if favoritesAndRecentsViewController == nil {
-            favoritesAndRecentsViewController = KeyboardFavoritesAndRecentsViewController(collectionViewLayout: KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout(), viewModel: MediaLinksViewModel(), textProcessor: textProcessor!)
+            favoritesAndRecentsViewController = KeyboardMediaLinksAndFilterBarViewController(collectionViewLayout: KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout(), viewModel: MediaLinksViewModel(), textProcessor: textProcessor!)
             
             let mediaLinksView = favoritesAndRecentsViewController!.view
             

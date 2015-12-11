@@ -1,5 +1,5 @@
 //
-//  FavoritesAndRecentsBaseViewController.swift
+//  MediaLinksAndFilterBarViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 11/7/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewController,
+class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewController,
     UserProfileViewModelDelegate,
     FavoritesAndRecentsTabDelegate {
     var sectionHeaderView: UserProfileSectionHeaderView?
@@ -16,7 +16,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
     var emptyStateView: EmptySetView
     var didReturnResults: Bool
     
-    init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel ) {
+    init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel) {
         self.viewModel = viewModel
 
         emptyStateView = EmptySetView()
@@ -31,7 +31,15 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
         emptyStateView.userInteractionEnabled = true
-        
+
+        do {
+            try viewModel.requestData()
+        } catch UserProfileViewModelError.RequestDataFailed {
+            print("Failed to request data")
+        } catch let error {
+            print("Failed to request data \(error)")
+        }
+
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
         
