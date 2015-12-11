@@ -197,17 +197,26 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
         ])
         
         if currentPage == 3 {
-            if inAppDisplay || viewModel.sessionManager.sessionManagerFlags.userIsAnonymous {
+            if inAppDisplay {
                 settingsButtonRightPositionConstraint?.constant = 0
                 settingsButton.setTitle("Dismiss".uppercaseString, forState: .Normal)
             }
+
             settingsButton.hidden = false
             nextButton.hidden = true
         }
     }
-    
+     
     func directToRootViewController() {
-        presentViewController(RootViewController(), animated: true, completion: nil)
+        var mainViewController: UIViewController
+
+        if viewModel.sessionManager.sessionManagerFlags.userIsAnonymous {
+            mainViewController = SkipSignupViewController(viewModel: self.viewModel)
+
+        } else {
+            mainViewController = RootViewController()
+        }
+        presentViewController(mainViewController, animated: true, completion: nil)
     }
     
     func didTapNextButton(sender: UIButton) {
@@ -225,10 +234,7 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
 
     func didTapSettingsButton(sender: UIButton) {
         if inAppDisplay == true {
-            RootViewController.sharedInstance().popViewControllerAnimated(true)
-        } else if viewModel.sessionManager.sessionManagerFlags.userIsAnonymous {
-            let skipView = SkipSignupViewController(viewModel: self.viewModel)
-            presentViewController(skipView, animated: true, completion: nil)
+            dismissViewControllerAnimated(true, completion: nil)
         } else {
             view.addSubview(visualEffectView)
             view.addSubview(alertView)
@@ -256,7 +262,6 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
             sendNotificationMessages()
             UIApplication.sharedApplication().openURL(appSettings)
         }
-        
         directToRootViewController()
     }
     
