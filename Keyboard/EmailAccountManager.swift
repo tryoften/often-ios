@@ -103,12 +103,14 @@ class EmailAccountManager: AccountManager {
             data["parseId"] = currentUser.objectId
             data["accounts"] = SessionManager.defaultManager.createSocialAccount()
             
-            let newUser = User()
-            newUser.setValuesForKeysWithDictionary(data)
-            
-            self.userRef?.updateChildValues(data)
-            completion(results: ResultType.Success(r: true))
-            delegate?.accountManagerUserDidLogin(self, user: newUser)
+            newUser = User()
+            newUser?.setValuesForKeysWithDictionary(data)
+
+            if let user = newUser {
+                self.userRef?.updateChildValues(data)
+                completion(results: ResultType.Success(r: true))
+                delegate?.accountManagerUserDidLogin(self, user: user)
+            }
         }
     }
 }

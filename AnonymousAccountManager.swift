@@ -11,22 +11,20 @@ import Foundation
 class AnonymousAccountManager: AccountManager {
     
     override func openSession(completion: (results: ResultType) -> Void) {
-        let ref = firebase
-        
-        ref.authAnonymouslyWithCompletionBlock { (err, auth) -> Void in
+        self.firebase.authAnonymouslyWithCompletionBlock { (err, auth) -> Void in
             if err != nil {
                 print(err)
                 completion(results: ResultType.Error(e: AnonymousAccountManagerError.ReturnedEmptyUserObject))
             } else {
-                completion(results: ResultType.Success(r: true))
+                self.fetchUserData(auth, completion: completion)
             }
         }
+
         sessionManagerFlags.openSession = true
         sessionManagerFlags.userIsAnonymous = true
     }
     
      override func login(userData: User?, completion: (results: ResultType) -> Void)  {
-
         PFAnonymousUtils.logInWithBlock {
             (user: PFUser?, error: NSError?) -> Void in
             if error != nil {
@@ -35,7 +33,27 @@ class AnonymousAccountManager: AccountManager {
                  self.openSession(completion)
             }
         }
+    }
+
+    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+        userRef = firebase.childByAppendingPath("users/\(authData.uid)")
+        sessionManagerFlags.userId = authData.uid
         
+        var data = [String : AnyObject]()
+
+        if let currentUser = PFUser.currentUser() {
+            data["id"] = authData.uid
+            data["parseId"] = currentUser.objectId
+
+            newUser = User()
+            newUser?.setValuesForKeysWithDictionary(data)
+
+            if let user = newUser {
+                self.userRef?.updateChildValues(data)
+                completion(results: ResultType.Success(r: true))
+                delegate?.accountManagerUserDidLogin(self, user: user)
+            }
+        }
     }
 }
 
