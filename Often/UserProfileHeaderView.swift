@@ -21,29 +21,26 @@ class UserProfileHeaderView: UICollectionReusableView {
     var scoreNameLabelHeightConstraint: NSLayoutConstraint?
     var tabContainerView: FavoritesAndRecentsTabView
     var offsetValue: CGFloat
-    var setServicesRevealButton: UIButton
-    var settingsRevealButton: UIButton
-    var delegate: UserProfileHeaderDelegate?
-    
+
     static var preferredSize: CGSize {
         return CGSizeMake(
             UIScreen.mainScreen().bounds.size.width,
-            UIScreen.mainScreen().bounds.size.height / 2
+            UIScreen.mainScreen().bounds.size.height / 2 - 10
         )
     }
     
     var nameLabelHeightTopMargin: CGFloat {
         if Diagnostics.platformString().number == 5 {
-            return 70
+            return 55
         }
-        return 115
+        return 100
     }
     
     var descriptionTextTopMargin: CGFloat {
         if Diagnostics.platformString().number == 5 {
-            return 15
+            return 0
         }
-        return 30
+        return 10
     }
     
     var tabContainerViewHeight: CGFloat {
@@ -106,17 +103,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         
         tabContainerView = FavoritesAndRecentsTabView()
         tabContainerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        setServicesRevealButton = UIButton()
-        setServicesRevealButton.translatesAutoresizingMaskIntoConstraints = false
-        setServicesRevealButton.setImage(UIImage(named: "hamburger"), forState: .Normal)
-        setServicesRevealButton.contentEdgeInsets = UIEdgeInsets(top: 21, left: 20, bottom: 20, right: 20)
-        
-        settingsRevealButton = UIButton()
-        settingsRevealButton.translatesAutoresizingMaskIntoConstraints = false
-        settingsRevealButton.setImage(UIImage(named: "settings"), forState: .Normal)
-        settingsRevealButton.contentEdgeInsets = UIEdgeInsets(top: 17, left: 20, bottom: 20, right: 15)
-        
+
         offsetValue = 0.0
         descriptionText = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
         
@@ -124,18 +111,12 @@ class UserProfileHeaderView: UICollectionReusableView {
 
         backgroundColor = WhiteColor
         clipsToBounds = true
-        
-        setServicesRevealButton.addTarget(self, action: "setServicesRevealTapped", forControlEvents: .TouchUpInside)
-        settingsRevealButton.addTarget(self, action: "settingsRevealTapped", forControlEvents: .TouchUpInside)
-        
+
         addSubview(profileImageView)
         addSubview(nameLabel)
         addSubview(descriptionLabel)
         addSubview(scoreLabel)
         addSubview(scoreNameLabel)
-        addSubview(setServicesRevealButton)
-        addSubview(settingsRevealButton)
-        
         addSubview(tabContainerView)
         
         setupLayout()
@@ -162,16 +143,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         scoreNameLabelHeightConstraint = scoreNameLabel.al_bottom == tabContainerView.al_top - descriptionTextTopMargin
         
         addConstraints([
-            setServicesRevealButton.al_left == al_left,
-            setServicesRevealButton.al_top == al_top,
-            setServicesRevealButton.al_height == 55,
-            setServicesRevealButton.al_width == 59,
-            
-            settingsRevealButton.al_top == al_top,
-            settingsRevealButton.al_right == al_right,
-            settingsRevealButton.al_height == 59,
-            settingsRevealButton.al_width == 57,
-            
             profileImageView.al_bottom == nameLabel.al_top - 10,
             profileImageView.al_centerX == al_centerX,
             profileImageView.al_width == profileImageViewWidth,
@@ -197,23 +168,5 @@ class UserProfileHeaderView: UICollectionReusableView {
             tabContainerView.al_height == tabContainerViewHeight,
         ])
     }
-    
-    // User Profile Header Delegate
-    func setServicesRevealTapped() {
-        if let delegate = delegate {
-            delegate.revealSetServicesViewDidTap()
-        }
-    }
-    
-    func settingsRevealTapped() {
-        if let delegate = delegate {
-            delegate.revealSettingsViewDidTap()
-        }
-    }
-    
-}
 
-protocol UserProfileHeaderDelegate {
-    func revealSetServicesViewDidTap()
-    func revealSettingsViewDidTap()
 }
