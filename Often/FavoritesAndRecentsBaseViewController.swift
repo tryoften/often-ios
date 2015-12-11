@@ -10,20 +10,15 @@ import Foundation
 
 class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewController,
     UserProfileViewModelDelegate,
-    FilterTabDelegate,
     FavoritesAndRecentsTabDelegate {
     var sectionHeaderView: UserProfileSectionHeaderView?
-    var contentFilterTabView: MediaFilterTabView
     var viewModel: MediaLinksViewModel
     var emptyStateView: EmptySetView
     var didReturnResults: Bool
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel ) {
         self.viewModel = viewModel
-        
-        contentFilterTabView = MediaFilterTabView(filterMap: DefaultFilterMap)
-        contentFilterTabView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         emptyStateView = EmptySetView()
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         emptyStateView.hidden = true
@@ -31,7 +26,6 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         super.init(collectionViewLayout: collectionViewLayout)
         
         self.viewModel.delegate = self
-        self.contentFilterTabView.delegate = self
         
         emptyStateView.settingbutton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
         emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
@@ -41,7 +35,6 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
         
-        view.addSubview(contentFilterTabView)
         view.addSubview(emptyStateView)
         
     }
@@ -80,11 +73,7 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         }
         hasLinks()
     }
-    
-    func filterDidChange(filters: [MediaType]) {
-        viewModel.filters = filters
-    }
-    
+
     func sectionHeaderTitle() -> NSAttributedString {
         var headerTitle = ""
         if viewModel.filters.isEmpty {
@@ -105,17 +94,16 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
         if didReturnResults {
             collectionView?.scrollEnabled = false
             if !((emptyStateView.userState == .NoTwitter) || (emptyStateView.userState == .NoKeyboard)) {
-                switch (viewModel.currentCollectionType) {
+                switch viewModel.currentCollectionType {
                 case .Favorites:
-                    if (viewModel.userFavorites.isEmpty) {
+                    if viewModel.userFavorites.isEmpty {
                         emptyStateView.updateEmptyStateContent(.NoFavorites)
                         emptyStateView.hidden = false
                     } else {
                         emptyStateView.hidden = true
                         collectionView?.scrollEnabled = true
                     }
-                    
-                    break
+
                 case .Recents:
                     
                     if (viewModel.userRecents.isEmpty) {
@@ -125,8 +113,6 @@ class FavoritesAndRecentsBaseViewController: MediaLinksCollectionBaseViewControl
                         emptyStateView.hidden = true
                         collectionView?.scrollEnabled = true
                     }
-                    
-                    break
                 }
             }
 
