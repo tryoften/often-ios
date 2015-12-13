@@ -105,13 +105,13 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     func showErrorView(error:ErrorType) {
         switch error {
         case TwitterAccountManagerError.ReturnedEmptyUserObject:
-            DropDownErrorMessage().setMessage("Unable to create account. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            DropDownErrorMessage().setMessage("Unable to create account. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
             break
         case TwitterAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
-            DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            DropDownErrorMessage().setMessage("No internet connection fam :(", errorBackgroundColor: UIColor(fromHexString: "#152036"))
             break
         case SessionManagerError.UnvalidSignUp:
-            DropDownErrorMessage().setMessage("Unable to create account. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            DropDownErrorMessage().setMessage("Unable to create account. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
             break
         case SignupError.EmailNotVaild:
             DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
