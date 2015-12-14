@@ -24,7 +24,7 @@ class SignupView: UIView {
         let titleString = "often".uppercaseString
         let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
-        let subtitleString = "Share the latest videos, songs, & news wherever you are, right from your keyboard"
+        let subtitleString = "Search, share & favorite lyrics, in any app, right from your keyboard"
         let subtitleRange = NSMakeRange(0, subtitleString.characters.count)
         let subtitle = NSMutableAttributedString(string: subtitleString)
         let paragraphStyle = NSMutableParagraphStyle()
@@ -135,8 +135,8 @@ class SignupView: UIView {
             titleLabel.al_height == 40,
             
             subtitleLabel.al_top == titleLabel.al_bottom,
-            subtitleLabel.al_left == al_left + 45,
-            subtitleLabel.al_right == al_right - 45,
+            subtitleLabel.al_left == al_left + 55,
+            subtitleLabel.al_right == al_right - 55,
             subtitleLabel.al_height == 60,
             
             scrollView.al_top == subtitleLabel.al_bottom + 10,
