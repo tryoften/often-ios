@@ -38,10 +38,10 @@ class CreateAccountView: UIView {
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = UIFont(name: "OpenSans", size: 12)
-        subtitleLabel.text = "Save your favorite videos, links, GIFs and songs by creating an account!"
+        subtitleLabel.text = "Save your favorite lyrics to your keyboard \n and profile by creating an account!"
         subtitleLabel.numberOfLines = 2
         subtitleLabel.textAlignment = .Center
-        subtitleLabel.alpha = 0.74
+        subtitleLabel.alpha = 0.54
         
         usernameTextField = UITextField()
         usernameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -158,8 +158,8 @@ class CreateAccountView: UIView {
             cancelButton.al_height == 59,
 
             subtitleLabel.al_top == titleLabel.al_bottom + 8,
-            subtitleLabel.al_left == al_left  + 80,
-            subtitleLabel.al_right == al_right - 80,
+            subtitleLabel.al_left == al_left  + 60,
+            subtitleLabel.al_right == al_right - 60,
             
             usernameTextField.al_top == subtitleLabel.al_bottom + 40,
             usernameTextField.al_left == al_left + 40,

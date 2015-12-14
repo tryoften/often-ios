@@ -1195,7 +1195,8 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawSettings(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) {
+
+    public class func drawSettings(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -1246,7 +1247,8 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawTrending(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) {
+
+    public class func drawTrending(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -1330,7 +1332,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawProfile(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) {
+    public class func drawProfile(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -1693,7 +1695,8 @@ public class StyleKit : NSObject {
         return imageOfSharebutton
     }
 
-    public class func imageOfSettings(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) -> UIImage {
+
+    public class func imageOfSettings(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)
             StyleKit.drawSettings(color: color, scale: scale, selected: selected)
 
@@ -1703,7 +1706,7 @@ public class StyleKit : NSObject {
         return imageOfSettings
     }
 
-    public class func imageOfTrending(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) -> UIImage {
+    public class func imageOfTrending(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)
             StyleKit.drawTrending(color: color, scale: scale, selected: selected)
 
@@ -1713,7 +1716,7 @@ public class StyleKit : NSObject {
         return imageOfTrending
     }
 
-    public class func imageOfProfile(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = true) -> UIImage {
+    public class func imageOfProfile(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(50, 50), false, 0)
             StyleKit.drawProfile(color: color, scale: scale, selected: selected)
 

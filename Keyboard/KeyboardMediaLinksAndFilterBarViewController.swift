@@ -12,18 +12,13 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
     var favoritesAndRecentsTabView: FavoritesAndRecentsTabView
     var searchResultsContainerView: UIView?
     var textProcessor: TextProcessingManager?
-    var spacer: UIView
-    
+
     init(collectionViewLayout layout: UICollectionViewLayout, viewModel: MediaLinksViewModel, textProcessor: TextProcessingManager?) {
         self.textProcessor = textProcessor
         
         favoritesAndRecentsTabView = FavoritesAndRecentsTabView()
         favoritesAndRecentsTabView.translatesAutoresizingMaskIntoConstraints = false
         favoritesAndRecentsTabView.userInteractionEnabled = true
-
-        spacer = UIView()
-        spacer.translatesAutoresizingMaskIntoConstraints = false
-        spacer.backgroundColor = VeryLightGray
 
         super.init(collectionViewLayout: layout, viewModel: viewModel)
         
@@ -40,7 +35,6 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
         
         view.backgroundColor = VeryLightGray
         view.addSubview(favoritesAndRecentsTabView)
-        view.addSubview(spacer)
 
         setupLayout()
         reloadCollectionView()
@@ -81,16 +75,6 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
             favoritesAndRecentsTabView.al_left == view.al_left,
             favoritesAndRecentsTabView.al_right == view.al_right,
             favoritesAndRecentsTabView.al_height == KeyboardSearchBarHeight,
-
-            contentFilterTabView.al_top == view.al_top + KeyboardSearchBarHeight + 1,
-            contentFilterTabView.al_left == view.al_left,
-            contentFilterTabView.al_right == view.al_right,
-            contentFilterTabView.al_height == KeyboardSearchBarHeight,
-
-            spacer.al_top == favoritesAndRecentsTabView.al_bottom,
-            spacer.al_left == view.al_left,
-            spacer.al_right == view.al_right,
-            spacer.al_bottom == contentFilterTabView.al_top,
 
             emptyStateView.al_top == favoritesAndRecentsTabView.al_bottom,
             emptyStateView.al_left == view.al_left,

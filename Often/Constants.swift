@@ -143,6 +143,7 @@ let WalkthroughBackgroungColor = UIColor(fromHexString: "#F7F7F7")
 let WalkthroughEmailSpaceBackgroundColor = UIColor(fromHexString: "#E4E4E4")
 
 let AddArtistsTableViewCellReuseIdentifier = "signUpAddArtistsTableViewCell"
+let UserProfileHeaderViewReuseIdentifier = "UserProfileHeaderView"
 
 //Add Artist Button Font
 let AddArtistsButtonFont = UIFont(name: "OpenSans", size: 12.0)

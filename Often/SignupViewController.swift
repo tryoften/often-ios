@@ -47,15 +47,13 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
             UIImage(named: "productWalkthroughStep_2")!,
             UIImage(named: "productWalkthroughStep_3")!,
             UIImage(named: "productWalkthroughStep_4")!,
-            UIImage(named: "productWalkthroughStep_5")!,
         ]
         
         pagesubTitle = [
-            "Share the latest videos, songs, & news wherever you are, right from your keyboard",
-            "See what's trending before you even search. Always keep convos up to date",
-            "The first Hip Hop & Pop Culture powered search experience. No Bullsh*t",
-            "Filter by app or website by adding a hashtag to the beginning of your search",
-            "Favorites are saved right in your keyboard to easily share them again later"
+            "Search, share & favorite lyrics, \n in any app, right from your keyboard",
+            "Browse trending lyrics & songs. \n Tap on any card to share or favorite",
+            "Favorites are saved right in your keyboard to easily share again later",
+            "Powered by Genius, Often lets you search the latest lyrics, songs & artists"
         ]
         
         super.init(nibName: nil, bundle: nil)
@@ -65,7 +63,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         view.addSubview(signupView)
         setupLayout()
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
         splashScreenTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
     }
 
