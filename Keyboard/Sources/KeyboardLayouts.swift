@@ -14,7 +14,8 @@ private let EnglishKeyboardMap: [KeyboardRow] = [
     [.letter(.Q), .letter(.W), .letter(.E), .letter(.R), .letter(.T), .letter(.Y), .letter(.U), .letter(.I), .letter(.O), .letter(.P)],
     [.letter(.A), .letter(.S), .letter(.D), .letter(.F), .letter(.G), .letter(.H), .letter(.J), .letter(.K), .letter(.L)],
     [.modifier(.CapsLock, .Letter), .letter(.Z), .letter(.X), .letter(.C), .letter(.V), .letter(.B), .letter(.N), .letter(.M), .modifier(.Backspace, .Letter)],
-    [.changePage(1, .Letter), .modifier(.SwitchKeyboard, .Letter), .modifier(.GoToBrowse, .Letter), .modifier(.Space, .Letter), .modifier(.CallService, .Letter), .modifier(.Enter, .Letter)]
+//    [.changePage(1, .Letter), .modifier(.SwitchKeyboard, .Letter), .modifier(.GoToBrowse, .Letter), .modifier(.Space, .Letter), .modifier(.CallService, .Letter), .modifier(.Enter, .Letter)]
+    [.changePage(1, .Letter), .modifier(.SwitchKeyboard, .Letter), .modifier(.Space, .Letter), .modifier(.Enter, .Letter)]
 ]
 
 private let SpecialCharacterKeyboardMap: [KeyboardRow] = [

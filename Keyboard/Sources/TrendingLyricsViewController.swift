@@ -71,6 +71,7 @@ class TrendingLyricsViewController: UICollectionViewController, UICollectionView
 
         switch section {
         case .TrendingLyrics:
+            cell.topSeperator.hidden = true
             cell.title = "Trending Lyrics"
         case .TrendingArtists:
             cell.title = "Trending Artists"

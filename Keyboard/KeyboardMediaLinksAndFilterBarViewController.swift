@@ -101,7 +101,7 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
-        if (kind == UICollectionElementKindSectionHeader) {
+        if kind == UICollectionElementKindSectionHeader {
             // Create Header
             if let sectionView: UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                     withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileSectionHeaderView {

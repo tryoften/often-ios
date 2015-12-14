@@ -11,11 +11,9 @@ import UIKit
 class TouchRecognizerView: UIView {
     
     var touchToView: [UITouch: UIView]
-    var collapsed: Bool
     
     override init(frame: CGRect) {
         touchToView = [:]
-        collapsed = false
         
         super.init(frame: frame)
         
@@ -39,8 +37,7 @@ class TouchRecognizerView: UIView {
     override func hitTest(point: CGPoint, withEvent event: UIEvent!) -> UIView? {
         if self.hidden || self.alpha == 0 || !self.userInteractionEnabled {
             return nil
-        }
-        else {
+        } else {
             return (CGRectContainsPoint(self.bounds, point) ? self : nil)
         }
     }
@@ -106,14 +103,13 @@ class TouchRecognizerView: UIView {
         
         if (rect.origin.x + rect.size.width < point.x) {
             closest.x += rect.size.width
-        }
-        else if (point.x > rect.origin.x) {
+        } else if (point.x > rect.origin.x) {
             closest.x = point.x
         }
+
         if (rect.origin.y + rect.size.height < point.y) {
             closest.y += rect.size.height
-        }
-        else if (point.y > rect.origin.y) {
+        } else if (point.y > rect.origin.y) {
             closest.y = point.y
         }
         
@@ -138,8 +134,7 @@ class TouchRecognizerView: UIView {
                 if viewToOwn == view {
                     if touch == newTouch {
                         break
-                    }
-                    else {
+                    } else {
                         self.touchToView[touch] = nil
                         foundView = true
                     }

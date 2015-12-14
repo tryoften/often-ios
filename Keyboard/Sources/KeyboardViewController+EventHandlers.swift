@@ -12,13 +12,8 @@ import AudioToolbox
 let KeyboardEnterKeyTappedEvent = "keyboard.enterKey"
 let KeyboardResetSearchBar = "SearchBarController.resetSearchBar"
 
-extension KeyboardContainerViewController {
-    func updateKeyCaps(lettercase: Lettercase) {
-        let uppercase: Bool = lettercase == .Uppercase
-        let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
-        layoutEngine?.updateKeyCaps(false, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
-    }
-    
+extension KeyboardViewController {
+
     func didTapButton(button: KeyboardKeyButton?) {
         if let button = button, key = button.key {
             switch(key) {
@@ -110,13 +105,13 @@ extension KeyboardContainerViewController {
             button.selected = true
         }
         
-        searchBar.textFieldDidBeginEditing(UITextField())
-        
-        if !searchBar.searchBar.textInput.selected {
-            searchBar.searchBar.textInput.selected = true
-        }
-        
-        textProcessor?.insertText("#")
+//        searchBar.textFieldDidBeginEditing(UITextField())
+//        
+//        if !searchBar.searchBar.textInput.selected {
+//            searchBar.searchBar.textInput.selected = true
+//        }
+
+//        textProcessor?.insertText("#")
     }
     
     func didReleaseCallKey(button: KeyboardKeyButton?) {
@@ -288,32 +283,15 @@ extension KeyboardContainerViewController {
     }
     
     func didTapGoToBrowseKey(button: KeyboardKeyButton?) {
-        
-        if favoritesAndRecentsViewController == nil {
-            favoritesAndRecentsViewController = KeyboardMediaLinksAndFilterBarViewController(collectionViewLayout: KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout(), viewModel: MediaLinksViewModel(), textProcessor: textProcessor!)
-            
-            let mediaLinksView = favoritesAndRecentsViewController!.view
-            
-            mediaLinksView.translatesAutoresizingMaskIntoConstraints = false
-            view.insertSubview(mediaLinksView, aboveSubview: slidePanelContainerView)
-            view.addConstraints([
-                mediaLinksView.al_top == view.al_top,
-                mediaLinksView.al_left == view.al_left,
-                mediaLinksView.al_bottom == view.al_bottom,
-                mediaLinksView.al_right == view.al_right
-            ])
-        }
-        
-        NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-            "height": 100.0
-        ])
 
-        togglePanelButton.mode = .ClosePanel
-        favoritesAndRecentsViewController?.view.hidden = false
-        slidePanelContainerView.hidden = true
-        collapseKeyboard()
     }
-    
+
+    func updateKeyCaps(lettercase: Lettercase) {
+        let uppercase: Bool = lettercase == .Uppercase
+        let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
+        layoutEngine?.updateKeyCaps(false, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
+    }
+
     func shiftUp(button: KeyboardKeyButton?) {
         if let button = button {
             if !shiftWasMultitapped {

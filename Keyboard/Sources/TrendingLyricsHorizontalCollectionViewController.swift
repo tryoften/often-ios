@@ -45,7 +45,7 @@ class TrendingLyricsHorizontalCollectionViewController: UICollectionViewControll
         layout.scrollDirection = .Horizontal
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         return layout
     }
 
@@ -84,6 +84,8 @@ class TrendingLyricsHorizontalCollectionViewController: UICollectionViewControll
         cell.mainTextLabel.text = "Saucin', saucin', on you,\nI'm swaggin', swaggin', swaggin' oh ohh"
         cell.mainTextLabel.textAlignment = .Center
         cell.sourceLogoView.image = UIImage(named: "genius")
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        cell.layer.shouldRasterize = true
         cell.showImageView = false
     
         return cell

@@ -413,15 +413,11 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
                 // basic character row: only typable characters
                 if self.characterRowHeuristic(row) {
                     frames = self.layoutCharacterRow(row, keyWidth: letterKeyWidth, gapWidth: keyGap, frame: frame)
-                }
-                    
+                } else if self.doubleSidedRowHeuristic(row) {
                     // character row with side buttons: shift, backspace, etc.
-                else if self.doubleSidedRowHeuristic(row) {
                     frames = self.layoutCharacterWithSidesRow(row, frame: frame, isLandscape: isLandscape, keyWidth: letterKeyWidth, keyGap: keyGap)
-                }
-                    
+                } else {
                     // bottom row with things like space, return, etc.
-                else {
                     frames = self.layoutSpecialKeysRow(row, keyWidth: letterKeyWidth, gapWidth: lastRowKeyGap, leftSideRatio: lastRowLeftSideRatio,
                         rightSideRatio: lastRowRightSideRatio, micButtonRatio: self.layoutConstants.micButtonPortraitWidthRatioToOtherSpecialButtons, isLandscape: isLandscape, frame: frame)
                 }

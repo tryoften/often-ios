@@ -45,7 +45,7 @@ class TrendingArtistsHorizontalCollectionViewController: UICollectionViewControl
         layout.scrollDirection = .Horizontal
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         return layout
     }
 

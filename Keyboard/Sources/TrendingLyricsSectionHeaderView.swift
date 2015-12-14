@@ -19,7 +19,7 @@ class TrendingLyricsSectionHeaderView: UICollectionReusableView {
             let attributes: [String: AnyObject] = [
                 NSKernAttributeName: NSNumber(float: 1.5),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10)!,
-                NSForegroundColorAttributeName: BlackColor
+                NSForegroundColorAttributeName: BlackColor.colorWithAlphaComponent(0.54)
             ]
             let attributedString = NSAttributedString(string: title!.uppercaseString, attributes: attributes)
             titleLabel.attributedText = attributedString
@@ -69,10 +69,10 @@ class TrendingLyricsSectionHeaderView: UICollectionReusableView {
 
     func setupLayout() {
         addConstraints([
-            titleLabel.al_left == al_left + 15,
-            titleLabel.al_bottom == al_bottom - 5,
+            titleLabel.al_left == al_left + 10,
+            titleLabel.al_centerY == al_centerY,
 
-            lyricCountLabel.al_right == al_right - 15,
+            lyricCountLabel.al_right == al_right - 10,
             lyricCountLabel.al_top == al_top,
             lyricCountLabel.al_bottom == al_bottom,
 
