@@ -22,22 +22,22 @@ extension KeyboardViewController {
                 if shiftState.lettercase() == .Lowercase {
                     str = str.lowercaseString
                 }
-                textProcessor?.insertText(str)
+                textProcessor.insertText(str)
             case .digit(let number):
-                textProcessor?.insertText(String(number.rawValue))
+                textProcessor.insertText(String(number.rawValue))
             case .special(let character, _):
-                textProcessor?.insertText(String(character.rawValue))
+                textProcessor.insertText(String(character.rawValue))
             case .changePage(_, _):
                 break
             case .modifier(.CapsLock, _):
                 break
             case .modifier(.CallService, _):
-                textProcessor?.insertText("#")
+                textProcessor.insertText("#")
             case .modifier(.Space, _):
-                textProcessor?.insertText(" ")
+                textProcessor.insertText(" ")
                 handleAutoPeriod(button)
             case .modifier(.Enter, _):
-                textProcessor?.insertText("\n")
+                textProcessor.insertText("\n")
             default:
                 break
             }
@@ -180,7 +180,7 @@ extension KeyboardViewController {
 
         cancelBackspaceTimers()
         backspaceStartTime = CFAbsoluteTimeGetCurrent()
-        textProcessor?.deleteBackward()
+        textProcessor.deleteBackward()
         
         // trigger for subsequent deletes
         backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
@@ -206,7 +206,7 @@ extension KeyboardViewController {
         
         let timeElapsed = CFAbsoluteTimeGetCurrent() - backspaceStartTime
         if timeElapsed < 2.0 {
-            textProcessor?.currentProxy.deleteBackward()
+            textProcessor.deleteBackward()
         } else {
             backspaceLongPressed()
         }
@@ -226,7 +226,7 @@ extension KeyboardViewController {
         
         firstWordQuickDeleted = true
         
-        if let documentContextBeforeInput = textProcessor?.currentProxy.documentContextBeforeInput as NSString? {
+        if let documentContextBeforeInput = textProcessor.currentProxy.documentContextBeforeInput as NSString? {
             if documentContextBeforeInput.length > 0 {
                 var charactersToDelete = 0
                 switch documentContextBeforeInput {
@@ -252,7 +252,7 @@ extension KeyboardViewController {
                 }
                 
                 for _ in 0..<charactersToDelete {
-                    textProcessor?.currentProxy.deleteBackward()
+                    textProcessor.deleteBackward()
                 }
             }
         }
@@ -337,10 +337,10 @@ extension KeyboardViewController {
             switch(key) {
             case .modifier(.Space, _):
                 if self.autoPeriodState == .FirstSpace {
-                    if self.textProcessor?.charactersAreInCorrectState() == true {
-                        textProcessor?.deleteBackward()
-                        textProcessor?.deleteBackward()
-                        textProcessor?.insertText(". ")
+                    if self.textProcessor.charactersAreInCorrectState() == true {
+                        textProcessor.deleteBackward()
+                        textProcessor.deleteBackward()
+                        textProcessor.insertText(". ")
                         
                         self.autoPeriodState = .NoSpace
                     }

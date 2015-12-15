@@ -10,26 +10,29 @@ import Foundation
 import Fabric
 import Crashlytics
 
+enum MediaLinksKeyboardSection: Int {
+    case Favorites
+    case Recents
+    case Trending
+    case Search
+}
+
 class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewController, TextProcessingManagerDelegate {
     var mediaLink: MediaLink?
-    var viewModel: MediaLinksViewModel?
+    var viewModel: KeyboardViewModel?
     var textProcessor: TextProcessingManager?
-    var searchBar: SearchBarController
-    var searchBarHeight: CGFloat = KeyboardSearchBarHeight
-    var mediaLinksViewController: KeyboardMediaLinksAndFilterBarViewController?
-    var trendingViewController: TrendingLyricsViewController?
     var togglePanelButton: TogglePanelButton
-    var slidePanelContainerView: UIView
+
     var viewModelsLoaded: dispatch_once_t = 0
+    var sectionsTabBarController: KeyboardSectionsContainerViewController
+    var sections: [(MediaLinksKeyboardSection, UIViewController)]
 
     override init(extraHeight: CGFloat, debug: Bool) {
         togglePanelButton = TogglePanelButton()
         togglePanelButton.mode = .SwitchKeyboard
 
-        searchBar = SearchBarController(nibName: nil, bundle: nil)
-        searchBarHeight = KeyboardSearchBarHeight
-
-        slidePanelContainerView = UIView()
+        sectionsTabBarController = KeyboardSectionsContainerViewController()
+        sections = []
 
         super.init(extraHeight: extraHeight, debug: debug)
 
@@ -43,17 +46,16 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
             }
         }
 
+        viewModel = KeyboardViewModel()
+
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
         textProcessor!.delegate = self
 
-        viewModel = MediaLinksViewModel()
-        trendingViewController = TrendingLyricsViewController(viewModel: TrendingLyricsViewModel())
+        setupSections()
 
         view.backgroundColor = DefaultTheme.keyboardBackgroundColor
 
-        view.addSubview(searchBar.view)
-        containerView.addSubview(slidePanelContainerView)
-        containerView.addSubview(trendingViewController!.view)
+        containerView.addSubview(sectionsTabBarController.view)
         containerView.addSubview(togglePanelButton)
     }
 
@@ -61,12 +63,40 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         fatalError("init(coder:) has not been implemented")
     }
 
+    func setupSections() {
+        // Favorites
+        let mediaLinksViewModel = MediaLinksViewModel()
+        let favoritesVC = KeyboardFavoritesAndRecentsViewController(viewModel: mediaLinksViewModel, collectionType: .Favorites)
+        favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 0)
+
+        // Recents
+        let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: mediaLinksViewModel, collectionType: .Recents)
+        recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 1)
+
+        // Trending
+        let trendingVC = TrendingLyricsViewController(viewModel: TrendingLyricsViewModel())
+        trendingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfTrendingtab(scale: 0.45), tag: 2)
+
+        // Trending
+        let searchVC = SearchViewController(viewModel: SearchViewModel(base: Firebase(url: BaseURL)), textProcessor: textProcessor!)
+        searchVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
+
+        sections = [
+            (.Favorites, favoritesVC),
+            (.Recents, recentsVC),
+            (.Trending, trendingVC),
+            (.Search, searchVC)
+        ]
+
+        sectionsTabBarController.viewControllers = sections.map { $0.1 }
+        viewDidLayoutSubviews()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
-//        center.addObserver(self, selector: "resizeKeyboard:", name: ResizeKeyboardEvent, object: nil)
         center.addObserver(self, selector: "hideKeyboard", name: CollapseKeyboardEvent, object: nil)
         center.addObserver(self, selector: "showKeyboard", name: RestoreKeyboardEvent, object: nil)
         center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvent, object: nil)
@@ -89,52 +119,30 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         if view.bounds == CGRectZero {
             return
         }
-        if searchBar.searchBar.textInput.selected {
-            searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, searchBarHeight + 100)
-        } else {
-            searchBar.view.frame = CGRectMake(0, 0, view.bounds.width, searchBarHeight)
-        }
-        trendingViewController!.view.frame = CGRectMake(0, KeyboardSearchBarHeight, CGRectGetWidth(containerView.frame), CGRectGetHeight(containerView.frame) - KeyboardSearchBarHeight)
 
         let height = CGRectGetHeight(view.frame) - 30
         var togglePanelButtonFrame = containerView.frame
         togglePanelButtonFrame.origin.y = height
         togglePanelButtonFrame.size.height = 30
         togglePanelButton.frame = togglePanelButtonFrame
-
-        slidePanelContainerView.frame = CGRectMake(0, KeyboardSearchBarHeight, CGRectGetWidth(containerView.frame), CGRectGetHeight(self.view.frame) - KeyboardSearchBarHeight)
+        sectionsTabBarController.view.frame = view.bounds
     }
 
     func setupViewModels() {
         textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
         textProcessor?.delegate = self
-        mediaLinksViewController?.textProcessor = textProcessor
-
-        let baseURL = Firebase(url: BaseURL)
-        let searchViewModel = SearchViewModel(base: baseURL)
-        searchViewModel.delegate = searchBar
-
-        let suggestionsViewModel = SearchSuggestionsViewModel(base: baseURL)
-        suggestionsViewModel.delegate = searchBar
-        suggestionsViewModel.suggestionsDelegate = searchBar
-
-        searchBar.textProcessor = textProcessor
-        searchBar.searchResultsContainerView = slidePanelContainerView
-        searchBar.viewModel = searchViewModel
-        searchBar.suggestionsViewModel = suggestionsViewModel
     }
 
     func resizeKeyboard(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
-            height = userInfo["height"] as? CGFloat else {
+            _ = userInfo["height"] as? CGFloat else {
                 return
         }
     }
 
     func showKeyboard() {
-        trendingViewController!.view.hidden = true
-        if keyboard == nil {
-            keyboard = KeyboardViewController(nibName: nil, bundle: nil)
+        if let textProcessor = textProcessor where keyboard == nil {
+            keyboard = KeyboardViewController(textProcessor: textProcessor)
             containerView.addSubview(keyboard!.view)
             self.viewDidLayoutSubviews()
         } else {
@@ -143,7 +151,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
     }
 
     func hideKeyboard() {
-        trendingViewController!.view.hidden = false
         guard let keyboard = keyboard else {
             return
         }
@@ -151,7 +158,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
     }
 
     func didTapEnterButton(button: KeyboardKeyButton?) {
-        trendingViewController!.view.hidden = true
     }
 
     func toggleShowKeyboardButton(notification: NSNotification) {

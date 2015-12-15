@@ -71,7 +71,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
         setupKludge()
         containerView.frame = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: true))
 
-        let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: true)
+        let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
         keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
     }
 
@@ -138,7 +138,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
                 kludge.al_right == view.al_left,
                 kludge.al_top == view.al_top,
                 kludge.al_bottom == view.al_bottom
-                ])
+            ])
 
             self.kludge = kludge
         }

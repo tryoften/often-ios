@@ -37,7 +37,8 @@ class KeyboardContainerViewController: BaseKeyboardContainerViewController, Text
     var viewModelsLoaded: dispatch_once_t = 0
     
     override init(extraHeight: CGFloat, debug: Bool = false) {
-        searchBar = SearchBarController(nibName: nil, bundle: nil)
+        let searchViewModel = SearchViewModel(base: Firebase(url: BaseURL))
+        searchBar = SearchBarController(viewModel: searchViewModel)
         searchBarHeight = KeyboardSearchBarHeight
         
         togglePanelButton = TogglePanelButton()
@@ -49,7 +50,12 @@ class KeyboardContainerViewController: BaseKeyboardContainerViewController, Text
 
         super.init(extraHeight: extraHeight, debug: debug)
 
-        keyboard = KeyboardViewController(nibName: nil, bundle: nil)
+        textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
+        textProcessor?.delegate = self
+
+        keyboard = KeyboardViewController(textProcessor: textProcessor!)
+        searchBar.viewModel = searchViewModel
+        searchViewModel.delegate = searchBar
 
         containerView.addSubview(keyboard!.view)
         containerView.addSubview(searchBar.view)
@@ -65,9 +71,8 @@ class KeyboardContainerViewController: BaseKeyboardContainerViewController, Text
     
     deinit {
         viewModelsLoaded = 0
-        searchBar.viewModel?.delegate = nil
+        searchBar.viewModel.delegate = nil
         searchBar.suggestionsViewModel?.delegate = nil
-        searchBar.viewModel = nil
         searchBar.textProcessor = nil
         searchBar.suggestionsViewModel = nil
         searchBar.searchResultsContainerView = nil
@@ -106,23 +111,17 @@ class KeyboardContainerViewController: BaseKeyboardContainerViewController, Text
     }
     
     func setupViewModels() {
-        textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
-        textProcessor?.delegate = self
-        
         viewModel = KeyboardViewModel()
         viewModel?.sessionManagerFlags.userHasOpenedKeyboard = true
 
         let baseURL = Firebase(url: BaseURL)
-        let searchViewModel = SearchViewModel(base: baseURL)
-        searchViewModel.delegate = searchBar
-        
         let suggestionsViewModel = SearchSuggestionsViewModel(base: baseURL)
         suggestionsViewModel.delegate = searchBar
         suggestionsViewModel.suggestionsDelegate = searchBar
         
         searchBar.textProcessor = textProcessor
         searchBar.searchResultsContainerView = slidePanelContainerView
-        searchBar.viewModel = searchViewModel
+
         searchBar.suggestionsViewModel = suggestionsViewModel
         
         if viewModel?.sessionManagerFlags.hasSeenKeyboardGeneralToolTips == false {

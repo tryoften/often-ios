@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 enum AutoPeriodState {
     case NoSpace
     case FirstSpace
@@ -16,7 +15,7 @@ enum AutoPeriodState {
 
 /// Controller for Standard Keyboard View
 class KeyboardViewController: UIViewController {
-    var textProcessor: TextProcessingManager?
+    var textProcessor: TextProcessingManager
     let locale: Language = .English
     var keysContainerView: TouchRecognizerView!
     var layout: KeyboardLayout
@@ -61,7 +60,9 @@ class KeyboardViewController: UIViewController {
         }
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    init(textProcessor aTextProcessor: TextProcessingManager) {
+        textProcessor = aTextProcessor
+
         keysContainerView = TouchRecognizerView()
         keysContainerView.backgroundColor = DefaultTheme.keyboardBackgroundColor
 
@@ -73,7 +74,7 @@ class KeyboardViewController: UIViewController {
             layout = DefaultKeyboardLayout
         }
 
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        super.init(nibName: nil, bundle: nil)
 
         view.addSubview(keysContainerView)
     }
@@ -117,6 +118,7 @@ class KeyboardViewController: UIViewController {
     func setupLayout() {
         if !constraintsAdded {
             layoutEngine = KeyboardLayoutEngine(model: layout, superview: keysContainerView, layoutConstants: LayoutConstants.self)
+            layoutEngine?.containerView = view.superview
             setPage(0)
             updateKeyCaps(shiftState.lettercase())
             constraintsAdded = true
@@ -124,7 +126,7 @@ class KeyboardViewController: UIViewController {
     }
 
     func setCapsIfNeeded() -> Bool {
-        if textProcessor?.shouldAutoCapitalize() == true {
+        if textProcessor.shouldAutoCapitalize() == true {
             switch shiftState {
             case .Disabled:
                 shiftState = .Enabled

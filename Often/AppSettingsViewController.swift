@@ -9,6 +9,13 @@
 import UIKit
 import MessageUI
 
+enum ProfileSettingsSection: Int {
+    case Account = 0
+    case Actions = 1
+    case About = 2
+    case Logout = 3
+}
+
 class AppSettingsViewController: UIViewController,
     UITableViewDataSource,
     UITableViewDelegate,
@@ -39,13 +46,6 @@ class AppSettingsViewController: UIViewController,
     var logoutSettings = [
         "Logout"
     ]
-    
-    enum ProfileSettingsSection: Int {
-        case Account = 0
-        case Actions = 1
-        case About = 2
-        case Logout = 3
-    }
     
     init(viewModel: SettingsViewModel) {
         self.viewModel = viewModel

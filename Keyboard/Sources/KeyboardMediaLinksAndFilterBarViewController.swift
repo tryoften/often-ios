@@ -8,36 +8,26 @@
 
 import Foundation
 
-class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewController {
+class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewController,
+    FavoritesAndRecentsTabDelegate {
     var favoritesAndRecentsTabView: FavoritesAndRecentsTabView
     var searchResultsContainerView: UIView?
     var textProcessor: TextProcessingManager?
 
-    init(collectionViewLayout layout: UICollectionViewLayout, viewModel: MediaLinksViewModel, textProcessor: TextProcessingManager?) {
-        self.textProcessor = textProcessor
-        
+    init(viewModel: MediaLinksViewModel) {
         favoritesAndRecentsTabView = FavoritesAndRecentsTabView()
         favoritesAndRecentsTabView.translatesAutoresizingMaskIntoConstraints = false
         favoritesAndRecentsTabView.userInteractionEnabled = true
 
-        super.init(collectionViewLayout: layout, viewModel: viewModel)
+        super.init(collectionViewLayout: KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout(), collectionType: .Favorites, viewModel: viewModel)
         
         favoritesAndRecentsTabView.delegate = self
         emptyStateView.userInteractionEnabled = true
-
-        do {
-            try viewModel.requestData()
-        } catch UserProfileViewModelError.RequestDataFailed {
-            print("Failed to request data")
-        } catch let error {
-            print("Failed to request data \(error)")
-        }
         
         view.backgroundColor = VeryLightGray
         view.addSubview(favoritesAndRecentsTabView)
 
         setupLayout()
-        reloadCollectionView()
 
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
         emptyStateView.imageViewTopPadding = 0
@@ -69,7 +59,7 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupLayout() {
+    override func setupLayout() {
         view.addConstraints([
             favoritesAndRecentsTabView.al_top == view.al_top,
             favoritesAndRecentsTabView.al_left == view.al_left,
@@ -81,24 +71,6 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
             emptyStateView.al_right == view.al_right,
             emptyStateView.al_bottom == view.al_bottom
         ])
-    }
-    
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        
-        if kind == UICollectionElementKindSectionHeader {
-            // Create Header
-            if let sectionView: UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                    withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileSectionHeaderView {
-                sectionView.trendingLabel.attributedText = sectionHeaderTitle()
-                        return sectionView
-            }
-        }
-        
-        return UICollectionReusableView()
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
     
     // MediaLinkCollectionViewCellDelegate
@@ -116,7 +88,15 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
         }
     }
     
-    
+    func userFavoritesTabSelected() {
+        collectionType = .Favorites
+        reloadData()
+    }
+
+    func userRecentsTabSelected() {
+        collectionType = .Recents
+        reloadData()
+    }
 }
 
 

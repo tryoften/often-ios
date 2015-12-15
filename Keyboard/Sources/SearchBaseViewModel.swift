@@ -66,7 +66,7 @@ class SearchBaseViewModel {
         if let uId = SessionManagerFlags.defaultManagerFlags.userId {
             userId = uId
         }
-        
+
         SEGAnalytics.sharedAnalytics().track("Sent Query", properties: [
             "query": query,
             "autocomplete": autocomplete,

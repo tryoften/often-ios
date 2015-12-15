@@ -69,7 +69,7 @@ class FavoritesAndRecentsTabView: UIView {
             highlightBarView.al_height == 4,
             highlightBarView.al_width == al_width / 2,
             highlightBarLeftConstraint!
-            ])
+        ])
     }
     
     func favoritesButtonDidTabTapped(sender: UIButton) {

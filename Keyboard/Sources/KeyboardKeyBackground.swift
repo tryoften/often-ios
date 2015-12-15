@@ -176,8 +176,7 @@ class KeyboardKeyBackground: UIView, Connectable {
                 if !self.hideDirectionIsOpposite {
                     continue
                 }
-            }
-            else {
+            } else {
                 edgePath = UIBezierPath()
                 
                 // TODO: figure out if this is ncessary
