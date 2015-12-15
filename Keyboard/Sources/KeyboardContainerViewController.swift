@@ -177,39 +177,14 @@ class KeyboardContainerViewController: BaseKeyboardContainerViewController, Text
         
         self.searchBar.view.frame = CGRectMake(0, 0, self.view.bounds.width, self.searchBarHeight)
         self.view.layoutIfNeeded()
-        
-//        keysContainerView.layer.shouldRasterize = false
     }
     
     func collapseKeyboard() {
         togglePanelButton.collapsed = true
-//        keysContainerView.collapsed = true
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn, animations: {
-//            let height = CGRectGetHeight(self.view.frame) - 30
-//            var keysContainerViewFrame = self.keysContainerView.frame
-//            keysContainerViewFrame.origin.y = CGRectGetHeight(self.view.frame)
-//            self.keysContainerView.frame = keysContainerViewFrame
-//            var togglePanelButtonFrame = self.keysContainerView.frame
-//            togglePanelButtonFrame.origin.y = height
-//            togglePanelButtonFrame.size.height = 30
-//            self.togglePanelButton.frame = togglePanelButtonFrame
-        }) { done in
-            self.togglePanelButton.hidden = false
-        }
     }
     
     func restoreKeyboard() {
         togglePanelButton.collapsed = false
-//        keysContainerView.collapsed = false
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn, animations: {
-//            self.keysContainerView.frame.origin = CGPointMake(0, self.view.bounds.height - self.keysContainerView.bounds.height)
-//            self.togglePanelButton.frame.origin.y = self.keysContainerView.frame.origin.y - 30
-            }) { done in
-                if self.keyboardHeight == KeyboardHeight {
-                    self.togglePanelButton.hidden = true
-                    self.favoritesAndRecentsViewController?.view.hidden = true
-                }
-        }
     }
     
     func toggleKeyboard() {
@@ -266,7 +241,6 @@ class KeyboardContainerViewController: BaseKeyboardContainerViewController, Text
 
     // MARK: TextProcessingManagerDelegate
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
-//        setCapsIfNeeded()
     }
 
     func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType) {

@@ -104,14 +104,6 @@ extension KeyboardViewController {
         if let button = button {
             button.selected = true
         }
-        
-//        searchBar.textFieldDidBeginEditing(UITextField())
-//        
-//        if !searchBar.searchBar.textInput.selected {
-//            searchBar.searchBar.textInput.selected = true
-//        }
-
-//        textProcessor?.insertText("#")
     }
     
     func didReleaseCallKey(button: KeyboardKeyButton?) {

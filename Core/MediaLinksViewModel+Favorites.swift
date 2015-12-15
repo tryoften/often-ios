@@ -17,6 +17,7 @@ extension MediaLinksViewModel {
         }
     }
 
+    // TODO: add/remove favorite from local collection before server responds with data
     func addFavorite(result: MediaLink) {
         sendTask("addFavorite", result: result)
     }
