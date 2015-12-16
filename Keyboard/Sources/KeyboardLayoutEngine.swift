@@ -25,6 +25,8 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
     var nonPooledMap: [String: KeyboardKeyButton] = [:]
     var sizeToKeyMap: [CGSize: [KeyboardKeyButton]] = [:]
     var shapePool: [String: Shape] = [:]
+
+    var containerView: UIView? // view layout engine uses to compute popup bounds
     
     required init(model: KeyboardLayout, superview: UIView, layoutConstants: LayoutConstants.Type) {
         self.layoutConstants = layoutConstants
@@ -413,15 +415,11 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
                 // basic character row: only typable characters
                 if self.characterRowHeuristic(row) {
                     frames = self.layoutCharacterRow(row, keyWidth: letterKeyWidth, gapWidth: keyGap, frame: frame)
-                }
-                    
+                } else if self.doubleSidedRowHeuristic(row) {
                     // character row with side buttons: shift, backspace, etc.
-                else if self.doubleSidedRowHeuristic(row) {
                     frames = self.layoutCharacterWithSidesRow(row, frame: frame, isLandscape: isLandscape, keyWidth: letterKeyWidth, keyGap: keyGap)
-                }
-                    
+                } else {
                     // bottom row with things like space, return, etc.
-                else {
                     frames = self.layoutSpecialKeysRow(row, keyWidth: letterKeyWidth, gapWidth: lastRowKeyGap, leftSideRatio: lastRowLeftSideRatio,
                         rightSideRatio: lastRowRightSideRatio, micButtonRatio: self.layoutConstants.micButtonPortraitWidthRatioToOtherSpecialButtons, isLandscape: isLandscape, frame: frame)
                 }
@@ -508,18 +506,15 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
             if k == 0 {
                 frames.append(CGRectMake(rounded(currentOrigin), frame.origin.y, specialCharacterWidth, frame.height))
                 currentOrigin += (specialCharacterWidth + specialCharacterGap)
-            }
-            else if k == row.count - 1 {
+            } else if k == row.count - 1 {
                 currentOrigin += specialCharacterGap
                 frames.append(CGRectMake(rounded(currentOrigin), frame.origin.y, specialCharacterWidth, frame.height))
                 currentOrigin += specialCharacterWidth
-            }
-            else {
+            } else {
                 frames.append(CGRectMake(rounded(currentOrigin), frame.origin.y, actualKeyWidth, frame.height))
                 if k == row.count - 2 {
                     currentOrigin += (actualKeyWidth)
-                }
-                else {
+                } else {
                     currentOrigin += (actualKeyWidth + keyGap)
                 }
             }
@@ -605,8 +600,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
     func willShowPopup(key: KeyboardKeyButton, direction: Direction) {
         // TODO: actual numbers, not standins
         if let popup = key.popup {
-            // TODO: total hack
-            let actualSuperview = (self.superview.superview != nil ? self.superview.superview! : self.superview)
+            let actualSuperview = containerView != nil ? containerView! : self.superview
             
             var localFrame = actualSuperview.convertRect(popup.frame, fromView: popup.superview)
             
@@ -616,8 +610,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
                 key.background.attached = Direction.Down
                 key.connector?.startDir = Direction.Down
                 key.background.hideDirectionIsOpposite = true
-            }
-            else {
+            } else {
                 // TODO: this needs to be reset somewhere
                 key.background.hideDirectionIsOpposite = false
             }

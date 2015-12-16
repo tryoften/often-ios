@@ -12,13 +12,8 @@ import AudioToolbox
 let KeyboardEnterKeyTappedEvent = "keyboard.enterKey"
 let KeyboardResetSearchBar = "SearchBarController.resetSearchBar"
 
-extension KeyboardContainerViewController {
-    func updateKeyCaps(lettercase: Lettercase) {
-        let uppercase: Bool = lettercase == .Uppercase
-        let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
-        layoutEngine?.updateKeyCaps(false, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
-    }
-    
+extension KeyboardViewController {
+
     func didTapButton(button: KeyboardKeyButton?) {
         if let button = button, key = button.key {
             switch(key) {
@@ -27,22 +22,22 @@ extension KeyboardContainerViewController {
                 if shiftState.lettercase() == .Lowercase {
                     str = str.lowercaseString
                 }
-                textProcessor?.insertText(str)
+                textProcessor.insertText(str)
             case .digit(let number):
-                textProcessor?.insertText(String(number.rawValue))
+                textProcessor.insertText(String(number.rawValue))
             case .special(let character, _):
-                textProcessor?.insertText(String(character.rawValue))
+                textProcessor.insertText(String(character.rawValue))
             case .changePage(_, _):
                 break
             case .modifier(.CapsLock, _):
                 break
             case .modifier(.CallService, _):
-                textProcessor?.insertText("#")
+                textProcessor.insertText("#")
             case .modifier(.Space, _):
-                textProcessor?.insertText(" ")
+                textProcessor.insertText(" ")
                 handleAutoPeriod(button)
             case .modifier(.Enter, _):
-                textProcessor?.insertText("\n")
+                textProcessor.insertText("\n")
             default:
                 break
             }
@@ -109,14 +104,6 @@ extension KeyboardContainerViewController {
         if let button = button {
             button.selected = true
         }
-        
-        searchBar.textFieldDidBeginEditing(UITextField())
-        
-        if !searchBar.searchBar.textInput.selected {
-            searchBar.searchBar.textInput.selected = true
-        }
-        
-        textProcessor?.insertText("#")
     }
     
     func didReleaseCallKey(button: KeyboardKeyButton?) {
@@ -185,7 +172,7 @@ extension KeyboardContainerViewController {
 
         cancelBackspaceTimers()
         backspaceStartTime = CFAbsoluteTimeGetCurrent()
-        textProcessor?.deleteBackward()
+        textProcessor.deleteBackward()
         
         // trigger for subsequent deletes
         backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
@@ -211,7 +198,7 @@ extension KeyboardContainerViewController {
         
         let timeElapsed = CFAbsoluteTimeGetCurrent() - backspaceStartTime
         if timeElapsed < 2.0 {
-            textProcessor?.currentProxy.deleteBackward()
+            textProcessor.deleteBackward()
         } else {
             backspaceLongPressed()
         }
@@ -231,7 +218,7 @@ extension KeyboardContainerViewController {
         
         firstWordQuickDeleted = true
         
-        if let documentContextBeforeInput = textProcessor?.currentProxy.documentContextBeforeInput as NSString? {
+        if let documentContextBeforeInput = textProcessor.currentProxy.documentContextBeforeInput as NSString? {
             if documentContextBeforeInput.length > 0 {
                 var charactersToDelete = 0
                 switch documentContextBeforeInput {
@@ -257,7 +244,7 @@ extension KeyboardContainerViewController {
                 }
                 
                 for _ in 0..<charactersToDelete {
-                    textProcessor?.currentProxy.deleteBackward()
+                    textProcessor.deleteBackward()
                 }
             }
         }
@@ -288,32 +275,15 @@ extension KeyboardContainerViewController {
     }
     
     func didTapGoToBrowseKey(button: KeyboardKeyButton?) {
-        
-        if favoritesAndRecentsViewController == nil {
-            favoritesAndRecentsViewController = KeyboardMediaLinksAndFilterBarViewController(collectionViewLayout: KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout(), viewModel: MediaLinksViewModel(), textProcessor: textProcessor!)
-            
-            let mediaLinksView = favoritesAndRecentsViewController!.view
-            
-            mediaLinksView.translatesAutoresizingMaskIntoConstraints = false
-            view.insertSubview(mediaLinksView, aboveSubview: slidePanelContainerView)
-            view.addConstraints([
-                mediaLinksView.al_top == view.al_top,
-                mediaLinksView.al_left == view.al_left,
-                mediaLinksView.al_bottom == view.al_bottom,
-                mediaLinksView.al_right == view.al_right
-            ])
-        }
-        
-        NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-            "height": 100.0
-        ])
 
-        togglePanelButton.mode = .ClosePanel
-        favoritesAndRecentsViewController?.view.hidden = false
-        slidePanelContainerView.hidden = true
-        collapseKeyboard()
     }
-    
+
+    func updateKeyCaps(lettercase: Lettercase) {
+        let uppercase: Bool = lettercase == .Uppercase
+        let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
+        layoutEngine?.updateKeyCaps(false, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
+    }
+
     func shiftUp(button: KeyboardKeyButton?) {
         if let button = button {
             if !shiftWasMultitapped {
@@ -359,10 +329,10 @@ extension KeyboardContainerViewController {
             switch(key) {
             case .modifier(.Space, _):
                 if self.autoPeriodState == .FirstSpace {
-                    if self.textProcessor?.charactersAreInCorrectState() == true {
-                        textProcessor?.deleteBackward()
-                        textProcessor?.deleteBackward()
-                        textProcessor?.insertText(". ")
+                    if self.textProcessor.charactersAreInCorrectState() == true {
+                        textProcessor.deleteBackward()
+                        textProcessor.deleteBackward()
+                        textProcessor.insertText(". ")
                         
                         self.autoPeriodState = .NoSpace
                     }

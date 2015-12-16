@@ -71,10 +71,13 @@ class TrendingLyricsViewController: UICollectionViewController, UICollectionView
 
         switch section {
         case .TrendingLyrics:
+            cell.topSeperator.hidden = true
             cell.title = "Trending Lyrics"
         case .TrendingArtists:
+            cell.topSeperator.hidden = false
             cell.title = "Trending Artists"
         case .TrendingSongs:
+            cell.topSeperator.hidden = false
             cell.title = "Trending Songs"
         }
 
@@ -116,7 +119,7 @@ class TrendingLyricsViewController: UICollectionViewController, UICollectionView
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
-        return CGSizeMake(screenWidth, 30)
+        return CGSizeMake(screenWidth, 36)
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

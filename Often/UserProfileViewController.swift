@@ -5,27 +5,31 @@
 //  Created by Komran Ghahremani on 8/6/15.
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
 //
+// 
 
 import UIKit
 
-class UserProfileViewController: MediaLinksAndFilterBarViewController {
+class UserProfileViewController: MediaLinksAndFilterBarViewController, FavoritesAndRecentsTabDelegate, MediaLinksViewModelDelegate {
     var headerView: UserProfileHeaderView?
+    var sectionHeaderView: UserProfileSectionHeaderView?
     
-     override init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel) {
-        super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel)
-        
+    init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel) {
+        super.init(collectionViewLayout: collectionViewLayout, collectionType: .Favorites, viewModel: viewModel)
+
+        viewModel.delegate = self
+
+        emptyStateView.settingbutton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
+        emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
+        emptyStateView.userInteractionEnabled = true
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
         checkUserEmptyStateStatus()
-        
-        view.backgroundColor = VeryLightGray
-        view.layer.masksToBounds = true
-        
-        setupLayout()
     }
 
-     required init?(coder aDecoder: NSCoder) {
-         fatalError("init(coder:) has not been implemented")
-     }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -57,10 +61,22 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
-            collectionView.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: UserProfileSectionViewReuseIdentifier)
         }
     }
-    
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        reloadUserData()
+    }
+
+    override func setupLayout() {
+        view.addConstraints([
+            emptyStateView.al_left == view.al_left,
+            emptyStateView.al_right == view.al_right,
+            emptyStateView.al_top == view.al_top + UserProfileHeaderView.preferredSize.height,
+            emptyStateView.al_bottom == view.al_bottom,
+        ])
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -74,7 +90,6 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController {
         return 1
     }
     
-    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
@@ -87,8 +102,8 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController {
                 headerView?.tabContainerView.delegate = self
 
                 do {
-                    try viewModel.requestData()
-                } catch UserProfileViewModelError.RequestDataFailed {
+                    try viewModel.fetchCollection(collectionType)
+                } catch MediaLinksViewModelError.FetchingCollectionDataFailed {
                     print("Failed to request data")
                 } catch let error {
                     print("Failed to request data \(error)")
@@ -118,7 +133,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: MediaLinkCollectionViewCell
-        cell = parseMediaLinkData(viewModel.mediaLinks, indexPath: indexPath, collectionView: collectionView)
+        cell = parseMediaLinkData(viewModel.filteredMediaLinksForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
         cell.inMainApp = true
         
@@ -135,20 +150,35 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController {
         return cell
     }
 
-
-    func setupLayout() {
-        view.addConstraints([
-            emptyStateView.al_left == view.al_left,
-            emptyStateView.al_right == view.al_right,
-            emptyStateView.al_top == view.al_top + UserProfileHeaderView.preferredSize.height,
-            emptyStateView.al_bottom == view.al_bottom,
-        ])
+    func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaLinksViewModel, user: User) {
+        reloadUserData()
     }
-    
-    
-    override func userProfileViewModelDidReceiveMediaLinks(userProfileViewModel: MediaLinksViewModel, links: [MediaLink]) {
-        super.userProfileViewModelDidReceiveMediaLinks(userProfileViewModel, links: links)
+
+    func mediaLinksViewModelDidReceiveMediaLinks(mediaLinksViewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType, links: [MediaLink]) {
+        reloadData()
         PKHUD.sharedHUD.hide(animated: true)
+    }
+
+    func reloadUserData() {
+        if let headerView = headerView, let user = viewModel.currentUser {
+            headerView.descriptionText = user.userDescription
+            headerView.nameLabel.text = user.name
+            if let imageURL = NSURL(string: user.profileImageLarge) {
+                headerView.profileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
+                    headerView.profileImageView.image = image
+                    }, failure: { (req, res, error) in
+                        print("Failed to load image: \(imageURL)")
+                })
+            }
+        }
+    }
+
+    func userFavoritesTabSelected() {
+        collectionType = .Favorites
+    }
+
+    func userRecentsTabSelected() {
+        collectionType = .Recents
     }
 
     //MARK: Check for empty state
@@ -156,7 +186,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController {
         collectionView?.scrollEnabled = false
         isKeyboardEnabled()
         isTwitterEnabled()
-        hasLinks()
+        reloadData()
     }
     
     func isKeyboardEnabled() {
@@ -198,25 +228,8 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController {
         }
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
-    }
-
-    override func userProfileViewModelDidLoginUser(userProfileViewModel: MediaLinksViewModel) {
-        if  let headerView = headerView {
-            if let user = viewModel.currentUser {
-                headerView.descriptionText = user.userDescription
-                headerView.nameLabel.text = user.name
-                if let imageURL = NSURL(string: user.profileImageLarge) {
-                    headerView.profileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
-                        headerView.profileImageView.image = image
-                        }, failure: { (req, res, error) in
-                            print("Failed to load image: \(imageURL)")
-                    })
-                }
-            }
-
-        }
     }
 
     // Empty States button actions
@@ -235,12 +248,11 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController {
     func didTapCancelButton() {
         emptyStateView.updateEmptyStateContent(.NonEmpty)
         isKeyboardEnabled()
-        hasLinks()
+        reloadData()
     }
     
     func didTapTwitterButton() {
         print("did tap")
-        
     }
     
     override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaLinkCollectionViewCell, selected: Bool) {

@@ -5,157 +5,142 @@
 
 import Foundation
 
-typealias UserFavoriteLink = MediaLink
-typealias UserRecentLink = MediaLink
-
-enum UserProfileViewModelError: ErrorType {
+enum MediaLinksViewModelError: ErrorType {
     case NoUser
-    case FetchingFavoritesDataFailed
-    case FetchingRecentsDataFailed
-    case RequestDataFailed
+    case FetchingCollectionDataFailed
 }
 
+/// fetches favorites and recent links for current user and keeps them up to date
+/// also has methods to add/remove favorites
 class MediaLinksViewModel {
-    weak var delegate: UserProfileViewModelDelegate?
+    weak var delegate: MediaLinksViewModelDelegate?
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    private var userId: String
     let baseRef: Firebase
-    private var userRef: Firebase?
-    private var favoriteRef: Firebase?
-    private var recentsRef: Firebase?
     var currentUser: User?
-    private var favorites: [String]
-    private var shouldFilter: Bool = false
-    var mediaLinks: [MediaLink]
-    private var filteredUserRecents: [UserRecentLink]
-    private var filteredUserFavorites: [UserFavoriteLink]
-    var currentCollectionType: UserProfileCollectionType {
-        didSet {
-            filterMediaLinks()
-        }
-    }
-    
+    var collections: [MediaLinksCollectionType: [MediaLink]]
+    var isDataLoaded: Bool
+
+    private var userId: String
+    private var userRef: Firebase?
+    private(set) var ids: [String]
+    private var filteredCollections: [MediaLinksCollectionType: [MediaLink]] /// collections with current filters applied
+    private var collectionEndpoints: [MediaLinksCollectionType: Firebase]
+
     var filters: [MediaType] {
         didSet {
-            filterMediaLinks()
+            for (type, collection) in collections {
+                filteredCollections[type] = applyFilters(collection)
+            }
         }
     }
-    
-    var userRecents: [UserRecentLink] {
-        didSet {
-            filterMediaLinks()
-        }
-    }
-    
-    var userFavorites: [UserFavoriteLink] {
-        didSet {
-            filterMediaLinks()
-        }
-    }
-    
+
     init(ref: Firebase = Firebase(url: BaseURL)) {
         baseRef = ref
-        favorites = []
-        userFavorites = []
-        userRecents = []
-        filteredUserRecents = []
-        filteredUserFavorites = []
-        mediaLinks = []
+        ids = []
+        filteredCollections = [:]
+        collectionEndpoints = [:]
+        collections = [:]
         filters = []
-        currentCollectionType = .Favorites
-        self.userId = ""
-        
-    }
-    
-    func requestData(completion: ((Bool) -> ())? = nil) throws {
-    
-        guard let userId = sessionManagerFlags.userId else {
-                throw UserProfileViewModelError.NoUser
-        }
-        
-        if !sessionManagerFlags.openSession {
-            throw UserProfileViewModelError.RequestDataFailed
-        }
-        
-        self.userId = userId
-        
-        userRef = baseRef.childByAppendingPath("users/\(userId)")
-        userRef?.keepSynced(true)
-        
-        userRef?.observeEventType(.Value, withBlock: { snapshot in
-            if snapshot.exists() {
-                if let _ = snapshot.key,
-                    let value = snapshot.value as? [String: AnyObject] {
-                        self.currentUser = User()
-                        self.currentUser?.setValuesForKeysWithDictionary(value)
+        isDataLoaded = false
+        userId = ""
+
+        do {
+            try setupUser { inner in
+                do {
+                    let _ = try inner()
+                } catch let error {
+                    print(error)
                 }
             }
-            self.delegate?.userProfileViewModelDidLoginUser(self)
-        })
-        
-        favoriteRef = baseRef.childByAppendingPath("users/\(userId)/favorites")
-        favoriteRef?.keepSynced(true)
-        
-        recentsRef = baseRef.childByAppendingPath("users/\(userId)/recents")
-        recentsRef?.keepSynced(true)
-        
-        try fetchFavorites()
-        try fetchRecents()
-    
-    }
-    
-
-    func fetchFavorites() throws {
-        guard let favoriteRef = favoriteRef else {
-            throw UserProfileViewModelError.FetchingFavoritesDataFailed
+        } catch _ {
         }
+    }
+
+    /**
+        Creates a user object
         
-        favoriteRef.observeEventType(.Value, withBlock: { snapshot in
-            var favoritesLinks: [UserFavoriteLink] = []
-            
+        :param: completion
+        :throws:
+     
+        read more about try/catch with async closures
+        http://appventure.me/2015/06/19/swift-try-catch-asynchronous-closures/
+    */
+    func setupUser(completion: (() throws -> User) -> ()) throws {
+        guard let userId = sessionManagerFlags.userId else {
+            throw MediaLinksViewModelError.NoUser
+        }
+
+        if !sessionManagerFlags.openSession {
+            throw MediaLinksViewModelError.NoUser
+        }
+
+        self.userId = userId
+
+        userRef = baseRef.childByAppendingPath("users/\(userId)")
+        userRef?.keepSynced(true)
+
+        for type in MediaLinksCollectionType.allValues {
+            let endpoint = userRef?.childByAppendingPath(type.rawValue.lowercaseString)
+            collectionEndpoints[type] = endpoint
+        }
+
+        userRef?.observeEventType(.Value, withBlock: { snapshot in
+            if let _ = snapshot.key, let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
+                self.currentUser = User()
+                self.currentUser?.setValuesForKeysWithDictionary(value)
+                self.delegate?.mediaLinksViewModelDidAuthUser(self, user: self.currentUser!)
+                completion({ return self.currentUser! })
+            } else {
+                completion({ throw MediaLinksViewModelError.NoUser })
+            }
+        })
+    }
+
+    func fetchAllData() throws {
+        for type in MediaLinksCollectionType.allValues {
+            try fetchCollection(type)
+        }
+    }
+
+    func fetchCollection(collectionType: MediaLinksCollectionType, completion: ((Bool) -> Void)? = nil) throws {
+        guard let ref = collectionEndpoints[collectionType] else {
+            throw MediaLinksViewModelError.FetchingCollectionDataFailed
+        }
+
+        ref.observeEventType(.Value, withBlock: { snapshot in
+            var links: [MediaLink] = []
+
             if let data = snapshot.value as? [String: AnyObject] {
                 var ids = [String]()
-                
+
                 for (id, _) in data {
                     ids.append(id)
                 }
-                
-                self.favorites = ids
-                
+
+                self.ids = ids
+
                 for (_, item) in data {
                     guard let favoritesData = item as? [String: AnyObject],
-                        let favoriteLink = self.processMediaLinkData(favoritesData) else {
-                        continue
-                    }
-
-                    favoritesLinks.append(favoriteLink)
-                }
-            }
-            self.userFavorites = favoritesLinks
-        })
-        
-    }
-    
-    func fetchRecents() throws {
-        guard let recentsRef = recentsRef else {
-            throw UserProfileViewModelError.FetchingRecentsDataFailed
-        }
-        
-        recentsRef.observeEventType(.Value, withBlock: { snapshot in
-            var recentsLinks: [UserRecentLink] = []
-            
-            if let data = snapshot.value as? [String: AnyObject] {
-                for (_, item) in data {
-                    guard let recentsData = item as? [String: AnyObject],
-                        let recentLink = self.processMediaLinkData(recentsData) else {
+                        let link = self.processMediaLinkData(favoritesData) else {
                             continue
                     }
-                    recentsLinks.append(recentLink)
+
+                    links.append(link)
                 }
-                
             }
-            self.userRecents = recentsLinks
+
+            self.isDataLoaded = true
+            self.collections[collectionType] = links
+            let filteredCollection = self.filteredMediaLinksForCollectionType(collectionType)
+            self.delegate?.mediaLinksViewModelDidReceiveMediaLinks(self, collectionType: collectionType, links: filteredCollection)
+            completion?(true)
         })
+    }
+
+    /// Reapplies filters on passed in collection and returns a list of filtered links
+    func filteredMediaLinksForCollectionType(collectionType: MediaLinksCollectionType) -> [MediaLink] {
+        filteredCollections[collectionType] = applyFilters(collections[collectionType] ?? [])
+        return filteredCollections[collectionType] ?? []
     }
     
     private func processMediaLinkData(resultData: [String: AnyObject]) -> MediaLink? {
@@ -167,8 +152,7 @@ class MediaLinksViewModel {
             let type = MediaType(rawValue: rawType) else {
                 return nil
         }
-        
-        
+
         var result: MediaLink? = nil
         
         switch(type) {
@@ -202,48 +186,8 @@ class MediaLinksViewModel {
         }
         return item
     }
-    
 
-    func filterMediaLinks() {
-        switch(currentCollectionType) {
-        case .Favorites:
-            mediaLinks = applyFilters(userFavorites)
-            break
-        case .Recents:
-            mediaLinks = applyFilters(userRecents)
-            break
-        }
-        delegate?.userProfileViewModelDidReceiveMediaLinks(self, links: mediaLinks)
-    }
-    
-    func toggleFavorite(selected: Bool, result: MediaLink) {
-        if selected {
-            addFavorite(result)
-        } else {
-            removeFavorite(result)
-        }
-    }
-    
-    func addFavorite(result: MediaLink) {
-        sendTask("addFavorite", result: result)
-    }
-    
-    func removeFavorite(result: MediaLink) {
-        sendTask("removeFavorite", result: result)
-    }
-    
-    func checkFavorite(result: MediaLink) -> Bool {
-        let base64URI = SearchRequest.idFromQuery(result.id)
-            .stringByReplacingOccurrencesOfString("/", withString: "_")
-            .stringByReplacingOccurrencesOfString("+", withString: "-")
-        
-        return favorites.contains(base64URI)
-    }
-    
-    
-    
-    func applyFilters(links: [MediaLink]) -> [MediaLink] {
-
+    private func applyFilters(links: [MediaLink]) -> [MediaLink] {
         if filters.isEmpty {
             return links
         }
@@ -257,24 +201,17 @@ class MediaLinksViewModel {
         
         return filteredLinks
     }
-    
-    private func sendTask(task: String, result: MediaLink) {
-        let favoriteQueueRef = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
-        favoriteQueueRef.setValue([
-            "task": task,
-            "user": userId,
-            "result": result.toDictionary()
-            ])
-    }
 }
 
-enum UserProfileCollectionType: String {
+enum MediaLinksCollectionType: String {
     case Favorites = "Favorites"
     case Recents = "Recents"
+
+    static let allValues = [Favorites, Recents]
 }
 
-protocol UserProfileViewModelDelegate: class {
-    func userProfileViewModelDidLoginUser(userProfileViewModel: MediaLinksViewModel)
-    func userProfileViewModelDidReceiveMediaLinks(userProfileViewModel: MediaLinksViewModel, links: [MediaLink])
+protocol MediaLinksViewModelDelegate: class {
+    func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaLinksViewModel, user: User)
+    func mediaLinksViewModelDidReceiveMediaLinks(mediaLinksViewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType, links: [MediaLink])
 }
 

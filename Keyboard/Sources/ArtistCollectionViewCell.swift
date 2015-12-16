@@ -67,7 +67,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.textAlignment = .Left
 
-        contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        contentEdgeInsets = UIEdgeInsets(top: 5, left: 12, bottom: 10, right: 12)
 
         super.init(frame: frame)
 
@@ -110,9 +110,8 @@ class ArtistCollectionViewCell: UICollectionViewCell {
             titleLabel.al_top == imageView.al_bottom + contentEdgeInsets.top,
             titleLabel.al_left == al_left + contentEdgeInsets.left,
             titleLabel.al_right == al_right - contentEdgeInsets.right,
-            titleLabel.al_height == 20,
 
-            subtitleLabel.al_top == titleLabel.al_bottom + 5,
+            subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_left == titleLabel.al_left,
             subtitleLabel.al_width == titleLabel.al_width
         ])

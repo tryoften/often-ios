@@ -25,7 +25,6 @@ class RootViewController: UITabBarController {
         tabBar.layer.shadowColor = DarkGrey.CGColor
         tabBar.layer.shadowRadius = 4
 
-
         let userProfileVC = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: MediaLinksViewModel())
 
         let trendingVC = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: SocialAccountSettingsViewModel(sessionManager: sessionManager))

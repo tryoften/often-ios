@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SPTAuth.defaultInstance().clientID = SpotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
         
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert,.Badge], categories: []))
+        application.registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []) )
     
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 frame.size.height = KeyboardHeight + 100
                 window.frame = frame
                 window.clipsToBounds = true
-                mainController = MediaLinksKeyboardContainerViewController(extraHeight: 100.0, debug: true)
+                mainController = MediaLinksKeyboardContainerViewController(extraHeight: 144.0, debug: true)
             } else {
                 let signupViewModel = SignupViewModel(sessionManager: sessionManager)
                 mainController = SignupViewController(viewModel: signupViewModel)
@@ -73,8 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         
-        if url.absoluteString.hasPrefix("tryoften://" ) {
-            if SPTAuth.defaultInstance().canHandleURL(url){
+        if url.absoluteString.hasPrefix("tryoften://") {
+            if SPTAuth.defaultInstance().canHandleURL(url) {
                 SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: sessionManager.spotifyAccountManager?.authCallback)
                 return true
             }

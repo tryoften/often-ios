@@ -12,11 +12,11 @@ import Foundation
 /// logic.
 class BaseKeyboardContainerViewController: UIInputViewController {
     var heightConstraint: NSLayoutConstraint?
-    var lastLayoutBounds: CGRect?
     var constraintsAdded: Bool = false
     var containerView: UIView
     var keyboardExtraHeight: CGFloat
     var debugKeyboard = false
+    var keyboard: KeyboardViewController?
 
     private var kludge: UIView?
     var keyboardHeight: CGFloat {
@@ -33,7 +33,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     }
     static var oncePredicate: dispatch_once_t = 0
 
-    init(extraHeight: CGFloat = 100, debug: Bool = false) {
+    init(extraHeight: CGFloat = 144, debug: Bool = false) {
         containerView = UIView()
         containerView.backgroundColor = UIColor.whiteColor()
         keyboardExtraHeight = extraHeight
@@ -46,7 +46,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     }
 
     override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        self.init(extraHeight: 100, debug: false)
+        self.init(extraHeight: 144, debug: false)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -69,11 +69,10 @@ class BaseKeyboardContainerViewController: UIInputViewController {
             return
         }
         setupKludge()
-        let orientationSavvyBounds = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: true))
-        if !(lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
-            containerView.frame = orientationSavvyBounds
-            lastLayoutBounds = orientationSavvyBounds
-        }
+        containerView.frame = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: true))
+
+        let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
+        keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
     }
 
     func switchKeyboard() {
@@ -96,7 +95,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
         let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
         let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
         let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
-        let topBannerHeight: CGFloat = withTopBanner ? 100 : 0.0
+        let topBannerHeight: CGFloat = withTopBanner ? keyboardExtraHeight : 0.0
 
         return CGFloat(orientation.isPortrait ? canonicalPortraitHeight : canonicalLandscapeHeight) + topBannerHeight
     }
@@ -139,7 +138,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
                 kludge.al_right == view.al_left,
                 kludge.al_top == view.al_top,
                 kludge.al_bottom == view.al_bottom
-                ])
+            ])
 
             self.kludge = kludge
         }
