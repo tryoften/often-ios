@@ -8,86 +8,99 @@
 
 import Foundation
 
-class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewController,
-    UserProfileViewModelDelegate,
-    FavoritesAndRecentsTabDelegate {
-    var sectionHeaderView: UserProfileSectionHeaderView?
+class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewController {
     var viewModel: MediaLinksViewModel
     var emptyStateView: EmptySetView
-    var didReturnResults: Bool
+    var collectionType: MediaLinksCollectionType {
+        didSet {
+            do {
+                try viewModel.fetchCollection(collectionType) { success in
+                    self.reloadData()
+                }
+            } catch let error {
+                print("Failed to request data \(error)")
+            }
+        }
+    }
     
-    init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel) {
+    init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaLinksCollectionType, viewModel: MediaLinksViewModel) {
         self.viewModel = viewModel
 
         emptyStateView = EmptySetView()
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         emptyStateView.hidden = true
-        didReturnResults = false
-        super.init(collectionViewLayout: collectionViewLayout)
-        
-        self.viewModel.delegate = self
-        
-        emptyStateView.settingbutton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
-        emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
-        emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
-        emptyStateView.userInteractionEnabled = true
 
-        do {
-            try viewModel.requestData()
-        } catch UserProfileViewModelError.RequestDataFailed {
-            print("Failed to request data")
-        } catch let error {
-            print("Failed to request data \(error)")
-        }
+        collectionType = aCollectionType
+
+        super.init(collectionViewLayout: collectionViewLayout)
 
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
-        
         view.addSubview(emptyStateView)
-        
+
+        setupLayout()
+
+        if let collectionView = collectionView {
+            collectionView.backgroundColor = VeryLightGray
+            collectionView.registerClass(UserProfileSectionHeaderView.self,
+                forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+                withReuseIdentifier: UserProfileSectionViewReuseIdentifier)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    func userProfileViewModelDidLoginUser(userProfileViewModel: MediaLinksViewModel) {}
-    
-    func userProfileViewModelDidReceiveMediaLinks(userProfileViewModel: MediaLinksViewModel, links: [MediaLink]) {
-        reloadCollectionView()
-    }
-    
-    func reloadCollectionView() {
-        didReturnResults = true
-        collectionView?.reloadSections(NSIndexSet(index: 0))
-        hasLinks()
-    }
-    
-    func userFavoritesTabSelected() {
-        viewModel.currentCollectionType = .Favorites
-        
-        if let collectionView = collectionView {
-            collectionView.reloadSections(NSIndexSet(index: 0))
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        do {
+            try viewModel.fetchCollection(collectionType) { success in
+                self.reloadData()
+            }
+        } catch let error {
+            print("Failed to request data \(error)")
         }
-        hasLinks()
+    }
+
+    func setupLayout() {
+        view.addConstraints([
+            emptyStateView.al_left == view.al_left,
+            emptyStateView.al_right == view.al_right,
+            emptyStateView.al_top == view.al_top,
+            emptyStateView.al_bottom == view.al_bottom,
+        ])
     }
     
-    func userRecentsTabSelected() {
-        viewModel.currentCollectionType = .Recents
-        
-        if let collectionView = collectionView {
-            collectionView.reloadSections(NSIndexSet(index: 0))
+    func reloadData() {
+        if viewModel.isDataLoaded {
+            collectionView?.scrollEnabled = false
+            if !(emptyStateView.userState == .NoTwitter || emptyStateView.userState == .NoKeyboard) {
+                let collection = viewModel.filteredMediaLinksForCollectionType(collectionType)
+
+                if collection.isEmpty {
+                    switch collectionType {
+                    case .Favorites: emptyStateView.updateEmptyStateContent(.NoFavorites)
+                    case .Recents: emptyStateView.updateEmptyStateContent(.NoRecents)
+                    }
+                    emptyStateView.hidden = false
+                } else {
+                    emptyStateView.hidden = true
+                    collectionView?.reloadSections(NSIndexSet(index: 0))
+                    collectionView?.scrollEnabled = true
+                }
+            }
         }
-        hasLinks()
     }
 
     func sectionHeaderTitle() -> NSAttributedString {
         var headerTitle = ""
+        let links = viewModel.filteredMediaLinksForCollectionType(collectionType)
         if viewModel.filters.isEmpty {
-            headerTitle =  "\(viewModel.mediaLinks.count)" + " " + viewModel.currentCollectionType.rawValue
+            headerTitle =  "\(links.count)" + " " + collectionType.rawValue
         } else {
-            headerTitle =  "\(viewModel.mediaLinks.count)" + " \(viewModel.filters[0].rawValue.uppercaseString)s"
+            headerTitle =  "\(links.count)" + " \(viewModel.filters[0].rawValue.uppercaseString)s"
         }
         
         let headerTitleRange = NSMakeRange(0, headerTitle.characters.count)
@@ -98,49 +111,18 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         return sectionheaderTitle
     }
     
-    func hasLinks() {
-        if didReturnResults {
-            collectionView?.scrollEnabled = false
-            if !((emptyStateView.userState == .NoTwitter) || (emptyStateView.userState == .NoKeyboard)) {
-                switch viewModel.currentCollectionType {
-                case .Favorites:
-                    if viewModel.userFavorites.isEmpty {
-                        emptyStateView.updateEmptyStateContent(.NoFavorites)
-                        emptyStateView.hidden = false
-                    } else {
-                        emptyStateView.hidden = true
-                        collectionView?.scrollEnabled = true
-                    }
-
-                case .Recents:
-                    
-                    if (viewModel.userRecents.isEmpty) {
-                        emptyStateView.updateEmptyStateContent(.NoRecents)
-                        emptyStateView.hidden = false
-                    } else {
-                        emptyStateView.hidden = true
-                        collectionView?.scrollEnabled = true
-                    }
-                }
-            }
-
-        }
-    }
-    
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.mediaLinks.count
-        
+        return viewModel.filteredMediaLinksForCollectionType(collectionType).count
     }
-    
+
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: MediaLinkCollectionViewCell
-        cell = parseMediaLinkData(viewModel.mediaLinks, indexPath: indexPath, collectionView: collectionView)
+        cell = parseMediaLinkData(viewModel.filteredMediaLinksForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
         
         if let result = cell.mediaLink {
@@ -155,7 +137,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         
         return cell
     }
-    
+
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaLinkCollectionViewCell,
             let cells = collectionView.visibleCells() as? [MediaLinkCollectionViewCell],
@@ -176,7 +158,25 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         cell.prepareOverlayView()
         cell.overlayVisible = true
     }
-    
+
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+
+        if kind == UICollectionElementKindSectionHeader {
+            // Create Header
+            if let sectionView: UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileSectionHeaderView {
+                    sectionView.trendingLabel.attributedText = sectionHeaderTitle()
+                    return sectionView
+            }
+        }
+
+        return UICollectionReusableView()
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
+    }
+
     // MARK: MediaLinkCollectionViewCellDelegate
     override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {

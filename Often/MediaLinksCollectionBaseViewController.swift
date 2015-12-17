@@ -1,13 +1,14 @@
 //
-//  SearchResultsCollectionViewBaseController.swift
+//  MediaLinksCollectionBaseViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 10/23/15.
 //  Copyright © 2015 Surf Inc. All rights reserved.
 //
 //  swiftlint:disable force_cast
+//  swiftlint:disable function_body_length
 
-import Foundation
+import UIKit
 
 let MediaLinkCollectionViewCellReuseIdentifier = "MediaLinksCollectionViewCell"
 
@@ -133,7 +134,6 @@ class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaL
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
         
     }
-    
     
     func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {

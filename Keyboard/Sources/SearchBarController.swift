@@ -12,10 +12,13 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     SearchSuggestionViewControllerDelegate, SearchSuggestionsViewModelDelegate,
     AutocorrectSuggestionsViewControllerDelegate {
 
-    var viewModel: SearchViewModel?
+    var viewModel: SearchViewModel
+    var searchBar: SearchBar
+    var bottomSeperator: UIView
+
     var suggestionsViewModel: SearchSuggestionsViewModel?
-    var searchBar: SearchBar!
-    var bottomSeperator: UIView!
+    var searchSuggestionsViewController: SearchSuggestionsViewController
+
     weak var textProcessor: TextProcessingManager? {
         didSet {
             primaryTextDocumentProxy = textProcessor?.currentProxy
@@ -26,52 +29,70 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         }
     }
     var filter: Filter?
-    var autocorrectSuggestionsViewController: AutocorrectSuggestionsViewController?
-    var searchSuggestionsViewController: SearchSuggestionsViewController?
+    var autocorrectSuggestionsViewController: AutocorrectSuggestionsViewController
+
     var searchResultsViewController: SearchResultsCollectionViewController?
-    weak var searchResultsContainerView: UIView?
+    weak var searchResultsContainerView: UIView? {
+        didSet {
+            if let view = searchResultsContainerView {
+                view.hidden = true
+            }
+        }
+    }
     var primaryTextDocumentProxy: UITextDocumentProxy?
     var noResultsTimer: NSTimer?
     var autocompleteTimer: NSTimer?
 
     var isNewSearch: Bool = false
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    init(viewModel aViewModel: SearchViewModel) {
+        viewModel = aViewModel
+
         searchBar = SearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
-        searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
-        searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
-        searchBar.shareButton.addTarget(self, action: "didTapShareButton", forControlEvents: .TouchUpInside)
-  
-        searchBar.textInput.placeholder = searchBar.textInput.placeholderText
-        
-        searchResultsContainerView?.hidden = true
-        searchSuggestionsViewController = SearchSuggestionsViewController(style: .Grouped)
-        searchSuggestionsViewController!.delegate = self
-        searchSuggestionsViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-        
+
         autocorrectSuggestionsViewController = AutocorrectSuggestionsViewController()
-        autocorrectSuggestionsViewController!.delegate = self
-        autocorrectSuggestionsViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-        
+        autocorrectSuggestionsViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
         bottomSeperator = UIView()
         bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
         bottomSeperator.backgroundColor = DarkGrey
-        
-        view.addSubview(searchSuggestionsViewController!.view)
+
+        searchSuggestionsViewController = SearchSuggestionsViewController(style: .Grouped)
+        searchSuggestionsViewController.view.translatesAutoresizingMaskIntoConstraints = false
+
+        super.init(nibName: nil, bundle: nil)
+
+        autocorrectSuggestionsViewController.delegate = self
+        searchSuggestionsViewController.delegate = self
+
         view.addSubview(searchBar)
-        view.addSubview(autocorrectSuggestionsViewController!.view)
+        view.addSubview(searchSuggestionsViewController.view)
+        view.addSubview(autocorrectSuggestionsViewController.view)
         view.addSubview(bottomSeperator)
         
         setupLayout()
-        
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        searchBar.textInput.placeholder = searchBar.textInput.placeholderText
+
         let center = NSNotificationCenter.defaultCenter()
         
         center.addObserver(self, selector: "resetSearchBar", name: KeyboardResetSearchBar, object: nil)
         center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
         center.addObserver(self, selector: "keyboardDidRestore", name: RestoreKeyboardEvent, object: nil)
+
+        searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
+        searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
+        searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
+        searchBar.shareButton.addTarget(self, action: "didTapShareButton", forControlEvents: .TouchUpInside)
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,15 +106,15 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
             searchBar.al_left == view.al_left,
             searchBar.al_height == KeyboardSearchBarHeight,
             
-            autocorrectSuggestionsViewController!.view.al_top == searchBar.al_top,
-            autocorrectSuggestionsViewController!.view.al_height == KeyboardSearchBarHeight,
-            autocorrectSuggestionsViewController!.view.al_left == searchBar.al_left,
-            autocorrectSuggestionsViewController!.view.al_right == searchBar.al_right,
+            autocorrectSuggestionsViewController.view.al_top == searchBar.al_top,
+            autocorrectSuggestionsViewController.view.al_height == KeyboardSearchBarHeight,
+            autocorrectSuggestionsViewController.view.al_left == searchBar.al_left,
+            autocorrectSuggestionsViewController.view.al_right == searchBar.al_right,
             
-            searchSuggestionsViewController!.view.al_top == searchBar.al_bottom,
-            searchSuggestionsViewController!.view.al_bottom == view.al_bottom,
-            searchSuggestionsViewController!.view.al_left == view.al_left,
-            searchSuggestionsViewController!.view.al_width == view.al_width,
+            searchSuggestionsViewController.view.al_top == searchBar.al_bottom,
+            searchSuggestionsViewController.view.al_bottom == view.al_bottom,
+            searchSuggestionsViewController.view.al_left == view.al_left,
+            searchSuggestionsViewController.view.al_width == view.al_width,
 
             bottomSeperator.al_bottom == view.al_bottom,
             bottomSeperator.al_left == view.al_left,
@@ -113,7 +134,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     func resetSearchBar() {
         filter = nil
         searchBar.resetSearchBar()
-        searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
+        searchSuggestionsViewController.tableView.setContentOffset(CGPointZero, animated: true)
         NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
             "height": 0,
             "hideToggleBar": true
@@ -122,7 +143,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func submitSearchRequest() {
         let query = filter != nil ? filter!.text + " " + searchBar.textInput.text : searchBar.textInput.text
-        viewModel?.sendRequestForQuery(query, autocomplete: false)
+        viewModel.sendRequestForQuery(query, autocomplete: false)
         searchResultsViewController?.updateEmptySetVisible(false)
         
         noResultsTimer?.invalidate()
@@ -162,7 +183,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func updateSuggestions(suggestions: [SuggestItem]) {
-        autocorrectSuggestionsViewController?.suggestions = suggestions
+        autocorrectSuggestionsViewController.suggestions = suggestions
     }
     
     func keyboardDidRestore() {
@@ -187,10 +208,10 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func showNoResultsEmptyState() {
-        searchResultsViewController!.updateEmptySetVisible(true, animated: true)
+        searchResultsViewController?.updateEmptySetVisible(true, animated: true)
     }
     
-    // MARK: UITextFieldDelegate
+
     func textFieldDidBeginEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("search")
         scheduleAutocompleteRequestTimer()
@@ -204,7 +225,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
         center.postNotificationName(RestoreKeyboardEvent, object: nil)
         center.postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
         
-        searchSuggestionsViewController?.tableView.scrollRectToVisible(CGRectZero, animated: false)
+        searchSuggestionsViewController.tableView.scrollRectToVisible(CGRectZero, animated: false)
         
         // setup search results view controller if nil
         if searchResultsViewController == nil {
@@ -226,9 +247,9 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func textFieldDidChange() {
         textProcessor?.parseTextInCurrentDocumentProxy()
-        searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
+        searchSuggestionsViewController.tableView.setContentOffset(CGPointZero, animated: true)
 
-        if viewModel?.hasReceivedResponse == true {
+        if viewModel.hasReceivedResponse == true {
             scheduleAutocompleteRequestTimer()
             isNewSearch = true
             searchResultsContainerView?.hidden = true
@@ -238,13 +259,13 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     func textFieldDidEndEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("default")
-        searchSuggestionsViewController?.tableView.setContentOffset(CGPointZero, animated: true)
-        searchBar?.textInput.updateButtonPositions()
+        searchSuggestionsViewController.tableView.setContentOffset(CGPointZero, animated: true)
+        searchBar.textInput.updateButtonPositions()
     }
     
     func setFilter(filter: Filter) {
         self.filter = filter
-        searchBar?.setFilterButton(filter)
+        searchBar.setFilterButton(filter)
         suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
     }
     
@@ -272,7 +293,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     
     // MARK: SearchSuggestionsViewModelDelegate
     func searchSuggestionsViewModelDidReceiveSuggestions(searchSuggestionsViewModel: SearchSuggestionsViewModel, suggestions: [SearchSuggestion]?) {
-        searchSuggestionsViewController?.suggestions = suggestions
+        searchSuggestionsViewController.suggestions = suggestions
     }
     
     // MARK: SearchSuggestionsViewControllerDelegate
@@ -307,7 +328,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate, SearchViewMode
     }
     
     func autocorrectSuggestionsViewControllerShouldShowSuggestions(autocorrectSuggestions: AutocorrectSuggestionsViewController) -> Bool {
-        if viewModel?.hasReceivedResponse == false {
+        if viewModel.hasReceivedResponse == false {
             return false
         }
         

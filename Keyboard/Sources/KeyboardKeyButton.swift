@@ -136,28 +136,26 @@ class KeyboardKeyButton: UIControl {
         addSubview(background)
         background.addSubview(label)
         background.addSubview(iconView)
+
+        self.displayView.opaque = false
+        self.underView?.opaque = false
+        self.borderView?.opaque = false
         
-        _ = {
-            self.displayView.opaque = false
-            self.underView?.opaque = false
-            self.borderView?.opaque = false
-            
-            self.shadowLayer.shadowOpacity = 0.32
-            self.shadowLayer.shadowRadius = 5
-            self.shadowLayer.shadowOffset = CGSizeMake(0, 4)
-            self.shadowLayer.backgroundColor = UIColor.blackColor().CGColor
-            
-            self.borderView?.lineWidth = 0.5
-            self.borderView?.fillColor = UIColor.clearColor()
-            
-            self.label.textAlignment = NSTextAlignment.Center
-            self.label.baselineAdjustment = UIBaselineAdjustment.AlignCenters
-            self.label.font = UIFont(name: "OpenSans", size: 20)
-            self.label.adjustsFontSizeToFitWidth = true
-            self.label.minimumScaleFactor = 0.1
-            self.label.userInteractionEnabled = false
-            self.label.numberOfLines = 1
-        }()
+        self.shadowLayer.shadowOpacity = 0.32
+        self.shadowLayer.shadowRadius = 5
+        self.shadowLayer.shadowOffset = CGSizeMake(0, 4)
+        self.shadowLayer.backgroundColor = UIColor.blackColor().CGColor
+        
+        self.borderView?.lineWidth = 0.5
+        self.borderView?.fillColor = UIColor.clearColor()
+        
+        self.label.textAlignment = NSTextAlignment.Center
+        self.label.baselineAdjustment = UIBaselineAdjustment.AlignCenters
+        self.label.font = UIFont(name: "OpenSans", size: 20)
+        self.label.adjustsFontSizeToFitWidth = true
+        self.label.minimumScaleFactor = 0.1
+        self.label.userInteractionEnabled = false
+        self.label.numberOfLines = 1
     }
     
         func setupKey() {
