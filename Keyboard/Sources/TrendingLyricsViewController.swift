@@ -15,9 +15,9 @@ enum TrendingLyricsSection: Int {
     case TrendingSongs = 2
 }
 
-private let cellReuseIdentifier = "cell"
-private let songCellReuseIdentifier = "songCell"
-private let sectionHeaderReuseIdentifier = "sectionHeader"
+let cellReuseIdentifier = "cell"
+let songCellReuseIdentifier = "songCell"
+let sectionHeaderReuseIdentifier = "sectionHeader"
 
 class TrendingLyricsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
@@ -25,9 +25,9 @@ class TrendingLyricsViewController: UICollectionViewController, UICollectionView
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
     var viewModel: TrendingLyricsViewModel
 
-    init (viewModel: TrendingLyricsViewModel) {
+    init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel) {
         self.viewModel = viewModel
-        super.init(collectionViewLayout: TrendingLyricsViewController.getLayout())
+        super.init(collectionViewLayout: collectionViewLayout)
 
         collectionView?.backgroundColor = VeryLightGray
         self.collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
@@ -41,7 +41,6 @@ class TrendingLyricsViewController: UICollectionViewController, UICollectionView
 
     class func getLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
         return layout
     }
 
@@ -153,6 +152,9 @@ class TrendingLyricsViewController: UICollectionViewController, UICollectionView
             cell.mainTextLabel.text = "3500"
             cell.leftHeaderLabel.text = "Travis Scott ft 2 Chainz & Future"
             cell.leftMetadataLabel.text = "Single"
+            cell.layer.shouldRasterize = true
+            cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+            
             return cell
         }
     }

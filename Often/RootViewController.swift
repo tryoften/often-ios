@@ -28,7 +28,7 @@ class RootViewController: UITabBarController {
 
         let userProfileVC = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: MediaLinksViewModel())
 
-        let trendingVC = SocialAccountSettingsCollectionViewController(collectionViewLayout: SocialAccountSettingsCollectionViewController.provideCollectionViewLayout(), viewModel: SocialAccountSettingsViewModel(sessionManager: sessionManager))
+        let trendingVC = BrowseViewController(collectionViewLayout: BrowseViewController.provideCollectionViewLayout(), viewModel: TrendingLyricsViewModel())
         let settingVC = AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: sessionManager))
 
         let iconInsets = UIEdgeInsetsMake(8, 0, -8, 0)

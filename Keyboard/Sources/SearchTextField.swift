@@ -377,5 +377,4 @@ protocol Layouteable {
 }
 
 protocol SearchTextFieldDelegate: class, UITextFieldDelegate {
-    
 }

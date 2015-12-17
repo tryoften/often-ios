@@ -269,10 +269,11 @@ let TrendingHeaderViewTintViewBackgroundColor = UIColor(red: 0, green: 0, blue: 
 
 //Trending Header View
 let TrendingHeaderViewBackgroundColor = UIColor.blackColor()
-let TrendingHeaderViewTopLabelFont = UIFont(name: "OpenSans", size: 18.0)
+let TrendingHeaderViewTopLabelFont = UIFont(name: "Montserrat-Regular", size: 18.0)
 let TrendingHeaderViewTopLabelBackgroundColor = UIColor.whiteColor()
 let TrendingHeaderViewTabViewBackgroundColor = UIColor.blackColor()
-let TrendingHeaderViewNameLabelTextFont = UIFont(name: "Oswald-Light", size: 24.0)
+let TrendingHeaderViewSongTitleLabelTextFont = UIFont(name: "OpenSans", size: 12.0)
+let TrendingHeaderViewArtistNameLabelTextFont = UIFont(name: "Montserrat-Regular", size: 18.0)
 let TrendingHeaderViewNameLabelTextColor = UIColor.whiteColor()
 let TrendingHeaderViewFeaturedButtonTextFont = UIFont(name: "OpenSans", size: 10.0)
 let TrendingHeaderViewFeaturedButtonBackgroundColor = UIColor.whiteColor()

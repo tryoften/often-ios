@@ -40,7 +40,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         textProcessor!.delegate = self
 
         viewModel = MediaLinksViewModel()
-        trendingViewController = TrendingLyricsViewController(viewModel: TrendingLyricsViewModel())
+        trendingViewController = TrendingLyricsViewController(collectionViewLayout: TrendingLyricsViewController.getLayout(), viewModel: TrendingLyricsViewModel())
 
         view.backgroundColor = DefaultTheme.keyboardBackgroundColor
 
