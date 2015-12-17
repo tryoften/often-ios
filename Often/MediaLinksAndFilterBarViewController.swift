@@ -6,7 +6,7 @@
 //  Copyright © 2015 Surf Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewController {
     var viewModel: MediaLinksViewModel
@@ -22,7 +22,8 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
             }
         }
     }
-    
+
+
     init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaLinksCollectionType, viewModel: MediaLinksViewModel) {
         self.viewModel = viewModel
 
@@ -177,6 +178,9 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
 
+
+
+
     // MARK: MediaLinkCollectionViewCellDelegate
     override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
@@ -187,3 +191,4 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         cell.itemFavorited = selected
     }
 }
+

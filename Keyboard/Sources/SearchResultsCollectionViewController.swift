@@ -8,26 +8,26 @@
 
 import UIKit
 
-/**
-    SearchResultsCollectionViewController
-
-    Collection view that can display any type of service provider cell because they are all 
-    the same size.
-    
-    Types of providers:
-
-    Song Cell
-    Video Cell
-    Article Cell
-    Tweet Cell
-
-*/
-
 let SearchResultsInsertLinkEvent = "SearchResultsCollectionViewCell.insertButton"
 
+/**
+ SearchResultsCollectionViewController
+
+ Collection view that can display any type of service provider cell because they are all
+ the same size.
+
+ Types of providers:
+
+ Song Cell
+ Video Cell
+ Article Cell
+ Tweet Cell
+
+ */
 class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, ToolTipCloseButtonDelegate, MessageBarDelegate {
     var backgroundImageView: UIImageView
     var textProcessor: TextProcessingManager?
+    var searchBarController: SearchBarController?
     var response: SearchResponse? {
         didSet {
             refreshTimer?.invalidate()
@@ -46,7 +46,6 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     var messageBarView: MessageBarView
     var messageBarVisibleConstraint: NSLayoutConstraint?
     var isFullAccessEnabled: Bool
-
     
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
@@ -80,7 +79,6 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         view.insertSubview(backgroundImageView, belowSubview: collectionView!)
         view.addSubview(refreshResultsButton)
         view.backgroundColor = VeryLightGray
-        collectionView?.backgroundColor = UIColor.clearColor()
         view.addSubview(messageBarView)
         view.addSubview(emptyStateView)
         
@@ -92,7 +90,6 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         }
         
         messageBarView.delegate = self
-        
         refreshResultsButton.addTarget(self, action: "didTapRefreshResultsButton", forControlEvents: .TouchUpInside)
         
         // Register cell classes
@@ -114,6 +111,13 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
+        collectionView?.backgroundColor = UIColor.clearColor()
     }
     
     override func viewDidAppear(animated: Bool) {        
@@ -364,6 +368,24 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
             UIView.commitAnimations()
         }
     }
-    
+
+    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
+        guard let containerViewController = containerViewController,
+            let searchBarController = searchBarController else {
+            return
+        }
+
+        var frame = tabBarFrame
+        var searchBarFrame = searchBarController.view.frame
+        let tabBarHeight = CGRectGetHeight(frame)
+
+        searchBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight), -KeyboardSearchBarHeight)
+        frame.origin.y = fmax(fmin(y, 0), -2 * tabBarHeight)
+
+        UIView.animateWithDuration(animated ? 0.1 : 0) {
+            self.searchBarController?.view.frame = searchBarFrame
+            containerViewController.tabBar.frame = frame
+        }
+    }
 }
 

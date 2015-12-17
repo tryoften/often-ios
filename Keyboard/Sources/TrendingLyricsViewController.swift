@@ -30,9 +30,10 @@ class TrendingLyricsViewController: UICollectionViewController, UICollectionView
         super.init(collectionViewLayout: TrendingLyricsViewController.getLayout())
 
         collectionView?.backgroundColor = VeryLightGray
-        self.collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        self.collectionView?.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
-        self.collectionView?.registerClass(TrendingLyricsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderReuseIdentifier)
+        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
+        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView?.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
+        collectionView?.registerClass(TrendingLyricsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderReuseIdentifier)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -41,7 +42,6 @@ class TrendingLyricsViewController: UICollectionViewController, UICollectionView
 
     class func getLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
         return layout
     }
 

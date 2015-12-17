@@ -17,10 +17,10 @@ enum MediaLinksKeyboardSection: Int {
     case Search
 }
 
-class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewController, TextProcessingManagerDelegate {
+class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewController, TextProcessingManagerDelegate,
+    UIScrollViewDelegate {
     var mediaLink: MediaLink?
     var viewModel: KeyboardViewModel?
-    var textProcessor: TextProcessingManager?
     var togglePanelButton: TogglePanelButton
 
     var viewModelsLoaded: dispatch_once_t = 0
@@ -35,6 +35,8 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         sections = []
 
         super.init(extraHeight: extraHeight, debug: debug)
+
+
 
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
@@ -78,7 +80,8 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         trendingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfTrendingtab(scale: 0.45), tag: 2)
 
         // Trending
-        let searchVC = SearchViewController(viewModel: SearchViewModel(base: Firebase(url: BaseURL)), textProcessor: textProcessor!)
+        let baseURL = Firebase(url: BaseURL)
+        let searchVC = SearchViewController(viewModel: SearchViewModel(base: baseURL), suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL), textProcessor: textProcessor!)
         searchVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
 
         sections = [
@@ -99,7 +102,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
         center.addObserver(self, selector: "hideKeyboard", name: CollapseKeyboardEvent, object: nil)
         center.addObserver(self, selector: "showKeyboard", name: RestoreKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "toggleShowKeyboardButton:", name: ToggleButtonKeyboardEvent, object: nil)
         center.addObserver(self, selector: "didTapOnMediaLink:", name: SearchResultsInsertLinkEvent, object: nil)
         center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
 
@@ -140,23 +142,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
     }
 
-    func showKeyboard() {
-        if let textProcessor = textProcessor where keyboard == nil {
-            keyboard = KeyboardViewController(textProcessor: textProcessor)
-            containerView.addSubview(keyboard!.view)
-            self.viewDidLayoutSubviews()
-        } else {
-            keyboard!.view.hidden = false
-        }
-    }
-
-    func hideKeyboard() {
-        guard let keyboard = keyboard else {
-            return
-        }
-        keyboard.view.hidden = true
-    }
-
     func didTapEnterButton(button: KeyboardKeyButton?) {
     }
 
@@ -168,6 +153,9 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         togglePanelButton.hidden = hide
     }
+
+    // MARK: UIScrollViewDelegate
+
 
 
     // MARK: TextProcessingManagerDelegate
@@ -189,5 +177,8 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
     }
+}
+
+extension UIScrollView {
 
 }

@@ -15,6 +15,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaLinksAndFilterBarViewContr
     init(viewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType) {
         super.init(collectionViewLayout: KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout(), collectionType: collectionType, viewModel: viewModel)
         collectionView?.backgroundColor = UIColor.clearColor()
+        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
     }
 
     required init?(coder aDecoder: NSCoder) {
