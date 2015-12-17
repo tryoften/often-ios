@@ -98,7 +98,7 @@ class MediaFilterTabView: UIView {
                 buttons[i].selected = true
                 highlightPillCenterConstraint?.constant = (buttonWidth * CGFloat(i))
                 highlightPillWidthConstraint?.constant = CGRectGetWidth(button.titleLabel!.frame) + 30
-                delegate?.filterDidChange(button.filterTypes)
+                delegate?.mediaFilterDidChange(button.filterTypes)
                 
                 UIView.animateWithDuration(0.3) {
                     self.layoutIfNeeded()
@@ -112,6 +112,6 @@ class MediaFilterTabView: UIView {
 }
 
 protocol FilterTabDelegate: class {
-    func filterDidChange(filters: [MediaType])
+    func mediaFilterDidChange(filters: [MediaType])
 }
 
