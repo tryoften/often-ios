@@ -36,6 +36,8 @@
 		3B6EA4301BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */; };
 		3B6EA4311BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */; };
 		3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
+		3B93ED081C226DE700555496 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED071C226DE700555496 /* BrowseViewController.swift */; };
+		3B93ED0A1C226DF700555496 /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED091C226DF700555496 /* BrowseHeaderView.swift */; };
 		3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		3BA8945C1BB35D560000D5C0 /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */; };
@@ -436,6 +438,8 @@
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
 		3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaLinksCollectionBaseViewController.swift; path = ../Often/MediaLinksCollectionBaseViewController.swift; sourceTree = "<group>"; };
 		3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsViewModel.swift; sourceTree = "<group>"; };
+		3B93ED071C226DE700555496 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		3B93ED091C226DF700555496 /* BrowseHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderView.swift; sourceTree = "<group>"; };
 		3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountHeaderView.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialAccount.swift; path = Often/SocialAccount.swift; sourceTree = "<group>"; };
@@ -1004,6 +1008,7 @@
 				690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */,
 				695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */,
 				3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */,
+				3B93ED071C226DE700555496 /* BrowseViewController.swift */,
 				695154991BF2C65700AAAFA4 /* SkipSignupViewController.swift */,
 				690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */,
 				69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */,
@@ -1027,6 +1032,7 @@
 				3BD971D51B9E642D007EAB5A /* SignupView.swift */,
 				3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */,
 				3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */,
+				3B93ED091C226DF700555496 /* BrowseHeaderView.swift */,
 				3BD971DE1B9F911E007EAB5A /* SigninView.swift */,
 				3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */,
 				69E7FD891B8E0BD7003BC281 /* MediaFilterTabView.swift */,
@@ -1804,6 +1810,7 @@
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				81F8337E1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
 				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
+				3B93ED081C226DE700555496 /* BrowseViewController.swift in Sources */,
 				3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */,
 				3B5F255F1BF3386E00AA7A98 /* TermsOfUseViewController.swift in Sources */,
 				8176BEA01B72743000E1BDCD /* FuzzySearch.swift in Sources */,
@@ -1870,6 +1877,7 @@
 				698B872A1B755139001B5B86 /* UserProfileSectionHeaderView.swift in Sources */,
 				3BD971E11B9FD374007EAB5A /* SignupViewController.swift in Sources */,
 				81E26D881B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
+				3B93ED0A1C226DF700555496 /* BrowseHeaderView.swift in Sources */,
 				8185A0D81BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift in Sources */,
 				690003A61BD5954600C0DA9E /* SettingsWebViewController.swift in Sources */,
 				3BEB40BB1BD03A8C00D36C4D /* CompleteInstallationView.swift in Sources */,
