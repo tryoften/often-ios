@@ -26,7 +26,6 @@ class RootViewController: UITabBarController {
         tabBar.layer.shadowRadius = 4
 
         let userProfileVC = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: MediaLinksViewModel())
-
         let trendingVC = BrowseViewController(collectionViewLayout: BrowseViewController.provideCollectionViewLayout(), viewModel: TrendingLyricsViewModel())
         let settingVC = AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: sessionManager))
 

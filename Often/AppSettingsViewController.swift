@@ -1,4 +1,4 @@
-//
+ //
 //  AppSettingsViewController.swift
 //  Often
 //
@@ -22,7 +22,7 @@ class AppSettingsViewController: UIViewController,
     MFMailComposeViewControllerDelegate,
     UIActionSheetDelegate,
     TableViewCellDelegate {
-    var tableView: UITableView
+    var appSettingView: AppSettingsView
     var viewModel: SettingsViewModel
     
     var accountSettings = [
@@ -49,25 +49,18 @@ class AppSettingsViewController: UIViewController,
     
     init(viewModel: SettingsViewModel) {
         self.viewModel = viewModel
-        
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20.0, right: 0)
-        tableView.showsVerticalScrollIndicator = false
-        tableView.separatorInset = UIEdgeInsetsZero
-        tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
-        tableView.backgroundColor = MediumGrey
+
+        appSettingView = AppSettingsView()
+        appSettingView.translatesAutoresizingMaskIntoConstraints = false
+        appSettingView.tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
         
         super.init(nibName: nil, bundle: nil)
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        appSettingView.tableView.delegate = self
+        appSettingView.tableView.dataSource = self
         
-        view.layer.masksToBounds = true
-        view.backgroundColor = MediumGrey
-        view.addSubview(tableView)
-        
+        view.addSubview(appSettingView)
+
         setupLayout()
     }
 
@@ -83,8 +76,18 @@ class AppSettingsViewController: UIViewController,
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
+
+    func setupLayout() {
+        view.addConstraints([
+            appSettingView.al_left == view.al_left,
+            appSettingView.al_top == view.al_top,
+            appSettingView.al_right == view.al_right,
+            appSettingView.al_bottom == view.al_bottom
+            ])
+
+        
+    }
+
     // MARK: TableViewDelegate and Datasource
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let enumVal = ProfileSettingsSection(rawValue: section) else {
@@ -132,42 +135,44 @@ class AppSettingsViewController: UIViewController,
         if let settingsSection = ProfileSettingsSection(rawValue: indexPath.section) {
             switch settingsSection {
             case .Account:
-                if indexPath.row == 0 { // name
-                    
-                } else if indexPath.row == 1 { // email
-                    
-                } else if indexPath.row == 2 { // password
-                    
-                } else { // push notifications
-                    
+                switch indexPath.row {
+                case 0: break
+                case 1: break
+                case 2: break
+                default: break
                 }
+                
             case .Actions:
-                if indexPath.row == 0 { // How to Install
+                switch indexPath.row {
+                case 0:
                     let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
                     let walkthroughViewController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
                     walkthroughViewController.inAppDisplay = true
-                } else if indexPath.row == 1 { // Rate in App Store
-                    
-                } else { // Support
-                    launchEmail(self)
-                }
-            case .About:
-                var vc: SettingsWebViewController?
-                if indexPath.row == 0 { // FAQ
-                    vc = SettingsWebViewController(title:"faq", website: "http://www.tryoften.com/faq.html")
-                } else if indexPath.row == 1 {
-                    vc = SettingsWebViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html")
+                    presentViewController(walkthroughViewController, animated: true, completion: nil)
+                case 1: break
+                case 2: launchEmail(self)
+                default: break
                 }
 
-                if let vc = vc {
-                    presentViewController(vc, animated: true, completion: nil)
+            case .About:
+                var vc: SettingsWebViewController?
+
+                switch indexPath.row {
+                case 0: vc = SettingsWebViewController(title:"faq", website: "http://www.tryoften.com/faq.html")
+                case 1:  vc = SettingsWebViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html")
+                default: break
                 }
+
+                if let webView = vc {
+                    presentViewController(webView, animated: true, completion: nil)
+                }
+
             case .Logout:
                 let actionSheet = UIActionSheet(title: "Are you sure you want to logout?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Logout")
                 actionSheet.showInView(view)
             }
         }
-        
+
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
     
@@ -192,62 +197,62 @@ class AppSettingsViewController: UIViewController,
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if let settingsSection = ProfileSettingsSection(rawValue: section) {
-            switch settingsSection {
-            case .About:
-                return 50
-            default:
-                return 0.01
-            }
+        guard let settingsSection = ProfileSettingsSection(rawValue: section) else {
+            return 0.01
         }
-        return 0.01
+
+        switch settingsSection {
+        case .About:
+            return 30
+        default:
+            return 0.01
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let settingsSection: ProfileSettingsSection = ProfileSettingsSection(rawValue: indexPath.section) {
-            switch settingsSection {
-            case .Account:
-                if indexPath.row == 0 { // name
-                    let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
-                    cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.secondaryTextField.text = viewModel.currentUser?.name
-                    cell.delegate = self
-                    return cell
-                } else if indexPath.row == 1 { // email
-                    let cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
-                    cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.secondaryTextField.text = viewModel.currentUser?.email
-                    cell.userInteractionEnabled = false
-                    return cell
-                } else if indexPath.row == 2 { // password
-                    let cell = UserProfileSettingsTableViewCell(type: .Default)
-                    cell.titleLabel.text = accountSettings[indexPath.row]
-                    cell.disclosureIndicator.image = UIImage(named: "")
-                    cell.userInteractionEnabled = false
-                    return cell
-                } else { // push notifications
-                    let cell = UserProfileSettingsTableViewCell(type: .Switch)
-                    cell.titleLabel.text = accountSettings[indexPath.row]
-                    return cell
-                }
-            case .Actions:
-                let cell = UserProfileSettingsTableViewCell(type: .Default)
-                cell.titleLabel.text = actionsSettings[indexPath.row]
-                return cell
-            case .About:
-                let cell = UserProfileSettingsTableViewCell(type: .Default)
-                cell.titleLabel.text = aboutSettings[indexPath.row]
-                return cell
-            case .Logout:
-                let cell = UserProfileSettingsTableViewCell(type: .Logout)
-                cell.titleLabel.text = logoutSettings[indexPath.row]
-                return cell
-            }
+        guard let settingsSection: ProfileSettingsSection = ProfileSettingsSection(rawValue: indexPath.section) else {
+            return UITableViewCell()
         }
-        let cell = UITableViewCell()
-        return cell
+
+        var cell = UserProfileSettingsTableViewCell(type: .Switch)
+
+        switch settingsSection {
+        case .Account:
+            switch indexPath.row {
+            case 0:
+                cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
+                cell.secondaryTextField.text = viewModel.currentUser?.name
+                cell.delegate = self
+            case 1:
+                cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
+                cell.secondaryTextField.text = viewModel.currentUser?.email
+                cell.userInteractionEnabled = false
+            case 2:
+                cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
+                cell.disclosureIndicator.image = UIImage(named: "")
+               cell.userInteractionEnabled = false
+            default:
+                break
+            }
+
+            cell.titleLabel.text = accountSettings[indexPath.row]
+            return cell
+
+        case .Actions:
+            let cell = UserProfileSettingsTableViewCell(type: .Default)
+            cell.titleLabel.text = actionsSettings[indexPath.row]
+            return cell
+        case .About:
+            let cell = UserProfileSettingsTableViewCell(type: .Default)
+            cell.titleLabel.text = aboutSettings[indexPath.row]
+            return cell
+        case .Logout:
+            let cell = UserProfileSettingsTableViewCell(type: .Logout)
+            cell.titleLabel.text = logoutSettings[indexPath.row]
+            return cell
+        }
     }
-    
+
     // MARK: MFMailComposeViewControllerDelegate - (Does not work in Simulator)
     func launchEmail(sender: AnyObject) {
         let emailTitle = "Often Feedback"
@@ -301,12 +306,4 @@ class AppSettingsViewController: UIViewController,
         viewModel.currentUser?.name = newName
     }
     
-    func setupLayout() {
-        view.addConstraints([
-            tableView.al_left == view.al_left,
-            tableView.al_top == view.al_top,
-            tableView.al_right == view.al_right,
-            tableView.al_bottom == view.al_bottom
-        ])
-    }
 }
