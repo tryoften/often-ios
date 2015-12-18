@@ -51,9 +51,9 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         
         pagesubTitle = [
             "Search, share & favorite lyrics, \n in any app, right from your keyboard",
-            "Browse trending lyrics & songs. \n Tap on any card to share or favorite",
-            "Favorites are saved right in your keyboard to easily share again later",
-            "Powered by Genius, Often lets you search the latest lyrics, songs & artists"
+            "Save all the best lyrics to your Favorites & easily share them again later",
+            "Discover the hottest lyrics, songs & artists right inside your keyboard",
+            "Powered by Genius, search helps you \n find & favorite all the best lyrics"
         ]
         
         super.init(nibName: nil, bundle: nil)
@@ -132,7 +132,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         signupView.subtitleLabel.textAlignment = .Center
         
         timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(4.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
     
     override func prefersStatusBarHidden() -> Bool {
