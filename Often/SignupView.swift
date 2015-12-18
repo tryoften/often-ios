@@ -24,7 +24,7 @@ class SignupView: UIView {
         let titleString = "often".uppercaseString
         let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
-        let subtitleString = "Search, share & favorite lyrics, in any app, right from your keyboard"
+        let subtitleString = "Search, share & favorite lyrics, \n in any app, right from your keyboard"
         let subtitleRange = NSMakeRange(0, subtitleString.characters.count)
         let subtitle = NSMutableAttributedString(string: subtitleString)
         let paragraphStyle = NSMutableParagraphStyle()
