@@ -200,6 +200,10 @@
 		813323921C226BD70084918B /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8133238F1C2269890084918B /* UIViewController+KeyboardSectionsContainerViewController.swift */; };
 		813323961C23652C0084918B /* MediaLinksSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323951C23652C0084918B /* MediaLinksSectionHeaderView.swift */; };
 		813323971C23652D0084918B /* MediaLinksSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323951C23652C0084918B /* MediaLinksSectionHeaderView.swift */; };
+		8133239A1C249A410084918B /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323991C249A410084918B /* AppSettingsView.swift */; };
+		813324251C24A4F80084918B /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324221C24A4F80084918B /* NJKScrollFullScreen.m */; };
+		813324261C24A4F80084918B /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324221C24A4F80084918B /* NJKScrollFullScreen.m */; };
+		813324271C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324241C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m */; };
 		8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */; };
 		8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
@@ -553,6 +557,11 @@
 		813323881C2268E10084918B /* FullScreenCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FullScreenCollectionViewController.swift; path = Sources/FullScreenCollectionViewController.swift; sourceTree = "<group>"; };
 		8133238F1C2269890084918B /* UIViewController+KeyboardSectionsContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+KeyboardSectionsContainerViewController.swift"; path = "Sources/UIViewController+KeyboardSectionsContainerViewController.swift"; sourceTree = "<group>"; };
 		813323951C23652C0084918B /* MediaLinksSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaLinksSectionHeaderView.swift; sourceTree = "<group>"; };
+		813323991C249A410084918B /* AppSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
+		813324211C24A4F80084918B /* NJKScrollFullScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKScrollFullScreen.h; sourceTree = "<group>"; };
+		813324221C24A4F80084918B /* NJKScrollFullScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKScrollFullScreen.m; sourceTree = "<group>"; };
+		813324231C24A4F80084918B /* UIViewController+NJKFullScreenSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NJKFullScreenSupport.h"; sourceTree = "<group>"; };
+		813324241C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NJKFullScreenSupport.m"; sourceTree = "<group>"; };
 		8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RefreshResultsButton.swift; path = Sources/RefreshResultsButton.swift; sourceTree = "<group>"; };
 		8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextProcessingManager.swift; path = Sources/TextProcessingManager.swift; sourceTree = "<group>"; };
 		81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceList.swift"; sourceTree = "<group>"; };
@@ -874,6 +883,7 @@
 			isa = PBXGroup;
 			children = (
 				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
+				813324201C24A4F80084918B /* NJKScrollFullScreen */,
 				81D4BF151B38F6DA006430AB /* PKHUD */,
 				81DC114A1AF05CF400412BD2 /* SwiftyJSON */,
 				81331E171A1806BB003E4609 /* SwiftAutoLayout */,
@@ -959,6 +969,17 @@
 				813323951C23652C0084918B /* MediaLinksSectionHeaderView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		813324201C24A4F80084918B /* NJKScrollFullScreen */ = {
+			isa = PBXGroup;
+			children = (
+				813324211C24A4F80084918B /* NJKScrollFullScreen.h */,
+				813324221C24A4F80084918B /* NJKScrollFullScreen.m */,
+				813324231C24A4F80084918B /* UIViewController+NJKFullScreenSupport.h */,
+				813324241C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m */,
+			);
+			path = NJKScrollFullScreen;
 			sourceTree = "<group>";
 		};
 		81413DB31A91C0A400926E7C /* View Models */ = {
@@ -1062,6 +1083,7 @@
 			isa = PBXGroup;
 			children = (
 				69FE381D1BD82FE2007A63FB /* User Profile */,
+				813323991C249A410084918B /* AppSettingsView.swift */,
 				3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */,
 				3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */,
 				3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */,
@@ -1824,6 +1846,7 @@
 				3B6EA4301BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */,
 				3BEB408E1BC8561500D36C4D /* HUDProgressView.swift in Sources */,
 				8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
+				813324271C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m in Sources */,
 				817939071B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				69C663221B8B6FA60014433D /* MediaLinksViewModel.swift in Sources */,
 				3B5F25681BF4032500AA7A98 /* AnonymousAccountManager.swift in Sources */,
@@ -1852,6 +1875,7 @@
 				817939001B5BFEB40064B0CF /* ServiceProvider.swift in Sources */,
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				81F8337E1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
+				8133239A1C249A410084918B /* AppSettingsView.swift in Sources */,
 				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				3B93ED081C226DE700555496 /* BrowseViewController.swift in Sources */,
 				3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */,
@@ -1894,6 +1918,7 @@
 				3B100A221BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift in Sources */,
 				81B2BB711BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
 				3BD971BE1B98ABF4007EAB5A /* TwitterAccountManager.swift in Sources */,
+				813324251C24A4F80084918B /* NJKScrollFullScreen.m in Sources */,
 				69BFB5091BC16F60001CC24D /* ToolTipViewController.swift in Sources */,
 				813323701C1FBF2B0084918B /* KeyboardFavoritesAndRecentsViewController.swift in Sources */,
 				81E26D8B1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift in Sources */,
@@ -1950,6 +1975,7 @@
 				810A242E1BE058250032AFC7 /* SpellChecker.swift in Sources */,
 				8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */,
 				813323801C2216BB0084918B /* EventEmittable.swift in Sources */,
+				813324261C24A4F80084918B /* NJKScrollFullScreen.m in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				813323651C1F76700084918B /* KeyboardSectionsContainerViewController.swift in Sources */,
