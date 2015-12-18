@@ -250,7 +250,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     func featuredArtistsDidTap(sender: UIButton) {
         let page = Int(floor((scrollView.contentOffset.x * 2.0 + screenWidth) / (screenWidth * 2.0)))
         if page < featuredArtists.count {
-            delegate?.browseHeaderFeaturedArtistWasSelected(self, artist: featuredArtists[page])
+            delegate?.browseHeaderDidSelectFeaturedArtist(self, artist: featuredArtists[page])
             timer?.invalidate()
         }
     }
@@ -267,5 +267,5 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
 
 protocol BrowseHeaderViewDelegate: class {
     func browseHeaderDidLoadFeaturedArtists(browseHeaderView: UICollectionReusableView, artists: [MediaLink])
-    func browseHeaderFeaturedArtistWasSelected(browseHeaderView: UICollectionReusableView, artist: MediaLink)
+    func browseHeaderDidSelectFeaturedArtist(browseHeaderView: UICollectionReusableView, artist: MediaLink)
 }

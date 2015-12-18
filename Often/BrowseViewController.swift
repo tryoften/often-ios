@@ -70,7 +70,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         
     }
 
-    func browseHeaderFeaturedArtistWasSelected(BrowseHeaderView: UICollectionReusableView, artist: MediaLink) {
+    func browseHeaderDidSelectFeaturedArtist(BrowseHeaderView: UICollectionReusableView, artist: MediaLink) {
 
     }
     
