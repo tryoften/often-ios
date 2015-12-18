@@ -74,7 +74,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 1)
 
         // Trending
-        let trendingVC = TrendingLyricsViewController(viewModel: TrendingLyricsViewModel())
+        let trendingVC = TrendingLyricsViewController(collectionViewLayout: TrendingLyricsViewController.getLayout(), viewModel: TrendingLyricsViewModel())
         trendingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfTrendingtab(scale: 0.45), tag: 2)
 
         // Trending

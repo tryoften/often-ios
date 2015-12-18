@@ -15,7 +15,6 @@
 #import <Parse/Parse.h>
 #import <MMWormhole/MMWormhole.h>
 #import <MMWormhole/MMWormholeSession.h>
-#import "TwitterAuthHelper.h"
 #import <Analytics/SEGAnalytics.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseTwitterUtils/PFTwitterUtils.h>

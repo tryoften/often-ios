@@ -109,7 +109,7 @@ class MediaLink: Equatable {
     }
     
     func getNameForSource() -> String {
-        switch (source) {
+        switch source {
             case .Billboard: return "Billboard"
             case .Complex: return "Complex"
             case .Highsnobiety: return "Highsnobiety"
