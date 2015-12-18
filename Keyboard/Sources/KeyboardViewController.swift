@@ -36,6 +36,7 @@ class KeyboardViewController: UIViewController {
     var autoPeriodState: AutoPeriodState = .NoSpace
     var constraintsAdded: Bool = false
     var collapsed: Bool = false
+    
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
     }

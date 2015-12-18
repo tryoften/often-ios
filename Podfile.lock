@@ -45,6 +45,7 @@ PODS:
   - MMWormhole (2.0.0):
     - MMWormhole/Core (= 2.0.0)
   - MMWormhole/Core (2.0.0)
+  - NJKScrollFullScreen (0.2.6)
   - Parse (1.9.1):
     - Bolts/Tasks (>= 1.4.0)
   - ParseFacebookUtils (1.9.0):
@@ -66,6 +67,7 @@ DEPENDENCIES:
   - Facebook-iOS-SDK (~> 3.0)
   - Firebase (>= 2.0.2)
   - MMWormhole (~> 2.0.0)
+  - NJKScrollFullScreen
   - Parse
   - ParseFacebookUtils
   - ParseTwitterUtils
@@ -91,6 +93,7 @@ SPEC CHECKSUMS:
   Firebase: 5e898ed5012c81d28ca5fae1113c6b61a172bc6d
   FlurrySDK: d4737cc34e5b01503a05bedeb2e011ef45c9b114
   MMWormhole: 0cd3fd35a9118b2e2d762b499f54eeaace0be791
+  NJKScrollFullScreen: 13e370f935da7385b92779644b31df8d83a91447
   Parse: 54a965c8c19a6dde90284ab654dbcc77ef8c001b
   ParseFacebookUtils: 5e8cecf2b352f50a6780ba41c9268359032d686f
   ParseTwitterUtils: 0155d1a4e388690aa5d80405a586474e66606968

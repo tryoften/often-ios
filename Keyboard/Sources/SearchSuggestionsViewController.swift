@@ -12,15 +12,22 @@ let SearchSuggestionCellReuseIdentifier = "SearchSuggestionsCell"
 let ServiceProviderSuggestionCellReuseIdentifier = "ServiceProviderSuggestionCell"
 let SearchLoaderSuggestionCellReuseIdentifier = "SearchLoaderSuggestionsCell"
 
-class SearchSuggestionsViewController: UITableViewController {
+class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsViewModelDelegate {
     var delegate: SearchSuggestionViewControllerDelegate?
-    var suggestions: [SearchSuggestion]? {
-        didSet {
-            tableView.reloadData()
-            tableView.scrollRectToVisible(CGRectZero, animated: true)
-        }
+    var viewModel: SearchSuggestionsViewModel
+
+    init(viewModel aViewModel: SearchSuggestionsViewModel) {
+        viewModel = aViewModel
+        super.init(style: .Grouped)
+
+        viewModel.delegate = self
+        viewModel.suggestionsDelegate = self
     }
-    
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,14 +36,14 @@ class SearchSuggestionsViewController: UITableViewController {
         tableView.registerClass(SearchLoaderSuggestionTableViewCell.self, forCellReuseIdentifier: SearchLoaderSuggestionCellReuseIdentifier)
         tableView.separatorColor = DarkGrey
         tableView.separatorInset = UIEdgeInsetsZero
-        tableView.contentInset = UIEdgeInsetsZero
+        tableView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
 
         view.backgroundColor = VeryLightGray
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.requestData()
     }
 
     // MARK: - Table view data source
@@ -45,7 +52,7 @@ class SearchSuggestionsViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let suggestions = suggestions {
+        if let suggestions = viewModel.suggestions {
             if suggestions.isEmpty {
                 return 3
             } else {
@@ -75,7 +82,7 @@ class SearchSuggestionsViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell = UITableViewCell()
         
-        if suggestions?.isEmpty == true {
+        if viewModel.suggestions?.isEmpty == true {
             let loaderCell = tableView.dequeueReusableCellWithIdentifier(SearchLoaderSuggestionCellReuseIdentifier, forIndexPath: indexPath) as? SearchLoaderSuggestionTableViewCell
             
             if indexPath.row % 2 == 0 {
@@ -87,7 +94,7 @@ class SearchSuggestionsViewController: UITableViewController {
             return loaderCell!
         }
         
-        guard let suggestion = suggestions?[indexPath.row] else {
+        guard let suggestion = viewModel.suggestions?[indexPath.row] else {
             return cell
         }
         
@@ -120,15 +127,23 @@ class SearchSuggestionsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if suggestions?.isEmpty == true {
+        if viewModel.suggestions?.isEmpty == true {
             return
         }
     
-        if let suggestion = suggestions?[indexPath.row] {
+        if let suggestion = viewModel.suggestions?[indexPath.row] {
             delegate?.searchSuggestionViewControllerDidTapSuggestion(self, suggestion: suggestion)
         }
     }
 
+    // MARK: SearchSuggestionsViewModelDelegate
+    func searchSuggestionsViewModelDidReceiveSuggestions(searchSuggestionsViewModel: SearchSuggestionsViewModel, suggestions: [SearchSuggestion]?) {
+        tableView.reloadData()
+        tableView.scrollRectToVisible(CGRectZero, animated: true)
+    }
+
+    func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
+    }
 }
 
 

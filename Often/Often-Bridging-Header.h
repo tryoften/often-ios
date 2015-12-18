@@ -24,3 +24,4 @@
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayoutAttributes.h>
 #import <DateTools/DateTools.h>
+#import <NJKScrollFullScreen/NJKScrollFullScreen.h>

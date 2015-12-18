@@ -51,7 +51,11 @@ class SearchBar: UIView {
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.setImage(StyleKit.imageOfSharebutton(), forState: .Normal)
         shareButton.alpha = 0.40
-        
+
+        bottomSeperator = UIView()
+        bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
+        bottomSeperator.backgroundColor = DarkGrey
+
         super.init(frame: frame)
         
         textInput.addTarget(self, action: "textFieldEditingDidBegin", forControlEvents: .EditingDidBegin)

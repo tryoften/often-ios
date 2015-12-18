@@ -103,17 +103,17 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         // Dispose of any resources that can be recreated.
     }
 
-    func showTabBar(animated: Bool) {
+    func showTabBar(animated: Bool, animations: (() -> Void)? = nil) {
         tabBarHidden = false
-        positionTabBar(animated)
+        positionTabBar(animated, animations: animations)
     }
 
-    func hideTabBar(animated: Bool) {
+    func hideTabBar(animated: Bool, animations: (() -> Void)? = nil) {
         tabBarHidden = true
-        positionTabBar(animated)
+        positionTabBar(animated, animations: animations)
     }
 
-    private func positionTabBar(animated: Bool = false) {
+    private func positionTabBar(animated: Bool = false, animations: (() -> Void)? = nil) {
         if animated {
             UIView.setAnimationDuration(0.3)
             UIView.beginAnimations(nil, context: nil)
@@ -121,11 +121,13 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
         if tabBarHidden {
             tabBar.frame = CGRectMake(0, -tabBarHeight, view.frame.size.width, tabBarHeight)
-            containerView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
+            containerView.frame = CGRectMake(0, -tabBarHeight, view.frame.size.width, view.frame.size.height + tabBarHeight)
         } else {
             tabBar.frame = CGRectMake(0, 0, view.frame.size.width, tabBarHeight)
-            containerView.frame = CGRectMake(0, tabBarHeight, view.frame.size.width, view.frame.size.height - tabBarHeight)
+            containerView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         }
+
+        animations?()
 
         if animated {
             UIView.commitAnimations()
@@ -163,15 +165,6 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
     override func childViewControllerForStatusBarStyle() -> UIViewController? {
         return selectedViewController
-    }
-}
-
-extension UIViewController {
-    var containerViewController: KeyboardSectionsContainerViewController? {
-        if let parentViewController = self.parentViewController as? KeyboardSectionsContainerViewController {
-            return parentViewController
-        }
-        return nil
     }
 }
 
