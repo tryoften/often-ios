@@ -49,17 +49,17 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
                         return headerView!
                     }
 
-        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: sectionHeaderReuseIdentifier, forIndexPath: indexPath) as? TrendingLyricsSectionHeaderView, let section = TrendingLyricsSection(rawValue: indexPath.section) else {
+        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView, let section = TrendingLyricsSection(rawValue: indexPath.section) else {
             return UICollectionReusableView()
         }
 
         switch section {
         case .TrendingLyrics:
-            cell.title = "Trending Lyrics"
+            cell.leftText = "Trending Lyrics"
         case .TrendingArtists:
-            cell.title = "Trending Artists"
+            cell.leftText = "Trending Artists"
         case .TrendingSongs:
-            cell.title = "Trending Songs"
+            cell.leftText = "Trending Songs"
         }
 
         return cell

@@ -9,7 +9,7 @@ run
 
 `git submodule update --init --recursive`
 
-`pod install && carthage update`
+`pod install && carthage update --platform iOS --configuration Debug`
 
 that should install all project dependencies. then run
 
