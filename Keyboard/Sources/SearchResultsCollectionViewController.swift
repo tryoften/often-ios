@@ -95,6 +95,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         // Register cell classes
         if let collectionView = collectionView {
             collectionView.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
+            collectionView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
         }
         
         setupLayout()
@@ -115,8 +116,6 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
         collectionView?.backgroundColor = UIColor.clearColor()
     }
     
@@ -218,7 +217,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         }
         
         collectionView.reloadData()
-        collectionView.setContentOffset(CGPointZero, animated: true)
+        collectionView.setContentOffset(CGPointMake(0, -2 * KeyboardSearchBarHeight + 2), animated: false)
     
         backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
     }
@@ -379,8 +378,8 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         var searchBarFrame = searchBarController.view.frame
         let tabBarHeight = CGRectGetHeight(frame)
 
-        searchBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight), -KeyboardSearchBarHeight)
-        frame.origin.y = fmax(fmin(y, 0), -2 * tabBarHeight)
+        searchBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight), 0)
+        frame.origin.y = fmax(fmin(y, 0), -tabBarHeight)
 
         UIView.animateWithDuration(animated ? 0.1 : 0) {
             self.searchBarController?.view.frame = searchBarFrame

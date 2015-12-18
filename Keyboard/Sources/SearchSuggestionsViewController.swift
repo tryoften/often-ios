@@ -18,7 +18,7 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
 
     init(viewModel aViewModel: SearchSuggestionsViewModel) {
         viewModel = aViewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(style: .Grouped)
 
         viewModel.delegate = self
         viewModel.suggestionsDelegate = self

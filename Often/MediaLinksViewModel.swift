@@ -142,6 +142,18 @@ class MediaLinksViewModel {
         filteredCollections[collectionType] = applyFilters(collections[collectionType] ?? [])
         return filteredCollections[collectionType] ?? []
     }
+
+    func sectionHeaderTitleForCollectionType(collectionType: MediaLinksCollectionType) -> String {
+        var headerTitle = ""
+        let links = filteredMediaLinksForCollectionType(collectionType)
+        if filters.isEmpty {
+            headerTitle =  "\(links.count)" + " " + collectionType.rawValue
+        } else {
+            headerTitle =  "\(links.count)" + " \(filters[0].rawValue.uppercaseString)s"
+        }
+
+        return headerTitle
+    }
     
     private func processMediaLinkData(resultData: [String: AnyObject]) -> MediaLink? {
         guard let provider = resultData["_index"] as? String,

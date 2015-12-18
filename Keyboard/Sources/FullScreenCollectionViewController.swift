@@ -85,7 +85,7 @@ class FullScreenCollectionViewController: UICollectionViewController, NJKScrollF
         var frame = tabBarFrame
         let tabBarHeight = CGRectGetHeight(frame)
 
-        frame.origin.y = fmax(fmin(y, 0), -tabBarHeight)
+        frame.origin.y = fmax(fmin(y, 0), -tabBarHeight + 2)
 
         UIView.animateWithDuration(animated ? 0.1 : 0) {
             containerViewController.tabBar.frame = frame

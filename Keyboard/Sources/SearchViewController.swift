@@ -136,6 +136,10 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
     }
 
+    func showNoResultsEmptyState() {
+        searchResultsViewController.updateEmptySetVisible(true, animated: true)
+    }
+
     // MARK: AutocorrectSuggestionsViewControllerDelegate
     func autocorrectSuggestionsViewControllerDidSelectSuggestion(autocorrectSuggestions: AutocorrectSuggestionsViewController, suggestion: SuggestItem) {
         textProcessor.applyTextSuggestion(suggestion)

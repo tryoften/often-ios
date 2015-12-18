@@ -121,10 +121,12 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
         if tabBarHidden {
             tabBar.frame = CGRectMake(0, -tabBarHeight, view.frame.size.width, tabBarHeight)
+            containerView.frame = CGRectMake(0, -tabBarHeight, view.frame.size.width, view.frame.size.height + tabBarHeight)
         } else {
             tabBar.frame = CGRectMake(0, 0, view.frame.size.width, tabBarHeight)
+            containerView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         }
-        containerView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
+
         animations?()
 
         if animated {

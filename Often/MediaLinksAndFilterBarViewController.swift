@@ -8,6 +8,8 @@
 
 import UIKit
 
+let MediaLinksSectionHeaderViewReuseIdentifier = "MediaLinksSectionHeader"
+
 class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewController {
     var viewModel: MediaLinksViewModel
     var emptyStateView: EmptySetView
@@ -43,9 +45,9 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
-            collectionView.registerClass(UserProfileSectionHeaderView.self,
+            collectionView.registerClass(MediaLinksSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
-                withReuseIdentifier: UserProfileSectionViewReuseIdentifier)
+                withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier)
         }
     }
 
@@ -93,23 +95,6 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
                 }
             }
         }
-    }
-
-    func sectionHeaderTitle() -> NSAttributedString {
-        var headerTitle = ""
-        let links = viewModel.filteredMediaLinksForCollectionType(collectionType)
-        if viewModel.filters.isEmpty {
-            headerTitle =  "\(links.count)" + " " + collectionType.rawValue
-        } else {
-            headerTitle =  "\(links.count)" + " \(viewModel.filters[0].rawValue.uppercaseString)s"
-        }
-        
-        let headerTitleRange = NSMakeRange(0, headerTitle.characters.count)
-        let sectionheaderTitle = NSMutableAttributedString(string: headerTitle.uppercaseString)
-        
-        sectionheaderTitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans-Semibold", size: 10.0)!, range: headerTitleRange)
-        sectionheaderTitle.addAttribute(NSKernAttributeName, value: 1.0, range: headerTitleRange)
-        return sectionheaderTitle
     }
     
     // MARK: UICollectionViewDataSource
@@ -164,9 +149,9 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
 
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
-            if let sectionView: UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileSectionHeaderView {
-                    sectionView.trendingLabel.attributedText = sectionHeaderTitle()
+            if let sectionView: MediaLinksSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView {
+                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType)
                     return sectionView
             }
         }
@@ -177,9 +162,6 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
-
-
-
 
     // MARK: MediaLinkCollectionViewCellDelegate
     override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {

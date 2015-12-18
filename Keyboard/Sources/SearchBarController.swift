@@ -26,8 +26,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     var primaryTextDocumentProxy: UITextDocumentProxy?
     var autocompleteTimer: NSTimer?
 
-//    var isNewSearch: Bool = false
-
     init(viewModel aViewModel: SearchViewModel, suggestionsViewModel aSuggestionsViewModel: SearchSuggestionsViewModel) {
         viewModel = aViewModel
         suggestionsViewModel = aSuggestionsViewModel
@@ -52,10 +50,7 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         searchBar.textInput.placeholder = searchBar.textInput.placeholderText
 
         let center = NSNotificationCenter.defaultCenter()
-        
         center.addObserver(self, selector: "resetSearchBar", name: KeyboardResetSearchBar, object: nil)
-//        center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
-        center.addObserver(self, selector: "keyboardDidRestore", name: RestoreKeyboardEvent, object: nil)
 
         searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
         searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
@@ -110,18 +105,9 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
             suggestionsViewModel?.sendRequestForQuery(query, autocomplete: true)
         }
     }
-    
-    func keyboardDidRestore() {
-//        searchResultsViewController?.response = nil
-//        searchResultsContainerView?.hidden = true
-    }
-    
+
     func didTapProviderButton(button: ServiceProviderSearchBarButton?) {
         resetSearchBar()
-    }
-    
-    func showNoResultsEmptyState() {
-//        searchResultsViewController?.updateEmptySetVisible(true, animated: true)
     }
 
     func textFieldDidBeginEditing(textField: UITextField) {
@@ -140,19 +126,15 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     
     func textFieldDidChange() {
         textProcessor?.parseTextInCurrentDocumentProxy()
-//        searchSuggestionsViewController.tableView.setContentOffset(CGPointZero, animated: true)
 
         if viewModel.hasReceivedResponse == true {
             scheduleAutocompleteRequestTimer()
-//            isNewSearch = true
-//            searchResultsContainerView?.hidden = true
             NSNotificationCenter.defaultCenter().postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
         }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
         textProcessor?.setCurrentProxyWithId("default")
-//        searchSuggestionsViewController.tableView.setContentOffset(CGPointZero, animated: true)
         searchBar.textInput.updateButtonPositions()
     }
     
@@ -165,6 +147,4 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         searchBar.textInput.selected = searchBar.textInput.selected
     }
-    
-
 }

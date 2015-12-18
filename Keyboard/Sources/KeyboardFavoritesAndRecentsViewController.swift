@@ -13,7 +13,9 @@ class KeyboardFavoritesAndRecentsViewController: MediaLinksAndFilterBarViewContr
 
 
     init(viewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType) {
-        super.init(collectionViewLayout: KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout(), collectionType: collectionType, viewModel: viewModel)
+        let layout = KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 80.0, right: 10.0)
+        super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
     }
@@ -35,5 +37,20 @@ class KeyboardFavoritesAndRecentsViewController: MediaLinksAndFilterBarViewContr
                 textProcessor?.defaultProxy.deleteBackward()
             }
         }
+    }
+
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+
+        if kind == UICollectionElementKindSectionHeader {
+            // Create Header
+            if let sectionView: MediaLinksSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView {
+                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType)
+                    sectionView.topSeperator.hidden = true
+                    return sectionView
+            }
+        }
+
+        return UICollectionReusableView()
     }
 }
