@@ -12,7 +12,7 @@ import UIKit
 
 let MediaLinkCollectionViewCellReuseIdentifier = "MediaLinksCollectionViewCell"
 
-class MediaLinksCollectionBaseViewController: UICollectionViewController, MediaLinksCollectionViewCellDelegate {
+class MediaLinksCollectionBaseViewController: FullScreenCollectionViewController, MediaLinksCollectionViewCellDelegate {
     var cellsAnimated: [NSIndexPath: Bool]
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {

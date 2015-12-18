@@ -370,7 +370,6 @@ let SigninViewSigninTwitterButtonColor = WhiteColor
 //WalkthroughViewController
 let WalkthroughViewControllerNextButtonFont = UIFont(name: "OpenSans-Semibold", size: 15)
 let WalkthroughViewControllerNextButtonBackgroundColor = UIColor(fromHexString: "#2CD2B4")
-let UserProfileSectionViewReuseIdentifier = "UserSectionHeaderView"
 
 //Settings View Cell
 let SettingsViewCellSecondaryTextColor = UIColor(fromHexString: "202020")

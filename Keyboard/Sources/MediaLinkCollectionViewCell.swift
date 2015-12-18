@@ -370,10 +370,10 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
             favoriteRibbon.al_right == al_right,
             favoriteRibbon.al_bottom == al_bottom,
             
-            overlayView.al_top == metadataContentView.al_top,
-            overlayView.al_bottom == metadataContentView.al_bottom,
-            overlayView.al_left == metadataContentView.al_left,
-            overlayView.al_right == metadataContentView.al_right
+            overlayView.al_top == contentView.al_top,
+            overlayView.al_bottom == contentView.al_bottom,
+            overlayView.al_left == contentView.al_left,
+            overlayView.al_right == contentView.al_right
         ])
     }
 }

@@ -48,16 +48,19 @@ class TogglePanelButton: UIButton {
         centerBackgroundView = UIImageView(image: UIImage(named: "collapse-keyboard"))
         centerBackgroundView.contentMode = .ScaleAspectFill
         centerBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        centerBackgroundView.alpha = 0.9
 
         let capBgImage = UIImage(named: "collapse-keyboard-edge")?.resizableImageWithCapInsets(UIEdgeInsetsMake(0, 2, 0, 2), resizingMode: .Stretch)
         
         leftBackgroundView = UIImageView(image: capBgImage)
         leftBackgroundView.contentMode = .ScaleToFill
         leftBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        leftBackgroundView.alpha = 0.9
         
         rightBackgroundView = UIImageView(image: capBgImage)
         rightBackgroundView.contentMode = .ScaleToFill
         rightBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        rightBackgroundView.alpha = 0.9
         
         mode = .ToggleKeyboard
         

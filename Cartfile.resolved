@@ -1,3 +1,4 @@
-github "dongri/OAuthSwift" "v0.4.6"
+github "dongri/OAuthSwift" "0.4.8"
 github "MengTo/Spring" "18d5c7b74489de8044e34767f856d1e574f0820e"
-github "realm/realm-cocoa" "v0.96.2"
+github "aleclarson/emitter-kit" "4.0.1"
+github "realm/realm-cocoa" "v0.96.3"

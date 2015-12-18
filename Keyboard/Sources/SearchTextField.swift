@@ -281,7 +281,7 @@ class SearchTextField: UIControl, Layouteable {
         
         let center = NSNotificationCenter.defaultCenter()
         center.postNotificationName(KeyboardResetSearchBar, object: nil)
-        center.postNotificationName(RestoreKeyboardEvent, object: nil)
+        center.postNotificationName(CollapseKeyboardEvent, object: nil)
         center.postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
     }
     

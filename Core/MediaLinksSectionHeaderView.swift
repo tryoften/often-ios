@@ -1,48 +1,48 @@
 //
-//  TrendingLyricsSectionHeaderView.swift
+//  MediaLinksSectionHeaderView.swift
 //  Often
 //
-//  Created by Luc Succes on 12/9/15.
+//  Created by Luc Succes on 12/17/15.
 //  Copyright © 2015 Surf Inc. All rights reserved.
 //
 
 import UIKit
 
-class TrendingLyricsSectionHeaderView: UICollectionReusableView {
-    var titleLabel: UILabel
-    var lyricCountLabel: UILabel
+class MediaLinksSectionHeaderView: UICollectionReusableView {
+    var leftLabel: UILabel
+    var rightLabel: UILabel
     var topSeperator: UIView
     var bottomSeperator: UIView
 
-    var title: String? {
+    var leftText: String? {
         didSet {
             let attributes: [String: AnyObject] = [
                 NSKernAttributeName: NSNumber(float: 1.5),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10)!,
                 NSForegroundColorAttributeName: BlackColor.colorWithAlphaComponent(0.54)
             ]
-            let attributedString = NSAttributedString(string: title!.uppercaseString, attributes: attributes)
-            titleLabel.attributedText = attributedString
+            let attributedString = NSAttributedString(string: leftText!.uppercaseString, attributes: attributes)
+            leftLabel.attributedText = attributedString
         }
     }
-    var lyricsCount: Int? {
+    var rightText: String? {
         didSet {
             let attributes: [String: AnyObject] = [
                 NSKernAttributeName: NSNumber(float: 1.5),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10)!,
                 NSForegroundColorAttributeName: UIColor.grayColor()
             ]
-            let attributedString = NSAttributedString(string: "\(lyricsCount!) lyrics".uppercaseString, attributes: attributes)
-            lyricCountLabel.attributedText = attributedString
+            let attributedString = NSAttributedString(string: rightText!.uppercaseString, attributes: attributes)
+            rightLabel.attributedText = attributedString
         }
     }
 
     override init(frame: CGRect) {
-        titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        leftLabel = UILabel()
+        leftLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        lyricCountLabel = UILabel()
-        lyricCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        rightLabel = UILabel()
+        rightLabel.translatesAutoresizingMaskIntoConstraints = false
 
         topSeperator = UIView()
         topSeperator.translatesAutoresizingMaskIntoConstraints = false
@@ -54,8 +54,8 @@ class TrendingLyricsSectionHeaderView: UICollectionReusableView {
 
         super.init(frame: frame)
 
-        addSubview(titleLabel)
-        addSubview(lyricCountLabel)
+        addSubview(leftLabel)
+        addSubview(rightLabel)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
 
@@ -69,12 +69,12 @@ class TrendingLyricsSectionHeaderView: UICollectionReusableView {
 
     func setupLayout() {
         addConstraints([
-            titleLabel.al_left == al_left + 10,
-            titleLabel.al_centerY == al_centerY,
+            leftLabel.al_left == al_left + 10,
+            leftLabel.al_centerY == al_centerY,
 
-            lyricCountLabel.al_right == al_right - 10,
-            lyricCountLabel.al_top == al_top,
-            lyricCountLabel.al_bottom == al_bottom,
+            rightLabel.al_right == al_right - 10,
+            rightLabel.al_top == al_top,
+            rightLabel.al_bottom == al_bottom,
 
             topSeperator.al_top == al_top,
             topSeperator.al_left == al_left,
@@ -87,5 +87,5 @@ class TrendingLyricsSectionHeaderView: UICollectionReusableView {
             bottomSeperator.al_height == 0.6,
         ])
     }
-    
+
 }

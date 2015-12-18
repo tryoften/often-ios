@@ -12,11 +12,12 @@ class SearchSuggestionsViewModel: SearchBaseViewModel {
     weak var suggestionsDelegate: SearchSuggestionsViewModelDelegate?
     var filtersRef: Firebase
     var filters: [Filter]
+    var suggestions: [SearchSuggestion]?
     
     override init(base: Firebase) {
         filtersRef = base.childByAppendingPath("filters")
         filters = []
-        
+
         super.init(base: base)
         
         filtersRef.observeEventType(.Value, withBlock: { snapshot in
@@ -34,6 +35,10 @@ class SearchSuggestionsViewModel: SearchBaseViewModel {
             
             self.filters = filters
         })
+    }
+
+    func requestData() {
+        sendRequestForQuery("#top-searches:10", autocomplete: true)
     }
     
     func checkFilterInQuery(query: String) -> Filter? {
@@ -62,8 +67,8 @@ class SearchSuggestionsViewModel: SearchBaseViewModel {
     }
     
     func processAutocompleteSuggestions(query: String, resultsData: [[String: AnyObject]]) {
-        var suggestions = [SearchSuggestion]()
-        
+        suggestions = []
+
         for resultData in resultsData {
             guard let options = resultData["options"] as? [ [String: AnyObject] ] else {
                 continue
@@ -71,7 +76,7 @@ class SearchSuggestionsViewModel: SearchBaseViewModel {
 
             for option in options {
                 if let suggestion = processSuggestionData(option) {
-                    suggestions.append(suggestion)
+                    suggestions?.append(suggestion)
                 }
             }
         }

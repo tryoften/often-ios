@@ -17,6 +17,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     var keyboardExtraHeight: CGFloat
     var debugKeyboard = false
     var keyboard: KeyboardViewController?
+    var textProcessor: TextProcessingManager?
 
     private var kludge: UIView?
     var keyboardHeight: CGFloat {
@@ -71,12 +72,41 @@ class BaseKeyboardContainerViewController: UIInputViewController {
         setupKludge()
         containerView.frame = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: true))
 
+
         let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
-        keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
+        if keyboard?.collapsed == true {
+            keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame), view.bounds.width, keyboardHeight)
+        } else {
+            keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
+        }
     }
 
     func switchKeyboard() {
         advanceToNextInputMode()
+    }
+
+    func showKeyboard() {
+        if let textProcessor = textProcessor where keyboard == nil {
+            keyboard = KeyboardViewController(textProcessor: textProcessor)
+            containerView.addSubview(keyboard!.view)
+            keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame), view.bounds.width, keyboardHeight)
+        } else {
+            keyboard!.view.hidden = false
+        }
+
+        UIView.animateWithDuration(0.3) {
+            let keyboardHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
+            self.keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(self.containerView.frame) - keyboardHeight, self.view.bounds.width, keyboardHeight)
+        }
+    }
+
+    func hideKeyboard() {
+        UIView.animateWithDuration(0.3, animations: {
+            let keyboardHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
+            self.keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(self.containerView.frame), self.view.bounds.width, keyboardHeight)
+        }, completion: { done in
+            self.keyboard?.view.hidden = true
+        })
     }
 
     override func updateViewConstraints() {

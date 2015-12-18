@@ -19,7 +19,7 @@ let cellReuseIdentifier = "cell"
 let songCellReuseIdentifier = "songCell"
 let sectionHeaderReuseIdentifier = "sectionHeader"
 
-class TrendingLyricsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class TrendingLyricsViewController: FullScreenCollectionViewController, UICollectionViewDelegateFlowLayout {
 
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
@@ -30,9 +30,10 @@ class TrendingLyricsViewController: UICollectionViewController, UICollectionView
         super.init(collectionViewLayout: collectionViewLayout)
 
         collectionView?.backgroundColor = VeryLightGray
-        self.collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        self.collectionView?.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
-        self.collectionView?.registerClass(TrendingLyricsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderReuseIdentifier)
+        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
+        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView?.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
+        collectionView?.registerClass(MediaLinksSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -64,20 +65,20 @@ class TrendingLyricsViewController: UICollectionViewController, UICollectionView
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: sectionHeaderReuseIdentifier, forIndexPath: indexPath) as? TrendingLyricsSectionHeaderView, let section = TrendingLyricsSection(rawValue: indexPath.section) else {
+        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView, let section = TrendingLyricsSection(rawValue: indexPath.section) else {
             return UICollectionReusableView()
         }
 
         switch section {
         case .TrendingLyrics:
             cell.topSeperator.hidden = true
-            cell.title = "Trending Lyrics"
+            cell.leftText = "Trending Lyrics"
         case .TrendingArtists:
             cell.topSeperator.hidden = false
-            cell.title = "Trending Artists"
+            cell.leftText = "Trending Artists"
         case .TrendingSongs:
             cell.topSeperator.hidden = false
-            cell.title = "Trending Songs"
+            cell.leftText = "Trending Songs"
         }
 
         return cell

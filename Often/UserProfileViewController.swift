@@ -11,7 +11,7 @@ import UIKit
 
 class UserProfileViewController: MediaLinksAndFilterBarViewController, FavoritesAndRecentsTabDelegate, MediaLinksViewModelDelegate {
     var headerView: UserProfileHeaderView?
-    var sectionHeaderView: UserProfileSectionHeaderView?
+    var sectionHeaderView: MediaLinksSectionHeaderView?
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel) {
         super.init(collectionViewLayout: collectionViewLayout, collectionType: .Favorites, viewModel: viewModel)
@@ -46,7 +46,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 0.0, left: 10.0, bottom: 70.0, right: 10.0)
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 70.0, right: 10.0)
 
         return layout
     }
@@ -115,14 +115,9 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
-            if let sectionView : UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                withReuseIdentifier: UserProfileSectionViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileSectionHeaderView {
-                sectionView.trendingLabel.attributedText = sectionHeaderTitle()
-                sectionView.layer.shadowOffset = CGSizeMake(0, 0)
-                sectionView.layer.shadowOpacity = 0.9
-                sectionView.layer.shadowColor = DarkGrey.CGColor
-                sectionView.layer.shadowRadius = 1
-
+            if let sectionView: MediaLinksSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView {
+                sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType)
 
                 return sectionView
             }
