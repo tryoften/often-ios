@@ -12,8 +12,6 @@ import Crashlytics
 import Realm
 import OAuthSwift
 
-private var TestKeyboard: Bool = false
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -25,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFFacebookUtils.initializeFacebook()
-        PFTwitterUtils.initializeWithConsumerKey(TwitterConsumerKey,  consumerSecret:TwitterConsumerSecret)
+        PFTwitterUtils.initializeWithConsumerKey(TwitterConsumerKey, consumerSecret: TwitterConsumerSecret)
         FBAppEvents.activateApp()
         Flurry.startSession(FlurryClientKey)
         SPTAuth.defaultInstance().clientID = SpotifyClientID
@@ -40,18 +38,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = VeryLightGray
 
         if let window = self.window {
-            if TestKeyboard {
-                var frame = window.frame
-                frame.origin.y = frame.size.height - (KeyboardHeight + 100)
-                frame.size.height = KeyboardHeight + 100
-                window.frame = frame
-                window.clipsToBounds = true
-                mainController = MediaLinksKeyboardContainerViewController(extraHeight: 144.0, debug: true)
-            } else {
-                let signupViewModel = SignupViewModel(sessionManager: sessionManager)
-                mainController = SignupViewController(viewModel: signupViewModel)
-            }
-            UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Fade)
+#if KEYBOARD_DEBUG
+            var frame = window.frame
+            frame.origin.y = frame.size.height - (KeyboardHeight + 100)
+            frame.size.height = KeyboardHeight + 100
+            window.frame = frame
+            window.clipsToBounds = true
+            mainController = MediaLinksKeyboardContainerViewController(extraHeight: 144.0, debug: true)
+#else
+            let signupViewModel = SignupViewModel(sessionManager: sessionManager)
+            mainController = SignupViewController(viewModel: signupViewModel)
+#endif
             window.rootViewController = mainController
             window.makeKeyAndVisible()
         }
