@@ -86,6 +86,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
                     switch collectionType {
                     case .Favorites: emptyStateView.updateEmptyStateContent(.NoFavorites)
                     case .Recents: emptyStateView.updateEmptyStateContent(.NoRecents)
+                    default: break
                     }
                     emptyStateView.hidden = false
                 } else {

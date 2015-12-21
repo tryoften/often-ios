@@ -218,6 +218,7 @@ class MediaLinksViewModel {
 enum MediaLinksCollectionType: String {
     case Favorites = "Favorites"
     case Recents = "Recents"
+    case Trending = "Trending"
 
     static let allValues = [Favorites, Recents]
 }

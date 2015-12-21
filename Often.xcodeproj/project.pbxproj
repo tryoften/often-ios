@@ -313,6 +313,210 @@
 		81D60AD31B854D8500347BCA /* MediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* MediaLink.swift */; };
 		81D60AD41B854D8500347BCA /* MediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* MediaLink.swift */; };
 		81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AC21B84BD4200347BCA /* SearchViewModel.swift */; };
+		81DA3EA01C24BE85006822D3 /* DropDownErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */; };
+		81DA3EA11C24BE85006822D3 /* SpellChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810A242D1BE058250032AFC7 /* SpellChecker.swift */; };
+		81DA3EA21C24BE85006822D3 /* SearchSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */; };
+		81DA3EA31C24BE85006822D3 /* UserProfileSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */; };
+		81DA3EA41C24BE85006822D3 /* RefreshResultsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */; };
+		81DA3EA51C24BE85006822D3 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833841C18E904001B8662 /* ArtistCollectionViewCell.swift */; };
+		81DA3EA61C24BE85006822D3 /* BackspaceShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEEC1B7502C400E1BDCD /* BackspaceShape.swift */; };
+		81DA3EA71C24BE85006822D3 /* TermDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961871BEAE9330014B25B /* TermDictionary.swift */; };
+		81DA3EA81C24BE85006822D3 /* ServiceProviderSearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817939031B5C06CE0064B0CF /* ServiceProviderSearchBarButton.swift */; };
+		81DA3EA91C24BE85006822D3 /* SkipSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695154991BF2C65700AAAFA4 /* SkipSignupViewController.swift */; };
+		81DA3EAA1C24BE85006822D3 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
+		81DA3EAB1C24BE85006822D3 /* KeyboardMediaLinksAndFilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323721C1FCB990084918B /* KeyboardMediaLinksAndFilterBarViewController.swift */; };
+		81DA3EAC1C24BE85006822D3 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
+		81DA3EAD1C24BE85006822D3 /* LayoutConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */; };
+		81DA3EAE1C24BE85006822D3 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AC21B84BD4200347BCA /* SearchViewModel.swift */; };
+		81DA3EAF1C24BE85006822D3 /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
+		81DA3EB01C24BE85006822D3 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E21B9FD483007EAB5A /* SignupViewModel.swift */; };
+		81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107036F1BFD05AB00FDBF57 /* ParseConfig.swift */; };
+		81DA3EB21C24BE85006822D3 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; };
+		81DA3EB31C24BE85006822D3 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337A1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift */; };
+		81DA3EB41C24BE85006822D3 /* ArticleMediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78451BBDD2A20087EBE8 /* ArticleMediaLink.swift */; };
+		81DA3EB51C24BE85006822D3 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D9B1B6812E200FC1F2F /* SearchTextField.swift */; };
+		81DA3EB61C24BE85006822D3 /* KeyboardLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938891B5741050064B0CF /* KeyboardLayouts.swift */; };
+		81DA3EB71C24BE85006822D3 /* EmptySetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69192E571BBB9AF800903071 /* EmptySetView.swift */; };
+		81DA3EB81C24BE85006822D3 /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */; };
+		81DA3EB91C24BE85006822D3 /* MediaLinksSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323951C23652C0084918B /* MediaLinksSectionHeaderView.swift */; };
+		81DA3EBA1C24BE85006822D3 /* MediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* MediaLink.swift */; };
+		81DA3EBB1C24BE85006822D3 /* TogglePanelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */; };
+		81DA3EBC1C24BE85006822D3 /* PKHUDContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1C1B38F6DA006430AB /* PKHUDContentView.swift */; };
+		81DA3EBD1C24BE85006822D3 /* ServiceProviderSupplementaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FFAF4C1B5C92E900E2ABAC /* ServiceProviderSupplementaryViewController.swift */; };
+		81DA3EBE1C24BE85006822D3 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588F61B616A7300F7C9F5 /* KeyboardLayout.swift */; };
+		81DA3EBF1C24BE85006822D3 /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; };
+		81DA3EC01C24BE85006822D3 /* CachedCollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961841BEADB960014B25B /* CachedCollectionType.swift */; };
+		81DA3EC11C24BE85006822D3 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */; };
+		81DA3EC21C24BE85006822D3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8133236C1C1FB0500084918B /* SearchViewController.swift */; };
+		81DA3EC31C24BE85006822D3 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D841B65B17A00FC1F2F /* Direction.swift */; };
+		81DA3EC41C24BE85006822D3 /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */; };
+		81DA3EC51C24BE85006822D3 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */; };
+		81DA3EC61C24BE85006822D3 /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF161B38F6DA006430AB /* FrameView.swift */; };
+		81DA3EC71C24BE85006822D3 /* KeyboardKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179387D1B55859D0064B0CF /* KeyboardKey.swift */; };
+		81DA3EC81C24BE85006822D3 /* BaseKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8335A1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift */; };
+		81DA3EC91C24BE85006822D3 /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
+		81DA3ECA1C24BE85006822D3 /* FullScreenCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323881C2268E10084918B /* FullScreenCollectionViewController.swift */; };
+		81DA3ECB1C24BE85006822D3 /* MediaLinksCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */; };
+		81DA3ECC1C24BE85006822D3 /* HUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */; };
+		81DA3ECD1C24BE85006822D3 /* SearchResultsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEC41B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift */; };
+		81DA3ECE1C24BE85006822D3 /* UIViewController+NJKFullScreenSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324241C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m */; };
+		81DA3ECF1C24BE85006822D3 /* SearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817939061B5C29560064B0CF /* SearchBarController.swift */; };
+		81DA3ED01C24BE85006822D3 /* MediaLinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C663211B8B6FA60014433D /* MediaLinksViewModel.swift */; };
+		81DA3ED11C24BE85006822D3 /* AnonymousAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */; };
+		81DA3ED21C24BE85006822D3 /* LocalNotificationsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */; };
+		81DA3ED31C24BE85006822D3 /* KeyboardLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D8D1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift */; };
+		81DA3ED41C24BE85006822D3 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
+		81DA3ED51C24BE85006822D3 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; };
+		81DA3ED61C24BE85006822D3 /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; };
+		81DA3ED71C24BE85006822D3 /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1A1B38F6DA006430AB /* PKHUD.swift */; };
+		81DA3ED81C24BE85006822D3 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938FC1B59A41A0064B0CF /* SearchBar.swift */; };
+		81DA3ED91C24BE85006822D3 /* MediaFilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD891B8E0BD7003BC281 /* MediaFilterTabView.swift */; };
+		81DA3EDA1C24BE85006822D3 /* FilterMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEE47171BE16516002E4394 /* FilterMap.swift */; };
+		81DA3EDB1C24BE85006822D3 /* TextMessageOnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */; };
+		81DA3EDC1C24BE85006822D3 /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DB01BB61357004AC9F6 /* ToolTip.swift */; };
+		81DA3EDD1C24BE85006822D3 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
+		81DA3EDE1C24BE85006822D3 /* FavoritesAndRecentsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */; };
+		81DA3EDF1C24BE85006822D3 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
+		81DA3EE01C24BE85006822D3 /* TouchForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816589021B62E85700F7C9F5 /* TouchForwardingView.swift */; };
+		81DA3EE11C24BE85006822D3 /* SearchSuggestionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */; };
+		81DA3EE21C24BE85006822D3 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
+		81DA3EE31C24BE85006822D3 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F256A1BF4342E00AA7A98 /* AccountManager.swift */; };
+		81DA3EE41C24BE85006822D3 /* TrendingLyricsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833801C18BAA6001B8662 /* TrendingLyricsViewModel.swift */; };
+		81DA3EE51C24BE85006822D3 /* MediaLinksAndFilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaLinksAndFilterBarViewController.swift */; };
+		81DA3EE61C24BE85006822D3 /* SocialAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */; };
+		81DA3EE71C24BE85006822D3 /* ToolTipLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */; };
+		81DA3EE81C24BE85006822D3 /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938FF1B5BFEB30064B0CF /* ServiceProvider.swift */; };
+		81DA3EE91C24BE85006822D3 /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26DA51B68901100FC1F2F /* TrendingViewController.swift */; };
+		81DA3EEA1C24BE85006822D3 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337D1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift */; };
+		81DA3EEB1C24BE85006822D3 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323991C249A410084918B /* AppSettingsView.swift */; };
+		81DA3EEC1C24BE85006822D3 /* KeyboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588ED1B61676000F7C9F5 /* KeyboardPage.swift */; };
+		81DA3EED1C24BE85006822D3 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED071C226DE700555496 /* BrowseViewController.swift */; };
+		81DA3EEE1C24BE85006822D3 /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
+		81DA3EEF1C24BE85006822D3 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */; };
+		81DA3EF01C24BE85006822D3 /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */; };
+		81DA3EF11C24BE85006822D3 /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEEF1B7529DA00E1BDCD /* ArrowShape.swift */; };
+		81DA3EF21C24BE85006822D3 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */; };
+		81DA3EF31C24BE85006822D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60D1A142157007FA1CF /* AppDelegate.swift */; };
+		81DA3EF41C24BE85006822D3 /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8133238F1C2269890084918B /* UIViewController+KeyboardSectionsContainerViewController.swift */; };
+		81DA3EF51C24BE85006822D3 /* KeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323831C2227840084918B /* KeyboardContainerViewController.swift */; };
+		81DA3EF61C24BE85006822D3 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
+		81DA3EF71C24BE85006822D3 /* AutocorrectSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FA2931BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift */; };
+		81DA3EF81C24BE85006822D3 /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; };
+		81DA3EF91C24BE85006822D3 /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971DE1B9F911E007EAB5A /* SigninView.swift */; };
+		81DA3EFA1C24BE85006822D3 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971D51B9E642D007EAB5A /* SignupView.swift */; };
+		81DA3EFB1C24BE85006822D3 /* SocialAccountSettingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8AD1B7290F400015730 /* SocialAccountSettingsCollectionViewController.swift */; };
+		81DA3EFC1C24BE85006822D3 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CB01BBB267000A91EAD /* SessionManager.swift */; };
+		81DA3EFD1C24BE85006822D3 /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A402031BC46D6F00BF0C0E /* SocialAccountsService.swift */; };
+		81DA3EFE1C24BE85006822D3 /* SearchLoaderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FEDDE11BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift */; };
+		81DA3EFF1C24BE85006822D3 /* KeyboardSectionsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323631C1F76700084918B /* KeyboardSectionsContainerViewController.swift */; };
+		81DA3F001C24BE85006822D3 /* MediaLinksKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833551C163AE0001B8662 /* MediaLinksKeyboardContainerViewController.swift */; };
+		81DA3F011C24BE85006822D3 /* KeyboardWalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */; };
+		81DA3F021C24BE85006822D3 /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; };
+		81DA3F031C24BE85006822D3 /* FacebookAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */; };
+		81DA3F041C24BE85006822D3 /* KeyboardKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */; };
+		81DA3F051C24BE85006822D3 /* AutocorrectSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E963A1BF28EC7009CCB55 /* AutocorrectSuggestionView.swift */; };
+		81DA3F061C24BE85006822D3 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
+		81DA3F071C24BE85006822D3 /* TrendingLyricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* TrendingLyricsViewController.swift */; };
+		81DA3F081C24BE85006822D3 /* SocialAccountSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */; };
+		81DA3F091C24BE85006822D3 /* MediaLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BECA1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift */; };
+		81DA3F0A1C24BE85006822D3 /* SoundcloudAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */; };
+		81DA3F0B1C24BE85006822D3 /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */; };
+		81DA3F0C1C24BE85006822D3 /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60ACC1B84BF2500347BCA /* SearchRequest.swift */; };
+		81DA3F0D1C24BE85006822D3 /* KeyboardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEE51B73F9A100E1BDCD /* KeyboardTheme.swift */; };
+		81DA3F0E1C24BE85006822D3 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A402051BC46D8600BF0C0E /* Service.swift */; };
+		81DA3F0F1C24BE85006822D3 /* InKeyboardToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6970EC1B1BE9E21C00BEE619 /* InKeyboardToolTip.swift */; };
+		81DA3F101C24BE85006822D3 /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
+		81DA3F111C24BE85006822D3 /* TrackMediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78381BBDD2780087EBE8 /* TrackMediaLink.swift */; };
+		81DA3F121C24BE85006822D3 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D951B67C29D00FC1F2F /* Shape.swift */; };
+		81DA3F131C24BE85006822D3 /* KeyboardInstallationWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */; };
+		81DA3F141C24BE85006822D3 /* ServiceProviderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */; };
+		81DA3F151C24BE85006822D3 /* TwitterAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */; };
+		81DA3F161C24BE85006822D3 /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324221C24A4F80084918B /* NJKScrollFullScreen.m */; };
+		81DA3F171C24BE85006822D3 /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */; };
+		81DA3F181C24BE85006822D3 /* KeyboardFavoritesAndRecentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8133236F1C1FBF2B0084918B /* KeyboardFavoritesAndRecentsViewController.swift */; };
+		81DA3F191C24BE85006822D3 /* KeyboardKeyBackgroundConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D8A1B65BD2900FC1F2F /* KeyboardKeyBackgroundConnector.swift */; };
+		81DA3F1A1C24BE85006822D3 /* SessionManagerFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */; };
+		81DA3F1B1C24BE85006822D3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
+		81DA3F1C1C24BE85006822D3 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60ACF1B84BF3200347BCA /* SearchResponse.swift */; };
+		81DA3F1D1C24BE85006822D3 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E881741BE7DDD600523ECC /* StreamReader.swift */; };
+		81DA3F1E1C24BE85006822D3 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
+		81DA3F1F1C24BE85006822D3 /* WindowRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1E1B38F6DA006430AB /* WindowRootViewController.swift */; };
+		81DA3F201C24BE85006822D3 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD904E1BD58834002F7D32 /* RootViewController.swift */; };
+		81DA3F211C24BE85006822D3 /* suffixNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F784B1BC085440087EBE8 /* suffixNumber.swift */; };
+		81DA3F221C24BE85006822D3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
+		81DA3F231C24BE85006822D3 /* MessageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428AE01BEEAD5600282B8D /* MessageBarView.swift */; };
+		81DA3F241C24BE85006822D3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B2924D1BD7550800277EC2 /* SettingsViewModel.swift */; };
+		81DA3F251C24BE85006822D3 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */; };
+		81DA3F261C24BE85006822D3 /* MediaLinksViewModel+Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323771C20A7190084918B /* MediaLinksViewModel+Favorites.swift */; };
+		81DA3F271C24BE85006822D3 /* EmailAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */; };
+		81DA3F281C24BE85006822D3 /* SkipSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */; };
+		81DA3F291C24BE85006822D3 /* SlideTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323691C1F8A1A0084918B /* SlideTabBar.swift */; };
+		81DA3F2A1C24BE85006822D3 /* VideoMediaLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78481BBDD2FB0087EBE8 /* VideoMediaLink.swift */; };
+		81DA3F2B1C24BE85006822D3 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */; };
+		81DA3F2C1C24BE85006822D3 /* PKHUDAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1B1B38F6DA006430AB /* PKHUDAssets.swift */; };
+		81DA3F2D1C24BE85006822D3 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1D1B38F6DA006430AB /* Window.swift */; };
+		81DA3F2E1C24BE85006822D3 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */; };
+		81DA3F2F1C24BE85006822D3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E01B9FD374007EAB5A /* SignupViewController.swift */; };
+		81DA3F301C24BE85006822D3 /* KeyboardKeyBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D871B65BC8D00FC1F2F /* KeyboardKeyBackground.swift */; };
+		81DA3F311C24BE85006822D3 /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED091C226DF700555496 /* BrowseHeaderView.swift */; };
+		81DA3F321C24BE85006822D3 /* UserProfileSettingsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */; };
+		81DA3F331C24BE85006822D3 /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */; };
+		81DA3F341C24BE85006822D3 /* CompleteInstallationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */; };
+		81DA3F351C24BE85006822D3 /* EventEmittable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8133237E1C2216BB0084918B /* EventEmittable.swift */; };
+		81DA3F361C24BE85006822D3 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEE471A1BE17D5D002E4394 /* FilterButton.swift */; };
+		81DA3F381C24BE85006822D3 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
+		81DA3F391C24BE85006822D3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE61A81E660009D4A71 /* SystemConfiguration.framework */; };
+		81DA3F3A1C24BE85006822D3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
+		81DA3F3B1C24BE85006822D3 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD971C51B99254F007EAB5A /* Spotify.framework */; };
+		81DA3F3C1C24BE85006822D3 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
+		81DA3F3D1C24BE85006822D3 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
+		81DA3F3E1C24BE85006822D3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EEA1A81E66D009D4A71 /* libsqlite3.dylib */; };
+		81DA3F3F1C24BE85006822D3 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F0A1B4BBA6A00C0F3BE /* Crashlytics.framework */; };
+		81DA3F401C24BE85006822D3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE81A81E666009D4A71 /* libz.dylib */; };
+		81DA3F411C24BE85006822D3 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812E3F091B4BBA6A00C0F3BE /* Fabric.framework */; };
+		81DA3F421C24BE85006822D3 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; };
+		81DA3F431C24BE85006822D3 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE21A81E651009D4A71 /* Social.framework */; };
+		81DA3F441C24BE85006822D3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EE01A81E649009D4A71 /* Security.framework */; };
+		81DA3F451C24BE85006822D3 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; };
+		81DA3F461C24BE85006822D3 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
+		81DA3F471C24BE85006822D3 /* Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C761BC86C3D00DDF24C /* Spring.framework */; };
+		81DA3F481C24BE85006822D3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EDE1A81E642009D4A71 /* QuartzCore.framework */; };
+		81DA3F491C24BE85006822D3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EDC1A81E63B009D4A71 /* MobileCoreServices.framework */; };
+		81DA3F4A1C24BE85006822D3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794EDA1A81E633009D4A71 /* CoreLocation.framework */; };
+		81DA3F4B1C24BE85006822D3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED81A81E62D009D4A71 /* CoreGraphics.framework */; };
+		81DA3F4C1C24BE85006822D3 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED61A81E621009D4A71 /* AudioToolbox.framework */; };
+		81DA3F4D1C24BE85006822D3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED41A81E613009D4A71 /* CFNetwork.framework */; };
+		81DA3F4E1C24BE85006822D3 /* EmitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8133237A1C21F5690084918B /* EmitterKit.framework */; };
+		81DA3F4F1C24BE85006822D3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
+		81DA3F501C24BE85006822D3 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED21A81E607009D4A71 /* Accounts.framework */; };
+		81DA3F511C24BE85006822D3 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
+		81DA3F521C24BE85006822D3 /* EmitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8133237A1C21F5690084918B /* EmitterKit.framework */; };
+		81DA3F531C24BE85006822D3 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */; };
+		81DA3F551C24BE85006822D3 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
+		81DA3F561C24BE85006822D3 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */; };
+		81DA3F571C24BE85006822D3 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
+		81DA3F581C24BE85006822D3 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = 811FA28C1BEF18E900E07660 /* db.realm */; };
+		81DA3F591C24BE85006822D3 /* Oswald-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */; };
+		81DA3F5A1C24BE85006822D3 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
+		81DA3F5B1C24BE85006822D3 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */; };
+		81DA3F5C1C24BE85006822D3 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */; };
+		81DA3F5D1C24BE85006822D3 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18C1B1A5D3700EA1925 /* OpenSans-Italic.ttf */; };
+		81DA3F5E1C24BE85006822D3 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18F1B1A5D3700EA1925 /* OpenSans-Regular.ttf */; };
+		81DA3F5F1C24BE85006822D3 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */; };
+		81DA3F601C24BE85006822D3 /* small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D911BE2C72900AFBEC0 /* small.txt */; };
+		81DA3F611C24BE85006822D3 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18D1B1A5D3700EA1925 /* OpenSans-Light.ttf */; };
+		81DA3F621C24BE85006822D3 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf */; };
+		81DA3F631C24BE85006822D3 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
+		81DA3F641C24BE85006822D3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
+		81DA3F651C24BE85006822D3 /* font_icons8.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E26D901B65DC4800FC1F2F /* font_icons8.ttf */; };
+		81DA3F661C24BE85006822D3 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1901B1A5D3700EA1925 /* OpenSans-Semibold.ttf */; };
+		81DA3F671C24BE85006822D3 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18B1B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf */; };
+		81DA3F691C24BE85006822D3 /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		81DA3F6D1C24BE85006822D3 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81DA3F6E1C24BE85006822D3 /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81DA3F6F1C24BE85006822D3 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81DA3F701C24BE85006822D3 /* Spring.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C761BC86C3D00DDF24C /* Spring.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81DA3F711C24BE85006822D3 /* EmitterKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8133237A1C21F5690084918B /* EmitterKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; };
 		81DF4BBB1BB462A7008B1A38 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; };
 		81DF4BBE1BB49371008B1A38 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
@@ -385,6 +589,13 @@
 			remoteGlobalIDString = 8180E6301A142199007FA1CF;
 			remoteInfo = CustomKeyboard;
 		};
+		81DA3E9D1C24BE85006822D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8180E6001A142157007FA1CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8180E6301A142199007FA1CF;
+			remoteInfo = CustomKeyboard;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -421,6 +632,32 @@
 				8180E6391A142199007FA1CF /* Keyboard.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81DA3F681C24BE85006822D3 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				81DA3F691C24BE85006822D3 /* Keyboard.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81DA3F6C1C24BE85006822D3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				81DA3F6D1C24BE85006822D3 /* Realm.framework in Embed Frameworks */,
+				81DA3F6E1C24BE85006822D3 /* OAuthSwift.framework in Embed Frameworks */,
+				81DA3F6F1C24BE85006822D3 /* RealmSwift.framework in Embed Frameworks */,
+				81DA3F701C24BE85006822D3 /* Spring.framework in Embed Frameworks */,
+				81DA3F711C24BE85006822D3 /* EmitterKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -630,6 +867,8 @@
 		81D60ACC1B84BF2500347BCA /* SearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchRequest.swift; path = Sources/SearchRequest.swift; sourceTree = "<group>"; };
 		81D60ACF1B84BF3200347BCA /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResponse.swift; path = Sources/SearchResponse.swift; sourceTree = "<group>"; };
 		81D60AD21B854D8500347BCA /* MediaLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaLink.swift; path = Sources/MediaLink.swift; sourceTree = "<group>"; };
+		81DA3F791C24BE85006822D3 /* Often (Keyboard Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Often (Keyboard Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81DA3F7A1C24BE85006822D3 /* Often copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Often copy-Info.plist"; path = "/Users/luc/Projects/often-ios/Often copy-Info.plist"; sourceTree = "<absolute>"; };
 		81DC114A1AF05CF400412BD2 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftyJSON; sourceTree = "<group>"; };
 		81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsCellOverlayView.swift; path = Sources/SearchResultsCellOverlayView.swift; sourceTree = "<group>"; };
 		81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutConstants.swift; path = Sources/LayoutConstants.swift; sourceTree = "<group>"; };
@@ -731,6 +970,41 @@
 				81794EF61A81EC62009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794EF51A81EC58009D4A71 /* Accounts.framework in Frameworks */,
 				74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81DA3F371C24BE85006822D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81DA3F381C24BE85006822D3 /* RealmSwift.framework in Frameworks */,
+				81DA3F391C24BE85006822D3 /* SystemConfiguration.framework in Frameworks */,
+				81DA3F3A1C24BE85006822D3 /* AVFoundation.framework in Frameworks */,
+				81DA3F3B1C24BE85006822D3 /* Spotify.framework in Frameworks */,
+				81DA3F3C1C24BE85006822D3 /* Twitter.framework in Frameworks */,
+				81DA3F3D1C24BE85006822D3 /* libstdc++.6.dylib in Frameworks */,
+				81DA3F3E1C24BE85006822D3 /* libsqlite3.dylib in Frameworks */,
+				81DA3F3F1C24BE85006822D3 /* Crashlytics.framework in Frameworks */,
+				81DA3F401C24BE85006822D3 /* libz.dylib in Frameworks */,
+				81DA3F411C24BE85006822D3 /* Fabric.framework in Frameworks */,
+				81DA3F421C24BE85006822D3 /* Realm.framework in Frameworks */,
+				81DA3F431C24BE85006822D3 /* Social.framework in Frameworks */,
+				81DA3F441C24BE85006822D3 /* Security.framework in Frameworks */,
+				81DA3F451C24BE85006822D3 /* Realm.framework in Frameworks */,
+				81DA3F461C24BE85006822D3 /* RealmSwift.framework in Frameworks */,
+				81DA3F471C24BE85006822D3 /* Spring.framework in Frameworks */,
+				81DA3F481C24BE85006822D3 /* QuartzCore.framework in Frameworks */,
+				81DA3F491C24BE85006822D3 /* MobileCoreServices.framework in Frameworks */,
+				81DA3F4A1C24BE85006822D3 /* CoreLocation.framework in Frameworks */,
+				81DA3F4B1C24BE85006822D3 /* CoreGraphics.framework in Frameworks */,
+				81DA3F4C1C24BE85006822D3 /* AudioToolbox.framework in Frameworks */,
+				81DA3F4D1C24BE85006822D3 /* CFNetwork.framework in Frameworks */,
+				81DA3F4E1C24BE85006822D3 /* EmitterKit.framework in Frameworks */,
+				81DA3F4F1C24BE85006822D3 /* StoreKit.framework in Frameworks */,
+				81DA3F501C24BE85006822D3 /* Accounts.framework in Frameworks */,
+				81DA3F511C24BE85006822D3 /* libPods-Often.a in Frameworks */,
+				81DA3F521C24BE85006822D3 /* EmitterKit.framework in Frameworks */,
+				81DA3F531C24BE85006822D3 /* OAuthSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1162,6 +1436,7 @@
 				8180E6091A142157007FA1CF /* Products */,
 				3A906368B7CA46AA11C157BA /* Pods */,
 				7F93937CEF33AF0CDDEE7D74 /* Frameworks */,
+				81DA3F7A1C24BE85006822D3 /* Often copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1170,6 +1445,7 @@
 			children = (
 				8180E6081A142157007FA1CF /* Often.app */,
 				8180E6311A142199007FA1CF /* Keyboard.appex */,
+				81DA3F791C24BE85006822D3 /* Often (Keyboard Debug).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1472,6 +1748,32 @@
 			productReference = 8180E6311A142199007FA1CF /* Keyboard.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		81DA3E9B1C24BE85006822D3 /* Often (Keyboard Debug) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 81DA3F751C24BE85006822D3 /* Build configuration list for PBXNativeTarget "Often (Keyboard Debug)" */;
+			buildPhases = (
+				81DA3E9E1C24BE85006822D3 /* Check Pods Manifest.lock */,
+				81DA3E9F1C24BE85006822D3 /* Sources */,
+				81DA3F371C24BE85006822D3 /* Frameworks */,
+				81DA3F541C24BE85006822D3 /* Resources */,
+				81DA3F681C24BE85006822D3 /* Embed App Extensions */,
+				81DA3F6A1C24BE85006822D3 /* Copy Pods Resources */,
+				81DA3F6B1C24BE85006822D3 /* Upload symbols to crashlytics */,
+				81DA3F6C1C24BE85006822D3 /* Embed Frameworks */,
+				81DA3F721C24BE85006822D3 /* Run SwiftLint */,
+				81DA3F731C24BE85006822D3 /* Copy Frameworks (Carthage) */,
+				81DA3F741C24BE85006822D3 /* Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				81DA3E9C1C24BE85006822D3 /* PBXTargetDependency */,
+			);
+			name = "Often (Keyboard Debug)";
+			productName = DrizzyChat;
+			productReference = 81DA3F791C24BE85006822D3 /* Often (Keyboard Debug).app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1545,6 +1847,7 @@
 			projectRoot = "";
 			targets = (
 				8180E6071A142157007FA1CF /* Often */,
+				81DA3E9B1C24BE85006822D3 /* Often (Keyboard Debug) */,
 				8180E6301A142199007FA1CF /* Keyboard */,
 			);
 		};
@@ -1624,6 +1927,32 @@
 				3BAAB1971B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
 				3BAAB1A11B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
 				3BAAB1A51B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81DA3F541C24BE85006822D3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81DA3F551C24BE85006822D3 /* Montserrat-Regular.ttf in Resources */,
+				81DA3F561C24BE85006822D3 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				81DA3F571C24BE85006822D3 /* OpenSans-Bold.ttf in Resources */,
+				81DA3F581C24BE85006822D3 /* db.realm in Resources */,
+				81DA3F591C24BE85006822D3 /* Oswald-Bold.ttf in Resources */,
+				81DA3F5A1C24BE85006822D3 /* big.txt in Resources */,
+				81DA3F5B1C24BE85006822D3 /* OpenSans-ExtraBold.ttf in Resources */,
+				81DA3F5C1C24BE85006822D3 /* OpenSans-BoldItalic.ttf in Resources */,
+				81DA3F5D1C24BE85006822D3 /* OpenSans-Italic.ttf in Resources */,
+				81DA3F5E1C24BE85006822D3 /* OpenSans-Regular.ttf in Resources */,
+				81DA3F5F1C24BE85006822D3 /* Oswald-Light.ttf in Resources */,
+				81DA3F601C24BE85006822D3 /* small.txt in Resources */,
+				81DA3F611C24BE85006822D3 /* OpenSans-Light.ttf in Resources */,
+				81DA3F621C24BE85006822D3 /* OpenSans-LightItalic.ttf in Resources */,
+				81DA3F631C24BE85006822D3 /* Oswald-Regular.ttf in Resources */,
+				81DA3F641C24BE85006822D3 /* Images.xcassets in Resources */,
+				81DA3F651C24BE85006822D3 /* font_icons8.ttf in Resources */,
+				81DA3F661C24BE85006822D3 /* OpenSans-Semibold.ttf in Resources */,
+				81DA3F671C24BE85006822D3 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1734,6 +2063,97 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		81DA3E9E1C24BE85006822D3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		81DA3F6A1C24BE85006822D3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81DA3F6B1C24BE85006822D3 /* Upload symbols to crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload symbols to crashlytics";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run e4598140f72849daf847791f325b1eabae27a254 d6286229dfcfc4a30ec93ce38e1237bd5168d469296be7842aa314720d358417";
+		};
+		81DA3F721C24BE85006822D3 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		81DA3F731C24BE85006822D3 /* Copy Frameworks (Carthage) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Spring.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OAuthSwift.framework",
+			);
+			name = "Copy Frameworks (Carthage)";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		81DA3F741C24BE85006822D3 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		81F833241C0F70A7001B8662 /* Run SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2061,6 +2481,164 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		81DA3E9F1C24BE85006822D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81DA3EA01C24BE85006822D3 /* DropDownErrorMessage.swift in Sources */,
+				81DA3EA11C24BE85006822D3 /* SpellChecker.swift in Sources */,
+				81DA3EA21C24BE85006822D3 /* SearchSuggestionTableViewCell.swift in Sources */,
+				81DA3EA31C24BE85006822D3 /* UserProfileSettingsTableViewCell.swift in Sources */,
+				81DA3EA41C24BE85006822D3 /* RefreshResultsButton.swift in Sources */,
+				81DA3EA51C24BE85006822D3 /* ArtistCollectionViewCell.swift in Sources */,
+				81DA3EA61C24BE85006822D3 /* BackspaceShape.swift in Sources */,
+				81DA3EA71C24BE85006822D3 /* TermDictionary.swift in Sources */,
+				81DA3EA81C24BE85006822D3 /* ServiceProviderSearchBarButton.swift in Sources */,
+				81DA3EA91C24BE85006822D3 /* SkipSignupViewController.swift in Sources */,
+				81DA3EAA1C24BE85006822D3 /* KeyboardViewController.swift in Sources */,
+				81DA3EAB1C24BE85006822D3 /* KeyboardMediaLinksAndFilterBarViewController.swift in Sources */,
+				81DA3EAC1C24BE85006822D3 /* SearchSuggestionsViewModel.swift in Sources */,
+				81DA3EAD1C24BE85006822D3 /* LayoutConstants.swift in Sources */,
+				81DA3EAE1C24BE85006822D3 /* SearchViewModel.swift in Sources */,
+				81DA3EAF1C24BE85006822D3 /* SocialAccountSettingsViewModel.swift in Sources */,
+				81DA3EB01C24BE85006822D3 /* SignupViewModel.swift in Sources */,
+				81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */,
+				81DA3EB21C24BE85006822D3 /* SearchSuggestion.swift in Sources */,
+				81DA3EB31C24BE85006822D3 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
+				81DA3EB41C24BE85006822D3 /* ArticleMediaLink.swift in Sources */,
+				81DA3EB51C24BE85006822D3 /* SearchTextField.swift in Sources */,
+				81DA3EB61C24BE85006822D3 /* KeyboardLayouts.swift in Sources */,
+				81DA3EB71C24BE85006822D3 /* EmptySetView.swift in Sources */,
+				81DA3EB81C24BE85006822D3 /* SocialAccount.swift in Sources */,
+				81DA3EB91C24BE85006822D3 /* MediaLinksSectionHeaderView.swift in Sources */,
+				81DA3EBA1C24BE85006822D3 /* MediaLink.swift in Sources */,
+				81DA3EBB1C24BE85006822D3 /* TogglePanelButton.swift in Sources */,
+				81DA3EBC1C24BE85006822D3 /* PKHUDContentView.swift in Sources */,
+				81DA3EBD1C24BE85006822D3 /* ServiceProviderSupplementaryViewController.swift in Sources */,
+				81DA3EBE1C24BE85006822D3 /* KeyboardLayout.swift in Sources */,
+				81DA3EBF1C24BE85006822D3 /* SearchBaseViewModel.swift in Sources */,
+				81DA3EC01C24BE85006822D3 /* CachedCollectionType.swift in Sources */,
+				81DA3EC11C24BE85006822D3 /* UserProfileViewController.swift in Sources */,
+				81DA3EC21C24BE85006822D3 /* SearchViewController.swift in Sources */,
+				81DA3EC31C24BE85006822D3 /* Direction.swift in Sources */,
+				81DA3EC41C24BE85006822D3 /* KeyboardViewModel.swift in Sources */,
+				81DA3EC51C24BE85006822D3 /* UserProfileHeaderView.swift in Sources */,
+				81DA3EC61C24BE85006822D3 /* FrameView.swift in Sources */,
+				81DA3EC71C24BE85006822D3 /* KeyboardKey.swift in Sources */,
+				81DA3EC81C24BE85006822D3 /* BaseKeyboardContainerViewController.swift in Sources */,
+				81DA3EC91C24BE85006822D3 /* SwiftAutoLayout.swift in Sources */,
+				81DA3ECA1C24BE85006822D3 /* FullScreenCollectionViewController.swift in Sources */,
+				81DA3ECB1C24BE85006822D3 /* MediaLinksCollectionBaseViewController.swift in Sources */,
+				81DA3ECC1C24BE85006822D3 /* HUDProgressView.swift in Sources */,
+				81DA3ECD1C24BE85006822D3 /* SearchResultsCollectionViewController.swift in Sources */,
+				81DA3ECE1C24BE85006822D3 /* UIViewController+NJKFullScreenSupport.m in Sources */,
+				81DA3ECF1C24BE85006822D3 /* SearchBarController.swift in Sources */,
+				81DA3ED01C24BE85006822D3 /* MediaLinksViewModel.swift in Sources */,
+				81DA3ED11C24BE85006822D3 /* AnonymousAccountManager.swift in Sources */,
+				81DA3ED21C24BE85006822D3 /* LocalNotificationsAlertView.swift in Sources */,
+				81DA3ED31C24BE85006822D3 /* KeyboardLayoutEngine.swift in Sources */,
+				81DA3ED41C24BE85006822D3 /* SpotifyAccountManager.swift in Sources */,
+				81DA3ED51C24BE85006822D3 /* SearchResultsCellOverlayView.swift in Sources */,
+				81DA3ED61C24BE85006822D3 /* StyleKit.swift in Sources */,
+				81DA3ED71C24BE85006822D3 /* PKHUD.swift in Sources */,
+				81DA3ED81C24BE85006822D3 /* SearchBar.swift in Sources */,
+				81DA3ED91C24BE85006822D3 /* MediaFilterTabView.swift in Sources */,
+				81DA3EDA1C24BE85006822D3 /* FilterMap.swift in Sources */,
+				81DA3EDB1C24BE85006822D3 /* TextMessageOnBoardingView.swift in Sources */,
+				81DA3EDC1C24BE85006822D3 /* ToolTip.swift in Sources */,
+				81DA3EDD1C24BE85006822D3 /* UIColor+HEXString.m in Sources */,
+				81DA3EDE1C24BE85006822D3 /* FavoritesAndRecentsTabView.swift in Sources */,
+				81DA3EDF1C24BE85006822D3 /* UIDevice+DeviceList.swift in Sources */,
+				81DA3EE01C24BE85006822D3 /* TouchForwardingView.swift in Sources */,
+				81DA3EE11C24BE85006822D3 /* SearchSuggestionTableHeaderView.swift in Sources */,
+				81DA3EE21C24BE85006822D3 /* delay.swift in Sources */,
+				81DA3EE31C24BE85006822D3 /* AccountManager.swift in Sources */,
+				81DA3EE41C24BE85006822D3 /* TrendingLyricsViewModel.swift in Sources */,
+				81DA3EE51C24BE85006822D3 /* MediaLinksAndFilterBarViewController.swift in Sources */,
+				81DA3EE61C24BE85006822D3 /* SocialAccountHeaderView.swift in Sources */,
+				81DA3EE71C24BE85006822D3 /* ToolTipLoadingView.swift in Sources */,
+				81DA3EE81C24BE85006822D3 /* ServiceProvider.swift in Sources */,
+				81DA3EE91C24BE85006822D3 /* TrendingViewController.swift in Sources */,
+				81DA3EEA1C24BE85006822D3 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
+				81DA3EEB1C24BE85006822D3 /* AppSettingsView.swift in Sources */,
+				81DA3EEC1C24BE85006822D3 /* KeyboardPage.swift in Sources */,
+				81DA3EED1C24BE85006822D3 /* BrowseViewController.swift in Sources */,
+				81DA3EEE1C24BE85006822D3 /* ShapeView.swift in Sources */,
+				81DA3EEF1C24BE85006822D3 /* TermsOfUseViewController.swift in Sources */,
+				81DA3EF01C24BE85006822D3 /* FuzzySearch.swift in Sources */,
+				81DA3EF11C24BE85006822D3 /* ArrowShape.swift in Sources */,
+				81DA3EF21C24BE85006822D3 /* CreateAccountViewController.swift in Sources */,
+				81DA3EF31C24BE85006822D3 /* AppDelegate.swift in Sources */,
+				81DA3EF41C24BE85006822D3 /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
+				81DA3EF51C24BE85006822D3 /* KeyboardContainerViewController.swift in Sources */,
+				81DA3EF61C24BE85006822D3 /* TextProcessingManager.swift in Sources */,
+				81DA3EF71C24BE85006822D3 /* AutocorrectSuggestionsViewController.swift in Sources */,
+				81DA3EF81C24BE85006822D3 /* SearchResultsViewModel.swift in Sources */,
+				81DA3EF91C24BE85006822D3 /* SigninView.swift in Sources */,
+				81DA3EFA1C24BE85006822D3 /* SignupView.swift in Sources */,
+				81DA3EFB1C24BE85006822D3 /* SocialAccountSettingsCollectionViewController.swift in Sources */,
+				81DA3EFC1C24BE85006822D3 /* SessionManager.swift in Sources */,
+				81DA3EFD1C24BE85006822D3 /* SocialAccountsService.swift in Sources */,
+				81DA3EFE1C24BE85006822D3 /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
+				81DA3EFF1C24BE85006822D3 /* KeyboardSectionsContainerViewController.swift in Sources */,
+				81DA3F001C24BE85006822D3 /* MediaLinksKeyboardContainerViewController.swift in Sources */,
+				81DA3F011C24BE85006822D3 /* KeyboardWalkthroughView.swift in Sources */,
+				81DA3F021C24BE85006822D3 /* SearchSuggestionsViewController.swift in Sources */,
+				81DA3F031C24BE85006822D3 /* FacebookAccountManager.swift in Sources */,
+				81DA3F041C24BE85006822D3 /* KeyboardKeyButton.swift in Sources */,
+				81DA3F051C24BE85006822D3 /* AutocorrectSuggestionView.swift in Sources */,
+				81DA3F061C24BE85006822D3 /* String+Utils.swift in Sources */,
+				81DA3F071C24BE85006822D3 /* TrendingLyricsViewController.swift in Sources */,
+				81DA3F081C24BE85006822D3 /* SocialAccountSettingsCollectionViewCell.swift in Sources */,
+				81DA3F091C24BE85006822D3 /* MediaLinkCollectionViewCell.swift in Sources */,
+				81DA3F0A1C24BE85006822D3 /* SoundcloudAccountManager.swift in Sources */,
+				81DA3F0B1C24BE85006822D3 /* SearchBarButton.swift in Sources */,
+				81DA3F0C1C24BE85006822D3 /* SearchRequest.swift in Sources */,
+				81DA3F0D1C24BE85006822D3 /* KeyboardTheme.swift in Sources */,
+				81DA3F0E1C24BE85006822D3 /* Service.swift in Sources */,
+				81DA3F0F1C24BE85006822D3 /* InKeyboardToolTip.swift in Sources */,
+				81DA3F101C24BE85006822D3 /* KeyboardViewController+EventHandlers.swift in Sources */,
+				81DA3F111C24BE85006822D3 /* TrackMediaLink.swift in Sources */,
+				81DA3F121C24BE85006822D3 /* Shape.swift in Sources */,
+				81DA3F131C24BE85006822D3 /* KeyboardInstallationWalkthroughViewController.swift in Sources */,
+				81DA3F141C24BE85006822D3 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
+				81DA3F151C24BE85006822D3 /* TwitterAccountManager.swift in Sources */,
+				81DA3F161C24BE85006822D3 /* NJKScrollFullScreen.m in Sources */,
+				81DA3F171C24BE85006822D3 /* ToolTipViewController.swift in Sources */,
+				81DA3F181C24BE85006822D3 /* KeyboardFavoritesAndRecentsViewController.swift in Sources */,
+				81DA3F191C24BE85006822D3 /* KeyboardKeyBackgroundConnector.swift in Sources */,
+				81DA3F1A1C24BE85006822D3 /* SessionManagerFlags.swift in Sources */,
+				81DA3F1B1C24BE85006822D3 /* Constants.swift in Sources */,
+				81DA3F1C1C24BE85006822D3 /* SearchResponse.swift in Sources */,
+				81DA3F1D1C24BE85006822D3 /* StreamReader.swift in Sources */,
+				81DA3F1E1C24BE85006822D3 /* Validation.swift in Sources */,
+				81DA3F1F1C24BE85006822D3 /* WindowRootViewController.swift in Sources */,
+				81DA3F201C24BE85006822D3 /* RootViewController.swift in Sources */,
+				81DA3F211C24BE85006822D3 /* suffixNumber.swift in Sources */,
+				81DA3F221C24BE85006822D3 /* User.swift in Sources */,
+				81DA3F231C24BE85006822D3 /* MessageBarView.swift in Sources */,
+				81DA3F241C24BE85006822D3 /* SettingsViewModel.swift in Sources */,
+				81DA3F251C24BE85006822D3 /* SigninViewController.swift in Sources */,
+				81DA3F261C24BE85006822D3 /* MediaLinksViewModel+Favorites.swift in Sources */,
+				81DA3F271C24BE85006822D3 /* EmailAccountManager.swift in Sources */,
+				81DA3F281C24BE85006822D3 /* SkipSignupView.swift in Sources */,
+				81DA3F291C24BE85006822D3 /* SlideTabBar.swift in Sources */,
+				81DA3F2A1C24BE85006822D3 /* VideoMediaLink.swift in Sources */,
+				81DA3F2B1C24BE85006822D3 /* CreateAccountView.swift in Sources */,
+				81DA3F2C1C24BE85006822D3 /* PKHUDAssets.swift in Sources */,
+				81DA3F2D1C24BE85006822D3 /* Window.swift in Sources */,
+				81DA3F2E1C24BE85006822D3 /* AppSettingsViewController.swift in Sources */,
+				81DA3F2F1C24BE85006822D3 /* SignupViewController.swift in Sources */,
+				81DA3F301C24BE85006822D3 /* KeyboardKeyBackground.swift in Sources */,
+				81DA3F311C24BE85006822D3 /* BrowseHeaderView.swift in Sources */,
+				81DA3F321C24BE85006822D3 /* UserProfileSettingsSectionHeaderView.swift in Sources */,
+				81DA3F331C24BE85006822D3 /* SettingsWebViewController.swift in Sources */,
+				81DA3F341C24BE85006822D3 /* CompleteInstallationView.swift in Sources */,
+				81DA3F351C24BE85006822D3 /* EventEmittable.swift in Sources */,
+				81DA3F361C24BE85006822D3 /* FilterButton.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2068,6 +2646,11 @@
 			isa = PBXTargetDependency;
 			target = 8180E6301A142199007FA1CF /* Keyboard */;
 			targetProxy = 8180E6371A142199007FA1CF /* PBXContainerItemProxy */;
+		};
+		81DA3E9C1C24BE85006822D3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8180E6301A142199007FA1CF /* Keyboard */;
+			targetProxy = 81DA3E9D1C24BE85006822D3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2451,6 +3034,128 @@
 			};
 			name = Debug;
 		};
+		81DA3F761C24BE85006822D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0AC56B3E820F4111F432C702 /* Pods-Often.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Firebase",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
+					"$(PROJECT_DIR)/Vendors/OAuthSwift/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TARGET_IS_APP=1",
+					"KEYBOARD_DEBUG=1",
+				);
+				INFOPLIST_FILE = "Often copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\" -DKEYBOARD_DEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		81DA3F771C24BE85006822D3 /* Crashlytics */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Firebase",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
+					"$(PROJECT_DIR)/Vendors/OAuthSwift/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TARGET_IS_APP=1",
+					"KEYBOARD_DEBUG=1",
+				);
+				INFOPLIST_FILE = "Often copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\" -DKEYBOARD_DEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Crashlytics;
+		};
+		81DA3F781C24BE85006822D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Firebase",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
+					"$(PROJECT_DIR)/Vendors/OAuthSwift/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TARGET_IS_APP=1",
+					"KEYBOARD_DEBUG=1",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TARGET_IS_APP=1",
+				);
+				INFOPLIST_FILE = "Often copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\" -DKEYBOARD_DEBUG";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2480,6 +3185,16 @@
 				8180E63B1A142199007FA1CF /* Debug */,
 				812E3F1D1B4DE6AD00C0F3BE /* Crashlytics */,
 				695262711B4AEADD00D4C6FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		81DA3F751C24BE85006822D3 /* Build configuration list for PBXNativeTarget "Often (Keyboard Debug)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81DA3F761C24BE85006822D3 /* Debug */,
+				81DA3F771C24BE85006822D3 /* Crashlytics */,
+				81DA3F781C24BE85006822D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
