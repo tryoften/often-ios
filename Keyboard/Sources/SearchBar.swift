@@ -138,7 +138,7 @@ class SearchBar: UIView {
         }
         repositionSearchTextField()
         textInput.text = ""
-        textInput.placeholder = textInput.placeholderText
+        textInput.placeholder = SearchBarPlaceholderText
         textInput.selected = false
         toggleCancelButton()
     }

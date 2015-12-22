@@ -18,6 +18,22 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
       super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel)
 
         self.collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
+        let baseURL = Firebase(url: BaseURL)
+        searchBar = SearchBarController(viewModel:  SearchViewModel(base: baseURL), suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL))
+        searchBar?.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(searchBar!.view)
+
+        setupLayout()
+    }
+
+    func setupLayout() {
+        let constraints: [NSLayoutConstraint] = [
+            searchBar!.view.al_height == 55,
+            searchBar!.view.al_top == view.al_top,
+            searchBar!.view.al_left == view.al_left,
+            searchBar!.view.al_right == view.al_right,
+        ]
+        view.addConstraints(constraints)
     }
 
     required init?(coder aDecoder: NSCoder) {

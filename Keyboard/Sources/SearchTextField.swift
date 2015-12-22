@@ -51,7 +51,7 @@ class SearchTextField: UIControl, Layouteable {
             label.alpha = 1.0
             label.text = text
             if text == "" {
-                placeholder = placeholderText
+                placeholder = SearchBarPlaceholderText
                 indicatorPositionConstraint.constant = -40
             } else {
                 indicatorPositionConstraint.constant = 0
@@ -68,9 +68,7 @@ class SearchTextField: UIControl, Layouteable {
             }
         }
     }
-    
-    let placeholderText: String = "Search"
-    
+
     override var selected: Bool {
         didSet {
             label.sizeToFit()
@@ -103,7 +101,7 @@ class SearchTextField: UIControl, Layouteable {
                 }
                 
                 if text == "" && placeholder != nil {
-                    placeholder = placeholderText
+                    placeholder = SearchBarPlaceholderText
                 }
                 
                 if self.text == "" {
@@ -273,7 +271,7 @@ class SearchTextField: UIControl, Layouteable {
     
     func didTapCancelButton() {
         text = ""
-        placeholder = placeholderText
+        placeholder = SearchBarPlaceholderText
         selected = false
         endBlinkingIndicator()
         
@@ -287,7 +285,7 @@ class SearchTextField: UIControl, Layouteable {
     
     func didTapClearButton() {
         text = ""
-        placeholder = placeholderText
+        placeholder = SearchBarPlaceholderText
     }
     
     func updateButtonPositions() {
