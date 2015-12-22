@@ -12,25 +12,14 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     var viewModel: SearchViewModel
     var searchBar: SearchBar
     var suggestionsViewModel: SearchSuggestionsViewModel?
-
-    weak var textProcessor: TextProcessingManager? {
-        didSet {
-            primaryTextDocumentProxy = textProcessor?.currentProxy
-
-            if let textProcessor = textProcessor {
-                textProcessor.proxies["search"] = searchBar.textInput
-            }
-        }
-    }
     var filter: Filter?
-    var primaryTextDocumentProxy: UITextDocumentProxy?
     var autocompleteTimer: NSTimer?
 
-    init(viewModel aViewModel: SearchViewModel, suggestionsViewModel aSuggestionsViewModel: SearchSuggestionsViewModel) {
+    required init(viewModel aViewModel: SearchViewModel, suggestionsViewModel aSuggestionsViewModel: SearchSuggestionsViewModel, SearchTextFieldClass: SearchTextField.Type) {
         viewModel = aViewModel
         suggestionsViewModel = aSuggestionsViewModel
 
-        searchBar = SearchBar()
+        searchBar = SearchBar(SearchTextFieldClass: SearchTextFieldClass)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(nibName: nil, bundle: nil)
@@ -47,15 +36,11 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        searchBar.textInput.placeholder = searchBar.textInput.placeholderText
-
-        let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "resetSearchBar", name: KeyboardResetSearchBar, object: nil)
-
+        searchBar.textInput.clear()
         searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
         searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
         searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
-        searchBar.shareButton.addTarget(self, action: "didTapShareButton", forControlEvents: .TouchUpInside)
+        searchBar.textInput.addTarget(self, action: "reset", forControlEvents: .EditingDidEndOnExit)
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,32 +48,18 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if let touch = touches.first {
-            if touch.view == searchBar {
-                searchBar.textInput.becomeFirstResponder()
-            }
+        if let touch = touches.first where touch.view == searchBar {
+            searchBar.textInput.becomeFirstResponder()
         }
     }
     
-    func resetSearchBar() {
+    func reset() {
         filter = nil
-        searchBar.resetSearchBar()
+        searchBar.reset()
 
-        NSNotificationCenter.defaultCenter().postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-            "height": 0,
-            "hideToggleBar": true
-        ])
         NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: nil)
     }
-    
-    func didTapShareButton() {
-        if let shareText = PFConfig.currentConfig().objectForKey("shareText") as? String {
-            textProcessor?.insertText(shareText)
-        } else {
-            textProcessor?.insertText("Download Often at oftn.me/app")
-        }
-    }
-    
+
     func scheduleAutocompleteRequestTimer() {
         autocompleteTimer?.invalidate()
         autocompleteTimer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: "requestAutocompleteSuggestions", userInfo: nil, repeats: false)
@@ -106,36 +77,9 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    func didTapProviderButton(button: ServiceProviderSearchBarButton?) {
-        resetSearchBar()
-    }
 
-    func textFieldDidBeginEditing(textField: UITextField) {
-        textProcessor?.setCurrentProxyWithId("search")
-        scheduleAutocompleteRequestTimer()
-        
-        let center = NSNotificationCenter.defaultCenter()
-        
-        center.postNotificationName(ResizeKeyboardEvent, object: self, userInfo: [
-            "height": 100.0,
-            "hideToggleBar": true
-        ])
-        center.postNotificationName(RestoreKeyboardEvent, object: nil)
-        center.postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
-    }
-    
-    func textFieldDidChange() {
-        textProcessor?.parseTextInCurrentDocumentProxy()
-
-        if viewModel.hasReceivedResponse == true {
-            scheduleAutocompleteRequestTimer()
-            NSNotificationCenter.defaultCenter().postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
-        }
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        textProcessor?.setCurrentProxyWithId("default")
-        searchBar.textInput.updateButtonPositions()
+    func textFieldDidEndEditingOnExit() {
+        reset()
     }
     
     func setFilter(filter: Filter) {

@@ -156,6 +156,12 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         containerView.addSubview(toViewController.view)
         toViewController.didMoveToParentViewController(self)
 
+        if let delegate = toViewController as? KeyboardSectionsContainerViewControllerDelegate {
+            tabBar.layer.shadowOpacity = delegate.keyboardSectionsContainerViewControllerShouldShowBarShadow(self) ? 0.8 : 0.0
+        } else {
+            tabBar.layer.shadowOpacity = 0.8
+        }
+
         tabBar.userInteractionEnabled = false
         fromViewController?.view.removeFromSuperview()
         fromViewController?.removeFromParentViewController()
@@ -168,6 +174,6 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     }
 }
 
-protocol KeyboardSectionsContainerViewControllerDelegate: class {
-
+@objc protocol KeyboardSectionsContainerViewControllerDelegate {
+    func keyboardSectionsContainerViewControllerShouldShowBarShadow(containerViewController: KeyboardSectionsContainerViewController) -> Bool
 }
