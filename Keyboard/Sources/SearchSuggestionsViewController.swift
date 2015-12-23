@@ -15,9 +15,15 @@ let SearchLoaderSuggestionCellReuseIdentifier = "SearchLoaderSuggestionsCell"
 class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsViewModelDelegate {
     var delegate: SearchSuggestionViewControllerDelegate?
     var viewModel: SearchSuggestionsViewModel
+    var tableViewBottomInset: CGFloat {
+        didSet {
+            tableView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, tableViewBottomInset, 0)
+        }
+    }
 
     init(viewModel aViewModel: SearchSuggestionsViewModel) {
         viewModel = aViewModel
+        tableViewBottomInset = 80
         super.init(style: .Grouped)
 
         viewModel.delegate = self
@@ -36,7 +42,7 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
         tableView.registerClass(SearchLoaderSuggestionTableViewCell.self, forCellReuseIdentifier: SearchLoaderSuggestionCellReuseIdentifier)
         tableView.separatorColor = DarkGrey
         tableView.separatorInset = UIEdgeInsetsZero
-        tableView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
+        tableView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, tableViewBottomInset, 0)
 
         view.backgroundColor = VeryLightGray
     }

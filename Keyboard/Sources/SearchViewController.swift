@@ -142,12 +142,12 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             self.searchBarController.view.frame = searchBarFrame
         }
         searchSuggestionsViewController.view.hidden = false
-        searchSuggestionsViewController.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeightForOrientation(interfaceOrientation), right: 0)
+        searchSuggestionsViewController.tableViewBottomInset = keyboardHeightForOrientation(interfaceOrientation)
     }
 
     func textFieldDidEndEditing(textField: UITextField) {
         containerViewController?.showTabBar(true)
-        searchSuggestionsViewController.tableView.contentInset = UIEdgeInsetsZero
+        searchSuggestionsViewController.tableViewBottomInset = 0
     }
 
     func didTapSearchBarCancelButton() {
