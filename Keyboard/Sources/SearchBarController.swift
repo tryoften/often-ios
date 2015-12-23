@@ -37,10 +37,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         searchBar.textInput.clear()
-        searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
-        searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
-        searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
-        searchBar.textInput.addTarget(self, action: "reset", forControlEvents: .EditingDidEndOnExit)
     }
 
     override func didReceiveMemoryWarning() {

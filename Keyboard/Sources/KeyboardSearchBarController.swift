@@ -23,6 +23,11 @@ class KeyboardSearchBarController: SearchBarController {
 
     required init(viewModel aViewModel: SearchViewModel, suggestionsViewModel aSuggestionsViewModel: SearchSuggestionsViewModel, SearchTextFieldClass: SearchTextField.Type) {
         super.init(viewModel: aViewModel, suggestionsViewModel: aSuggestionsViewModel, SearchTextFieldClass: KeyboardSearchTextField.self)
+
+        searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
+        searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
+        searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
+        searchBar.textInput.addTarget(self, action: "reset", forControlEvents: .EditingDidEndOnExit)
     }
 
     required init?(coder aDecoder: NSCoder) {
