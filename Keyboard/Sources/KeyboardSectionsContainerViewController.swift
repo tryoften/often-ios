@@ -113,6 +113,12 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         positionTabBar(animated, animations: animations)
     }
 
+    func resetPosition() {
+        var frame = tabBar.frame
+        frame.origin = CGPointZero
+        tabBar.frame = frame
+    }
+
     private func positionTabBar(animated: Bool = false, animations: (() -> Void)? = nil) {
         if animated {
             UIView.setAnimationDuration(0.3)
