@@ -10,6 +10,7 @@ import UIKit
 
 class FullScreenCollectionViewController: UICollectionViewController, NJKScrollFullscreenDelegate {
     var scrollProxy: NJKScrollFullScreen?
+    var shouldSendScrollEvents: Bool = true
 
     var tabBarFrame: CGRect {
         guard let containerViewController = containerViewController else {
@@ -61,20 +62,25 @@ class FullScreenCollectionViewController: UICollectionViewController, NJKScrollF
     }
 
     func showNavigationBar(animated: Bool) {
-        setNavigationBarOriginY(0, animated: true)
+        if shouldSendScrollEvents {
+            setNavigationBarOriginY(0, animated: true)
+        }
     }
 
     func hideNavigationBar(animated: Bool) {
-        let top = -CGRectGetHeight(tabBarFrame)
-        setNavigationBarOriginY(top, animated: true)
+        if shouldSendScrollEvents {
+            let top = -CGRectGetHeight(tabBarFrame)
+            setNavigationBarOriginY(top, animated: true)
+        }
     }
 
     func moveNavigationBar(deltaY: CGFloat, animated: Bool) {
         let frame = tabBarFrame
-
         let nextY = frame.origin.y + deltaY
 
-        setNavigationBarOriginY(nextY, animated: animated)
+        if shouldSendScrollEvents {
+            setNavigationBarOriginY(nextY, animated: animated)
+        }
     }
 
     func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
