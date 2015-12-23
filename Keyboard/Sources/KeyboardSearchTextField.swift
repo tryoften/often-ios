@@ -200,6 +200,10 @@ class KeyboardSearchTextField: UIControl, SearchTextField {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func addTarget(target: AnyObject?, action: Selector, forControlEvents controlEvents: UIControlEvents) {
+        super.addTarget(target, action: action, forControlEvents: controlEvents)
+    }
+
     override func resignFirstResponder() -> Bool {
         selected = false
         return super.resignFirstResponder()

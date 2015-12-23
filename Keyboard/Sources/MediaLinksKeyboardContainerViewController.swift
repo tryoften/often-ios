@@ -88,6 +88,10 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
             SearchBarControllerClass: KeyboardSearchBarController.self,
             SearchTextFieldClass: KeyboardSearchTextField.self)
 
+        if let keyboardSearchBarController = searchVC.searchBarController as? KeyboardSearchBarController {
+            keyboardSearchBarController.textProcessor = textProcessor!
+        }
+
         searchVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
 
         sections = [
@@ -114,14 +118,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         togglePanelButton.addTarget(self, action: "switchKeyboard", forControlEvents: .TouchUpInside)
     }
 
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-
-        dispatch_once(&viewModelsLoaded) {
-            self.setupViewModels()
-        }
-    }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if view.bounds == CGRectZero {
@@ -134,11 +130,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         togglePanelButtonFrame.size.height = 30
         togglePanelButton.frame = togglePanelButtonFrame
         sectionsTabBarController.view.frame = view.bounds
-    }
-
-    func setupViewModels() {
-        textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
-        textProcessor?.delegate = self
     }
 
     func resizeKeyboard(notification: NSNotification) {
