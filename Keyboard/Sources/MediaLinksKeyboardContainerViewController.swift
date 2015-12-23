@@ -81,7 +81,13 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         // Trending
         let baseURL = Firebase(url: BaseURL)
-        let searchVC = SearchViewController(viewModel: SearchViewModel(base: baseURL), suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL), textProcessor: textProcessor!)
+        let searchVC = SearchViewController(
+            viewModel: SearchViewModel(base: baseURL),
+            suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL),
+            textProcessor: textProcessor!,
+            SearchBarControllerClass: KeyboardSearchBarController.self,
+            SearchTextFieldClass: KeyboardSearchTextField.self)
+
         searchVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
 
         sections = [
@@ -160,9 +166,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     // MARK: TextProcessingManagerDelegate
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
-    }
-
-    func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType) {
     }
 
     func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {

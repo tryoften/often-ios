@@ -167,15 +167,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                 }
                 delegate?.textProcessingManagerDidDetectFilter(self, filter: filter)
             }
-            
-            let commandString = firstToken.substringFromIndex(firstToken.startIndex.successor())
-            if let serviceProviderType = ServiceProviderType(rawValue: commandString) {
-                print(serviceProviderType)
-                for _ in 0...firstToken.characters.count {
-                    currentProxy.deleteBackward()
-                }
-                delegate?.textProcessingManagerDidDetectServiceProvider(self, serviceProviderType: serviceProviderType)
-            }
         }
     }
     
@@ -217,7 +208,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
             }
         }
         
-        guard var lastWord = word else {
+        guard let lastWord = word else {
             return
         }
         
@@ -389,7 +380,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
 
 protocol TextProcessingManagerDelegate: class {
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager)
-    func textProcessingManagerDidDetectServiceProvider(textProcessingManager: TextProcessingManager, serviceProviderType: ServiceProviderType)
     func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter)
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter?
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String)

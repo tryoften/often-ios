@@ -10,7 +10,6 @@ import UIKit
 import AudioToolbox
 
 let KeyboardEnterKeyTappedEvent = "keyboard.enterKey"
-let KeyboardResetSearchBar = "SearchBarController.resetSearchBar"
 
 extension KeyboardViewController {
 

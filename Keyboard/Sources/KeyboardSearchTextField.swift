@@ -10,8 +10,7 @@ import UIKit
 
 /// This view represents a search text field including the search icon and cancel button
 /// the API is partialy compatible with the UITextField one
-class SearchTextField: UIControl, Layouteable {
-    weak var delegate: SearchTextFieldDelegate?
+class KeyboardSearchTextField: UIControl, SearchTextField {
     var id: String
     var editing: Bool
     
@@ -23,8 +22,7 @@ class SearchTextField: UIControl, Layouteable {
     private var searchIcon: UIImageView
     private var clearButton: UIButton
     private var labelContainerLeftConstraint: NSLayoutConstraint!
-    private var cancelButtonLeftConstraint: NSLayoutConstraint!
-    private var leftViewLeftConstraint: NSLayoutConstraint!
+    private var clearButtonLeftConstraint: NSLayoutConstraint!
     private var inputPosition: Int
     private var indicatorBlinkingTimer: NSTimer?
     
@@ -40,13 +38,13 @@ class SearchTextField: UIControl, Layouteable {
         }
     }
     
-    var enableCancelButton: Bool {
+    var clearButtonEnabled: Bool {
         didSet {
-            clearButton.hidden = !enableCancelButton
+            clearButton.hidden = !clearButtonEnabled
         }
     }
     
-    var text: String! {
+    var text: String? {
         didSet {
             label.alpha = 1.0
             label.text = text
@@ -58,7 +56,7 @@ class SearchTextField: UIControl, Layouteable {
             }
         }
     }
-    
+
     var placeholder: String? {
         didSet {
             label.alpha = 0.80
@@ -82,16 +80,11 @@ class SearchTextField: UIControl, Layouteable {
                 
                 label.alpha = text == "" ? 0.45 : 1.0
                 
-                cancelButtonLeftConstraint.constant = -CGRectGetHeight(clearButton.frame) - 15
+                clearButtonLeftConstraint.constant = -CGRectGetHeight(clearButton.frame) - 15
                 labelContainerLeftConstraint.constant = 0
-                
-                if leftView != nil {
-                    leftViewLeftConstraint.constant = 0
-                }
-                
+
                 self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: UIColor(fromHexString: "#BEBEBE"), scale: 1.0)
                 self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
-                self.backgroundView.backgroundColor = UIColor(fromHexString: "#F3F3F3")
                 self.clearButton.alpha = 1.0
                 editing = true
             } else {
@@ -106,22 +99,21 @@ class SearchTextField: UIControl, Layouteable {
                 
                 if self.text == "" {
                     self.textColor = LightBlackColor
-                    self.cancelButtonLeftConstraint.constant = 0
+                    self.clearButtonLeftConstraint.constant = 0
                     self.backgroundView.layer.borderColor = UIColor(fromHexString: "#E3E3E3").CGColor
                     self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: LightBlackColor, scale: 1.0)
                 } else {
                     self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
                 }
                 
-                self.backgroundView.backgroundColor = WhiteColor
+                self.backgroundView.backgroundColor = VeryLightGray
                 self.indicator.alpha = 0.0
                 self.clearButton.alpha = 0.0
                 editing = false
             }
         }
     }
-    
-    
+
     var labelContainerCenterMargin: CGFloat {
         label.sizeToFit()
 
@@ -130,35 +122,9 @@ class SearchTextField: UIControl, Layouteable {
 
         return (containerWidth / 2) - labelWidth / 2
     }
-    
-    var leftView: UIView? {
-        didSet {
-            if oldValue != nil {
-                oldValue?.removeFromSuperview()
-            }
-            
-            if let leftView = leftView {
-                leftView.translatesAutoresizingMaskIntoConstraints = false
-                leftViewLeftConstraint = leftView.al_left == al_left
-                
-                addSubview(leftView)
-                addConstraints([
-                    labelContainerLeftConstraint,
-                    leftViewLeftConstraint,
-                    leftView.al_height == al_height,
-                    leftView.al_width == leftView.al_height,
-                    leftView.al_centerY == al_centerY
-                ])
-                
-                UIView.animateWithDuration(0.3) {
-                    self.layoutIfNeeded()
-                }
-            }
-        }
-    }
 
-    override init(frame: CGRect) {
-        enableCancelButton = true
+    override required init(frame: CGRect) {
+        clearButtonEnabled = true
         editing = false
         inputPosition = 0
         text = ""
@@ -166,40 +132,47 @@ class SearchTextField: UIControl, Layouteable {
         
         backgroundView = UIView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.backgroundColor = WhiteColor
+        backgroundView.backgroundColor = VeryLightGray
         backgroundView.userInteractionEnabled = false
         backgroundView.layer.borderWidth = 1.0
         backgroundView.layer.cornerRadius = 3.0
+        backgroundView.layer.borderColor = UIColor(fromHexString: "#E3E3E3").CGColor
+        backgroundView.accessibilityLabel = "background view"
         
         labelContainer = UIView()
         labelContainer.translatesAutoresizingMaskIntoConstraints = false
         labelContainer.clipsToBounds = true
         labelContainer.userInteractionEnabled = false
+        labelContainer.accessibilityLabel = "label container"
 
         label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "OpenSans-Semibold", size: 12)
+        label.accessibilityLabel = "label"
         
         indicator = UIView()
         indicator.backgroundColor = UIColor(fromHexString: "#14E09E")
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.alpha = 0.0
+        indicator.accessibilityLabel = "indicator"
         
         clearButton = UIButton()
         clearButton.setImage(UIImage(named: "close-textfield"), forState: .Normal)
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         clearButton.alpha = 0.0
+        clearButton.accessibilityLabel = "clear Button"
         
         searchIcon = UIImageView(image: StyleKit.imageOfSearchbaricon(color: LightBlackColor, scale: 1.0))
         searchIcon.translatesAutoresizingMaskIntoConstraints = false
         searchIcon.contentMode = .ScaleAspectFit
+        searchIcon.accessibilityLabel = "search Icon"
     
         super.init(frame: frame)
         
         backgroundColor = UIColor.clearColor()
         id = description
 
-        clearButton.addTarget(self, action: "didTapClearButton", forControlEvents: .TouchUpInside)
+        clearButton.addTarget(self, action: "clear", forControlEvents: .TouchUpInside)
         
         addSubview(backgroundView)
         addSubview(labelContainer)
@@ -209,34 +182,22 @@ class SearchTextField: UIControl, Layouteable {
         labelContainer.addSubview(searchIcon)
         labelContainer.addSubview(label)
         
-        cancelButtonLeftConstraint = clearButton.al_left == al_right - 15
+        clearButtonLeftConstraint = clearButton.al_left == al_right - 15
         labelContainerLeftConstraint = labelContainer.al_left == al_left
         indicatorPositionConstraint =  indicator.al_left == label.al_right - 40
         setupLayout()
+
+        textColor = UIColor.blackColor()
+    }
+
+    convenience init() {
+        self.init(frame: CGRectZero)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func intrinsicContentSize() -> CGSize {
-        return CGSizeMake(CGRectGetWidth(label.frame) + 10, 19.5)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
 
-    override func becomeFirstResponder() -> Bool {
-        delay(0.5) {
-            NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagerProxyEvent, object: self, userInfo: [
-                "id": self.id,
-                "setDefault": true
-            ])
-        }
-        return super.becomeFirstResponder()
-    }
-    
     override func resignFirstResponder() -> Bool {
         selected = false
         return super.resignFirstResponder()
@@ -246,11 +207,7 @@ class SearchTextField: UIControl, Layouteable {
         if !selected {
             selected = true
         }
-        return true
-    }
-   
-    override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
-        
+        return super.beginTrackingWithTouch(touch, withEvent: event)
     }
     
     func startBlinkingIndicator() {
@@ -268,27 +225,22 @@ class SearchTextField: UIControl, Layouteable {
         indicator.alpha = 0.0
         indicatorBlinkingTimer?.invalidate()
     }
-    
-    func didTapCancelButton() {
-        text = ""
-        placeholder = SearchBarPlaceholderText
+
+    func reset() {
+        clear()
         selected = false
         endBlinkingIndicator()
-        
-        sendActionsForControlEvents(UIControlEvents.EditingDidEnd)
-        
-        let center = NSNotificationCenter.defaultCenter()
-        center.postNotificationName(KeyboardResetSearchBar, object: nil)
-        center.postNotificationName(CollapseKeyboardEvent, object: nil)
-        center.postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
+
+        sendActionsForControlEvents(.EditingDidEnd)
+        sendActionsForControlEvents(.EditingDidEndOnExit)
     }
-    
-    func didTapClearButton() {
+
+    func clear() {
         text = ""
         placeholder = SearchBarPlaceholderText
     }
-    
-    func updateButtonPositions() {
+
+    func repositionText() {
         if !selected {
             if text == "" {
                 labelContainerLeftConstraint.constant = labelContainerCenterMargin
@@ -302,22 +254,25 @@ class SearchTextField: UIControl, Layouteable {
     
     func setupLayout() {
         addConstraints([
-            cancelButtonLeftConstraint,
+            clearButtonLeftConstraint,
+            clearButton.al_height == 15,
+            clearButton.al_width == clearButton.al_height,
+            clearButton.al_centerY == al_centerY,
 
             backgroundView.al_left == al_left + 5,
             backgroundView.al_right == al_right - 5,
             backgroundView.al_top == al_top,
             backgroundView.al_bottom == al_bottom,
-            
-            searchIcon.al_left == labelContainer.al_left + 10,
-            searchIcon.al_centerY == labelContainer.al_centerY,
-            searchIcon.al_height == 15,
-            searchIcon.al_width == 20,
-            
-            labelContainerLeftConstraint,
+
+            labelContainer.al_left == backgroundView.al_left,
             labelContainer.al_height == al_height,
             labelContainer.al_top == al_top,
             labelContainer.al_right == backgroundView.al_right,
+
+            searchIcon.al_left == labelContainer.al_left + 5,
+            searchIcon.al_centerY == labelContainer.al_centerY,
+            searchIcon.al_height == 15,
+            searchIcon.al_width == 20,
             
             label.al_left == searchIcon.al_right + 3,
             label.al_centerY == labelContainer.al_centerY,
@@ -326,17 +281,12 @@ class SearchTextField: UIControl, Layouteable {
             indicator.al_height == 2.0,
             indicator.al_width == 10,
             indicatorPositionConstraint,
-            indicator.al_bottom == label.al_bottom,
-            
-            clearButton.al_height == 15,
-            clearButton.al_width == clearButton.al_height,
-            clearButton.al_centerY == al_centerY,
+            indicator.al_bottom == label.al_bottom
         ])
     }
-    
 }
 
-extension SearchTextField: UITextDocumentProxy {
+extension KeyboardSearchTextField: UITextDocumentProxy {
     func adjustTextPositionByCharacterOffset(offset: Int) {
         inputPosition += offset
     }
@@ -352,27 +302,28 @@ extension SearchTextField: UITextDocumentProxy {
     // MARK: UIKeyInput
     
     func hasText() -> Bool {
+        guard let text = text  else {
+            return true
+        }
+        
         return !text.isEmpty
     }
     
     func insertText(character: String) {
-        if (character != "\n") {
-            text = text.stringByAppendingString(character)
+         if let text = text {
+            if (character != "\n") {
+                self.text = text.stringByAppendingString(character)
+            }
+            sendActionsForControlEvents(UIControlEvents.EditingChanged)
         }
-        sendActionsForControlEvents(UIControlEvents.EditingChanged)
     }
     
     func deleteBackward() {
-        if !text.isEmpty {
-            text = text.substringToIndex(text.endIndex.advancedBy(-1))
+         if let text = text {
+            if !text.isEmpty {
+                self.text = text.substringToIndex(text.endIndex.advancedBy(-1))
+            }
+            sendActionsForControlEvents(UIControlEvents.EditingChanged)
         }
-        sendActionsForControlEvents(UIControlEvents.EditingChanged)
     }
-}
-
-protocol Layouteable {
-    func setupLayout()
-}
-
-protocol SearchTextFieldDelegate: class, UITextFieldDelegate {
 }

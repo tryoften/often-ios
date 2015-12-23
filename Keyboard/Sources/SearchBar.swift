@@ -15,10 +15,7 @@ class SearchBar: UIView {
     var bottomSeperator: UIView
 
     var textInput: SearchTextField
-    var textInputLeftConstraint: NSLayoutConstraint?
-    var cancelButtonLeftConstraint: NSLayoutConstraint!
-    
-    var shareButton: UIButton
+
     var cancelButton: UIButton
     var cancelButtonLeftPadding: CGFloat {
         return CGRectGetWidth(frame) - 70
@@ -26,76 +23,59 @@ class SearchBar: UIView {
     
     private var filterButton: UIButton?
 
-    override init(frame: CGRect) {
-        textInput = SearchTextField()
-        textInput.translatesAutoresizingMaskIntoConstraints = false
-        textInput.textColor = UIColor.blackColor()
+    init(SearchTextFieldClass: SearchTextField.Type) {
+        textInput = SearchTextFieldClass.init(frame: CGRectZero)
         
         topSeperator = UIView()
-        topSeperator.translatesAutoresizingMaskIntoConstraints = false
         topSeperator.backgroundColor = DarkGrey
         
         bottomSeperator = UIView()
-        bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
         bottomSeperator.backgroundColor = DarkGrey
 
         cancelButton = UIButton()
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setTitle("CANCEL", forState: .Normal)
         cancelButton.setTitle("DONE", forState: .Selected)
         cancelButton.setTitleColor(BlackColor, forState: .Normal)
         cancelButton.titleLabel?.font = UIFont(name: "Montserrat", size: 11)
         cancelButton.titleLabel?.textAlignment = .Center
-        
-        shareButton = UIButton()
-        shareButton.translatesAutoresizingMaskIntoConstraints = false
-        shareButton.setImage(StyleKit.imageOfSharebutton(), forState: .Normal)
-        shareButton.alpha = 0.40
 
-        bottomSeperator = UIView()
-        bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
-        bottomSeperator.backgroundColor = DarkGrey
-
-        super.init(frame: frame)
+        super.init(frame: CGRectZero)
         
         textInput.addTarget(self, action: "textFieldEditingDidBegin", forControlEvents: .EditingDidBegin)
-        textInput.addTarget(self, action: "textFieldEditingDidEnd", forControlEvents: .EditingDidEnd)
         cancelButton.addTarget(self, action: "cancelButtonDidTap", forControlEvents: .TouchUpInside)
         
-        backgroundColor = VeryLightGray
-        addSubview(textInput)
+        backgroundColor = WhiteColor
         addSubview(cancelButton)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
-        addSubview(shareButton)
-        
 
-        setupLayout()
+        if let textInput = textInput as? UIView {
+            addSubview(textInput)
+        }
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         
         if frame.size.width == 0 || frame.size.height == 0 {
             return
         }
+
+        topSeperator.frame = CGRectMake(0, 0, CGRectGetWidth(frame), 0.6)
+        bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
         
-        toggleCancelButton()
+        toggleCancelButton(true)
+        repositionSearchTextField()
     }
-    
+
     func textFieldEditingDidBegin() {
-        cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
-        backgroundColor = WhiteColor
-        shareButton.hidden = true
-    }
-    
-    func textFieldEditingDidEnd() {
-        cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
-        backgroundColor = DefaultTheme.keyboardBackgroundColor
+        UIView.animateWithDuration(0.3) {
+            self.repositionCancelButton()
+            self.repositionSearchTextField()
+        }
     }
     
     func setFilterButton(filter: Filter) {
-        
         var constraints: [NSLayoutConstraint] = []
         
         if let lastButton = filterButton {
@@ -118,56 +98,47 @@ class SearchBar: UIView {
         constraints.append(button.al_left == al_left + 10)
         constraints.append(button.al_top == al_top + 6.5)
         
-        insertSubview(button, belowSubview: textInput)
+        addSubview(button)
         addConstraints(constraints + [
             button.al_bottom == al_bottom - 5
         ])
-        
-        textInput.leftView = nil
+
         layoutIfNeeded()
         
         filterButton = button
         repositionSearchTextField()
+        repositionCancelButton()
     }
     
-    func resetSearchBar() {
+    func reset() {
         if let button = filterButton {
-            removeConstraints(button.constraints)
             button.removeFromSuperview()
             filterButton = nil
         }
         repositionSearchTextField()
-        textInput.text = ""
-        textInput.placeholder = SearchBarPlaceholderText
+        textInput.clear()
         textInput.selected = false
-        toggleCancelButton()
+        toggleCancelButton(true)
     }
     
-    func repositionSearchTextField() {
-        if let lastButton = filterButton {
-            self.textInputLeftConstraint?.constant = CGRectGetMaxX(lastButton.frame) + 5
-        } else {
-            self.textInputLeftConstraint?.constant = 3
-        }
+    private func repositionSearchTextField() {
+        let textInputWidth = CGRectGetWidth(frame) - (shouldShowCancelButton() ? 80 : 10)
+        textInput.frame = CGRectMake(5, 5, textInputWidth, CGRectGetHeight(frame) - 10)
     }
-    
+
+    private func repositionCancelButton() {
+        let cancelButtonLeftPadding = shouldShowCancelButton() ? self.cancelButtonLeftPadding : CGRectGetWidth(frame)
+        cancelButton.frame = CGRectMake(cancelButtonLeftPadding, 0, 60, CGRectGetHeight(frame))
+    }
+
     func toggleCancelButton(animated: Bool = false) {
-        if shouldShowShareButton() {
-            cancelButtonLeftConstraint.constant = cancelButtonLeftPadding
-        } else {
-            cancelButtonLeftConstraint.constant = CGRectGetWidth(frame)
-            shareButton.hidden = false
-        }
-        
-        if animated {
-            UIView.animateWithDuration(0.3) {
-                self.layoutIfNeeded()
-            }
+        UIView.animateWithDuration(animated ? 0.3 : 0.0) {
+            self.repositionCancelButton()
         }
     }
     
-    func shouldShowShareButton() -> Bool {
-        return textInput.selected || filterButton != nil
+    func shouldShowCancelButton() -> Bool {
+        return textInput.selected || !textInput.text!.isEmpty || filterButton != nil
     }
     
     func cancelButtonDidTap() {
@@ -175,42 +146,7 @@ class SearchBar: UIView {
             cancelButton.selected = false
         }
         
-        textInput.didTapCancelButton()
-    }
-
-    func setupLayout() {
-        textInputLeftConstraint = textInput.al_left == al_left + 3
-        cancelButtonLeftConstraint = cancelButton.al_left == al_left + cancelButtonLeftPadding
-
-        addConstraints([
-            textInput.al_top == al_top + 5,
-            textInputLeftConstraint!,
-            textInput.al_right == cancelButton.al_left - 5,
-            textInput.al_bottom == al_bottom - 5,
-
-            topSeperator.al_top == al_top,
-            topSeperator.al_left == al_left,
-            topSeperator.al_width == al_width,
-            topSeperator.al_height == 0.6,
-
-            bottomSeperator.al_bottom == al_bottom,
-            bottomSeperator.al_left == al_left,
-            bottomSeperator.al_width == al_width,
-            bottomSeperator.al_height == 0.6,
-            
-            cancelButtonLeftConstraint,
-            cancelButton.al_width == 60,
-            cancelButton.al_top == al_top,
-            cancelButton.al_height == al_height,
-            
-            shareButton.al_top == textInput.al_top,
-            shareButton.al_right == textInput.al_right - 3,
-            shareButton.al_width == 40,
-            shareButton.al_bottom == textInput.al_bottom,
-        ])
-        
-        layoutIfNeeded()
-        textInput.selected = false
+        textInput.reset()
     }
 
     required init?(coder aDecoder: NSCoder) {

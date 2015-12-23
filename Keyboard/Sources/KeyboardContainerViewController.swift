@@ -8,7 +8,6 @@
 //  swiftlint:disable variable_name
 
 let ShiftStateUserDefaultsKey = "kShiftState"
-let ResizeKeyboardEvent = "resizeKeyboard"
 let SwitchKeyboardEvent = "switchKeyboard"
 let CollapseKeyboardEvent = "collapseKeyboard"
 let RestoreKeyboardEvent = "restoreKeyboard"

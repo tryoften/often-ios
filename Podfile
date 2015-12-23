@@ -13,7 +13,7 @@ def base_deps
   pod 'DateTools', '~> 1.6'
   pod 'MMWormhole', '~> 2.0.0'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
-  pod 'Parse'
+  pod 'Parse', '~> 1.11'
 end
 
 target 'Often' do

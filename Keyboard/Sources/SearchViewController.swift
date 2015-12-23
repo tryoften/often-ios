@@ -10,7 +10,8 @@ import UIKit
 
 /// Controller that displays a search bar and search results
 class SearchViewController: UIViewController, SearchViewModelDelegate,
-    SearchSuggestionViewControllerDelegate {
+    SearchSuggestionViewControllerDelegate,
+    KeyboardSectionsContainerViewControllerDelegate {
     var viewModel: SearchViewModel
     var searchBarController: SearchBarController
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
@@ -27,12 +28,16 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     var noResultsTimer: NSTimer?
     var isNewSearch: Bool = false
 
-    init(viewModel aViewModel: SearchViewModel, suggestionsViewModel: SearchSuggestionsViewModel, textProcessor aTextProcessor: TextProcessingManager) {
+    init(viewModel aViewModel: SearchViewModel,
+        suggestionsViewModel: SearchSuggestionsViewModel,
+        textProcessor aTextProcessor: TextProcessingManager,
+        SearchBarControllerClass: SearchBarController.Type,
+        SearchTextFieldClass: SearchTextField.Type) {
         viewModel = aViewModel
         textProcessor = aTextProcessor
 
-        searchBarController = SearchBarController(viewModel: aViewModel, suggestionsViewModel: suggestionsViewModel)
-        searchBarController.textProcessor = textProcessor
+        searchBarController = SearchBarControllerClass.init(viewModel: aViewModel, suggestionsViewModel: suggestionsViewModel, SearchTextFieldClass: SearchTextFieldClass)
+
         searchBarHeight = KeyboardSearchBarHeight
 
         searchSuggestionsViewController = SearchSuggestionsViewController(viewModel: suggestionsViewModel)
@@ -102,8 +107,8 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
     func submitSearchRequest() {
         let text = searchBarController.searchBar.textInput.text
-        let query = searchBarController.filter != nil ? searchBarController.filter!.text + " " + text : text
-        viewModel.sendRequestForQuery(query, autocomplete: false)
+        let query = searchBarController.filter != nil ? searchBarController.filter!.text + " " + text! : text
+        viewModel.sendRequestForQuery(query!, autocomplete: false)
         searchResultsViewController.updateEmptySetVisible(false)
         searchSuggestionsViewController.view.hidden = true
 
@@ -118,6 +123,17 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         }
     }
 
+    func keyboardHeightForOrientation(orientation: UIInterfaceOrientation) -> CGFloat {
+        let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+
+        //TODO: hardcoded stuff
+        let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
+        let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
+        let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
+
+        return CGFloat(orientation.isPortrait ? canonicalPortraitHeight : canonicalLandscapeHeight)
+    }
+
     // MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
         containerViewController?.hideTabBar(true) {
@@ -126,14 +142,16 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             self.searchBarController.view.frame = searchBarFrame
         }
         searchSuggestionsViewController.view.hidden = false
+        searchSuggestionsViewController.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeightForOrientation(interfaceOrientation), right: 0)
     }
 
     func textFieldDidEndEditing(textField: UITextField) {
         containerViewController?.showTabBar(true)
+        searchSuggestionsViewController.tableView.contentInset = UIEdgeInsetsZero
     }
 
     func didTapSearchBarCancelButton() {
-
+        searchSuggestionsViewController.view.hidden = false
     }
 
     func showNoResultsEmptyState() {
@@ -196,6 +214,10 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             searchResultsViewController.nextResponse = response
             searchResultsViewController.showRefreshResultsButton()
         }
+    }
+
+    func keyboardSectionsContainerViewControllerShouldShowBarShadow(containerViewController: KeyboardSectionsContainerViewController) -> Bool {
+        return false
     }
 
 }

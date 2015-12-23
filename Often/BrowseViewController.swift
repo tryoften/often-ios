@@ -19,7 +19,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
 
         self.collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
         let baseURL = Firebase(url: BaseURL)
-        searchBar = SearchBarController(viewModel:  SearchViewModel(base: baseURL), suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL))
+        searchBar = SearchBarController(viewModel: SearchViewModel(base:baseURL), suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL), SearchTextFieldClass: MainAppSearchTextField.self)
         searchBar?.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchBar!.view)
 
