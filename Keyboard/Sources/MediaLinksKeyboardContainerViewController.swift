@@ -78,8 +78,9 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         // Trending
         let trendingVC = TrendingLyricsViewController(collectionViewLayout: TrendingLyricsViewController.getLayout(), viewModel: TrendingLyricsViewModel())
         trendingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfTrendingtab(scale: 0.45), tag: 2)
+        let trendingNavigationVC = UINavigationController(rootViewController: trendingVC)
 
-        // Trending
+        // Search
         let baseURL = Firebase(url: BaseURL)
         let searchVC = SearchViewController(
             viewModel: SearchViewModel(base: baseURL),
@@ -93,12 +94,14 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
 
         searchVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
+        let searchNavigationVC = UINavigationController(rootViewController: searchVC)
+        searchNavigationVC.navigationBarHidden = true
 
         sections = [
             (.Favorites, favoritesVC),
             (.Recents, recentsVC),
-            (.Trending, trendingVC),
-            (.Search, searchVC)
+            (.Trending, trendingNavigationVC),
+            (.Search, searchNavigationVC)
         ]
 
         sectionsTabBarController.viewControllers = sections.map { $0.1 }

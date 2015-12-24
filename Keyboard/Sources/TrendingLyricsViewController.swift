@@ -34,10 +34,15 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         collectionView?.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
         collectionView?.registerClass(MediaLinksSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier)
+        automaticallyAdjustsScrollViewInsets = false
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.navigationBarHidden = true
     }
 
     class func getLayout() -> UICollectionViewLayout {
@@ -165,6 +170,7 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
     func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
         if lyricsHorizontalVC == nil {
             lyricsHorizontalVC = TrendingLyricsHorizontalCollectionViewController()
+            addChildViewController(lyricsHorizontalVC!)
         }
         return lyricsHorizontalVC!
     }
@@ -172,7 +178,9 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
     func provideTrendingArtistsHorizontalCollectionViewController() -> TrendingArtistsHorizontalCollectionViewController {
         if artistsHorizontalVC == nil {
             artistsHorizontalVC = TrendingArtistsHorizontalCollectionViewController()
+            addChildViewController(artistsHorizontalVC!)
         }
+        
         return artistsHorizontalVC!
     }
 }
