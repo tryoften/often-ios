@@ -138,7 +138,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
     // MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
-        containerViewController?.hideTabBar(true)
+        containerViewController?.hideTabBar(true, animations: nil)
         var searchBarFrame = self.searchBarController.view.frame
         searchBarFrame.origin.y = 0
         self.searchBarController.view.frame = searchBarFrame
@@ -147,7 +147,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func textFieldDidEndEditing(textField: UITextField) {
-        containerViewController?.showTabBar(true)
+        containerViewController?.showTabBar(true, animations: nil)
         searchSuggestionsViewController.tableViewBottomInset = 0
     }
 
