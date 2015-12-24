@@ -71,12 +71,8 @@ class MainAppSearchTextField: UITextField, SearchTextField {
 
         clearButtonMode = .WhileEditing
         contentHorizontalAlignment = .Center
-        textAlignment = .Center
-
         backgroundColor = VeryLightGray
-
-        setupLayout()
-
+        textAlignment = .Center
         textColor = UIColor.blackColor()
     }
 
@@ -107,7 +103,7 @@ class MainAppSearchTextField: UITextField, SearchTextField {
     override func editingRectForBounds(bounds: CGRect) -> CGRect {
         return self.textRectForBounds(bounds)
     }
-    
+
     func reset() {
         clear()
         selected = false
