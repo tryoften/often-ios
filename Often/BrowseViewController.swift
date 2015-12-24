@@ -14,7 +14,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
     var headerView: BrowseHeaderView?
 
     var navigationBarFrame: CGRect {
-        guard let containerViewController = mainContainerViewController else {
+        guard let containerViewController = mainAppContainerViewController else {
             return CGRectZero
         }
 
@@ -103,7 +103,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
     }
 
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
-        guard let containerViewController = mainContainerViewController else {
+        guard let containerViewController = mainAppContainerViewController else {
             return
         }
 

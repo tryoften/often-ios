@@ -10,7 +10,7 @@ import Foundation
 
 extension UIViewController {
 
-    var mainContainerViewController: SearchBarNavigationController? {
+    var mainAppContainerViewController: SearchBarNavigationController? {
         var viewController = parentViewController
         while viewController != nil {
             if let parentViewController = viewController as? SearchBarNavigationController {
