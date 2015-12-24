@@ -34,7 +34,6 @@ class SearchBarNavigationController: UINavigationController {
     }
 
     func setupLayout() {
-
         let constraints: [NSLayoutConstraint] = [
             searchBar!.view.al_top == navigationBar.al_top,
             searchBar!.view.al_right == navigationBar.al_right,
