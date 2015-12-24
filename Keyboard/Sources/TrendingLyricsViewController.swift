@@ -172,7 +172,9 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
     func provideTrendingArtistsHorizontalCollectionViewController() -> TrendingArtistsHorizontalCollectionViewController {
         if artistsHorizontalVC == nil {
             artistsHorizontalVC = TrendingArtistsHorizontalCollectionViewController()
+            addChildViewController(artistsHorizontalVC!)
         }
+        
         return artistsHorizontalVC!
     }
 }
