@@ -19,7 +19,6 @@ class MainAppSearchTextField: UITextField, SearchTextField {
         }
     }
 
-
     override var selected: Bool {
         didSet {
             sizeToFit()
@@ -108,8 +107,7 @@ class MainAppSearchTextField: UITextField, SearchTextField {
     override func editingRectForBounds(bounds: CGRect) -> CGRect {
         return self.textRectForBounds(bounds)
     }
-
-
+    
     func reset() {
         clear()
         selected = false
@@ -121,11 +119,6 @@ class MainAppSearchTextField: UITextField, SearchTextField {
     func clear() {
         text = ""
         placeholder = SearchBarPlaceholderText
-    }
-
-
-    func setupLayout() {
-
     }
 
 }
