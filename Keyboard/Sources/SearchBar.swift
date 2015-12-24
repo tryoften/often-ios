@@ -42,6 +42,7 @@ class SearchBar: UIView {
         super.init(frame: CGRectZero)
         
         textInput.addTarget(self, action: "textFieldEditingDidBegin", forControlEvents: .EditingDidBegin)
+        textInput.addTarget(self, action: "reset", forControlEvents: .EditingDidEndOnExit)
         cancelButton.addTarget(self, action: "cancelButtonDidTap", forControlEvents: .TouchUpInside)
         
         backgroundColor = WhiteColor
