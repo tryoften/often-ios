@@ -28,12 +28,14 @@ class MainAppSearchTextField: UITextField, SearchTextField {
                 becomeFirstResponder()
 
                 self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: UIColor(fromHexString: "#BEBEBE"), scale: 1.0)
+                layer.borderColor = UIColor.clearColor().CGColor
 
                 if !editing {
                     sendActionsForControlEvents(UIControlEvents.EditingDidBegin)
                 }
 
                 layer.borderColor = UIColor.clearColor().CGColor
+                textAlignment = .Left
 
             } else {
                 if editing {
@@ -52,6 +54,9 @@ class MainAppSearchTextField: UITextField, SearchTextField {
                 } else {
                    layer.borderColor = UIColor.clearColor().CGColor
                 }
+
+                backgroundColor = VeryLightGray
+                textAlignment = .Center
             }
         }
     }
@@ -63,13 +68,13 @@ class MainAppSearchTextField: UITextField, SearchTextField {
 
         super.init(frame: frame)
         text = ""
+        font = UIFont(name: "OpenSans-Semibold", size: 12)
 
-        backgroundColor = UIColor.clearColor()
         clearButtonMode = .WhileEditing
+        contentHorizontalAlignment = .Center
+        textAlignment = .Center
 
-
-
-        leftView?.addSubview(searchIcon)
+        backgroundColor = VeryLightGray
 
         setupLayout()
 
@@ -96,6 +101,13 @@ class MainAppSearchTextField: UITextField, SearchTextField {
         return super.beginTrackingWithTouch(touch, withEvent: event)
     }
 
+    override func textRectForBounds(bounds: CGRect) -> CGRect {
+        return CGRectMake(bounds.origin.x + 5, bounds.origin.y, bounds.size.width, bounds.size.height)
+    }
+
+    override func editingRectForBounds(bounds: CGRect) -> CGRect {
+        return self.textRectForBounds(bounds)
+    }
 
 
     func reset() {
@@ -113,15 +125,7 @@ class MainAppSearchTextField: UITextField, SearchTextField {
 
 
     func setupLayout() {
-        if let leftView = leftView {
-            addConstraints([
-                searchIcon.al_left == leftView.al_left,
-                searchIcon.al_bottom == leftView.al_bottom,
-                searchIcon.al_right == leftView.al_right,
-                searchIcon.al_top == leftView.al_top,
-                ])
 
-        }
     }
 
 }
