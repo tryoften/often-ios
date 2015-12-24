@@ -95,6 +95,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         searchVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
         let searchNavigationVC = UINavigationController(rootViewController: searchVC)
+        searchNavigationVC.navigationBarHidden = true
 
         sections = [
             (.Favorites, favoritesVC),

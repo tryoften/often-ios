@@ -21,9 +21,7 @@ class BrowseLyricsCollectionViewController: MediaLinksCollectionBaseViewControll
         super.init(collectionViewLayout: BrowseLyricsCollectionViewController.provideCollectionViewLayout())
         
         navigationBar.browseDelegate = self
-        
         view.addSubview(navigationBar)
-        
         setupLayout()
     }
 
@@ -35,8 +33,13 @@ class BrowseLyricsCollectionViewController: MediaLinksCollectionBaseViewControll
         super.viewDidLoad()
         
         // Register cell classes
-        self.collectionView!.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: albumLyricCellReuseIdentifier)
-        self.collectionView!.backgroundColor = DefaultTheme.keyboardBackgroundColor
+        collectionView!.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: albumLyricCellReuseIdentifier)
+        collectionView!.backgroundColor = DefaultTheme.keyboardBackgroundColor
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        containerViewController?.resetPosition()
     }
 
     override func didReceiveMemoryWarning() {

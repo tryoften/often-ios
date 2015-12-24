@@ -21,11 +21,8 @@ class BrowseArtistCollectionViewController: MediaLinksCollectionBaseViewControll
         super.init(collectionViewLayout: BrowseArtistCollectionViewController.provideCollectionViewLayout())
         
         view.backgroundColor = VeryLightGray
-        
         navigationBar.browseDelegate = self
-        
         view.addSubview(navigationBar)
-        
         setupLayout()
     }
     
@@ -41,6 +38,7 @@ class BrowseArtistCollectionViewController: MediaLinksCollectionBaseViewControll
             collectionView.backgroundColor = DefaultTheme.keyboardBackgroundColor
             collectionView.registerClass(SongCollectionViewCell.self, forCellWithReuseIdentifier: artistAlbumCellReuseIdentifier)
         }
+        containerViewController?.resetPosition()
     }
     
     override func didReceiveMemoryWarning() {

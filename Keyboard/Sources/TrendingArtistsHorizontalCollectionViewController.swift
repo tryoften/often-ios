@@ -90,6 +90,7 @@ class TrendingArtistsHorizontalCollectionViewController: UICollectionViewControl
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         navigationController?.navigationBar.hidden = true
         navigationController?.pushViewController(BrowseArtistCollectionViewController(), animated: true)
+        containerViewController?.resetPosition()
     }
 
     // MARK: UICollectionViewDelegate
