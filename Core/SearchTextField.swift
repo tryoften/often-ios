@@ -14,7 +14,7 @@ protocol SearchTextField {
     var frame: CGRect { get set }
 
     // text displayed in text field
-    var text: String { get set }
+    var text: String? { get set }
 
     // whether the text field is selected (active) or not
     var selected: Bool { get set }

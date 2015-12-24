@@ -106,21 +106,23 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func submitSearchRequest() {
-        let text = searchBarController.searchBar.textInput.text
-        let query = searchBarController.filter != nil ? searchBarController.filter!.text + " " + text : text
-        viewModel.sendRequestForQuery(query, autocomplete: false)
-        searchResultsViewController.updateEmptySetVisible(false)
-        searchSuggestionsViewController.view.hidden = true
-
-        noResultsTimer?.invalidate()
-        noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
-
-        if searchBarController.searchBar.textInput.selected {
-            searchResultsViewController.response = nil
-            searchResultsViewController.refreshResults()
-            searchResultsViewController.view.hidden = false
-            NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+        guard let text = searchBarController.searchBar.textInput.text else {
+            return
         }
+            let query = searchBarController.filter != nil ? searchBarController.filter!.text + " " + text : text
+            viewModel.sendRequestForQuery(query, autocomplete: false)
+            searchResultsViewController.updateEmptySetVisible(false)
+            searchSuggestionsViewController.view.hidden = true
+
+            noResultsTimer?.invalidate()
+            noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
+
+            if searchBarController.searchBar.textInput.selected {
+                searchResultsViewController.response = nil
+                searchResultsViewController.refreshResults()
+                searchResultsViewController.view.hidden = false
+                NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+            }
     }
 
     func keyboardHeightForOrientation(orientation: UIInterfaceOrientation) -> CGFloat {

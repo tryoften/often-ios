@@ -44,19 +44,19 @@ class KeyboardSearchTextField: UIControl, SearchTextField {
         }
     }
     
-    var text: String {
+    var text: String? {
         didSet {
             label.alpha = 1.0
             label.text = text
             if text == "" {
-                placeholder = placeholderText
+                placeholder = SearchBarPlaceholderText
                 indicatorPositionConstraint.constant = -40
             } else {
                 indicatorPositionConstraint.constant = 0
             }
         }
     }
-    
+
     var placeholder: String? {
         didSet {
             label.alpha = 0.80
@@ -66,9 +66,7 @@ class KeyboardSearchTextField: UIControl, SearchTextField {
             }
         }
     }
-    
-    let placeholderText: String = "Search"
-    
+
     override var selected: Bool {
         didSet {
             label.sizeToFit()
@@ -96,7 +94,7 @@ class KeyboardSearchTextField: UIControl, SearchTextField {
                 }
                 
                 if text == "" && placeholder != nil {
-                    placeholder = placeholderText
+                    placeholder = SearchBarPlaceholderText
                 }
                 
                 if self.text == "" {
@@ -243,7 +241,7 @@ class KeyboardSearchTextField: UIControl, SearchTextField {
 
     func clear() {
         text = ""
-        placeholder = placeholderText
+        placeholder = SearchBarPlaceholderText
     }
 
     func repositionText() {
@@ -308,19 +306,28 @@ extension KeyboardSearchTextField: UITextDocumentProxy {
     // MARK: UIKeyInput
     
     func hasText() -> Bool {
+        guard let text = text  else {
+            return true
+        }
+        
         return !text.isEmpty
     }
     
     func insertText(character: String) {
-        if (character != "\n") {
-            text = text.stringByAppendingString(character)
+        if let text = text where character != "\n"  {
+            self.text = text.stringByAppendingString(character)
+
+            sendActionsForControlEvents(UIControlEvents.EditingChanged)
         }
-        sendActionsForControlEvents(UIControlEvents.EditingChanged)
     }
     
     func deleteBackward() {
+        guard let text = text else {
+            return
+        }
+        
         if !text.isEmpty {
-            text = text.substringToIndex(text.endIndex.advancedBy(-1))
+            self.text = text.substringToIndex(text.endIndex.advancedBy(-1))
         }
         sendActionsForControlEvents(UIControlEvents.EditingChanged)
     }

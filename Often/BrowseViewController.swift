@@ -12,16 +12,27 @@ private let BrowseHeadercellReuseIdentifier = "browseHeaderCell"
 
 class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelegate {
     var headerView: BrowseHeaderView?
-    var searchBar: SearchBarController?
+
+    var navigationBarFrame: CGRect {
+        guard let containerViewController = mainAppContainerViewController else {
+            return CGRectZero
+        }
+
+        return containerViewController.navigationBar.frame
+    }
 
     override init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel) {
       super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel)
-
-        self.collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
+        collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
@@ -70,8 +81,42 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         
     }
 
-    func browseHeaderFeaturedArtistWasSelected(BrowseHeaderView: UICollectionReusableView, artist: MediaLink) {
+    func browseHeaderDidSelectFeaturedArtist(BrowseHeaderView: UICollectionReusableView, artist: MediaLink) {
 
     }
+
+    override func showNavigationBar(animated: Bool) {
+        setNavigationBarOriginY(0, animated: true)
+    }
+
+    override func hideNavigationBar(animated: Bool) {
+        let top = -CGRectGetHeight(navigationBarFrame)
+        setNavigationBarOriginY(top, animated: true)
+    }
+
+    override func moveNavigationBar(deltaY: CGFloat, animated: Bool) {
+        let frame = navigationBarFrame
+
+        let nextY = frame.origin.y + deltaY
+
+        setNavigationBarOriginY(nextY, animated: animated)
+    }
+
+    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
+        guard let containerViewController = mainAppContainerViewController else {
+            return
+        }
+
+        var frame = navigationBarFrame
+        let tabBarHeight = CGRectGetHeight(frame)
+
+        frame.origin.y = fmax(fmin(y, 0), -tabBarHeight + 2)
+
+        UIView.animateWithDuration(animated ? 0.1 : 0) {
+            containerViewController.navigationBar.frame = frame
+        }
+    }
+
+    
     
 }

@@ -27,7 +27,6 @@ class KeyboardSearchBarController: SearchBarController {
         searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
         searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
         searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
-        searchBar.textInput.addTarget(self, action: "reset", forControlEvents: .EditingDidEndOnExit)
     }
 
     required init?(coder aDecoder: NSCoder) {
