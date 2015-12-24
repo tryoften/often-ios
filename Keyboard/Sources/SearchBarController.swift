@@ -65,13 +65,14 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
         guard let query = searchBar.textInput.text else {
             return
         }
-            if query.isEmpty {
-                suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
-            } else if query == "#" {
-                suggestionsViewModel?.sendRequestForQuery("#filters-list", autocomplete: true)
-            } else {
-                suggestionsViewModel?.sendRequestForQuery(query, autocomplete: true)
-            }
+        
+        if query.isEmpty {
+            suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
+        } else if query == "#" {
+            suggestionsViewModel?.sendRequestForQuery("#filters-list", autocomplete: true)
+        } else {
+            suggestionsViewModel?.sendRequestForQuery(query, autocomplete: true)
+        }
 
     }
 
