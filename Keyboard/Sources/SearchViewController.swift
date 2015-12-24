@@ -136,11 +136,10 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
     // MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
-        containerViewController?.hideTabBar(true) {
-            var searchBarFrame = self.searchBarController.view.frame
-            searchBarFrame.origin.y = 0
-            self.searchBarController.view.frame = searchBarFrame
-        }
+        containerViewController?.hideTabBar(true)
+        var searchBarFrame = self.searchBarController.view.frame
+        searchBarFrame.origin.y = 0
+        self.searchBarController.view.frame = searchBarFrame
         searchSuggestionsViewController.view.hidden = false
         searchSuggestionsViewController.tableViewBottomInset = keyboardHeightForOrientation(interfaceOrientation)
     }
@@ -152,6 +151,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
     func didTapSearchBarCancelButton() {
         searchSuggestionsViewController.view.hidden = false
+        containerViewController?.resetPosition()
     }
 
     func showNoResultsEmptyState() {
@@ -178,6 +178,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         switch(suggestion.type) {
         case .Query:
             isNewSearch = true
+            containerViewController?.resetPosition()
             textProcessor.parseTextInCurrentDocumentProxy()
             searchBar.textInput.text = suggestion.text
             searchBar.cancelButton.selected = true

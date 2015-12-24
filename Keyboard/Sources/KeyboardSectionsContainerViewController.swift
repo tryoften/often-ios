@@ -113,17 +113,25 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         positionTabBar(animated, animations: animations)
     }
 
+    func resetPosition() {
+        var frame = tabBar.frame
+        frame.origin = CGPointZero
+        tabBar.frame = frame
+    }
+
     private func positionTabBar(animated: Bool = false, animations: (() -> Void)? = nil) {
         if animated {
             UIView.setAnimationDuration(0.3)
             UIView.beginAnimations(nil, context: nil)
         }
 
+        let oldTabBarFrame = tabBar.frame
+
         if tabBarHidden {
             tabBar.frame = CGRectMake(0, -tabBarHeight, view.frame.size.width, tabBarHeight)
             containerView.frame = CGRectMake(0, -tabBarHeight, view.frame.size.width, view.frame.size.height + tabBarHeight)
         } else {
-            tabBar.frame = CGRectMake(0, 0, view.frame.size.width, tabBarHeight)
+            tabBar.frame = CGRectMake(oldTabBarFrame.origin.x, oldTabBarFrame.origin.y, view.frame.size.width, tabBarHeight)
             containerView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
         }
 

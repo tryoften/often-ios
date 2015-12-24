@@ -17,13 +17,13 @@ enum TrendingLyricsSection: Int {
 
 let cellReuseIdentifier = "cell"
 let songCellReuseIdentifier = "songCell"
-let sectionHeaderReuseIdentifier = "sectionHeader"
 
 class TrendingLyricsViewController: FullScreenCollectionViewController, UICollectionViewDelegateFlowLayout {
 
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
     var viewModel: TrendingLyricsViewModel
+
 
     init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel) {
         self.viewModel = viewModel
@@ -136,7 +136,6 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
             cell.contentView.addSubview(lyricsHorizontalVC.view)
             lyricsHorizontalVC.view.frame = cell.bounds
 
-            self.lyricsHorizontalVC = lyricsHorizontalVC
             return cell
         case .TrendingArtists:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
@@ -164,10 +163,16 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
     }
 
     func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
-        return TrendingLyricsHorizontalCollectionViewController()
+        if lyricsHorizontalVC == nil {
+            lyricsHorizontalVC = TrendingLyricsHorizontalCollectionViewController()
+        }
+        return lyricsHorizontalVC!
     }
 
     func provideTrendingArtistsHorizontalCollectionViewController() -> TrendingArtistsHorizontalCollectionViewController {
-        return TrendingArtistsHorizontalCollectionViewController()
+        if artistsHorizontalVC == nil {
+            artistsHorizontalVC = TrendingArtistsHorizontalCollectionViewController()
+        }
+        return artistsHorizontalVC!
     }
 }

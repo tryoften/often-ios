@@ -81,7 +81,9 @@ class TrendingArtistsHorizontalCollectionViewController: UICollectionViewControl
         cell.titleLabel.text = "Post Malone"
         cell.songCount = 12
         cell.imageView.image = UIImage(named: "postmalone")
-    
+        cell.layer.shouldRasterize = true
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+
         return cell
     }
 
