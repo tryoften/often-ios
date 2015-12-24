@@ -322,11 +322,13 @@ extension KeyboardSearchTextField: UITextDocumentProxy {
     }
     
     func deleteBackward() {
-         if let text = text {
-            if !text.isEmpty {
-                self.text = text.substringToIndex(text.endIndex.advancedBy(-1))
-            }
-            sendActionsForControlEvents(UIControlEvents.EditingChanged)
+        guard let text = text else {
+            return
         }
+        
+        if !text.isEmpty {
+            self.text = text.substringToIndex(text.endIndex.advancedBy(-1))
+        }
+        sendActionsForControlEvents(UIControlEvents.EditingChanged)
     }
 }
