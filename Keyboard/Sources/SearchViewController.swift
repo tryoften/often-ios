@@ -106,7 +106,9 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func submitSearchRequest() {
-        if let text = searchBarController.searchBar.textInput.text {
+        guard let text = searchBarController.searchBar.textInput.text else {
+            return
+        }
             let query = searchBarController.filter != nil ? searchBarController.filter!.text + " " + text : text
             viewModel.sendRequestForQuery(query, autocomplete: false)
             searchResultsViewController.updateEmptySetVisible(false)
@@ -121,8 +123,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
                 searchResultsViewController.view.hidden = false
                 NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
             }
-
-        }
     }
 
     func keyboardHeightForOrientation(orientation: UIInterfaceOrientation) -> CGFloat {

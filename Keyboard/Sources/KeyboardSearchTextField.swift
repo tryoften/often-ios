@@ -314,10 +314,9 @@ extension KeyboardSearchTextField: UITextDocumentProxy {
     }
     
     func insertText(character: String) {
-         if let text = text {
-            if (character != "\n") {
-                self.text = text.stringByAppendingString(character)
-            }
+        if let text = text where character != "\n"  {
+            self.text = text.stringByAppendingString(character)
+
             sendActionsForControlEvents(UIControlEvents.EditingChanged)
         }
     }

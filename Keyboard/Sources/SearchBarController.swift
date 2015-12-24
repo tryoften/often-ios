@@ -62,7 +62,9 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     }
     
     func requestAutocompleteSuggestions() {
-        if let query = searchBar.textInput.text {
+        guard let query = searchBar.textInput.text else {
+            return
+        }
             if query.isEmpty {
                 suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
             } else if query == "#" {
@@ -70,7 +72,6 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
             } else {
                 suggestionsViewModel?.sendRequestForQuery(query, autocomplete: true)
             }
-        }
 
     }
 
