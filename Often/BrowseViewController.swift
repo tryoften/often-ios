@@ -25,6 +25,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
       super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel)
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
+        automaticallyAdjustsScrollViewInsets = false
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -46,21 +47,22 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-                        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
-                            withReuseIdentifier: BrowseHeadercellReuseIdentifier, forIndexPath: indexPath) as? BrowseHeaderView else {
-                                return UICollectionReusableView()
-                        }
-            
-                        if headerView == nil {
-                            headerView = cell
-                            headerView?.delegate = self
-                                        
-                        }
-            
-                        return headerView!
-                    }
+            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
+                withReuseIdentifier: BrowseHeadercellReuseIdentifier, forIndexPath: indexPath) as? BrowseHeaderView else {
+                    return UICollectionReusableView()
+            }
 
-        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView, let section = TrendingLyricsSection(rawValue: indexPath.section) else {
+            if headerView == nil {
+                headerView = cell
+                headerView?.delegate = self
+                            
+            }
+
+            return headerView!
+        }
+
+        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView,
+            let section = TrendingLyricsSection(rawValue: indexPath.section) else {
             return UICollectionReusableView()
         }
 
@@ -96,7 +98,6 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
 
     override func moveNavigationBar(deltaY: CGFloat, animated: Bool) {
         let frame = navigationBarFrame
-
         let nextY = frame.origin.y + deltaY
 
         setNavigationBarOriginY(nextY, animated: animated)
@@ -108,9 +109,9 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         }
 
         var frame = navigationBarFrame
-        let tabBarHeight = CGRectGetHeight(frame)
+        let tabBarHeight = CGRectGetHeight(frame) + 20.0
 
-        frame.origin.y = fmax(fmin(y, 0), -tabBarHeight + 2)
+        frame.origin.y = fmax(fmin(y, 20), -tabBarHeight + 2)
 
         UIView.animateWithDuration(animated ? 0.1 : 0) {
             containerViewController.navigationBar.frame = frame

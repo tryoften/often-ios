@@ -22,26 +22,28 @@ class SearchBarNavigationController: UINavigationController {
 
     func setupNavbar() {
         let baseURL = Firebase(url: BaseURL)
-        UINavigationBar.appearance().translucent = false
-        UINavigationBar.appearance().barTintColor = DarkGrey
+        UINavigationBar.appearance().backgroundColor = UIColor.whiteColor()
 
-        searchBar = SearchBarController(viewModel: SearchViewModel(base:baseURL), suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL), SearchTextFieldClass: MainAppSearchTextField.self)
+        searchBar = SearchBarController(viewModel: SearchViewModel(base:baseURL),
+            suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL),
+            SearchTextFieldClass: MainAppSearchTextField.self)
+
         searchBar?.view.translatesAutoresizingMaskIntoConstraints = false
         navigationBar.addSubview(searchBar!.view)
 
         setupLayout()
-
     }
 
     func setupLayout() {
-        let constraints: [NSLayoutConstraint] = [
-            searchBar!.view.al_top == navigationBar.al_top,
-            searchBar!.view.al_right == navigationBar.al_right,
-            searchBar!.view.al_left == navigationBar.al_left,
-            searchBar!.view.al_bottom == navigationBar.al_bottom,
-        ]
-        view.addConstraints(constraints)
-        
-    }
+        guard let searchBarView = searchBar?.view else {
+            return
+        }
 
+        view.addConstraints([
+            searchBarView.al_height == KeyboardSearchBarHeight,
+            searchBarView.al_right == navigationBar.al_right,
+            searchBarView.al_left == navigationBar.al_left,
+            searchBarView.al_bottom == navigationBar.al_bottom,
+        ])
+    }
 }
