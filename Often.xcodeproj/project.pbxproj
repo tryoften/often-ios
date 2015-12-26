@@ -21,12 +21,9 @@
 		3B1A544F1C2A1D7000309BDD /* MainAppSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A544E1C2A1D7000309BDD /* MainAppSearchTextField.swift */; };
 		3B1A54501C2A1D7000309BDD /* MainAppSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A544E1C2A1D7000309BDD /* MainAppSearchTextField.swift */; };
 		3B1A54511C2A1D7000309BDD /* MainAppSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A544E1C2A1D7000309BDD /* MainAppSearchTextField.swift */; };
-		3B1A54581C2B59F800309BDD /* SearchBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A54571C2B59F800309BDD /* SearchBarNavigationController.swift */; };
-		3B1A54591C2B59F800309BDD /* SearchBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A54571C2B59F800309BDD /* SearchBarNavigationController.swift */; };
-		3B1A545A1C2B59F800309BDD /* SearchBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A54571C2B59F800309BDD /* SearchBarNavigationController.swift */; };
-		3B1A545D1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A545C1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift */; };
-		3B1A545E1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A545C1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift */; };
-		3B1A545F1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A545C1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift */; };
+		3B1A54581C2B59F800309BDD /* ContainerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */; };
+		3B1A54591C2B59F800309BDD /* ContainerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */; };
+		3B1A545A1C2B59F800309BDD /* ContainerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
@@ -694,8 +691,7 @@
 		3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstallationWalkthroughViewController.swift; sourceTree = "<group>"; };
 		3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardWalkthroughView.swift; sourceTree = "<group>"; };
 		3B1A544E1C2A1D7000309BDD /* MainAppSearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAppSearchTextField.swift; sourceTree = "<group>"; };
-		3B1A54571C2B59F800309BDD /* SearchBarNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarNavigationController.swift; sourceTree = "<group>"; };
-		3B1A545C1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SearchBarNavigationController.swift"; sourceTree = "<group>"; };
+		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF31B8F61AF004868E5 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotifyAccountManager.swift; path = Keyboard/SpotifyAccountManager.swift; sourceTree = "<group>"; };
@@ -1064,7 +1060,6 @@
 		3B1A545B1C2B7C9900309BDD /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				3B1A545C1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1372,7 +1367,7 @@
 				690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */,
 				69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */,
 				81BD904E1BD58834002F7D32 /* RootViewController.swift */,
-				3B1A54571C2B59F800309BDD /* SearchBarNavigationController.swift */,
+				3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -2243,7 +2238,6 @@
 				81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */,
 				3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */,
 				3BD971E31B9FD483007EAB5A /* SignupViewModel.swift in Sources */,
-				3B1A545D1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift in Sources */,
 				810703701BFD05AB00FDBF57 /* ParseConfig.swift in Sources */,
 				81B92D5E1BD6D77C00FFAC92 /* SearchSuggestion.swift in Sources */,
 				81F8337B1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
@@ -2273,7 +2267,7 @@
 				3BEB408E1BC8561500D36C4D /* HUDProgressView.swift in Sources */,
 				8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				813324271C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m in Sources */,
-				3B1A54581C2B59F800309BDD /* SearchBarNavigationController.swift in Sources */,
+				3B1A54581C2B59F800309BDD /* ContainerNavigationController.swift in Sources */,
 				817939071B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				69C663221B8B6FA60014433D /* MediaLinksViewModel.swift in Sources */,
 				81F817C01C2A094F00B1C1E6 /* SearchTextField.swift in Sources */,
@@ -2406,7 +2400,6 @@
 				810A242E1BE058250032AFC7 /* SpellChecker.swift in Sources */,
 				8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */,
 				813323801C2216BB0084918B /* EventEmittable.swift in Sources */,
-				3B1A545F1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift in Sources */,
 				813324261C24A4F80084918B /* NJKScrollFullScreen.m in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
@@ -2485,7 +2478,7 @@
 				69138B4D1C25CD6800F33F76 /* SongCollectionViewCell.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
 				81D60AC31B84BD4200347BCA /* SearchViewModel.swift in Sources */,
-				3B1A545A1C2B59F800309BDD /* SearchBarNavigationController.swift in Sources */,
+				3B1A545A1C2B59F800309BDD /* ContainerNavigationController.swift in Sources */,
 				8179388B1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				8176BECC1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift in Sources */,
 				81D60AD41B854D8500347BCA /* MediaLink.swift in Sources */,
@@ -2520,7 +2513,6 @@
 				81DA3EAE1C24BE85006822D3 /* SearchViewModel.swift in Sources */,
 				81DA3EAF1C24BE85006822D3 /* SocialAccountSettingsViewModel.swift in Sources */,
 				81DA3EB01C24BE85006822D3 /* SignupViewModel.swift in Sources */,
-				3B1A545E1C2B7CE300309BDD /* UIViewController+SearchBarNavigationController.swift in Sources */,
 				81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */,
 				81DA3EB21C24BE85006822D3 /* SearchSuggestion.swift in Sources */,
 				81DA3EB31C24BE85006822D3 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
@@ -2552,7 +2544,7 @@
 				81DA3ECC1C24BE85006822D3 /* HUDProgressView.swift in Sources */,
 				81DA3ECD1C24BE85006822D3 /* SearchResultsCollectionViewController.swift in Sources */,
 				81DA3ECE1C24BE85006822D3 /* UIViewController+NJKFullScreenSupport.m in Sources */,
-				3B1A54591C2B59F800309BDD /* SearchBarNavigationController.swift in Sources */,
+				3B1A54591C2B59F800309BDD /* ContainerNavigationController.swift in Sources */,
 				81DA3ECF1C24BE85006822D3 /* SearchBarController.swift in Sources */,
 				81DA3ED01C24BE85006822D3 /* MediaLinksViewModel.swift in Sources */,
 				81F817C11C2A094F00B1C1E6 /* SearchTextField.swift in Sources */,

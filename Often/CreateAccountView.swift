@@ -26,8 +26,6 @@ class CreateAccountView: UIView {
     let cancelButton: UIButton
     let termsOfUseAndPrivacyPolicyButton: UIButton
 
-
-    
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -220,6 +218,6 @@ class CreateAccountView: UIView {
             termsOfUseAndPrivacyPolicyButton.al_left == al_left + 40,
             termsOfUseAndPrivacyPolicyButton.al_right == al_right - 40,
             termsOfUseAndPrivacyPolicyButton.al_height == 36,
-            ])
+        ])
     }
 }
