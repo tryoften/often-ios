@@ -21,8 +21,6 @@ class MainAppSearchTextField: UITextField, SearchTextField {
 
     override var selected: Bool {
         didSet {
-            sizeToFit()
-
             if selected {
                 becomeFirstResponder()
 

@@ -268,7 +268,7 @@ let TrendingCollectionViewCellBackgroundColor = UIColor.whiteColor()
 let TrendingHeaderViewTintViewBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.18)
 
 //Trending Header View
-let TrendingHeaderViewBackgroundColor = UIColor.blackColor()
+let TrendingHeaderViewBackgroundColor = UIColor.whiteColor()
 let TrendingHeaderViewTopLabelFont = UIFont(name: "Montserrat-Regular", size: 18.0)
 let TrendingHeaderViewTopLabelBackgroundColor = UIColor.whiteColor()
 let TrendingHeaderViewTabViewBackgroundColor = UIColor.blackColor()

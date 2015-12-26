@@ -10,22 +10,28 @@ import Foundation
 
 private let BrowseHeadercellReuseIdentifier = "browseHeaderCell"
 
+/**
+    This view controller displays a search bar along with trending navigatable items (lyrics, songs, artists)
+*/
 class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelegate {
     var headerView: BrowseHeaderView?
-
-    var navigationBarFrame: CGRect {
-        guard let containerViewController = mainAppContainerViewController else {
-            return CGRectZero
-        }
-
-        return containerViewController.navigationBar.frame
-    }
+    var searchController: UISearchController!
 
     override init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel) {
       super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel)
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
-        automaticallyAdjustsScrollViewInsets = false
+        automaticallyAdjustsScrollViewInsets = true
+
+        let baseURL = Firebase(url: BaseURL)
+        let suggestionsViewModel = SearchSuggestionsViewModel(base: baseURL)
+        let searchSuggestionsViewController = SearchSuggestionsViewController(viewModel: suggestionsViewModel)
+
+        searchController = UISearchController(searchResultsController: searchSuggestionsViewController)
+        searchController.searchBar.searchBarStyle = .Prominent
+        searchController.hidesNavigationBarDuringPresentation = false
+
+        navigationItem.titleView = searchController.searchBar
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -34,6 +40,11 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.navigationBar.translucent = false
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
@@ -86,38 +97,4 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
     func browseHeaderDidSelectFeaturedArtist(BrowseHeaderView: UICollectionReusableView, artist: MediaLink) {
 
     }
-
-    override func showNavigationBar(animated: Bool) {
-        setNavigationBarOriginY(0, animated: true)
-    }
-
-    override func hideNavigationBar(animated: Bool) {
-        let top = -CGRectGetHeight(navigationBarFrame)
-        setNavigationBarOriginY(top, animated: true)
-    }
-
-    override func moveNavigationBar(deltaY: CGFloat, animated: Bool) {
-        let frame = navigationBarFrame
-        let nextY = frame.origin.y + deltaY
-
-        setNavigationBarOriginY(nextY, animated: animated)
-    }
-
-    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
-        guard let containerViewController = mainAppContainerViewController else {
-            return
-        }
-
-        var frame = navigationBarFrame
-        let tabBarHeight = CGRectGetHeight(frame) + 20.0
-
-        frame.origin.y = fmax(fmin(y, 20), -tabBarHeight + 2)
-
-        UIView.animateWithDuration(animated ? 0.1 : 0) {
-            containerViewController.navigationBar.frame = frame
-        }
-    }
-
-    
-    
 }
