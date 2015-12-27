@@ -25,10 +25,8 @@ class RootViewController: UITabBarController {
         tabBar.layer.shadowRadius = 4
 
         let userProfileVC = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: MediaLinksViewModel())
+        let trendingVC = ContainerNavigationController(rootViewController: BrowseViewController(collectionViewLayout: BrowseViewController.provideCollectionViewLayout(), viewModel: TrendingLyricsViewModel()))
         let settingVC = AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: sessionManager))
-        let trendingVC = SearchBarNavigationController(rootViewController: BrowseViewController(
-            collectionViewLayout: BrowseViewController.provideCollectionViewLayout(),
-            viewModel: TrendingLyricsViewModel()))
 
         let iconInsets = UIEdgeInsetsMake(8, 0, -8, 0)
 
