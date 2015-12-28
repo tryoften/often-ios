@@ -56,7 +56,7 @@ class MediaFilterTabView: UIView {
         layer.shadowOffset = CGSizeMake(0, -1)
         layer.shadowOpacity = 0.8
         layer.shadowColor = DarkGrey.CGColor
-        layer.shadowRadius = 4
+        layer.shadowRadius = 1
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -80,10 +80,10 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
             cell.leftText = "Trending Lyrics"
         case .TrendingArtists:
             cell.topSeperator.hidden = false
-            cell.leftText = "Trending Artists"
+            cell.leftText = "Top Artists"
         case .TrendingSongs:
             cell.topSeperator.hidden = false
-            cell.leftText = "Trending Songs"
+            cell.leftText = "Top Songs"
         }
 
         return cell

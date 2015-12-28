@@ -81,9 +81,9 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         case .TrendingLyrics:
             cell.leftText = "Trending Lyrics"
         case .TrendingArtists:
-            cell.leftText = "Trending Artists"
+            cell.leftText = "Top Artists"
         case .TrendingSongs:
-            cell.leftText = "Trending Songs"
+            cell.leftText = "Top Songs"
         }
 
         return cell
