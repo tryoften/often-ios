@@ -28,7 +28,8 @@ class SongCollectionViewCell: UICollectionViewCell {
         artistLabel = UILabel()
         artistLabel.translatesAutoresizingMaskIntoConstraints = false
         artistLabel.font = UIFont(name: "OpenSans", size: 11.0)
-        artistLabel.textColor = LightGrey
+        artistLabel.textColor = BlackColor
+        artistLabel.alpha = 0.54
         
         disclosureIndicator = UIImageView()
         disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -40,9 +41,9 @@ class SongCollectionViewCell: UICollectionViewCell {
         backgroundColor = WhiteColor
         layer.cornerRadius = 2.0
         layer.shadowColor = UIColor.blackColor().CGColor
-        layer.shadowOpacity = 0.17
+        layer.shadowOpacity = 0.14
         layer.shadowOffset = CGSizeMake(0, 1)
-        layer.shadowRadius = 2.0
+        layer.shadowRadius = 1
         
         contentView.layer.cornerRadius = 2.0
         contentView.clipsToBounds = true
