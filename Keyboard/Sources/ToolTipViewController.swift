@@ -9,9 +9,8 @@
 import UIKit
 
 class ToolTipViewController: UIViewController, UIScrollViewDelegate {
+    var pointerImageView: UIImageView
     var closeButton: UIButton
-    var nextIndicator: UIButton
-    var loadingView: ToolTipLoadingView
     var pageWidth: CGFloat
     var scrollView: UIScrollView
     var pageControl: UIPageControl
@@ -20,10 +19,11 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     var pageImages: [UIImage]
     var pageTexts: [String]
     var pageViews: [ToolTip]
+    var pointerAlignmentConstraint: NSLayoutConstraint?
     weak var closeButtonDelegate: ToolTipCloseButtonDelegate?
     weak var delegate: ToolTipViewControllerDelegate?
     
-    var currentPage: Int {
+    var currentPage: Int {        
         return Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
     }
     
@@ -31,19 +31,17 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         pageWidth = UIScreen.mainScreen().bounds.width - 20
         
         pageImages = [
-            UIImage(named: "favoritesfadetooltip")!,
-            UIImage(named: "iconstooltip")!,
-            UIImage(named: "favoritestooltip")!,
-            UIImage(named: "oftenbuttontooltip")!,
-            UIImage(named: "fullaccesstooltip")!
+            UIImage(named: "tooltipimage1")!,
+            UIImage(named: "tooltipimage2")!,
+            UIImage(named: "tooltipimage3")!,
+            UIImage(named: "tooltipimage4")!
         ]
         
         pageTexts = [
-            "Search trending songs, videos and news\n right from the search field above",
-            "Filter your search by app or website by adding\n a # at the beginning of your search",
-            "Save your favorite songs, videos or news\n by tapping on a card & adding it to favorites",
-            "See all of your favorites by tapping\n the Often key or see them in the main app",
-            "Remember to allow full-access for Often to\n work. We never access your private info fam!"
+            "View all of your saved lyrics\n by tapping Favorites",
+            "See lyrics you've previously\n sent by tapping Recents",
+            "See top lyrics, songs &\n artists by tapping Browse",
+            "Search for lyrics you want to\n add by tapping on Search"
         ]
         
         pageViews = [ToolTip]()
@@ -52,18 +50,17 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.pagingEnabled = true
-        scrollView.backgroundColor = ClearColor
+        scrollView.backgroundColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 0.7)
         scrollView.showsHorizontalScrollIndicator = false
         
         pageControl = UIPageControl()
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.currentPage = 0
-        pageControl.transform = CGAffineTransformMakeScale(0.75, 0.75)
         pageControl.pageIndicatorTintColor = DarkGrey
         pageControl.currentPageIndicatorTintColor = TealColor.colorWithAlphaComponent(0.75)
         
         pagesScrollViewSize = scrollView.frame.size
-        pageCount = 5
+        pageCount = 4
         
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -72,34 +69,25 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         closeButton.alpha = 0.0
         closeButton.userInteractionEnabled = false
         
-        nextIndicator = UIButton()
-        nextIndicator.translatesAutoresizingMaskIntoConstraints = false
-        nextIndicator.setImage(UIImage(named: "next"), forState: UIControlState.Normal)
-        nextIndicator.contentEdgeInsets = UIEdgeInsetsMake(9.0, 7.0, 9.0, 7.0)
-        
-        loadingView = ToolTipLoadingView()
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        pointerImageView = UIImageView()
+        pointerImageView.translatesAutoresizingMaskIntoConstraints = false
+        pointerImageView.contentMode = .ScaleAspectFit
+        pointerImageView.image = UIImage(named: "tooltippointer")
         
         super.init(nibName: nil, bundle: nil)
         
         scrollView.delegate = self
         
         closeButton.addTarget(self, action: "closeTapped", forControlEvents: .TouchUpInside)
-        nextIndicator.addTarget(self, action: "nextIndicatorTapped", forControlEvents: .TouchUpInside)
         
-        view.backgroundColor = UIColor.grayColor()
-        
+        view.backgroundColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 0.7)
         
         view.addSubview(scrollView)
         view.addSubview(pageControl)
         view.addSubview(closeButton)
-        view.addSubview(nextIndicator)
-        view.addSubview(loadingView)
-        // view.addSubview(caretImageView)
+        view.addSubview(pointerImageView)
         
         setupLayout()
-        
-        loadingView.timedEndLoad()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -164,38 +152,36 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         
         if currentPage > 3 {
             closeButton.userInteractionEnabled = true
-            nextIndicator.userInteractionEnabled = false
             
             UIView.animateWithDuration(0.3, animations: {
                 self.closeButton.alpha = 1.0
-                self.nextIndicator.alpha = 0.0
             })
         } else {
             closeButton.userInteractionEnabled = false
-            nextIndicator.userInteractionEnabled = true
             
             UIView.animateWithDuration(0.3, animations: {
                 self.closeButton.alpha = 0.0
-                self.nextIndicator.alpha = 1.0
             })
         }
     }
     
-    func nextIndicatorTapped() {
-        if currentPage < 4 {
-            UIView.animateWithDuration(0.3, animations: {
-                self.scrollView.contentOffset.x += self.scrollView.bounds.width
-            })
-        }
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let tabWidth = UIScreen.mainScreen().bounds.width / 4
+        print(currentPage)
+        pointerAlignmentConstraint?.constant = ((screenWidth / 4) * CGFloat(pageControl.currentPage + 1)) - (tabWidth / 2)
+        
+        UIView.animateWithDuration(0.4, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
     
     func setupLayout() {
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let tabWidth = UIScreen.mainScreen().bounds.width / 4
+        pointerAlignmentConstraint = pointerImageView.al_centerX == view.al_left + ((screenWidth / 4) * CGFloat(pageControl.currentPage + 1)) - (tabWidth / 2)
+        
         view.addConstraints([
-            loadingView.al_left == scrollView.al_left,
-            loadingView.al_right == scrollView.al_right,
-            loadingView.al_top == scrollView.al_top,
-            loadingView.al_bottom == scrollView.al_bottom,
-            
             pageControl.al_centerX == scrollView.al_centerX,
             pageControl.al_bottom == scrollView.al_bottom - 18,
             pageControl.al_height == 5,
@@ -210,10 +196,10 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             closeButton.al_height == 32,
             closeButton.al_width == 32,
             
-            nextIndicator.al_right == scrollView.al_right - 10,
-            nextIndicator.al_centerY == scrollView.al_centerY - 2,
-            nextIndicator.al_height == 36,
-            nextIndicator.al_width == 24
+            pointerImageView.al_top == view.al_top + 20,
+            pointerAlignmentConstraint!,
+            pointerImageView.al_height == 25,
+            pointerImageView.al_width == 15
         ])
     }
     
