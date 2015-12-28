@@ -26,11 +26,26 @@ class SlideTabBar: UITabBar {
         }
         return 0.0
     }
+    
+    var topSeperator: UIView
+    var bottomSeperator: UIView
 
     var highlightBarEnabled: Bool {
         didSet {
             highlightBarView.hidden = highlightBarEnabled
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if frame.size.width == 0 || frame.size.height == 0 {
+            return
+        }
+        
+        topSeperator.frame = CGRectMake(0, 0, CGRectGetWidth(frame), 0.6)
+        bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
+        
     }
 
     override var items: [UITabBarItem]? {
@@ -66,6 +81,12 @@ class SlideTabBar: UITabBar {
         highlightBarView = UIView()
         highlightBarView.translatesAutoresizingMaskIntoConstraints = false
         highlightBarView.backgroundColor = TealColor
+        
+        topSeperator = UIView()
+        topSeperator.backgroundColor = DarkGrey
+        
+        bottomSeperator = UIView()
+        bottomSeperator.backgroundColor = DarkGrey
 
         self.highlightBarEnabled = enabled
 
@@ -73,6 +94,8 @@ class SlideTabBar: UITabBar {
 
         addSubview(highlightBarView)
         setupHighlightBar()
+        addSubview(topSeperator)
+        addSubview(bottomSeperator)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -84,7 +107,7 @@ class SlideTabBar: UITabBar {
 
         addConstraints([
             highlightBarView.al_bottom == al_bottom,
-            highlightBarView.al_height == 4,
+            highlightBarView.al_height == 3,
             
             highlightBarLeftConstraint!
         ])

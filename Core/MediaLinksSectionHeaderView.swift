@@ -17,8 +17,8 @@ class MediaLinksSectionHeaderView: UICollectionReusableView {
     var leftText: String? {
         didSet {
             let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.5),
-                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10)!,
+                NSKernAttributeName: NSNumber(float: 1.25),
+                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9.5)!,
                 NSForegroundColorAttributeName: BlackColor.colorWithAlphaComponent(0.54)
             ]
             let attributedString = NSAttributedString(string: leftText!.uppercaseString, attributes: attributes)
@@ -28,8 +28,8 @@ class MediaLinksSectionHeaderView: UICollectionReusableView {
     var rightText: String? {
         didSet {
             let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.5),
-                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10)!,
+                NSKernAttributeName: NSNumber(float: 1),
+                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9.5)!,
                 NSForegroundColorAttributeName: UIColor.grayColor()
             ]
             let attributedString = NSAttributedString(string: rightText!.uppercaseString, attributes: attributes)
