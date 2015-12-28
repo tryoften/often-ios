@@ -153,9 +153,9 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         backgroundColor = WhiteColor
         layer.cornerRadius = 2.0
         layer.shadowColor = UIColor.blackColor().CGColor
-        layer.shadowOpacity = 0.17
+        layer.shadowOpacity = 0.14
         layer.shadowOffset = CGSizeMake(0, 1)
-        layer.shadowRadius = 2.0
+        layer.shadowRadius = 1
         
         contentView.layer.cornerRadius = 2.0
         contentView.clipsToBounds = true

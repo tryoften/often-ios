@@ -51,8 +51,9 @@ class KeyboardBrowseNavigationBar: UIView {
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = UIFont(name: "OpenSans", size: 11.0)
-        subtitleLabel.textColor = LightGrey
+        subtitleLabel.textColor = BlackColor
         subtitleLabel.text = "35 Songs"
+        subtitleLabel.alpha = 0.54
         
         rightDetailLabel = UILabel()
         rightDetailLabel.translatesAutoresizingMaskIntoConstraints = false
