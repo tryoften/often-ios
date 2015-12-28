@@ -22,6 +22,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
         emptyStateView.userInteractionEnabled = true
+        emptyStateView.imageViewTopPadding = 15.0
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
         checkUserEmptyStateStatus()
