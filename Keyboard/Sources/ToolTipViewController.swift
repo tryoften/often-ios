@@ -15,20 +15,26 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     var scrollView: UIScrollView
     var pageControl: UIPageControl
     var pageCount: Int
-    var pagesScrollViewSize: CGSize
     var pageImages: [UIImage]
     var pageTexts: [String]
     var pageViews: [ToolTip]
     var pointerAlignmentConstraint: NSLayoutConstraint?
-    let screenWidth = UIScreen.mainScreen().bounds.width
-    let tabWidth = UIScreen.mainScreen().bounds.width / 4
+
     weak var closeButtonDelegate: ToolTipCloseButtonDelegate?
     weak var delegate: ToolTipViewControllerDelegate?
     
     var currentPage: Int {        
         return Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
     }
-    
+
+    var tabWidth: CGFloat {
+        return UIScreen.mainScreen().bounds.width / CGFloat(pageCount)
+    }
+
+    var arrowXOffset: CGFloat {
+        return (tabWidth * CGFloat(currentPage + 1)) - (tabWidth / 2)
+    }
+
     init() {
         pageWidth = UIScreen.mainScreen().bounds.width - 20
         
@@ -47,7 +53,6 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         ]
         
         pageViews = [ToolTip]()
-        pageCount = 0
         
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,8 +65,6 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = DarkGrey
         pageControl.currentPageIndicatorTintColor = TealColor.colorWithAlphaComponent(0.75)
-        
-        pagesScrollViewSize = scrollView.frame.size
         pageCount = 4
         
         closeButton = UIButton()
@@ -102,29 +105,16 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPages()
-        loadVisiblePages()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
     }
     
     func setupPages() {
-        pageCount = pageImages.count
         pageControl.numberOfPages = pageCount
-        
-        scrollView.contentSize = CGSize(width: pageWidth  * CGFloat(pageImages.count),
-            height: pagesScrollViewSize.height)
-    }
-    
-    func loadVisiblePages() {
-        /// visible pages
-        let page = Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
-        
+        scrollView.contentSize = CGSize(width: pageWidth * CGFloat(pageCount),
+            height: scrollView.frame.size.height)
+
         // Update the page control
-        pageControl.currentPage = page
-        
+        pageControl.currentPage = currentPage
+
         /// Load pages in our range
         for index in 0...pageCount - 1 {
             loadPage(index)
@@ -170,20 +160,17 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
                 self.pageControl.alpha = 1
             })
         }
-    }
-    
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print(currentPage)
-        pointerAlignmentConstraint?.constant = ((screenWidth / 4) * CGFloat(pageControl.currentPage + 1)) - (tabWidth / 2)
+
+        pointerAlignmentConstraint?.constant = arrowXOffset
         
-        UIView.animateWithDuration(0.4, animations: {
+        UIView.animateWithDuration(0.3, animations: {
             self.view.layoutIfNeeded()
         })
     }
     
     func setupLayout() {
-        pointerAlignmentConstraint = pointerImageView.al_centerX == view.al_left + ((screenWidth / 4) * CGFloat(pageControl.currentPage + 1)) - (tabWidth / 2)
-        
+        pointerAlignmentConstraint = pointerImageView.al_centerX == view.al_left + arrowXOffset
+
         view.addConstraints([
             pageControl.al_centerX == scrollView.al_centerX,
             pageControl.al_bottom == scrollView.al_bottom - 18,

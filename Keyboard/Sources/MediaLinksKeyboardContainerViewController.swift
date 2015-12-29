@@ -26,6 +26,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
     var sections: [(MediaLinksKeyboardSection, UIViewController)]
+    var tooltipVC: ToolTipViewController?
 
     override init(extraHeight: CGFloat, debug: Bool) {
         togglePanelButton = TogglePanelButton()
@@ -35,8 +36,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         sections = []
 
         super.init(extraHeight: extraHeight, debug: debug)
-
-
 
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
@@ -59,10 +58,21 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         containerView.addSubview(sectionsTabBarController.view)
         containerView.addSubview(togglePanelButton)
+
+        showTooltipsIfNeeded()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func showTooltipsIfNeeded() {
+        var hasSeenTooltips = viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips
+        if hasSeenTooltips == false {
+            tooltipVC = ToolTipViewController()
+            view.addSubview(tooltipVC!.view)
+            hasSeenTooltips = true
+        }
     }
 
     func setupSections() {
@@ -133,6 +143,9 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         togglePanelButtonFrame.size.height = 30
         togglePanelButton.frame = togglePanelButtonFrame
         sectionsTabBarController.view.frame = view.bounds
+
+        let tabBarHeight = sectionsTabBarController.tabBarHeight
+        tooltipVC?.view.frame = CGRectMake(0, tabBarHeight, CGRectGetWidth(view.frame), CGRectGetHeight(view.frame) - tabBarHeight)
     }
 
     func resizeKeyboard(notification: NSNotification) {
@@ -153,10 +166,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         togglePanelButton.hidden = hide
     }
-
-    // MARK: UIScrollViewDelegate
-
-
 
     // MARK: TextProcessingManagerDelegate
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
