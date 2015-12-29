@@ -41,10 +41,10 @@ class TrendingLyricsHorizontalCollectionViewController: MediaLinksAndFilterBarVi
 
     class func provideLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 80, 105)
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 85, 105)
         layout.scrollDirection = .Horizontal
-        layout.minimumInteritemSpacing = 7.0
-        layout.minimumLineSpacing = 7.0
+        layout.minimumInteritemSpacing = 9.0
+        layout.minimumLineSpacing = 9.0
         layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         return layout
     }

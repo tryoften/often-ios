@@ -43,9 +43,9 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         tabBar.translucent = false
         tabBar.tintColor = BlackColor
         tabBar.layer.shadowOffset = CGSizeMake(0, 0)
-        tabBar.layer.shadowOpacity = 1
+        tabBar.layer.shadowOpacity = 0
         tabBar.layer.shadowColor = DarkGrey.CGColor
-        tabBar.layer.shadowRadius = 1
+        tabBar.layer.shadowRadius = 0
 
         containerView = UIView()
         tabBarHidden = false

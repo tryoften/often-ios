@@ -81,7 +81,7 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         metadataContentView = UIView()
         metadataContentView.translatesAutoresizingMaskIntoConstraints = false
 
-        contentEdgeInsets = UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15)
+        contentEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
         
         sourceLogoView = UIImageView()
         sourceLogoView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,21 +91,24 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         
         leftHeaderLabel = UILabel()
         leftHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftHeaderLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
+        leftHeaderLabel.font = UIFont(name: "OpenSans-Semibold", size: 10.5)
+        leftHeaderLabel.textColor = BlackColor.colorWithAlphaComponent(0.74)
 
         rightHeaderLabel = UILabel()
         rightHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
-        rightHeaderLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
+        rightHeaderLabel.font = UIFont(name: "OpenSans-Semibold", size: 10.0)
+        rightHeaderLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
 
         mainTextLabel = UILabel()
         mainTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainTextLabel.font = UIFont(name: "OpenSans", size: 11.0)
+        mainTextLabel.font = UIFont(name: "OpenSans", size: 12.0)
+        mainTextLabel.textColor = BlackColor.colorWithAlphaComponent(0.90)
         mainTextLabel.numberOfLines = 2
         
         centerMetadataLabel = UILabel()
         centerMetadataLabel.translatesAutoresizingMaskIntoConstraints = false
         centerMetadataLabel.font = UIFont(name: "OpenSans", size: 10.0)
-        centerMetadataLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
+        centerMetadataLabel.textColor = BlackColor.colorWithAlphaComponent(0.90)
         
         leftMetadataLabel = UILabel()
         leftMetadataLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -339,7 +342,7 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
             sourceLogoView.al_width == 18,
             sourceLogoView.al_height == 18,
             
-            leftHeaderLabel.al_left == sourceLogoView.al_right + 5,
+            leftHeaderLabel.al_left == sourceLogoView.al_right + 6,
             leftHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             leftHeaderLabel.al_height == 16,
 
@@ -348,22 +351,22 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
             rightHeaderLabel.al_height == 16,
             
             mainTextLabel.al_left == metadataContentView.al_left + contentEdgeInsets.left,
-            mainTextLabel.al_top == leftHeaderLabel.al_bottom + 8,
+            mainTextLabel.al_top == leftHeaderLabel.al_bottom + 18,
             mainTextLabel.al_right == contentImageView.al_left - contentEdgeInsets.right,
             
             leftMetadataLabel.al_left == mainTextLabel.al_left,
             leftMetadataLabel.al_bottom == metadataContentView.al_bottom - 10,
-            leftMetadataLabel.al_height == 15,
+            leftMetadataLabel.al_height == 12,
             
-            centerMetadataLabel.al_left == leftMetadataLabel.al_right + 15,
+            centerMetadataLabel.al_left == leftMetadataLabel.al_right + 12,
             centerMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
             
             rightMetadataLabel.al_right == mainTextLabel.al_right,
             rightMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
-            rightMetadataLabel.al_left == centerMetadataLabel.al_right + 5,
+            rightMetadataLabel.al_left == centerMetadataLabel.al_right + 6,
             
             rightCornerImageView.al_top == metadataContentView.al_top + 10,
-            rightCornerImageView.al_right == contentImageView.al_left - 15,
+            rightCornerImageView.al_right == contentImageView.al_left - 12,
             rightCornerImageView.al_height == 20,
             rightCornerImageView.al_width == 20,
             
