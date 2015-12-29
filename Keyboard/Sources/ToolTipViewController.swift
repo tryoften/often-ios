@@ -20,6 +20,8 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     var pageTexts: [String]
     var pageViews: [ToolTip]
     var pointerAlignmentConstraint: NSLayoutConstraint?
+    let screenWidth = UIScreen.mainScreen().bounds.width
+    let tabWidth = UIScreen.mainScreen().bounds.width / 4
     weak var closeButtonDelegate: ToolTipCloseButtonDelegate?
     weak var delegate: ToolTipViewControllerDelegate?
     
@@ -50,7 +52,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.pagingEnabled = true
-        scrollView.backgroundColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 0.7)
+        scrollView.backgroundColor = ClearColor
         scrollView.showsHorizontalScrollIndicator = false
         
         pageControl = UIPageControl()
@@ -80,7 +82,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         
         closeButton.addTarget(self, action: "closeTapped", forControlEvents: .TouchUpInside)
         
-        view.backgroundColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 0.7)
+        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
         
         view.addSubview(scrollView)
         view.addSubview(pageControl)
@@ -166,8 +168,6 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let screenWidth = UIScreen.mainScreen().bounds.width
-        let tabWidth = UIScreen.mainScreen().bounds.width / 4
         print(currentPage)
         pointerAlignmentConstraint?.constant = ((screenWidth / 4) * CGFloat(pageControl.currentPage + 1)) - (tabWidth / 2)
         
@@ -177,8 +177,6 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupLayout() {
-        let screenWidth = UIScreen.mainScreen().bounds.width
-        let tabWidth = UIScreen.mainScreen().bounds.width / 4
         pointerAlignmentConstraint = pointerImageView.al_centerX == view.al_left + ((screenWidth / 4) * CGFloat(pageControl.currentPage + 1)) - (tabWidth / 2)
         
         view.addConstraints([
