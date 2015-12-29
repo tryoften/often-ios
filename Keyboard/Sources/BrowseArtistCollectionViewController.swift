@@ -35,7 +35,7 @@ class BrowseArtistCollectionViewController: MediaLinksCollectionBaseViewControll
         
         // Register cell classes
         if let collectionView = collectionView {
-            collectionView.backgroundColor = DefaultTheme.keyboardBackgroundColor
+            collectionView.backgroundColor = VeryLightGray
             collectionView.registerClass(SongCollectionViewCell.self, forCellWithReuseIdentifier: artistAlbumCellReuseIdentifier)
         }
         containerViewController?.resetPosition()

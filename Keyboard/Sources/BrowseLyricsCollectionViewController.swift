@@ -34,7 +34,7 @@ class BrowseLyricsCollectionViewController: MediaLinksCollectionBaseViewControll
         
         // Register cell classes
         collectionView!.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: albumLyricCellReuseIdentifier)
-        collectionView!.backgroundColor = DefaultTheme.keyboardBackgroundColor
+        collectionView!.backgroundColor = LyricTableViewCellNormalBackgroundColor
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -99,7 +99,7 @@ class BrowseLyricsCollectionViewController: MediaLinksCollectionBaseViewControll
             navigationBarHideConstraint!,
             navigationBar.al_left == view.al_left,
             navigationBar.al_right == view.al_right,
-            navigationBar.al_height == 60
+            navigationBar.al_height == 64
         ])
     }
     

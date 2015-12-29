@@ -100,7 +100,7 @@ class EmptySetView: UIView {
         case .NoTwitter:
             imageViewWidthConstraint?.constant = 70
             imageViewHeightConstraint?.constant = 70
-            imageViewTopConstraint?.constant = imageViewTopPadding + 20
+            imageViewTopConstraint?.constant = imageViewTopPadding + 5
             imageView.image = UIImage(named: "twitteremptystate")
             imageView.contentMode = .ScaleAspectFit
             titleLabel.text = "Connect with Twitter"
@@ -111,7 +111,7 @@ class EmptySetView: UIView {
         case .NoKeyboard:
             imageViewWidthConstraint?.constant = 70
             imageViewHeightConstraint?.constant = 70
-            imageViewTopConstraint?.constant = imageViewTopPadding + 35
+            imageViewTopConstraint?.constant = imageViewTopPadding + 7
             imageView.image = UIImage(named: "installoftenemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "Install Often"
@@ -143,7 +143,7 @@ class EmptySetView: UIView {
         case .NoResults:
             imageViewWidthConstraint?.constant = 120
             imageViewHeightConstraint?.constant = 120
-            imageViewTopConstraint?.constant = imageViewTopPadding + 35
+            imageViewTopConstraint?.constant = imageViewTopPadding + 7
             imageView.image = UIImage(named: "noresultsemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "Oh snap! Our bad"
@@ -175,8 +175,8 @@ class EmptySetView: UIView {
             
             cancelButton.al_height == 40,
             cancelButton.al_width == 40,
-            cancelButton.al_top == al_top + 15,
-            cancelButton.al_right == al_right - 15,
+            cancelButton.al_top == al_top + 10,
+            cancelButton.al_right == al_right - 10,
             
             twitterButton.al_centerX == al_centerX,
             twitterButton.al_top == descriptionLabel.al_bottom + 30,

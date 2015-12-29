@@ -15,6 +15,7 @@ class KeyboardBrowseNavigationBar: UIView {
     var subtitleLabel: UILabel
     var rightDetailLabel: UILabel
     var moreOptionsButton: UIButton
+    var bottomSeperator: UIView
     var shouldDisplayOptions: Bool? {
         didSet(value) {
             if self.shouldDisplayOptions == false {
@@ -50,21 +51,25 @@ class KeyboardBrowseNavigationBar: UIView {
         
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.font = UIFont(name: "OpenSans", size: 11.0)
-        subtitleLabel.textColor = LightGrey
+        subtitleLabel.font = UIFont(name: "OpenSans", size: 10.5)
+        subtitleLabel.textColor = BlackColor
         subtitleLabel.text = "35 Songs"
+        subtitleLabel.alpha = 0.54
         
         rightDetailLabel = UILabel()
         rightDetailLabel.translatesAutoresizingMaskIntoConstraints = false
-        rightDetailLabel.font = UIFont(name: "OpenSans-Semibold", size: 10.0)
-        rightDetailLabel.textColor = LightGrey
-        rightDetailLabel.text = "10 RESULTS"
+        rightDetailLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
+        rightDetailLabel.textColor = BlackColor
+        rightDetailLabel.text = "10 LYRICS"
         rightDetailLabel.alpha = 0.0
         
         moreOptionsButton = UIButton()
         moreOptionsButton.translatesAutoresizingMaskIntoConstraints = false
         moreOptionsButton.setImage(UIImage(named: "more"), forState: .Normal)
         moreOptionsButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 7.0, 0.0, 7.0)
+        
+        bottomSeperator = UIView()
+        bottomSeperator.backgroundColor = DarkGrey
         
         super.init(frame: frame)
         
@@ -79,8 +84,19 @@ class KeyboardBrowseNavigationBar: UIView {
         addSubview(subtitleLabel)
         addSubview(rightDetailLabel)
         addSubview(moreOptionsButton)
+        addSubview(bottomSeperator)
         
         setupLayout()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if frame.size.width == 0 || frame.size.height == 0 {
+            return
+        }
+        
+        bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -97,10 +113,10 @@ class KeyboardBrowseNavigationBar: UIView {
     
     func setupLayout() {
         addConstraints([
-            backArrowButton.al_left == al_left + 10,
+            backArrowButton.al_left == al_left + 12,
             backArrowButton.al_centerY == al_centerY,
             backArrowButton.al_width == 29,
-            backArrowButton.al_height == 13,
+            backArrowButton.al_height == 14,
             
             thumbnailImageView.al_left == backArrowButton.al_right - 5,
             thumbnailImageView.al_centerY == al_centerY,
@@ -108,7 +124,7 @@ class KeyboardBrowseNavigationBar: UIView {
             thumbnailImageView.al_bottom == al_bottom - 10,
             thumbnailImageView.al_width == thumbnailImageView.al_height,
             
-            titleLabel.al_left == thumbnailImageView.al_right + 10,
+            titleLabel.al_left == thumbnailImageView.al_right + 12,
             titleLabel.al_bottom == thumbnailImageView.al_centerY,
             
             subtitleLabel.al_left == titleLabel.al_left,
@@ -117,10 +133,10 @@ class KeyboardBrowseNavigationBar: UIView {
             rightDetailLabel.al_right == al_right - 10,
             rightDetailLabel.al_centerY == al_centerY,
             
-            moreOptionsButton.al_right == al_right - 10,
+            moreOptionsButton.al_right == al_right - 12,
             moreOptionsButton.al_centerY == al_centerY,
             moreOptionsButton.al_width == 18,
-            moreOptionsButton.al_height == 19
+            moreOptionsButton.al_height == 18
         ])
     }
 }
