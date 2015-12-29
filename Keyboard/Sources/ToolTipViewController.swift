@@ -66,9 +66,12 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
-        closeButton.contentEdgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0)
-        closeButton.alpha = 0.0
+        closeButton.setTitle("GOT IT", forState: .Normal)
+        closeButton.setTitleColor(WhiteColor, forState: .Normal)
+        closeButton.titleLabel?.font = UIFont(name: "Montserrat", size: 11.0)
+        closeButton.backgroundColor = TealColor
+        closeButton.layer.cornerRadius = 20.0
+        closeButton.alpha = 0
         closeButton.userInteractionEnabled = false
         
         pointerImageView = UIImageView()
@@ -152,17 +155,19 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         /// Load the pages that are now on screen
         pageControl.currentPage = currentPage
         
-        if currentPage > 3 {
+        if currentPage == pageCount - 1 {
             closeButton.userInteractionEnabled = true
             
             UIView.animateWithDuration(0.3, animations: {
                 self.closeButton.alpha = 1.0
+                self.pageControl.alpha = 0
             })
         } else {
             closeButton.userInteractionEnabled = false
             
             UIView.animateWithDuration(0.3, animations: {
                 self.closeButton.alpha = 0.0
+                self.pageControl.alpha = 1
             })
         }
     }
@@ -189,10 +194,10 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             scrollView.al_height == view.al_height - 40,
             scrollView.al_left == view.al_left + 10,
             
-            closeButton.al_top == scrollView.al_top + 5,
-            closeButton.al_right == scrollView.al_right - 5,
-            closeButton.al_height == 32,
-            closeButton.al_width == 32,
+            closeButton.al_bottom == pageControl.al_top + 10,
+            closeButton.al_centerX == view.al_centerX,
+            closeButton.al_height == 40,
+            closeButton.al_width == 140,
             
             pointerImageView.al_top == view.al_top + 20,
             pointerAlignmentConstraint!,

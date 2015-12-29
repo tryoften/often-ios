@@ -26,7 +26,7 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
         textView.numberOfLines = 2
         textView.backgroundColor = UIColor.clearColor()
         textView.textColor = WhiteColor
-        textView.font = UIFont(name: "OpenSans", size: 12.0)
+        textView.font = UIFont(name: "OpenSans", size: 14.0)
         
         super.init(frame: frame)
         
@@ -55,7 +55,7 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
             
             imageView.al_centerX == al_centerX,
             imageView.al_bottom == textView.al_top - 5,
-            imageView.al_width == 225,
+            imageView.al_width == 245,
             imageView.al_height == 70
         ]
         
