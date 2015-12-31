@@ -47,4 +47,5 @@ class KeyboardViewModel: NSObject {
         SEGAnalytics.sharedAnalytics().track("addRecent", properties: data as [NSObject : AnyObject])
         firebaseRef.childByAppendingPath("queues/user/tasks").childByAutoId().setValue(data)
     }
+
 }

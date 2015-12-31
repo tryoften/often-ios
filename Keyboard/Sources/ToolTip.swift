@@ -25,12 +25,12 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
         textView.textAlignment = .Center
         textView.numberOfLines = 2
         textView.backgroundColor = UIColor.clearColor()
-        textView.textColor = UIColor.blackColor().colorWithAlphaComponent(0.74)
-        textView.font = UIFont(name: "OpenSans", size: 12.0)
+        textView.textColor = WhiteColor
+        textView.font = UIFont(name: "OpenSans", size: 14.0)
         
         super.init(frame: frame)
         
-        backgroundColor = VeryLightGray
+        backgroundColor = ClearColor
         translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(imageView)
@@ -47,39 +47,17 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
     }
     
     func setupLayout() {
-        var constraints: [NSLayoutConstraint] = [
+        let constraints: [NSLayoutConstraint] = [
             textView.al_centerX == al_centerX,
             textView.al_width == 270,
             textView.al_height == 55,
-            textView.al_bottom == al_bottom - 36,
-            imageView.al_centerX == al_centerX
+            textView.al_top == al_centerY + 10,
+            
+            imageView.al_centerX == al_centerX,
+            imageView.al_bottom == textView.al_top - 5,
+            imageView.al_width == 245,
+            imageView.al_height == 70
         ]
-
-        if currentPage == 0 || currentPage == 2 {
-            constraints += [
-                imageView.al_bottom == textView.al_top + 1,
-                imageView.al_width == 225,
-                imageView.al_height == 70
-            ]
-        } else if currentPage == 1 {
-            constraints += [
-                imageView.al_bottom == textView.al_top + 1,
-                imageView.al_width == 200,
-                imageView.al_height == 70
-            ]
-        } else if currentPage == 3 || currentPage == 4 {
-            constraints += [
-                imageView.al_bottom == textView.al_top + 1,
-                imageView.al_width == 205,
-                imageView.al_height == 70
-            ]
-        } else {
-            constraints += [
-                imageView.al_bottom == textView.al_top + 2,
-                imageView.al_width == 225,
-                imageView.al_height == 70
-            ]
-        }
         
         addConstraints(constraints)
     }
