@@ -24,7 +24,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     weak var delegate: BrowseHeaderViewDelegate?
 
     var currentPage: Int {
-        return Int(floor((scrollView.contentOffset.x * 2.0 + screenWidth) / (screenWidth * 2.0)))
+        return Int(floor((scrollView.contentOffset.x * 3 + screenWidth) / (screenWidth * 3)))
     }
 
 
@@ -37,9 +37,10 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     static var preferredSize: CGSize {
         return CGSizeMake(
             UIScreen.mainScreen().bounds.size.width,
-            UIScreen.mainScreen().bounds.size.height / 2 - 10
+            UIScreen.mainScreen().bounds.size.height / 3 - 10
         )
     }
+    
 
     override init(frame: CGRect) {
         screenWidth = UIScreen.mainScreen().bounds.width
@@ -76,6 +77,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         featureItemTitleLabel.font = TrendingHeaderViewArtistNameLabelTextFont
         featureItemTitleLabel.textColor = TrendingHeaderViewNameLabelTextColor
         featureItemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+
 
         featuredArtists = [MediaLink]()
 
@@ -227,7 +229,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         addConstraints([
             featureLabel.al_right == al_right - 20,
             featureLabel.al_left == al_left + 20,
-            featureLabel.al_top == featureItemTitleLabel.al_bottom + 5,
+            featureLabel.al_top == featureItemTitleLabel.al_bottom + 4,
 
             featureItemTitleLabel.al_centerY == scrollView.al_centerY,
             featureItemTitleLabel.al_right == al_right - 20,

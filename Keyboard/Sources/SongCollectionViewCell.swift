@@ -23,12 +23,13 @@ class SongCollectionViewCell: UICollectionViewCell {
         
         albumTitleLabel = UILabel()
         albumTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        albumTitleLabel.font = UIFont(name: "OpenSans", size: 14.0)
+        albumTitleLabel.font = UIFont(name: "OpenSans", size: 12.0)
         
         artistLabel = UILabel()
         artistLabel.translatesAutoresizingMaskIntoConstraints = false
-        artistLabel.font = UIFont(name: "OpenSans", size: 11.0)
-        artistLabel.textColor = LightGrey
+        artistLabel.font = UIFont(name: "OpenSans", size: 10.5)
+        artistLabel.textColor = BlackColor
+        artistLabel.alpha = 0.54
         
         disclosureIndicator = UIImageView()
         disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -40,9 +41,9 @@ class SongCollectionViewCell: UICollectionViewCell {
         backgroundColor = WhiteColor
         layer.cornerRadius = 2.0
         layer.shadowColor = UIColor.blackColor().CGColor
-        layer.shadowOpacity = 0.17
+        layer.shadowOpacity = 0.14
         layer.shadowOffset = CGSizeMake(0, 1)
-        layer.shadowRadius = 2.0
+        layer.shadowRadius = 1
         
         contentView.layer.cornerRadius = 2.0
         contentView.clipsToBounds = true
@@ -61,13 +62,13 @@ class SongCollectionViewCell: UICollectionViewCell {
     
     func setupLayout() {
         addConstraints([
-            albumCoverThumbnail.al_left == al_left + 10,
+            albumCoverThumbnail.al_left == al_left + 12,
             albumCoverThumbnail.al_centerY == al_centerY,
             albumCoverThumbnail.al_top == al_top + 12,
             albumCoverThumbnail.al_bottom == al_bottom - 12,
             albumCoverThumbnail.al_width == albumCoverThumbnail.al_height,
             
-            albumTitleLabel.al_left == albumCoverThumbnail.al_right + 10,
+            albumTitleLabel.al_left == albumCoverThumbnail.al_right + 12,
             albumTitleLabel.al_bottom == albumCoverThumbnail.al_centerY,
         
             artistLabel.al_left == albumTitleLabel.al_left,

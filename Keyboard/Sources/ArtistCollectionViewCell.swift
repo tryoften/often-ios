@@ -21,7 +21,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     var songCount: Int? {
         didSet {
             let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.2),
+                NSKernAttributeName: NSNumber(float: 1),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 8)!,
                 NSForegroundColorAttributeName: UIColor.grayColor()
             ]
@@ -67,7 +67,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.textAlignment = .Left
 
-        contentEdgeInsets = UIEdgeInsets(top: 5, left: 12, bottom: 10, right: 12)
+        contentEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
 
         super.init(frame: frame)
 
@@ -77,11 +77,11 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         addSubview(titleLabel)
         addSubview(subtitleLabel)
 
-        self.layer.cornerRadius = 3.0
+        self.layer.cornerRadius = 2.0
         self.layer.shadowColor = UIColor.blackColor().CGColor
-        self.layer.shadowOpacity = 0.19
-        self.layer.shadowOffset = CGSizeMake(0, 0.0)
-        self.layer.shadowRadius = 2
+        self.layer.shadowOpacity = 0.14
+        self.layer.shadowOffset = CGSizeMake(0, 1)
+        self.layer.shadowRadius = 1
 
         selected = false
         setupLayout()
