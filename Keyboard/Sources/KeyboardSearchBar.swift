@@ -10,21 +10,36 @@ import UIKit
 
 /// This view is a container for a SearchTextField view and button(s) to the left or right of the
 /// text field (i.e. filter button)
-class SearchBar: UIView {
+class KeyboardSearchBar: UIView, SearchBar {
+    weak var delegate: UISearchBarDelegate?
+    
+    var dummySearchBar: UISearchBar
     var topSeperator: UIView
     var bottomSeperator: UIView
-
-    var textInput: SearchTextField
-
+    var text: String?
+    var textInput: KeyboardSearchTextField
     var cancelButton: UIButton
+
+    var selected: Bool  {
+        get {
+            return textInput.selected
+        }
+
+        set(value) {
+            textInput.selected = value
+        }
+    }
+
     var cancelButtonLeftPadding: CGFloat {
         return CGRectGetWidth(frame) - 70
     }
     
     private var filterButton: UIButton?
 
-    init(SearchTextFieldClass: SearchTextField.Type) {
-        textInput = SearchTextFieldClass.init(frame: CGRectZero)
+    override required init(frame: CGRect) {
+        dummySearchBar = UISearchBar()
+
+        textInput = KeyboardSearchTextField(frame: CGRectZero)
         
         topSeperator = UIView()
         topSeperator.backgroundColor = DarkGrey
@@ -39,22 +54,29 @@ class SearchBar: UIView {
         cancelButton.titleLabel?.font = UIFont(name: "Montserrat", size: 11)
         cancelButton.titleLabel?.textAlignment = .Center
 
-        super.init(frame: CGRectZero)
+        super.init(frame: frame)
         
-        textInput.addTarget(self, action: "textFieldEditingDidBegin", forControlEvents: .EditingDidBegin)
-        textInput.addTarget(self, action: "reset", forControlEvents: .EditingDidEndOnExit)
-        cancelButton.addTarget(self, action: "cancelButtonDidTap", forControlEvents: .TouchUpInside)
+        textInput.addTarget(self, action: "textFieldEditingDidBegin:", forControlEvents: .EditingDidBegin)
+        textInput.addTarget(self, action: "textFieldDidEndEditingOnExit:", forControlEvents: .EditingDidEndOnExit)
+        textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
+        cancelButton.addTarget(self, action: "cancelButtonDidTap:", forControlEvents: .TouchUpInside)
         
         backgroundColor = WhiteColor
         addSubview(cancelButton)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
+        addSubview(textInput)
 
-        if let textInput = textInput as? UIView {
-            addSubview(textInput)
-        }
     }
 
+    convenience init() {
+        self.init(frame: CGRectZero)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -69,13 +91,33 @@ class SearchBar: UIView {
         repositionSearchTextField()
     }
 
-    func textFieldEditingDidBegin() {
+    func textFieldEditingDidBegin(sender: KeyboardSearchTextField) {
         UIView.animateWithDuration(0.3) {
             self.repositionCancelButton()
             self.repositionSearchTextField()
         }
+
+        delegate?.searchBarTextDidBeginEditing!(dummySearchBar)
     }
-    
+
+    func textFieldDidEndEditing(sender: KeyboardSearchTextField) {
+        delegate?.searchBarTextDidEndEditing!(dummySearchBar)
+
+    }
+
+    func textFieldDidEndEditingOnExit(sender: KeyboardSearchTextField) {
+        reset()
+    }
+
+    func cancelButtonDidTap(sender: UIButton) {
+        if cancelButton.selected == true {
+            cancelButton.selected = false
+        }
+
+        textInput.reset()
+        delegate?.searchBarCancelButtonClicked!(dummySearchBar)
+    }
+
     func setFilterButton(filter: Filter) {
         var constraints: [NSLayoutConstraint] = []
         
@@ -121,6 +163,10 @@ class SearchBar: UIView {
         textInput.selected = false
         toggleCancelButton(true)
     }
+
+    func clear() {
+        textInput.clear()
+    }
     
     private func repositionSearchTextField() {
         let textInputWidth = CGRectGetWidth(frame) - (shouldShowCancelButton() ? 80 : 10)
@@ -141,16 +187,16 @@ class SearchBar: UIView {
     func shouldShowCancelButton() -> Bool {
         return textInput.selected || !textInput.text!.isEmpty || filterButton != nil
     }
-    
-    func cancelButtonDidTap() {
-        if cancelButton.selected == true {
-            cancelButton.selected = false
-        }
-        
-        textInput.reset()
+
+    override func resignFirstResponder() -> Bool {
+        textInput.resignFirstResponder()
+        return super.resignFirstResponder()
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func becomeFirstResponder() -> Bool {
+        textInput.becomeFirstResponder()
+        return super.becomeFirstResponder()
     }
+
 }
+
