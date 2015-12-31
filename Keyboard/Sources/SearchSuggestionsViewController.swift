@@ -17,13 +17,21 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
     var viewModel: SearchSuggestionsViewModel
     var tableViewBottomInset: CGFloat {
         didSet {
-            tableView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, tableViewBottomInset, 0)
+            tableView.contentInset = UIEdgeInsetsMake(contentInset.top, contentInset.left, tableViewBottomInset, contentInset.bottom)
+        }
+    }
+
+    var contentInset: UIEdgeInsets {
+        didSet {
+            tableView.contentInset = contentInset
         }
     }
 
     init(viewModel aViewModel: SearchSuggestionsViewModel) {
         viewModel = aViewModel
+        contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
         tableViewBottomInset = 80
+        
         super.init(style: .Grouped)
 
         viewModel.delegate = self
@@ -42,7 +50,7 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
         tableView.registerClass(SearchLoaderSuggestionTableViewCell.self, forCellReuseIdentifier: SearchLoaderSuggestionCellReuseIdentifier)
         tableView.separatorColor = DarkGrey
         tableView.separatorInset = UIEdgeInsetsZero
-        tableView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, tableViewBottomInset, 0)
+        tableView.contentInset = contentInset
 
         view.backgroundColor = VeryLightGray
     }
