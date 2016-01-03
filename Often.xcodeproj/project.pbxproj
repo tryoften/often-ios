@@ -1726,7 +1726,6 @@
 				30E00C701BC8523500DDF24C /* Embed Frameworks */,
 				81F833241C0F70A7001B8662 /* Run SwiftLint */,
 				81B2EE761BF49FDA00C9B15B /* Copy Frameworks (Carthage) */,
-				DF45AA012597B75B909F1B11 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1750,7 +1749,6 @@
 				30A402071BC46FF600BF0C0E /* CopyFiles */,
 				81A281CE1BF4C0780099419A /* ShellScript */,
 				81F833281C0F70E8001B8662 /* Run SwiftLint */,
-				6CFA88EB938CAE1A817F736A /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2016,21 +2014,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6CFA88EB938CAE1A817F736A /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		812E3F021B4BB95100C0F3BE /* Upload symbols to crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2193,21 +2176,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		DF45AA012597B75B909F1B11 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

@@ -17,6 +17,13 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
     }
 
+    var tabBarHeight: CGFloat {
+        if UIInterfaceOrientationIsLandscape(interfaceOrientation) {
+            return 32.0
+        }
+        return 44.0
+    }
+
     private var containerView: UIView
     private(set) var tabBar: UITabBar
     private(set) var selectedViewController: UIViewController? {
@@ -28,12 +35,7 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     }
 
     private(set) var tabBarHidden: Bool
-    private var tabBarHeight: CGFloat {
-        if UIInterfaceOrientationIsLandscape(interfaceOrientation) {
-            return 32.0
-        }
-        return 44.0
-    }
+
 
     init(viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
