@@ -107,7 +107,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         delay(0.5) {
             searchBar.textInput.resignFirstResponder()
         }
-        searchSuggestionsViewController.view.hidden = true
+        searchSuggestionsViewController.showSearchSuggestionsView(false)
     }
 
     func submitSearchRequest() {
@@ -118,7 +118,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         let query = searchBarController.filter != nil ? searchBarController.filter!.text + " " + text : text
         viewModel.sendRequestForQuery(query, autocomplete: false)
         searchResultsViewController.updateEmptySetVisible(false)
-        searchSuggestionsViewController.view.hidden = true
+        searchSuggestionsViewController.showSearchSuggestionsView(false)
 
         noResultsTimer?.invalidate()
         noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
@@ -142,15 +142,14 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         return CGFloat(orientation.isPortrait ? canonicalPortraitHeight : canonicalLandscapeHeight)
     }
 
-
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         containerViewController?.hideTabBar(true, animations: nil)
         var searchBarFrame = self.searchBarController.view.frame
         searchBarFrame.origin.y = 0
         self.searchBarController.view.frame = searchBarFrame
-        searchSuggestionsViewController.view.hidden = false
         searchSuggestionsViewController.tableViewBottomInset = keyboardHeightForOrientation(interfaceOrientation)
         delegate?.searchViewControllerSearchBarDidTextDidBeginEditing(self, searchBar: searchBar)
+        searchSuggestionsViewController.showSearchSuggestionsView(true)
     }
 
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
@@ -159,7 +158,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchSuggestionsViewController.view.hidden = false
+        searchSuggestionsViewController.showSearchSuggestionsView(true)
         containerViewController?.resetPosition()
         delegate?.searchViewControllerSearchBarDidTapCancel(self, searchBar: searchBar)
     }
@@ -173,7 +172,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         delay(0.5) {
             searchBar.resignFirstResponder()
         }
-        searchSuggestionsViewController.view.hidden = true
+        searchSuggestionsViewController.showSearchSuggestionsView(false)
         
     }
 

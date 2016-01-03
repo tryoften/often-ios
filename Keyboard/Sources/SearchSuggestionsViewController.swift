@@ -42,6 +42,19 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
         fatalError("init(coder:) has not been implemented")
     }
 
+    func showSearchSuggestionsView(showSearchSuggestionsView: Bool) {
+        if showSearchSuggestionsView {
+            UIView.animateWithDuration(0.3, animations: {
+                self.view.alpha = 1.0
+                self.view.hidden = false
+            })
+        } else {
+            view.hidden = true
+            view.alpha = 0.0
+        }
+
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
