@@ -111,19 +111,11 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func submitSearchRequest() {
-        var text: String?
-
-        text = searchBarController.searchBar.text
-
-        if let searchBar = searchBarController.searchBar as? KeyboardSearchBar  {
-            text = searchBar.textInput.text
-        }
-
-        guard let searchText = text else {
+       guard let text = searchBarController.searchBar.text else {
             return
         }
 
-        let query = searchBarController.filter != nil ? searchBarController.filter!.text + " " + searchText : searchText
+        let query = searchBarController.filter != nil ? searchBarController.filter!.text + " " + text : text
         viewModel.sendRequestForQuery(query, autocomplete: false)
         searchResultsViewController.updateEmptySetVisible(false)
         searchSuggestionsViewController.view.hidden = true
@@ -213,8 +205,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.text = suggestion.text
 
-            if let searchBar = searchBarController.searchBar as? KeyboardSearchBar {
-                searchBar.textInput.text = suggestion.text
+            if let searchBar = searchBarController.searchBar as? KeyboardSearchBar {     
                 searchBar.cancelButton.selected = true
 
             }
@@ -222,12 +213,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             submitSearchRequest()
             searchBar.resignFirstResponder()
         case .Filter:
-            textProcessor?.parseTextInCurrentDocumentProxy()
-            if let searchBar = searchBarController.searchBar as? KeyboardSearchBar {
-                 searchBar.textInput.text = ""
-
-            }
-
             searchBar.text = ""
 
             if let filter = searchSuggestionsViewController.viewModel.checkFilterInQuery(suggestion.text) {

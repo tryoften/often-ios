@@ -13,12 +13,21 @@ import UIKit
 class KeyboardSearchBar: UIView, SearchBar {
     weak var delegate: UISearchBarDelegate?
     
-    var dummySearchBar: UISearchBar
+    private var dummySearchBar: UISearchBar
     var topSeperator: UIView
     var bottomSeperator: UIView
-    var text: String?
     var textInput: KeyboardSearchTextField
     var cancelButton: UIButton
+
+    var text: String? {
+        get {
+            return textInput.text
+        }
+
+        set(value) {
+            textInput.text = value
+        }
+    }
 
     var selected: Bool  {
         get {
