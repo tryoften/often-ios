@@ -12,9 +12,21 @@ class RootViewController: UITabBarController {
     let sessionManager = SessionManager.defaultManager
     
     init() {
-
         super.init(nibName: nil, bundle: nil)
 
+        styleTabBar()
+        setupTabBarItems()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
+    func styleTabBar() {
         tabBar.backgroundColor = WhiteColor
         tabBar.shadowImage = UIImage()
         tabBar.backgroundImage = UIImage()
@@ -24,18 +36,25 @@ class RootViewController: UITabBarController {
         tabBar.layer.shadowOpacity = 0.8
         tabBar.layer.shadowColor = DarkGrey.CGColor
         tabBar.layer.shadowRadius = 4
+    }
 
-        let userProfileVC = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), viewModel: MediaLinksViewModel())
-        let trendingVC = ContainerNavigationController(rootViewController: BrowseViewController(collectionViewLayout: BrowseViewController.provideCollectionViewLayout(), viewModel: TrendingLyricsViewModel()))
-        let settingVC = AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: sessionManager))
+    func setupTabBarItems() {
+        let userProfileVC = UserProfileViewController(
+            collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(),
+            viewModel: MediaLinksViewModel())
 
-        let iconInsets = UIEdgeInsetsMake(8, 0, -8, 0)
+        let trendingVC = ContainerNavigationController(rootViewController:BrowseViewController(
+                collectionViewLayout: BrowseViewController.provideCollectionViewLayout(),
+                viewModel: TrendingLyricsViewModel()))
+
+        let settingVC = AppSettingsViewController(
+            viewModel: SettingsViewModel(sessionManager: sessionManager))
 
         trendingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfTrending(scale: 0.45), tag: 0)
         trendingVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, 20, -8, -20)
 
         userProfileVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfProfile(scale: 0.45), tag: 1)
-        userProfileVC.tabBarItem.imageInsets = iconInsets
+        userProfileVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0)
 
         settingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSettings(scale: 0.45), tag: 2)
         settingVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, -20, -8, 20)
@@ -45,19 +64,8 @@ class RootViewController: UITabBarController {
             userProfileVC,
             settingVC
         ]
-
+        
         selectedIndex = 1
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-
-
     }
 
 }
-

@@ -10,7 +10,7 @@ import UIKit
 
 /// This view represents a search text field including the search icon and cancel button
 /// the API is partialy compatible with the UITextField one
-class KeyboardSearchTextField: UIControl, SearchTextField {
+class KeyboardSearchTextField: UIControl {
     var id: String
     var editing: Bool
     

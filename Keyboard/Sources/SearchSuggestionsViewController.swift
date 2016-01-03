@@ -17,13 +17,21 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
     var viewModel: SearchSuggestionsViewModel
     var tableViewBottomInset: CGFloat {
         didSet {
-            tableView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, tableViewBottomInset, 0)
+            tableView.contentInset = UIEdgeInsetsMake(contentInset.top, contentInset.left, tableViewBottomInset, contentInset.bottom)
+        }
+    }
+
+    var contentInset: UIEdgeInsets {
+        didSet {
+            tableView.contentInset = contentInset
         }
     }
 
     init(viewModel aViewModel: SearchSuggestionsViewModel) {
         viewModel = aViewModel
+        contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
         tableViewBottomInset = 80
+        
         super.init(style: .Grouped)
 
         viewModel.delegate = self
@@ -34,6 +42,19 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
         fatalError("init(coder:) has not been implemented")
     }
 
+    func showSearchSuggestionsView(showSearchSuggestionsView: Bool) {
+        if showSearchSuggestionsView {
+            UIView.animateWithDuration(0.3, animations: {
+                self.view.alpha = 1.0
+                self.view.hidden = false
+            })
+        } else {
+            view.hidden = true
+            view.alpha = 0.0
+        }
+
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,7 +63,7 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
         tableView.registerClass(SearchLoaderSuggestionTableViewCell.self, forCellReuseIdentifier: SearchLoaderSuggestionCellReuseIdentifier)
         tableView.separatorColor = DarkGrey
         tableView.separatorInset = UIEdgeInsetsZero
-        tableView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, tableViewBottomInset, 0)
+        tableView.contentInset = contentInset
 
         view.backgroundColor = VeryLightGray
     }

@@ -46,8 +46,16 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     var messageBarView: MessageBarView
     var messageBarVisibleConstraint: NSLayoutConstraint?
     var isFullAccessEnabled: Bool
-    
+
+    var contentInset: UIEdgeInsets {
+        didSet {
+            collectionView?.contentInset = contentInset
+        }
+    }
+
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
+        contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
+
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.contentMode = .Center
@@ -95,7 +103,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         // Register cell classes
         if let collectionView = collectionView {
             collectionView.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
-            collectionView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
+             collectionView.contentInset = contentInset
         }
         
         setupLayout()
@@ -119,7 +127,8 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         collectionView?.backgroundColor = UIColor.clearColor()
     }
     
-    override func viewDidAppear(animated: Bool) {        
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         let pbWrapped: UIPasteboard? = UIPasteboard.generalPasteboard()
         if let _ = pbWrapped {
             let _ = viewModel?.isFullAccessEnabled
@@ -217,8 +226,10 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         }
         
         collectionView.reloadData()
-        collectionView.setContentOffset(CGPointMake(0, -2 * KeyboardSearchBarHeight + 2), animated: false)
-    
+
+        let yOffset = containerViewController?.tabBar == nil ? 0 : -2 * KeyboardSearchBarHeight + 2
+        collectionView.setContentOffset(CGPointMake(0, yOffset), animated: false)
+
         backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
     }
     
