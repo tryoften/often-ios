@@ -118,41 +118,6 @@ class KeyboardSearchBar: UIView, SearchBar {
         delegate?.searchBarCancelButtonClicked!(dummySearchBar)
     }
 
-    func setFilterButton(filter: Filter) {
-        var constraints: [NSLayoutConstraint] = []
-        
-        if let lastButton = filterButton {
-            lastButton.removeFromSuperview()
-            removeConstraints(lastButton.constraints)
-            repositionSearchTextField()
-        }
-        
-        let button = UIButton()
-        
-        if let image = filter.image {
-            button.setImage(UIImage(named: image), forState: .Normal)
-        } else {
-            button.setTitle(filter.text, forState: .Normal)
-        }
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.contentEdgeInsets = UIEdgeInsetsZero
-        
-        constraints.append(button.al_left == al_left + 10)
-        constraints.append(button.al_top == al_top + 6.5)
-        
-        addSubview(button)
-        addConstraints(constraints + [
-            button.al_bottom == al_bottom - 5
-        ])
-
-        layoutIfNeeded()
-        
-        filterButton = button
-        repositionSearchTextField()
-        repositionCancelButton()
-    }
-    
     func reset() {
         if let button = filterButton {
             button.removeFromSuperview()

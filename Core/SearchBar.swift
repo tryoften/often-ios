@@ -30,6 +30,4 @@ protocol SearchBar {
     func becomeFirstResponder() -> Bool
 
     func resignFirstResponder() -> Bool
-
-    func setFilterButton(filter: Filter)
 }
