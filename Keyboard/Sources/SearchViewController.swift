@@ -204,6 +204,8 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             containerViewController?.resetPosition()
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.text = suggestion.text
+            searchResultsViewController.response = nil
+            searchResultsViewController.refreshResults()
 
             if let searchBar = searchBarController.searchBar as? KeyboardSearchBar {     
                 searchBar.cancelButton.selected = true
