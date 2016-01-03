@@ -129,6 +129,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
     func searchViewControllerSearchBarDidTapCancel(viewController: SearchViewController, searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
         searchViewController.view.hidden = true
+        searchViewController.searchBarController.searchBar.reset()
         searchBar.resignFirstResponder()
 
     }

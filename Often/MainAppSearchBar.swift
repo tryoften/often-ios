@@ -20,16 +20,13 @@ class MainAppSearchBar: UISearchBar, SearchBar {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setFilterButton(filter: Filter) {
-
-    }
-
     func reset() {
-        
+        clear()
+        placeholder = SearchBarPlaceholderText
     }
 
     func clear() {
-
+        text = ""
     }
 
 }
