@@ -146,7 +146,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         containerViewController?.hideTabBar(true, animations: nil)
         var searchBarFrame = self.searchBarController.view.frame
         searchBarFrame.origin.y = 0
-        self.searchBarController.view.frame = searchBarFrame
+        searchBarController.view.frame = searchBarFrame
         searchSuggestionsViewController.tableViewBottomInset = keyboardHeightForOrientation(interfaceOrientation)
         delegate?.searchViewControllerSearchBarDidTextDidBeginEditing(self, searchBar: searchBar)
         searchSuggestionsViewController.showSearchSuggestionsView(true)
@@ -174,6 +174,10 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         }
         searchSuggestionsViewController.showSearchSuggestionsView(false)
         
+    }
+
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBarController.textFieldDidChange()
     }
 
     func showNoResultsEmptyState() {

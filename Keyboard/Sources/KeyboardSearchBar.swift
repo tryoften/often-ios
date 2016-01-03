@@ -68,6 +68,7 @@ class KeyboardSearchBar: UIView, SearchBar {
         textInput.addTarget(self, action: "textFieldEditingDidBegin:", forControlEvents: .EditingDidBegin)
         textInput.addTarget(self, action: "textFieldDidEndEditingOnExit:", forControlEvents: .EditingDidEndOnExit)
         textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
+        textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
         cancelButton.addTarget(self, action: "cancelButtonDidTap:", forControlEvents: .TouchUpInside)
         
         backgroundColor = WhiteColor
@@ -125,6 +126,12 @@ class KeyboardSearchBar: UIView, SearchBar {
 
         textInput.reset()
         delegate?.searchBarCancelButtonClicked!(dummySearchBar)
+    }
+
+    func textFieldDidChange() {
+        if let text = text {
+            delegate?.searchBar!(dummySearchBar, textDidChange: text)
+        }
     }
 
     func reset() {

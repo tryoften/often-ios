@@ -76,6 +76,12 @@ class SearchBarController: UIViewController, UISearchBarDelegate {
 
     }
 
+    func textFieldDidChange() {
+        if viewModel.hasReceivedResponse == true {
+            scheduleAutocompleteRequestTimer()
+        }
+    }
+
     func setFilter(filter: Filter) {
         self.filter = filter
         suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)

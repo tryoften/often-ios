@@ -61,11 +61,11 @@ class KeyboardSearchBarController: SearchBarController {
         }
     }
 
-    func textFieldDidChange() {
+    override func textFieldDidChange() {
+        super.textFieldDidChange()
         textProcessor?.parseTextInCurrentDocumentProxy()
 
         if viewModel.hasReceivedResponse == true {
-            scheduleAutocompleteRequestTimer()
             NSNotificationCenter.defaultCenter().postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
         }
     }
