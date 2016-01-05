@@ -47,8 +47,8 @@ class RootViewController: UITabBarController {
                 collectionViewLayout: BrowseViewController.provideCollectionViewLayout(),
                 viewModel: TrendingLyricsViewModel()))
 
-        let settingVC = AppSettingsViewController(
-            viewModel: SettingsViewModel(sessionManager: sessionManager))
+        let settingVC = ContainerNavigationController(rootViewController: AppSettingsViewController(
+            viewModel: SettingsViewModel(sessionManager: sessionManager)))
 
         trendingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfTrending(scale: 0.45), tag: 0)
         trendingVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, 20, -8, -20)

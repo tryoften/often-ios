@@ -58,7 +58,10 @@ class AppSettingsViewController: UIViewController,
         
         appSettingView.tableView.delegate = self
         appSettingView.tableView.dataSource = self
-        
+
+        navigationItem.titleView = appSettingView.titleBar
+        appSettingView.titleBar.sizeToFit()
+
         view.addSubview(appSettingView)
 
         setupLayout()
