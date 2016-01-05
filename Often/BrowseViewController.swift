@@ -36,6 +36,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
     }
 
     override func viewWillAppear(animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
         navigationController?.hidesBarsOnSwipe = true
         navigationController?.navigationBar.translucent = false
     }

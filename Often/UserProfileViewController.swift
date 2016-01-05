@@ -70,6 +70,10 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         reloadUserData()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
+    }
+
     override func setupLayout() {
         view.addConstraints([
             emptyStateView.al_left == view.al_left,
@@ -81,11 +85,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-    
+
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
