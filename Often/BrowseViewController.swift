@@ -36,12 +36,8 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
     }
 
     override func viewWillAppear(animated: Bool) {
-        navigationController?.hidesBarsOnSwipe = false
+        navigationController?.hidesBarsOnSwipe = true
         navigationController?.navigationBar.translucent = false
-    }
-
-    override func viewDidDisappear(animated: Bool) {
-        navigationController?.hidesBarsOnSwipe = false
     }
 
     func setupSearchBar() {
@@ -58,11 +54,28 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         searchViewController.searchSuggestionsViewController.contentInset = mainAppSearchSuggestionsViewControllerContentInsets
         searchViewController.searchResultsViewController.contentInset = mainAppSearchResultsCollectionViewControllerContentInsets
 
-        if let searchBar = searchViewController.searchBarController.searchBar as? MainAppSearchBar {
-            navigationItem.titleView = searchBar
-            searchBar.searchBarStyle = .Minimal
-            searchBar.tintColor = BlackColor
-            searchBar.placeholder = SearchBarPlaceholderText
+        guard let searchBar = searchViewController.searchBarController.searchBar as? MainAppSearchBar else {
+            return
+        }
+
+        self.searchBar = searchBar
+
+        let attributes: [String: AnyObject] = [
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 11)!,
+            NSForegroundColorAttributeName: BlackColor
+        ]
+
+        navigationItem.titleView = searchBar
+        searchBar.searchBarStyle = .Minimal
+        searchBar.backgroundColor = WhiteColor
+        searchBar.tintColor = UIColor(fromHexString: "#14E09E")
+        searchBar.placeholder = SearchBarPlaceholderText
+        searchBar.setValue("cancel".uppercaseString, forKey:"_cancelButtonText")
+
+        if #available(iOS 9.0, *) {
+            UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([MainAppSearchBar.self]).setTitleTextAttributes(attributes, forState: .Normal)
+        } else {
+            UIBarButtonItem.appearance().setTitleTextAttributes(attributes, forState: .Normal)
         }
 
         addChildViewController(searchViewController)
@@ -122,15 +135,33 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
     }
 
     func searchViewControllerSearchBarDidTextDidBeginEditing(viewController: SearchViewController, searchBar: UISearchBar) {
-        searchViewController.view.hidden = false
         searchBar.setShowsCancelButton(true, animated: true)
+
+        navigationController?.hidesBarsOnSwipe = false
+        searchViewController.view.hidden = false
+
+        if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
+            if cancelButton.currentTitle == "Done".uppercaseString {
+                cancelButton.setTitle("cancel".uppercaseString, forState: UIControlState.Normal)
+            }
+        }
     }
 
     func searchViewControllerSearchBarDidTapCancel(viewController: SearchViewController, searchBar: UISearchBar) {
+        navigationController?.hidesBarsOnSwipe = true
         searchBar.setShowsCancelButton(false, animated: true)
-        searchViewController.view.hidden = true
-        searchViewController.searchBarController.searchBar.reset()
         searchBar.resignFirstResponder()
 
+        searchViewController.view.hidden = true
+        searchViewController.searchBarController.searchBar.reset()
+    }
+
+    func searchViewControllerDidReceiveResponse(viewController: SearchViewController) {
+        if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
+            cancelButton.setTitle("Done".uppercaseString, forState: UIControlState.Normal)
+
+        }
+
+        navigationController?.hidesBarsOnSwipe = true
     }
 }
