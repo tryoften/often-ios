@@ -10,13 +10,13 @@ import UIKit
 
 class UserProfileHeaderView: UICollectionReusableView {
     var profileImageView: UIImageView
+    var coverPhotoView: UIImageView
+    var coverPhotoTintView: UIView
     var nameLabel: UILabel
-    var descriptionLabel: UILabel
-    var scoreLabel: UILabel
-    var scoreNameLabel: UILabel
+    var shareCountLabel: UILabel
     var nameLabelHeightConstraint: NSLayoutConstraint?
     var nameLabelHorizontalConstraint: NSLayoutConstraint?
-    var descriptionLabelTopConstraint: NSLayoutConstraint?
+    var shareCountLabelTopConstraint: NSLayoutConstraint?
     var scoreLabelHeightConstraint: NSLayoutConstraint?
     var scoreNameLabelHeightConstraint: NSLayoutConstraint?
     var tabContainerView: FavoritesAndRecentsTabView
@@ -33,14 +33,14 @@ class UserProfileHeaderView: UICollectionReusableView {
         if Diagnostics.platformString().number == 5 {
             return 55
         }
-        return 100
+        return 60
     }
     
-    var descriptionTextTopMargin: CGFloat {
+    var shareTextTopMargin: CGFloat {
         if Diagnostics.platformString().number == 5 {
             return 0
         }
-        return 10
+        return 0
     }
     
     var tabContainerViewHeight: CGFloat {
@@ -57,17 +57,17 @@ class UserProfileHeaderView: UICollectionReusableView {
         
         return 68
     }
-    
-    var descriptionText: String {
+
+    var sharedText: String {
         didSet {
-            let subtitle = NSMutableAttributedString(string: descriptionText)
-            let subtitleRange = NSMakeRange(0, descriptionText.characters.count)
+            let subtitle = NSMutableAttributedString(string: sharedText)
+            let subtitleRange = NSMakeRange(0, sharedText.characters.count)
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = 3
             subtitle.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:subtitleRange)
             subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
-            descriptionLabel.attributedText = subtitle
-            descriptionLabel.textAlignment = .Center
+            shareCountLabel.attributedText = subtitle
+            shareCountLabel.textAlignment = .Center
         }
     }
     
@@ -75,50 +75,53 @@ class UserProfileHeaderView: UICollectionReusableView {
         profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .ScaleAspectFit
-        profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = 34
+        profileImageView.layer.cornerRadius = 35
         profileImageView.image = UIImage(named: "userprofileplaceholder")
+        profileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
+        profileImageView.layer.borderWidth = 2
+        profileImageView.clipsToBounds = true
+
+        coverPhotoView = UIImageView()
+        coverPhotoView.contentMode = .ScaleAspectFill
+        coverPhotoView.translatesAutoresizingMaskIntoConstraints = false
+        coverPhotoView.image = UIImage(named: "user-profile-bg-1")
+        coverPhotoView.clipsToBounds = true
+
+        coverPhotoTintView = UIView()
+        coverPhotoTintView.translatesAutoresizingMaskIntoConstraints = false
+        coverPhotoTintView.backgroundColor = UserProfileHeaderViewCoverPhotoTintViewBackgroundColor
+        coverPhotoTintView.clipsToBounds = true
         
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont(name: "Montserrat", size: 18.0)
         nameLabel.textAlignment = .Center
         
-        descriptionLabel = UILabel()
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.font = UIFont(name: "OpenSans", size: 12.5)
-        descriptionLabel.textAlignment = .Center
-        descriptionLabel.numberOfLines = 3
-        descriptionLabel.alpha = 0.54
-        
-        scoreLabel = UILabel()
-        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
-        scoreLabel.font = UIFont(name: "Montserrat", size: 18.0)
-        scoreLabel.textAlignment = .Center
-        
-        scoreNameLabel = UILabel()
-        scoreNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        scoreNameLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        scoreNameLabel.textAlignment = .Center
-        
+        shareCountLabel = UILabel()
+        shareCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        shareCountLabel.font = UIFont(name: "OpenSans", size: 12.5)
+        shareCountLabel.textAlignment = .Center
+        shareCountLabel.numberOfLines = 3
+        shareCountLabel.alpha = 0.54
+
         tabContainerView = FavoritesAndRecentsTabView()
         tabContainerView.translatesAutoresizingMaskIntoConstraints = false
 
         offsetValue = 0.0
-        descriptionText = "Designer. Co-Founder of @DrizzyApp, Previously @Amazon & @Square. Husting & taking notes."
+        sharedText = "85 Lyrics Shared"
         
         super.init(frame: frame)
 
         backgroundColor = WhiteColor
         clipsToBounds = true
 
+        addSubview(coverPhotoView)
+        addSubview(coverPhotoTintView)
         addSubview(profileImageView)
         addSubview(nameLabel)
-        addSubview(descriptionLabel)
-        addSubview(scoreLabel)
-        addSubview(scoreNameLabel)
+        addSubview(shareCountLabel)
         addSubview(tabContainerView)
-        
+
         setupLayout()
     }
 
@@ -132,36 +135,39 @@ class UserProfileHeaderView: UICollectionReusableView {
             let progressiveness = attributes.progressiveness
             
             nameLabelHeightConstraint?.constant = (-nameLabelHeightTopMargin * progressiveness)
-            descriptionLabelTopConstraint?.constant = (descriptionTextTopMargin *  progressiveness)
-            descriptionLabel.alpha = progressiveness - 0.2
+            shareCountLabelTopConstraint?.constant = (shareTextTopMargin *  progressiveness)
+            shareCountLabel.alpha = progressiveness - 0.2
         }
     }
     
     func setupLayout() {
         nameLabelHeightConstraint = nameLabel.al_bottom == tabContainerView.al_top - nameLabelHeightTopMargin
-        descriptionLabelTopConstraint = descriptionLabel.al_top == nameLabel.al_bottom + descriptionTextTopMargin
-        scoreNameLabelHeightConstraint = scoreNameLabel.al_bottom == tabContainerView.al_top - descriptionTextTopMargin
+        shareCountLabelTopConstraint = shareCountLabel.al_top == nameLabel.al_bottom + shareTextTopMargin
         
         addConstraints([
-            profileImageView.al_bottom == nameLabel.al_top - 10,
+            profileImageView.al_bottom == nameLabel.al_top - 9,
             profileImageView.al_centerX == al_centerX,
             profileImageView.al_width == profileImageViewWidth,
             profileImageView.al_height == profileImageView.al_width,
+
+            coverPhotoView.al_width == al_width,
+            coverPhotoView.al_bottom == profileImageView.al_centerY + 5,
+            coverPhotoView.al_left == al_left,
+            coverPhotoView.al_top == al_top,
+
+            coverPhotoTintView.al_width == coverPhotoView.al_width,
+            coverPhotoTintView.al_bottom == coverPhotoView.al_bottom,
+            coverPhotoTintView.al_left == coverPhotoView.al_left,
+            coverPhotoTintView.al_top == coverPhotoView.al_top,
             
             nameLabelHeightConstraint!,
             nameLabel.al_centerX == al_centerX,
+            nameLabel.al_height == 25,
             
-            descriptionLabelTopConstraint!,
-            descriptionLabel.al_centerX == al_centerX,
-            descriptionLabel.al_width == 250,
-            
-            scoreLabel.al_bottom == scoreNameLabel.al_top,
-            scoreLabel.al_centerX == al_centerX,
-            scoreLabel.al_height == 30,
-            
-            scoreNameLabelHeightConstraint!,
-            scoreNameLabel.al_centerX == al_centerX,
-            
+            shareCountLabelTopConstraint!,
+            shareCountLabel.al_centerX == al_centerX,
+            shareCountLabel.al_width == 250,
+
             tabContainerView.al_bottom == al_bottom,
             tabContainerView.al_left == al_left,
             tabContainerView.al_right == al_right,
