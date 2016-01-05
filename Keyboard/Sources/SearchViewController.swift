@@ -51,7 +51,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
             super.init(nibName: nil, bundle: nil)
 
-            addChildViewController(searchBarController)
+            navigationController?.addChildViewController(searchBarController)
             addChildViewController(searchResultsViewController)
 
             view.addSubview(searchResultsViewController.view)
@@ -143,12 +143,12 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        delegate?.searchViewControllerSearchBarDidTextDidBeginEditing(self, searchBar: searchBar)
         containerViewController?.hideTabBar(true, animations: nil)
         var searchBarFrame = self.searchBarController.view.frame
         searchBarFrame.origin.y = 0
         searchBarController.view.frame = searchBarFrame
         searchSuggestionsViewController.tableViewBottomInset = keyboardHeightForOrientation(interfaceOrientation)
-        delegate?.searchViewControllerSearchBarDidTextDidBeginEditing(self, searchBar: searchBar)
         searchSuggestionsViewController.showSearchSuggestionsView(true)
     }
 
@@ -235,6 +235,8 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             return
         }
 
+        delegate?.searchViewControllerDidReceiveResponse(self)
+
         noResultsTimer?.invalidate()
 
         if isNewSearch {
@@ -258,4 +260,5 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 protocol SearchViewControllerDelegate: class {
     func searchViewControllerSearchBarDidTextDidBeginEditing(viewController: SearchViewController, searchBar: UISearchBar)
     func searchViewControllerSearchBarDidTapCancel(viewController: SearchViewController,  searchBar: UISearchBar)
+    func searchViewControllerDidReceiveResponse(viewController: SearchViewController)
 }
