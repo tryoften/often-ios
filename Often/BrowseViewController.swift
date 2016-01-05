@@ -142,8 +142,11 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         searchViewController.view.hidden = false
 
         if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
-            if cancelButton.currentTitle == "Done".uppercaseString {
+            if cancelButton.currentTitle == "done".uppercaseString {
                 cancelButton.setTitle("cancel".uppercaseString, forState: UIControlState.Normal)
+                cancelButton.sizeToFit()
+                searchBar.sizeToFit()
+
             }
         }
     }
@@ -159,7 +162,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
 
     func searchViewControllerDidReceiveResponse(viewController: SearchViewController) {
         if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
-            cancelButton.setTitle("Done".uppercaseString, forState: UIControlState.Normal)
+            cancelButton.setTitle("done".uppercaseString, forState: UIControlState.Normal)
 
         }
 
