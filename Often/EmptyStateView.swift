@@ -15,7 +15,6 @@ class EmptyStateView: UIView {
     var primaryButton: UIButton
     var secondaryButton: UIButton?
     var closeButton: UIButton
-    
     var imageSize: EmptyStateImageSize {
         didSet {
             switch self.imageSize {
