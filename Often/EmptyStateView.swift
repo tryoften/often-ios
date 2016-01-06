@@ -33,6 +33,7 @@ class EmptyStateView: UIView {
             }
         }
     }
+    
     var imageViewTopConstraint: NSLayoutConstraint?
     var imageViewHeightConstraint: NSLayoutConstraint?
     var imageViewWidthConstraint: NSLayoutConstraint?
