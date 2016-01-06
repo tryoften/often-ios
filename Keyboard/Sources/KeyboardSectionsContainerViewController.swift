@@ -83,6 +83,10 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
                 return tabBarItem
             }
 
+            if let tabBarButtons = tabBar.items {
+                tabBar.selectedItem = tabBarButtons[0]
+            }
+
             selectedViewController = viewControllers[0]
         }
     }
