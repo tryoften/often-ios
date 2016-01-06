@@ -24,9 +24,8 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         return 44.0
     }
 
-    private var containerView: UIView
-    private(set) var tabBar: UITabBar
-    private(set) var selectedViewController: UIViewController? {
+    var tabBar: UITabBar
+    var selectedViewController: UIViewController? {
         didSet {
             if let selectedViewController = selectedViewController {
                 transitionToChildViewController(selectedViewController)
@@ -34,6 +33,7 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
     }
 
+    private var containerView: UIView
     private(set) var tabBarHidden: Bool
 
 
