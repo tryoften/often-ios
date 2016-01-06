@@ -17,8 +17,10 @@ enum MediaLinksKeyboardSection: Int {
     case Search
 }
 
-class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewController, TextProcessingManagerDelegate,
-    UIScrollViewDelegate {
+class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewController,
+    TextProcessingManagerDelegate,
+    UIScrollViewDelegate,
+    ToolTipViewControllerDelegate {
     var mediaLink: MediaLink?
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
@@ -67,11 +69,14 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
     }
 
     func showTooltipsIfNeeded() {
-        var hasSeenTooltips = viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips
-        if hasSeenTooltips == false {
+        if viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips == false {
             tooltipVC = ToolTipViewController()
+            tooltipVC?.delegate = self
+            tooltipVC?.closeButton.addTarget(self, action: "closeToolTipButtonDidTap:", forControlEvents: .TouchUpInside)
+
+            sectionsTabBarController.view.userInteractionEnabled = false
+
             view.addSubview(tooltipVC!.view)
-            hasSeenTooltips = true
         }
     }
 
@@ -158,6 +163,17 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
     func didTapEnterButton(button: KeyboardKeyButton?) {
     }
 
+    func closeToolTipButtonDidTap(sender: UIButton) {
+        viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips = true
+
+        UIView.animateWithDuration(0.3) {
+            self.tooltipVC?.view.alpha = 0
+            self.tooltipVC?.view.removeFromSuperview()
+            self.tooltipVC?.delegate = nil
+            self.sectionsTabBarController.view.userInteractionEnabled = true
+        }
+    }
+
     func toggleShowKeyboardButton(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
             let hide = userInfo["hide"] as? Bool else {
@@ -165,6 +181,14 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
 
         togglePanelButton.hidden = hide
+    }
+
+    //MARK: ToolTipViewControllerDelegate
+    func toolTipViewControllerCurrentPage(toolTipViewController: ToolTipViewController, currentPage: Int) {
+        if let toolBarItems = sectionsTabBarController.tabBar.items where currentPage <= sectionsTabBarController.viewControllers.count && currentPage <= toolBarItems.count {
+            sectionsTabBarController.selectedViewController = sectionsTabBarController.viewControllers[currentPage]
+            sectionsTabBarController.tabBar.selectedItem = toolBarItems[currentPage]
+        }
     }
 
     // MARK: TextProcessingManagerDelegate
