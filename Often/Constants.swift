@@ -391,3 +391,7 @@ let HomeViewSubtitle = UIFont(name: "OpenSans", size: 14)
 // Search Bar 
 let SearchBarBackgroundColor = UIColor(fromHexString: "F3F3F3")
 let SearchBarPlaceholderText: String = "Search"
+
+// Empty State Views
+let TwitterButtonColor = UIColor(fromHexString: "#21CE99")
+
