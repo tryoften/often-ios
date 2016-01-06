@@ -9,7 +9,7 @@
 
 import UIKit
 
-class UserProfileViewController: MediaLinksAndFilterBarViewController, FavoritesAndRecentsTabDelegate, MediaLinksViewModelDelegate {
+class UserProfileViewController: MediaLinksAndFilterBarViewController, FavoritesAndRecentsTabDelegate {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: MediaLinksSectionHeaderView?
     
@@ -18,9 +18,8 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
 
         viewModel.delegate = self
 
-        emptyStateView.settingbutton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
-        emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
-        emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
+        emptyStateView.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
+        emptyStateView.closeButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         emptyStateView.userInteractionEnabled = true
         emptyStateView.imageViewTopPadding = 15.0
 
@@ -146,11 +145,11 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         return cell
     }
 
-    func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaLinksViewModel, user: User) {
+    override func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaLinksViewModel, user: User) {
         reloadUserData()
     }
 
-    func mediaLinksViewModelDidReceiveMediaLinks(mediaLinksViewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType, links: [MediaLink]) {
+    override func mediaLinksViewModelDidReceiveMediaLinks(mediaLinksViewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType, links: [MediaLink]) {
         reloadData()
         PKHUD.sharedHUD.hide(animated: true)
     }
@@ -187,10 +186,10 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
     
     func isKeyboardEnabled() {
         if viewModel.sessionManagerFlags.isKeyboardInstalled {
-            emptyStateView.updateEmptyStateContent(.NonEmpty)
+            updateEmptyStateContent(.NonEmpty)
         } else {
             collectionView?.scrollEnabled = false
-            emptyStateView.updateEmptyStateContent(.NoKeyboard)
+            updateEmptyStateContent(.NoKeyboard)
             emptyStateView.hidden = false
         }
     }
@@ -212,7 +211,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
                             
                             if !twitterAccount.activeStatus {
                                 self.collectionView?.scrollEnabled = false
-                                self.emptyStateView.updateEmptyStateContent(.NoTwitter)
+                                self.updateEmptyStateContent(.NoTwitter)
                                 self.emptyStateView.hidden = false
                             }
                             
@@ -242,7 +241,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
     }
     
     func didTapCancelButton() {
-        emptyStateView.updateEmptyStateContent(.NonEmpty)
+        updateEmptyStateContent(.NonEmpty)
         isKeyboardEnabled()
         reloadData()
     }

@@ -8,11 +8,23 @@
 
 import UIKit
 
+public enum UserState {
+    case NoTwitter
+    case NoFavorites
+    case NoRecents
+    case NoKeyboard
+    case NonEmpty
+    case NoResults
+}
+
 let MediaLinksSectionHeaderViewReuseIdentifier = "MediaLinksSectionHeader"
 
-class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewController {
+class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewController, MediaLinksViewModelDelegate {
     var viewModel: MediaLinksViewModel
-    var emptyStateView: EmptySetView
+    var emptyStateView: EmptyStateView?
+    var loaderImageView: UIImageView
+    var loadingTimer: NSTimer?
+    var userState: UserState
     var collectionType: MediaLinksCollectionType {
         didSet {
             do {
@@ -28,20 +40,23 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
 
     init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaLinksCollectionType, viewModel: MediaLinksViewModel) {
         self.viewModel = viewModel
-
-        emptyStateView = EmptySetView()
-        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
-        emptyStateView.hidden = true
+        
+        loaderImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
+        loaderImageView.contentMode = .Center
+        loaderImageView.contentScaleFactor = 2.5
+        loaderImageView.hidden = true
 
         collectionType = aCollectionType
 
+        userState = .NonEmpty
+        
         super.init(collectionViewLayout: collectionViewLayout)
 
+        self.viewModel.delegate = self
+        
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
-        view.addSubview(emptyStateView)
-
-        setupLayout()
+        view.addSubview(loaderImageView)
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
@@ -58,6 +73,8 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
+        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showLoader", userInfo: nil, repeats: false)
+        
         do {
             try viewModel.fetchCollection(collectionType) { success in
                 self.reloadData()
@@ -66,35 +83,63 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
             print("Failed to request data \(error)")
         }
     }
-
-    func setupLayout() {
-        view.addConstraints([
-            emptyStateView.al_left == view.al_left,
-            emptyStateView.al_right == view.al_right,
-            emptyStateView.al_top == view.al_top,
-            emptyStateView.al_bottom == view.al_bottom,
-        ])
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        emptyStateView?.frame = view.bounds
+        loaderImageView.frame = view.bounds
     }
     
     func reloadData() {
         if viewModel.isDataLoaded {
             collectionView?.scrollEnabled = false
-            if !(emptyStateView.userState == .NoTwitter || emptyStateView.userState == .NoKeyboard) {
+            if !(userState == .NoTwitter || userState == .NoKeyboard) {
                 let collection = viewModel.filteredMediaLinksForCollectionType(collectionType)
 
                 if collection.isEmpty {
                     switch collectionType {
-                    case .Favorites: emptyStateView.updateEmptyStateContent(.NoFavorites)
-                    case .Recents: emptyStateView.updateEmptyStateContent(.NoRecents)
+                    case .Favorites: updateEmptyStateContent(.NoFavorites)
+                    case .Recents: updateEmptyStateContent(.NoRecents)
                     default: break
                     }
-                    emptyStateView.hidden = false
+                    emptyStateView?.hidden = false
                 } else {
-                    emptyStateView.hidden = true
-                    collectionView?.reloadSections(NSIndexSet(index: 0))
-                    collectionView?.scrollEnabled = true
+                    emptyStateView?.hidden = true
+                    fadeInData()
                 }
             }
+        }
+    }
+    
+    func showLoader() {
+        if !viewModel.isDataLoaded {
+            loaderImageView.hidden = false
+        }
+    }
+    
+    func fadeInData() {
+        collectionView?.alpha = 0.0
+        collectionView?.layer.transform = CATransform3DMakeScale(0.90, 0.90, 0.90)
+        
+        collectionView?.reloadSections(NSIndexSet(index: 0))
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.collectionView?.alpha = 1.0
+            self.collectionView?.layer.transform = CATransform3DIdentity
+        })
+        collectionView?.scrollEnabled = true
+    }
+    
+    func updateEmptyStateContent(state: UserState) {
+        userState = state
+        if let emptyStateView = emptyStateView {
+            emptyStateView.removeFromSuperview()
+        }
+        
+        emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
+        
+        if let emptyStateView = emptyStateView {
+            view.addSubview(emptyStateView)
         }
     }
     
@@ -162,6 +207,16 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
+    }
+    
+    // MARK: MediaLinksViewModelDelegate
+    func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaLinksViewModel, user: User) {
+        reloadData()
+    }
+    
+    func mediaLinksViewModelDidReceiveMediaLinks(mediaLinksViewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType, links: [MediaLink]) {
+        reloadData()
+        loaderImageView.hidden = true
     }
 
     // MARK: MediaLinkCollectionViewCellDelegate
