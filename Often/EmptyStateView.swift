@@ -9,7 +9,6 @@
 import UIKit
 
 class EmptyStateView: UIView {
-    
     var titleLabel: UILabel
     var descriptionLabel: UILabel
     var imageView: UIImageView

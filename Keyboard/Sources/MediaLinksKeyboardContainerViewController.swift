@@ -97,7 +97,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
             suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL),
             textProcessor: textProcessor!,
             SearchBarControllerClass: KeyboardSearchBarController.self,
-            SearchTextFieldClass: KeyboardSearchTextField.self)
+            SearchBarClass: KeyboardSearchBar.self)
 
         if let keyboardSearchBarController = searchVC.searchBarController as? KeyboardSearchBarController {
             keyboardSearchBarController.textProcessor = textProcessor!

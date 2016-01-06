@@ -70,6 +70,10 @@ let KeyboardTableCoverArtViewBackgroundColor = DarkGrey
 let LyricTableViewCellNormalBackgroundColor = UIColor(fromHexString: "#f7f7f7")
 let LyricTableViewCellHighlightedBackgroundColor = UIColor.whiteColor()
 
+//App EdgeInsets
+let mainAppSearchSuggestionsViewControllerContentInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+let mainAppSearchResultsCollectionViewControllerContentInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+
 // The color of the background that incapsulates the text
 let LyricTableViewCellTextViewBackgroundColor = LightGrey
 let LyricTableViewCellMainTitleFont = UIFont(name: "OpenSans", size: 14)

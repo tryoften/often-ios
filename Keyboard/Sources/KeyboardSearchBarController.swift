@@ -15,26 +15,34 @@ class KeyboardSearchBarController: SearchBarController {
         didSet {
             primaryTextDocumentProxy = textProcessor?.currentProxy
 
-            if let textProcessor = textProcessor, textInput = searchBar.textInput as? KeyboardSearchTextField {
-                textProcessor.proxies["search"] = textInput
+            if let textProcessor = textProcessor, searchBar = searchBar as? KeyboardSearchBar {
+                textProcessor.proxies["search"] = searchBar.textInput
             }
         }
     }
 
-    required init(viewModel aViewModel: SearchViewModel, suggestionsViewModel aSuggestionsViewModel: SearchSuggestionsViewModel, SearchTextFieldClass: SearchTextField.Type) {
-        super.init(viewModel: aViewModel, suggestionsViewModel: aSuggestionsViewModel, SearchTextFieldClass: KeyboardSearchTextField.self)
+    required init(viewModel aViewModel: SearchViewModel, suggestionsViewModel aSuggestionsViewModel: SearchSuggestionsViewModel, SearchBarClass: SearchBar.Type) {
+        super.init(viewModel: aViewModel, suggestionsViewModel: aSuggestionsViewModel, SearchBarClass: SearchBarClass)
+
+        guard let searchBar = searchBar as? KeyboardSearchBar else {
+            return
+        }
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
 
         searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
-        searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing:", forControlEvents: .EditingDidBegin)
-        searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing:", forControlEvents: .EditingDidEnd)
+        searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing", forControlEvents: .EditingDidBegin)
+        searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing", forControlEvents: .EditingDidEnd)
+        searchBar.textInput.addTarget(self, action: "reset", forControlEvents: .EditingDidEndOnExit)		
+
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func textFieldDidBeginEditing(textField: UITextField) {
-        guard let textInput = searchBar.textInput as? KeyboardSearchTextField else {
+    func textFieldDidBeginEditing() {
+        guard let searchBar = self.searchBar as? KeyboardSearchBar else {
             return
         }
 
@@ -47,27 +55,26 @@ class KeyboardSearchBarController: SearchBarController {
 
         delay(0.5) {
             center.postNotificationName(TextProcessingManagerProxyEvent, object: self, userInfo: [
-                "id": textInput.id,
+                "id": searchBar.textInput.id,
                 "setDefault": true
             ])
         }
     }
 
-    func textFieldDidChange() {
+    override func textFieldDidChange() {
+        super.textFieldDidChange()
         textProcessor?.parseTextInCurrentDocumentProxy()
 
         if viewModel.hasReceivedResponse == true {
-            scheduleAutocompleteRequestTimer()
             NSNotificationCenter.defaultCenter().postNotificationName(ToggleButtonKeyboardEvent, object: nil, userInfo: ["hide": true])
         }
     }
 
-    func textFieldDidEndEditing(textField: UITextField) {
-        guard let textInput = searchBar.textInput as? KeyboardSearchTextField else {
-            return
-        }
-
+    func textFieldDidEndEditing() {
         textProcessor?.setCurrentProxyWithId("default")
-        textInput.repositionText()
+        if let searchBar = self.searchBar as? KeyboardSearchBar {
+             searchBar.textInput.repositionText()
+            reset()
+        }
     }
 }

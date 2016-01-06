@@ -13,9 +13,10 @@ private let BrowseHeadercellReuseIdentifier = "browseHeaderCell"
 /**
     This view controller displays a search bar along with trending navigatable items (lyrics, songs, artists)
 */
-class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelegate {
+class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelegate, SearchViewControllerDelegate {
     var headerView: BrowseHeaderView?
-    var searchController: UISearchController!
+    var searchViewController: SearchViewController!
+    var searchBar: MainAppSearchBar!
 
     override init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel) {
       super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel)
@@ -23,15 +24,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = true
 
-        let baseURL = Firebase(url: BaseURL)
-        let suggestionsViewModel = SearchSuggestionsViewModel(base: baseURL)
-        let searchSuggestionsViewController = SearchSuggestionsViewController(viewModel: suggestionsViewModel)
-
-        searchController = UISearchController(searchResultsController: searchSuggestionsViewController)
-        searchController.searchBar.searchBarStyle = .Prominent
-        searchController.hidesNavigationBarDuringPresentation = false
-
-        navigationItem.titleView = searchController.searchBar
+        setupSearchBar()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -43,10 +36,55 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
     }
 
     override func viewWillAppear(animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
         navigationController?.hidesBarsOnSwipe = true
         navigationController?.navigationBar.translucent = false
     }
-    
+
+    func setupSearchBar() {
+        let baseURL = Firebase(url: BaseURL)
+
+        searchViewController = SearchViewController(
+            viewModel: SearchViewModel(base: baseURL),
+            suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL),
+            textProcessor: nil,
+            SearchBarControllerClass: SearchBarController.self,
+            SearchBarClass: MainAppSearchBar.self)
+        searchViewController.delegate = self
+        searchViewController.view.hidden = true
+        searchViewController.searchSuggestionsViewController.contentInset = mainAppSearchSuggestionsViewControllerContentInsets
+        searchViewController.searchResultsViewController.contentInset = mainAppSearchResultsCollectionViewControllerContentInsets
+
+        guard let searchBar = searchViewController.searchBarController.searchBar as? MainAppSearchBar else {
+            return
+        }
+
+        self.searchBar = searchBar
+
+        let attributes: [String: AnyObject] = [
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 11)!,
+            NSForegroundColorAttributeName: BlackColor
+        ]
+
+        navigationItem.titleView = searchBar
+        searchBar.searchBarStyle = .Minimal
+        searchBar.backgroundColor = WhiteColor
+        searchBar.tintColor = UIColor(fromHexString: "#14E09E")
+        searchBar.placeholder = SearchBarPlaceholderText
+        searchBar.setValue("cancel".uppercaseString, forKey:"_cancelButtonText")
+
+        if #available(iOS 9.0, *) {
+            UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([MainAppSearchBar.self]).setTitleTextAttributes(attributes, forState: .Normal)
+        } else {
+            UIBarButtonItem.appearance().setTitleTextAttributes(attributes, forState: .Normal)
+        }
+
+        addChildViewController(searchViewController)
+        view.addSubview(searchViewController.view)
+
+        searchViewController.view.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height)
+    }
+
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let layout = CSStickyHeaderFlowLayout()
         layout.parallaxHeaderReferenceSize = BrowseHeaderView.preferredSize
@@ -68,7 +106,6 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
                 headerView?.delegate = self
                             
             }
-
             return headerView!
         }
 
@@ -90,11 +127,45 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
 
     }
 
-    func browseHeaderDidLoadFeaturedArtists(BrowseHeaderView: UICollectionReusableView, artists: [MediaLink]) {
-        
+    func browseHeaderDidLoadFeaturedArtists(BrowseHeaderView: UICollectionReusableView, artists: [MediaLink]){
+
     }
 
     func browseHeaderDidSelectFeaturedArtist(BrowseHeaderView: UICollectionReusableView, artist: MediaLink) {
 
+    }
+
+    func searchViewControllerSearchBarDidTextDidBeginEditing(viewController: SearchViewController, searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+
+        navigationController?.hidesBarsOnSwipe = false
+        searchViewController.view.hidden = false
+
+        if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
+            if cancelButton.currentTitle == "done".uppercaseString {
+                cancelButton.setTitle("cancel".uppercaseString, forState: UIControlState.Normal)
+                cancelButton.sizeToFit()
+                searchBar.sizeToFit()
+
+            }
+        }
+    }
+
+    func searchViewControllerSearchBarDidTapCancel(viewController: SearchViewController, searchBar: UISearchBar) {
+        navigationController?.hidesBarsOnSwipe = true
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+
+        searchViewController.view.hidden = true
+        searchViewController.searchBarController.searchBar.reset()
+    }
+
+    func searchViewControllerDidReceiveResponse(viewController: SearchViewController) {
+        if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
+            cancelButton.setTitle("done".uppercaseString, forState: UIControlState.Normal)
+
+        }
+
+        navigationController?.hidesBarsOnSwipe = true
     }
 }

@@ -90,6 +90,10 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         loaderImageView.frame = view.bounds
     }
     
+    func setupLayout() {
+        
+    }
+    
     func reloadData() {
         if viewModel.isDataLoaded {
             collectionView?.scrollEnabled = false

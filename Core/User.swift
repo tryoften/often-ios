@@ -17,6 +17,7 @@ class User: NSObject {
     var phone: String = ""
     var userDescription: String = ""
     var password: String = ""
+    var backgroundImage: String = ""
 
     override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
 
@@ -43,7 +44,11 @@ class User: NSObject {
         if let emailString = keyedValues["email"] as? String {
             email = emailString
         }
-        
+
+        if let backgroundImageString =  keyedValues["backgroundImage"] as? String {
+            backgroundImage = backgroundImageString
+        }
+
         if let profileImageSmallString = keyedValues["profileImageSmall"] as? String {
             profileImageSmall = profileImageSmallString
         }
@@ -79,10 +84,11 @@ class User: NSObject {
             "profileImageLarge": profileImageLarge,
             "email": email,
             "phone": phone,
-            "backgroundImage": name,
             "description": userDescription,
-            "password": password
+            "password": password,
+            "backgroundImage": backgroundImage
         ]
+
         return userData
     }
 }

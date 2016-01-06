@@ -18,10 +18,10 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
 
         viewModel.delegate = self
 
-        emptyStateView.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
-        emptyStateView.closeButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
-        emptyStateView.userInteractionEnabled = true
-        emptyStateView.imageViewTopPadding = 15.0
+        emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
+        emptyStateView?.closeButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        emptyStateView?.userInteractionEnabled = true
+        emptyStateView?.imageViewTopPadding = 15.0
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
         checkUserEmptyStateStatus()
@@ -38,7 +38,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let layout = CSStickyHeaderFlowLayout()
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 175)
+        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 185)
         layout.parallaxHeaderReferenceSize = UserProfileHeaderView.preferredSize
         layout.parallaxHeaderAlwaysOnTop = true
         layout.disableStickyHeaders = false
@@ -69,22 +69,22 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         reloadUserData()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
+    }
+
     override func setupLayout() {
         view.addConstraints([
-            emptyStateView.al_left == view.al_left,
-            emptyStateView.al_right == view.al_right,
-            emptyStateView.al_top == view.al_top + UserProfileHeaderView.preferredSize.height,
-            emptyStateView.al_bottom == view.al_bottom,
+            emptyStateView!.al_left == view.al_left,
+            emptyStateView!.al_right == view.al_right,
+            emptyStateView!.al_top == view.al_top + UserProfileHeaderView.preferredSize.height,
+            emptyStateView!.al_bottom == view.al_bottom,
         ])
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-    
+
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -156,8 +156,9 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
 
     func reloadUserData() {
         if let headerView = headerView, let user = viewModel.currentUser {
-            headerView.descriptionText = user.userDescription
+            headerView.sharedText = "85 Lyrics Shared"
             headerView.nameLabel.text = user.name
+            headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
                     headerView.profileImageView.image = image
@@ -190,7 +191,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         } else {
             collectionView?.scrollEnabled = false
             updateEmptyStateContent(.NoKeyboard)
-            emptyStateView.hidden = false
+            emptyStateView?.hidden = false
         }
     }
     
@@ -212,7 +213,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
                             if !twitterAccount.activeStatus {
                                 self.collectionView?.scrollEnabled = false
                                 self.updateEmptyStateContent(.NoTwitter)
-                                self.emptyStateView.hidden = false
+                                self.emptyStateView?.hidden = false
                             }
                             
                         }

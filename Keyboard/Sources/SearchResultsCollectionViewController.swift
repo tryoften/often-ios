@@ -24,7 +24,7 @@ let SearchResultsInsertLinkEvent = "SearchResultsCollectionViewCell.insertButton
  Tweet Cell
 
  */
-class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, ToolTipCloseButtonDelegate, MessageBarDelegate {
+class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MessageBarDelegate {
     var backgroundImageView: UIImageView
     var textProcessor: TextProcessingManager?
     var searchBarController: SearchBarController?
@@ -41,13 +41,20 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     var refreshResultsButton: RefreshResultsButton
     var refreshResultsButtonTopConstraint: NSLayoutConstraint!
     var refreshTimer: NSTimer?
-    var searchBarToolTip: InKeyboardToolTip?
     var emptyStateView: EmptySetView
     var messageBarView: MessageBarView
     var messageBarVisibleConstraint: NSLayoutConstraint?
     var isFullAccessEnabled: Bool
-    
+
+    var contentInset: UIEdgeInsets {
+        didSet {
+            collectionView?.contentInset = contentInset
+        }
+    }
+
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
+        contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
+
         backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         backgroundImageView.contentMode = .Center
@@ -81,21 +88,14 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         view.backgroundColor = VeryLightGray
         view.addSubview(messageBarView)
         view.addSubview(emptyStateView)
-        
-        if SessionManagerFlags.defaultManagerFlags.hasSeenKeyboardSearchBarToolTips == false {
-            searchBarToolTip = InKeyboardToolTip()
-            searchBarToolTip!.translatesAutoresizingMaskIntoConstraints = false
-            searchBarToolTip?.closeButtonDelegate = self
-            view.addSubview(searchBarToolTip!)
-        }
-        
+
         messageBarView.delegate = self
         refreshResultsButton.addTarget(self, action: "didTapRefreshResultsButton", forControlEvents: .TouchUpInside)
         
         // Register cell classes
         if let collectionView = collectionView {
             collectionView.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
-            collectionView.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
+             collectionView.contentInset = contentInset
         }
         
         setupLayout()
@@ -119,7 +119,8 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         collectionView?.backgroundColor = UIColor.clearColor()
     }
     
-    override func viewDidAppear(animated: Bool) {        
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         let pbWrapped: UIPasteboard? = UIPasteboard.generalPasteboard()
         if let _ = pbWrapped {
             let _ = viewModel?.isFullAccessEnabled
@@ -217,8 +218,10 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         }
         
         collectionView.reloadData()
-        collectionView.setContentOffset(CGPointMake(0, -2 * KeyboardSearchBarHeight + 2), animated: false)
-    
+
+        let yOffset = containerViewController?.tabBar == nil ? 0 : -2 * KeyboardSearchBarHeight + 2
+        collectionView.setContentOffset(CGPointMake(0, yOffset), animated: false)
+
         backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
     }
     
@@ -269,15 +272,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
             refreshResultsButton.al_centerX == view.al_centerX,
             refreshResultsButtonTopConstraint
         ])
-        
-        if SessionManagerFlags.defaultManagerFlags.hasSeenKeyboardSearchBarToolTips == false {
-            view.addConstraints([
-                searchBarToolTip!.al_top == view.al_top - 30,
-                searchBarToolTip!.al_left == view.al_left,
-                searchBarToolTip!.al_right == view.al_right,
-                searchBarToolTip!.al_bottom == view.al_bottom
-            ])
-        }
+
         
         messageBarVisibleConstraint = messageBarView.al_bottom == view.al_top
         
@@ -318,20 +313,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
             }
         }
     }
-    
-    // MARK: ToolTipCloseButtonDelegate
-    func toolTipCloseButtonDidTap() {
-        SessionManagerFlags.defaultManagerFlags.hasSeenKeyboardSearchBarToolTips = true
-        
-        UIView.animateWithDuration(0.4, animations: {
-            self.searchBarToolTip?.alpha = 0.0
-        })
-        
-        delay(1.5, closure: {
-            self.searchBarToolTip?.removeFromSuperview()
-        })
-    }
-    
+
     // MARK: MessageBarViewDelegate
     func showMessageBar() {
         messageBarVisibleConstraint?.constant = 39

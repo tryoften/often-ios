@@ -76,6 +76,7 @@ class FacebookAccountManager: AccountManager {
 
                 userData["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
                 userData["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
+                userData["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
 
                 self.newUser = User()
                 self.newUser?.setValuesForKeysWithDictionary(userData)

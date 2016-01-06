@@ -8,21 +8,21 @@
 
 import UIKit
 
-class SearchBarController: UIViewController, UITextFieldDelegate {
+class SearchBarController: UIViewController, UISearchBarDelegate {
     var viewModel: SearchViewModel
     var searchBar: SearchBar
     var suggestionsViewModel: SearchSuggestionsViewModel?
     var filter: Filter?
     var autocompleteTimer: NSTimer?
 
-    required init(viewModel aViewModel: SearchViewModel, suggestionsViewModel aSuggestionsViewModel: SearchSuggestionsViewModel, SearchTextFieldClass: SearchTextField.Type) {
+    required init(viewModel aViewModel: SearchViewModel, suggestionsViewModel aSuggestionsViewModel: SearchSuggestionsViewModel, SearchBarClass: SearchBar.Type) {
         viewModel = aViewModel
         suggestionsViewModel = aSuggestionsViewModel
 
-        searchBar = SearchBar(SearchTextFieldClass: SearchTextFieldClass)
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-
+        searchBar = SearchBarClass.init(frame: CGRectZero)
+        
         super.init(nibName: nil, bundle: nil)
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -30,13 +30,14 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     }
 
     override func loadView() {
-        view = searchBar
+        if let searchBar = searchBar as? UIView {
+            view = searchBar
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        searchBar.textInput.clear()
+        searchBar.clear()
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,14 +45,13 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if let touch = touches.first where touch.view == searchBar {
-            searchBar.textInput.becomeFirstResponder()
+        if let touch = touches.first where touch.view == searchBar as? UIView {
+            searchBar.becomeFirstResponder()
         }
     }
     
     func reset() {
         filter = nil
-        searchBar.reset()
 
         NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: nil)
     }
@@ -62,31 +62,32 @@ class SearchBarController: UIViewController, UITextFieldDelegate {
     }
     
     func requestAutocompleteSuggestions() {
-        guard let query = searchBar.textInput.text else {
+        guard let query = searchBar.text else {
             return
         }
-            if query.isEmpty {
-                suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
-            } else if query == "#" {
-                suggestionsViewModel?.sendRequestForQuery("#filters-list", autocomplete: true)
-            } else {
-                suggestionsViewModel?.sendRequestForQuery(query, autocomplete: true)
-            }
+        
+        if query.isEmpty {
+            suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
+        } else if query == "#" {
+            suggestionsViewModel?.sendRequestForQuery("#filters-list", autocomplete: true)
+        } else {
+            suggestionsViewModel?.sendRequestForQuery(query, autocomplete: true)
+        }
 
     }
 
-
-    func textFieldDidEndEditingOnExit() {
-        reset()
+    func textFieldDidChange() {
+        if viewModel.hasReceivedResponse == true {
+            scheduleAutocompleteRequestTimer()
+        }
     }
-    
+
     func setFilter(filter: Filter) {
         self.filter = filter
-        searchBar.setFilterButton(filter)
         suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
     }
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        searchBar.textInput.selected = searchBar.textInput.selected
+        searchBar.selected = searchBar.selected
     }
 }

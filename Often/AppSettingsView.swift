@@ -10,7 +10,6 @@ import Foundation
 
 class AppSettingsView: UIView {
     var tableView: UITableView
-    var navigationBar: UIView
     var titleBar: UILabel
 
     override init(frame: CGRect) {
@@ -22,16 +21,7 @@ class AppSettingsView: UIView {
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.backgroundColor = MediumGrey
 
-        navigationBar = UIView()
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        navigationBar.backgroundColor = WhiteColor
-        navigationBar.layer.shadowOffset = CGSizeMake(0, 0)
-        navigationBar.layer.shadowOpacity = 0.8
-        navigationBar.layer.shadowColor = DarkGrey.CGColor
-        navigationBar.layer.shadowRadius = 1
-
         titleBar = UILabel()
-        titleBar.translatesAutoresizingMaskIntoConstraints = false
         titleBar.font = UIFont(name: "Montserrat-Regular", size: 12)
         titleBar.text = "settings".uppercaseString
         titleBar.backgroundColor = UIColor.clearColor()
@@ -44,8 +34,6 @@ class AppSettingsView: UIView {
         
         backgroundColor = MediumGrey
         addSubview(tableView)
-        addSubview(navigationBar)
-        navigationBar.addSubview(titleBar)
 
         setupLayout()
 
@@ -58,23 +46,12 @@ class AppSettingsView: UIView {
 
     func setupLayout() {
         addConstraints([
-            navigationBar.al_left == al_left,
-            navigationBar.al_top == al_top,
-            navigationBar.al_right == al_right,
-            navigationBar.al_height == 45,
-
             tableView.al_left == al_left,
-            tableView.al_top == navigationBar.al_bottom,
+            tableView.al_top == al_top,
             tableView.al_right == al_right,
             tableView.al_bottom == al_bottom
             ])
 
-        navigationBar.addConstraints([
-            titleBar.al_left == navigationBar.al_left,
-            titleBar.al_right == navigationBar.al_right,
-            titleBar.al_bottom == navigationBar.al_bottom,
-            titleBar.al_top == navigationBar.al_top
-            ])
     }
     
 }
