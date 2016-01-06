@@ -20,7 +20,6 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     var pageViews: [ToolTip]
     var pointerAlignmentConstraint: NSLayoutConstraint?
 
-    weak var closeButtonDelegate: ToolTipCloseButtonDelegate?
     weak var delegate: ToolTipViewControllerDelegate?
     
     var currentPage: Int {        
@@ -86,8 +85,6 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         
         scrollView.delegate = self
         
-        closeButton.addTarget(self, action: "closeTapped", forControlEvents: .TouchUpInside)
-        
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
         
         view.addSubview(scrollView)
@@ -123,14 +120,13 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     
     func loadPage(page: Int) {
         let toolTip = ToolTip()
-        delegate = toolTip
         toolTip.translatesAutoresizingMaskIntoConstraints = false
         toolTip.imageView.image = pageImages[page]
         toolTip.textView.text = pageTexts[page]
         toolTip.currentPage = page
         toolTip.setupLayout()
+
         scrollView.addSubview(toolTip)
-        
         scrollView.addConstraints([
             toolTip.al_top == scrollView.al_top,
             toolTip.al_height == scrollView.al_height,
@@ -144,7 +140,9 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         /// Load the pages that are now on screen
         pageControl.currentPage = currentPage
-        
+
+        delegate?.toolTipViewControllerCurrentPage(self, currentPage: currentPage)
+
         if currentPage == pageCount - 1 {
             closeButton.userInteractionEnabled = true
             
@@ -192,10 +190,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             pointerImageView.al_width == 15
         ])
     }
-    
-    func closeTapped() {
-        closeButtonDelegate?.toolTipCloseButtonDidTap()
-    }
+
 }
 
 class CaretView: UIView {
@@ -214,10 +209,6 @@ class CaretView: UIView {
     }
 }
 
-protocol ToolTipCloseButtonDelegate: class {
-    func toolTipCloseButtonDidTap()
-}
-
 protocol ToolTipViewControllerDelegate: class {
-    func delegateCurrentPage(currentPage: Int)
+    func toolTipViewControllerCurrentPage(toolTipViewController: ToolTipViewController, currentPage: Int)
 }
