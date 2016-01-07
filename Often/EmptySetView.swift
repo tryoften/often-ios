@@ -100,18 +100,18 @@ class EmptySetView: UIView {
         case .NoTwitter:
             imageViewWidthConstraint?.constant = 70
             imageViewHeightConstraint?.constant = 70
-            imageViewTopConstraint?.constant = imageViewTopPadding + 5
+            imageViewTopConstraint?.constant = imageViewTopPadding + 20
             imageView.image = UIImage(named: "twitteremptystate")
             imageView.contentMode = .ScaleAspectFit
-            titleLabel.text = "Connect with Twitter"
-            descriptionLabel.text = "Often works even better with Twitter. \n In the future, anyy links you like there are saved here."
+            titleLabel.text = "Connect Often"
+            descriptionLabel.text = "Sync your Twitter or Facebook profile info \n to get unique lyric recommendations."
             twitterButton.hidden = false
             cancelButton.hidden = false
             settingbutton.hidden = true
         case .NoKeyboard:
             imageViewWidthConstraint?.constant = 70
             imageViewHeightConstraint?.constant = 70
-            imageViewTopConstraint?.constant = imageViewTopPadding + 7
+            imageViewTopConstraint?.constant = imageViewTopPadding + 20
             imageView.image = UIImage(named: "installoftenemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "Install Often"
@@ -125,7 +125,7 @@ class EmptySetView: UIView {
             imageView.image = UIImage(named: "favoritesemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No favorites yet!"
-            descriptionLabel.text = "Double tap any cards to save them to your\n favorites & easily share them again later."
+            descriptionLabel.text = "Tap any lyric to save it to your favorites\n & easily share them again later."
             settingbutton.hidden = true
             twitterButton.hidden = true
             cancelButton.hidden = true
@@ -136,14 +136,14 @@ class EmptySetView: UIView {
             imageView.image = UIImage(named: "recentsemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "No recents yet!"
-            descriptionLabel.text = "Start using Often to easily access your\n most recently searched or used content."
+            descriptionLabel.text = "Start using often to see your most\n recently searched for or shared lyrics."
             settingbutton.hidden = true
             twitterButton.hidden = true
             cancelButton.hidden = true
         case .NoResults:
             imageViewWidthConstraint?.constant = 120
             imageViewHeightConstraint?.constant = 120
-            imageViewTopConstraint?.constant = imageViewTopPadding + 7
+            imageViewTopConstraint?.constant = imageViewTopPadding + 14
             imageView.image = UIImage(named: "noresultsemptystate")
             imageView.contentMode = .ScaleAspectFill
             titleLabel.text = "Oh snap! Our bad"
