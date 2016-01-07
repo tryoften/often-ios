@@ -73,7 +73,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
     }
 
-    override func setupLayout() {
+    func setupLayout() {
         view.addConstraints([
             emptyStateView!.al_left == view.al_left,
             emptyStateView!.al_right == view.al_right,
@@ -83,6 +83,14 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenHeight = UIScreen.mainScreen().bounds.height
+        emptyStateView?.frame = CGRectMake(0, UserProfileHeaderView.preferredSize.height, screenWidth, screenHeight)
+        loaderImageView.frame = CGRectMake(0, UserProfileHeaderView.preferredSize.height, screenWidth, screenHeight)
     }
 
     // MARK: UICollectionViewDataSource
