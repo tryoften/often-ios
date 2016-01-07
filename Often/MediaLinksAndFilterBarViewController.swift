@@ -92,6 +92,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     
     func reloadData() {
         if viewModel.isDataLoaded {
+            loaderImageView.hidden = true
             collectionView?.scrollEnabled = false
             if !(userState == .NoTwitter || userState == .NoKeyboard) {
                 let collection = viewModel.filteredMediaLinksForCollectionType(collectionType)
@@ -113,7 +114,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     
     func showLoader() {
         if !viewModel.isDataLoaded {
-            loaderImageView.hidden = false
+            //loaderImageView.hidden = false
         }
     }
     
@@ -132,6 +133,12 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     
     func updateEmptyStateContent(state: UserState) {
         userState = state
+        
+        guard state != .NonEmpty else {
+            emptyStateView?.removeFromSuperview()
+            return
+        }
+        
         if let emptyStateView = emptyStateView {
             emptyStateView.removeFromSuperview()
         }
@@ -140,6 +147,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         
         if let emptyStateView = emptyStateView {
             view.addSubview(emptyStateView)
+            viewDidLayoutSubviews()
         }
     }
     

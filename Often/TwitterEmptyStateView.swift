@@ -14,10 +14,18 @@ class TwitterEmptyStateView: EmptyStateView {
         let description = "Often works even better with Twitter. \n In the future, any links you like there are saved here."
         let image = UIImage(named: "twitteremptystate")!
         
-        super.init(title: title, description: description, image: image)
+        super.init(frame: CGRectZero)
+        
+        titleLabel.text = title
+        descriptionLabel.text = description
+        imageView.image = image
         
         primaryButton.backgroundColor = TwitterButtonColor
         primaryButton.setTitle("connect twitter".uppercaseString, forState: .Normal)
+        primaryButton.hidden = false
+        
+        closeButton.hidden = false
+        closeButton.userInteractionEnabled = true
         
         imageView.contentMode = .ScaleAspectFit
         imageSize = .Small

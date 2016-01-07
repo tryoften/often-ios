@@ -73,14 +73,6 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
     }
 
-    func setupLayout() {
-        view.addConstraints([
-            emptyStateView!.al_left == view.al_left,
-            emptyStateView!.al_right == view.al_right,
-            emptyStateView!.al_top == view.al_top + UserProfileHeaderView.preferredSize.height,
-            emptyStateView!.al_bottom == view.al_bottom,
-        ])
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

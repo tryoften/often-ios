@@ -14,7 +14,11 @@ class FavoritesEmptyStateView: EmptyStateView {
         let description = "Double tap any cards to save them to your\n favorites & easily share them again later."
         let image = UIImage(named: "favoritesemptystate")!
         
-        super.init(title: title, description: description, image: image)
+        super.init(frame: CGRectZero)
+        
+        titleLabel.text = title
+        descriptionLabel.text = description
+        imageView.image = image
         
         imageView.contentMode = .ScaleAspectFill
         imageSize = .Medium
