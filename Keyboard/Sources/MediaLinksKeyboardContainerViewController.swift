@@ -18,7 +18,6 @@ enum MediaLinksKeyboardSection: Int {
 }
 
 class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewController,
-    TextProcessingManagerDelegate,
     UIScrollViewDelegate,
     ToolTipViewControllerDelegate {
     var mediaLink: MediaLink?
@@ -52,7 +51,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         viewModel = KeyboardViewModel()
 
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
-        textProcessor!.delegate = self
 
         setupSections()
 
@@ -61,7 +59,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         containerView.addSubview(sectionsTabBarController.view)
         containerView.addSubview(togglePanelButton)
 
-        showTooltipsIfNeeded()
+//        showTooltipsIfNeeded()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -90,33 +88,15 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: mediaLinksViewModel, collectionType: .Recents)
         recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 1)
 
-        // Trending
-        let trendingVC = TrendingLyricsViewController(collectionViewLayout: TrendingLyricsViewController.getLayout(), viewModel: TrendingLyricsViewModel())
-        trendingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfTrendingtab(scale: 0.45), tag: 2)
-        let trendingNavigationVC = UINavigationController(rootViewController: trendingVC)
-
-        // Search
-        let baseURL = Firebase(url: BaseURL)
-        let searchVC = SearchViewController(
-            viewModel: SearchViewModel(base: baseURL),
-            suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL),
-            textProcessor: textProcessor!,
-            SearchBarControllerClass: KeyboardSearchBarController.self,
-            SearchBarClass: KeyboardSearchBar.self)
-
-        if let keyboardSearchBarController = searchVC.searchBarController as? KeyboardSearchBarController {
-            keyboardSearchBarController.textProcessor = textProcessor!
-        }
-
-        searchVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
-        let searchNavigationVC = UINavigationController(rootViewController: searchVC)
-        searchNavigationVC.navigationBarHidden = true
+        // Browse
+        let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: TrendingLyricsViewModel(), textProcessor: textProcessor)
+        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 2)
+        let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
 
         sections = [
             (.Favorites, favoritesVC),
             (.Recents, recentsVC),
-            (.Trending, trendingNavigationVC),
-            (.Search, searchNavigationVC)
+            (.Trending, trendingNavigationVC)
         ]
 
         sectionsTabBarController.viewControllers = sections.map { $0.1 }
@@ -185,28 +165,13 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     //MARK: ToolTipViewControllerDelegate
     func toolTipViewControllerCurrentPage(toolTipViewController: ToolTipViewController, currentPage: Int) {
-        if let toolBarItems = sectionsTabBarController.tabBar.items where currentPage <= sectionsTabBarController.viewControllers.count && currentPage <= toolBarItems.count {
+        if let toolBarItems = sectionsTabBarController.tabBar.items
+            where currentPage <= sectionsTabBarController.viewControllers.count && currentPage <= toolBarItems.count {
             sectionsTabBarController.selectedViewController = sectionsTabBarController.viewControllers[currentPage]
             sectionsTabBarController.tabBar.selectedItem = toolBarItems[currentPage]
         }
     }
 
-    // MARK: TextProcessingManagerDelegate
-    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
-    }
-
-    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
-    }
-
-    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
-        return nil
-    }
-
-    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
-    }
-
-    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
-    }
 }
 
 extension UIScrollView {

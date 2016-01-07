@@ -28,8 +28,6 @@ class KeyboardSearchBarController: SearchBarController {
             return
         }
         
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-
         searchBar.textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
         searchBar.textInput.addTarget(self, action: "textFieldDidBeginEditing", forControlEvents: .EditingDidBegin)
         searchBar.textInput.addTarget(self, action: "textFieldDidEndEditing", forControlEvents: .EditingDidEnd)
