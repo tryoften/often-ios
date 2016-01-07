@@ -1,30 +1,30 @@
 //
-//  MediaLinksViewModel.swift
+//  MediaItemsViewModel.swift
 //  Often
 //
 
 import Foundation
 
-enum MediaLinksViewModelError: ErrorType {
+enum MediaItemsViewModelError: ErrorType {
     case NoUser
     case FetchingCollectionDataFailed
 }
 
 /// fetches favorites and recent links for current user and keeps them up to date
 /// also has methods to add/remove favorites
-class MediaLinksViewModel {
-    weak var delegate: MediaLinksViewModelDelegate?
+class MediaItemsViewModel {
+    weak var delegate: MediaItemsViewModelDelegate?
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     let baseRef: Firebase
     var currentUser: User?
-    var collections: [MediaLinksCollectionType: [MediaLink]]
+    var collections: [MediaItemsCollectionType: [MediaItem]]
     var isDataLoaded: Bool
 
     private var userId: String
     private var userRef: Firebase?
     private(set) var ids: [String]
-    private var filteredCollections: [MediaLinksCollectionType: [MediaLink]] /// collections with current filters applied
-    private var collectionEndpoints: [MediaLinksCollectionType: Firebase]
+    private var filteredCollections: [MediaItemsCollectionType: [MediaItem]] /// collections with current filters applied
+    private var collectionEndpoints: [MediaItemsCollectionType: Firebase]
 
     var filters: [MediaType] {
         didSet {
@@ -67,11 +67,11 @@ class MediaLinksViewModel {
     */
     func setupUser(completion: (() throws -> User) -> ()) throws {
         guard let userId = sessionManagerFlags.userId else {
-            throw MediaLinksViewModelError.NoUser
+            throw MediaItemsViewModelError.NoUser
         }
 
         if !sessionManagerFlags.openSession {
-            throw MediaLinksViewModelError.NoUser
+            throw MediaItemsViewModelError.NoUser
         }
 
         self.userId = userId
@@ -79,7 +79,7 @@ class MediaLinksViewModel {
         userRef = baseRef.childByAppendingPath("users/\(userId)")
         userRef?.keepSynced(true)
 
-        for type in MediaLinksCollectionType.allValues {
+        for type in MediaItemsCollectionType.allValues {
             let endpoint = userRef?.childByAppendingPath(type.rawValue.lowercaseString)
             collectionEndpoints[type] = endpoint
         }
@@ -91,24 +91,24 @@ class MediaLinksViewModel {
                 self.delegate?.mediaLinksViewModelDidAuthUser(self, user: self.currentUser!)
                 completion({ return self.currentUser! })
             } else {
-                completion({ throw MediaLinksViewModelError.NoUser })
+                completion({ throw MediaItemsViewModelError.NoUser })
             }
         })
     }
 
     func fetchAllData() throws {
-        for type in MediaLinksCollectionType.allValues {
+        for type in MediaItemsCollectionType.allValues {
             try fetchCollection(type)
         }
     }
 
-    func fetchCollection(collectionType: MediaLinksCollectionType, completion: ((Bool) -> Void)? = nil) throws {
+    func fetchCollection(collectionType: MediaItemsCollectionType, completion: ((Bool) -> Void)? = nil) throws {
         guard let ref = collectionEndpoints[collectionType] else {
-            throw MediaLinksViewModelError.FetchingCollectionDataFailed
+            throw MediaItemsViewModelError.FetchingCollectionDataFailed
         }
 
         ref.observeEventType(.Value, withBlock: { snapshot in
-            var links: [MediaLink] = []
+            var links: [MediaItem] = []
 
             if let data = snapshot.value as? [String: AnyObject] {
                 var ids = [String]()
@@ -121,7 +121,7 @@ class MediaLinksViewModel {
 
                 for (_, item) in data {
                     guard let favoritesData = item as? [String: AnyObject],
-                        let link = self.processMediaLinkData(favoritesData) else {
+                        let link = self.processMediaItemData(favoritesData) else {
                             continue
                     }
 
@@ -131,21 +131,21 @@ class MediaLinksViewModel {
 
             self.isDataLoaded = true
             self.collections[collectionType] = links
-            let filteredCollection = self.filteredMediaLinksForCollectionType(collectionType)
-            self.delegate?.mediaLinksViewModelDidReceiveMediaLinks(self, collectionType: collectionType, links: filteredCollection)
+            let filteredCollection = self.filteredMediaItemsForCollectionType(collectionType)
+            self.delegate?.mediaLinksViewModelDidReceiveMediaItems(self, collectionType: collectionType, links: filteredCollection)
             completion?(true)
         })
     }
 
     /// Reapplies filters on passed in collection and returns a list of filtered links
-    func filteredMediaLinksForCollectionType(collectionType: MediaLinksCollectionType) -> [MediaLink] {
+    func filteredMediaItemsForCollectionType(collectionType: MediaItemsCollectionType) -> [MediaItem] {
         filteredCollections[collectionType] = applyFilters(collections[collectionType] ?? [])
         return filteredCollections[collectionType] ?? []
     }
 
-    func sectionHeaderTitleForCollectionType(collectionType: MediaLinksCollectionType) -> String {
+    func sectionHeaderTitleForCollectionType(collectionType: MediaItemsCollectionType) -> String {
         var headerTitle = ""
-        let links = filteredMediaLinksForCollectionType(collectionType)
+        let links = filteredMediaItemsForCollectionType(collectionType)
         if filters.isEmpty {
             headerTitle =  "\(links.count)" + " " + collectionType.rawValue
         } else {
@@ -155,25 +155,25 @@ class MediaLinksViewModel {
         return headerTitle
     }
     
-    private func processMediaLinkData(resultData: [String: AnyObject]) -> MediaLink? {
+    private func processMediaItemData(resultData: [String: AnyObject]) -> MediaItem? {
         guard let provider = resultData["_index"] as? String,
             let rawType = resultData["_type"] as? String,
             let _ = resultData["_id"] as? String,
             let _ = resultData["_score"] as? Double,
-            let _ = MediaLinkSource(rawValue: provider),
+            let _ = MediaItemSource(rawValue: provider),
             let type = MediaType(rawValue: rawType) else {
                 return nil
         }
 
-        var result: MediaLink? = nil
+        var result: MediaItem? = nil
         
         switch(type) {
         case .Article:
-            result = ArticleMediaLink(data: resultData)
+            result = ArticleMediaItem(data: resultData)
         case .Track:
-            result = TrackMediaLink(data: resultData)
+            result = TrackMediaItem(data: resultData)
         case .Video:
-            result = VideoMediaLink(data: resultData)
+            result = VideoMediaItem(data: resultData)
             break
         default:
             break
@@ -184,7 +184,7 @@ class MediaLinksViewModel {
         }
         
         if let index = resultData["_index"] as? String,
-            let source = MediaLinkSource(rawValue: index) {
+            let source = MediaItemSource(rawValue: index) {
                 item.source = source
         } else {
             item.source = .Unknown
@@ -199,12 +199,12 @@ class MediaLinksViewModel {
         return item
     }
 
-    private func applyFilters(links: [MediaLink]) -> [MediaLink] {
+    private func applyFilters(links: [MediaItem]) -> [MediaItem] {
         if filters.isEmpty {
             return links
         }
         
-        var filteredLinks: [MediaLink] = []
+        var filteredLinks: [MediaItem] = []
         for link in links {
             if filters.contains(link.type) {
                 filteredLinks.append(link)
@@ -215,7 +215,7 @@ class MediaLinksViewModel {
     }
 }
 
-enum MediaLinksCollectionType: String {
+enum MediaItemsCollectionType: String {
     case Favorites = "Favorites"
     case Recents = "Recents"
     case Trending = "Trending"
@@ -223,8 +223,8 @@ enum MediaLinksCollectionType: String {
     static let allValues = [Favorites, Recents]
 }
 
-protocol MediaLinksViewModelDelegate: class {
-    func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaLinksViewModel, user: User)
-    func mediaLinksViewModelDidReceiveMediaLinks(mediaLinksViewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType, links: [MediaLink])
+protocol MediaItemsViewModelDelegate: class {
+    func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User)
+    func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem])
 }
 

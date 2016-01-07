@@ -1,5 +1,5 @@
 //
-//  MediaLink.swift
+//  MediaItem.swift
 //  Often
 //
 //  Created by Luc Succes on 8/19/15.
@@ -56,7 +56,7 @@ enum MediaType: String {
 }
 
 
-enum MediaLinkSource: String {
+enum MediaItemSource: String {
     case Billboard = "billboard"
     case Complex = "complex-music"
     case Highsnobiety = "highsnobiety"
@@ -82,12 +82,12 @@ enum MediaLinkSource: String {
     case Unknown = "unknown"
 }
 
-class MediaLink: Equatable {
+class MediaItem: Equatable {
     var id: String = ""
     var type: MediaType = .Other
     var score: Double = 0.0
     var sourceName: String = ""
-    var source: MediaLinkSource = .Unknown
+    var source: MediaItemSource = .Unknown
     var image: String?
     var data: [String: AnyObject] = [:]
     
@@ -152,6 +152,6 @@ class MediaLink: Equatable {
     }
 }
 
-func ==(lhs: MediaLink, rhs: MediaLink) -> Bool {
+func ==(lhs: MediaItem, rhs: MediaItem) -> Bool {
     return lhs.id == rhs.id
 }

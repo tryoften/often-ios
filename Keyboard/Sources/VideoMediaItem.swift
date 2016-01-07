@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VideoMediaLink: MediaLink {
+class VideoMediaItem: MediaItem {
     var title: String = ""
     var link: String = ""
     var owner: String = ""

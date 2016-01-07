@@ -10,7 +10,7 @@ import UIKit
 
 private let albumLyricCellReuseIdentifier = "albumLyricCell"
 
-class BrowseLyricsCollectionViewController: MediaLinksCollectionBaseViewController, KeyboardBrowseNavigationDelegate {
+class BrowseLyricsCollectionViewController: MediaItemsCollectionBaseViewController, KeyboardBrowseNavigationDelegate {
     var navigationBar: KeyboardBrowseNavigationBar
     var navigationBarHideConstraint: NSLayoutConstraint?
     
@@ -33,7 +33,7 @@ class BrowseLyricsCollectionViewController: MediaLinksCollectionBaseViewControll
         super.viewDidLoad()
         
         // Register cell classes
-        collectionView!.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: albumLyricCellReuseIdentifier)
+        collectionView!.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: albumLyricCellReuseIdentifier)
         collectionView!.backgroundColor = LyricTableViewCellNormalBackgroundColor
     }
 
@@ -69,7 +69,7 @@ class BrowseLyricsCollectionViewController: MediaLinksCollectionBaseViewControll
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(albumLyricCellReuseIdentifier,
-            forIndexPath: indexPath) as? MediaLinkCollectionViewCell else {
+            forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
                 return UICollectionViewCell()
         }
         

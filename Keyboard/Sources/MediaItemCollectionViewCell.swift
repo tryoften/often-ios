@@ -1,5 +1,5 @@
 //
-//  MediaLinkCollectionViewCell.swift
+//  MediaItemCollectionViewCell.swift
 //  Surf
 //
 //  Created by Komran Ghahremani on 7/31/15.
@@ -10,8 +10,8 @@
 import UIKit
 import Spring
 
-class MediaLinkCollectionViewCell: UICollectionViewCell {
-    weak var delegate: MediaLinksCollectionViewCellDelegate?
+class MediaItemCollectionViewCell: UICollectionViewCell {
+    weak var delegate: MediaItemsCollectionViewCellDelegate?
     
     var metadataContentView: UIView
     var sourceLogoView: UIImageView
@@ -74,7 +74,7 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var mediaLink: MediaLink?
+    var mediaLink: MediaItem?
 
     
     override init(frame: CGRect) {
@@ -381,9 +381,9 @@ class MediaLinkCollectionViewCell: UICollectionViewCell {
     }
 }
 
-protocol MediaLinksCollectionViewCellDelegate: class {
-    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool)
-    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaLinkCollectionViewCell, selected: Bool)
-    func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaLinkCollectionViewCell, selected: Bool)
-    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool)
+protocol MediaItemsCollectionViewCellDelegate: class {
+    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool)
+    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool)
+    func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool)
+    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool)
 }

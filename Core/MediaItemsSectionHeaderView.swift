@@ -1,5 +1,5 @@
 //
-//  MediaLinksSectionHeaderView.swift
+//  MediaItemsSectionHeaderView.swift
 //  Often
 //
 //  Created by Luc Succes on 12/17/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MediaLinksSectionHeaderView: UICollectionReusableView {
+class MediaItemsSectionHeaderView: UICollectionReusableView {
     var leftLabel: UILabel
     var rightLabel: UILabel
     var topSeperator: UIView

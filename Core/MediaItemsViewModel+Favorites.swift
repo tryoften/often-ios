@@ -1,5 +1,5 @@
 //
-//  MediaLinksViewModel+Favorites.swift
+//  MediaItemsViewModel+Favorites.swift
 //  Often
 //
 //  Created by Luc Succes on 12/15/15.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-extension MediaLinksViewModel {
-    func toggleFavorite(selected: Bool, result: MediaLink) {
+extension MediaItemsViewModel {
+    func toggleFavorite(selected: Bool, result: MediaItem) {
         if selected {
             addFavorite(result)
         } else {
@@ -18,15 +18,15 @@ extension MediaLinksViewModel {
     }
 
     // TODO: add/remove favorite from local collection before server responds with data
-    func addFavorite(result: MediaLink) {
+    func addFavorite(result: MediaItem) {
         sendTask("addFavorite", result: result)
     }
 
-    func removeFavorite(result: MediaLink) {
+    func removeFavorite(result: MediaItem) {
         sendTask("removeFavorite", result: result)
     }
 
-    func checkFavorite(result: MediaLink) -> Bool {
+    func checkFavorite(result: MediaItem) -> Bool {
         let base64URI = SearchRequest.idFromQuery(result.id)
             .stringByReplacingOccurrencesOfString("/", withString: "_")
             .stringByReplacingOccurrencesOfString("+", withString: "-")
@@ -34,7 +34,7 @@ extension MediaLinksViewModel {
         return ids.contains(base64URI)
     }
 
-    private func sendTask(task: String, result: MediaLink) {
+    private func sendTask(task: String, result: MediaItem) {
         guard let userId = currentUser?.id else {
             return
         }

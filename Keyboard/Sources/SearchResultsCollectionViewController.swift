@@ -24,7 +24,7 @@ let SearchResultsInsertLinkEvent = "SearchResultsCollectionViewCell.insertButton
  Tweet Cell
 
  */
-class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MessageBarDelegate {
+class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MessageBarDelegate {
     var backgroundImageView: UIImageView
     var textProcessor: TextProcessingManager?
     var searchBarController: SearchBarController?
@@ -93,7 +93,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         
         // Register cell classes
         if let collectionView = collectionView {
-            collectionView.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
+            collectionView.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: "serviceCell")
              collectionView.contentInset = contentInset
         }
         
@@ -172,7 +172,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = parseMediaLinkData(response?.results, indexPath: indexPath, collectionView: collectionView)
+        let cell = parseMediaItemData(response?.results, indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
         
         if let result = cell.mediaLink {
@@ -191,8 +191,8 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaLinkCollectionViewCell,
-            let cells = collectionView.visibleCells() as? [MediaLinkCollectionViewCell],
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
+            let cells = collectionView.visibleCells() as? [MediaItemCollectionViewCell],
             let result = response?.results[indexPath.row] else {
             return
         }
@@ -293,8 +293,8 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         ])
     }
     
-    // MediaLinkCollectionViewCellDelegate
-    override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    // MediaItemCollectionViewCellDelegate
+    override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }
@@ -303,7 +303,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         cell.itemFavorited = selected
     }
     
-    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }

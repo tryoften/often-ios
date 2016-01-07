@@ -30,7 +30,7 @@ class SearchResultsViewModel {
         getFavorites()
     }
     
-    func toggleFavorite(selected: Bool, result: MediaLink) {
+    func toggleFavorite(selected: Bool, result: MediaItem) {
         if selected {
             addFavorite(result)
         } else {
@@ -38,15 +38,15 @@ class SearchResultsViewModel {
         }
     }
     
-    func addFavorite(result: MediaLink) {
+    func addFavorite(result: MediaItem) {
         sendTask("addFavorite", result: result)
     }
     
-    func removeFavorite(result: MediaLink) {
+    func removeFavorite(result: MediaItem) {
         sendTask("removeFavorite", result: result)
     }
     
-    func checkFavorite(result: MediaLink) -> Bool {
+    func checkFavorite(result: MediaItem) -> Bool {
         let base64URI = SearchRequest.idFromQuery(result.id)
             .stringByReplacingOccurrencesOfString("/", withString: "_")
             .stringByReplacingOccurrencesOfString("+", withString: "-")
@@ -70,7 +70,7 @@ class SearchResultsViewModel {
         })
     }
     
-    private func sendTask(task: String, result: MediaLink) {
+    private func sendTask(task: String, result: MediaItem) {
         let favoriteQueueRef = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
         let data = [
             "task": task,

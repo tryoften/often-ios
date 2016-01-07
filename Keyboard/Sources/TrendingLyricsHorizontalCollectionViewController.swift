@@ -10,9 +10,9 @@ import UIKit
 
 private let TrendingLyricsCellReuseIdentifier = "Cell"
 
-class TrendingLyricsHorizontalCollectionViewController: MediaLinksAndFilterBarViewController {
+class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarViewController {
     init() {
-        super.init(collectionViewLayout: TrendingLyricsHorizontalCollectionViewController.provideLayout(), collectionType: .Trending, viewModel: MediaLinksViewModel())
+        super.init(collectionViewLayout: TrendingLyricsHorizontalCollectionViewController.provideLayout(), collectionType: .Trending, viewModel: MediaItemsViewModel())
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -26,7 +26,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaLinksAndFilterBarVi
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        collectionView!.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: TrendingLyricsCellReuseIdentifier
+        collectionView!.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: TrendingLyricsCellReuseIdentifier
         )
         collectionView!.backgroundColor = UIColor.clearColor()
         collectionView!.showsHorizontalScrollIndicator = false
@@ -68,7 +68,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaLinksAndFilterBarVi
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TrendingLyricsCellReuseIdentifier,
-            forIndexPath: indexPath) as? MediaLinkCollectionViewCell else {
+            forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
             return UICollectionViewCell()
         }
 
@@ -81,7 +81,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaLinksAndFilterBarVi
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.layer.shouldRasterize = true
         cell.showImageView = false
-        cell.mediaLink = MediaLink(data: ["id": "id"])
+        cell.mediaLink = MediaItem(data: ["id": "id"])
     
         return cell
     }

@@ -41,17 +41,17 @@ class RootViewController: UITabBarController {
     func setupTabBarItems() {
         let userProfileVC = UserProfileViewController(
             collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(),
-            viewModel: MediaLinksViewModel())
+            viewModel: MediaItemsViewModel())
 
-        let trendingVC = ContainerNavigationController(rootViewController:BrowseViewController(
-                collectionViewLayout: BrowseViewController.provideCollectionViewLayout(),
-                viewModel: TrendingLyricsViewModel()))
+        let browseVC = ContainerNavigationController(rootViewController: MainAppBrowseViewController(
+                collectionViewLayout: MainAppBrowseViewController.provideCollectionViewLayout(),
+                viewModel: TrendingLyricsViewModel(), textProcessor: nil))
 
         let settingVC = ContainerNavigationController(rootViewController: AppSettingsViewController(
             viewModel: SettingsViewModel(sessionManager: sessionManager)))
 
-        trendingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfTrending(scale: 0.45), tag: 0)
-        trendingVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, 20, -8, -20)
+        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfTrending(scale: 0.45), tag: 0)
+        browseVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, 20, -8, -20)
 
         userProfileVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfProfile(scale: 0.45), tag: 1)
         userProfileVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0)
@@ -60,7 +60,7 @@ class RootViewController: UITabBarController {
         settingVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, -20, -8, 20)
 
         viewControllers = [
-            trendingVC,
+            browseVC,
             userProfileVC,
             settingVC
         ]

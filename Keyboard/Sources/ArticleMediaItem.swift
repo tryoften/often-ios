@@ -1,5 +1,5 @@
 //
-//  ArticleMediaLink.swift
+//  ArticleMediaItem.swift
 //  Often
 //
 //  Created by Luc Succes on 10/1/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ArticleMediaLink: MediaLink {
+class ArticleMediaItem: MediaItem {
     var title: String
     var link: String
     var date: NSDate?

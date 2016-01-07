@@ -1,5 +1,5 @@
 //
-//  MediaLinksKeyboardContainerViewController.swift
+//  MediaItemsKeyboardContainerViewController.swift
 //  Often
 //
 //  Created by Luc Succes on 12/7/15.
@@ -10,24 +10,23 @@ import Foundation
 import Fabric
 import Crashlytics
 
-enum MediaLinksKeyboardSection: Int {
+enum MediaItemsKeyboardSection: Int {
     case Favorites
     case Recents
     case Trending
     case Search
 }
 
-class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewController,
-    TextProcessingManagerDelegate,
+class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewController,
     UIScrollViewDelegate,
     ToolTipViewControllerDelegate {
-    var mediaLink: MediaLink?
+    var mediaLink: MediaItem?
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
 
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
-    var sections: [(MediaLinksKeyboardSection, UIViewController)]
+    var sections: [(MediaItemsKeyboardSection, UIViewController)]
     var tooltipVC: ToolTipViewController?
 
     override init(extraHeight: CGFloat, debug: Bool) {
@@ -41,7 +40,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
-        dispatch_once(&MediaLinksKeyboardContainerViewController.oncePredicate) {
+        dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
             if !self.debugKeyboard {
                 Fabric.with([Crashlytics()])
                 Flurry.startSession(FlurryClientKey)
@@ -52,7 +51,6 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         viewModel = KeyboardViewModel()
 
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
-        textProcessor!.delegate = self
 
         setupSections()
 
@@ -61,7 +59,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         containerView.addSubview(sectionsTabBarController.view)
         containerView.addSubview(togglePanelButton)
 
-        showTooltipsIfNeeded()
+//        showTooltipsIfNeeded()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -82,7 +80,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     func setupSections() {
         // Favorites
-        let mediaLinksViewModel = MediaLinksViewModel()
+        let mediaLinksViewModel = MediaItemsViewModel()
         let favoritesVC = KeyboardFavoritesAndRecentsViewController(viewModel: mediaLinksViewModel, collectionType: .Favorites)
         favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 0)
 
@@ -90,33 +88,15 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: mediaLinksViewModel, collectionType: .Recents)
         recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 1)
 
-        // Trending
-        let trendingVC = TrendingLyricsViewController(collectionViewLayout: TrendingLyricsViewController.getLayout(), viewModel: TrendingLyricsViewModel())
-        trendingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfTrendingtab(scale: 0.45), tag: 2)
-        let trendingNavigationVC = UINavigationController(rootViewController: trendingVC)
-
-        // Search
-        let baseURL = Firebase(url: BaseURL)
-        let searchVC = SearchViewController(
-            viewModel: SearchViewModel(base: baseURL),
-            suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL),
-            textProcessor: textProcessor!,
-            SearchBarControllerClass: KeyboardSearchBarController.self,
-            SearchBarClass: KeyboardSearchBar.self)
-
-        if let keyboardSearchBarController = searchVC.searchBarController as? KeyboardSearchBarController {
-            keyboardSearchBarController.textProcessor = textProcessor!
-        }
-
-        searchVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
-        let searchNavigationVC = UINavigationController(rootViewController: searchVC)
-        searchNavigationVC.navigationBarHidden = true
+        // Browse
+        let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: TrendingLyricsViewModel(), textProcessor: textProcessor)
+        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 2)
+        let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
 
         sections = [
             (.Favorites, favoritesVC),
             (.Recents, recentsVC),
-            (.Trending, trendingNavigationVC),
-            (.Search, searchNavigationVC)
+            (.Trending, trendingNavigationVC)
         ]
 
         sectionsTabBarController.viewControllers = sections.map { $0.1 }
@@ -130,7 +110,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
         center.addObserver(self, selector: "hideKeyboard", name: CollapseKeyboardEvent, object: nil)
         center.addObserver(self, selector: "showKeyboard", name: RestoreKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "didTapOnMediaLink:", name: SearchResultsInsertLinkEvent, object: nil)
+        center.addObserver(self, selector: "didTapOnMediaItem:", name: SearchResultsInsertLinkEvent, object: nil)
         center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
 
         togglePanelButton.addTarget(self, action: "switchKeyboard", forControlEvents: .TouchUpInside)
@@ -185,28 +165,13 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     //MARK: ToolTipViewControllerDelegate
     func toolTipViewControllerCurrentPage(toolTipViewController: ToolTipViewController, currentPage: Int) {
-        if let toolBarItems = sectionsTabBarController.tabBar.items where currentPage <= sectionsTabBarController.viewControllers.count && currentPage <= toolBarItems.count {
+        if let toolBarItems = sectionsTabBarController.tabBar.items
+            where currentPage <= sectionsTabBarController.viewControllers.count && currentPage <= toolBarItems.count {
             sectionsTabBarController.selectedViewController = sectionsTabBarController.viewControllers[currentPage]
             sectionsTabBarController.tabBar.selectedItem = toolBarItems[currentPage]
         }
     }
 
-    // MARK: TextProcessingManagerDelegate
-    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
-    }
-
-    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
-    }
-
-    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
-        return nil
-    }
-
-    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
-    }
-
-    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
-    }
 }
 
 extension UIScrollView {

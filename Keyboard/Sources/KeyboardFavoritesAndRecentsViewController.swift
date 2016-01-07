@@ -8,12 +8,12 @@
 
 import UIKit
 
-class KeyboardFavoritesAndRecentsViewController: MediaLinksAndFilterBarViewController {
+class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewController {
     var textProcessor: TextProcessingManager?
 
 
-    init(viewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType) {
-        let layout = KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout()
+    init(viewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType) {
+        let layout = KeyboardMediaItemsAndFilterBarViewController.provideCollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 80.0, right: 10.0)
         super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
         collectionView?.backgroundColor = UIColor.clearColor()
@@ -24,8 +24,8 @@ class KeyboardFavoritesAndRecentsViewController: MediaLinksAndFilterBarViewContr
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MediaLinkCollectionViewCellDelegate
-    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    // MediaItemCollectionViewCellDelegate
+    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }
@@ -43,8 +43,8 @@ class KeyboardFavoritesAndRecentsViewController: MediaLinksAndFilterBarViewContr
 
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
-            if let sectionView: MediaLinksSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView {
+            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                     sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType)
                     sectionView.topSeperator.hidden = true
                     return sectionView
