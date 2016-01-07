@@ -106,7 +106,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
                     emptyStateView?.hidden = false
                 } else {
                     emptyStateView?.hidden = true
-                    fadeInData()
+                    collectionView?.reloadSections(NSIndexSet(index: 0))
                 }
             }
         }
