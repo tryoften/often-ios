@@ -44,10 +44,6 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         tabBar.backgroundColor = WhiteColor
         tabBar.translucent = false
         tabBar.tintColor = BlackColor
-        tabBar.layer.shadowOffset = CGSizeMake(0, 0)
-        tabBar.layer.shadowOpacity = 0
-        tabBar.layer.shadowColor = DarkGrey.CGColor
-        tabBar.layer.shadowRadius = 0
 
         containerView = UIView()
         tabBarHidden = false
@@ -165,12 +161,6 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
         containerView.addSubview(toViewController.view)
         toViewController.didMoveToParentViewController(self)
-
-        if let delegate = toViewController as? KeyboardSectionsContainerViewControllerDelegate {
-            tabBar.layer.shadowOpacity = delegate.keyboardSectionsContainerViewControllerShouldShowBarShadow(self) ? 0.8 : 0.0
-        } else {
-            tabBar.layer.shadowOpacity = 0.8
-        }
 
         tabBar.userInteractionEnabled = false
         fromViewController?.view.removeFromSuperview()

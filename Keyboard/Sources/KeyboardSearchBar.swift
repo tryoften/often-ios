@@ -51,7 +51,7 @@ class KeyboardSearchBar: UIView, SearchBar {
         textInput = KeyboardSearchTextField(frame: CGRectZero)
         
         topSeperator = UIView()
-        topSeperator.backgroundColor = DarkGrey
+        topSeperator.backgroundColor = UIColor.clearColor()
         
         bottomSeperator = UIView()
         bottomSeperator.backgroundColor = DarkGrey
@@ -151,7 +151,8 @@ class KeyboardSearchBar: UIView, SearchBar {
     
     private func repositionSearchTextField() {
         let textInputWidth = CGRectGetWidth(frame) - (shouldShowCancelButton() ? 80 : 10)
-        textInput.frame = CGRectMake(5, 5, textInputWidth, CGRectGetHeight(frame) - 10)
+        let topMargin = (CGRectGetHeight(frame) - 28) / 2
+        textInput.frame = CGRectMake(5, topMargin, textInputWidth, 28)
     }
 
     private func repositionCancelButton() {
