@@ -9,8 +9,8 @@
 import UIKit
 
 class KeyboardBrowseNavigationBar: UIView {
-    var backArrowButton: UIButton
-    var thumbnailImageView: UIImageView
+    var backArrowView: UIImageView
+    var thumbnailImageButton: UIButton
     var titleLabel: UILabel
     var subtitleLabel: UILabel
     var rightDetailLabel: UILabel
@@ -33,16 +33,15 @@ class KeyboardBrowseNavigationBar: UIView {
     var browseDelegate: KeyboardBrowseNavigationDelegate?
     
     override init(frame: CGRect) {
-        backArrowButton = UIButton()
-        backArrowButton.translatesAutoresizingMaskIntoConstraints = false
-        backArrowButton.setImage(UIImage(named: "backnavigation"), forState: .Normal)
-        backArrowButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 20.0)
+        backArrowView = UIImageView()
+        backArrowView.translatesAutoresizingMaskIntoConstraints = false
+        backArrowView.image = UIImage(named: "backnavigation")
         
-        thumbnailImageView = UIImageView()
-        thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
-        thumbnailImageView.layer.cornerRadius = 3.0
-        thumbnailImageView.contentMode = .ScaleAspectFill
-        thumbnailImageView.image = UIImage(named: "weeknd")
+        thumbnailImageButton = UIButton()
+        thumbnailImageButton.translatesAutoresizingMaskIntoConstraints = false
+        thumbnailImageButton.layer.cornerRadius = 3.0
+        thumbnailImageButton.contentMode = .ScaleAspectFill
+        thumbnailImageButton.setImage(UIImage(named: "weeknd"), forState: .Normal)
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -75,11 +74,11 @@ class KeyboardBrowseNavigationBar: UIView {
         
         backgroundColor = WhiteColor
         
-        backArrowButton.addTarget(self, action: "backSelected", forControlEvents: .TouchUpInside)
+        thumbnailImageButton.addTarget(self, action: "backSelected", forControlEvents: .TouchUpInside)
         moreOptionsButton.addTarget(self, action: "showOptions", forControlEvents: .TouchUpInside)
         
-        addSubview(thumbnailImageView)
-        addSubview(backArrowButton)
+        addSubview(thumbnailImageButton)
+        addSubview(backArrowView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(rightDetailLabel)
@@ -113,22 +112,22 @@ class KeyboardBrowseNavigationBar: UIView {
     
     func setupLayout() {
         addConstraints([
-            backArrowButton.al_left == al_left + 12,
-            backArrowButton.al_centerY == al_centerY,
-            backArrowButton.al_width == 29,
-            backArrowButton.al_height == 14,
+            backArrowView.al_left == al_left + 12,
+            backArrowView.al_centerY == al_centerY,
+            backArrowView.al_width == 29,
+            backArrowView.al_height == 14,
             
-            thumbnailImageView.al_left == backArrowButton.al_right - 5,
-            thumbnailImageView.al_centerY == al_centerY,
-            thumbnailImageView.al_top == al_top + 10,
-            thumbnailImageView.al_bottom == al_bottom - 10,
-            thumbnailImageView.al_width == thumbnailImageView.al_height,
+            thumbnailImageButton.al_left == backArrowView.al_right - 5,
+            thumbnailImageButton.al_centerY == al_centerY,
+            thumbnailImageButton.al_top == al_top + 10,
+            thumbnailImageButton.al_bottom == al_bottom - 10,
+            thumbnailImageButton.al_width == thumbnailImageButton.al_height,
             
-            titleLabel.al_left == thumbnailImageView.al_right + 12,
-            titleLabel.al_bottom == thumbnailImageView.al_centerY,
+            titleLabel.al_left == thumbnailImageButton.al_right + 12,
+            titleLabel.al_bottom == thumbnailImageButton.al_centerY,
             
             subtitleLabel.al_left == titleLabel.al_left,
-            subtitleLabel.al_top == thumbnailImageView.al_centerY,
+            subtitleLabel.al_top == thumbnailImageButton.al_centerY,
             
             rightDetailLabel.al_right == al_right - 10,
             rightDetailLabel.al_centerY == al_centerY,

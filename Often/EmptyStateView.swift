@@ -103,6 +103,8 @@ class EmptyStateView: UIView {
         userInteractionEnabled = false
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
+        closeButton.addTarget(self, action: "closeButtonTapped", forControlEvents: .TouchUpInside)
+        
         addSubview(titleLabel)
         addSubview(descriptionLabel)
         addSubview(imageView)
@@ -144,11 +146,14 @@ class EmptyStateView: UIView {
         closeButton.setImage(StyleKit.imageOfButtonclose(scale: 0.75), forState: .Normal)
         closeButton.alpha = 0.54
         closeButton.hidden = true
+        closeButton.userInteractionEnabled = false
         
         super.init(frame: frame)
         
         userInteractionEnabled = false
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        
+        closeButton.addTarget(self, action: "closeButtonTapped", forControlEvents: .TouchUpInside)
         
         addSubview(titleLabel)
         addSubview(descriptionLabel)
@@ -161,6 +166,13 @@ class EmptyStateView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func closeButtonTapped() {
+        UIView.animateWithDuration(0.4, animations: {
+            self.alpha = 0
+            self.removeFromSuperview()
+        })
     }
     
     func setupLayout() {

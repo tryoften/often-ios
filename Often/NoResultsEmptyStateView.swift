@@ -14,7 +14,11 @@ class NoResultsEmptyStateView: EmptyStateView {
         let description = "Seems like search went to sleep for a sec.\n Try again or make another Search :)"
         let image = UIImage(named: "noresultsemptystate")!
         
-        super.init(title: title, description: description, image: image)
+        super.init(frame: CGRectZero)
+        
+        titleLabel.text = title
+        descriptionLabel.text = description
+        imageView.image = image
         
         imageView.contentMode = .ScaleAspectFill
         imageSize = .Large

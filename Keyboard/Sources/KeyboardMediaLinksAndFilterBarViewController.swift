@@ -48,7 +48,7 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func setupLayout() {
+    func setupLayout() {
         view.addConstraints([
             favoritesAndRecentsTabView.al_top == view.al_top,
             favoritesAndRecentsTabView.al_left == view.al_left,

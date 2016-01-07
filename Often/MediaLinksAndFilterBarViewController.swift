@@ -90,12 +90,9 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         loaderImageView.frame = view.bounds
     }
     
-    func setupLayout() {
-        
-    }
-    
     func reloadData() {
         if viewModel.isDataLoaded {
+            loaderImageView.hidden = true
             collectionView?.scrollEnabled = false
             if !(userState == .NoTwitter || userState == .NoKeyboard) {
                 let collection = viewModel.filteredMediaLinksForCollectionType(collectionType)
@@ -109,7 +106,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
                     emptyStateView?.hidden = false
                 } else {
                     emptyStateView?.hidden = true
-                    fadeInData()
+                    collectionView?.reloadSections(NSIndexSet(index: 0))
                 }
             }
         }
@@ -117,7 +114,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     
     func showLoader() {
         if !viewModel.isDataLoaded {
-            loaderImageView.hidden = false
+            //loaderImageView.hidden = false
         }
     }
     
@@ -136,6 +133,12 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     
     func updateEmptyStateContent(state: UserState) {
         userState = state
+        
+        guard state != .NonEmpty else {
+            emptyStateView?.removeFromSuperview()
+            return
+        }
+        
         if let emptyStateView = emptyStateView {
             emptyStateView.removeFromSuperview()
         }
@@ -144,6 +147,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         
         if let emptyStateView = emptyStateView {
             view.addSubview(emptyStateView)
+            viewDidLayoutSubviews()
         }
     }
     
