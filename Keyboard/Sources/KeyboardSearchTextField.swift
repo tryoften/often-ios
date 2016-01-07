@@ -54,6 +54,8 @@ class KeyboardSearchTextField: UIControl {
             } else {
                 indicatorPositionConstraint.constant = 0
             }
+
+            repositionText()
         }
     }
 
@@ -61,16 +63,14 @@ class KeyboardSearchTextField: UIControl {
         didSet {
             label.alpha = 0.80
             label.text = placeholder
-            if !selected {
-                labelContainerLeftConstraint.constant = labelContainerCenterMargin
-            }
         }
     }
 
     override var selected: Bool {
         didSet {
             label.sizeToFit()
-            
+            repositionText()
+
             if selected {
                 becomeFirstResponder()
                 startBlinkingIndicator()
@@ -81,10 +81,7 @@ class KeyboardSearchTextField: UIControl {
                 label.alpha = text == "" ? 0.45 : 1.0
                 
                 clearButtonLeftConstraint.constant = -CGRectGetHeight(clearButton.frame) - 15
-                labelContainerLeftConstraint.constant = 0
-
                 self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: UIColor(fromHexString: "#BEBEBE"), scale: 1.0)
-                self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
                 self.clearButton.alpha = 1.0
                 editing = true
             } else {
@@ -100,10 +97,7 @@ class KeyboardSearchTextField: UIControl {
                 if self.text == "" {
                     self.textColor = LightBlackColor
                     self.clearButtonLeftConstraint.constant = 0
-                    self.backgroundView.layer.borderColor = UIColor(fromHexString: "#E3E3E3").CGColor
                     self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: LightBlackColor, scale: 1.0)
-                } else {
-                    self.backgroundView.layer.borderColor = UIColor.clearColor().CGColor
                 }
                 
                 self.backgroundView.backgroundColor = VeryLightGray
@@ -134,9 +128,7 @@ class KeyboardSearchTextField: UIControl {
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.backgroundColor = VeryLightGray
         backgroundView.userInteractionEnabled = false
-        backgroundView.layer.borderWidth = 1.0
-        backgroundView.layer.cornerRadius = 3.0
-        backgroundView.layer.borderColor = UIColor(fromHexString: "#E3E3E3").CGColor
+        backgroundView.layer.cornerRadius = 5.0
         backgroundView.accessibilityLabel = "background view"
         
         labelContainer = UIView()
@@ -268,7 +260,7 @@ class KeyboardSearchTextField: UIControl {
             backgroundView.al_top == al_top,
             backgroundView.al_bottom == al_bottom,
 
-            labelContainer.al_left == backgroundView.al_left,
+            labelContainerLeftConstraint,
             labelContainer.al_height == al_height,
             labelContainer.al_top == al_top,
             labelContainer.al_right == backgroundView.al_right,
@@ -306,7 +298,7 @@ extension KeyboardSearchTextField: UITextDocumentProxy {
     // MARK: UIKeyInput
     
     func hasText() -> Bool {
-        guard let text = text  else {
+        guard let text = text else {
             return true
         }
         
@@ -314,7 +306,7 @@ extension KeyboardSearchTextField: UITextDocumentProxy {
     }
     
     func insertText(character: String) {
-        if let text = text where character != "\n"  {
+        if let text = text where character != "\n" {
             self.text = text.stringByAppendingString(character)
 
             sendActionsForControlEvents(UIControlEvents.EditingChanged)

@@ -41,7 +41,7 @@ class RootViewController: UITabBarController {
     func setupTabBarItems() {
         let userProfileVC = UserProfileViewController(
             collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(),
-            viewModel: MediaLinksViewModel())
+            viewModel: MediaItemsViewModel())
 
         let browseVC = ContainerNavigationController(rootViewController: MainAppBrowseViewController(
                 collectionViewLayout: MainAppBrowseViewController.provideCollectionViewLayout(),

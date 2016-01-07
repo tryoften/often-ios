@@ -14,7 +14,11 @@ class RecentsEmptyStateView: EmptyStateView {
         let description = "Start using Often to easily access your\n most recently searched or used content."
         let image = UIImage(named: "recentsemptystate")!
         
-        super.init(title: title, description: description, image: image)
+        super.init(frame: CGRectZero)
+        
+        titleLabel.text = title
+        descriptionLabel.text = description
+        imageView.image = image
         
         imageView.contentMode = .ScaleAspectFill
         imageSize = .Medium

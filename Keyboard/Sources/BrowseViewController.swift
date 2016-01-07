@@ -38,8 +38,8 @@ class BrowseViewController: FullScreenCollectionViewController,
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        collectionView?.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
-        collectionView?.registerClass(MediaLinksSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier)
+        collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
+        collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = false
 
         setupSearchBar()
@@ -101,7 +101,7 @@ class BrowseViewController: FullScreenCollectionViewController,
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView, let section = BrowseSection(rawValue: indexPath.section) else {
+        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView, let section = BrowseSection(rawValue: indexPath.section) else {
             return UICollectionReusableView()
         }
 
@@ -183,7 +183,7 @@ class BrowseViewController: FullScreenCollectionViewController,
             self.artistsHorizontalVC = artistsHorizontalVC
             return cell
         case .TrendingSongs:
-            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? MediaLinkCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
                 return UICollectionViewCell()
             }
             cell.reset()

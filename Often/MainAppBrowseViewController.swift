@@ -108,7 +108,7 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
             return headerView!
         }
 
-        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView,
+        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView,
             let section = BrowseSection(rawValue: indexPath.section) else {
             return UICollectionReusableView()
         }
@@ -126,11 +126,11 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
 
     }
 
-    func browseHeaderDidLoadFeaturedArtists(BrowseHeaderView: UICollectionReusableView, artists: [MediaLink]){
+    func browseHeaderDidLoadFeaturedArtists(BrowseHeaderView: UICollectionReusableView, artists: [MediaItem]){
 
     }
 
-    func browseHeaderDidSelectFeaturedArtist(BrowseHeaderView: UICollectionReusableView, artist: MediaLink) {
+    func browseHeaderDidSelectFeaturedArtist(BrowseHeaderView: UICollectionReusableView, artist: MediaItem) {
 
     }
 

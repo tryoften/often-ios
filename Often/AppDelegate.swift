@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             frame.size.height = KeyboardHeight + 100
             window.frame = frame
             window.clipsToBounds = true
-            mainController = MediaLinksKeyboardContainerViewController(extraHeight: 144.0, debug: true)
+            mainController = MediaItemsKeyboardContainerViewController(extraHeight: 144.0, debug: true)
 #else
             let signupViewModel = SignupViewModel(sessionManager: sessionManager)
             mainController = SignupViewController(viewModel: signupViewModel)
