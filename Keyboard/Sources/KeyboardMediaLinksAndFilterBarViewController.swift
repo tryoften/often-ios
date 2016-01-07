@@ -22,7 +22,7 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
         super.init(collectionViewLayout: KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout(), collectionType: .Favorites, viewModel: viewModel)
         
         favoritesAndRecentsTabView.delegate = self
-        emptyStateView.userInteractionEnabled = true
+        emptyStateView?.userInteractionEnabled = true
         
         view.backgroundColor = VeryLightGray
         view.addSubview(favoritesAndRecentsTabView)
@@ -30,8 +30,8 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
         setupLayout()
 
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
-        emptyStateView.imageViewTopPadding = 0
-        emptyStateView.updateEmptyStateContent(emptyStateView.userState)
+        emptyStateView?.imageViewTopPadding = 0
+        updateEmptyStateContent(userState)
     }
 
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
@@ -53,12 +53,7 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
             favoritesAndRecentsTabView.al_top == view.al_top,
             favoritesAndRecentsTabView.al_left == view.al_left,
             favoritesAndRecentsTabView.al_right == view.al_right,
-            favoritesAndRecentsTabView.al_height == KeyboardSearchBarHeight,
-
-            emptyStateView.al_top == favoritesAndRecentsTabView.al_bottom,
-            emptyStateView.al_left == view.al_left,
-            emptyStateView.al_right == view.al_right,
-            emptyStateView.al_bottom == view.al_bottom
+            favoritesAndRecentsTabView.al_height == KeyboardSearchBarHeight
         ])
     }
     

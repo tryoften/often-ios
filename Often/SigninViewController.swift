@@ -38,9 +38,9 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         signinView.signinTwitterButton.addTarget(self, action:"didTapSigninTwitterButton:", forControlEvents: .TouchUpInside)
         
     }
-    
+
     override func prefersStatusBarHidden() -> Bool {
-        return true;
+        return true
     }
     
     func didTapSigninButton(sender: UIButton) {

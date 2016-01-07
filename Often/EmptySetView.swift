@@ -8,15 +8,6 @@
 
 import UIKit
 
-public enum UserState {
-    case NoTwitter
-    case NoFavorites
-    case NoRecents
-    case NoKeyboard
-    case NonEmpty
-    case NoResults
-}
-
 class EmptySetView: UIView {
     var imageView: UIImageView
     var titleLabel: UILabel
@@ -65,7 +56,6 @@ class EmptySetView: UIView {
         settingbutton.clipsToBounds = true
         settingbutton.hidden = true
         
-        
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setImage(StyleKit.imageOfButtonclose(scale: 0.75), forState: .Normal)
@@ -103,8 +93,13 @@ class EmptySetView: UIView {
             imageViewTopConstraint?.constant = imageViewTopPadding + 20
             imageView.image = UIImage(named: "twitteremptystate")
             imageView.contentMode = .ScaleAspectFit
+<<<<<<< HEAD
             titleLabel.text = "Connect Often"
             descriptionLabel.text = "Sync your Twitter or Facebook profile info \n to get unique lyric recommendations."
+=======
+            titleLabel.text = "Connect with Twitter"
+            descriptionLabel.text = "Often works even better with Twitter. \n In the future, any links you like there are saved here."
+>>>>>>> 4bac7c26fae8e358c96f98e6b8111a9eaa14de26
             twitterButton.hidden = false
             cancelButton.hidden = false
             settingbutton.hidden = true
