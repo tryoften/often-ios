@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "smileyface@2x.png",
+      "filename" : "userprofileplaceholder_1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "smileyface@3x.png",
+      "filename" : "userprofileplaceholder_2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "smileyface@4x.png",
+      "filename" : "userprofileplaceholder_3x.png",
       "scale" : "3x"
     }
   ],

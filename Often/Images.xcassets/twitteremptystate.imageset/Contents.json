@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "twitter.png",
+      "filename" : "musicicon_1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "twitter@2x.png",
+      "filename" : "musicicon_2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "twitter@3x.png",
+      "filename" : "musicicon_3x.png",
       "scale" : "3x"
     }
   ],
