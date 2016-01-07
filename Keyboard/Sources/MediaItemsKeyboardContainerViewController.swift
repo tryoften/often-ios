@@ -1,5 +1,5 @@
 //
-//  MediaLinksKeyboardContainerViewController.swift
+//  MediaItemsKeyboardContainerViewController.swift
 //  Often
 //
 //  Created by Luc Succes on 12/7/15.
@@ -10,24 +10,24 @@ import Foundation
 import Fabric
 import Crashlytics
 
-enum MediaLinksKeyboardSection: Int {
+enum MediaItemsKeyboardSection: Int {
     case Favorites
     case Recents
     case Trending
     case Search
 }
 
-class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewController,
+class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewController,
     TextProcessingManagerDelegate,
     UIScrollViewDelegate,
     ToolTipViewControllerDelegate {
-    var mediaLink: MediaLink?
+    var mediaLink: MediaItem?
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
 
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
-    var sections: [(MediaLinksKeyboardSection, UIViewController)]
+    var sections: [(MediaItemsKeyboardSection, UIViewController)]
     var tooltipVC: ToolTipViewController?
 
     override init(extraHeight: CGFloat, debug: Bool) {
@@ -41,7 +41,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
-        dispatch_once(&MediaLinksKeyboardContainerViewController.oncePredicate) {
+        dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
             if !self.debugKeyboard {
                 Fabric.with([Crashlytics()])
                 Flurry.startSession(FlurryClientKey)
@@ -82,7 +82,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     func setupSections() {
         // Favorites
-        let mediaLinksViewModel = MediaLinksViewModel()
+        let mediaLinksViewModel = MediaItemsViewModel()
         let favoritesVC = KeyboardFavoritesAndRecentsViewController(viewModel: mediaLinksViewModel, collectionType: .Favorites)
         favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 0)
 
@@ -130,7 +130,7 @@ class MediaLinksKeyboardContainerViewController: BaseKeyboardContainerViewContro
         center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
         center.addObserver(self, selector: "hideKeyboard", name: CollapseKeyboardEvent, object: nil)
         center.addObserver(self, selector: "showKeyboard", name: RestoreKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "didTapOnMediaLink:", name: SearchResultsInsertLinkEvent, object: nil)
+        center.addObserver(self, selector: "didTapOnMediaItem:", name: SearchResultsInsertLinkEvent, object: nil)
         center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
 
         togglePanelButton.addTarget(self, action: "switchKeyboard", forControlEvents: .TouchUpInside)

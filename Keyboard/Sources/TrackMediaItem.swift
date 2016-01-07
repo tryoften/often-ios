@@ -1,5 +1,5 @@
 //
-//  TrackMediaLink.swift
+//  TrackMediaItem.swift
 //  Often
 //
 //  Created by Luc Succes on 10/1/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TrackMediaLink: MediaLink {
+class TrackMediaItem: MediaItem {
     var name: String = ""
     var albumName: String = ""
     var artistName: String = ""

@@ -298,7 +298,7 @@ extension KeyboardSearchTextField: UITextDocumentProxy {
     // MARK: UIKeyInput
     
     func hasText() -> Bool {
-        guard let text = text  else {
+        guard let text = text else {
             return true
         }
         
@@ -306,7 +306,7 @@ extension KeyboardSearchTextField: UITextDocumentProxy {
     }
     
     func insertText(character: String) {
-        if let text = text where character != "\n"  {
+        if let text = text where character != "\n" {
             self.text = text.stringByAppendingString(character)
 
             sendActionsForControlEvents(UIControlEvents.EditingChanged)

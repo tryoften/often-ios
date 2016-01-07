@@ -32,7 +32,7 @@ class KeyboardViewModel: NSObject {
         SEGAnalytics.sharedAnalytics().identify(userId)
     }
     
-    func logTextSendEvent(mediaLink: MediaLink) {
+    func logTextSendEvent(mediaLink: MediaItem) {
         guard let userId = sessionManagerFlags.userId else {
             print("User Id not found")
             return

@@ -21,7 +21,7 @@ class SearchViewModel: SearchBaseViewModel {
                 return
         }
         
-        var results = [MediaLink]()
+        var results = [MediaItem]()
         
         for resultData in resultsData {
             if let result = processSearchResultData(resultData) {
@@ -62,25 +62,25 @@ class SearchViewModel: SearchBaseViewModel {
 
     }
     
-    func processSearchResultData(resultData: [String: AnyObject]) -> MediaLink? {
+    func processSearchResultData(resultData: [String: AnyObject]) -> MediaItem? {
         guard let provider = resultData["_index"] as? String,
             let rawType = resultData["_type"] as? String,
             let _ = resultData["_id"] as? String,
             let _ = resultData["_score"] as? Double,
-            let _ = MediaLinkSource(rawValue: provider),
+            let _ = MediaItemSource(rawValue: provider),
             let type = MediaType(rawValue: rawType) else {
                 return nil
         }
         
-        var result: MediaLink? = nil
+        var result: MediaItem? = nil
         
         switch(type) {
         case .Article:
-            result = ArticleMediaLink(data: resultData)
+            result = ArticleMediaItem(data: resultData)
         case .Track:
-            result = TrackMediaLink(data: resultData)
+            result = TrackMediaItem(data: resultData)
         case .Video:
-            result = VideoMediaLink(data: resultData)
+            result = VideoMediaItem(data: resultData)
             break
         default:
             break
@@ -88,7 +88,7 @@ class SearchViewModel: SearchBaseViewModel {
         
         if let item = result {
             if let index = resultData["_index"] as? String,
-                let source = MediaLinkSource(rawValue: index) {
+                let source = MediaItemSource(rawValue: index) {
                     item.source = source
             } else {
                 item.source = .Unknown

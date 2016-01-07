@@ -9,11 +9,11 @@
 
 import UIKit
 
-class UserProfileViewController: MediaLinksAndFilterBarViewController, FavoritesAndRecentsTabDelegate {
+class UserProfileViewController: MediaItemsAndFilterBarViewController, FavoritesAndRecentsTabDelegate {
     var headerView: UserProfileHeaderView?
-    var sectionHeaderView: MediaLinksSectionHeaderView?
+    var sectionHeaderView: MediaItemsSectionHeaderView?
     
-    init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaLinksViewModel) {
+    init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaItemsViewModel) {
         super.init(collectionViewLayout: collectionViewLayout, collectionType: .Favorites, viewModel: viewModel)
 
         viewModel.delegate = self
@@ -103,7 +103,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
 
                 do {
                     try viewModel.fetchCollection(collectionType)
-                } catch MediaLinksViewModelError.FetchingCollectionDataFailed {
+                } catch MediaItemsViewModelError.FetchingCollectionDataFailed {
                     print("Failed to request data")
                 } catch let error {
                     print("Failed to request data \(error)")
@@ -115,8 +115,8 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
-            if let sectionView: MediaLinksSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView {
+            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                 sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType)
 
                 return sectionView
@@ -127,8 +127,8 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell: MediaLinkCollectionViewCell
-        cell = parseMediaLinkData(viewModel.filteredMediaLinksForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
+        var cell: MediaItemCollectionViewCell
+        cell = parseMediaItemData(viewModel.filteredMediaItemsForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
         cell.inMainApp = true
         
@@ -145,11 +145,11 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         return cell
     }
 
-    override func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaLinksViewModel, user: User) {
+    override func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
         reloadUserData()
     }
 
-    override func mediaLinksViewModelDidReceiveMediaLinks(mediaLinksViewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType, links: [MediaLink]) {
+    override func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
         reloadData()
         PKHUD.sharedHUD.hide(animated: true)
     }
@@ -251,7 +251,7 @@ class UserProfileViewController: MediaLinksAndFilterBarViewController, Favorites
         print("did tap")
     }
     
-    override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         super.mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: selected)
         
         if selected {

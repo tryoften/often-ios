@@ -1,5 +1,5 @@
 //
-//  MediaLinksAndFilterBarViewController.swift
+//  MediaItemsAndFilterBarViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 11/7/15.
@@ -17,15 +17,15 @@ public enum UserState {
     case NoResults
 }
 
-let MediaLinksSectionHeaderViewReuseIdentifier = "MediaLinksSectionHeader"
+let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 
-class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewController, MediaLinksViewModelDelegate {
-    var viewModel: MediaLinksViewModel
+class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
+    var viewModel: MediaItemsViewModel
     var emptyStateView: EmptyStateView?
     var loaderImageView: UIImageView
     var loadingTimer: NSTimer?
     var userState: UserState
-    var collectionType: MediaLinksCollectionType {
+    var collectionType: MediaItemsCollectionType {
         didSet {
             do {
                 try viewModel.fetchCollection(collectionType) { success in
@@ -38,7 +38,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     }
 
 
-    init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaLinksCollectionType, viewModel: MediaLinksViewModel) {
+    init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaItemsCollectionType, viewModel: MediaItemsViewModel) {
         self.viewModel = viewModel
         
         loaderImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
@@ -60,9 +60,9 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
-            collectionView.registerClass(MediaLinksSectionHeaderView.self,
+            collectionView.registerClass(MediaItemsSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
-                withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier)
+                withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
         }
     }
 
@@ -95,7 +95,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
             loaderImageView.hidden = true
             collectionView?.scrollEnabled = false
             if !(userState == .NoTwitter || userState == .NoKeyboard) {
-                let collection = viewModel.filteredMediaLinksForCollectionType(collectionType)
+                let collection = viewModel.filteredMediaItemsForCollectionType(collectionType)
 
                 if collection.isEmpty {
                     switch collectionType {
@@ -157,12 +157,12 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.filteredMediaLinksForCollectionType(collectionType).count
+        return viewModel.filteredMediaItemsForCollectionType(collectionType).count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell: MediaLinkCollectionViewCell
-        cell = parseMediaLinkData(viewModel.filteredMediaLinksForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
+        var cell: MediaItemCollectionViewCell
+        cell = parseMediaItemData(viewModel.filteredMediaItemsForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
         
         if let result = cell.mediaLink {
@@ -179,8 +179,8 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaLinkCollectionViewCell,
-            let cells = collectionView.visibleCells() as? [MediaLinkCollectionViewCell],
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
+            let cells = collectionView.visibleCells() as? [MediaItemCollectionViewCell],
             let result = cell.mediaLink else {
                 return
         }
@@ -203,8 +203,8 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
 
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
-            if let sectionView: MediaLinksSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                withReuseIdentifier: MediaLinksSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaLinksSectionHeaderView {
+            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                     sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType)
                     return sectionView
             }
@@ -217,18 +217,18 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
     
-    // MARK: MediaLinksViewModelDelegate
-    func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaLinksViewModel, user: User) {
+    // MARK: MediaItemsViewModelDelegate
+    func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
         reloadData()
     }
     
-    func mediaLinksViewModelDidReceiveMediaLinks(mediaLinksViewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType, links: [MediaLink]) {
+    func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
         reloadData()
         loaderImageView.hidden = true
     }
 
-    // MARK: MediaLinkCollectionViewCellDelegate
-    override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    // MARK: MediaItemCollectionViewCellDelegate
+    override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }

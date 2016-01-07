@@ -28,7 +28,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     }
 
 
-    var featuredArtists: [MediaLink] {
+    var featuredArtists: [MediaItem] {
         didSet(value) {
             updateFeaturedArtists(value)
         }
@@ -79,7 +79,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         featureItemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
 
-        featuredArtists = [MediaLink]()
+        featuredArtists = [MediaItem]()
 
         super.init(frame: frame)
 
@@ -258,7 +258,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     }
 
 
-    func updateFeaturedArtists(artists: [MediaLink]) {
+    func updateFeaturedArtists(artists: [MediaItem]) {
         if !artists.isEmpty {
             delegate?.browseHeaderDidLoadFeaturedArtists(self, artists: artists)
             setupPages()
@@ -268,6 +268,6 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
 }
 
 protocol BrowseHeaderViewDelegate: class {
-    func browseHeaderDidLoadFeaturedArtists(browseHeaderView: UICollectionReusableView, artists: [MediaLink])
-    func browseHeaderDidSelectFeaturedArtist(browseHeaderView: UICollectionReusableView, artist: MediaLink)
+    func browseHeaderDidLoadFeaturedArtists(browseHeaderView: UICollectionReusableView, artists: [MediaItem])
+    func browseHeaderDidSelectFeaturedArtist(browseHeaderView: UICollectionReusableView, artist: MediaItem)
 }

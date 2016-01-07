@@ -1,5 +1,5 @@
 //
-//  KeyboardMediaLinksAndFilterBarViewController.swift
+//  KeyboardMediaItemsAndFilterBarViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 11/6/15.
@@ -8,18 +8,18 @@
 
 import Foundation
 
-class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewController,
+class KeyboardMediaItemsAndFilterBarViewController: MediaItemsAndFilterBarViewController,
     FavoritesAndRecentsTabDelegate {
     var favoritesAndRecentsTabView: FavoritesAndRecentsTabView
     var searchResultsContainerView: UIView?
     var textProcessor: TextProcessingManager?
 
-    init(viewModel: MediaLinksViewModel) {
+    init(viewModel: MediaItemsViewModel) {
         favoritesAndRecentsTabView = FavoritesAndRecentsTabView()
         favoritesAndRecentsTabView.translatesAutoresizingMaskIntoConstraints = false
         favoritesAndRecentsTabView.userInteractionEnabled = true
 
-        super.init(collectionViewLayout: KeyboardMediaLinksAndFilterBarViewController.provideCollectionViewFlowLayout(), collectionType: .Favorites, viewModel: viewModel)
+        super.init(collectionViewLayout: KeyboardMediaItemsAndFilterBarViewController.provideCollectionViewFlowLayout(), collectionType: .Favorites, viewModel: viewModel)
         
         favoritesAndRecentsTabView.delegate = self
         emptyStateView?.userInteractionEnabled = true
@@ -57,8 +57,8 @@ class KeyboardMediaLinksAndFilterBarViewController: MediaLinksAndFilterBarViewCo
         ])
     }
     
-    // MediaLinkCollectionViewCellDelegate
-    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    // MediaItemCollectionViewCellDelegate
+    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }

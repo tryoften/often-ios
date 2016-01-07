@@ -1,5 +1,5 @@
 //
-//  MediaLinksCollectionBaseViewController.swift
+//  MediaItemsCollectionBaseViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 10/23/15.
@@ -10,9 +10,9 @@
 
 import UIKit
 
-let MediaLinkCollectionViewCellReuseIdentifier = "MediaLinksCollectionViewCell"
+let MediaItemCollectionViewCellReuseIdentifier = "MediaItemsCollectionViewCell"
 
-class MediaLinksCollectionBaseViewController: FullScreenCollectionViewController, MediaLinksCollectionViewCellDelegate {
+class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate {
     var cellsAnimated: [NSIndexPath: Bool]
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {
@@ -20,16 +20,16 @@ class MediaLinksCollectionBaseViewController: FullScreenCollectionViewController
 
         super.init(collectionViewLayout: layout)
         
-        collectionView?.registerClass(MediaLinkCollectionViewCell.self, forCellWithReuseIdentifier: MediaLinkCollectionViewCellReuseIdentifier)
+        collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func parseMediaLinkData(searchResultsData: [MediaLink]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaLinkCollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaLinkCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? MediaLinkCollectionViewCell else {
-            return MediaLinkCollectionViewCell()
+    func parseMediaItemData(searchResultsData: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaItemCollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
+            return MediaItemCollectionViewCell()
         }
 
         if indexPath.row >= searchResultsData?.count {
@@ -44,14 +44,14 @@ class MediaLinksCollectionBaseViewController: FullScreenCollectionViewController
         
         switch(result.type) {
         case .Article:
-            let article = (result as! ArticleMediaLink)
+            let article = (result as! ArticleMediaItem)
             cell.mainTextLabel.text = article.title
             cell.leftMetadataLabel.text = article.author
             cell.leftHeaderLabel.text = article.sourceName
             cell.rightMetadataLabel.text = article.date?.timeAgoSinceNow()
             cell.centerMetadataLabel.text = nil
         case .Track:
-            let track = (result as! TrackMediaLink)
+            let track = (result as! TrackMediaItem)
             cell.mainTextLabel.text = track.name
             cell.rightMetadataLabel.text = track.formattedCreatedDate
             
@@ -68,7 +68,7 @@ class MediaLinksCollectionBaseViewController: FullScreenCollectionViewController
                 break
             }
         case .Video:
-            let video = (result as! VideoMediaLink)
+            let video = (result as! VideoMediaItem)
             cell.mainTextLabel.text = video.title
             cell.leftHeaderLabel.text = video.owner
             
@@ -105,7 +105,7 @@ class MediaLinksCollectionBaseViewController: FullScreenCollectionViewController
         return cell
     }
     
-    func animateCell(cell:MediaLinkCollectionViewCell, indexPath:NSIndexPath) {
+    func animateCell(cell:MediaItemCollectionViewCell, indexPath:NSIndexPath) {
         
         if (cellsAnimated[indexPath] != true) {
             cell.alpha = 0.0
@@ -122,20 +122,20 @@ class MediaLinksCollectionBaseViewController: FullScreenCollectionViewController
         cellsAnimated[indexPath] = true
     }
     
-    // MediaLinkCollectionViewCellDelegate
-    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    // MediaItemCollectionViewCellDelegate
+    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         
     }
     
-    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         cell.overlayVisible = false
     }
     
-    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         
     }
     
-    func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaLinkCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }

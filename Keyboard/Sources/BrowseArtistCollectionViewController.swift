@@ -10,7 +10,7 @@ import UIKit
 
 private let artistAlbumCellReuseIdentifier = "albumCell"
 
-class BrowseArtistCollectionViewController: MediaLinksCollectionBaseViewController, KeyboardBrowseNavigationDelegate {
+class BrowseArtistCollectionViewController: MediaItemsCollectionBaseViewController, KeyboardBrowseNavigationDelegate {
     var navigationBar: KeyboardBrowseNavigationBar
     var navigationBarHideConstraint: NSLayoutConstraint?
     

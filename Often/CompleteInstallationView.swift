@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CompleteInstallationView : UIView {
+class CompleteInstallationView: UIView {
     var checkMarkView: UIImageView
     var titleLabel: UILabel
     var subtitleLabel: UILabel

@@ -41,7 +41,7 @@ class RootViewController: UITabBarController {
     func setupTabBarItems() {
         let userProfileVC = UserProfileViewController(
             collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(),
-            viewModel: MediaLinksViewModel())
+            viewModel: MediaItemsViewModel())
 
         let trendingVC = ContainerNavigationController(rootViewController:BrowseViewController(
                 collectionViewLayout: BrowseViewController.provideCollectionViewLayout(),
