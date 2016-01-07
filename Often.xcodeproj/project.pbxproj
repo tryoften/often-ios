@@ -42,7 +42,7 @@
 		3B6EA4301BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */; };
 		3B6EA4311BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */; };
 		3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
-		3B93ED081C226DE700555496 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED071C226DE700555496 /* BrowseViewController.swift */; };
+		3B93ED081C226DE700555496 /* MainAppBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED071C226DE700555496 /* MainAppBrowseViewController.swift */; };
 		3B93ED0A1C226DF700555496 /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED091C226DF700555496 /* BrowseHeaderView.swift */; };
 		3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
@@ -416,7 +416,7 @@
 		81DA3EEA1C24BE85006822D3 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337D1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift */; };
 		81DA3EEB1C24BE85006822D3 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323991C249A410084918B /* AppSettingsView.swift */; };
 		81DA3EEC1C24BE85006822D3 /* KeyboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588ED1B61676000F7C9F5 /* KeyboardPage.swift */; };
-		81DA3EED1C24BE85006822D3 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED071C226DE700555496 /* BrowseViewController.swift */; };
+		81DA3EED1C24BE85006822D3 /* MainAppBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED071C226DE700555496 /* MainAppBrowseViewController.swift */; };
 		81DA3EEE1C24BE85006822D3 /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
 		81DA3EEF1C24BE85006822D3 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */; };
 		81DA3EF01C24BE85006822D3 /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */; };
@@ -441,7 +441,7 @@
 		81DA3F041C24BE85006822D3 /* KeyboardKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179388F1B582B210064B0CF /* KeyboardKeyButton.swift */; };
 		81DA3F051C24BE85006822D3 /* AutocorrectSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E963A1BF28EC7009CCB55 /* AutocorrectSuggestionView.swift */; };
 		81DA3F061C24BE85006822D3 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
-		81DA3F071C24BE85006822D3 /* TrendingLyricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* TrendingLyricsViewController.swift */; };
+		81DA3F071C24BE85006822D3 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* BrowseViewController.swift */; };
 		81DA3F081C24BE85006822D3 /* SocialAccountSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */; };
 		81DA3F091C24BE85006822D3 /* MediaLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BECA1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift */; };
 		81DA3F0A1C24BE85006822D3 /* SoundcloudAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */; };
@@ -574,8 +574,8 @@
 		81F833571C163AE0001B8662 /* MediaLinksKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833551C163AE0001B8662 /* MediaLinksKeyboardContainerViewController.swift */; };
 		81F8335B1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8335A1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift */; };
 		81F8335C1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8335A1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift */; };
-		81F833621C179A5B001B8662 /* TrendingLyricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* TrendingLyricsViewController.swift */; };
-		81F833631C179A5B001B8662 /* TrendingLyricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* TrendingLyricsViewController.swift */; };
+		81F833621C179A5B001B8662 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* BrowseViewController.swift */; };
+		81F833631C179A5B001B8662 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* BrowseViewController.swift */; };
 		81F8337B1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337A1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift */; };
 		81F8337C1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337A1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift */; };
 		81F8337E1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337D1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift */; };
@@ -718,7 +718,7 @@
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
 		3B6EA42F1BDAC98E0011E172 /* MediaLinksCollectionBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaLinksCollectionBaseViewController.swift; path = ../Often/MediaLinksCollectionBaseViewController.swift; sourceTree = "<group>"; };
 		3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsViewModel.swift; sourceTree = "<group>"; };
-		3B93ED071C226DE700555496 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		3B93ED071C226DE700555496 /* MainAppBrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAppBrowseViewController.swift; sourceTree = "<group>"; };
 		3B93ED091C226DF700555496 /* BrowseHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderView.swift; sourceTree = "<group>"; };
 		3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountHeaderView.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
@@ -921,7 +921,7 @@
 		81F817C31C2A119500B1C1E6 /* KeyboardSearchBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardSearchBarController.swift; path = Sources/KeyboardSearchBarController.swift; sourceTree = "<group>"; };
 		81F833551C163AE0001B8662 /* MediaLinksKeyboardContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaLinksKeyboardContainerViewController.swift; path = Sources/MediaLinksKeyboardContainerViewController.swift; sourceTree = "<group>"; };
 		81F8335A1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseKeyboardContainerViewController.swift; path = Sources/BaseKeyboardContainerViewController.swift; sourceTree = "<group>"; };
-		81F833611C179A5B001B8662 /* TrendingLyricsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingLyricsViewController.swift; path = Sources/TrendingLyricsViewController.swift; sourceTree = "<group>"; };
+		81F833611C179A5B001B8662 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewController.swift; path = Sources/BrowseViewController.swift; sourceTree = "<group>"; };
 		81F8337A1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingLyricsHorizontalCollectionViewController.swift; path = Sources/TrendingLyricsHorizontalCollectionViewController.swift; sourceTree = "<group>"; };
 		81F8337D1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingArtistsHorizontalCollectionViewController.swift; path = Sources/TrendingArtistsHorizontalCollectionViewController.swift; sourceTree = "<group>"; };
 		81F833801C18BAA6001B8662 /* TrendingLyricsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingLyricsViewModel.swift; path = Sources/TrendingLyricsViewModel.swift; sourceTree = "<group>"; };
@@ -1390,7 +1390,7 @@
 				3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */,
 				695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */,
 				3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */,
-				3B93ED071C226DE700555496 /* BrowseViewController.swift */,
+				3B93ED071C226DE700555496 /* MainAppBrowseViewController.swift */,
 				695154991BF2C65700AAAFA4 /* SkipSignupViewController.swift */,
 				690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */,
 				69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */,
@@ -1664,7 +1664,7 @@
 			isa = PBXGroup;
 			children = (
 				81E26DA51B68901100FC1F2F /* TrendingViewController.swift */,
-				81F833611C179A5B001B8662 /* TrendingLyricsViewController.swift */,
+				81F833611C179A5B001B8662 /* BrowseViewController.swift */,
 				81F8337A1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift */,
 				81F8337D1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift */,
 				69F6EE801C2861DC0070CCA8 /* BrowseArtistCollectionViewController.swift */,
@@ -2330,7 +2330,7 @@
 				81F8337E1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
 				8133239A1C249A410084918B /* AppSettingsView.swift in Sources */,
 				816588EE1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
-				3B93ED081C226DE700555496 /* BrowseViewController.swift in Sources */,
+				3B93ED081C226DE700555496 /* MainAppBrowseViewController.swift in Sources */,
 				3B63ED6A1B6AD53E00E54AFA /* ShapeView.swift in Sources */,
 				3B5F255F1BF3386E00AA7A98 /* TermsOfUseViewController.swift in Sources */,
 				8176BEA01B72743000E1BDCD /* FuzzySearch.swift in Sources */,
@@ -2359,7 +2359,7 @@
 				812E963F1BF2A805009CCB55 /* AutocorrectSuggestionView.swift in Sources */,
 				81D09D8E1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */,
 				6944A53C1C3B08C300EA57C3 /* NoKeyboardEmptyStateView.swift in Sources */,
-				81F833621C179A5B001B8662 /* TrendingLyricsViewController.swift in Sources */,
+				81F833621C179A5B001B8662 /* BrowseViewController.swift in Sources */,
 				690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */,
 				8176BECB1B72DAA400E1BDCD /* MediaLinkCollectionViewCell.swift in Sources */,
 				3BCDA6D31B910C1F00840095 /* SoundcloudAccountManager.swift in Sources */,
@@ -2526,7 +2526,7 @@
 				69F6EE811C2861DC0070CCA8 /* BrowseArtistCollectionViewController.swift in Sources */,
 				817F784A1BBDD2FB0087EBE8 /* VideoMediaLink.swift in Sources */,
 				81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
-				81F833631C179A5B001B8662 /* TrendingLyricsViewController.swift in Sources */,
+				81F833631C179A5B001B8662 /* BrowseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2616,7 +2616,7 @@
 				81DA3EEA1C24BE85006822D3 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
 				81DA3EEB1C24BE85006822D3 /* AppSettingsView.swift in Sources */,
 				81DA3EEC1C24BE85006822D3 /* KeyboardPage.swift in Sources */,
-				81DA3EED1C24BE85006822D3 /* BrowseViewController.swift in Sources */,
+				81DA3EED1C24BE85006822D3 /* MainAppBrowseViewController.swift in Sources */,
 				81DA3EEE1C24BE85006822D3 /* ShapeView.swift in Sources */,
 				81DA3EEF1C24BE85006822D3 /* TermsOfUseViewController.swift in Sources */,
 				81DA3EF01C24BE85006822D3 /* FuzzySearch.swift in Sources */,
@@ -2643,7 +2643,7 @@
 				81DA3F051C24BE85006822D3 /* AutocorrectSuggestionView.swift in Sources */,
 				81DA3F061C24BE85006822D3 /* String+Utils.swift in Sources */,
 				6944A53D1C3B08C300EA57C3 /* NoKeyboardEmptyStateView.swift in Sources */,
-				81DA3F071C24BE85006822D3 /* TrendingLyricsViewController.swift in Sources */,
+				81DA3F071C24BE85006822D3 /* BrowseViewController.swift in Sources */,
 				81DA3F081C24BE85006822D3 /* SocialAccountSettingsCollectionViewCell.swift in Sources */,
 				81DA3F091C24BE85006822D3 /* MediaLinkCollectionViewCell.swift in Sources */,
 				81DA3F0A1C24BE85006822D3 /* SoundcloudAccountManager.swift in Sources */,

@@ -39,15 +39,6 @@ class RootViewController: UITabBarController {
     }
 
     func setupTabBarItems() {
-        let baseURL = Firebase(url: BaseURL)
-
-        let searchVC = SearchViewController(
-            viewModel: SearchViewModel(base: baseURL),
-            suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL),
-            textProcessor: nil,
-            SearchBarControllerClass: SearchBarController.self,
-            SearchBarClass: MainAppSearchBar.self)
-
         let userProfileVC = UserProfileViewController(
             collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(),
             viewModel: MediaLinksViewModel())
