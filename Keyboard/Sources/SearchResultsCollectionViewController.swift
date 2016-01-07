@@ -41,7 +41,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
     var refreshResultsButton: RefreshResultsButton
     var refreshResultsButtonTopConstraint: NSLayoutConstraint!
     var refreshTimer: NSTimer?
-    var emptyStateView: EmptySetView
+    var emptyStateView: EmptyStateView
     var messageBarView: MessageBarView
     var messageBarVisibleConstraint: NSLayoutConstraint?
     var isFullAccessEnabled: Bool
@@ -69,7 +69,7 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         
         isFullAccessEnabled = false
         
-        emptyStateView = EmptySetView()
+        emptyStateView = EmptyStateView()
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         emptyStateView.alpha = 0.0
         
@@ -77,9 +77,8 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         
         super.init(collectionViewLayout: layout)
         
-        emptyStateView.settingbutton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
-        emptyStateView.cancelButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
-        emptyStateView.twitterButton.addTarget(self, action: "didTapTwitterButton", forControlEvents: .TouchUpInside)
+        emptyStateView.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
+        emptyStateView.closeButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         emptyStateView.userInteractionEnabled = true
         
         view.layer.masksToBounds = true
@@ -128,6 +127,11 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         } else {
             showMessageBar()
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        emptyStateView.frame = view.bounds
     }
     
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
@@ -339,8 +343,15 @@ class SearchResultsCollectionViewController: MediaLinksCollectionBaseViewControl
         }
         
         if visible {
-            self.emptyStateView.updateEmptyStateContent(.NoResults)
-            self.emptyStateView.alpha = 1.0
+            emptyStateView.removeFromSuperview()
+            
+            if let newEmptyState = EmptyStateView.emptyStateViewForUserState(.NoResults) {
+                emptyStateView = newEmptyState
+            }
+            
+            view.addSubview(emptyStateView)
+            viewDidLayoutSubviews() 
+            emptyStateView.alpha = 1.0
         } else {
             self.emptyStateView.alpha = 0.0
         }

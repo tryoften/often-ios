@@ -22,8 +22,9 @@ let MediaLinksSectionHeaderViewReuseIdentifier = "MediaLinksSectionHeader"
 class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewController, MediaLinksViewModelDelegate {
     var viewModel: MediaLinksViewModel
     var emptyStateView: EmptyStateView?
-    var loaderImageView: UIImageView
+    var loaderView: AnimatedLoaderView
     var loadingTimer: NSTimer?
+    var loaderTimeoutTimer: NSTimer?
     var userState: UserState
     var collectionType: MediaLinksCollectionType {
         didSet {
@@ -41,10 +42,8 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaLinksCollectionType, viewModel: MediaLinksViewModel) {
         self.viewModel = viewModel
         
-        loaderImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
-        loaderImageView.contentMode = .Center
-        loaderImageView.contentScaleFactor = 2.5
-        loaderImageView.hidden = true
+        loaderView = AnimatedLoaderView()
+        loaderView.hidden = true
 
         collectionType = aCollectionType
 
@@ -56,7 +55,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
         
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
-        view.addSubview(loaderImageView)
+        view.addSubview(loaderView)
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
@@ -68,6 +67,20 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showLoader", userInfo: nil, repeats: false)
+        
+        do {
+            try viewModel.fetchCollection(collectionType) { success in
+                self.reloadData()
+            }
+        } catch let error {
+            print("Failed to request data \(error)")
+        }
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -87,13 +100,13 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         emptyStateView?.frame = view.bounds
-        loaderImageView.frame = view.bounds
+        loaderView.frame = view.bounds
     }
     
     func reloadData() {
         if viewModel.isDataLoaded {
-            loaderImageView.hidden = true
-            collectionView?.scrollEnabled = false
+            loaderView.hidden = true
+            collectionView?.scrollEnabled = true
             if !(userState == .NoTwitter || userState == .NoKeyboard) {
                 let collection = viewModel.filteredMediaLinksForCollectionType(collectionType)
 
@@ -114,8 +127,14 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     
     func showLoader() {
         if !viewModel.isDataLoaded {
-            //loaderImageView.hidden = false
+//            loaderView.hidden = false
+//            loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timeoutLoader", userInfo: nil, repeats: false)
+
         }
+    }
+    
+    func timeoutLoader() {
+        loaderView.hidden = true
     }
     
     func fadeInData() {
@@ -224,7 +243,7 @@ class MediaLinksAndFilterBarViewController: MediaLinksCollectionBaseViewControll
     
     func mediaLinksViewModelDidReceiveMediaLinks(mediaLinksViewModel: MediaLinksViewModel, collectionType: MediaLinksCollectionType, links: [MediaLink]) {
         reloadData()
-        loaderImageView.hidden = true
+        loaderView.hidden = true
     }
 
     // MARK: MediaLinkCollectionViewCellDelegate
