@@ -24,9 +24,8 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         return 44.0
     }
 
-    private var containerView: UIView
-    private(set) var tabBar: UITabBar
-    private(set) var selectedViewController: UIViewController? {
+    var tabBar: UITabBar
+    var selectedViewController: UIViewController? {
         didSet {
             if let selectedViewController = selectedViewController {
                 transitionToChildViewController(selectedViewController)
@@ -34,6 +33,7 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
     }
 
+    private var containerView: UIView
     private(set) var tabBarHidden: Bool
 
 
@@ -77,6 +77,10 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
                 tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
 
                 return tabBarItem
+            }
+
+            if let tabBarButtons = tabBar.items {
+                tabBar.selectedItem = tabBarButtons[0]
             }
 
             selectedViewController = viewControllers[0]

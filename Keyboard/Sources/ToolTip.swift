@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ToolTip: UIView, ToolTipViewControllerDelegate {
+class ToolTip: UIView {
     var imageView: UIImageView
     var textView: UILabel
     var currentPage: Int?
@@ -41,11 +41,7 @@ class ToolTip: UIView, ToolTipViewControllerDelegate {
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func delegateCurrentPage(currentPage: Int) {
-        self.currentPage = currentPage
-    }
-    
+
     func setupLayout() {
         let constraints: [NSLayoutConstraint] = [
             textView.al_centerX == al_centerX,
