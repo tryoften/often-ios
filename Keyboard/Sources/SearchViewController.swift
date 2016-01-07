@@ -58,6 +58,8 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             view.addSubview(searchSuggestionsViewController.view)
             view.addSubview(searchBarController.view)
 
+            view.hidden = true
+
             viewModel.delegate = self
             searchSuggestionsViewController.delegate = self
             searchBarController.searchBar.delegate = self
@@ -143,6 +145,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        view.hidden = false
         delegate?.searchViewControllerSearchBarDidTextDidBeginEditing(self, searchBar: searchBar)
         containerViewController?.hideTabBar(true, animations: nil)
         var searchBarFrame = self.searchBarController.view.frame
@@ -160,6 +163,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchSuggestionsViewController.showSearchSuggestionsView(true)
         containerViewController?.resetPosition()
+        view.hidden = true
         delegate?.searchViewControllerSearchBarDidTapCancel(self, searchBar: searchBar)
     }
 
