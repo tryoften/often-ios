@@ -19,6 +19,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     var searchBarHeight: CGFloat = KeyboardSearchBarHeight
     var searchSuggestionsViewController: SearchSuggestionsViewController
     var searchResultsViewController: SearchResultsCollectionViewController
+    var shouldLayoutSearchBar: Bool = true
     weak var searchResultsContainerView: UIView? {
         didSet {
             if let view = searchResultsContainerView {
@@ -76,7 +77,9 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        searchBarController.view.frame = CGRectMake(0, KeyboardSearchBarHeight, CGRectGetWidth(view.frame), KeyboardSearchBarHeight)
+        if shouldLayoutSearchBar {
+            searchBarController.view.frame = CGRectMake(0, KeyboardSearchBarHeight, CGRectGetWidth(view.frame), KeyboardSearchBarHeight)
+        }
         let containerFrame = CGRectMake(0, 0, CGRectGetWidth(view.frame), CGRectGetHeight(view.frame))
         searchResultsViewController.view.frame = containerFrame
         searchSuggestionsViewController.view.frame = containerFrame
@@ -147,10 +150,12 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         view.hidden = false
         delegate?.searchViewControllerSearchBarDidTextDidBeginEditing(self, searchBar: searchBar)
-        containerViewController?.hideTabBar(true, animations: nil)
-        var searchBarFrame = self.searchBarController.view.frame
-        searchBarFrame.origin.y = 0
-        searchBarController.view.frame = searchBarFrame
+        if let containerViewController = containerViewController {
+            containerViewController.hideTabBar(true, animations: nil)
+            var searchBarFrame = self.searchBarController.view.frame
+            searchBarFrame.origin.y = containerViewController.tabBarHeight
+            searchBarController.view.frame = searchBarFrame
+        }
         searchSuggestionsViewController.tableViewBottomInset = keyboardHeightForOrientation(interfaceOrientation)
         searchSuggestionsViewController.showSearchSuggestionsView(true)
     }

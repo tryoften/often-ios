@@ -85,7 +85,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         
         sourceLogoView = UIImageView()
         sourceLogoView.translatesAutoresizingMaskIntoConstraints = false
-        sourceLogoView.contentMode = .ScaleAspectFit
+        sourceLogoView.contentMode = .ScaleAspectFill
         sourceLogoView.layer.cornerRadius = 2.0
         sourceLogoView.clipsToBounds = true
         
@@ -101,7 +101,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
 
         mainTextLabel = UILabel()
         mainTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainTextLabel.font = UIFont(name: "OpenSans", size: 12.0)
+        mainTextLabel.font = UIFont(name: "OpenSans", size: 11.0)
         mainTextLabel.textColor = BlackColor.colorWithAlphaComponent(0.90)
         mainTextLabel.numberOfLines = 2
         
@@ -211,11 +211,11 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     
     func prepareOverlayView() {
         overlayView.middleLabel.text = "cancel".uppercaseString
+        overlayView.rightLabel.text = "share".uppercaseString
+        overlayView.leftLabel.text = "favorite".uppercaseString
         overlayView.cancelButton.hidden = false
         overlayView.doneButton.hidden = true
         overlayView.copyButton.selected = false
-        overlayView.rightLabel.text = "share".uppercaseString
-        overlayView.leftLabel.text = "favorite".uppercaseString
         showCopyButton()
     }
    
@@ -235,14 +235,12 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     func didTapInsertButton(button: SpringButton) {
         overlayView.insertButton.selected = !overlayView.insertButton.selected
         updatedButtonLabels(button)
-        
         delegate?.mediaLinkCollectionViewCellDidToggleInsertButton(self, selected: overlayView.insertButton.selected)
     }
     
     func didTapCopyButton(button: SpringButton) {
         overlayView.copyButton.selected = !overlayView.copyButton.selected
         updatedButtonLabels(button)
-        
         delegate?.mediaLinkCollectionViewCellDidToggleCopyButton(self, selected: overlayView.copyButton.selected)
     }
     

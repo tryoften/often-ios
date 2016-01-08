@@ -32,12 +32,9 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarVi
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        collectionView!.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: TrendingLyricsCellReuseIdentifier
-        )
+        collectionView!.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: TrendingLyricsCellReuseIdentifier)
         collectionView!.backgroundColor = UIColor.clearColor()
         collectionView!.showsHorizontalScrollIndicator = false
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,6 +83,9 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarVi
             return cell
         }
 
+        if let urlString = lyric.artist_image_url, let imageURL = NSURL(string: urlString) {
+            cell.sourceLogoView.setImageWithURL(imageURL)
+        }
         cell.leftHeaderLabel.text = lyric.artist_name
         cell.rightHeaderLabel.text = lyric.track_title
         cell.mainTextLabel.text = lyric.text
