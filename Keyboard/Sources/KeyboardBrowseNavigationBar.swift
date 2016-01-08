@@ -42,6 +42,7 @@ class KeyboardBrowseNavigationBar: UIView {
         thumbnailImageButton.layer.cornerRadius = 3.0
         thumbnailImageButton.contentMode = .ScaleAspectFill
         thumbnailImageButton.setImage(UIImage(named: "weeknd"), forState: .Normal)
+        thumbnailImageButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 15.0, 0.0, 0.0)
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -77,8 +78,8 @@ class KeyboardBrowseNavigationBar: UIView {
         thumbnailImageButton.addTarget(self, action: "backSelected", forControlEvents: .TouchUpInside)
         moreOptionsButton.addTarget(self, action: "showOptions", forControlEvents: .TouchUpInside)
         
-        addSubview(thumbnailImageButton)
         addSubview(backArrowView)
+        addSubview(thumbnailImageButton)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(rightDetailLabel)
@@ -114,14 +115,14 @@ class KeyboardBrowseNavigationBar: UIView {
         addConstraints([
             backArrowView.al_left == al_left + 12,
             backArrowView.al_centerY == al_centerY,
-            backArrowView.al_width == 29,
-            backArrowView.al_height == 14,
+            backArrowView.al_width == 9,
+            backArrowView.al_height == 12,
             
-            thumbnailImageButton.al_left == backArrowView.al_right - 5,
+            thumbnailImageButton.al_left == backArrowView.al_right - 3,
             thumbnailImageButton.al_centerY == al_centerY,
             thumbnailImageButton.al_top == al_top + 10,
             thumbnailImageButton.al_bottom == al_bottom - 10,
-            thumbnailImageButton.al_width == thumbnailImageButton.al_height,
+            thumbnailImageButton.al_width == thumbnailImageButton.al_height + 15,
             
             titleLabel.al_left == thumbnailImageButton.al_right + 12,
             titleLabel.al_bottom == thumbnailImageButton.al_centerY,

@@ -21,8 +21,22 @@ class TrackMediaItem: MediaItem {
         }
         return ""
     }
+    var artist_external_url: String?
+    var artist_genius_id: Int?
+    var artist_id: String?
+    var artist_image_url: String?
+    var artist_is_verified: String?
+    var artist_name: String?
+    var external_url: String?
+    var genius_id: Int?
+    var header_image_url: String?
+    var hot: String?
+    var lyrics_count: Int?
+    var song_art_image_url: String?
+    var time_modified: Int?
+    var title: String?
     
-    override init(data: [String: AnyObject]) {
+    required init(data: NSDictionary) {
         super.init(data: data)
         
         self.type = .Track
@@ -73,6 +87,20 @@ class TrackMediaItem: MediaItem {
             dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss ZZZZ"
             self.created = dateFormatter.dateFromString(created)
         }
+
+        artist_external_url = data["artist_external_url"] as? String
+        artist_genius_id = data["artist_genius_id"] as? Int
+        artist_id = data["artist_id"] as? String
+        artist_image_url = data["artist_image_url"] as? String
+        artist_is_verified = data["artist_is_verified"] as? String
+        artist_name = data["artist_name"] as? String
+        external_url = data["external_url"] as? String
+        genius_id = data["genius_id"] as? Int
+        header_image_url = data["header_image_url"] as? String
+        lyrics_count = data["lyrics_count"] as? Int
+        song_art_image_url = data["song_art_image_url"] as? String
+        time_modified = data["time_modified"] as? Int
+        title = data["title"] as? String
     }
     
     func formattedPlays() -> String {

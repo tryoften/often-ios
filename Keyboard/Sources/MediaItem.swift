@@ -5,98 +5,66 @@
 //  Created by Luc Succes on 8/19/15.
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
 //
+//  swiftlint:disable force_cast
 
 import Foundation
-
-enum MediaType: String {
-    case Article = "article"
-    case Album = "album"
-    case Track = "track"
-    case Artist = "artist"
-    case Video = "video"
-    case User = "user"
-    case Gif = "gif"
-    case Other = "other"
-    
-    var isVideo: Bool {
-        switch self {
-        case .Video:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    var isMusic: Bool {
-        switch self {
-        case .Album, .Track, .Artist:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    var isNews: Bool {
-        switch self {
-        case .Article:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    var isGif: Bool {
-        switch self {
-        case .Gif:
-            return true
-        default:
-            return false
-        }
-    }
-}
-
-
-enum MediaItemSource: String {
-    case Billboard = "billboard"
-    case Complex = "complex-music"
-    case Highsnobiety = "highsnobiety"
-    case EliteDaily = "elitedaily"
-    case Fader = "fader"
-    case FactMag = "factmag"
-    case FourPins = "fourpins"
-    case HotNewHipHop = "hnhh"
-    case Hypebeast = "hypebeast"
-    case MTV = "mtv-news"
-    case Paper = "paper"
-    case PigeonsAndPlanes = "pigeonsandplanes"
-    case Spotify = "spotify"
-    case SpinMusic = "spin-music"
-    case SpinNews = "spin-news"
-    case Soundcloud = "soundcloud"
-    case Youtube = "youtube"
-    case VibeNews = "vibe-news"
-    case VibeMusic = "vibe-music"
-    case Vice = "vice"
-    case XXLMag = "xxlmag"
-    case TMZ = "tmz"
-    case Unknown = "unknown"
-}
 
 class MediaItem: Equatable {
     var id: String = ""
     var type: MediaType = .Other
     var score: Double = 0.0
-    var sourceName: String = ""
     var source: MediaItemSource = .Unknown
+    var sourceName: String = ""
     var image: String?
-    var data: [String: AnyObject] = [:]
+    var data: NSDictionary = [:]
+
+    class func mediaItemFromType(data: NSDictionary) -> MediaItem? {
+        guard let typeString = data["type"] as? String,
+            let type = MediaType(rawValue: typeString),
+            let MediaItemClass = MediaItemTypes[type] else {
+                return nil
+        }
+
+        return MediaItemClass.init(data: data)
+    }
+
+    /**
+     Returns an array of models based on given dictionary.
+
+     Sample usage:
+     let groups = MediaItemGroup.modelsFromDictionaryArray(someDictionaryArrayFromJSON)
+
+     - parameter array:  NSArray from JSON dictionary.
+     - returns: Array of MediaItemGroup Instances.
+     */
+    class func modelsFromDictionaryArray(array: NSArray) -> [MediaItem] {
+        var models: [MediaItem] = []
+        for item in array {
+            if let item = item as? NSDictionary, let mediaItem = MediaItem.mediaItemFromType(item) {
+                models.append(mediaItem)
+            }
+        }
+        return models
+    }
+
     
-    
-    init (data: [String: AnyObject]) {
+    required init (data: NSDictionary) {
         self.data = data
         
         if let id = data["_id"] as? String {
             self.id = id
+        }
+
+        if let typeStr = data["type"] as? String, let type = MediaType(rawValue: typeStr) {
+            self.type = type
+        }
+
+        if let score = data["score"] as? Double {
+            self.score = score
+        }
+
+        if let sourceStr = data["source"] as? String, let source = MediaItemSource(rawValue: sourceStr) {
+            self.source = source
         }
     }
     
@@ -107,37 +75,9 @@ class MediaItem: Equatable {
     func getInsertableText() -> String {
         return ""
     }
-    
-    func getNameForSource() -> String {
-        switch source {
-            case .Billboard: return "Billboard"
-            case .Complex: return "Complex"
-            case .Highsnobiety: return "Highsnobiety"
-            case .EliteDaily: return "Elite Daily"
-            case .Fader: return "Fader"
-            case .FactMag: return "FactMag"
-            case .FourPins: return "Four Pins"
-            case .HotNewHipHop: return "Hot New HipHop"
-            case .Hypebeast: return "Hypebeast"
-            case .MTV: return "MTV"
-            case .Paper: return "Paper"
-            case .PigeonsAndPlanes: return "Pigeons And Planes"
-            case .Spotify: return "Spotify"
-            case .SpinMusic: return "Spin Music"
-            case .SpinNews: return "Spin News"
-            case .Soundcloud: return "Soundcloud"
-            case .Youtube: return "Youtube"
-            case .VibeNews: return "Vibe News"
-            case .VibeMusic: return "Vibe Music"
-            case .Vice: return "Vice"
-            case .XXLMag: return "XXL Mag"
-            case .TMZ: return "TMZ"
-            case .Unknown: return "Unknown"
-        }
-    }
-    
+
     func toDictionary() -> [String: AnyObject] {
-        var data : [String: AnyObject] = [
+        var data: [String: AnyObject] = [
             "_id": id,
             "id": id,
             "type": type.rawValue,
@@ -145,7 +85,7 @@ class MediaItem: Equatable {
         ]
         
         for (key, value) in self.data {
-            data[key] = value
+            data[key as! String] = value
         }
         
         return data

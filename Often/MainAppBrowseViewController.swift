@@ -93,18 +93,11 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
         }
 
         guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView,
-            let section = BrowseSection(rawValue: indexPath.section) else {
+            let group = viewModel.groupAtIndex(indexPath.section) else {
             return UICollectionReusableView()
         }
 
-        switch section {
-        case .TrendingLyrics:
-            cell.leftText = "Trending Lyrics"
-        case .TrendingArtists:
-            cell.leftText = "Top Artists"
-        case .TrendingSongs:
-            cell.leftText = "Top Songs"
-        }
+        cell.leftText = group.title
 
         return cell
 

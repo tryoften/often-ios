@@ -50,10 +50,10 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         ]
         
         pagesubTitle = [
-            "Search, share & favorite lyrics, \n in any app, right from your keyboard",
+            "Search, collect & share lyrics, \n in any app, right from your keyboard",
             "Save all the best lyrics to your Favorites & easily share them again later",
             "Discover the hottest lyrics, songs & artists right inside your keyboard",
-            "Powered by Genius, search helps you \n find & favorite all the best lyrics"
+            "Powered by Genius, search helps you \n find any lyric, song or artist"
         ]
         
         super.init(nibName: nil, bundle: nil)

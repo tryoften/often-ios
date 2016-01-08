@@ -82,7 +82,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         let screenWidth = UIScreen.mainScreen().bounds.width
         let screenHeight = UIScreen.mainScreen().bounds.height
         emptyStateView?.frame = CGRectMake(0, UserProfileHeaderView.preferredSize.height, screenWidth, screenHeight)
-        loaderImageView.frame = CGRectMake(0, UserProfileHeaderView.preferredSize.height, screenWidth, screenHeight)
+        loaderView.frame = CGRectMake(0, UserProfileHeaderView.preferredSize.height, screenWidth, screenHeight)
     }
 
     // MARK: UICollectionViewDataSource
@@ -200,7 +200,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         PKHUD.sharedHUD.show()
         
         if let user = viewModel.currentUser {
-            let twitterCheck = viewModel.baseRef.childByAppendingPath("users/\(user.id)/accounts")
+            let twitterCheck = Firebase(url: BaseURL).childByAppendingPath("users/\(user.id)/accounts")
             
             twitterCheck.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
