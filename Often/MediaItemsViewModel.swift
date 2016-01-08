@@ -19,7 +19,9 @@ class MediaItemsViewModel {
     var currentUser: User?
     var collections: [MediaItemsCollectionType: [MediaItem]]
     var isDataLoaded: Bool
-
+    var userState: UserState
+    var hasSeenTwitter: Bool
+    
     private var userId: String
     private var userRef: Firebase?
     private(set) var ids: [String]
@@ -43,7 +45,9 @@ class MediaItemsViewModel {
         filters = []
         isDataLoaded = false
         userId = ""
-
+        userState = .NonEmpty
+        hasSeenTwitter = false
+        
         do {
             try setupUser { inner in
                 do {

@@ -31,7 +31,7 @@ class KeyboardMediaItemsAndFilterBarViewController: MediaItemsAndFilterBarViewCo
 
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
         emptyStateView?.imageViewTopPadding = 0
-        updateEmptyStateContent(userState)
+        updateEmptyStateContent(viewModel.userState)
     }
 
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {

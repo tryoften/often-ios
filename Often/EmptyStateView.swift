@@ -15,6 +15,7 @@ class EmptyStateView: UIView {
     var primaryButton: UIButton
     var secondaryButton: UIButton?
     var closeButton: UIButton
+    var delegate: EmptyStateDelegate?
     var imageSize: EmptyStateImageSize {
         didSet {
             switch self.imageSize {
@@ -47,10 +48,10 @@ class EmptyStateView: UIView {
     
     static func emptyStateViewForUserState(state: UserState) -> EmptyStateView? {
         switch (state) {
-        case .NoTwitter:
-            return TwitterEmptyStateView()
         case .NoKeyboard:
             return NoKeyboardEmptyStateView()
+        case .NoTwitter:
+            return TwitterEmptyStateView()
         case .NoFavorites:
             return FavoritesEmptyStateView()
         case .NoRecents:
@@ -99,8 +100,7 @@ class EmptyStateView: UIView {
         closeButton.hidden = true
         
         super.init(frame: CGRectZero)
-        
-        userInteractionEnabled = false
+    
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
         closeButton.addTarget(self, action: "closeButtonTapped", forControlEvents: .TouchUpInside)
@@ -168,10 +168,7 @@ class EmptyStateView: UIView {
     }
     
     func closeButtonTapped() {
-        UIView.animateWithDuration(0.4, animations: {
-            self.alpha = 0
-            self.removeFromSuperview()
-        })
+        delegate?.closeButtonDidTap()
     }
     
     func setupLayout() {
@@ -206,5 +203,5 @@ class EmptyStateView: UIView {
 }
 
 protocol EmptyStateDelegate {
-    func updateEmptySetVisible(visible: Bool)
+    func closeButtonDidTap()
 }
