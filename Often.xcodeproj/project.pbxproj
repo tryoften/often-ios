@@ -144,6 +144,9 @@
 		698AD3411C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698AD33F1C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift */; };
 		698AD3421C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698AD33F1C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift */; };
 		698B87231B75401E001B5B86 /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */; };
+		699AF9B61C3EC389002869B3 /* AnimatedLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */; };
+		699AF9B71C3EC389002869B3 /* AnimatedLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */; };
+		699AF9B81C3EC389002869B3 /* AnimatedLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */; };
 		69A3FDC11C28CA23000C7519 /* BrowseLyricsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F6EE831C28C6C80070CCA8 /* BrowseLyricsCollectionViewController.swift */; };
 		69B2924E1BD7550800277EC2 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B2924D1BD7550800277EC2 /* SettingsViewModel.swift */; };
 		69BFB5091BC16F60001CC24D /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */; };
@@ -782,6 +785,7 @@
 		696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		698AD33F1C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardBrowseNavigationBar.swift; path = Sources/KeyboardBrowseNavigationBar.swift; sourceTree = "<group>"; };
 		698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
+		699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedLoaderView.swift; sourceTree = "<group>"; };
 		69B2924D1BD7550800277EC2 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		69C663211B8B6FA60014433D /* MediaItemsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsViewModel.swift; path = ../Often/MediaItemsViewModel.swift; sourceTree = "<group>"; };
 		69D51DBC1B3CDE0B00B2714D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1419,6 +1423,7 @@
 				3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */,
 				3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */,
 				69FE9E751C3E04C300DBC169 /* MessageWithButtonHeaderView.swift */,
+				699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */,
 				3BD971D51B9E642D007EAB5A /* SignupView.swift */,
 				3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */,
 				3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */,
@@ -2395,6 +2400,7 @@
 				817F784C1BC085440087EBE8 /* suffixNumber.swift in Sources */,
 				81B19EAB1B30AD9900D3575C /* User.swift in Sources */,
 				69428AE21BEEB30900282B8D /* MessageBarView.swift in Sources */,
+				699AF9B61C3EC389002869B3 /* AnimatedLoaderView.swift in Sources */,
 				69B2924E1BD7550800277EC2 /* SettingsViewModel.swift in Sources */,
 				3BDF98CB1BA2652F00F383D8 /* SigninViewController.swift in Sources */,
 				813323781C20A7190084918B /* MediaItemsViewModel+Favorites.swift in Sources */,
@@ -2479,6 +2485,7 @@
 				816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */,
 				81D09D8F1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */,
+				699AF9B81C3EC389002869B3 /* AnimatedLoaderView.swift in Sources */,
 				3BE0BCA41BEDB8BD00037E21 /* EmptySetView.swift in Sources */,
 				81153CBD1BBC7FC000A91EAD /* TogglePanelButton.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
@@ -2681,6 +2688,7 @@
 				81DA3F211C24BE85006822D3 /* suffixNumber.swift in Sources */,
 				81DA3F221C24BE85006822D3 /* User.swift in Sources */,
 				69FE9E7A1C3E099100DBC169 /* MessageWithButtonHeaderView.swift in Sources */,
+				699AF9B71C3EC389002869B3 /* AnimatedLoaderView.swift in Sources */,
 				6944A5341C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */,
 				81DA3F231C24BE85006822D3 /* MessageBarView.swift in Sources */,
 				81DA3F241C24BE85006822D3 /* SettingsViewModel.swift in Sources */,

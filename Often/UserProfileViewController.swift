@@ -82,7 +82,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         let screenWidth = UIScreen.mainScreen().bounds.width
         let screenHeight = UIScreen.mainScreen().bounds.height
         emptyStateView?.frame = CGRectMake(0, UserProfileHeaderView.preferredSize.height, screenWidth, screenHeight)
-        loaderImageView.frame = CGRectMake(0, UserProfileHeaderView.preferredSize.height, screenWidth, screenHeight)
+        loaderView.frame = CGRectMake(0, UserProfileHeaderView.preferredSize.height, screenWidth, screenHeight)
     }
 
     // MARK: UICollectionViewDataSource
