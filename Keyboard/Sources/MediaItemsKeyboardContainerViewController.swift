@@ -59,7 +59,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         containerView.addSubview(sectionsTabBarController.view)
         containerView.addSubview(togglePanelButton)
 
-//        showTooltipsIfNeeded()
+        showTooltipsIfNeeded()
     }
 
     required init?(coder aDecoder: NSCoder) {
