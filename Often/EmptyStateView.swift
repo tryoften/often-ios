@@ -15,6 +15,7 @@ class EmptyStateView: UIView {
     var primaryButton: UIButton
     var secondaryButton: UIButton?
     var closeButton: UIButton
+    var delegate: EmptyStateDelegate?
     var imageSize: EmptyStateImageSize {
         didSet {
             switch self.imageSize {
@@ -47,10 +48,10 @@ class EmptyStateView: UIView {
     
     static func emptyStateViewForUserState(state: UserState) -> EmptyStateView? {
         switch (state) {
-        case .NoTwitter:
-            return TwitterEmptyStateView()
         case .NoKeyboard:
             return NoKeyboardEmptyStateView()
+        case .NoTwitter:
+            return TwitterEmptyStateView()
         case .NoFavorites:
             return FavoritesEmptyStateView()
         case .NoRecents:
@@ -97,10 +98,10 @@ class EmptyStateView: UIView {
         closeButton.setImage(StyleKit.imageOfButtonclose(scale: 0.75), forState: .Normal)
         closeButton.alpha = 0.54
         closeButton.hidden = true
+        closeButton.userInteractionEnabled = false
         
         super.init(frame: CGRectZero)
-        
-        userInteractionEnabled = false
+    
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
         closeButton.addTarget(self, action: "closeButtonTapped", forControlEvents: .TouchUpInside)
@@ -152,8 +153,6 @@ class EmptyStateView: UIView {
         
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
-        closeButton.addTarget(self, action: "closeButtonTapped", forControlEvents: .TouchUpInside)
-        
         addSubview(titleLabel)
         addSubview(descriptionLabel)
         addSubview(imageView)
@@ -165,13 +164,6 @@ class EmptyStateView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func closeButtonTapped() {
-        UIView.animateWithDuration(0.4, animations: {
-            self.alpha = 0
-            self.removeFromSuperview()
-        })
     }
     
     func setupLayout() {
@@ -206,5 +198,5 @@ class EmptyStateView: UIView {
 }
 
 protocol EmptyStateDelegate {
-    func updateEmptySetVisible(visible: Bool)
+    
 }
