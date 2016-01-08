@@ -19,7 +19,7 @@ public enum UserState {
 
 let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 
-class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate, EmptyStateDelegate {
+class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: MediaItemsViewModel
     var emptyStateView: EmptyStateView?
     var loaderView: AnimatedLoaderView
@@ -43,7 +43,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         
         loaderView = AnimatedLoaderView()
         loaderView.hidden = true
-
+        
         collectionType = aCollectionType
         
         super.init(collectionViewLayout: collectionViewLayout)
@@ -160,7 +160,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         }
         
         emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
-        emptyStateView?.delegate = self
+        emptyStateView?.closeButton.addTarget(self, action: "closeButtonDidTap", forControlEvents: .TouchUpInside)
         
         if let emptyStateView = emptyStateView {
             view.addSubview(emptyStateView)
