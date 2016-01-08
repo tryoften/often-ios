@@ -11,6 +11,11 @@ import UIKit
 private let TrendingArtistsCellReuseIdentifier = "Cell"
 
 class TrendingArtistsHorizontalCollectionViewController: UICollectionViewController {
+    var group: MediaItemGroup? {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
 
     init() {
         super.init(collectionViewLayout: TrendingArtistsHorizontalCollectionViewController.provideLayout())
@@ -68,7 +73,9 @@ class TrendingArtistsHorizontalCollectionViewController: UICollectionViewControl
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
+        if let group = group {
+            return group.items.count
+        }
         return 5
     }
 
@@ -76,11 +83,20 @@ class TrendingArtistsHorizontalCollectionViewController: UICollectionViewControl
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TrendingArtistsCellReuseIdentifier, forIndexPath: indexPath) as? ArtistCollectionViewCell else {
             return UICollectionViewCell()
         }
+
+
+        guard let artist = group?.items[indexPath.row] as? ArtistMediaItem else {
+            return cell
+        }
     
         // Configure the cell
-        cell.titleLabel.text = "Post Malone"
-        cell.songCount = 12
-        cell.imageView.image = UIImage(named: "postmalone")
+        cell.titleLabel.text = artist.name
+        cell.songCount = artist.lyricsCount ?? 0
+        if let image = artist.image, let imageURL = NSURL(string: image) {
+            cell.imageView.setImageWithURL(imageURL)
+        } else {
+            cell.imageView.image = UIImage(named: "postmalone")
+        }
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
 

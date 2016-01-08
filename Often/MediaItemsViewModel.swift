@@ -12,13 +12,11 @@ enum MediaItemsViewModelError: ErrorType {
 
 /// fetches favorites and recent links for current user and keeps them up to date
 /// also has methods to add/remove favorites
-class MediaItemsViewModel {
+class MediaItemsViewModel: BaseViewModel {
     weak var delegate: MediaItemsViewModelDelegate?
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    let baseRef: Firebase
     var currentUser: User?
     var collections: [MediaItemsCollectionType: [MediaItem]]
-    var isDataLoaded: Bool
     var userState: UserState
     var hasSeenTwitter: Bool
     
@@ -36,17 +34,18 @@ class MediaItemsViewModel {
         }
     }
 
-    init(ref: Firebase = Firebase(url: BaseURL)) {
-        baseRef = ref
+    init(baseRef: Firebase = Firebase(url: BaseURL)) {
         ids = []
         filteredCollections = [:]
         collectionEndpoints = [:]
         collections = [:]
         filters = []
-        isDataLoaded = false
+
         userId = ""
         userState = .NonEmpty
         hasSeenTwitter = false
+
+        super.init(baseRef: baseRef, path: nil)
         
         do {
             try setupUser { inner in
@@ -80,7 +79,7 @@ class MediaItemsViewModel {
 
         self.userId = userId
 
-        userRef = baseRef.childByAppendingPath("users/\(userId)")
+        userRef = ref.childByAppendingPath("users/\(userId)")
         userRef?.keepSynced(true)
 
         for type in MediaItemsCollectionType.allValues {
