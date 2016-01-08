@@ -21,7 +21,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     var pageImages: [UIImage]
     var pagesubTitle: [String]
     var timer: NSTimer?
-    var splashScreenTimer: NSTimer?
+    var launchScreenLoaderTimer: NSTimer?
     
     var currentPage: Int {
         return Int(floor((signupView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
@@ -64,7 +64,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         setupLayout()
         
         timer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
-        splashScreenTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
+        launchScreenLoaderTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
     }
 
     func scrollToNextPage() {
@@ -82,7 +82,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         loadVisiblePages()
         
         if viewModel.sessionManager.sessionManagerFlags.isUserLoggedIn {
-            signupView.splashScreen.hidden = false
+            signupView.launchScreenLoader.hidden = false
         } 
     }
     
@@ -191,7 +191,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     }
     
     func signupViewModelDidLoginUser(userProfileViewModel: SignupViewModel, user: User?, isNewUser: Bool) {
-        splashScreenTimer?.invalidate()
+        launchScreenLoaderTimer?.invalidate()
         var mainController: UIViewController
         
             if viewModel.sessionManager.sessionManagerFlags.userIsAnonymous {
@@ -205,13 +205,13 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     }
     
     func userDataTimeOut() {
-        splashScreenTimer?.invalidate()
-        signupView.splashScreen.hidden = true
+        launchScreenLoaderTimer?.invalidate()
+        signupView.launchScreenLoader.hidden = true
         viewModel.delegate = nil
     }
     
     func signupViewModelNoUserFound(userProfileViewModel: SignupViewModel) {
-        splashScreenTimer?.invalidate()
-        signupView.splashScreen.hidden = true
+        launchScreenLoaderTimer?.invalidate()
+        signupView.launchScreenLoader.hidden = true
     }
 }

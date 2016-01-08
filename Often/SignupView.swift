@@ -17,7 +17,7 @@ class SignupView: UIView {
     let createAccountButton: UIButton
     let skipButton: UIButton
     var buttonDivider: UIView
-    var splashScreen: UIImageView
+    var launchScreenLoader: UIImageView
     let signinButton: UIButton
     
     override init(frame: CGRect) {
@@ -102,9 +102,9 @@ class SignupView: UIView {
             splashImage = UIImage(named: "LaunchImage-800-Portrait-736h@3x")!
         }
         
-        splashScreen = UIImageView(image: splashImage)
-        splashScreen.contentMode = .ScaleAspectFit
-        splashScreen.translatesAutoresizingMaskIntoConstraints = false
+        launchScreenLoader = UIImageView(image: splashImage)
+        launchScreenLoader.contentMode = .ScaleAspectFit
+        launchScreenLoader.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(frame: frame)
         
@@ -118,7 +118,7 @@ class SignupView: UIView {
         addSubview(buttonDivider)
         addSubview(skipButton)
         addSubview(signinButton)
-        addSubview(splashScreen)
+        addSubview(launchScreenLoader)
         
         setupLayout()
     }
@@ -170,12 +170,12 @@ class SignupView: UIView {
             buttonDivider.al_height == 30,
             buttonDivider.al_width == 1.0,
             
-            splashScreen.al_bottom == al_bottom,
-            splashScreen.al_top == al_top,
-            splashScreen.al_left == al_left,
-            splashScreen.al_right == al_right,
-            splashScreen.al_centerX == al_centerX,
-            splashScreen.al_centerY == al_centerY,
+            launchScreenLoader.al_bottom == al_bottom,
+            launchScreenLoader.al_top == al_top,
+            launchScreenLoader.al_left == al_left,
+            launchScreenLoader.al_right == al_right,
+            launchScreenLoader.al_centerX == al_centerX,
+            launchScreenLoader.al_centerY == al_centerY,
         ]
         
         if Diagnostics.platformString().number == 5 {

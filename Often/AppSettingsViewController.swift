@@ -303,7 +303,7 @@ class AppSettingsViewController: UIViewController,
             viewModel.sessionManager.logout()
             let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
             let vc = SignupViewController(viewModel: signupViewModel)
-            vc.signupView.splashScreen.hidden = true
+            vc.signupView.launchScreenLoader.hidden = true
             presentViewController(vc, animated: true, completion: nil)
         default:
             break
