@@ -13,13 +13,12 @@ private let BrowseHeadercellReuseIdentifier = "browseHeaderCell"
 /**
     This view controller displays a search bar along with trending navigatable items (lyrics, songs, artists)
 */
-class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelegate, SearchViewControllerDelegate {
+class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegate, SearchViewControllerDelegate {
     var headerView: BrowseHeaderView?
-    var searchViewController: SearchViewController!
     var searchBar: MainAppSearchBar!
 
-    override init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel) {
-      super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel)
+    override init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel, textProcessor: TextProcessingManager?) {
+      super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel, textProcessor: textProcessor)
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = true
@@ -41,7 +40,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         navigationController?.navigationBar.translucent = false
     }
 
-    func setupSearchBar() {
+    override func setupSearchBar() {
         let baseURL = Firebase(url: BaseURL)
 
         searchViewController = SearchViewController(
@@ -50,14 +49,14 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
             textProcessor: nil,
             SearchBarControllerClass: SearchBarController.self,
             SearchBarClass: MainAppSearchBar.self)
-        searchViewController.delegate = self
-        searchViewController.view.hidden = true
-        searchViewController.searchSuggestionsViewController.contentInset = mainAppSearchSuggestionsViewControllerContentInsets
-        searchViewController.searchResultsViewController.contentInset = mainAppSearchResultsCollectionViewControllerContentInsets
 
-        guard let searchBar = searchViewController.searchBarController.searchBar as? MainAppSearchBar else {
+        guard let searchViewController = searchViewController, searchBar = searchViewController.searchBarController.searchBar as? MainAppSearchBar else {
             return
         }
+
+        searchViewController.delegate = self
+        searchViewController.searchSuggestionsViewController.contentInset = mainAppSearchSuggestionsViewControllerContentInsets
+        searchViewController.searchResultsViewController.contentInset = mainAppSearchResultsCollectionViewControllerContentInsets
 
         self.searchBar = searchBar
 
@@ -110,18 +109,11 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         }
 
         guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView,
-            let section = TrendingLyricsSection(rawValue: indexPath.section) else {
+            let group = viewModel.groupAtIndex(indexPath.section) else {
             return UICollectionReusableView()
         }
 
-        switch section {
-        case .TrendingLyrics:
-            cell.leftText = "Trending Lyrics"
-        case .TrendingArtists:
-            cell.leftText = "Top Artists"
-        case .TrendingSongs:
-            cell.leftText = "Top Songs"
-        }
+        cell.leftText = group.title
 
         return cell
 
@@ -139,7 +131,6 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         searchBar.setShowsCancelButton(true, animated: true)
 
         navigationController?.hidesBarsOnSwipe = false
-        searchViewController.view.hidden = false
 
         if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
             if cancelButton.currentTitle == "done".uppercaseString {
@@ -156,8 +147,7 @@ class BrowseViewController: TrendingLyricsViewController, BrowseHeaderViewDelega
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
 
-        searchViewController.view.hidden = true
-        searchViewController.searchBarController.searchBar.reset()
+        searchViewController?.searchBarController.searchBar.reset()
     }
 
     func searchViewControllerDidReceiveResponse(viewController: SearchViewController) {

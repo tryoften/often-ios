@@ -150,7 +150,6 @@ class EmptyStateView: UIView {
         
         super.init(frame: frame)
         
-        userInteractionEnabled = false
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
         closeButton.addTarget(self, action: "closeButtonTapped", forControlEvents: .TouchUpInside)

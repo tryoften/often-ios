@@ -1,5 +1,5 @@
 //
-//  LyricsTrendingViewController.swift
+//  BrowseViewController.swift
 //  Often
 //
 //  Created by Luc Succes on 12/8/15.
@@ -9,35 +9,60 @@
 
 import UIKit
 
-enum TrendingLyricsSection: Int {
-    case TrendingLyrics = 0
-    case TrendingArtists = 1
-    case TrendingSongs = 2
-}
 
 let cellReuseIdentifier = "cell"
 let songCellReuseIdentifier = "songCell"
 
-class TrendingLyricsViewController: FullScreenCollectionViewController, UICollectionViewDelegateFlowLayout,
-    MediaItemGroupViewModelDelegate {
-
+class BrowseViewController: FullScreenCollectionViewController,
+    UICollectionViewDelegateFlowLayout,
+    MediaItemGroupViewModelDelegate,
+    TextProcessingManagerDelegate {
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
     var viewModel: TrendingLyricsViewModel
+    var searchViewController: SearchViewController?
+    var textProcessor: TextProcessingManager?
 
 
-    init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel) {
+    init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel, textProcessor: TextProcessingManager?) {
         self.viewModel = viewModel
 
         super.init(collectionViewLayout: collectionViewLayout)
         viewModel.delegate = self
+        self.textProcessor = textProcessor
+        self.textProcessor?.delegate = self
 
         collectionView?.backgroundColor = VeryLightGray
-        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
         collectionView?.registerClass(SongCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
         collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = false
+
+        setupSearchBar()
+    }
+
+    func setupSearchBar() {
+        let baseURL = Firebase(url: BaseURL)
+        searchViewController = SearchViewController(
+            viewModel: SearchViewModel(base: baseURL),
+            suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL),
+            textProcessor: self.textProcessor!,
+            SearchBarControllerClass: KeyboardSearchBarController.self,
+            SearchBarClass: KeyboardSearchBar.self)
+
+        guard let searchViewController = searchViewController else {
+            return
+        }
+
+        if let keyboardSearchBarController = searchViewController.searchBarController as? KeyboardSearchBarController {
+            keyboardSearchBarController.textProcessor = textProcessor!
+        }
+
+        addChildViewController(searchViewController)
+        view.addSubview(searchViewController.view)
+        view.addSubview(searchViewController.searchBarController.view)
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -110,17 +135,15 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        guard let section = TrendingLyricsSection(rawValue: section) else {
+        guard let group = viewModel.groupAtIndex(section) else {
             return UIEdgeInsetsZero
         }
 
-        switch section {
-        case .TrendingLyrics:
-            return UIEdgeInsetsZero
-        case .TrendingArtists:
-            return UIEdgeInsetsZero
-        case .TrendingSongs:
+        switch group.type {
+        case .Track:
             return UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10)
+        default:
+            return UIEdgeInsetsZero
         }
     }
 
@@ -194,5 +217,22 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         collectionView?.reloadData()
+    }
+
+    // MARK: TextProcessingManagerDelegate
+    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
+    }
+
+    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
+    }
+
+    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
+        return nil
+    }
+
+    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
+    }
+
+    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
     }
 }

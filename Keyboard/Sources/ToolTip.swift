@@ -26,7 +26,7 @@ class ToolTip: UIView {
         textView.numberOfLines = 2
         textView.backgroundColor = UIColor.clearColor()
         textView.textColor = WhiteColor
-        textView.font = UIFont(name: "OpenSans", size: 14.0)
+        textView.font = UIFont(name: "OpenSans", size: 12.0)
         
         super.init(frame: frame)
         
