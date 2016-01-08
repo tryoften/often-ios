@@ -18,7 +18,8 @@ enum TrendingLyricsSection: Int {
 let cellReuseIdentifier = "cell"
 let songCellReuseIdentifier = "songCell"
 
-class TrendingLyricsViewController: FullScreenCollectionViewController, UICollectionViewDelegateFlowLayout {
+class TrendingLyricsViewController: FullScreenCollectionViewController, UICollectionViewDelegateFlowLayout,
+    MediaItemGroupViewModelDelegate {
 
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
@@ -27,18 +28,27 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
 
     init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel) {
         self.viewModel = viewModel
+
         super.init(collectionViewLayout: collectionViewLayout)
+        viewModel.delegate = self
 
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
+        collectionView?.registerClass(SongCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
         collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = false
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        do {
+            try viewModel.fetchData()
+        } catch _ {}
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -51,40 +61,30 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
     }
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 3
+        return viewModel.groups.count
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let section = TrendingLyricsSection(rawValue: section) else {
-            return 0
+        guard let group = viewModel.groupAtIndex(section) else {
+            return 1
         }
 
-        switch section {
-        case .TrendingLyrics:
+        switch group.type {
+        case .Track:
+            return group.items.count
+        default:
             return 1
-        case .TrendingArtists:
-            return 1
-        case .TrendingSongs:
-            return 5
         }
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView, let section = TrendingLyricsSection(rawValue: indexPath.section) else {
+        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView,
+            let group = viewModel.groupAtIndex(indexPath.row) else {
             return UICollectionReusableView()
         }
 
-        switch section {
-        case .TrendingLyrics:
-            cell.topSeperator.hidden = true
-            cell.leftText = "Trending Lyrics"
-        case .TrendingArtists:
-            cell.topSeperator.hidden = false
-            cell.leftText = "Top Artists"
-        case .TrendingSongs:
-            cell.topSeperator.hidden = false
-            cell.leftText = "Top Songs"
-        }
+        cell.topSeperator.hidden = indexPath.section != 0
+        cell.leftText = group.title
 
         return cell
     }
@@ -93,17 +93,19 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let baseSize = CGSizeMake(screenWidth, 115)
 
-        guard let section = TrendingLyricsSection(rawValue: indexPath.section) else {
+        guard let group = viewModel.groupAtIndex(indexPath.section) else {
             return baseSize
         }
 
-        switch section {
-        case .TrendingLyrics:
+        switch group.type {
+        case .Lyric:
             return CGSizeMake(screenWidth, 125)
-        case .TrendingArtists:
+        case .Artist:
             return CGSizeMake(screenWidth, 230)
-        case .TrendingSongs:
-            return CGSizeMake(screenWidth - 20, 115)
+        case .Track:
+            return CGSizeMake(screenWidth - 20, 74)
+        default:
+            return baseSize
         }
     }
 
@@ -128,42 +130,48 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let section = TrendingLyricsSection(rawValue: indexPath.section) else {
+        guard let group = viewModel.groupAtIndex(indexPath.section) else {
             return UICollectionViewCell()
         }
 
-        switch section {
-        case .TrendingLyrics:
+        switch group.type {
+        case .Lyric:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
             let lyricsHorizontalVC = provideTrendingLyricsHorizontalCollectionViewController()
+            lyricsHorizontalVC.group = group
 
             cell.backgroundColor = UIColor.clearColor()
             cell.contentView.addSubview(lyricsHorizontalVC.view)
             lyricsHorizontalVC.view.frame = cell.bounds
 
             return cell
-        case .TrendingArtists:
+        case .Artist:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
             let artistsHorizontalVC = provideTrendingArtistsHorizontalCollectionViewController()
+            artistsHorizontalVC.group = group
 
             cell.contentView.addSubview(artistsHorizontalVC.view)
             artistsHorizontalVC.view.frame = cell.bounds
 
             self.artistsHorizontalVC = artistsHorizontalVC
             return cell
-        case .TrendingSongs:
-            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
-                return UICollectionViewCell()
+        case .Track:
+            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? SongCollectionViewCell, let track = group.items[indexPath.row] as?TrackMediaItem else {
+                return SongCollectionViewCell()
             }
-            cell.reset()
-            cell.sourceLogoView.image = UIImage(named: "genius")
-            cell.mainTextLabel.text = "3500"
-            cell.leftHeaderLabel.text = "Travis Scott ft 2 Chainz & Future"
-            cell.leftMetadataLabel.text = "Single"
+
+            if let imageURLStr = track.song_art_image_url, let imageURL = NSURL(string: imageURLStr) {
+                cell.albumCoverThumbnail.setImageWithURL(imageURL)
+            }
+            cell.albumTitleLabel.text = track.albumName
+            cell.artistLabel.text = track.artist_name
+            cell.albumTitleLabel.text = track.title
             cell.layer.shouldRasterize = true
             cell.layer.rasterizationScale = UIScreen.mainScreen().scale
             
             return cell
+        default:
+            return UICollectionViewCell()
         }
     }
 
@@ -182,5 +190,9 @@ class TrendingLyricsViewController: FullScreenCollectionViewController, UICollec
         }
         
         return artistsHorizontalVC!
+    }
+
+    func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        collectionView?.reloadData()
     }
 }

@@ -17,7 +17,7 @@ class ArticleMediaItem: MediaItem {
     var summary: String?
     var categories: [String]?
 
-    override init(data: [String: AnyObject]) {
+    required init(data: NSDictionary) {
         self.title = data["title"] as? String ?? ""
         self.link = data["link"] as? String ?? ""
 

@@ -11,6 +11,12 @@ import UIKit
 private let TrendingLyricsCellReuseIdentifier = "Cell"
 
 class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarViewController {
+    var group: MediaItemGroup? {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
+
     init() {
         super.init(collectionViewLayout: TrendingLyricsHorizontalCollectionViewController.provideLayout(), collectionType: .Trending, viewModel: MediaItemsViewModel())
     }
@@ -58,7 +64,9 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarVi
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
+        if let group = group {
+            return group.items.count
+        }
         return 5
     }
 
@@ -73,15 +81,19 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarVi
         }
 
         cell.reset()
-        cell.leftHeaderLabel.text = "Post Malone"
-        cell.rightHeaderLabel.text = "White Iverson"
-        cell.mainTextLabel.text = "Saucin', saucin', on you,\nI'm swaggin', swaggin', swaggin' oh ohh"
+
+        guard let lyric = group?.items[indexPath.row] as? LyricMediaItem else {
+            return cell
+        }
+
+        cell.leftHeaderLabel.text = lyric.artist_name
+        cell.rightHeaderLabel.text = lyric.track_title
+        cell.mainTextLabel.text = lyric.text
         cell.mainTextLabel.textAlignment = .Center
-        cell.sourceLogoView.image = UIImage(named: "genius")
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.layer.shouldRasterize = true
         cell.showImageView = false
-        cell.mediaLink = MediaItem(data: ["id": "id"])
+        cell.mediaLink = lyric
     
         return cell
     }

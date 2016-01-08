@@ -200,7 +200,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         PKHUD.sharedHUD.show()
         
         if let user = viewModel.currentUser {
-            let twitterCheck = viewModel.baseRef.childByAppendingPath("users/\(user.id)/accounts")
+            let twitterCheck = Firebase(url: BaseURL).childByAppendingPath("users/\(user.id)/accounts")
             
             twitterCheck.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
