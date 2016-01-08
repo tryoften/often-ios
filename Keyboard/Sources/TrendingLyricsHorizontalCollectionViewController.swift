@@ -14,6 +14,9 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarVi
     var group: MediaItemGroup? {
         didSet {
             collectionView?.reloadData()
+            if group != nil {
+                viewModel.isDataLoaded = true
+            }
         }
     }
 
