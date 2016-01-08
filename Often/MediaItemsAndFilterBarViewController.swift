@@ -124,8 +124,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     
     func showLoader() {
         if !viewModel.isDataLoaded {
-            loaderView.hidden = false
-            loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timeoutLoader", userInfo: nil, repeats: false)
+            
         }
     }
     
