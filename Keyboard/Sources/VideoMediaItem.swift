@@ -17,7 +17,7 @@ class VideoMediaItem: MediaItem {
     var viewCount: Int?
     var likeCount: Int?
     
-    override init(data: [String: AnyObject]) {
+    required init(data: NSDictionary) {
         if let link = data["link"] as? String {
             self.link = link
         }

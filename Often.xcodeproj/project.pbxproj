@@ -324,6 +324,27 @@
 		81B92D5A1BD6CE5000FFAC92 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; };
 		81B92D5E1BD6D77C00FFAC92 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; };
 		81BD904F1BD58834002F7D32 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD904E1BD58834002F7D32 /* RootViewController.swift */; };
+		81BDA7161C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7151C3F00DD00198AF8 /* MediaItemGroupViewModel.swift */; };
+		81BDA7171C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7151C3F00DD00198AF8 /* MediaItemGroupViewModel.swift */; };
+		81BDA7181C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7151C3F00DD00198AF8 /* MediaItemGroupViewModel.swift */; };
+		81BDA71A1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7191C3F011F00198AF8 /* MediaItemGroup.swift */; };
+		81BDA71B1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7191C3F011F00198AF8 /* MediaItemGroup.swift */; };
+		81BDA71C1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7191C3F011F00198AF8 /* MediaItemGroup.swift */; };
+		81BDA71E1C3F096300198AF8 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA71D1C3F096300198AF8 /* BaseViewModel.swift */; };
+		81BDA71F1C3F096300198AF8 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA71D1C3F096300198AF8 /* BaseViewModel.swift */; };
+		81BDA7201C3F096300198AF8 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA71D1C3F096300198AF8 /* BaseViewModel.swift */; };
+		81BDA7221C3F152E00198AF8 /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7211C3F152E00198AF8 /* MediaType.swift */; };
+		81BDA7231C3F152E00198AF8 /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7211C3F152E00198AF8 /* MediaType.swift */; };
+		81BDA7241C3F152E00198AF8 /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7211C3F152E00198AF8 /* MediaType.swift */; };
+		81BDA7261C3F154300198AF8 /* MediaItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7251C3F154300198AF8 /* MediaItemSource.swift */; };
+		81BDA7271C3F154300198AF8 /* MediaItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7251C3F154300198AF8 /* MediaItemSource.swift */; };
+		81BDA7281C3F154300198AF8 /* MediaItemSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7251C3F154300198AF8 /* MediaItemSource.swift */; };
+		81BDA72A1C3F249D00198AF8 /* ArtistMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7291C3F249D00198AF8 /* ArtistMediaItem.swift */; };
+		81BDA72B1C3F249D00198AF8 /* ArtistMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7291C3F249D00198AF8 /* ArtistMediaItem.swift */; };
+		81BDA72C1C3F249D00198AF8 /* ArtistMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7291C3F249D00198AF8 /* ArtistMediaItem.swift */; };
+		81BDA72E1C3F24BE00198AF8 /* LyricMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA72D1C3F24BE00198AF8 /* LyricMediaItem.swift */; };
+		81BDA72F1C3F24BE00198AF8 /* LyricMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA72D1C3F24BE00198AF8 /* LyricMediaItem.swift */; };
+		81BDA7301C3F24BE00198AF8 /* LyricMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA72D1C3F24BE00198AF8 /* LyricMediaItem.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		81D09D881BE17AC500AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
 		81D09D8C1BE17ACA00AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
@@ -893,6 +914,13 @@
 		81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceProviderSuggestionTableViewCell.swift; path = Sources/ServiceProviderSuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestion.swift; path = Sources/SearchSuggestion.swift; sourceTree = "<group>"; };
 		81BD904E1BD58834002F7D32 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		81BDA7151C3F00DD00198AF8 /* MediaItemGroupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaItemGroupViewModel.swift; sourceTree = "<group>"; };
+		81BDA7191C3F011F00198AF8 /* MediaItemGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemGroup.swift; path = Core/MediaItemGroup.swift; sourceTree = "<group>"; };
+		81BDA71D1C3F096300198AF8 /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		81BDA7211C3F152E00198AF8 /* MediaType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaType.swift; path = Core/MediaType.swift; sourceTree = "<group>"; };
+		81BDA7251C3F154300198AF8 /* MediaItemSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemSource.swift; path = Core/MediaItemSource.swift; sourceTree = "<group>"; };
+		81BDA7291C3F249D00198AF8 /* ArtistMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistMediaItem.swift; path = Core/ArtistMediaItem.swift; sourceTree = SOURCE_ROOT; };
+		81BDA72D1C3F24BE00198AF8 /* LyricMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricMediaItem.swift; path = Core/LyricMediaItem.swift; sourceTree = SOURCE_ROOT; };
 		81D09D871BE17AC500AFBEC0 /* big.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = big.txt; sourceTree = "<group>"; };
 		81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		81D09D911BE2C72900AFBEC0 /* small.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = small.txt; sourceTree = "<group>"; };
@@ -910,7 +938,7 @@
 		81D60AC21B84BD4200347BCA /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewModel.swift; path = Sources/SearchViewModel.swift; sourceTree = "<group>"; };
 		81D60ACC1B84BF2500347BCA /* SearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchRequest.swift; path = Sources/SearchRequest.swift; sourceTree = "<group>"; };
 		81D60ACF1B84BF3200347BCA /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResponse.swift; path = Sources/SearchResponse.swift; sourceTree = "<group>"; };
-		81D60AD21B854D8500347BCA /* MediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItem.swift; path = Sources/MediaItem.swift; sourceTree = "<group>"; };
+		81D60AD21B854D8500347BCA /* MediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItem.swift; path = Keyboard/Sources/MediaItem.swift; sourceTree = "<group>"; };
 		81DA3F791C24BE85006822D3 /* Often (Keyboard Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Often (Keyboard Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81DA3F7A1C24BE85006822D3 /* Often copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Often copy-Info.plist"; path = "/Users/luc/Projects/often-ios/Often copy-Info.plist"; sourceTree = "<absolute>"; };
 		81DC114A1AF05CF400412BD2 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftyJSON; sourceTree = "<group>"; };
@@ -1191,8 +1219,13 @@
 		81331DFF1A17DF66003E4609 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				817F78441BBDD28A0087EBE8 /* Media Item Types */,
+				81D60AD21B854D8500347BCA /* MediaItem.swift */,
 				81B19EAA1B30AD9900D3575C /* User.swift */,
 				3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */,
+				81BDA7191C3F011F00198AF8 /* MediaItemGroup.swift */,
+				81BDA7211C3F152E00198AF8 /* MediaType.swift */,
+				81BDA7251C3F154300198AF8 /* MediaItemSource.swift */,
 			);
 			name = Models;
 			path = ..;
@@ -1262,6 +1295,8 @@
 			children = (
 				69C663211B8B6FA60014433D /* MediaItemsViewModel.swift */,
 				813323771C20A7190084918B /* MediaItemsViewModel+Favorites.swift */,
+				81BDA7151C3F00DD00198AF8 /* MediaItemGroupViewModel.swift */,
+				81BDA71D1C3F096300198AF8 /* BaseViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -1458,24 +1493,25 @@
 		8179387C1B5582520064B0CF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				817F78441BBDD28A0087EBE8 /* Result Types */,
 				81E26D841B65B17A00FC1F2F /* Direction.swift */,
 				81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */,
 				81D60ACC1B84BF2500347BCA /* SearchRequest.swift */,
 				81D60ACF1B84BF3200347BCA /* SearchResponse.swift */,
-				81D60AD21B854D8500347BCA /* MediaItem.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
 		};
-		817F78441BBDD28A0087EBE8 /* Result Types */ = {
+		817F78441BBDD28A0087EBE8 /* Media Item Types */ = {
 			isa = PBXGroup;
 			children = (
-				817F78381BBDD2780087EBE8 /* TrackMediaItem.swift */,
+				81BDA7291C3F249D00198AF8 /* ArtistMediaItem.swift */,
 				817F78451BBDD2A20087EBE8 /* ArticleMediaItem.swift */,
+				817F78381BBDD2780087EBE8 /* TrackMediaItem.swift */,
 				817F78481BBDD2FB0087EBE8 /* VideoMediaItem.swift */,
+				81BDA72D1C3F24BE00198AF8 /* LyricMediaItem.swift */,
 			);
-			name = "Result Types";
+			name = "Media Item Types";
+			path = Keyboard;
 			sourceTree = "<group>";
 		};
 		8180E5FF1A142157007FA1CF = {
@@ -2269,6 +2305,7 @@
 				81F833851C18E904001B8662 /* ArtistCollectionViewCell.swift in Sources */,
 				8176BEED1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				811961881BEAE9330014B25B /* TermDictionary.swift in Sources */,
+				81BDA72E1C3F24BE00198AF8 /* LyricMediaItem.swift in Sources */,
 				6951549A1BF2C65700AAAFA4 /* SkipSignupViewController.swift in Sources */,
 				81F833901C1A38B2001B8662 /* KeyboardViewController.swift in Sources */,
 				813323731C1FCB990084918B /* KeyboardMediaItemsAndFilterBarViewController.swift in Sources */,
@@ -2300,11 +2337,13 @@
 				698B87231B75401E001B5B86 /* UserProfileHeaderView.swift in Sources */,
 				81D4BF371B39D25C006430AB /* FrameView.swift in Sources */,
 				8179387E1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
+				81BDA7261C3F154300198AF8 /* MediaItemSource.swift in Sources */,
 				81F8335B1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift in Sources */,
 				81331E2D1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				813323911C226BB50084918B /* FullScreenCollectionViewController.swift in Sources */,
 				3B6EA4301BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift in Sources */,
 				3BEB408E1BC8561500D36C4D /* HUDProgressView.swift in Sources */,
+				81BDA72A1C3F249D00198AF8 /* ArtistMediaItem.swift in Sources */,
 				8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				813324271C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m in Sources */,
 				3B1A54581C2B59F800309BDD /* ContainerNavigationController.swift in Sources */,
@@ -2335,6 +2374,7 @@
 				3B5F256B1BF4342E00AA7A98 /* AccountManager.swift in Sources */,
 				81F833811C18BAA6001B8662 /* TrendingLyricsViewModel.swift in Sources */,
 				3BE12EF21BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift in Sources */,
+				81BDA7221C3F152E00198AF8 /* MediaType.swift in Sources */,
 				3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */,
 				69F3BC1B1BE9079300080628 /* ToolTipLoadingView.swift in Sources */,
 				81E26DA61B68901100FC1F2F /* TrendingViewController.swift in Sources */,
@@ -2355,6 +2395,7 @@
 				81153C781BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
 				69138B4F1C25DBD100F33F76 /* SongCollectionViewCell.swift in Sources */,
 				3BD971DF1B9F911E007EAB5A /* SigninView.swift in Sources */,
+				81BDA71A1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
 				3BD971D61B9E642D007EAB5A /* SignupView.swift in Sources */,
 				81153CB11BBB267000A91EAD /* SessionManager.swift in Sources */,
 				30A402041BC46D6F00BF0C0E /* SocialAccountsService.swift in Sources */,
@@ -2413,12 +2454,14 @@
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
 				69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */,
+				81BDA71E1C3F096300198AF8 /* BaseViewModel.swift in Sources */,
 				3BD971E11B9FD374007EAB5A /* SignupViewController.swift in Sources */,
 				690805D31C3A1916001589A5 /* EmptyStateView.swift in Sources */,
 				81E26D881B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
 				3B93ED0A1C226DF700555496 /* BrowseHeaderView.swift in Sources */,
 				8185A0D81BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift in Sources */,
 				690003A61BD5954600C0DA9E /* SettingsWebViewController.swift in Sources */,
+				81BDA7161C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */,
 				3BEB40BB1BD03A8C00D36C4D /* CompleteInstallationView.swift in Sources */,
 				8133237F1C2216BB0084918B /* EventEmittable.swift in Sources */,
 				3BEE471B1BE17D5D002E4394 /* FilterButton.swift in Sources */,
@@ -2476,7 +2519,9 @@
 				69FE9E7B1C3E099200DBC169 /* MessageWithButtonHeaderView.swift in Sources */,
 				81E26DA71B68901100FC1F2F /* TrendingViewController.swift in Sources */,
 				8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
+				81BDA7301C3F24BE00198AF8 /* LyricMediaItem.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
+				81BDA7281C3F154300198AF8 /* MediaItemSource.swift in Sources */,
 				81F833861C18E904001B8662 /* ArtistCollectionViewCell.swift in Sources */,
 				69F3BC181BE8FB7100080628 /* ToolTipLoadingView.swift in Sources */,
 				8133236E1C1FB0500084918B /* SearchViewController.swift in Sources */,
@@ -2498,12 +2543,16 @@
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
 				8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
 				81F833571C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift in Sources */,
+				81BDA7181C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */,
 				81F8337C1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
 				8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
+				81BDA7201C3F096300198AF8 /* BaseViewModel.swift in Sources */,
 				81D60ACE1B84BF2500347BCA /* SearchRequest.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81D0CDC41BD542C20009859D /* SearchBaseViewModel.swift in Sources */,
+				81BDA7241C3F152E00198AF8 /* MediaType.swift in Sources */,
 				81F8335C1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift in Sources */,
+				81BDA71C1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
 				3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
 				3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */,
 				6944A5431C3B0A9F00EA57C3 /* FavoritesEmptyStateView.swift in Sources */,
@@ -2512,6 +2561,7 @@
 				81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* KeyboardSearchTextField.swift in Sources */,
 				81F8337F1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
+				81BDA72C1C3F249D00198AF8 /* ArtistMediaItem.swift in Sources */,
 				81E881761BE7DDD600523ECC /* StreamReader.swift in Sources */,
 				6944A53E1C3B08C300EA57C3 /* NoKeyboardEmptyStateView.swift in Sources */,
 				3BE0BC9C1BED51EB00037E21 /* FavoritesAndRecentsTabView.swift in Sources */,
@@ -2557,6 +2607,7 @@
 				81DA3EA41C24BE85006822D3 /* RefreshResultsButton.swift in Sources */,
 				81DA3EA51C24BE85006822D3 /* ArtistCollectionViewCell.swift in Sources */,
 				81DA3EA61C24BE85006822D3 /* BackspaceShape.swift in Sources */,
+				81BDA72F1C3F24BE00198AF8 /* LyricMediaItem.swift in Sources */,
 				81DA3EA71C24BE85006822D3 /* TermDictionary.swift in Sources */,
 				81DA3EA91C24BE85006822D3 /* SkipSignupViewController.swift in Sources */,
 				81DA3EAA1C24BE85006822D3 /* KeyboardViewController.swift in Sources */,
@@ -2588,11 +2639,13 @@
 				81DA3EC31C24BE85006822D3 /* Direction.swift in Sources */,
 				81DA3EC41C24BE85006822D3 /* KeyboardViewModel.swift in Sources */,
 				81DA3EC51C24BE85006822D3 /* UserProfileHeaderView.swift in Sources */,
+				81BDA7271C3F154300198AF8 /* MediaItemSource.swift in Sources */,
 				81DA3EC61C24BE85006822D3 /* FrameView.swift in Sources */,
 				81DA3EC71C24BE85006822D3 /* KeyboardKey.swift in Sources */,
 				81DA3EC81C24BE85006822D3 /* BaseKeyboardContainerViewController.swift in Sources */,
 				81DA3EC91C24BE85006822D3 /* SwiftAutoLayout.swift in Sources */,
 				81DA3ECA1C24BE85006822D3 /* FullScreenCollectionViewController.swift in Sources */,
+				81BDA72B1C3F249D00198AF8 /* ArtistMediaItem.swift in Sources */,
 				81DA3ECB1C24BE85006822D3 /* MediaItemsCollectionBaseViewController.swift in Sources */,
 				81DA3ECC1C24BE85006822D3 /* HUDProgressView.swift in Sources */,
 				81DA3ECD1C24BE85006822D3 /* SearchResultsCollectionViewController.swift in Sources */,
@@ -2623,6 +2676,7 @@
 				81F817C51C2A119500B1C1E6 /* KeyboardSearchBarController.swift in Sources */,
 				81DA3EE31C24BE85006822D3 /* AccountManager.swift in Sources */,
 				81DA3EE41C24BE85006822D3 /* TrendingLyricsViewModel.swift in Sources */,
+				81BDA7231C3F152E00198AF8 /* MediaType.swift in Sources */,
 				81DA3EE51C24BE85006822D3 /* MediaItemsAndFilterBarViewController.swift in Sources */,
 				81DA3EE61C24BE85006822D3 /* SocialAccountHeaderView.swift in Sources */,
 				81DA3EE71C24BE85006822D3 /* ToolTipLoadingView.swift in Sources */,
@@ -2643,6 +2697,7 @@
 				81DA3EF71C24BE85006822D3 /* AutocorrectSuggestionsViewController.swift in Sources */,
 				81DA3EF81C24BE85006822D3 /* SearchResultsViewModel.swift in Sources */,
 				81DA3EF91C24BE85006822D3 /* SigninView.swift in Sources */,
+				81BDA71B1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
 				81DA3EFA1C24BE85006822D3 /* SignupView.swift in Sources */,
 				81DA3EFC1C24BE85006822D3 /* SessionManager.swift in Sources */,
 				81DA3EFD1C24BE85006822D3 /* SocialAccountsService.swift in Sources */,
@@ -2701,12 +2756,14 @@
 				81DA3F2B1C24BE85006822D3 /* CreateAccountView.swift in Sources */,
 				81DA3F2C1C24BE85006822D3 /* PKHUDAssets.swift in Sources */,
 				81DA3F2D1C24BE85006822D3 /* Window.swift in Sources */,
+				81BDA71F1C3F096300198AF8 /* BaseViewModel.swift in Sources */,
 				81DA3F2E1C24BE85006822D3 /* AppSettingsViewController.swift in Sources */,
 				81DA3F2F1C24BE85006822D3 /* SignupViewController.swift in Sources */,
 				81DA3F301C24BE85006822D3 /* KeyboardKeyBackground.swift in Sources */,
 				81DA3F311C24BE85006822D3 /* BrowseHeaderView.swift in Sources */,
 				81DA3F321C24BE85006822D3 /* UserProfileSettingsSectionHeaderView.swift in Sources */,
 				81DA3F331C24BE85006822D3 /* SettingsWebViewController.swift in Sources */,
+				81BDA7171C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */,
 				81DA3F341C24BE85006822D3 /* CompleteInstallationView.swift in Sources */,
 				81DA3F351C24BE85006822D3 /* EventEmittable.swift in Sources */,
 				81DA3F361C24BE85006822D3 /* FilterButton.swift in Sources */,

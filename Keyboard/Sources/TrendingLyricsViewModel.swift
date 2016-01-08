@@ -8,6 +8,8 @@
 
 import Foundation
 
-class TrendingLyricsViewModel {
-    
+class TrendingLyricsViewModel: MediaItemGroupViewModel {
+    init() {
+        super.init(baseRef: Firebase(url: BaseURL), path: "trending")
+    }
 }
