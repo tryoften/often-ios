@@ -13,10 +13,10 @@ private let TrendingLyricsCellReuseIdentifier = "Cell"
 class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarViewController {
     var group: MediaItemGroup? {
         didSet {
-            collectionView?.reloadData()
             if group != nil {
                 viewModel.isDataLoaded = true
             }
+            collectionView?.reloadData()
         }
     }
 
