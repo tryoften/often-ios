@@ -112,7 +112,7 @@ class KeyboardSearchTextField: UIControl {
         label.sizeToFit()
 
         let containerWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
-        let labelWidth = (CGRectGetWidth(label.frame) + CGRectGetWidth(searchIcon.frame) + 40)
+        let labelWidth = (CGRectGetWidth(label.frame) + CGRectGetWidth(searchIcon.frame) + 5)
 
         return (containerWidth / 2) - labelWidth / 2
     }

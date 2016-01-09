@@ -16,13 +16,14 @@ let songCellReuseIdentifier = "songCell"
 class BrowseViewController: FullScreenCollectionViewController,
     UICollectionViewDelegateFlowLayout,
     MediaItemGroupViewModelDelegate,
-    TextProcessingManagerDelegate {
+    TextProcessingManagerDelegate,
+    CellAnimatable {
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
     var viewModel: TrendingLyricsViewModel
     var searchViewController: SearchViewController?
     var textProcessor: TextProcessingManager?
-
+    var cellsAnimated: [NSIndexPath: Bool] = [:]
 
     init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel, textProcessor: TextProcessingManager?) {
         self.viewModel = viewModel
@@ -108,7 +109,7 @@ class BrowseViewController: FullScreenCollectionViewController,
             return UICollectionReusableView()
         }
 
-        cell.topSeperator.hidden = indexPath.section != 0
+        cell.topSeperator.hidden = indexPath.section == 0
         cell.leftText = group.title
 
         return cell
@@ -191,6 +192,11 @@ class BrowseViewController: FullScreenCollectionViewController,
             cell.albumTitleLabel.text = track.title
             cell.layer.shouldRasterize = true
             cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+
+            if cellsAnimated[indexPath] != true {
+                animateCell(cell, indexPath: indexPath)
+                cellsAnimated[indexPath] = true
+            }
             
             return cell
         default:
@@ -217,6 +223,44 @@ class BrowseViewController: FullScreenCollectionViewController,
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         collectionView?.reloadData()
+    }
+
+    override func showNavigationBar(animated: Bool) {
+        if shouldSendScrollEvents {
+            setNavigationBarOriginY(0, animated: true)
+        }
+    }
+
+    override func hideNavigationBar(animated: Bool) {
+        if shouldSendScrollEvents {
+            var top = -2 * CGRectGetHeight(tabBarFrame)
+            if searchViewController?.searchBarController.searchBar.selected == true {
+                top = -CGRectGetHeight(tabBarFrame)
+            }
+
+            setNavigationBarOriginY(top, animated: true)
+        }
+    }
+
+
+    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
+        guard let containerViewController = containerViewController,
+            let searchBarController = searchViewController?.searchBarController else {
+                return
+        }
+        searchViewController?.shouldLayoutSearchBar = false
+
+        var frame = tabBarFrame
+        var searchBarFrame = searchBarController.view.frame
+        let tabBarHeight = CGRectGetHeight(frame)
+
+        searchBarFrame.origin.y = fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight)
+        frame.origin.y = fmax(fmin(y, 0), -2 * tabBarHeight)
+
+        UIView.animateWithDuration(animated ? 0.1 : 0) {
+            searchBarController.view.frame = searchBarFrame
+            containerViewController.tabBar.frame = frame
+        }
     }
 
     // MARK: TextProcessingManagerDelegate

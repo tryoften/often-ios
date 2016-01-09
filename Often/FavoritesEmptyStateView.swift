@@ -31,7 +31,7 @@ class FavoritesEmptyStateView: EmptyStateView {
     }
     
     func addAdditionalLayouts() {
-        imageViewTopConstraint?.constant = imageViewTopPadding + 35
-        layoutSubviews()
+        imageViewTopConstraint?.constant = -(imageViewTopPadding + 35)
+        layoutIfNeeded()
     }
 }

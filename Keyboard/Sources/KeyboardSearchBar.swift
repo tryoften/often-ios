@@ -14,6 +14,7 @@ class KeyboardSearchBar: UIView, SearchBar {
     weak var delegate: UISearchBarDelegate?
     
     private var dummySearchBar: UISearchBar
+    private var searchBarPositioned: Bool
     var topSeperator: UIView
     var bottomSeperator: UIView
     var textInput: KeyboardSearchTextField
@@ -47,6 +48,7 @@ class KeyboardSearchBar: UIView, SearchBar {
 
     override required init(frame: CGRect) {
         dummySearchBar = UISearchBar()
+        searchBarPositioned = false
 
         textInput = KeyboardSearchTextField(frame: CGRectZero)
         
@@ -60,6 +62,8 @@ class KeyboardSearchBar: UIView, SearchBar {
         cancelButton.setTitle("CANCEL", forState: .Normal)
         cancelButton.setTitle("DONE", forState: .Selected)
         cancelButton.setTitleColor(BlackColor, forState: .Normal)
+        cancelButton.setTitleColor(LightGrey, forState: .Highlighted)
+        cancelButton.setTitleColor(LightGrey, forState: [.Highlighted, .Selected])
         cancelButton.titleLabel?.font = UIFont(name: "Montserrat", size: 11)
         cancelButton.titleLabel?.textAlignment = .Center
 
@@ -98,11 +102,15 @@ class KeyboardSearchBar: UIView, SearchBar {
         bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
         
         toggleCancelButton(true)
-        repositionSearchTextField()
+
+        if !searchBarPositioned {
+            repositionSearchTextField()
+            searchBarPositioned = true
+        }
     }
 
     func textFieldEditingDidBegin(sender: KeyboardSearchTextField) {
-        UIView.animateWithDuration(0.3) {
+        UIView.animateWithDuration(0.2) {
             self.repositionCancelButton()
             self.repositionSearchTextField()
         }
@@ -157,7 +165,8 @@ class KeyboardSearchBar: UIView, SearchBar {
 
     private func repositionCancelButton() {
         let cancelButtonLeftPadding = shouldShowCancelButton() ? self.cancelButtonLeftPadding : CGRectGetWidth(frame)
-        cancelButton.frame = CGRectMake(cancelButtonLeftPadding, 0, 60, CGRectGetHeight(frame))
+        let cancelButtonWidthPadding = CGFloat(shouldShowCancelButton() ? 60.0 : 0.0)
+        cancelButton.frame = CGRectMake(cancelButtonLeftPadding, 0, cancelButtonWidthPadding, CGRectGetHeight(frame))
     }
 
     func toggleCancelButton(animated: Bool = false) {

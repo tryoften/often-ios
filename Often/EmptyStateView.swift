@@ -45,7 +45,7 @@ class EmptyStateView: UIView {
     var imageViewBottomInsetConstraint: NSLayoutConstraint?
     
     var imageViewTopConstraint: NSLayoutConstraint?
-    var imageViewTopPadding: CGFloat = 30
+    var imageViewTopPadding: CGFloat = 0
     
     enum EmptyStateImageSize {
         case Small
@@ -154,12 +154,11 @@ class EmptyStateView: UIView {
             imageView.al_right == imageViewContainerView.al_right - imageEdgeInsets.right,
             imageView.al_bottom == imageViewContainerView.al_bottom - imageEdgeInsets.bottom
         ])
-        
         layoutSubviews()
     }
     
     func setupLayout() {
-        imageViewTopConstraint = imageViewContainerView.al_top == al_top + 50
+        imageViewTopConstraint = imageView.al_centerY == al_centerY - 50
 
         addConstraints([
             imageViewContainerView.al_centerX == al_centerX,
