@@ -59,7 +59,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         containerView.addSubview(sectionsTabBarController.view)
         containerView.addSubview(togglePanelButton)
 
-//        showTooltipsIfNeeded()
+        showTooltipsIfNeeded()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -147,9 +147,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips = true
 
         UIView.animateWithDuration(0.3) {
+            self.sectionsTabBarController.tabBar.selectedItem = self.sectionsTabBarController.tabBar.items![0]
             self.tooltipVC?.view.alpha = 0
-            self.tooltipVC?.view.removeFromSuperview()
             self.tooltipVC?.delegate = nil
+            self.tooltipVC?.view.removeFromSuperview()
             self.sectionsTabBarController.view.userInteractionEnabled = true
         }
     }
@@ -167,7 +168,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     func toolTipViewControllerCurrentPage(toolTipViewController: ToolTipViewController, currentPage: Int) {
         if let toolBarItems = sectionsTabBarController.tabBar.items
             where currentPage <= sectionsTabBarController.viewControllers.count && currentPage <= toolBarItems.count {
-            sectionsTabBarController.selectedViewController = sectionsTabBarController.viewControllers[currentPage]
             sectionsTabBarController.tabBar.selectedItem = toolBarItems[currentPage]
         }
     }
