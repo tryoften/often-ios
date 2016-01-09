@@ -16,12 +16,14 @@ let songCellReuseIdentifier = "songCell"
 class BrowseViewController: FullScreenCollectionViewController,
     UICollectionViewDelegateFlowLayout,
     MediaItemGroupViewModelDelegate,
-    TextProcessingManagerDelegate {
+    TextProcessingManagerDelegate,
+    CellAnimatable {
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
     var viewModel: TrendingLyricsViewModel
     var searchViewController: SearchViewController?
     var textProcessor: TextProcessingManager?
+    var cellsAnimated: [NSIndexPath: Bool] = [:]
 
     init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel, textProcessor: TextProcessingManager?) {
         self.viewModel = viewModel
@@ -190,6 +192,11 @@ class BrowseViewController: FullScreenCollectionViewController,
             cell.albumTitleLabel.text = track.title
             cell.layer.shouldRasterize = true
             cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+
+            if cellsAnimated[indexPath] != true {
+                animateCell(cell, indexPath: indexPath)
+                cellsAnimated[indexPath] = true
+            }
             
             return cell
         default:
