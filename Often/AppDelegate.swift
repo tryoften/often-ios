@@ -46,8 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.clipsToBounds = true
             mainController = MediaItemsKeyboardContainerViewController(extraHeight: 144.0, debug: true)
 #else
-            let signupViewModel = SignupViewModel(sessionManager: sessionManager)
-            mainController = SignupViewController(viewModel: signupViewModel)
+            let loginViewModel = LoginViewModel(sessionManager: sessionManager)
+            mainController = LoginViewController(viewModel: loginViewModel)
 #endif
             window.rootViewController = mainController
             window.makeKeyAndVisible()
@@ -64,19 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        
-        if url.absoluteString.hasPrefix("tryoften://logindone") {
-            sessionManager.soundcloudAccountManager?.handleOpenURL(url)
-            return true
+        if url.absoluteString.hasPrefix("fb") {
+            return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session())
         }
-        
-        if url.absoluteString.hasPrefix("tryoften://") {
-            if SPTAuth.defaultInstance().canHandleURL(url) {
-                SPTAuth.defaultInstance().handleAuthCallbackWithTriggeredAuthURL(url, callback: sessionManager.spotifyAccountManager?.authCallback)
-                return true
-            }
-        }
-        
+
         return false
     }
 
@@ -93,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        
+        FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
     }
 
     func applicationWillTerminate(application: UIApplication) {
