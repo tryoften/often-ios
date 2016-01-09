@@ -102,6 +102,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
 
         view.addSubview(backgroundKeyboardView)
+        view.addSubview(tintView)
         view.addSubview(scrollView)
         view.addSubview(pageControl)
         view.addSubview(closeButton)
