@@ -94,7 +94,7 @@ class EmptySetView: UIView {
             imageView.image = UIImage(named: "twitteremptystate")
             imageView.contentMode = .ScaleAspectFit
             titleLabel.text = "Connect Often"
-            descriptionLabel.text = "Sync your Twitter or Facebook profile info \n to get unique lyric recommendations."
+            descriptionLabel.text = "Sync your Twitter or Facebook profile info \n to see lyrics from your favorite songs"
             twitterButton.hidden = false
             cancelButton.hidden = false
             settingbutton.hidden = true
