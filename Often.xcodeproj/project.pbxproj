@@ -17,6 +17,7 @@
 		30E00C7A1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
 		30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
 		3B0DC3891C4058F9009B182F /* ViewSpacerWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */; };
+		3B0DC3931C40A9B5009B182F /* ViewSpacerWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */; };
 		3B100A221BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */; };
 		3B100A2B1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */; };
 		3B1A54581C2B59F800309BDD /* ContainerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */; };
@@ -2684,6 +2685,7 @@
 				81DA3EF81C24BE85006822D3 /* SearchResultsViewModel.swift in Sources */,
 				81DA3EF91C24BE85006822D3 /* SigninView.swift in Sources */,
 				81BDA71B1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
+				3B0DC3931C40A9B5009B182F /* ViewSpacerWithText.swift in Sources */,
 				81DA3EFA1C24BE85006822D3 /* LoginView.swift in Sources */,
 				81DA3EFC1C24BE85006822D3 /* SessionManager.swift in Sources */,
 				81DA3EFD1C24BE85006822D3 /* SocialAccountsService.swift in Sources */,
