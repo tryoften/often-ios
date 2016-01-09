@@ -9,6 +9,13 @@
 import Foundation
 
 class FacebookAccountManager: AccountManager {
+    var sessionManagerFlags: SessionManagerFlags = SessionManagerFlags.defaultManagerFlags
+    var firebase: Firebase
+    var userRef: Firebase?
+    weak var delegate: AccountManagerDelegate?
+    var isInternetReachable: Bool
+    var newUser: User?
+
     let permissions = [
         "public_profile",
         "user_actions.music",
@@ -16,7 +23,19 @@ class FacebookAccountManager: AccountManager {
         "email"
     ]
 
-    override func openSession(completion: (results: ResultType) -> Void) {
+    required init(firebase: Firebase) {
+        self.firebase = firebase
+        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+        isInternetReachable = reachabilitymanager.reachable
+
+        reachabilitymanager.setReachabilityStatusChangeBlock { status in
+            self.isInternetReachable = reachabilitymanager.reachable
+        }
+        reachabilitymanager.startMonitoring()
+    }
+
+
+    func openSession(completion: (results: ResultType) -> Void) {
         if let session = FBSession.activeSession() {
             let accessTokenData = session.accessTokenData
 
@@ -38,7 +57,7 @@ class FacebookAccountManager: AccountManager {
         sessionManagerFlags.openSession = true
     }
 
-     override func login(userData: User?, completion: (results: ResultType) -> Void) {
+    func login(userData: User?, completion: (results: ResultType) -> Void) {
         guard isInternetReachable else {
             completion(results: ResultType.Error(e: FacebookAccountManagerError.NotConnectedOnline))
             return
@@ -58,8 +77,8 @@ class FacebookAccountManager: AccountManager {
 
     }
     
-    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
-        userRef = firebase.childByAppendingPath("users/twitter:\(authData.uid)")
+    func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+        userRef = firebase.childByAppendingPath("users/\(authData.uid)")
 
         let request = FBRequest.requestForMe()
         request.startWithCompletionHandler({ (connection, result, error) in

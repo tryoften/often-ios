@@ -9,8 +9,26 @@
 import Foundation
 
 class AnonymousAccountManager: AccountManager {
+    var sessionManagerFlags: SessionManagerFlags = SessionManagerFlags.defaultManagerFlags
+    var firebase: Firebase
+    var userRef: Firebase?
+    weak var delegate: AccountManagerDelegate?
+    var isInternetReachable: Bool
+    var newUser: User?
+
+    required init(firebase: Firebase) {
+        self.firebase = firebase
+        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+        isInternetReachable = reachabilitymanager.reachable
+
+        reachabilitymanager.setReachabilityStatusChangeBlock { status in
+            self.isInternetReachable = reachabilitymanager.reachable
+        }
+        reachabilitymanager.startMonitoring()
+    }
     
-    override func openSession(completion: (results: ResultType) -> Void) {
+    
+   func openSession(completion: (results: ResultType) -> Void) {
         self.firebase.authAnonymouslyWithCompletionBlock { (err, auth) -> Void in
             if err != nil {
                 print(err)
@@ -24,7 +42,7 @@ class AnonymousAccountManager: AccountManager {
         sessionManagerFlags.userIsAnonymous = true
     }
     
-     override func login(userData: User?, completion: (results: ResultType) -> Void)  {
+    func login(userData: User?, completion: (results: ResultType) -> Void)  {
         PFAnonymousUtils.logInWithBlock {
             (user: PFUser?, error: NSError?) -> Void in
             if error != nil {
@@ -35,7 +53,7 @@ class AnonymousAccountManager: AccountManager {
         }
     }
 
-    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+    func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         sessionManagerFlags.userId = authData.uid
         

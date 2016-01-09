@@ -9,10 +9,25 @@
 import Foundation
 
 class TwitterAccountManager: AccountManager {
-    
-    override func openSession(completion: (results: ResultType) -> Void) {
-        super.openSession(completion)
-        
+    var sessionManagerFlags: SessionManagerFlags = SessionManagerFlags.defaultManagerFlags
+    var firebase: Firebase
+    var userRef: Firebase?
+    weak var delegate: AccountManagerDelegate?
+    var isInternetReachable: Bool
+    var newUser: User?
+
+    required init(firebase: Firebase) {
+        self.firebase = firebase
+        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+        isInternetReachable = reachabilitymanager.reachable
+
+        reachabilitymanager.setReachabilityStatusChangeBlock { status in
+            self.isInternetReachable = reachabilitymanager.reachable
+        }
+        reachabilitymanager.startMonitoring()
+    }
+
+    func openSession(completion: (results: ResultType) -> Void) {
         guard let userId = PFTwitterUtils.twitter()?.userId, twitterToken = PFTwitterUtils.twitter()?.authToken else {
             completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
             return
@@ -45,7 +60,7 @@ class TwitterAccountManager: AccountManager {
         sessionManagerFlags.openSession = true
     }
     
-    override func login(userData: User?, completion: (results: ResultType) -> Void) {
+    func login(userData: User?, completion: (results: ResultType) -> Void) {
         guard isInternetReachable else {
             completion(results: ResultType.Error(e: TwitterAccountManagerError.NotConnectedOnline))
             return
@@ -65,7 +80,7 @@ class TwitterAccountManager: AccountManager {
         })
     }
     
-    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+    func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
         func parseUserData(data: AnyObject) {
             if let userdata = data as? [String: AnyObject] {
                 var firebaseData = [String: AnyObject]()

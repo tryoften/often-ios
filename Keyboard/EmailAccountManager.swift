@@ -9,8 +9,25 @@
 import Foundation
 
 class EmailAccountManager: AccountManager {
+    var sessionManagerFlags: SessionManagerFlags = SessionManagerFlags.defaultManagerFlags
+    var firebase: Firebase
+    var userRef: Firebase?
+    weak var delegate: AccountManagerDelegate?
+    var isInternetReachable: Bool
+    var newUser: User?
 
-    override func openSession(completion: (results: ResultType) -> Void) {
+    required init(firebase: Firebase) {
+        self.firebase = firebase
+        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+        isInternetReachable = reachabilitymanager.reachable
+
+        reachabilitymanager.setReachabilityStatusChangeBlock { status in
+            self.isInternetReachable = reachabilitymanager.reachable
+        }
+        reachabilitymanager.startMonitoring()
+    }
+
+    func openSession(completion: (results: ResultType) -> Void) {
         guard let email = newUser?.email,
             let password = newUser?.password else {
                 completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
@@ -29,7 +46,7 @@ class EmailAccountManager: AccountManager {
         sessionManagerFlags.openSession = true
     }
     
-    override func login(userData: User?, completion: (results: ResultType) -> Void) {
+    func login(userData: User?, completion: (results: ResultType) -> Void) {
         guard let user = userData,
             let email = userData?.email,
             let password = userData?.password else {
@@ -86,8 +103,8 @@ class EmailAccountManager: AccountManager {
             }
         }
     }
-    
-    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+
+    func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         sessionManagerFlags.userId = authData.uid
 
