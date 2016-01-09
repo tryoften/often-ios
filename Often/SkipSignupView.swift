@@ -56,7 +56,6 @@ class SkipSignupView: UIView {
         
         orSpacer = ViewSpacerWithText(title:"Or")
         orSpacer.translatesAutoresizingMaskIntoConstraints = false
-        orSpacer.backgroundColor = VeryLightGray
 
         facebookSignupButton = UIButton()
         facebookSignupButton.translatesAutoresizingMaskIntoConstraints = false
