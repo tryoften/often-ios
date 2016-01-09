@@ -12,38 +12,66 @@ class EmptyStateView: UIView {
     var titleLabel: UILabel
     var descriptionLabel: UILabel
     var imageView: UIImageView
+    var imageViewContainerView: UIView
     var primaryButton: UIButton
     var secondaryButton: UIButton?
     var closeButton: UIButton
-    var delegate: EmptyStateDelegate?
+    var imageEdgeInsets: EdgeInsets
     var imageSize: EmptyStateImageSize {
         didSet {
             switch self.imageSize {
             case .Small:
-                imageViewHeightConstraint = imageView.al_height == 70
-                imageViewWidthConstraint = imageView.al_width == 70
-                layoutIfNeeded()
+                imageView.removeFromSuperview()
+                imageEdgeInsets = EdgeInsets(top: 25.0, left: 25.0, bottom: 25.0, right: 25.0)
+                imageViewContainerView.addSubview(imageView)
+                updateImageSize(imageEdgeInsets)
             case .Medium:
-                imageViewHeightConstraint = imageView.al_height == 100
-                imageViewWidthConstraint = imageView.al_width == 100
-                layoutIfNeeded()
+                imageView.removeFromSuperview()
+                imageEdgeInsets = EdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+                imageViewContainerView.addSubview(imageView)
+                updateImageSize(imageEdgeInsets)
             case .Large:
-                imageViewHeightConstraint = imageView.al_height == 120
-                imageViewWidthConstraint = imageView.al_width == 120
-                layoutIfNeeded()
+                imageView.removeFromSuperview()
+                imageEdgeInsets = EdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+                imageViewContainerView.addSubview(imageView)
+                updateImageSize(imageEdgeInsets)
             }
         }
     }
     
+    var imageViewTopInsetConstraint: NSLayoutConstraint?
+    var imageViewLeftInsetConstraint: NSLayoutConstraint?
+    var imageViewRightInsetConstraint: NSLayoutConstraint?
+    var imageViewBottomInsetConstraint: NSLayoutConstraint?
+    
     var imageViewTopConstraint: NSLayoutConstraint?
-    var imageViewHeightConstraint: NSLayoutConstraint?
-    var imageViewWidthConstraint: NSLayoutConstraint?
     var imageViewTopPadding: CGFloat = 30
     
     enum EmptyStateImageSize {
         case Small
         case Medium
         case Large
+    }
+    
+    struct EdgeInsets {
+        var top: CGFloat
+        var left: CGFloat
+        var bottom: CGFloat
+        var right: CGFloat
+        
+        init(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) {
+            self.top = top
+            self.left = left
+            self.bottom = bottom
+            self.right = right
+        }
+        
+        init() {
+            self.top = 0
+            self.left = 0
+            self.bottom = 0
+            self.right = 0
+        }
     }
     
     static func emptyStateViewForUserState(state: UserState) -> EmptyStateView? {
@@ -63,58 +91,6 @@ class EmptyStateView: UIView {
         }
     }
     
-    init(title: String, description: String, image: UIImage) {
-        titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont(name: "Montserrat", size: 15.0)
-        titleLabel.textColor = UIColor(fromHexString: "#202020")
-        titleLabel.text = title
-        
-        descriptionLabel = UILabel()
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.font = UIFont(name: "OpenSans", size: 12.0)
-        descriptionLabel.textColor = UIColor(fromHexString: "#202020")
-        descriptionLabel.textAlignment = .Center
-        descriptionLabel.numberOfLines = 2
-        descriptionLabel.alpha = 0.54
-        descriptionLabel.text = description
-        
-        // Defaults - typically should set for each individual empty states
-        imageSize = .Medium
-        
-        imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = image
-        
-        primaryButton = UIButton()
-        primaryButton.translatesAutoresizingMaskIntoConstraints = false
-        primaryButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        primaryButton.layer.cornerRadius = 4.0
-        primaryButton.clipsToBounds = true
-        primaryButton.hidden = true
-        
-        closeButton = UIButton()
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setImage(StyleKit.imageOfButtonclose(scale: 0.75), forState: .Normal)
-        closeButton.alpha = 0.54
-        closeButton.hidden = true
-        closeButton.userInteractionEnabled = false
-        
-        super.init(frame: CGRectZero)
-    
-        backgroundColor = UIColor(fromHexString: "#f7f7f7")
-        
-        closeButton.addTarget(self, action: "closeButtonTapped", forControlEvents: .TouchUpInside)
-        
-        addSubview(titleLabel)
-        addSubview(descriptionLabel)
-        addSubview(imageView)
-        addSubview(primaryButton)
-        addSubview(closeButton)
-        
-        setupLayout()
-    }
-    
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -129,11 +105,15 @@ class EmptyStateView: UIView {
         descriptionLabel.numberOfLines = 2
         descriptionLabel.alpha = 0.54
         
-        // Defaults - typically should set for each individual empty states
+        imageEdgeInsets = EdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         imageSize = .Medium
         
         imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .ScaleAspectFit
+        
+        imageViewContainerView = UIView()
+        imageViewContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         primaryButton = UIButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
@@ -153,9 +133,10 @@ class EmptyStateView: UIView {
         
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
+        imageViewContainerView.addSubview(imageView)
+        addSubview(imageViewContainerView)
         addSubview(titleLabel)
         addSubview(descriptionLabel)
-        addSubview(imageView)
         addSubview(primaryButton)
         addSubview(closeButton)
         
@@ -166,25 +147,39 @@ class EmptyStateView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupLayout() {
-        imageViewTopConstraint = imageView.al_top == al_top + 50
-        imageViewHeightConstraint = imageView.al_height == 100
-        imageViewWidthConstraint = imageView.al_width == 100
-        
+    func updateImageSize(insets: EdgeInsets) {
         addConstraints([
-            imageView.al_centerX == al_centerX,
+            imageView.al_top == imageViewContainerView.al_top + imageEdgeInsets.top,
+            imageView.al_left == imageViewContainerView.al_left + imageEdgeInsets.left,
+            imageView.al_right == imageViewContainerView.al_right - imageEdgeInsets.right,
+            imageView.al_bottom == imageViewContainerView.al_bottom - imageEdgeInsets.bottom
+        ])
+        
+        layoutSubviews()
+    }
+    
+    func setupLayout() {
+        imageViewTopConstraint = imageViewContainerView.al_top == al_top + 50
+
+        addConstraints([
+            imageViewContainerView.al_centerX == al_centerX,
             imageViewTopConstraint!,
-            imageViewHeightConstraint!,
-            imageViewWidthConstraint!,
+            imageViewContainerView.al_height == 120,
+            imageViewContainerView.al_width == 120,
+            
+            imageView.al_top == imageViewContainerView.al_top + imageEdgeInsets.top,
+            imageView.al_left == imageViewContainerView.al_left + imageEdgeInsets.left,
+            imageView.al_right == imageViewContainerView.al_right - imageEdgeInsets.right,
+            imageView.al_bottom == imageViewContainerView.al_bottom - imageEdgeInsets.bottom,
             
             titleLabel.al_centerX == al_centerX,
-            titleLabel.al_top == imageView.al_bottom + 20,
+            titleLabel.al_top == imageViewContainerView.al_bottom + 15,
             
             descriptionLabel.al_centerX == al_centerX,
             descriptionLabel.al_top == titleLabel.al_bottom + 5,
             
             primaryButton.al_centerX == al_centerX,
-            primaryButton.al_top == descriptionLabel.al_bottom + 30,
+            primaryButton.al_top == descriptionLabel.al_bottom + 20,
             primaryButton.al_left == al_left + 30,
             primaryButton.al_right == al_right - 30,
             primaryButton.al_height == 50,
@@ -195,8 +190,4 @@ class EmptyStateView: UIView {
             closeButton.al_right == al_right - 10
         ])
     }
-}
-
-protocol EmptyStateDelegate {
-    
 }
