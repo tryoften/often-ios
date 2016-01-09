@@ -35,7 +35,7 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
     }
 
     override func viewWillAppear(animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         navigationController?.hidesBarsOnSwipe = true
         navigationController?.navigationBar.translucent = false
     }

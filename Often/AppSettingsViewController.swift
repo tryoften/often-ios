@@ -76,7 +76,7 @@ class AppSettingsViewController: UIViewController,
     }
 
     override func viewWillAppear(animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .Slide)
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         navigationController?.hidesBarsOnSwipe = false
         navigationController?.navigationBar.translucent = false
     }
