@@ -8,11 +8,12 @@
 
 import UIKit
 
-class MessageWithButtonHeaderView: UIView {
+class MessageWithButtonHeaderView: UICollectionReusableView {
     var titleLabel: UILabel
     var subtitleLabel: UILabel
     var primaryButton: UIButton
     var closeButton: UIButton
+    var bottomBorderView: UIView
     
     override init(frame: CGRect) {
         titleLabel = UILabel()
@@ -32,7 +33,8 @@ class MessageWithButtonHeaderView: UIView {
         primaryButton = UIButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         primaryButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        primaryButton.layer.cornerRadius = 4.0
+        primaryButton.setTitleColor(WhiteColor, forState: .Normal)
+        primaryButton.layer.cornerRadius = 18.0
         primaryButton.clipsToBounds = true
         primaryButton.backgroundColor = TealColor
         
@@ -41,7 +43,19 @@ class MessageWithButtonHeaderView: UIView {
         closeButton.setImage(StyleKit.imageOfButtonclose(scale: 0.75), forState: .Normal)
         closeButton.alpha = 0.54
         
+        bottomBorderView = UIView()
+        bottomBorderView.translatesAutoresizingMaskIntoConstraints = false
+        bottomBorderView.backgroundColor = DarkGrey
+        
         super.init(frame: frame)
+        
+        addSubview(titleLabel)
+        addSubview(subtitleLabel)
+        addSubview(primaryButton)
+        addSubview(closeButton)
+        addSubview(bottomBorderView)
+        
+        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -54,17 +68,22 @@ class MessageWithButtonHeaderView: UIView {
             titleLabel.al_top == al_top + 20,
             
             subtitleLabel.al_centerX == al_centerX,
-            subtitleLabel.al_top == titleLabel.al_bottom + 5,
+            subtitleLabel.al_top == titleLabel.al_bottom + 4,
             
             primaryButton.al_centerX == al_centerX,
-            primaryButton.al_top == subtitleLabel.al_bottom + 30,
-            primaryButton.al_width == 50,
+            primaryButton.al_top == subtitleLabel.al_bottom + 10,
+            primaryButton.al_width == 125,
             primaryButton.al_height == 35,
             
             closeButton.al_height == 35,
             closeButton.al_width == 35,
             closeButton.al_top == al_top + 10,
-            closeButton.al_right == al_right - 10
+            closeButton.al_right == al_right - 10,
+            
+            bottomBorderView.al_left == al_left,
+            bottomBorderView.al_right == al_right,
+            bottomBorderView.al_bottom == al_bottom,
+            bottomBorderView.al_height == 1
         ])
     }
 }

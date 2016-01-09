@@ -10,8 +10,8 @@ import UIKit
 
 class TwitterEmptyStateView: EmptyStateView {
     init() {
-        let title = "Connect with Twitter"
-        let description = "Often works even better with Twitter. \n In the future, any links you like there are saved here."
+        let title = "Create an Account"
+        let description = "Sign up with Twitter or Facebook \n to see lyrics from your favorite songs"
         let image = UIImage(named: "twitteremptystate")!
         
         super.init(frame: CGRectZero)
