@@ -9,10 +9,10 @@
 import Foundation
 
 class CreateAccountViewController: UIViewController, UITextFieldDelegate {
-    var viewModel: SignupViewModel
+    var viewModel: LoginViewModel
     var createAccountView: CreateAccountView
     
-    init (viewModel: SignupViewModel) {
+    init (viewModel: LoginViewModel) {
         self.viewModel = viewModel
         self.viewModel.sessionManager.sessionManagerFlags.userHasOpenedKeyboard = false
         
@@ -38,6 +38,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         createAccountView.cancelButton.addTarget(self,  action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupButton.addTarget(self, action: "didTapSignupButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupTwitterButton.addTarget(self, action: "didTapSignupTwitterButton:", forControlEvents: .TouchUpInside)
+        createAccountView.signupFacebookButton.addTarget(self, action: "didTapSignupFacebookButton:", forControlEvents: .TouchUpInside)
         createAccountView.termsOfUseAndPrivacyPolicyButton.addTarget(self, action: "didTapTermsOfUseButton:", forControlEvents: .TouchUpInside)
     }
     
@@ -65,6 +66,24 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
             })
         } catch {  
     
+        }
+    }
+
+    func didTapSignupFacebookButton(sender: UIButton) {
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        do {
+            try viewModel.sessionManager.login(.Facebook, userData:nil, completion: { results  -> Void in
+                PKHUD.sharedHUD.hide(animated: true)
+                switch results {
+                case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
+                case .Error(let err): self.viewModel.showErrorView(err)
+                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                }
+            })
+        } catch {
+
         }
     }
     

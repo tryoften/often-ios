@@ -9,11 +9,11 @@
 import Foundation
 
 class SigninViewController: UIViewController, UITextFieldDelegate {
-    var viewModel: SignupViewModel
+    var viewModel: LoginViewModel
     var signinView: SigninView
 
     
-    init (viewModel: SignupViewModel) {
+    init (viewModel: LoginViewModel) {
         self.viewModel = viewModel
         signinView = SigninView()
         signinView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,6 +36,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         signinView.cancelButton.addTarget(self,  action: "didTapcancelButton:", forControlEvents: .TouchUpInside)
         signinView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
         signinView.signinTwitterButton.addTarget(self, action:"didTapSigninTwitterButton:", forControlEvents: .TouchUpInside)
+        signinView.signinFacebookButton.addTarget(self, action:"didTapSigninFacebookButton:", forControlEvents: .TouchUpInside)
         
     }
 
@@ -80,27 +81,28 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
             
         }
     }
-    
-    func showErrorView(error:ErrorType) {
-        switch error {
-        case TwitterAccountManagerError.ReturnedEmptyUserObject:
-            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case TwitterAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
-            DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case SessionManagerError.UnvalidSignUp:
-            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case SignupError.EmailNotVaild:
-            DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case SignupError.PasswordNotVaild:
-            DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        default:
-             DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+
+    func didTapSigninFacebookButton(sender: UIButton) {
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        do {
+            try viewModel.sessionManager.login(.Facebook, userData: nil,  completion: { results  -> Void in
+                PKHUD.sharedHUD.hide(animated: true)
+                switch results {
+                case .Success(_): self.createProfileViewController()
+                case .Error(let err): self.viewModel.showErrorView(err)
+                case .SystemError(let err):  print(err.localizedDescription)
+                }
+            })
+        } catch {
+
         }
     }
     
     func signInTimeOut() {
         PKHUD.sharedHUD.hide(animated: true)
-        showErrorView(SignupError.TimeOut)
+        viewModel.showErrorView(SignupError.TimeOut)
     }
     
     func didTapcancelButton(sender: UIButton) {
