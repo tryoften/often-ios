@@ -14,20 +14,12 @@ class SessionManager: NSObject {
     var firebase: Firebase
     var socialAccountService: SocialAccountsService?
     var accountManager: AccountManager?
-    var spotifyAccountManager: SpotifyAccountManager?
-    var soundcloudAccountManager: SoundcloudAccountManager?
     var userRef: Firebase?
     var currentUser: User?
     var currentSession: FBSession?
     var isUserNew: Bool
     var userIsLoggingIn = false
-    
-    enum ResultType {
-        case Success(r: Bool)
-        case Error(e: ErrorType)
-        case SystemError(e: NSError)
-    }
-    
+
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
     
@@ -45,11 +37,7 @@ class SessionManager: NSObject {
         firebase = Firebase(url: BaseURL)
         
         super.init()
-        
-        spotifyAccountManager = SpotifyAccountManager(firebase: firebase)
-        soundcloudAccountManager = SoundcloudAccountManager(firebase:firebase)
 
-        
         firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
         }
@@ -178,7 +166,7 @@ class SessionManager: NSObject {
         return socialAccounts
     }
     
-    func setSocialAccountOnCurrentUser(socialAccount:SocialAccount, completion: (User, NSError?) -> ()) {
+    func setSocialAccountOnCurrentUser(socialAccount: SocialAccount, completion: (User, NSError?) -> ()) {
         if let currentUser = self.currentUser {
             let socialAccountService = provideSocialAccountService(currentUser)
             socialAccountService.updateSocialAccount(socialAccount)
