@@ -22,7 +22,7 @@ class SkipSignupView: UIView {
         twitterLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         twitterLogoImageView.layer.cornerRadius = 40
         twitterLogoImageView.clipsToBounds = true
-        twitterLogoImageView.image = UIImage(named: "twitteremptystate")
+        twitterLogoImageView.image = UIImage(named: "createaccountemptystate")
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +32,7 @@ class SkipSignupView: UIView {
         
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.text = "Sign up with Twitter or Facebook\n to get unique lyric recommendations"
+        subtitleLabel.text = "Sign up with Twitter or Facebook \n to see lyrics from your favorite songs"
         subtitleLabel.font = UIFont(name: "OpenSans", size: 12.0)
         subtitleLabel.textAlignment = .Center
         subtitleLabel.numberOfLines = 2

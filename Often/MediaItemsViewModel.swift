@@ -17,7 +17,9 @@ class MediaItemsViewModel: BaseViewModel {
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     var currentUser: User?
     var collections: [MediaItemsCollectionType: [MediaItem]]
-
+    var userState: UserState
+    var hasSeenTwitter: Bool
+    
     private var userId: String
     private var userRef: Firebase?
     private(set) var ids: [String]
@@ -40,9 +42,11 @@ class MediaItemsViewModel: BaseViewModel {
         filters = []
 
         userId = ""
+        userState = .NonEmpty
+        hasSeenTwitter = false
 
         super.init(baseRef: baseRef, path: nil)
-
+        
         do {
             try setupUser { inner in
                 do {

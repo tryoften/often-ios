@@ -25,7 +25,6 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     var loaderView: AnimatedLoaderView
     var loadingTimer: NSTimer?
     var loaderTimeoutTimer: NSTimer?
-    var userState: UserState
     var collectionType: MediaItemsCollectionType {
         didSet {
             do {
@@ -44,10 +43,8 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         
         loaderView = AnimatedLoaderView()
         loaderView.hidden = true
-
+        
         collectionType = aCollectionType
-
-        userState = .NonEmpty
         
         super.init(collectionViewLayout: collectionViewLayout)
 
@@ -107,7 +104,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         if viewModel.isDataLoaded {
             loaderView.hidden = true
             collectionView?.scrollEnabled = true
-            if !(userState == .NoTwitter || userState == .NoKeyboard) {
+            if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) || viewModel.hasSeenTwitter {
                 let collection = viewModel.filteredMediaItemsForCollectionType(collectionType)
 
                 if collection.isEmpty {
@@ -127,12 +124,14 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     
     func showLoader() {
         if !viewModel.isDataLoaded {
-
+            loaderView.hidden = false
+            loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timeoutLoader", userInfo: nil, repeats: false)
         }
     }
     
     func timeoutLoader() {
         loaderView.hidden = true
+        updateEmptyStateContent(.NoResults)
     }
     
     func fadeInData() {
@@ -149,7 +148,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     }
     
     func updateEmptyStateContent(state: UserState) {
-        userState = state
+        viewModel.userState = state
         
         guard state != .NonEmpty else {
             emptyStateView?.removeFromSuperview()
@@ -161,6 +160,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         }
         
         emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
+        emptyStateView?.closeButton.addTarget(self, action: "closeButtonDidTap", forControlEvents: .TouchUpInside)
         
         if let emptyStateView = emptyStateView {
             view.addSubview(emptyStateView)
@@ -232,6 +232,20 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
+    }
+    
+    // MARK: EmptyStateDelegate
+    func closeButtonDidTap() {
+        viewModel.hasSeenTwitter = true
+        reloadData()
+        
+        UIView.animateWithDuration(0.4, animations: {
+            self.emptyStateView?.alpha = 0
+        })
+        
+        emptyStateView?.removeFromSuperview()
+        viewDidLoad()
+        updateEmptyStateContent(viewModel.userState)
     }
     
     // MARK: MediaItemsViewModelDelegate
