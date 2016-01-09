@@ -53,7 +53,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
-                case .Error(let err): self.showErrorView(err)
+                case .Error(let err): self.viewModel.showErrorView(err)
                 case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             }
@@ -73,7 +73,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
-                case .Error(let err): self.showErrorView(err)
+                case .Error(let err): self.viewModel.showErrorView(err)
                 case .SystemError(let err):  DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })

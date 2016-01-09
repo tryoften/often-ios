@@ -60,7 +60,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
-                case .Error(let err): self.showErrorView(err)
+                case .Error(let err): self.viewModel.showErrorView(err)
                 case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
@@ -101,7 +101,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
-                case .Error(let err): self.showErrorView(err)
+                case .Error(let err): self.viewModel.showErrorView(err)
                 case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
@@ -120,29 +120,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
 
     }
-    
-    func showErrorView(error:ErrorType) {
-        switch error {
-        case TwitterAccountManagerError.ReturnedEmptyUserObject:
-            DropDownErrorMessage().setMessage("Unable to create account. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
-        case TwitterAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
-            DropDownErrorMessage().setMessage("No internet connection fam :(", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
-        case SessionManagerError.UnvalidSignUp:
-            DropDownErrorMessage().setMessage("Unable to create account. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
-        case SignupError.EmailNotVaild:
-            DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
-        case SignupError.PasswordNotVaild:
-            DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
-        default: break
-        }
-        
-    }
-    
+
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
         let characterCount = createAccountView.passwordTextField.text!.characters.count
         if characterCount >= 3 {
