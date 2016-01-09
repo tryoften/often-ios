@@ -65,7 +65,7 @@ class RootViewController: UITabBarController {
             settingVC
         ]
         
-        selectedIndex = 1
+        selectedIndex = 0
     }
 
 }

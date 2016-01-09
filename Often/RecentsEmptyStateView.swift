@@ -31,7 +31,7 @@ class RecentsEmptyStateView: EmptyStateView {
     }
     
     func addAdditionalLayouts() {
-        imageViewTopConstraint?.constant = imageViewTopPadding + 35
+        imageViewTopConstraint?.constant = -(imageViewTopPadding + 35)
         layoutIfNeeded()
     }
 

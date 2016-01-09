@@ -104,21 +104,20 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         return cell
     }
-    
-    func animateCell(cell:MediaItemCollectionViewCell, indexPath:NSIndexPath) {
-        
+
+    func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
         if (cellsAnimated[indexPath] != true) {
             cell.alpha = 0.0
-            
+
             let finalFrame = cell.frame
             cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
-            
+
             UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 cell.alpha = 1.0
                 cell.frame = finalFrame
-            }, completion: nil)
+                }, completion: nil)
         }
-        
+
         cellsAnimated[indexPath] = true
     }
     

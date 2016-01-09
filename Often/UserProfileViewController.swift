@@ -21,7 +21,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
         emptyStateView?.closeButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
         emptyStateView?.userInteractionEnabled = true
-        emptyStateView?.imageViewTopPadding = 15.0
+        emptyStateView?.imageViewTopPadding = 30.0
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
         checkUserEmptyStateStatus()
@@ -70,7 +70,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
     }
 
     override func viewWillAppear(animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,8 +81,17 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         super.viewDidLayoutSubviews()
         let screenWidth = UIScreen.mainScreen().bounds.width
         let screenHeight = UIScreen.mainScreen().bounds.height
-        emptyStateView?.frame = CGRectMake(0, UserProfileHeaderView.preferredSize.height, screenWidth, screenHeight)
-        loaderView.frame = CGRectMake(0, UserProfileHeaderView.preferredSize.height, screenWidth, screenHeight)
+        let headerHeight = UserProfileHeaderView.preferredSize.height
+
+        var tabBarHeight: CGFloat = 0.0
+        if let tabBarController = tabBarController {
+            tabBarHeight = CGRectGetHeight(tabBarController.tabBar.frame)
+        }
+
+        let contentFrame = CGRectMake(0, headerHeight, screenWidth, screenHeight - headerHeight - tabBarHeight)
+
+        emptyStateView?.frame = contentFrame
+        loaderView.frame = contentFrame
     }
 
     // MARK: UICollectionViewDataSource
@@ -196,14 +205,11 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
     }
     
     func isTwitterEnabled() {
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        
+        // TODO(kervs): Move this to a view model
         if let user = viewModel.currentUser {
             let twitterCheck = Firebase(url: BaseURL).childByAppendingPath("users/\(user.id)/accounts")
             
             twitterCheck.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
-                PKHUD.sharedHUD.hide(animated: true)
                 if snapshot.exists() {
                     if let value = snapshot.value as? [String: AnyObject] {
                         if let twitterStuff = value["twitter"] as? [String: AnyObject] {
