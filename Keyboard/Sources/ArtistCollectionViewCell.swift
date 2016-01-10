@@ -32,6 +32,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         placeholderImageView = UIImageView()
+        placeholderImageView.backgroundColor = MediumGrey
         placeholderImageView.image = UIImage(named: "placeholder")
         placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
 

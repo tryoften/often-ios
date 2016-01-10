@@ -19,10 +19,13 @@ class BrowseArtistCollectionViewController: MediaItemsCollectionBaseViewControll
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(collectionViewLayout: BrowseArtistCollectionViewController.provideCollectionViewLayout())
-        
+
         view.backgroundColor = VeryLightGray
         navigationBar.browseDelegate = self
         view.addSubview(navigationBar)
+
+        navigationController?.navigationBarHidden = true
+
         setupLayout()
     }
     
@@ -36,9 +39,22 @@ class BrowseArtistCollectionViewController: MediaItemsCollectionBaseViewControll
         // Register cell classes
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
-            collectionView.registerClass(SongCollectionViewCell.self, forCellWithReuseIdentifier: artistAlbumCellReuseIdentifier)
+            collectionView.registerClass(TrackCollectionViewCell.self, forCellWithReuseIdentifier: artistAlbumCellReuseIdentifier)
         }
         containerViewController?.resetPosition()
+    }
+
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        navigationController?.hidesBarsOnSwipe = false
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,7 +67,14 @@ class BrowseArtistCollectionViewController: MediaItemsCollectionBaseViewControll
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 74)
         layout.minimumLineSpacing = 7.0
         layout.minimumInteritemSpacing = 5.0
-        layout.sectionInset = UIEdgeInsetsMake(115.0, 0.0, 30.0, 0.0)
+
+        #if KEYBOARD
+            let topMargin = CGFloat(115.0)
+        #else
+            let topMargin = CGRectGetHeight(UIApplication.sharedApplication().statusBarFrame) + CGFloat(60.0)
+        #endif
+
+        layout.sectionInset = UIEdgeInsetsMake(topMargin, 0.0, 30.0, 0.0)
         return layout
     }
     
@@ -67,11 +90,11 @@ class BrowseArtistCollectionViewController: MediaItemsCollectionBaseViewControll
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(artistAlbumCellReuseIdentifier, forIndexPath: indexPath) as? SongCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(artistAlbumCellReuseIdentifier, forIndexPath: indexPath) as? TrackCollectionViewCell
         
-        cell?.albumCoverThumbnail.image = UIImage(named: "weeknd")
-        cell?.albumTitleLabel.text = "Can't Feel My Face"
-        cell?.artistLabel.text = "The Weeknd"
+        cell?.imageView.image = UIImage(named: "weeknd")
+        cell?.titleLabel.text = "Can't Feel My Face"
+        cell?.subtitleLabel.text = "The Weeknd"
         
         return cell!
     }
@@ -88,9 +111,12 @@ class BrowseArtistCollectionViewController: MediaItemsCollectionBaseViewControll
     }
     
     func setupLayout() {
-        var searchBarFrame = navigationBar.frame
-        searchBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + 0, KeyboardSearchBarHeight), 0)
-        navigationBarHideConstraint = navigationBar.al_top == view.al_top + searchBarFrame.origin.y
+        #if KEYBOARD
+            let topMargin = KeyboardSearchBarHeight
+        #else
+            let topMargin = CGRectGetHeight(UIApplication.sharedApplication().statusBarFrame)
+        #endif
+        navigationBarHideConstraint = navigationBar.al_top == view.al_top + topMargin
         setNavigationBarOriginY(0, animated: true)
         
         view.addConstraints([
@@ -117,7 +143,6 @@ class BrowseArtistCollectionViewController: MediaItemsCollectionBaseViewControll
         
         UIView.animateWithDuration(animated ? 0.1 : 0) {
             self.view.layoutSubviews()
-//            self.navigationBar.frame = searchBarFrame
             containerViewController.tabBar.frame = frame
         }
     }

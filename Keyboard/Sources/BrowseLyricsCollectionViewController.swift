@@ -39,7 +39,15 @@ class BrowseLyricsCollectionViewController: MediaItemsCollectionBaseViewControll
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
+
+        navigationController?.hidesBarsOnSwipe = false
         containerViewController?.resetPosition()
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        navigationController?.hidesBarsOnSwipe = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,7 +60,14 @@ class BrowseLyricsCollectionViewController: MediaItemsCollectionBaseViewControll
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         layout.minimumLineSpacing = 7.0
         layout.minimumInteritemSpacing = 5.0
-        layout.sectionInset = UIEdgeInsetsMake(115.0, 0.0, 30.0, 0.0)
+
+        #if KEYBOARD
+            let topMargin = CGFloat(115.0)
+        #else
+            let topMargin = CGRectGetHeight(UIApplication.sharedApplication().statusBarFrame) + CGFloat(60.0)
+        #endif
+
+        layout.sectionInset = UIEdgeInsetsMake(topMargin, 0.0, 30.0, 0.0)
         return layout
     }
 
@@ -91,9 +106,13 @@ class BrowseLyricsCollectionViewController: MediaItemsCollectionBaseViewControll
     }
     
     func setupLayout() {
-        var searchBarFrame = navigationBar.frame
-        searchBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + 0, KeyboardSearchBarHeight), 0)
-        navigationBarHideConstraint = navigationBar.al_top == view.al_top + searchBarFrame.origin.y
+        #if KEYBOARD
+            let topMargin = KeyboardSearchBarHeight
+        #else
+            let topMargin = CGRectGetHeight(UIApplication.sharedApplication().statusBarFrame)
+        #endif
+
+        navigationBarHideConstraint = navigationBar.al_top == view.al_top + topMargin
         
         view.addConstraints([
             navigationBarHideConstraint!,

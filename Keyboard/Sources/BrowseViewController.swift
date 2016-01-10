@@ -36,7 +36,7 @@ class BrowseViewController: FullScreenCollectionViewController,
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        collectionView?.registerClass(SongCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
+        collectionView?.registerClass(TrackCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
         collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = false
 
@@ -105,7 +105,7 @@ class BrowseViewController: FullScreenCollectionViewController,
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView,
-            let group = viewModel.groupAtIndex(indexPath.row) else {
+            let group = viewModel.groupAtIndex(indexPath.section) else {
             return UICollectionReusableView()
         }
 
@@ -180,16 +180,16 @@ class BrowseViewController: FullScreenCollectionViewController,
             self.artistsHorizontalVC = artistsHorizontalVC
             return cell
         case .Track:
-            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? SongCollectionViewCell, let track = group.items[indexPath.row] as?TrackMediaItem else {
-                return SongCollectionViewCell()
+            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? TrackCollectionViewCell, let track = group.items[indexPath.row] as?TrackMediaItem else {
+                return TrackCollectionViewCell()
             }
 
             if let imageURLStr = track.song_art_image_url, let imageURL = NSURL(string: imageURLStr) {
-                cell.albumCoverThumbnail.setImageWithURL(imageURL)
+                cell.imageView.setImageWithAnimation(imageURL)
             }
-            cell.albumTitleLabel.text = track.albumName
-            cell.artistLabel.text = track.artist_name
-            cell.albumTitleLabel.text = track.title
+            cell.titleLabel.text = track.albumName
+            cell.subtitleLabel.text = track.artist_name
+            cell.titleLabel.text = track.title
             cell.layer.shouldRasterize = true
             cell.layer.rasterizationScale = UIScreen.mainScreen().scale
 

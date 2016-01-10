@@ -93,9 +93,7 @@ class TrendingArtistsHorizontalCollectionViewController: UICollectionViewControl
         cell.titleLabel.text = artist.name
         cell.songCount = artist.lyricsCount ?? 0
         if let image = artist.image, let imageURL = NSURL(string: image) {
-            cell.imageView.setImageWithURL(imageURL)
-        } else {
-            cell.imageView.image = UIImage(named: "postmalone")
+            cell.imageView.setImageWithAnimation(imageURL)
         }
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
