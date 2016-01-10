@@ -37,8 +37,6 @@ class NoKeyboardEmptyStateView: EmptyStateView {
     
     func addAdditionalLayouts() {
         imageViewTopConstraint?.constant = -(imageViewTopPadding + 70)
-        imageViewHeightConstraint = imageView.al_height == 70
-        imageViewWidthConstraint = imageView.al_width == 70
         layoutIfNeeded()
     }
     
