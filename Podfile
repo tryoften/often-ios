@@ -14,6 +14,7 @@ def base_deps
   pod 'MMWormhole', '~> 2.0.0'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'Parse', '~> 1.11'
+  pod 'CSStickyHeaderFlowLayout'
 end
 
 target 'Often' do

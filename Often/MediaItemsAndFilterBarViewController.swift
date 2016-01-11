@@ -234,7 +234,6 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
     
-    // MARK: EmptyStateDelegate
     func closeButtonDidTap() {
         viewModel.hasSeenTwitter = true
         reloadData()

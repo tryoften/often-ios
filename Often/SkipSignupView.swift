@@ -23,7 +23,7 @@ class SkipSignupView: UIView {
         twitterLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         twitterLogoImageView.layer.cornerRadius = 40
         twitterLogoImageView.clipsToBounds = true
-        twitterLogoImageView.image = UIImage(named: "createaccountemptystate")
+        twitterLogoImageView.image = UIImage(named: "twitteremptystate")
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

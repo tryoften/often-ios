@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "oftenloader13.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "oftenloader13.png"
     },
     {
       "idiom" : "universal",

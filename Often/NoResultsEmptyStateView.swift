@@ -31,7 +31,7 @@ class NoResultsEmptyStateView: EmptyStateView {
     }
     
     func addAdditionalLayouts() {
-        imageViewTopConstraint?.constant = imageViewTopPadding + 14
+        imageViewTopConstraint?.constant = -(imageViewTopPadding + 14)
         layoutIfNeeded()
     }
 }
