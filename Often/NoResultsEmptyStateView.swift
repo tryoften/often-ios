@@ -10,8 +10,8 @@ import UIKit
 
 class NoResultsEmptyStateView: EmptyStateView {
     init() {
-        let title = "Oh snap! Our bad"
-        let description = "Seems like search went to sleep for a sec.\n Try again or make another Search :)"
+        let title = "Oh snap, our bad"
+        let description = "Something went wrong with your search"
         let image = UIImage(named: "noresultsemptystate")!
         
         super.init(frame: CGRectZero)

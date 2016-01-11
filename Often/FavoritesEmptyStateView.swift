@@ -10,8 +10,8 @@ import UIKit
 
 class FavoritesEmptyStateView: EmptyStateView {
     init() {
-        let title = "No favorites yet!"
-        let description = "Double tap any cards to save them to your\n favorites & easily share them again later."
+        let title = "Show these lyrics some love"
+        let description = "Tap any lyric to start adding favorites"
         let image = UIImage(named: "favoritesemptystate")!
         
         super.init(frame: CGRectZero)

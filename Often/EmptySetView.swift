@@ -93,8 +93,8 @@ class EmptySetView: UIView {
             imageViewTopConstraint?.constant = imageViewTopPadding + 20
             imageView.image = UIImage(named: "twitteremptystate")
             imageView.contentMode = .ScaleAspectFit
-            titleLabel.text = "Connect Often"
-            descriptionLabel.text = "Sync your Twitter or Facebook profile info \n to see lyrics from your favorite songs"
+            titleLabel.text = "Connect with Twitter or Facebook"
+            descriptionLabel.text = "Get lyric suggestions & a sweet profile pic"
             twitterButton.hidden = false
             cancelButton.hidden = false
             settingbutton.hidden = true
@@ -104,8 +104,8 @@ class EmptySetView: UIView {
             imageViewTopConstraint?.constant = imageViewTopPadding + 20
             imageView.image = UIImage(named: "installoftenemptystate")
             imageView.contentMode = .ScaleAspectFill
-            titleLabel.text = "Install Often"
-            descriptionLabel.text = "Remember to install Often in your \nkeyboards settings and allow full-access."
+            titleLabel.text = "Install Often & allow full access"
+            descriptionLabel.text = "We never save or read your info fam!"
             settingbutton.hidden = false
             cancelButton.hidden = true
         case .NoFavorites:
@@ -114,8 +114,8 @@ class EmptySetView: UIView {
             imageViewTopConstraint?.constant = imageViewTopPadding + 35
             imageView.image = UIImage(named: "favoritesemptystate")
             imageView.contentMode = .ScaleAspectFill
-            titleLabel.text = "No favorites yet!"
-            descriptionLabel.text = "Tap any lyric to save it to your favorites\n & easily share them again later."
+            titleLabel.text = "Show these lyrics some love"
+            descriptionLabel.text = "Tap any lyric to start adding favorites"
             settingbutton.hidden = true
             twitterButton.hidden = true
             cancelButton.hidden = true
@@ -125,8 +125,8 @@ class EmptySetView: UIView {
             imageViewTopConstraint?.constant = imageViewTopPadding + 35
             imageView.image = UIImage(named: "recentsemptystate")
             imageView.contentMode = .ScaleAspectFill
-            titleLabel.text = "No recents yet!"
-            descriptionLabel.text = "Start using often to see your most\n recently searched for or shared lyrics."
+            titleLabel.text = "Go hit your squad with lyrics"
+            descriptionLabel.text = "See all your recently shared lyrics here"
             settingbutton.hidden = true
             twitterButton.hidden = true
             cancelButton.hidden = true
@@ -136,8 +136,8 @@ class EmptySetView: UIView {
             imageViewTopConstraint?.constant = imageViewTopPadding + 14
             imageView.image = UIImage(named: "noresultsemptystate")
             imageView.contentMode = .ScaleAspectFill
-            titleLabel.text = "Oh snap! Our bad"
-            descriptionLabel.text = "Seems like search went to sleep for a sec.\n Try again or make another Search :)"
+            titleLabel.text = "Oh snap, our bad"
+            descriptionLabel.text = "Something went wrong with your search"
             settingbutton.hidden = true
             twitterButton.hidden = true
             cancelButton.hidden = true

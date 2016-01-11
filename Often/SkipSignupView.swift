@@ -27,13 +27,13 @@ class SkipSignupView: UIView {
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Create an Account"
+        titleLabel.text = "Don't play yourself, sign up"
         titleLabel.textAlignment = .Center
         titleLabel.font = UIFont(name: "Montserrat", size: 15.0)
         
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.text = "Sign up with Twitter or Facebook \n to see lyrics from your favorite songs"
+        subtitleLabel.text = "Creating an account lets you save all your\n favorite lyrics to the keyboard"
         subtitleLabel.font = UIFont(name: "OpenSans", size: 12.0)
         subtitleLabel.textAlignment = .Center
         subtitleLabel.numberOfLines = 2
@@ -93,13 +93,13 @@ class SkipSignupView: UIView {
         addConstraints([
             twitterLogoImageView.al_centerX == al_centerX,
             twitterLogoImageView.al_bottom == titleLabel.al_top - 15,
-            twitterLogoImageView.al_width == 80,
-            twitterLogoImageView.al_height == 80,
+            twitterLogoImageView.al_width == 150,
+            twitterLogoImageView.al_height == 100,
             
             titleLabel.al_bottom == subtitleLabel.al_top,
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_height == 17,
-            titleLabel.al_width == 200,
+            titleLabel.al_width == 250,
             
             subtitleLabel.al_bottom == twitterSignupButton.al_top - 10,
             subtitleLabel.al_centerX == al_centerX,

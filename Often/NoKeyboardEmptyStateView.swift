@@ -10,8 +10,8 @@ import UIKit
 
 class NoKeyboardEmptyStateView: EmptyStateView {
     init() {
-        let title = "Install Often"
-        let description = "Remember to install Often in your \nkeyboards settings and allow full-access."
+        let title = "You forgot to install Often fam"
+        let description = "Remember to allow full access! We never read \n or save any sensitive information"
         let image = UIImage(named: "installoftenemptystate")!
         
         super.init(frame: CGRectZero)

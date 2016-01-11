@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "installicon_1x.png",
+      "filename" : "emptyaccount - 1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "installicon_2x.png",
+      "filename" : "emptyaccount - 2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "installicon_3x.png",
+      "filename" : "emptyaccount - 3x.png",
       "scale" : "3x"
     }
   ],
