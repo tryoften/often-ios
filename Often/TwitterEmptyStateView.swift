@@ -39,8 +39,6 @@ class TwitterEmptyStateView: EmptyStateView {
     
     func addAdditionalLayouts() {
         imageViewTopConstraint?.constant = -(imageViewTopPadding + 20)
-        imageViewHeightConstraint = imageView.al_height == 70
-        imageViewWidthConstraint = imageView.al_width == 70
         layoutIfNeeded()
     }
 }
