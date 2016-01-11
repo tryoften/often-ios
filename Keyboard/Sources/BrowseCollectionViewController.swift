@@ -39,15 +39,11 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
-
-        navigationController?.hidesBarsOnSwipe = false
         containerViewController?.resetPosition()
     }
 
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-
-        navigationController?.hidesBarsOnSwipe = true
     }
 
     class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {

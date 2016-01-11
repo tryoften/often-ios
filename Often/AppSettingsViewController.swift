@@ -77,7 +77,6 @@ class AppSettingsViewController: UIViewController,
 
     override func viewWillAppear(animated: Bool) {
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
-        navigationController?.hidesBarsOnSwipe = false
         navigationController?.navigationBar.translucent = false
     }
 
@@ -92,9 +91,7 @@ class AppSettingsViewController: UIViewController,
             appSettingView.al_top == view.al_top,
             appSettingView.al_right == view.al_right,
             appSettingView.al_bottom == view.al_bottom
-            ])
-
-        
+        ])
     }
 
     // MARK: TableViewDelegate and Datasource

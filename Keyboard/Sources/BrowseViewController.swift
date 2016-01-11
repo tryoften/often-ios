@@ -25,7 +25,8 @@ class BrowseViewController: FullScreenCollectionViewController,
     var textProcessor: TextProcessingManager?
     var cellsAnimated: [NSIndexPath: Bool] = [:]
 
-    init(collectionViewLayout: UICollectionViewLayout, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
+    init(collectionViewLayout: UICollectionViewLayout = BrowseViewController.getLayout(),
+        viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         self.viewModel = viewModel
 
         super.init(collectionViewLayout: collectionViewLayout)
@@ -75,10 +76,6 @@ class BrowseViewController: FullScreenCollectionViewController,
         do {
             try viewModel.fetchData()
         } catch _ {}
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        navigationController?.navigationBarHidden = true
     }
 
     class func getLayout() -> UICollectionViewLayout {
@@ -225,6 +222,30 @@ class BrowseViewController: FullScreenCollectionViewController,
         collectionView?.reloadData()
     }
 
+    // MARK: TextProcessingManagerDelegate
+    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
+    }
+
+    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
+    }
+
+    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
+        return nil
+    }
+
+    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
+    }
+
+    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
+    }
+}
+
+#if KEYBOARD
+extension BrowseViewController {
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.navigationBarHidden = true
+    }
+
     override func showNavigationBar(animated: Bool) {
         if shouldSendScrollEvents {
             setNavigationBarOriginY(0, animated: true)
@@ -262,21 +283,5 @@ class BrowseViewController: FullScreenCollectionViewController,
             containerViewController.tabBar.frame = frame
         }
     }
-
-    // MARK: TextProcessingManagerDelegate
-    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
-    }
-
-    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
-    }
-
-    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
-        return nil
-    }
-
-    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
-    }
-
-    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
-    }
 }
+#endif

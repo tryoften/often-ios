@@ -22,7 +22,6 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = true
-
         setupSearchBar()
     }
 
@@ -30,14 +29,9 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     override func viewWillAppear(animated: Bool) {
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
-        navigationController?.hidesBarsOnSwipe = true
-        navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.translucent = true
     }
 
     override func setupSearchBar() {
@@ -70,7 +64,7 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
         searchBar.backgroundColor = WhiteColor
         searchBar.tintColor = UIColor(fromHexString: "#14E09E")
         searchBar.placeholder = SearchBarPlaceholderText
-        searchBar.setValue("cancel".uppercaseString, forKey:"_cancelButtonText")
+        searchBar.setValue("cancel".uppercaseString, forKey: "_cancelButtonText")
 
         if #available(iOS 9.0, *) {
             UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([MainAppSearchBar.self]).setTitleTextAttributes(attributes, forState: .Normal)
@@ -112,11 +106,8 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
             let group = viewModel.groupAtIndex(indexPath.section) else {
             return UICollectionReusableView()
         }
-
         cell.leftText = group.title
-
         return cell
-
     }
 
     func browseHeaderDidLoadFeaturedArtists(BrowseHeaderView: UICollectionReusableView, artists: [MediaItem]){
@@ -130,8 +121,6 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
     func searchViewControllerSearchBarDidTextDidBeginEditing(viewController: SearchViewController, searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
 
-        navigationController?.hidesBarsOnSwipe = false
-
         if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
             if cancelButton.currentTitle == "done".uppercaseString {
                 cancelButton.setTitle("cancel".uppercaseString, forState: UIControlState.Normal)
@@ -143,7 +132,6 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
     }
 
     func searchViewControllerSearchBarDidTapCancel(viewController: SearchViewController, searchBar: UISearchBar) {
-        navigationController?.hidesBarsOnSwipe = true
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
 
@@ -153,9 +141,48 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
     func searchViewControllerDidReceiveResponse(viewController: SearchViewController) {
         if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
             cancelButton.setTitle("done".uppercaseString, forState: UIControlState.Normal)
+        }
+    }
 
+    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
+        super.setNavigationBarOriginY(y, animated: animated)
+
+        guard let navigationController = navigationController as? ContainerNavigationController,
+            let contentOffset = collectionView?.contentOffset,
+            var contentInset = collectionView?.contentInset else {
+                return
         }
 
-        navigationController?.hidesBarsOnSwipe = true
+        let frame = navigationController.navigationBar.frame
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        let bottomLimit = CGFloat(0.0)
+        let baseY = frame.origin.y + frame.size.height
+        let topLimit = CGRectGetHeight(frame) + statusBarHeight
+        let boundedY = fmin(fmax(baseY, bottomLimit), topLimit)
+
+        func setStatusBarYOffset(statusBarY: CGFloat) {
+            if let statusBar = UIApplication.sharedApplication().valueForKey("statusBarWindow") as? UIWindow {
+                var statusBarFrame = statusBar.frame
+                statusBarFrame.origin.y = fmin(fmax(0, y), 20) - statusBarHeight
+                statusBar.frame = statusBarFrame
+
+                var backgroundFrame = navigationController.statusBarBackground.frame
+                backgroundFrame.origin.y = statusBarFrame.origin.y
+                navigationController.statusBarBackground.frame = backgroundFrame
+            }
+        }
+
+        contentInset.top = boundedY
+        if contentOffset.y > bottomLimit || contentOffset.y < -topLimit {
+            collectionView?.contentInset = contentInset
+            setStatusBarYOffset(0)
+            return
+        }
+
+        UIView.animateWithDuration(0.2) {
+            self.collectionView?.contentInset = contentInset
+            self.collectionView?.contentOffset = contentOffset
+            setStatusBarYOffset(y)
+        }
     }
 }

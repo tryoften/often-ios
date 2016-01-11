@@ -61,6 +61,7 @@ class FullScreenCollectionViewController: UICollectionViewController, NJKScrollF
         hideNavigationBar(true)
     }
 
+#if KEYBOARD
     func showNavigationBar(animated: Bool) {
         if shouldSendScrollEvents {
             setNavigationBarOriginY(0, animated: true)
@@ -97,5 +98,5 @@ class FullScreenCollectionViewController: UICollectionViewController, NJKScrollF
             containerViewController.tabBar.frame = frame
         }
     }
-
+#endif
 }
