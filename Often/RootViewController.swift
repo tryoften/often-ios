@@ -45,7 +45,7 @@ class RootViewController: UITabBarController {
 
         let browseVC = ContainerNavigationController(rootViewController: MainAppBrowseViewController(
                 collectionViewLayout: MainAppBrowseViewController.provideCollectionViewLayout(),
-                viewModel: TrendingLyricsViewModel(), textProcessor: nil))
+                viewModel: BrowseViewModel(), textProcessor: nil))
 
         let settingVC = ContainerNavigationController(rootViewController: AppSettingsViewController(
             viewModel: SettingsViewModel(sessionManager: sessionManager)))

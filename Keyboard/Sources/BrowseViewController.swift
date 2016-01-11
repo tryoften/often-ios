@@ -20,12 +20,12 @@ class BrowseViewController: FullScreenCollectionViewController,
     CellAnimatable {
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
-    var viewModel: TrendingLyricsViewModel
+    var viewModel: BrowseViewModel
     var searchViewController: SearchViewController?
     var textProcessor: TextProcessingManager?
     var cellsAnimated: [NSIndexPath: Bool] = [:]
 
-    init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel, textProcessor: TextProcessingManager?) {
+    init(collectionViewLayout: UICollectionViewLayout, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         self.viewModel = viewModel
 
         super.init(collectionViewLayout: collectionViewLayout)

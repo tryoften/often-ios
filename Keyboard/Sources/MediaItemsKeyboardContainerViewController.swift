@@ -49,11 +49,9 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
 
         viewModel = KeyboardViewModel()
-
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
 
         setupSections()
-
         view.backgroundColor = DefaultTheme.keyboardBackgroundColor
 
         containerView.addSubview(sectionsTabBarController.view)
@@ -89,7 +87,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 1)
 
         // Browse
-        let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: TrendingLyricsViewModel(), textProcessor: textProcessor)
+        let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
         browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 2)
         let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
 
