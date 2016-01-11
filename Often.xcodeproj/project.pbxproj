@@ -190,8 +190,6 @@
 		811FA2861BED160400E07660 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618E1BEC18340014B25B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		811FA2871BED160400E07660 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
 		811FA2881BED160400E07660 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		811FA28D1BEF18E900E07660 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = 811FA28C1BEF18E900E07660 /* db.realm */; };
-		811FA28E1BEF18E900E07660 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = 811FA28C1BEF18E900E07660 /* db.realm */; };
 		811FA2941BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FA2931BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift */; };
 		811FA2951BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FA2931BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift */; };
 		8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */; };
@@ -346,13 +344,9 @@
 		81BDA7401C40884300198AF8 /* CellAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA73E1C40884300198AF8 /* CellAnimatable.swift */; };
 		81BDA7411C40884300198AF8 /* CellAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA73E1C40884300198AF8 /* CellAnimatable.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
-		81D09D881BE17AC500AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
-		81D09D8C1BE17ACA00AFBEC0 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
 		81D09D8E1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
 		81D09D8F1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
 		81D09D901BE2BAE500AFBEC0 /* SpellChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810A242D1BE058250032AFC7 /* SpellChecker.swift */; };
-		81D09D921BE2C72900AFBEC0 /* small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D911BE2C72900AFBEC0 /* small.txt */; };
-		81D09D931BE2C72900AFBEC0 /* small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D911BE2C72900AFBEC0 /* small.txt */; };
 		81D0CDC31BD542C20009859D /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; };
 		81D0CDC41BD542C20009859D /* SearchBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */; };
 		81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1A1B38F6DA006430AB /* PKHUD.swift */; };
@@ -542,15 +536,12 @@
 		81DA3F551C24BE85006822D3 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		81DA3F561C24BE85006822D3 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */; };
 		81DA3F571C24BE85006822D3 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
-		81DA3F581C24BE85006822D3 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = 811FA28C1BEF18E900E07660 /* db.realm */; };
 		81DA3F591C24BE85006822D3 /* Oswald-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */; };
-		81DA3F5A1C24BE85006822D3 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D871BE17AC500AFBEC0 /* big.txt */; };
 		81DA3F5B1C24BE85006822D3 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */; };
 		81DA3F5C1C24BE85006822D3 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */; };
 		81DA3F5D1C24BE85006822D3 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18C1B1A5D3700EA1925 /* OpenSans-Italic.ttf */; };
 		81DA3F5E1C24BE85006822D3 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18F1B1A5D3700EA1925 /* OpenSans-Regular.ttf */; };
 		81DA3F5F1C24BE85006822D3 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */; };
-		81DA3F601C24BE85006822D3 /* small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81D09D911BE2C72900AFBEC0 /* small.txt */; };
 		81DA3F611C24BE85006822D3 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18D1B1A5D3700EA1925 /* OpenSans-Light.ttf */; };
 		81DA3F621C24BE85006822D3 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf */; };
 		81DA3F631C24BE85006822D3 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
@@ -825,7 +816,6 @@
 		811961871BEAE9330014B25B /* TermDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TermDictionary.swift; path = Sources/TermDictionary.swift; sourceTree = "<group>"; };
 		8119618E1BEC18340014B25B /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		8119618F1BEC18340014B25B /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
-		811FA28C1BEF18E900E07660 /* db.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.realm; sourceTree = "<group>"; };
 		811FA2931BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AutocorrectSuggestionsViewController.swift; path = Sources/AutocorrectSuggestionsViewController.swift; sourceTree = "<group>"; };
 		8127A8EF1B90E27F00BD070B /* SearchSuggestionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewController.swift; path = Sources/SearchSuggestionsViewController.swift; sourceTree = "<group>"; };
 		8127A8F21B90E89E00BD070B /* SearchSuggestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionTableViewCell.swift; path = Sources/SearchSuggestionTableViewCell.swift; sourceTree = "<group>"; };
@@ -915,9 +905,7 @@
 		81BDA72D1C3F24BE00198AF8 /* LyricMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LyricMediaItem.swift; path = Core/LyricMediaItem.swift; sourceTree = SOURCE_ROOT; };
 		81BDA7351C404BCF00198AF8 /* BrowseLyricsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseLyricsCollectionViewController.swift; path = Sources/BrowseLyricsCollectionViewController.swift; sourceTree = "<group>"; };
 		81BDA73E1C40884300198AF8 /* CellAnimatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellAnimatable.swift; sourceTree = "<group>"; };
-		81D09D871BE17AC500AFBEC0 /* big.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = big.txt; sourceTree = "<group>"; };
 		81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
-		81D09D911BE2C72900AFBEC0 /* small.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = small.txt; sourceTree = "<group>"; };
 		81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBaseViewModel.swift; path = Sources/SearchBaseViewModel.swift; sourceTree = "<group>"; };
 		81D43B331B46E49800453BBF /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		81D43B341B46E49800453BBF /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
@@ -934,7 +922,6 @@
 		81D60ACF1B84BF3200347BCA /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResponse.swift; path = Sources/SearchResponse.swift; sourceTree = "<group>"; };
 		81D60AD21B854D8500347BCA /* MediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItem.swift; path = Keyboard/Sources/MediaItem.swift; sourceTree = "<group>"; };
 		81DA3F791C24BE85006822D3 /* Often (Keyboard Debug).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Often (Keyboard Debug).app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81DA3F7A1C24BE85006822D3 /* Often copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Often copy-Info.plist"; path = "/Users/luc/Projects/often-ios/Often copy-Info.plist"; sourceTree = "<absolute>"; };
 		81DC114A1AF05CF400412BD2 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftyJSON; sourceTree = "<group>"; };
 		81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsCellOverlayView.swift; path = Sources/SearchResultsCellOverlayView.swift; sourceTree = "<group>"; };
 		81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LayoutConstants.swift; path = Sources/LayoutConstants.swift; sourceTree = "<group>"; };
@@ -1519,7 +1506,6 @@
 				8180E6091A142157007FA1CF /* Products */,
 				3A906368B7CA46AA11C157BA /* Pods */,
 				7F93937CEF33AF0CDDEE7D74 /* Frameworks */,
-				81DA3F7A1C24BE85006822D3 /* Often copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1628,9 +1614,6 @@
 		81B35FAE1A7A10B6001A546C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				811FA28C1BEF18E900E07660 /* db.realm */,
-				81D09D911BE2C72900AFBEC0 /* small.txt */,
-				81D09D871BE17AC500AFBEC0 /* big.txt */,
 				81E26D901B65DC4800FC1F2F /* font_icons8.ttf */,
 				3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */,
 				3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */,
@@ -1968,15 +1951,12 @@
 				695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */,
 				3BAAB1A41B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
-				811FA28D1BEF18E900E07660 /* db.realm in Resources */,
 				3BAAB1A91B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
-				81D09D881BE17AC500AFBEC0 /* big.txt in Resources */,
 				3BAAB1961B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
 				3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
 				3BAAB19A1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				3BAAB1A01B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
 				3BAAB1AB1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
-				81D09D921BE2C72900AFBEC0 /* small.txt in Resources */,
 				3BAAB19C1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
 				3BAAB19E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
 				3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
@@ -1994,15 +1974,12 @@
 				81DF4BBE1BB49371008B1A38 /* Montserrat-Regular.ttf in Resources */,
 				3BAAB1AA1B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */,
-				811FA28E1BEF18E900E07660 /* db.realm in Resources */,
 				3BAAB19D1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
-				81D09D8C1BE17ACA00AFBEC0 /* big.txt in Resources */,
 				3BAAB1991B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				3BAAB19F1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
 				3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
 				3BAAB19B1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
-				81D09D931BE2C72900AFBEC0 /* small.txt in Resources */,
 				3BAAB1A31B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
 				3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				3BAAB1951B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
@@ -2020,15 +1997,12 @@
 				81DA3F551C24BE85006822D3 /* Montserrat-Regular.ttf in Resources */,
 				81DA3F561C24BE85006822D3 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				81DA3F571C24BE85006822D3 /* OpenSans-Bold.ttf in Resources */,
-				81DA3F581C24BE85006822D3 /* db.realm in Resources */,
 				81DA3F591C24BE85006822D3 /* Oswald-Bold.ttf in Resources */,
-				81DA3F5A1C24BE85006822D3 /* big.txt in Resources */,
 				81DA3F5B1C24BE85006822D3 /* OpenSans-ExtraBold.ttf in Resources */,
 				81DA3F5C1C24BE85006822D3 /* OpenSans-BoldItalic.ttf in Resources */,
 				81DA3F5D1C24BE85006822D3 /* OpenSans-Italic.ttf in Resources */,
 				81DA3F5E1C24BE85006822D3 /* OpenSans-Regular.ttf in Resources */,
 				81DA3F5F1C24BE85006822D3 /* Oswald-Light.ttf in Resources */,
-				81DA3F601C24BE85006822D3 /* small.txt in Resources */,
 				81DA3F611C24BE85006822D3 /* OpenSans-Light.ttf in Resources */,
 				81DA3F621C24BE85006822D3 /* OpenSans-LightItalic.ttf in Resources */,
 				81DA3F631C24BE85006822D3 /* Oswald-Regular.ttf in Resources */,
