@@ -39,7 +39,7 @@ class SongCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundColor = WhiteColor
-        layer.cornerRadius = 2.0
+        layer.cornerRadius = 3.0
         layer.shadowColor = UIColor.blackColor().CGColor
         layer.shadowOpacity = 0.14
         layer.shadowOffset = CGSizeMake(0, 1)

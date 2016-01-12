@@ -28,7 +28,6 @@ class AppSettingsViewController: UIViewController,
     var accountSettings = [
         "Name",
         "Email",
-        "Password",
         "Push Notifications"
     ]
     

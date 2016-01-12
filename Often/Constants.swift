@@ -30,7 +30,7 @@ let CrashlyticsAPIKey = "e4598140f72849daf847791f325b1eabae27a254"
 
 
 // Colors
-let BlueColor = UIColor(fromHexString: "#4575BF")
+let BlueColor = UIColor(fromHexString: "#3B5998")
 let DarkGrey = UIColor(fromHexString: "#d8d8d8")
 let MediumGrey = UIColor(fromHexString: "#eeeeee")
 let VeryLightGray = UIColor(fromHexString: "#f7f7f7")

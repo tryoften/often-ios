@@ -42,8 +42,8 @@ class HUDProgressView: PKHUDImageView {
     
     func setupLayout() {
         addConstraints([
-            imageView.al_width == 150,
-            imageView.al_height == 150,
+            imageView.al_width == 85,
+            imageView.al_height == 85,
             imageView.al_centerX == al_centerX,
             imageView.al_centerY == al_centerY
             ])

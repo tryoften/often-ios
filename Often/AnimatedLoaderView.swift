@@ -41,8 +41,8 @@ class AnimatedLoaderView: UIView {
         addConstraints([
             loaderImageView.al_centerX == al_centerX,
             loaderImageView.al_centerY == al_centerY - 20,
-            loaderImageView.al_width == 40,
-            loaderImageView.al_height == 40,
+            loaderImageView.al_width == 80,
+            loaderImageView.al_height == 80,
             
             supplementImageView.al_centerX == al_centerX,
             supplementImageView.al_bottom == al_bottom - 20,

@@ -10,8 +10,8 @@ import UIKit
 
 class NoKeyboardEmptyStateView: EmptyStateView {
     init() {
-        let title = "Install Often"
-        let description = "Remember to install Often in your \nkeyboards settings and allow full-access."
+        let title = "You forgot to install Often"
+        let description = "Remember to allow full access! Trust us fam"
         let image = UIImage(named: "installoftenemptystate")!
         
         super.init(frame: CGRectZero)
@@ -21,7 +21,7 @@ class NoKeyboardEmptyStateView: EmptyStateView {
         imageView.image = image
         
         imageView.contentMode = .ScaleAspectFill
-        imageSize = .Small
+        imageSize = .Medium
         
         primaryButton.backgroundColor = TealColor
         primaryButton.setTitle("go to settings".uppercaseString, forState: .Normal)
