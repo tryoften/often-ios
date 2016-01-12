@@ -2,35 +2,42 @@
 //  AccountManager.swift
 //  Often
 //
-//  Created by Kervins Valcourt on 11/11/15.
-//  Copyright © 2015 Surf Inc. All rights reserved.
+//  Created by Kervins Valcourt on 1/11/16.
+//  Copyright © 2016 Surf Inc. All rights reserved.
 //
 
 import Foundation
 
-/**
- *  Protocol that defines a set of events need for user creation
- */
-protocol AccountManager {
-    var sessionManagerFlags: SessionManagerFlags { get set }
-    var firebase: Firebase { get set }
-    var userRef: Firebase? { get set }
-    weak var delegate: AccountManagerDelegate? { get set }
-    var isInternetReachable: Bool { get set }
-    var newUser: User? { get set }
+class AccountManager: AccountManagerProtocol {
+    weak var delegate: AccountManagerDelegate?
+    var currentUser: User?
 
-    init(firebase: Firebase)
-    func openSession(completion: (results: ResultType) -> Void)
-    func login(userData: User?, completion: (results: ResultType) -> Void)
-    func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void)
-}
+    final internal var sessionManagerFlags: SessionManagerFlags = SessionManagerFlags.defaultManagerFlags
+    internal var userRef: Firebase?
+    internal var firebase: Firebase
+    internal var isInternetReachable: Bool
 
-enum ResultType {
-    case Success(r: Bool)
-    case Error(e: ErrorType)
-    case SystemError(e: NSError)
-}
-protocol AccountManagerDelegate: class {
-    func accountManagerUserDidLogin(accountManager: AccountManager, user: User)
-    func accountManagerDidAddSocialAccount(accountManager: AccountManager, account: SocialAccount)
+
+   required init (firebase: Firebase) {
+        self.firebase = firebase
+        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+        isInternetReachable = reachabilitymanager.reachable
+
+        reachabilitymanager.setReachabilityStatusChangeBlock { status in
+            self.isInternetReachable = reachabilitymanager.reachable
+        }
+        reachabilitymanager.startMonitoring()
+    }
+
+    func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
+        fatalError("login method must overridden in every child class")
+    }
+
+    final func logout() {
+        currentUser = nil
+        sessionManagerFlags.clearSessionFlags()
+    }
+
+    internal func openSession(completion: (results: ResultType) -> Void) {}
+    internal func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {}
 }
