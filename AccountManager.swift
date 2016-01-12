@@ -30,7 +30,7 @@ class AccountManager: AccountManagerProtocol {
     }
 
     func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
-        fatalError("login method must overridden in every child class")
+        fatalError("login method must be overridden in every child class")
     }
 
     final func logout() {
