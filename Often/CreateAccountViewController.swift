@@ -9,10 +9,10 @@
 import Foundation
 
 class CreateAccountViewController: UIViewController, UITextFieldDelegate {
-    var viewModel: SignupViewModel
+    var viewModel: LoginViewModel
     var createAccountView: CreateAccountView
     
-    init (viewModel: SignupViewModel) {
+    init (viewModel: LoginViewModel) {
         self.viewModel = viewModel
         self.viewModel.sessionManager.sessionManagerFlags.userHasOpenedKeyboard = false
         
@@ -38,6 +38,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         createAccountView.cancelButton.addTarget(self,  action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupButton.addTarget(self, action: "didTapSignupButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupTwitterButton.addTarget(self, action: "didTapSignupTwitterButton:", forControlEvents: .TouchUpInside)
+        createAccountView.signupFacebookButton.addTarget(self, action: "didTapSignupFacebookButton:", forControlEvents: .TouchUpInside)
         createAccountView.termsOfUseAndPrivacyPolicyButton.addTarget(self, action: "didTapTermsOfUseButton:", forControlEvents: .TouchUpInside)
     }
     
@@ -55,16 +56,34 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         do {
-            try viewModel.sessionManager.login(.Twitter, userData:nil, completion: { results  -> Void in
+            try viewModel.sessionManager.login(TwitterAccountManager.self, userData: nil, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
-                case .Error(let err): self.showErrorView(err)
+                case .Error(let err): self.viewModel.showErrorView(err)
                 case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
         } catch {  
     
+        }
+    }
+
+    func didTapSignupFacebookButton(sender: UIButton) {
+        self.view.endEditing(true)
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        do {
+            try viewModel.sessionManager.login(FacebookAccountManager.self, userData:nil, completion: { results  -> Void in
+                PKHUD.sharedHUD.hide(animated: true)
+                switch results {
+                case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
+                case .Error(let err): self.viewModel.showErrorView(err)
+                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                }
+            })
+        } catch {
+
         }
     }
     
@@ -73,16 +92,12 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         
-        viewModel.user.username = createAccountView.usernameTextField.text!
-        viewModel.user.email = createAccountView.emailTextField.text!
-        viewModel.password = createAccountView.passwordTextField.text!
-        
         do {
             try viewModel.createNewEmailUser(createAccountView.usernameTextField.text!, email: createAccountView.emailTextField.text!, password: createAccountView.passwordTextField.text!, completion: ({ results -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
-                case .Error(let err): self.showErrorView(err)
+                case .Error(let err): self.viewModel.showErrorView(err)
                 case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
@@ -101,29 +116,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
 
     }
-    
-    func showErrorView(error:ErrorType) {
-        switch error {
-        case TwitterAccountManagerError.ReturnedEmptyUserObject:
-            DropDownErrorMessage().setMessage("Unable to create account. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
-        case TwitterAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
-            DropDownErrorMessage().setMessage("No internet connection fam :(", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
-        case SessionManagerError.UnvalidSignUp:
-            DropDownErrorMessage().setMessage("Unable to create account. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
-        case SignupError.EmailNotVaild:
-            DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
-        case SignupError.PasswordNotVaild:
-            DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            break
-        default: break
-        }
-        
-    }
-    
+
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
         let characterCount = createAccountView.passwordTextField.text!.characters.count
         if characterCount >= 3 {

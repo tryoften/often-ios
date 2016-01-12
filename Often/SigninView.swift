@@ -15,8 +15,10 @@ class SigninView: UIView {
     let emailTextFieldDivider: UIView
     let passwordTextField: UITextField
     let passwordTextFieldDivider: UIView
+    let orSpacer: ViewSpacerWithText
     let signinButton: UIButton
     let signinTwitterButton: UIButton
+    let signinFacebookButton: UIButton
     let forgetPasswordButton: UIButton
     let cancelButton: UIButton
     
@@ -64,9 +66,24 @@ class SigninView: UIView {
         
         signinTwitterButton = UIButton()
         signinTwitterButton.translatesAutoresizingMaskIntoConstraints = false
-        signinTwitterButton.setTitle("sign in with twitter".uppercaseString, forState: .Normal)
-        signinTwitterButton.titleLabel!.font = UIFont(name: "Montserrat", size: 12)
-        signinTwitterButton.setTitleColor(CreateAccountViewSignupTwitterButtonColor, forState: .Normal)
+        signinTwitterButton.backgroundColor = CreateAccountViewSignupTwitterButtonColor
+        signinTwitterButton.setTitle("twitter".uppercaseString, forState: .Normal)
+        signinTwitterButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
+        signinTwitterButton.setTitleColor(CreateAccountViewSignupTwitterButtonFontColor , forState: .Normal)
+        signinTwitterButton.layer.cornerRadius = 4.0
+        signinTwitterButton.clipsToBounds = true
+
+        signinFacebookButton = UIButton()
+        signinFacebookButton.translatesAutoresizingMaskIntoConstraints = false
+        signinFacebookButton.backgroundColor = FacebookButtonNormalBackgroundColor
+        signinFacebookButton.setTitle("facebook".uppercaseString, forState: .Normal)
+        signinFacebookButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
+        signinFacebookButton.setTitleColor(FacebookButtonTitleTextColor , forState: .Normal)
+        signinFacebookButton.layer.cornerRadius = 4.0
+        signinFacebookButton.clipsToBounds = true
+
+        orSpacer = ViewSpacerWithText(title:"Or With")
+        orSpacer.translatesAutoresizingMaskIntoConstraints = false
         
         forgetPasswordButton = UIButton()
         forgetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +109,9 @@ class SigninView: UIView {
         addSubview(passwordTextFieldDivider)
         addSubview(signinButton)
         addSubview(signinTwitterButton)
+        addSubview(signinFacebookButton)
         addSubview(forgetPasswordButton)
+        addSubview(orSpacer)
         addSubview(cancelButton)
         
         setupLayout()
@@ -149,10 +168,20 @@ class SigninView: UIView {
             signinButton.al_right == al_right - 40,
             signinButton.al_height == 50,
             
-            signinTwitterButton.al_top == signinButton.al_bottom + 20,
+            signinTwitterButton.al_top == orSpacer.al_bottom + 5,
             signinTwitterButton.al_left == al_left + 40,
-            signinTwitterButton.al_right == al_right - 40,
+            signinTwitterButton.al_right == al_centerX - 2,
             signinTwitterButton.al_height == 50,
+
+            signinFacebookButton.al_top == signinTwitterButton.al_top,
+            signinFacebookButton.al_left == al_centerX + 2,
+            signinFacebookButton.al_right == al_right - 40,
+            signinFacebookButton.al_height == 50,
+
+            orSpacer.al_top == signinButton.al_bottom + 5,
+            orSpacer.al_left == al_left + 40,
+            orSpacer.al_right == al_right - 40,
+            orSpacer.al_height == 40,
             ])
     }
     

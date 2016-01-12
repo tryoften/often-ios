@@ -1,5 +1,5 @@
 //
-//  SignupViewController.swift
+//  LogInViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 9/8/15.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-class SignupViewController: UIViewController, UIScrollViewDelegate,
-    SignupViewModelDelegate {
-    var viewModel: SignupViewModel
-    var signupView: SignupView
+class LoginViewController: UIViewController, UIScrollViewDelegate,
+    LoginViewModelDelegate {
+    var viewModel: LoginViewModel
+    var loginView: LoginView
     var screenWidth = UIScreen.mainScreen().bounds.width
     var screenHeight = UIScreen.mainScreen().bounds.height
     var pageWidth: CGFloat
@@ -21,22 +21,22 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     var pageImages: [UIImage]
     var pagesubTitle: [String]
     var timer: NSTimer?
-    var splashScreenTimer: NSTimer?
+    var launchScreenLoaderTimer: NSTimer?
     
     var currentPage: Int {
-        return Int(floor((signupView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
+        return Int(floor((loginView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
     }
 
     
-    init (viewModel: SignupViewModel) {
+    init (viewModel: LoginViewModel) {
         self.viewModel = viewModel
         
-        signupView = SignupView()
-        signupView.translatesAutoresizingMaskIntoConstraints = false
+        loginView = LoginView()
+        loginView.translatesAutoresizingMaskIntoConstraints = false
         
         pageWidth = screenWidth - 40
         
-        pagesScrollViewSize = signupView.scrollView.frame.size
+        pagesScrollViewSize = loginView.scrollView.frame.size
         
         pageCount = 0
         
@@ -58,31 +58,31 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
-        signupView.scrollView.delegate = self
+        loginView.scrollView.delegate = self
         
-        view.addSubview(signupView)
+        view.addSubview(loginView)
         setupLayout()
         
         timer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
-        splashScreenTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
+        launchScreenLoaderTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
     }
 
     func scrollToNextPage() {
         let xOffset = pageWidth * CGFloat((currentPage + 1) % pageCount)
-        signupView.scrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: true)
+        loginView.scrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: true)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        signupView.createAccountButton.addTarget(self,  action: "didTapcreateAccountButton:", forControlEvents: .TouchUpInside)
-        signupView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
-        signupView.skipButton.addTarget(self, action: "didTapSkipButton:", forControlEvents: .TouchUpInside)
+        loginView.createAccountButton.addTarget(self,  action: "didTapcreateAccountButton:", forControlEvents: .TouchUpInside)
+        loginView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
+        loginView.skipButton.addTarget(self, action: "didTapSkipButton:", forControlEvents: .TouchUpInside)
         setupPages()
         loadVisiblePages()
         
         if viewModel.sessionManager.sessionManagerFlags.isUserLoggedIn {
-            signupView.splashScreen.hidden = false
+            loginView.launchScreenLoader.hidden = false
         } 
     }
     
@@ -103,13 +103,13 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         imageView.image = pageImages[page]
         imageView.contentMode = .Center
         
-        signupView.scrollView.addSubview(imageView)
+        loginView.scrollView.addSubview(imageView)
         
-        signupView.scrollView.addConstraints([
-            imageView.al_top == signupView.scrollView.al_top,
-            imageView.al_height == signupView.scrollView.al_height,
+        loginView.scrollView.addConstraints([
+            imageView.al_top == loginView.scrollView.al_top,
+            imageView.al_height == loginView.scrollView.al_height,
             imageView.al_width == pageWidth,
-            imageView.al_left == signupView.scrollView.al_left + pageWidth * CGFloat(page)
+            imageView.al_left == loginView.scrollView.al_left + pageWidth * CGFloat(page)
         ])
         
         pageViews.append(imageView)
@@ -126,10 +126,10 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
         subtitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 13)!, range: subtitleRange)
         subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
         
-        signupView.pageControl.currentPage = currentPage
-        signupView.subtitleLabel.text = subtitleString
-        signupView.subtitleLabel.attributedText = subtitle
-        signupView.subtitleLabel.textAlignment = .Center
+        loginView.pageControl.currentPage = currentPage
+        loginView.subtitleLabel.text = subtitleString
+        loginView.subtitleLabel.attributedText = subtitle
+        loginView.subtitleLabel.textAlignment = .Center
         
         timer?.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(4.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
@@ -141,9 +141,9 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
 
     func setupPages() {
         pageCount = pageImages.count
-        signupView.pageControl.numberOfPages = pageCount
+        loginView.pageControl.numberOfPages = pageCount
         
-        signupView.scrollView.contentSize = CGSize(width: pageWidth  * CGFloat(pageImages.count),
+        loginView.scrollView.contentSize = CGSize(width: pageWidth  * CGFloat(pageImages.count),
             height: pagesScrollViewSize.height)
     }
     
@@ -161,7 +161,7 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     
     func didTapSkipButton(sender: UIButton) {
         do {
-            try  viewModel.sessionManager.login(.Anonymous, userData: nil, completion: { results -> Void in
+            try  viewModel.sessionManager.login(AnonymousAccountManager.self, userData: nil, completion: { results -> Void in
                 switch results {
                 case .Success(_):
                     let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
@@ -181,21 +181,21 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     
     func setupLayout() {
         let constraints: [NSLayoutConstraint] = [
-            signupView.al_bottom == view.al_bottom,
-            signupView.al_top == view.al_top,
-            signupView.al_left == view.al_left,
-            signupView.al_right == view.al_right,
+            loginView.al_bottom == view.al_bottom,
+            loginView.al_top == view.al_top,
+            loginView.al_left == view.al_left,
+            loginView.al_right == view.al_right,
         ]
         
         view.addConstraints(constraints)
     }
     
-    func signupViewModelDidLoginUser(userProfileViewModel: SignupViewModel, user: User?, isNewUser: Bool) {
-        splashScreenTimer?.invalidate()
+    func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?, isNewUser: Bool) {
+        launchScreenLoaderTimer?.invalidate()
         var mainController: UIViewController
         
             if viewModel.sessionManager.sessionManagerFlags.userIsAnonymous {
-                mainController = SkipSignupViewController(viewModel: SignupViewModel(sessionManager: viewModel.sessionManager))
+                mainController = SkipSignupViewController(viewModel: LoginViewModel(sessionManager: viewModel.sessionManager))
             } else {
                 let mainViewController = RootViewController()
                 mainController = mainViewController
@@ -205,13 +205,13 @@ class SignupViewController: UIViewController, UIScrollViewDelegate,
     }
     
     func userDataTimeOut() {
-        splashScreenTimer?.invalidate()
-        signupView.splashScreen.hidden = true
+        launchScreenLoaderTimer?.invalidate()
+        loginView.launchScreenLoader.hidden = true
         viewModel.delegate = nil
     }
     
-    func signupViewModelNoUserFound(userProfileViewModel: SignupViewModel) {
-        splashScreenTimer?.invalidate()
-        signupView.splashScreen.hidden = true
+    func loginViewModelNoUserFound(userProfileViewModel: LoginViewModel) {
+        launchScreenLoaderTimer?.invalidate()
+        loginView.launchScreenLoader.hidden = true
     }
 }

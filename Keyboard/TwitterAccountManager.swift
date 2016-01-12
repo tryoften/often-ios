@@ -9,10 +9,8 @@
 import Foundation
 
 class TwitterAccountManager: AccountManager {
-    
+
     override func openSession(completion: (results: ResultType) -> Void) {
-        super.openSession(completion)
-        
         guard let userId = PFTwitterUtils.twitter()?.userId, twitterToken = PFTwitterUtils.twitter()?.authToken else {
             completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
             return
@@ -45,7 +43,7 @@ class TwitterAccountManager: AccountManager {
         sessionManagerFlags.openSession = true
     }
     
-    override func login(userData: User?, completion: (results: ResultType) -> Void) {
+    override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
         guard isInternetReachable else {
             completion(results: ResultType.Error(e: TwitterAccountManagerError.NotConnectedOnline))
             return
@@ -67,48 +65,54 @@ class TwitterAccountManager: AccountManager {
     
     override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
         func parseUserData(data: AnyObject) {
-            if let userdata = data as? [String: AnyObject] {
-                var firebaseData = [String: AnyObject]()
-                var socialAccounts = SessionManager.defaultManager.createSocialAccount()
-                
-                if let accessToken = PFTwitterUtils.twitter()?.authToken {
-                    let twitter = SocialAccount()
-                    twitter.type = .Twitter
-                    twitter.activeStatus = true
-                    twitter.token = accessToken
-                    socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
+            guard let userdata = data as? [String: AnyObject], parseUser = PFUser.currentUser() else {
+                completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
+                return
+            }
+
+            var firebaseData = [String: AnyObject]()
+            var socialAccounts = SessionManager.defaultManager.createSocialAccount()
+
+            if let accessToken = PFTwitterUtils.twitter()?.authToken {
+                let twitter = SocialAccount()
+                twitter.type = .Twitter
+                twitter.activeStatus = true
+                twitter.token = accessToken
+                socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
+            }
+
+            let urlString = userdata["profile_image_url_https"] as? String
+            let hiResUrlString = urlString?.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+
+            firebaseData["accounts"] = socialAccounts
+            firebaseData["id"] = authData.uid
+            firebaseData["profileImageURL"] = hiResUrlString
+            firebaseData["name"] = userdata["name"] as? String
+            firebaseData["username"] = userdata["screen_name"] as? String
+            firebaseData["description"] = userdata["description"] as? String
+            firebaseData["parseId"] = parseUser.objectId
+            firebaseData["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
+
+            if sessionManagerFlags.userId == nil {
+                guard let userID = PFTwitterUtils.twitter()?.userId  else {
+                    completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
+                    return
                 }
-                
-                let urlString = userdata["profile_image_url_https"] as? String
-                let hiResUrlString = urlString?.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
 
-                firebaseData["accounts"] = socialAccounts
-                firebaseData["id"] = authData.uid
-                firebaseData["profileImageURL"] = hiResUrlString
-                firebaseData["name"] = userdata["name"] as? String
-                firebaseData["username"] = userdata["screen_name"] as? String
-                firebaseData["description"] = userdata["description"] as? String
-                firebaseData["parseId"] = PFUser.currentUser()?.objectId
-                firebaseData["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
+                sessionManagerFlags.userId =  "twitter:\(userID)"
 
-                if sessionManagerFlags.userId == nil {
-                    if let userID = PFTwitterUtils.twitter()?.userId {
-                       sessionManagerFlags.userId =  "twitter:\(userID)"
+                currentUser = User()
+                currentUser?.setValuesForKeysWithDictionary(firebaseData)
 
-                        newUser = User()
-                        newUser?.setValuesForKeysWithDictionary(firebaseData)
-
-                        if let user = newUser {
-                            userRef?.updateChildValues(user.dataChangedToDictionary())
-                            completion(results: ResultType.Success(r: true))
-                            delegate?.accountManagerUserDidLogin(self, user: user)
-                        }
-                    }
-
+                if let user = currentUser {
+                    userRef?.updateChildValues(user.dataChangedToDictionary())
+                    completion(results: ResultType.Success(r: true))
+                    delegate?.accountManagerUserDidLogin(self, user: user)
                 }
             }
+
         }
-        
+
         let verify = NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json")
         let request = NSMutableURLRequest(URL: verify!)
         PFTwitterUtils.twitter()?.signRequest(request)

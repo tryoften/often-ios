@@ -14,20 +14,12 @@ class SessionManager: NSObject {
     var firebase: Firebase
     var socialAccountService: SocialAccountsService?
     var accountManager: AccountManager?
-    var spotifyAccountManager: SpotifyAccountManager?
-    var soundcloudAccountManager: SoundcloudAccountManager?
     var userRef: Firebase?
     var currentUser: User?
     var currentSession: FBSession?
     var isUserNew: Bool
     var userIsLoggingIn = false
-    
-    enum ResultType {
-        case Success(r: Bool)
-        case Error(e: ErrorType)
-        case SystemError(e: NSError)
-    }
-    
+
     private var observers: NSMutableArray
     static let defaultManager = SessionManager()
     
@@ -45,11 +37,7 @@ class SessionManager: NSObject {
         firebase = Firebase(url: BaseURL)
         
         super.init()
-        
-        spotifyAccountManager = SpotifyAccountManager(firebase: firebase)
-        soundcloudAccountManager = SoundcloudAccountManager(firebase:firebase)
 
-        
         firebase.observeAuthEventWithBlock { authData in
             self.processAuthData(authData)
         }
@@ -68,36 +56,29 @@ class SessionManager: NSObject {
     }
     
 
-    func login(loginType: LoginType, userData: User?, completion: (results: ResultType) -> Void) throws {
+    func login(accountManagerControllerClass: AccountManager.Type, userData: UserAuthData?, completion: (results: ResultType) -> Void) throws {
         userIsLoggingIn = true
 
-        switch loginType {
-        case .Twitter:
-            accountManager = TwitterAccountManager(firebase: firebase)
-        case .Facebook:
-            accountManager = FacebookAccountManager(firebase: firebase)
-        case .Email:
-            accountManager = EmailAccountManager(firebase: firebase)
-        case .Anonymous:
-            accountManager = AnonymousAccountManager(firebase: firebase)
-        }
+        accountManager = accountManagerControllerClass.init(firebase: firebase)
 
-        accountManager?.login(userData, completion: { results in
-            switch results {
-            case .Success(let value): completion(results: ResultType.Success(r: value))
-            case .Error(let err): completion(results: ResultType.Error(e: err))
-            case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
-            }
-        })
+        if let accountManager = accountManager {
+            accountManager.login(userData, completion: { results in
+                switch results {
+                case .Success(let value): completion(results: ResultType.Success(r: value))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
+            })
+        }
     }
 
 
     func logout() {
         PFUser.logOut()
+        accountManager?.logout()
         firebase.unauth()
         observers.removeAllObjects()
-        sessionManagerFlags.clearSessionFlags()
-        
+
         guard let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
             return
         }
@@ -178,7 +159,7 @@ class SessionManager: NSObject {
         return socialAccounts
     }
     
-    func setSocialAccountOnCurrentUser(socialAccount:SocialAccount, completion: (User, NSError?) -> ()) {
+    func setSocialAccountOnCurrentUser(socialAccount: SocialAccount, completion: (User, NSError?) -> ()) {
         if let currentUser = self.currentUser {
             let socialAccountService = provideSocialAccountService(currentUser)
             socialAccountService.updateSocialAccount(socialAccount)
@@ -248,13 +229,6 @@ class SessionManager: NSObject {
 
 enum SessionManagerError: ErrorType {
     case UnvalidSignUp
-}
-
-enum LoginType {
-    case Email
-    case Facebook
-    case Twitter
-    case Anonymous
 }
 
 @objc protocol SessionManagerObserver: class {
