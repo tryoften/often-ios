@@ -20,6 +20,7 @@ class BrowseArtistCollectionViewController: BrowseCollectionViewController {
         
         // Register cell classes
         collectionView?.registerClass(TrackCollectionViewCell.self, forCellWithReuseIdentifier: artistAlbumCellReuseIdentifier)
+        navigationItem.backBarButtonItem?.title = ""
     }
 
     // MARK: UICollectionViewDataSource
@@ -43,7 +44,7 @@ class BrowseArtistCollectionViewController: BrowseCollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let lyricsVC = BrowseLyricsCollectionViewController()
-        lyricsVC.navigationBar.shouldDisplayOptions = false
+//        lyricsVC.navigationBar.shouldDisplayOptions = false
         navigationController?.pushViewController(lyricsVC, animated: true)
     }
 }

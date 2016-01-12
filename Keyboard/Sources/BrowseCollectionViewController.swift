@@ -14,17 +14,20 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
         return 105.0
     }
 
-    var navigationBar: KeyboardBrowseNavigationBar
+    var navigationBar: KeyboardBrowseNavigationBar?
     var navigationBarHideConstraint: NSLayoutConstraint?
 
     init() {
-        navigationBar = KeyboardBrowseNavigationBar()
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
 
-        navigationBar.browseDelegate = self
-        view.addSubview(navigationBar)
+        #if KEYBOARD
+        navigationBar = KeyboardBrowseNavigationBar()
+        navigationBar?.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar?.browseDelegate = self
+        view.addSubview(navigationBar!)
+        #endif
+
         setupLayout()
     }
 
@@ -35,6 +38,7 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = VeryLightGray
+        navigationItem.backBarButtonItem?.title = " "
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -73,7 +77,10 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
         }
 
         var frame = tabBarFrame
-        var searchBarFrame = navigationBar.frame
+        guard var searchBarFrame = navigationBar?.frame else {
+            return
+        }
+
         let tabBarHeight = CGRectGetHeight(frame)
 
         searchBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight), 0)
@@ -90,17 +97,18 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
     func setupLayout() {
         #if KEYBOARD
             let topMargin = KeyboardSearchBarHeight
-        #else
-            let topMargin = CGRectGetHeight(UIApplication.sharedApplication().statusBarFrame)
+            guard let navigationBar = navigationBar else {
+                return
+            }
+
+            navigationBarHideConstraint = navigationBar.al_top == view.al_top + topMargin
+
+            view.addConstraints([
+                navigationBarHideConstraint!,
+                navigationBar.al_left == view.al_left,
+                navigationBar.al_right == view.al_right,
+                navigationBar.al_height == 64
+            ])
         #endif
-
-        navigationBarHideConstraint = navigationBar.al_top == view.al_top + topMargin
-
-        view.addConstraints([
-            navigationBarHideConstraint!,
-            navigationBar.al_left == view.al_left,
-            navigationBar.al_right == view.al_right,
-            navigationBar.al_height == 64
-        ])
     }
 }

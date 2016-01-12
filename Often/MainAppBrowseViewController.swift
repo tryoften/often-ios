@@ -13,9 +13,10 @@ private let BrowseHeadercellReuseIdentifier = "browseHeaderCell"
 /**
     This view controller displays a search bar along with trending navigatable items (lyrics, songs, artists)
 */
-class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegate, SearchViewControllerDelegate {
+class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDelegate {
     var headerView: BrowseHeaderView?
     var searchBar: MainAppSearchBar!
+    var scrollsStatusBar: Bool = false
 
     override init(collectionViewLayout: UICollectionViewLayout, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
       super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel, textProcessor: textProcessor)
@@ -49,8 +50,8 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
         }
 
         searchViewController.delegate = self
-        searchViewController.searchSuggestionsViewController.contentInset = mainAppSearchSuggestionsViewControllerContentInsets
-        searchViewController.searchResultsViewController.contentInset = mainAppSearchResultsCollectionViewControllerContentInsets
+//        searchViewController.searchSuggestionsViewController.contentInset = mainAppSearchSuggestionsViewControllerContentInsets
+//        searchViewController.searchResultsViewController.contentInset = mainAppSearchResultsCollectionViewControllerContentInsets
 
         self.searchBar = searchBar
 
@@ -64,6 +65,7 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
         searchBar.backgroundColor = WhiteColor
         searchBar.tintColor = UIColor(fromHexString: "#14E09E")
         searchBar.placeholder = SearchBarPlaceholderText
+        // TODO(luc): obfuscate string
         searchBar.setValue("cancel".uppercaseString, forKey: "_cancelButtonText")
 
         if #available(iOS 9.0, *) {
@@ -96,8 +98,6 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
 
             if headerView == nil {
                 headerView = cell
-                headerView?.delegate = self
-                            
             }
             return headerView!
         }
@@ -108,14 +108,6 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
         }
         cell.leftText = group.title
         return cell
-    }
-
-    func browseHeaderDidLoadFeaturedArtists(BrowseHeaderView: UICollectionReusableView, artists: [MediaItem]){
-
-    }
-
-    func browseHeaderDidSelectFeaturedArtist(BrowseHeaderView: UICollectionReusableView, artist: MediaItem) {
-
     }
 
     func searchViewControllerSearchBarDidTextDidBeginEditing(viewController: SearchViewController, searchBar: UISearchBar) {
@@ -148,8 +140,7 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
         super.setNavigationBarOriginY(y, animated: animated)
 
         guard let navigationController = navigationController as? ContainerNavigationController,
-            let contentOffset = collectionView?.contentOffset,
-            var contentInset = collectionView?.contentInset else {
+            let collectionView = collectionView else {
                 return
         }
 
@@ -159,6 +150,7 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
         let baseY = frame.origin.y + frame.size.height
         let topLimit = CGRectGetHeight(frame) + statusBarHeight
         let boundedY = fmin(fmax(baseY, bottomLimit), topLimit)
+        let contentOffset = collectionView.contentOffset
 
         func setStatusBarYOffset(statusBarY: CGFloat) {
             if let statusBar = UIApplication.sharedApplication().valueForKey("statusBarWindow") as? UIWindow {
@@ -172,17 +164,23 @@ class MainAppBrowseViewController: BrowseViewController, BrowseHeaderViewDelegat
             }
         }
 
+        var contentInset = collectionView.contentInset
         contentInset.top = boundedY
+
         if contentOffset.y > bottomLimit || contentOffset.y < -topLimit {
-            collectionView?.contentInset = contentInset
-            setStatusBarYOffset(0)
+            collectionView.contentInset = contentInset
+            if scrollsStatusBar {
+                setStatusBarYOffset(0)
+            }
             return
         }
 
         UIView.animateWithDuration(0.2) {
-            self.collectionView?.contentInset = contentInset
-            self.collectionView?.contentOffset = contentOffset
-            setStatusBarYOffset(y)
+            collectionView.contentInset = contentInset
+            collectionView.contentOffset = contentOffset
+            if self.scrollsStatusBar {
+                setStatusBarYOffset(y)
+            }
         }
     }
 }

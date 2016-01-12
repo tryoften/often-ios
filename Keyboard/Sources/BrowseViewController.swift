@@ -30,6 +30,7 @@ class BrowseViewController: FullScreenCollectionViewController,
         self.viewModel = viewModel
 
         super.init(collectionViewLayout: collectionViewLayout)
+
         viewModel.delegate = self
         self.textProcessor = textProcessor
         self.textProcessor?.delegate = self
@@ -262,7 +263,6 @@ extension BrowseViewController {
             setNavigationBarOriginY(top, animated: true)
         }
     }
-
 
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
         guard let containerViewController = containerViewController,

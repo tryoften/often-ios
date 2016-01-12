@@ -21,6 +21,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         super.init(collectionViewLayout: layout)
         
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "backnavigation")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "backnavigation")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {

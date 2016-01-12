@@ -10,7 +10,7 @@ import UIKit
 
 private let TrendingArtistsCellReuseIdentifier = "Cell"
 
-class TrendingArtistsHorizontalCollectionViewController: UICollectionViewController {
+class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionViewController {
     var group: MediaItemGroup? {
         didSet {
             collectionView?.reloadData()
@@ -84,7 +84,6 @@ class TrendingArtistsHorizontalCollectionViewController: UICollectionViewControl
             return UICollectionViewCell()
         }
 
-
         guard let artist = group?.items[indexPath.row] as? ArtistMediaItem else {
             return cell
         }
@@ -102,7 +101,7 @@ class TrendingArtistsHorizontalCollectionViewController: UICollectionViewControl
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        navigationController?.navigationBar.hidden = true
+        showNavigationBar(true)
         navigationController?.pushViewController(BrowseArtistCollectionViewController(), animated: true)
         containerViewController?.resetPosition()
     }
