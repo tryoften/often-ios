@@ -11,8 +11,8 @@ import Foundation
 class EmailAccountManager: AccountManager {
 
     override func openSession(completion: (results: ResultType) -> Void) {
-        guard let email = newUser?.email,
-            let password = newUser?.password else {
+        guard let email = currentUser?.email,
+            let password = currentUser?.password else {
                 completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
                 return
         }
@@ -29,17 +29,21 @@ class EmailAccountManager: AccountManager {
         sessionManagerFlags.openSession = true
     }
     
-    override func login(userData: User?, completion: (results: ResultType) -> Void) {
+    override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
         guard let user = userData,
             let email = userData?.email,
-            let password = userData?.password else {
+            let password = userData?.password,
+            let username = userData?.username else {
                  completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
                 return
         }
 
-        self.newUser = user
+        currentUser = User()
+        currentUser?.password = password
+        currentUser?.email = email
+        currentUser?.username = username
 
-        if user.isNew {
+        if user.isNewUser {
             createUser(completion)
 
         } else {
@@ -59,9 +63,9 @@ class EmailAccountManager: AccountManager {
     }
     
     func createUser(completion: (results: ResultType) -> Void) {
-        guard let email = newUser?.email,
-            let username = newUser?.username,
-            let password = newUser?.password else {
+        guard let email = currentUser?.email,
+            let username = currentUser?.username,
+            let password = currentUser?.password else {
                 completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
                 return
         }
@@ -86,28 +90,27 @@ class EmailAccountManager: AccountManager {
             }
         }
     }
-    
+
     override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         sessionManagerFlags.userId = authData.uid
 
         var data = [String : AnyObject]()
         
-        if let currentUser = PFUser.currentUser() {
+        if let parseCurrentUser = PFUser.currentUser() {
             data["id"] = authData.uid
-            data["email"] = currentUser.email
-            data["phone"] = currentUser.objectForKey("phone") as? String
-            data["username"] = currentUser.username
-            data["displayName"] = currentUser.objectForKey("fullName") as? String
-            data["name"] = currentUser.objectForKey("fullName") as? String
-            data["parseId"] = currentUser.objectId
+            data["email"] = parseCurrentUser.email
+            data["phone"] = parseCurrentUser.objectForKey("phone") as? String
+            data["username"] = parseCurrentUser.username
+            data["displayName"] = parseCurrentUser.objectForKey("fullName") as? String
+            data["name"] = parseCurrentUser.objectForKey("fullName") as? String
+            data["parseId"] = parseCurrentUser.objectId
             data["accounts"] = SessionManager.defaultManager.createSocialAccount()
             data["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
-            
-            newUser = User()
-            newUser?.setValuesForKeysWithDictionary(data)
 
-            if let user = newUser {
+            currentUser?.setValuesForKeysWithDictionary(data)
+
+            if let user = currentUser {
                 self.userRef?.updateChildValues(data)
                 completion(results: ResultType.Success(r: true))
                 delegate?.accountManagerUserDidLogin(self, user: user)

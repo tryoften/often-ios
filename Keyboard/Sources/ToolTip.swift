@@ -9,15 +9,15 @@
 import UIKit
 
 class ToolTip: UIView {
-    var imageView: UIImageView
+    var tabBarIconImageView: UIImageView
     var textView: UILabel
     var currentPage: Int?
     
     override init(frame: CGRect) {
-        imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .ScaleAspectFit
-        imageView.clipsToBounds = true
+        tabBarIconImageView = UIImageView()
+        tabBarIconImageView.translatesAutoresizingMaskIntoConstraints = false
+        tabBarIconImageView.contentMode = .ScaleAspectFit
+        tabBarIconImageView.clipsToBounds = true
         
         textView = UILabel()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +33,7 @@ class ToolTip: UIView {
         backgroundColor = ClearColor
         translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(imageView)
+        addSubview(tabBarIconImageView)
         addSubview(textView)
         
     }
@@ -49,10 +49,10 @@ class ToolTip: UIView {
             textView.al_height == 55,
             textView.al_top == al_centerY + 10,
             
-            imageView.al_centerX == al_centerX,
-            imageView.al_bottom == textView.al_top - 5,
-            imageView.al_width == 245,
-            imageView.al_height == 70
+            tabBarIconImageView.al_centerX == al_centerX,
+            tabBarIconImageView.al_bottom == textView.al_top - 5,
+            tabBarIconImageView.al_width == 245,
+            tabBarIconImageView.al_height == 70
         ]
         
         addConstraints(constraints)

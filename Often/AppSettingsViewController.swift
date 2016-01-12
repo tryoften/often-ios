@@ -154,8 +154,8 @@ class AppSettingsViewController: UIViewController,
             case .Actions:
                 switch indexPath.row {
                 case 0:
-                    let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
-                    let walkthroughViewController = KeyboardInstallationWalkthroughViewController(viewModel: signupViewModel)
+                    let loginViewModel = LoginViewModel(sessionManager: viewModel.sessionManager)
+                    let walkthroughViewController = KeyboardInstallationWalkthroughViewController(viewModel: loginViewModel)
                     walkthroughViewController.inAppDisplay = true
                     presentViewController(walkthroughViewController, animated: true, completion: nil)
                 case 1: break
@@ -301,9 +301,9 @@ class AppSettingsViewController: UIViewController,
         case 0:
             print("logout")
             viewModel.sessionManager.logout()
-            let signupViewModel = SignupViewModel(sessionManager: viewModel.sessionManager)
-            let vc = SignupViewController(viewModel: signupViewModel)
-            vc.signupView.splashScreen.hidden = true
+            let loginViewModel = LoginViewModel(sessionManager: viewModel.sessionManager)
+            let vc = LoginViewController(viewModel: loginViewModel)
+            vc.loginView.launchScreenLoader.hidden = true
             presentViewController(vc, animated: true, completion: nil)
         default:
             break

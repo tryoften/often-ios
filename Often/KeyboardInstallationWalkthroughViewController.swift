@@ -26,14 +26,14 @@ class KeyboardInstallationWalkthroughViewController: UIViewController, UIScrollV
     var pageImages: [UIImage]
     var pageTitle: [String]
     var pagesubTitle: [String]
-    var viewModel: SignupViewModel
+    var viewModel: LoginViewModel
     var settingsButtonRightPositionConstraint: NSLayoutConstraint?
     var inAppDisplay: Bool
     var currentPage: Int {
         return Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
     }
     
-    init (viewModel: SignupViewModel) {
+    init (viewModel: LoginViewModel) {
         self.viewModel = viewModel
         
         toolbar = UIView()
