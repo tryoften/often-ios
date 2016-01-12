@@ -9,26 +9,8 @@
 import Foundation
 
 class AnonymousAccountManager: AccountManager {
-    var sessionManagerFlags: SessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    var firebase: Firebase
-    var userRef: Firebase?
-    weak var delegate: AccountManagerDelegate?
-    var isInternetReachable: Bool
-    var newUser: User?
 
-    required init(firebase: Firebase) {
-        self.firebase = firebase
-        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
-        isInternetReachable = reachabilitymanager.reachable
-
-        reachabilitymanager.setReachabilityStatusChangeBlock { status in
-            self.isInternetReachable = reachabilitymanager.reachable
-        }
-        reachabilitymanager.startMonitoring()
-    }
-    
-    
-   func openSession(completion: (results: ResultType) -> Void) {
+  override  func openSession(completion: (results: ResultType) -> Void) {
         self.firebase.authAnonymouslyWithCompletionBlock { (err, auth) -> Void in
             if err != nil {
                 print(err)
@@ -53,20 +35,20 @@ class AnonymousAccountManager: AccountManager {
         }
     }
 
-    func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         sessionManagerFlags.userId = authData.uid
         
         var data = [String : AnyObject]()
 
-        if let currentUser = PFUser.currentUser() {
+        if let parseCurrentUser = PFUser.currentUser() {
             data["id"] = authData.uid
-            data["parseId"] = currentUser.objectId
+            data["parseId"] = parseCurrentUser.objectId
 
-            newUser = User()
-            newUser?.setValuesForKeysWithDictionary(data)
+            currentUser = User()
+            currentUser?.setValuesForKeysWithDictionary(data)
 
-            if let user = newUser {
+            if let user = self.currentUser {
                 self.userRef?.updateChildValues(data)
                 completion(results: ResultType.Success(r: true))
                 delegate?.accountManagerUserDidLogin(self, user: user)

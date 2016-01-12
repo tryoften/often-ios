@@ -69,7 +69,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         do {
-            try viewModel.sessionManager.login(.Twitter, userData: nil,  completion: { results  -> Void in
+            try viewModel.sessionManager.login(TwitterAccountManager.self, userData: nil,  completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
@@ -87,12 +87,12 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         do {
-            try viewModel.sessionManager.login(.Facebook, userData: nil,  completion: { results  -> Void in
+            try viewModel.sessionManager.login(FacebookAccountManager.self, userData: nil,  completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
                 case .Error(let err): self.viewModel.showErrorView(err)
-                case .SystemError(let err):  print(err.localizedDescription)
+                case .SystemError(let err):  DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
         } catch {

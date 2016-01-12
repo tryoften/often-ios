@@ -56,7 +56,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         do {
-            try viewModel.sessionManager.login(.Twitter, userData:nil, completion: { results  -> Void in
+            try viewModel.sessionManager.login(TwitterAccountManager.self, userData: nil, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
@@ -74,7 +74,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
         do {
-            try viewModel.sessionManager.login(.Facebook, userData:nil, completion: { results  -> Void in
+            try viewModel.sessionManager.login(FacebookAccountManager.self, userData:nil, completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
@@ -91,10 +91,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
-        
-        viewModel.user.username = createAccountView.usernameTextField.text!
-        viewModel.user.email = createAccountView.emailTextField.text!
-        viewModel.password = createAccountView.passwordTextField.text!
         
         do {
             try viewModel.createNewEmailUser(createAccountView.usernameTextField.text!, email: createAccountView.emailTextField.text!, password: createAccountView.passwordTextField.text!, completion: ({ results -> Void in

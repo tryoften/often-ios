@@ -11,18 +11,15 @@ import Foundation
 class LoginViewModel: NSObject, SessionManagerObserver {
     weak var delegate: LoginViewModelDelegate?
     var sessionManager: SessionManager
-    var user: User
-    var password: String
+    var userAuthData: UserAuthData
     var isInternetReachable: Bool
 
     init(sessionManager: SessionManager) {
-
         self.sessionManager = sessionManager
         let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
         isInternetReachable = reachabilitymanager.reachable
 
-        user = User()
-        password = ""
+        userAuthData = UserAuthData(username: "", email: "",  password: "", isNewUser: false)
 
         super.init()
 
@@ -45,7 +42,7 @@ class LoginViewModel: NSObject, SessionManagerObserver {
             throw SignupError.EmailNotVaild
         }
 
-        guard EmailIsValid(user.email) else {
+        guard EmailIsValid(email) else {
             completion(results: ResultType.Error(e: SignupError.EmailNotVaild))
             throw SignupError.EmailNotVaild
         }
@@ -55,13 +52,13 @@ class LoginViewModel: NSObject, SessionManagerObserver {
             throw SignupError.PasswordNotVaild
         }
 
-        user.username = username.lowercaseString
-        user.email = user.email.lowercaseString
-        user.password = password
-        user.isNew = true
+        userAuthData.username = username.lowercaseString
+        userAuthData.email = email.lowercaseString
+        userAuthData.password = password
+        userAuthData.isNewUser = true
 
         do {
-            try sessionManager.login(.Email, userData: user) { (results) -> Void in
+            try sessionManager.login(EmailAccountManager.self, userData: userAuthData) { (results) -> Void in
                 switch results {
                 case .Success(_): completion(results: ResultType.Success(r: true))
                 case .Error(let err): completion(results: ResultType.Error(e: err))
@@ -90,12 +87,12 @@ class LoginViewModel: NSObject, SessionManagerObserver {
         }
 
 
-        user.email = username.lowercaseString
-        user.password = password
-        user.isNew = false
+        userAuthData.email = username.lowercaseString
+        userAuthData.password = password
+        userAuthData.isNewUser = false
 
         do {
-            try sessionManager.login(.Email, userData: user) { (results) -> Void in
+            try sessionManager.login(EmailAccountManager.self, userData: userAuthData) { (results) -> Void in
                 switch results {
                 case .Success(_): completion(results: ResultType.Success(r: true))
                 case .Error(let err): completion(results: ResultType.Error(e: err))
@@ -132,7 +129,6 @@ class LoginViewModel: NSObject, SessionManagerObserver {
     }
 
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
-        self.user = user
         delegate?.loginViewModelDidLoginUser(self, user: user, isNewUser: isNewUser)
     }
 

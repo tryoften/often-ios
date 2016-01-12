@@ -161,7 +161,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate,
     
     func didTapSkipButton(sender: UIButton) {
         do {
-            try  viewModel.sessionManager.login(.Anonymous, userData: nil, completion: { results -> Void in
+            try  viewModel.sessionManager.login(AnonymousAccountManager.self, userData: nil, completion: { results -> Void in
                 switch results {
                 case .Success(_):
                     let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)

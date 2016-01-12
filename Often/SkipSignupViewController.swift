@@ -51,7 +51,7 @@ class SkipSignupViewController: UIViewController {
         PKHUD.sharedHUD.show()
         viewModel.sessionManager.logout()
         do {
-            try viewModel.sessionManager.login(.Twitter, userData: nil,  completion: { results  -> Void in
+            try viewModel.sessionManager.login(TwitterAccountManager.self, userData: nil,  completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()
@@ -70,7 +70,7 @@ class SkipSignupViewController: UIViewController {
         PKHUD.sharedHUD.show()
         viewModel.sessionManager.logout()
         do {
-            try viewModel.sessionManager.login(.Facebook, userData: nil,  completion: { results  -> Void in
+            try viewModel.sessionManager.login(FacebookAccountManager.self, userData: nil,  completion: { results  -> Void in
                 PKHUD.sharedHUD.hide(animated: true)
                 switch results {
                 case .Success(_): self.createProfileViewController()

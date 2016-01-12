@@ -56,36 +56,29 @@ class SessionManager: NSObject {
     }
     
 
-    func login(loginType: LoginType, userData: User?, completion: (results: ResultType) -> Void) throws {
+    func login(accountManagerControllerClass: AccountManager.Type, userData: UserAuthData?, completion: (results: ResultType) -> Void) throws {
         userIsLoggingIn = true
 
-        switch loginType {
-        case .Twitter:
-            accountManager = TwitterAccountManager(firebase: firebase)
-        case .Facebook:
-            accountManager = FacebookAccountManager(firebase: firebase)
-        case .Email:
-            accountManager = EmailAccountManager(firebase: firebase)
-        case .Anonymous:
-            accountManager = AnonymousAccountManager(firebase: firebase)
-        }
+        accountManager = accountManagerControllerClass.init(firebase: firebase)
 
-        accountManager?.login(userData, completion: { results in
-            switch results {
-            case .Success(let value): completion(results: ResultType.Success(r: value))
-            case .Error(let err): completion(results: ResultType.Error(e: err))
-            case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
-            }
-        })
+        if let accountManager = accountManager {
+            accountManager.login(userData, completion: { results in
+                switch results {
+                case .Success(let value): completion(results: ResultType.Success(r: value))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
+            })
+        }
     }
 
 
     func logout() {
         PFUser.logOut()
+        accountManager?.logout()
         firebase.unauth()
         observers.removeAllObjects()
-        sessionManagerFlags.clearSessionFlags()
-        
+
         guard let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
             return
         }
@@ -236,13 +229,6 @@ class SessionManager: NSObject {
 
 enum SessionManagerError: ErrorType {
     case UnvalidSignUp
-}
-
-enum LoginType {
-    case Email
-    case Facebook
-    case Twitter
-    case Anonymous
 }
 
 @objc protocol SessionManagerObserver: class {

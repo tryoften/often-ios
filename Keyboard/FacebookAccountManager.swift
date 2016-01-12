@@ -9,13 +9,6 @@
 import Foundation
 
 class FacebookAccountManager: AccountManager {
-    var sessionManagerFlags: SessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    var firebase: Firebase
-    var userRef: Firebase?
-    weak var delegate: AccountManagerDelegate?
-    var isInternetReachable: Bool
-    var newUser: User?
-
     let permissions = [
         "public_profile",
         "user_actions.music",
@@ -23,19 +16,7 @@ class FacebookAccountManager: AccountManager {
         "email"
     ]
 
-    required init(firebase: Firebase) {
-        self.firebase = firebase
-        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
-        isInternetReachable = reachabilitymanager.reachable
-
-        reachabilitymanager.setReachabilityStatusChangeBlock { status in
-            self.isInternetReachable = reachabilitymanager.reachable
-        }
-        reachabilitymanager.startMonitoring()
-    }
-
-
-    func openSession(completion: (results: ResultType) -> Void) {
+    override func openSession(completion: (results: ResultType) -> Void) {
         if let session = FBSession.activeSession() {
             let accessTokenData = session.accessTokenData
 
@@ -57,7 +38,7 @@ class FacebookAccountManager: AccountManager {
         sessionManagerFlags.openSession = true
     }
 
-    func login(userData: User?, completion: (results: ResultType) -> Void) {
+    override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
         guard isInternetReachable else {
             completion(results: ResultType.Error(e: FacebookAccountManagerError.NotConnectedOnline))
             return
@@ -77,7 +58,7 @@ class FacebookAccountManager: AccountManager {
 
     }
     
-    func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
 
         let request = FBRequest.requestForMe()
@@ -97,11 +78,11 @@ class FacebookAccountManager: AccountManager {
                 userData["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
                 userData["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
 
-                self.newUser = User()
-                self.newUser?.setValuesForKeysWithDictionary(userData)
+                self.currentUser = User()
+                self.currentUser?.setValuesForKeysWithDictionary(userData)
                 self.userRef?.updateChildValues(userData)
 
-                if let user = self.newUser {
+                if let user = self.currentUser {
                     completion(results: ResultType.Success(r: true))
                     self.delegate?.accountManagerUserDidLogin(self, user: user)
                 }

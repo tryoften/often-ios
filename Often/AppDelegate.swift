@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
-        
+
         window = UIWindow(frame: frame)
         window?.backgroundColor = VeryLightGray
 
