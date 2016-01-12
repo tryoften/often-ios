@@ -23,7 +23,7 @@ class SkipSignupView: UIView {
         twitterLogoImageView.translatesAutoresizingMaskIntoConstraints = false
         twitterLogoImageView.layer.cornerRadius = 40
         twitterLogoImageView.clipsToBounds = true
-        twitterLogoImageView.image = UIImage(named: "twitteremptystate")
+        twitterLogoImageView.image = UIImage(named: "createaccountemptystate")
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +37,7 @@ class SkipSignupView: UIView {
         subtitleLabel.font = UIFont(name: "OpenSans", size: 12.0)
         subtitleLabel.textAlignment = .Center
         subtitleLabel.numberOfLines = 2
+        subtitleLabel.alpha = 0.54
         
         twitterSignupButton = UIButton()
         twitterSignupButton.translatesAutoresizingMaskIntoConstraints = false
@@ -66,8 +67,9 @@ class SkipSignupView: UIView {
         orLabel = UILabel()
         orLabel.translatesAutoresizingMaskIntoConstraints = false
         orLabel.text = "Or"
-        orLabel.textColor = LightGrey
+        orLabel.textColor = LightBlackColor
         orLabel.font = UIFont(name: "OpenSans-Italic", size: 12.0)
+        orLabel.alpha = 0.54
         
         super.init(frame: frame)
         backgroundColor = VeryLightGray
@@ -96,7 +98,7 @@ class SkipSignupView: UIView {
             twitterLogoImageView.al_width == 150,
             twitterLogoImageView.al_height == 100,
             
-            titleLabel.al_bottom == subtitleLabel.al_top,
+            titleLabel.al_bottom == subtitleLabel.al_top + 10,
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_height == 17,
             titleLabel.al_width == 250,

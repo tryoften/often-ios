@@ -27,8 +27,8 @@ class TwitterEmptyStateView: EmptyStateView {
         closeButton.hidden = false
         closeButton.userInteractionEnabled = true
         
-        imageView.contentMode = .ScaleAspectFit
-        imageSize = .Small
+        imageView.contentMode = .ScaleAspectFill
+        imageSize = .Medium
         
         addAdditionalLayouts()
     }
@@ -38,7 +38,7 @@ class TwitterEmptyStateView: EmptyStateView {
     }
     
     func addAdditionalLayouts() {
-        imageViewTopConstraint?.constant = -(imageViewTopPadding + 20)
+        imageViewTopConstraint?.constant = -(imageViewTopPadding + 70)
         layoutIfNeeded()
     }
 }
