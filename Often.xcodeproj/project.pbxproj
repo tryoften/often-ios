@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		30A402041BC46D6F00BF0C0E /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A402031BC46D6F00BF0C0E /* SocialAccountsService.swift */; };
-		30A402061BC46D8600BF0C0E /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A402051BC46D8600BF0C0E /* Service.swift */; };
 		30E00C6F1BC8523400DDF24C /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30E00C711BC8526A00DDF24C /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */; };
 		30E00C721BC8527300DDF24C /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */; };
@@ -16,6 +14,8 @@
 		30E00C781BC86C3D00DDF24C /* Spring.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C761BC86C3D00DDF24C /* Spring.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		30E00C7A1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
 		30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
+		3B0DC3891C4058F9009B182F /* ViewSpacerWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */; };
+		3B0DC3931C40A9B5009B182F /* ViewSpacerWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */; };
 		3B100A221BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */; };
 		3B100A2B1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */; };
 		3B1A54581C2B59F800309BDD /* ContainerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */; };
@@ -23,15 +23,23 @@
 		3B1A545A1C2B59F800309BDD /* ContainerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
-		3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
 		3B4C474A1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
 		3B4C474B1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
 		3B4C474C1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
+		3B58FAD71C4451EA00A38F9E /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58FAD61C4451EA00A38F9E /* Service.swift */; };
+		3B58FAD81C4451EA00A38F9E /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58FAD61C4451EA00A38F9E /* Service.swift */; };
+		3B58FADA1C4451F200A38F9E /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58FAD91C4451F200A38F9E /* SocialAccountsService.swift */; };
+		3B58FADB1C4451F200A38F9E /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58FAD91C4451F200A38F9E /* SocialAccountsService.swift */; };
+		3B58FADD1C44522100A38F9E /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58FADC1C44522100A38F9E /* SocialAccount.swift */; };
+		3B58FADE1C44522100A38F9E /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58FADC1C44522100A38F9E /* SocialAccount.swift */; };
+		3B58FADF1C44522100A38F9E /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58FADC1C44522100A38F9E /* SocialAccount.swift */; };
+		3B58FAE11C4455DB00A38F9E /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58FAE01C4455DB00A38F9E /* AccountManager.swift */; };
+		3B58FAE21C4455DB00A38F9E /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58FAE01C4455DB00A38F9E /* AccountManager.swift */; };
 		3B5F255F1BF3386E00AA7A98 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */; };
 		3B5F25621BF3E85300AA7A98 /* SkipSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */; };
 		3B5F25681BF4032500AA7A98 /* AnonymousAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */; };
 		3B5F25691BF40C5C00AA7A98 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */; };
-		3B5F256B1BF4342E00AA7A98 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F256A1BF4342E00AA7A98 /* AccountManager.swift */; };
+		3B5F256B1BF4342E00AA7A98 /* AccountManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F256A1BF4342E00AA7A98 /* AccountManagerProtocol.swift */; };
 		3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		3B63ED661B6AD43A00E54AFA /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
@@ -41,13 +49,10 @@
 		3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; };
 		3B6EA4301BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift */; };
 		3B6EA4311BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift */; };
-		3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
 		3B93ED081C226DE700555496 /* MainAppBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED071C226DE700555496 /* MainAppBrowseViewController.swift */; };
 		3B93ED0A1C226DF700555496 /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED091C226DF700555496 /* BrowseHeaderView.swift */; };
 		3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */; };
 		3B9AD78B1B27DFF600727E79 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
-		3BA8945C1BB35D560000D5C0 /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */; };
-		3BA8945E1BB35E170000D5C0 /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */; };
@@ -74,17 +79,16 @@
 		3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */; };
 		3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
 		3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
-		3BCDA6D31B910C1F00840095 /* SoundcloudAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */; };
 		3BD971BE1B98ABF4007EAB5A /* TwitterAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */; };
 		3BD971C11B98B5FB007EAB5A /* FacebookAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */; };
 		3BD971C41B98C882007EAB5A /* EmailAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */; };
 		3BD971CC1B992E43007EAB5A /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD971C51B99254F007EAB5A /* Spotify.framework */; };
 		3BD971CD1B992E49007EAB5A /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD971C51B99254F007EAB5A /* Spotify.framework */; };
-		3BD971D61B9E642D007EAB5A /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971D51B9E642D007EAB5A /* SignupView.swift */; };
+		3BD971D61B9E642D007EAB5A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971D51B9E642D007EAB5A /* LoginView.swift */; };
 		3BD971DD1B9F7C6E007EAB5A /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */; };
 		3BD971DF1B9F911E007EAB5A /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971DE1B9F911E007EAB5A /* SigninView.swift */; };
-		3BD971E11B9FD374007EAB5A /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E01B9FD374007EAB5A /* SignupViewController.swift */; };
-		3BD971E31B9FD483007EAB5A /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E21B9FD483007EAB5A /* SignupViewModel.swift */; };
+		3BD971E11B9FD374007EAB5A /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E01B9FD374007EAB5A /* LogInViewController.swift */; };
+		3BD971E31B9FD483007EAB5A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E21B9FD483007EAB5A /* LoginViewModel.swift */; };
 		3BDF98CB1BA2652F00F383D8 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */; };
 		3BE0BC891BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */; };
 		3BE0BC9C1BED51EB00037E21 /* FavoritesAndRecentsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */; };
@@ -378,15 +382,13 @@
 		81DA3EAC1C24BE85006822D3 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
 		81DA3EAD1C24BE85006822D3 /* LayoutConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */; };
 		81DA3EAE1C24BE85006822D3 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AC21B84BD4200347BCA /* SearchViewModel.swift */; };
-		81DA3EAF1C24BE85006822D3 /* SocialAccountSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */; };
-		81DA3EB01C24BE85006822D3 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E21B9FD483007EAB5A /* SignupViewModel.swift */; };
+		81DA3EB01C24BE85006822D3 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E21B9FD483007EAB5A /* LoginViewModel.swift */; };
 		81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107036F1BFD05AB00FDBF57 /* ParseConfig.swift */; };
 		81DA3EB21C24BE85006822D3 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; };
 		81DA3EB31C24BE85006822D3 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337A1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift */; };
 		81DA3EB41C24BE85006822D3 /* ArticleMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78451BBDD2A20087EBE8 /* ArticleMediaItem.swift */; };
 		81DA3EB51C24BE85006822D3 /* KeyboardSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D9B1B6812E200FC1F2F /* KeyboardSearchTextField.swift */; };
 		81DA3EB61C24BE85006822D3 /* KeyboardLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817938891B5741050064B0CF /* KeyboardLayouts.swift */; };
-		81DA3EB81C24BE85006822D3 /* SocialAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */; };
 		81DA3EB91C24BE85006822D3 /* MediaItemsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323951C23652C0084918B /* MediaItemsSectionHeaderView.swift */; };
 		81DA3EBA1C24BE85006822D3 /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60AD21B854D8500347BCA /* MediaItem.swift */; };
 		81DA3EBB1C24BE85006822D3 /* TogglePanelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */; };
@@ -413,7 +415,6 @@
 		81DA3ED11C24BE85006822D3 /* AnonymousAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */; };
 		81DA3ED21C24BE85006822D3 /* LocalNotificationsAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */; };
 		81DA3ED31C24BE85006822D3 /* KeyboardLayoutEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D8D1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift */; };
-		81DA3ED41C24BE85006822D3 /* SpotifyAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */; };
 		81DA3ED51C24BE85006822D3 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; };
 		81DA3ED61C24BE85006822D3 /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; };
 		81DA3ED71C24BE85006822D3 /* PKHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1A1B38F6DA006430AB /* PKHUD.swift */; };
@@ -428,7 +429,7 @@
 		81DA3EE01C24BE85006822D3 /* TouchForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816589021B62E85700F7C9F5 /* TouchForwardingView.swift */; };
 		81DA3EE11C24BE85006822D3 /* SearchSuggestionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8127A8F91B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift */; };
 		81DA3EE21C24BE85006822D3 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
-		81DA3EE31C24BE85006822D3 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F256A1BF4342E00AA7A98 /* AccountManager.swift */; };
+		81DA3EE31C24BE85006822D3 /* AccountManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F256A1BF4342E00AA7A98 /* AccountManagerProtocol.swift */; };
 		81DA3EE41C24BE85006822D3 /* TrendingLyricsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833801C18BAA6001B8662 /* TrendingLyricsViewModel.swift */; };
 		81DA3EE51C24BE85006822D3 /* MediaItemsAndFilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift */; };
 		81DA3EE61C24BE85006822D3 /* SocialAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */; };
@@ -450,9 +451,8 @@
 		81DA3EF71C24BE85006822D3 /* AutocorrectSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FA2931BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift */; };
 		81DA3EF81C24BE85006822D3 /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; };
 		81DA3EF91C24BE85006822D3 /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971DE1B9F911E007EAB5A /* SigninView.swift */; };
-		81DA3EFA1C24BE85006822D3 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971D51B9E642D007EAB5A /* SignupView.swift */; };
+		81DA3EFA1C24BE85006822D3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971D51B9E642D007EAB5A /* LoginView.swift */; };
 		81DA3EFC1C24BE85006822D3 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CB01BBB267000A91EAD /* SessionManager.swift */; };
-		81DA3EFD1C24BE85006822D3 /* SocialAccountsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A402031BC46D6F00BF0C0E /* SocialAccountsService.swift */; };
 		81DA3EFE1C24BE85006822D3 /* SearchLoaderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FEDDE11BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift */; };
 		81DA3EFF1C24BE85006822D3 /* KeyboardSectionsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323631C1F76700084918B /* KeyboardSectionsContainerViewController.swift */; };
 		81DA3F001C24BE85006822D3 /* MediaItemsKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833551C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift */; };
@@ -465,11 +465,9 @@
 		81DA3F071C24BE85006822D3 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* BrowseViewController.swift */; };
 		81DA3F081C24BE85006822D3 /* SocialAccountSettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */; };
 		81DA3F091C24BE85006822D3 /* MediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BECA1B72DAA400E1BDCD /* MediaItemCollectionViewCell.swift */; };
-		81DA3F0A1C24BE85006822D3 /* SoundcloudAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */; };
 		81DA3F0B1C24BE85006822D3 /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */; };
 		81DA3F0C1C24BE85006822D3 /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D60ACC1B84BF2500347BCA /* SearchRequest.swift */; };
 		81DA3F0D1C24BE85006822D3 /* KeyboardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEE51B73F9A100E1BDCD /* KeyboardTheme.swift */; };
-		81DA3F0E1C24BE85006822D3 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A402051BC46D8600BF0C0E /* Service.swift */; };
 		81DA3F101C24BE85006822D3 /* KeyboardViewController+EventHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */; };
 		81DA3F111C24BE85006822D3 /* TrackMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78381BBDD2780087EBE8 /* TrackMediaItem.swift */; };
 		81DA3F121C24BE85006822D3 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D951B67C29D00FC1F2F /* Shape.swift */; };
@@ -501,7 +499,7 @@
 		81DA3F2C1C24BE85006822D3 /* PKHUDAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1B1B38F6DA006430AB /* PKHUDAssets.swift */; };
 		81DA3F2D1C24BE85006822D3 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1D1B38F6DA006430AB /* Window.swift */; };
 		81DA3F2E1C24BE85006822D3 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */; };
-		81DA3F2F1C24BE85006822D3 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E01B9FD374007EAB5A /* SignupViewController.swift */; };
+		81DA3F2F1C24BE85006822D3 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E01B9FD374007EAB5A /* LogInViewController.swift */; };
 		81DA3F301C24BE85006822D3 /* KeyboardKeyBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D871B65BC8D00FC1F2F /* KeyboardKeyBackground.swift */; };
 		81DA3F311C24BE85006822D3 /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED091C226DF700555496 /* BrowseHeaderView.swift */; };
 		81DA3F321C24BE85006822D3 /* UserProfileSettingsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */; };
@@ -714,33 +712,33 @@
 		18A18D358A8CB3AA1878D360 /* Pods-Surf.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		199C4312257A18D37E7AE2A6 /* libPods-Often.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.crashlytics.xcconfig"; sourceTree = "<group>"; };
-		30A402031BC46D6F00BF0C0E /* SocialAccountsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialAccountsService.swift; path = Often/SocialAccountsService.swift; sourceTree = "<group>"; };
-		30A402051BC46D8600BF0C0E /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = Often/Service.swift; sourceTree = "<group>"; };
 		30E00C6D1BC8523400DDF24C /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
 		30E00C761BC86C3D00DDF24C /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = Carthage/Build/iOS/Spring.framework; sourceTree = "<group>"; };
 		30E00C791BC86CEA00DDF24C /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
+		3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSpacerWithText.swift; sourceTree = "<group>"; };
 		3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstallationWalkthroughViewController.swift; sourceTree = "<group>"; };
 		3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardWalkthroughView.swift; sourceTree = "<group>"; };
 		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF31B8F61AF004868E5 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotifyAccountManager.swift; path = Keyboard/SpotifyAccountManager.swift; sourceTree = "<group>"; };
 		3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAppSearchBar.swift; sourceTree = "<group>"; };
+		3B58FAD61C4451EA00A38F9E /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = Often/Service.swift; sourceTree = "<group>"; };
+		3B58FAD91C4451F200A38F9E /* SocialAccountsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialAccountsService.swift; path = Often/SocialAccountsService.swift; sourceTree = "<group>"; };
+		3B58FADC1C44522100A38F9E /* SocialAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccount.swift; sourceTree = "<group>"; };
+		3B58FAE01C4455DB00A38F9E /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkipSignupView.swift; sourceTree = "<group>"; };
 		3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnonymousAccountManager.swift; sourceTree = "<group>"; };
-		3B5F256A1BF4342E00AA7A98 /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		3B5F256A1BF4342E00AA7A98 /* AccountManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountManagerProtocol.swift; path = ../AccountManagerProtocol.swift; sourceTree = "<group>"; };
 		3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KeyboardViewController+EventHandlers.swift"; path = "Sources/KeyboardViewController+EventHandlers.swift"; sourceTree = "<group>"; };
 		3B63ED651B6AD43A00E54AFA /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Sources/ShapeView.swift; sourceTree = "<group>"; };
 		3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownErrorMessage.swift; sourceTree = "<group>"; };
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleKit.swift; sourceTree = "<group>"; };
 		3B6EA42F1BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsCollectionBaseViewController.swift; path = ../Often/MediaItemsCollectionBaseViewController.swift; sourceTree = "<group>"; };
-		3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountSettingsViewModel.swift; sourceTree = "<group>"; };
 		3B93ED071C226DE700555496 /* MainAppBrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAppBrowseViewController.swift; sourceTree = "<group>"; };
 		3B93ED091C226DF700555496 /* BrowseHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseHeaderView.swift; sourceTree = "<group>"; };
 		3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccountHeaderView.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
-		3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialAccount.swift; path = Often/SocialAccount.swift; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -754,16 +752,15 @@
 		3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Light.ttf"; sourceTree = "<group>"; };
 		3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oswald-Regular.ttf"; sourceTree = "<group>"; };
-		3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundcloudAccountManager.swift; path = Keyboard/SoundcloudAccountManager.swift; sourceTree = "<group>"; };
 		3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterAccountManager.swift; path = Keyboard/TwitterAccountManager.swift; sourceTree = "<group>"; };
 		3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FacebookAccountManager.swift; path = Keyboard/FacebookAccountManager.swift; sourceTree = "<group>"; };
 		3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmailAccountManager.swift; path = Keyboard/EmailAccountManager.swift; sourceTree = "<group>"; };
 		3BD971C51B99254F007EAB5A /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = "../../../Downloads/ios-sdk-master/Spotify.framework"; sourceTree = "<group>"; };
-		3BD971D51B9E642D007EAB5A /* SignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		3BD971D51B9E642D007EAB5A /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		3BD971DE1B9F911E007EAB5A /* SigninView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninView.swift; sourceTree = "<group>"; };
-		3BD971E01B9FD374007EAB5A /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
-		3BD971E21B9FD483007EAB5A /* SignupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		3BD971E01B9FD374007EAB5A /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		3BD971E21B9FD483007EAB5A /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesAndRecentsTabView.swift; sourceTree = "<group>"; };
@@ -1104,6 +1101,16 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		3B58FAD21C4451AE00A38F9E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3B58FAD61C4451EA00A38F9E /* Service.swift */,
+				3B58FAD91C4451F200A38F9E /* SocialAccountsService.swift */,
+			);
+			name = Services;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		6944A53F1C3B0A5200EA57C3 /* Empty State Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1180,7 +1187,7 @@
 				813323761C20944A0084918B /* View Controllers */,
 				813323941C2364E80084918B /* Views */,
 				81592F921B0FA4F10092EA8F /* Managers */,
-				81331E061A17E552003E4609 /* Services */,
+				3B58FAD21C4451AE00A38F9E /* Services */,
 				81331DFF1A17DF66003E4609 /* Models */,
 			);
 			name = Shared;
@@ -1190,6 +1197,7 @@
 		811FA29F1BF13BE500E07660 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3B58FADC1C44522100A38F9E /* SocialAccount.swift */,
 				3BEE47171BE16516002E4394 /* FilterMap.swift */,
 				3BEE471A1BE17D5D002E4394 /* FilterButton.swift */,
 			);
@@ -1209,7 +1217,6 @@
 				817F78441BBDD28A0087EBE8 /* Media Item Types */,
 				81D60AD21B854D8500347BCA /* MediaItem.swift */,
 				81B19EAA1B30AD9900D3575C /* User.swift */,
-				3BA8945B1BB35D560000D5C0 /* SocialAccount.swift */,
 				81BDA7191C3F011F00198AF8 /* MediaItemGroup.swift */,
 				81BDA7211C3F152E00198AF8 /* MediaType.swift */,
 				81BDA7251C3F154300198AF8 /* MediaItemSource.swift */,
@@ -1217,15 +1224,6 @@
 			name = Models;
 			path = ..;
 			sourceTree = "<group>";
-		};
-		81331E061A17E552003E4609 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				30A402051BC46D8600BF0C0E /* Service.swift */,
-				30A402031BC46D6F00BF0C0E /* SocialAccountsService.swift */,
-			);
-			name = Services;
-			sourceTree = SOURCE_ROOT;
 		};
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
@@ -1302,6 +1300,7 @@
 			children = (
 				8133237E1C2216BB0084918B /* EventEmittable.swift */,
 				81F817BF1C2A094F00B1C1E6 /* SearchBar.swift */,
+				3B5F256A1BF4342E00AA7A98 /* AccountManagerProtocol.swift */,
 				81BDA73E1C40884300198AF8 /* CellAnimatable.swift */,
 			);
 			name = Protocols;
@@ -1337,9 +1336,8 @@
 		81413DB31A91C0A400926E7C /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				3B8473661B8CE089001F17BB /* SocialAccountSettingsViewModel.swift */,
 				69B2924D1BD7550800277EC2 /* SettingsViewModel.swift */,
-				3BD971E21B9FD483007EAB5A /* SignupViewModel.swift */,
+				3BD971E21B9FD483007EAB5A /* LoginViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -1415,7 +1413,7 @@
 		816FE5A11A86E66900E42C17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3BD971E01B9FD374007EAB5A /* SignupViewController.swift */,
+				3BD971E01B9FD374007EAB5A /* LogInViewController.swift */,
 				3B100A211BB9C8B300C97D5E /* KeyboardInstallationWalkthroughViewController.swift */,
 				3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */,
 				3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */,
@@ -1447,9 +1445,10 @@
 				3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */,
 				69FE9E751C3E04C300DBC169 /* MessageWithButtonHeaderView.swift */,
 				699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */,
-				3BD971D51B9E642D007EAB5A /* SignupView.swift */,
+				3BD971D51B9E642D007EAB5A /* LoginView.swift */,
 				3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */,
 				3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */,
+				3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */,
 				3B93ED091C226DF700555496 /* BrowseHeaderView.swift */,
 				3BD971DE1B9F911E007EAB5A /* SigninView.swift */,
 				3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */,
@@ -1651,13 +1650,11 @@
 		81BD90531BD58EBA002F7D32 /* Account Managers */ = {
 			isa = PBXGroup;
 			children = (
-				3B5F256A1BF4342E00AA7A98 /* AccountManager.swift */,
 				3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */,
 				3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */,
 				3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */,
-				3BCDA6D21B910C1F00840095 /* SoundcloudAccountManager.swift */,
-				3B1D6BFE1B8F7A49004868E5 /* SpotifyAccountManager.swift */,
 				3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */,
+				3B58FAE01C4455DB00A38F9E /* AccountManager.swift */,
 			);
 			name = "Account Managers";
 			sourceTree = "<group>";
@@ -2273,6 +2270,7 @@
 				3B64A1951BC593560057F795 /* DropDownErrorMessage.swift in Sources */,
 				81D09D901BE2BAE500AFBEC0 /* SpellChecker.swift in Sources */,
 				8184DC9F1BD57FE3001767AD /* SearchSuggestionTableViewCell.swift in Sources */,
+				3B0DC3891C4058F9009B182F /* ViewSpacerWithText.swift in Sources */,
 				696D8A5D1B93E8890016073C /* UserProfileSettingsTableViewCell.swift in Sources */,
 				6944A5491C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift in Sources */,
 				8184DC931BD57A32001767AD /* RefreshResultsButton.swift in Sources */,
@@ -2286,16 +2284,15 @@
 				8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
 				81E26D7F1B65B09D00FC1F2F /* LayoutConstants.swift in Sources */,
 				81D60AD51B87BA2F00347BCA /* SearchViewModel.swift in Sources */,
-				3B8473671B8CE089001F17BB /* SocialAccountSettingsViewModel.swift in Sources */,
-				3BD971E31B9FD483007EAB5A /* SignupViewModel.swift in Sources */,
+				3BD971E31B9FD483007EAB5A /* LoginViewModel.swift in Sources */,
 				810703701BFD05AB00FDBF57 /* ParseConfig.swift in Sources */,
 				81B92D5E1BD6D77C00FFAC92 /* SearchSuggestion.swift in Sources */,
 				81F8337B1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
 				817F78461BBDD2A20087EBE8 /* ArticleMediaItem.swift in Sources */,
 				81E26D9C1B6812E200FC1F2F /* KeyboardSearchTextField.swift in Sources */,
 				8179388A1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
-				3BA8945C1BB35D560000D5C0 /* SocialAccount.swift in Sources */,
 				813323961C23652C0084918B /* MediaItemsSectionHeaderView.swift in Sources */,
+				3B58FAE11C4455DB00A38F9E /* AccountManager.swift in Sources */,
 				81D60AD31B854D8500347BCA /* MediaItem.swift in Sources */,
 				81153CBE1BBC869200A91EAD /* TogglePanelButton.swift in Sources */,
 				81D4BF241B38F6DA006430AB /* PKHUDContentView.swift in Sources */,
@@ -2318,6 +2315,7 @@
 				81BDA72A1C3F249D00198AF8 /* ArtistMediaItem.swift in Sources */,
 				8176BEC51B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				813324271C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m in Sources */,
+				3B58FADD1C44522100A38F9E /* SocialAccount.swift in Sources */,
 				3B1A54581C2B59F800309BDD /* ContainerNavigationController.swift in Sources */,
 				817939071B5C29560064B0CF /* SearchBarController.swift in Sources */,
 				69C663221B8B6FA60014433D /* MediaItemsViewModel.swift in Sources */,
@@ -2325,7 +2323,6 @@
 				3B5F25681BF4032500AA7A98 /* AnonymousAccountManager.swift in Sources */,
 				3BEB40AE1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift in Sources */,
 				81E26D8E1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
-				3B1D6BFF1B8F7A49004868E5 /* SpotifyAccountManager.swift in Sources */,
 				81DF4BBB1BB462A7008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				3B6B6FFE1BB0899300669ACD /* StyleKit.swift in Sources */,
 				81D4BF221B38F6DA006430AB /* PKHUD.swift in Sources */,
@@ -2343,7 +2340,7 @@
 				69FE9E761C3E04C300DBC169 /* MessageWithButtonHeaderView.swift in Sources */,
 				6944A5331C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */,
 				81F817C41C2A119500B1C1E6 /* KeyboardSearchBarController.swift in Sources */,
-				3B5F256B1BF4342E00AA7A98 /* AccountManager.swift in Sources */,
+				3B5F256B1BF4342E00AA7A98 /* AccountManagerProtocol.swift in Sources */,
 				81F833811C18BAA6001B8662 /* TrendingLyricsViewModel.swift in Sources */,
 				3BE12EF21BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift in Sources */,
 				81BDA7221C3F152E00198AF8 /* MediaType.swift in Sources */,
@@ -2368,9 +2365,8 @@
 				69138B4F1C25DBD100F33F76 /* SongCollectionViewCell.swift in Sources */,
 				3BD971DF1B9F911E007EAB5A /* SigninView.swift in Sources */,
 				81BDA71A1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
-				3BD971D61B9E642D007EAB5A /* SignupView.swift in Sources */,
+				3BD971D61B9E642D007EAB5A /* LoginView.swift in Sources */,
 				81153CB11BBB267000A91EAD /* SessionManager.swift in Sources */,
-				30A402041BC46D6F00BF0C0E /* SocialAccountsService.swift in Sources */,
 				698AD3401C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */,
 				69FEDDE61BF1B80800F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
 				8133238E1C2269700084918B /* KeyboardSectionsContainerViewController.swift in Sources */,
@@ -2379,18 +2375,18 @@
 				8184DC9B1BD57F02001767AD /* SearchSuggestionsViewController.swift in Sources */,
 				3BD971C11B98B5FB007EAB5A /* FacebookAccountManager.swift in Sources */,
 				3B4C474A1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */,
+				3B58FADA1C4451F200A38F9E /* SocialAccountsService.swift in Sources */,
 				817938901B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
+				3B58FAD71C4451EA00A38F9E /* Service.swift in Sources */,
 				812E963F1BF2A805009CCB55 /* AutocorrectSuggestionView.swift in Sources */,
 				81D09D8E1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */,
 				6944A53C1C3B08C300EA57C3 /* NoKeyboardEmptyStateView.swift in Sources */,
 				81F833621C179A5B001B8662 /* BrowseViewController.swift in Sources */,
 				690AE8B31B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift in Sources */,
 				8176BECB1B72DAA400E1BDCD /* MediaItemCollectionViewCell.swift in Sources */,
-				3BCDA6D31B910C1F00840095 /* SoundcloudAccountManager.swift in Sources */,
 				810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
 				81D60ACD1B84BF2500347BCA /* SearchRequest.swift in Sources */,
 				8176BEE61B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
-				30A402061BC46D8600BF0C0E /* Service.swift in Sources */,
 				6944A5411C3B0A9F00EA57C3 /* FavoritesEmptyStateView.swift in Sources */,
 				81BDA7381C404BD700198AF8 /* BrowseLyricsCollectionViewController.swift in Sources */,
 				3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
@@ -2429,7 +2425,7 @@
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
 				69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */,
 				81BDA71E1C3F096300198AF8 /* BaseViewModel.swift in Sources */,
-				3BD971E11B9FD374007EAB5A /* SignupViewController.swift in Sources */,
+				3BD971E11B9FD374007EAB5A /* LogInViewController.swift in Sources */,
 				690805D31C3A1916001589A5 /* EmptyStateView.swift in Sources */,
 				81E26D881B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
 				3B93ED0A1C226DF700555496 /* BrowseHeaderView.swift in Sources */,
@@ -2486,7 +2482,6 @@
 				81BDA7361C404BCF00198AF8 /* BrowseLyricsCollectionViewController.swift in Sources */,
 				3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */,
 				3BFAB2A41C0CEEE7003DE25A /* SessionManagerFlags.swift in Sources */,
-				3BA8945E1BB35E170000D5C0 /* SocialAccount.swift in Sources */,
 				816589041B62E85700F7C9F5 /* TouchForwardingView.swift in Sources */,
 				811FA2951BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */,
 				816588F81B616A7300F7C9F5 /* KeyboardLayout.swift in Sources */,
@@ -2546,6 +2541,7 @@
 				81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
 				3BEE47191BE16516002E4394 /* FilterMap.swift in Sources */,
 				813323791C20A7190084918B /* MediaItemsViewModel+Favorites.swift in Sources */,
+				3B58FADF1C44522100A38F9E /* SocialAccount.swift in Sources */,
 				81F817C61C2A119500B1C1E6 /* KeyboardSearchBarController.swift in Sources */,
 				6944A5351C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */,
 				817F783A1BBDD2780087EBE8 /* TrackMediaItem.swift in Sources */,
@@ -2588,8 +2584,7 @@
 				81DA3EAC1C24BE85006822D3 /* SearchSuggestionsViewModel.swift in Sources */,
 				81DA3EAD1C24BE85006822D3 /* LayoutConstants.swift in Sources */,
 				81DA3EAE1C24BE85006822D3 /* SearchViewModel.swift in Sources */,
-				81DA3EAF1C24BE85006822D3 /* SocialAccountSettingsViewModel.swift in Sources */,
-				81DA3EB01C24BE85006822D3 /* SignupViewModel.swift in Sources */,
+				81DA3EB01C24BE85006822D3 /* LoginViewModel.swift in Sources */,
 				81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */,
 				81DA3EB21C24BE85006822D3 /* SearchSuggestion.swift in Sources */,
 				81DA3EB31C24BE85006822D3 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
@@ -2597,8 +2592,8 @@
 				81DA3EB41C24BE85006822D3 /* ArticleMediaItem.swift in Sources */,
 				81DA3EB51C24BE85006822D3 /* KeyboardSearchTextField.swift in Sources */,
 				81DA3EB61C24BE85006822D3 /* KeyboardLayouts.swift in Sources */,
-				81DA3EB81C24BE85006822D3 /* SocialAccount.swift in Sources */,
 				81DA3EB91C24BE85006822D3 /* MediaItemsSectionHeaderView.swift in Sources */,
+				3B58FAE21C4455DB00A38F9E /* AccountManager.swift in Sources */,
 				81DA3EBA1C24BE85006822D3 /* MediaItem.swift in Sources */,
 				81DA3EBB1C24BE85006822D3 /* TogglePanelButton.swift in Sources */,
 				6958C7B11C2AEAC700BDAB3F /* BrowseArtistCollectionViewController.swift in Sources */,
@@ -2621,6 +2616,7 @@
 				81DA3ECB1C24BE85006822D3 /* MediaItemsCollectionBaseViewController.swift in Sources */,
 				81DA3ECC1C24BE85006822D3 /* HUDProgressView.swift in Sources */,
 				81DA3ECD1C24BE85006822D3 /* SearchResultsCollectionViewController.swift in Sources */,
+				3B58FADE1C44522100A38F9E /* SocialAccount.swift in Sources */,
 				81DA3ECE1C24BE85006822D3 /* UIViewController+NJKFullScreenSupport.m in Sources */,
 				3B1A54591C2B59F800309BDD /* ContainerNavigationController.swift in Sources */,
 				81DA3ECF1C24BE85006822D3 /* SearchBarController.swift in Sources */,
@@ -2629,7 +2625,6 @@
 				81DA3ED11C24BE85006822D3 /* AnonymousAccountManager.swift in Sources */,
 				81DA3ED21C24BE85006822D3 /* LocalNotificationsAlertView.swift in Sources */,
 				81DA3ED31C24BE85006822D3 /* KeyboardLayoutEngine.swift in Sources */,
-				81DA3ED41C24BE85006822D3 /* SpotifyAccountManager.swift in Sources */,
 				81DA3ED51C24BE85006822D3 /* SearchResultsCellOverlayView.swift in Sources */,
 				81DA3ED61C24BE85006822D3 /* StyleKit.swift in Sources */,
 				81DA3ED71C24BE85006822D3 /* PKHUD.swift in Sources */,
@@ -2646,7 +2641,7 @@
 				81DA3EE11C24BE85006822D3 /* SearchSuggestionTableHeaderView.swift in Sources */,
 				81DA3EE21C24BE85006822D3 /* delay.swift in Sources */,
 				81F817C51C2A119500B1C1E6 /* KeyboardSearchBarController.swift in Sources */,
-				81DA3EE31C24BE85006822D3 /* AccountManager.swift in Sources */,
+				81DA3EE31C24BE85006822D3 /* AccountManagerProtocol.swift in Sources */,
 				81DA3EE41C24BE85006822D3 /* TrendingLyricsViewModel.swift in Sources */,
 				81BDA7231C3F152E00198AF8 /* MediaType.swift in Sources */,
 				81DA3EE51C24BE85006822D3 /* MediaItemsAndFilterBarViewController.swift in Sources */,
@@ -2670,9 +2665,9 @@
 				81DA3EF81C24BE85006822D3 /* SearchResultsViewModel.swift in Sources */,
 				81DA3EF91C24BE85006822D3 /* SigninView.swift in Sources */,
 				81BDA71B1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
-				81DA3EFA1C24BE85006822D3 /* SignupView.swift in Sources */,
+				3B0DC3931C40A9B5009B182F /* ViewSpacerWithText.swift in Sources */,
+				81DA3EFA1C24BE85006822D3 /* LoginView.swift in Sources */,
 				81DA3EFC1C24BE85006822D3 /* SessionManager.swift in Sources */,
-				81DA3EFD1C24BE85006822D3 /* SocialAccountsService.swift in Sources */,
 				81DA3EFE1C24BE85006822D3 /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
 				81DA3EFF1C24BE85006822D3 /* KeyboardSectionsContainerViewController.swift in Sources */,
 				81DA3F001C24BE85006822D3 /* MediaItemsKeyboardContainerViewController.swift in Sources */,
@@ -2681,17 +2676,17 @@
 				81DA3F031C24BE85006822D3 /* FacebookAccountManager.swift in Sources */,
 				3B4C474B1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */,
 				81DA3F041C24BE85006822D3 /* KeyboardKeyButton.swift in Sources */,
+				3B58FADB1C4451F200A38F9E /* SocialAccountsService.swift in Sources */,
 				81DA3F051C24BE85006822D3 /* AutocorrectSuggestionView.swift in Sources */,
+				3B58FAD81C4451EA00A38F9E /* Service.swift in Sources */,
 				81DA3F061C24BE85006822D3 /* String+Utils.swift in Sources */,
 				6944A53D1C3B08C300EA57C3 /* NoKeyboardEmptyStateView.swift in Sources */,
 				81DA3F071C24BE85006822D3 /* BrowseViewController.swift in Sources */,
 				81DA3F081C24BE85006822D3 /* SocialAccountSettingsCollectionViewCell.swift in Sources */,
 				81DA3F091C24BE85006822D3 /* MediaItemCollectionViewCell.swift in Sources */,
-				81DA3F0A1C24BE85006822D3 /* SoundcloudAccountManager.swift in Sources */,
 				81DA3F0B1C24BE85006822D3 /* SearchBarButton.swift in Sources */,
 				81DA3F0C1C24BE85006822D3 /* SearchRequest.swift in Sources */,
 				81DA3F0D1C24BE85006822D3 /* KeyboardTheme.swift in Sources */,
-				81DA3F0E1C24BE85006822D3 /* Service.swift in Sources */,
 				6944A5421C3B0A9F00EA57C3 /* FavoritesEmptyStateView.swift in Sources */,
 				81DA3F101C24BE85006822D3 /* KeyboardViewController+EventHandlers.swift in Sources */,
 				81BDA7371C404BD600198AF8 /* BrowseLyricsCollectionViewController.swift in Sources */,
@@ -2732,7 +2727,7 @@
 				81DA3F2D1C24BE85006822D3 /* Window.swift in Sources */,
 				81BDA71F1C3F096300198AF8 /* BaseViewModel.swift in Sources */,
 				81DA3F2E1C24BE85006822D3 /* AppSettingsViewController.swift in Sources */,
-				81DA3F2F1C24BE85006822D3 /* SignupViewController.swift in Sources */,
+				81DA3F2F1C24BE85006822D3 /* LogInViewController.swift in Sources */,
 				81DA3F301C24BE85006822D3 /* KeyboardKeyBackground.swift in Sources */,
 				81DA3F311C24BE85006822D3 /* BrowseHeaderView.swift in Sources */,
 				81DA3F321C24BE85006822D3 /* UserProfileSettingsSectionHeaderView.swift in Sources */,

@@ -20,9 +20,8 @@ class CreateAccountView: UIView {
     let passwordTextFieldDivider: UIView
     let signupButton: UIButton
     let signupTwitterButton: UIButton
-    let orSpacerOne: UIView
-    let orSpacerTwo: UIView
-    let orLabel: UILabel
+    let signupFacebookButton: UIButton
+    let orSpacer: ViewSpacerWithText
     let cancelButton: UIButton
     let termsOfUseAndPrivacyPolicyButton: UIButton
 
@@ -78,29 +77,26 @@ class CreateAccountView: UIView {
         signupButton.layer.cornerRadius = 4.0
         signupButton.clipsToBounds = true
         
-        orLabel = UILabel()
-        orLabel.textAlignment = .Center
-        orLabel.font = UIFont(name: "OpenSans-Italic", size: 11)
-        orLabel.textColor = UIColor(fromHexString: "#A0A0A0")
-        orLabel.translatesAutoresizingMaskIntoConstraints = false
-        orLabel.text = "Or"
-        
-        orSpacerOne = UIView()
-        orSpacerOne.translatesAutoresizingMaskIntoConstraints = false
-        orSpacerOne.backgroundColor = UIColor(fromHexString: "#D8D8D8")
-        
-        orSpacerTwo = UIView()
-        orSpacerTwo.translatesAutoresizingMaskIntoConstraints = false
-        orSpacerTwo.backgroundColor = UIColor(fromHexString: "#D8D8D8")
-        
+        orSpacer = ViewSpacerWithText(title:"Or With")
+        orSpacer.translatesAutoresizingMaskIntoConstraints = false
+
         signupTwitterButton = UIButton()
         signupTwitterButton.translatesAutoresizingMaskIntoConstraints = false
         signupTwitterButton.backgroundColor = CreateAccountViewSignupTwitterButtonColor
-        signupTwitterButton.setTitle("sign up with twitter".uppercaseString, forState: .Normal)
+        signupTwitterButton.setTitle("twitter".uppercaseString, forState: .Normal)
         signupTwitterButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
         signupTwitterButton.setTitleColor(CreateAccountViewSignupTwitterButtonFontColor , forState: .Normal)
         signupTwitterButton.layer.cornerRadius = 4.0
         signupTwitterButton.clipsToBounds = true
+
+        signupFacebookButton = UIButton()
+        signupFacebookButton.translatesAutoresizingMaskIntoConstraints = false
+        signupFacebookButton.backgroundColor = FacebookButtonNormalBackgroundColor
+        signupFacebookButton.setTitle("facebook".uppercaseString, forState: .Normal)
+        signupFacebookButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
+        signupFacebookButton.setTitleColor(FacebookButtonTitleTextColor , forState: .Normal)
+        signupFacebookButton.layer.cornerRadius = 4.0
+        signupFacebookButton.clipsToBounds = true
         
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
@@ -128,11 +124,10 @@ class CreateAccountView: UIView {
         addSubview(emailTextFieldDivider)
         addSubview(passwordTextField)
         addSubview(passwordTextFieldDivider)
+        addSubview(signupFacebookButton)
         addSubview(signupButton)
         addSubview(signupTwitterButton)
-        addSubview(orSpacerOne)
-        addSubview(orSpacerTwo)
-        addSubview(orLabel)
+        addSubview(orSpacer)
         addSubview(cancelButton)
         addSubview(termsOfUseAndPrivacyPolicyButton)
         
@@ -194,30 +189,32 @@ class CreateAccountView: UIView {
             signupButton.al_right == al_right - 40,
             signupButton.al_height == 50,
             
-            orLabel.al_top == signupButton.al_bottom + 5,
-            orLabel.al_width == 70,
-            orLabel.al_centerX == al_centerX,
-            orLabel.al_height == 40,
-            
-            orSpacerOne.al_centerY == orLabel.al_centerY,
-            orSpacerOne.al_right == orLabel.al_left,
-            orSpacerOne.al_left == al_left + 40,
-            orSpacerOne.al_height == 1,
-            
-            orSpacerTwo.al_centerY == orLabel.al_centerY,
-            orSpacerTwo.al_right == al_right - 40,
-            orSpacerTwo.al_left == orLabel.al_right,
-            orSpacerTwo.al_height == 1,
-            
-            signupTwitterButton.al_top == orLabel.al_bottom + 5,
+            orSpacer.al_top == signupButton.al_bottom + 5,
+            orSpacer.al_left == al_left + 40,
+            orSpacer.al_right == al_right - 40,
+            orSpacer.al_height == 40,
+
+        ])
+
+        addConstraints([
+            signupTwitterButton.al_top == orSpacer.al_bottom + 5,
             signupTwitterButton.al_left == al_left + 40,
-            signupTwitterButton.al_right == al_right - 40,
+            signupTwitterButton.al_right == al_centerX - 2,
             signupTwitterButton.al_height == 50,
-            
+
+            signupFacebookButton.al_top == signupTwitterButton.al_top,
+            signupFacebookButton.al_left == al_centerX + 2,
+            signupFacebookButton.al_right == al_right - 40,
+            signupFacebookButton.al_height == 50,
+
             termsOfUseAndPrivacyPolicyButton.al_top == signupTwitterButton.al_bottom + 10,
             termsOfUseAndPrivacyPolicyButton.al_left == al_left + 40,
             termsOfUseAndPrivacyPolicyButton.al_right == al_right - 40,
             termsOfUseAndPrivacyPolicyButton.al_height == 36,
-        ])
+            
+            ])
+
+
     }
+
 }

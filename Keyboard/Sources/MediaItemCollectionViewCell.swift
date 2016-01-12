@@ -101,7 +101,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
 
         mainTextLabel = UILabel()
         mainTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainTextLabel.font = UIFont(name: "OpenSans", size: 11.0)
+        mainTextLabel.font = UIFont(name: "OpenSans", size: 11.5)
         mainTextLabel.textColor = BlackColor.colorWithAlphaComponent(0.90)
         mainTextLabel.numberOfLines = 2
         
@@ -348,9 +348,9 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             rightHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             rightHeaderLabel.al_height == 16,
             
-            mainTextLabel.al_left == metadataContentView.al_left + contentEdgeInsets.left,
-            mainTextLabel.al_top == leftHeaderLabel.al_bottom + 18,
-            mainTextLabel.al_right == contentImageView.al_left - contentEdgeInsets.right,
+            mainTextLabel.al_left == metadataContentView.al_left + 54,
+            mainTextLabel.al_top == leftHeaderLabel.al_bottom + 20,
+            mainTextLabel.al_right == contentImageView.al_left - 54,
             
             leftMetadataLabel.al_left == mainTextLabel.al_left,
             leftMetadataLabel.al_bottom == metadataContentView.al_bottom - 10,

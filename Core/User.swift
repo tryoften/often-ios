@@ -92,3 +92,10 @@ class User: NSObject {
         return userData
     }
 }
+
+struct UserAuthData {
+    var username: String
+    var email: String
+    var password: String
+    var isNewUser: Bool
+}
