@@ -26,7 +26,7 @@ class NoKeyboardEmptyStateView: EmptyStateView {
         primaryButton.backgroundColor = TealColor
         primaryButton.setTitle("go to settings".uppercaseString, forState: .Normal)
         primaryButton.hidden = false
-        primaryButton.addTarget(self, action: "settingsTapped", forControlEvents: .TouchUpInside)
+        primaryButton.userInteractionEnabled = true
         
         addAdditionalLayouts()
     }
@@ -38,9 +38,5 @@ class NoKeyboardEmptyStateView: EmptyStateView {
     func addAdditionalLayouts() {
         imageViewTopConstraint?.constant = -(imageViewTopPadding + 70)
         layoutIfNeeded()
-    }
-    
-    func settingsTapped() {
-        print("Settings Tapped")
     }
 }
