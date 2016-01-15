@@ -45,6 +45,8 @@ class SkipSignupViewController: UIViewController {
        func didTapCreateAccountButton(sender: UIButton) {
         viewModel.sessionManager.logout()
 
+        SessionManagerFlags.defaultManagerFlags.userIsAnonymous = false
+
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
 
