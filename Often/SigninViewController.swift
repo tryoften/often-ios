@@ -8,19 +8,19 @@
 
 import Foundation
 
-class SigninViewController: UIViewController, UITextFieldDelegate {
-    var viewModel: LoginViewModel
+class SigninViewController: UserCreationViewController, UITextFieldDelegate {
     var signinView: SigninView
 
     
-    init (viewModel: LoginViewModel) {
-        self.viewModel = viewModel
+    override init (viewModel: LoginViewModel) {
         signinView = SigninView()
         signinView.translatesAutoresizingMaskIntoConstraints = false
         
-        super.init(nibName: nil, bundle: nil)
+        super.init(viewModel: viewModel)
+        self.viewModel.delegate = self
         
         view.addSubview(signinView)
+
         setupLayout()
     }
     
@@ -35,25 +35,22 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         
         signinView.cancelButton.addTarget(self,  action: "didTapcancelButton:", forControlEvents: .TouchUpInside)
         signinView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
-        signinView.signinTwitterButton.addTarget(self, action:"didTapSigninTwitterButton:", forControlEvents: .TouchUpInside)
-        signinView.signinFacebookButton.addTarget(self, action:"didTapSigninFacebookButton:", forControlEvents: .TouchUpInside)
-        
+        signinView.signinTwitterButton.addTarget(self, action:"didTapTwitterButton:", forControlEvents: .TouchUpInside)
+        signinView.signinFacebookButton.addTarget(self, action:"didTapFacebookButton:", forControlEvents: .TouchUpInside)
     }
 
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
     
-    func didTapSigninButton(sender: UIButton) {
-        self.view.endEditing(true)
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
+    override func didTapSigninButton(sender: UIButton) {
+        super.didTapSignupButton(sender)
+
         do {
             try viewModel.signInUser(signinView.emailTextField.text!, password: signinView.passwordTextField.text!) { results in
-                PKHUD.sharedHUD.hide(animated: true)
                 switch results {
-                case .Success(_): self.createProfileViewController()
-                case .Error(let err): self.viewModel.showErrorView(err)
+                case .Success(_): print("sucess")
+                case .Error(let err): self.showErrorView(err)
                 case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             }
@@ -63,48 +60,7 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
         }
 
     }
-    
-    func didTapSigninTwitterButton(sender: UIButton) {
-        self.view.endEditing(true)
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        do {
-            try viewModel.sessionManager.login(TwitterAccountManager.self, userData: nil,  completion: { results  -> Void in
-                PKHUD.sharedHUD.hide(animated: true)
-                switch results {
-                case .Success(_): self.createProfileViewController()
-                case .Error(let err): self.viewModel.showErrorView(err)
-                case .SystemError(let err):  DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
-                }
-            })
-        } catch {
-            
-        }
-    }
 
-    func didTapSigninFacebookButton(sender: UIButton) {
-        self.view.endEditing(true)
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        do {
-            try viewModel.sessionManager.login(FacebookAccountManager.self, userData: nil,  completion: { results  -> Void in
-                PKHUD.sharedHUD.hide(animated: true)
-                switch results {
-                case .Success(_): self.createProfileViewController()
-                case .Error(let err): self.viewModel.showErrorView(err)
-                case .SystemError(let err):  DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
-                }
-            })
-        } catch {
-
-        }
-    }
-    
-    func signInTimeOut() {
-        PKHUD.sharedHUD.hide(animated: true)
-        viewModel.showErrorView(SignupError.TimeOut)
-    }
-    
     func didTapcancelButton(sender: UIButton) {
         self.view.endEditing(true)
         dismissViewControllerAnimated(true, completion: nil)
@@ -150,6 +106,12 @@ class SigninViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
+    }
+
+    override func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?) {
+        super.loginViewModelDidLoginUser(userProfileViewModel, user: user)
+        
+        createProfileViewController()
     }
 
 }

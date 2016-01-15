@@ -8,20 +8,20 @@
 
 import Foundation
 
-class CreateAccountViewController: UIViewController, UITextFieldDelegate {
-    var viewModel: LoginViewModel
+class CreateAccountViewController: UserCreationViewController, UITextFieldDelegate {
     var createAccountView: CreateAccountView
     
-    init (viewModel: LoginViewModel) {
-        self.viewModel = viewModel
-        self.viewModel.sessionManager.sessionManagerFlags.userHasOpenedKeyboard = false
-        
+    override init (viewModel: LoginViewModel) {
         createAccountView = CreateAccountView()
         createAccountView.translatesAutoresizingMaskIntoConstraints = false
     
-        super.init(nibName: nil, bundle: nil)
-        
+        super.init(viewModel: viewModel)
+
+        self.viewModel.sessionManager.sessionManagerFlags.userHasOpenedKeyboard = false
+        self.viewModel.delegate = self
+
         view.addSubview(createAccountView)
+
         setupLayout()
     }
     
@@ -37,8 +37,8 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         
         createAccountView.cancelButton.addTarget(self,  action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupButton.addTarget(self, action: "didTapSignupButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupTwitterButton.addTarget(self, action: "didTapSignupTwitterButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupFacebookButton.addTarget(self, action: "didTapSignupFacebookButton:", forControlEvents: .TouchUpInside)
+        createAccountView.signupTwitterButton.addTarget(self, action: "didTapTwitterButton:", forControlEvents: .TouchUpInside)
+        createAccountView.signupFacebookButton.addTarget(self, action: "didTapFacebookButton:", forControlEvents: .TouchUpInside)
         createAccountView.termsOfUseAndPrivacyPolicyButton.addTarget(self, action: "didTapTermsOfUseButton:", forControlEvents: .TouchUpInside)
     }
     
@@ -51,53 +51,16 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func didTapSignupTwitterButton(sender: UIButton) {
-        self.view.endEditing(true)
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        do {
-            try viewModel.sessionManager.login(TwitterAccountManager.self, userData: nil, completion: { results  -> Void in
-                PKHUD.sharedHUD.hide(animated: true)
-                switch results {
-                case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
-                case .Error(let err): self.viewModel.showErrorView(err)
-                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
-                }
-            })
-        } catch {  
-    
-        }
-    }
 
-    func didTapSignupFacebookButton(sender: UIButton) {
-        self.view.endEditing(true)
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        do {
-            try viewModel.sessionManager.login(FacebookAccountManager.self, userData:nil, completion: { results  -> Void in
-                PKHUD.sharedHUD.hide(animated: true)
-                switch results {
-                case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
-                case .Error(let err): self.viewModel.showErrorView(err)
-                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
-                }
-            })
-        } catch {
-
-        }
-    }
     
-    func didTapSignupButton(sender: UIButton) {
-        self.view.endEditing(true)
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        
+    override func didTapSignupButton(sender: UIButton) {
+        super.didTapSignupButton(sender)
+
         do {
             try viewModel.createNewEmailUser(createAccountView.usernameTextField.text!, email: createAccountView.emailTextField.text!, password: createAccountView.passwordTextField.text!, completion: ({ results -> Void in
-                PKHUD.sharedHUD.hide(animated: true)
                 switch results {
-                case .Success(_): self.createKeyboardInstallationWalkthroughViewController()
-                case .Error(let err): self.viewModel.showErrorView(err)
+                case .Success(_): print("success")
+                case .Error(let err): self.showErrorView(err)
                 case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
@@ -112,7 +75,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     func createKeyboardInstallationWalkthroughViewController() {
-        let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
+        let keyboardInstallationWalkthrough = InstallationWalkthroughViewContoller(viewModel: self.viewModel)
         self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
 
     }
@@ -155,4 +118,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+
+    override func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?) {
+        super.loginViewModelDidLoginUser(userProfileViewModel, user: user)
+        createKeyboardInstallationWalkthroughViewController()
+    }
+
 }

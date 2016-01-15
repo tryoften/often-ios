@@ -123,6 +123,9 @@ class InstallationWalkthroughViewContoller: UIViewController {
 
 
     func finishedButtonDidTap(sender: UIButton) {
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        
         viewModel.sessionManager.sessionManagerFlags.userSeenKeyboardInstallWalkthrough = true
         presentViewController(RootViewController(), animated: true, completion: nil)
 

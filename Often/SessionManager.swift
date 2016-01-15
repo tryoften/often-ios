@@ -12,21 +12,16 @@ import Crashlytics
 class SessionManager: NSObject {
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     var firebase: Firebase
-    var socialAccountService: SocialAccountsService?
     var accountManager: AccountManager?
     var userRef: Firebase?
     var currentUser: User?
     var currentSession: FBSession?
-    var isUserNew: Bool
+    weak var delegate: SessionManagerDelegate?
     var userIsLoggingIn = false
 
-    private var observers: NSMutableArray
     static let defaultManager = SessionManager()
     
     override init() {
-        observers = NSMutableArray()
-        isUserNew = true
-
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)
         SEGAnalytics.sharedAnalytics().screen("Service_Loaded")
@@ -77,7 +72,8 @@ class SessionManager: NSObject {
         PFUser.logOut()
         accountManager?.logout()
         firebase.unauth()
-        observers.removeAllObjects()
+        currentUser = nil
+        accountManager = nil
 
         guard let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
             return
@@ -92,16 +88,12 @@ class SessionManager: NSObject {
     private func processAuthData(authData: FAuthData?) {
         let persistUser: (User) -> Void = { user in
             self.currentUser = user
-            
-            if !self.isUserNew {
-                self.sessionManagerFlags.userId = user.id
-            }
-            
+
             if self.userIsLoggingIn {
+                self.sessionManagerFlags.userId = user.id
                 self.broadcastUserLoginEvent()
                 self.userIsLoggingIn = false
             }
-            self.fetchSocialAccount()
         }
 
         if !sessionManagerFlags.openSession {
@@ -126,8 +118,8 @@ class SessionManager: NSObject {
                         let user = User()
                         user.setValuesForKeysWithDictionary(value)
                         user.id = authData.uid
-                        self.isUserNew = false
                         self.userIsLoggingIn = true
+                        
                         persistUser(user)
                 }
             } else {
@@ -140,100 +132,25 @@ class SessionManager: NSObject {
         })
         
     }
-    
-    func createSocialAccount() -> [String:AnyObject] {
-        var socialAccounts = [String:AnyObject]()
-        
-        let twitter = SocialAccount()
-        twitter.type = .Twitter
-        socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
-        
-        let spotify = SocialAccount()
-        spotify.type = .Spotify
-        socialAccounts.updateValue(spotify.toDictionary(), forKey: "spotify")
-        
-        let soundcloud = SocialAccount()
-        soundcloud.type = .Soundcloud
-        socialAccounts.updateValue(soundcloud.toDictionary(), forKey: "soundcloud")
-        
-        return socialAccounts
-    }
-    
-    func setSocialAccountOnCurrentUser(socialAccount: SocialAccount, completion: (User, NSError?) -> ()) {
-        if let currentUser = self.currentUser {
-            let socialAccountService = provideSocialAccountService(currentUser)
-            socialAccountService.updateSocialAccount(socialAccount)
-            completion(currentUser, nil)
-        }
-    }
-    
-    func fetchSocialAccount() {
-        if let currentUser = currentUser {
-            let socialAccountService = provideSocialAccountService(currentUser)
-            socialAccountService.fetchLocalData({ err  in
-                if err  {
-                    self.broadcastDidFetchSocialAccountsEvent()
-                }
-            })
-        } else {
-            // TODO(kervs): throw an error if the current user is not set
-        }
-    }
-    
+
     // MARK: Private methods
-    
-    private func provideSocialAccountService(user: User) -> SocialAccountsService {
-        if let socialService = self.socialAccountService {
-            return socialService
-        }
-        
-        let socialAccountService = SocialAccountsService(user: user, root:firebase)
-        self.socialAccountService = socialAccountService
-        
-        return socialAccountService
-    }
-    
-    func addSessionObserver(observer: SessionManagerObserver) {
-        self.observers.addObject(observer)
-    }
-    
-    func removeSessionObserver(observer: SessionManagerObserver) {
-        self.observers.removeObject(observer)
-    }
-    
-    private func broadcastDidFetchSocialAccountsEvent() {
-        if let socialAccountService = self.socialAccountService {
-            for observer in observers {
-                if let accounts = socialAccountService.socialAccounts {
-                    observer.sessionManagerDidFetchSocialAccounts?(self, socialAccounts: accounts)
-                }
-            }
-        }
-    }
-    
     private func broadcastUserLoginEvent() {
         if let currentUser = currentUser {
-            for observer in observers {
-                observer.sessionManagerDidLoginUser?(self, user: currentUser, isNewUser: isUserNew)
-            }
+            self.delegate?.sessionManagerDidLoginUser(self, user: currentUser)
         }
     }
-    
+
     private func broadcastNoUserFoundEvent() {
-            for observer in observers {
-                observer.sessionManagerNoUserFound?(self)
-            }
+        delegate?.sessionManagerNoUserFound(self)
     }
-    
+
 }
 
 enum SessionManagerError: ErrorType {
     case UnvalidSignUp
 }
 
-@objc protocol SessionManagerObserver: class {
-    optional func sessionDidOpen(sessionManager: SessionManager, session: FBSession)
-    optional func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool)
-    optional func sessionManagerNoUserFound(sessionManager: SessionManager)
-    optional func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String : AnyObject]?)
+protocol SessionManagerDelegate: class {
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User)
+    func sessionManagerNoUserFound(sessionManager: SessionManager)
 }

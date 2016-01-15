@@ -298,9 +298,8 @@ class AppSettingsViewController: UIViewController,
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         switch buttonIndex {
         case 0:
-            print("logout")
             viewModel.sessionManager.logout()
-            let loginViewModel = LoginViewModel(sessionManager: viewModel.sessionManager)
+            let loginViewModel = LoginViewModel(sessionManager: SessionManager.defaultManager)
             let vc = LoginViewController(viewModel: loginViewModel)
             vc.loginView.launchScreenLoader.hidden = true
             presentViewController(vc, animated: true, completion: nil)
