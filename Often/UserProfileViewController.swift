@@ -49,9 +49,6 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
@@ -155,7 +152,6 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
 
     override func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
         reloadData()
-        PKHUD.sharedHUD.hide(animated: true)
     }
 
     func reloadUserData() {

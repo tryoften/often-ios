@@ -75,7 +75,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .ScaleAspectFit
-        profileImageView.layer.cornerRadius = 35
         profileImageView.image = UIImage(named: "userprofileplaceholder")
         profileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
         profileImageView.layer.borderWidth = 2
@@ -111,6 +110,8 @@ class UserProfileHeaderView: UICollectionReusableView {
         sharedText = "85 Lyrics Shared"
         
         super.init(frame: frame)
+
+        profileImageView.layer.cornerRadius = profileImageViewWidth / 2
 
         backgroundColor = WhiteColor
         clipsToBounds = true
