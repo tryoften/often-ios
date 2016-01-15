@@ -21,6 +21,7 @@ class SessionManagerFlags {
         static var anonymousUser = "anonymousUser"
         static var keyboardGeneralToolTips = "keyboardGeneralToolTips"
         static var keyboardSearchBarToolTips = "searchBarTool"
+        static var keyboardInstallWalkthrough = "keyboardInstallWalkthrough"
     }
     
     var hasSeenKeyboardGeneralToolTips: Bool {
@@ -52,6 +53,17 @@ class SessionManagerFlags {
             setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.keyboardOpen)
         }
     }
+
+    var userSeenKeyboardInstallWalkthrough: Bool {
+        get {
+            return userDefaults.boolForKey(SessionManagerPropertyKey.keyboardInstallWalkthrough)
+        }
+
+        set(value) {
+            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.keyboardInstallWalkthrough)
+        }
+    }
+
     
     var isKeyboardInstalled: Bool {
         get {

@@ -8,20 +8,15 @@
 
 import UIKit
 
-class SkipSignupViewController: UIViewController {
+class SkipSignupViewController: UserCreationViewController {
     var skipSignupView: SkipSignupView
-    var viewModel: LoginViewModel
-    
-    init (viewModel: LoginViewModel) {
-        self.viewModel = viewModel
-        
+
+    override init (viewModel: LoginViewModel) {
         skipSignupView = SkipSignupView()
         skipSignupView.translatesAutoresizingMaskIntoConstraints = false
         
-        super.init(nibName: nil, bundle: nil)
-        
-        skipSignupView.twitterSignupButton.addTarget(self, action: "didSelectTwitterSignupButton:", forControlEvents: .TouchUpInside)
-        skipSignupView.facebookSignupButton.addTarget(self, action: "didSelectFacebookSignupButton:", forControlEvents: .TouchUpInside)
+        super.init(viewModel: viewModel)
+
         skipSignupView.oftenAccountButton.addTarget(self, action: "didTapCreateAccountButton:", forControlEvents: .TouchUpInside)
         
         view.addSubview(skipSignupView)
@@ -43,51 +38,31 @@ class SkipSignupViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    func didSelectTwitterSignupButton(sender: UIButton) {
-        self.view.endEditing(true)
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
+    override func didTapFacebookButton(sender: UIButton) {
         viewModel.sessionManager.logout()
-        do {
-            try viewModel.sessionManager.login(TwitterAccountManager.self, userData: nil,  completion: { results  -> Void in
-                PKHUD.sharedHUD.hide(animated: true)
-                switch results {
-                case .Success(_): self.createProfileViewController()
-                case .Error(let err): self.viewModel.showErrorView(err)
-                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
-                }
-            })
-        } catch {
-            
-        }
+        super.didTapFacebookButton(sender)
+
     }
 
-    func didSelectFacebookSignupButton(sender: UIButton) {
-        self.view.endEditing(true)
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
+    override func didTapTwitterButton(sender: UIButton) {
         viewModel.sessionManager.logout()
-        do {
-            try viewModel.sessionManager.login(FacebookAccountManager.self, userData: nil,  completion: { results  -> Void in
-                PKHUD.sharedHUD.hide(animated: true)
-                switch results {
-                case .Success(_): self.createProfileViewController()
-                case .Error(let err): self.viewModel.showErrorView(err)
-                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
-                }
-            })
-        } catch {
-
-        }
-
+        super.didTapTwitterButton(sender)
     }
+
     func didTapCreateAccountButton(sender: UIButton) {
+        timer?.invalidate()
         viewModel.sessionManager.logout()
-        let signinAccount = CreateAccountViewController(viewModel:self.viewModel)
-        presentViewController(signinAccount, animated: true, completion: nil)
+
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+
+        let loginViewModel = LoginViewModel(sessionManager: SessionManager.defaultManager)
+        let vc = LoginViewController(viewModel: loginViewModel)
+        vc.loginView.launchScreenLoader.hidden = true
         
+        presentViewController(vc, animated: true, completion: nil)
+
     }
 
     func createProfileViewController() {
@@ -102,5 +77,11 @@ class SkipSignupViewController: UIViewController {
             skipSignupView.al_left == view.al_left,
             skipSignupView.al_right == view.al_right,
             ])
+    }
+
+    override func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?) {
+        super.loginViewModelDidLoginUser(userProfileViewModel, user: user)
+        createProfileViewController()
+
     }
 }
