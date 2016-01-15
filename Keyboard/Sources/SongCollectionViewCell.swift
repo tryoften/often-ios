@@ -39,7 +39,7 @@ class SongCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         backgroundColor = WhiteColor
-        layer.cornerRadius = 3.0
+        layer.cornerRadius = 2.0
         layer.shadowColor = UIColor.blackColor().CGColor
         layer.shadowOpacity = 0.14
         layer.shadowOffset = CGSizeMake(0, 1)
@@ -75,9 +75,9 @@ class SongCollectionViewCell: UICollectionViewCell {
             artistLabel.al_top == albumCoverThumbnail.al_centerY,
             
             disclosureIndicator.al_centerY == al_centerY,
-            disclosureIndicator.al_right == al_right - 15,
-            disclosureIndicator.al_height == 16.5,
-            disclosureIndicator.al_width == 16.5
+            disclosureIndicator.al_right == al_right - 18,
+            disclosureIndicator.al_height == 14.5,
+            disclosureIndicator.al_width == 14.5
         ])
     }
 }

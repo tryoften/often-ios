@@ -191,6 +191,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
     func showNoResultsEmptyState() {
         searchResultsViewController.updateEmptySetVisible(true, animated: true)
+        searchResultsViewController.emptyStateView.primaryButton.addTarget(self, action: "didTapEnterButton:", forControlEvents: .TouchUpInside)
     }
 
     // MARK: AutocorrectSuggestionsViewControllerDelegate
