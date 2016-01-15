@@ -154,8 +154,8 @@ class AppSettingsViewController: UIViewController,
                 switch indexPath.row {
                 case 0:
                     let loginViewModel = LoginViewModel(sessionManager: viewModel.sessionManager)
-                    let walkthroughViewController = KeyboardInstallationWalkthroughViewController(viewModel: loginViewModel)
-                    walkthroughViewController.inAppDisplay = true
+                    let walkthroughViewController = InstallationWalkthroughViewContoller(viewModel: loginViewModel, inAppSetting: true)
+
                     presentViewController(walkthroughViewController, animated: true, completion: nil)
                 case 1: break
                 case 2: launchEmail(self)

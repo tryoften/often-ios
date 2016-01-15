@@ -14,9 +14,12 @@ class InstallationWalkthroughViewContoller: UIViewController {
     var completionView: KeyboardCompletionView
     var viewModel: LoginViewModel
     var blurEffectView: UIVisualEffectView
+    var inAppSetting: Bool
 
-    init (viewModel: LoginViewModel) {
+    init (viewModel: LoginViewModel, inAppSetting: Bool = false) {
         self.viewModel = viewModel
+
+        self.inAppSetting = inAppSetting
 
         installView = KeyboardInstallWalkthroughView()
         installView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +40,9 @@ class InstallationWalkthroughViewContoller: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
+        if inAppSetting {
+
+        }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeLoader", name: UIApplicationDidBecomeActiveNotification, object: nil)
 
         view.addSubview(installView)
@@ -56,6 +62,11 @@ class InstallationWalkthroughViewContoller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if inAppSetting {
+            installView.settingButton.setTitle("dismiss".uppercaseString, forState: .Normal)
+
+        }
+        
         installView.settingButton.addTarget(self, action: "settingsButtonDidTap:", forControlEvents: .TouchUpInside)
         completionView.finishedButton.addTarget(self, action: "finishedButtonDidTap:", forControlEvents: .TouchUpInside)
     }
@@ -65,6 +76,15 @@ class InstallationWalkthroughViewContoller: UIViewController {
     }
 
     func settingsButtonDidTap(sender: UIButton) {
+        if inAppSetting {
+            dismissViewControllerAnimated(true, completion: nil)
+
+        } else {
+            showLoader()
+        }
+    }
+
+    func showLoader() {
         view.addSubview(blurEffectView)
         view.addSubview(loader)
         view.addConstraints([
@@ -82,7 +102,6 @@ class InstallationWalkthroughViewContoller: UIViewController {
         if let appSettings = NSURL(string: appSettingsString) {
             UIApplication.sharedApplication().openURL(appSettings)
         }
-
     }
 
     func removeLoader() {
@@ -104,16 +123,9 @@ class InstallationWalkthroughViewContoller: UIViewController {
 
 
     func finishedButtonDidTap(sender: UIButton) {
-        SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough = true
-        var mainViewController: UIViewController
+        viewModel.sessionManager.sessionManagerFlags.userSeenKeyboardInstallWalkthrough = true
+        presentViewController(RootViewController(), animated: true, completion: nil)
 
-        if viewModel.sessionManager.sessionManagerFlags.userIsAnonymous {
-            mainViewController = SkipSignupViewController(viewModel: self.viewModel)
-
-        } else {
-            mainViewController = RootViewController()
-        }
-        presentViewController(mainViewController, animated: true, completion: nil)
     }
 
 }
