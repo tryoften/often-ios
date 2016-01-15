@@ -98,6 +98,7 @@ class InstallationWalkthroughViewContoller: UIViewController {
             blurEffectView.al_left == view.al_left,
             blurEffectView.al_right == view.al_right
             ])
+
         let appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
         if let appSettings = NSURL(string: appSettingsString) {
             UIApplication.sharedApplication().openURL(appSettings)
@@ -125,7 +126,7 @@ class InstallationWalkthroughViewContoller: UIViewController {
     func finishedButtonDidTap(sender: UIButton) {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
-        
+
         viewModel.sessionManager.sessionManagerFlags.userSeenKeyboardInstallWalkthrough = true
         presentViewController(RootViewController(), animated: true, completion: nil)
 

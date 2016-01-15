@@ -10,7 +10,6 @@ import Foundation
 
 class UserCreationViewController: UIViewController, LoginViewModelDelegate {
     var viewModel: LoginViewModel
-    var timer: NSTimer?
 
     init (viewModel: LoginViewModel) {
         self.viewModel = viewModel
@@ -29,7 +28,7 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
 
     func didTapSignupButton(sender: UIButton) {
         self.view.endEditing(true)
-        setupTimer()
+        showHud()
 
     }
 
@@ -38,25 +37,25 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
     }
 
     override func viewWillDisappear(animated: Bool) {
-        
+
     }
 
     func didTapSigninButton(sender: UIButton) {
         self.view.endEditing(true)
-        setupTimer()
+        showHud()
 
     }
 
     func didTapFacebookButton(sender: UIButton) {
         self.view.endEditing(true)
-        setupTimer()
+        showHud()
 
         do {
             try viewModel.loginWithFacebook({ (results) -> Void in
                 switch results {
-                case .Success(_): print("success")
+                case .Success(_): PKHUD.sharedHUD.hide(animated: true)
                 case .Error(let err): self.showErrorView(err)
-                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                case .SystemError(let err): self.showSystemErrorView(err)
                 }
             })
 
@@ -68,14 +67,14 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
 
     func didTapTwitterButton(sender: UIButton) {
         self.view.endEditing(true)
-        setupTimer()
+        showHud()
 
         do {
             try viewModel.loginWithTwitter({ (results) -> Void in
                 switch results {
-                case .Success(_): print("success")
+                case .Success(_): PKHUD.sharedHUD.hide(animated: true)
                 case .Error(let err): self.showErrorView(err)
-                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                case .SystemError(let err): self.showSystemErrorView(err)
                 }
             })
 
@@ -86,14 +85,14 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
 
     func didTapAnonymousButton(sender: UIButton) {
         self.view.endEditing(true)
-        setupTimer()
+        showHud()
 
         do {
             try viewModel.loginAnonymously({ (results) -> Void in
                 switch results {
-                case .Success(_): print("success")
+                case .Success(_): PKHUD.sharedHUD.hide(animated: true)
                 case .Error(let err): self.showErrorView(err)
-                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                case .SystemError(let err): self.showSystemErrorView(err)
                 }
             })
 
@@ -103,21 +102,13 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
 
     }
 
-    func userDataTimeOut() {
-        timer?.invalidate()
-        viewModel.sessionManager.logout()
-//        showErrorView(SignupError.TimeOut)
-    }
-
-    func setupTimer() {
+    func showHud() {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
-//        timer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
     }
 
 
     func showErrorView(error: ErrorType) {
-        timer?.invalidate()
         PKHUD.sharedHUD.hide(animated: true)
 
         switch error {
@@ -139,14 +130,18 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
             DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         }
     }
+
+    func showSystemErrorView(error: NSError) {
+        PKHUD.sharedHUD.hide(animated: true)
+        DropDownErrorMessage().setMessage(error.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+
+    }
     
     func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?) {
-        timer?.invalidate()
         PKHUD.sharedHUD.hide(animated: true)
     }
 
     func loginViewModelNoUserFound(userProfileViewModel: LoginViewModel) {
-        timer?.invalidate()
         PKHUD.sharedHUD.hide(animated: true)
     }
 }

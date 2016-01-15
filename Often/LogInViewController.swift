@@ -144,7 +144,6 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
     }
     
     func didTapCreateAccountButton(sender: UIButton) {
-        timer?.invalidate()
         scrollTimer?.invalidate()
 
         let createAccount = CreateAccountViewController(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
@@ -152,7 +151,6 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
     }
     
     override func didTapSigninButton(sender: UIButton) {
-        timer?.invalidate()
         scrollTimer?.invalidate()
 
         let signinAccount = SigninViewController(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
@@ -181,8 +179,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
 
     }
 
-    override func userDataTimeOut() {
-        timer?.invalidate()
+    func userDataTimeOut() {
         launchScreenLoaderTimer?.invalidate()
         loginView.launchScreenLoader.hidden = true
         viewModel.delegate = nil
@@ -190,7 +187,6 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
 
     override func loginViewModelNoUserFound(userProfileViewModel: LoginViewModel) {
         launchScreenLoaderTimer?.invalidate()
-        timer?.invalidate()
         loginView.launchScreenLoader.hidden = true
     }
 

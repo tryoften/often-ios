@@ -58,10 +58,11 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
 
         do {
             try viewModel.createNewEmailUser(createAccountView.usernameTextField.text!, email: createAccountView.emailTextField.text!, password: createAccountView.passwordTextField.text!, completion: ({ results -> Void in
+                
                 switch results {
-                case .Success(_): print("success")
+                case .Success(_): PKHUD.sharedHUD.hide(animated: true)
                 case .Error(let err): self.showErrorView(err)
-                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                case .SystemError(let err): self.showSystemErrorView(err)
                 }
             })
             )

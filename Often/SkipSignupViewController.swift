@@ -8,14 +8,17 @@
 
 import UIKit
 
-class SkipSignupViewController: UserCreationViewController {
+class SkipSignupViewController: UIViewController {
     var skipSignupView: SkipSignupView
+    var viewModel: LoginViewModel
 
-    override init (viewModel: LoginViewModel) {
+     init (viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+        
         skipSignupView = SkipSignupView()
         skipSignupView.translatesAutoresizingMaskIntoConstraints = false
         
-        super.init(viewModel: viewModel)
+        super.init(nibName: nil, bundle: nil)
 
         skipSignupView.oftenAccountButton.addTarget(self, action: "didTapCreateAccountButton:", forControlEvents: .TouchUpInside)
         
@@ -39,19 +42,7 @@ class SkipSignupViewController: UserCreationViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func didTapFacebookButton(sender: UIButton) {
-        viewModel.sessionManager.logout()
-        super.didTapFacebookButton(sender)
-
-    }
-
-    override func didTapTwitterButton(sender: UIButton) {
-        viewModel.sessionManager.logout()
-        super.didTapTwitterButton(sender)
-    }
-
-    func didTapCreateAccountButton(sender: UIButton) {
-        timer?.invalidate()
+       func didTapCreateAccountButton(sender: UIButton) {
         viewModel.sessionManager.logout()
 
         PKHUD.sharedHUD.contentView = HUDProgressView()
@@ -65,11 +56,6 @@ class SkipSignupViewController: UserCreationViewController {
 
     }
 
-    func createProfileViewController() {
-        viewModel.sessionManager.sessionManagerFlags.userIsAnonymous = false
-        presentViewController(RootViewController(), animated: true, completion: nil)
-    }
-
     func setupLayout() {
         view.addConstraints([
             skipSignupView.al_bottom == view.al_bottom,
@@ -77,11 +63,5 @@ class SkipSignupViewController: UserCreationViewController {
             skipSignupView.al_left == view.al_left,
             skipSignupView.al_right == view.al_right,
             ])
-    }
-
-    override func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?) {
-        super.loginViewModelDidLoginUser(userProfileViewModel, user: user)
-        createProfileViewController()
-
     }
 }

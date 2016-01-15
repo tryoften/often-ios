@@ -48,10 +48,11 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
 
         do {
             try viewModel.signInUser(signinView.emailTextField.text!, password: signinView.passwordTextField.text!) { results in
+
                 switch results {
-                case .Success(_): print("sucess")
+                case .Success(_): PKHUD.sharedHUD.hide(animated: true)
                 case .Error(let err): self.showErrorView(err)
-                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                case .SystemError(let err): self.showSystemErrorView(err)
                 }
             }
             
