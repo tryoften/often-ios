@@ -54,25 +54,8 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
 
         searchViewController.delegate = self
         self.searchBar = searchBar
-
-        let attributes: [String: AnyObject] = [
-            NSFontAttributeName: UIFont(name: "Montserrat", size: 11)!,
-            NSForegroundColorAttributeName: BlackColor
-        ]
-
+        
         navigationItem.titleView = searchBar
-        searchBar.searchBarStyle = .Minimal
-        searchBar.backgroundColor = WhiteColor
-        searchBar.tintColor = UIColor(fromHexString: "#14E09E")
-        searchBar.placeholder = SearchBarPlaceholderText
-        // TODO(luc): obfuscate string
-        searchBar.setValue("cancel".uppercaseString, forKey: "_cancelButtonText")
-
-        if #available(iOS 9.0, *) {
-            UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([MainAppSearchBar.self]).setTitleTextAttributes(attributes, forState: .Normal)
-        } else {
-            UIBarButtonItem.appearance().setTitleTextAttributes(attributes, forState: .Normal)
-        }
 
         addChildViewController(searchViewController)
         view.addSubview(searchViewController.view)

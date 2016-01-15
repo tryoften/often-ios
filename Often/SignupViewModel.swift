@@ -8,8 +8,8 @@
 
 import Foundation
 
-class SignupViewModel: NSObject, SessionManagerObserver {
-    weak var delegate: SignupViewModelDelegate?
+class LoginViewModel: NSObject, SessionManagerObserver {
+    weak var delegate: LoginViewModelDelegate?
     var sessionManager: SessionManager
     var user: User
     var password: String
@@ -118,14 +118,14 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
         self.user = user
-        delegate?.signupViewModelDidLoginUser(self, user: user, isNewUser: isNewUser)
+        delegate?.loginViewModelDidLoginUser(self, user: user, isNewUser: isNewUser)
     }
     
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
     }
     
     func sessionManagerNoUserFound(sessionManager: SessionManager) {
-        delegate?.signupViewModelNoUserFound(self)
+        delegate?.loginViewModelNoUserFound(self)
     }
 }
  
@@ -136,7 +136,7 @@ class SignupViewModel: NSObject, SessionManagerObserver {
     case TimeOut
  }
  
-protocol SignupViewModelDelegate: class {
-    func signupViewModelDidLoginUser(userProfileViewModel: SignupViewModel, user: User?, isNewUser: Bool)
-    func signupViewModelNoUserFound(userProfileViewModel: SignupViewModel)
+protocol LoginViewModelDelegate: class {
+    func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?, isNewUser: Bool)
+    func loginViewModelNoUserFound(userProfileViewModel: LoginViewModel)
 }

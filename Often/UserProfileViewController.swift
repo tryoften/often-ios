@@ -17,12 +17,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         super.init(collectionViewLayout: collectionViewLayout, collectionType: .Favorites, viewModel: viewModel)
 
         viewModel.delegate = self
-
-        emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
-        emptyStateView?.closeButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
-        emptyStateView?.userInteractionEnabled = true
-        emptyStateView?.imageViewTopPadding = 30.0
-
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
         checkUserEmptyStateStatus()
     }
@@ -192,6 +187,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         isKeyboardEnabled()
         isTwitterEnabled()
         reloadData()
+        emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
     }
     
     func isKeyboardEnabled() {

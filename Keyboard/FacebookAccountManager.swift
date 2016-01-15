@@ -38,7 +38,7 @@ class FacebookAccountManager: AccountManager {
         sessionManagerFlags.openSession = true
     }
 
-     override func login(userData: User?, completion: (results: ResultType) -> Void) {
+    override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
         guard isInternetReachable else {
             completion(results: ResultType.Error(e: FacebookAccountManagerError.NotConnectedOnline))
             return
@@ -59,7 +59,7 @@ class FacebookAccountManager: AccountManager {
     }
     
     override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
-        userRef = firebase.childByAppendingPath("users/twitter:\(authData.uid)")
+        userRef = firebase.childByAppendingPath("users/\(authData.uid)")
 
         let request = FBRequest.requestForMe()
         request.startWithCompletionHandler({ (connection, result, error) in
@@ -78,11 +78,11 @@ class FacebookAccountManager: AccountManager {
                 userData["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
                 userData["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
 
-                self.newUser = User()
-                self.newUser?.setValuesForKeysWithDictionary(userData)
+                self.currentUser = User()
+                self.currentUser?.setValuesForKeysWithDictionary(userData)
                 self.userRef?.updateChildValues(userData)
 
-                if let user = self.newUser {
+                if let user = self.currentUser {
                     completion(results: ResultType.Success(r: true))
                     self.delegate?.accountManagerUserDidLogin(self, user: user)
                 }

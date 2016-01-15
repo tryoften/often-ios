@@ -9,8 +9,8 @@
 import Foundation
 
 class AnonymousAccountManager: AccountManager {
-    
-    override func openSession(completion: (results: ResultType) -> Void) {
+
+  override  func openSession(completion: (results: ResultType) -> Void) {
         self.firebase.authAnonymouslyWithCompletionBlock { (err, auth) -> Void in
             if err != nil {
                 print(err)
@@ -24,7 +24,7 @@ class AnonymousAccountManager: AccountManager {
         sessionManagerFlags.userIsAnonymous = true
     }
     
-     override func login(userData: User?, completion: (results: ResultType) -> Void)  {
+    func login(userData: User?, completion: (results: ResultType) -> Void)  {
         PFAnonymousUtils.logInWithBlock {
             (user: PFUser?, error: NSError?) -> Void in
             if error != nil {
@@ -41,14 +41,14 @@ class AnonymousAccountManager: AccountManager {
         
         var data = [String : AnyObject]()
 
-        if let currentUser = PFUser.currentUser() {
+        if let parseCurrentUser = PFUser.currentUser() {
             data["id"] = authData.uid
-            data["parseId"] = currentUser.objectId
+            data["parseId"] = parseCurrentUser.objectId
 
-            newUser = User()
-            newUser?.setValuesForKeysWithDictionary(data)
+            currentUser = User()
+            currentUser?.setValuesForKeysWithDictionary(data)
 
-            if let user = newUser {
+            if let user = self.currentUser {
                 self.userRef?.updateChildValues(data)
                 completion(results: ResultType.Success(r: true))
                 delegate?.accountManagerUserDidLogin(self, user: user)

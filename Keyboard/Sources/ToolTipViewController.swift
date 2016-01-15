@@ -10,12 +10,15 @@ import UIKit
 
 class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     var pointerImageView: UIImageView
+    var backgroundKeyboardView: UIImageView
+    var tintView: UIView
     var closeButton: UIButton
     var pageWidth: CGFloat
     var scrollView: UIScrollView
     var pageControl: UIPageControl
     var pageCount: Int
     var pageImages: [UIImage]
+    var backgroundImages: [UIImage]
     var pageTexts: [String]
     var pageViews: [ToolTip]
     var pointerAlignmentConstraint: NSLayoutConstraint?
@@ -42,6 +45,12 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             UIImage(named: "tooltipimage2")!,
             UIImage(named: "tooltipimage4")!
         ]
+
+        backgroundImages = [
+            UIImage(named: "tooltipbackground1")!,
+            UIImage(named: "tooltipbackground2")!,
+            UIImage(named: "tooltipbackground3")!
+        ]
         
         pageTexts = [
             "View all of your saved lyrics\n by tapping Favorites",
@@ -50,7 +59,16 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         ]
         
         pageViews = [ToolTip]()
-        
+
+        tintView = UIImageView()
+        tintView.translatesAutoresizingMaskIntoConstraints = false
+        tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+
+        backgroundKeyboardView = UIImageView()
+        backgroundKeyboardView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundKeyboardView.contentMode = .ScaleAspectFit
+        backgroundKeyboardView.image = UIImage(named: "tooltipbackground1")!
+
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.pagingEnabled = true
@@ -80,11 +98,11 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         pointerImageView.image = UIImage(named: "tooltippointer")
         
         super.init(nibName: nil, bundle: nil)
-        
+
         scrollView.delegate = self
-        
-        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
-        
+
+        view.addSubview(backgroundKeyboardView)
+        view.addSubview(tintView)
         view.addSubview(scrollView)
         view.addSubview(pageControl)
         view.addSubview(closeButton)
@@ -119,7 +137,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     func loadPage(page: Int) {
         let toolTip = ToolTip()
         toolTip.translatesAutoresizingMaskIntoConstraints = false
-        toolTip.imageView.image = pageImages[page]
+        toolTip.tabBarIconImageView.image = pageImages[page]
         toolTip.textView.text = pageTexts[page]
         toolTip.currentPage = page
         toolTip.setupLayout()
@@ -138,6 +156,8 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         /// Load the pages that are now on screen
         pageControl.currentPage = currentPage
+
+        backgroundKeyboardView.image = backgroundImages[currentPage]
 
         delegate?.toolTipViewControllerCurrentPage(self, currentPage: currentPage)
 
@@ -168,6 +188,16 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         pointerAlignmentConstraint = pointerImageView.al_centerX == view.al_left + arrowXOffset
 
         view.addConstraints([
+            tintView.al_top == view.al_top,
+            tintView.al_bottom == view.al_bottom,
+            tintView.al_left == view.al_left,
+            tintView.al_right == view.al_right,
+
+            backgroundKeyboardView.al_top == view.al_top,
+            backgroundKeyboardView.al_bottom == view.al_bottom,
+            backgroundKeyboardView.al_left == view.al_left,
+            backgroundKeyboardView.al_right == view.al_right,
+
             pageControl.al_centerX == scrollView.al_centerX,
             pageControl.al_bottom == scrollView.al_bottom - 18,
             pageControl.al_height == 5,

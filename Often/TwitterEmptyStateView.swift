@@ -10,8 +10,8 @@ import UIKit
 
 class TwitterEmptyStateView: EmptyStateView {
     init() {
-        let title = "Connect with Twitter"
-        let description = "Often works even better with Twitter. \n In the future, any links you like there are saved here."
+        let title = "Connect with Twitter or Facebook"
+        let description = "Get lyric suggestions & a sweet profile pic"
         let image = UIImage(named: "twitteremptystate")!
         
         super.init(frame: CGRectZero)
@@ -27,8 +27,8 @@ class TwitterEmptyStateView: EmptyStateView {
         closeButton.hidden = false
         closeButton.userInteractionEnabled = true
         
-        imageView.contentMode = .ScaleAspectFit
-        imageSize = .Small
+        imageView.contentMode = .ScaleAspectFill
+        imageSize = .Medium
         
         addAdditionalLayouts()
     }
@@ -38,7 +38,7 @@ class TwitterEmptyStateView: EmptyStateView {
     }
     
     func addAdditionalLayouts() {
-        imageViewTopConstraint?.constant = -(imageViewTopPadding + 20)
+        imageViewTopConstraint?.constant = -(imageViewTopPadding + 70)
         layoutIfNeeded()
     }
 }

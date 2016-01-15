@@ -44,8 +44,8 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     override init(frame: CGRect) {
         screenWidth = UIScreen.mainScreen().bounds.width
 
-        pageImages = [UIImage(named: "g-eazy")!, UIImage(named: "JBeiber")!]
-        artistNames = ["G-Eazy".uppercaseString, "Justin Bieber".uppercaseString]
+        pageImages = [UIImage(named: "kanye")!, UIImage(named: "khaled")!, UIImage(named: "future")!]
+        artistNames = ["Kanye West".uppercaseString, "DJ Khaled".uppercaseString, "Future".uppercaseString]
         pageViews = [UIImageView?]()
 
         pageCount = 0

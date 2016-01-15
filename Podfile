@@ -23,7 +23,6 @@ target 'Often' do
   pod 'Facebook-iOS-SDK', '~> 3.0'
   pod 'ParseTwitterUtils'
   pod 'ParseFacebookUtils'
-  pod 'CSStickyHeaderFlowLayout'
 end
 
 target 'Keyboard' do
