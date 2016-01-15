@@ -1,5 +1,5 @@
 //
-//  KeyboardCompletionView.swift
+//  KeyboardWalkthroughSuccessMessageView.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 1/12/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KeyboardCompletionView: UIView {
+class KeyboardWalkthroughSuccessMessageView: UIView {
     let characterImageView: UIImageView
     let titleLabel: UILabel
     let subtitleLabel: UILabel

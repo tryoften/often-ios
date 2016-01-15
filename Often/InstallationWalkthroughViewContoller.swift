@@ -11,7 +11,7 @@ import Foundation
 class InstallationWalkthroughViewContoller: UIViewController {
     var installView: KeyboardInstallWalkthroughView
     var loader: AnimatedLoaderView
-    var completionView: KeyboardCompletionView
+    var completionView: KeyboardWalkthroughSuccessMessageView
     var viewModel: LoginViewModel
     var blurEffectView: UIVisualEffectView
     var inAppSetting: Bool
@@ -29,7 +29,7 @@ class InstallationWalkthroughViewContoller: UIViewController {
         loader.supplementImageView.hidden = true
         loader.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
 
-        completionView = KeyboardCompletionView()
+        completionView = KeyboardWalkthroughSuccessMessageView()
         completionView.translatesAutoresizingMaskIntoConstraints = false
         completionView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
 

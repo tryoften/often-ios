@@ -79,8 +79,8 @@
 		3BAC29481C458AF700F44DF7 /* InstallationWalkthroughViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC29461C458AF700F44DF7 /* InstallationWalkthroughViewContoller.swift */; };
 		3BAC294A1C45A73600F44DF7 /* OftenInstallGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC29491C45A73600F44DF7 /* OftenInstallGIF.gif */; };
 		3BAC294B1C45A73600F44DF7 /* OftenInstallGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC29491C45A73600F44DF7 /* OftenInstallGIF.gif */; };
-		3BAC294D1C45B28400F44DF7 /* KeyboardCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC294C1C45B28400F44DF7 /* KeyboardCompletionView.swift */; };
-		3BAC294E1C45B28400F44DF7 /* KeyboardCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC294C1C45B28400F44DF7 /* KeyboardCompletionView.swift */; };
+		3BAC294D1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC294C1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift */; };
+		3BAC294E1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC294C1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift */; };
 		3BAC294F1C46C65B00F44DF7 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */; };
 		3BAC29541C4838D300F44DF7 /* UserCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC29531C4838D300F44DF7 /* UserCreationViewController.swift */; };
 		3BAC29551C4838D300F44DF7 /* UserCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC29531C4838D300F44DF7 /* UserCreationViewController.swift */; };
@@ -754,7 +754,7 @@
 		3BAC29431C45768500F44DF7 /* KeyboardInstallWalkthroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstallWalkthroughView.swift; sourceTree = "<group>"; };
 		3BAC29461C458AF700F44DF7 /* InstallationWalkthroughViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallationWalkthroughViewContoller.swift; sourceTree = "<group>"; };
 		3BAC29491C45A73600F44DF7 /* OftenInstallGIF.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = OftenInstallGIF.gif; sourceTree = "<group>"; };
-		3BAC294C1C45B28400F44DF7 /* KeyboardCompletionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardCompletionView.swift; sourceTree = "<group>"; };
+		3BAC294C1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardWalkthroughSuccessMessageView.swift; sourceTree = "<group>"; };
 		3BAC29531C4838D300F44DF7 /* UserCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCreationViewController.swift; sourceTree = "<group>"; };
 		3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterAccountManager.swift; path = Keyboard/TwitterAccountManager.swift; sourceTree = "<group>"; };
 		3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FacebookAccountManager.swift; path = Keyboard/FacebookAccountManager.swift; sourceTree = "<group>"; };
@@ -1450,7 +1450,7 @@
 				699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */,
 				3BD971D51B9E642D007EAB5A /* LoginView.swift */,
 				3BAC29431C45768500F44DF7 /* KeyboardInstallWalkthroughView.swift */,
-				3BAC294C1C45B28400F44DF7 /* KeyboardCompletionView.swift */,
+				3BAC294C1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift */,
 				3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */,
 				3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */,
 				3B93ED091C226DF700555496 /* BrowseHeaderView.swift */,
@@ -2430,7 +2430,7 @@
 				81D4BF231B38F6DA006430AB /* PKHUDAssets.swift in Sources */,
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
 				69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */,
-				3BAC294D1C45B28400F44DF7 /* KeyboardCompletionView.swift in Sources */,
+				3BAC294D1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift in Sources */,
 				81BDA71E1C3F096300198AF8 /* BaseViewModel.swift in Sources */,
 				3BD971E11B9FD374007EAB5A /* LogInViewController.swift in Sources */,
 				690805D31C3A1916001589A5 /* EmptyStateView.swift in Sources */,
@@ -2732,7 +2732,7 @@
 				81DA3F2B1C24BE85006822D3 /* CreateAccountView.swift in Sources */,
 				81DA3F2C1C24BE85006822D3 /* PKHUDAssets.swift in Sources */,
 				81DA3F2D1C24BE85006822D3 /* Window.swift in Sources */,
-				3BAC294E1C45B28400F44DF7 /* KeyboardCompletionView.swift in Sources */,
+				3BAC294E1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift in Sources */,
 				81BDA71F1C3F096300198AF8 /* BaseViewModel.swift in Sources */,
 				81DA3F2E1C24BE85006822D3 /* AppSettingsViewController.swift in Sources */,
 				81DA3F2F1C24BE85006822D3 /* LogInViewController.swift in Sources */,
