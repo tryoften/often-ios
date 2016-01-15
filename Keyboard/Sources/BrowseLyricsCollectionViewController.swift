@@ -11,6 +11,17 @@ import UIKit
 private let albumLyricCellReuseIdentifier = "albumLyricCell"
 
 class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
+    var track: TrackMediaItem
+
+    init(trackMediaItem: TrackMediaItem, viewModel: BrowseViewModel) {
+        track = trackMediaItem
+        super.init(viewModel: viewModel)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,9 +29,17 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: albumLyricCellReuseIdentifier)
     }
 
+    override func headerViewDidLoad() {
+        if let imageURLStr = track.song_art_image_url,
+            let imageURL = NSURL(string: imageURLStr) {
+            headerView?.coverPhoto.setImageWithAnimation(imageURL)
+            headerView?.titleLabel.text = track.title
+        }
+    }
+
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
         let layout = BrowseCollectionViewController.provideCollectionViewLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 55)
         return layout
     }
 
@@ -30,24 +49,25 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return track.lyrics.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(albumLyricCellReuseIdentifier,
-            forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
+            forIndexPath: indexPath) as? MediaItemCollectionViewCell,
+            let lyric = track.lyrics[indexPath.row] as? LyricMediaItem where indexPath.row < track.lyrics.count else {
                 return UICollectionViewCell()
         }
         
         cell.reset()
-        cell.leftHeaderLabel.text = "The Hills"
-        cell.rightHeaderLabel.text = "Single"
-        cell.mainTextLabel.text = "Your man on the road he doin' promo\nYou said, \"Keep your business on the low-low\""
+        cell.mainTextLabel.text = lyric.text
         cell.mainTextLabel.textAlignment = .Center
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.layer.shouldRasterize = true
         cell.showImageView = false
-    
+
+        print(lyric.text, lyric.score)
+
         return cell
     }
 }

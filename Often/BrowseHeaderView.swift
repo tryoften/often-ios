@@ -27,7 +27,6 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         return Int(floor((scrollView.contentOffset.x * 3 + screenWidth) / (screenWidth * 3)))
     }
 
-
     var featuredArtists: [MediaItem] {
         didSet(value) {
             updateFeaturedArtists(value)
@@ -109,9 +108,6 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         super.layoutSubviews()
         setupPages()
         loadVisiblePages()
-//        if !featuredArtists.isEmpty {
-//            loadVisiblePages()
-//        }
     }
 
     func setupPages() {
@@ -193,7 +189,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
                 newPageView.al_height == scrollView.al_height,
                 newPageView.al_width == screenWidth,
                 newPageView.al_left == scrollView.al_left + frame.size.width * CGFloat(page)
-                ])
+            ])
 
             pageViews[page] = newPageView
         }
@@ -243,9 +239,8 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
 
             tintView.al_width == screenWidth,
             tintView.al_top == al_top,
-            tintView.al_bottom == al_bottom,
-            
-            ])
+            tintView.al_bottom == al_bottom
+        ])
 
 }
 

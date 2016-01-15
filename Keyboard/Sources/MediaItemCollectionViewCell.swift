@@ -348,17 +348,17 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             rightHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             rightHeaderLabel.al_height == 16,
             
-            mainTextLabel.al_left == metadataContentView.al_left + contentEdgeInsets.left,
-            mainTextLabel.al_top == leftHeaderLabel.al_bottom + 18,
-            mainTextLabel.al_right == contentImageView.al_left - contentEdgeInsets.right,
-            
             leftMetadataLabel.al_left == mainTextLabel.al_left,
             leftMetadataLabel.al_bottom == metadataContentView.al_bottom - 10,
             leftMetadataLabel.al_height == 12,
             
             centerMetadataLabel.al_left == leftMetadataLabel.al_right + 12,
             centerMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
-            
+
+            mainTextLabel.al_right == contentImageView.al_left - contentEdgeInsets.right,
+            mainTextLabel.al_left == metadataContentView.al_left + contentEdgeInsets.left,
+            mainTextLabel.al_centerY == al_centerY,
+
             rightMetadataLabel.al_right == mainTextLabel.al_right,
             rightMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
             rightMetadataLabel.al_left == centerMetadataLabel.al_right + 6,

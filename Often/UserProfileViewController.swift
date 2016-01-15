@@ -200,6 +200,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         } else {
             collectionView?.scrollEnabled = false
             updateEmptyStateContent(.NoKeyboard)
+            emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
             emptyStateView?.hidden = false
         }
     }

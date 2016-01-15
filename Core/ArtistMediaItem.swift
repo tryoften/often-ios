@@ -9,9 +9,14 @@
 import Foundation
 
 class ArtistMediaItem: MediaItem {
-    var name: String = ""
-    var tracksCount: Int?
-    var lyricsCount: Int?
+    var external_url: String?
+    var genius_id: Int?
+    var is_verified: String?
+    var lyrics_count: Int?
+    var name: String?
+    var time_modified: Int?
+    var tracks_count: Int?
+    var tracks: [TrackMediaItem] = []
 
     required init(data: NSDictionary) {
         super.init(data: data)
@@ -25,11 +30,28 @@ class ArtistMediaItem: MediaItem {
         }
 
         if let tracksCount = data["tracks_count"] as? Int {
-            self.tracksCount = tracksCount
+            self.tracks_count = tracksCount
         }
 
         if let lyricsCount = data["lyrics_count"] as? Int {
-            self.lyricsCount = lyricsCount
+            self.lyrics_count = lyricsCount
+        }
+
+        if let genius_id = data["genius_id"] as? Int {
+            self.genius_id = genius_id
+        }
+
+        if let external_url = data["external_url"] as? String {
+            self.external_url = external_url
+        }
+
+        if let time_modified = data["time_modified"] as? Int {
+            self.time_modified = time_modified
+        }
+
+        if let tracks = data["tracks"] as? NSDictionary,
+            let trackModels = TrackMediaItem.modelsFromDictionaryArray(tracks.allValues) as? [TrackMediaItem] {
+                self.tracks = trackModels
         }
     }
 }

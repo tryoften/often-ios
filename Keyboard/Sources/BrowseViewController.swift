@@ -41,6 +41,7 @@ class BrowseViewController: FullScreenCollectionViewController,
         collectionView?.registerClass(TrackCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
         collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = false
+        extendedLayoutIncludesOpaqueBars = false
 
         setupSearchBar()
     }
@@ -74,14 +75,50 @@ class BrowseViewController: FullScreenCollectionViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setNeedsStatusBarAppearanceUpdate()
+        
         do {
             try viewModel.fetchData()
         } catch _ {}
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if let navigationController = navigationController as? ContainerNavigationController {
+            navigationController.statusBarBackground.hidden = false
+        }
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+            navigationBar.shadowImage = nil
+            navigationBar.backgroundColor = UIColor.whiteColor()
+            navigationBar.translucent = true
+        }
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if let navigationController = navigationController as? ContainerNavigationController {
+            navigationController.statusBarBackground.hidden = true
+        }
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+            navigationBar.shadowImage = UIImage()
+            navigationBar.backgroundColor = UIColor.clearColor()
+            navigationBar.translucent = true
+        }
+    }
+
     class func getLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 5.0
+        layout.minimumLineSpacing = 5.0
         return layout
+    }
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .Default
     }
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -185,7 +222,7 @@ class BrowseViewController: FullScreenCollectionViewController,
             if let imageURLStr = track.song_art_image_url, let imageURL = NSURL(string: imageURLStr) {
                 cell.imageView.setImageWithAnimation(imageURL)
             }
-            cell.titleLabel.text = track.albumName
+            cell.titleLabel.text = track.album_name
             cell.subtitleLabel.text = track.artist_name
             cell.titleLabel.text = track.title
             cell.layer.shouldRasterize = true
@@ -243,9 +280,9 @@ class BrowseViewController: FullScreenCollectionViewController,
 
 #if KEYBOARD
 extension BrowseViewController {
-    override func viewWillAppear(animated: Bool) {
-        navigationController?.navigationBarHidden = true
-    }
+//    override func viewWillAppear(animated: Bool) {
+//        navigationController?.navigationBarHidden = true
+//    }
 
     override func showNavigationBar(animated: Bool) {
         if shouldSendScrollEvents {

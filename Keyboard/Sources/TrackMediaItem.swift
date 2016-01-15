@@ -10,17 +10,12 @@ import Foundation
 
 class TrackMediaItem: MediaItem {
     var name: String = ""
-    var albumName: String = ""
-    var artistName: String = ""
+    var title: String = ""
+    var album_name: String = ""
     var url: String = ""
+    var lyrics: [LyricMediaItem] = []
     var plays: Int?
     var created: NSDate?
-    var formattedCreatedDate: String {
-        if let created = created {
-            return created.timeAgoSinceNow()
-        }
-        return ""
-    }
     var artist_external_url: String?
     var artist_genius_id: Int?
     var artist_id: String?
@@ -34,8 +29,13 @@ class TrackMediaItem: MediaItem {
     var lyrics_count: Int?
     var song_art_image_url: String?
     var time_modified: Int?
-    var title: String?
-    
+    var formattedCreatedDate: String {
+        if let created = created {
+            return created.timeAgoSinceNow()
+        }
+        return ""
+    }
+
     required init(data: NSDictionary) {
         super.init(data: data)
         
@@ -43,6 +43,10 @@ class TrackMediaItem: MediaItem {
         
         if let name = data["name"] as? String {
             self.name = name
+        }
+
+        if let title = data["title"] as? String {
+            self.title = title
         }
         
         if let url = data["uri"] as? String {
@@ -57,25 +61,21 @@ class TrackMediaItem: MediaItem {
             self.url = url
         }
         
-        if let image = data["image"] as? String {
+        if let image = data["album_cover_art_url"] as? String {
             self.image = image
         }
-        
-        if let image = data["image_large"] as? String {
-            self.image = image
-        }
-        
+
         if let albumName = data["album_name"] as? String {
-            self.albumName = albumName
+            self.album_name = albumName
         }
         
         if let artistName = data["artist_name"] as? String {
-            self.artistName = artistName
+            self.artist_name = artistName
         }
         
         if let user = data["user"] as? [String: AnyObject],
             let username = user["username"] as? String {
-                self.artistName = username
+                self.artist_name = username
         }
         
         if let plays = data["plays"] as? Int {
@@ -86,6 +86,11 @@ class TrackMediaItem: MediaItem {
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss ZZZZ"
             self.created = dateFormatter.dateFromString(created)
+        }
+
+        if let lyrics = data["lyrics"] as? NSDictionary,
+            let lyricModels = LyricMediaItem.modelsFromDictionaryArray(lyrics.allValues) as? [LyricMediaItem] {
+                self.lyrics = lyricModels
         }
 
         artist_external_url = data["artist_external_url"] as? String
@@ -100,7 +105,6 @@ class TrackMediaItem: MediaItem {
         lyrics_count = data["lyrics_count"] as? Int
         song_art_image_url = data["song_art_image_url"] as? String
         time_modified = data["time_modified"] as? Int
-        title = data["title"] as? String
     }
     
     func formattedPlays() -> String {
@@ -112,6 +116,6 @@ class TrackMediaItem: MediaItem {
     }
     
     override func getInsertableText() -> String {
-        return "\(name) by \(artistName) - \(url)"
+        return "\(name) by \(artist_name) - \(url)"
     }
 }

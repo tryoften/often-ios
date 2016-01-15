@@ -54,23 +54,12 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         return layout
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let group = group {
@@ -90,7 +79,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
     
         // Configure the cell
         cell.titleLabel.text = artist.name
-        cell.songCount = artist.lyricsCount ?? 0
+        cell.songCount = artist.lyrics_count ?? 0
         if let image = artist.image, let imageURL = NSURL(string: image) {
             cell.imageView.setImageWithAnimation(imageURL)
         }
@@ -102,39 +91,13 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         showNavigationBar(true)
-        navigationController?.pushViewController(BrowseArtistCollectionViewController(), animated: true)
+
+        guard let artistMediaItem = group?.items[indexPath.row] as? ArtistMediaItem else {
+            return
+        }
+
+        let browseVC = BrowseArtistCollectionViewController(artistMediaItem: artistMediaItem, viewModel: BrowseViewModel())
+        navigationController?.pushViewController(browseVC, animated: true)
         containerViewController?.resetPosition()
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
-
 }

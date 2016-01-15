@@ -46,12 +46,11 @@ class MediaItem: Equatable {
         }
         return models
     }
-
     
-    required init (data: NSDictionary) {
+    required init(data: NSDictionary) {
         self.data = data
         
-        if let id = data["_id"] as? String {
+        if let id = data["id"] as? String {
             self.id = id
         }
 

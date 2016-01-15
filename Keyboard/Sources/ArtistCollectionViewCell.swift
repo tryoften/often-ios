@@ -25,7 +25,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 8)!,
                 NSForegroundColorAttributeName: UIColor.grayColor()
             ]
-            let attributedString = NSAttributedString(string: "\(songCount!) songs".uppercaseString, attributes: attributes)
+            let attributedString = NSAttributedString(string: "\(songCount!) lyrics".uppercaseString, attributes: attributes)
             subtitleLabel.attributedText = attributedString
         }
     }

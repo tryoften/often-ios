@@ -17,6 +17,7 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
     var headerView: BrowseHeaderView?
     var searchBar: MainAppSearchBar!
     var scrollsStatusBar: Bool = false
+    var scrollsNavigationbar: Bool = false
 
     override init(collectionViewLayout: UICollectionViewLayout, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
       super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel, textProcessor: textProcessor)
@@ -31,6 +32,8 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
     }
 
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         navigationController?.navigationBar.translucent = true
     }
@@ -50,9 +53,6 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         }
 
         searchViewController.delegate = self
-//        searchViewController.searchSuggestionsViewController.contentInset = mainAppSearchSuggestionsViewControllerContentInsets
-//        searchViewController.searchResultsViewController.contentInset = mainAppSearchResultsCollectionViewControllerContentInsets
-
         self.searchBar = searchBar
 
         let attributes: [String: AnyObject] = [
@@ -137,6 +137,10 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
     }
 
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
+        if !scrollsNavigationbar {
+            return
+        }
+
         super.setNavigationBarOriginY(y, animated: animated)
 
         guard let navigationController = navigationController as? ContainerNavigationController,
@@ -146,7 +150,7 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
 
         let frame = navigationController.navigationBar.frame
         let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
-        let bottomLimit = CGFloat(0.0)
+        let bottomLimit = CGFloat(20.0)
         let baseY = frame.origin.y + frame.size.height
         let topLimit = CGRectGetHeight(frame) + statusBarHeight
         let boundedY = fmin(fmax(baseY, bottomLimit), topLimit)

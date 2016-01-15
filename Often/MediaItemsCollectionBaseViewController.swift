@@ -62,10 +62,10 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             case .Spotify:
                 cell.leftHeaderLabel.text = "Spotify"
                 cell.mainTextLabel.text = "\(track.name)"
-                cell.leftMetadataLabel.text = track.artistName
-                cell.rightMetadataLabel.text = track.albumName
+                cell.leftMetadataLabel.text = track.artist_name
+                cell.rightMetadataLabel.text = track.album_name
             case .Soundcloud:
-                cell.leftHeaderLabel.text = track.artistName
+                cell.leftHeaderLabel.text = track.artist_name
                 cell.leftMetadataLabel.text = track.formattedPlays()
             default:
                 break

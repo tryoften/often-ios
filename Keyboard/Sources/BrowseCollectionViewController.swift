@@ -8,27 +8,42 @@
 
 import UIKit
 
+let MediaItemPageHeaderViewIdentifier = "MediaItemPageHeaderView"
+
 class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
     KeyboardBrowseNavigationDelegate {
     class var cellHeight: CGFloat {
         return 105.0
     }
 
+    var viewModel: BrowseViewModel
     var navigationBar: KeyboardBrowseNavigationBar?
     var navigationBarHideConstraint: NSLayoutConstraint?
+    var headerView: MediaItemPageHeaderView?
 
-    init() {
+    init(viewModel: BrowseViewModel) {
+        self.viewModel = viewModel
 
         super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
+        setupLayout()
+
+        collectionView?.backgroundColor = VeryLightGray
+        collectionView?.dataSource = self
+        collectionView?.registerClass(MediaItemsSectionHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+            withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
 
         #if KEYBOARD
-        navigationBar = KeyboardBrowseNavigationBar()
-        navigationBar?.translatesAutoresizingMaskIntoConstraints = false
-        navigationBar?.browseDelegate = self
-        view.addSubview(navigationBar!)
+            navigationBar = KeyboardBrowseNavigationBar()
+            navigationBar?.translatesAutoresizingMaskIntoConstraints = false
+            navigationBar?.browseDelegate = self
+            view.addSubview(navigationBar!)
+        #else
+            collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
         #endif
 
-        setupLayout()
+        extendedLayoutIncludesOpaqueBars = false
+        automaticallyAdjustsScrollViewInsets = false
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -37,8 +52,7 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = VeryLightGray
-        navigationItem.backBarButtonItem?.title = " "
+        self.setNeedsStatusBarAppearanceUpdate()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -46,25 +60,80 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
         containerViewController?.resetPosition()
     }
 
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
 
     class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let layout = CSStickyHeaderFlowLayout()
+        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
+        layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 250)
+        layout.parallaxHeaderAlwaysOnTop = true
+        layout.disableStickyHeaders = false
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, cellHeight)
         layout.minimumLineSpacing = 7.0
-        layout.minimumInteritemSpacing = 5.0
+        layout.minimumInteritemSpacing = 7.0
 
         #if KEYBOARD
             let topMargin = CGFloat(115.0)
         #else
-            let topMargin = CGRectGetHeight(UIApplication.sharedApplication().statusBarFrame) + CGFloat(60.0)
+            let topMargin = CGFloat(10.0)
         #endif
 
         layout.sectionInset = UIEdgeInsetsMake(topMargin, 0.0, 30.0, 0.0)
         return layout
     }
+
+    func setupHeaderView(imageURL: NSURL, title: String, subtitle: String) {
+        headerView?.coverPhoto.setImageWithAnimation(imageURL)
+        headerView?.titleLabel.text = title.uppercaseString
+    }
+
+    func headerViewDidLoad() {
+    }
+
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+
+        if kind == CSStickyHeaderParallaxHeader {
+            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
+                withReuseIdentifier: MediaItemPageHeaderViewIdentifier, forIndexPath: indexPath) as? MediaItemPageHeaderView else {
+                    return UICollectionReusableView()
+            }
+
+            if headerView == nil {
+                headerView = cell
+                headerViewDidLoad()
+            }
+
+            return headerView!
+        }
+
+        if kind == UICollectionElementKindSectionHeader {
+            // Create Header
+            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
+                withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
+                    sectionView.leftText = ""
+
+                    return sectionView
+            }
+        }
+        
+        return UICollectionReusableView()
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
+    }
+
 
     // MARK: KeyboardBrowseNavigationDelegate
     func backButtonSelected() {
