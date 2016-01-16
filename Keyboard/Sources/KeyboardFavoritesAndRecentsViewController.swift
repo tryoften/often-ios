@@ -13,7 +13,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
     var headerView: ShareOftenMessageHeaderView?
 
     init(viewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType) {
-        if collectionType == .Favorites || collectionType == .Recents {
+        if collectionType == .Favorites {
             let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewLayout()
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
             collectionView?.backgroundColor = UIColor.clearColor()
