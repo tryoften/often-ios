@@ -10,8 +10,18 @@ import UIKit
 
 class RootViewController: UITabBarController {
     let sessionManager = SessionManager.defaultManager
+    var visualEffectView: UIView
+    var alertView: AlertView
     
     init() {
+        visualEffectView = UIView(frame: UIScreen.mainScreen().bounds)
+        visualEffectView.backgroundColor = BlackColor
+        visualEffectView.alpha = 0.74
+
+        alertView = AlertView()
+        alertView.translatesAutoresizingMaskIntoConstraints = false
+        alertView.layer.cornerRadius = 5.0
+
         super.init(nibName: nil, bundle: nil)
 
         styleTabBar()
@@ -22,8 +32,40 @@ class RootViewController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
 
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        PKHUD.sharedHUD.hide(animated: true)
+        
+        delay(0.3) {
+            self.showMajorKeyAlert()
+        }
+    }
+
+    func showMajorKeyAlert() {
+        if SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough {
+            alertView.actionButton.addTarget(self, action: "actionButtonDidTap:", forControlEvents: .TouchUpInside)
+
+            view.addSubview(visualEffectView)
+            view.addSubview(alertView)
+            view.addConstraints([
+                alertView.al_centerX == view.al_centerX,
+                alertView.al_centerY == view.al_centerY,
+                alertView.al_top == view.al_top + 140,
+                alertView.al_bottom == view.al_bottom - 140,
+                alertView.al_right == view.al_right - 42,
+                alertView.al_left == view.al_left + 42,
+                ])
+
+            alertView.animate()
+            
+        }
+    }
+
+    func actionButtonDidTap(sender: UIButton) {
+        alertView.removeFromSuperview()
+        visualEffectView.removeFromSuperview()
+        SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough = false
     }
 
     func styleTabBar() {
@@ -39,9 +81,15 @@ class RootViewController: UITabBarController {
     }
 
     func setupTabBarItems() {
-        let userProfileVC = UserProfileViewController(
-            collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(),
-            viewModel: MediaItemsViewModel())
+        var userProfileVC: UIViewController
+
+        if SessionManagerFlags.defaultManagerFlags.userIsAnonymous {
+            userProfileVC = SkipSignupViewController(viewModel: LoginViewModel(sessionManager: sessionManager))
+        } else {
+            userProfileVC = UserProfileViewController(
+                collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(),
+                viewModel: MediaItemsViewModel())
+        }
 
         let browseVC = ContainerNavigationController(rootViewController: MainAppBrowseViewController(
                 collectionViewLayout: MainAppBrowseViewController.provideCollectionViewLayout(),

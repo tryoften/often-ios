@@ -48,7 +48,7 @@ class TwitterAccountManager: AccountManager {
             completion(results: ResultType.Error(e: TwitterAccountManagerError.NotConnectedOnline))
             return
         }
-        
+
         PFTwitterUtils.logInWithBlock({ (user, error) in
             if error == nil {
                 if user != nil {
@@ -71,20 +71,10 @@ class TwitterAccountManager: AccountManager {
             }
 
             var firebaseData = [String: AnyObject]()
-            var socialAccounts = SessionManager.defaultManager.createSocialAccount()
-
-            if let accessToken = PFTwitterUtils.twitter()?.authToken {
-                let twitter = SocialAccount()
-                twitter.type = .Twitter
-                twitter.activeStatus = true
-                twitter.token = accessToken
-                socialAccounts.updateValue(twitter.toDictionary(), forKey: "twitter")
-            }
 
             let urlString = userdata["profile_image_url_https"] as? String
             let hiResUrlString = urlString?.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
 
-            firebaseData["accounts"] = socialAccounts
             firebaseData["id"] = authData.uid
             firebaseData["profileImageURL"] = hiResUrlString
             firebaseData["name"] = userdata["name"] as? String
