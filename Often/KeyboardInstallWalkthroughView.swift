@@ -107,7 +107,7 @@ class KeyboardInstallWalkthroughView: UIView {
         subtitleLabel = UILabel()
         subtitleLabel.textAlignment = .Center
         subtitleLabel.font = UIFont(name: "OpenSans", size: 12)
-        subtitleLabel.alpha = 0.74
+        subtitleLabel.alpha = 0.54
         subtitleLabel.textColor = WalkthroughSubTitleFontColor
         subtitleLabel.numberOfLines = 0
         subtitleLabel.text = "Remember to allow Full-Access. We never read or save any sensitive info fam :)"
@@ -165,7 +165,7 @@ class KeyboardInstallWalkthroughView: UIView {
             titleLabel.al_bottom == subtitleLabel.al_top,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
-            titleLabel.al_height == 40,
+            titleLabel.al_height == 36,
 
             subtitleLabel.al_centerY == subView.al_centerY - 16,
             subtitleLabel.al_left == al_left + 50,

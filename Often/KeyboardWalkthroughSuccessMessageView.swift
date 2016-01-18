@@ -25,7 +25,7 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
         titleLabel.textAlignment = .Center
         titleLabel.font = UIFont(name: "Montserrat", size: 18)
         titleLabel.textColor = WalkthroughTitleFontColor
-        titleLabel.alpha = 0.72
+        titleLabel.alpha = 0.90
         titleLabel.text = "Congrats!"
 
         subtitleLabel = UILabel()
@@ -34,7 +34,7 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
         subtitleLabel.font = UIFont(name: "OpenSans", size: 13)
         subtitleLabel.textColor = WalkthroughSubTitleFontColor
         subtitleLabel.numberOfLines = 0
-        subtitleLabel.alpha = 0.52
+        subtitleLabel.alpha = 0.74
         subtitleLabel.text = "You’ve successfully installed Often. Tap “Finish” to start adding lyrics."
 
         finishedButton = UIButton()
@@ -66,13 +66,13 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
             characterImageView.al_height == 120,
             characterImageView.al_width == 120,
             characterImageView.al_centerX == al_centerX,
-            characterImageView.al_bottom == titleLabel.al_top - 30,
+            characterImageView.al_bottom == titleLabel.al_top - 12,
 
             titleLabel.al_centerY == al_centerY,
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
-            titleLabel.al_height == 30,
+            titleLabel.al_height == 36,
 
             subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_left == al_left + 80,
