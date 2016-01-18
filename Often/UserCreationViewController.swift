@@ -113,21 +113,21 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
 
         switch error {
         case TwitterAccountManagerError.ReturnedEmptyUserObject:
-            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            DropDownErrorMessage().setMessage("Unable to sign in. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         case TwitterAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
             DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         case SessionManagerError.UnvalidSignUp:
-            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            DropDownErrorMessage().setMessage("Unable to sign in. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         case SignupError.EmailNotVaild:
-            DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            DropDownErrorMessage().setMessage("Please enter a valid email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         case SignupError.PasswordNotVaild:
-            DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            DropDownErrorMessage().setMessage("Please enter a valid password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         case FacebookAccountManagerError.ReturnedEmptyUserObject:
             DropDownErrorMessage().setMessage("Unable to create account. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         case FacebookAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
             DropDownErrorMessage().setMessage("No internet connection fam :(", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         default:
-            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            DropDownErrorMessage().setMessage("Unable to sign in. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         }
     }
 
