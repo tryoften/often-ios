@@ -16,9 +16,6 @@ class UserProfileHeaderView: UICollectionReusableView {
     var collapseNameLabel: UILabel
     var collapseProfileImageView: UIImageView
     var shareCountLabel: UILabel
-    var nameLabelHeightConstraint: NSLayoutConstraint?
-    var nameLabelHorizontalConstraint: NSLayoutConstraint?
-    var coverPhotoBottonMarginConstraint: NSLayoutConstraint?
     var tabContainerView: FavoritesAndRecentsTabView
     var offsetValue: CGFloat
 
@@ -27,42 +24,6 @@ class UserProfileHeaderView: UICollectionReusableView {
             UIScreen.mainScreen().bounds.size.width,
             UIScreen.mainScreen().bounds.size.height / 2 - 10
         )
-    }
-
-    var coverPhotoBottonMargin: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
-            return -15
-        }
-        return -30
-    }
-
-    var nameLabelHeightTopMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
-            return 55
-        }
-        return 60
-    }
-    
-    var shareTextTopMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
-            return 0
-        }
-        return 0
-    }
-    
-    var tabContainerViewHeight: CGFloat {
-        if Diagnostics.platformString().number == 5 {
-            return 50
-        }
-        return 60
-    }
-    
-    var profileImageViewWidth: CGFloat {
-        if Diagnostics.platformString().number == 6 {
-            return 80
-        }
-        
-        return 68
     }
 
     var sharedText: String {
@@ -77,7 +38,51 @@ class UserProfileHeaderView: UICollectionReusableView {
             shareCountLabel.textAlignment = .Center
         }
     }
+
+    private var nameLabelHeightConstraint: NSLayoutConstraint?
+    private var nameLabelHorizontalConstraint: NSLayoutConstraint?
+    private var coverPhotoBottonMarginConstraint: NSLayoutConstraint?
+
+    private var coverPhotoBottonMargin: CGFloat {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+            return -15
+        }
+        return -30
+    }
+
+    private var nameLabelHeightTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 55
+        }
+        return 60
+    }
     
+    private var shareTextTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 0
+        }
+        return 0
+    }
+    
+    private var tabContainerViewHeight: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 50
+        }
+        return 60
+    }
+    
+    private var profileImageViewWidth: CGFloat {
+        if Diagnostics.platformString().number == 6 {
+            return 80
+        }
+        
+        return 68
+    }
+
+    private var collapseProfileImageViewWidth: CGFloat {
+        return 30
+    }
+
     override init(frame: CGRect) {
         collapseProfileImageView = UIImageView()
         collapseProfileImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -134,7 +139,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         super.init(frame: frame)
 
         profileImageView.layer.cornerRadius = profileImageViewWidth / 2
-        collapseProfileImageView.layer.cornerRadius = 30 / 2
+        collapseProfileImageView.layer.cornerRadius = collapseProfileImageViewWidth / 2
 
         backgroundColor = WhiteColor
         clipsToBounds = true
@@ -191,8 +196,8 @@ class UserProfileHeaderView: UICollectionReusableView {
         addConstraints([
             collapseProfileImageView.al_top == al_top + 10,
             collapseProfileImageView.al_left == al_left + 20,
-            collapseProfileImageView.al_height == 30,
-            collapseProfileImageView.al_width == 30,
+            collapseProfileImageView.al_height == collapseProfileImageViewWidth,
+            collapseProfileImageView.al_width == collapseProfileImageViewWidth,
 
             collapseNameLabel.al_top == al_top + 10,
             collapseNameLabel.al_left == collapseProfileImageView.al_right,
