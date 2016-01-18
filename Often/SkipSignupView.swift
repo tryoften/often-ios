@@ -9,20 +9,17 @@
 import Foundation
 
 class SkipSignupView: UIView {
-    let twitterLogoImageView: UIImageView
+    let characterImageView: UIImageView
     let titleLabel: UILabel
     let subtitleLabel: UILabel
-    let twitterSignupButton: UIButton
-    let facebookSignupButton: UIButton
     let oftenAccountButton: UIButton
-    let orSpacer: ViewSpacerWithText
-    
+
     override init(frame: CGRect) {
-        twitterLogoImageView = UIImageView()
-        twitterLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-        twitterLogoImageView.layer.cornerRadius = 40
-        twitterLogoImageView.clipsToBounds = true
-        twitterLogoImageView.image = UIImage(named: "createaccountemptystate")
+        characterImageView = UIImageView()
+        characterImageView.translatesAutoresizingMaskIntoConstraints = false
+        characterImageView.layer.cornerRadius = 40
+        characterImageView.clipsToBounds = true
+        characterImageView.image = UIImage(named: "createaccountemptystate")
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -37,46 +34,24 @@ class SkipSignupView: UIView {
         subtitleLabel.textAlignment = .Center
         subtitleLabel.numberOfLines = 2
         subtitleLabel.alpha = 0.54
-        
-        twitterSignupButton = UIButton()
-        twitterSignupButton.translatesAutoresizingMaskIntoConstraints = false
-        twitterSignupButton.layer.cornerRadius = 5
-        twitterSignupButton.setTitle("twitter".uppercaseString, forState: .Normal)
-        twitterSignupButton.setTitleColor(WhiteColor, forState: .Normal)
-        twitterSignupButton.titleLabel?.font = UIFont(name: "Montserrat", size: 11.0)
-        twitterSignupButton.backgroundColor = UIColor(fromHexString: "#62A9E0")
-        
+
         oftenAccountButton = UIButton()
         oftenAccountButton.translatesAutoresizingMaskIntoConstraints = false
         oftenAccountButton.layer.cornerRadius = 5
-        oftenAccountButton.setTitle("sign up with email".uppercaseString, forState: .Normal)
+        oftenAccountButton.setTitle("create an account".uppercaseString, forState: .Normal)
         oftenAccountButton.setTitleColor(WhiteColor, forState: .Normal)
         oftenAccountButton
             .titleLabel?.font = UIFont(name: "Montserrat", size: 11.0)
         oftenAccountButton.backgroundColor = UIColor(fromHexString: "#152036")
-        
-        orSpacer = ViewSpacerWithText(title:"Or")
-        orSpacer.translatesAutoresizingMaskIntoConstraints = false
 
-        facebookSignupButton = UIButton()
-        facebookSignupButton.translatesAutoresizingMaskIntoConstraints = false
-        facebookSignupButton.backgroundColor = FacebookButtonNormalBackgroundColor
-        facebookSignupButton.setTitle("facebook".uppercaseString, forState: .Normal)
-        facebookSignupButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        facebookSignupButton.setTitleColor(FacebookButtonTitleTextColor , forState: .Normal)
-        facebookSignupButton.layer.cornerRadius = 4.0
-        facebookSignupButton.clipsToBounds = true
         
         super.init(frame: frame)
         backgroundColor = VeryLightGray
         
-        addSubview(twitterLogoImageView)
+        addSubview(characterImageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
-        addSubview(twitterSignupButton)
         addSubview(oftenAccountButton)
-        addSubview(orSpacer)
-        addSubview(facebookSignupButton)
 
         setupLayout()
         
@@ -88,39 +63,23 @@ class SkipSignupView: UIView {
     
     func setupLayout() {
         addConstraints([
-            twitterLogoImageView.al_centerX == al_centerX,
-            twitterLogoImageView.al_bottom == titleLabel.al_top - 15,
-            twitterLogoImageView.al_width == 150,
-            twitterLogoImageView.al_height == 100,
+            characterImageView.al_centerX == al_centerX,
+            characterImageView.al_bottom == titleLabel.al_top - 15,
+            characterImageView.al_width == 150,
+            characterImageView.al_height == 100,
             
-            titleLabel.al_bottom == subtitleLabel.al_top + 10,
+            titleLabel.al_centerY == al_centerY,
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_height == 17,
             titleLabel.al_width == 250,
             
-            subtitleLabel.al_bottom == twitterSignupButton.al_top - 10,
+            subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_centerX == al_centerX,
             subtitleLabel.al_height == 50,
             subtitleLabel.al_width == 300,
             
-            twitterSignupButton.al_top == al_centerY,
-            twitterSignupButton.al_centerX == al_centerX,
-            twitterSignupButton.al_left == al_left + 40,
-            twitterSignupButton.al_right == al_centerX - 2,
-            twitterSignupButton.al_height == 50,
 
-            facebookSignupButton.al_top == twitterSignupButton.al_top,
-            facebookSignupButton.al_centerX == al_centerX,
-            facebookSignupButton.al_left == al_centerX + 2,
-            facebookSignupButton.al_right == al_right - 40,
-            facebookSignupButton.al_height == 50,
-            
-            orSpacer.al_top == facebookSignupButton.al_bottom + 20,
-            orSpacer.al_left == al_left + 40,
-            orSpacer.al_right == al_right - 40,
-            orSpacer.al_height == 20,
-
-            oftenAccountButton.al_top == orSpacer.al_bottom + 20,
+            oftenAccountButton.al_top == subtitleLabel.al_bottom + 20,
             oftenAccountButton.al_centerX == al_centerX,
             oftenAccountButton.al_left == al_left + 40,
             oftenAccountButton.al_right == al_right - 40,

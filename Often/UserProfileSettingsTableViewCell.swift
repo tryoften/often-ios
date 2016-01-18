@@ -16,13 +16,6 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
     Switch: Main text label and UISwitch
     
     */
-    enum SettingsCellType {
-        case Default
-        case Nondisclosure
-        case Detailed
-        case Switch
-        case Logout
-    }
 
     var titleLabel: UILabel
     var secondaryTextLabel: UILabel
@@ -213,6 +206,15 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         }
     }
 }
+
+enum SettingsCellType {
+    case Default
+    case Nondisclosure
+    case Detailed
+    case Switch
+    case Logout
+}
+
 
 protocol TableViewCellDelegate {
     func didFinishEditingName(newName: String)

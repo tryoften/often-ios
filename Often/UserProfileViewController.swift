@@ -158,7 +158,6 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
 
     override func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
         reloadData()
-        PKHUD.sharedHUD.hide(animated: true)
     }
 
     override func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {

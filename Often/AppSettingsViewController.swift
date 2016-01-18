@@ -152,8 +152,8 @@ class AppSettingsViewController: UIViewController,
                 switch indexPath.row {
                 case 0:
                     let loginViewModel = LoginViewModel(sessionManager: viewModel.sessionManager)
-                    let walkthroughViewController = KeyboardInstallationWalkthroughViewController(viewModel: loginViewModel)
-                    walkthroughViewController.inAppDisplay = true
+                    let walkthroughViewController = InstallationWalkthroughViewContoller(viewModel: loginViewModel, inAppSetting: true)
+
                     presentViewController(walkthroughViewController, animated: true, completion: nil)
                 case 1: break
                 case 2: launchEmail(self)
@@ -296,9 +296,8 @@ class AppSettingsViewController: UIViewController,
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         switch buttonIndex {
         case 0:
-            print("logout")
             viewModel.sessionManager.logout()
-            let loginViewModel = LoginViewModel(sessionManager: viewModel.sessionManager)
+            let loginViewModel = LoginViewModel(sessionManager: SessionManager.defaultManager)
             let vc = LoginViewController(viewModel: loginViewModel)
             vc.loginView.launchScreenLoader.hidden = true
             presentViewController(vc, animated: true, completion: nil)

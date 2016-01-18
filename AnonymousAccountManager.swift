@@ -24,7 +24,7 @@ class AnonymousAccountManager: AccountManager {
         sessionManagerFlags.userIsAnonymous = true
     }
     
-    func login(userData: User?, completion: (results: ResultType) -> Void)  {
+    override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void)  {
         PFAnonymousUtils.logInWithBlock {
             (user: PFUser?, error: NSError?) -> Void in
             if error != nil {

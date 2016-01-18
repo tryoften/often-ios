@@ -8,9 +8,7 @@
 
 import Foundation
 
-class LoginViewController: UIViewController, UIScrollViewDelegate,
-    LoginViewModelDelegate {
-    var viewModel: LoginViewModel
+class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
     var loginView: LoginView
     var screenWidth = UIScreen.mainScreen().bounds.width
     var screenHeight = UIScreen.mainScreen().bounds.height
@@ -20,7 +18,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate,
     var pageViews: [UIImageView]
     var pageImages: [UIImage]
     var pagesubTitle: [String]
-    var timer: NSTimer?
+    var scrollTimer: NSTimer?
     var launchScreenLoaderTimer: NSTimer?
     
     var currentPage: Int {
@@ -28,9 +26,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate,
     }
 
     
-    init (viewModel: LoginViewModel) {
-        self.viewModel = viewModel
-        
+    override init (viewModel: LoginViewModel) {
         loginView = LoginView()
         loginView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -56,14 +52,14 @@ class LoginViewController: UIViewController, UIScrollViewDelegate,
             "Powered by Genius, search helps you \n find any lyric, song or artist"
         ]
         
-        super.init(nibName: nil, bundle: nil)
-        viewModel.delegate = self
+        super.init(viewModel: viewModel)
+
         loginView.scrollView.delegate = self
         
         view.addSubview(loginView)
         setupLayout()
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
         launchScreenLoaderTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
     }
 
@@ -74,20 +70,20 @@ class LoginViewController: UIViewController, UIScrollViewDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loginView.createAccountButton.addTarget(self,  action: "didTapcreateAccountButton:", forControlEvents: .TouchUpInside)
+
+        PKHUD.sharedHUD.hide(animated: true)
+
+        viewModel.delegate = self
+
+        loginView.createAccountButton.addTarget(self,  action: "didTapCreateAccountButton:", forControlEvents: .TouchUpInside)
         loginView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
-        loginView.skipButton.addTarget(self, action: "didTapSkipButton:", forControlEvents: .TouchUpInside)
+        loginView.skipButton.addTarget(self, action: "didTapAnonymousButton:", forControlEvents: .TouchUpInside)
         setupPages()
         loadVisiblePages()
-        
+
         if viewModel.sessionManager.sessionManagerFlags.isUserLoggedIn {
             loginView.launchScreenLoader.hidden = false
-        } 
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        viewModel.delegate = nil
+        }
     }
     
     func loadVisiblePages() {
@@ -131,8 +127,8 @@ class LoginViewController: UIViewController, UIScrollViewDelegate,
         loginView.subtitleLabel.attributedText = subtitle
         loginView.subtitleLabel.textAlignment = .Center
         
-        timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(4.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        scrollTimer?.invalidate()
+        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(4.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
     
 //    override func prefersStatusBarHidden() -> Bool {
@@ -147,34 +143,21 @@ class LoginViewController: UIViewController, UIScrollViewDelegate,
             height: pagesScrollViewSize.height)
     }
     
-    func didTapcreateAccountButton(sender: UIButton) {
-        timer?.invalidate()
-        let createAccount = CreateAccountViewController(viewModel:self.viewModel)
+    func didTapCreateAccountButton(sender: UIButton) {
+        scrollTimer?.invalidate()
+
+        let createAccount = CreateAccountViewController(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
         presentViewController(createAccount, animated: true, completion: nil)
     }
     
-    func didTapSigninButton(sender: UIButton) {
-        timer?.invalidate()
-        let signinAccount = SigninViewController(viewModel:self.viewModel)
+    override func didTapSigninButton(sender: UIButton) {
+        scrollTimer?.invalidate()
+
+        let signinAccount = SigninViewController(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
         presentViewController(signinAccount, animated: true, completion: nil)
     }
-    
-    func didTapSkipButton(sender: UIButton) {
-        do {
-            try  viewModel.sessionManager.login(AnonymousAccountManager.self, userData: nil, completion: { results -> Void in
-                switch results {
-                case .Success(_):
-                    let keyboardInstallationWalkthrough = KeyboardInstallationWalkthroughViewController(viewModel: self.viewModel)
-                    self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
-                    break
-                case .Error(let err): print(err)
-                case .SystemError(let err): DropDownErrorMessage().setMessage(err.localizedDescription, errorBackgroundColor: UIColor(fromHexString: "#152036"))
-                }
-            })
-        } catch {
 
-        }
-    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -189,29 +172,39 @@ class LoginViewController: UIViewController, UIScrollViewDelegate,
         
         view.addConstraints(constraints)
     }
-    
-    func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?, isNewUser: Bool) {
-        launchScreenLoaderTimer?.invalidate()
-        var mainController: UIViewController
-        
-            if viewModel.sessionManager.sessionManagerFlags.userIsAnonymous {
-                mainController = SkipSignupViewController(viewModel: LoginViewModel(sessionManager: viewModel.sessionManager))
-            } else {
-                let mainViewController = RootViewController()
-                mainController = mainViewController
-            }
-            
-        self.presentViewController(mainController, animated: true, completion: nil)
+
+    override func didTapAnonymousButton(sender: UIButton) {
+        scrollTimer?.invalidate()
+        super.didTapAnonymousButton(sender)
+
     }
-    
+
     func userDataTimeOut() {
         launchScreenLoaderTimer?.invalidate()
         loginView.launchScreenLoader.hidden = true
         viewModel.delegate = nil
     }
-    
-    func loginViewModelNoUserFound(userProfileViewModel: LoginViewModel) {
+
+    override func loginViewModelNoUserFound(userProfileViewModel: LoginViewModel) {
         launchScreenLoaderTimer?.invalidate()
         loginView.launchScreenLoader.hidden = true
+    }
+
+    override func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?) {
+        super.loginViewModelDidLoginUser(userProfileViewModel, user: user)
+
+        scrollTimer?.invalidate()
+        launchScreenLoaderTimer?.invalidate()
+
+        var mainController: UIViewController
+
+        if viewModel.sessionManager.sessionManagerFlags.userIsAnonymous && viewModel.isNewUser {
+            mainController = InstallationWalkthroughViewContoller(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
+
+        } else {
+            mainController = RootViewController()
+        }
+
+        presentViewController(mainController, animated: true, completion: nil)
     }
 }

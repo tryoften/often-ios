@@ -105,7 +105,6 @@ class EmailAccountManager: AccountManager {
             data["displayName"] = parseCurrentUser.objectForKey("fullName") as? String
             data["name"] = parseCurrentUser.objectForKey("fullName") as? String
             data["parseId"] = parseCurrentUser.objectId
-            data["accounts"] = SessionManager.defaultManager.createSocialAccount()
             data["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
 
             currentUser?.setValuesForKeysWithDictionary(data)

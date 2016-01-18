@@ -26,7 +26,9 @@ class AccountManager: AccountManagerProtocol {
         reachabilitymanager.setReachabilityStatusChangeBlock { status in
             self.isInternetReachable = reachabilitymanager.reachable
         }
+
         reachabilitymanager.startMonitoring()
+
     }
 
     func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
