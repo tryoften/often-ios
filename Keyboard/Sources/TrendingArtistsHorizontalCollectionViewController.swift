@@ -11,13 +11,15 @@ import UIKit
 private let TrendingArtistsCellReuseIdentifier = "Cell"
 
 class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionViewController {
+    var viewModel: BrowseViewModel
     var group: MediaItemGroup? {
         didSet {
             collectionView?.reloadData()
         }
     }
 
-    init() {
+    init(viewModel: BrowseViewModel) {
+        self.viewModel = viewModel
         super.init(collectionViewLayout: TrendingArtistsHorizontalCollectionViewController.provideLayout())
     }
 
@@ -28,20 +30,10 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
         // Register cell classes
         collectionView!.registerClass(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: TrendingArtistsCellReuseIdentifier)
         collectionView!.backgroundColor = UIColor.clearColor()
         collectionView!.showsHorizontalScrollIndicator = false
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     class func provideLayout() -> UICollectionViewFlowLayout {
@@ -80,9 +72,11 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         // Configure the cell
         cell.titleLabel.text = artist.name
         cell.songCount = artist.lyrics_count ?? 0
+        #if !(KEYBOARD)
         if let image = artist.image, let imageURL = NSURL(string: image) {
             cell.imageView.setImageWithAnimation(imageURL)
         }
+        #endif
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
 
@@ -96,7 +90,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
             return
         }
 
-        let browseVC = BrowseArtistCollectionViewController(artistMediaItem: artistMediaItem, viewModel: BrowseViewModel())
+        let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: viewModel)
         navigationController?.pushViewController(browseVC, animated: true)
         containerViewController?.resetPosition()
     }

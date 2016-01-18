@@ -18,13 +18,17 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
     var searchBar: MainAppSearchBar!
     var scrollsStatusBar: Bool = false
     var scrollsNavigationbar: Bool = false
+    var navBarBackground: UIView
 
     override init(collectionViewLayout: UICollectionViewLayout, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
-      super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel, textProcessor: textProcessor)
+        navBarBackground = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 64))
+        navBarBackground.backgroundColor = UIColor.whiteColor()
+        super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel, textProcessor: textProcessor)
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = true
         setupSearchBar()
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -33,9 +37,13 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-    
+
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
-        navigationController?.navigationBar.translucent = true
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.barStyle = .Default
+            navigationBar.translucent = true
+            view.insertSubview(navBarBackground, belowSubview: navigationBar)
+        }
     }
 
     override func setupSearchBar() {
@@ -54,6 +62,7 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
 
         searchViewController.delegate = self
         self.searchBar = searchBar
+        searchBar.keyboardType = .WebSearch
         
         navigationItem.titleView = searchBar
 
@@ -144,10 +153,6 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
                 var statusBarFrame = statusBar.frame
                 statusBarFrame.origin.y = fmin(fmax(0, y), 20) - statusBarHeight
                 statusBar.frame = statusBarFrame
-
-                var backgroundFrame = navigationController.statusBarBackground.frame
-                backgroundFrame.origin.y = statusBarFrame.origin.y
-                navigationController.statusBarBackground.frame = backgroundFrame
             }
         }
 

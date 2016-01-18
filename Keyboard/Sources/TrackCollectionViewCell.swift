@@ -14,6 +14,13 @@ class TrackCollectionViewCell: UICollectionViewCell {
     var titleLabel: UILabel
     var subtitleLabel: UILabel
     var disclosureIndicator: UIImageView
+    var imageURL: NSURL? {
+        willSet(newValue) {
+            if let url = newValue where imageURL != newValue {
+                imageView.setImageWithAnimation(url)
+            }
+        }
+    }
 
     override init(frame: CGRect) {
         placeholderImageView = UIImageView()
@@ -72,27 +79,27 @@ class TrackCollectionViewCell: UICollectionViewCell {
     
     func setupLayout() {
         addConstraints([
-                placeholderImageView.al_width == imageView.al_width,
-                placeholderImageView.al_height == imageView.al_height,
-                placeholderImageView.al_centerX == imageView.al_centerX,
-                placeholderImageView.al_centerY == imageView.al_centerY,
+            placeholderImageView.al_width == imageView.al_width,
+            placeholderImageView.al_height == imageView.al_height,
+            placeholderImageView.al_centerX == imageView.al_centerX,
+            placeholderImageView.al_centerY == imageView.al_centerY,
 
-                imageView.al_left == al_left + 12,
-                imageView.al_centerY == al_centerY,
-                imageView.al_top == al_top + 12,
-                imageView.al_bottom == al_bottom - 12,
-                imageView.al_width == imageView.al_height,
+            imageView.al_left == al_left + 12,
+            imageView.al_centerY == al_centerY,
+            imageView.al_top == al_top + 12,
+            imageView.al_bottom == al_bottom - 12,
+            imageView.al_width == imageView.al_height,
 
-                titleLabel.al_left == imageView.al_right + 12,
-                titleLabel.al_bottom == imageView.al_centerY,
+            titleLabel.al_left == imageView.al_right + 12,
+            titleLabel.al_bottom == imageView.al_centerY,
 
-                subtitleLabel.al_left == titleLabel.al_left,
-                subtitleLabel.al_top == imageView.al_centerY,
+            subtitleLabel.al_left == titleLabel.al_left,
+            subtitleLabel.al_top == imageView.al_centerY,
 
-                disclosureIndicator.al_centerY == al_centerY,
-                disclosureIndicator.al_right == al_right - 15,
-                disclosureIndicator.al_height == 16.5,
-                disclosureIndicator.al_width == 16.5
+            disclosureIndicator.al_centerY == al_centerY,
+            disclosureIndicator.al_right == al_right - 15,
+            disclosureIndicator.al_height == 16.5,
+            disclosureIndicator.al_width == 16.5
         ])
     }
 }

@@ -11,10 +11,19 @@ import UIKit
 private let albumLyricCellReuseIdentifier = "albumLyricCell"
 
 class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
-    var track: TrackMediaItem
+    var track: TrackMediaItem? {
+        didSet {
+            self.collectionView?.performBatchUpdates({
+                self.collectionView?.reloadSections(NSIndexSet(index: 0))
+            }, completion: nil)
+            headerViewDidLoad()
+        }
+    }
 
-    init(trackMediaItem: TrackMediaItem, viewModel: BrowseViewModel) {
-        track = trackMediaItem
+    var trackId: String
+
+    init(trackId: String, viewModel: BrowseViewModel) {
+        self.trackId = trackId
         super.init(viewModel: viewModel)
     }
 
@@ -27,19 +36,34 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
         
         // Register cell classes
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: albumLyricCellReuseIdentifier)
+
+        viewModel.getTrackWithOftenid(trackId) { track in
+            self.track = track
+        }
     }
 
     override func headerViewDidLoad() {
-        if let imageURLStr = track.song_art_image_url,
+        if let imageURLStr = track?.song_art_image_url,
+            let title = track?.title,
+            let subtitle = track?.artist_name,
             let imageURL = NSURL(string: imageURLStr) {
-            headerView?.coverPhoto.setImageWithAnimation(imageURL)
-            headerView?.titleLabel.text = track.title
+            setupHeaderView(imageURL, title: title, subtitle: subtitle)
         }
+    }
+
+    override func sectionHeaderTitleAtIndexPath(indexPath: NSIndexPath) -> String {
+        if indexPath.row == 0 {
+            return "All Lyrics"
+        }
+        return ""
     }
 
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
         let layout = BrowseCollectionViewController.provideCollectionViewLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 55)
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        layout.minimumInteritemSpacing = 9.0
+        layout.minimumLineSpacing = 9.0
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         return layout
     }
 
@@ -49,24 +73,17 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return track.lyrics.count
+        if let count = track?.lyrics.count {
+            return count
+        }
+        return 0
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(albumLyricCellReuseIdentifier,
-            forIndexPath: indexPath) as? MediaItemCollectionViewCell,
-            let lyric = track.lyrics[indexPath.row] as? LyricMediaItem where indexPath.row < track.lyrics.count else {
-                return UICollectionViewCell()
-        }
-        
-        cell.reset()
-        cell.mainTextLabel.text = lyric.text
-        cell.mainTextLabel.textAlignment = .Center
-        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
-        cell.layer.shouldRasterize = true
-        cell.showImageView = false
+        let cell: MediaItemCollectionViewCell = parseMediaItemData(track?.lyrics, indexPath: indexPath, collectionView: collectionView)
+        cell.delegate = self
 
-        print(lyric.text, lyric.score)
+        animateCell(cell, indexPath: indexPath)
 
         return cell
     }

@@ -35,7 +35,7 @@ class SocialAccountsService: Service {
         createSocialAccountsModels(completion)
     }
     
-    func updateSocialAccount(socialAccount: SocialAccount){
+    func updateSocialAccount(socialAccount: SocialAccount) {
         socialAccountsRef.childByAppendingPath(socialAccount.type.rawValue).setValue(socialAccount.toDictionary())
     }
     

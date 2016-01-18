@@ -11,15 +11,16 @@ import UIKit
 let MediaItemPageHeaderViewIdentifier = "MediaItemPageHeaderView"
 
 class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
-    KeyboardBrowseNavigationDelegate {
+    KeyboardBrowseNavigationDelegate,
+    CellAnimatable {
     class var cellHeight: CGFloat {
         return 105.0
     }
 
-    var viewModel: BrowseViewModel
     var navigationBar: KeyboardBrowseNavigationBar?
     var navigationBarHideConstraint: NSLayoutConstraint?
     var headerView: MediaItemPageHeaderView?
+    var viewModel: BrowseViewModel
 
     init(viewModel: BrowseViewModel) {
         self.viewModel = viewModel
@@ -44,6 +45,8 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
 
         extendedLayoutIncludesOpaqueBars = false
         automaticallyAdjustsScrollViewInsets = false
+
+        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -62,47 +65,61 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-    }
 
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
+        collectionView?.setContentOffset(CGPointZero, animated: false)
 
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.barStyle = .Black
+            navigationBar.translucent = true
+        }
     }
 
     class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
+
+    #if KEYBOARD
+        let topMargin = CGFloat(115.0)
+        let layout = UICollectionViewFlowLayout()
+    #else
+        let topMargin = CGFloat(10.0)
         let layout = CSStickyHeaderFlowLayout()
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
+        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 90)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 250)
         layout.parallaxHeaderAlwaysOnTop = true
         layout.disableStickyHeaders = false
+    #endif
+
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, cellHeight)
         layout.minimumLineSpacing = 7.0
         layout.minimumInteritemSpacing = 7.0
-
-        #if KEYBOARD
-            let topMargin = CGFloat(115.0)
-        #else
-            let topMargin = CGFloat(10.0)
-        #endif
-
         layout.sectionInset = UIEdgeInsetsMake(topMargin, 0.0, 30.0, 0.0)
+        
         return layout
     }
 
     func setupHeaderView(imageURL: NSURL, title: String, subtitle: String) {
-        headerView?.coverPhoto.setImageWithAnimation(imageURL)
+    #if KEYBOARD
+        navigationBar?.imageURL = imageURL
+        navigationBar?.titleLabel.text = title
+        navigationBar?.subtitleLabel.text = subtitle
+    #else
+        headerView?.imageURL = imageURL
         headerView?.titleLabel.text = title.uppercaseString
+        headerView?.subtitleLabel.text = subtitle.uppercaseString
+    #endif
+    }
+
+    func sectionHeaderTitleAtIndexPath(indexPath: NSIndexPath) -> String {
+        return ""
     }
 
     func headerViewDidLoad() {
     }
 
+    // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
 
+        #if !(KEYBOARD)
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
                 withReuseIdentifier: MediaItemPageHeaderViewIdentifier, forIndexPath: indexPath) as? MediaItemPageHeaderView else {
@@ -116,12 +133,13 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
 
             return headerView!
         }
+        #endif
 
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                    sectionView.leftText = ""
+                    sectionView.leftText = sectionHeaderTitleAtIndexPath(indexPath).uppercaseString
 
                     return sectionView
             }
@@ -133,7 +151,6 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
-
 
     // MARK: KeyboardBrowseNavigationDelegate
     func backButtonSelected() {

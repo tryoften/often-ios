@@ -10,7 +10,9 @@ import Foundation
 
 class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     var scrollView: UIScrollView
-    var pageCount: Int
+    var pageCount: Int {
+        return pageImages.count
+    }
     var pagesScrollViewSize: CGSize
     var pageImages: [UIImage]
     var artistNames: [String]
@@ -24,7 +26,8 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     weak var delegate: BrowseHeaderViewDelegate?
 
     var currentPage: Int {
-        return Int(floor((scrollView.contentOffset.x * 3 + screenWidth) / (screenWidth * 3)))
+        let count = CGFloat(pageImages.count)
+        return Int(floor((scrollView.contentOffset.x * count + screenWidth) / (screenWidth * count)))
     }
 
     var featuredArtists: [MediaItem] {
@@ -39,16 +42,21 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
             UIScreen.mainScreen().bounds.size.height / 3 - 10
         )
     }
-    
 
     override init(frame: CGRect) {
         screenWidth = UIScreen.mainScreen().bounds.width
 
-        pageImages = [UIImage(named: "kanye")!, UIImage(named: "khaled")!, UIImage(named: "future")!]
-        artistNames = ["Kanye West".uppercaseString, "DJ Khaled".uppercaseString, "Future".uppercaseString]
-        pageViews = [UIImageView?]()
+        pageImages = [
+            UIImage(named: "kanye")!,
+            UIImage(named: "khaled")!
+        ]
 
-        pageCount = 0
+        artistNames = [
+            "Kanye West".uppercaseString,
+            "DJ Khaled".uppercaseString
+        ]
+        
+        pageViews = [UIImageView?]()
 
         scrollView = UIScrollView(frame: CGRectZero)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +70,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         tintView.userInteractionEnabled = false
         tintView.image = UIImage(named: "tintGradient")!
 
-        featureLabel = TOMSMorphingLabel()
+        featureLabel = UILabel()
         featureLabel.textAlignment = .Center
         featureLabel.text = "Featured Artist".uppercaseString
         featureLabel.font = TrendingHeaderViewSongTitleLabelTextFont
@@ -70,13 +78,12 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         featureLabel.translatesAutoresizingMaskIntoConstraints = false
         featureLabel.alpha = 0.74
 
-        featureItemTitleLabel = TOMSMorphingLabel()
+        featureItemTitleLabel = UILabel()
         featureItemTitleLabel.textAlignment = .Center
         featureItemTitleLabel.text = "g-eazy".uppercaseString
         featureItemTitleLabel.font = TrendingHeaderViewArtistNameLabelTextFont
         featureItemTitleLabel.textColor = TrendingHeaderViewNameLabelTextColor
         featureItemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-
 
         featuredArtists = [MediaItem]()
 
@@ -111,13 +118,11 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     }
 
     func setupPages() {
-        pageCount = pageImages.count
-
         for _ in 0..<pageCount {
             pageViews.append(nil)
         }
 
-        scrollView.contentSize = CGSize(width: screenWidth * CGFloat(pageImages.count),
+        scrollView.contentSize = CGSize(width: screenWidth * CGFloat(pageCount),
             height: pagesScrollViewSize.height)
     }
 
@@ -241,8 +246,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
             tintView.al_top == al_top,
             tintView.al_bottom == al_bottom
         ])
-
-}
+    }
 
     func featuredArtistsDidTap(sender: UIButton) {
         let page = Int(floor((scrollView.contentOffset.x * 2.0 + screenWidth) / (screenWidth * 2.0)))
@@ -252,13 +256,11 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
         }
     }
 
-
     func updateFeaturedArtists(artists: [MediaItem]) {
         if !artists.isEmpty {
             delegate?.browseHeaderDidLoadFeaturedArtists(self, artists: artists)
             setupPages()
         }
-
     }
 }
 

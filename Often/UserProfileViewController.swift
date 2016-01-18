@@ -48,10 +48,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        
+
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
@@ -61,6 +58,12 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+
+        if !viewModel.isDataLoaded {
+            PKHUD.sharedHUD.contentView = HUDProgressView()
+            PKHUD.sharedHUD.show()
+        }
+
         reloadUserData()
     }
 
@@ -137,7 +140,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         cell.inMainApp = true
         
         if let result = cell.mediaLink {
-            if  viewModel.checkFavorite(result) {
+            if FavoritesService.defaultInstance.checkFavorite(result) {
                 cell.itemFavorited = true
             } else {
                 cell.itemFavorited = false
@@ -158,17 +161,18 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         PKHUD.sharedHUD.hide(animated: true)
     }
 
+    override func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
+        reloadData()
+        PKHUD.sharedHUD.hide(animated: true)
+    }
+
     func reloadUserData() {
         if let headerView = headerView, let user = viewModel.currentUser {
             headerView.sharedText = "85 Lyrics Shared"
             headerView.nameLabel.text = user.name
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
-                headerView.profileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
-                    headerView.profileImageView.image = image
-                    }, failure: { (req, res, error) in
-                        print("Failed to load image: \(imageURL)")
-                })
+                headerView.profileImageView.setImageWithAnimation(imageURL)
             }
         }
     }
@@ -187,7 +191,6 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         isKeyboardEnabled()
         isTwitterEnabled()
         reloadData()
-        emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
     }
     
     func isKeyboardEnabled() {

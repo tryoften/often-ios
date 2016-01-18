@@ -135,9 +135,9 @@ class LoginViewController: UIViewController, UIScrollViewDelegate,
         timer = NSTimer.scheduledTimerWithTimeInterval(4.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
     
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
+//    override func prefersStatusBarHidden() -> Bool {
+//        return true
+//    }
 
     func setupPages() {
         pageCount = pageImages.count

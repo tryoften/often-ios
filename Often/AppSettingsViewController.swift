@@ -77,6 +77,7 @@ class AppSettingsViewController: UIViewController,
     override func viewWillAppear(animated: Bool) {
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.barStyle = .Default
     }
 
     override func didReceiveMemoryWarning() {

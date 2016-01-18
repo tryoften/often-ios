@@ -45,7 +45,7 @@ class AnimatedLoaderView: UIView {
             loaderImageView.al_height == 80,
             
             supplementImageView.al_centerX == al_centerX,
-            supplementImageView.al_bottom == al_bottom - 20,
+            supplementImageView.al_bottom == al_bottom - 60,
             supplementImageView.al_width == 50,
             supplementImageView.al_height == 35
         ])

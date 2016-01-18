@@ -15,10 +15,21 @@ class BrowseArtistCollectionViewController: BrowseCollectionViewController {
         return 75.0
     }
 
-    var artist: ArtistMediaItem
+    var artist: ArtistMediaItem? {
+        didSet {
+            delay(0.5) {
+                self.collectionView?.performBatchUpdates({
+                    self.collectionView?.reloadSections(NSIndexSet(index: 0))
+                }, completion: nil)
+            }
+            headerViewDidLoad()
+        }
+    }
 
-    init(artistMediaItem: ArtistMediaItem, viewModel: BrowseViewModel) {
-        artist = artistMediaItem
+    var artistId: String
+
+    init(artistId: String, viewModel: BrowseViewModel) {
+        self.artistId = artistId
         super.init(viewModel: viewModel)
     }
 
@@ -28,16 +39,35 @@ class BrowseArtistCollectionViewController: BrowseCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Register cell classes
         collectionView?.registerClass(TrackCollectionViewCell.self, forCellWithReuseIdentifier: artistAlbumCellReuseIdentifier)
-        navigationItem.backBarButtonItem?.title = ""
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        artist = nil
+        collectionView?.reloadData()
+
+        viewModel.getArtistWithOftenId(artistId) { model in
+            self.artist = model
+        }
+
     }
 
     override func headerViewDidLoad() {
-        if let image = artist.image, let imageURL = NSURL(string: image), let name = artist.name {
-            setupHeaderView(imageURL, title: name, subtitle: "")
+        if let image = artist?.image, let imageURL = NSURL(string: image), let name = artist?.name,
+            let tracksCount = artist?.tracks_count {
+            setupHeaderView(imageURL, title: name, subtitle: "\(tracksCount) tracks")
         }
+    }
+
+    override func sectionHeaderTitleAtIndexPath(indexPath: NSIndexPath) -> String {
+        if indexPath.section == 0 {
+            return "Top Songs"
+        }
+        return ""
     }
 
     // MARK: UICollectionViewDataSource
@@ -46,32 +76,38 @@ class BrowseArtistCollectionViewController: BrowseCollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return artist.tracks.count
+        if let tracksCount = artist?.tracks.count {
+            return tracksCount
+        }
+        return 0
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(artistAlbumCellReuseIdentifier, forIndexPath: indexPath) as? TrackCollectionViewCell,
-            let track = artist.tracks[indexPath.row] as? TrackMediaItem where indexPath.row < artist.tracks.count else {
+            let track = artist?.tracks[indexPath.row] else {
                 return UICollectionViewCell()
         }
 
         if let imageURLString = track.image, let imageURL = NSURL(string: imageURLString) {
-            cell.imageView.setImageWithAnimation(imageURL)
+            cell.imageURL = imageURL
         }
         cell.titleLabel.text = track.title
         cell.subtitleLabel.text = track.album_name
+
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        cell.layer.shouldRasterize = true
+
+        animateCell(cell, indexPath: indexPath)
         
         return cell
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let track = artist.tracks[indexPath.row] as? TrackMediaItem where indexPath.row < artist.tracks.count else {
+        guard let track = artist?.tracks[indexPath.row] else {
             return
         }
 
-        viewModel.getTrackWithOftenid(track.id) { track in
-            let lyricsVC = BrowseLyricsCollectionViewController(trackMediaItem: track, viewModel: self.viewModel)
-            self.navigationController?.pushViewController(lyricsVC, animated: true)
-        }
+        let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: self.viewModel)
+        self.navigationController?.pushViewController(lyricsVC, animated: true)
     }
 }

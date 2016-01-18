@@ -21,9 +21,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         super.init(collectionViewLayout: layout)
         
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
-        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "backnavigation")
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "backnavigation")
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -84,6 +81,12 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             }
             
             cell.rightMetadataLabel.text = video.date?.timeAgoSinceNow()
+        case .Lyric:
+            let lyric = (result as! LyricMediaItem)
+            cell.rightHeaderLabel.text = lyric.track_title
+            cell.mainTextLabel.text = lyric.text
+            cell.mainTextLabel.textAlignment = .Center
+            cell.showImageView = false
             
         default:
             break
@@ -104,8 +107,25 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
         
         cell.sourceLogoView.image = result.iconImageForSource()
+        cell.delegate = self
         
         return cell
+    }
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
+            let cells = collectionView.visibleCells() as? [MediaItemCollectionViewCell],
+            let result = cell.mediaLink else {
+                return
+        }
+
+        for cell in cells {
+            cell.overlayVisible = false
+            cell.layer.shouldRasterize = false
+        }
+
+        cell.prepareOverlayView()
+        cell.overlayVisible = true
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {

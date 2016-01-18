@@ -15,7 +15,7 @@ class BrowseViewModel: MediaItemGroupViewModel {
 
     func getArtistWithOftenId(oftenId: String, completion: (ArtistMediaItem) -> ()) {
         let artistRef = baseRef.childByAppendingPath("artists/\(oftenId)")
-        artistRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        artistRef.observeEventType(.Value, withBlock: { snapshot in
             guard let value = snapshot.value as? NSDictionary else {
                 return
             }
@@ -26,7 +26,7 @@ class BrowseViewModel: MediaItemGroupViewModel {
 
     func getTrackWithOftenid(oftenId: String, completion: (TrackMediaItem) -> ()) {
         let trackRef = baseRef.childByAppendingPath("tracks/\(oftenId)")
-        trackRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        trackRef.observeEventType(.Value, withBlock: { snapshot in
             guard let value = snapshot.value as? NSDictionary else {
                 return
             }

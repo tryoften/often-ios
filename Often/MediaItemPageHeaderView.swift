@@ -24,7 +24,13 @@ class MediaItemPageHeaderView: UICollectionReusableView {
     var coverPhotoTintView: UIView
     var titleLabel: UILabel
     var subtitleLabel: UILabel
-    var topLabel: UILabel
+    var imageURL: NSURL? {
+        willSet(newValue) {
+            if let url = newValue where imageURL != newValue {
+                coverPhoto.setImageWithAnimation(url)
+            }
+        }
+    }
     var mediaItem: MediaItem? {
         didSet {
 
@@ -42,24 +48,17 @@ class MediaItemPageHeaderView: UICollectionReusableView {
         coverPhotoTintView.translatesAutoresizingMaskIntoConstraints = false
         coverPhotoTintView.backgroundColor = AddArtistModalCollectionModalMainViewBackgroundColor
 
-        titleLabel = TOMSMorphingLabel()
+        titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = TrendingHeaderViewArtistNameLabelTextFont
         titleLabel.textColor = TrendingHeaderViewNameLabelTextColor
         titleLabel.textAlignment = .Center
 
-        subtitleLabel = TOMSMorphingLabel()
+        subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.font = TrendingHeaderViewArtistNameLabelTextFont
+        subtitleLabel.font = TrendingHeaderViewSongTitleLabelTextFont
         subtitleLabel.textColor = TrendingHeaderViewNameLabelTextColor
         subtitleLabel.textAlignment = .Center
-
-        topLabel = UILabel()
-        topLabel.translatesAutoresizingMaskIntoConstraints = false
-        topLabel.textAlignment = .Center
-        topLabel.font = AddArtistModalCollectionTopLabelFont
-        topLabel.textColor = AddArtistModalCollectionBackgroundColor
-        topLabel.alpha = 0
 
         super.init(frame: frame)
 
@@ -69,7 +68,6 @@ class MediaItemPageHeaderView: UICollectionReusableView {
         addSubview(coverPhotoTintView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
-        addSubview(topLabel)
 
         clipsToBounds = true
         setupLayout()
@@ -80,10 +78,8 @@ class MediaItemPageHeaderView: UICollectionReusableView {
     }
 
     func setupLayout() {
-        addConstraints([
-            topLabel.al_top == al_top + 10,
-            topLabel.al_centerX == al_centerX,
 
+        addConstraints([
             coverPhoto.al_top == al_top,
             coverPhoto.al_left == al_left,
             coverPhoto.al_width == al_width,
@@ -96,9 +92,11 @@ class MediaItemPageHeaderView: UICollectionReusableView {
 
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_centerY == al_centerY,
+            titleLabel.al_top >= al_top + 30,
+            titleLabel.al_height == 22,
 
             subtitleLabel.al_centerX == al_centerX,
-            subtitleLabel.al_top  == titleLabel.al_bottom
+            subtitleLabel.al_top  == titleLabel.al_bottom + 5
         ])
     }
 }

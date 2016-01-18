@@ -66,7 +66,6 @@ class BrowseViewController: FullScreenCollectionViewController,
         addChildViewController(searchViewController)
         view.addSubview(searchViewController.view)
         view.addSubview(searchViewController.searchBarController.view)
-
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -82,43 +81,11 @@ class BrowseViewController: FullScreenCollectionViewController,
         } catch _ {}
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-
-        if let navigationController = navigationController as? ContainerNavigationController {
-            navigationController.statusBarBackground.hidden = false
-        }
-        if let navigationBar = navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
-            navigationBar.shadowImage = nil
-            navigationBar.backgroundColor = UIColor.whiteColor()
-            navigationBar.translucent = true
-        }
-    }
-
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if let navigationController = navigationController as? ContainerNavigationController {
-            navigationController.statusBarBackground.hidden = true
-        }
-        if let navigationBar = navigationController?.navigationBar {
-            navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-            navigationBar.shadowImage = UIImage()
-            navigationBar.backgroundColor = UIColor.clearColor()
-            navigationBar.translucent = true
-        }
-    }
-
     class func getLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 5.0
         layout.minimumLineSpacing = 5.0
         return layout
-    }
-
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .Default
     }
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -239,9 +206,20 @@ class BrowseViewController: FullScreenCollectionViewController,
         }
     }
 
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let group = viewModel.groupAtIndex(indexPath.section) where indexPath.section == 2,
+            let track = group.items[indexPath.row] as? TrackMediaItem else {
+            return
+        }
+
+        let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: self.viewModel)
+        self.navigationController?.pushViewController(lyricsVC, animated: true)
+    }
+
     func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
         if lyricsHorizontalVC == nil {
             lyricsHorizontalVC = TrendingLyricsHorizontalCollectionViewController()
+            lyricsHorizontalVC?.textProcessor = textProcessor
             addChildViewController(lyricsHorizontalVC!)
         }
         return lyricsHorizontalVC!
@@ -249,7 +227,7 @@ class BrowseViewController: FullScreenCollectionViewController,
 
     func provideTrendingArtistsHorizontalCollectionViewController() -> TrendingArtistsHorizontalCollectionViewController {
         if artistsHorizontalVC == nil {
-            artistsHorizontalVC = TrendingArtistsHorizontalCollectionViewController()
+            artistsHorizontalVC = TrendingArtistsHorizontalCollectionViewController(viewModel: viewModel)
             addChildViewController(artistsHorizontalVC!)
         }
         
@@ -276,13 +254,11 @@ class BrowseViewController: FullScreenCollectionViewController,
 
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
     }
-}
 
 #if KEYBOARD
-extension BrowseViewController {
-//    override func viewWillAppear(animated: Bool) {
-//        navigationController?.navigationBarHidden = true
-//    }
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.navigationBarHidden = true
+    }
 
     override func showNavigationBar(animated: Bool) {
         if shouldSendScrollEvents {
@@ -320,5 +296,5 @@ extension BrowseViewController {
             containerViewController.tabBar.frame = frame
         }
     }
-}
 #endif
+}

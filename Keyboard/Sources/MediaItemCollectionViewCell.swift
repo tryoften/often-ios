@@ -201,6 +201,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         leftHeaderLabel.text = ""
         rightHeaderLabel.text = ""
         mainTextLabel.text = ""
+        mainTextLabel.textAlignment = .Left
         leftMetadataLabel.text = ""
         centerMetadataLabel.text = ""
         rightMetadataLabel.text = ""
@@ -347,11 +348,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             rightHeaderLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             rightHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             rightHeaderLabel.al_height == 16,
-            
-            mainTextLabel.al_left == metadataContentView.al_left + 54,
-            mainTextLabel.al_top == leftHeaderLabel.al_bottom + 20,
-            mainTextLabel.al_right == contentImageView.al_left - 54,
-            
+
             leftMetadataLabel.al_left == mainTextLabel.al_left,
             leftMetadataLabel.al_bottom == metadataContentView.al_bottom - 10,
             leftMetadataLabel.al_height == 12,
@@ -359,7 +356,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             centerMetadataLabel.al_left == leftMetadataLabel.al_right + 12,
             centerMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
 
-            mainTextLabel.al_right == contentImageView.al_left - contentEdgeInsets.right,
+            mainTextLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             mainTextLabel.al_left == metadataContentView.al_left + contentEdgeInsets.left,
             mainTextLabel.al_centerY == al_centerY,
 

@@ -61,7 +61,7 @@ class FullScreenCollectionViewController: UICollectionViewController, NJKScrollF
         hideNavigationBar(true)
     }
 
-#if KEYBOARD
+#if KEYBOARD && !(KEYBOARD_DEBUG)
     func showNavigationBar(animated: Bool) {
         if shouldSendScrollEvents {
             setNavigationBarOriginY(0, animated: true)

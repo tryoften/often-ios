@@ -54,4 +54,8 @@ class ArtistMediaItem: MediaItem {
                 self.tracks = trackModels
         }
     }
+
+    override func subCollectionType() -> MediaItemsCollectionType? {
+        return .Tracks
+    }
 }

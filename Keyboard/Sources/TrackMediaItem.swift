@@ -93,18 +93,53 @@ class TrackMediaItem: MediaItem {
                 self.lyrics = lyricModels
         }
 
-        artist_external_url = data["artist_external_url"] as? String
-        artist_genius_id = data["artist_genius_id"] as? Int
-        artist_id = data["artist_id"] as? String
-        artist_image_url = data["artist_image_url"] as? String
-        artist_is_verified = data["artist_is_verified"] as? String
-        artist_name = data["artist_name"] as? String
-        external_url = data["external_url"] as? String
-        genius_id = data["genius_id"] as? Int
-        header_image_url = data["header_image_url"] as? String
-        lyrics_count = data["lyrics_count"] as? Int
-        song_art_image_url = data["song_art_image_url"] as? String
-        time_modified = data["time_modified"] as? Int
+        if let artist_name = data["artist_name"] as? String {
+            self.artist_name = artist_name
+        }
+
+        if let artist_external_url = data["artist_external_url"] as? String {
+            self.artist_external_url = artist_external_url
+        }
+
+        if let artist_genius_id = data["artist_genius_id"] as? Int {
+            self.artist_genius_id = artist_genius_id
+        }
+
+        if let artist_id = data["artist_id"] as? String {
+            self.artist_id = artist_id
+        }
+
+        if let artist_image_url = data["artist_image_url"] as? String {
+            self.artist_image_url = artist_image_url
+        }
+
+        if let artist_is_verified = data["artist_is_verified"] as? String {
+            self.artist_is_verified = artist_is_verified
+        }
+
+        if let external_url = data["external_url"] as? String {
+            self.external_url = external_url
+        }
+
+        if let genius_id = data["genius_id"] as? Int {
+            self.genius_id = genius_id
+        }
+
+        if let header_image_url = data["header_image_url"] as? String {
+            self.header_image_url = header_image_url
+        }
+
+        if let lyrics_count = data["lyrics_count"] as? Int {
+            self.lyrics_count = lyrics_count
+        }
+
+        if let song_art_image_url = data["song_art_image_url"] as? String {
+            self.song_art_image_url = song_art_image_url
+        }
+
+        if let time_modified = data["time_modified"] as? Int {
+            self.time_modified = time_modified
+        }
     }
     
     func formattedPlays() -> String {
@@ -117,5 +152,9 @@ class TrackMediaItem: MediaItem {
     
     override func getInsertableText() -> String {
         return "\(name) by \(artist_name) - \(url)"
+    }
+
+    override func subCollectionType() -> MediaItemsCollectionType? {
+        return .Lyrics
     }
 }
