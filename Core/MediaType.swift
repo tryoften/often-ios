@@ -57,6 +57,7 @@ enum MediaType: String {
 }
 
 let MediaItemTypes: [MediaType: MediaItem.Type] = [
+    .Article: ArticleMediaItem.self,
     .Artist: ArtistMediaItem.self,
     .Track: TrackMediaItem.self,
     .Lyric: LyricMediaItem.self

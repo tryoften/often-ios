@@ -90,6 +90,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         collapseProfileImageView.image = UIImage(named: "userprofileplaceholder")
         collapseProfileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
         collapseProfileImageView.layer.borderWidth = 2
+        collapseProfileImageView.alpha = 0
         collapseProfileImageView.clipsToBounds = true
 
 

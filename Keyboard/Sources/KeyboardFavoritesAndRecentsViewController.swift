@@ -16,15 +16,13 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
         if collectionType == .Favorites {
             let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewLayout()
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
-            collectionView?.backgroundColor = UIColor.clearColor()
-            collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
             collectionView?.registerClass(MessageWithButtonHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "messageHeader")
         } else {
             let layout = KeyboardMediaItemsAndFilterBarViewController.provideCollectionViewFlowLayout()
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
-            collectionView?.backgroundColor = UIColor.clearColor()
-            collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
         }
+        collectionView?.backgroundColor = UIColor.clearColor()
+        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -87,5 +85,18 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
         }
 
         return UICollectionReusableView()
+    }
+
+    override func timeoutLoader() {
+        loaderView.hidden = true
+
+        if collectionType == .Favorites {
+            updateEmptyStateContent(.NoFavorites)
+        } else if collectionType == .Recents {
+            updateEmptyStateContent(.NoRecents)
+        } else {
+            updateEmptyStateContent(.NonEmpty)
+        }
+
     }
 }

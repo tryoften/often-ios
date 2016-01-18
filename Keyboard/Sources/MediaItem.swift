@@ -14,7 +14,9 @@ class MediaItem: Equatable {
     var type: MediaType = .Other
     var score: Double = 0.0
     var source: MediaItemSource = .Unknown
-    var sourceName: String = ""
+    var sourceName: String {
+        return getNameForSource()
+    }
     var image: String?
     var data: NSDictionary = [:]
 
@@ -46,12 +48,11 @@ class MediaItem: Equatable {
         }
         return models
     }
-
     
-    required init (data: NSDictionary) {
+    required init(data: NSDictionary) {
         self.data = data
         
-        if let id = data["_id"] as? String {
+        if let id = data["id"] as? String {
             self.id = id
         }
 
@@ -89,6 +90,18 @@ class MediaItem: Equatable {
         }
         
         return data
+    }
+
+    /**
+     Path to a subcollection.
+     e.g. 
+     TrackMediaItem -> "lyrics"
+     ArtistMediaItem -> "tracks"
+
+     - returns:
+     */
+    func subCollectionType() -> MediaItemsCollectionType? {
+        return nil
     }
 }
 

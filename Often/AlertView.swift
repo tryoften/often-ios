@@ -64,7 +64,7 @@ class AlertView: SpringView {
         super.init(frame: frame)
         
         backgroundColor = WhiteColor
-        layer.cornerRadius = 5
+        layer.cornerRadius = 4
         
         animation = "slideUp"
         curve = "easeOut"
@@ -89,7 +89,7 @@ class AlertView: SpringView {
             characterImageView.al_height == 120,
             characterImageView.al_width == 120,
             characterImageView.al_centerX == al_centerX,
-            characterImageView.al_bottom == titleLabel.al_top - 20,
+            characterImageView.al_bottom == titleLabel.al_top - 12,
 
             titleLabel.al_centerY == al_centerY + 20,
             titleLabel.al_centerX == al_centerX,
@@ -100,7 +100,7 @@ class AlertView: SpringView {
             subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_left == al_left + subtitleLabelLeftRightMargin,
             subtitleLabel.al_right == al_right - subtitleLabelLeftRightMargin,
-            subtitleLabel.al_height == 40,
+            subtitleLabel.al_height == 32,
 
             actionButton.al_centerX == al_centerX,
             actionButton.al_left == al_left + actionButtonLeftRightMargin,
