@@ -38,7 +38,7 @@ class MainAppSearchBar: UISearchBar, SearchBar {
         ]
 
         searchBarStyle = .Minimal
-        backgroundColor = WhiteColor
+        backgroundColor = UIColor.clearColor()
         tintColor = UIColor(fromHexString: "#14E09E")
         placeholder = SearchBarPlaceholderText
         setValue("cancel".uppercaseString, forKey:"_cancelButtonText")

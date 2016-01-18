@@ -74,12 +74,12 @@ class KeyboardMediaItemsAndFilterBarViewController: MediaItemsAndFilterBarViewCo
     
     func userFavoritesTabSelected() {
         collectionType = .Favorites
-        reloadData()
+        reloadData(false)
     }
 
     func userRecentsTabSelected() {
         collectionType = .Recents
-        reloadData()
+        reloadData(false)
     }
 }
 

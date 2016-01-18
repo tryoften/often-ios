@@ -16,7 +16,7 @@ class RefreshResultsButton: UIButton {
         layer.cornerRadius = 15
         backgroundColor = UIColor(fromHexString: "#21CE99")
         titleLabel!.font = UIFont(name: "Montserrat-Regular", size: 9)
-        setImage(StyleKit.imageOfRefresharrow(scale: 0.6), forState: .Normal)
+//        setImage(StyleKit.imageOfRefresharrow(scale: 0.6), forState: .Normal)
         setTitle("view latest results".uppercaseString, forState: .Normal)
         setTitleColor(UIColor.whiteColor(), forState: .Normal)
         contentEdgeInsets = UIEdgeInsets(top: 5, left: 15, bottom: 5, right: 15)

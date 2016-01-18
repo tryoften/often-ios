@@ -28,7 +28,9 @@ class MediaItemGroup {
     class func modelsFromDictionaryArray(array: NSArray) -> [MediaItemGroup] {
         var models: [MediaItemGroup] = []
         for item in array {
-            models.append(MediaItemGroup(dictionary: item as! NSDictionary)!)
+            if let data = item as? NSDictionary {
+                models.append(MediaItemGroup(dictionary: data))
+            }
         }
         return models
     }
@@ -42,10 +44,10 @@ class MediaItemGroup {
      - parameter dictionary:  NSDictionary from JSON.
      - returns: MediaItemGroup Instance.
      */
-    required init?(dictionary: NSDictionary) {
+    required init(dictionary: NSDictionary) {
         id = dictionary["id"] as? String
-        if (dictionary["items"] != nil) {
-            items = MediaItem.modelsFromDictionaryArray(dictionary["items"] as! NSArray)
+        if let items = dictionary["items"] as? NSArray {
+            self.items = MediaItem.modelsFromDictionaryArray(items)
         }
         score = dictionary["score"] as? Int
         title = dictionary["title"] as? String
@@ -61,7 +63,6 @@ class MediaItemGroup {
      - returns: NSDictionary.
      */
     func toDictionary() -> NSDictionary {
-
         let dictionary = NSMutableDictionary()
 
         dictionary.setValue(self.id, forKey: "id")

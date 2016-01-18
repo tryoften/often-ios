@@ -1,14 +1,38 @@
 //
-//  MediaItemsViewModel+Favorites.swift
+//  FavoritesService.swift
 //  Often
 //
-//  Created by Luc Succes on 12/15/15.
-//  Copyright © 2015 Surf Inc. All rights reserved.
+//  Created by Luc Succes on 1/17/16.
+//  Copyright © 2016 Surf Inc. All rights reserved.
 //
 
 import Foundation
 
-extension MediaItemsViewModel {
+class FavoritesService: MediaItemsViewModel {
+    static let defaultInstance = FavoritesService()
+    override var currentUser: User? {
+        didSet {
+            do {
+                try fetchData()
+            } catch _ {}
+        }
+    }
+
+    private(set) var ids: [String] = []
+
+    override func fetchData() throws {
+        try fetchCollection(.Favorites, completion: { success in
+            guard let collection = self.collections[.Favorites] else {
+                return
+            }
+
+            self.ids = []
+            for favorite in collection {
+                self.ids.append(favorite.id)
+            }
+        })
+    }
+
     func toggleFavorite(selected: Bool, result: MediaItem) {
         if selected {
             addFavorite(result)

@@ -10,18 +10,16 @@ import UIKit
 
 private let TrendingLyricsCellReuseIdentifier = "Cell"
 
-class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarViewController {
+class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBaseViewController {
+    var textProcessor: TextProcessingManager?
     var group: MediaItemGroup? {
         didSet {
-            if group != nil {
-                viewModel.isDataLoaded = true
-            }
             collectionView?.reloadData()
         }
     }
 
     init() {
-        super.init(collectionViewLayout: TrendingLyricsHorizontalCollectionViewController.provideLayout(), collectionType: .Trending, viewModel: MediaItemsViewModel())
+        super.init(collectionViewLayout: TrendingLyricsHorizontalCollectionViewController.provideLayout())
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -62,7 +60,6 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarVi
         return 1
     }
 
-
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let group = group {
             return group.items.count
@@ -70,7 +67,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarVi
         return 5
     }
 
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeZero
     }
 
@@ -97,7 +94,22 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsAndFilterBarVi
         cell.layer.shouldRasterize = true
         cell.showImageView = false
         cell.mediaLink = lyric
+        cell.delegate = self
     
         return cell
+    }
+
+    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+        guard let result = cell.mediaLink else {
+            return
+        }
+
+        if selected {
+            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        } else {
+            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
+                textProcessor?.defaultProxy.deleteBackward()
+            }
+        }
     }
 }

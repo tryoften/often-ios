@@ -20,15 +20,17 @@ class BrowseViewController: FullScreenCollectionViewController,
     CellAnimatable {
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
-    var viewModel: TrendingLyricsViewModel
+    var viewModel: BrowseViewModel
     var searchViewController: SearchViewController?
     var textProcessor: TextProcessingManager?
     var cellsAnimated: [NSIndexPath: Bool] = [:]
 
-    init(collectionViewLayout: UICollectionViewLayout, viewModel: TrendingLyricsViewModel, textProcessor: TextProcessingManager?) {
+    init(collectionViewLayout: UICollectionViewLayout = BrowseViewController.getLayout(),
+        viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         self.viewModel = viewModel
 
         super.init(collectionViewLayout: collectionViewLayout)
+
         viewModel.delegate = self
         self.textProcessor = textProcessor
         self.textProcessor?.delegate = self
@@ -36,9 +38,10 @@ class BrowseViewController: FullScreenCollectionViewController,
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        collectionView?.registerClass(SongCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
+        collectionView?.registerClass(TrackCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
         collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = false
+        extendedLayoutIncludesOpaqueBars = false
 
         setupSearchBar()
     }
@@ -63,7 +66,6 @@ class BrowseViewController: FullScreenCollectionViewController,
         addChildViewController(searchViewController)
         view.addSubview(searchViewController.view)
         view.addSubview(searchViewController.searchBarController.view)
-
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -72,17 +74,17 @@ class BrowseViewController: FullScreenCollectionViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setNeedsStatusBarAppearanceUpdate()
+        
         do {
             try viewModel.fetchData()
         } catch _ {}
     }
 
-    override func viewWillAppear(animated: Bool) {
-        navigationController?.navigationBarHidden = true
-    }
-
     class func getLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 5.0
+        layout.minimumLineSpacing = 5.0
         return layout
     }
 
@@ -105,7 +107,7 @@ class BrowseViewController: FullScreenCollectionViewController,
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView,
-            let group = viewModel.groupAtIndex(indexPath.row) else {
+            let group = viewModel.groupAtIndex(indexPath.section) else {
             return UICollectionReusableView()
         }
 
@@ -180,16 +182,16 @@ class BrowseViewController: FullScreenCollectionViewController,
             self.artistsHorizontalVC = artistsHorizontalVC
             return cell
         case .Track:
-            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? SongCollectionViewCell, let track = group.items[indexPath.row] as?TrackMediaItem else {
-                return SongCollectionViewCell()
+            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? TrackCollectionViewCell, let track = group.items[indexPath.row] as?TrackMediaItem else {
+                return TrackCollectionViewCell()
             }
 
             if let imageURLStr = track.song_art_image_url, let imageURL = NSURL(string: imageURLStr) {
-                cell.albumCoverThumbnail.setImageWithURL(imageURL)
+                cell.imageView.setImageWithAnimation(imageURL)
             }
-            cell.albumTitleLabel.text = track.albumName
-            cell.artistLabel.text = track.artist_name
-            cell.albumTitleLabel.text = track.title
+            cell.titleLabel.text = track.album_name
+            cell.subtitleLabel.text = track.artist_name
+            cell.titleLabel.text = track.title
             cell.layer.shouldRasterize = true
             cell.layer.rasterizationScale = UIScreen.mainScreen().scale
 
@@ -204,9 +206,20 @@ class BrowseViewController: FullScreenCollectionViewController,
         }
     }
 
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let group = viewModel.groupAtIndex(indexPath.section) where indexPath.section == 2,
+            let track = group.items[indexPath.row] as? TrackMediaItem else {
+            return
+        }
+
+        let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: self.viewModel)
+        self.navigationController?.pushViewController(lyricsVC, animated: true)
+    }
+
     func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
         if lyricsHorizontalVC == nil {
             lyricsHorizontalVC = TrendingLyricsHorizontalCollectionViewController()
+            lyricsHorizontalVC?.textProcessor = textProcessor
             addChildViewController(lyricsHorizontalVC!)
         }
         return lyricsHorizontalVC!
@@ -214,7 +227,7 @@ class BrowseViewController: FullScreenCollectionViewController,
 
     func provideTrendingArtistsHorizontalCollectionViewController() -> TrendingArtistsHorizontalCollectionViewController {
         if artistsHorizontalVC == nil {
-            artistsHorizontalVC = TrendingArtistsHorizontalCollectionViewController()
+            artistsHorizontalVC = TrendingArtistsHorizontalCollectionViewController(viewModel: viewModel)
             addChildViewController(artistsHorizontalVC!)
         }
         
@@ -223,6 +236,28 @@ class BrowseViewController: FullScreenCollectionViewController,
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         collectionView?.reloadData()
+    }
+
+    // MARK: TextProcessingManagerDelegate
+    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
+    }
+
+    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
+    }
+
+    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
+        return nil
+    }
+
+    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
+    }
+
+    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
+    }
+
+#if KEYBOARD
+    override func viewWillAppear(animated: Bool) {
+        navigationController?.navigationBarHidden = true
     }
 
     override func showNavigationBar(animated: Bool) {
@@ -241,7 +276,6 @@ class BrowseViewController: FullScreenCollectionViewController,
             setNavigationBarOriginY(top, animated: true)
         }
     }
-
 
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
         guard let containerViewController = containerViewController,
@@ -262,21 +296,5 @@ class BrowseViewController: FullScreenCollectionViewController,
             containerViewController.tabBar.frame = frame
         }
     }
-
-    // MARK: TextProcessingManagerDelegate
-    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
-    }
-
-    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
-    }
-
-    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
-        return nil
-    }
-
-    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
-    }
-
-    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
-    }
+#endif
 }

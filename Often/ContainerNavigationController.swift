@@ -1,5 +1,5 @@
 //
-//  SearchBarNavigationController.swift
+//  ContainerNavigationController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 12/23/15.
@@ -8,22 +8,44 @@
 
 import Foundation
 
-class ContainerNavigationController: UINavigationController {
-    var searchBar: SearchBarController?
-    var statusBarBackground: UIView?
+class ContainerNavigationController: UINavigationController, UINavigationControllerDelegate {
+
+    override init(rootViewController: UIViewController) {
+        super.init(navigationBarClass: ContainerNavigationBar.self, toolbarClass: nil)
+        self.pushViewController(rootViewController, animated: false)
+    }
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        hidesBarsOnSwipe = true
         navigationBar.translucent = false
 
-        statusBarBackground = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 20))
-        statusBarBackground?.backgroundColor = WhiteColor
-        view.addSubview(statusBarBackground!)
+        var backNavImage = StyleKit.imageOfBackarrow(frame: CGRectMake(0, 0, 22, 22), color: UIColor.whiteColor(), scale: 0.5, selected: false)
 
         UITextField.appearance().font = UIFont(name: "OpenSans-Semibold", size: 12)
-        UINavigationBar.appearance().barStyle = .Black
-        UINavigationBar.appearance().barTintColor = UIColor.whiteColor()
+
+        let navBarAppearance = UINavigationBar.appearance()
+        navBarAppearance.barTintColor = UIColor.whiteColor()
+        navBarAppearance.backIndicatorImage = backNavImage
+        navBarAppearance.backIndicatorTransitionMaskImage = backNavImage
+        navBarAppearance.tintColor = UIColor.whiteColor()
+        navBarAppearance.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        navBarAppearance.barStyle = .Black
+        navBarAppearance.shadowImage = UIImage()
+        navBarAppearance.backgroundColor = UIColor.clearColor()
+        navBarAppearance.translucent = true
+
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -60), forBarMetrics: .Default)
+    }
+
+    func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return nil
     }
 }

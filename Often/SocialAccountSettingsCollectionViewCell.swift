@@ -12,7 +12,7 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
     var serviceLogoImageView: UIImageView
     var serviceSwitch: UISwitch
     var serviceSubtitleLabel: UILabel
-    var settingSocialAccount:SocialAccount
+    var settingSocialAccount: SocialAccount
     weak var delegate: AddServiceProviderDelegate?
         
     override init(frame: CGRect) {
@@ -59,12 +59,12 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func switchAction(sender : UIButton) {
+    func switchAction(sender: UIButton) {
         delegate?.addServiceProviderCellDidTapSwitchButton(self, selected: serviceSwitch.on, buttonTag:sender.tag)
         checkButtonStatus(serviceSwitch.on)
         }
     
-    func checkButtonStatus(buttonStatus:Bool){
+    func checkButtonStatus(buttonStatus: Bool) {
         if buttonStatus {
             serviceSubtitleLabel.text = "Connected!"
             serviceSubtitleLabel.numberOfLines = 1
@@ -122,5 +122,5 @@ class SocialAccountSettingsCollectionViewCell: UICollectionViewCell {
 }
 
 protocol AddServiceProviderDelegate: class {
-    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool, buttonTag:Int)
+    func addServiceProviderCellDidTapSwitchButton(serviceSettingsCollectionView: SocialAccountSettingsCollectionViewCell, selected: Bool, buttonTag: Int)
 }

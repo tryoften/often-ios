@@ -16,6 +16,18 @@ class KeyboardBrowseNavigationBar: UIView {
     var rightDetailLabel: UILabel
     var moreOptionsButton: UIButton
     var bottomSeperator: UIView
+    var imageURL: NSURL? {
+        willSet(newValue) {
+            if let url = newValue where imageURL != newValue {
+                let request = NSURLRequest(URL: url)
+                thumbnailImageButton.imageView?.setImageWithURLRequest(request, placeholderImage: UIImage(named: "placeholder"), success: { (req, res, image) -> Void in
+                        self.thumbnailImageButton.setImage(image, forState: .Normal)
+                    }, failure: { (req, res, err) -> Void in
+
+                })
+            }
+        }
+    }
     var shouldDisplayOptions: Bool? {
         didSet(value) {
             if self.shouldDisplayOptions == false {
@@ -41,26 +53,23 @@ class KeyboardBrowseNavigationBar: UIView {
         thumbnailImageButton.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageButton.layer.cornerRadius = 3.0
         thumbnailImageButton.contentMode = .ScaleAspectFill
-        thumbnailImageButton.setImage(UIImage(named: "weeknd"), forState: .Normal)
+        thumbnailImageButton.clipsToBounds = true
         thumbnailImageButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 15.0, 0.0, 0.0)
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont(name: "OpenSans-Semibold", size: 12.0)
-        titleLabel.text = "The Weeknd"
         
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = UIFont(name: "OpenSans", size: 10.5)
         subtitleLabel.textColor = BlackColor
-        subtitleLabel.text = "35 Songs"
         subtitleLabel.alpha = 0.54
         
         rightDetailLabel = UILabel()
         rightDetailLabel.translatesAutoresizingMaskIntoConstraints = false
         rightDetailLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
         rightDetailLabel.textColor = BlackColor
-        rightDetailLabel.text = "10 LYRICS"
         rightDetailLabel.alpha = 0.0
         
         moreOptionsButton = UIButton()
