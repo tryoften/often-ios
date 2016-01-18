@@ -33,7 +33,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let layout = CSStickyHeaderFlowLayout()
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 185)
+        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 110)
         layout.parallaxHeaderReferenceSize = UserProfileHeaderView.preferredSize
         layout.parallaxHeaderAlwaysOnTop = true
         layout.disableStickyHeaders = false
@@ -158,10 +158,12 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         if let headerView = headerView, let user = viewModel.currentUser {
             headerView.sharedText = "85 Lyrics Shared"
             headerView.nameLabel.text = user.name
+            headerView.collapseNameLabel.text = user.name
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
                     headerView.profileImageView.image = image
+                    headerView.collapseProfileImageView.image = image
                     }, failure: { (req, res, error) in
                         print("Failed to load image: \(imageURL)")
                 })
