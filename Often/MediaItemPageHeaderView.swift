@@ -53,12 +53,13 @@ class MediaItemPageHeaderView: UICollectionReusableView {
         titleLabel.font = TrendingHeaderViewArtistNameLabelTextFont
         titleLabel.textColor = TrendingHeaderViewNameLabelTextColor
         titleLabel.textAlignment = .Center
-
+        
         subtitleLabel = UILabel()
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = TrendingHeaderViewSongTitleLabelTextFont
         subtitleLabel.textColor = TrendingHeaderViewNameLabelTextColor
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.textAlignment = .Center
+        subtitleLabel.alpha = 0.74
 
         super.init(frame: frame)
 
