@@ -95,8 +95,19 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
         cell.showImageView = false
         cell.mediaLink = lyric
         cell.delegate = self
+        cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(lyric)
     
         return cell
+    }
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+        
+        if let lyric = group?.items[indexPath.row] as? LyricMediaItem,
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TrendingLyricsCellReuseIdentifier,
+            forIndexPath: indexPath) as? MediaItemCollectionViewCell {
+                cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(lyric)
+        }
     }
 
     override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {

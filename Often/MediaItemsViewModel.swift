@@ -53,6 +53,7 @@ class MediaItemsViewModel: BaseViewModel {
                         self.collectionEndpoints[type] = endpoint
                     }
 
+                    self.didSetupUser()
                 } catch let error {
                     print(error)
                 }
@@ -60,6 +61,8 @@ class MediaItemsViewModel: BaseViewModel {
         } catch _ {
         }
     }
+
+    func didSetupUser() {}
 
     func fetchAllData() throws {
         for type in MediaItemsCollectionType.allValues {

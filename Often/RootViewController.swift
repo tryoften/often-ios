@@ -88,7 +88,7 @@ class RootViewController: UITabBarController {
         } else {
             userProfileVC = UserProfileViewController(
                 collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(),
-                viewModel: MediaItemsViewModel())
+                viewModel: FavoritesService.defaultInstance)
         }
 
         let browseVC = ContainerNavigationController(rootViewController: MainAppBrowseViewController(

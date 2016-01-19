@@ -7,18 +7,13 @@
 //
 
 import Foundation
+import EmitterKit
 
 class FavoritesService: MediaItemsViewModel {
     static let defaultInstance = FavoritesService()
-    override var currentUser: User? {
-        didSet {
-            do {
-                try fetchData()
-            } catch _ {}
-        }
-    }
+    private(set) var ids: Set<String> = []
 
-    private(set) var ids: [String] = []
+    let didChangeFavorites = Event<[MediaItem]>()
 
     override func fetchData() throws {
         try fetchCollection(.Favorites, completion: { success in
@@ -28,12 +23,22 @@ class FavoritesService: MediaItemsViewModel {
 
             self.ids = []
             for favorite in collection {
-                self.ids.append(favorite.id)
+                self.ids.insert(favorite.id)
             }
+
+            self.didChangeFavorites.emit(collection)
         })
     }
 
+    override func didSetupUser() {
+        do {
+            try fetchData()
+        } catch _ {}
+    }
+
     func toggleFavorite(selected: Bool, result: MediaItem) {
+        didChangeFavorites.emit([result])
+
         if selected {
             addFavorite(result)
         } else {
@@ -43,19 +48,17 @@ class FavoritesService: MediaItemsViewModel {
 
     // TODO: add/remove favorite from local collection before server responds with data
     func addFavorite(result: MediaItem) {
+        ids.insert(result.id)
         sendTask("addFavorite", result: result)
     }
 
     func removeFavorite(result: MediaItem) {
+        ids.remove(result.id)
         sendTask("removeFavorite", result: result)
     }
 
     func checkFavorite(result: MediaItem) -> Bool {
-        let base64URI = SearchRequest.idFromQuery(result.id)
-            .stringByReplacingOccurrencesOfString("/", withString: "_")
-            .stringByReplacingOccurrencesOfString("+", withString: "-")
-
-        return ids.contains(base64URI)
+        return ids.contains(result.id)
     }
 
     private func sendTask(task: String, result: MediaItem) {
