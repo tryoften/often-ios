@@ -51,22 +51,25 @@ class SearchResultsCellOverlayView: UIView {
         copyButton.hidden = true
         
 
-        let labelFont = UIFont(name: "Montserrat-Regular", size: 12)
+        let labelFont = UIFont(name: "Montserrat-Regular", size: 10)
         
         rightLabel = UILabel()
         rightLabel.translatesAutoresizingMaskIntoConstraints = false
         rightLabel.font = labelFont
         rightLabel.text = "Share".uppercaseString
+        rightLabel.alpha = 0.74
         
         leftLabel = UILabel()
         leftLabel.translatesAutoresizingMaskIntoConstraints = false
         leftLabel.font = labelFont
         leftLabel.text = "Favorite".uppercaseString
+        leftLabel.alpha = 0.74
         
         middleLabel = UILabel()
         middleLabel.translatesAutoresizingMaskIntoConstraints = false
         middleLabel.font = labelFont
         middleLabel.text = "Cancel".uppercaseString
+        middleLabel.alpha = 0.74
         
         backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.ExtraLight))
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,14 +89,14 @@ class SearchResultsCellOverlayView: UIView {
       
         setupLayout()
         
-        backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.3)
+        backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func showButtons() {
+    func showButtons(completion: () -> ()) {
         func setupAnimation(button: SpringButton) {
             button.animation = "slideUp"
             button.duration = 0.3
@@ -117,9 +120,35 @@ class SearchResultsCellOverlayView: UIView {
         
         setupAnimation(copyButton)
         copyButton.delay = 0.2
-        copyButton.animate()
+        copyButton.animateNext(completion)
     }
     
+    func hideButtons(completion: () -> ()) {
+        func setupAnimation(button: SpringButton) {
+            button.animation = "slideDown"
+            button.duration = 0.3
+            button.curve = "easeOut"
+        }
+        
+        for button in [favoriteButton, cancelButton, insertButton] {
+            button.selected = false
+        }
+        
+        setupAnimation(favoriteButton)
+        favoriteButton.animate()
+        
+        setupAnimation(cancelButton)
+        cancelButton.delay = 0.1
+        cancelButton.animate()
+        
+        setupAnimation(insertButton)
+        insertButton.delay = 0.2
+        insertButton.animate()
+        
+        setupAnimation(copyButton)
+        copyButton.delay = 0.2
+        copyButton.animateNext(completion)
+    }
     
     
     func setupLayout() {
@@ -141,7 +170,7 @@ class SearchResultsCellOverlayView: UIView {
             favoriteButton.al_width == 60,
             favoriteButton.al_height == favoriteButton.al_width,
             
-            cancelButton.al_centerY == al_centerY - 15,
+            cancelButton.al_centerY == al_centerY - 10,
             cancelButton.al_width == 60,
             cancelButton.al_height == cancelButton.al_width,
             
@@ -151,9 +180,9 @@ class SearchResultsCellOverlayView: UIView {
             
             cancelButton.al_centerX == al_centerX,
             doneButton.al_centerX == al_centerX,
-            favoriteButton.al_right == cancelButton.al_left - 40,
-            insertButton.al_left == cancelButton.al_right + 40,
-            copyButton.al_left == cancelButton.al_right + 40,
+            favoriteButton.al_right == cancelButton.al_left - 24,
+            insertButton.al_left == cancelButton.al_right + 24,
+            copyButton.al_left == cancelButton.al_right + 24,
             
             rightLabel.al_top == insertButton.al_bottom,
             rightLabel.al_centerX == insertButton.al_centerX,

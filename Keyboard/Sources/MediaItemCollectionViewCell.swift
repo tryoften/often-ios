@@ -50,13 +50,17 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     
     var overlayVisible: Bool {
         didSet {
-            if (overlayVisible) {
+            if overlayVisible {
                 overlayView.hidden = false
-                overlayView.showButtons()
+                overlayView.showButtons {}
                 overlayView.favoriteButton.selected = itemFavorited
             } else {
-                overlayView.hidden = true
-                
+                UIView.animateWithDuration(0.2, animations: {
+                    self.overlayView.alpha = 0.0
+                }, completion: { done in
+                    self.overlayView.hidden = true
+                    self.overlayView.alpha = 1.0
+                })
             }
         }
     }
@@ -207,7 +211,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         rightMetadataLabel.text = ""
         rightCornerImageView.image = nil
         showImageView = true
-        overlayVisible = false
+        overlayView.hidden = true
     }
     
     func prepareOverlayView() {
@@ -292,7 +296,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             if overlayView.favoriteButton.selected {
                 overlayView.leftLabel.text = "saved!".uppercaseString
             } else {
-                overlayView.leftLabel.text = "favorite".uppercaseString
+                overlayView.leftLabel.text = "Favorite".uppercaseString
             }
         }
         

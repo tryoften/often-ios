@@ -104,7 +104,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.mediaLink = result
-        cell.overlayVisible = false
         cell.contentImageView.image = nil
         if  let image = result.image,
             let imageURL = NSURL(string: image) {
@@ -130,9 +129,11 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 return
         }
 
-        for cell in cells {
-            cell.overlayVisible = false
-            cell.layer.shouldRasterize = false
+        for aCell in cells {
+            if aCell.mediaLink != result {
+                cell.overlayView.hidden = true
+                cell.layer.shouldRasterize = false
+            }
         }
 
         cell.prepareOverlayView()
