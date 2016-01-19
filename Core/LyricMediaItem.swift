@@ -49,4 +49,8 @@ class LyricMediaItem: MediaItem {
         track_song_art_image_url = data["track_song_art_image_url"] as? String
         track_title = data["track_title"] as? String
     }
+
+    override func getInsertableText() -> String {
+        return text
+    }
 }

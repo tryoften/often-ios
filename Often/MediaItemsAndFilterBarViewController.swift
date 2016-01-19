@@ -25,11 +25,12 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     var loaderView: AnimatedLoaderView
     var loadingTimer: NSTimer?
     var loaderTimeoutTimer: NSTimer?
+    var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
         didSet {
             do {
                 try viewModel.fetchCollection(collectionType) { success in
-                    self.reloadData()
+                    self.reloadData(false)
                 }
             } catch let error {
                 print("Failed to request data \(error)")
@@ -45,6 +46,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         loaderView.hidden = true
         
         collectionType = aCollectionType
+        hasFetchedData = false
         
         super.init(collectionViewLayout: collectionViewLayout)
 
@@ -65,32 +67,18 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showLoader", userInfo: nil, repeats: false)
-        
-        do {
-            try viewModel.fetchCollection(collectionType) { success in
-                self.reloadData()
-            }
-        } catch let error {
-            print("Failed to request data \(error)")
-        }
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
-        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showLoader", userInfo: nil, repeats: false)
-        
-        do {
-            try viewModel.fetchCollection(collectionType) { success in
-                self.reloadData()
-            }
-        } catch let error {
-            print("Failed to request data \(error)")
+        if !hasFetchedData {
+            requestData(true)
+            hasFetchedData = false
+        } else {
+            requestData(false)
         }
     }
     
@@ -99,8 +87,20 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         emptyStateView?.frame = view.bounds
         loaderView.frame = view.bounds
     }
+
+    func requestData(animated: Bool = false) {
+        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showLoader", userInfo: nil, repeats: false)
+
+        do {
+            try viewModel.fetchCollection(collectionType) { success in
+                self.reloadData(animated)
+            }
+        } catch let error {
+            print("Failed to request data \(error)")
+        }
+    }
     
-    func reloadData() {
+    func reloadData(animated: Bool = false) {
         if viewModel.isDataLoaded {
             loaderView.hidden = true
             collectionView?.scrollEnabled = true
@@ -134,15 +134,12 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         updateEmptyStateContent(.NoResults)
     }
     
-    func fadeInData() {
+    func showData(animated: Bool = false) {
         collectionView?.alpha = 0.0
-        collectionView?.layer.transform = CATransform3DMakeScale(0.90, 0.90, 0.90)
-        
         collectionView?.reloadSections(NSIndexSet(index: 0))
         
-        UIView.animateWithDuration(0.3, animations: {
+        UIView.animateWithDuration(animated ? 0.3 : 0.0, animations: {
             self.collectionView?.alpha = 1.0
-            self.collectionView?.layer.transform = CATransform3DIdentity
         })
         collectionView?.scrollEnabled = true
     }
@@ -181,39 +178,10 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         var cell: MediaItemCollectionViewCell
         cell = parseMediaItemData(viewModel.filteredMediaItemsForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
-        
-        if let result = cell.mediaLink {
-            if  viewModel.checkFavorite(result) {
-                cell.itemFavorited = true
-            } else {
-                cell.itemFavorited = false
-            }
-        }
-        
+
         animateCell(cell, indexPath: indexPath)
         
         return cell
-    }
-
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
-            let cells = collectionView.visibleCells() as? [MediaItemCollectionViewCell],
-            let result = cell.mediaLink else {
-                return
-        }
-        
-        for cell in cells {
-            cell.overlayVisible = false
-            cell.layer.shouldRasterize = false
-        }
-        
-        if  viewModel.checkFavorite(result) {
-            cell.itemFavorited = true
-        } else {
-            cell.itemFavorited = false
-        }
-        cell.prepareOverlayView()
-        cell.overlayVisible = true
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -236,7 +204,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     
     func closeButtonDidTap() {
         viewModel.hasSeenTwitter = true
-        reloadData()
+        reloadData(false)
         
         UIView.animateWithDuration(0.4, animations: {
             self.emptyStateView?.alpha = 0
@@ -249,11 +217,15 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     
     // MARK: MediaItemsViewModelDelegate
     func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
-        reloadData()
+        reloadData(false)
     }
     
     func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
-        reloadData()
+        reloadData(false)
+        loaderView.hidden = true
+    }
+
+    func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         loaderView.hidden = true
     }
 
@@ -263,7 +235,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
             return
         }
         
-        viewModel.toggleFavorite(selected, result: result)
+        FavoritesService.defaultInstance.toggleFavorite(selected, result: result)
         cell.itemFavorited = selected
     }
 }

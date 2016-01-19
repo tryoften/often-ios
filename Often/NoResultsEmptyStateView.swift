@@ -33,6 +33,8 @@ class NoResultsEmptyStateView: EmptyStateView {
         
         imageView.contentMode = .ScaleAspectFill
         imageSize = .Large
+
+        imageViewTopPadding = 30.0
         
         addSubview(primaryButton)
         

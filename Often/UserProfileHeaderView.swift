@@ -13,12 +13,9 @@ class UserProfileHeaderView: UICollectionReusableView {
     var coverPhotoView: UIImageView
     var coverPhotoTintView: UIView
     var nameLabel: UILabel
+    var collapseNameLabel: UILabel
+    var collapseProfileImageView: UIImageView
     var shareCountLabel: UILabel
-    var nameLabelHeightConstraint: NSLayoutConstraint?
-    var nameLabelHorizontalConstraint: NSLayoutConstraint?
-    var shareCountLabelTopConstraint: NSLayoutConstraint?
-    var scoreLabelHeightConstraint: NSLayoutConstraint?
-    var scoreNameLabelHeightConstraint: NSLayoutConstraint?
     var tabContainerView: FavoritesAndRecentsTabView
     var offsetValue: CGFloat
 
@@ -27,35 +24,6 @@ class UserProfileHeaderView: UICollectionReusableView {
             UIScreen.mainScreen().bounds.size.width,
             UIScreen.mainScreen().bounds.size.height / 2 - 10
         )
-    }
-    
-    var nameLabelHeightTopMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
-            return 55
-        }
-        return 60
-    }
-    
-    var shareTextTopMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
-            return 0
-        }
-        return 0
-    }
-    
-    var tabContainerViewHeight: CGFloat {
-        if Diagnostics.platformString().number == 5 {
-            return 50
-        }
-        return 60
-    }
-    
-    var profileImageViewWidth: CGFloat {
-        if Diagnostics.platformString().number == 6 {
-            return 80
-        }
-        
-        return 68
     }
 
     var sharedText: String {
@@ -70,12 +38,65 @@ class UserProfileHeaderView: UICollectionReusableView {
             shareCountLabel.textAlignment = .Center
         }
     }
+
+    private var nameLabelHeightConstraint: NSLayoutConstraint?
+    private var nameLabelHorizontalConstraint: NSLayoutConstraint?
+    private var coverPhotoBottonMarginConstraint: NSLayoutConstraint?
+
+    private var coverPhotoBottonMargin: CGFloat {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+            return -15
+        }
+        return -30
+    }
+
+    private var nameLabelHeightTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 55
+        }
+        return 60
+    }
     
+    private var shareTextTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 0
+        }
+        return 0
+    }
+    
+    private var tabContainerViewHeight: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 50
+        }
+        return 60
+    }
+    
+    private var profileImageViewWidth: CGFloat {
+        if Diagnostics.platformString().number == 6 {
+            return 80
+        }
+        
+        return 68
+    }
+
+    private var collapseProfileImageViewWidth: CGFloat {
+        return 30
+    }
+
     override init(frame: CGRect) {
+        collapseProfileImageView = UIImageView()
+        collapseProfileImageView.translatesAutoresizingMaskIntoConstraints = false
+        collapseProfileImageView.contentMode = .ScaleAspectFit
+        collapseProfileImageView.image = UIImage(named: "userprofileplaceholder")
+        collapseProfileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
+        collapseProfileImageView.layer.borderWidth = 2
+        collapseProfileImageView.alpha = 0
+        collapseProfileImageView.clipsToBounds = true
+
+
         profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .ScaleAspectFit
-        profileImageView.layer.cornerRadius = 35
         profileImageView.image = UIImage(named: "userprofileplaceholder")
         profileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
         profileImageView.layer.borderWidth = 2
@@ -91,7 +112,13 @@ class UserProfileHeaderView: UICollectionReusableView {
         coverPhotoTintView.translatesAutoresizingMaskIntoConstraints = false
         coverPhotoTintView.backgroundColor = UserProfileHeaderViewCoverPhotoTintViewBackgroundColor
         coverPhotoTintView.clipsToBounds = true
-        
+
+        collapseNameLabel = UILabel()
+        collapseNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        collapseNameLabel.font = UIFont(name: "Montserrat", size: 12.0)
+        collapseNameLabel.textColor = WhiteColor
+        collapseNameLabel.textAlignment = .Right
+
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont(name: "Montserrat", size: 18.0)
@@ -112,6 +139,9 @@ class UserProfileHeaderView: UICollectionReusableView {
         
         super.init(frame: frame)
 
+        profileImageView.layer.cornerRadius = profileImageViewWidth / 2
+        collapseProfileImageView.layer.cornerRadius = collapseProfileImageViewWidth / 2
+
         backgroundColor = WhiteColor
         clipsToBounds = true
 
@@ -121,6 +151,8 @@ class UserProfileHeaderView: UICollectionReusableView {
         addSubview(nameLabel)
         addSubview(shareCountLabel)
         addSubview(tabContainerView)
+        addSubview(collapseNameLabel)
+        addSubview(collapseProfileImageView)
 
         setupLayout()
     }
@@ -133,25 +165,53 @@ class UserProfileHeaderView: UICollectionReusableView {
         
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             let progressiveness = attributes.progressiveness
-            
-            nameLabelHeightConstraint?.constant = (-nameLabelHeightTopMargin * progressiveness)
-            shareCountLabelTopConstraint?.constant = (shareTextTopMargin *  progressiveness)
-            shareCountLabel.alpha = progressiveness - 0.2
+
+            coverPhotoBottonMarginConstraint?.constant = (coverPhotoBottonMargin * progressiveness)
+
+            UIView.beginAnimations("", context: nil)
+
+            if progressiveness <= 0.58 {
+                collapseNameLabel.alpha = 1
+                collapseProfileImageView.alpha = 1
+
+                nameLabel.alpha = 0
+                profileImageView.alpha = 0
+                shareCountLabel.alpha = 0
+
+            } else {
+                collapseNameLabel.alpha = 0
+                collapseProfileImageView.alpha = 0
+
+                nameLabel.alpha = 1
+                profileImageView.alpha = 1
+                shareCountLabel.alpha = 0.8
+            }
+
+            UIView.commitAnimations()
         }
     }
     
     func setupLayout() {
-        nameLabelHeightConstraint = nameLabel.al_bottom == tabContainerView.al_top - nameLabelHeightTopMargin
-        shareCountLabelTopConstraint = shareCountLabel.al_top == nameLabel.al_bottom + shareTextTopMargin
-        
+        coverPhotoBottonMarginConstraint = coverPhotoView.al_bottom == al_centerY - coverPhotoBottonMargin
+
         addConstraints([
+            collapseProfileImageView.al_top == al_top + 10,
+            collapseProfileImageView.al_left == al_left + 20,
+            collapseProfileImageView.al_height == collapseProfileImageViewWidth,
+            collapseProfileImageView.al_width == collapseProfileImageViewWidth,
+
+            collapseNameLabel.al_top == al_top + 10,
+            collapseNameLabel.al_left == collapseProfileImageView.al_right,
+            collapseNameLabel.al_right == al_right - 20,
+            collapseNameLabel.al_height == 30,
+
             profileImageView.al_bottom == nameLabel.al_top - 9,
             profileImageView.al_centerX == al_centerX,
             profileImageView.al_width == profileImageViewWidth,
             profileImageView.al_height == profileImageView.al_width,
 
             coverPhotoView.al_width == al_width,
-            coverPhotoView.al_bottom == profileImageView.al_centerY + 5,
+            coverPhotoBottonMarginConstraint!,
             coverPhotoView.al_left == al_left,
             coverPhotoView.al_top == al_top,
 
@@ -160,11 +220,11 @@ class UserProfileHeaderView: UICollectionReusableView {
             coverPhotoTintView.al_left == coverPhotoView.al_left,
             coverPhotoTintView.al_top == coverPhotoView.al_top,
             
-            nameLabelHeightConstraint!,
+            nameLabel.al_bottom == tabContainerView.al_top - nameLabelHeightTopMargin,
             nameLabel.al_centerX == al_centerX,
             nameLabel.al_height == 25,
             
-            shareCountLabelTopConstraint!,
+            shareCountLabel.al_top == nameLabel.al_bottom + shareTextTopMargin,
             shareCountLabel.al_centerX == al_centerX,
             shareCountLabel.al_width == 250,
 

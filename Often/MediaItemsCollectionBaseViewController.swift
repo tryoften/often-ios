@@ -9,18 +9,27 @@
 //  swiftlint:disable function_body_length
 
 import UIKit
+import EmitterKit
 
 let MediaItemCollectionViewCellReuseIdentifier = "MediaItemsCollectionViewCell"
 
 class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate {
     var cellsAnimated: [NSIndexPath: Bool]
+    var favoritesCollectionListener: Listener? = nil
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         cellsAnimated = [:]
 
         super.init(collectionViewLayout: layout)
-        
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
+
+        favoritesCollectionListener = FavoritesService.defaultInstance.didChangeFavorites.on { items in
+            self.collectionView?.reloadData()
+        }
+    }
+
+    deinit {
+        favoritesCollectionListener = nil
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -59,10 +68,10 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             case .Spotify:
                 cell.leftHeaderLabel.text = "Spotify"
                 cell.mainTextLabel.text = "\(track.name)"
-                cell.leftMetadataLabel.text = track.artistName
-                cell.rightMetadataLabel.text = track.albumName
+                cell.leftMetadataLabel.text = track.artist_name
+                cell.rightMetadataLabel.text = track.album_name
             case .Soundcloud:
-                cell.leftHeaderLabel.text = track.artistName
+                cell.leftHeaderLabel.text = track.artist_name
                 cell.leftMetadataLabel.text = track.formattedPlays()
             default:
                 break
@@ -81,6 +90,13 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             }
             
             cell.rightMetadataLabel.text = video.date?.timeAgoSinceNow()
+        case .Lyric:
+            let lyric = (result as! LyricMediaItem)
+            cell.leftHeaderLabel.text = lyric.artist_name
+            cell.rightHeaderLabel.text = lyric.track_title
+            cell.mainTextLabel.text = lyric.text
+            cell.mainTextLabel.textAlignment = .Center
+            cell.showImageView = false
             
         default:
             break
@@ -88,7 +104,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.mediaLink = result
-        cell.overlayVisible = false
         cell.contentImageView.image = nil
         if  let image = result.image,
             let imageURL = NSURL(string: image) {
@@ -101,8 +116,29 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
         
         cell.sourceLogoView.image = result.iconImageForSource()
+        cell.delegate = self
+        cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         
         return cell
+    }
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
+            let cells = collectionView.visibleCells() as? [MediaItemCollectionViewCell],
+            let result = cell.mediaLink else {
+                return
+        }
+
+        for aCell in cells {
+            if aCell.mediaLink != result {
+                cell.overlayView.hidden = true
+                cell.layer.shouldRasterize = false
+            }
+        }
+
+        cell.prepareOverlayView()
+        cell.overlayVisible = true
+        cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
@@ -123,7 +159,11 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     
     // MediaItemCollectionViewCellDelegate
     func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        
+        guard let result = cell.mediaLink else {
+            return
+        }
+
+        FavoritesService.defaultInstance.toggleFavorite(selected, result: result)
     }
     
     func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool) {

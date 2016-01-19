@@ -8,14 +8,18 @@
 
 import Foundation
 
-class LoginViewModel: NSObject, SessionManagerObserver {
+class LoginViewModel: NSObject, SessionManagerDelegate {
     weak var delegate: LoginViewModelDelegate?
     var sessionManager: SessionManager
-    var userAuthData: UserAuthData
-    var isInternetReachable: Bool
+    var isNewUser: Bool
 
+    private var userAuthData: UserAuthData
+    private var isInternetReachable: Bool
+    
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
+
+        isNewUser = false
         let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
         isInternetReachable = reachabilitymanager.reachable
 
@@ -28,29 +32,33 @@ class LoginViewModel: NSObject, SessionManagerObserver {
         }
         reachabilitymanager.startMonitoring()
 
-        self.sessionManager.addSessionObserver(self)
+        self.sessionManager.delegate = self
     }
 
     deinit {
-        sessionManager.removeSessionObserver(self)
+        self.sessionManager.delegate = nil
     }
 
     func createNewEmailUser(username: String, email: String, password: String, completion: (results: ResultType) -> Void) throws {
-
         guard AFNetworkReachabilityManager.sharedManager().reachable else {
             completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
+            delegate?.loginViewModelNoUserFound(self)
             throw SignupError.EmailNotVaild
         }
 
         guard EmailIsValid(email) else {
             completion(results: ResultType.Error(e: SignupError.EmailNotVaild))
+            delegate?.loginViewModelNoUserFound(self)
             throw SignupError.EmailNotVaild
         }
 
         guard PasswordIsValid(password) else {
             completion(results: ResultType.Error(e: SignupError.PasswordNotVaild))
+            delegate?.loginViewModelNoUserFound(self)
             throw SignupError.PasswordNotVaild
         }
+
+        isNewUser = true
 
         userAuthData.username = username.lowercaseString
         userAuthData.email = email.lowercaseString
@@ -73,19 +81,23 @@ class LoginViewModel: NSObject, SessionManagerObserver {
     func signInUser(username: String, password: String, completion: (results: ResultType) -> Void) throws {
         guard isInternetReachable else {
             completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
+            delegate?.loginViewModelNoUserFound(self)
             throw SignupError.NotConnectedOnline
         }
 
         guard EmailIsValid(username) else {
             completion(results: ResultType.Error(e: SignupError.EmailNotVaild))
+            delegate?.loginViewModelNoUserFound(self)
             throw SignupError.EmailNotVaild
         }
 
         guard PasswordIsValid(password) else {
             completion(results: ResultType.Error(e: SignupError.PasswordNotVaild))
+            delegate?.loginViewModelNoUserFound(self)
             throw SignupError.PasswordNotVaild
         }
 
+        isNewUser = true
 
         userAuthData.email = username.lowercaseString
         userAuthData.password = password
@@ -104,32 +116,78 @@ class LoginViewModel: NSObject, SessionManagerObserver {
         }
     }
 
-    func showErrorView(error: ErrorType) {
-        switch error {
-        case TwitterAccountManagerError.ReturnedEmptyUserObject:
-            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case TwitterAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
-            DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case SessionManagerError.UnvalidSignUp:
-            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case SignupError.EmailNotVaild:
-            DropDownErrorMessage().setMessage("Please enter a vaild email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case SignupError.PasswordNotVaild:
-            DropDownErrorMessage().setMessage("Please enter a vaild password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case FacebookAccountManagerError.ReturnedEmptyUserObject:
-            DropDownErrorMessage().setMessage("Unable to create account. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case FacebookAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
-            DropDownErrorMessage().setMessage("No internet connection fam :(", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        default:
-            DropDownErrorMessage().setMessage("Unable to sign in. please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+    func loginWithFacebook(completion: (results: ResultType) -> Void) throws {
+        guard isInternetReachable else {
+            completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
+            delegate?.loginViewModelNoUserFound(self)
+            throw SignupError.NotConnectedOnline
+        }
+
+        isNewUser = true
+
+        do {
+            try sessionManager.login(FacebookAccountManager.self, userData: nil,  completion: { results  -> Void in
+                switch results {
+                case .Success(_): completion(results: ResultType.Success(r: true))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
+            })
+        } catch {
+            
         }
     }
+
+    func loginAnonymously(completion: (results: ResultType) -> Void) throws {
+        guard isInternetReachable else {
+            completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
+            delegate?.loginViewModelNoUserFound(self)
+            throw SignupError.NotConnectedOnline
+        }
+
+        isNewUser = true
+
+        do {
+            try sessionManager.login(AnonymousAccountManager.self, userData: nil,  completion: { results  -> Void in
+                switch results {
+                case .Success(_): completion(results: ResultType.Success(r: true))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
+            })
+        } catch {
+
+        }
+    }
+
+    func loginWithTwitter(completion: (results: ResultType) -> Void) throws {
+        guard isInternetReachable else {
+            completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
+            delegate?.loginViewModelNoUserFound(self)
+            throw SignupError.NotConnectedOnline
+        }
+
+        isNewUser = true
+
+        do {
+            try sessionManager.login(TwitterAccountManager.self, userData: nil, completion: { results  -> Void in
+                switch results {
+                case .Success(_): completion(results: ResultType.Success(r: true))
+                case .Error(let err): completion(results: ResultType.Error(e: err))
+                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+                }
+            })
+        } catch {
+
+        }
+    }
+
 
     func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
     }
 
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
-        delegate?.loginViewModelDidLoginUser(self, user: user, isNewUser: isNewUser)
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
+        delegate?.loginViewModelDidLoginUser(self, user: user)
     }
 
     func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
@@ -148,6 +206,6 @@ enum SignupError: ErrorType {
 }
 
 protocol LoginViewModelDelegate: class {
-    func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?, isNewUser: Bool)
+    func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?)
     func loginViewModelNoUserFound(userProfileViewModel: LoginViewModel)
 }

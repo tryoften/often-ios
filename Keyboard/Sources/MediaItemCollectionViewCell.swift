@@ -50,13 +50,17 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     
     var overlayVisible: Bool {
         didSet {
-            if (overlayVisible) {
+            if overlayVisible {
                 overlayView.hidden = false
-                overlayView.showButtons()
+                overlayView.showButtons {}
                 overlayView.favoriteButton.selected = itemFavorited
             } else {
-                overlayView.hidden = true
-                
+                UIView.animateWithDuration(0.2, animations: {
+                    self.overlayView.alpha = 0.0
+                }, completion: { done in
+                    self.overlayView.hidden = true
+                    self.overlayView.alpha = 1.0
+                })
             }
         }
     }
@@ -201,12 +205,13 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         leftHeaderLabel.text = ""
         rightHeaderLabel.text = ""
         mainTextLabel.text = ""
+        mainTextLabel.textAlignment = .Left
         leftMetadataLabel.text = ""
         centerMetadataLabel.text = ""
         rightMetadataLabel.text = ""
         rightCornerImageView.image = nil
         showImageView = true
-        overlayVisible = false
+        overlayView.hidden = true
     }
     
     func prepareOverlayView() {
@@ -291,7 +296,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             if overlayView.favoriteButton.selected {
                 overlayView.leftLabel.text = "saved!".uppercaseString
             } else {
-                overlayView.leftLabel.text = "favorite".uppercaseString
+                overlayView.leftLabel.text = "Favorite".uppercaseString
             }
         }
         
@@ -347,18 +352,18 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             rightHeaderLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             rightHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             rightHeaderLabel.al_height == 16,
-            
-            mainTextLabel.al_left == metadataContentView.al_left + 54,
-            mainTextLabel.al_top == leftHeaderLabel.al_bottom + 20,
-            mainTextLabel.al_right == contentImageView.al_left - 54,
-            
+
             leftMetadataLabel.al_left == mainTextLabel.al_left,
             leftMetadataLabel.al_bottom == metadataContentView.al_bottom - 10,
             leftMetadataLabel.al_height == 12,
             
             centerMetadataLabel.al_left == leftMetadataLabel.al_right + 12,
             centerMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
-            
+
+            mainTextLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
+            mainTextLabel.al_left == metadataContentView.al_left + contentEdgeInsets.left,
+            mainTextLabel.al_centerY == al_centerY,
+
             rightMetadataLabel.al_right == mainTextLabel.al_right,
             rightMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
             rightMetadataLabel.al_left == centerMetadataLabel.al_right + 6,

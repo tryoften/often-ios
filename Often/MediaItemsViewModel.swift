@@ -14,17 +14,18 @@ enum MediaItemsViewModelError: ErrorType {
 /// also has methods to add/remove favorites
 class MediaItemsViewModel: BaseViewModel {
     weak var delegate: MediaItemsViewModelDelegate?
-    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    var currentUser: User?
+
     var collections: [MediaItemsCollectionType: [MediaItem]]
-    var userState: UserState
-    var hasSeenTwitter: Bool
-    
-    private var userId: String
-    private var userRef: Firebase?
-    private(set) var ids: [String]
+    var collectionEndpoints: [MediaItemsCollectionType: Firebase]
+
+    var userState: UserState = .NonEmpty
+    var hasSeenTwitter: Bool = true
+
+    var shouldShowEmptyStateViewOrData: Bool {
+       return !(userState == .NoTwitter || userState == .NoKeyboard) || hasSeenTwitter
+    }
+
     private var filteredCollections: [MediaItemsCollectionType: [MediaItem]] /// collections with current filters applied
-    private var collectionEndpoints: [MediaItemsCollectionType: Firebase]
 
     var filters: [MediaType] {
         didSet {
@@ -35,22 +36,24 @@ class MediaItemsViewModel: BaseViewModel {
     }
 
     init(baseRef: Firebase = Firebase(url: BaseURL)) {
-        ids = []
         filteredCollections = [:]
         collectionEndpoints = [:]
         collections = [:]
         filters = []
-
-        userId = ""
-        userState = .NonEmpty
-        hasSeenTwitter = false
 
         super.init(baseRef: baseRef, path: nil)
         
         do {
             try setupUser { inner in
                 do {
-                    let _ = try inner()
+                    let user = try inner()
+
+                    for type in MediaItemsCollectionType.allValues {
+                        let endpoint = baseRef.childByAppendingPath("users/\(user.id)/\(type.rawValue.lowercaseString)")
+                        self.collectionEndpoints[type] = endpoint
+                    }
+
+                    self.didSetupUser()
                 } catch let error {
                     print(error)
                 }
@@ -59,45 +62,7 @@ class MediaItemsViewModel: BaseViewModel {
         }
     }
 
-    /**
-        Creates a user object
-        
-        :param: completion
-        :throws:
-     
-        read more about try/catch with async closures
-        http://appventure.me/2015/06/19/swift-try-catch-asynchronous-closures/
-    */
-    func setupUser(completion: (() throws -> User) -> ()) throws {
-        guard let userId = sessionManagerFlags.userId else {
-            throw MediaItemsViewModelError.NoUser
-        }
-
-        if !sessionManagerFlags.openSession {
-            throw MediaItemsViewModelError.NoUser
-        }
-
-        self.userId = userId
-
-        userRef = ref.childByAppendingPath("users/\(userId)")
-        userRef?.keepSynced(true)
-
-        for type in MediaItemsCollectionType.allValues {
-            let endpoint = userRef?.childByAppendingPath(type.rawValue.lowercaseString)
-            collectionEndpoints[type] = endpoint
-        }
-
-        userRef?.observeEventType(.Value, withBlock: { snapshot in
-            if let _ = snapshot.key, let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
-                self.currentUser = User()
-                self.currentUser?.setValuesForKeysWithDictionary(value)
-                self.delegate?.mediaLinksViewModelDidAuthUser(self, user: self.currentUser!)
-                completion({ return self.currentUser! })
-            } else {
-                completion({ throw MediaItemsViewModelError.NoUser })
-            }
-        })
-    }
+    func didSetupUser() {}
 
     func fetchAllData() throws {
         for type in MediaItemsCollectionType.allValues {
@@ -107,36 +72,22 @@ class MediaItemsViewModel: BaseViewModel {
 
     func fetchCollection(collectionType: MediaItemsCollectionType, completion: ((Bool) -> Void)? = nil) throws {
         guard let ref = collectionEndpoints[collectionType] else {
-            throw MediaItemsViewModelError.FetchingCollectionDataFailed
+            completion?(false)
+            let error: MediaItemsViewModelError = .FetchingCollectionDataFailed
+            delegate?.mediaLinksViewModelDidFailLoadingMediaItems(self, error: error)
+            throw error
         }
 
         ref.observeEventType(.Value, withBlock: { snapshot in
-            var links: [MediaItem] = []
-
-            if let data = snapshot.value as? [String: AnyObject] {
-                var ids = [String]()
-
-                for (id, _) in data {
-                    ids.append(id)
+            dispatch_async(dispatch_get_main_queue()) {
+                self.isDataLoaded = true
+                if let data = snapshot.value as? [String: AnyObject] {
+                    self.collections[collectionType] = self.processMediaItemsCollectionData(data)
                 }
-
-                self.ids = ids
-
-                for (_, item) in data {
-                    guard let favoritesData = item as? [String: AnyObject],
-                        let link = self.processMediaItemData(favoritesData) else {
-                            continue
-                    }
-
-                    links.append(link)
-                }
+                let filteredCollection = self.filteredMediaItemsForCollectionType(collectionType)
+                self.delegate?.mediaLinksViewModelDidReceiveMediaItems(self, collectionType: collectionType, links: filteredCollection)
+                completion?(true)
             }
-
-            self.isDataLoaded = true
-            self.collections[collectionType] = links
-            let filteredCollection = self.filteredMediaItemsForCollectionType(collectionType)
-            self.delegate?.mediaLinksViewModelDidReceiveMediaItems(self, collectionType: collectionType, links: filteredCollection)
-            completion?(true)
         })
     }
 
@@ -157,49 +108,19 @@ class MediaItemsViewModel: BaseViewModel {
 
         return headerTitle
     }
-    
-    private func processMediaItemData(resultData: [String: AnyObject]) -> MediaItem? {
-        guard let provider = resultData["_index"] as? String,
-            let rawType = resultData["_type"] as? String,
-            let _ = resultData["_id"] as? String,
-            let _ = resultData["_score"] as? Double,
-            let _ = MediaItemSource(rawValue: provider),
-            let type = MediaType(rawValue: rawType) else {
-                return nil
+
+    func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
+        var links: [MediaItem] = []
+        var ids = [String]()
+
+        for (id, item) in data {
+            ids.append(id)
+            if let dict = item as? NSDictionary, let link = MediaItem.mediaItemFromType(dict) {
+                links.append(link)
+            }
         }
 
-        var result: MediaItem? = nil
-        
-        switch(type) {
-        case .Article:
-            result = ArticleMediaItem(data: resultData)
-        case .Track:
-            result = TrackMediaItem(data: resultData)
-        case .Video:
-            result = VideoMediaItem(data: resultData)
-            break
-        default:
-            break
-        }
-        
-        guard let item = result else {
-            return nil
-        }
-        
-        if let index = resultData["_index"] as? String,
-            let source = MediaItemSource(rawValue: index) {
-                item.source = source
-        } else {
-            item.source = .Unknown
-        }
-        
-        if let source = resultData["source"] as? [String: String],
-            let sourceName = source["name"] {
-                item.sourceName = sourceName
-        } else {
-            item.sourceName = item.getNameForSource()
-        }
-        return item
+        return links
     }
 
     private func applyFilters(links: [MediaItem]) -> [MediaItem] {
@@ -219,9 +140,10 @@ class MediaItemsViewModel: BaseViewModel {
 }
 
 enum MediaItemsCollectionType: String {
-    case Favorites = "Favorites"
-    case Recents = "Recents"
-    case Trending = "Trending"
+    case Favorites = "favorites"
+    case Recents = "recents"
+    case Tracks = "tracks"
+    case Lyrics = "lyrics"
 
     static let allValues = [Favorites, Recents]
 }
@@ -229,5 +151,6 @@ enum MediaItemsCollectionType: String {
 protocol MediaItemsViewModelDelegate: class {
     func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User)
     func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem])
+    func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError)
 }
 

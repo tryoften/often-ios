@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewModel: NSObject, SessionManagerObserver {
+class SettingsViewModel: NSObject, SessionManagerDelegate {
     weak var delegate: SettingsViewModelDelegate?
     var sessionManager: SessionManager
     var currentUser: User?
@@ -16,12 +16,12 @@ class SettingsViewModel: NSObject, SessionManagerObserver {
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
         super.init()
-        self.sessionManager.addSessionObserver(self)
+        self.sessionManager.delegate = self
         self.requestData(nil)
     }
     
     deinit {
-        sessionManager.removeSessionObserver(self)
+        self.sessionManager.delegate = nil
     }
     
     func requestData(completion: ((Bool) -> ())? = nil) {
@@ -33,23 +33,22 @@ class SettingsViewModel: NSObject, SessionManagerObserver {
         }
     }
     
-    func sessionDidOpen(sessionManager: SessionManager, session: FBSession) {
-        
-    }
-    
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User, isNewUser: Bool) {
+
+    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
         currentUser = user
         if let userData = currentUser {
-            delegate?.settingsViewModelDidReceiveUserData(self, user: userData, isNewUser: isNewUser)
+            delegate?.settingsViewModelDidReceiveUserData(self, user: userData)
         } else {
             print("No User Data")
         }
     }
     
-    func sessionManagerDidFetchSocialAccounts(sessionsManager: SessionManager, socialAccounts: [String: AnyObject]?) {
+    func sessionManagerNoUserFound(sessionManager: SessionManager) {
+
     }
+
 }
 
 protocol SettingsViewModelDelegate: class {
-    func settingsViewModelDidReceiveUserData(userProfileViewModel: SettingsViewModel, user: User, isNewUser: Bool)
+    func settingsViewModelDidReceiveUserData(userProfileViewModel: SettingsViewModel, user: User)
 }

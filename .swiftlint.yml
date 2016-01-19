@@ -4,6 +4,7 @@ disabled_rules:
   - variable_name
   - todo
   - trailing_whitespace
+  - function_body_length
 excluded: # paths to ignore during linting. overridden by `included`.
   - Carthage
   - Pods

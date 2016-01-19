@@ -63,46 +63,9 @@ class SearchViewModel: SearchBaseViewModel {
     }
     
     func processSearchResultData(resultData: [String: AnyObject]) -> MediaItem? {
-        guard let provider = resultData["_index"] as? String,
-            let rawType = resultData["_type"] as? String,
-            let _ = resultData["_id"] as? String,
-            let _ = resultData["_score"] as? Double,
-            let _ = MediaItemSource(rawValue: provider),
-            let type = MediaType(rawValue: rawType) else {
-                return nil
+        if let data = resultData as? NSDictionary {
+            return MediaItem.mediaItemFromType(data)
         }
-        
-        var result: MediaItem? = nil
-        
-        switch(type) {
-        case .Article:
-            result = ArticleMediaItem(data: resultData)
-        case .Track:
-            result = TrackMediaItem(data: resultData)
-        case .Video:
-            result = VideoMediaItem(data: resultData)
-            break
-        default:
-            break
-        }
-        
-        if let item = result {
-            if let index = resultData["_index"] as? String,
-                let source = MediaItemSource(rawValue: index) {
-                    item.source = source
-            } else {
-                item.source = .Unknown
-            }
-            
-            if let source = resultData["source"] as? [String: String],
-                let sourceName = source["name"] {
-                    item.sourceName = sourceName
-            } else {
-                item.sourceName = item.getNameForSource()
-            }
-            return item
-        }
-        
         return nil
     }
 }
