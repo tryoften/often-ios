@@ -141,6 +141,9 @@
 		696C2DA71BB6126B004AC9F6 /* ToolTipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */; };
 		696C2DB11BB61357004AC9F6 /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C2DB01BB61357004AC9F6 /* ToolTip.swift */; };
 		696D8A5D1B93E8890016073C /* UserProfileSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */; };
+		698674171C4A911900826FAA /* DropDownMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698674161C4A911900826FAA /* DropDownMessageView.swift */; };
+		698674181C4A911900826FAA /* DropDownMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698674161C4A911900826FAA /* DropDownMessageView.swift */; };
+		698674191C4A911900826FAA /* DropDownMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698674161C4A911900826FAA /* DropDownMessageView.swift */; };
 		698AD3401C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698AD33F1C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift */; };
 		698AD3411C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698AD33F1C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift */; };
 		698AD3421C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698AD33F1C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift */; };
@@ -794,6 +797,7 @@
 		696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolTipViewController.swift; path = Sources/ToolTipViewController.swift; sourceTree = "<group>"; };
 		696C2DB01BB61357004AC9F6 /* ToolTip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ToolTip.swift; path = Sources/ToolTip.swift; sourceTree = "<group>"; };
 		696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		698674161C4A911900826FAA /* DropDownMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownMessageView.swift; sourceTree = "<group>"; };
 		698AD33F1C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardBrowseNavigationBar.swift; path = Sources/KeyboardBrowseNavigationBar.swift; sourceTree = "<group>"; };
 		698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderView.swift; sourceTree = "<group>"; };
 		699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedLoaderView.swift; sourceTree = "<group>"; };
@@ -1449,6 +1453,7 @@
 				3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */,
 				699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */,
 				3BD971D51B9E642D007EAB5A /* LoginView.swift */,
+				698674161C4A911900826FAA /* DropDownMessageView.swift */,
 				3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */,
 				3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */,
 				3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */,
@@ -2364,6 +2369,7 @@
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				813323921C226BD70084918B /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
 				813323841C2227840084918B /* KeyboardContainerViewController.swift in Sources */,
+				698674171C4A911900826FAA /* DropDownMessageView.swift in Sources */,
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				811FA2941BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */,
 				81153C781BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
@@ -2459,6 +2465,7 @@
 				81D60AD11B84BF3200347BCA /* SearchResponse.swift in Sources */,
 				8176BEE71B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
 				8179387F1B55859D0064B0CF /* KeyboardKey.swift in Sources */,
+				698674191C4A911900826FAA /* DropDownMessageView.swift in Sources */,
 				8107F7E31BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
 				3B6EA4311BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift in Sources */,
 				812E963B1BF28EC7009CCB55 /* AutocorrectSuggestionView.swift in Sources */,
@@ -2667,6 +2674,7 @@
 				81DA3EF31C24BE85006822D3 /* AppDelegate.swift in Sources */,
 				81DA3EF41C24BE85006822D3 /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
 				81DA3EF51C24BE85006822D3 /* KeyboardContainerViewController.swift in Sources */,
+				698674181C4A911900826FAA /* DropDownMessageView.swift in Sources */,
 				81DA3EF61C24BE85006822D3 /* TextProcessingManager.swift in Sources */,
 				81DA3EF71C24BE85006822D3 /* AutocorrectSuggestionsViewController.swift in Sources */,
 				81DA3EF81C24BE85006822D3 /* SearchResultsViewModel.swift in Sources */,
@@ -2802,6 +2810,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PROVISIONING_PROFILE = "";
@@ -2932,6 +2941,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PROVISIONING_PROFILE = "";
@@ -3057,6 +3067,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PROVISIONING_PROFILE = "";

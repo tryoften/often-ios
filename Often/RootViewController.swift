@@ -10,12 +10,28 @@ import UIKit
 
 class RootViewController: UITabBarController {
     let sessionManager = SessionManager.defaultManager
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
+    var isInternetReachable: Bool = true
+    var errorDropView: DropDownMessageView
 
+    init() {
+        errorDropView = DropDownMessageView()
+        errorDropView.text = "NO INTERNET FAM :("
+        
+        super.init(nibName: nil, bundle: nil)
+        
         styleTabBar()
         setupTabBarItems()
+        
+        view.addSubview(errorDropView)
+        
+        let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
+        isInternetReachable = reachabilityManager.reachable
+        
+        reachabilityManager.setReachabilityStatusChangeBlock { status in
+            self.isInternetReachable = reachabilityManager.reachable
+            self.updateReachabilityStatusBar()
+        }
+        reachabilityManager.startMonitoring()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,6 +40,7 @@ class RootViewController: UITabBarController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        updateReachabilityStatusBar()
     }
 
     func styleTabBar() {
@@ -67,5 +84,16 @@ class RootViewController: UITabBarController {
         
         selectedIndex = 0
     }
-
+    
+    func updateReachabilityStatusBar() {
+        if isInternetReachable {
+            UIView.animateWithDuration(0.3, animations: {
+                self.errorDropView.frame = CGRectMake(0, -40, UIScreen.mainScreen().bounds.width, 40)
+            })
+        } else {
+            UIView.animateWithDuration(0.3, animations: {
+                self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 40)
+            })
+        }
+    }
 }
