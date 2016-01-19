@@ -178,33 +178,10 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         var cell: MediaItemCollectionViewCell
         cell = parseMediaItemData(viewModel.filteredMediaItemsForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
-        
-        if let result = cell.mediaLink {
-            if FavoritesService.defaultInstance.checkFavorite(result) {
-                cell.itemFavorited = true
-            } else {
-                cell.itemFavorited = false
-            }
-        }
-        
+
         animateCell(cell, indexPath: indexPath)
         
         return cell
-    }
-
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
-
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
-            let result = cell.mediaLink else {
-                return
-        }
-
-        if FavoritesService.defaultInstance.checkFavorite(result) {
-            cell.itemFavorited = true
-        } else {
-            cell.itemFavorited = false
-        }
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
