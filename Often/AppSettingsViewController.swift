@@ -236,7 +236,6 @@ class AppSettingsViewController: UIViewController,
             case 2:
                 cell = UserProfileSettingsTableViewCell(type: .Switch)
                 cell.disclosureIndicator.image = UIImage(named: "")
-               cell.userInteractionEnabled = false
             default:
                 break
             }
