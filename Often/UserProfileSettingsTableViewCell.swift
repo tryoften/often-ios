@@ -97,7 +97,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             break
         case .Switch:
             settingSwitch.addTarget(self, action: "switchToggled:", forControlEvents: .TouchUpInside)
-            settingSwitch.on = UIApplication.sharedApplication().isRegisteredForRemoteNotifications()
+            settingSwitch.on = SessionManagerFlags.defaultManagerFlags.userNotificationSettings
 
             addSubview(titleLabel)
             addSubview(settingSwitch)
@@ -131,15 +131,12 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     //MARK: UISwitch
     func switchToggled(sender: UISwitch) {
-        switch sender.on {
-        case true:
+         SessionManagerFlags.defaultManagerFlags.userNotificationSettings = sender.on
+
+        if sender.on {
             UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
             UIApplication.sharedApplication().registerForRemoteNotifications()
-
-        default:
-            break
         }
-        
     }
     
     //MARK: UITextFieldDelegate
