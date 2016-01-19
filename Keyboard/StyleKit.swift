@@ -422,7 +422,7 @@ public class StyleKit : NSObject {
         let context = UIGraphicsGetCurrentContext()
 
         //// Color Declarations
-        let tealColor = UIColor(red: 0.145, green: 0.780, blue: 0.530, alpha: 1.000)
+        let tealColor = UIColor(red: 0.145, green: 0.780, blue: 0.530, alpha: 0.740)
         let fillColor2 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
         //// icon
