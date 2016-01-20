@@ -23,79 +23,24 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
 
     deinit {
         self.viewModel.delegate = nil
-
     }
 
-    func didTapSignupButton(sender: UIButton) {
-        self.view.endEditing(true)
-        showHud()
-
-    }
-
-    override func viewDidAppear(animated: Bool) {
-
-    }
-
-    override func viewWillDisappear(animated: Bool) {
-
-    }
-
-    func didTapSigninButton(sender: UIButton) {
-        self.view.endEditing(true)
-        showHud()
-
-    }
-
-    func didTapFacebookButton(sender: UIButton) {
-        self.view.endEditing(true)
-        showHud()
-
-        do {
-            try viewModel.loginWithFacebook({ (results) -> Void in
-                switch results {
-                case .Success(_): PKHUD.sharedHUD.hide(animated: true)
-                case .Error(let err): self.showErrorView(err)
-                case .SystemError(let err): self.showSystemErrorView(err)
-                }
-            })
-
-        } catch {
-            
+    func didTapButton(button: LoginButton?) {
+        guard let button = button else {
+            return
         }
-    }
 
-
-    func didTapTwitterButton(sender: UIButton) {
-        self.view.endEditing(true)
+        view.endEditing(true)
         showHud()
 
         do {
-            try viewModel.loginWithTwitter({ (results) -> Void in
+            try viewModel.login(button.type, completion: { results in
                 switch results {
                 case .Success(_): PKHUD.sharedHUD.hide(animated: true)
                 case .Error(let err): self.showErrorView(err)
                 case .SystemError(let err): self.showSystemErrorView(err)
                 }
             })
-
-        } catch {
-
-        }
-    }
-
-    func didTapAnonymousButton(sender: UIButton) {
-        self.view.endEditing(true)
-        showHud()
-
-        do {
-            try viewModel.loginAnonymously({ (results) -> Void in
-                switch results {
-                case .Success(_): PKHUD.sharedHUD.hide(animated: true)
-                case .Error(let err): self.showErrorView(err)
-                case .SystemError(let err): self.showSystemErrorView(err)
-                }
-            })
-
         } catch {
 
         }
@@ -107,14 +52,13 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
         PKHUD.sharedHUD.show()
     }
 
-
     func showErrorView(error: ErrorType) {
         PKHUD.sharedHUD.hide(animated: true)
 
         switch error {
-        case TwitterAccountManagerError.ReturnedEmptyUserObject:
+        case AccountManagerError.ReturnedEmptyUserObject:
             DropDownErrorMessage().setMessage("Unable to sign in. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case TwitterAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
+        case AccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
             DropDownErrorMessage().setMessage("Need to be connected to the internet", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         case SessionManagerError.UnvalidSignUp:
             DropDownErrorMessage().setMessage("Unable to sign in. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
@@ -122,9 +66,7 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
             DropDownErrorMessage().setMessage("Please enter a valid email", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         case SignupError.PasswordNotVaild:
             DropDownErrorMessage().setMessage("Please enter a valid password", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case FacebookAccountManagerError.ReturnedEmptyUserObject:
-            DropDownErrorMessage().setMessage("Unable to create account. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        case FacebookAccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
+        case AccountManagerError.NotConnectedOnline, SignupError.NotConnectedOnline:
             DropDownErrorMessage().setMessage("No internet connection fam :(", errorBackgroundColor: UIColor(fromHexString: "#152036"))
         default:
             DropDownErrorMessage().setMessage("Unable to sign in. Please try again", errorBackgroundColor: UIColor(fromHexString: "#152036"))

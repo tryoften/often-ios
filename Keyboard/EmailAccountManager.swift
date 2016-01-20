@@ -13,7 +13,7 @@ class EmailAccountManager: AccountManager {
     override func openSession(completion: (results: ResultType) -> Void) {
         guard let email = currentUser?.email,
             let password = currentUser?.password else {
-                completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
+                completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                 return
         }
         
@@ -29,12 +29,12 @@ class EmailAccountManager: AccountManager {
         sessionManagerFlags.openSession = true
     }
     
-    override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
+    override func login(userData: UserAuthData?, completion: AccountManagerResultCallback) {
         guard let user = userData,
             let email = userData?.email,
             let password = userData?.password,
             let username = userData?.username else {
-                 completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
+                 completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                 return
         }
 
@@ -45,28 +45,16 @@ class EmailAccountManager: AccountManager {
 
         if user.isNewUser {
             createUser(completion)
-
         } else {
-            PFUser.logInWithUsernameInBackground(email, password: password) { (user, error) in
-                if error == nil {
-                    if user != nil {
-                        self.openSession(completion)
-                    } else {
-                        completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
-                    }
-
-                } else {
-                    completion(results: ResultType.SystemError(e: error!))
-                }
-            }
+            PFUser.logInWithUsernameInBackground(email, password: password, block: handleParseUser(completion))
         }
     }
     
-    func createUser(completion: (results: ResultType) -> Void) {
+    func createUser(completion: AccountManagerResultCallback) {
         guard let email = currentUser?.email,
             let username = currentUser?.username,
             let password = currentUser?.password else {
-                completion(results: ResultType.Error(e: EmailAccountManagerError.ReturnedEmptyUserObject))
+                completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                 return
         }
         
@@ -91,12 +79,12 @@ class EmailAccountManager: AccountManager {
         }
     }
 
-    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+    override func fetchUserData(authData: FAuthData, completion: AccountManagerResultCallback) {
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         sessionManagerFlags.userId = authData.uid
 
         var data = [String : AnyObject]()
-        
+
         if let parseCurrentUser = PFUser.currentUser() {
             data["id"] = authData.uid
             data["email"] = parseCurrentUser.email
@@ -116,10 +104,4 @@ class EmailAccountManager: AccountManager {
             }
         }
     }
-}
-
-enum EmailAccountManagerError: ErrorType {
-    case MissingUserData
-    case ReturnedEmptyUserObject
-    case NotConnectedOnline
 }

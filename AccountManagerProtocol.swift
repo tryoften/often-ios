@@ -27,6 +27,13 @@ enum AccountManagerType {
     case Anonymous
 }
 
+let AccountManagerTypes: [AccountManagerType: AccountManager.Type] = [
+    .Email: EmailAccountManager.self,
+    .Facebook: FacebookAccountManager.self,
+    .Twitter: TwitterAccountManager.self,
+    .Anonymous: AnonymousAccountManager.self
+]
+
 enum ResultType {
     case Success(r: Bool)
     case Error(e: ErrorType)
@@ -36,5 +43,5 @@ enum ResultType {
 protocol AccountManagerDelegate: class {
     func accountManagerUserDidLogin(accountManager: AccountManagerProtocol, user: User)
     func accountManagerUserDidLogout(accountManager: AccountManagerProtocol, user: User)
-    func accountManagerNoUserFound(accountManager: AccountManagerProtocol, user: User)
+    func accountManagerNoUserFound(accountManager: AccountManagerProtocol)
 }

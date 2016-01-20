@@ -53,6 +53,7 @@ class BaseViewModel: DataLoadable {
             throw MediaItemsViewModelError.NoUser
         }
 
+    #if KEYBOARD
         self.userId = userId
 
         userRef = ref.childByAppendingPath("users/\(userId)")
@@ -67,6 +68,14 @@ class BaseViewModel: DataLoadable {
                 completion({ throw MediaItemsViewModelError.NoUser })
             }
         })
+    #else
+        currentUser = SessionManager.defaultManager.currentUser
+        if let user = currentUser {
+            completion({ return user })
+        } else {
+            completion({ throw MediaItemsViewModelError.NoUser })
+        }
+    #endif
     }
 }
 

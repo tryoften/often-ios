@@ -32,7 +32,7 @@ class FacebookAccountManager: AccountManager {
                 })
             }
         } else {
-            completion(results: ResultType.Error(e: FacebookAccountManagerError.MissingUserData))
+            completion(results: ResultType.Error(e: AccountManagerError.MissingUserData))
         }
 
         sessionManagerFlags.openSession = true
@@ -40,33 +40,23 @@ class FacebookAccountManager: AccountManager {
 
     override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
         guard isInternetReachable else {
-            completion(results: ResultType.Error(e: FacebookAccountManagerError.NotConnectedOnline))
+            completion(results: ResultType.Error(e: AccountManagerError.NotConnectedOnline))
             return
         }
         
-        PFFacebookUtils.logInWithPermissions(permissions, block: { (user, error) in
-            if error == nil {
-                if user != nil {
-                    self.openSession(completion)
-                } else {
-                    completion(results: ResultType.Error(e: FacebookAccountManagerError.ReturnedEmptyUserObject))
-                }
-            } else {
-                 completion(results: ResultType.SystemError(e: error!))
-            }
-        })
-
+        PFFacebookUtils.logInWithPermissions(permissions, block: handleParseUser(completion))
     }
     
-    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+    override func fetchUserData(authData: FAuthData, completion: AccountManagerResultCallback) {
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
+        sessionManagerFlags.userId = authData.uid
 
         let request = FBRequest.requestForMe()
         request.startWithCompletionHandler({ (connection, result, error) in
             if error == nil {
                 guard let data = (result as? NSDictionary)?.mutableCopy() as? [String : AnyObject],
                     let userId = data["id"] as? String else {
-                        completion(results: ResultType.Error(e: FacebookAccountManagerError.MissingUserData))
+                        completion(results: ResultType.Error(e: AccountManagerError.MissingUserData))
                         return
                 }
 
@@ -86,16 +76,9 @@ class FacebookAccountManager: AccountManager {
                     completion(results: ResultType.Success(r: true))
                     self.delegate?.accountManagerUserDidLogin(self, user: user)
                 }
-
             } else {
                 completion(results: ResultType.SystemError(e: error!))
             }
         })
     }
-}
-
-enum FacebookAccountManagerError: ErrorType {
-    case MissingUserData
-    case ReturnedEmptyUserObject
-    case NotConnectedOnline
 }

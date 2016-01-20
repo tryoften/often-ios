@@ -77,7 +77,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
 
         loginView.createAccountButton.addTarget(self,  action: "didTapCreateAccountButton:", forControlEvents: .TouchUpInside)
         loginView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
-        loginView.skipButton.addTarget(self, action: "didTapAnonymousButton:", forControlEvents: .TouchUpInside)
+        loginView.skipButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
         setupPages()
         loadVisiblePages()
 
@@ -131,9 +131,6 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         scrollTimer = NSTimer.scheduledTimerWithTimeInterval(4.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
     
-//    override func prefersStatusBarHidden() -> Bool {
-//        return true
-//    }
 
     func setupPages() {
         pageCount = pageImages.count
@@ -150,7 +147,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         presentViewController(createAccount, animated: true, completion: nil)
     }
     
-    override func didTapSigninButton(sender: UIButton) {
+    func didTapSigninButton(sender: UIButton) {
         scrollTimer?.invalidate()
 
         let signinAccount = SigninViewController(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
@@ -173,16 +170,9 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         view.addConstraints(constraints)
     }
 
-    override func didTapAnonymousButton(sender: UIButton) {
-        scrollTimer?.invalidate()
-        super.didTapAnonymousButton(sender)
-
-    }
-
     func userDataTimeOut() {
         launchScreenLoaderTimer?.invalidate()
         loginView.launchScreenLoader.hidden = true
-        viewModel.delegate = nil
     }
 
     override func loginViewModelNoUserFound(userProfileViewModel: LoginViewModel) {
