@@ -16,12 +16,24 @@ class SessionManagerFlags {
     struct SessionManagerPropertyKey {
         static var userID = "userID"
         static var userEmail = "email"
+        static var messageSentCount = "messageSentCount"
         static var openSession = "openSession"
         static var keyboardOpen = "keyboardOpen"
         static var anonymousUser = "anonymousUser"
         static var keyboardGeneralToolTips = "keyboardGeneralToolTips"
         static var keyboardSearchBarToolTips = "searchBarTool"
         static var keyboardInstallWalkthrough = "keyboardInstallWalkthrough"
+        static var userNotificationSettings = "userNotificationSettings"
+    }
+
+    var userNotificationSettings: Bool {
+        get {
+            return userDefaults.boolForKey(SessionManagerPropertyKey.userNotificationSettings)
+        }
+
+        set(value) {
+            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.userNotificationSettings)
+        }
     }
     
     var hasSeenKeyboardGeneralToolTips: Bool {
@@ -61,6 +73,16 @@ class SessionManagerFlags {
 
         set(value) {
             setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.keyboardInstallWalkthrough)
+        }
+    }
+    
+    var userMessageCount: Int {
+        get {
+            return userDefaults.integerForKey(SessionManagerPropertyKey.messageSentCount)
+        }
+        
+        set(value) {
+            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.messageSentCount)
         }
     }
 

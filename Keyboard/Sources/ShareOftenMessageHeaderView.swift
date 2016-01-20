@@ -20,7 +20,6 @@ class ShareOftenMessageHeaderView: MessageWithButtonHeaderView {
         super.init(frame: frame)
         
         titleLabel.text = "Share Often"
-        
         subtitleLabel.text = "Hey there good looking. Enjoying\n Often? Share the link with a friend"
         
         primaryButton.setTitle("Insert Link".uppercaseString, forState: .Normal)
