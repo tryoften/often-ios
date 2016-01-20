@@ -68,7 +68,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         if Diagnostics.platformString().number == 5 {
             return 50
         }
-        return 60
+        return 55
     }
     
     private var profileImageViewWidth: CGFloat {
@@ -195,14 +195,14 @@ class UserProfileHeaderView: UICollectionReusableView {
         coverPhotoBottonMarginConstraint = coverPhotoView.al_bottom == al_centerY - coverPhotoBottonMargin
 
         addConstraints([
-            collapseProfileImageView.al_top == al_top + 10,
-            collapseProfileImageView.al_left == al_left + 20,
+            collapseProfileImageView.al_top == al_top + 12,
+            collapseProfileImageView.al_left == al_left + 18,
             collapseProfileImageView.al_height == collapseProfileImageViewWidth,
             collapseProfileImageView.al_width == collapseProfileImageViewWidth,
 
-            collapseNameLabel.al_top == al_top + 10,
+            collapseNameLabel.al_top == al_top + 12,
             collapseNameLabel.al_left == collapseProfileImageView.al_right,
-            collapseNameLabel.al_right == al_right - 20,
+            collapseNameLabel.al_right == al_right - 18,
             collapseNameLabel.al_height == 30,
 
             profileImageView.al_bottom == nameLabel.al_top - 9,

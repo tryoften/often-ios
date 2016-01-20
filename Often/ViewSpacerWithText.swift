@@ -20,7 +20,7 @@ class ViewSpacerWithText: UIView {
         orLabel.textColor = UIColor(fromHexString: "#A0A0A0")
         orLabel.translatesAutoresizingMaskIntoConstraints = false
         orLabel.text = title
-        orLabel.alpha = 0.54
+        orLabel.alpha = 0.90
 
         orSpacerOne = UIView()
         orSpacerOne.translatesAutoresizingMaskIntoConstraints = false
