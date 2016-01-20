@@ -11,9 +11,11 @@ import UIKit
 class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewController {
     var textProcessor: TextProcessingManager?
     var headerView: ShareOftenMessageHeaderView?
+    var collType: MediaItemsCollectionType?
 
     init(viewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType) {
         
+        collType = collectionType
         if collectionType == .Favorites {
             let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewLayout()
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
@@ -39,13 +41,15 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if(SessionManagerFlags.defaultManagerFlags.userMessageCount % 10 == 0 && headerView?.hidden == true) {
-            headerView?.hidden = false
-            collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(), animated: true)
-            collectionView?.contentOffset = CGPointMake(0, -(KeyboardSearchBarHeight + 2))
+        if(collType == .Favorites) {            
+            if(SessionManagerFlags.defaultManagerFlags.userMessageCount % 10 == 0 && headerView?.hidden == true) {
+                headerView?.hidden = false
+                collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(), animated: true)
+                collectionView?.contentOffset = CGPointMake(0, -(KeyboardSearchBarHeight + 2))
+            }
+            // take this out when we actually count how many times a user has shared a message
+            SessionManagerFlags.defaultManagerFlags.userMessageCount++
         }
-        // take this out when we actually count how many times a user has shared a message
-        SessionManagerFlags.defaultManagerFlags.userMessageCount++
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -56,7 +60,6 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
     class func provideCollectionViewLayout(headerHeight: CGFloat = 150) -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let layout = CSStickyHeaderFlowLayout()
-
         layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, headerHeight)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, headerHeight)
         layout.parallaxHeaderAlwaysOnTop = false

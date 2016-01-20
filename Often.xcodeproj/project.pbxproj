@@ -622,6 +622,7 @@
 		81F833861C18E904001B8662 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833841C18E904001B8662 /* ArtistCollectionViewCell.swift */; };
 		81F833901C1A38B2001B8662 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
 		81F833911C1A38B2001B8662 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
+		BFE00A071C5010D900B59F3C /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3A1B7E1C4F4AAA0075D601 /* LoginButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1468,11 +1469,7 @@
 				3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */,
 				3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */,
 				3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */,
-				3BEB40AD1BCDBC2300D36C4D /* LocalNotificationsAlertView.swift */,
-				699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */,
-				3BD971D51B9E642D007EAB5A /* LoginView.swift */,
 				698674161C4A911900826FAA /* DropDownMessageView.swift */,
-				3B100A2A1BB9C8EE00C97D5E /* KeyboardWalkthroughView.swift */,
 				3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */,
 				69FE9E751C3E04C300DBC169 /* MessageWithButtonHeaderView.swift */,
 				699AF9B51C3EC389002869B3 /* AnimatedLoaderView.swift */,
@@ -1633,7 +1630,6 @@
 				81F833841C18E904001B8662 /* ArtistCollectionViewCell.swift */,
 				813323691C1F8A1A0084918B /* SlideTabBar.swift */,
 				699D0B121C49649100BCABAE /* ShareOftenMessageHeaderView.swift */,
-				69FE9E751C3E04C300DBC169 /* MessageWithButtonHeaderView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -2733,6 +2729,7 @@
 				81DA3EF31C24BE85006822D3 /* AppDelegate.swift in Sources */,
 				81DA3EF41C24BE85006822D3 /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
 				81DA3EF51C24BE85006822D3 /* KeyboardContainerViewController.swift in Sources */,
+				BFE00A071C5010D900B59F3C /* LoginButton.swift in Sources */,
 				698674181C4A911900826FAA /* DropDownMessageView.swift in Sources */,
 				81DA3EF61C24BE85006822D3 /* TextProcessingManager.swift in Sources */,
 				81DA3EF71C24BE85006822D3 /* AutocorrectSuggestionsViewController.swift in Sources */,
