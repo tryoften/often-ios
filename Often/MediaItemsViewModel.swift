@@ -79,14 +79,15 @@ class MediaItemsViewModel: BaseViewModel {
         }
 
         ref.observeEventType(.Value, withBlock: { snapshot in
-
-            self.isDataLoaded = true
-            if let data = snapshot.value as? [String: AnyObject] {
-                self.collections[collectionType] = self.processMediaItemsCollectionData(data)
+            dispatch_async(dispatch_get_main_queue()) {
+                self.isDataLoaded = true
+                if let data = snapshot.value as? [String: AnyObject] {
+                    self.collections[collectionType] = self.processMediaItemsCollectionData(data)
+                }
+                let filteredCollection = self.filteredMediaItemsForCollectionType(collectionType)
+                self.delegate?.mediaLinksViewModelDidReceiveMediaItems(self, collectionType: collectionType, links: filteredCollection)
+                completion?(true)
             }
-            let filteredCollection = self.filteredMediaItemsForCollectionType(collectionType)
-            self.delegate?.mediaLinksViewModelDidReceiveMediaItems(self, collectionType: collectionType, links: filteredCollection)
-            completion?(true)
         })
     }
 

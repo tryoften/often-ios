@@ -100,7 +100,7 @@ class AlertView: SpringView {
             subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_left == al_left + subtitleLabelLeftRightMargin,
             subtitleLabel.al_right == al_right - subtitleLabelLeftRightMargin,
-            subtitleLabel.al_height == 32,
+            subtitleLabel.al_height == 40,
 
             actionButton.al_centerX == al_centerX,
             actionButton.al_left == al_left + actionButtonLeftRightMargin,
