@@ -74,10 +74,8 @@ class LoginView: UIView {
         createAccountButton.layer.cornerRadius = 4.0
         createAccountButton.clipsToBounds = true
         
-        skipButton = UIButton()
-        skipButton.translatesAutoresizingMaskIntoConstraints = false
+        skipButton = LoginButton.AnonymousButton()
         skipButton.setTitle("skip".uppercaseString, forState: .Normal)
-        skipButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
         skipButton.setTitleColor(UIColor(fromHexString: "#152036") , forState: .Normal)
         skipButton.alpha = 0.54
         

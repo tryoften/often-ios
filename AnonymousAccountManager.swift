@@ -10,11 +10,11 @@ import Foundation
 
 class AnonymousAccountManager: AccountManager {
 
-  override  func openSession(completion: (results: ResultType) -> Void) {
+  override func openSession(completion: (results: ResultType) -> Void) {
         self.firebase.authAnonymouslyWithCompletionBlock { (err, auth) -> Void in
             if err != nil {
                 print(err)
-                completion(results: ResultType.Error(e: AnonymousAccountManagerError.ReturnedEmptyUserObject))
+                completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
             } else {
                 self.fetchUserData(auth, completion: completion)
             }
@@ -24,18 +24,11 @@ class AnonymousAccountManager: AccountManager {
         sessionManagerFlags.userIsAnonymous = true
     }
     
-    override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void)  {
-        PFAnonymousUtils.logInWithBlock {
-            (user: PFUser?, error: NSError?) -> Void in
-            if error != nil {
-                completion(results: ResultType.Error(e: AnonymousAccountManagerError.ReturnedEmptyUserObject))
-            } else {
-                 self.openSession(completion)
-            }
-        }
+    override func login(userData: UserAuthData?, completion: AccountManagerResultCallback)  {
+        PFAnonymousUtils.logInWithBlock(handleParseUser(completion))
     }
 
-    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+    override func fetchUserData(authData: FAuthData, completion: AccountManagerResultCallback) {
         userRef = firebase.childByAppendingPath("users/\(authData.uid)")
         sessionManagerFlags.userId = authData.uid
         
@@ -55,8 +48,4 @@ class AnonymousAccountManager: AccountManager {
             }
         }
     }
-}
-
-enum AnonymousAccountManagerError: ErrorType {
-    case ReturnedEmptyUserObject
 }

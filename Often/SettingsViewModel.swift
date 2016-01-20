@@ -28,7 +28,7 @@ class SettingsViewModel: NSObject, SessionManagerDelegate {
         if sessionManager.sessionManagerFlags.openSession {
             if let user = sessionManager.currentUser {
                 currentUser = user
-                
+
             }
         }
     }

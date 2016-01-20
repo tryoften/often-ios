@@ -35,30 +35,19 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
         
         signinView.cancelButton.addTarget(self,  action: "didTapcancelButton:", forControlEvents: .TouchUpInside)
         signinView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
-        signinView.signinTwitterButton.addTarget(self, action:"didTapTwitterButton:", forControlEvents: .TouchUpInside)
-        signinView.signinFacebookButton.addTarget(self, action:"didTapFacebookButton:", forControlEvents: .TouchUpInside)
+        signinView.signinButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+        signinView.signinTwitterButton.addTarget(self, action:"didTapButton:", forControlEvents: .TouchUpInside)
+        signinView.signinFacebookButton.addTarget(self, action:"didTapButton:", forControlEvents: .TouchUpInside)
     }
 
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
     
-    override func didTapSigninButton(sender: UIButton) {
-        super.didTapSignupButton(sender)
-
-        do {
-            try viewModel.signInUser(signinView.emailTextField.text!, password: signinView.passwordTextField.text!) { results in
-
-                switch results {
-                case .Success(_): PKHUD.sharedHUD.hide(animated: true)
-                case .Error(let err): self.showErrorView(err)
-                case .SystemError(let err): self.showSystemErrorView(err)
-                }
-            }
-            
-        } catch {
-            
-        }
+    func didTapSigninButton(sender: UIButton) {
+        viewModel.userAuthData.email = signinView.emailTextField.text!
+        viewModel.userAuthData.password = signinView.passwordTextField.text!
+        viewModel.userAuthData.isNewUser = false
 
     }
 

@@ -12,7 +12,7 @@ class TwitterAccountManager: AccountManager {
 
     override func openSession(completion: (results: ResultType) -> Void) {
         guard let userId = PFTwitterUtils.twitter()?.userId, twitterToken = PFTwitterUtils.twitter()?.authToken else {
-            completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
+            completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
             return
         }
         
@@ -32,7 +32,7 @@ class TwitterAccountManager: AccountManager {
                         if err == nil {
                             self.fetchUserData(aut, completion: completion)
                         } else {
-                             completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
+                             completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                         }
                     })
                     
@@ -45,28 +45,17 @@ class TwitterAccountManager: AccountManager {
     
     override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
         guard isInternetReachable else {
-            completion(results: ResultType.Error(e: TwitterAccountManagerError.NotConnectedOnline))
+            completion(results: ResultType.Error(e: AccountManagerError.NotConnectedOnline))
             return
         }
 
-        PFTwitterUtils.logInWithBlock({ (user, error) in
-            if error == nil {
-                if user != nil {
-                    self.openSession(completion)
-                } else {
-                    completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedEmptyUserObject))
-                }
-                
-            } else {
-                completion(results: ResultType.SystemError(e: error!))
-            }
-        })
+        PFTwitterUtils.logInWithBlock(handleParseUser(completion))
     }
     
     override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
         func parseUserData(data: AnyObject) {
             guard let userdata = data as? [String: AnyObject], parseUser = PFUser.currentUser() else {
-                completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
+                completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                 return
             }
 
@@ -85,7 +74,7 @@ class TwitterAccountManager: AccountManager {
 
             if sessionManagerFlags.userId == nil {
                 guard let userID = PFTwitterUtils.twitter()?.userId  else {
-                    completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
+                    completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                     return
                 }
 
@@ -115,14 +104,8 @@ class TwitterAccountManager: AccountManager {
         parseUserData(result)
             
         } catch {
-            completion(results: ResultType.Error(e: TwitterAccountManagerError.ReturnedNoTwitterData))
+            completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
         }
     }
 
-}
-
-enum TwitterAccountManagerError: ErrorType {
-    case ReturnedEmptyUserObject
-    case NotConnectedOnline
-    case ReturnedNoTwitterData
 }

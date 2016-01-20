@@ -55,32 +55,11 @@ class SigninView: UIView {
         passwordTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         passwordTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
-        signinButton = UIButton()
-        signinButton.translatesAutoresizingMaskIntoConstraints = false
-        signinButton.backgroundColor = SigninViewSigninButtonColor
+        signinButton = LoginButton.EmailButton()
         signinButton.setTitle("sign in".uppercaseString, forState: .Normal)
-        signinButton.titleLabel!.font = UIFont(name: "Montserrat", size: 12)
-        signinButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
-        signinButton.layer.cornerRadius = 4.0
-        signinButton.clipsToBounds = true
         
-        signinTwitterButton = UIButton()
-        signinTwitterButton.translatesAutoresizingMaskIntoConstraints = false
-        signinTwitterButton.backgroundColor = CreateAccountViewSignupTwitterButtonColor
-        signinTwitterButton.setTitle("twitter".uppercaseString, forState: .Normal)
-        signinTwitterButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        signinTwitterButton.setTitleColor(CreateAccountViewSignupTwitterButtonFontColor , forState: .Normal)
-        signinTwitterButton.layer.cornerRadius = 4.0
-        signinTwitterButton.clipsToBounds = true
-
-        signinFacebookButton = UIButton()
-        signinFacebookButton.translatesAutoresizingMaskIntoConstraints = false
-        signinFacebookButton.backgroundColor = FacebookButtonNormalBackgroundColor
-        signinFacebookButton.setTitle("facebook".uppercaseString, forState: .Normal)
-        signinFacebookButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        signinFacebookButton.setTitleColor(FacebookButtonTitleTextColor , forState: .Normal)
-        signinFacebookButton.layer.cornerRadius = 4.0
-        signinFacebookButton.clipsToBounds = true
+        signinTwitterButton = LoginButton.TwitterButton()
+        signinFacebookButton = LoginButton.FacebookButton()
 
         orSpacer = ViewSpacerWithText(title:"Or With")
         orSpacer.translatesAutoresizingMaskIntoConstraints = false

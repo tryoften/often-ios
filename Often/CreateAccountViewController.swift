@@ -37,8 +37,9 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
         
         createAccountView.cancelButton.addTarget(self,  action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupButton.addTarget(self, action: "didTapSignupButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupTwitterButton.addTarget(self, action: "didTapTwitterButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupFacebookButton.addTarget(self, action: "didTapFacebookButton:", forControlEvents: .TouchUpInside)
+        createAccountView.signupButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+        createAccountView.signupTwitterButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+        createAccountView.signupFacebookButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
         createAccountView.termsOfUseAndPrivacyPolicyButton.addTarget(self, action: "didTapTermsOfUseButton:", forControlEvents: .TouchUpInside)
     }
     
@@ -50,23 +51,13 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
         self.view.endEditing(true)
         dismissViewControllerAnimated(true, completion: nil)
     }
-    
+        
+    func didTapSignupButton(sender: UIButton) {
+        viewModel.userAuthData.username = createAccountView.usernameTextField.text!
+        viewModel.userAuthData.email = createAccountView.emailTextField.text!
+        viewModel.userAuthData.password = createAccountView.passwordTextField.text!
+        viewModel.userAuthData.isNewUser = true
 
-    
-    override func didTapSignupButton(sender: UIButton) {
-        super.didTapSignupButton(sender)
-
-        do {
-            try viewModel.createNewEmailUser(createAccountView.usernameTextField.text!, email: createAccountView.emailTextField.text!, password: createAccountView.passwordTextField.text!, completion: ({ results -> Void in
-                
-                switch results {
-                case .Success(_): PKHUD.sharedHUD.hide(animated: true)
-                case .Error(let err): self.showErrorView(err)
-                case .SystemError(let err): self.showSystemErrorView(err)
-                }
-            })
-            )
-        } catch {}
 
     }
     
