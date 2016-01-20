@@ -55,6 +55,8 @@ class MessageWithButtonHeaderView: UICollectionReusableView {
         addSubview(closeButton)
         addSubview(bottomBorderView)
         
+        clipsToBounds = true;
+        
         setupLayout()
     }
 
