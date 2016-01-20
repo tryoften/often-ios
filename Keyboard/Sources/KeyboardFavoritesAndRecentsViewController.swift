@@ -97,6 +97,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
             if headerView == nil {
                 headerView = cell
                 headerView?.closeButton.addTarget(self, action: "closeButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+                headerView?.primaryButton.addTarget(self, action: "shareButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
             }
             
             return headerView!
@@ -128,6 +129,10 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
     func closeButtonTapped(sender: UIButton!) {
         headerView?.hidden = true
         collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(0), animated: true)
+    }
+    
+    func shareButtonTapped(sender: UIButton!) {
+        self.textProcessor?.defaultProxy.insertText(ShareMessage)
     }
 
 }
