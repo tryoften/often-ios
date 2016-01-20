@@ -68,36 +68,13 @@ class CreateAccountView: UIView {
         passwordTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         passwordTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
-        signupButton = UIButton()
-        signupButton.translatesAutoresizingMaskIntoConstraints = false
-        signupButton.backgroundColor = CreateAccountViewSignupButtonColor
-        signupButton.setTitle("sign up".uppercaseString, forState: .Normal)
-        signupButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        signupButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
-        signupButton.layer.cornerRadius = 4.0
-        signupButton.clipsToBounds = true
+        signupButton = LoginButton.EmailButton()
+        signupTwitterButton = LoginButton.TwitterButton()
+        signupFacebookButton = LoginButton.FacebookButton()
         
         orSpacer = ViewSpacerWithText(title:"Or With")
         orSpacer.translatesAutoresizingMaskIntoConstraints = false
 
-        signupTwitterButton = UIButton()
-        signupTwitterButton.translatesAutoresizingMaskIntoConstraints = false
-        signupTwitterButton.backgroundColor = CreateAccountViewSignupTwitterButtonColor
-        signupTwitterButton.setTitle("twitter".uppercaseString, forState: .Normal)
-        signupTwitterButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        signupTwitterButton.setTitleColor(CreateAccountViewSignupTwitterButtonFontColor , forState: .Normal)
-        signupTwitterButton.layer.cornerRadius = 4.0
-        signupTwitterButton.clipsToBounds = true
-
-        signupFacebookButton = UIButton()
-        signupFacebookButton.translatesAutoresizingMaskIntoConstraints = false
-        signupFacebookButton.backgroundColor = FacebookButtonNormalBackgroundColor
-        signupFacebookButton.setTitle("facebook".uppercaseString, forState: .Normal)
-        signupFacebookButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        signupFacebookButton.setTitleColor(FacebookButtonTitleTextColor , forState: .Normal)
-        signupFacebookButton.layer.cornerRadius = 4.0
-        signupFacebookButton.clipsToBounds = true
-        
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setImage(StyleKit.imageOfButtonclose(scale: 1.0), forState: .Normal)
