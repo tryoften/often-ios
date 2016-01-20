@@ -8,11 +8,11 @@
 
 import UIKit
 
-class RootViewController: UITabBarController {
+class RootViewController: UITabBarController, ConnectivityObservable {
     let sessionManager = SessionManager.defaultManager
     var visualEffectView: UIView
     var alertView: AlertView
-    var isInternetReachable: Bool = true
+    var isNetworkReachable: Bool = true
     var errorDropView: DropDownMessageView
     
     init() {
@@ -26,7 +26,7 @@ class RootViewController: UITabBarController {
 
         errorDropView = DropDownMessageView()
         errorDropView.text = "NO INTERNET FAM :("
-
+        
         super.init(nibName: nil, bundle: nil)
         
         styleTabBar()
@@ -34,20 +34,12 @@ class RootViewController: UITabBarController {
         
         view.addSubview(errorDropView)
         
-        let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
-        isInternetReachable = reachabilityManager.reachable
-        
-        reachabilityManager.setReachabilityStatusChangeBlock { status in
-            self.isInternetReachable = reachabilityManager.reachable
-            self.updateReachabilityStatusBar()
-        }
-        reachabilityManager.startMonitoring()
+        startMonitoring()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -57,6 +49,14 @@ class RootViewController: UITabBarController {
         delay(0.3) {
             self.showMajorKeyAlert()
         }
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return !isNetworkReachable
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Fade
     }
 
     func showMajorKeyAlert() {
@@ -72,7 +72,7 @@ class RootViewController: UITabBarController {
                 alertView.al_bottom == view.al_bottom - 140,
                 alertView.al_right == view.al_right - 42,
                 alertView.al_left == view.al_left + 42,
-                ])
+            ])
 
             alertView.animate()
             
@@ -134,7 +134,7 @@ class RootViewController: UITabBarController {
     }
     
     func updateReachabilityStatusBar() {
-        if isInternetReachable {
+        if isNetworkReachable {
             UIView.animateWithDuration(0.3, animations: {
                 self.errorDropView.frame = CGRectMake(0, -40, UIScreen.mainScreen().bounds.width, 40)
             })
@@ -143,5 +143,7 @@ class RootViewController: UITabBarController {
                 self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 40)
             })
         }
+        
+        setNeedsStatusBarAppearanceUpdate()
     }
 }

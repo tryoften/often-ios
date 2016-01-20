@@ -19,7 +19,8 @@ enum MediaItemsKeyboardSection: Int {
 
 class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewController,
     UIScrollViewDelegate,
-    ToolTipViewControllerDelegate {
+    ToolTipViewControllerDelegate,
+    ConnectivityObservable {
     var mediaLink: MediaItem?
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
@@ -29,7 +30,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var sections: [(MediaItemsKeyboardSection, UIViewController)]
     var tooltipVC: ToolTipViewController?
     
-    var isInternetReachable: Bool = true
+    var isNetworkReachable: Bool = true
     var errorDropView: DropDownMessageView
 
     override init(extraHeight: CGFloat, debug: Bool) {
@@ -67,14 +68,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         
         view.addSubview(errorDropView)
         
-        let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
-        isInternetReachable = reachabilityManager.reachable
-        
-        reachabilityManager.setReachabilityStatusChangeBlock { status in
-            self.isInternetReachable = reachabilityManager.reachable
-            self.updateReachabilityStatusBar()
-        }
-        reachabilityManager.startMonitoring()
+        startMonitoring()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -192,7 +186,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     }
     
     func updateReachabilityStatusBar() {
-        if isInternetReachable {
+        if isNetworkReachable {
             UIView.animateWithDuration(0.3, animations: {
                 self.errorDropView.frame = CGRectMake(0, -40, UIScreen.mainScreen().bounds.width, 40)
             })
