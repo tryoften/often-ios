@@ -20,7 +20,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
     var titleLabel: UILabel
     var secondaryTextLabel: UILabel
     var secondaryTextField: UITextField
-    var settingSwitch: UISwitch
+    var settingSwitch: UIButton
     var disclosureIndicator: UIImageView
     var cellType: SettingsCellType
     var delegate: TableViewCellDelegate?
@@ -31,7 +31,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         secondaryTextLabel = UILabel()
         secondaryTextField = UITextField()
         disclosureIndicator = UIImageView()
-        settingSwitch = UISwitch()
+        settingSwitch = UIButton()
         
         switch cellType {
         case .Default:
@@ -72,6 +72,9 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         
             settingSwitch.translatesAutoresizingMaskIntoConstraints = false
             settingSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
+            settingSwitch.setImage(StyleKit.imageOfToggle(scale: 0.5, toggleOn: false), forState: .Normal) 
+            settingSwitch.setImage(StyleKit.imageOfToggle(scale: 0.5, toggleOn: true), forState: .Selected)
+
         case .Logout:
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
@@ -96,7 +99,9 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             addSubview(disclosureIndicator)
             break
         case .Switch:
-            settingSwitch.addTarget(self, action: "switchToggled", forControlEvents: .TouchUpInside)
+            settingSwitch.addTarget(self, action: "switchToggled:", forControlEvents: .TouchUpInside)
+            settingSwitch.selected = SessionManagerFlags.defaultManagerFlags.userNotificationSettings
+
             addSubview(titleLabel)
             addSubview(settingSwitch)
             break
@@ -128,14 +133,13 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     //MARK: UISwitch
-    func switchToggled() {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        
-        if settingSwitch.on == true {
-            defaults.setBool(true, forKey: "notificationsOn")
-            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert,UIUserNotificationType.Sound, UIUserNotificationType.Badge], categories: nil))
-        } else {
-            defaults.setBool(false, forKey: "notificationsOn")
+    func switchToggled(sender: UISwitch) {
+        settingSwitch.selected = !settingSwitch.selected
+         SessionManagerFlags.defaultManagerFlags.userNotificationSettings = sender.selected
+
+        if sender.selected {
+            UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
+            UIApplication.sharedApplication().registerForRemoteNotifications()
         }
     }
     

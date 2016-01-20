@@ -1118,8 +1118,6 @@
 		3B58FAD21C4451AE00A38F9E /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				3B58FAD61C4451EA00A38F9E /* Service.swift */,
-				3B58FAD91C4451F200A38F9E /* SocialAccountsService.swift */,
 				81028A3E1C4C9220000533FA /* FavoritesService.swift */,
 			);
 			name = Services;
@@ -1913,6 +1911,14 @@
 							com.apple.Keychain = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+					81DA3E9B1C24BE85006822D3 = {
+						DevelopmentTeam = VPYJKM228K;
+						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
 							};
