@@ -9,17 +9,16 @@
 import Foundation
 import Crashlytics
 
-class SessionManager: NSObject {
-    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    var firebase: Firebase
-    var accountManager: AccountManager?
-    var userRef: Firebase?
-    var currentUser: User?
-    var currentSession: FBSession?
-    weak var delegate: SessionManagerDelegate?
-    var userIsLoggingIn = false
-
+class SessionManager: NSObject, AccountManagerDelegate {
     static let defaultManager = SessionManager()
+    weak var delegate: SessionManagerDelegate?
+    var currentUser: User? {
+        return accountManager.currentUser
+    }
+
+    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
+    private var firebase: Firebase
+    private var accountManager: AccountManager
     
     override init() {
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
@@ -30,50 +29,45 @@ class SessionManager: NSObject {
 
         _ = ParseConfig.defaultConfig
         firebase = Firebase(url: BaseURL)
-        
+        accountManager = AccountManager(firebase: firebase)
+
         super.init()
 
-        firebase.observeAuthEventWithBlock { authData in
-            self.processAuthData(authData)
-        }
-        
+        accountManager.delegate = self
+
         if let userID = sessionManagerFlags.userId {
             SEGAnalytics.sharedAnalytics().identify(userID)
             let crashlytics = Crashlytics.sharedInstance()
             crashlytics.setUserIdentifier(userID)
-            
-            if let user = currentUser {
-                crashlytics.setUserName(user.name)
-                crashlytics.setUserEmail(user.email)
-            }
+
+            accountManager.isUserLoggedIn()
+
         }
         
     }
+
     
 
     func login(accountManagerControllerClass: AccountManager.Type, userData: UserAuthData?, completion: (results: ResultType) -> Void) throws {
-        userIsLoggingIn = true
-
         accountManager = accountManagerControllerClass.init(firebase: firebase)
-
-        if let accountManager = accountManager {
-            accountManager.login(userData, completion: { results in
-                switch results {
-                case .Success(let value): completion(results: ResultType.Success(r: value))
-                case .Error(let err): completion(results: ResultType.Error(e: err))
-                case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
-                }
-            })
-        }
+        accountManager.delegate = self
+        accountManager.login(userData, completion: { results in
+            switch results {
+            case .Success(let value): completion(results: ResultType.Success(r: value))
+            case .Error(let err): completion(results: ResultType.Error(e: err))
+            case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+            }
+        })
     }
 
 
     func logout() {
         PFUser.logOut()
-        accountManager?.logout()
+        accountManager.logout()
         firebase.unauth()
-        currentUser = nil
-        accountManager = nil
+        accountManager.delegate = nil
+        sessionManagerFlags.clearSessionFlags()
+        FavoritesService.defaultInstance.currentUser = nil
 
         guard let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
             return
@@ -84,66 +78,18 @@ class SessionManager: NSObject {
         } catch _ {
         }
     }
-    
-    private func processAuthData(authData: FAuthData?) {
-        let persistUser: (User) -> Void = { user in
-            self.currentUser = user
 
-            if self.userIsLoggingIn {
-                self.sessionManagerFlags.userId = user.id
-                self.broadcastUserLoginEvent()
-                self.userIsLoggingIn = false
-            }
-        }
-
-        if !sessionManagerFlags.openSession {
-            self.broadcastNoUserFoundEvent()
-            logout()
-            return
-        }
-
-        guard let authData = authData else {
-            self.broadcastNoUserFoundEvent()
-            logout()
-            return
-
-        }
-        
-        userRef = firebase.childByAppendingPath("users/\(authData.uid)")
-        userRef?.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            // TODO(kervs): create user model with data and send event
-            if snapshot.exists() {
-                if let _ = snapshot.key,
-                    let value = snapshot.value as? [String: AnyObject] {
-                        let user = User()
-                        user.setValuesForKeysWithDictionary(value)
-                        user.id = authData.uid
-                        self.userIsLoggingIn = true
-                        
-                        persistUser(user)
-                }
-            } else {
-                    self.broadcastNoUserFoundEvent()
-                    self.logout()
-                
-            }
-            }, withCancelBlock: { error in
-                
-        })
-        
+    func accountManagerUserDidLogin(accountManager: AccountManagerProtocol, user: User) {
+        FavoritesService.defaultInstance.currentUser = user
+        delegate?.sessionManagerDidLoginUser(self, user: user)
     }
 
-    // MARK: Private methods
-    private func broadcastUserLoginEvent() {
-        if let currentUser = currentUser {
-            self.delegate?.sessionManagerDidLoginUser(self, user: currentUser)
-        }
+    func accountManagerUserDidLogout(accountManager: AccountManagerProtocol, user: User) {
     }
 
-    private func broadcastNoUserFoundEvent() {
+    func accountManagerNoUserFound(accountManager: AccountManagerProtocol) {
         delegate?.sessionManagerNoUserFound(self)
     }
-
 }
 
 enum SessionManagerError: ErrorType {
