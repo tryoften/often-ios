@@ -134,6 +134,8 @@ class RootViewController: UITabBarController, ConnectivityObservable {
     }
     
     func updateReachabilityStatusBar() {
+        setNeedsStatusBarAppearanceUpdate()
+
         if isNetworkReachable {
             UIView.animateWithDuration(0.3, animations: {
                 self.errorDropView.frame = CGRectMake(0, -40, UIScreen.mainScreen().bounds.width, 40)

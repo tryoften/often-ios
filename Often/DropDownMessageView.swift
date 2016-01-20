@@ -22,23 +22,3 @@ class DropDownMessageView: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-protocol ConnectivityObservable: class {
-    var isNetworkReachable: Bool {get set}
-    
-    func startMonitoring()
-    func updateReachabilityStatusBar()
-}
-
-extension ConnectivityObservable where Self: UIViewController {
-    func startMonitoring() {
-        let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
-        isNetworkReachable = reachabilityManager.reachable
-        
-        reachabilityManager.setReachabilityStatusChangeBlock { status in
-            self.isNetworkReachable = reachabilityManager.reachable
-            self.updateReachabilityStatusBar()
-        }
-        reachabilityManager.startMonitoring()
-    }
-}
