@@ -80,14 +80,17 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         // Favorites
         let favoritesVC = KeyboardFavoritesAndRecentsViewController(viewModel: FavoritesService.defaultInstance, collectionType: .Favorites)
         favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 0)
+        favoritesVC.textProcessor = textProcessor
 
         // Recents
         let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: MediaItemsViewModel(), collectionType: .Recents)
         recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 1)
+        recentsVC.textProcessor = textProcessor
 
         // Browse
         let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
         browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 2)
+        browseVC.textProcessor = textProcessor
         let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
 
         sections = [
