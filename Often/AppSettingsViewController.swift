@@ -234,9 +234,8 @@ class AppSettingsViewController: UIViewController,
                 cell.secondaryTextField.text = viewModel.currentUser?.email
                 cell.userInteractionEnabled = false
             case 2:
-                cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
+                cell = UserProfileSettingsTableViewCell(type: .Switch)
                 cell.disclosureIndicator.image = UIImage(named: "")
-               cell.userInteractionEnabled = false
             default:
                 break
             }
