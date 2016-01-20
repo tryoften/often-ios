@@ -49,17 +49,25 @@ class MessageWithButtonHeaderView: UICollectionReusableView {
         
         super.init(frame: frame)
         
+        closeButton.addTarget(self, action: "closeTapped", forControlEvents: .TouchUpInside)
+        
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(primaryButton)
         addSubview(closeButton)
         addSubview(bottomBorderView)
         
+        clipsToBounds = true;
+        
         setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func closeTapped() {
+        removeFromSuperview()
     }
     
     func setupLayout() {
@@ -72,7 +80,7 @@ class MessageWithButtonHeaderView: UICollectionReusableView {
             
             primaryButton.al_centerX == al_centerX,
             primaryButton.al_top == subtitleLabel.al_bottom + 10,
-            primaryButton.al_width == 125,
+            primaryButton.al_width == 140,
             primaryButton.al_height == 35,
             
             closeButton.al_height == 35,

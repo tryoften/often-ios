@@ -75,7 +75,7 @@ class KeyboardSearchBar: UIView, SearchBar {
         textInput.addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
         cancelButton.addTarget(self, action: "cancelButtonDidTap:", forControlEvents: .TouchUpInside)
         
-        backgroundColor = WhiteColor
+        backgroundColor = VeryLightGray
         addSubview(cancelButton)
         addSubview(topSeperator)
         addSubview(bottomSeperator)

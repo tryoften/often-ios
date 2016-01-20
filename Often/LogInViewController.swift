@@ -49,7 +49,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
             "Search, collect & share lyrics, \n in any app, right from your keyboard",
             "Save all the best lyrics to your Favorites & easily share them again later",
             "Discover the hottest lyrics, songs & artists right inside your keyboard",
-            "Powered by Genius, search helps you \n find any lyric, song or artist"
+            "Powered by Musixmatch, search helps \n you find any lyric, song or artist"
         ]
         
         super.init(viewModel: viewModel)
@@ -59,7 +59,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         view.addSubview(loginView)
         setupLayout()
         
-        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(4, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
         launchScreenLoaderTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
     }
 

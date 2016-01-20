@@ -39,7 +39,7 @@ class BrowseHeaderView: UICollectionReusableView, UIScrollViewDelegate {
     static var preferredSize: CGSize {
         return CGSizeMake(
             UIScreen.mainScreen().bounds.size.width,
-            UIScreen.mainScreen().bounds.size.height / 3 - 10
+            UIScreen.mainScreen().bounds.size.height / 3.33 - 10
         )
     }
 

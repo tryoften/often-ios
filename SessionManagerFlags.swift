@@ -16,6 +16,7 @@ class SessionManagerFlags {
     struct SessionManagerPropertyKey {
         static var userID = "userID"
         static var userEmail = "email"
+        static var messageSentCount = "messageSentCount"
         static var openSession = "openSession"
         static var keyboardOpen = "keyboardOpen"
         static var anonymousUser = "anonymousUser"
@@ -72,6 +73,16 @@ class SessionManagerFlags {
 
         set(value) {
             setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.keyboardInstallWalkthrough)
+        }
+    }
+    
+    var userMessageCount: Int {
+        get {
+            return userDefaults.integerForKey(SessionManagerPropertyKey.messageSentCount)
+        }
+        
+        set(value) {
+            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.messageSentCount)
         }
     }
 

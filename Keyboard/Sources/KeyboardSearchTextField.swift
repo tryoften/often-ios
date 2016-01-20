@@ -100,7 +100,7 @@ class KeyboardSearchTextField: UIControl {
                     self.searchIcon.image = StyleKit.imageOfSearchbaricon(color: LightBlackColor, scale: 1.0)
                 }
                 
-                self.backgroundView.backgroundColor = VeryLightGray
+                self.backgroundView.backgroundColor = WhiteColor
                 self.indicator.alpha = 0.0
                 self.clearButton.alpha = 0.0
                 editing = false
@@ -126,9 +126,11 @@ class KeyboardSearchTextField: UIControl {
         
         backgroundView = UIView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.backgroundColor = VeryLightGray
+        backgroundView.backgroundColor = WhiteColor
         backgroundView.userInteractionEnabled = false
-        backgroundView.layer.cornerRadius = 5.0
+        backgroundView.layer.cornerRadius = 4.0
+        backgroundView.layer.borderWidth = 0.5
+        backgroundView.layer.borderColor = DarkGrey.CGColor
         backgroundView.accessibilityLabel = "background view"
         
         labelContainer = UIView()
@@ -257,8 +259,8 @@ class KeyboardSearchTextField: UIControl {
 
             backgroundView.al_left == al_left + 5,
             backgroundView.al_right == al_right - 5,
-            backgroundView.al_top == al_top,
-            backgroundView.al_bottom == al_bottom,
+            backgroundView.al_top == al_top - 1,
+            backgroundView.al_bottom == al_bottom + 1,
 
             labelContainerLeftConstraint,
             labelContainer.al_height == al_height,

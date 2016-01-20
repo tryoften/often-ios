@@ -50,7 +50,7 @@ class ToolTip: UIView {
             textView.al_top == al_centerY + 10,
             
             tabBarIconImageView.al_centerX == al_centerX,
-            tabBarIconImageView.al_bottom == textView.al_top - 5,
+            tabBarIconImageView.al_bottom == textView.al_top - 10,
             tabBarIconImageView.al_width == 245,
             tabBarIconImageView.al_height == 70
         ]
