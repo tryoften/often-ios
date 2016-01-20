@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias AccountManagerResultCallback = (results: ResultType) -> Void
+
 class AccountManager: AccountManagerProtocol {
     weak var delegate: AccountManagerDelegate?
     var currentUser: User?
@@ -31,15 +33,57 @@ class AccountManager: AccountManagerProtocol {
 
     }
 
+    func isUserLoggedIn() {
+        guard let userID = sessionManagerFlags.userId else {
+            delegate?.accountManagerNoUserFound(self)
+            return
+        }
+
+        userRef = firebase.childByAppendingPath("users/\(userID)")
+        userRef?.observeEventType(.Value, withBlock: { snapshot in
+            if let _ = snapshot.key, let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
+                self.currentUser = User()
+                self.currentUser?.setValuesForKeysWithDictionary(value)
+                if let currentUser = self.currentUser {
+                    self.delegate?.accountManagerUserDidLogin(self, user: currentUser)
+                }
+
+            } else {
+                self.delegate?.accountManagerNoUserFound(self)
+            }
+        })
+    }
+
     func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
         fatalError("login method must be overridden in every child class")
     }
 
     final func logout() {
+        PFUser.logOut()
         currentUser = nil
-        sessionManagerFlags.clearSessionFlags()
+    }
+
+    internal func handleParseUser(completion: AccountManagerResultCallback) -> PFUserResultBlock {
+        return { (user, error) in
+            if error == nil {
+                if user == nil {
+                    completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+                } else {
+                    self.openSession(completion)
+                }
+            } else {
+                self.logout()
+                completion(results: ResultType.SystemError(e: error!))
+            }
+        }
     }
 
     internal func openSession(completion: (results: ResultType) -> Void) {}
     internal func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {}
+}
+
+enum AccountManagerError: ErrorType {
+    case MissingUserData
+    case ReturnedEmptyUserObject
+    case NotConnectedOnline
 }
