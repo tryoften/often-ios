@@ -10,14 +10,17 @@ import UIKit
 
 class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewController {
     var textProcessor: TextProcessingManager?
-    var headerView: MessageWithButtonHeaderView?
+    var headerView: ShareOftenMessageHeaderView?
 
     init(viewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType) {
         
         if collectionType == .Favorites {
             let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewLayout()
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
-            collectionView?.registerClass(MessageWithButtonHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "messageHeader")
+
+            collectionView?.backgroundColor = UIColor.clearColor()
+            collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
+            collectionView?.registerClass(ShareOftenMessageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "messageHeader")
         } else {
             let layout = KeyboardMediaItemsAndFilterBarViewController.provideCollectionViewFlowLayout()
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
@@ -53,6 +56,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
     class func provideCollectionViewLayout(headerHeight: CGFloat = 150) -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let layout = CSStickyHeaderFlowLayout()
+
         layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, headerHeight)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, headerHeight)
         layout.parallaxHeaderAlwaysOnTop = false
@@ -65,7 +69,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
         return layout
     }
 
-    // MediaItemCollectionViewCellDelegate
+    // MediaItemCollectionViewCellDelegate    
     override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
@@ -83,15 +87,12 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
-                withReuseIdentifier: "messageHeader", forIndexPath: indexPath) as? MessageWithButtonHeaderView else {
+                withReuseIdentifier: "messageHeader", forIndexPath: indexPath) as? ShareOftenMessageHeaderView else {
                     return UICollectionReusableView()
             }
             
             if headerView == nil {
                 headerView = cell
-                headerView?.titleLabel.text = "Share Often"
-                headerView?.subtitleLabel.text = "Hey there good looking. Enjoying\n Often? Share the link with a friend"
-                headerView?.primaryButton.setTitle("Insert Link".uppercaseString, forState: .Normal)
                 headerView?.closeButton.addTarget(self, action: "closeButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
             }
             

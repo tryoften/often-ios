@@ -8,10 +8,12 @@
 
 import UIKit
 
-class RootViewController: UITabBarController {
+class RootViewController: UITabBarController, ConnectivityObservable {
     let sessionManager = SessionManager.defaultManager
     var visualEffectView: UIView
     var alertView: AlertView
+    var isNetworkReachable: Bool = true
+    var errorDropView: DropDownMessageView
     
     init() {
         visualEffectView = UIView(frame: UIScreen.mainScreen().bounds)
@@ -22,24 +24,39 @@ class RootViewController: UITabBarController {
         alertView.translatesAutoresizingMaskIntoConstraints = false
         alertView.layer.cornerRadius = 5.0
 
+        errorDropView = DropDownMessageView()
+        errorDropView.text = "NO INTERNET FAM :("
+        
         super.init(nibName: nil, bundle: nil)
-
+        
         styleTabBar()
         setupTabBarItems()
+        
+        view.addSubview(errorDropView)
+        
+        startMonitoring()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        updateReachabilityStatusBar()
         PKHUD.sharedHUD.hide(animated: true)
         
         delay(0.3) {
             self.showMajorKeyAlert()
         }
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return !isNetworkReachable
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Fade
     }
 
     func showMajorKeyAlert() {
@@ -55,7 +72,7 @@ class RootViewController: UITabBarController {
                 alertView.al_bottom == view.al_bottom - 140,
                 alertView.al_right == view.al_right - 42,
                 alertView.al_left == view.al_left + 42,
-                ])
+            ])
 
             alertView.animate()
             
@@ -115,5 +132,18 @@ class RootViewController: UITabBarController {
         
         selectedIndex = 0
     }
-
+    
+    func updateReachabilityStatusBar() {
+        if isNetworkReachable {
+            UIView.animateWithDuration(0.3, animations: {
+                self.errorDropView.frame = CGRectMake(0, -40, UIScreen.mainScreen().bounds.width, 40)
+            })
+        } else {
+            UIView.animateWithDuration(0.3, animations: {
+                self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 40)
+            })
+        }
+        
+        setNeedsStatusBarAppearanceUpdate()
+    }
 }

@@ -19,7 +19,8 @@ enum MediaItemsKeyboardSection: Int {
 
 class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewController,
     UIScrollViewDelegate,
-    ToolTipViewControllerDelegate {
+    ToolTipViewControllerDelegate,
+    ConnectivityObservable {
     var mediaLink: MediaItem?
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
@@ -28,6 +29,9 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var sectionsTabBarController: KeyboardSectionsContainerViewController
     var sections: [(MediaItemsKeyboardSection, UIViewController)]
     var tooltipVC: ToolTipViewController?
+    
+    var isNetworkReachable: Bool = true
+    var errorDropView: DropDownMessageView
 
     override init(extraHeight: CGFloat, debug: Bool) {
         togglePanelButton = TogglePanelButton()
@@ -35,6 +39,9 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         sectionsTabBarController = KeyboardSectionsContainerViewController()
         sections = []
+        
+        errorDropView = DropDownMessageView()
+        errorDropView.text = "NO INTERNET FAM :("
 
         super.init(extraHeight: extraHeight, debug: debug)
 
@@ -58,6 +65,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         containerView.addSubview(togglePanelButton)
 
         showTooltipsIfNeeded()
+        
+        view.addSubview(errorDropView)
+        
+        startMonitoring()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -116,6 +127,11 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         togglePanelButton.addTarget(self, action: "switchKeyboard", forControlEvents: .TouchUpInside)
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        updateReachabilityStatusBar()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if view.bounds == CGRectZero {
@@ -171,7 +187,18 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             sectionsTabBarController.tabBar.selectedItem = toolBarItems[currentPage]
         }
     }
-
+    
+    func updateReachabilityStatusBar() {
+        if isNetworkReachable {
+            UIView.animateWithDuration(0.3, animations: {
+                self.errorDropView.frame = CGRectMake(0, -40, UIScreen.mainScreen().bounds.width, 40)
+            })
+        } else {
+            UIView.animateWithDuration(0.3, animations: {
+                self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 40)
+            })
+        }
+    }
 }
 
 extension UIScrollView {
