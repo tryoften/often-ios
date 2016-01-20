@@ -42,16 +42,12 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
             collectionView?.contentOffset = CGPointMake(0, -(KeyboardSearchBarHeight + 2))
         }
         // take this out when we actually count how many times a user has shared a message
-        SessionManagerFlags.defaultManagerFlags.userMessageCount++;
+        SessionManagerFlags.defaultManagerFlags.userMessageCount++
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
         emptyStateView?.hidden = true
-        
-        
-        
     }
     
     class func provideCollectionViewLayout(headerHeight: CGFloat = 150) -> UICollectionViewLayout {
