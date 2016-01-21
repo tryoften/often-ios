@@ -10,12 +10,12 @@ import UIKit
 
 extension UIImageView {
 
-    func setImageWithAnimation(url: NSURL, blurRadius: CGFloat = 0, completion: ((Bool) -> ())? = nil) {
+    func setImageWithAnimation(url: NSURL, blurRadius: CGFloat = 0, placeholderImage: UIImage = UIImage(named: "placeholder")!, completion: ((Bool) -> ())? = nil) {
         alpha = 0.0
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
             let urlRequest = NSURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.ReturnCacheDataElseLoad, timeoutInterval: 60 * 60)
             self.cancelImageRequestOperation()
-            self.setImageWithURLRequest(urlRequest, placeholderImage: UIImage(named: "placeholder"), success: { (req, res, image) in
+            self.setImageWithURLRequest(urlRequest, placeholderImage: placeholderImage, success: { (req, res, image) in
                 let processedImage: UIImage = image
 
                 dispatch_async(dispatch_get_main_queue()) {
