@@ -83,6 +83,10 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
         let cell: MediaItemCollectionViewCell = parseMediaItemData(track?.lyrics, indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
 
+        #if !(KEYBOARD)
+            cell.inMainApp = true
+        #endif
+
         animateCell(cell, indexPath: indexPath)
 
         return cell

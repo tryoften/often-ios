@@ -29,9 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SPTAuth.defaultInstance().clientID = SpotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
         
-        application.registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []) )
-        application.registerForRemoteNotifications()
-    
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
 

@@ -54,6 +54,8 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
         }
+        
+        promptUserToRegisterPushNotifications()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -172,7 +174,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
             headerView.collapseNameLabel.text = user.name
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
-                headerView.profileImageView.setImageWithAnimation(imageURL)
+                headerView.profileImageView.setImageWithAnimation(imageURL, placeholderImage: UIImage(named: "userprofileplaceholder")!)
 
                 headerView.collapseProfileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
                     headerView.collapseProfileImageView.image = image
@@ -237,7 +239,12 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
             })
         }
     }
-    
+
+    func promptUserToRegisterPushNotifications() {
+        UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+    }
+
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
