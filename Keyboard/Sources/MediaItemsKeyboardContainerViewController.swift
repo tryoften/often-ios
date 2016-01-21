@@ -42,6 +42,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         
         errorDropView = DropDownMessageView()
         errorDropView.text = "NO INTERNET FAM :("
+        errorDropView.hidden = true
 
         super.init(extraHeight: extraHeight, debug: debug)
 
@@ -197,6 +198,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             UIView.animateWithDuration(0.3, animations: {
                     self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 40)
             })
+            
+            errorDropView.hidden = false
         }
     }
 }
