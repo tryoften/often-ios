@@ -207,8 +207,6 @@
 		810C40691A21126500170DB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810C4AF71B5D81FA005AABEA /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */; };
 		810C4AF81B5D81FA005AABEA /* SearchBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */; };
-		81153C781BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; };
-		81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; };
 		81153CB11BBB267000A91EAD /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CB01BBB267000A91EAD /* SessionManager.swift */; };
 		81153CBD1BBC7FC000A91EAD /* TogglePanelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */; };
 		81153CBE1BBC869200A91EAD /* TogglePanelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */; };
@@ -480,7 +478,6 @@
 		81DA3EF51C24BE85006822D3 /* KeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323831C2227840084918B /* KeyboardContainerViewController.swift */; };
 		81DA3EF61C24BE85006822D3 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		81DA3EF71C24BE85006822D3 /* AutocorrectSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811FA2931BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift */; };
-		81DA3EF81C24BE85006822D3 /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */; };
 		81DA3EF91C24BE85006822D3 /* SigninView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971DE1B9F911E007EAB5A /* SigninView.swift */; };
 		81DA3EFA1C24BE85006822D3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971D51B9E642D007EAB5A /* LoginView.swift */; };
 		81DA3EFC1C24BE85006822D3 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CB01BBB267000A91EAD /* SessionManager.swift */; };
@@ -844,7 +841,6 @@
 		810B05051C47357E00BA731B /* MediaItemPageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaItemPageHeaderView.swift; sourceTree = "<group>"; };
 		810C40641A21125B00170DB4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBarButton.swift; path = Sources/SearchBarButton.swift; sourceTree = "<group>"; };
-		81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsViewModel.swift; path = Sources/SearchResultsViewModel.swift; sourceTree = "<group>"; };
 		81153CB01BBB267000A91EAD /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Often/SessionManager.swift; sourceTree = "<group>"; };
 		81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TogglePanelButton.swift; path = Sources/TogglePanelButton.swift; sourceTree = "<group>"; };
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -1387,7 +1383,6 @@
 			children = (
 				81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */,
 				81D60AC21B84BD4200347BCA /* SearchViewModel.swift */,
-				81153C771BBAF43500A91EAD /* SearchResultsViewModel.swift */,
 				8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */,
 			);
 			name = "Search View Models";
@@ -2419,7 +2414,6 @@
 				698674171C4A911900826FAA /* DropDownMessageView.swift in Sources */,
 				8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */,
 				811FA2941BF0584E00E07660 /* AutocorrectSuggestionsViewController.swift in Sources */,
-				81153C781BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
 				69138B4F1C25DBD100F33F76 /* TrackCollectionViewCell.swift in Sources */,
 				3BD971DF1B9F911E007EAB5A /* SigninView.swift in Sources */,
 				81BDA71A1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
@@ -2626,7 +2620,6 @@
 				81BDC11E1C500FCE00E7C524 /* ConnectivityObservable.swift in Sources */,
 				811961891BEAE9330014B25B /* TermDictionary.swift in Sources */,
 				817F784A1BBDD2FB0087EBE8 /* VideoMediaItem.swift in Sources */,
-				81153C791BBAF43500A91EAD /* SearchResultsViewModel.swift in Sources */,
 				81F833631C179A5B001B8662 /* BrowseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2739,7 +2732,6 @@
 				698674181C4A911900826FAA /* DropDownMessageView.swift in Sources */,
 				81DA3EF61C24BE85006822D3 /* TextProcessingManager.swift in Sources */,
 				81DA3EF71C24BE85006822D3 /* AutocorrectSuggestionsViewController.swift in Sources */,
-				81DA3EF81C24BE85006822D3 /* SearchResultsViewModel.swift in Sources */,
 				81DA3EF91C24BE85006822D3 /* SigninView.swift in Sources */,
 				81BDA71B1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
 				3B0DC3931C40A9B5009B182F /* ViewSpacerWithText.swift in Sources */,

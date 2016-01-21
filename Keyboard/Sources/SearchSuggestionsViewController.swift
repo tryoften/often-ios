@@ -43,6 +43,7 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
     }
 
     func showSearchSuggestionsView(showSearchSuggestionsView: Bool) {
+        viewModel.requestData()
         if showSearchSuggestionsView {
             UIView.animateWithDuration(0.3, animations: {
                 self.view.alpha = 1.0

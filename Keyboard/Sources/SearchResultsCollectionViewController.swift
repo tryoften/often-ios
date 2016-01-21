@@ -10,22 +10,7 @@ import UIKit
 
 let SearchResultsInsertLinkEvent = "SearchResultsCollectionViewCell.insertButton"
 
-/**
- SearchResultsCollectionViewController
-
- Collection view that can display any type of service provider cell because they are all
- the same size.
-
- Types of providers:
-
- Song Cell
- Video Cell
- Article Cell
- Tweet Cell
-
- */
 class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MessageBarDelegate {
-    var backgroundImageView: UIImageView
     var textProcessor: TextProcessingManager?
     var searchBarController: SearchBarController?
     var response: SearchResponse? {
@@ -37,14 +22,12 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     
     // object the current response needs to be replaced/updated with
     var nextResponse: SearchResponse?
-    var viewModel: SearchResultsViewModel?
     var refreshResultsButton: RefreshResultsButton
     var refreshResultsButtonTopConstraint: NSLayoutConstraint!
     var refreshTimer: NSTimer?
     var emptyStateView: EmptyStateView
     var messageBarView: MessageBarView
     var messageBarVisibleConstraint: NSLayoutConstraint?
-    var isFullAccessEnabled: Bool
 
     var contentInset: UIEdgeInsets {
         didSet {
@@ -52,23 +35,23 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
         }
     }
 
+    var isFullAccessEnabled: Bool {
+        let pbWrapped: UIPasteboard? = UIPasteboard.generalPasteboard()
+        if let _ = pbWrapped {
+            return true
+        } else {
+            return false
+        }
+    }
+
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
         contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
-
-        backgroundImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
-        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImageView.contentMode = .Center
-        backgroundImageView.contentScaleFactor = 2.5
-        
-        viewModel = SearchResultsViewModel()
         
         refreshResultsButton = RefreshResultsButton()
         refreshResultsButton.translatesAutoresizingMaskIntoConstraints = false
         
         messageBarView = MessageBarView()
-        
-        isFullAccessEnabled = false
-        
+
         emptyStateView = EmptyStateView()
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         emptyStateView.alpha = 0.0
@@ -82,7 +65,6 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
         emptyStateView.userInteractionEnabled = true
         
         view.layer.masksToBounds = true
-        view.insertSubview(backgroundImageView, belowSubview: collectionView!)
         view.addSubview(refreshResultsButton)
         view.backgroundColor = VeryLightGray
         view.addSubview(messageBarView)
@@ -120,9 +102,8 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        let pbWrapped: UIPasteboard? = UIPasteboard.generalPasteboard()
-        if let _ = pbWrapped {
-            let _ = viewModel?.isFullAccessEnabled
+
+        if isFullAccessEnabled {
             hideMessageBar()
         } else {
             showMessageBar()
@@ -176,11 +157,7 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
         cell.delegate = self
         
         if let result = cell.mediaLink {
-            if let favorited = viewModel?.checkFavorite(result) {
-                cell.itemFavorited = favorited
-            } else {
-                cell.itemFavorited = false
-            }
+            cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         }
         
         animateCell(cell, indexPath: indexPath)
@@ -204,12 +181,7 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
             cell.layer.shouldRasterize = false
         }
         
-        if let favorited = viewModel?.checkFavorite(result) {
-            cell.itemFavorited = favorited
-        } else {
-            cell.itemFavorited = false
-        }
-        
+        cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         cell.prepareOverlayView()
         cell.overlayVisible = true
     }
@@ -225,8 +197,6 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
 
         let yOffset = containerViewController?.tabBar == nil ? 0 : -2 * KeyboardSearchBarHeight + 2
         collectionView.setContentOffset(CGPointMake(0, yOffset), animated: false)
-
-        backgroundImageView.hidden = (response != nil && !response!.results.isEmpty)
     }
     
     func showRefreshResultsButton() {
@@ -267,11 +237,6 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
         refreshResultsButtonTopConstraint = refreshResultsButton.al_top == view.al_top - 40
         
         view.addConstraints([
-            backgroundImageView.al_top == view.al_top,
-            backgroundImageView.al_left == view.al_left,
-            backgroundImageView.al_width == view.al_width,
-            backgroundImageView.al_height == view.al_height - 30,
-            
             refreshResultsButton.al_height == 30,
             refreshResultsButton.al_centerX == view.al_centerX,
             refreshResultsButtonTopConstraint
@@ -298,8 +263,8 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
         guard let result = cell.mediaLink else {
             return
         }
-        
-        viewModel?.toggleFavorite(selected, result: result)
+
+        FavoritesService.defaultInstance.toggleFavorite(selected, result: result)
         cell.itemFavorited = selected
     }
     

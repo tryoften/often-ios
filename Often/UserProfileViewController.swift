@@ -68,6 +68,8 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
     }
 
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
     }
 
@@ -90,6 +92,10 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
 
         emptyStateView?.frame = contentFrame
         loaderView.frame = contentFrame
+    }
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
 
     // MARK: UICollectionViewDataSource

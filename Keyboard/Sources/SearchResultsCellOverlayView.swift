@@ -22,6 +22,12 @@ class SearchResultsCellOverlayView: UIView {
     let middleLabel: UILabel
   
     let backgroundView: UIVisualEffectView
+
+    override var hidden: Bool {
+        didSet {
+            
+        }
+    }
     
     override init(frame: CGRect) {
         insertButton = SpringButton()

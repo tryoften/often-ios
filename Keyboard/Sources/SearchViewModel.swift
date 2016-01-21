@@ -9,13 +9,20 @@
 import UIKit
 
 class SearchViewModel: SearchBaseViewModel {
+    var groups: [MediaItemGroup]
+
+    override init(base: Firebase) {
+        groups = []
+        super.init(base: base)
+    }
     
     override func responseDataReceived(data: [String: AnyObject]) {
         hasReceivedResponse = true
 
         guard let id = data["id"] as? String,
-            let query = data["query"] as? String,
-            let _ = data["autocomplete"] as? Bool,
+            let query = data["query"] as? [String: AnyObject],
+            let queryText = query["text"] as? String,
+            let type = data["type"] as? String,
             let resultsData = data["results"] as? [ [String: AnyObject] ],
             let _ = currentRequest else {
                 return
@@ -43,9 +50,9 @@ class SearchViewModel: SearchBaseViewModel {
         }
         
         if responseChanged {
-            print("SearchViewModel: response to query (\(query)) changed")
+            print("SearchViewModel: response to query (\(queryText)) changed")
         } else {
-            print("SearchViewModel: response to query (\(query)) is the same as previous")
+            print("SearchViewModel: response to query (\(queryText)) is the same as previous")
         }
         
         currentResponse = response
