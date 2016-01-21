@@ -26,6 +26,7 @@ class RootViewController: UITabBarController, ConnectivityObservable {
 
         errorDropView = DropDownMessageView()
         errorDropView.text = "NO INTERNET FAM :("
+        errorDropView.hidden = true
         
         super.init(nibName: nil, bundle: nil)
         
@@ -138,12 +139,14 @@ class RootViewController: UITabBarController, ConnectivityObservable {
 
         if isNetworkReachable {
             UIView.animateWithDuration(0.3, animations: {
-                self.errorDropView.frame = CGRectMake(0, -40, UIScreen.mainScreen().bounds.width, 40)
+                self.errorDropView.frame = CGRectMake(0, -64, UIScreen.mainScreen().bounds.width, 64)
             })
         } else {
             UIView.animateWithDuration(0.3, animations: {
-                self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 40)
+                self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64)
             })
+            
+            errorDropView.hidden = false
         }
         
         setNeedsStatusBarAppearanceUpdate()
