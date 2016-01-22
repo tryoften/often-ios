@@ -60,7 +60,7 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
 
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
         let layout = BrowseCollectionViewController.provideCollectionViewLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
         layout.minimumInteritemSpacing = 9.0
         layout.minimumLineSpacing = 9.0
         layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
@@ -82,6 +82,7 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: MediaItemCollectionViewCell = parseMediaItemData(track?.lyrics, indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
+        cell.type = .NoMetadata
 
         #if !(KEYBOARD)
             cell.inMainApp = true
