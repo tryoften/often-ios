@@ -180,7 +180,8 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         var cell: MediaItemCollectionViewCell
         cell = parseMediaItemData(viewModel.filteredMediaItemsForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
-
+        cell.type = .NoMetadata
+        
         animateCell(cell, indexPath: indexPath)
         
         return cell

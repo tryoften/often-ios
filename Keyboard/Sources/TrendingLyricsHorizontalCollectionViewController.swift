@@ -94,6 +94,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
         cell.layer.shouldRasterize = true
         cell.showImageView = false
         cell.mediaLink = lyric
+        cell.type = .Metadata
         cell.delegate = self
 
         #if !(KEYBOARD)

@@ -40,8 +40,6 @@ class UserProfileHeaderView: UICollectionReusableView {
     }
 
     private var userProfilePlaceholder: UIImageView
-    private var nameLabelHeightConstraint: NSLayoutConstraint?
-    private var nameLabelHorizontalConstraint: NSLayoutConstraint?
     private var coverPhotoBottonMarginConstraint: NSLayoutConstraint?
 
     private var coverPhotoBottonMargin: CGFloat {
