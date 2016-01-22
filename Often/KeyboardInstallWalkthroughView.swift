@@ -17,49 +17,87 @@ class KeyboardInstallWalkthroughView: UIView {
     let subtitleLabel: UILabel
     let settingButton: UIButton
 
-    var iphoneGifViewTopMargin: CGFloat {
+    private var iphoneGifViewTopMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
             return 210
         }
+
+        if Diagnostics.platformString().number == 5 {
+            return 139
+        }
+
         return 145
     }
 
-    var iphoneGifViewLeftMargin: CGFloat {
+    private var iphoneGifViewLeftMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
             return 23
         }
+
+        if Diagnostics.platformString().number == 5 {
+            return 19
+        }
+
         return 24
     }
 
-    var iphoneGifViewRightMargin: CGFloat {
+    private var iphoneGifViewRightMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
             return 16
         }
+
+        if Diagnostics.platformString().number == 5 {
+            return 13
+        }
+
         return 16
     }
 
-    var stilliphoneImageViewTopMargin: CGFloat {
+    private var iphoneGifViewBottomMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 184
+        }
+
+        return 210
+    }
+
+    private var stilliphoneImageViewTopMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
             return 60
         }
         return 0
     }
 
-    var stilliphoneImageViewLeftMargin: CGFloat {
+    private var subtitleLabelLeftAndRightMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 40
+        }
+        return 50
+    }
+
+    private var subViewTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 120
+        }
+        return 150
+    }
+
+
+    private var stilliphoneImageViewLeftMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
             return 70
         }
         return 50
     }
 
-    var stilliphoneImageViewRightMargin: CGFloat {
+    private var stilliphoneImageViewRightMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
             return 70
         }
         return 50
     }
 
-    var settingButtonHeight: CGFloat {
+    private var settingButtonHeight: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
             return 50
         }
@@ -155,12 +193,12 @@ class KeyboardInstallWalkthroughView: UIView {
             iphoneGifView.al_top == stilliphoneImageView.al_top + iphoneGifViewTopMargin,
             iphoneGifView.al_left == stilliphoneImageView.al_left + iphoneGifViewLeftMargin,
             iphoneGifView.al_right == stilliphoneImageView.al_right - iphoneGifViewRightMargin,
-            iphoneGifView.al_bottom == stilliphoneImageView.al_bottom - 210,
+            iphoneGifView.al_bottom == stilliphoneImageView.al_bottom - iphoneGifViewBottomMargin,
 
             subView.al_bottom == al_bottom,
             subView.al_left == al_left,
             subView.al_right == al_right,
-            subView.al_top == al_centerY + 150,
+            subView.al_top == al_centerY + subViewTopMargin,
 
             titleLabel.al_bottom == subtitleLabel.al_top,
             titleLabel.al_left == al_left,
@@ -168,8 +206,8 @@ class KeyboardInstallWalkthroughView: UIView {
             titleLabel.al_height == 36,
 
             subtitleLabel.al_centerY == subView.al_centerY - 16,
-            subtitleLabel.al_left == al_left + 50,
-            subtitleLabel.al_right == al_right - 50,
+            subtitleLabel.al_left == al_left + subtitleLabelLeftAndRightMargin,
+            subtitleLabel.al_right == al_right - subtitleLabelLeftAndRightMargin,
             subtitleLabel.al_height == 40,
 
             settingButton.al_height == 40,

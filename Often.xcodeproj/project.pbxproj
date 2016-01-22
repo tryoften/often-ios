@@ -22,6 +22,7 @@
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B3A1B7F1C4F4AAA0075D601 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3A1B7E1C4F4AAA0075D601 /* LoginButton.swift */; };
+		3B3A1B841C5090430075D601 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3A1B7E1C4F4AAA0075D601 /* LoginButton.swift */; };
 		3B4C474A1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
 		3B4C474B1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
 		3B4C474C1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
@@ -105,7 +106,6 @@
 		3BEB408E1BC8561500D36C4D /* HUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */; };
 		3BEB40AE1BCDBC2300D36C4D /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */; };
 		3BEB40B91BD03A3500D36C4D /* TextMessageOnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */; };
-		3BEB40BB1BD03A8C00D36C4D /* CompleteInstallationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */; };
 		3BEE47181BE16516002E4394 /* FilterMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEE47171BE16516002E4394 /* FilterMap.swift */; };
 		3BEE47191BE16516002E4394 /* FilterMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEE47171BE16516002E4394 /* FilterMap.swift */; };
 		3BEE471B1BE17D5D002E4394 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEE471A1BE17D5D002E4394 /* FilterButton.swift */; };
@@ -532,7 +532,6 @@
 		81DA3F311C24BE85006822D3 /* BrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED091C226DF700555496 /* BrowseHeaderView.swift */; };
 		81DA3F321C24BE85006822D3 /* UserProfileSettingsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */; };
 		81DA3F331C24BE85006822D3 /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */; };
-		81DA3F341C24BE85006822D3 /* CompleteInstallationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */; };
 		81DA3F351C24BE85006822D3 /* EventEmittable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8133237E1C2216BB0084918B /* EventEmittable.swift */; };
 		81DA3F361C24BE85006822D3 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEE471A1BE17D5D002E4394 /* FilterButton.swift */; };
 		81DA3F381C24BE85006822D3 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8119618F1BEC18340014B25B /* RealmSwift.framework */; };
@@ -793,7 +792,6 @@
 		3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDProgressView.swift; sourceTree = "<group>"; };
 		3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessageOnBoardingView.swift; sourceTree = "<group>"; };
-		3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteInstallationView.swift; sourceTree = "<group>"; };
 		3BEE47171BE16516002E4394 /* FilterMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterMap.swift; sourceTree = "<group>"; };
 		3BEE471A1BE17D5D002E4394 /* FilterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		3BF60C461B83B3F100DD6E31 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -1472,7 +1470,6 @@
 				690AE8B21B72919200015730 /* SocialAccountSettingsCollectionViewCell.swift */,
 				3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */,
 				3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */,
-				3BEB40BA1BD03A8C00D36C4D /* CompleteInstallationView.swift */,
 				698674161C4A911900826FAA /* DropDownMessageView.swift */,
 				3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */,
 				69FE9E751C3E04C300DBC169 /* MessageWithButtonHeaderView.swift */,
@@ -2489,7 +2486,6 @@
 				8185A0D81BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift in Sources */,
 				690003A61BD5954600C0DA9E /* SettingsWebViewController.swift in Sources */,
 				81BDA7161C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */,
-				3BEB40BB1BD03A8C00D36C4D /* CompleteInstallationView.swift in Sources */,
 				8133237F1C2216BB0084918B /* EventEmittable.swift in Sources */,
 				810B04E31C4303F200BA731B /* UIImageView+AnimateImage.swift in Sources */,
 				3BEE471B1BE17D5D002E4394 /* FilterButton.swift in Sources */,
@@ -2736,6 +2732,7 @@
 				81DA3EF31C24BE85006822D3 /* AppDelegate.swift in Sources */,
 				81DA3EF41C24BE85006822D3 /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
 				81DA3EF51C24BE85006822D3 /* KeyboardContainerViewController.swift in Sources */,
+				3B3A1B841C5090430075D601 /* LoginButton.swift in Sources */,
 				698674181C4A911900826FAA /* DropDownMessageView.swift in Sources */,
 				81DA3EF61C24BE85006822D3 /* TextProcessingManager.swift in Sources */,
 				81DA3EF71C24BE85006822D3 /* AutocorrectSuggestionsViewController.swift in Sources */,
@@ -2808,7 +2805,6 @@
 				81DA3F321C24BE85006822D3 /* UserProfileSettingsSectionHeaderView.swift in Sources */,
 				81DA3F331C24BE85006822D3 /* SettingsWebViewController.swift in Sources */,
 				81BDA7171C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */,
-				81DA3F341C24BE85006822D3 /* CompleteInstallationView.swift in Sources */,
 				81DA3F351C24BE85006822D3 /* EventEmittable.swift in Sources */,
 				810B04E41C4303F200BA731B /* UIImageView+AnimateImage.swift in Sources */,
 				81DA3F361C24BE85006822D3 /* FilterButton.swift in Sources */,

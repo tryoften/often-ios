@@ -39,8 +39,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         }
     }
 
-    private var nameLabelHeightConstraint: NSLayoutConstraint?
-    private var nameLabelHorizontalConstraint: NSLayoutConstraint?
+    private var userProfilePlaceholder: UIImageView
     private var coverPhotoBottonMarginConstraint: NSLayoutConstraint?
 
     private var coverPhotoBottonMargin: CGFloat {
@@ -94,6 +93,14 @@ class UserProfileHeaderView: UICollectionReusableView {
         collapseProfileImageView.alpha = 0
         collapseProfileImageView.clipsToBounds = true
 
+        userProfilePlaceholder = UIImageView()
+        userProfilePlaceholder.translatesAutoresizingMaskIntoConstraints = false
+        userProfilePlaceholder.contentMode = .ScaleAspectFit
+        userProfilePlaceholder.image = UIImage(named: "userprofileplaceholder")
+        userProfilePlaceholder.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
+        userProfilePlaceholder.layer.borderWidth = 2
+        userProfilePlaceholder.clipsToBounds = true
+
 
         profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -141,6 +148,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         super.init(frame: frame)
 
         profileImageView.layer.cornerRadius = profileImageViewWidth / 2
+        userProfilePlaceholder.layer.cornerRadius = profileImageViewWidth / 2
         collapseProfileImageView.layer.cornerRadius = collapseProfileImageViewWidth / 2
 
         backgroundColor = WhiteColor
@@ -148,6 +156,7 @@ class UserProfileHeaderView: UICollectionReusableView {
 
         addSubview(coverPhotoView)
         addSubview(coverPhotoTintView)
+        addSubview(userProfilePlaceholder)
         addSubview(profileImageView)
         addSubview(nameLabel)
         addSubview(shareCountLabel)
@@ -176,6 +185,7 @@ class UserProfileHeaderView: UICollectionReusableView {
                 collapseProfileImageView.alpha = 1
 
                 nameLabel.alpha = 0
+                userProfilePlaceholder.alpha = 0
                 profileImageView.alpha = 0
                 shareCountLabel.alpha = 0
 
@@ -184,6 +194,7 @@ class UserProfileHeaderView: UICollectionReusableView {
                 collapseProfileImageView.alpha = 0
 
                 nameLabel.alpha = 1
+                userProfilePlaceholder.alpha = 1
                 profileImageView.alpha = 1
                 shareCountLabel.alpha = 0.8
             }
@@ -210,6 +221,11 @@ class UserProfileHeaderView: UICollectionReusableView {
             profileImageView.al_centerX == al_centerX,
             profileImageView.al_width == profileImageViewWidth,
             profileImageView.al_height == profileImageView.al_width,
+
+            userProfilePlaceholder.al_bottom == profileImageView.al_bottom,
+            userProfilePlaceholder.al_centerX == profileImageView.al_centerX,
+            userProfilePlaceholder.al_width == profileImageViewWidth,
+            userProfilePlaceholder.al_height == profileImageView.al_width,
 
             coverPhotoView.al_width == al_width,
             coverPhotoBottonMarginConstraint!,

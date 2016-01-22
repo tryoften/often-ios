@@ -95,7 +95,13 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
         cell.layer.shouldRasterize = true
         cell.showImageView = false
         cell.mediaLink = lyric
+        cell.type = .Metadata
         cell.delegate = self
+
+        #if !(KEYBOARD)
+           cell.inMainApp = true
+        #endif
+        
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(lyric)
     
         return cell
