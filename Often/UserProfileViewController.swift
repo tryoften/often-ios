@@ -64,7 +64,8 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
             PKHUD.sharedHUD.contentView = HUDProgressView()
             PKHUD.sharedHUD.show()
         }
-
+        
+        promptUserToRegisterPushNotifications()
         reloadUserData()
     }
 
