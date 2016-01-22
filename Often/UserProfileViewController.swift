@@ -37,7 +37,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         layout.parallaxHeaderReferenceSize = UserProfileHeaderView.preferredSize
         layout.parallaxHeaderAlwaysOnTop = true
         layout.disableStickyHeaders = false
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
@@ -52,10 +52,9 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
+            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
+                withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
         }
-        
-        promptUserToRegisterPushNotifications()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -139,6 +138,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         var cell: MediaItemCollectionViewCell
         cell = parseMediaItemData(viewModel.filteredMediaItemsForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
+        cell.type = .NoMetadata
         cell.inMainApp = true
         
         if let result = cell.mediaLink {
