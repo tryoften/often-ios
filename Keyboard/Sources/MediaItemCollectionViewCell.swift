@@ -15,6 +15,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     
     var metadataContentView: UIView
     var sourceLogoView: UIImageView
+    var hotnessLogoView: UIImageView
     var leftHeaderLabel: UILabel
     var rightHeaderLabel: UILabel
     var mainTextLabel: UILabel
@@ -92,6 +93,14 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         sourceLogoView.contentMode = .ScaleAspectFill
         sourceLogoView.layer.cornerRadius = 2.0
         sourceLogoView.clipsToBounds = true
+
+        hotnessLogoView = UIImageView()
+        hotnessLogoView.translatesAutoresizingMaskIntoConstraints = false
+        hotnessLogoView.contentMode = .ScaleAspectFill
+        hotnessLogoView.image = StyleKit.imageOfHotness(scale: 0.5)
+        hotnessLogoView.layer.cornerRadius = 2.0
+        hotnessLogoView.clipsToBounds = true
+        hotnessLogoView.hidden = true
         
         leftHeaderLabel = UILabel()
         leftHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
