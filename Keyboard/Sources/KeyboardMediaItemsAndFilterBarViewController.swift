@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KeyboardMediaItemsAndFilterBarViewController: MediaItemsAndFilterBarViewController,
+class KeyboardMediaItemsAndFilterBarViewController: MediaItemsViewController,
     FavoritesAndRecentsTabDelegate {
     var favoritesAndRecentsTabView: FavoritesAndRecentsTabView
     var searchResultsContainerView: UIView?
