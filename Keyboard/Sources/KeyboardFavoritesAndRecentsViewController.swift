@@ -103,7 +103,8 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType)
+                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
+                    sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
                     sectionView.topSeperator.hidden = true
                     return sectionView
             }

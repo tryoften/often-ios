@@ -19,7 +19,7 @@ public enum UserState {
 
 let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 
-class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
+class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: MediaItemsViewModel
     var emptyStateView: EmptyStateView?
     var loaderView: AnimatedLoaderView
@@ -105,7 +105,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
             loaderView.hidden = true
             collectionView?.scrollEnabled = true
             if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) || viewModel.hasSeenTwitter {
-                let collection = viewModel.filteredMediaItemsForCollectionType(collectionType)
+                let collection = viewModel.generateMediaItemGroupsForCollectionType(collectionType)
 
                 if collection.isEmpty {
                     switch collectionType {
@@ -167,16 +167,16 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+        return viewModel.generateMediaItemGroupsForCollectionType(collectionType).count
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.filteredMediaItemsForCollectionType(collectionType).count
+        return viewModel.mediaItemGroupItemsForIndex(section, collectionType: collectionType).count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: MediaItemCollectionViewCell
-        cell = parseMediaItemData(viewModel.filteredMediaItemsForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
+        cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section, collectionType: collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
 
         animateCell(cell, indexPath: indexPath)
@@ -190,7 +190,8 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType)
+                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
+                    sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
                     return sectionView
             }
         }
@@ -227,6 +228,11 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
 
     func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         loaderView.hidden = true
+    }
+    
+    func mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, groups: [MediaItemGroup]) {
+        reloadData(false)
+        
     }
 
     // MARK: MediaItemCollectionViewCellDelegate

@@ -5,23 +5,23 @@
 //  Created by Komran Ghahremani on 8/6/15.
 //  Copyright (c) 2015 Surf Inc. All rights reserved.
 //
-// 
+//
 
 import UIKit
 
-class UserProfileViewController: MediaItemsAndFilterBarViewController, FavoritesAndRecentsTabDelegate {
+class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTabDelegate {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: MediaItemsSectionHeaderView?
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaItemsViewModel) {
         super.init(collectionViewLayout: collectionViewLayout, collectionType: .Favorites, viewModel: viewModel)
-
+        
         viewModel.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
         checkUserEmptyStateStatus()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -42,35 +42,35 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
         layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 70.0, right: 10.0)
-
+        
         return layout
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
         }
     }
-
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         if !viewModel.isDataLoaded {
             PKHUD.sharedHUD.contentView = HUDProgressView()
             PKHUD.sharedHUD.show()
         }
-
+        
         reloadUserData()
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -80,34 +80,30 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         let screenWidth = UIScreen.mainScreen().bounds.width
         let screenHeight = UIScreen.mainScreen().bounds.height
         let headerHeight = UserProfileHeaderView.preferredSize.height
-
+        
         var tabBarHeight: CGFloat = 0.0
         if let tabBarController = tabBarController {
             tabBarHeight = CGRectGetHeight(tabBarController.tabBar.frame)
         }
-
+        
         let contentFrame = CGRectMake(0, headerHeight, screenWidth, screenHeight - headerHeight - tabBarHeight)
-
+        
         emptyStateView?.frame = contentFrame
         loaderView.frame = contentFrame
     }
-
-    // MARK: UICollectionViewDataSource
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
     
+    // MARK: UICollectionViewDataSource
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
                 withReuseIdentifier: UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileHeaderView else {
-                return UICollectionReusableView()
+                    return UICollectionReusableView()
             }
-
+            
             if headerView == nil {
                 headerView = cell
                 headerView?.tabContainerView.delegate = self
-
+                
                 do {
                     try viewModel.fetchCollection(collectionType)
                 } catch MediaItemsViewModelError.FetchingCollectionDataFailed {
@@ -116,7 +112,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
                     print("Failed to request data \(error)")
                 }
             }
-
+            
             return headerView!
         }
         
@@ -124,9 +120,9 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType)
-
-                return sectionView
+                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
+                    sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+                    return sectionView
             }
         }
         
@@ -135,7 +131,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: MediaItemCollectionViewCell
-        cell = parseMediaItemData(viewModel.filteredMediaItemsForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
+        cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section, collectionType: collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
         cell.inMainApp = true
         
@@ -151,20 +147,20 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         
         return cell
     }
-
+    
     override func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
         reloadUserData()
     }
-
+    
     override func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
         reloadData()
     }
-
+    
     override func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         reloadData()
         PKHUD.sharedHUD.hide(animated: true)
     }
-
+    
     func reloadUserData() {
         if let headerView = headerView, let user = viewModel.currentUser {
             headerView.sharedText = "85 Lyrics Shared"
@@ -173,26 +169,26 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.setImageWithAnimation(imageURL)
-
+                
                 headerView.collapseProfileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
                     headerView.collapseProfileImageView.image = image
                     }, failure: { (req, res, error) in
-                    print("Failed to load image: \(imageURL)")
-                    })
-
-
+                        print("Failed to load image: \(imageURL)")
+                })
+                
+                
             }
         }
     }
-
+    
     func userFavoritesTabSelected() {
         collectionType = .Favorites
     }
-
+    
     func userRecentsTabSelected() {
         collectionType = .Recents
     }
-
+    
     //MARK: Check for empty state
     func checkUserEmptyStateStatus() {
         collectionView?.scrollEnabled = false
@@ -241,7 +237,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
-
+    
     // Empty States button actions
     func didTapSettingsButton() {
         var appSettingsString = UIApplicationOpenSettingsURLString
@@ -251,7 +247,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         }
         
         if let appSettings = NSURL(string: appSettingsString) {
-           UIApplication.sharedApplication().openURL(appSettings)
+            UIApplication.sharedApplication().openURL(appSettings)
         }
     }
     
@@ -273,5 +269,5 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
                 subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
         }
     }
-  
+    
 }
