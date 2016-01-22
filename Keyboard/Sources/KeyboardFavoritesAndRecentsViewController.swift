@@ -26,7 +26,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
         }
         collectionView?.backgroundColor = UIColor.clearColor()
-        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 80, 0)
         
         // take this out when we actually count how many times a user has shared a message
         SessionManagerFlags.defaultManagerFlags.userMessageCount = 0;
@@ -66,7 +66,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10.0, bottom: 80.0, right: 10.0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10.0, bottom: 10.0, right: 10.0)
         return layout
     }
 
@@ -86,6 +86,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
                 withReuseIdentifier: "messageHeader", forIndexPath: indexPath) as? ShareOftenMessageHeaderView else {
@@ -105,7 +106,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                     sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
                     sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
-                    sectionView.topSeperator.hidden = true
+                    sectionHeaders[indexPath.section] = sectionView
                     return sectionView
             }
         }

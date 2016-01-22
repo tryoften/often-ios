@@ -37,6 +37,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             }
         }
     }
+    var sectionHeaders: [Int: MediaItemsSectionHeaderView] = [:]
 
 
     init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaItemsCollectionType, viewModel: MediaItemsViewModel) {
@@ -61,6 +62,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             collectionView.registerClass(MediaItemsSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
+
         }
     }
 
@@ -181,6 +183,10 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
         animateCell(cell, indexPath: indexPath)
         
+        if let sectionView = sectionHeaders[indexPath.section] {
+            sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+        }
+        
         return cell
     }
 
@@ -192,6 +198,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                     sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
                     sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+                    sectionHeaders[indexPath.section] = sectionView
                     return sectionView
             }
         }

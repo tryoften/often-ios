@@ -20,6 +20,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
         checkUserEmptyStateStatus()
+        collectionView?.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 70.0, right: 0.0)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,7 +42,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 70.0, right: 10.0)
+        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         
         return layout
     }
@@ -94,6 +95,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     // MARK: UICollectionViewDataSource
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
                 withReuseIdentifier: UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileHeaderView else {
@@ -114,14 +116,13 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             }
             
             return headerView!
-        }
-        
-        if kind == UICollectionElementKindSectionHeader {
+        } else if kind == UICollectionElementKindSectionHeader {
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                     sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
                     sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+                    sectionHeaders[indexPath.section] = sectionView
                     return sectionView
             }
         }
@@ -130,8 +131,10 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell: MediaItemCollectionViewCell
-        cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section, collectionType: collectionType), indexPath: indexPath, collectionView: collectionView)
+        guard let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as? MediaItemCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
         cell.delegate = self
         cell.inMainApp = true
         
@@ -142,8 +145,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
                 cell.itemFavorited = false
             }
         }
-        
-        animateCell(cell, indexPath: indexPath)
         
         return cell
     }

@@ -100,8 +100,8 @@
 		3BE0BC9C1BED51EB00037E21 /* FavoritesAndRecentsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */; };
 		3BE0BCA01BED530800037E21 /* MediaFilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD891B8E0BD7003BC281 /* MediaFilterTabView.swift */; };
 		3BE0BCA31BEDB8B700037E21 /* MediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C663211B8B6FA60014433D /* MediaItemsViewModel.swift */; };
-		3BE12EF21BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift */; };
-		3BE12EF31BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift */; };
+		3BE12EF21BEF020800F300FA /* MediaItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsViewController.swift */; };
+		3BE12EF31BEF020800F300FA /* MediaItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsViewController.swift */; };
 		3BEB408E1BC8561500D36C4D /* HUDProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */; };
 		3BEB40AE1BCDBC2300D36C4D /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */; };
 		3BEB40B91BD03A3500D36C4D /* TextMessageOnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */; };
@@ -459,7 +459,7 @@
 		81DA3EE21C24BE85006822D3 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
 		81DA3EE31C24BE85006822D3 /* AccountManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F256A1BF4342E00AA7A98 /* AccountManagerProtocol.swift */; };
 		81DA3EE41C24BE85006822D3 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		81DA3EE51C24BE85006822D3 /* MediaItemsAndFilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift */; };
+		81DA3EE51C24BE85006822D3 /* MediaItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsViewController.swift */; };
 		81DA3EE61C24BE85006822D3 /* SocialAccountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94BFA61BC326B2006C62F2 /* SocialAccountHeaderView.swift */; };
 		81DA3EE71C24BE85006822D3 /* ToolTipLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */; };
 		81DA3EE91C24BE85006822D3 /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26DA51B68901100FC1F2F /* TrendingViewController.swift */; };
@@ -787,7 +787,7 @@
 		3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		3BE0BC881BEBFA9200037E21 /* FavoritesAndRecentsTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesAndRecentsTabView.swift; sourceTree = "<group>"; };
-		3BE12EF11BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsAndFilterBarViewController.swift; path = ../Often/MediaItemsAndFilterBarViewController.swift; sourceTree = "<group>"; };
+		3BE12EF11BEF020800F300FA /* MediaItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsViewController.swift; path = ../Often/MediaItemsViewController.swift; sourceTree = "<group>"; };
 		3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDProgressView.swift; sourceTree = "<group>"; };
 		3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		3BEB40B81BD03A3500D36C4D /* TextMessageOnBoardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessageOnBoardingView.swift; sourceTree = "<group>"; };
@@ -1314,7 +1314,7 @@
 			isa = PBXGroup;
 			children = (
 				3B6EA42F1BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift */,
-				3BE12EF11BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift */,
+				3BE12EF11BEF020800F300FA /* MediaItemsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -2393,7 +2393,7 @@
 				6944A5331C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */,
 				81F817C41C2A119500B1C1E6 /* KeyboardSearchBarController.swift in Sources */,
 				3B5F256B1BF4342E00AA7A98 /* AccountManagerProtocol.swift in Sources */,
-				3BE12EF21BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift in Sources */,
+				3BE12EF21BEF020800F300FA /* MediaItemsViewController.swift in Sources */,
 				81BDA7221C3F152E00198AF8 /* MediaType.swift in Sources */,
 				3B94BFA71BC326B2006C62F2 /* SocialAccountHeaderView.swift in Sources */,
 				69F3BC1B1BE9079300080628 /* ToolTipLoadingView.swift in Sources */,
@@ -2532,7 +2532,7 @@
 				696C2DB11BB61357004AC9F6 /* ToolTip.swift in Sources */,
 				813323901C2269890084918B /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
 				810C4AF81B5D81FA005AABEA /* SearchBarButton.swift in Sources */,
-				3BE12EF31BEF020800F300FA /* MediaItemsAndFilterBarViewController.swift in Sources */,
+				3BE12EF31BEF020800F300FA /* MediaItemsViewController.swift in Sources */,
 				813323711C1FBF2B0084918B /* KeyboardFavoritesAndRecentsViewController.swift in Sources */,
 				813323891C2268E10084918B /* FullScreenCollectionViewController.swift in Sources */,
 				81BDA7361C404BCF00198AF8 /* BrowseLyricsCollectionViewController.swift in Sources */,
@@ -2712,7 +2712,7 @@
 				81DA3EE31C24BE85006822D3 /* AccountManagerProtocol.swift in Sources */,
 				81DA3EE41C24BE85006822D3 /* (null) in Sources */,
 				81BDA7231C3F152E00198AF8 /* MediaType.swift in Sources */,
-				81DA3EE51C24BE85006822D3 /* MediaItemsAndFilterBarViewController.swift in Sources */,
+				81DA3EE51C24BE85006822D3 /* MediaItemsViewController.swift in Sources */,
 				81DA3EE61C24BE85006822D3 /* SocialAccountHeaderView.swift in Sources */,
 				81DA3EE71C24BE85006822D3 /* ToolTipLoadingView.swift in Sources */,
 				81DA3EE91C24BE85006822D3 /* TrendingViewController.swift in Sources */,
