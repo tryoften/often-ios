@@ -19,6 +19,13 @@ class LoginView: UIView {
     var buttonDivider: UIView
     var launchScreenLoader: UIImageView
     let signinButton: UIButton
+
+    private var subtitleLabelLeftAndRightMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 30
+        }
+        return 55
+    }
     
     override init(frame: CGRect) {
         let titleString = "often".uppercaseString
@@ -133,8 +140,8 @@ class LoginView: UIView {
             titleLabel.al_height == 40,
             
             subtitleLabel.al_top == titleLabel.al_bottom,
-            subtitleLabel.al_left == al_left + 55,
-            subtitleLabel.al_right == al_right - 55,
+            subtitleLabel.al_left == al_left + subtitleLabelLeftAndRightMargin,
+            subtitleLabel.al_right == al_right - subtitleLabelLeftAndRightMargin,
             subtitleLabel.al_height == 60,
             
             scrollView.al_top == subtitleLabel.al_bottom + 10,

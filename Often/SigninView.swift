@@ -21,7 +21,14 @@ class SigninView: UIView {
     let signinFacebookButton: UIButton
     let forgetPasswordButton: UIButton
     let cancelButton: UIButton
-    
+
+    private var titleLabelHeightTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 90
+        }
+        return 120
+    }
+
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -107,7 +114,7 @@ class SigninView: UIView {
             cancelButton.al_width == 55,
             cancelButton.al_height == 59,
             
-            titleLabel.al_top == al_top + 120,
+            titleLabel.al_top == al_top + titleLabelHeightTopMargin,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_height == 30,
