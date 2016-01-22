@@ -82,6 +82,3 @@ class KeyboardMediaItemsAndFilterBarViewController: MediaItemsAndFilterBarViewCo
         reloadData(false)
     }
 }
-
-
-

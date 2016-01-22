@@ -49,7 +49,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         hasFetchedData = false
         
         super.init(collectionViewLayout: collectionViewLayout)
-
+        
         self.viewModel.delegate = self
         
         view.backgroundColor = VeryLightGray
@@ -89,7 +89,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     }
 
     func requestData(animated: Bool = false) {
-        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showLoader", userInfo: nil, repeats: false)
+        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "loaderIfNeeded", userInfo: nil, repeats: false)
 
         do {
             try viewModel.fetchCollection(collectionType) { success in
@@ -104,7 +104,7 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         if viewModel.isDataLoaded {
             loaderView.hidden = true
             collectionView?.scrollEnabled = true
-            if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) || viewModel.hasSeenTwitter {
+            if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) {
                 let collection = viewModel.filteredMediaItemsForCollectionType(collectionType)
 
                 if collection.isEmpty {
@@ -122,10 +122,12 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         }
     }
     
-    func showLoader() {
+    func loaderIfNeeded() {
         if !viewModel.isDataLoaded {
             loaderView.hidden = false
             loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timeoutLoader", userInfo: nil, repeats: false)
+        } else {
+            collectionView?.hidden = false
         }
     }
     
@@ -178,7 +180,8 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
         var cell: MediaItemCollectionViewCell
         cell = parseMediaItemData(viewModel.filteredMediaItemsForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
-
+        cell.type = .NoMetadata
+        
         animateCell(cell, indexPath: indexPath)
         
         return cell
@@ -223,10 +226,12 @@ class MediaItemsAndFilterBarViewController: MediaItemsCollectionBaseViewControll
     func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
         reloadData(false)
         loaderView.hidden = true
+        collectionView?.hidden = false
     }
 
     func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         loaderView.hidden = true
+        collectionView?.hidden = false
     }
 
     // MARK: MediaItemCollectionViewCellDelegate

@@ -16,13 +16,22 @@ class AlertView: SpringView {
     let actionButton: UIButton
 
     var subtitleLabelLeftRightMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 30
+        }
+
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
             return 80
         }
+
         return 60
     }
 
     var actionButtonLeftRightMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 60
+        }
+
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
             return 100
         }

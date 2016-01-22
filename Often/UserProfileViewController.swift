@@ -37,7 +37,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         layout.parallaxHeaderReferenceSize = UserProfileHeaderView.preferredSize
         layout.parallaxHeaderAlwaysOnTop = true
         layout.disableStickyHeaders = false
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
@@ -52,7 +52,8 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
+            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
+                withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
         }
     }
 
@@ -63,7 +64,8 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
             PKHUD.sharedHUD.contentView = HUDProgressView()
             PKHUD.sharedHUD.show()
         }
-
+        
+        promptUserToRegisterPushNotifications()
         reloadUserData()
     }
 
@@ -137,6 +139,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
         var cell: MediaItemCollectionViewCell
         cell = parseMediaItemData(viewModel.filteredMediaItemsForCollectionType(collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
+        cell.type = .NoMetadata
         cell.inMainApp = true
         
         if let result = cell.mediaLink {
@@ -172,7 +175,7 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
             headerView.collapseNameLabel.text = user.name
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
-                headerView.profileImageView.setImageWithAnimation(imageURL)
+                headerView.profileImageView.setImageWithAnimation(imageURL, placeholderImage: UIImage(named: "userprofileplaceholder")!)
 
                 headerView.collapseProfileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
                     headerView.collapseProfileImageView.image = image
@@ -237,7 +240,12 @@ class UserProfileViewController: MediaItemsAndFilterBarViewController, Favorites
             })
         }
     }
-    
+
+    func promptUserToRegisterPushNotifications() {
+        UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+    }
+
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
