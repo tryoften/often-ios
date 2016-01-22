@@ -55,6 +55,9 @@ let ButtonFont = UIFont(name: "OpenSans", size: 15)
 let TitleFont = UIFont(name: "Oswald-Regular", size: 19)
 
 
+// Share Message
+let ShareMessage = "Hey, just thought you should try Often! Search, collect & share lyrics, in any app, right from your keyboard. oftn.me/app"
+
 // Navbar
 let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")

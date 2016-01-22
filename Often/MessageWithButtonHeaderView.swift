@@ -48,9 +48,7 @@ class MessageWithButtonHeaderView: UICollectionReusableView {
         bottomBorderView.backgroundColor = DarkGrey
         
         super.init(frame: frame)
-        
-        closeButton.addTarget(self, action: "closeTapped", forControlEvents: .TouchUpInside)
-        
+                
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(primaryButton)
@@ -64,10 +62,6 @@ class MessageWithButtonHeaderView: UICollectionReusableView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func closeTapped() {
-        removeFromSuperview()
     }
     
     func setupLayout() {
