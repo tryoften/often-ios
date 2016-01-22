@@ -8,14 +8,12 @@
 
 import UIKit
 
-class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewController {
+class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     var textProcessor: TextProcessingManager?
     var headerView: ShareOftenMessageHeaderView?
-    var collType: MediaItemsCollectionType?
 
     init(viewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType) {
         
-        collType = collectionType
         if collectionType == .Favorites {
             let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewLayout()
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
@@ -41,7 +39,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsAndFilterBarViewContr
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if(collType == .Favorites) {            
+        if(collectionType == .Favorites) {
             if(SessionManagerFlags.defaultManagerFlags.userMessageCount % 10 == 0 && headerView?.hidden == true) {
                 headerView?.hidden = false
                 collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(), animated: true)
