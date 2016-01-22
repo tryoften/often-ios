@@ -44,7 +44,7 @@ class MediaItemGroup: Equatable {
      - parameter dictionary:  NSDictionary from JSON.
      - returns: MediaItemGroup Instance.
      */
-    required init(dictionary: NSDictionary) {
+    init(dictionary: NSDictionary) {
         id = dictionary["id"] as? String
         if let items = dictionary["items"] as? NSArray {
             self.items = MediaItem.modelsFromDictionaryArray(items)
