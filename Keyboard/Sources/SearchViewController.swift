@@ -167,7 +167,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if searchBar.text == "" {
+        if searchBar.text?.isEmpty == true {
             return
         }
 
@@ -235,7 +235,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     // MARK: SearchViewModelDelegate
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
         // TODO(luc): don't do anything if the keyboard is restored
-        if response.results.isEmpty {
+        if response.groups.isEmpty {
             return
         }
 

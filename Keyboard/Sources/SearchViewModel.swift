@@ -22,31 +22,21 @@ class SearchViewModel: SearchBaseViewModel {
         guard let id = data["id"] as? String,
             let query = data["query"] as? [String: AnyObject],
             let queryText = query["text"] as? String,
-            let type = data["type"] as? String,
-            let resultsData = data["results"] as? [ [String: AnyObject] ],
+            let resultsData = data["results"] as? NSArray,
+            let groups = MediaItemGroup.modelsFromDictionaryArray(resultsData) as? [MediaItemGroup],
             let _ = currentRequest else {
                 return
         }
-        
-        var results = [MediaItem]()
-        
-        for resultData in resultsData {
-            if let result = processSearchResultData(resultData) {
-                results.append(result)
-            }
-        }
-        
+
         var responseChanged = true
         
         let lastModified = (data["time_modified"] as? NSTimeInterval) ?? NSDate().timeIntervalSince1970
-        let response = SearchResponse(id: id, results: results, timeModified: NSDate(timeIntervalSince1970: lastModified))
+        let response = SearchResponse(id: id, groups: groups, timeModified: NSDate(timeIntervalSince1970: lastModified))
         
         // check if the response has different results than the previously received result set
         // if it is, let the view layer know
-        if let currentResponse = currentResponse {
-            if currentResponse == response {
-                responseChanged = false
-            }
+        if let currentResponse = currentResponse where currentResponse == response {
+            responseChanged = false
         }
         
         if responseChanged {
@@ -65,15 +55,11 @@ class SearchViewModel: SearchBaseViewModel {
             }
         }
         self.isDataLoaded = true
-        self.delegate?.searchViewModelDidReceiveResponse(self, response: response, responseChanged: responseChanged)
 
-    }
-    
-    func processSearchResultData(resultData: [String: AnyObject]) -> MediaItem? {
-        if let data = resultData as? NSDictionary {
-            return MediaItem.mediaItemFromType(data)
+        dispatch_async(dispatch_get_main_queue()) {
+            self.delegate?.searchViewModelDidReceiveResponse(self, response: response, responseChanged: responseChanged)
         }
-        return nil
+
     }
 }
 

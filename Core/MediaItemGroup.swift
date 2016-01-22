@@ -9,7 +9,7 @@
 
 import Foundation
 
-class MediaItemGroup {
+class MediaItemGroup: Equatable {
     var id: String?
     var items: [MediaItem] = []
     var score: Int?
@@ -49,12 +49,23 @@ class MediaItemGroup {
         if let items = dictionary["items"] as? NSArray {
             self.items = MediaItem.modelsFromDictionaryArray(items)
         }
+
+        if let items = dictionary["results"] as? NSArray {
+            self.items = MediaItem.modelsFromDictionaryArray(items)
+        }
+
         score = dictionary["score"] as? Int
-        title = dictionary["title"] as? String
 
         if let typeStr = dictionary["type"] as? String, let type = MediaType(rawValue: typeStr) {
             self.type = type
         }
+
+        if let title = dictionary["title"] as? String {
+            self.title = title
+        } else {
+            self.title = "\(items.count) \(type)s"
+        }
+
      }
 
     /**
@@ -72,4 +83,8 @@ class MediaItemGroup {
         
         return dictionary
     }
+}
+
+func ==(lhs: MediaItemGroup, rhs: MediaItemGroup) -> Bool {
+    return lhs.items == rhs.items
 }
