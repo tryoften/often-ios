@@ -23,12 +23,6 @@ class SearchResultsCellOverlayView: UIView {
   
     let backgroundView: UIVisualEffectView
 
-    override var hidden: Bool {
-        didSet {
-            
-        }
-    }
-    
     override init(frame: CGRect) {
         insertButton = SpringButton()
         insertButton.translatesAutoresizingMaskIntoConstraints = false
