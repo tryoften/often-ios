@@ -25,6 +25,10 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
     init(trackId: String, viewModel: BrowseViewModel) {
         self.trackId = trackId
         super.init(viewModel: viewModel)
+
+        #if KEYBOARD
+        collectionView?.contentInset = UIEdgeInsetsMake(63.0 + KeyboardSearchBarHeight, 0, 0, 0)
+        #endif
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -41,6 +45,7 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
             self.track = track
         }
     }
+
 
     override func headerViewDidLoad() {
         if let imageURLStr = track?.song_art_image_url,
