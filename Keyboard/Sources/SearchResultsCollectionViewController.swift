@@ -10,6 +10,8 @@ import UIKit
 
 let SearchResultsInsertLinkEvent = "SearchResultsCollectionViewCell.insertButton"
 
+/// This class displays search results for a given response object
+/// TODO(luc): Merge class with BrowseViewController since they're very similar
 class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MessageBarDelegate {
     var textProcessor: TextProcessingManager?
     var searchBarController: SearchBarController?
@@ -33,6 +35,7 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     var refreshTimer: NSTimer?
     var emptyStateView: EmptyStateView
     var messageBarView: MessageBarView
+    var displayedData: Bool
     var messageBarVisibleConstraint: NSLayoutConstraint?
 
     var contentInset: UIEdgeInsets {
@@ -51,7 +54,11 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     }
 
     init(collectionViewLayout layout: UICollectionViewLayout, textProcessor: TextProcessingManager?) {
-        contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
+    #if KEYBOARD
+        contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
+    #else
+        contentInset = UIEdgeInsetsMake(68, 0, 0, 0)
+    #endif
         
         refreshResultsButton = RefreshResultsButton()
         refreshResultsButton.translatesAutoresizingMaskIntoConstraints = false
@@ -63,6 +70,8 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
         emptyStateView.alpha = 0.0
         
         self.textProcessor = textProcessor
+
+        displayedData = false
         
         super.init(collectionViewLayout: layout)
         
@@ -224,6 +233,7 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
 
             cell.backgroundColor = UIColor.clearColor()
             cell.contentView.addSubview(lyricsHorizontalVC.view)
+            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
             lyricsHorizontalVC.view.frame = cell.bounds
 
             return cell
@@ -233,6 +243,7 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
             artistsHorizontalVC.group = group
 
             cell.contentView.addSubview(artistsHorizontalVC.view)
+            artistsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
             artistsHorizontalVC.view.frame = cell.bounds
 
             self.artistsHorizontalVC = artistsHorizontalVC
@@ -295,11 +306,20 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     func refreshResults() {
         cellsAnimated = [:]
         
-        guard let collectionView = collectionView else {
+        guard let collectionView = collectionView, let response = response else {
             return
         }
         
-        collectionView.reloadData()
+        if !displayedData {
+            collectionView.reloadData()
+            displayedData = true
+        } else {
+            collectionView.performBatchUpdates({
+                let range = NSMakeRange(0, response.groups.count)
+                collectionView.reloadSections(NSIndexSet(indexesInRange: range))
+            }, completion: nil)
+
+        }
 
         let yOffset = containerViewController?.tabBar == nil ? 0 : -2 * KeyboardSearchBarHeight + 2
         collectionView.setContentOffset(CGPointMake(0, yOffset), animated: false)

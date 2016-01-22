@@ -29,7 +29,11 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
 
     init(viewModel aViewModel: SearchSuggestionsViewModel) {
         viewModel = aViewModel
+    #if KEYBOARD
         contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
+    #else
+        contentInset = UIEdgeInsetsMake(68, 0, 0, 0)
+    #endif
         tableViewBottomInset = 80
         
         super.init(style: .Grouped)

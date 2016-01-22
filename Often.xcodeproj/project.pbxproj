@@ -378,6 +378,9 @@
 		81BDC11E1C500FCE00E7C524 /* ConnectivityObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDC1191C50086B00E7C524 /* ConnectivityObservable.swift */; };
 		81BDC11F1C500FCF00E7C524 /* ConnectivityObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDC1191C50086B00E7C524 /* ConnectivityObservable.swift */; };
 		81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
+		81C6EEE21C52A82E00BC061B /* UIKit+Guard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6EEE11C52A82D00BC061B /* UIKit+Guard.swift */; };
+		81C6EEE31C52A82E00BC061B /* UIKit+Guard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6EEE11C52A82D00BC061B /* UIKit+Guard.swift */; };
+		81C6EEE41C52A82E00BC061B /* UIKit+Guard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C6EEE11C52A82D00BC061B /* UIKit+Guard.swift */; };
 		81D09D8E1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
 		81D09D8F1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */; };
 		81D09D901BE2BAE500AFBEC0 /* SpellChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810A242D1BE058250032AFC7 /* SpellChecker.swift */; };
@@ -939,6 +942,7 @@
 		81BDA7351C404BCF00198AF8 /* BrowseLyricsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseLyricsCollectionViewController.swift; path = Sources/BrowseLyricsCollectionViewController.swift; sourceTree = "<group>"; };
 		81BDA73E1C40884300198AF8 /* CellAnimatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellAnimatable.swift; sourceTree = "<group>"; };
 		81BDC1191C50086B00E7C524 /* ConnectivityObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectivityObservable.swift; sourceTree = "<group>"; };
+		81C6EEE11C52A82D00BC061B /* UIKit+Guard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Guard.swift"; sourceTree = "<group>"; };
 		81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
 		81D0CDC21BD542C20009859D /* SearchBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchBaseViewModel.swift; path = Sources/SearchBaseViewModel.swift; sourceTree = "<group>"; };
 		81D43B331B46E49800453BBF /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
@@ -1252,6 +1256,7 @@
 			isa = PBXGroup;
 			children = (
 				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
+				81C6EEE11C52A82D00BC061B /* UIKit+Guard.swift */,
 				813324201C24A4F80084918B /* NJKScrollFullScreen */,
 				81D4BF151B38F6DA006430AB /* PKHUD */,
 				81DC114A1AF05CF400412BD2 /* SwiftyJSON */,
@@ -2441,6 +2446,7 @@
 				810B04FD1C4446AE00BA731B /* ContainerNavigationBar.swift in Sources */,
 				81BDA7381C404BD700198AF8 /* BrowseLyricsCollectionViewController.swift in Sources */,
 				3B63ED5D1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
+				81C6EEE21C52A82E00BC061B /* UIKit+Guard.swift in Sources */,
 				6944A5451C3B0EFA00EA57C3 /* RecentsEmptyStateView.swift in Sources */,
 				817F78391BBDD2780087EBE8 /* TrackMediaItem.swift in Sources */,
 				81E26D961B67C29D00FC1F2F /* Shape.swift in Sources */,
@@ -2574,6 +2580,7 @@
 				8127A8F41B90E89E00BD070B /* SearchSuggestionTableViewCell.swift in Sources */,
 				81BDA7201C3F096300198AF8 /* BaseViewModel.swift in Sources */,
 				81D60ACE1B84BF2500347BCA /* SearchRequest.swift in Sources */,
+				81C6EEE41C52A82E00BC061B /* UIKit+Guard.swift in Sources */,
 				81459AF21AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */,
 				81D0CDC41BD542C20009859D /* SearchBaseViewModel.swift in Sources */,
 				699D0B131C49649100BCABAE /* ShareOftenMessageHeaderView.swift in Sources */,
@@ -2758,6 +2765,7 @@
 				81DA3F101C24BE85006822D3 /* KeyboardViewController+EventHandlers.swift in Sources */,
 				810B04FE1C4446AE00BA731B /* ContainerNavigationBar.swift in Sources */,
 				81BDA7371C404BD600198AF8 /* BrowseLyricsCollectionViewController.swift in Sources */,
+				81C6EEE31C52A82E00BC061B /* UIKit+Guard.swift in Sources */,
 				6944A5461C3B0EFA00EA57C3 /* RecentsEmptyStateView.swift in Sources */,
 				81DA3F111C24BE85006822D3 /* TrackMediaItem.swift in Sources */,
 				81DA3F121C24BE85006822D3 /* Shape.swift in Sources */,
