@@ -117,7 +117,11 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     emptyStateView?.hidden = false
                 } else {
                     emptyStateView?.hidden = true
+                #if KEYBOARD
+                    collectionView?.reloadData()
+                #else
                     collectionView?.reloadSections(NSIndexSet(index: 0))
+                #endif
                 }
             }
         }

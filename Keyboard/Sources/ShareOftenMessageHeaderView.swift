@@ -15,7 +15,7 @@ class ShareOftenMessageHeaderView: MessageWithButtonHeaderView {
         arrowShape = UIImageView()
         arrowShape.translatesAutoresizingMaskIntoConstraints = false
         arrowShape.contentMode = .ScaleAspectFit
-        arrowShape.image = StyleKit.imageOfSharebutton()
+        arrowShape.image = StyleKit.imageOfSharebutton(color: UIColor.whiteColor())
         
         super.init(frame: frame)
         

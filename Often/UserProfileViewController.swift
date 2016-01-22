@@ -71,6 +71,8 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
     }
     
@@ -93,6 +95,10 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         
         emptyStateView?.frame = contentFrame
         loaderView.frame = contentFrame
+    }
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
     
     // MARK: UICollectionViewDataSource

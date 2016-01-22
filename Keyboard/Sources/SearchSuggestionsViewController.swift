@@ -34,7 +34,11 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         viewModel = aViewModel
+    #if KEYBOARD
         contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
+    #else
+        contentInset = UIEdgeInsetsMake(68, 0, 0, 0)
+    #endif
         tableViewBottomInset = 80
         
         super.init(nibName: nil, bundle: nil)
@@ -55,6 +59,7 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
     }
 
     func showSearchSuggestionsView(showSearchSuggestionsView: Bool) {
+        viewModel.requestData()
         if showSearchSuggestionsView {
             UIView.animateWithDuration(0.3, animations: {
                 self.view.alpha = 1.0

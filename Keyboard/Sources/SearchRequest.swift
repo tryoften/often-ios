@@ -8,27 +8,54 @@
 
 import UIKit
 
+struct SearchRequestFilter {
+    var type: String
+    var value: String
+
+    func toDictionary() -> [String: AnyObject] {
+        return [
+            "type": type,
+            "value": value
+        ]
+    }
+}
+
+enum SearchRequestType: String {
+    case Search = "search"
+    case Autocomplete = "autocomplete"
+}
+
 struct SearchRequest {
     var id: String
     var query: String
     var userId: String
     var timestamp: NSTimeInterval
     var isFulfilled: Bool = false
-    
-    /* whether the request is for autocomplete suggestions */
-    var autocomplete: Bool = false
+    var filter: SearchRequestFilter? = nil
+    var type: SearchRequestType = .Search
     
     func toDictionary() -> [String: AnyObject] {
+        var queryDict: [String: AnyObject] = [:]
+
+        if let filter = filter {
+            queryDict = [
+                "text": query.lowercaseString,
+                "filter": filter.toDictionary()
+            ]
+        } else {
+            queryDict = [
+                "text": query.lowercaseString
+            ]
+        }
+
         let dict: [String: AnyObject] = [
             "id": id,
             "user": userId,
             "time_made": "\(timestamp)",
-            "query": [
-                "text": query.lowercaseString,
-                "autocomplete": autocomplete
-            ]
+            "query": queryDict,
+            "type": type.rawValue
         ]
-        
+
         return dict
     }
     
