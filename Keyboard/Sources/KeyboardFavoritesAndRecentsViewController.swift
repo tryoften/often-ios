@@ -58,6 +58,12 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     class func provideCollectionViewLayout(headerHeight: CGFloat = 150) -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let layout = CSStickyHeaderFlowLayout()
+        var topMargin: CGFloat = 0.0
+
+    #if KEYBOARD
+        topMargin = 10.0
+    #endif
+
         layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, headerHeight)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, headerHeight)
         layout.parallaxHeaderAlwaysOnTop = false
@@ -66,7 +72,8 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10.0, bottom: 10.0, right: 10.0)
+        layout.sectionInset = UIEdgeInsets(top: topMargin, left: 10.0, bottom: 10.0, right: 10.0)
+
         return layout
     }
 
