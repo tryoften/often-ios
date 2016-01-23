@@ -58,9 +58,9 @@ class SearchBaseViewModel {
         }
     }
     
-    func sendRequestForQuery(query: String, autocomplete: Bool) -> SearchRequest {
+    func sendRequestForQuery(query: String, type: SearchRequestType = .Search, filter: SearchRequestFilter? = nil) -> SearchRequest {
         let idHash = SearchRequest.idFromQuery(query)
-        let id = autocomplete ? "autocomplete:" + idHash : idHash
+        let id = type == .Autocomplete ? "autocomplete:" + idHash : idHash
         
         var userId: String = "anon"
         if let uId = SessionManagerFlags.defaultManagerFlags.userId {
@@ -69,12 +69,16 @@ class SearchBaseViewModel {
 
         SEGAnalytics.sharedAnalytics().track("Sent Query", properties: [
             "query": query,
-            "autocomplete": autocomplete,
+            "type": type.rawValue,
             "userId": userId
         ])
-        
-        //TODO(luc): add actual user ID to request
-        let request = SearchRequest(id: id, query: query, userId: userId, timestamp: NSDate().timeIntervalSince1970 * 1000, isFulfilled: false, autocomplete: autocomplete)
+
+        let request = SearchRequest(id: id, query: query, userId: userId,
+            timestamp: NSDate().timeIntervalSince1970 * 1000,
+            isFulfilled: false,
+            filter: filter,
+            type: type)
+
         sendRequest(request)
         return request
     }

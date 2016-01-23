@@ -25,6 +25,13 @@ class ArtistMediaItem: MediaItem {
             self.image = image
         }
 
+        if let images = data["images"] as? NSDictionary,
+            let image_url_images = images["image_url"] as? NSDictionary,
+            let square = image_url_images["square"] as? NSDictionary,
+            let image_url = square["url"] as? String {
+                self.image = image_url
+        }
+
         if let name = data["name"] as? String {
             self.name = name
         }

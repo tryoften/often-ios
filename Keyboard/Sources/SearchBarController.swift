@@ -67,11 +67,9 @@ class SearchBarController: UIViewController, UISearchBarDelegate {
         }
         
         if query.isEmpty {
-            suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
-        } else if query == "#" {
-            suggestionsViewModel?.sendRequestForQuery("#filters-list", autocomplete: true)
+            suggestionsViewModel?.requestData()
         } else {
-            suggestionsViewModel?.sendRequestForQuery(query, autocomplete: true)
+            suggestionsViewModel?.sendRequestForQuery(query, type: .Autocomplete)
         }
 
     }
@@ -84,7 +82,7 @@ class SearchBarController: UIViewController, UISearchBarDelegate {
 
     func setFilter(filter: Filter) {
         self.filter = filter
-        suggestionsViewModel?.sendRequestForQuery("#top-searches:10", autocomplete: true)
+        suggestionsViewModel?.requestData()
     }
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {

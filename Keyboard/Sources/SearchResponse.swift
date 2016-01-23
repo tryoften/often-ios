@@ -10,10 +10,10 @@ import UIKit
 
 struct SearchResponse: Equatable {
     var id: String
-    var results: [MediaItem] = []
+    var groups: [MediaItemGroup] = []
     var timeModified: NSDate
 }
 
 func ==(lhs: SearchResponse, rhs: SearchResponse) -> Bool {
-    return lhs.id == rhs.id && lhs.results == rhs.results
+    return lhs.id == rhs.id && lhs.groups == rhs.groups
 }

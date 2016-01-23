@@ -22,7 +22,7 @@ class SearchResultsCellOverlayView: UIView {
     let middleLabel: UILabel
   
     let backgroundView: UIVisualEffectView
-    
+
     override init(frame: CGRect) {
         insertButton = SpringButton()
         insertButton.translatesAutoresizingMaskIntoConstraints = false

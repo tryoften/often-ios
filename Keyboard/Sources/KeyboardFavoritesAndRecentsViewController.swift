@@ -60,9 +60,9 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         let layout = CSStickyHeaderFlowLayout()
         var topMargin: CGFloat = 0.0
 
-        #if KEYBOARD
-            topMargin = 9.0
-        #endif
+    #if KEYBOARD
+        topMargin = 10.0
+    #endif
 
         layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, headerHeight)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, headerHeight)

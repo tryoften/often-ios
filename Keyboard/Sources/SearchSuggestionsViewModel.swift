@@ -38,7 +38,8 @@ class SearchSuggestionsViewModel: SearchBaseViewModel {
     }
 
     func requestData() {
-        sendRequestForQuery("#top-searches:10", autocomplete: true)
+        let filter = SearchRequestFilter(type: "search-terms", value: "10")
+        sendRequestForQuery(" ", type: .Autocomplete, filter: filter)
     }
     
     func checkFilterInQuery(query: String) -> Filter? {
@@ -113,14 +114,15 @@ class SearchSuggestionsViewModel: SearchBaseViewModel {
     
     override func responseDataReceived(data: [String : AnyObject]) {
         guard let _ = data["id"] as? String,
-            let query = data["query"] as? String,
-            let _ = data["autocomplete"] as? Bool,
+            let query = data["query"] as? [String: AnyObject],
+            let queryText = query["text"] as? String,
+            let _ = data["type"] as? String,
             let resultsData = data["results"] as? [ [String: AnyObject] ],
             let _ = currentRequest else {
                 return
         }
         
-        processAutocompleteSuggestions(query, resultsData: resultsData)
+        processAutocompleteSuggestions(queryText, resultsData: resultsData)
     }
     
 }

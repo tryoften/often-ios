@@ -91,12 +91,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        searchBarController.requestAutocompleteSuggestions()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        searchSuggestionsViewController.viewModel.requestData()
     }
 
     func didTapEnterButton(button: KeyboardKeyButton?) {
@@ -120,8 +115,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             return
         }
 
-        let query = searchBarController.filter != nil ? searchBarController.filter!.text + " " + text : text
-        viewModel.sendRequestForQuery(query, autocomplete: false)
+        viewModel.sendRequestForQuery(text, type: .Search)
         searchResultsViewController.updateEmptySetVisible(false)
         searchSuggestionsViewController.showSearchSuggestionsView(false)
 
@@ -173,7 +167,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        if searchBar.text == "" {
+        if searchBar.text?.isEmpty == true {
             return
         }
 
@@ -241,7 +235,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     // MARK: SearchViewModelDelegate
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
         // TODO(luc): don't do anything if the keyboard is restored
-        if response.results.isEmpty {
+        if response.groups.isEmpty {
             return
         }
 
