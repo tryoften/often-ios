@@ -230,6 +230,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         rightMetadataLabel.text = ""
         rightCornerImageView.image = nil
         showImageView = true
+        overlayView.hidden = true
     }
 
     func setupCellType() {

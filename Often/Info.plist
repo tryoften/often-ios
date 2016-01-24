@@ -78,13 +78,6 @@
 	<string>1473993732896026</string>
 	<key>FacebookDisplayName</key>
 	<string>Often</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -101,6 +94,13 @@
 		<string>fbauth2</string>
 		<string>fb-messenger-api20140430</string>
 	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>ss-glyphish-filled.ttf</string>
