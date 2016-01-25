@@ -16,7 +16,6 @@ let songCellReuseIdentifier = "songCell"
 class BrowseViewController: FullScreenCollectionViewController,
     UICollectionViewDelegateFlowLayout,
     MediaItemGroupViewModelDelegate,
-    TextProcessingManagerDelegate,
     CellAnimatable {
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
@@ -35,7 +34,6 @@ class BrowseViewController: FullScreenCollectionViewController,
 
         viewModel.delegate = self
         self.textProcessor = textProcessor
-        self.textProcessor?.delegate = self
 
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
@@ -253,23 +251,6 @@ class BrowseViewController: FullScreenCollectionViewController,
             }, completion: nil)
 
         }
-    }
-
-    // MARK: TextProcessingManagerDelegate
-    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
-    }
-
-    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
-    }
-
-    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
-        return nil
-    }
-
-    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
-    }
-
-    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
     }
 
 #if KEYBOARD

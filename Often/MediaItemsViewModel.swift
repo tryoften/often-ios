@@ -69,15 +69,17 @@ class MediaItemsViewModel: BaseViewModel {
         }
         
         ref.observeEventType(.Value, withBlock: { snapshot in
-            dispatch_async(dispatch_get_main_queue()) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
                 self.isDataLoaded = true
                 if let data = snapshot.value as? [String: AnyObject] {
                     self.collections[collectionType] = self.processMediaItemsCollectionData(data)
                 }
                 
                 let mediaItemGroups = self.generateMediaItemGroupsForCollectionType(collectionType)
-                self.delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: collectionType, groups: mediaItemGroups)
-                completion?(true)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: collectionType, groups: mediaItemGroups)
+                    completion?(true)
+                }
             }
         })
     }
@@ -148,7 +150,10 @@ class MediaItemsViewModel: BaseViewModel {
     }
     
     func sectionHeaderTitleForCollectionType(collectionType: MediaItemsCollectionType, isLeft: Bool, indexPath: NSIndexPath) -> String {
-        return sectionHeaderTitle(collectionType)
+        if isLeft {
+            return sectionHeaderTitle(collectionType)
+        }
+        return ""
     }
     
     func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
