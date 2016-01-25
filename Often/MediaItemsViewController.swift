@@ -177,8 +177,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        collectionView.collectionViewLayout.invalidateLayout()
-
         return viewModel.generateMediaItemGroupsForCollectionType(collectionType).count
     }
     
