@@ -26,7 +26,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
         }
         collectionView?.backgroundColor = UIColor.clearColor()
-        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 80, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 0, 0, 80, 0)
         
         // take this out when we actually count how many times a user has shared a message
         SessionManagerFlags.defaultManagerFlags.userMessageCount = 0;
