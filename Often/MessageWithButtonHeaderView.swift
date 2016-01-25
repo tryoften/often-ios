@@ -85,7 +85,7 @@ class MessageWithButtonHeaderView: UICollectionReusableView {
             bottomBorderView.al_left == al_left,
             bottomBorderView.al_right == al_right,
             bottomBorderView.al_bottom == al_bottom,
-            bottomBorderView.al_height == 1
+            bottomBorderView.al_height == 0.6
         ])
     }
 }

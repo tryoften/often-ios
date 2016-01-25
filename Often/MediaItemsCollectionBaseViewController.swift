@@ -16,6 +16,7 @@ let MediaItemCollectionViewCellReuseIdentifier = "MediaItemsCollectionViewCell"
 class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate {
     var cellsAnimated: [NSIndexPath: Bool]
     var favoritesCollectionListener: Listener? = nil
+    var favoriteSelected: Bool = false
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         cellsAnimated = [:]
@@ -24,6 +25,12 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
 
         favoritesCollectionListener = FavoritesService.defaultInstance.didChangeFavorites.on { items in
+
+            if self.favoriteSelected {
+                self.favoriteSelected = false
+                return
+            }
+
             self.collectionView?.reloadData()
         }
     }
@@ -122,23 +129,23 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         return cell
     }
 
+    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell else {
+                return
+        }
+
+        cell.overlayVisible = false
+    }
+
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
-            let cells = collectionView.visibleCells() as? [MediaItemCollectionViewCell],
             let result = cell.mediaLink else {
                 return
         }
 
-        for aCell in cells {
-            if aCell.mediaLink != result {
-                cell.overlayView.hidden = true
-                cell.layer.shouldRasterize = false
-            }
-        }
-
         cell.prepareOverlayView()
-        cell.overlayVisible = true
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
+        cell.overlayVisible = true
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
@@ -163,6 +170,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             return
         }
 
+        favoriteSelected = true
         FavoritesService.defaultInstance.toggleFavorite(selected, result: result)
     }
     

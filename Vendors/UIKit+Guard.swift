@@ -13,6 +13,7 @@ import UIKit
 // http://nshipster.com/swift-objc-runtime/
 // https://gist.github.com/steipete/5664345
 
+#if DEBUG
 public extension UIView {
     public override class func initialize() {
         struct Static {
@@ -77,3 +78,4 @@ public extension UIView {
         // iOS 8 layouts the MFMailComposeController in a background thread on an UIKit queue.
     }
 }
+#endif

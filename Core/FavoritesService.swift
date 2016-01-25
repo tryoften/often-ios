@@ -63,8 +63,14 @@ class FavoritesService: MediaItemsViewModel {
     
     override func sectionHeaderTitleForCollectionType(collectionType: MediaItemsCollectionType, isLeft: Bool, indexPath: NSIndexPath) -> String {
         var header: String = ""
-        let group = generateMediaItemGroupsForCollectionType(collectionType)[indexPath.section]
-        if (isLeft) {
+        let groups = generateMediaItemGroupsForCollectionType(collectionType)
+
+        guard indexPath.section < groups.count else {
+            return header
+        }
+
+        let group = groups[indexPath.section]
+        if isLeft {
             if let artist = group.title {
                 header = artist
             }

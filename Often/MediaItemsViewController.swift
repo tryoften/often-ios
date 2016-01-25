@@ -117,11 +117,14 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     emptyStateView?.hidden = false
                 } else {
                     emptyStateView?.hidden = true
-                #if KEYBOARD
-                    collectionView?.reloadData()
-                #else
-                    collectionView?.reloadSections(NSIndexSet(index: 0))
-                #endif
+            #if KEYBOARD
+                collectionView?.reloadData()
+            #else
+                collectionView?.performBatchUpdates({
+                    let range = NSMakeRange(0, collection.count)
+                    self.collectionView?.reloadSections(NSIndexSet(indexesInRange: range))
+                    }, completion: nil)
+            #endif
                 }
             }
         }

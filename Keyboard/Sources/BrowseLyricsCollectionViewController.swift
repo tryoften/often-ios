@@ -46,7 +46,6 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
         }
     }
 
-
     override func headerViewDidLoad() {
         if let imageURLStr = track?.song_art_image_url,
             let title = track?.title,

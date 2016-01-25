@@ -114,6 +114,8 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
                     sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
                     sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
                     sectionHeaders[indexPath.section] = sectionView
+                    sectionView.topSeperator.hidden = indexPath.section == 0
+                    
                     return sectionView
             }
         }
