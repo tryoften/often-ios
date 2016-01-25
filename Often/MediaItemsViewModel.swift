@@ -96,8 +96,7 @@ class MediaItemsViewModel: BaseViewModel {
             var groups: [String: MediaItemGroup] = [:]
             for item in items {
                 guard let lyric = item as? LyricMediaItem,
-                    let artistName = lyric.artist_name/*,
-                    let artistId = lyric.artist_id*/ else {
+                    let artistName = lyric.artist_name else {
                         continue
                 }
                 
@@ -105,7 +104,6 @@ class MediaItemsViewModel: BaseViewModel {
                     groups[artistName]!.items.append(item)
                 } else {
                     let group = MediaItemGroup(dictionary: [
-                        // "id": 0,
                         "title": artistName,
                         ])
                     group.items = [item]

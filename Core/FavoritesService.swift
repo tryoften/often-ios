@@ -78,6 +78,9 @@ class FavoritesService: MediaItemsViewModel {
             if let lyric = group.items[indexPath.row] as? LyricMediaItem {
                 if let track = lyric.track_title {
                     header = "\(track) | \(group.items.count) \(lyric.type.rawValue)"
+                    if group.items.count > 1 {
+                        header += "s"
+                    }
                 }
             }
         }
