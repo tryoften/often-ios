@@ -105,7 +105,7 @@ class MediaItemsViewModel: BaseViewModel {
                     groups[artistName]!.items.append(item)
                 } else {
                     let group = MediaItemGroup(dictionary: [
-//                        "id": 0,
+                        //                        "id": 0,
                         "title": artistName,
                         ])
                     group.items = [item]
@@ -131,10 +131,14 @@ class MediaItemsViewModel: BaseViewModel {
     func mediaItemGroupItemsForIndex(index: Int, collectionType: MediaItemsCollectionType) -> [MediaItem] {
         let groups = generateMediaItemGroupsForCollectionType(collectionType)
         if(!groups.isEmpty) {
-            return groups[index].items
-        } else {
-            return []
+            if let items = groups[index].items as? [LyricMediaItem] {
+                let sortedGroup = items.sort({ $0.track_title < $1.track_title })
+                return sortedGroup
+            } else {
+                return groups[index].items
+            }
         }
+        return []
     }
     
     func sectionHeaderTitle(collectionType: MediaItemsCollectionType) -> String {
