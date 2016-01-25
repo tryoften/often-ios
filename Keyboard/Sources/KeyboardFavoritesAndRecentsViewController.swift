@@ -107,20 +107,11 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             }
             
             return headerView!
-        } else if kind == UICollectionElementKindSectionHeader {
-            // Create Header
-            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
-                    sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
-                    sectionHeaders[indexPath.section] = sectionView
-                    sectionView.topSeperator.hidden = indexPath.section == 0
-                    
-                    return sectionView
-            }
+        } else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
         }
 
-        return UICollectionReusableView()
+//        return UICollectionReusableView()
     }
 
     override func timeoutLoader() {
