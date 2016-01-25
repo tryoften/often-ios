@@ -197,10 +197,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
         animateCell(cell, indexPath: indexPath)
         
-        if let sectionView = sectionHeaders[indexPath.section] {
-            sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
-        }
-        
         return cell
     }
 
