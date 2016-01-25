@@ -169,7 +169,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     func reloadUserData() {
         if let headerView = headerView, let user = viewModel.currentUser {
-            headerView.sharedText = "85 Lyrics Shared"
+            headerView.sharedText = "\(SessionManagerFlags.defaultManagerFlags.userMessageCount) Lyrics Shared"
             headerView.nameLabel.text = user.name
             headerView.collapseNameLabel.text = user.name
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)

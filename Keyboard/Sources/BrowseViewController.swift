@@ -234,6 +234,7 @@ class BrowseViewController: FullScreenCollectionViewController,
     func provideTrendingArtistsHorizontalCollectionViewController() -> TrendingArtistsHorizontalCollectionViewController {
         if artistsHorizontalVC == nil {
             artistsHorizontalVC = TrendingArtistsHorizontalCollectionViewController(viewModel: viewModel)
+            artistsHorizontalVC?.textProcessor = textProcessor
             addChildViewController(artistsHorizontalVC!)
         }
         

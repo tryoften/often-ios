@@ -13,7 +13,6 @@ let SearchResultsInsertLinkEvent = "SearchResultsCollectionViewCell.insertButton
 /// This class displays search results for a given response object
 /// TODO(luc): Merge class with BrowseViewController since they're very similar
 class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MessageBarDelegate {
-    var textProcessor: TextProcessingManager?
     var searchBarController: SearchBarController?
     var browseViewModel: BrowseViewModel?
     var response: SearchResponse? {
@@ -68,12 +67,12 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
         emptyStateView = EmptyStateView()
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         emptyStateView.alpha = 0.0
-        
-        self.textProcessor = textProcessor
 
         displayedData = false
         
         super.init(collectionViewLayout: layout)
+
+        self.textProcessor = textProcessor
         
         emptyStateView.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
         emptyStateView.closeButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
@@ -392,23 +391,6 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
 
         FavoritesService.defaultInstance.toggleFavorite(selected, result: result)
         cell.itemFavorited = selected
-    }
-    
-    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        super.mediaLinkCollectionViewCellDidToggleInsertButton(cell, selected: selected)
-        
-        guard let result = cell.mediaLink else {
-            return
-        }
-
-        if selected {
-            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
-            NSNotificationCenter.defaultCenter().postNotificationName(SearchResultsInsertLinkEvent, object: cell.mediaLink)
-        } else {
-            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
-                textProcessor?.defaultProxy.deleteBackward()
-            }
-        }
     }
 
     // MARK: MessageBarViewDelegate
