@@ -114,6 +114,9 @@ class MediaItemsViewModel: BaseViewModel {
             }
             
             let sortedGroups = groups.values.sort({ $0.title < $1.title })
+            for group in sortedGroups {
+                group.items = sortLyricsByTrack(group.items)
+            }
             return sortedGroups
         case .Recents:
             let group = MediaItemGroup(dictionary: [
@@ -128,15 +131,17 @@ class MediaItemsViewModel: BaseViewModel {
         }
     }
     
+    func sortLyricsByTrack(groups: [MediaItem]) -> [MediaItem] {
+        if let unsorted = groups as? [LyricMediaItem] {
+            return unsorted.sort({ $0.track_title < $1.track_title })
+        }
+        return groups
+    }
+    
     func mediaItemGroupItemsForIndex(index: Int, collectionType: MediaItemsCollectionType) -> [MediaItem] {
         let groups = generateMediaItemGroupsForCollectionType(collectionType)
         if(!groups.isEmpty) {
-            if let items = groups[index].items as? [LyricMediaItem] {
-                let sortedGroup = items.sort({ $0.track_title < $1.track_title })
-                return sortedGroup
-            } else {
-                return groups[index].items
-            }
+            return groups[index].items
         }
         return []
     }

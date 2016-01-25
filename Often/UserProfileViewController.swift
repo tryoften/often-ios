@@ -72,7 +72,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
     }
     
@@ -96,9 +96,24 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         emptyStateView?.frame = contentFrame
         loaderView.frame = contentFrame
     }
-
+    
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
+    }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        if let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX {
+            let point = CGPointMake(profileViewCenter, profileViewHeight + scrollView.contentOffset.y + 37)
+            for cell in (collectionView?.visibleCells())! {
+                if(cell.frame.contains(point)) {
+                    if let indexPath = collectionView?.indexPathForCell(cell) {
+                        if let sectionView = sectionHeaders[indexPath.section] {
+                            sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     // MARK: UICollectionViewDataSource
@@ -235,12 +250,12 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             })
         }
     }
-
+    
     func promptUserToRegisterPushNotifications() {
         UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
         UIApplication.sharedApplication().registerForRemoteNotifications()
     }
-
+    
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }

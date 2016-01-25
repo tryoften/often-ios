@@ -177,6 +177,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        collectionView.collectionViewLayout.invalidateLayout()
+
         return viewModel.generateMediaItemGroupsForCollectionType(collectionType).count
     }
     
@@ -191,10 +193,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         cell.type = .NoMetadata
         
         animateCell(cell, indexPath: indexPath)
-        
-        if let sectionView = sectionHeaders[indexPath.section] {
-            sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
-        }
         
         return cell
     }
