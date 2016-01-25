@@ -20,8 +20,9 @@ enum MediaItemsKeyboardSection: Int {
 class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewController,
     UIScrollViewDelegate,
     ToolTipViewControllerDelegate,
-    ConnectivityObservable {
-    var mediaLink: MediaItem?
+    ConnectivityObservable,
+    TextProcessingManagerDelegate {
+    var mediaItem: MediaItem?
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
 
@@ -58,6 +59,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         viewModel = KeyboardViewModel()
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
+        textProcessor?.delegate = self
 
         setupSections()
         view.backgroundColor = DefaultTheme.keyboardBackgroundColor
@@ -66,10 +68,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         containerView.addSubview(togglePanelButton)
 
         showTooltipsIfNeeded()
-        
         view.addSubview(errorDropView)
-        
         startMonitoring()
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didInsertMediaItem:", name: "mediaItemInserted", object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -95,7 +97,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         favoritesVC.textProcessor = textProcessor
 
         // Recents
-        let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: MediaItemsViewModel(), collectionType: .Recents)
+        let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: FavoritesService.defaultInstance, collectionType: .Recents)
         recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 1)
         recentsVC.textProcessor = textProcessor
 
@@ -160,6 +162,12 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     func didTapEnterButton(button: KeyboardKeyButton?) {
     }
 
+    func didInsertMediaItem(notification: NSNotification) {
+        if let item = notification.object as? MediaItem {
+            mediaItem = item
+        }
+    }
+
     func closeToolTipButtonDidTap(sender: UIButton) {
         viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips = true
 
@@ -202,8 +210,13 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             errorDropView.hidden = false
         }
     }
-}
 
-extension UIScrollView {
+    //MARK: TextProcessingManagerDelegate
 
+    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {}
+    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
+        if let item = mediaItem {
+            viewModel?.logTextSendEvent(item)
+        }
+    }
 }

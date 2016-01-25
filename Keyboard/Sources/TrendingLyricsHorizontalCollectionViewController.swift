@@ -118,6 +118,8 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
     }
 
     override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+        super.mediaLinkCollectionViewCellDidToggleInsertButton(cell, selected: selected)
+
         guard let result = cell.mediaLink else {
             return
         }

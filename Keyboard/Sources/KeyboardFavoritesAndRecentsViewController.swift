@@ -79,6 +79,8 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
 
     // MediaItemCollectionViewCellDelegate    
     override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+        super.mediaLinkCollectionViewCellDidToggleInsertButton(cell, selected: selected)
+        
         guard let result = cell.mediaLink else {
             return
         }
@@ -90,6 +92,16 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
                 textProcessor?.defaultProxy.deleteBackward()
             }
         }
+    }
+
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+        guard let mediaItemCell = cell as? MediaItemCollectionViewCell else {
+            return cell
+        }
+
+        mediaItemCell.type = collectionType == .Recents ? .Metadata : .NoMetadata
+        return cell
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -124,7 +136,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     }
 
     override func timeoutLoader() {
-        loaderView.hidden = true
+        loaderView?.hidden = true
         if collectionType == .Favorites {
             updateEmptyStateContent(.NoFavorites)
         } else if collectionType == .Recents {

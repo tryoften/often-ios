@@ -94,7 +94,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         let contentFrame = CGRectMake(0, headerHeight, screenWidth, screenHeight - headerHeight - tabBarHeight)
         
         emptyStateView?.frame = contentFrame
-        loaderView.frame = contentFrame
+        loaderView?.frame = contentFrame
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -144,15 +144,11 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         }
         
         cell.delegate = self
-        cell.type = .NoMetadata
+        cell.type = collectionType == .Recents ? .Metadata : .NoMetadata
         cell.inMainApp = true
         
         if let result = cell.mediaLink {
-            if FavoritesService.defaultInstance.checkFavorite(result) {
-                cell.itemFavorited = true
-            } else {
-                cell.itemFavorited = false
-            }
+            cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         }
         
         return cell

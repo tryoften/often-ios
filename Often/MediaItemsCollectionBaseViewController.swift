@@ -115,8 +115,13 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         if  let image = result.image,
             let imageURL = NSURL(string: image) {
                 print("Loading image: \(imageURL)")
-                cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
-                    cell.contentImageView.image = image
+                cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
+                    if result.type == .Lyric {
+                        cell.sourceLogoView.image = image
+                    } else {
+                        cell.contentImageView.image = image
+                    }
+
                     }, failure: { (req, res, error) in
                         print("Failed to load image: \(imageURL)")
                 })
@@ -149,7 +154,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
-        if (cellsAnimated[indexPath] != true) {
+        if cellsAnimated[indexPath] != true {
             cell.alpha = 0.0
 
             let finalFrame = cell.frame
@@ -179,7 +184,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
     
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        
+        NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
     }
     
     func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
