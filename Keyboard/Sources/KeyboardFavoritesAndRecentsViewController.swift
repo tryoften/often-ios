@@ -110,8 +110,6 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         } else {
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
         }
-
-//        return UICollectionReusableView()
     }
 
     override func timeoutLoader() {

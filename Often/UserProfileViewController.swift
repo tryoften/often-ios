@@ -72,7 +72,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
     }
     
@@ -142,8 +141,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         } else {
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
         }
-        
-        //        return UICollectionReusableView()
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

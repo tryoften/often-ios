@@ -105,7 +105,7 @@ class MediaItemsViewModel: BaseViewModel {
                     groups[artistName]!.items.append(item)
                 } else {
                     let group = MediaItemGroup(dictionary: [
-                        //                        "id": 0,
+                        // "id": 0,
                         "title": artistName,
                         ])
                     group.items = [item]
