@@ -101,16 +101,16 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX {
-            let point = CGPointMake(profileViewCenter, profileViewHeight + scrollView.contentOffset.y + 37)
-            if let cells = collectionView?.visibleCells() {
-                for cell in cells {
-                    if cell.frame.contains(point) {
-                        if let indexPath = collectionView?.indexPathForCell(cell) {
-                            if let sectionView = sectionHeaders[indexPath.section] {
-                                sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
-                            }
-                        }
+        guard let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX, cells = collectionView?.visibleCells() else {
+            return
+        }
+        
+        let point = CGPointMake(profileViewCenter, profileViewHeight + scrollView.contentOffset.y + 37)
+        for cell in cells {
+            if cell.frame.contains(point) {
+                if let indexPath = collectionView?.indexPathForCell(cell) {
+                    if let sectionView = sectionHeaders[indexPath.section] {
+                        sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
                     }
                 }
             }
