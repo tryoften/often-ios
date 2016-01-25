@@ -13,7 +13,6 @@ let TextProcessingManagerProxyEvent = "textProcessingManager.setCurrentProxy"
 let TextProcessingManagedResetDefaultProxyEvent = "textProceesingManager.resetDefaultProxy"
 let TextProcessingManagerTextChangedEvent = "textProcesssingManager.textDidChange"
 
-
 class TextProcessingManager: NSObject, UITextInputDelegate {
     weak var delegate: TextProcessingManagerDelegate?
     var currentProxy: UITextDocumentProxy

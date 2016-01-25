@@ -17,6 +17,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     var cellsAnimated: [NSIndexPath: Bool]
     var favoritesCollectionListener: Listener? = nil
     var favoriteSelected: Bool = false
+    var textProcessor: TextProcessingManager?
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         cellsAnimated = [:]
@@ -185,6 +186,18 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
+
+        guard let result = cell.mediaLink else {
+            return
+        }
+
+        if selected {
+            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        } else {
+            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
+                textProcessor?.defaultProxy.deleteBackward()
+            }
+        }
     }
     
     func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {

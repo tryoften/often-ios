@@ -9,7 +9,6 @@
 import UIKit
 
 class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
-    var textProcessor: TextProcessingManager?
     var headerView: ShareOftenMessageHeaderView?
 
     init(viewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType) {
@@ -27,9 +26,6 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         }
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 80, 0)
-        
-        // take this out when we actually count how many times a user has shared a message
-        SessionManagerFlags.defaultManagerFlags.userMessageCount = 0;
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -38,16 +34,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if(collectionType == .Favorites) {
-            if(SessionManagerFlags.defaultManagerFlags.userMessageCount % 10 == 0 && headerView?.hidden == true) {
-                headerView?.hidden = false
-                collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(), animated: true)
-                collectionView?.contentOffset = CGPointMake(0, -(KeyboardSearchBarHeight + 2))
-            }
-            // take this out when we actually count how many times a user has shared a message
-            SessionManagerFlags.defaultManagerFlags.userMessageCount++
-        }
+        showShareOftenHeaderIfNeeded()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -55,7 +42,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         emptyStateView?.hidden = true
     }
     
-    class func provideCollectionViewLayout(headerHeight: CGFloat = 150) -> UICollectionViewLayout {
+    class func provideCollectionViewLayout(var headerHeight: CGFloat = 150) -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let layout = CSStickyHeaderFlowLayout()
         var topMargin: CGFloat = 0.0
@@ -63,6 +50,11 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     #if KEYBOARD
         topMargin = 10.0
     #endif
+
+        let count = SessionManagerFlags.defaultManagerFlags.userMessageCount
+        if count % 10 != 0 {
+            headerHeight = 0.0
+        }
 
         layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, headerHeight)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, headerHeight)
@@ -77,19 +69,15 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         return layout
     }
 
-    // MediaItemCollectionViewCellDelegate    
-    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        super.mediaLinkCollectionViewCellDidToggleInsertButton(cell, selected: selected)
-        
-        guard let result = cell.mediaLink else {
-            return
-        }
-
-        if selected {
-            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
-        } else {
-            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
-                textProcessor?.defaultProxy.deleteBackward()
+    func showShareOftenHeaderIfNeeded() {
+        if collectionType == .Favorites {
+            let count = SessionManagerFlags.defaultManagerFlags.userMessageCount
+            if count % 10 == 0 && headerView?.hidden == true {
+                headerView?.hidden = false
+                collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(), animated: true)
+                collectionView?.contentOffset = CGPointMake(0, -(KeyboardSearchBarHeight + 2))
+            } else {
+                headerView?.hidden = true
             }
         }
     }

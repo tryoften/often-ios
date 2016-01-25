@@ -78,9 +78,7 @@ class TogglePanelButton: UIButton {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .ScaleAspectFit
-        
 
-        
         addConstraints([
             leftBackgroundView.al_left == al_left,
             leftBackgroundView.al_right == centerBackgroundView.al_left,
