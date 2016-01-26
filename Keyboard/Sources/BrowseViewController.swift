@@ -171,7 +171,6 @@ class BrowseViewController: FullScreenCollectionViewController,
             cell.contentView.addSubview(lyricsHorizontalVC.view)
             lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
             lyricsHorizontalVC.view.frame = CGRectMake(0, 0, screenWidth, 125)
-            print("Lyrics Horizontal VC cell bounds: ", cell.bounds)
 
             return cell
         case .Artist:
@@ -182,7 +181,6 @@ class BrowseViewController: FullScreenCollectionViewController,
             cell.contentView.addSubview(artistsHorizontalVC.view)
             artistsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
             artistsHorizontalVC.view.frame = CGRectMake(0, 0, screenWidth, 230)
-            print("Artist Horizontal VC cell bounds: ", cell.bounds)
 
             self.artistsHorizontalVC = artistsHorizontalVC
             return cell
@@ -219,7 +217,8 @@ class BrowseViewController: FullScreenCollectionViewController,
         }
 
         let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: self.viewModel)
-        self.navigationController?.pushViewController(lyricsVC, animated: true)
+        lyricsVC.textProcessor = textProcessor
+        navigationController?.pushViewController(lyricsVC, animated: true)
     }
 
     func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
@@ -277,23 +276,6 @@ class BrowseViewController: FullScreenCollectionViewController,
     }
 
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
-        guard let containerViewController = containerViewController,
-            let searchBarController = searchViewController?.searchBarController else {
-                return
-        }
-        searchViewController?.shouldLayoutSearchBar = false
-
-        var frame = tabBarFrame
-        var searchBarFrame = searchBarController.view.frame
-        let tabBarHeight = CGRectGetHeight(frame)
-
-        searchBarFrame.origin.y = fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight)
-        frame.origin.y = fmax(fmin(y, 0), -2 * tabBarHeight)
-
-        UIView.animateWithDuration(animated ? 0.1 : 0) {
-            searchBarController.view.frame = searchBarFrame
-            containerViewController.tabBar.frame = frame
-        }
     }
 #endif
 }

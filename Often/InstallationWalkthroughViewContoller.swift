@@ -90,7 +90,6 @@ class InstallationWalkthroughViewContoller: UIViewController {
             return
         }
         loader.translatesAutoresizingMaskIntoConstraints = false
-        loader.supplementImageView.hidden = true
         loader.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
 
         view.addSubview(loader)
