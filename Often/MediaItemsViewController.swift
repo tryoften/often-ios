@@ -206,6 +206,12 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
+                    
+                    sectionView.showImageView = (collectionType == .Favorites)
+                    if let url = viewModel.sectionHeaderImageURL(collectionType, index: indexPath.section) {
+                        sectionView.artistImageView.setImageWithURL(url)
+                    }
+                    
                     sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
                     sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
                     sectionHeaders[indexPath.section] = sectionView

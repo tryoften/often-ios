@@ -13,6 +13,9 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
     var rightLabel: UILabel
     var topSeperator: UIView
     var bottomSeperator: UIView
+    var artistImageView: UIImageView
+    var artistView: UIView
+    var artistImageViewWidthConstraint: NSLayoutConstraint
 
     var leftText: String? {
         didSet {
@@ -34,6 +37,13 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
             ]
             let attributedString = NSAttributedString(string: rightText!.uppercaseString, attributes: attributes)
             rightLabel.attributedText = attributedString
+            rightLabel.textAlignment = .Right
+        }
+    }
+    
+    var showImageView: Bool {
+        didSet {
+            artistImageViewWidthConstraint.constant = showImageView ? 18 : 0
         }
     }
 
@@ -51,10 +61,26 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         bottomSeperator = UIView()
         bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
         bottomSeperator.backgroundColor = DarkGrey
+        
+        artistImageView = UIImageView()
+        artistImageView.translatesAutoresizingMaskIntoConstraints = false
+        artistImageView.contentMode = .ScaleAspectFill
+        artistImageView.layer.cornerRadius = 2.0
+        artistImageView.clipsToBounds = true
+
+        artistView = UIView()
+        artistView.translatesAutoresizingMaskIntoConstraints = false
+        
+        artistImageViewWidthConstraint = artistImageView.al_width == 18
+        
+        artistView.addSubview(artistImageView)
+        artistView.addSubview(leftLabel)
+        
+        showImageView = false
 
         super.init(frame: frame)
 
-        addSubview(leftLabel)
+        addSubview(artistView)
         addSubview(rightLabel)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
@@ -69,10 +95,23 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
 
     func setupLayout() {
         addConstraints([
-            leftLabel.al_left == al_left + 10,
-            leftLabel.al_centerY == al_centerY,
-
+            artistView.al_left == al_left,
+            artistView.al_top == al_top,
+            artistView.al_bottom == al_bottom,
+            artistView.al_right <= al_centerX,
+            
+            artistImageView.al_left == artistView.al_left + 10,
+            artistImageView.al_top == artistView.al_top + 10,
+            artistImageView.al_height == 18,
+            artistImageViewWidthConstraint,
+            
+            leftLabel.al_left == artistImageView.al_right + 6,
+            leftLabel.al_centerY == artistImageView.al_centerY,
+            leftLabel.al_height == 16,
+            leftLabel.al_right == artistView.al_right,
+            
             rightLabel.al_right == al_right - 10,
+            rightLabel.al_left <= al_centerX,
             rightLabel.al_top == al_top,
             rightLabel.al_bottom == al_bottom,
 
