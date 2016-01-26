@@ -34,14 +34,14 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
             forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
             withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
 
-        #if KEYBOARD
-            navigationBar = KeyboardBrowseNavigationBar()
-            navigationBar?.translatesAutoresizingMaskIntoConstraints = false
-            navigationBar?.browseDelegate = self
-            view.addSubview(navigationBar!)
-        #else
-            collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
-        #endif
+    #if KEYBOARD
+        navigationBar = KeyboardBrowseNavigationBar()
+        navigationBar?.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar?.browseDelegate = self
+        view.addSubview(navigationBar!)
+    #else
+        collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
+    #endif
 
         extendedLayoutIncludesOpaqueBars = false
         automaticallyAdjustsScrollViewInsets = false

@@ -32,9 +32,9 @@ class BrowseArtistCollectionViewController: BrowseCollectionViewController {
         self.artistId = artistId
         super.init(viewModel: viewModel)
 
-        #if KEYBOARD
-            collectionView?.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0)
-        #endif
+    #if KEYBOARD
+        collectionView?.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0)
+    #endif
     }
 
     required init?(coder aDecoder: NSCoder) {

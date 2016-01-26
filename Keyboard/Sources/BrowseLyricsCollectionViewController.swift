@@ -26,9 +26,9 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
         self.trackId = trackId
         super.init(viewModel: viewModel)
 
-        #if KEYBOARD
+    #if KEYBOARD
         collectionView?.contentInset = UIEdgeInsetsMake(63.0 + KeyboardSearchBarHeight, 0, 0, 0)
-        #endif
+    #endif
     }
 
     required init?(coder aDecoder: NSCoder) {

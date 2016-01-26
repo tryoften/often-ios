@@ -10,6 +10,7 @@ import Foundation
 
 class ArtistMediaItem: MediaItem {
     var external_url: String?
+    var featuredImage: String?
     var genius_id: Int?
     var is_verified: String?
     var lyrics_count: Int?
@@ -21,6 +22,10 @@ class ArtistMediaItem: MediaItem {
     required init(data: NSDictionary) {
         super.init(data: data)
 
+        if let image = data["feature_image_url"] as? String {
+            self.featuredImage = image
+        }
+
         if let image = data["image_url"] as? String {
             self.image = image
         }
@@ -28,8 +33,14 @@ class ArtistMediaItem: MediaItem {
         if let images = data["images"] as? NSDictionary,
             let image_url_images = images["image_url"] as? NSDictionary,
             let square = image_url_images["square"] as? NSDictionary,
-            let image_url = square["url"] as? String {
+            let medium = image_url_images["medium"] as? NSDictionary,
+            let image_url = square["url"] as? String,
+            let medium_image_url = medium["url"] as? String{
+            #if KEYBOARD
                 self.image = image_url
+            #else
+                self.image = medium_image_url
+            #endif
         }
 
         if let name = data["name"] as? String {

@@ -34,7 +34,9 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
         showShareOftenHeaderIfNeeded()
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -65,7 +67,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
         layout.sectionInset = UIEdgeInsets(top: topMargin, left: 10.0, bottom: 10.0, right: 10.0)
-
+        
         return layout
     }
 
