@@ -169,12 +169,6 @@ class MediaItemsViewModel: BaseViewModel {
     }
     
     func sectionHeaderImageURL(collectionType: MediaItemsCollectionType, index: Int) -> NSURL? {
-        let group = mediaItemGroupItemsForIndex(index, collectionType: collectionType)
-        if !group.isEmpty {
-            if let lyric = group.first as? LyricMediaItem, urlString = lyric.artist_image_url, let imageURL = NSURL(string: urlString) {
-                return imageURL
-            }
-        }
         return nil
     }
     

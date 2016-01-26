@@ -87,6 +87,16 @@ class FavoritesService: MediaItemsViewModel {
         return header
     }
     
+    override func sectionHeaderImageURL(collectionType: MediaItemsCollectionType, index: Int) -> NSURL? {
+        let group = mediaItemGroupItemsForIndex(index, collectionType: collectionType)
+        if !group.isEmpty {
+            if let lyric = group.first as? LyricMediaItem, urlString = lyric.artist_image_url, let imageURL = NSURL(string: urlString) {
+                return imageURL
+            }
+        }
+        return nil
+    }
+    
     private func sendTask(task: String, result: MediaItem) {
         guard let userId = currentUser?.id else {
             return

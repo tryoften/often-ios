@@ -15,7 +15,10 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
     var bottomSeperator: UIView
     var artistImageView: UIImageView
     var artistView: UIView
-    var artistImageViewWidthConstraint: NSLayoutConstraint
+    var contentEdgeInsets: UIEdgeInsets
+    
+    private var artistImageViewWidthConstraint: NSLayoutConstraint
+    private var leftHeaderLabelLeftPaddingConstraint: NSLayoutConstraint?
 
     var leftText: String? {
         didSet {
@@ -41,13 +44,23 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         }
     }
     
-    var showImageView: Bool {
+    var artistImage: UIImage? {
         didSet {
-            artistImageViewWidthConstraint.constant = showImageView ? 18 : 0
+            artistImageView.image = artistImage
+            
+            if let _ = artistImage {
+                artistImageViewWidthConstraint.constant = 18
+                leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left + 24
+            } else {
+                artistImageViewWidthConstraint.constant = 0
+                leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left
+            }
         }
     }
 
     override init(frame: CGRect) {
+        contentEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
+        
         leftLabel = UILabel()
         leftLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -71,14 +84,14 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         artistView = UIView()
         artistView.translatesAutoresizingMaskIntoConstraints = false
         
-        artistImageViewWidthConstraint = artistImageView.al_width == 18
+        artistImageViewWidthConstraint = artistImageView.al_width == 0
         
         artistView.addSubview(artistImageView)
         artistView.addSubview(leftLabel)
         
-        showImageView = false
-
         super.init(frame: frame)
+        
+        leftHeaderLabelLeftPaddingConstraint = leftLabel.al_left == al_left + contentEdgeInsets.left
 
         addSubview(artistView)
         addSubview(rightLabel)
@@ -100,11 +113,12 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
             artistView.al_bottom == al_bottom,
             artistView.al_right <= al_centerX,
             
-            artistImageView.al_left == artistView.al_left + 10,
-            artistImageView.al_top == artistView.al_top + 10,
+            artistImageView.al_left == artistView.al_left + contentEdgeInsets.left,
+            artistImageView.al_top == artistView.al_top + contentEdgeInsets.top,
             artistImageView.al_height == 18,
             artistImageViewWidthConstraint,
             
+            leftHeaderLabelLeftPaddingConstraint!,
             leftLabel.al_left == artistImageView.al_right + 6,
             leftLabel.al_centerY == artistImageView.al_centerY,
             leftLabel.al_height == 16,
