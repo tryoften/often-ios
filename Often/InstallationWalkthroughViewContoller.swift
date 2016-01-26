@@ -10,7 +10,7 @@ import Foundation
 
 class InstallationWalkthroughViewContoller: UIViewController {
     var installView: KeyboardInstallWalkthroughView
-    var loader: AnimatedLoaderView
+    var loader: AnimatedLoaderView?
     var completionView: KeyboardWalkthroughSuccessMessageView
     var viewModel: LoginViewModel
     var blurEffectView: UIVisualEffectView
@@ -23,11 +23,6 @@ class InstallationWalkthroughViewContoller: UIViewController {
 
         installView = KeyboardInstallWalkthroughView()
         installView.translatesAutoresizingMaskIntoConstraints = false
-
-        loader = AnimatedLoaderView()
-        loader.translatesAutoresizingMaskIntoConstraints = false
-        loader.supplementImageView.hidden = true
-        loader.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
 
         completionView = KeyboardWalkthroughSuccessMessageView()
         completionView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,15 +73,28 @@ class InstallationWalkthroughViewContoller: UIViewController {
     func settingsButtonDidTap(sender: UIButton) {
         if inAppSetting {
             dismissViewControllerAnimated(true, completion: nil)
-
         } else {
             showLoader()
+
+            let appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
+            if let appSettings = NSURL(string: appSettingsString) {
+                UIApplication.sharedApplication().openURL(appSettings)
+            }
         }
     }
 
     func showLoader() {
-        view.addSubview(blurEffectView)
+        loader = AnimatedLoaderView()
+
+        guard let loader = loader else {
+            return
+        }
+        loader.translatesAutoresizingMaskIntoConstraints = false
+        loader.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+
         view.addSubview(loader)
+        view.addSubview(blurEffectView)
+
         view.addConstraints([
             loader.al_top == view.al_top,
             loader.al_bottom == view.al_bottom,
@@ -97,17 +105,12 @@ class InstallationWalkthroughViewContoller: UIViewController {
             blurEffectView.al_bottom == view.al_bottom,
             blurEffectView.al_left == view.al_left,
             blurEffectView.al_right == view.al_right
-            ])
-
-        let appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
-        if let appSettings = NSURL(string: appSettingsString) {
-            UIApplication.sharedApplication().openURL(appSettings)
-        }
+        ])
     }
 
     func removeLoader() {
         delay(2.0) {
-            self.loader.removeFromSuperview()
+            self.loader?.removeFromSuperview()
             self.showCompleteMessage()
         }
     }
@@ -119,7 +122,7 @@ class InstallationWalkthroughViewContoller: UIViewController {
             completionView.al_bottom == view.al_bottom,
             completionView.al_left == view.al_left,
             completionView.al_right == view.al_right,
-            ])
+        ])
     }
 
 

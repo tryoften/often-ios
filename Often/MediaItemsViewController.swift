@@ -22,15 +22,16 @@ let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: MediaItemsViewModel
     var emptyStateView: EmptyStateView?
-    var loaderView: AnimatedLoaderView
+    var loaderView: AnimatedLoaderView?
     var loadingTimer: NSTimer?
     var loaderTimeoutTimer: NSTimer?
     var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
         didSet {
             do {
+                sectionHeaders = [:]
                 try viewModel.fetchCollection(collectionType) { success in
-                    self.reloadData(false)
+                    self.reloadData(false, collectionTypeChanged: true)
                 }
             } catch let error {
                 print("Failed to request data \(error)")
@@ -42,10 +43,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaItemsCollectionType, viewModel: MediaItemsViewModel) {
         self.viewModel = viewModel
-        
-        loaderView = AnimatedLoaderView()
-        loaderView.hidden = true
-        
+
         collectionType = aCollectionType
         hasFetchedData = false
         
@@ -55,7 +53,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
-        view.addSubview(loaderView)
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
@@ -87,7 +84,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         emptyStateView?.frame = view.bounds
-        loaderView.frame = view.bounds
+        loaderView?.frame = view.bounds
     }
 
     func requestData(animated: Bool = false) {
@@ -102,12 +99,13 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         }
     }
     
-    func reloadData(animated: Bool = false) {
+    func reloadData(animated: Bool = false, collectionTypeChanged: Bool = false) {
         if viewModel.isDataLoaded {
-            loaderView.hidden = true
+            loaderView?.hidden = true
             collectionView?.scrollEnabled = true
             if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) {
                 let collection = viewModel.generateMediaItemGroupsForCollectionType(collectionType)
+
                 if collection.isEmpty {
                     switch collectionType {
                     case .Favorites: updateEmptyStateContent(.NoFavorites)
@@ -120,10 +118,14 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             #if KEYBOARD
                 collectionView?.reloadData()
             #else
-                collectionView?.performBatchUpdates({
-                    let range = NSMakeRange(0, collection.count)
-                    self.collectionView?.reloadSections(NSIndexSet(indexesInRange: range))
-                    }, completion: nil)
+                if collectionTypeChanged {
+                    collectionView?.reloadData()
+                } else {
+                    collectionView?.performBatchUpdates({
+                        let range = NSMakeRange(0, collection.count)
+                        self.collectionView?.reloadSections(NSIndexSet(indexesInRange: range))
+                        }, completion: nil)
+                }
             #endif
                 }
             }
@@ -132,7 +134,11 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     func loaderIfNeeded() {
         if !viewModel.isDataLoaded {
-            loaderView.hidden = false
+
+            loaderView = AnimatedLoaderView()
+            view.addSubview(loaderView!)
+
+            loaderView?.hidden = false
             loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timeoutLoader", userInfo: nil, repeats: false)
         } else {
             collectionView?.hidden = false
@@ -140,7 +146,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     func timeoutLoader() {
-        loaderView.hidden = true
+        loaderView?.hidden = true
         updateEmptyStateContent(.NoResults)
     }
     
@@ -188,13 +194,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         var cell: MediaItemCollectionViewCell
         cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section, collectionType: collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
-        cell.type = .NoMetadata
-        
+
         animateCell(cell, indexPath: indexPath)
-        
-        if let sectionView = sectionHeaders[indexPath.section] {
-            sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
-        }
         
         return cell
     }
@@ -239,18 +240,17 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
         reloadData(false)
-        loaderView.hidden = true
+        loaderView?.hidden = true
         collectionView?.hidden = false
     }
 
     func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
-        loaderView.hidden = true
+        loaderView?.hidden = true
         collectionView?.hidden = false
     }
     
     func mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, groups: [MediaItemGroup]) {
-        reloadData(false)
-        
+        reloadData(false, collectionTypeChanged: true)
     }
 
     // MARK: MediaItemCollectionViewCellDelegate

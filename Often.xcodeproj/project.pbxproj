@@ -3085,6 +3085,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = all;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3184,6 +3185,7 @@
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3211,6 +3213,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = all;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

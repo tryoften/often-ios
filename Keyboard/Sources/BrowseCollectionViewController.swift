@@ -61,6 +61,13 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         containerViewController?.resetPosition()
+        showNavigationBar(false)
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        containerViewController?.resetPosition()
+        showNavigationBar(false)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -163,16 +170,16 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
         }
 
         var frame = tabBarFrame
-        guard var searchBarFrame = navigationBar?.frame else {
+        guard var navBarFrame = navigationBar?.frame else {
             return
         }
 
         let tabBarHeight = CGRectGetHeight(frame)
 
-        searchBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight), 0)
+        navBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight), 0)
         frame.origin.y = fmax(fmin(y, 0), -tabBarHeight)
 
-        navigationBarHideConstraint?.constant = searchBarFrame.origin.y
+        navigationBarHideConstraint?.constant = navBarFrame.origin.y
 
         UIView.animateWithDuration(animated ? 0.1 : 0) {
             self.view.layoutSubviews()

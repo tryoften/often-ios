@@ -41,6 +41,7 @@ class RootViewController: UITabBarController, ConnectivityObservable {
         errorDropView = DropDownMessageView()
         errorDropView.text = "NO INTERNET FAM :("
         errorDropView.hidden = true
+        errorDropView.layer.zPosition = 50
         
         super.init(nibName: nil, bundle: nil)
         

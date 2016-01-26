@@ -39,14 +39,9 @@ class SessionManager: NSObject, AccountManagerDelegate {
             SEGAnalytics.sharedAnalytics().identify(userID)
             let crashlytics = Crashlytics.sharedInstance()
             crashlytics.setUserIdentifier(userID)
-
             accountManager.isUserLoggedIn()
-
         }
-        
     }
-
-    
 
     func login(accountManagerControllerClass: AccountManager.Type, userData: UserAuthData?, completion: (results: ResultType) -> Void) throws {
         accountManager = accountManagerControllerClass.init(firebase: firebase)

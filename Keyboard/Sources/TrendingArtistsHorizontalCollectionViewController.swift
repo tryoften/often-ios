@@ -11,6 +11,7 @@ import UIKit
 private let TrendingArtistsCellReuseIdentifier = "Cell"
 
 class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionViewController {
+    var textProcessor: TextProcessingManager?
     var viewModel: BrowseViewModel
     var group: MediaItemGroup? {
         didSet {
@@ -89,6 +90,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         }
 
         let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: viewModel)
+        browseVC.textProcessor = textProcessor
         navigationController?.pushViewController(browseVC, animated: true)
         containerViewController?.resetPosition()
     }

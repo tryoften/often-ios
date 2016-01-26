@@ -234,19 +234,15 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     }
 
     func setupCellType() {
-        switch(type) {
-        case .Metadata:
-            hotnessLogoView.hidden = true
-            mainTextLabelCenterConstraint?.constant = 10
-        case .NoMetadata:
-            leftMetadataLabel.hidden = true
-            rightMetadataLabel.hidden = true
-            contentImageView.hidden = true
-            sourceLogoView.hidden = true
-            leftHeaderLabel.hidden = true
-            rightHeaderLabel.hidden = true
+        let hasNoMetadata = type == .NoMetadata
 
-        }
+        leftMetadataLabel.hidden = hasNoMetadata
+        rightMetadataLabel.hidden = hasNoMetadata
+        contentImageView.hidden = hasNoMetadata
+        sourceLogoView.hidden = hasNoMetadata
+        leftHeaderLabel.hidden = hasNoMetadata
+        rightHeaderLabel.hidden = hasNoMetadata
+        mainTextLabelCenterConstraint?.constant = hasNoMetadata ? 0 : 10
     }
 
     func prepareOverlayView() {

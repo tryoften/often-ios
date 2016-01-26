@@ -12,7 +12,6 @@ class KeyboardMediaItemsAndFilterBarViewController: MediaItemsViewController,
     FavoritesAndRecentsTabDelegate {
     var favoritesAndRecentsTabView: FavoritesAndRecentsTabView
     var searchResultsContainerView: UIView?
-    var textProcessor: TextProcessingManager?
 
     init(viewModel: MediaItemsViewModel) {
         favoritesAndRecentsTabView = FavoritesAndRecentsTabView()
@@ -40,7 +39,7 @@ class KeyboardMediaItemsAndFilterBarViewController: MediaItemsViewController,
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10.0, bottom: 80.0, right: 10.0)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10.0, bottom: 80.0, right: 10.0)
         return layout
     }
     
@@ -56,22 +55,7 @@ class KeyboardMediaItemsAndFilterBarViewController: MediaItemsViewController,
             favoritesAndRecentsTabView.al_height == KeyboardSearchBarHeight
         ])
     }
-    
-    // MediaItemCollectionViewCellDelegate
-    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        guard let result = cell.mediaLink else {
-            return
-        }
-        
-        if selected {
-            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
-        } else {
-            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
-                textProcessor?.defaultProxy.deleteBackward()
-            }
-        }
-    }
-    
+
     func userFavoritesTabSelected() {
         collectionType = .Favorites
         reloadData(false)

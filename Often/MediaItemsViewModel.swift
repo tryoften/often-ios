@@ -69,15 +69,17 @@ class MediaItemsViewModel: BaseViewModel {
         }
         
         ref.observeEventType(.Value, withBlock: { snapshot in
-            dispatch_async(dispatch_get_main_queue()) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
                 self.isDataLoaded = true
                 if let data = snapshot.value as? [String: AnyObject] {
                     self.collections[collectionType] = self.processMediaItemsCollectionData(data)
                 }
                 
                 let mediaItemGroups = self.generateMediaItemGroupsForCollectionType(collectionType)
-                self.delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: collectionType, groups: mediaItemGroups)
-                completion?(true)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: collectionType, groups: mediaItemGroups)
+                    completion?(true)
+                }
             }
         })
     }
@@ -96,8 +98,7 @@ class MediaItemsViewModel: BaseViewModel {
             var groups: [String: MediaItemGroup] = [:]
             for item in items {
                 guard let lyric = item as? LyricMediaItem,
-                    let artistName = lyric.artist_name/*,
-                    let artistId = lyric.artist_id*/ else {
+                    let artistName = lyric.artist_name else {
                         continue
                 }
                 
@@ -105,7 +106,6 @@ class MediaItemsViewModel: BaseViewModel {
                     groups[artistName]!.items.append(item)
                 } else {
                     let group = MediaItemGroup(dictionary: [
-//                        "id": 0,
                         "title": artistName,
                         ])
                     group.items = [item]
@@ -114,6 +114,9 @@ class MediaItemsViewModel: BaseViewModel {
             }
             
             let sortedGroups = groups.values.sort({ $0.title < $1.title })
+            for group in sortedGroups {
+                group.items = sortLyricsByTrack(group.items)
+            }
             return sortedGroups
         case .Recents:
             let group = MediaItemGroup(dictionary: [
@@ -128,13 +131,19 @@ class MediaItemsViewModel: BaseViewModel {
         }
     }
     
+    func sortLyricsByTrack(groups: [MediaItem]) -> [MediaItem] {
+        if let unsorted = groups as? [LyricMediaItem] {
+            return unsorted.sort({ $0.track_title < $1.track_title })
+        }
+        return groups
+    }
+    
     func mediaItemGroupItemsForIndex(index: Int, collectionType: MediaItemsCollectionType) -> [MediaItem] {
         let groups = generateMediaItemGroupsForCollectionType(collectionType)
         if(!groups.isEmpty) {
             return groups[index].items
-        } else {
-            return []
         }
+        return []
     }
     
     func sectionHeaderTitle(collectionType: MediaItemsCollectionType) -> String {
@@ -148,7 +157,10 @@ class MediaItemsViewModel: BaseViewModel {
     }
     
     func sectionHeaderTitleForCollectionType(collectionType: MediaItemsCollectionType, isLeft: Bool, indexPath: NSIndexPath) -> String {
-        return sectionHeaderTitle(collectionType)
+        if isLeft {
+            return sectionHeaderTitle(collectionType)
+        }
+        return ""
     }
     
     func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {

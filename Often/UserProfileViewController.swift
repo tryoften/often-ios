@@ -72,7 +72,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
     }
     
@@ -94,11 +93,28 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         let contentFrame = CGRectMake(0, headerHeight, screenWidth, screenHeight - headerHeight - tabBarHeight)
         
         emptyStateView?.frame = contentFrame
-        loaderView.frame = contentFrame
+        loaderView?.frame = contentFrame
     }
-
+    
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
+    }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        guard let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX, cells = collectionView?.visibleCells() else {
+            return
+        }
+        
+        let point = CGPointMake(profileViewCenter, profileViewHeight + scrollView.contentOffset.y + 37)
+        for cell in cells {
+            if cell.frame.contains(point) {
+                if let indexPath = collectionView?.indexPathForCell(cell) {
+                    if let sectionView = sectionHeaders[indexPath.section] {
+                        sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+                    }
+                }
+            }
+        }
     }
     
     // MARK: UICollectionViewDataSource
@@ -124,18 +140,9 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             }
             
             return headerView!
-        } else if kind == UICollectionElementKindSectionHeader {
-            // Create Header
-            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
-                    sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
-                    sectionHeaders[indexPath.section] = sectionView
-                    return sectionView
-            }
+        } else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
         }
-        
-        return UICollectionReusableView()
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -144,15 +151,11 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         }
         
         cell.delegate = self
-        cell.type = .NoMetadata
+        cell.type = collectionType == .Recents ? .Metadata : .NoMetadata
         cell.inMainApp = true
         
-        if let result = cell.mediaLink {
-            if FavoritesService.defaultInstance.checkFavorite(result) {
-                cell.itemFavorited = true
-            } else {
-                cell.itemFavorited = false
-            }
+        if let result = cell.mediaLink where collectionType != .Favorites {
+            cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         }
         
         return cell
@@ -173,7 +176,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     func reloadUserData() {
         if let headerView = headerView, let user = viewModel.currentUser {
-            headerView.sharedText = "85 Lyrics Shared"
+            headerView.sharedText = "\(SessionManagerFlags.defaultManagerFlags.userMessageCount) Lyrics Shared"
             headerView.nameLabel.text = user.name
             headerView.collapseNameLabel.text = user.name
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
@@ -242,12 +245,12 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             })
         }
     }
-
+    
     func promptUserToRegisterPushNotifications() {
         UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
         UIApplication.sharedApplication().registerForRemoteNotifications()
     }
-
+    
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
