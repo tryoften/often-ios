@@ -39,8 +39,8 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if(collectionType == .Favorites) {
-            if(SessionManagerFlags.defaultManagerFlags.userMessageCount % 10 == 0 && headerView?.hidden == true) {
+        if collectionType == .Favorites {
+            if SessionManagerFlags.defaultManagerFlags.userMessageCount % 10 == 0 && headerView?.hidden == true  {
                 headerView?.hidden = false
                 collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(), animated: true)
                 collectionView?.contentOffset = CGPointMake(0, -(KeyboardSearchBarHeight + 2))
@@ -60,9 +60,9 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         let layout = CSStickyHeaderFlowLayout()
         var topMargin: CGFloat = 0.0
 
-    #if KEYBOARD
-        topMargin = 10.0
-    #endif
+        #if KEYBOARD
+            topMargin = 10.0
+        #endif
 
         layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, headerHeight)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, headerHeight)
@@ -73,7 +73,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
         layout.sectionInset = UIEdgeInsets(top: topMargin, left: 10.0, bottom: 10.0, right: 10.0)
-
+        
         return layout
     }
 

@@ -27,7 +27,7 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
         super.init(viewModel: viewModel)
 
         #if KEYBOARD
-        collectionView?.contentInset = UIEdgeInsetsMake(63.0 + KeyboardSearchBarHeight, 0, 0, 0)
+            collectionView?.contentInset = UIEdgeInsetsMake(63.0 + KeyboardSearchBarHeight, 0, 0, 0)
         #endif
     }
 
