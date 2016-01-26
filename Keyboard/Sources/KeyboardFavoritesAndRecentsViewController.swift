@@ -49,9 +49,9 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         let layout = CSStickyHeaderFlowLayout()
         var topMargin: CGFloat = 0.0
 
-        #if KEYBOARD
-            topMargin = 10.0
-        #endif
+    #if KEYBOARD
+        topMargin = 10.0
+    #endif
 
         let count = SessionManagerFlags.defaultManagerFlags.userMessageCount
         if count % 10 != 0 {

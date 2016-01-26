@@ -36,11 +36,11 @@ class ArtistMediaItem: MediaItem {
             let medium = image_url_images["medium"] as? NSDictionary,
             let image_url = square["url"] as? String,
             let medium_image_url = medium["url"] as? String{
-                #if KEYBOARD
-                    self.image = image_url
-                #else
-                    self.image = medium_image_url
-                #endif
+            #if KEYBOARD
+                self.image = image_url
+            #else
+                self.image = medium_image_url
+            #endif
         }
 
         if let name = data["name"] as? String {
