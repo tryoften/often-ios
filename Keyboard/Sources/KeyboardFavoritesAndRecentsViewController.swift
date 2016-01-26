@@ -25,7 +25,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
         }
         collectionView?.backgroundColor = UIColor.clearColor()
-        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 80, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 80, 0)
     }
 
     required init?(coder aDecoder: NSCoder) {
