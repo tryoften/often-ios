@@ -308,7 +308,7 @@ let TrendingSectionHeaderViewBottomLineBreakBackgroundColor = UIColor(fromHexStr
 
 //User Profile Header View
 let UserProfileHeaderViewBackgroundColor = UIColor.whiteColor()
-let UserProfileHeaderViewCoverPhotoTintViewBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.54)
+let UserProfileHeaderViewCoverPhotoTintViewBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.24)
 let UserProfileHeaderViewProfileImageViewBackgroundColor = UIColor.whiteColor().CGColor
 let UserProfileHeaderViewMetadataViewBackgroundColor = UIColor.whiteColor()
 let UserProfileHeaderViewNameLabelFont = UIFont(name: "OpenSans-Semibold", size: 14)
