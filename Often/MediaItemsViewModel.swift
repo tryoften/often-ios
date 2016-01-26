@@ -163,13 +163,12 @@ class MediaItemsViewModel: BaseViewModel {
         return ""
     }
     
-    func sectionHeaderImage(collectionType: MediaItemsCollectionType, indexPath: NSIndexPath) -> UIImage? {
-        let group = mediaItemGroupItemsForIndex(indexPath.row, collectionType: collectionType)
+    func sectionHeaderImageURL(collectionType: MediaItemsCollectionType, index: Int) -> NSURL? {
+        let group = mediaItemGroupItemsForIndex(index, collectionType: collectionType)
         if !group.isEmpty {
-            guard let lyric = group.first as? LyricMediaItem, url = NSURL(string: lyric.artist_image_url!), data = NSData(contentsOfURL: url), image = UIImage(data: data) else {
-                return nil
+            if let lyric = group.first as? LyricMediaItem, urlString = lyric.artist_image_url, let imageURL = NSURL(string: urlString) {
+                return imageURL
             }
-            return image
         }
         return nil
     }
