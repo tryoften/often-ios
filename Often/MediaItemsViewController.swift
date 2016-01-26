@@ -128,6 +128,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 }
             #endif
                 }
+            } else {
+                collectionView?.scrollEnabled = false
             }
         }
     }

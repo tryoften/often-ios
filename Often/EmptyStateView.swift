@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum EmptyStateImageSize {
+    case Small
+    case Medium
+    case Large
+}
+
 class EmptyStateView: UIView {
     var titleLabel: UILabel
     var descriptionLabel: UILabel
@@ -46,15 +52,9 @@ class EmptyStateView: UIView {
     
     var imageViewTopConstraint: NSLayoutConstraint?
     var imageViewTopPadding: CGFloat = 0
-    
-    enum EmptyStateImageSize {
-        case Small
-        case Medium
-        case Large
-    }
-    
+
     static func emptyStateViewForUserState(state: UserState) -> EmptyStateView? {
-        switch (state) {
+        switch state {
         case .NoKeyboard:
             return NoKeyboardEmptyStateView()
         case .NoTwitter:
