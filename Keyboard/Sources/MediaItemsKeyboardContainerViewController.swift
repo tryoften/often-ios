@@ -82,7 +82,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         if viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips == false {
             tooltipVC = ToolTipViewController()
             tooltipVC?.delegate = self
-            tooltipVC?.closeButton.addTarget(self, action: "closeToolTipButtonDidTap:", forControlEvents: .TouchUpInside)
 
             sectionsTabBarController.view.userInteractionEnabled = false
 
@@ -200,11 +199,11 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     func updateReachabilityStatusBar() {
         if isNetworkReachable {
             UIView.animateWithDuration(0.3, animations: {
-                self.errorDropView.frame = CGRectMake(0, -40, UIScreen.mainScreen().bounds.width, 40)
+                self.errorDropView.frame = CGRectMake(0, -64, UIScreen.mainScreen().bounds.width, 64)
             })
         } else {
             UIView.animateWithDuration(0.3, animations: {
-                    self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 40)
+                    self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64)
             })
             
             errorDropView.hidden = false
