@@ -173,7 +173,7 @@ let AddArtistModalCollectionNameLabelFont = UIFont(name: "Oswald-Light", size: 2
 let AddArtistModalCollectionTopLabelFont = UIFont(name: "OpenSans", size: 18.0)
 let AddArtistModalHeaderViewBackgroundColor = UIColor(fromHexString: "#f7f7f7")
 let ArtistCollectionViewCellCircleLayerColor = UIColor(fromHexString: "#f19720")
-let ArtistCollectionViewImageViewBackgroundColor = UIColor.blackColor()
+let ArtistCollectionViewImageViewBackgroundColor = UIColor(fromHexString: "#f7f7f7")
 let ArtistCollectionViewDeleteButtonColor = UIColor(fromHexString: "#f19720")
 let ArtistCollectionViewCellCircleLayerColorStrokeAndFillColor = UIColor.clearColor()
 let ArtistPickerCollectionViewControllerBackgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 0.73)
@@ -308,7 +308,7 @@ let TrendingSectionHeaderViewBottomLineBreakBackgroundColor = UIColor(fromHexStr
 
 //User Profile Header View
 let UserProfileHeaderViewBackgroundColor = UIColor.whiteColor()
-let UserProfileHeaderViewCoverPhotoTintViewBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.54)
+let UserProfileHeaderViewCoverPhotoTintViewBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.36)
 let UserProfileHeaderViewProfileImageViewBackgroundColor = UIColor.whiteColor().CGColor
 let UserProfileHeaderViewMetadataViewBackgroundColor = UIColor.whiteColor()
 let UserProfileHeaderViewNameLabelFont = UIFont(name: "OpenSans-Semibold", size: 14)
