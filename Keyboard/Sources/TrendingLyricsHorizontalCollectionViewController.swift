@@ -11,7 +11,6 @@ import UIKit
 private let TrendingLyricsCellReuseIdentifier = "Cell"
 
 class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBaseViewController {
-    var textProcessor: TextProcessingManager?
     var group: MediaItemGroup? {
         didSet {
             collectionView?.reloadData()
@@ -45,7 +44,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
 
     class func provideLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 85, 105)
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 60, 105)
         layout.scrollDirection = .Horizontal
         layout.minimumInteritemSpacing = 9.0
         layout.minimumLineSpacing = 9.0
@@ -86,6 +85,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
         if let urlString = lyric.artist_image_url, let imageURL = NSURL(string: urlString) {
             cell.sourceLogoView.setImageWithURL(imageURL)
         }
+
         cell.leftHeaderLabel.text = lyric.artist_name
         cell.rightHeaderLabel.text = lyric.track_title
         cell.mainTextLabel.text = lyric.text
@@ -94,6 +94,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
         cell.layer.shouldRasterize = true
         cell.showImageView = false
         cell.mediaLink = lyric
+        cell.type = .Metadata
         cell.delegate = self
 
         #if !(KEYBOARD)
@@ -112,20 +113,6 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TrendingLyricsCellReuseIdentifier,
             forIndexPath: indexPath) as? MediaItemCollectionViewCell {
                 cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(lyric)
-        }
-    }
-
-    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        guard let result = cell.mediaLink else {
-            return
-        }
-
-        if selected {
-            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
-        } else {
-            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
-                textProcessor?.defaultProxy.deleteBackward()
-            }
         }
     }
 }

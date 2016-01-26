@@ -98,6 +98,11 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = pageImages[page]
         imageView.contentMode = .Center
+
+        if Diagnostics.platformString().number == 5 {
+            imageView.contentMode = .ScaleAspectFit
+        }
+
         
         loginView.scrollView.addSubview(imageView)
         

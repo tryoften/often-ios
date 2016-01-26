@@ -16,7 +16,6 @@ let songCellReuseIdentifier = "songCell"
 class BrowseViewController: FullScreenCollectionViewController,
     UICollectionViewDelegateFlowLayout,
     MediaItemGroupViewModelDelegate,
-    TextProcessingManagerDelegate,
     CellAnimatable {
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
@@ -24,16 +23,17 @@ class BrowseViewController: FullScreenCollectionViewController,
     var searchViewController: SearchViewController?
     var textProcessor: TextProcessingManager?
     var cellsAnimated: [NSIndexPath: Bool] = [:]
+    var displayedData: Bool
 
     init(collectionViewLayout: UICollectionViewLayout = BrowseViewController.getLayout(),
         viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         self.viewModel = viewModel
+        self.displayedData = false
 
         super.init(collectionViewLayout: collectionViewLayout)
 
         viewModel.delegate = self
         self.textProcessor = textProcessor
-        self.textProcessor?.delegate = self
 
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
@@ -159,6 +159,7 @@ class BrowseViewController: FullScreenCollectionViewController,
         guard let group = viewModel.groupAtIndex(indexPath.section) else {
             return UICollectionViewCell()
         }
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
 
         switch group.type {
         case .Lyric:
@@ -168,7 +169,9 @@ class BrowseViewController: FullScreenCollectionViewController,
 
             cell.backgroundColor = UIColor.clearColor()
             cell.contentView.addSubview(lyricsHorizontalVC.view)
-            lyricsHorizontalVC.view.frame = cell.bounds
+            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            lyricsHorizontalVC.view.frame = CGRectMake(0, 0, screenWidth, 125)
+            print("Lyrics Horizontal VC cell bounds: ", cell.bounds)
 
             return cell
         case .Artist:
@@ -177,13 +180,16 @@ class BrowseViewController: FullScreenCollectionViewController,
             artistsHorizontalVC.group = group
 
             cell.contentView.addSubview(artistsHorizontalVC.view)
-            artistsHorizontalVC.view.frame = cell.bounds
+            artistsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            artistsHorizontalVC.view.frame = CGRectMake(0, 0, screenWidth, 230)
+            print("Artist Horizontal VC cell bounds: ", cell.bounds)
 
             self.artistsHorizontalVC = artistsHorizontalVC
             return cell
         case .Track:
-            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? TrackCollectionViewCell, let track = group.items[indexPath.row] as?TrackMediaItem else {
-                return TrackCollectionViewCell()
+            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? TrackCollectionViewCell,
+                let track = group.items[indexPath.row] as? TrackMediaItem else {
+                    return TrackCollectionViewCell()
             }
 
             if let imageURLStr = track.song_art_image_url, let imageURL = NSURL(string: imageURLStr) {
@@ -228,6 +234,7 @@ class BrowseViewController: FullScreenCollectionViewController,
     func provideTrendingArtistsHorizontalCollectionViewController() -> TrendingArtistsHorizontalCollectionViewController {
         if artistsHorizontalVC == nil {
             artistsHorizontalVC = TrendingArtistsHorizontalCollectionViewController(viewModel: viewModel)
+            artistsHorizontalVC?.textProcessor = textProcessor
             addChildViewController(artistsHorizontalVC!)
         }
         
@@ -235,24 +242,16 @@ class BrowseViewController: FullScreenCollectionViewController,
     }
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        collectionView?.reloadData()
-    }
+        if !displayedData {
+            collectionView?.reloadData()
+            displayedData = true
+        } else {
+            collectionView?.performBatchUpdates({
+                let range = NSMakeRange(0, viewModel.groups.count)
+                self.collectionView?.reloadSections(NSIndexSet(indexesInRange: range))
+            }, completion: nil)
 
-    // MARK: TextProcessingManagerDelegate
-    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {
-    }
-
-    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {
-    }
-
-    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
-        return nil
-    }
-
-    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {
-    }
-
-    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
+        }
     }
 
 #if KEYBOARD

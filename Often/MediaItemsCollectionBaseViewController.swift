@@ -16,6 +16,8 @@ let MediaItemCollectionViewCellReuseIdentifier = "MediaItemsCollectionViewCell"
 class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate {
     var cellsAnimated: [NSIndexPath: Bool]
     var favoritesCollectionListener: Listener? = nil
+    var favoriteSelected: Bool = false
+    var textProcessor: TextProcessingManager?
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         cellsAnimated = [:]
@@ -24,6 +26,12 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
 
         favoritesCollectionListener = FavoritesService.defaultInstance.didChangeFavorites.on { items in
+
+            if self.favoriteSelected {
+                self.favoriteSelected = false
+                return
+            }
+
             self.collectionView?.reloadData()
         }
     }
@@ -108,8 +116,13 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         if  let image = result.image,
             let imageURL = NSURL(string: image) {
                 print("Loading image: \(imageURL)")
-                cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
-                    cell.contentImageView.image = image
+                cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
+                    if result.type == .Lyric {
+                        cell.sourceLogoView.image = image
+                    } else {
+                        cell.contentImageView.image = image
+                    }
+
                     }, failure: { (req, res, error) in
                         print("Failed to load image: \(imageURL)")
                 })
@@ -122,27 +135,27 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         return cell
     }
 
+    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell else {
+                return
+        }
+
+        cell.overlayVisible = false
+    }
+
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
-            let cells = collectionView.visibleCells() as? [MediaItemCollectionViewCell],
             let result = cell.mediaLink else {
                 return
         }
 
-        for aCell in cells {
-            if aCell.mediaLink != result {
-                cell.overlayView.hidden = true
-                cell.layer.shouldRasterize = false
-            }
-        }
-
         cell.prepareOverlayView()
-        cell.overlayVisible = true
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
+        cell.overlayVisible = true
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
-        if (cellsAnimated[indexPath] != true) {
+        if cellsAnimated[indexPath] != true {
             cell.alpha = 0.0
 
             let finalFrame = cell.frame
@@ -163,6 +176,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             return
         }
 
+        favoriteSelected = true
         FavoritesService.defaultInstance.toggleFavorite(selected, result: result)
     }
     
@@ -171,7 +185,19 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
     
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        
+        NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
+
+        guard let result = cell.mediaLink else {
+            return
+        }
+
+        if selected {
+            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        } else {
+            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
+                textProcessor?.defaultProxy.deleteBackward()
+            }
+        }
     }
     
     func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {

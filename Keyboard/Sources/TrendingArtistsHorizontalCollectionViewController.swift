@@ -11,6 +11,7 @@ import UIKit
 private let TrendingArtistsCellReuseIdentifier = "Cell"
 
 class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionViewController {
+    var textProcessor: TextProcessingManager?
     var viewModel: BrowseViewModel
     var group: MediaItemGroup? {
         didSet {
@@ -72,11 +73,9 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         // Configure the cell
         cell.titleLabel.text = artist.name
         cell.songCount = artist.lyrics_count ?? 0
-        #if !(KEYBOARD)
         if let image = artist.image, let imageURL = NSURL(string: image) {
             cell.imageView.setImageWithAnimation(imageURL)
         }
-        #endif
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
 
@@ -91,6 +90,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         }
 
         let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: viewModel)
+        browseVC.textProcessor = textProcessor
         navigationController?.pushViewController(browseVC, animated: true)
         containerViewController?.resetPosition()
     }

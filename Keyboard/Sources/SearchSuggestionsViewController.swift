@@ -12,9 +12,11 @@ let SearchSuggestionCellReuseIdentifier = "SearchSuggestionsCell"
 let ServiceProviderSuggestionCellReuseIdentifier = "ServiceProviderSuggestionCell"
 let SearchLoaderSuggestionCellReuseIdentifier = "SearchLoaderSuggestionsCell"
 
-class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsViewModelDelegate {
+class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SearchSuggestionsViewModelDelegate {
+    private var tableView: UITableView
     var delegate: SearchSuggestionViewControllerDelegate?
     var viewModel: SearchSuggestionsViewModel
+
     var tableViewBottomInset: CGFloat {
         didSet {
             tableView.contentInset = UIEdgeInsetsMake(contentInset.top, contentInset.left, tableViewBottomInset, contentInset.bottom)
@@ -28,14 +30,28 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
     }
 
     init(viewModel aViewModel: SearchSuggestionsViewModel) {
+        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
         viewModel = aViewModel
+    #if KEYBOARD
         contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
+    #else
+        contentInset = UIEdgeInsetsMake(68, 0, 0, 0)
+    #endif
         tableViewBottomInset = 80
         
-        super.init(style: .Grouped)
+        super.init(nibName: nil, bundle: nil)
+
+        tableView.dataSource = self
+        tableView.delegate = self
 
         viewModel.delegate = self
         viewModel.suggestionsDelegate = self
+
+        view.addSubview(tableView)
+
+        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -43,6 +59,7 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
     }
 
     func showSearchSuggestionsView(showSearchSuggestionsView: Bool) {
+        viewModel.requestData()
         if showSearchSuggestionsView {
             UIView.animateWithDuration(0.3, animations: {
                 self.view.alpha = 1.0
@@ -68,17 +85,26 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
         view.backgroundColor = VeryLightGray
     }
 
+    func setupLayout() {
+        view.addConstraints([
+            tableView.al_top == view.al_top,
+            tableView.al_bottom == view.al_bottom,
+            tableView.al_left == view.al_left,
+            tableView.al_right == view.al_right
+            ])
+    }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.requestData()
     }
 
     // MARK: - Table view data source
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let suggestions = viewModel.suggestions {
             if suggestions.isEmpty {
                 return 3
@@ -90,23 +116,23 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
         return 0
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return SearchSuggestionTableHeaderView()
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 45.0
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell = UITableViewCell()
         
         if viewModel.suggestions?.isEmpty == true {
@@ -153,7 +179,7 @@ class SearchSuggestionsViewController: UITableViewController, SearchSuggestionsV
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if viewModel.suggestions?.isEmpty == true {
             return
         }

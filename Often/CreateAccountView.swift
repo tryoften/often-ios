@@ -25,6 +25,27 @@ class CreateAccountView: UIView {
     let cancelButton: UIButton
     let termsOfUseAndPrivacyPolicyButton: UIButton
 
+    private var titleLabelHeightTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 60
+        }
+        return 75
+    }
+
+    private var usernameTextFieldHeightTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 30
+        }
+        return 40
+    }
+
+    private var subtitleLabelHeightLeftAndRightMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 40
+        }
+        return 60
+    }
+
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -117,7 +138,7 @@ class CreateAccountView: UIView {
     
     func setupLayout() {
         addConstraints([
-            titleLabel.al_top == al_top + 75,
+            titleLabel.al_top == al_top + titleLabelHeightTopMargin,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_height == 30,
@@ -128,10 +149,10 @@ class CreateAccountView: UIView {
             cancelButton.al_height == 59,
 
             subtitleLabel.al_top == titleLabel.al_bottom + 8,
-            subtitleLabel.al_left == al_left  + 60,
-            subtitleLabel.al_right == al_right - 60,
+            subtitleLabel.al_left == al_left  + subtitleLabelHeightLeftAndRightMargin,
+            subtitleLabel.al_right == al_right - subtitleLabelHeightLeftAndRightMargin,
             
-            usernameTextField.al_top == subtitleLabel.al_bottom + 40,
+            usernameTextField.al_top == subtitleLabel.al_bottom + usernameTextFieldHeightTopMargin,
             usernameTextField.al_left == al_left + 40,
             usernameTextField.al_right == al_right - 40,
             usernameTextField.al_height == 40,

@@ -13,7 +13,6 @@ let TextProcessingManagerProxyEvent = "textProcessingManager.setCurrentProxy"
 let TextProcessingManagedResetDefaultProxyEvent = "textProceesingManager.resetDefaultProxy"
 let TextProcessingManagerTextChangedEvent = "textProcesssingManager.textDidChange"
 
-
 class TextProcessingManager: NSObject, UITextInputDelegate {
     weak var delegate: TextProcessingManagerDelegate?
     var currentProxy: UITextDocumentProxy
@@ -34,10 +33,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         textBuffer = ""
         
         super.init()
-        
-        delay(0.5) {
-            self.spellChecker = SpellChecker()
-        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSetCurrentProxy:", name: TextProcessingManagerProxyEvent, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveResetDefaultProxy:", name: TextProcessingManagedResetDefaultProxyEvent, object: nil)
@@ -383,5 +378,13 @@ protocol TextProcessingManagerDelegate: class {
     func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter)
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter?
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String)
-    func textProcessingManagerDidReceiveSpellCheckSuggestions(TextProcessingManager: TextProcessingManager, suggestions: [SuggestItem])
+    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem])
+}
+
+extension TextProcessingManagerDelegate {
+    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {}
+    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
+        return nil
+    }
+    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {}
 }

@@ -14,6 +14,13 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
     let subtitleLabel: UILabel
     let finishedButton: UIButton
 
+    private var subtitleLabelLeftAndRightMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 40
+        }
+        return 80
+    }
+
     override init(frame: CGRect) {
         characterImageView = UIImageView()
         characterImageView.contentMode = .ScaleAspectFill
@@ -75,8 +82,8 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
             titleLabel.al_height == 36,
 
             subtitleLabel.al_top == titleLabel.al_bottom,
-            subtitleLabel.al_left == al_left + 80,
-            subtitleLabel.al_right == al_right - 80,
+            subtitleLabel.al_left == al_left + subtitleLabelLeftAndRightMargin,
+            subtitleLabel.al_right == al_right - subtitleLabelLeftAndRightMargin,
             subtitleLabel.al_height == 40,
 
             finishedButton.al_centerX == al_centerX,

@@ -14,6 +14,20 @@ class RootViewController: UITabBarController, ConnectivityObservable {
     var alertView: AlertView
     var isNetworkReachable: Bool = true
     var errorDropView: DropDownMessageView
+
+    private var alertViewTopAndBottomMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 120
+        }
+        return 140
+    }
+
+    private var alertViewLeftAndRightMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 32
+        }
+        return 42
+    }
     
     init() {
         visualEffectView = UIView(frame: UIScreen.mainScreen().bounds)
@@ -70,10 +84,10 @@ class RootViewController: UITabBarController, ConnectivityObservable {
             view.addConstraints([
                 alertView.al_centerX == view.al_centerX,
                 alertView.al_centerY == view.al_centerY,
-                alertView.al_top == view.al_top + 140,
-                alertView.al_bottom == view.al_bottom - 140,
-                alertView.al_right == view.al_right - 42,
-                alertView.al_left == view.al_left + 42,
+                alertView.al_top == view.al_top + alertViewTopAndBottomMargin,
+                alertView.al_bottom == view.al_bottom - alertViewTopAndBottomMargin,
+                alertView.al_right == view.al_right - alertViewLeftAndRightMargin,
+                alertView.al_left == view.al_left + alertViewLeftAndRightMargin,
             ])
 
             alertView.animate()
@@ -136,12 +150,11 @@ class RootViewController: UITabBarController, ConnectivityObservable {
     }
     
     func updateReachabilityStatusBar() {
-        setNeedsStatusBarAppearanceUpdate()
-
         if isNetworkReachable {
             UIView.animateWithDuration(0.3, animations: {
                 self.errorDropView.frame = CGRectMake(0, -64, UIScreen.mainScreen().bounds.width, 64)
             })
+
         } else {
             UIView.animateWithDuration(0.3, animations: {
                 self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64)
@@ -149,7 +162,8 @@ class RootViewController: UITabBarController, ConnectivityObservable {
             
             errorDropView.hidden = false
         }
-        
+
+        UIApplication.sharedApplication().setStatusBarHidden(!isNetworkReachable, withAnimation: .Fade)
         setNeedsStatusBarAppearanceUpdate()
     }
 }

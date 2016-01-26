@@ -31,6 +31,10 @@ class BrowseArtistCollectionViewController: BrowseCollectionViewController {
     init(artistId: String, viewModel: BrowseViewModel) {
         self.artistId = artistId
         super.init(viewModel: viewModel)
+
+        #if KEYBOARD
+            collectionView?.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0)
+        #endif
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -108,6 +112,8 @@ class BrowseArtistCollectionViewController: BrowseCollectionViewController {
         }
 
         let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: self.viewModel)
+        lyricsVC.textProcessor = textProcessor
+
         self.navigationController?.pushViewController(lyricsVC, animated: true)
     }
 }

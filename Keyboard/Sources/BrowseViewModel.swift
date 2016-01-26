@@ -9,8 +9,8 @@
 import Foundation
 
 class BrowseViewModel: MediaItemGroupViewModel {
-    init() {
-        super.init(baseRef: Firebase(url: BaseURL), path: "trending")
+    init(path: String = "trending") {
+        super.init(baseRef: Firebase(url: BaseURL), path: path)
     }
 
     func getArtistWithOftenId(oftenId: String, completion: (ArtistMediaItem) -> ()) {

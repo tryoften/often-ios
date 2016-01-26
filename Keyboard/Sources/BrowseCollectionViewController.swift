@@ -181,20 +181,20 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
     }
 
     func setupLayout() {
-        #if KEYBOARD
-            let topMargin = KeyboardSearchBarHeight
-            guard let navigationBar = navigationBar else {
-                return
-            }
+    #if KEYBOARD
+        let topMargin = KeyboardSearchBarHeight
+        guard let navigationBar = navigationBar else {
+            return
+        }
 
-            navigationBarHideConstraint = navigationBar.al_top == view.al_top + topMargin
+        navigationBarHideConstraint = navigationBar.al_top == view.al_top + topMargin
 
-            view.addConstraints([
-                navigationBarHideConstraint!,
-                navigationBar.al_left == view.al_left,
-                navigationBar.al_right == view.al_right,
-                navigationBar.al_height == 64
-            ])
-        #endif
+        view.addConstraints([
+            navigationBarHideConstraint!,
+            navigationBar.al_left == view.al_left,
+            navigationBar.al_right == view.al_right,
+            navigationBar.al_height == 64
+        ])
+    #endif
     }
 }

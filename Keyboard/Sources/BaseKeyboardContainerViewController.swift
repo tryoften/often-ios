@@ -109,6 +109,14 @@ class BaseKeyboardContainerViewController: UIInputViewController {
         })
     }
 
+    override func textDidChange(textInput: UITextInput?) {
+        textProcessor?.textDidChange(textInput)
+    }
+
+    override func textWillChange(textInput: UITextInput?) {
+        textProcessor?.textWillChange(textInput)
+    }
+
     override func updateViewConstraints() {
         if view.bounds == CGRectZero {
             return
