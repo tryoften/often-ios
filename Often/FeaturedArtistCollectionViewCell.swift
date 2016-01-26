@@ -11,6 +11,8 @@ import Foundation
 class FeaturedArtistCollectionViewCell: UICollectionViewCell {
     var featureLabel: UILabel
     var tintView: UIImageView
+    var titleLabel: UILabel
+    var imageView: UIImageView
 
     static var preferredSize: CGSize {
         return CGSizeMake(
@@ -18,9 +20,6 @@ class FeaturedArtistCollectionViewCell: UICollectionViewCell {
             UIScreen.mainScreen().bounds.size.height / 3.33 - 10
         )
     }
-
-    var titleLabel: UILabel
-    var imageView: UIImageView
 
     override init(frame: CGRect) {
         tintView = UIImageView()
