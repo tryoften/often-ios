@@ -84,13 +84,11 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setTitle("GOT IT", forState: .Normal)
+        closeButton.setTitle("NEXT", forState: .Normal)
         closeButton.setTitleColor(WhiteColor, forState: .Normal)
         closeButton.titleLabel?.font = UIFont(name: "Montserrat", size: 11.0)
         closeButton.backgroundColor = TealColor
         closeButton.layer.cornerRadius = 20.0
-        closeButton.alpha = 0
-        closeButton.userInteractionEnabled = false
         
         pointerImageView = UIImageView()
         pointerImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,6 +97,8 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         
         super.init(nibName: nil, bundle: nil)
 
+        closeButton.addTarget(self, action: "nextButtonDidTap:", forControlEvents: .TouchUpInside)
+        
         scrollView.delegate = self
 
         view.addSubview(backgroundKeyboardView)
@@ -162,19 +162,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         delegate?.toolTipViewControllerCurrentPage(self, currentPage: currentPage)
 
         if currentPage == pageCount - 1 {
-            closeButton.userInteractionEnabled = true
-            
-            UIView.animateWithDuration(0.3, animations: {
-                self.closeButton.alpha = 1.0
-                self.pageControl.alpha = 0
-            })
-        } else {
-            closeButton.userInteractionEnabled = false
-            
-            UIView.animateWithDuration(0.3, animations: {
-                self.closeButton.alpha = 0.0
-                self.pageControl.alpha = 1
-            })
+            closeButton.setTitle("GOT IT", forState: .Normal)
         }
 
         pointerAlignmentConstraint?.constant = arrowXOffset
@@ -182,6 +170,14 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         UIView.animateWithDuration(0.3, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+    
+    func nextButtonDidTap(sender: UIButton) {
+        if currentPage != pageCount - 1 {
+            scrollView.contentOffset = CGPointMake(scrollView.frame.size.width * CGFloat(currentPage + 1), 0);
+        } else {
+            delegate?.closeToolTipButtonDidTap(sender)
+        }
     }
     
     func setupLayout() {
@@ -218,7 +214,6 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
             pointerImageView.al_width == 15
         ])
     }
-
 }
 
 class CaretView: UIView {
@@ -239,4 +234,5 @@ class CaretView: UIView {
 
 protocol ToolTipViewControllerDelegate: class {
     func toolTipViewControllerCurrentPage(toolTipViewController: ToolTipViewController, currentPage: Int)
+    func closeToolTipButtonDidTap(sender: UIButton)
 }

@@ -82,7 +82,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         if viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips == false {
             tooltipVC = ToolTipViewController()
             tooltipVC?.delegate = self
-            tooltipVC?.closeButton.addTarget(self, action: "closeToolTipButtonDidTap:", forControlEvents: .TouchUpInside)
 
             sectionsTabBarController.view.userInteractionEnabled = false
 
