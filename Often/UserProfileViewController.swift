@@ -9,7 +9,8 @@
 
 import UIKit
 
-class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTabDelegate {
+class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTabDelegate,
+    UICollectionViewDelegateFlowLayout {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: MediaItemsSectionHeaderView?
     
@@ -101,8 +102,9 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        guard let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX, cells = collectionView?.visibleCells() else {
-            return
+        guard let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX, cells = collectionView?.visibleCells()
+            where collectionType == .Favorites else {
+                return
         }
         
         let point = CGPointMake(profileViewCenter, profileViewHeight + scrollView.contentOffset.y + 37)
@@ -118,6 +120,13 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     // MARK: UICollectionViewDataSource
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        switch collectionType {
+        case .Recents:  return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        default:        return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
+        }
+    }
+
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         if kind == CSStickyHeaderParallaxHeader {
@@ -157,6 +166,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         if let result = cell.mediaLink where collectionType != .Favorites {
             cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         }
+        cell.favoriteRibbon.hidden = collectionType == .Favorites
         
         return cell
     }

@@ -15,7 +15,7 @@ class TrackMediaItem: MediaItem {
     var url: String = ""
     var lyrics: [LyricMediaItem] = []
     var plays: Int?
-    var created: NSDate?
+
     var artist_external_url: String?
     var artist_genius_id: Int?
     var artist_id: String?
