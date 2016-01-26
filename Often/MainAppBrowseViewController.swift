@@ -14,7 +14,7 @@ private let BrowseHeadercellReuseIdentifier = "browseHeaderCell"
     This view controller displays a search bar along with trending navigatable items (lyrics, songs, artists)
 */
 class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDelegate {
-    var headerView: BrowseHeaderView?
+    private var featuredArtistsHorizontalVC: FeaturedArtistsCollectionViewController?
     var searchBar: MainAppSearchBar!
     var scrollsStatusBar: Bool = false
     var scrollsNavigationbar: Bool = false
@@ -25,7 +25,7 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         navBarBackground.backgroundColor = UIColor.whiteColor()
         super.init(collectionViewLayout: collectionViewLayout, viewModel: viewModel, textProcessor: textProcessor)
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
-        collectionView?.registerClass(BrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
+        collectionView?.registerClass(UICollectionReusableView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: BrowseHeadercellReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = true
         setupSearchBar()
 
@@ -74,7 +74,7 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
 
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let layout = CSStickyHeaderFlowLayout()
-        layout.parallaxHeaderReferenceSize = BrowseHeaderView.preferredSize
+        layout.parallaxHeaderReferenceSize = FeaturedArtistCollectionViewCell.preferredSize
         layout.parallaxHeaderAlwaysOnTop = true
         layout.disableStickyHeaders = false
     
@@ -83,15 +83,18 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
-                withReuseIdentifier: BrowseHeadercellReuseIdentifier, forIndexPath: indexPath) as? BrowseHeaderView else {
-                    return UICollectionReusableView()
-            }
+            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
+                withReuseIdentifier: BrowseHeadercellReuseIdentifier, forIndexPath: indexPath)
+            let screenSize = UIScreen.mainScreen().bounds.size
+            let featuredArtistsHorizontalVC = provideFeaturedArtistsCollectionViewController()
 
-            if headerView == nil {
-                headerView = cell
-            }
-            return headerView!
+            cell.backgroundColor = UIColor.clearColor()
+            cell.addSubview(featuredArtistsHorizontalVC.view)
+            featuredArtistsHorizontalVC.view.autoresizesSubviews = true
+            featuredArtistsHorizontalVC.view.frame = CGRectMake(0, 0, screenSize.width, screenSize.height / 3.33 - 10)
+            print("header Horizontal VC cell bounds: ", cell.bounds)
+            return cell
+
         }
 
         guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView,
@@ -126,6 +129,14 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
             cancelButton.setTitle("done".uppercaseString, forState: UIControlState.Normal)
         }
+    }
+
+    func provideFeaturedArtistsCollectionViewController() -> FeaturedArtistsCollectionViewController {
+        if featuredArtistsHorizontalVC == nil {
+            featuredArtistsHorizontalVC = FeaturedArtistsCollectionViewController()
+            addChildViewController(featuredArtistsHorizontalVC!)
+        }
+        return featuredArtistsHorizontalVC!
     }
 
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
