@@ -213,7 +213,11 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     }
                     
                     sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
-                    sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+                    if collectionType == .Recents {
+                        sectionView.rightText = ""
+                    } else {
+                        sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+                    }
                     sectionHeaders[indexPath.section] = sectionView
                     return sectionView
             }

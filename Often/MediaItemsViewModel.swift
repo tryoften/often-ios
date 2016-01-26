@@ -124,7 +124,12 @@ class MediaItemsViewModel: BaseViewModel {
                 "title": sectionHeaderTitle(collectionType),
                 "type": "lyric"
                 ])
-            group.items = items
+            group.items = items.sort({ (l, r) in
+                if let d1 = l.created, let d2 = r.created {
+                    return d1.compare(d2) == .OrderedDescending
+                }
+                return false
+            })
             return [group]
         default:
             return []
