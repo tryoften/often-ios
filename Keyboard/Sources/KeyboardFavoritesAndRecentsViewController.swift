@@ -34,17 +34,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if collectionType == .Favorites {
-            if SessionManagerFlags.defaultManagerFlags.userMessageCount % 10 == 0 && headerView?.hidden == true  {
-                headerView?.hidden = false
-                collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(), animated: true)
-                collectionView?.contentOffset = CGPointMake(0, -(KeyboardSearchBarHeight + 2))
-            }
-            // take this out when we actually count how many times a user has shared a message
-            SessionManagerFlags.defaultManagerFlags.userMessageCount++
-        }
-        
+
         showShareOftenHeaderIfNeeded()
 
     }
