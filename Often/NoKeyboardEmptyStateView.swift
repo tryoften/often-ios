@@ -21,7 +21,7 @@ class NoKeyboardEmptyStateView: EmptyStateView {
         imageView.image = image
         
         imageView.contentMode = .ScaleAspectFill
-        imageSize = .Medium
+        imageSize = .Large
         
         primaryButton.backgroundColor = TealColor
         primaryButton.setTitle("go to settings".uppercaseString, forState: .Normal)
