@@ -32,7 +32,7 @@ class NoResultsEmptyStateView: EmptyStateView {
         imageView.image = image
         
         imageView.contentMode = .ScaleAspectFill
-        imageSize = .Large
+        imageSize = .Medium
 
         imageViewTopPadding = 30.0
         
