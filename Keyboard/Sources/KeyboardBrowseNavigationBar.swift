@@ -55,6 +55,7 @@ class KeyboardBrowseNavigationBar: UIView {
         thumbnailImageButton.contentMode = .ScaleAspectFill
         thumbnailImageButton.clipsToBounds = true
         thumbnailImageButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 36.0, 0.0, 0.0)
+        thumbnailImageButton.setImage(UIImage(named: "placeholder"), forState: .Normal)
         thumbnailImageButton.imageView?.layer.cornerRadius = 3.0
         
         titleLabel = UILabel()

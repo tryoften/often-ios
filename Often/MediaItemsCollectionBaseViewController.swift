@@ -103,9 +103,10 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.leftHeaderLabel.text = lyric.artist_name
             cell.rightHeaderLabel.text = lyric.track_title
             cell.mainTextLabel.text = lyric.text
+            cell.leftMetadataLabel.text = lyric.created?.timeAgoSinceNow()
             cell.mainTextLabel.textAlignment = .Center
             cell.showImageView = false
-            
+            cell.avatarImage = UIImage(named: "placeholder")
         default:
             break
         }
@@ -118,7 +119,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 print("Loading image: \(imageURL)")
                 cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
                     if result.type == .Lyric {
-                        cell.sourceLogoView.image = image
+                        cell.avatarImage = image
                     } else {
                         cell.contentImageView.image = image
                     }
