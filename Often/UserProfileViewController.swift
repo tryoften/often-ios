@@ -205,7 +205,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     func checkUserEmptyStateStatus() {
         collectionView?.scrollEnabled = false
         isKeyboardEnabled()
-        isTwitterEnabled()
         reloadData()
     }
     
@@ -220,32 +219,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         }
     }
     
-    func isTwitterEnabled() {
-        // TODO(kervs): Move this to a view model
-        if let user = viewModel.currentUser {
-            let twitterCheck = Firebase(url: BaseURL).childByAppendingPath("users/\(user.id)/accounts")
-            
-            twitterCheck.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
-                if snapshot.exists() {
-                    if let value = snapshot.value as? [String: AnyObject] {
-                        if let twitterStuff = value["twitter"] as? [String: AnyObject] {
-                            let twitterAccount = SocialAccount()
-                            twitterAccount.setValuesForKeysWithDictionary(twitterStuff)
-                            
-                            if !twitterAccount.activeStatus {
-                                self.collectionView?.scrollEnabled = false
-                                self.updateEmptyStateContent(.NoTwitter)
-                                self.emptyStateView?.hidden = false
-                            }
-                            
-                        }
-                        
-                    }
-                }
-            })
-        }
-    }
-    
+       
     func promptUserToRegisterPushNotifications() {
         UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
         UIApplication.sharedApplication().registerForRemoteNotifications()
@@ -273,9 +247,13 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         isKeyboardEnabled()
         reloadData()
     }
-    
-    func didTapTwitterButton() {
-        print("did tap")
+
+    override func updateEmptyStateContent(state: UserState) {
+        super.updateEmptyStateContent(state)
+        if let height = headerView?.frame.height {
+            emptyStateView?.sizeThatFits(CGSize(width: UIScreen.mainScreen().bounds.width, height: height))
+        }
+        
     }
     
     override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
