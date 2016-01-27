@@ -32,7 +32,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     private var contentImageViewWidthConstraint: NSLayoutConstraint
     private var mainTextLabelCenterConstraint: NSLayoutConstraint?
     private var avatarImageViewWidthConstraint: NSLayoutConstraint
-    private var leftHeaderLabelLeftPaddingConstraint: NSLayoutConstraint
+    private var leftHeaderLabelLeftPaddingConstraint: NSLayoutConstraint?
 
     var type: MediaItemCollectionViewCellTypes = .Metadata {
         didSet {
@@ -57,10 +57,10 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
 
             if let _ = avatarImage {
                 avatarImageViewWidthConstraint.constant = 18
-                leftHeaderLabelLeftPaddingConstraint.constant = 6
+                leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left + 24
             } else {
                 avatarImageViewWidthConstraint.constant = 0
-                leftHeaderLabelLeftPaddingConstraint.constant = -18
+                leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left
             }
         }
     }
@@ -177,7 +177,6 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         
         contentImageViewWidthConstraint = contentImageView.al_width == 105
         avatarImageViewWidthConstraint = sourceLogoView.al_width == 0
-        leftHeaderLabelLeftPaddingConstraint = leftHeaderLabel.al_left == sourceLogoView.al_right + 6
         
         overlayView = SearchResultsCellOverlayView()
         overlayView.hidden = true
@@ -189,6 +188,8 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         showImageView = true
         
         super.init(frame: frame)
+        
+        leftHeaderLabelLeftPaddingConstraint = leftHeaderLabel.al_left == al_left + contentEdgeInsets.left
 
         avatarImage = nil
 
@@ -394,7 +395,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             sourceLogoView.al_top == metadataContentView.al_top + contentEdgeInsets.top,
             avatarImageViewWidthConstraint,
             sourceLogoView.al_height == 18,
-            leftHeaderLabelLeftPaddingConstraint,
+            leftHeaderLabelLeftPaddingConstraint!,
             leftHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             leftHeaderLabel.al_height == 16,
 
