@@ -35,12 +35,12 @@ class ArtistMediaItem: MediaItem {
             let square = image_url_images["square"] as? NSDictionary,
             let original = image_url_images["original"] as? NSDictionary,
             let image_url = square["url"] as? String,
-            let original_image_url = original["image_url_source"] as? String {
+            let original_image_url = original["url"] as? String {
             #if KEYBOARD
                 self.image = image_url
             #else
                 if let large = image_url_images["large"] as? NSDictionary,
-                    large_image_url = large["url"] as? String {
+                    let large_image_url = large["url"] as? String {
                         self.image = large_image_url
 
                 } else {
