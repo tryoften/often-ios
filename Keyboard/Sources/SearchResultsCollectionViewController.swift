@@ -279,8 +279,8 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
                 return
         }
 
-        let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: viewModel)
-        self.navigationController?.pushViewController(lyricsVC, animated: true)
+        let tracksVC = BrowseTracksCollectionViewController(trackId: track.id, viewModel: viewModel)
+        self.navigationController?.pushViewController(tracksVC, animated: true)
     }
 
     func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {

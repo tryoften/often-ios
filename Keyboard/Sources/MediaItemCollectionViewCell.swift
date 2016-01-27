@@ -398,10 +398,13 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             leftHeaderLabelLeftPaddingConstraint!,
             leftHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             leftHeaderLabel.al_height == 16,
+            leftHeaderLabel.al_right <= metadataContentView.al_centerX,
 
             rightHeaderLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             rightHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             rightHeaderLabel.al_height == 16,
+            leftHeaderLabel.al_left <= metadataContentView.al_centerX,
+
 
             hotnessLogoView.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             hotnessLogoView.al_centerY == metadataContentView.al_top + contentEdgeInsets.top,
