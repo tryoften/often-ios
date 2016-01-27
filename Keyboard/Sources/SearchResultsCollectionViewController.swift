@@ -21,7 +21,13 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
                 browseViewModel = BrowseViewModel(path: "responses/\(response.id)/results")
             }
             refreshTimer?.invalidate()
-            emptyStateView.alpha = 0.0
+            emptyStateView?.alpha = 0.0
+        }
+
+        willSet(newValue) {
+            if let response = response {
+                oldResponse = response
+            }
         }
     }
     
@@ -32,10 +38,11 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     var refreshResultsButton: RefreshResultsButton
     var refreshResultsButtonTopConstraint: NSLayoutConstraint!
     var refreshTimer: NSTimer?
-    var emptyStateView: EmptyStateView
     var messageBarView: MessageBarView
     var displayedData: Bool
     var messageBarVisibleConstraint: NSLayoutConstraint?
+
+    private var oldResponse: SearchResponse?
 
     var contentInset: UIEdgeInsets {
         didSet {
@@ -64,25 +71,20 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
         
         messageBarView = MessageBarView()
 
-        emptyStateView = EmptyStateView()
-        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
-        emptyStateView.alpha = 0.0
-
         displayedData = false
         
         super.init(collectionViewLayout: layout)
 
         self.textProcessor = textProcessor
         
-        emptyStateView.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
-        emptyStateView.closeButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
-        emptyStateView.userInteractionEnabled = true
+        emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
+        emptyStateView?.closeButton.addTarget(self, action: "didTapCancelButton", forControlEvents: .TouchUpInside)
+        emptyStateView?.userInteractionEnabled = true
         
         view.layer.masksToBounds = true
         view.addSubview(refreshResultsButton)
         view.backgroundColor = VeryLightGray
         view.addSubview(messageBarView)
-        view.addSubview(emptyStateView)
 
         messageBarView.delegate = self
         refreshResultsButton.addTarget(self, action: "didTapRefreshResultsButton", forControlEvents: .TouchUpInside)
@@ -126,7 +128,6 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        emptyStateView.frame = view.bounds
     }
     
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
@@ -314,8 +315,13 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
             displayedData = true
         } else {
             collectionView.performBatchUpdates({
+                if let oldResponse = self.oldResponse {
+                    let oldRange = NSMakeRange(0, oldResponse.groups.count)
+                    collectionView.deleteSections(NSIndexSet(indexesInRange: oldRange))
+                }
+
                 let range = NSMakeRange(0, response.groups.count)
-                collectionView.reloadSections(NSIndexSet(indexesInRange: range))
+                collectionView.insertSections(NSIndexSet(indexesInRange: range))
             }, completion: nil)
 
         }
@@ -374,12 +380,7 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
             messageBarView.al_left == view.al_left,
             messageBarView.al_right == view.al_right,
             messageBarVisibleConstraint!,
-            messageBarView.al_height == 39,
-            
-            emptyStateView.al_left == view.al_left,
-            emptyStateView.al_right == view.al_right,
-            emptyStateView.al_height == 100,
-            emptyStateView.al_top == view.al_top
+            messageBarView.al_height == 39
         ])
     }
     
@@ -411,25 +412,13 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     }
     
     // MARK: EmptySetDelegate
-    func updateEmptySetVisible(visible: Bool, animated: Bool = false) {
+    func updateEmptyStateContent(state: UserState, animated: Bool) {
         if animated {
             UIView.beginAnimations(nil, context: nil)
             UIView.setAnimationDuration(0.3)
         }
         
-        if visible {
-            emptyStateView.removeFromSuperview()
-            
-            if let newEmptyState = EmptyStateView.emptyStateViewForUserState(.NoResults) {
-                emptyStateView = newEmptyState
-            }
-            
-            view.addSubview(emptyStateView)
-            viewDidLayoutSubviews() 
-            emptyStateView.alpha = 1.0
-        } else {
-            self.emptyStateView.alpha = 0.0
-        }
+        super.updateEmptyStateContent(state)
         
         if animated {
             UIView.commitAnimations()

@@ -163,7 +163,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         cell.type = collectionType == .Recents ? .Metadata : .NoMetadata
         cell.inMainApp = true
         
-        if let result = cell.mediaLink where collectionType != .Favorites {
+        if let result = cell.mediaLink {
             cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         }
         cell.favoriteRibbon.hidden = collectionType == .Favorites

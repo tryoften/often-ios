@@ -35,7 +35,7 @@ class ArtistMediaItem: MediaItem {
             let square = image_url_images["square"] as? NSDictionary,
             let medium = image_url_images["medium"] as? NSDictionary,
             let image_url = square["url"] as? String,
-            let medium_image_url = medium["url"] as? String{
+            let medium_image_url = medium["url"] as? String {
             #if KEYBOARD
                 self.image = image_url
             #else

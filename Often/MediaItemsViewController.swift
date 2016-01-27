@@ -21,10 +21,7 @@ let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 
 class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: MediaItemsViewModel
-    var emptyStateView: EmptyStateView?
-    var loaderView: AnimatedLoaderView?
-    var loadingTimer: NSTimer?
-    var loaderTimeoutTimer: NSTimer?
+
     var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
         didSet {
@@ -39,7 +36,9 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         }
     }
     var sectionHeaders: [Int: MediaItemsSectionHeaderView] = [:]
-
+    override var isDataLoaded: Bool {
+        return viewModel.isDataLoaded
+    }
 
     init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaItemsCollectionType, viewModel: MediaItemsViewModel) {
         self.viewModel = viewModel
@@ -80,15 +79,9 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             requestData(false)
         }
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        emptyStateView?.frame = view.bounds
-        loaderView?.frame = view.bounds
-    }
 
-    func requestData(animated: Bool = false) {
-        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "loaderIfNeeded", userInfo: nil, repeats: false)
+    override func requestData(animated: Bool = false) {
+        super.requestData(animated)
 
         do {
             try viewModel.fetchCollection(collectionType) { success in
@@ -131,25 +124,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             }
         }
     }
-    
-    func loaderIfNeeded() {
-        if !viewModel.isDataLoaded {
 
-            loaderView = AnimatedLoaderView()
-            view.addSubview(loaderView!)
-
-            loaderView?.hidden = false
-            loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timeoutLoader", userInfo: nil, repeats: false)
-        } else {
-            collectionView?.hidden = false
-        }
-    }
-    
-    func timeoutLoader() {
-        loaderView?.hidden = true
-        updateEmptyStateContent(.NoResults)
-    }
-    
     func showData(animated: Bool = false) {
         collectionView?.alpha = 0.0
         collectionView?.reloadSections(NSIndexSet(index: 0))
@@ -159,28 +134,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         })
         collectionView?.scrollEnabled = true
     }
-    
-    func updateEmptyStateContent(state: UserState) {
-        viewModel.userState = state
-        
-        guard state != .NonEmpty else {
-            emptyStateView?.removeFromSuperview()
-            return
-        }
-        
-        if let emptyStateView = emptyStateView {
-            emptyStateView.removeFromSuperview()
-        }
-        
-        emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
-        emptyStateView?.closeButton.addTarget(self, action: "closeButtonDidTap", forControlEvents: .TouchUpInside)
-        
-        if let emptyStateView = emptyStateView {
-            view.addSubview(emptyStateView)
-            viewDidLayoutSubviews()
-        }
-    }
-    
+
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return viewModel.generateMediaItemGroupsForCollectionType(collectionType).count

@@ -116,18 +116,18 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         }
 
         viewModel.sendRequestForQuery(text, type: .Search)
-        searchResultsViewController.updateEmptySetVisible(false)
+        searchResultsViewController.updateEmptyStateContent(.NonEmpty, animated: true)
         searchSuggestionsViewController.showSearchSuggestionsView(false)
 
         noResultsTimer?.invalidate()
         noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
 
-        if searchBarController.searchBar.selected {
+//        if searchBarController.searchBar.selected {
             searchResultsViewController.response = nil
             searchResultsViewController.refreshResults()
             searchResultsViewController.view.hidden = false
             NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
-        }
+//        }
     }
 
     func keyboardHeightForOrientation(orientation: UIInterfaceOrientation) -> CGFloat {
@@ -184,8 +184,8 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func showNoResultsEmptyState() {
-        searchResultsViewController.updateEmptySetVisible(true, animated: true)
-        searchResultsViewController.emptyStateView.primaryButton.addTarget(self, action: "didTapEnterButton:", forControlEvents: .TouchUpInside)
+        searchResultsViewController.updateEmptyStateContent(.NoResults, animated: true)
+        searchResultsViewController.emptyStateView?.primaryButton.addTarget(self, action: "didTapEnterButton:", forControlEvents: .TouchUpInside)
     }
 
     // MARK: AutocorrectSuggestionsViewControllerDelegate
@@ -240,7 +240,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         }
 
         delegate?.searchViewControllerDidReceiveResponse(self)
-
         noResultsTimer?.invalidate()
 
         if isNewSearch {

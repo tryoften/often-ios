@@ -14,13 +14,24 @@ import EmitterKit
 let MediaItemCollectionViewCellReuseIdentifier = "MediaItemsCollectionViewCell"
 
 class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate {
-    var cellsAnimated: [NSIndexPath: Bool]
+
     var favoritesCollectionListener: Listener? = nil
     var favoriteSelected: Bool = false
     var textProcessor: TextProcessingManager?
+    var emptyStateView: EmptyStateView?
+    var loaderView: AnimatedLoaderView?
+    var userState: UserState
+    var isDataLoaded: Bool {
+        return false
+    }
+
+    internal var cellsAnimated: [NSIndexPath: Bool]
+    internal var loadingTimer: NSTimer?
+    internal var loaderTimeoutTimer: NSTimer?
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         cellsAnimated = [:]
+        userState = .NoResults
 
         super.init(collectionViewLayout: layout)
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
@@ -42,6 +53,54 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        emptyStateView?.frame = view.bounds
+        loaderView?.frame = view.bounds
+    }
+
+    func requestData(animated: Bool = false) {
+        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "loaderIfNeeded", userInfo: nil, repeats: false)
+    }
+
+    func loaderIfNeeded() {
+        if !isDataLoaded {
+            loaderView = AnimatedLoaderView()
+            view.addSubview(loaderView!)
+
+            loaderView?.hidden = false
+            loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timeoutLoader", userInfo: nil, repeats: false)
+        } else {
+            collectionView?.hidden = false
+        }
+    }
+
+    func timeoutLoader() {
+        loaderView?.hidden = true
+        updateEmptyStateContent(.NoResults)
+    }
+
+    func updateEmptyStateContent(state: UserState) {
+        userState = state
+
+        guard state != .NonEmpty else {
+            emptyStateView?.removeFromSuperview()
+            return
+        }
+
+        if let emptyStateView = emptyStateView {
+            emptyStateView.removeFromSuperview()
+        }
+
+        emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
+        emptyStateView?.closeButton.addTarget(self, action: "closeButtonDidTap", forControlEvents: .TouchUpInside)
+
+        if let emptyStateView = emptyStateView {
+            view.addSubview(emptyStateView)
+            viewDidLayoutSubviews()
+        }
     }
 
     func parseMediaItemData(searchResultsData: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaItemCollectionViewCell {
