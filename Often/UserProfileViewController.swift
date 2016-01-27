@@ -61,12 +61,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if !viewModel.isDataLoaded {
-            PKHUD.sharedHUD.contentView = HUDProgressView()
-            PKHUD.sharedHUD.show()
-        }
-        
+
         promptUserToRegisterPushNotifications()
         reloadUserData()
     }
@@ -181,7 +176,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     override func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         reloadData()
-        PKHUD.sharedHUD.hide(animated: true)
     }
     
     func reloadUserData() {
