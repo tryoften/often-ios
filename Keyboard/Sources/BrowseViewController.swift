@@ -11,6 +11,8 @@ import UIKit
 
 
 let cellReuseIdentifier = "cell"
+let lyricsCellReuseIdentifier = "lyricsCell"
+let artistsCellReuseIdentifier = "artistsCell"
 let songCellReuseIdentifier = "songCell"
 
 class BrowseViewController: FullScreenCollectionViewController,
@@ -37,7 +39,8 @@ class BrowseViewController: FullScreenCollectionViewController,
 
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
-        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+            collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: artistsCellReuseIdentifier)
+            collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: lyricsCellReuseIdentifier)
         collectionView?.registerClass(TrackCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
         collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
         automaticallyAdjustsScrollViewInsets = false
@@ -159,28 +162,27 @@ class BrowseViewController: FullScreenCollectionViewController,
         guard let group = viewModel.groupAtIndex(indexPath.section) else {
             return UICollectionViewCell()
         }
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
 
         switch group.type {
         case .Lyric:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(lyricsCellReuseIdentifier, forIndexPath: indexPath)
             let lyricsHorizontalVC = provideTrendingLyricsHorizontalCollectionViewController()
             lyricsHorizontalVC.group = group
 
             cell.backgroundColor = UIColor.clearColor()
             cell.contentView.addSubview(lyricsHorizontalVC.view)
             lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-            lyricsHorizontalVC.view.frame = CGRectMake(0, 0, screenWidth, 125)
+            lyricsHorizontalVC.view.frame = cell.bounds
 
             return cell
         case .Artist:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(artistsCellReuseIdentifier, forIndexPath: indexPath)
             let artistsHorizontalVC = provideTrendingArtistsHorizontalCollectionViewController()
             artistsHorizontalVC.group = group
 
             cell.contentView.addSubview(artistsHorizontalVC.view)
             artistsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-            artistsHorizontalVC.view.frame = CGRectMake(0, 0, screenWidth, 230)
+            artistsHorizontalVC.view.frame = cell.bounds
 
             self.artistsHorizontalVC = artistsHorizontalVC
             return cell

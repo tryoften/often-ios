@@ -52,6 +52,8 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
             super.init(nibName: nil, bundle: nil)
 
+            searchResultsViewController.searchViewController = self
+
             navigationController?.addChildViewController(searchBarController)
             addChildViewController(searchResultsViewController)
 
@@ -110,13 +112,20 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         searchSuggestionsViewController.showSearchSuggestionsView(false)
     }
 
+    func didTapEmptyStateView() {
+        submitSearchRequest()
+    }
+
     func submitSearchRequest() {
-       guard let text = searchBarController.searchBar.text else {
+        searchResultsViewController.showLoaderIfNeeded()
+
+        guard let text = searchBarController.searchBar.text else {
             return
         }
 
         viewModel.sendRequestForQuery(text, type: .Search)
-        searchResultsViewController.updateEmptyStateContent(.NonEmpty, animated: true)
+        searchResultsViewController.emptyStateView?.removeFromSuperview()
+
         searchSuggestionsViewController.showSearchSuggestionsView(false)
 
         noResultsTimer?.invalidate()
@@ -171,6 +180,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             return
         }
 
+        searchResultsViewController.showLoaderIfNeeded()
         submitSearchRequest()
         delay(0.5) {
             searchBar.resignFirstResponder()
@@ -211,6 +221,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             containerViewController?.resetPosition()
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.text = suggestion.text
+            searchResultsViewController.showLoaderIfNeeded()
             searchResultsViewController.response = nil
             searchResultsViewController.refreshResults()
 

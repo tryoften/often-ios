@@ -62,10 +62,10 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
 
     func requestData(animated: Bool = false) {
-        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "loaderIfNeeded", userInfo: nil, repeats: false)
+        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showLoaderIfNeeded", userInfo: nil, repeats: false)
     }
 
-    func loaderIfNeeded() {
+    func showLoaderIfNeeded() {
         if !isDataLoaded {
             loaderView = AnimatedLoaderView()
             view.addSubview(loaderView!)

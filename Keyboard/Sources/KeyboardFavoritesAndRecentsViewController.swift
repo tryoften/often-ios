@@ -31,11 +31,11 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        showShareOftenHeaderIfNeeded()
+//        showShareOftenHeaderIfNeeded()
 
     }
     

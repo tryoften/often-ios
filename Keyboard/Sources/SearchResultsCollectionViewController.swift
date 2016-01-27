@@ -13,13 +13,16 @@ let SearchResultsInsertLinkEvent = "SearchResultsCollectionViewCell.insertButton
 /// This class displays search results for a given response object
 /// TODO(luc): Merge class with BrowseViewController since they're very similar
 class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewController, UICollectionViewDelegateFlowLayout, MessageBarDelegate {
-    var searchBarController: SearchBarController?
+    weak var searchBarController: SearchBarController?
+    weak var searchViewController: SearchViewController?
     var browseViewModel: BrowseViewModel?
     var response: SearchResponse? {
         didSet {
             if let response = response {
                 browseViewModel = BrowseViewModel(path: "responses/\(response.id)/results")
             }
+            loaderView?.hidden = true
+            loaderTimeoutTimer?.invalidate()
             refreshTimer?.invalidate()
             emptyStateView?.alpha = 0.0
         }
@@ -63,14 +66,13 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     #if KEYBOARD
         contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
     #else
-        contentInset = UIEdgeInsetsMake(68, 0, 0, 0)
+        contentInset = UIEdgeInsetsMake(68, 0, 40, 0)
     #endif
         
         refreshResultsButton = RefreshResultsButton()
         refreshResultsButton.translatesAutoresizingMaskIntoConstraints = false
         
         messageBarView = MessageBarView()
-
         displayedData = false
         
         super.init(collectionViewLayout: layout)
@@ -90,7 +92,8 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
         refreshResultsButton.addTarget(self, action: "didTapRefreshResultsButton", forControlEvents: .TouchUpInside)
         
         // Register cell classes
-        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: artistsCellReuseIdentifier)
+        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: lyricsCellReuseIdentifier)
         collectionView?.registerClass(TrackCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
         collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
         collectionView?.contentInset = contentInset
@@ -129,14 +132,21 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
-    
+
+    override func updateEmptyStateContent(state: UserState) {
+        super.updateEmptyStateContent(state)
+
+        if let searchViewController = searchViewController {
+            emptyStateView?.primaryButton.addTarget(searchViewController, action: "didTapEmptyStateView", forControlEvents: .TouchUpInside)
+        }
+    }
+
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 5.0
         layout.minimumLineSpacing = 5.0
-        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 40.0, right: 10.0)
         return layout
     }
 
@@ -167,7 +177,6 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
             return 1
         }
     }
-
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView,
@@ -209,7 +218,7 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
 
         switch group.type {
         case .Track:
-            return UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10)
+            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         default:
             return UIEdgeInsetsZero
         }
@@ -227,7 +236,7 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
 
         switch group.type {
         case .Lyric:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(lyricsCellReuseIdentifier, forIndexPath: indexPath)
             let lyricsHorizontalVC = provideTrendingLyricsHorizontalCollectionViewController()
             lyricsHorizontalVC.group = group
 
@@ -238,7 +247,7 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
 
             return cell
         case .Artist:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseIdentifier, forIndexPath: indexPath)
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(artistsCellReuseIdentifier, forIndexPath: indexPath)
             let artistsHorizontalVC = provideTrendingArtistsHorizontalCollectionViewController()
             artistsHorizontalVC.group = group
 
@@ -274,14 +283,30 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let group = groupAtIndex(indexPath.section) where indexPath.section == 2,
+        guard let group = groupAtIndex(indexPath.section),
             let viewModel = browseViewModel,
-            let track = group.items[indexPath.row] as? TrackMediaItem else {
+            let item = group.items[indexPath.row] as? MediaItem else {
                 return
         }
 
-        let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: viewModel)
-        self.navigationController?.pushViewController(lyricsVC, animated: true)
+        switch item.type {
+        case .Lyric:
+            if let lyric = item as? LyricMediaItem {
+                print(lyric)
+            }
+        case .Artist:
+            if let artist = item as? ArtistMediaItem {
+                let artistsVC = BrowseArtistCollectionViewController(artistId: artist.id, viewModel: viewModel)
+                self.navigationController?.pushViewController(artistsVC, animated: true)
+            }
+        case .Track:
+            if let track = item as? TrackMediaItem {
+                let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: viewModel)
+                self.navigationController?.pushViewController(lyricsVC, animated: true)
+            }
+        default:
+            break
+        }
     }
 
     func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
