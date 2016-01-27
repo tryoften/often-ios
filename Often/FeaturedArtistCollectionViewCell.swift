@@ -45,6 +45,7 @@ class FeaturedArtistCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
+        imageView.image = UIImage(named: "featuredartistheaderplaceholder")
 
         super.init(frame: frame)
 
@@ -70,7 +71,7 @@ class FeaturedArtistCollectionViewCell: UICollectionViewCell {
             featureLabel.al_left == al_left + 20,
             featureLabel.al_top == titleLabel.al_bottom + 4,
 
-            titleLabel.al_centerY == al_centerY,
+            titleLabel.al_centerY == al_centerY - 9,
             titleLabel.al_right == al_right - 20,
             titleLabel.al_left == al_left + 20,
             titleLabel.al_height == 20,
