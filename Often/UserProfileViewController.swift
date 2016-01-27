@@ -241,13 +241,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     // Empty States button actions
     func didTapSettingsButton() {
-        var appSettingsString = UIApplicationOpenSettingsURLString
-        
-        if #available(iOS 9, *) {
-            appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
-        }
-        
-        if let appSettings = NSURL(string: appSettingsString) {
+        if let appSettings = NSURL(string: "prefs:root=General&path=Keyboard/KEYBOARDS") {
             UIApplication.sharedApplication().openURL(appSettings)
         }
     }
@@ -260,8 +254,11 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
 
     override func updateEmptyStateContent(state: UserState) {
         super.updateEmptyStateContent(state)
-        if let height = headerView?.frame.height {
-            emptyStateView?.sizeThatFits(CGSize(width: UIScreen.mainScreen().bounds.width, height: height))
+        if let headerViewFrame = headerView?.frame {
+            let screenSizeBounds = UIScreen.mainScreen().bounds
+
+            emptyStateView?.frame = CGRectMake(0, headerViewFrame.height, screenSizeBounds.width, screenSizeBounds.height - headerViewFrame.height)
+
         }
         
     }

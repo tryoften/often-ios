@@ -166,6 +166,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         viewModel.userState = state
         
         guard state != .NonEmpty else {
+            collectionView?.scrollEnabled = true
             emptyStateView?.removeFromSuperview()
             return
         }
@@ -179,6 +180,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         
         if let emptyStateView = emptyStateView {
             view.addSubview(emptyStateView)
+            collectionView?.scrollEnabled = false
             viewDidLayoutSubviews()
         }
     }
