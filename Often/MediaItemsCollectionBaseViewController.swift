@@ -129,7 +129,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 })
         }
         
-        cell.sourceLogoView.image = result.iconImageForSource()
         cell.delegate = self
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         
