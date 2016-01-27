@@ -262,14 +262,5 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         }
         
     }
-    
-    override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        super.mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: selected)
-        
-        if selected {
-            DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
-                subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
-        }
-    }
-    
+
 }
