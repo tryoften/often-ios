@@ -196,10 +196,10 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                     
-                    sectionView.artistImage = nil
+                    sectionView.artistImageURL = nil
                     if collectionType == .Favorites {
-                        if let url = viewModel.sectionHeaderImageURL(collectionType, index: indexPath.section), data = NSData(contentsOfURL: url) {
-                            sectionView.artistImage = UIImage(data: data)
+                        if let url = viewModel.sectionHeaderImageURL(collectionType, index: indexPath.section) {
+                            sectionView.artistImageURL = url
                         }
                     }
                     
