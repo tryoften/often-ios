@@ -24,6 +24,7 @@ class BrowseViewController: FullScreenCollectionViewController,
     var textProcessor: TextProcessingManager?
     var cellsAnimated: [NSIndexPath: Bool] = [:]
     var displayedData: Bool
+    var hudTimer: NSTimer?
 
     init(collectionViewLayout: UICollectionViewLayout = BrowseViewController.getLayout(),
         viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
@@ -43,6 +44,9 @@ class BrowseViewController: FullScreenCollectionViewController,
         automaticallyAdjustsScrollViewInsets = false
         extendedLayoutIncludesOpaqueBars = false
 
+    #if !(KEYBOARD)
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
+    #endif
         setupSearchBar()
     }
 
@@ -159,6 +163,7 @@ class BrowseViewController: FullScreenCollectionViewController,
         guard let group = viewModel.groupAtIndex(indexPath.section) else {
             return UICollectionViewCell()
         }
+
         let screenWidth = UIScreen.mainScreen().bounds.size.width
 
         switch group.type {
@@ -241,6 +246,10 @@ class BrowseViewController: FullScreenCollectionViewController,
     }
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        #if !(KEYBOARD)
+            hideHud()
+        #endif
+
         if !displayedData {
             collectionView?.reloadData()
             displayedData = true
@@ -252,6 +261,23 @@ class BrowseViewController: FullScreenCollectionViewController,
 
         }
     }
+
+#if !(KEYBOARD)
+    func showHud() {
+        hudTimer?.invalidate()
+        if !displayedData {
+            PKHUD.sharedHUD.contentView = HUDProgressView()
+            PKHUD.sharedHUD.show()
+            hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        }
+
+    }
+
+    func hideHud() {
+        PKHUD.sharedHUD.hide(animated: true)
+        hudTimer?.invalidate()
+    }
+#endif
 
 #if KEYBOARD
     override func viewWillAppear(animated: Bool) {
