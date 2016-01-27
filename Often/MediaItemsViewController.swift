@@ -117,6 +117,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     emptyStateView?.hidden = true
                     collectionView?.reloadData()
                 }
+            } else {
+                collectionView?.scrollEnabled = false
             }
         }
     }
@@ -153,6 +155,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         viewModel.userState = state
         
         guard state != .NonEmpty else {
+            collectionView?.scrollEnabled = true
             emptyStateView?.removeFromSuperview()
             return
         }
@@ -166,6 +169,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         
         if let emptyStateView = emptyStateView {
             view.addSubview(emptyStateView)
+            collectionView?.scrollEnabled = false
             viewDidLayoutSubviews()
         }
     }
@@ -197,12 +201,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                     
                     sectionView.artistImage = nil
-                    if collectionType == .Favorites {
-                        if let url = viewModel.sectionHeaderImageURL(collectionType, index: indexPath.section), data = NSData(contentsOfURL: url) {
-                            sectionView.artistImage = UIImage(data: data)
-                        }
-                    }
-                    
+
                     sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
                     if collectionType == .Recents {
                         sectionView.rightText = ""

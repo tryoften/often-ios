@@ -61,12 +61,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if !viewModel.isDataLoaded {
-            PKHUD.sharedHUD.contentView = HUDProgressView()
-            PKHUD.sharedHUD.show()
-        }
-        
+
         promptUserToRegisterPushNotifications()
         reloadUserData()
     }
@@ -181,7 +176,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     override func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         reloadData()
-        PKHUD.sharedHUD.hide(animated: true)
     }
     
     func reloadUserData() {
@@ -215,7 +209,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     func checkUserEmptyStateStatus() {
         collectionView?.scrollEnabled = false
         isKeyboardEnabled()
-        isTwitterEnabled()
         reloadData()
     }
     
@@ -230,32 +223,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         }
     }
     
-    func isTwitterEnabled() {
-        // TODO(kervs): Move this to a view model
-        if let user = viewModel.currentUser {
-            let twitterCheck = Firebase(url: BaseURL).childByAppendingPath("users/\(user.id)/accounts")
-            
-            twitterCheck.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
-                if snapshot.exists() {
-                    if let value = snapshot.value as? [String: AnyObject] {
-                        if let twitterStuff = value["twitter"] as? [String: AnyObject] {
-                            let twitterAccount = SocialAccount()
-                            twitterAccount.setValuesForKeysWithDictionary(twitterStuff)
-                            
-                            if !twitterAccount.activeStatus {
-                                self.collectionView?.scrollEnabled = false
-                                self.updateEmptyStateContent(.NoTwitter)
-                                self.emptyStateView?.hidden = false
-                            }
-                            
-                        }
-                        
-                    }
-                }
-            })
-        }
-    }
-    
+       
     func promptUserToRegisterPushNotifications() {
         UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
         UIApplication.sharedApplication().registerForRemoteNotifications()
@@ -267,13 +235,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     // Empty States button actions
     func didTapSettingsButton() {
-        var appSettingsString = UIApplicationOpenSettingsURLString
-        
-        if #available(iOS 9, *) {
-            appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
-        }
-        
-        if let appSettings = NSURL(string: appSettingsString) {
+        if let appSettings = NSURL(string: "prefs:root=General&path=Keyboard/KEYBOARDS") {
             UIApplication.sharedApplication().openURL(appSettings)
         }
     }
@@ -283,18 +245,16 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         isKeyboardEnabled()
         reloadData()
     }
-    
-    func didTapTwitterButton() {
-        print("did tap")
-    }
-    
-    override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        super.mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: selected)
-        
-        if selected {
-            DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
-                subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+
+    override func updateEmptyStateContent(state: UserState) {
+        super.updateEmptyStateContent(state)
+        if let headerViewFrame = headerView?.frame {
+            let screenSizeBounds = UIScreen.mainScreen().bounds
+
+            emptyStateView?.frame = CGRectMake(0, headerViewFrame.height, screenSizeBounds.width, screenSizeBounds.height - headerViewFrame.height)
+
         }
+        
     }
-    
+
 }

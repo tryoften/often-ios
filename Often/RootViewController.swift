@@ -60,8 +60,7 @@ class RootViewController: UITabBarController, ConnectivityObservable {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         updateReachabilityStatusBar()
-        PKHUD.sharedHUD.hide(animated: true)
-        
+
         delay(0.3) {
             self.showMajorKeyAlert()
         }
@@ -77,6 +76,8 @@ class RootViewController: UITabBarController, ConnectivityObservable {
 
     func showMajorKeyAlert() {
         if SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough {
+            PKHUD.sharedHUD.hide(animated: true)
+            
             alertView.actionButton.addTarget(self, action: "actionButtonDidTap:", forControlEvents: .TouchUpInside)
 
             view.addSubview(visualEffectView)
