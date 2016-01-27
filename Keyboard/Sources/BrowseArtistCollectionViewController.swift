@@ -119,9 +119,9 @@ class BrowseArtistCollectionViewController: BrowseMediaItemsViewController {
             return
         }
 
-        let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: self.viewModel)
-        lyricsVC.textProcessor = textProcessor
+        let tracksVC = BrowseTracksCollectionViewController(trackId: track.id, viewModel: self.viewModel)
+        tracksVC.textProcessor = textProcessor
 
-        self.navigationController?.pushViewController(lyricsVC, animated: true)
+        self.navigationController?.pushViewController(tracksVC, animated: true)
     }
 }

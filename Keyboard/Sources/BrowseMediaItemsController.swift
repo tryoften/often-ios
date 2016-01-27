@@ -1,5 +1,5 @@
 //
-//  BrowseCollectionViewController.swift
+//  BrowseMediaItemsViewController.swift
 //  Often
 //
 //  Created by Luc Succes on 1/10/16.
@@ -10,7 +10,7 @@ import UIKit
 
 let MediaItemPageHeaderViewIdentifier = "MediaItemPageHeaderView"
 
-class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
+class BrowseMediaItemsViewController: MediaItemsCollectionBaseViewController,
     KeyboardBrowseNavigationDelegate,
     CellAnimatable {
     class var cellHeight: CGFloat {

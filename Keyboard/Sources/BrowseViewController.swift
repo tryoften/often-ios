@@ -221,9 +221,9 @@ class BrowseViewController: FullScreenCollectionViewController,
             return
         }
 
-        let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: self.viewModel)
-        lyricsVC.textProcessor = textProcessor
-        navigationController?.pushViewController(lyricsVC, animated: true)
+        let tracksVC = BrowseTracksCollectionViewController(trackId: track.id, viewModel: self.viewModel)
+        tracksVC.textProcessor = textProcessor
+        navigationController?.pushViewController(tracksVC, animated: true)
     }
 
     func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
