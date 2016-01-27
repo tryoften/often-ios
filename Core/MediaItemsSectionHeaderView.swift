@@ -44,11 +44,10 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         }
     }
     
-    var artistImage: UIImage? {
+    var artistImageURL: NSURL? {
         didSet {
-            artistImageView.image = artistImage
-            
-            if let _ = artistImage {
+            if let _ = artistImageURL {
+                artistImageView.setImageWithURL(artistImageURL!)
                 artistImageViewWidthConstraint.constant = 18
                 leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left + 24
             } else {
