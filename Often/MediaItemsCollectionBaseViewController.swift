@@ -267,6 +267,11 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         if selected {
             UIPasteboard.generalPasteboard().string = result.getInsertableText()
+
+            #if !(KEYBOARD)
+                DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
+                    subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            #endif
         }
     }
 

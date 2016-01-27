@@ -301,7 +301,7 @@ class SearchResultsCollectionViewController: MediaItemsCollectionBaseViewControl
             }
         case .Track:
             if let track = item as? TrackMediaItem {
-                let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: viewModel)
+                let lyricsVC = BrowseTrackCollectionViewController(trackId: track.id, viewModel: viewModel)
                 self.navigationController?.pushViewController(lyricsVC, animated: true)
             }
         default:

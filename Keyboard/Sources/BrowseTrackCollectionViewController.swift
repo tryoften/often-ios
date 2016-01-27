@@ -1,5 +1,5 @@
 //
-//  TredingAlbumLyricsCollectionViewController.swift
+//  BrowseTrackCollectionViewController.swift
 //  Often
 //
 //  Created by Komran Ghahremani on 12/21/15.
@@ -10,7 +10,7 @@ import UIKit
 
 private let albumLyricCellReuseIdentifier = "albumLyricCell"
 
-class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
+class BrowseTrackCollectionViewController: BrowseMediaItemViewController {
     var track: TrackMediaItem? {
         didSet {
             self.collectionView?.performBatchUpdates({
@@ -29,6 +29,10 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
     #if KEYBOARD
         collectionView?.contentInset = UIEdgeInsetsMake(63.0 + KeyboardSearchBarHeight, 0, 0, 0)
     #endif
+        
+    #if !(KEYBOARD)
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
+    #endif
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -43,6 +47,9 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
 
         viewModel.getTrackWithOftenid(trackId) { track in
             self.track = track
+            #if !(KEYBOARD)
+                self.hideHud()
+            #endif
         }
     }
 
@@ -63,7 +70,7 @@ class BrowseLyricsCollectionViewController: BrowseCollectionViewController {
     }
 
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
-        let layout = BrowseCollectionViewController.provideCollectionViewLayout()
+        let layout = BrowseMediaItemViewController.provideCollectionViewLayout()
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
         layout.minimumInteritemSpacing = 9.0
         layout.minimumLineSpacing = 9.0

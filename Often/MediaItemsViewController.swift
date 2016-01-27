@@ -1,5 +1,5 @@
 //
-//  MediaItemsAndFilterBarViewController.swift
+//  MediaItemsViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 11/7/15.
@@ -42,7 +42,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaItemsCollectionType, viewModel: MediaItemsViewModel) {
         self.viewModel = viewModel
-
+        
         collectionType = aCollectionType
         hasFetchedData = false
         
@@ -52,24 +52,24 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
-
+        
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.registerClass(MediaItemsSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
-
+            
         }
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if !hasFetchedData {
@@ -98,7 +98,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             collectionView?.scrollEnabled = true
             if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) {
                 let collection = viewModel.generateMediaItemGroupsForCollectionType(collectionType)
-
+                
                 if collection.isEmpty {
                     switch collectionType {
                     case .Favorites: updateEmptyStateContent(.NoFavorites)
@@ -108,19 +108,10 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     emptyStateView?.hidden = false
                 } else {
                     emptyStateView?.hidden = true
-            #if KEYBOARD
-                collectionView?.reloadData()
-            #else
-                if collectionTypeChanged {
                     collectionView?.reloadData()
-                } else {
-                    collectionView?.performBatchUpdates({
-                        let range = NSMakeRange(0, collection.count)
-                        self.collectionView?.reloadSections(NSIndexSet(indexesInRange: range))
-                        }, completion: nil)
                 }
-            #endif
-                }
+            } else {
+                collectionView?.scrollEnabled = false
             }
         }
     }
@@ -143,32 +134,26 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.mediaItemGroupItemsForIndex(section, collectionType: collectionType).count
     }
-
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: MediaItemCollectionViewCell
         cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section, collectionType: collectionType), indexPath: indexPath, collectionView: collectionView)
         cell.delegate = self
-
+        
         animateCell(cell, indexPath: indexPath)
         
         return cell
     }
-
+    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-
+        
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                     
                     sectionView.artistImage = nil
-                    if collectionType == .Favorites {
-                        
-                        if let url = viewModel.sectionHeaderImageURL(collectionType, index: indexPath.section), data = NSData(contentsOfURL: url) {
-                            sectionView.artistImage = UIImage(data: data)
-                        }
-                    }
-                    
+
                     sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
                     if collectionType == .Recents {
                         sectionView.rightText = ""
@@ -179,10 +164,10 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     return sectionView
             }
         }
-
+        
         return UICollectionReusableView()
     }
-
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
@@ -210,7 +195,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         loaderView?.hidden = true
         collectionView?.hidden = false
     }
-
+    
     func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         loaderView?.hidden = true
         collectionView?.hidden = false
@@ -219,7 +204,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     func mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, groups: [MediaItemGroup]) {
         reloadData(false, collectionTypeChanged: true)
     }
-
+    
     // MARK: MediaItemCollectionViewCellDelegate
     override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {

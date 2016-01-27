@@ -1,5 +1,5 @@
 //
-//  BrowseCollectionViewController.swift
+//  BrowseMediaItemViewController.swift
 //  Often
 //
 //  Created by Luc Succes on 1/10/16.
@@ -10,7 +10,7 @@ import UIKit
 
 let MediaItemPageHeaderViewIdentifier = "MediaItemPageHeaderView"
 
-class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
+class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
     KeyboardBrowseNavigationDelegate,
     CellAnimatable {
     class var cellHeight: CGFloat {
@@ -21,6 +21,7 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
     var navigationBarHideConstraint: NSLayoutConstraint?
     var headerView: MediaItemPageHeaderView?
     var viewModel: BrowseViewModel
+    var hudTimer: NSTimer?
 
     init(viewModel: BrowseViewModel) {
         self.viewModel = viewModel
@@ -204,4 +205,18 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
         ])
     #endif
     }
+
+#if !(KEYBOARD)
+    func showHud() {
+        hudTimer?.invalidate()
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+    }
+
+    func hideHud() {
+        PKHUD.sharedHUD.hide(animated: true)
+        hudTimer?.invalidate()
+    }
+#endif
 }

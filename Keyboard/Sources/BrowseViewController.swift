@@ -26,6 +26,7 @@ class BrowseViewController: FullScreenCollectionViewController,
     var textProcessor: TextProcessingManager?
     var cellsAnimated: [NSIndexPath: Bool] = [:]
     var displayedData: Bool
+    var hudTimer: NSTimer?
 
     init(collectionViewLayout: UICollectionViewLayout = BrowseViewController.getLayout(),
         viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
@@ -46,6 +47,9 @@ class BrowseViewController: FullScreenCollectionViewController,
         automaticallyAdjustsScrollViewInsets = false
         extendedLayoutIncludesOpaqueBars = false
 
+    #if !(KEYBOARD)
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
+    #endif
         setupSearchBar()
     }
 
@@ -218,9 +222,9 @@ class BrowseViewController: FullScreenCollectionViewController,
             return
         }
 
-        let lyricsVC = BrowseLyricsCollectionViewController(trackId: track.id, viewModel: self.viewModel)
-        lyricsVC.textProcessor = textProcessor
-        navigationController?.pushViewController(lyricsVC, animated: true)
+        let tracksVC = BrowseTrackCollectionViewController(trackId: track.id, viewModel: self.viewModel)
+        tracksVC.textProcessor = textProcessor
+        navigationController?.pushViewController(tracksVC, animated: true)
     }
 
     func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
@@ -243,6 +247,10 @@ class BrowseViewController: FullScreenCollectionViewController,
     }
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        #if !(KEYBOARD)
+            hideHud()
+        #endif
+
         if !displayedData {
             collectionView?.reloadData()
             displayedData = true
@@ -254,6 +262,23 @@ class BrowseViewController: FullScreenCollectionViewController,
 
         }
     }
+
+#if !(KEYBOARD)
+    func showHud() {
+        hudTimer?.invalidate()
+        if !displayedData {
+            PKHUD.sharedHUD.contentView = HUDProgressView()
+            PKHUD.sharedHUD.show()
+            hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        }
+
+    }
+
+    func hideHud() {
+        PKHUD.sharedHUD.hide(animated: true)
+        hudTimer?.invalidate()
+    }
+#endif
 
 #if KEYBOARD
     override func viewWillAppear(animated: Bool) {
