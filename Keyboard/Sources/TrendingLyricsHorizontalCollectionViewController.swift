@@ -8,9 +8,10 @@
 
 import UIKit
 
-private let TrendingLyricsCellReuseIdentifier = "Cell"
+private let TrendingLyricsCellReuseIdentifier = "TrendingLyricsCell"
 
 class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBaseViewController {
+    var parentVC: MediaItemGroupsViewController?
     var group: MediaItemGroup? {
         didSet {
             collectionView?.reloadData()

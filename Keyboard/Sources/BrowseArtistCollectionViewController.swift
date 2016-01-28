@@ -10,7 +10,7 @@ import UIKit
 
 private let artistAlbumCellReuseIdentifier = "albumCell"
 
-class BrowseArtistCollectionViewController: BrowseMediaItemsViewController {
+class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
     override class var cellHeight: CGFloat {
         return 75.0
     }
@@ -34,9 +34,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemsViewController {
 
     #if KEYBOARD
         collectionView?.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0)
-    #endif
-
-    #if !(KEYBOARD)
+    #else
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
     #endif
     }
@@ -61,9 +59,9 @@ class BrowseArtistCollectionViewController: BrowseMediaItemsViewController {
         viewModel.getArtistWithOftenId(artistId) { model in
             self.artist = model
 
-            #if !(KEYBOARD)
-                self.hideHud()
-            #endif
+        #if !(KEYBOARD)
+            self.hideHud()
+        #endif
         }
 
     }
@@ -119,7 +117,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemsViewController {
             return
         }
 
-        let tracksVC = BrowseTracksCollectionViewController(trackId: track.id, viewModel: self.viewModel)
+        let tracksVC = BrowseTrackCollectionViewController(trackId: track.id, viewModel: self.viewModel)
         tracksVC.textProcessor = textProcessor
 
         self.navigationController?.pushViewController(tracksVC, animated: true)

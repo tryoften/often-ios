@@ -1,5 +1,5 @@
 //
-//  BrowseTracksCollectionViewController.swift
+//  BrowseTrackCollectionViewController.swift
 //  Often
 //
 //  Created by Komran Ghahremani on 12/21/15.
@@ -10,7 +10,7 @@ import UIKit
 
 private let albumLyricCellReuseIdentifier = "albumLyricCell"
 
-class BrowseTracksCollectionViewController: BrowseMediaItemsViewController {
+class BrowseTrackCollectionViewController: BrowseMediaItemViewController {
     var track: TrackMediaItem? {
         didSet {
             self.collectionView?.performBatchUpdates({
@@ -28,9 +28,7 @@ class BrowseTracksCollectionViewController: BrowseMediaItemsViewController {
 
     #if KEYBOARD
         collectionView?.contentInset = UIEdgeInsetsMake(63.0 + KeyboardSearchBarHeight, 0, 0, 0)
-    #endif
-        
-    #if !(KEYBOARD)
+    #else
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
     #endif
     }
@@ -70,7 +68,7 @@ class BrowseTracksCollectionViewController: BrowseMediaItemsViewController {
     }
 
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
-        let layout = BrowseMediaItemsViewController.provideCollectionViewLayout()
+        let layout = BrowseMediaItemViewController.provideCollectionViewLayout()
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
         layout.minimumInteritemSpacing = 9.0
         layout.minimumLineSpacing = 9.0
