@@ -104,7 +104,15 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         }
 
         mediaItemCell.type = collectionType == .Recents ? .Metadata : .NoMetadata
-        mediaItemCell.favoriteRibbon.hidden = collectionType == .Favorites
+        
+        mediaItemCell.favoriteRibbon.hidden = collectionType == .Recents ? !mediaItemCell.itemFavorited : true
+        
+//        if collectionType == .Recents {
+//            mediaItemCell.favoriteRibbon.hidden = !cell.itemFavorited
+//        } else {
+//            cell.favoriteRibbon.hidden = true
+//        }
+//        mediaItemCell.favoriteRibbon.hidden = collectionType == .Favorites
 
         return cell
     }

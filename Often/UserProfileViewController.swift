@@ -160,10 +160,10 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         
         if let result = cell.mediaLink {
             cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
-            
         }
-        cell.favoriteRibbon.hidden = collectionType == .Favorites
         
+        cell.favoriteRibbon.hidden = collectionType == .Recents ? !cell.itemFavorited : true
+
         return cell
     }
     
