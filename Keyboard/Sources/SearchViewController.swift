@@ -125,7 +125,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         }
 
         viewModel.sendRequestForQuery(text, type: .Search)
-        searchResultsViewController.emptyStateView?.removeFromSuperview()
+        searchResultsViewController.hideEmptyStateView()
 
         searchSuggestionsViewController.showSearchSuggestionsView(false)
 
@@ -186,7 +186,8 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         delay(0.5) {
             searchBar.resignFirstResponder()
         }
-        searchSuggestionsViewController.showSearchSuggestionsView(false)        
+        searchSuggestionsViewController.showSearchSuggestionsView(false)
+        searchResultsViewController.showLoadingView()
     }
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -195,20 +196,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
     func showNoResultsEmptyState() {
         searchResultsViewController.updateEmptyStateContent(.NoResults, animated: true)
-        searchResultsViewController.emptyStateView?.primaryButton.addTarget(self, action: "didTapEnterButton:", forControlEvents: .TouchUpInside)
-    }
-
-    // MARK: AutocorrectSuggestionsViewControllerDelegate
-    func autocorrectSuggestionsViewControllerDidSelectSuggestion(autocorrectSuggestions: AutocorrectSuggestionsViewController, suggestion: SuggestItem) {
-        textProcessor?.applyTextSuggestion(suggestion)
-    }
-
-    func autocorrectSuggestionsViewControllerShouldShowSuggestions(autocorrectSuggestions: AutocorrectSuggestionsViewController) -> Bool {
-        if viewModel.hasReceivedResponse == false {
-            return false
-        }
-
-        return true
     }
 
     // MARK: SearchSuggestionsViewControllerDelegate
@@ -221,7 +208,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             containerViewController?.resetPosition()
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.text = suggestion.text
-            searchResultsViewController.showLoaderIfNeeded()
+            searchResultsViewController.showLoadingView()
             searchResultsViewController.response = nil
             searchResultsViewController.refreshResults()
 

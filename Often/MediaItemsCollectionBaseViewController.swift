@@ -80,7 +80,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         if let loaderView = loaderView {
             loaderView.removeFromSuperview()
         }
-        loaderView = AnimatedLoaderView()
+        loaderView = AnimatedLoaderView(frame: view.bounds)
         view.addSubview(loaderView!)
 
         loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0,
@@ -91,7 +91,18 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
 
     func hideLoadingView() {
-        loaderView?.hidden = true
+        guard let loaderView = loaderView else {
+            return
+        }
+
+        UIView.animateWithDuration(0.3, delay: 1.0, options: [], animations: {
+            loaderView.alpha = 0.0
+        }, completion: { done in
+            loaderView.hidden = true
+            loaderView.removeFromSuperview()
+            self.loaderView = nil
+        })
+
         loaderTimeoutTimer?.invalidate()
     }
 

@@ -20,8 +20,6 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
             if let response = response {
                 browseViewModel = BrowseViewModel(path: "responses/\(response.id)/results")
             }
-            hideLoadingView()
-            hideEmptyStateView()
 
             refreshTimer?.invalidate()
         }
@@ -186,23 +184,15 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
         guard let collectionView = collectionView, let response = response else {
             return
         }
-        
-//        if !displayedData {
-//            collectionView.reloadData()
-//            displayedData = true
-//        } else {
-//            collectionView.performBatchUpdates({
-//                if let oldResponse = self.oldResponse {
-//                    let oldRange = NSMakeRange(0, oldResponse.groups.count)
-//                    collectionView.deleteSections(NSIndexSet(indexesInRange: oldRange))
-//                }
-//
-//                let range = NSMakeRange(0, response.groups.count)
-//                collectionView.insertSections(NSIndexSet(indexesInRange: range))
-//            }, completion: nil)
-//
-//        }
+
         collectionView.reloadData()
+
+        hideLoadingView()
+        if !response.groups.isEmpty {
+            hideEmptyStateView()
+        } else {
+            showEmptyStateViewForState(.NoResults)
+        }
 
     #if KEYBOARD
         let yOffset = containerViewController?.tabBar == nil ? 0 : -2 * KeyboardSearchBarHeight + 2
