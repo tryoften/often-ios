@@ -115,6 +115,9 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     emptyStateView?.hidden = false
                 } else {
                     emptyStateView?.hidden = true
+                #if !(KEYBOARD)
+                    collectionView?.setContentOffset(CGPointZero, animated: true)
+                #endif
                     collectionView?.reloadData()
                 }
             } else {
