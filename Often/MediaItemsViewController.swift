@@ -1,5 +1,5 @@
 //
-//  MediaItemsAndFilterBarViewController.swift
+//  MediaItemsViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 11/7/15.
@@ -21,10 +21,7 @@ let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 
 class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: MediaItemsViewModel
-    var emptyStateView: EmptyStateView?
-    var loaderView: AnimatedLoaderView?
-    var loadingTimer: NSTimer?
-    var loaderTimeoutTimer: NSTimer?
+
     var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
         didSet {
@@ -39,8 +36,10 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         }
     }
     var sectionHeaders: [Int: MediaItemsSectionHeaderView] = [:]
-    
-    
+    override var isDataLoaded: Bool {
+        return viewModel.isDataLoaded
+    }
+
     init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaItemsCollectionType, viewModel: MediaItemsViewModel) {
         self.viewModel = viewModel
         
@@ -80,16 +79,10 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             requestData(false)
         }
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        emptyStateView?.frame = view.bounds
-        loaderView?.frame = view.bounds
-    }
-    
-    func requestData(animated: Bool = false) {
-        loadingTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "loaderIfNeeded", userInfo: nil, repeats: false)
-        
+
+    override func requestData(animated: Bool = false) {
+        super.requestData(animated)
+
         do {
             try viewModel.fetchCollection(collectionType) { success in
                 self.reloadData(animated)
@@ -108,13 +101,16 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 
                 if collection.isEmpty {
                     switch collectionType {
-                    case .Favorites: updateEmptyStateContent(.NoFavorites)
-                    case .Recents: updateEmptyStateContent(.NoRecents)
+                    case .Favorites: showEmptyStateViewForState(.NoFavorites)
+                    case .Recents: showEmptyStateViewForState(.NoRecents)
                     default: break
                     }
                     emptyStateView?.hidden = false
                 } else {
                     emptyStateView?.hidden = true
+                #if !(KEYBOARD)
+                    collectionView?.setContentOffset(CGPointZero, animated: true)
+                #endif
                     collectionView?.reloadData()
                 }
             } else {
@@ -122,25 +118,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             }
         }
     }
-    
-    func loaderIfNeeded() {
-        if !viewModel.isDataLoaded {
-            
-            loaderView = AnimatedLoaderView()
-            view.addSubview(loaderView!)
-            
-            loaderView?.hidden = false
-            loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "timeoutLoader", userInfo: nil, repeats: false)
-        } else {
-            collectionView?.hidden = false
-        }
-    }
-    
-    func timeoutLoader() {
-        loaderView?.hidden = true
-        updateEmptyStateContent(.NoResults)
-    }
-    
+
     func showData(animated: Bool = false) {
         collectionView?.alpha = 0.0
         collectionView?.reloadSections(NSIndexSet(index: 0))
@@ -150,30 +128,13 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         })
         collectionView?.scrollEnabled = true
     }
-    
-    func updateEmptyStateContent(state: UserState) {
-        viewModel.userState = state
-        
-        guard state != .NonEmpty else {
-            collectionView?.scrollEnabled = true
-            emptyStateView?.removeFromSuperview()
-            return
-        }
-        
-        if let emptyStateView = emptyStateView {
-            emptyStateView.removeFromSuperview()
-        }
-        
-        emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
-        emptyStateView?.closeButton.addTarget(self, action: "closeButtonDidTap", forControlEvents: .TouchUpInside)
-        
-        if let emptyStateView = emptyStateView {
-            view.addSubview(emptyStateView)
-            collectionView?.scrollEnabled = false
-            viewDidLayoutSubviews()
-        }
+
+    override func didTapEmptyStateViewCloseButton() {
+        super.didTapEmptyStateViewCloseButton()
+        viewModel.hasSeenTwitter = true
+        reloadData(false)
     }
-    
+
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return viewModel.generateMediaItemGroupsForCollectionType(collectionType).count
@@ -224,19 +185,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
-    
-    func closeButtonDidTap() {
-        viewModel.hasSeenTwitter = true
-        reloadData(false)
-        
-        UIView.animateWithDuration(0.4, animations: {
-            self.emptyStateView?.alpha = 0
-        })
-        
-        emptyStateView?.removeFromSuperview()
-        viewDidLoad()
-        updateEmptyStateContent(viewModel.userState)
-    }
+
     
     // MARK: MediaItemsViewModelDelegate
     

@@ -72,7 +72,6 @@ class BaseKeyboardContainerViewController: UIInputViewController {
         setupKludge()
         containerView.frame = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: true))
 
-
         let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
         if keyboard?.collapsed == true {
             keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame), view.bounds.width, keyboardHeight)
@@ -118,19 +117,20 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     }
 
     override func updateViewConstraints() {
+        super.updateViewConstraints()
+
         if view.bounds == CGRectZero {
             return
         }
 
         setHeight(keyboardHeight)
-        super.updateViewConstraints()
     }
 
     func heightForOrientation(orientation: UIInterfaceOrientation, withTopBanner: Bool) -> CGFloat {
         let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
 
         //TODO: hardcoded stuff
-        let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
+        let actualScreenWidth = UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale
         let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
         let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
         let topBannerHeight: CGFloat = withTopBanner ? keyboardExtraHeight : 0.0
