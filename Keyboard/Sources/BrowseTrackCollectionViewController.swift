@@ -28,9 +28,7 @@ class BrowseTrackCollectionViewController: BrowseMediaItemViewController {
 
     #if KEYBOARD
         collectionView?.contentInset = UIEdgeInsetsMake(63.0 + KeyboardSearchBarHeight, 0, 0, 0)
-    #endif
-        
-    #if !(KEYBOARD)
+    #else
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
     #endif
     }

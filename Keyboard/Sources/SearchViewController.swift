@@ -55,11 +55,13 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             searchResultsViewController.searchViewController = self
 
             navigationController?.addChildViewController(searchBarController)
-            addChildViewController(searchResultsViewController)
-
-            view.addSubview(searchResultsViewController.view)
-            view.addSubview(searchSuggestionsViewController.view)
             view.addSubview(searchBarController.view)
+
+            addChildViewController(searchResultsViewController)
+            view.addSubview(searchResultsViewController.view)
+
+            addChildViewController(searchSuggestionsViewController)
+            view.addSubview(searchSuggestionsViewController.view)
 
             view.hidden = true
 
@@ -117,7 +119,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func submitSearchRequest() {
-        searchResultsViewController.showLoaderIfNeeded()
 
         guard let text = searchBarController.searchBar.text else {
             return
@@ -131,12 +132,13 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         noResultsTimer?.invalidate()
         noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
 
-//        if searchBarController.searchBar.selected {
-            searchResultsViewController.response = nil
-            searchResultsViewController.refreshResults()
-            searchResultsViewController.view.hidden = false
-            NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
-//        }
+        searchResultsViewController.response = nil
+        searchResultsViewController.view.hidden = false
+        searchResultsViewController.showLoadingView()
+
+    #if KEYBOARD
+        NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+    #endif
     }
 
     func keyboardHeightForOrientation(orientation: UIInterfaceOrientation) -> CGFloat {
@@ -180,13 +182,11 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             return
         }
 
-        searchResultsViewController.showLoaderIfNeeded()
         submitSearchRequest()
         delay(0.5) {
             searchBar.resignFirstResponder()
         }
-        searchSuggestionsViewController.showSearchSuggestionsView(false)
-        
+        searchSuggestionsViewController.showSearchSuggestionsView(false)        
     }
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -262,7 +262,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             isNewSearch = false
         } else if responseChanged {
             searchResultsViewController.nextResponse = response
-            searchResultsViewController.showRefreshResultsButton()
+            searchResultsViewController.showRefreshResultsButtonIfNeeded()
         }
     }
 

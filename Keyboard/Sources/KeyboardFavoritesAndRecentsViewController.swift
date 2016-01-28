@@ -10,6 +10,7 @@ import UIKit
 
 class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     var headerView: ShareOftenMessageHeaderView?
+    var shareOftenMessageViewWasDismissed: Bool = false
 
     init(viewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType) {
         
@@ -21,7 +22,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
             collectionView?.registerClass(ShareOftenMessageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "messageHeader")
         } else {
-            let layout = KeyboardMediaItemsAndFilterBarViewController.provideCollectionViewFlowLayout()
+            let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout()
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
         }
         collectionView?.backgroundColor = UIColor.clearColor()
@@ -35,15 +36,27 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-//        showShareOftenHeaderIfNeeded()
-
+        if !shareOftenMessageViewWasDismissed {
+            showShareOftenHeaderIfNeeded()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        emptyStateView?.hidden = true
+        hideEmptyStateView(animated)
     }
-    
+
+
+    class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        layout.scrollDirection = .Vertical
+        layout.minimumInteritemSpacing = 7.0
+        layout.minimumLineSpacing = 7.0
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10.0, bottom: 80.0, right: 10.0)
+        return layout
+    }
+
     class func provideCollectionViewLayout(var headerHeight: CGFloat = 150) -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let layout = CSStickyHeaderFlowLayout()
@@ -106,7 +119,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             
             if headerView == nil {
                 headerView = cell
-                headerView?.closeButton.addTarget(self, action: "closeButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+                headerView?.closeButton.addTarget(self, action: "shareOftenCloseButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
                 headerView?.primaryButton.addTarget(self, action: "shareButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
             }
             
@@ -119,16 +132,16 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     override func timeoutLoader() {
         loaderView?.hidden = true
         if collectionType == .Favorites {
-            updateEmptyStateContent(.NoFavorites)
+            showEmptyStateViewForState(.NoFavorites)
         } else if collectionType == .Recents {
-            updateEmptyStateContent(.NoRecents)
+            showEmptyStateViewForState(.NoRecents)
         } else {
-            updateEmptyStateContent(.NonEmpty)
+            hideEmptyStateView()
         }
-
     }
     
-    func closeButtonTapped(sender: UIButton!) {
+    func shareOftenCloseButtonTapped(sender: UIButton!) {
+        shareOftenMessageViewWasDismissed = true
         headerView?.hidden = true
         collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(0), animated: true)
     }

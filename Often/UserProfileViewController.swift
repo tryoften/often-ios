@@ -214,15 +214,14 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     func isKeyboardEnabled() {
         if viewModel.sessionManagerFlags.isKeyboardInstalled {
-            updateEmptyStateContent(.NonEmpty)
+            hideEmptyStateView()
         } else {
             collectionView?.scrollEnabled = false
-            updateEmptyStateContent(.NoKeyboard)
+            showEmptyStateViewForState(.NoKeyboard)
             emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
             emptyStateView?.hidden = false
         }
     }
-    
        
     func promptUserToRegisterPushNotifications() {
         UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
@@ -241,13 +240,14 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     func didTapCancelButton() {
-        updateEmptyStateContent(.NonEmpty)
+        hideEmptyStateView()
         isKeyboardEnabled()
         reloadData()
     }
 
-    override func updateEmptyStateContent(state: UserState) {
-        super.updateEmptyStateContent(state)
+    override func showEmptyStateViewForState(state: UserState, completion: ((EmptyStateView) -> Void)? = nil) {
+        super.showEmptyStateViewForState(state, completion: completion)
+
         if let headerViewFrame = headerView?.frame {
             let screenSizeBounds = UIScreen.mainScreen().bounds
 

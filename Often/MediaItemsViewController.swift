@@ -101,8 +101,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 
                 if collection.isEmpty {
                     switch collectionType {
-                    case .Favorites: updateEmptyStateContent(.NoFavorites)
-                    case .Recents: updateEmptyStateContent(.NoRecents)
+                    case .Favorites: showEmptyStateViewForState(.NoFavorites)
+                    case .Recents: showEmptyStateViewForState(.NoRecents)
                     default: break
                     }
                     emptyStateView?.hidden = false
@@ -124,6 +124,12 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             self.collectionView?.alpha = 1.0
         })
         collectionView?.scrollEnabled = true
+    }
+
+    override func didTapEmptyStateViewCloseButton() {
+        super.didTapEmptyStateViewCloseButton()
+        viewModel.hasSeenTwitter = true
+        reloadData(false)
     }
 
     // MARK: UICollectionViewDataSource
@@ -171,19 +177,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
-    
-    func closeButtonDidTap() {
-        viewModel.hasSeenTwitter = true
-        reloadData(false)
-        
-        UIView.animateWithDuration(0.4, animations: {
-            self.emptyStateView?.alpha = 0
-        })
-        
-        emptyStateView?.removeFromSuperview()
-        viewDidLoad()
-        updateEmptyStateContent(viewModel.userState)
-    }
+
     
     // MARK: MediaItemsViewModelDelegate
     func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
