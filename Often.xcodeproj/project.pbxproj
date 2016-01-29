@@ -24,7 +24,6 @@
 		3B3A1B7F1C4F4AAA0075D601 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3A1B7E1C4F4AAA0075D601 /* LoginButton.swift */; };
 		3B3A1B841C5090430075D601 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3A1B7E1C4F4AAA0075D601 /* LoginButton.swift */; };
 		3B3A1B901C5697BB0075D601 /* FeaturedArtistsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3A1B8F1C5697BB0075D601 /* FeaturedArtistsCollectionViewController.swift */; };
-		3B3A1B911C5697BB0075D601 /* FeaturedArtistsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3A1B8F1C5697BB0075D601 /* FeaturedArtistsCollectionViewController.swift */; };
 		3B4C474A1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
 		3B4C474B1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
 		3B4C474C1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
@@ -80,7 +79,6 @@
 		3BAC29441C45768500F44DF7 /* KeyboardInstallWalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC29431C45768500F44DF7 /* KeyboardInstallWalkthroughView.swift */; };
 		3BAC29451C45768500F44DF7 /* KeyboardInstallWalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC29431C45768500F44DF7 /* KeyboardInstallWalkthroughView.swift */; };
 		3BAC29471C458AF700F44DF7 /* InstallationWalkthroughViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC29461C458AF700F44DF7 /* InstallationWalkthroughViewContoller.swift */; };
-		3BAC29481C458AF700F44DF7 /* InstallationWalkthroughViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC29461C458AF700F44DF7 /* InstallationWalkthroughViewContoller.swift */; };
 		3BAC294A1C45A73600F44DF7 /* OftenInstallGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC29491C45A73600F44DF7 /* OftenInstallGIF.gif */; };
 		3BAC294B1C45A73600F44DF7 /* OftenInstallGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC29491C45A73600F44DF7 /* OftenInstallGIF.gif */; };
 		3BAC294D1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC294C1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift */; };
@@ -410,7 +408,6 @@
 		81DA3EA51C24BE85006822D3 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833841C18E904001B8662 /* ArtistCollectionViewCell.swift */; };
 		81DA3EA61C24BE85006822D3 /* BackspaceShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEEC1B7502C400E1BDCD /* BackspaceShape.swift */; };
 		81DA3EA71C24BE85006822D3 /* TermDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811961871BEAE9330014B25B /* TermDictionary.swift */; };
-		81DA3EA91C24BE85006822D3 /* SkipSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695154991BF2C65700AAAFA4 /* SkipSignupViewController.swift */; };
 		81DA3EAA1C24BE85006822D3 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
 		81DA3EAB1C24BE85006822D3 /* KeyboardMediaItemsAndFilterBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323721C1FCB990084918B /* KeyboardMediaItemsAndFilterBarViewController.swift */; };
 		81DA3EAC1C24BE85006822D3 /* SearchSuggestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */; };
@@ -472,12 +469,10 @@
 		81DA3EEA1C24BE85006822D3 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337D1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift */; };
 		81DA3EEB1C24BE85006822D3 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323991C249A410084918B /* AppSettingsView.swift */; };
 		81DA3EEC1C24BE85006822D3 /* KeyboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588ED1B61676000F7C9F5 /* KeyboardPage.swift */; };
-		81DA3EED1C24BE85006822D3 /* MainAppBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93ED071C226DE700555496 /* MainAppBrowseViewController.swift */; };
 		81DA3EEE1C24BE85006822D3 /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B63ED651B6AD43A00E54AFA /* ShapeView.swift */; };
 		81DA3EEF1C24BE85006822D3 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */; };
 		81DA3EF01C24BE85006822D3 /* FuzzySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */; };
 		81DA3EF11C24BE85006822D3 /* ArrowShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176BEEF1B7529DA00E1BDCD /* ArrowShape.swift */; };
-		81DA3EF21C24BE85006822D3 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */; };
 		81DA3EF31C24BE85006822D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8180E60D1A142157007FA1CF /* AppDelegate.swift */; };
 		81DA3EF41C24BE85006822D3 /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8133238F1C2269890084918B /* UIViewController+KeyboardSectionsContainerViewController.swift */; };
 		81DA3EF51C24BE85006822D3 /* KeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323831C2227840084918B /* KeyboardContainerViewController.swift */; };
@@ -515,12 +510,10 @@
 		81DA3F1D1C24BE85006822D3 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E881741BE7DDD600523ECC /* StreamReader.swift */; };
 		81DA3F1E1C24BE85006822D3 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		81DA3F1F1C24BE85006822D3 /* WindowRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1E1B38F6DA006430AB /* WindowRootViewController.swift */; };
-		81DA3F201C24BE85006822D3 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD904E1BD58834002F7D32 /* RootViewController.swift */; };
 		81DA3F211C24BE85006822D3 /* suffixNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F784B1BC085440087EBE8 /* suffixNumber.swift */; };
 		81DA3F221C24BE85006822D3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
 		81DA3F231C24BE85006822D3 /* MessageBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428AE01BEEAD5600282B8D /* MessageBarView.swift */; };
 		81DA3F241C24BE85006822D3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B2924D1BD7550800277EC2 /* SettingsViewModel.swift */; };
-		81DA3F251C24BE85006822D3 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */; };
 		81DA3F271C24BE85006822D3 /* EmailAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */; };
 		81DA3F281C24BE85006822D3 /* SkipSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */; };
 		81DA3F291C24BE85006822D3 /* SlideTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323691C1F8A1A0084918B /* SlideTabBar.swift */; };
@@ -528,8 +521,6 @@
 		81DA3F2B1C24BE85006822D3 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971DC1B9F7C6E007EAB5A /* CreateAccountView.swift */; };
 		81DA3F2C1C24BE85006822D3 /* PKHUDAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1B1B38F6DA006430AB /* PKHUDAssets.swift */; };
 		81DA3F2D1C24BE85006822D3 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1D1B38F6DA006430AB /* Window.swift */; };
-		81DA3F2E1C24BE85006822D3 /* AppSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */; };
-		81DA3F2F1C24BE85006822D3 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971E01B9FD374007EAB5A /* LogInViewController.swift */; };
 		81DA3F301C24BE85006822D3 /* KeyboardKeyBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D871B65BC8D00FC1F2F /* KeyboardKeyBackground.swift */; };
 		81DA3F321C24BE85006822D3 /* UserProfileSettingsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */; };
 		81DA3F331C24BE85006822D3 /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */; };
@@ -2635,7 +2626,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BAC29481C458AF700F44DF7 /* InstallationWalkthroughViewContoller.swift in Sources */,
 				81DA3EA01C24BE85006822D3 /* DropDownErrorMessage.swift in Sources */,
 				81DA3EA11C24BE85006822D3 /* SpellChecker.swift in Sources */,
 				81DA3EA21C24BE85006822D3 /* SearchSuggestionTableViewCell.swift in Sources */,
@@ -2648,7 +2638,6 @@
 				81BDA72F1C3F24BE00198AF8 /* LyricMediaItem.swift in Sources */,
 				81DA3EA71C24BE85006822D3 /* TermDictionary.swift in Sources */,
 				810B05071C47357F00BA731B /* MediaItemPageHeaderView.swift in Sources */,
-				81DA3EA91C24BE85006822D3 /* SkipSignupViewController.swift in Sources */,
 				81028A3C1C4C6E09000533FA /* SingleCollectionMediaItemsViewModel.swift in Sources */,
 				81DA3EAA1C24BE85006822D3 /* KeyboardViewController.swift in Sources */,
 				81DA3EAB1C24BE85006822D3 /* KeyboardMediaItemsAndFilterBarViewController.swift in Sources */,
@@ -2726,13 +2715,11 @@
 				81DA3EEA1C24BE85006822D3 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
 				81DA3EEB1C24BE85006822D3 /* AppSettingsView.swift in Sources */,
 				81DA3EEC1C24BE85006822D3 /* KeyboardPage.swift in Sources */,
-				81DA3EED1C24BE85006822D3 /* MainAppBrowseViewController.swift in Sources */,
 				81DA3EEE1C24BE85006822D3 /* ShapeView.swift in Sources */,
 				81DA3EEF1C24BE85006822D3 /* TermsOfUseViewController.swift in Sources */,
 				3BAC29551C4838D300F44DF7 /* UserCreationViewController.swift in Sources */,
 				81DA3EF01C24BE85006822D3 /* FuzzySearch.swift in Sources */,
 				81DA3EF11C24BE85006822D3 /* ArrowShape.swift in Sources */,
-				81DA3EF21C24BE85006822D3 /* CreateAccountViewController.swift in Sources */,
 				81DA3EF31C24BE85006822D3 /* AppDelegate.swift in Sources */,
 				81DA3EF41C24BE85006822D3 /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
 				81DA3EF51C24BE85006822D3 /* KeyboardContainerViewController.swift in Sources */,
@@ -2784,7 +2771,6 @@
 				81DA3F1E1C24BE85006822D3 /* Validation.swift in Sources */,
 				81DA3F1F1C24BE85006822D3 /* WindowRootViewController.swift in Sources */,
 				698AD3411C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */,
-				81DA3F201C24BE85006822D3 /* RootViewController.swift in Sources */,
 				81DA3F211C24BE85006822D3 /* suffixNumber.swift in Sources */,
 				81DA3F221C24BE85006822D3 /* User.swift in Sources */,
 				69FE9E7A1C3E099100DBC169 /* MessageWithButtonHeaderView.swift in Sources */,
@@ -2792,7 +2778,6 @@
 				6944A5341C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */,
 				81DA3F231C24BE85006822D3 /* MessageBarView.swift in Sources */,
 				81DA3F241C24BE85006822D3 /* SettingsViewModel.swift in Sources */,
-				81DA3F251C24BE85006822D3 /* SigninViewController.swift in Sources */,
 				81DA3F271C24BE85006822D3 /* EmailAccountManager.swift in Sources */,
 				81DA3F281C24BE85006822D3 /* SkipSignupView.swift in Sources */,
 				81DA3F291C24BE85006822D3 /* SlideTabBar.swift in Sources */,
@@ -2802,9 +2787,6 @@
 				81DA3F2D1C24BE85006822D3 /* Window.swift in Sources */,
 				3BAC294E1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift in Sources */,
 				81BDA71F1C3F096300198AF8 /* BaseViewModel.swift in Sources */,
-				81DA3F2E1C24BE85006822D3 /* AppSettingsViewController.swift in Sources */,
-				81DA3F2F1C24BE85006822D3 /* LogInViewController.swift in Sources */,
-				3B3A1B911C5697BB0075D601 /* FeaturedArtistsCollectionViewController.swift in Sources */,
 				81DA3F301C24BE85006822D3 /* KeyboardKeyBackground.swift in Sources */,
 				81DA3F321C24BE85006822D3 /* UserProfileSettingsSectionHeaderView.swift in Sources */,
 				81DA3F331C24BE85006822D3 /* SettingsWebViewController.swift in Sources */,
