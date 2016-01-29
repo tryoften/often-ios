@@ -139,7 +139,7 @@ class KeyboardInstallWalkthroughView: UIView {
         titleLabel.font = UIFont(name: "Montserrat", size: 18)
         titleLabel.textColor = WalkthroughTitleFontColor
         titleLabel.alpha = 0.90
-        titleLabel.text = "Install Often"
+        titleLabel.text = "Lets Install the Keyboard"
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         subtitleLabel = UILabel()
