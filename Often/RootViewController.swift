@@ -8,12 +8,10 @@
 
 import UIKit
 
-class RootViewController: UITabBarController, ConnectivityObservable {
+class RootViewController: UITabBarController {
     let sessionManager = SessionManager.defaultManager
     var visualEffectView: UIView
     var alertView: AlertView
-    var isNetworkReachable: Bool = true
-    var errorDropView: DropDownMessageView
 
     private var alertViewTopAndBottomMargin: CGFloat {
         if Diagnostics.platformString().number == 5 {
@@ -37,20 +35,11 @@ class RootViewController: UITabBarController, ConnectivityObservable {
         alertView = AlertView()
         alertView.translatesAutoresizingMaskIntoConstraints = false
         alertView.layer.cornerRadius = 5.0
-
-        errorDropView = DropDownMessageView()
-        errorDropView.text = "NO INTERNET FAM :("
-        errorDropView.hidden = true
-        errorDropView.layer.zPosition = 50
         
         super.init(nibName: nil, bundle: nil)
         
         styleTabBar()
         setupTabBarItems()
-        
-        view.addSubview(errorDropView)
-        
-        startMonitoring()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,15 +48,9 @@ class RootViewController: UITabBarController, ConnectivityObservable {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        updateReachabilityStatusBar()
-
         delay(0.3) {
             self.showMajorKeyAlert()
         }
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return !isNetworkReachable
     }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
@@ -148,23 +131,5 @@ class RootViewController: UITabBarController, ConnectivityObservable {
         ]
         
         selectedIndex = 0
-    }
-    
-    func updateReachabilityStatusBar() {
-        if isNetworkReachable {
-            UIView.animateWithDuration(0.3, animations: {
-                self.errorDropView.frame = CGRectMake(0, -64, UIScreen.mainScreen().bounds.width, 64)
-            })
-
-        } else {
-            UIView.animateWithDuration(0.3, animations: {
-                self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64)
-            })
-            
-            errorDropView.hidden = false
-        }
-
-        UIApplication.sharedApplication().setStatusBarHidden(!isNetworkReachable, withAnimation: .Fade)
-        setNeedsStatusBarAppearanceUpdate()
     }
 }
