@@ -28,9 +28,11 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     var contentEdgeInsets: UIEdgeInsets
     var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
-    var contentImageViewWidthConstraint: NSLayoutConstraint
 
+    private var contentImageViewWidthConstraint: NSLayoutConstraint
     private var mainTextLabelCenterConstraint: NSLayoutConstraint?
+    private var avatarImageViewWidthConstraint: NSLayoutConstraint
+    private var leftHeaderLabelLeftPaddingConstraint: NSLayoutConstraint?
 
     var type: MediaItemCollectionViewCellTypes = .Metadata {
         didSet {
@@ -46,9 +48,19 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             } else {
                 contentImageView.image = value
             }
-            
-            UIView.animateWithDuration(0.3) {
-                self.contentImageView.alpha = 1.0
+        }
+    }
+
+    var avatarImage: UIImage? {
+        didSet {
+            sourceLogoView.image = avatarImage
+
+            if let _ = avatarImage {
+                avatarImageViewWidthConstraint.constant = 18
+                leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left + 24
+            } else {
+                avatarImageViewWidthConstraint.constant = 0
+                leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left
             }
         }
     }
@@ -102,6 +114,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         sourceLogoView.contentMode = .ScaleAspectFill
         sourceLogoView.layer.cornerRadius = 2.0
         sourceLogoView.clipsToBounds = true
+        sourceLogoView.backgroundColor = LightGrey
 
         hotnessLogoView = UIImageView()
         hotnessLogoView.translatesAutoresizingMaskIntoConstraints = false
@@ -163,6 +176,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         favoriteRibbon.hidden = true
         
         contentImageViewWidthConstraint = contentImageView.al_width == 105
+        avatarImageViewWidthConstraint = sourceLogoView.al_width == 0
         
         overlayView = SearchResultsCellOverlayView()
         overlayView.hidden = true
@@ -175,6 +189,10 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         
         super.init(frame: frame)
         
+        leftHeaderLabelLeftPaddingConstraint = leftHeaderLabel.al_left == al_left + contentEdgeInsets.left
+
+        avatarImage = nil
+
         backgroundColor = WhiteColor
         layer.cornerRadius = 2.0
         layer.shadowColor = UIColor.blackColor().CGColor
@@ -242,7 +260,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         sourceLogoView.hidden = hasNoMetadata
         leftHeaderLabel.hidden = hasNoMetadata
         rightHeaderLabel.hidden = hasNoMetadata
-        mainTextLabelCenterConstraint?.constant = hasNoMetadata ? 0 : 10
+        mainTextLabelCenterConstraint?.constant = hasNoMetadata ? 0 : 5
     }
 
     func prepareOverlayView() {
@@ -375,16 +393,18 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             
             sourceLogoView.al_left == metadataContentView.al_left + contentEdgeInsets.left,
             sourceLogoView.al_top == metadataContentView.al_top + contentEdgeInsets.top,
-            sourceLogoView.al_width == 18,
+            avatarImageViewWidthConstraint,
             sourceLogoView.al_height == 18,
-            
-            leftHeaderLabel.al_left == sourceLogoView.al_right + 6,
+            leftHeaderLabelLeftPaddingConstraint!,
             leftHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             leftHeaderLabel.al_height == 16,
+            leftHeaderLabel.al_right <= metadataContentView.al_centerX,
 
             rightHeaderLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             rightHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             rightHeaderLabel.al_height == 16,
+            leftHeaderLabel.al_left <= metadataContentView.al_centerX,
+
 
             hotnessLogoView.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             hotnessLogoView.al_centerY == metadataContentView.al_top + contentEdgeInsets.top,
@@ -392,8 +412,8 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             hotnessLogoView.al_width == 18,
             hotnessLogoView.al_height == 18,
 
-            leftMetadataLabel.al_left == mainTextLabel.al_left,
-            leftMetadataLabel.al_bottom == metadataContentView.al_bottom - 10,
+            leftMetadataLabel.al_left == metadataContentView.al_left + contentEdgeInsets.left,
+            leftMetadataLabel.al_bottom == metadataContentView.al_bottom - contentEdgeInsets.bottom,
             leftMetadataLabel.al_height == 12,
             
             centerMetadataLabel.al_left == leftMetadataLabel.al_right + 12,
@@ -403,7 +423,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             mainTextLabel.al_left == metadataContentView.al_left + 24,
             mainTextLabelCenterConstraint!,
 
-            rightMetadataLabel.al_right == mainTextLabel.al_right,
+            rightMetadataLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             rightMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
             rightMetadataLabel.al_left == centerMetadataLabel.al_right + 6,
             

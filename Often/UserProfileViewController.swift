@@ -9,7 +9,8 @@
 
 import UIKit
 
-class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTabDelegate {
+class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTabDelegate,
+    UICollectionViewDelegateFlowLayout {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: MediaItemsSectionHeaderView?
     
@@ -60,12 +61,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if !viewModel.isDataLoaded {
-            PKHUD.sharedHUD.contentView = HUDProgressView()
-            PKHUD.sharedHUD.show()
-        }
-        
+
         promptUserToRegisterPushNotifications()
         reloadUserData()
     }
@@ -101,8 +97,9 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        guard let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX, cells = collectionView?.visibleCells() else {
-            return
+        guard let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX, cells = collectionView?.visibleCells()
+            where collectionType == .Favorites else {
+                return
         }
         
         let point = CGPointMake(profileViewCenter, profileViewHeight + scrollView.contentOffset.y + 37)
@@ -118,6 +115,13 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     // MARK: UICollectionViewDataSource
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        switch collectionType {
+        case .Recents:  return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        default:        return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
+        }
+    }
+
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         if kind == CSStickyHeaderParallaxHeader {
@@ -156,7 +160,9 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         
         if let result = cell.mediaLink {
             cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
+            
         }
+        cell.favoriteRibbon.hidden = collectionType == .Favorites
         
         return cell
     }
@@ -171,7 +177,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     override func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         reloadData()
-        PKHUD.sharedHUD.hide(animated: true)
     }
     
     func reloadUserData() {
@@ -181,7 +186,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             headerView.collapseNameLabel.text = user.name
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
-                headerView.profileImageView.setImageWithAnimation(imageURL, placeholderImage: UIImage(named: "userprofileplaceholder")!)
+                headerView.profileImageView.setImageWithAnimation(imageURL, placeholderImage: UIImage(named: "userprofileplaceholder"))
                 headerView.collapseProfileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image)in
                     headerView.collapseProfileImageView.image = image
                     }, failure: { (req, res, error) in
@@ -205,47 +210,20 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     func checkUserEmptyStateStatus() {
         collectionView?.scrollEnabled = false
         isKeyboardEnabled()
-        isTwitterEnabled()
         reloadData()
     }
     
     func isKeyboardEnabled() {
         if viewModel.sessionManagerFlags.isKeyboardInstalled {
-            updateEmptyStateContent(.NonEmpty)
+            hideEmptyStateView()
         } else {
             collectionView?.scrollEnabled = false
-            updateEmptyStateContent(.NoKeyboard)
+            showEmptyStateViewForState(.NoKeyboard)
             emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
             emptyStateView?.hidden = false
         }
     }
-    
-    func isTwitterEnabled() {
-        // TODO(kervs): Move this to a view model
-        if let user = viewModel.currentUser {
-            let twitterCheck = Firebase(url: BaseURL).childByAppendingPath("users/\(user.id)/accounts")
-            
-            twitterCheck.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in
-                if snapshot.exists() {
-                    if let value = snapshot.value as? [String: AnyObject] {
-                        if let twitterStuff = value["twitter"] as? [String: AnyObject] {
-                            let twitterAccount = SocialAccount()
-                            twitterAccount.setValuesForKeysWithDictionary(twitterStuff)
-                            
-                            if !twitterAccount.activeStatus {
-                                self.collectionView?.scrollEnabled = false
-                                self.updateEmptyStateContent(.NoTwitter)
-                                self.emptyStateView?.hidden = false
-                            }
-                            
-                        }
-                        
-                    }
-                }
-            })
-        }
-    }
-    
+       
     func promptUserToRegisterPushNotifications() {
         UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
         UIApplication.sharedApplication().registerForRemoteNotifications()
@@ -257,34 +235,27 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     // Empty States button actions
     func didTapSettingsButton() {
-        var appSettingsString = UIApplicationOpenSettingsURLString
-        
-        if #available(iOS 9, *) {
-            appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
-        }
-        
-        if let appSettings = NSURL(string: appSettingsString) {
+        if let appSettings = NSURL(string: "prefs:root=General&path=Keyboard/KEYBOARDS") {
             UIApplication.sharedApplication().openURL(appSettings)
         }
     }
     
     func didTapCancelButton() {
-        updateEmptyStateContent(.NonEmpty)
+        hideEmptyStateView()
         isKeyboardEnabled()
         reloadData()
     }
-    
-    func didTapTwitterButton() {
-        print("did tap")
-    }
-    
-    override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        super.mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: selected)
-        
-        if selected {
-            DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
-                subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+
+    override func showEmptyStateViewForState(state: UserState, completion: ((EmptyStateView) -> Void)? = nil) {
+        super.showEmptyStateViewForState(state, completion: completion)
+
+        if let headerViewFrame = headerView?.frame {
+            let screenSizeBounds = UIScreen.mainScreen().bounds
+
+            emptyStateView?.frame = CGRectMake(0, headerViewFrame.height, screenSizeBounds.width, screenSizeBounds.height - headerViewFrame.height)
+
         }
+        
     }
-    
+
 }

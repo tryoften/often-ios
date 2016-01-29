@@ -91,6 +91,7 @@ class TrackCollectionViewCell: UICollectionViewCell {
             imageView.al_width == imageView.al_height,
 
             titleLabel.al_left == imageView.al_right + 12,
+            titleLabel.al_right == disclosureIndicator.al_left - 12,
             titleLabel.al_bottom == imageView.al_centerY,
 
             subtitleLabel.al_left == titleLabel.al_left,

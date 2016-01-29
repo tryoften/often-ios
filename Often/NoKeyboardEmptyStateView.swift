@@ -10,7 +10,7 @@ import UIKit
 
 class NoKeyboardEmptyStateView: EmptyStateView {
     init() {
-        let title = "You forgot to install Often"
+        let title = "You forgot to install the keyboard"
         let description = "Remember to allow full access! Trust us fam"
         let image = UIImage(named: "installoftenemptystate")!
         

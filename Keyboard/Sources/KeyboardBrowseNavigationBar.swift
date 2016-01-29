@@ -54,7 +54,9 @@ class KeyboardBrowseNavigationBar: UIView {
         thumbnailImageButton.layer.cornerRadius = 3.0
         thumbnailImageButton.contentMode = .ScaleAspectFill
         thumbnailImageButton.clipsToBounds = true
-        thumbnailImageButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 15.0, 0.0, 0.0)
+        thumbnailImageButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 36.0, 0.0, 0.0)
+        thumbnailImageButton.setImage(UIImage(named: "placeholder"), forState: .Normal)
+        thumbnailImageButton.imageView?.layer.cornerRadius = 3.0
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -127,11 +129,11 @@ class KeyboardBrowseNavigationBar: UIView {
             backArrowView.al_width == 9,
             backArrowView.al_height == 12,
             
-            thumbnailImageButton.al_left == backArrowView.al_right - 3,
+            thumbnailImageButton.al_left == al_left,
             thumbnailImageButton.al_centerY == al_centerY,
             thumbnailImageButton.al_top == al_top + 10,
             thumbnailImageButton.al_bottom == al_bottom - 10,
-            thumbnailImageButton.al_width == thumbnailImageButton.al_height + 15,
+            thumbnailImageButton.al_width == thumbnailImageButton.al_height + 36,
             
             titleLabel.al_left == thumbnailImageButton.al_right + 12,
             titleLabel.al_bottom == thumbnailImageButton.al_centerY,

@@ -1,5 +1,5 @@
 //
-//  BrowseCollectionViewController.swift
+//  BrowseMediaItemViewController.swift
 //  Often
 //
 //  Created by Luc Succes on 1/10/16.
@@ -10,7 +10,7 @@ import UIKit
 
 let MediaItemPageHeaderViewIdentifier = "MediaItemPageHeaderView"
 
-class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
+class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
     KeyboardBrowseNavigationDelegate,
     CellAnimatable {
     class var cellHeight: CGFloat {
@@ -21,6 +21,7 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
     var navigationBarHideConstraint: NSLayoutConstraint?
     var headerView: MediaItemPageHeaderView?
     var viewModel: BrowseViewModel
+    var hudTimer: NSTimer?
 
     init(viewModel: BrowseViewModel) {
         self.viewModel = viewModel
@@ -34,14 +35,14 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
             forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
             withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
 
-        #if KEYBOARD
-            navigationBar = KeyboardBrowseNavigationBar()
-            navigationBar?.translatesAutoresizingMaskIntoConstraints = false
-            navigationBar?.browseDelegate = self
-            view.addSubview(navigationBar!)
-        #else
-            collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
-        #endif
+    #if KEYBOARD
+        navigationBar = KeyboardBrowseNavigationBar()
+        navigationBar?.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar?.browseDelegate = self
+        view.addSubview(navigationBar!)
+    #else
+        collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
+    #endif
 
         extendedLayoutIncludesOpaqueBars = false
         automaticallyAdjustsScrollViewInsets = false
@@ -61,6 +62,13 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         containerViewController?.resetPosition()
+        showNavigationBar(false)
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        containerViewController?.resetPosition()
+        showNavigationBar(false)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -163,16 +171,16 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
         }
 
         var frame = tabBarFrame
-        guard var searchBarFrame = navigationBar?.frame else {
+        guard var navBarFrame = navigationBar?.frame else {
             return
         }
 
         let tabBarHeight = CGRectGetHeight(frame)
 
-        searchBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight), 0)
+        navBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight), 0)
         frame.origin.y = fmax(fmin(y, 0), -tabBarHeight)
 
-        navigationBarHideConstraint?.constant = searchBarFrame.origin.y
+        navigationBarHideConstraint?.constant = navBarFrame.origin.y
 
         UIView.animateWithDuration(animated ? 0.1 : 0) {
             self.view.layoutSubviews()
@@ -197,4 +205,18 @@ class BrowseCollectionViewController: MediaItemsCollectionBaseViewController,
         ])
     #endif
     }
+
+#if !(KEYBOARD)
+    func showHud() {
+        hudTimer?.invalidate()
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+    }
+
+    func hideHud() {
+        PKHUD.sharedHUD.hide(animated: true)
+        hudTimer?.invalidate()
+    }
+#endif
 }

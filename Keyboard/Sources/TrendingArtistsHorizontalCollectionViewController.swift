@@ -8,9 +8,10 @@
 
 import UIKit
 
-private let TrendingArtistsCellReuseIdentifier = "Cell"
+private let TrendingArtistsCellReuseIdentifier = "TrendingArtistsCell"
 
 class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionViewController {
+    var parentVC: MediaItemGroupsViewController?
     var textProcessor: TextProcessingManager?
     var viewModel: BrowseViewModel
     var group: MediaItemGroup? {
@@ -50,7 +51,6 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
@@ -59,6 +59,16 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
             return group.items.count
         }
         return 5
+    }
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let group = group, let artist = group.items[indexPath.row] as? ArtistMediaItem else {
+            return
+        }
+
+        let artistsVC = BrowseArtistCollectionViewController(artistId: artist.id, viewModel: viewModel)
+        artistsVC.textProcessor = textProcessor
+        self.navigationController?.pushViewController(artistsVC, animated: true)
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -80,18 +90,5 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
 
         return cell
-    }
-    
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        showNavigationBar(true)
-
-        guard let artistMediaItem = group?.items[indexPath.row] as? ArtistMediaItem else {
-            return
-        }
-
-        let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: viewModel)
-        browseVC.textProcessor = textProcessor
-        navigationController?.pushViewController(browseVC, animated: true)
-        containerViewController?.resetPosition()
     }
 }

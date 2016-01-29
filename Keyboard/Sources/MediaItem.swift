@@ -18,6 +18,7 @@ class MediaItem: Equatable {
         return getNameForSource()
     }
     var image: String?
+    var created: NSDate?
     var data: NSDictionary = [:]
 
     class func mediaItemFromType(data: NSDictionary) -> MediaItem? {
@@ -67,8 +68,13 @@ class MediaItem: Equatable {
         if let sourceStr = data["source"] as? String, let source = MediaItemSource(rawValue: sourceStr) {
             self.source = source
         }
+
+        if let time_added = data["time_added"] as? Double {
+            let date = NSDate(timeIntervalSince1970: time_added / 1000.0)
+            self.created = date
+        }
     }
-    
+
     func iconImageForSource() -> UIImage? {
         return UIImage(named: source.rawValue)
     }

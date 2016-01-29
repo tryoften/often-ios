@@ -81,8 +81,7 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
         tableView.separatorColor = DarkGrey
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.contentInset = contentInset
-
-        view.backgroundColor = VeryLightGray
+        tableView.backgroundColor = VeryLightGray
     }
 
     func setupLayout() {
@@ -91,7 +90,7 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
             tableView.al_bottom == view.al_bottom,
             tableView.al_left == view.al_left,
             tableView.al_right == view.al_right
-            ])
+        ])
     }
 
     override func viewDidAppear(animated: Bool) {
