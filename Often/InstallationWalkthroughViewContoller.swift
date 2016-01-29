@@ -92,8 +92,8 @@ class InstallationWalkthroughViewContoller: UIViewController {
         loader.translatesAutoresizingMaskIntoConstraints = false
         loader.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
 
-        view.addSubview(loader)
         view.addSubview(blurEffectView)
+        view.addSubview(loader)
 
         view.addConstraints([
             loader.al_top == view.al_top,
