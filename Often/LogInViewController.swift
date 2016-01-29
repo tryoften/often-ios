@@ -49,7 +49,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
             "Search, collect & share lyrics, \n in any app, right from your keyboard",
             "Save all the best lyrics to your Favorites & easily share them again later",
             "Discover the hottest lyrics, songs & artists right inside your keyboard",
-            "Powered by Musixmatch, search helps \n you find any lyric, song or artist"
+            "Powered by Lyricfind, search helps \n you find any lyric, song or artist"
         ]
         
         super.init(viewModel: viewModel)
