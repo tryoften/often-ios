@@ -20,7 +20,6 @@ enum MediaItemsKeyboardSection: Int {
 class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewController,
     UIScrollViewDelegate,
     ToolTipViewControllerDelegate,
-    ConnectivityObservable,
     TextProcessingManagerDelegate {
     var mediaItem: MediaItem?
     var viewModel: KeyboardViewModel?
@@ -30,9 +29,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var sectionsTabBarController: KeyboardSectionsContainerViewController
     var sections: [(MediaItemsKeyboardSection, UIViewController)]
     var tooltipVC: ToolTipViewController?
-    
-    var isNetworkReachable: Bool = true
-    var errorDropView: DropDownMessageView
 
     override init(extraHeight: CGFloat, debug: Bool) {
         togglePanelButton = TogglePanelButton()
@@ -41,10 +37,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         sectionsTabBarController = KeyboardSectionsContainerViewController()
         sections = []
         
-        errorDropView = DropDownMessageView()
-        errorDropView.text = "NO INTERNET FAM :("
-        errorDropView.hidden = true
-
         super.init(extraHeight: extraHeight, debug: debug)
 
         // Only setup firebase once because this view controller gets instantiated
@@ -68,8 +60,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         containerView.addSubview(togglePanelButton)
 
         showTooltipsIfNeeded()
-        view.addSubview(errorDropView)
-        startMonitoring()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didInsertMediaItem:", name: "mediaItemInserted", object: nil)
     }
@@ -127,11 +117,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
 
         togglePanelButton.addTarget(self, action: "switchKeyboard", forControlEvents: .TouchUpInside)
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        updateReachabilityStatusBar()
     }
     
     override func viewDidLayoutSubviews() {
@@ -193,20 +178,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         if let toolBarItems = sectionsTabBarController.tabBar.items
             where currentPage <= sectionsTabBarController.viewControllers.count && currentPage <= toolBarItems.count {
             sectionsTabBarController.tabBar.selectedItem = toolBarItems[currentPage]
-        }
-    }
-    
-    func updateReachabilityStatusBar() {
-        if isNetworkReachable {
-            UIView.animateWithDuration(0.3, animations: {
-                self.errorDropView.frame = CGRectMake(0, -64, UIScreen.mainScreen().bounds.width, 64)
-            })
-        } else {
-            UIView.animateWithDuration(0.3, animations: {
-                    self.errorDropView.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 64)
-            })
-            
-            errorDropView.hidden = false
         }
     }
 
