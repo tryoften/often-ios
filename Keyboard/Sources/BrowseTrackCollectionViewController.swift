@@ -51,6 +51,16 @@ class BrowseTrackCollectionViewController: BrowseMediaItemViewController {
         }
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        shouldSendScrollEvents = true
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        shouldSendScrollEvents = false
+    }
+
     override func headerViewDidLoad() {
         if let imageURLStr = track?.song_art_image_url,
             let title = track?.title,

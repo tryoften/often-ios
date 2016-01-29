@@ -10,7 +10,7 @@ import UIKit
 
 class FullScreenCollectionViewController: UICollectionViewController, NJKScrollFullscreenDelegate {
     var scrollProxy: NJKScrollFullScreen?
-    var shouldSendScrollEvents: Bool = true
+    var shouldSendScrollEvents: Bool = false
 
     var tabBarFrame: CGRect {
         guard let containerViewController = containerViewController else {

@@ -55,6 +55,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
 
         artist = nil
         collectionView?.reloadData()
+        shouldSendScrollEvents = true
 
         viewModel.getArtistWithOftenId(artistId) { model in
             self.artist = model
@@ -64,6 +65,10 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
         #endif
         }
 
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        shouldSendScrollEvents = false
     }
 
     override func headerViewDidLoad() {
