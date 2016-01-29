@@ -188,8 +188,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     
     // MARK: MediaItemsViewModelDelegate
-    
-    
     func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
         reloadData(false)
     }
