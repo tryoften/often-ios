@@ -10,12 +10,10 @@ import UIKit
 
 class KeyboardViewModel: NSObject {
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    var isFullAccessEnabled: Bool
     var firebaseRef: Firebase
     
     override init() {
         sessionManagerFlags.userHasOpenedKeyboard = true
-        isFullAccessEnabled = false
         firebaseRef = Firebase(url: BaseURL)
         
         _ = ParseConfig.defaultConfig

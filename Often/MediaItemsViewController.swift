@@ -188,6 +188,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     
     // MARK: MediaItemsViewModelDelegate
+    
+    
     func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
         reloadData(false)
     }
@@ -208,6 +210,13 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     // MARK: MediaItemCollectionViewCellDelegate
+    override func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+        super.mediaLinkCollectionViewCellDidToggleCancelButton(cell, selected: selected)
+        if collectionType == .Favorites {
+            cell.favoriteRibbon.hidden = true
+        }
+    }
+    
     override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
