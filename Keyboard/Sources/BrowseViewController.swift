@@ -21,7 +21,6 @@ class BrowseViewController: MediaItemGroupsViewController,
 
     var searchViewController: SearchViewController?
     var hudTimer: NSTimer?
-    var emptyStateView: EmptyStateView?
 
     override init(collectionViewLayout: UICollectionViewLayout = BrowseViewController.getLayout(),
         viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
@@ -121,21 +120,13 @@ class BrowseViewController: MediaItemGroupsViewController,
         let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
 
         if !isFullAccessEnabled {
-            emptyStateView = NoKeyboardEmptyStateView()
-            emptyStateView?.primaryButton.hidden = true
-
-            if let emptyStateView = emptyStateView {
-                view.addSubview(emptyStateView)
-            }
+            showEmptyStateViewForState(.NoKeyboard, completion: { view -> Void in
+                view.primaryButton.hidden = true
+            })
+            
         } else {
-            emptyStateView?.removeFromSuperview()
+            hideEmptyStateView()
         }
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        emptyStateView?.frame = view.frame
     }
 
     override func showNavigationBar(animated: Bool) {
