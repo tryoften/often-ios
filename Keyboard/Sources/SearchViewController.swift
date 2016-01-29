@@ -52,12 +52,16 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
 
             super.init(nibName: nil, bundle: nil)
 
-            navigationController?.addChildViewController(searchBarController)
-            addChildViewController(searchResultsViewController)
+            searchResultsViewController.searchViewController = self
 
-            view.addSubview(searchResultsViewController.view)
-            view.addSubview(searchSuggestionsViewController.view)
+            navigationController?.addChildViewController(searchBarController)
             view.addSubview(searchBarController.view)
+
+            addChildViewController(searchResultsViewController)
+            view.addSubview(searchResultsViewController.view)
+
+            addChildViewController(searchSuggestionsViewController)
+            view.addSubview(searchSuggestionsViewController.view)
 
             view.hidden = true
 
@@ -110,24 +114,31 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         searchSuggestionsViewController.showSearchSuggestionsView(false)
     }
 
+    func didTapEmptyStateView() {
+        submitSearchRequest()
+    }
+
     func submitSearchRequest() {
-       guard let text = searchBarController.searchBar.text else {
+
+        guard let text = searchBarController.searchBar.text else {
             return
         }
 
         viewModel.sendRequestForQuery(text, type: .Search)
-        searchResultsViewController.updateEmptySetVisible(false)
+        searchResultsViewController.hideEmptyStateView()
+
         searchSuggestionsViewController.showSearchSuggestionsView(false)
 
         noResultsTimer?.invalidate()
         noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
 
-        if searchBarController.searchBar.selected {
-            searchResultsViewController.response = nil
-            searchResultsViewController.refreshResults()
-            searchResultsViewController.view.hidden = false
-            NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
-        }
+        searchResultsViewController.response = nil
+        searchResultsViewController.view.hidden = false
+        searchResultsViewController.showLoadingView()
+
+    #if KEYBOARD
+        NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+    #endif
     }
 
     func keyboardHeightForOrientation(orientation: UIInterfaceOrientation) -> CGFloat {
@@ -176,7 +187,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             searchBar.resignFirstResponder()
         }
         searchSuggestionsViewController.showSearchSuggestionsView(false)
-        
+        searchResultsViewController.showLoadingView()
     }
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
@@ -184,21 +195,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func showNoResultsEmptyState() {
-        searchResultsViewController.updateEmptySetVisible(true, animated: true)
-        searchResultsViewController.emptyStateView.primaryButton.addTarget(self, action: "didTapEnterButton:", forControlEvents: .TouchUpInside)
-    }
-
-    // MARK: AutocorrectSuggestionsViewControllerDelegate
-    func autocorrectSuggestionsViewControllerDidSelectSuggestion(autocorrectSuggestions: AutocorrectSuggestionsViewController, suggestion: SuggestItem) {
-        textProcessor?.applyTextSuggestion(suggestion)
-    }
-
-    func autocorrectSuggestionsViewControllerShouldShowSuggestions(autocorrectSuggestions: AutocorrectSuggestionsViewController) -> Bool {
-        if viewModel.hasReceivedResponse == false {
-            return false
-        }
-
-        return true
+        searchResultsViewController.updateEmptyStateContent(.NoResults, animated: true)
     }
 
     // MARK: SearchSuggestionsViewControllerDelegate
@@ -211,6 +208,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             containerViewController?.resetPosition()
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.text = suggestion.text
+            searchResultsViewController.showLoadingView()
             searchResultsViewController.response = nil
             searchResultsViewController.refreshResults()
 
@@ -240,7 +238,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         }
 
         delegate?.searchViewControllerDidReceiveResponse(self)
-
         noResultsTimer?.invalidate()
 
         if isNewSearch {
@@ -252,7 +249,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             isNewSearch = false
         } else if responseChanged {
             searchResultsViewController.nextResponse = response
-            searchResultsViewController.showRefreshResultsButton()
+            searchResultsViewController.showRefreshResultsButtonIfNeeded()
         }
     }
 

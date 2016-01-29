@@ -14,10 +14,18 @@ import EmitterKit
 let MediaItemCollectionViewCellReuseIdentifier = "MediaItemsCollectionViewCell"
 
 class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate {
-    var cellsAnimated: [NSIndexPath: Bool]
+
     var favoritesCollectionListener: Listener? = nil
     var favoriteSelected: Bool = false
     var textProcessor: TextProcessingManager?
+    var emptyStateView: EmptyStateView?
+    var loaderView: AnimatedLoaderView?
+    var isDataLoaded: Bool {
+        return false
+    }
+
+    internal var cellsAnimated: [NSIndexPath: Bool]
+    internal var loaderTimeoutTimer: NSTimer?
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         cellsAnimated = [:]
@@ -42,6 +50,100 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        emptyStateView?.frame = view.bounds
+        loaderView?.frame = view.bounds
+    }
+
+    func requestData(animated: Bool = false) {
+        delay(0.5) {
+            self.showLoaderIfNeeded()
+        }
+    }
+
+    func showLoaderIfNeeded() {
+        if !isDataLoaded {
+            showLoadingView()
+        } else {
+            collectionView?.hidden = false
+        }
+    }
+
+    func showLoadingView() {
+        if let loaderView = loaderView {
+            loaderView.removeFromSuperview()
+        }
+        loaderView = AnimatedLoaderView(frame: view.bounds)
+        view.addSubview(loaderView!)
+
+        loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0,
+            target: self,
+            selector: "timeoutLoader",
+            userInfo: nil,
+            repeats: false)
+    }
+
+    func hideLoadingView() {
+        guard let loaderView = loaderView else {
+            return
+        }
+
+        UIView.animateWithDuration(0.3, delay: 1.0, options: [], animations: {
+            loaderView.alpha = 0.0
+        }, completion: { done in
+            loaderView.hidden = true
+            loaderView.removeFromSuperview()
+            self.loaderView = nil
+        })
+
+        loaderTimeoutTimer?.invalidate()
+    }
+
+    func timeoutLoader() {
+        hideLoadingView()
+        hideEmptyStateView()
+    }
+
+    func showEmptyStateViewForState(state: UserState, completion: ((EmptyStateView) -> Void)? = nil) {
+        emptyStateView?.removeFromSuperview()
+
+        guard state != .NonEmpty else {
+            return
+        }
+
+        emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
+        emptyStateView?.closeButton.addTarget(self, action: "didTapEmptyStateViewCloseButton", forControlEvents: .TouchUpInside)
+
+        if let emptyStateView = emptyStateView {
+            view.addSubview(emptyStateView)
+            viewDidLayoutSubviews()
+            completion?(emptyStateView)
+        }
+    }
+
+    func didTapEmptyStateViewCloseButton() {
+        UIView.animateWithDuration(0.4) {
+            self.emptyStateView?.alpha = 0
+        }
+
+        emptyStateView?.removeFromSuperview()
+        viewDidLoad()
+    }
+
+    func hideEmptyStateView(animated: Bool = false) {
+        UIView.animateWithDuration(animated ? 0.3 : 0.0, animations: {
+            self.emptyStateView?.alpha = 0.0
+        }, completion: { done in
+            self.emptyStateView?.removeFromSuperview()
+            self.emptyStateView = nil
+        })
     }
 
     func parseMediaItemData(searchResultsData: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaItemCollectionViewCell {
@@ -164,7 +266,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 cell.alpha = 1.0
                 cell.frame = finalFrame
-                }, completion: nil)
+            }, completion: nil)
         }
 
         cellsAnimated[indexPath] = true
@@ -182,6 +284,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     
     func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         cell.overlayVisible = false
+        
     }
     
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
@@ -208,10 +311,10 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         if selected {
             UIPasteboard.generalPasteboard().string = result.getInsertableText()
 
-            #if !(KEYBOARD)
-                DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
-                    subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
-            #endif
+        #if !(KEYBOARD)
+            DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
+                subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+        #endif
         }
     }
 
