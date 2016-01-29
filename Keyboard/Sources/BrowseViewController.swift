@@ -25,6 +25,7 @@ class BrowseViewController: FullScreenCollectionViewController,
     var cellsAnimated: [NSIndexPath: Bool] = [:]
     var displayedData: Bool
     var hudTimer: NSTimer?
+    var emptyStateView: EmptyStateView?
 
     init(collectionViewLayout: UICollectionViewLayout = BrowseViewController.getLayout(),
         viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
@@ -282,6 +283,28 @@ class BrowseViewController: FullScreenCollectionViewController,
 #if KEYBOARD
     override func viewWillAppear(animated: Bool) {
         navigationController?.navigationBarHidden = true
+        isFullAccessGranted()
+    }
+
+    func isFullAccessGranted() {
+        let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
+
+        if !isFullAccessEnabled {
+            emptyStateView = NoKeyboardEmptyStateView()
+            emptyStateView?.primaryButton.hidden = true
+
+            if let emptyStateView = emptyStateView {
+                view.addSubview(emptyStateView)
+            }
+        } else {
+            emptyStateView?.removeFromSuperview()
+        }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        emptyStateView?.frame = view.frame
     }
 
     override func showNavigationBar(animated: Bool) {
