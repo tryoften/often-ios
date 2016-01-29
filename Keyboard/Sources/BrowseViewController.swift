@@ -113,6 +113,20 @@ class BrowseViewController: MediaItemGroupsViewController,
 #if KEYBOARD
     override func viewWillAppear(animated: Bool) {
         navigationController?.navigationBarHidden = true
+        isFullAccessGranted()
+    }
+
+    func isFullAccessGranted() {
+        let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
+
+        if !isFullAccessEnabled {
+            showEmptyStateViewForState(.NoKeyboard, completion: { view -> Void in
+                view.primaryButton.hidden = true
+            })
+            
+        } else {
+            hideEmptyStateView()
+        }
     }
 
     override func showNavigationBar(animated: Bool) {
