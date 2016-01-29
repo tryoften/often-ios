@@ -71,10 +71,10 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             headerHeight = 0.0
         }
 
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, headerHeight)
+        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 0)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, headerHeight)
         layout.parallaxHeaderAlwaysOnTop = false
-        layout.disableStickyHeaders = true
+        layout.disableStickyHeaders = false
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0

@@ -70,7 +70,7 @@ class TwitterAccountManager: AccountManager {
             firebaseData["username"] = userdata["screen_name"] as? String
             firebaseData["description"] = userdata["description"] as? String
             firebaseData["parseId"] = parseUser.objectId
-            firebaseData["backgroundImage"] = "user-profile-bg-\(arc4random_uniform(4) + 1)"
+            firebaseData["backgroundImage"] = "user-profile-bg-1"
 
             if sessionManagerFlags.userId == nil {
                 guard let userID = PFTwitterUtils.twitter()?.userId  else {
