@@ -16,7 +16,8 @@ let songCellReuseIdentifier = "songCell"
 class BrowseViewController: FullScreenCollectionViewController,
     UICollectionViewDelegateFlowLayout,
     MediaItemGroupViewModelDelegate,
-    CellAnimatable {
+    CellAnimatable,
+    ConnectivityObservable {
     var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
     var viewModel: BrowseViewModel
@@ -24,12 +25,18 @@ class BrowseViewController: FullScreenCollectionViewController,
     var textProcessor: TextProcessingManager?
     var cellsAnimated: [NSIndexPath: Bool] = [:]
     var displayedData: Bool
+    var isNetworkReachable: Bool = true
+    var errorDropView: DropDownMessageView
 
     init(collectionViewLayout: UICollectionViewLayout = BrowseViewController.getLayout(),
         viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         self.viewModel = viewModel
         self.displayedData = false
 
+        errorDropView = DropDownMessageView()
+        errorDropView.text = "NO INTERNET FAM :("
+        errorDropView.hidden = true
+            
         super.init(collectionViewLayout: collectionViewLayout)
 
         viewModel.delegate = self
@@ -44,6 +51,10 @@ class BrowseViewController: FullScreenCollectionViewController,
         extendedLayoutIncludesOpaqueBars = false
 
         setupSearchBar()
+            
+        view.addSubview(errorDropView)
+        
+        startMonitoring()
     }
 
     func setupSearchBar() {
@@ -81,6 +92,11 @@ class BrowseViewController: FullScreenCollectionViewController,
         } catch _ {}
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        updateReachabilityStatusBar()
+    }
+    
     class func getLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 5.0
@@ -251,6 +267,22 @@ class BrowseViewController: FullScreenCollectionViewController,
                 self.collectionView?.reloadSections(NSIndexSet(indexesInRange: range))
             }, completion: nil)
 
+        }
+    }
+    
+    // MARK: ConnectivityObservable
+    func updateReachabilityStatusBar() {
+        if isNetworkReachable {
+            UIView.animateWithDuration(0.3, animations: {
+                self.errorDropView.frame = CGRectMake(0, -40, UIScreen.mainScreen().bounds.width, 40)
+            })
+            
+        } else {
+            UIView.animateWithDuration(0.3, animations: {
+                self.errorDropView.frame = CGRectMake(0, 64, UIScreen.mainScreen().bounds.width, 40)
+            })
+            
+            errorDropView.hidden = false
         }
     }
 

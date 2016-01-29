@@ -41,7 +41,7 @@ class DropDownMessageView: UIView {
     func setupLayout() {
         addConstraints([
             textLabel.al_centerX == al_centerX,
-            textLabel.al_centerY == al_centerY + 10
+            textLabel.al_centerY == al_centerY
         ])
     }
 }
