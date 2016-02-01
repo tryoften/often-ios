@@ -20,8 +20,6 @@ class SearchViewModel: SearchBaseViewModel {
         hasReceivedResponse = true
 
         guard let id = data["id"] as? String,
-            let query = data["query"] as? [String: AnyObject],
-            let queryText = query["text"] as? String,
             let resultsData = data["results"] as? NSArray,
             let groups = MediaItemGroup.modelsFromDictionaryArray(resultsData) as? [MediaItemGroup],
             let _ = currentRequest else {
@@ -40,9 +38,9 @@ class SearchViewModel: SearchBaseViewModel {
         }
         
         if responseChanged {
-            print("SearchViewModel: response to query (\(queryText)) changed")
+            print("SearchViewModel: response to query changed")
         } else {
-            print("SearchViewModel: response to query (\(queryText)) is the same as previous")
+            print("SearchViewModel: response to query is the same as previous")
         }
         
         currentResponse = response

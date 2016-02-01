@@ -265,7 +265,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
 
     func prepareOverlayView() {
         overlayView.middleLabel.text = "cancel".uppercaseString
-        overlayView.rightLabel.text = "share".uppercaseString
+        overlayView.rightLabel.text = "send".uppercaseString
         overlayView.leftLabel.text = "favorite".uppercaseString
         overlayView.cancelButton.hidden = false
         overlayView.doneButton.hidden = true
@@ -353,7 +353,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             if overlayView.insertButton.selected {
                 overlayView.rightLabel.text = "Remove".uppercaseString
             } else {
-                overlayView.rightLabel.text = "Share".uppercaseString
+                overlayView.rightLabel.text = "send".uppercaseString
             }
         }
 
