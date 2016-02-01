@@ -183,7 +183,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
+        return CGSizeMake(UIScreen.mainScreen().bounds.width, MediaItemsSectionHeaderHeight)
     }
 
     
@@ -191,12 +191,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
         reloadData(false)
     }
-    
-    func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
-        reloadData(false)
-        loaderView?.hidden = true
-        collectionView?.hidden = false
-    }
+
     
     func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         loaderView?.hidden = true

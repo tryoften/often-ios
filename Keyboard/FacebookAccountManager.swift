@@ -64,6 +64,7 @@ class FacebookAccountManager: AccountManager {
 
                 let profilePicURLTemplate = "https://graph.facebook.com/%@/picture?type=%@"
 
+                userData["id"] = authData.uid
                 userData["profile_pic_small"] = String(format: profilePicURLTemplate, userId, "small")
                 userData["profile_pic_large"] = String(format: profilePicURLTemplate, userId, "large")
                 userData["backgroundImage"] = "user-profile-bg-1"

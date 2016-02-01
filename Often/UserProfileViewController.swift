@@ -171,10 +171,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         reloadUserData()
     }
     
-    override func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
-        reloadData()
-    }
-    
     override func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         reloadData()
     }
