@@ -111,7 +111,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         hideEmptyStateView()
     }
 
-    func showEmptyStateViewForState(state: UserState, completion: ((EmptyStateView) -> Void)? = nil) {
+    func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
         emptyStateView?.removeFromSuperview()
 
         guard state != .NonEmpty else {
@@ -122,7 +122,13 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         emptyStateView?.closeButton.addTarget(self, action: "didTapEmptyStateViewCloseButton", forControlEvents: .TouchUpInside)
 
         if let emptyStateView = emptyStateView {
+            emptyStateView.alpha = 0.0
             view.addSubview(emptyStateView)
+
+            UIView.animateWithDuration(animated ? 0.3 : 0.0) {
+                emptyStateView.alpha = 1.0
+            }
+
             viewDidLayoutSubviews()
             completion?(emptyStateView)
         }

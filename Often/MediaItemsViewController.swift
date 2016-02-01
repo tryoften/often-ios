@@ -68,15 +68,23 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideEmptyStateView()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        hideEmptyStateView()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if !hasFetchedData {
-            requestData(true)
-            hasFetchedData = false
-        } else {
-            requestData(false)
+        delay(0.5) {
+            if !self.hasFetchedData {
+                self.requestData(true)
+                self.hasFetchedData = false
+            } else {
+                self.requestData(false)
+            }
         }
     }
 
@@ -101,8 +109,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 
                 if collection.isEmpty {
                     switch collectionType {
-                    case .Favorites: showEmptyStateViewForState(.NoFavorites)
-                    case .Recents: showEmptyStateViewForState(.NoRecents)
+                    case .Favorites: showEmptyStateViewForState(.NoFavorites, animated: true)
+                    case .Recents: showEmptyStateViewForState(.NoRecents, animated: true)
                     default: break
                     }
                     emptyStateView?.hidden = false
@@ -191,7 +199,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
         reloadData(false)
     }
-
     
     func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         loaderView?.hidden = true

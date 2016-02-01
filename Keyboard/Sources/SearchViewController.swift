@@ -166,6 +166,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        containerViewController?.resetPosition()
         containerViewController?.showTabBar(true, animations: nil)
         searchSuggestionsViewController.tableViewBottomInset = 0
     }
