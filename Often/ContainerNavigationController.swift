@@ -44,6 +44,12 @@ class ContainerNavigationController: UINavigationController, UINavigationControl
 
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -60), forBarMetrics: .Default)
         
+        if let font = UIFont(name: "Montserrat-Regular", size: 12) {
+            UINavigationBar.appearance().titleTextAttributes = [
+                NSFontAttributeName: font
+            ]
+        }
+        
         view.layer.zPosition = 1000
     }
 

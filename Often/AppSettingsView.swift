@@ -10,7 +10,6 @@ import Foundation
 
 class AppSettingsView: UIView {
     var tableView: UITableView
-    var titleBar: UILabel
 
     override init(frame: CGRect) {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
@@ -20,17 +19,8 @@ class AppSettingsView: UIView {
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.backgroundColor = MediumGrey
-
-        titleBar = UILabel()
-        titleBar.font = UIFont(name: "Montserrat-Regular", size: 12)
-        titleBar.text = "settings".uppercaseString
-        titleBar.backgroundColor = UIColor.clearColor()
-        titleBar.numberOfLines = 0
-        titleBar.textAlignment = .Center
-        titleBar.textColor = BlackColor
-
+        
         super.init(frame: frame)
-
         
         backgroundColor = MediumGrey
         addSubview(tableView)
