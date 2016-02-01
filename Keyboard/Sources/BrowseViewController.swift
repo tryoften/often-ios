@@ -153,6 +153,8 @@ class BrowseViewController: MediaItemGroupsViewController,
         if !isFullAccessEnabled {
             showEmptyStateViewForState(.NoKeyboard, completion: { view -> Void in
                 view.primaryButton.hidden = true
+                view.imageViewTopConstraint?.constant = -35
+                view.titleLabel.text = "You forgot to allow Full-Access"
             })
             
         } else {

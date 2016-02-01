@@ -123,6 +123,7 @@ class RootViewController: UITabBarController {
 
         settingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSettings(scale: 0.45), tag: 2)
         settingVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, -20, -8, 20)
+        settingVC.navigationBar.tintColor = BlackColor
 
         viewControllers = [
             browseVC,
