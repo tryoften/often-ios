@@ -14,7 +14,7 @@ private let BrowseHeadercellReuseIdentifier = "browseHeaderCell"
     This view controller displays a search bar along with trending navigatable items (lyrics, songs, artists)
 */
 class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDelegate {
-    private var featuredArtistsHorizontalVC: FeaturedArtistsViewController?
+    private var featuredArtistHorizontalVC: FeaturedArtistViewController?
     var searchBar: MainAppSearchBar!
     var scrollsStatusBar: Bool = false
     var scrollsNavigationbar: Bool = false
@@ -107,7 +107,7 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
     }
 
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let browseHeader = browseHeader, featuredArtistsHorizontalVC = featuredArtistsHorizontalVC {
+        if let browseHeader = browseHeader, featuredArtistsHorizontalVC = featuredArtistHorizontalVC {
 
             featuredArtistsHorizontalVC.scrollView.contentSize = CGSize(width: featuredArtistsHorizontalVC.scrollView.frame.size.width,
                 height: browseHeader.frame.size.height)
@@ -141,12 +141,12 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         }
     }
 
-    func provideFeaturedArtistsCollectionViewController() -> FeaturedArtistsViewController {
-        if featuredArtistsHorizontalVC == nil {
-            featuredArtistsHorizontalVC = FeaturedArtistsViewController()
-            addChildViewController(featuredArtistsHorizontalVC!)
+    func provideFeaturedArtistsCollectionViewController() -> FeaturedArtistViewController {
+        if featuredArtistHorizontalVC == nil {
+            featuredArtistHorizontalVC = FeaturedArtistViewController()
+            addChildViewController(featuredArtistHorizontalVC!)
         }
-        return featuredArtistsHorizontalVC!
+        return featuredArtistHorizontalVC!
     }
 
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {

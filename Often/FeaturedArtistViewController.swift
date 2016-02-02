@@ -1,5 +1,5 @@
 //
-//  FeaturedArtistsViewController.swift
+//  FeaturedArtistViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 1/25/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FeaturedArtistsViewController: UIViewController, UIScrollViewDelegate, MediaItemGroupViewModelDelegate {
+class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, MediaItemGroupViewModelDelegate {
     var viewModel: MediaItemGroupViewModel
     var scrollView: UIScrollView
     var pageCount: Int
