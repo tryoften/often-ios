@@ -1,5 +1,5 @@
 //
-//  FeaturedArtistCollectionViewCell.swift
+//  FeaturedArtistView.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 1/25/16.

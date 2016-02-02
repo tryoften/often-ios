@@ -14,11 +14,12 @@ private let BrowseHeadercellReuseIdentifier = "browseHeaderCell"
     This view controller displays a search bar along with trending navigatable items (lyrics, songs, artists)
 */
 class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDelegate {
-    private var featuredArtistsHorizontalVC: FeaturedArtistsCollectionViewController?
+    private var featuredArtistsHorizontalVC: FeaturedArtistsViewController?
     var searchBar: MainAppSearchBar!
     var scrollsStatusBar: Bool = false
     var scrollsNavigationbar: Bool = false
     var navBarBackground: UIView
+    var browseHeader: UICollectionReusableView?
 
     override init(collectionViewLayout: UICollectionViewLayout, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         navBarBackground = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 64))
@@ -74,7 +75,7 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
 
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let layout = CSStickyHeaderFlowLayout()
-        layout.parallaxHeaderReferenceSize = FeaturedArtistCollectionViewCell.preferredSize
+        layout.parallaxHeaderReferenceSize = FeaturedArtistView.preferredSize
         layout.parallaxHeaderAlwaysOnTop = true
         layout.disableStickyHeaders = false
     
@@ -85,14 +86,14 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         if kind == CSStickyHeaderParallaxHeader {
             let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
                 withReuseIdentifier: BrowseHeadercellReuseIdentifier, forIndexPath: indexPath)
-            let screenSize = UIScreen.mainScreen().bounds.size
             let featuredArtistsHorizontalVC = provideFeaturedArtistsCollectionViewController()
 
             cell.backgroundColor = UIColor.clearColor()
             cell.addSubview(featuredArtistsHorizontalVC.view)
-            featuredArtistsHorizontalVC.view.autoresizesSubviews = true
-            featuredArtistsHorizontalVC.view.frame = CGRectMake(0, 0, screenSize.width, screenSize.height / 3.33 - 10)
-            print("header Horizontal VC cell bounds: ", cell.bounds)
+            featuredArtistsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            featuredArtistsHorizontalVC.view.frame = cell.bounds
+            browseHeader = cell
+            
             return cell
 
         }
@@ -104,6 +105,15 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         cell.leftText = group.title
         return cell
     }
+
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        if let browseHeader = browseHeader, featuredArtistsHorizontalVC = featuredArtistsHorizontalVC {
+
+            featuredArtistsHorizontalVC.scrollView.contentSize = CGSize(width: featuredArtistsHorizontalVC.scrollView.frame.size.width,
+                height: browseHeader.frame.size.height)
+        }
+    }
+
 
     func searchViewControllerSearchBarDidTextDidBeginEditing(viewController: SearchViewController, searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
@@ -131,9 +141,9 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         }
     }
 
-    func provideFeaturedArtistsCollectionViewController() -> FeaturedArtistsCollectionViewController {
+    func provideFeaturedArtistsCollectionViewController() -> FeaturedArtistsViewController {
         if featuredArtistsHorizontalVC == nil {
-            featuredArtistsHorizontalVC = FeaturedArtistsCollectionViewController()
+            featuredArtistsHorizontalVC = FeaturedArtistsViewController()
             addChildViewController(featuredArtistsHorizontalVC!)
         }
         return featuredArtistsHorizontalVC!

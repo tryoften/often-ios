@@ -1,5 +1,5 @@
 //
-//  FeaturedArtistsCollectionViewController.swift
+//  FeaturedArtistsViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 1/25/16.
@@ -8,9 +8,7 @@
 
 import Foundation
 
-private let FeaturedArtistsCellReuseIdentifier = "Cell"
-
-class FeaturedArtistsCollectionViewController: UIViewController, UIScrollViewDelegate, MediaItemGroupViewModelDelegate {
+class FeaturedArtistsViewController: UIViewController, UIScrollViewDelegate, MediaItemGroupViewModelDelegate {
     var viewModel: MediaItemGroupViewModel
     var scrollView: UIScrollView
     var pageCount: Int
@@ -18,6 +16,7 @@ class FeaturedArtistsCollectionViewController: UIViewController, UIScrollViewDel
     var pageWidth: CGFloat {
         return UIScreen.mainScreen().bounds.width
     }
+    
     var currentPage: Int {
         return Int(floor((scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
     }
@@ -37,6 +36,7 @@ class FeaturedArtistsCollectionViewController: UIViewController, UIScrollViewDel
         super.init(nibName: nil, bundle: nil)
 
         viewModel.delegate = self
+        scrollView.delegate = self
 
         view.addSubview(scrollView)
 
@@ -50,12 +50,15 @@ class FeaturedArtistsCollectionViewController: UIViewController, UIScrollViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
-
         do {
             try viewModel.fetchData()
         } catch _ {}
 
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
 
     func setupLayout() {
@@ -97,34 +100,33 @@ class FeaturedArtistsCollectionViewController: UIViewController, UIScrollViewDel
             return
         }
 
-        let featuedArtistView = FeaturedArtistView()
+        let featuredArtistView = FeaturedArtistView()
 
-        featuedArtistView.translatesAutoresizingMaskIntoConstraints = false
+        featuredArtistView.translatesAutoresizingMaskIntoConstraints = false
 
         if let name = artist.name {
-            featuedArtistView.titleLabel.text = name.uppercaseString
+            featuredArtistView.titleLabel.text = name.uppercaseString
         }
 
-        featuedArtistView.featureLabel.text = "Featured Artist".uppercaseString
+        featuredArtistView.featureLabel.text = "Featured Artist".uppercaseString
 
         if let image = artist.largeImage, let imageURL = NSURL(string: image) {
-            featuedArtistView.imageView.setImageWithAnimation(imageURL)
+            featuredArtistView.imageView.setImageWithAnimation(imageURL)
         }
 
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.addTarget(self, action: "didTapFeaturedArtist")
 
-        featuedArtistView.addGestureRecognizer(tapRecognizer)
-        
-        scrollView.addSubview(featuedArtistView)
+        featuredArtistView.addGestureRecognizer(tapRecognizer)
+        featuredArtistView.userInteractionEnabled = true
 
+        scrollView.addSubview(featuredArtistView)
         scrollView.addConstraints([
-            featuedArtistView.al_top == scrollView.al_top,
-            featuedArtistView.al_height == scrollView.al_height,
-            featuedArtistView.al_width == pageWidth,
-            featuedArtistView.al_left == scrollView.al_left + pageWidth * CGFloat(page)
-            ])
-
+            featuredArtistView.al_top == scrollView.al_top,
+            featuredArtistView.al_height == scrollView.al_height,
+            featuredArtistView.al_width == pageWidth,
+            featuredArtistView.al_left == scrollView.al_left + pageWidth * CGFloat(page)
+        ])
     }
 
     func didTapFeaturedArtist() {
@@ -140,7 +142,13 @@ class FeaturedArtistsCollectionViewController: UIViewController, UIScrollViewDel
         containerViewController?.resetPosition()
     }
 
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        timer?.invalidate()
+        timer = NSTimer.scheduledTimerWithTimeInterval(4.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+    }
+
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         setupPages()
+        loadVisiblePages()
     }
 }
