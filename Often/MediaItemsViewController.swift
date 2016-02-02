@@ -215,6 +215,20 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         }
     }
     
+    override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+        super.mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: selected)
+        if collectionType == .Favorites {
+            cell.favoriteRibbon.hidden = true
+        }
+    }
+    
+    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+        super.mediaLinkCollectionViewCellDidToggleInsertButton(cell, selected: selected)
+        if collectionType == .Favorites {
+            cell.favoriteRibbon.hidden = true
+        }
+    }
+    
     override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return

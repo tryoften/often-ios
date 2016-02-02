@@ -301,6 +301,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 textProcessor?.defaultProxy.deleteBackward()
             }
         }
+        
+        cell.overlayVisible = false
     }
     
     func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
@@ -316,6 +318,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
         #endif
         }
+        
+        cell.overlayVisible = false
     }
 
 }
