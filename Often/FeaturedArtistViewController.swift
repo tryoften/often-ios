@@ -145,6 +145,8 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
     func scrollViewDidScroll(scrollView: UIScrollView) {
         timer?.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(4.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+
+        scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, 0)
     }
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {

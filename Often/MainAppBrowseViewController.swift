@@ -106,15 +106,6 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         return cell
     }
 
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let browseHeader = browseHeader, featuredArtistsHorizontalVC = featuredArtistHorizontalVC {
-
-            featuredArtistsHorizontalVC.scrollView.contentSize = CGSize(width: featuredArtistsHorizontalVC.scrollView.frame.size.width,
-                height: browseHeader.frame.size.height)
-        }
-    }
-
-
     func searchViewControllerSearchBarDidTextDidBeginEditing(viewController: SearchViewController, searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
 
