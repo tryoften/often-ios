@@ -112,6 +112,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
 
     func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
+        collectionView?.scrollEnabled = false
+        
         emptyStateView?.removeFromSuperview()
 
         guard state != .NonEmpty else {
@@ -222,7 +224,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.mediaLink = result
         cell.contentImageView.image = nil
-        if  let image = result.image,
+        if  let image = result.smallImage,
             let imageURL = NSURL(string: image) {
                 print("Loading image: \(imageURL)")
                 cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in

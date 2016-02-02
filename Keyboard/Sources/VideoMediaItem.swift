@@ -49,7 +49,9 @@ class VideoMediaItem: MediaItem {
         super.init(data: data)
         
         if let thumbnail = data["thumbnail"] as? String {
-            self.image = thumbnail
+            self.smallImage = thumbnail
+            self.mediumImage = thumbnail
+            self.largeImage = thumbnail
         }
         
         if let viewCount = data["viewCount"] as? String {

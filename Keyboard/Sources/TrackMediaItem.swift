@@ -62,7 +62,9 @@ class TrackMediaItem: MediaItem {
         }
         
         if let image = data["album_cover_art_url"] as? String {
-            self.image = image
+            self.smallImage = image
+            self.mediumImage = image
+            self.largeImage = image
         }
 
         if let albumName = data["album_name"] as? String {
