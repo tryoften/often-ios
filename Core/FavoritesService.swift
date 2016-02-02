@@ -37,24 +37,31 @@ class FavoritesService: MediaItemsViewModel {
     }
     
     func toggleFavorite(selected: Bool, result: MediaItem) {
-        didChangeFavorites.emit([result])
-        
         if selected {
             addFavorite(result)
         } else {
             removeFavorite(result)
         }
+
+        didChangeFavorites.emit([result])
+        delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: .Favorites, groups: generateMediaItemGroupsForCollectionType(.Favorites))
     }
     
     // TODO: add/remove favorite from local collection before server responds with data
     func addFavorite(result: MediaItem) {
         ids.insert(result.id)
         sendTask("addFavorite", result: result)
+
+        if var collection = collections[.Favorites] {
+            collection.append(result)
+            collections[.Favorites] = collection
+        }
     }
     
     func removeFavorite(result: MediaItem) {
         ids.remove(result.id)
         sendTask("removeFavorite", result: result)
+        collections[.Favorites] = collections[.Favorites]?.filter({ $0 != result })
     }
     
     func checkFavorite(result: MediaItem) -> Bool {
@@ -107,7 +114,16 @@ class FavoritesService: MediaItemsViewModel {
             "task": task,
             "user": userId,
             "result": result.toDictionary()
-            ])
+        ])
+
+        // Preemptively add item to collection before backend queue modifies
+        // in case user worker is down
+        let ref = Firebase(url: BaseURL).childByAppendingPath("users/\(userId)/favorites/\(result.id)")
+        if task == "addFavorite" {
+            ref.setValue(result.toDictionary())
+        } else if task == "removeFavorite" {
+            ref.removeValue()
+        }
     }
 
 }

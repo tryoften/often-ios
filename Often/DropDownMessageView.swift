@@ -27,10 +27,8 @@ class DropDownMessageView: UIView {
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#E95769")
-        
+        backgroundColor = UIColor(fromHexString: "#E95769").colorWithAlphaComponent(0.9)
         addSubview(textLabel)
-        
         setupLayout()
     }
 

@@ -166,6 +166,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     }
 
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        containerViewController?.resetPosition()
         containerViewController?.showTabBar(true, animations: nil)
         searchSuggestionsViewController.tableViewBottomInset = 0
     }
@@ -240,17 +241,12 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         delegate?.searchViewControllerDidReceiveResponse(self)
         noResultsTimer?.invalidate()
 
-        if isNewSearch {
-            searchResultsViewController.view.hidden = false
-            searchResultsViewController.response = response
-            searchResultsViewController.refreshResults()
-            NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
-            searchBarController.searchBar.resignFirstResponder()
-            isNewSearch = false
-        } else if responseChanged {
-            searchResultsViewController.nextResponse = response
-            searchResultsViewController.showRefreshResultsButtonIfNeeded()
-        }
+        searchResultsViewController.view.hidden = false
+        searchResultsViewController.response = response
+        searchResultsViewController.refreshResults()
+        NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
+        searchBarController.searchBar.resignFirstResponder()
+        isNewSearch = false
     }
 
     func keyboardSectionsContainerViewControllerShouldShowBarShadow(containerViewController: KeyboardSectionsContainerViewController) -> Bool {

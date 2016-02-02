@@ -17,7 +17,9 @@ class MediaItem: Equatable {
     var sourceName: String {
         return getNameForSource()
     }
-    var image: String?
+    var smallImage: String?
+    var mediumImage: String?
+    var largeImage: String?
     var created: NSDate?
     var data: NSDictionary = [:]
 

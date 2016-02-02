@@ -1,5 +1,5 @@
 //
-//  FeaturedArtistCollectionViewCell.swift
+//  FeaturedArtistView.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 1/25/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FeaturedArtistCollectionViewCell: UICollectionViewCell {
+class FeaturedArtistView: UIView {
     var featureLabel: UILabel
     var tintView: UIImageView
     var titleLabel: UILabel

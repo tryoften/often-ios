@@ -3,7 +3,7 @@
 //  Often
 //
 //  Created by Luc Success on 11/12/14.
-//  Copyright (c) 2014 Project Surf Inc.. All rights reserved.
+//  Copyright (c) 2014 Project Surf Inc. All rights reserved.
 //
 
 import UIKit

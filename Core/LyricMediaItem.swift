@@ -50,7 +50,9 @@ class LyricMediaItem: MediaItem {
         track_title = data["track_title"] as? String
 
         if let imageURL = artist_image_url {
-            image = imageURL
+            smallImage = imageURL
+            mediumImage = imageURL
+            largeImage = imageURL
         }
     }
 

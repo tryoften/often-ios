@@ -171,10 +171,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         reloadUserData()
     }
     
-    override func mediaLinksViewModelDidReceiveMediaItems(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, links: [MediaItem]) {
-        reloadData()
-    }
-    
     override func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
         reloadData()
     }
@@ -246,8 +242,8 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         reloadData()
     }
 
-    override func showEmptyStateViewForState(state: UserState, completion: ((EmptyStateView) -> Void)? = nil) {
-        super.showEmptyStateViewForState(state, completion: completion)
+    override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
+        super.showEmptyStateViewForState(state, animated: animated, completion: completion)
 
         if let headerViewFrame = headerView?.frame {
             let screenSizeBounds = UIScreen.mainScreen().bounds
