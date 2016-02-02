@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FeaturedArtistCollectionViewCell: UICollectionViewCell {
+class FeaturedArtistView: UIView {
     var featureLabel: UILabel
     var tintView: UIImageView
     var titleLabel: UILabel
