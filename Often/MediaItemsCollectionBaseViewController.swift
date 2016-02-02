@@ -261,7 +261,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         cell.prepareOverlayView()
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
-        cell.overlayVisible = true
+        cell.overlayVisible = !cell.overlayVisible
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
@@ -285,9 +285,10 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         guard let result = cell.mediaLink else {
             return
         }
-
+        
         favoriteSelected = true
         FavoritesService.defaultInstance.toggleFavorite(selected, result: result)
+        cell.overlayVisible = false
     }
     
     func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool) {

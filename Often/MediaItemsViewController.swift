@@ -193,6 +193,15 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeMake(UIScreen.mainScreen().bounds.width, MediaItemsSectionHeaderHeight)
     }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+        if collectionType == .Favorites {
+            if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell {
+                cell.favoriteRibbon.hidden = true
+            }
+        }
+    }
 
     
     // MARK: MediaItemsViewModelDelegate
@@ -210,27 +219,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     // MARK: MediaItemCollectionViewCellDelegate
-    override func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        super.mediaLinkCollectionViewCellDidToggleCancelButton(cell, selected: selected)
-        if collectionType == .Favorites {
-            cell.favoriteRibbon.hidden = true
-        }
-    }
-    
-    override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        super.mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: selected)
-        if collectionType == .Favorites {
-            cell.favoriteRibbon.hidden = true
-        }
-    }
-    
-    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        super.mediaLinkCollectionViewCellDidToggleInsertButton(cell, selected: selected)
-        if collectionType == .Favorites {
-            cell.favoriteRibbon.hidden = true
-        }
-    }
-    
     override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
