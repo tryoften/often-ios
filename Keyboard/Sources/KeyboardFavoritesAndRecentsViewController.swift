@@ -40,12 +40,6 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             showShareOftenHeaderIfNeeded()
         }
     }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        hideEmptyStateView(animated)
-    }
-
 
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
@@ -90,9 +84,27 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             if count % 10 == 0 && headerView?.hidden == true {
                 headerView?.hidden = false
                 collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(), animated: true)
-                collectionView?.contentOffset = CGPointMake(0, -(KeyboardSearchBarHeight + 2))
+                collectionView?.contentOffset = CGPointMake(0, -(KeyboardTabBarHeight + 2))
             } else {
                 headerView?.hidden = true
+            }
+        }
+    }
+    
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        guard let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX, cells = collectionView?.visibleCells()
+            where collectionType == .Favorites else {
+                return
+        }
+
+        let point = CGPointMake(profileViewCenter, profileViewHeight + scrollView.contentOffset.y + KeyboardTabBarHeight + MediaItemsSectionHeaderHeight)
+        for cell in cells {
+            if cell.frame.contains(point) {
+                if let indexPath = collectionView?.indexPathForCell(cell) {
+                    if let sectionView = sectionHeaders[indexPath.section] {
+                        sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+                    }
+                }
             }
         }
     }

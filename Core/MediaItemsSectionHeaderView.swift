@@ -64,6 +64,8 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         leftLabel.translatesAutoresizingMaskIntoConstraints = false
 
         rightLabel = UILabel()
+        rightLabel.textAlignment = .Right
+        rightLabel.lineBreakMode = .ByTruncatingHead
         rightLabel.translatesAutoresizingMaskIntoConstraints = false
 
         topSeperator = UIView()
@@ -122,11 +124,12 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
             leftLabel.al_centerY == artistImageView.al_centerY,
             leftLabel.al_height == 16,
             leftLabel.al_right == artistView.al_right,
-            
+            leftLabel.al_width >= al_width / 3 - 20,
+
             rightLabel.al_right == al_right - 10,
-            rightLabel.al_left <= al_centerX,
-            rightLabel.al_top == al_top,
-            rightLabel.al_bottom == al_bottom,
+            rightLabel.al_left == leftLabel.al_right + 10,
+            rightLabel.al_height == leftLabel.al_height,
+            rightLabel.al_centerY == leftLabel.al_centerY,
 
             topSeperator.al_top == al_top,
             topSeperator.al_left == al_left,

@@ -58,10 +58,9 @@ class AppSettingsViewController: UIViewController,
         appSettingView.tableView.delegate = self
         appSettingView.tableView.dataSource = self
 
-        navigationItem.titleView = appSettingView.titleBar
-        appSettingView.titleBar.sizeToFit()
-
         view.addSubview(appSettingView)
+        
+        navigationItem.title = "settings".uppercaseString
 
         setupLayout()
     }
@@ -92,6 +91,20 @@ class AppSettingsViewController: UIViewController,
             appSettingView.al_right == view.al_right,
             appSettingView.al_bottom == view.al_bottom
         ])
+    }
+    
+    func pushNewAboutViewController(url: NSURL, title: String) {
+        let webView = UIWebView(frame: view.bounds)
+        webView.loadRequest(NSURLRequest(URL: url))
+        
+        let vc = UIViewController()
+        vc.navigationItem.title = title
+        vc.navigationController?.navigationBar.translucent = true
+        vc.navigationController?.navigationBar.tintColor = UIColor.blackColor()
+        
+        vc.view.addSubview(webView)
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     // MARK: TableViewDelegate and Datasource
@@ -161,18 +174,22 @@ class AppSettingsViewController: UIViewController,
                 }
 
             case .About:
-                var vc: SettingsWebViewController?
-
+                var link, title: String?
                 switch indexPath.row {
-                case 0: vc = SettingsWebViewController(title:"faq", website: "http://www.tryoften.com/faq.html")
-                case 1:  vc = SettingsWebViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html")
+                case 0:
+                    link = "http://www.tryoften.com/faq.html"
+                    title = aboutSettings[0]
+                case 1:
+                    link = "http://www.tryoften.com/privacypolicy.html"
+                    title = aboutSettings[1]
                 default: break
                 }
 
-                if let webView = vc {
-                    presentViewController(webView, animated: true, completion: nil)
-                }
 
+                if let page = link , url = NSURL(string: page), headerText = title {
+                    pushNewAboutViewController(url, title: headerText)
+                }
+                
             case .Logout:
                 let actionSheet = UIActionSheet(title: "Are you sure you want to logout?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Logout")
                 actionSheet.showInView(view)
@@ -228,6 +245,7 @@ class AppSettingsViewController: UIViewController,
             case 0:
                 cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)
                 cell.secondaryTextField.text = viewModel.currentUser?.name
+                cell.userInteractionEnabled = false
                 cell.delegate = self
             case 1:
                 cell = UserProfileSettingsTableViewCell(type: .Nondisclosure)

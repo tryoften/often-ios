@@ -17,10 +17,9 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
 
     var artist: ArtistMediaItem? {
         didSet {
+            cellsAnimated = [:]
             delay(0.5) {
-                self.collectionView?.performBatchUpdates({
-                    self.collectionView?.reloadSections(NSIndexSet(index: 0))
-                }, completion: nil)
+                self.collectionView?.reloadData()
             }
             headerViewDidLoad()
         }

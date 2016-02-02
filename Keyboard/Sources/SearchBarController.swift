@@ -18,11 +18,9 @@ class SearchBarController: UIViewController, UISearchBarDelegate {
     required init(viewModel aViewModel: SearchViewModel, suggestionsViewModel aSuggestionsViewModel: SearchSuggestionsViewModel, SearchBarClass: SearchBar.Type) {
         viewModel = aViewModel
         suggestionsViewModel = aSuggestionsViewModel
-
         searchBar = SearchBarClass.init(frame: CGRectZero)
         
         super.init(nibName: nil, bundle: nil)
-
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -52,7 +50,6 @@ class SearchBarController: UIViewController, UISearchBarDelegate {
     
     func reset() {
         filter = nil
-
         NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: nil)
     }
 
