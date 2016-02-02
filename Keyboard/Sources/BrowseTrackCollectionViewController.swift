@@ -13,6 +13,7 @@ private let albumLyricCellReuseIdentifier = "albumLyricCell"
 class BrowseTrackCollectionViewController: BrowseMediaItemViewController {
     var track: TrackMediaItem? {
         didSet {
+            cellsAnimated = [:]
             self.collectionView?.performBatchUpdates({
                 self.collectionView?.reloadSections(NSIndexSet(index: 0))
             }, completion: nil)

@@ -41,9 +41,7 @@ class BrowseViewController: MediaItemGroupsViewController,
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
     #endif
         setupSearchBar()
-            
         view.addSubview(errorDropView)
-        
         startMonitoring()
     }
 
@@ -110,36 +108,35 @@ class BrowseViewController: MediaItemGroupsViewController,
     
     // MARK: ConnectivityObservable
     func updateReachabilityStatusBar() {
+        guard let collectionView = collectionView else {
+            return
+        }
+
+    #if KEYBOARD
+        let topPadding = KeyboardTabBarHeight
+        let barHeight = KeyboardSearchBarHeight
+    #else
+        let topPadding = collectionView.contentInset.top
+        let barHeight = MediaItemsSectionHeaderHeight
+    #endif
+
         if isNetworkReachable {
             UIView.animateWithDuration(0.3, animations: {
-                self.errorDropView.frame = CGRectMake(0, -40, UIScreen.mainScreen().bounds.width, 40)
+                self.errorDropView.frame = CGRectMake(0, -topPadding, UIScreen.mainScreen().bounds.width, barHeight)
             })
+
+            delay(0.5) {
+                self.errorDropView.hidden = true
+            }
             
         } else {
             UIView.animateWithDuration(0.3, animations: {
-                self.errorDropView.frame = CGRectMake(0, 40, UIScreen.mainScreen().bounds.width, 40)
+                self.errorDropView.frame = CGRectMake(0, topPadding, UIScreen.mainScreen().bounds.width, barHeight)
             })
             
             errorDropView.hidden = false
         }
     }
-
-#if !(KEYBOARD)
-    func showHud() {
-        hudTimer?.invalidate()
-        if !displayedData {
-            PKHUD.sharedHUD.contentView = HUDProgressView()
-            PKHUD.sharedHUD.show()
-            hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
-        }
-
-    }
-
-    func hideHud() {
-        PKHUD.sharedHUD.hide(animated: true)
-        hudTimer?.invalidate()
-    }
-#endif
 
 #if KEYBOARD
     override func viewWillAppear(animated: Bool) {
@@ -180,6 +177,21 @@ class BrowseViewController: MediaItemGroupsViewController,
     }
 
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
+    }
+#else
+    func showHud() {
+        hudTimer?.invalidate()
+        if !displayedData {
+            PKHUD.sharedHUD.contentView = HUDProgressView()
+            PKHUD.sharedHUD.show()
+            hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        }
+
+    }
+
+    func hideHud() {
+        PKHUD.sharedHUD.hide(animated: true)
+        hudTimer?.invalidate()
     }
 #endif
 }
