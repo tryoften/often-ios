@@ -48,10 +48,14 @@ class ArticleMediaItem: MediaItem {
             }
 
             if rectangleImage != nil {
-                self.image = rectangleImage?["url"] as? String
+                self.smallImage = rectangleImage?["url"] as? String
+                self.mediumImage = rectangleImage?["url"] as? String
+                self.largeImage = rectangleImage?["url"] as? String
             }
         } else {
-            self.image = data["image"] as? String
+             self.smallImage = data["image"] as? String
+             self.mediumImage = data["image"] as? String
+             self.largeImage = data["image"] as? String
         }
 
         self.type = .Article
