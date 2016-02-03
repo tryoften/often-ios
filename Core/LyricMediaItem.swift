@@ -25,6 +25,7 @@ class LyricMediaItem: MediaItem {
     var track_id: String?
     var track_song_art_image_url: String?
     var track_title: String?
+    var index: Int = 0
 
     required init(data: NSDictionary) {
         if let text = data["text"] as? String {
@@ -48,6 +49,10 @@ class LyricMediaItem: MediaItem {
         track_id = data["track_id"] as? String
         track_song_art_image_url = data["track_song_art_image_url"] as? String
         track_title = data["track_title"] as? String
+        
+        if let index = data["index"] as? Int {
+            self.index = index
+        }
 
         if let imageURL = artist_image_url {
             smallImage = imageURL

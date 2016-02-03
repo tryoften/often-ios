@@ -63,9 +63,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
 
     func requestData(animated: Bool = false) {
-        delay(0.5) {
-            self.showLoaderIfNeeded()
-        }
+        showLoaderIfNeeded()
     }
 
     func showLoaderIfNeeded() {

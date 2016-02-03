@@ -67,6 +67,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
     }
 
     override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         shouldSendScrollEvents = false
     }
 

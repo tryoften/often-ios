@@ -116,6 +116,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
         textProcessor?.textWillChange(textInput)
     }
 
+    #if !(KEYBOARD_DEBUG)
     override func updateViewConstraints() {
         super.updateViewConstraints()
 
@@ -125,6 +126,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
 
         setHeight(keyboardHeight)
     }
+    #endif
 
     func heightForOrientation(orientation: UIInterfaceOrientation, withTopBanner: Bool) -> CGFloat {
         let isPad = UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad

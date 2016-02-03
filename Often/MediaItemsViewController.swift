@@ -78,14 +78,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        delay(0.5) {
-            if !self.hasFetchedData {
-                self.requestData(true)
-                self.hasFetchedData = false
-            } else {
-                self.requestData(false)
-            }
-        }
+        requestData(animated)
     }
 
     override func requestData(animated: Bool = false) {
@@ -101,6 +94,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     func reloadData(animated: Bool = false, collectionTypeChanged: Bool = false) {
+        loaderTimeoutTimer?.invalidate()
+
         if viewModel.isDataLoaded {
             loaderView?.hidden = true
             collectionView?.scrollEnabled = true
@@ -109,15 +104,14 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 
                 if collection.isEmpty {
                     switch collectionType {
-                    case .Favorites: showEmptyStateViewForState(.NoFavorites, animated: true)
-                    case .Recents: showEmptyStateViewForState(.NoRecents, animated: true)
+                    case .Favorites: showEmptyStateViewForState(.NoFavorites, animated: animated)
+                    case .Recents: showEmptyStateViewForState(.NoRecents, animated: animated)
                     default: break
                     }
-                    emptyStateView?.hidden = false
                 } else {
                     emptyStateView?.hidden = true
                 #if !(KEYBOARD)
-                    collectionView?.setContentOffset(CGPointZero, animated: true)
+                    collectionView?.setContentOffset(CGPointZero, animated: animated)
                 #endif
                     collectionView?.reloadData()
                 }

@@ -226,7 +226,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
+        return CGSizeMake(UIScreen.mainScreen().bounds.width, MediaItemsSectionHeaderHeight)
     }
     
     // Empty States button actions
@@ -249,9 +249,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             let screenSizeBounds = UIScreen.mainScreen().bounds
 
             emptyStateView?.frame = CGRectMake(0, headerViewFrame.height, screenSizeBounds.width, screenSizeBounds.height - headerViewFrame.height)
-
         }
-        
     }
 
 }

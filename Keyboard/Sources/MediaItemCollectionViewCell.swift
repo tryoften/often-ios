@@ -138,7 +138,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         mainTextLabel.translatesAutoresizingMaskIntoConstraints = false
         mainTextLabel.font = UIFont(name: "OpenSans", size: 11.5)
         mainTextLabel.textColor = BlackColor.colorWithAlphaComponent(0.90)
-        mainTextLabel.numberOfLines = 2
+        mainTextLabel.numberOfLines = 3
         
         centerMetadataLabel = UILabel()
         centerMetadataLabel.translatesAutoresizingMaskIntoConstraints = false
