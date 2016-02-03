@@ -63,7 +63,7 @@ class BrowseTrackCollectionViewController: BrowseMediaItemViewController {
     }
 
     override func headerViewDidLoad() {
-        if let imageURLStr = track?.song_art_image_url,
+        if let imageURLStr = track?.mediumImage,
             let title = track?.title,
             let subtitle = track?.artist_name,
             let imageURL = NSURL(string: imageURLStr) {

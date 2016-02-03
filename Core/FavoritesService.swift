@@ -97,7 +97,7 @@ class FavoritesService: MediaItemsViewModel {
     override func sectionHeaderImageURL(collectionType: MediaItemsCollectionType, index: Int) -> NSURL? {
         let group = mediaItemGroupItemsForIndex(index, collectionType: collectionType)
         if !group.isEmpty {
-            if let lyric = group.first as? LyricMediaItem, urlString = lyric.artist_image_url, let imageURL = NSURL(string: urlString) {
+            if let lyric = group.first as? LyricMediaItem, urlString = lyric.smallImage, let imageURL = NSURL(string: urlString) {
                 return imageURL
             }
         }
