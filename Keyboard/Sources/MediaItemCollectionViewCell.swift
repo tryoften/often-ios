@@ -51,11 +51,11 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    var avatarImage: UIImage? {
+    var avatarImageURL: NSURL? {
         didSet {
-            sourceLogoView.image = avatarImage
 
-            if let _ = avatarImage {
+            if let _ = avatarImageURL {
+                sourceLogoView.setImageWithURL(avatarImageURL!)
                 avatarImageViewWidthConstraint.constant = 18
                 leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left + 24
             } else {
@@ -191,7 +191,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         
         leftHeaderLabelLeftPaddingConstraint = leftHeaderLabel.al_left == al_left + contentEdgeInsets.left
 
-        avatarImage = nil
+        avatarImageURL = nil
 
         backgroundColor = WhiteColor
         layer.cornerRadius = 2.0

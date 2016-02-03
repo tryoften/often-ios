@@ -18,6 +18,7 @@ class MediaItemsViewModel: BaseViewModel {
     var collections: [MediaItemsCollectionType: [MediaItem]]
     var collectionEndpoints: [MediaItemsCollectionType: Firebase]
     var mediaItemGroups: [MediaItemGroup]
+    var mediaItems: [MediaItem]
     
     var userState: UserState = .NonEmpty
     var hasSeenTwitter: Bool = true
@@ -30,6 +31,7 @@ class MediaItemsViewModel: BaseViewModel {
         collectionEndpoints = [:]
         collections = [:]
         mediaItemGroups = []
+        mediaItems = []
         
         super.init(baseRef: baseRef, path: nil)
         
@@ -95,29 +97,31 @@ class MediaItemsViewModel: BaseViewModel {
     func separateGroupByArtist(collectionType: MediaItemsCollectionType, items: [MediaItem]) -> [MediaItemGroup] {
         switch collectionType {
         case .Favorites:
-            var groups: [String: MediaItemGroup] = [:]
-            for item in items {
-                guard let lyric = item as? LyricMediaItem,
-                    let artistName = lyric.artist_name else {
-                        continue
+            if mediaItems.count != items.count {
+                var groups: [String: MediaItemGroup] = [:]
+                for item in items {
+                    guard let lyric = item as? LyricMediaItem,
+                        let artistName = lyric.artist_name else {
+                            continue
+                    }
+                    
+                    if let _ = groups[artistName] {
+                        groups[artistName]!.items.append(item)
+                    } else {
+                        let group = MediaItemGroup(dictionary: [
+                            "title": artistName,
+                            ])
+                        group.items = [item]
+                        groups[artistName] = group
+                    }
                 }
                 
-                if let _ = groups[artistName] {
-                    groups[artistName]!.items.append(item)
-                } else {
-                    let group = MediaItemGroup(dictionary: [
-                        "title": artistName,
-                        ])
-                    group.items = [item]
-                    groups[artistName] = group
+                mediaItemGroups = groups.values.sort({ $0.title < $1.title })
+                for group in mediaItemGroups {
+                    group.items = sortLyricsByTrack(group.items)
                 }
             }
-            
-            let sortedGroups = groups.values.sort({ $0.title < $1.title })
-            for group in sortedGroups {
-                group.items = sortLyricsByTrack(group.items)
-            }
-            return sortedGroups
+            return mediaItemGroups
         case .Recents:
             let group = MediaItemGroup(dictionary: [
                 "id": "recents",

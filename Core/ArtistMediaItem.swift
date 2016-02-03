@@ -34,14 +34,14 @@ class ArtistMediaItem: MediaItem {
 
         if let images = data["images"] as? NSDictionary,
             let image_url_images = images["image_url"] as? NSDictionary,
-            let small = image_url_images["small"] as? NSDictionary,
+            let small = image_url_images["square_small"] as? NSDictionary,
             let image_url = small["url"] as? String {
                 self.smallImage = image_url
         }
 
         if let images = data["images"] as? NSDictionary,
             let image_url_images = images["image_url"] as? NSDictionary,
-            let medium = image_url_images["medium"] as? NSDictionary,
+            let medium = image_url_images["square"] as? NSDictionary,
             let image_url = medium["url"] as? String {
                 self.mediumImage = image_url
         }
