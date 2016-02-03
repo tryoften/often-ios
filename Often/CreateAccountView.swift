@@ -19,7 +19,6 @@ class CreateAccountView: UIView {
     let passwordTextField: UITextField
     let passwordTextFieldDivider: UIView
     let signupButton: UIButton
-    let signupTwitterButton: UIButton
     let signupFacebookButton: UIButton
     let orSpacer: ViewSpacerWithText
     let cancelButton: UIButton
@@ -90,7 +89,6 @@ class CreateAccountView: UIView {
         passwordTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         signupButton = LoginButton.EmailButton()
-        signupTwitterButton = LoginButton.TwitterButton()
         signupFacebookButton = LoginButton.FacebookButton()
         
         orSpacer = ViewSpacerWithText(title:"Or With")
@@ -124,7 +122,6 @@ class CreateAccountView: UIView {
         addSubview(passwordTextFieldDivider)
         addSubview(signupFacebookButton)
         addSubview(signupButton)
-        addSubview(signupTwitterButton)
         addSubview(orSpacer)
         addSubview(cancelButton)
         addSubview(termsOfUseAndPrivacyPolicyButton)
@@ -195,17 +192,12 @@ class CreateAccountView: UIView {
         ])
 
         addConstraints([
-            signupTwitterButton.al_top == orSpacer.al_bottom + 5,
-            signupTwitterButton.al_left == al_left + 40,
-            signupTwitterButton.al_right == al_centerX - 2,
-            signupTwitterButton.al_height == 50,
-
-            signupFacebookButton.al_top == signupTwitterButton.al_top,
-            signupFacebookButton.al_left == al_centerX + 2,
+            signupFacebookButton.al_top == orSpacer.al_bottom + 5,
+            signupFacebookButton.al_left == al_left + 40,
             signupFacebookButton.al_right == al_right - 40,
             signupFacebookButton.al_height == 50,
 
-            termsOfUseAndPrivacyPolicyButton.al_top == signupTwitterButton.al_bottom + 10,
+            termsOfUseAndPrivacyPolicyButton.al_top == signupFacebookButton.al_bottom + 10,
             termsOfUseAndPrivacyPolicyButton.al_left == al_left + 40,
             termsOfUseAndPrivacyPolicyButton.al_right == al_right - 40,
             termsOfUseAndPrivacyPolicyButton.al_height == 36,

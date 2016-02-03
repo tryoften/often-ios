@@ -58,6 +58,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        timer?.invalidate()
         timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
 
