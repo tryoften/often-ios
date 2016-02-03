@@ -17,7 +17,6 @@ class SigninView: UIView {
     let passwordTextFieldDivider: UIView
     let orSpacer: ViewSpacerWithText
     let signinButton: UIButton
-    let signinTwitterButton: UIButton
     let signinFacebookButton: UIButton
     let forgetPasswordButton: UIButton
     let cancelButton: UIButton
@@ -64,8 +63,7 @@ class SigninView: UIView {
         
         signinButton = LoginButton.EmailButton()
         signinButton.setTitle("sign in".uppercaseString, forState: .Normal)
-        
-        signinTwitterButton = LoginButton.TwitterButton()
+
         signinFacebookButton = LoginButton.FacebookButton()
 
         orSpacer = ViewSpacerWithText(title:"Or With")
@@ -94,7 +92,6 @@ class SigninView: UIView {
         addSubview(passwordTextField)
         addSubview(passwordTextFieldDivider)
         addSubview(signinButton)
-        addSubview(signinTwitterButton)
         addSubview(signinFacebookButton)
         addSubview(forgetPasswordButton)
         addSubview(orSpacer)
@@ -154,13 +151,8 @@ class SigninView: UIView {
             signinButton.al_right == al_right - 40,
             signinButton.al_height == 50,
             
-            signinTwitterButton.al_top == orSpacer.al_bottom + 5,
-            signinTwitterButton.al_left == al_left + 40,
-            signinTwitterButton.al_right == al_centerX - 2,
-            signinTwitterButton.al_height == 50,
-
-            signinFacebookButton.al_top == signinTwitterButton.al_top,
-            signinFacebookButton.al_left == al_centerX + 2,
+            signinFacebookButton.al_top == orSpacer.al_bottom + 5,
+            signinFacebookButton.al_left == al_left + 40,
             signinFacebookButton.al_right == al_right - 40,
             signinFacebookButton.al_height == 50,
 
