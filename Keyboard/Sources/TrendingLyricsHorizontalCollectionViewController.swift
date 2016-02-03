@@ -83,8 +83,8 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
             return cell
         }
 
-        if let urlString = lyric.artist_image_url, let imageURL = NSURL(string: urlString) {
-            cell.sourceLogoView.setImageWithURL(imageURL)
+        if let url = lyric.smallImage, let imageURL = NSURL(string: url) {
+            cell.avatarImageURL = imageURL
         }
 
         cell.leftHeaderLabel.text = lyric.artist_name

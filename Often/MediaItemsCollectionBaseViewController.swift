@@ -216,7 +216,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.leftMetadataLabel.text = lyric.created?.timeAgoSinceNow()
             cell.mainTextLabel.textAlignment = .Center
             cell.showImageView = false
-            cell.avatarImage = UIImage(named: "placeholder")
+            cell.avatarImageURL = nil
         default:
             break
         }
@@ -229,7 +229,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 print("Loading image: \(imageURL)")
                 cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
                     if result.type == .Lyric {
-                        cell.avatarImage = image
+                        cell.avatarImageURL = imageURL
                     } else {
                         cell.contentImageView.image = image
                     }

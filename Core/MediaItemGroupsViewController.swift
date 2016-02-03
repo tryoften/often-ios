@@ -186,7 +186,7 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
                     return TrackCollectionViewCell()
             }
 
-            if let imageURLStr = track.song_art_image_url, let imageURL = NSURL(string: imageURLStr) {
+            if let imageURLStr = track.mediumImage, let imageURL = NSURL(string: imageURLStr) {
                 cell.imageView.setImageWithAnimation(imageURL)
             }
             cell.titleLabel.text = track.album_name
