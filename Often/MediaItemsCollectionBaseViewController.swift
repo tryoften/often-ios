@@ -120,6 +120,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
         emptyStateView?.closeButton.addTarget(self, action: "didTapEmptyStateViewCloseButton", forControlEvents: .TouchUpInside)
+        
 
         if let emptyStateView = emptyStateView {
             emptyStateView.alpha = 0.0

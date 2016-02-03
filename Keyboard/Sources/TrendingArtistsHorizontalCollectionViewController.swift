@@ -38,20 +38,6 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         collectionView!.showsHorizontalScrollIndicator = false
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
-        guard let cells = collectionView?.visibleCells() else {
-            return
-        }
-
-        for cell in cells {
-            if let cell = cell as? ArtistCollectionViewCell {
-                cell.imageView.image = nil
-            }
-        }
-    }
-
     class func provideLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSizeMake(ArtistCollectionViewCellWidth, 210)

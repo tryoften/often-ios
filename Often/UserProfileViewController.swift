@@ -20,7 +20,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         viewModel.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
-        checkUserEmptyStateStatus()
         collectionView?.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 70.0, right: 0.0)
     }
     
@@ -57,6 +56,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
                 withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
         }
+        checkUserEmptyStateStatus()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,6 +64,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
 
         promptUserToRegisterPushNotifications()
         reloadUserData()
+        checkUserEmptyStateStatus()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -206,13 +207,14 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     func checkUserEmptyStateStatus() {
         collectionView?.scrollEnabled = false
         isKeyboardEnabled()
-        reloadData()
     }
     
     func isKeyboardEnabled() {
         if viewModel.sessionManagerFlags.isKeyboardInstalled {
             hideEmptyStateView()
+            collectionView?.scrollEnabled = true
         } else {
+            viewModel.userState = .NoKeyboard
             collectionView?.scrollEnabled = false
             showEmptyStateViewForState(.NoKeyboard)
             emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)

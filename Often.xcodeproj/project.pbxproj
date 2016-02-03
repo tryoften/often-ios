@@ -1208,7 +1208,6 @@
 		811FA29F1BF13BE500E07660 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3B58FADC1C44522100A38F9E /* SocialAccount.swift */,
 				3BEE47171BE16516002E4394 /* FilterMap.swift */,
 				3BEE471A1BE17D5D002E4394 /* FilterButton.swift */,
 			);

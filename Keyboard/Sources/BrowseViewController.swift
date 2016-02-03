@@ -71,20 +71,6 @@ class BrowseViewController: MediaItemGroupsViewController,
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-
-        guard let cells = collectionView?.visibleCells() else {
-            return
-        }
-
-        for cell in cells {
-            if let cell = cell as? TrackCollectionViewCell {
-                cell.imageView.image = nil
-            }
-        }
-    }
-
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         updateReachabilityStatusBar()

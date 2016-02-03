@@ -95,6 +95,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     func reloadData(animated: Bool = false, collectionTypeChanged: Bool = false) {
         loaderTimeoutTimer?.invalidate()
+        collectionView?.scrollEnabled = true
 
         if viewModel.isDataLoaded {
             loaderView?.hidden = true
