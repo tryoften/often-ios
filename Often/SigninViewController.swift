@@ -36,7 +36,6 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
         signinView.cancelButton.addTarget(self,  action: "didTapcancelButton:", forControlEvents: .TouchUpInside)
         signinView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
         signinView.signinButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-        signinView.signinTwitterButton.addTarget(self, action:"didTapButton:", forControlEvents: .TouchUpInside)
         signinView.signinFacebookButton.addTarget(self, action:"didTapButton:", forControlEvents: .TouchUpInside)
     }
 
