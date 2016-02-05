@@ -14,7 +14,7 @@ class FavoritesEmptyStateView: EmptyStateView {
         let description = "Tap any lyric to start adding favorites"
         let image = UIImage(named: "favoritesemptystate")!
         
-        super.init(frame: CGRectZero)
+        super.init(state: .NoFavorites)
         
         titleLabel.text = title
         descriptionLabel.text = description

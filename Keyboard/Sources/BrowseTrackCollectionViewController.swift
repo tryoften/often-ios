@@ -23,9 +23,10 @@ class BrowseTrackCollectionViewController: BrowseMediaItemViewController {
 
     var trackId: String
 
-    init(trackId: String, viewModel: BrowseViewModel) {
+    init(trackId: String, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         self.trackId = trackId
         super.init(viewModel: viewModel)
+        self.textProcessor = textProcessor
 
     #if KEYBOARD
         collectionView?.contentInset = UIEdgeInsetsMake(63.0 + KeyboardSearchBarHeight, 0, 0, 0)

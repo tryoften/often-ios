@@ -127,12 +127,12 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
             }
         case .Artist:
             if let artist = item as? ArtistMediaItem {
-                let artistsVC = BrowseArtistCollectionViewController(artistId: artist.id, viewModel: viewModel)
+                let artistsVC = BrowseArtistCollectionViewController(artistId: artist.id, viewModel: viewModel, textProcessor: textProcessor)
                 self.navigationController?.pushViewController(artistsVC, animated: true)
             }
         case .Track:
             if let track = item as? TrackMediaItem {
-                let lyricsVC = BrowseTrackCollectionViewController(trackId: track.id, viewModel: viewModel)
+                let lyricsVC = BrowseTrackCollectionViewController(trackId: track.id, viewModel: viewModel, textProcessor: textProcessor)
                 self.navigationController?.pushViewController(lyricsVC, animated: true)
             }
         default:
@@ -207,15 +207,13 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
     }
 
     func presentBrowseArtistCollectionViewController(artistMediaItem: ArtistMediaItem) {
-        let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: viewModel)
-        browseVC.textProcessor = textProcessor
+        let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: viewModel, textProcessor: textProcessor)
         navigationController?.pushViewController(browseVC, animated: true)
         containerViewController?.resetPosition()
     }
 
     func presentBrowseTrackCollectionViewController(trackMediaItem: TrackMediaItem) {
-        let trackVC = BrowseTrackCollectionViewController(trackId: trackMediaItem.id, viewModel: viewModel)
-        trackVC.textProcessor = textProcessor
+        let trackVC = BrowseTrackCollectionViewController(trackId: trackMediaItem.id, viewModel: viewModel, textProcessor: textProcessor)
         navigationController?.pushViewController(trackVC, animated: true)
         containerViewController?.resetPosition()
     }

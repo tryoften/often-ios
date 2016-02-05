@@ -56,7 +56,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
                 withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
         }
-        checkUserEmptyStateStatus()
+//        checkUserEmptyStateStatus()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,12 +64,12 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
 
         promptUserToRegisterPushNotifications()
         reloadUserData()
-        checkUserEmptyStateStatus()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+        checkUserEmptyStateStatus()
     }
     
     override func didReceiveMemoryWarning() {
@@ -218,7 +218,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             collectionView?.scrollEnabled = false
             showEmptyStateViewForState(.NoKeyboard)
             emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
-            emptyStateView?.hidden = false
         }
     }
        

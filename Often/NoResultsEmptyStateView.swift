@@ -14,7 +14,7 @@ class NoResultsEmptyStateView: EmptyStateView {
         let description = "Something went wrong with your search"
         let image = UIImage(named: "noresultsemptystate")!
         
-        super.init(frame: CGRectZero)
+        super.init(state: .NoResults)
         
         primaryButton.removeFromSuperview()
         
