@@ -25,3 +25,4 @@
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayoutAttributes.h>
 #import <DateTools/DateTools.h>
 #import "NJKScrollFullScreen.h"
+#import <BDKCollectionIndexView/BDKCollectionIndexView.h>
