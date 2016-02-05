@@ -16,12 +16,13 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaItemsViewModel) {
         super.init(collectionViewLayout: collectionViewLayout, collectionType: .Favorites, viewModel: viewModel)
-        
+
         viewModel.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
         checkUserEmptyStateStatus()
         collectionView?.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 70.0, right: 0.0)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,8 +58,9 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
                 withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
         }
+
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -74,7 +76,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let screenWidth = UIScreen.mainScreen().bounds.width

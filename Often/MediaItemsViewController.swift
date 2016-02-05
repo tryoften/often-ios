@@ -21,6 +21,7 @@ let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 
 class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: MediaItemsViewModel
+    var alphabeticalSidebar: CollectionViewAlphabeticalSidebar
 
     var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
@@ -42,7 +43,11 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaItemsCollectionType, viewModel: MediaItemsViewModel) {
         self.viewModel = viewModel
-        
+
+        alphabeticalSidebar = CollectionViewAlphabeticalSidebar(frame: CGRectZero, indexTitles: SidebarIndexMap)
+        alphabeticalSidebar.translatesAutoresizingMaskIntoConstraints = false
+        alphabeticalSidebar.alpha = 0.2
+
         collectionType = aCollectionType
         hasFetchedData = false
         
@@ -52,16 +57,30 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
-        
+
+        alphabeticalSidebar.addTarget(self, action: "indexViewValueChanged:", forControlEvents: .ValueChanged)
+
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.registerClass(MediaItemsSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
-            
+
         }
+
+        view.addSubview(alphabeticalSidebar)
+        setupLayout()
     }
-    
+
+    func setupLayout() {
+        view.addConstraints([
+            alphabeticalSidebar.al_right == view.al_right,
+            alphabeticalSidebar.al_width == 28.0,
+            alphabeticalSidebar.al_bottom == view.al_bottom - 20,
+            alphabeticalSidebar.al_top == view.al_top + KeyboardSearchBarHeight
+            ])
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -88,6 +107,11 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         }
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+    }
+
     override func requestData(animated: Bool = false) {
         super.requestData(animated)
 
@@ -102,6 +126,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     func reloadData(animated: Bool = false, collectionTypeChanged: Bool = false) {
         if viewModel.isDataLoaded {
+            setupSidebar()
             loaderView?.hidden = true
             collectionView?.scrollEnabled = true
             if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) {
@@ -127,6 +152,19 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         }
     }
 
+    func setupSidebar() {
+        switch collectionType {
+        case .Favorites:
+            alphabeticalSidebar.hidden = false
+            viewModel.indexSectionHeaderTitles()
+            alphabeticalSidebar.reloadData()
+
+        default:
+            alphabeticalSidebar.hidden = true
+        }
+
+    }
+
     func showData(animated: Bool = false) {
         collectionView?.alpha = 0.0
         collectionView?.reloadSections(NSIndexSet(index: 0))
@@ -135,6 +173,19 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             self.collectionView?.alpha = 1.0
         })
         collectionView?.scrollEnabled = true
+    }
+
+    func indexViewValueChanged(sender: BDKCollectionIndexView) {
+        if let number = viewModel.sectionForSectionIndexTitleAtIndex(sender.currentIndexTitle) {
+            let path = NSIndexPath(forItem: 0, inSection: number)
+            collectionView?.scrollToItemAtIndexPath(path, atScrollPosition: .Top, animated: false)
+            // If you're using a collection view, bump the y-offset by a certain number of points
+            // because it won't otherwise account for any section headers you may have.
+            collectionView?.contentOffset = CGPoint(x: collectionView!.contentOffset.x,
+                y: collectionView!.contentOffset.y)
+        }
+
+        
     }
 
     override func didTapEmptyStateViewCloseButton() {

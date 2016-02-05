@@ -19,6 +19,7 @@ class MediaItemsViewModel: BaseViewModel {
     var collectionEndpoints: [MediaItemsCollectionType: Firebase]
     var mediaItemGroups: [MediaItemGroup]
     var mediaItems: [MediaItem]
+    var sectionIndex: [String: NSInteger?]
     
     var userState: UserState = .NonEmpty
     var hasSeenTwitter: Bool = true
@@ -32,7 +33,8 @@ class MediaItemsViewModel: BaseViewModel {
         collections = [:]
         mediaItemGroups = []
         mediaItems = []
-        
+        sectionIndex = [:]
+
         super.init(baseRef: baseRef, path: nil)
         
         do {
@@ -170,6 +172,31 @@ class MediaItemsViewModel: BaseViewModel {
             return sectionHeaderTitle(collectionType)
         }
         return ""
+    }
+
+    func indexSectionHeaderTitles() {
+        let groups = generateMediaItemGroupsForCollectionType(.Favorites)
+        sectionIndex = [:]
+
+        for letter in SidebarIndexMap {
+            sectionIndex[letter] = nil
+        }
+
+        for i in 0..<groups.count {
+            if let artistLyric = groups[i].items.first as? LyricMediaItem, let character = artistLyric.artist_name?.characters.first {
+                if sectionIndex["\(character)"] == nil {
+                    sectionIndex["\(character)"] = i
+                }
+            }
+        }
+    }
+
+    func sectionForSectionIndexTitleAtIndex(title: String) -> NSInteger? {
+        guard let index = sectionIndex[title] else {
+            return nil
+        }
+
+        return index
     }
     
     func sectionHeaderImageURL(collectionType: MediaItemsCollectionType, index: Int) -> NSURL? {

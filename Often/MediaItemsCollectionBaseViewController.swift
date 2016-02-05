@@ -113,7 +113,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
     func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
         collectionView?.scrollEnabled = false
-        
+
         emptyStateView?.removeFromSuperview()
 
         guard state != .NonEmpty else {
