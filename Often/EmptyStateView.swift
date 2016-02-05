@@ -54,12 +54,6 @@ class EmptyStateView: UIView {
     var imageViewTopConstraint: NSLayoutConstraint?
     var imageViewTopPadding: CGFloat = 0
 
-    override var hidden: Bool {
-        didSet {
-
-        }
-    }
-
     static func emptyStateViewForUserState(state: UserState) -> EmptyStateView? {
         switch state {
         case .NoKeyboard:
