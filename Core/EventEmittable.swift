@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import EmitterKit
 
 /**
     Protocol that defines a set of events that can top

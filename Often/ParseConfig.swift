@@ -15,10 +15,6 @@ class ParseConfig {
 #if !DEBUG
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         PFConfig.getConfigInBackgroundWithBlock { (config, error) in
-            if let newBaseURL = PFConfig.currentConfig().objectForKey("firebase_root") as? String {
-                BaseURL = newBaseURL
-            }
-            
             if let newAppStoreLink = PFConfig.currentConfig().objectForKey("AppStoreLink") as? String {
                 AppStoreLink = newAppStoreLink
             }

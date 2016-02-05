@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import EmitterKit
 
 class FavoritesService: MediaItemsViewModel {
     static let defaultInstance = FavoritesService()

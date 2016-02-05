@@ -9,7 +9,6 @@
 //  swiftlint:disable function_body_length
 
 import UIKit
-import EmitterKit
 
 let MediaItemCollectionViewCellReuseIdentifier = "MediaItemsCollectionViewCell"
 
