@@ -310,7 +310,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             }
         }
         
-        cell.overlayVisible = false
+//        cell.overlayVisible = false
     }
     
     func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
