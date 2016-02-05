@@ -56,7 +56,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
                 withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
         }
-//        checkUserEmptyStateStatus()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -80,7 +79,11 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         super.viewDidLayoutSubviews()
         let screenWidth = UIScreen.mainScreen().bounds.width
         let screenHeight = UIScreen.mainScreen().bounds.height
-        let headerHeight = UserProfileHeaderView.preferredSize.height
+
+        var headerHeight = UserProfileHeaderView.preferredSize.height
+        if let headerViewFrame = headerView?.frame {
+            headerHeight = CGRectGetHeight(headerViewFrame)
+        }
         
         var tabBarHeight: CGFloat = 0.0
         if let tabBarController = tabBarController {
@@ -245,12 +248,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
 
     override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
         super.showEmptyStateViewForState(state, animated: animated, completion: completion)
-
-        if let headerViewFrame = headerView?.frame {
-            let screenSizeBounds = UIScreen.mainScreen().bounds
-
-            emptyStateView?.frame = CGRectMake(0, headerViewFrame.height, screenSizeBounds.width, screenSizeBounds.height - headerViewFrame.height)
-        }
+        viewDidLayoutSubviews()
     }
 
 }
