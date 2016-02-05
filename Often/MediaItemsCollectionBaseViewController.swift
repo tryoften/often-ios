@@ -309,8 +309,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 textProcessor?.defaultProxy.deleteBackward()
             }
         }
-        
-//        cell.overlayVisible = false
     }
     
     func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
