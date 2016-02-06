@@ -12,14 +12,13 @@ import Crashlytics
 class SessionManager: NSObject, AccountManagerDelegate {
     static let defaultManager = SessionManager()
     weak var delegate: SessionManagerDelegate?
+    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
+    private var firebase: Firebase
+    private var accountManager: AccountManager
     var currentUser: User? {
         return accountManager.currentUser
     }
 
-    let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    private var firebase: Firebase
-    private var accountManager: AccountManager
-    
     override init() {
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
         SEGAnalytics.setupWithConfiguration(configuration)

@@ -66,8 +66,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
             return
         }
 
-        let artistsVC = BrowseArtistCollectionViewController(artistId: artist.id, viewModel: viewModel)
-        artistsVC.textProcessor = textProcessor
+        let artistsVC = BrowseArtistCollectionViewController(artistId: artist.id, viewModel: viewModel, textProcessor: textProcessor)
         self.navigationController?.pushViewController(artistsVC, animated: true)
     }
 

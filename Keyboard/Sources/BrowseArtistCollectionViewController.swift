@@ -27,9 +27,10 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
 
     var artistId: String
 
-    init(artistId: String, viewModel: BrowseViewModel) {
+    init(artistId: String, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         self.artistId = artistId
         super.init(viewModel: viewModel)
+        self.textProcessor = textProcessor
 
     #if KEYBOARD
         collectionView?.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0)
@@ -129,8 +130,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
             return
         }
 
-        let tracksVC = BrowseTrackCollectionViewController(trackId: track.id, viewModel: self.viewModel)
-        tracksVC.textProcessor = textProcessor
+        let tracksVC = BrowseTrackCollectionViewController(trackId: track.id, viewModel: self.viewModel, textProcessor: textProcessor)
 
         self.navigationController?.pushViewController(tracksVC, animated: true)
     }
