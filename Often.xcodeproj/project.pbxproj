@@ -15,9 +15,6 @@
 		30E00C7A1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
 		30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
 		3B01B3781C61D40E002ED18A /* CollectionViewAlphabeticalSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01B3771C61D40E002ED18A /* CollectionViewAlphabeticalSidebar.swift */; };
-		3B01B37D1C61E47F002ED18A /* SidebarIndexMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01B37C1C61E47F002ED18A /* SidebarIndexMap.swift */; };
-		3B01B37E1C61E522002ED18A /* SidebarIndexMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01B37C1C61E47F002ED18A /* SidebarIndexMap.swift */; };
-		3B01B37F1C61E523002ED18A /* SidebarIndexMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01B37C1C61E47F002ED18A /* SidebarIndexMap.swift */; };
 		3B01B3801C61F3D7002ED18A /* CollectionViewAlphabeticalSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01B3771C61D40E002ED18A /* CollectionViewAlphabeticalSidebar.swift */; };
 		3B01B3811C61F3D8002ED18A /* CollectionViewAlphabeticalSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01B3771C61D40E002ED18A /* CollectionViewAlphabeticalSidebar.swift */; };
 		3B0DC3891C4058F9009B182F /* ViewSpacerWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */; };
@@ -756,7 +753,6 @@
 		30E00C761BC86C3D00DDF24C /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = Carthage/Build/iOS/Spring.framework; sourceTree = "<group>"; };
 		30E00C791BC86CEA00DDF24C /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		3B01B3771C61D40E002ED18A /* CollectionViewAlphabeticalSidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewAlphabeticalSidebar.swift; sourceTree = "<group>"; };
-		3B01B37C1C61E47F002ED18A /* SidebarIndexMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarIndexMap.swift; sourceTree = "<group>"; };
 		3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSpacerWithText.swift; sourceTree = "<group>"; };
 		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF31B8F61AF004868E5 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
@@ -1247,7 +1243,6 @@
 			isa = PBXGroup;
 			children = (
 				3BEE47171BE16516002E4394 /* FilterMap.swift */,
-				3B01B37C1C61E47F002ED18A /* SidebarIndexMap.swift */,
 				3BEE471A1BE17D5D002E4394 /* FilterButton.swift */,
 			);
 			name = Models;
@@ -2402,7 +2397,6 @@
 				81BDA72E1C3F24BE00198AF8 /* LyricMediaItem.swift in Sources */,
 				810B05061C47357F00BA731B /* MediaItemPageHeaderView.swift in Sources */,
 				6951549A1BF2C65700AAAFA4 /* SkipSignupViewController.swift in Sources */,
-				3B01B37D1C61E47F002ED18A /* SidebarIndexMap.swift in Sources */,
 				81F833901C1A38B2001B8662 /* KeyboardViewController.swift in Sources */,
 				8107F7E21BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
 				81E26D7F1B65B09D00FC1F2F /* LayoutConstants.swift in Sources */,
@@ -2648,7 +2642,6 @@
 				81153CBD1BBC7FC000A91EAD /* TogglePanelButton.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
 				81E26D891B65BC8D00FC1F2F /* KeyboardKeyBackground.swift in Sources */,
-				3B01B37F1C61E523002ED18A /* SidebarIndexMap.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				813323851C2227840084918B /* KeyboardContainerViewController.swift in Sources */,
 				69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */,
@@ -2898,7 +2891,6 @@
 				81DA3F2D1C24BE85006822D3 /* Window.swift in Sources */,
 				3BAC294E1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift in Sources */,
 				81BDA71F1C3F096300198AF8 /* BaseViewModel.swift in Sources */,
-				3B01B37E1C61E522002ED18A /* SidebarIndexMap.swift in Sources */,
 				81DA3F301C24BE85006822D3 /* KeyboardKeyBackground.swift in Sources */,
 				81DA3F321C24BE85006822D3 /* UserProfileSettingsSectionHeaderView.swift in Sources */,
 				81DA3F331C24BE85006822D3 /* SettingsWebViewController.swift in Sources */,

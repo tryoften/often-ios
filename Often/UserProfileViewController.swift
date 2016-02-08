@@ -207,10 +207,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         collectionType = .Recents
     }
 
-    override func setupSidebar() {
-        alphabeticalSidebar.hidden = true
-    }
-    
     //MARK: Check for empty state
     func checkUserEmptyStateStatus() {
         collectionView?.scrollEnabled = false

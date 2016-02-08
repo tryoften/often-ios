@@ -16,10 +16,10 @@ class MediaItemsViewModel: BaseViewModel {
     weak var delegate: MediaItemsViewModelDelegate?
     
     var collections: [MediaItemsCollectionType: [MediaItem]]
-    var collectionEndpoints: [MediaItemsCollectionType: Firebase]
-    var mediaItemGroups: [MediaItemGroup]
-    var mediaItems: [MediaItem]
-    var sectionIndex: [String: NSInteger?]
+    private var collectionEndpoints: [MediaItemsCollectionType: Firebase]
+    private var mediaItemGroups: [MediaItemGroup]
+    private var mediaItems: [MediaItem]
+    private var sectionIndex: [String: NSInteger?]
     
     var userState: UserState = .NonEmpty
     var hasSeenTwitter: Bool = true
@@ -99,6 +99,7 @@ class MediaItemsViewModel: BaseViewModel {
     func separateGroupByArtist(collectionType: MediaItemsCollectionType, items: [MediaItem]) -> [MediaItemGroup] {
         switch collectionType {
         case .Favorites:
+            // TODO: use actual comparison between mediaItems and new items collection
             if mediaItems.count != items.count {
                 var groups: [String: MediaItemGroup] = [:]
                 for item in items {
@@ -122,6 +123,7 @@ class MediaItemsViewModel: BaseViewModel {
                 for group in mediaItemGroups {
                     group.items = sortLyricsByTrack(group.items)
                 }
+                indexSectionHeaderTitles(mediaItemGroups)
             }
             return mediaItemGroups
         case .Recents:
@@ -142,12 +144,7 @@ class MediaItemsViewModel: BaseViewModel {
         }
     }
     
-    func sortLyricsByTrack(groups: [MediaItem]) -> [MediaItem] {
-        if let unsorted = groups as? [LyricMediaItem] {
-            return unsorted.sort({ $0.track_title < $1.track_title })
-        }
-        return groups
-    }
+
     
     func mediaItemGroupItemsForIndex(index: Int, collectionType: MediaItemsCollectionType) -> [MediaItem] {
         let groups = generateMediaItemGroupsForCollectionType(collectionType)
@@ -174,12 +171,30 @@ class MediaItemsViewModel: BaseViewModel {
         return ""
     }
 
-    func indexSectionHeaderTitles() {
-        let groups = generateMediaItemGroupsForCollectionType(.Favorites)
+    func sectionForSectionIndexTitle(title: String) -> NSInteger? {
+        guard let index = sectionIndex[title] else {
+            return nil
+        }
+
+        return index
+    }
+
+    func sectionHeaderImageURL(collectionType: MediaItemsCollectionType, index: Int) -> NSURL? {
+        return nil
+    }
+
+    private func sortLyricsByTrack(groups: [MediaItem]) -> [MediaItem] {
+        if let unsorted = groups as? [LyricMediaItem] {
+            return unsorted.sort({ $0.track_title < $1.track_title })
+        }
+        return groups
+    }
+
+    private func indexSectionHeaderTitles(groups: [MediaItemGroup]) {
         sectionIndex = [:]
 
-        for letter in SidebarIndexMap {
-            sectionIndex[letter] = nil
+        for indexTitle in AlphabeticalSidebarIndexTitles {
+            sectionIndex[indexTitle] = nil
         }
 
         for i in 0..<groups.count {
@@ -204,20 +219,8 @@ class MediaItemsViewModel: BaseViewModel {
 
         }
     }
-
-    func sectionForSectionIndexTitleAtIndex(title: String) -> NSInteger? {
-        guard let index = sectionIndex[title] else {
-            return nil
-        }
-
-        return index
-    }
     
-    func sectionHeaderImageURL(collectionType: MediaItemsCollectionType, index: Int) -> NSURL? {
-        return nil
-    }
-    
-    func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
+    private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
         var links: [MediaItem] = []
         var ids = [String]()
         

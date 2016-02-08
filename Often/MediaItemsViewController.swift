@@ -120,7 +120,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         loaderTimeoutTimer?.invalidate()
 
         if viewModel.isDataLoaded {
-            alphabeticalSidebar?.reloadData()
             hideLoadingView()
 
             if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) {
