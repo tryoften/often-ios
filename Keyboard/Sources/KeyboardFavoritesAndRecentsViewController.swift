@@ -22,6 +22,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
             collectionView?.registerClass(ShareOftenMessageHeaderView.self,
                 forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "messageHeader")
+            setupAlphabeticalSidebar()
         } else {
             let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout()
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)

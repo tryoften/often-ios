@@ -42,14 +42,14 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
             UIImage(named: "productWalkthroughStep_1")!,
             UIImage(named: "productWalkthroughStep_2")!,
             UIImage(named: "productWalkthroughStep_3")!,
-            UIImage(named: "productWalkthroughStep_4")!,
+            UIImage(named: "productWalkthroughStep_4")!
         ]
         
         pagesubTitle = [
             "Search, collect & share lyrics, \n in any app, right from your keyboard",
             "Save all the best lyrics to your Favorites & easily share them again later",
             "Discover the hottest lyrics, songs & artists right inside your keyboard",
-            "Powered by Lyricfind, search helps \n you find any lyric, song or artist"
+            "Powered by Lyricfind, Often helps \n you find any lyric, song or artist"
         ]
         
         super.init(viewModel: viewModel)
@@ -133,7 +133,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         loginView.subtitleLabel.textAlignment = .Center
         
         scrollTimer?.invalidate()
-        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(4.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(5.5, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
     
 

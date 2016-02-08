@@ -28,6 +28,7 @@ PODS:
     - FlurrySDK (= 4.4.0)
   - Analytics/Segmentio (1.11.3):
     - Analytics/Core-iOS
+  - BDKCollectionIndexView (2.2.1)
   - Bolts (1.5.1):
     - Bolts/AppLinks (= 1.5.1)
     - Bolts/Tasks (= 1.5.1)
@@ -61,6 +62,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (= 2.6.0)
   - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
+  - BDKCollectionIndexView
   - CSStickyHeaderFlowLayout
   - DateTools (~> 1.6)
   - Facebook-iOS-SDK (~> 3.0)
@@ -84,6 +86,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
+  BDKCollectionIndexView: 819bd123d618f20c061caacd409e2d8f1590df7d
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60

@@ -26,3 +26,4 @@
 #import <DateTools/DateTools.h>
 #import "NJKScrollFullScreen.h"
 #import "UIViewController+NJKFullScreenSupport.h"
+#import <BDKCollectionIndexView/BDKCollectionIndexView.h>

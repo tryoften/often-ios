@@ -15,6 +15,7 @@ def base_deps
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'Parse', '~> 1.11'
   pod 'CSStickyHeaderFlowLayout'
+  pod 'BDKCollectionIndexView'
 end
 
 target 'Often' do
