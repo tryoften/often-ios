@@ -102,7 +102,9 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
         browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
         browseVC.textProcessor = textProcessor
+
         let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
+        trendingNavigationVC.view.backgroundColor = UIColor.clearColor()
 
         sections = [
             (.Keyboard, keyboardVC),

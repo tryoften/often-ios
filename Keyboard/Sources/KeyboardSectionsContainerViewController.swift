@@ -33,18 +33,7 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
     }
 
-    var currentTab: Int {
-        get {
-            if let value = NSUserDefaults.standardUserDefaults().objectForKey("currentSelectedTab") as? Int {
-                return value
-            }
-            return 1
-        }
-
-        set(value) {
-            NSUserDefaults.standardUserDefaults().setInteger(value, forKey: "currentSelectedTab")
-        }
-    }
+    var currentTab: Int = 1
 
     private var containerView: UIView
     private(set) var tabBarHidden: Bool
@@ -116,11 +105,6 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
                 didChangeTab.emit(item)
             }
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func showTabBar(animated: Bool, animations: (() -> Void)? = nil) {

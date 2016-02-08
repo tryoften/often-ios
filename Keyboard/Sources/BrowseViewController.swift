@@ -71,6 +71,11 @@ class BrowseViewController: MediaItemGroupsViewController,
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateReachabilityStatusBar()
+    }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         updateReachabilityStatusBar()

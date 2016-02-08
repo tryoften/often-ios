@@ -36,6 +36,7 @@ class KeyboardViewController: UIViewController {
     var autoPeriodState: AutoPeriodState = .NoSpace
     var constraintsAdded: Bool = false
     var collapsed: Bool = false
+    var shouldSetupKeysOnLayoutChange: Bool = true
     
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
@@ -102,18 +103,8 @@ class KeyboardViewController: UIViewController {
         }
 
         let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
-        let orientationSavvyBounds = CGRectMake(0, CGRectGetHeight(view.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
-
-        keysContainerView.frame = orientationSavvyBounds
+        keysContainerView.frame = CGRectMake(0, CGRectGetHeight(view.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
         setupLayout()
-
-        if !(lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
-            let uppercase = shiftState.uppercase()
-            let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
-            layoutEngine?.layoutKeys(currentPage, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
-            lastLayoutBounds = orientationSavvyBounds
-            setupKeys()
-        }
     }
 
     func setupLayout() {
@@ -123,6 +114,23 @@ class KeyboardViewController: UIViewController {
             setPage(0)
             updateKeyCaps(shiftState.lettercase())
             constraintsAdded = true
+
+            updateLayout()
+        }
+    }
+
+    func updateLayout() {
+        let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
+        let orientationSavvyBounds = CGRectMake(0, CGRectGetHeight(view.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
+
+        if !(lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
+            let uppercase = shiftState.uppercase()
+            let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
+            layoutEngine?.layoutKeys(currentPage, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
+            lastLayoutBounds = orientationSavvyBounds
+            if shouldSetupKeysOnLayoutChange {
+                setupKeys()
+            }
         }
     }
 
