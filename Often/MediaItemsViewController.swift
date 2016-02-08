@@ -75,7 +75,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             ])
 
             alphabeticalSidebarHideTimer?.invalidate()
-            alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
+            alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
         }
     }
 
