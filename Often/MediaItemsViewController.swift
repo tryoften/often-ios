@@ -66,15 +66,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        hideEmptyStateView()
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        hideEmptyStateView()
-    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -95,11 +86,10 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     func reloadData(animated: Bool = false, collectionTypeChanged: Bool = false) {
         loaderTimeoutTimer?.invalidate()
-        collectionView?.scrollEnabled = true
 
         if viewModel.isDataLoaded {
-            loaderView?.hidden = true
-            collectionView?.scrollEnabled = true
+            hideLoadingView()
+
             if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) {
                 let collection = viewModel.generateMediaItemGroupsForCollectionType(collectionType)
                 
@@ -110,14 +100,12 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     default: break
                     }
                 } else {
-                    emptyStateView?.hidden = true
+                    hideEmptyStateView()
                 #if !(KEYBOARD)
                     collectionView?.setContentOffset(CGPointZero, animated: animated)
                 #endif
                     collectionView?.reloadData()
                 }
-            } else {
-                collectionView?.scrollEnabled = false
             }
         }
     }

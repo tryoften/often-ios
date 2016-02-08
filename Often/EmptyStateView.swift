@@ -15,6 +15,7 @@ enum EmptyStateImageSize {
 }
 
 class EmptyStateView: UIView {
+    var state: UserState
     var titleLabel: UILabel
     var descriptionLabel: UILabel
     var imageView: UIImageView
@@ -70,7 +71,9 @@ class EmptyStateView: UIView {
         }
     }
     
-    override init(frame: CGRect) {
+    init(state: UserState) {
+        self.state = state
+        
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont(name: "Montserrat", size: 15.0)
@@ -108,7 +111,7 @@ class EmptyStateView: UIView {
         closeButton.hidden = true
         closeButton.userInteractionEnabled = false
         
-        super.init(frame: frame)
+        super.init(frame: CGRectZero)
         
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
         

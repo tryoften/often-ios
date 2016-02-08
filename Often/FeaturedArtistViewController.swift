@@ -12,6 +12,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
     var viewModel: MediaItemGroupViewModel
     var scrollView: UIScrollView
     var pageCount: Int
+    var textProcessor: TextProcessingManager?
 
     var pageWidth: CGFloat {
         return UIScreen.mainScreen().bounds.width
@@ -23,7 +24,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
 
     private var timer: NSTimer?
 
-    init() {
+    init(textProcessor: TextProcessingManager?) {
         viewModel = MediaItemGroupViewModel(path: "featured/artists")
         pageCount = 0
 
@@ -35,6 +36,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
 
         super.init(nibName: nil, bundle: nil)
 
+        self.textProcessor = textProcessor
         viewModel.delegate = self
         scrollView.delegate = self
 
@@ -138,7 +140,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
             return
         }
 
-        let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: BrowseViewModel())
+        let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: BrowseViewModel(), textProcessor: textProcessor)
         navigationController?.pushViewController(browseVC, animated: true)
         containerViewController?.resetPosition()
     }

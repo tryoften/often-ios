@@ -14,7 +14,7 @@ class TwitterEmptyStateView: EmptyStateView {
         let description = "Get lyric suggestions & a sweet profile pic"
         let image = UIImage(named: "twitteremptystate")!
         
-        super.init(frame: CGRectZero)
+        super.init(state: .NoTwitter)
         
         titleLabel.text = title
         descriptionLabel.text = description

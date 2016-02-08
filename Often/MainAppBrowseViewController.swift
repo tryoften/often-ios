@@ -134,7 +134,7 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
 
     func provideFeaturedArtistsCollectionViewController() -> FeaturedArtistViewController {
         if featuredArtistHorizontalVC == nil {
-            featuredArtistHorizontalVC = FeaturedArtistViewController()
+            featuredArtistHorizontalVC = FeaturedArtistViewController(textProcessor: textProcessor)
             addChildViewController(featuredArtistHorizontalVC!)
         }
         return featuredArtistHorizontalVC!
