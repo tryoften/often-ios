@@ -30,7 +30,7 @@ class KeyboardSearchBar: UIView, SearchBar {
         }
     }
 
-    var selected: Bool  {
+    var selected: Bool {
         get {
             return textInput.selected
         }
@@ -51,9 +51,10 @@ class KeyboardSearchBar: UIView, SearchBar {
         searchBarPositioned = false
 
         textInput = KeyboardSearchTextField(frame: CGRectZero)
-        
+
         topSeperator = UIView()
-        topSeperator.backgroundColor = UIColor.clearColor()
+        topSeperator.hidden = true
+        topSeperator.backgroundColor = DarkGrey
         
         bottomSeperator = UIView()
         bottomSeperator.backgroundColor = DarkGrey

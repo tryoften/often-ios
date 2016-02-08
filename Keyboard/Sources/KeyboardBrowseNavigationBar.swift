@@ -20,7 +20,7 @@ class KeyboardBrowseNavigationBar: UIView {
         willSet(newValue) {
             if let url = newValue where imageURL != newValue {
                 let request = NSURLRequest(URL: url)
-                thumbnailImageButton.imageView?.setImageWithURLRequest(request, placeholderImage: UIImage(named: "placeholder"), success: { (req, res, image) -> Void in
+                thumbnailImageButton.imageView?.setImageWithURLRequest(request, placeholderImage: UIImage(named: "placeholder"), success: { (req, res, image) in
                         self.thumbnailImageButton.setImage(image, forState: .Normal)
                     }, failure: { (req, res, err) -> Void in
 
@@ -73,8 +73,9 @@ class KeyboardBrowseNavigationBar: UIView {
         rightDetailLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
         rightDetailLabel.textColor = BlackColor
         rightDetailLabel.alpha = 0.0
-        
+
         moreOptionsButton = UIButton()
+        moreOptionsButton.hidden = true
         moreOptionsButton.translatesAutoresizingMaskIntoConstraints = false
         moreOptionsButton.setImage(UIImage(named: "more"), forState: .Normal)
         moreOptionsButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 7.0, 0.0, 7.0)

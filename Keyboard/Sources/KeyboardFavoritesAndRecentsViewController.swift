@@ -20,8 +20,8 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
 
             collectionView?.backgroundColor = UIColor.clearColor()
             collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
-            collectionView?.registerClass(ShareOftenMessageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "messageHeader")
-
+            collectionView?.registerClass(ShareOftenMessageHeaderView.self,
+                forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "messageHeader")
             setupAlphabeticalSidebar()
         } else {
             let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout()
@@ -150,11 +150,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     }
     
     func shareButtonTapped(sender: UIButton!) {
-        self.textProcessor?.defaultProxy.insertText(ShareMessage)
-    }
-
-    override func mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, groups: [MediaItemGroup]) {
-        super.mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel, collectionType: collectionType, groups: groups)
+        textProcessor?.defaultProxy.insertText(ShareMessage)
     }
 
     override func showLoadingView() {

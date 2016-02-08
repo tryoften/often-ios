@@ -36,21 +36,17 @@ class MediaItemsViewModel: BaseViewModel {
         sectionIndex = [:]
 
         super.init(baseRef: baseRef, path: nil)
-        
+
+        if let userId = sessionManagerFlags.userId  {
+            for type in MediaItemsCollectionType.allValues {
+                let endpoint = baseRef.childByAppendingPath("users/\(userId)/\(type.rawValue.lowercaseString)")
+                self.collectionEndpoints[type] = endpoint
+            }
+        }
+
         do {
             try setupUser { inner in
-                do {
-                    let user = try inner()
-                    
-                    for type in MediaItemsCollectionType.allValues {
-                        let endpoint = baseRef.childByAppendingPath("users/\(user.id)/\(type.rawValue.lowercaseString)")
-                        self.collectionEndpoints[type] = endpoint
-                    }
-                    
-                    self.didSetupUser()
-                } catch let error {
-                    print(error)
-                }
+                self.didSetupUser()
             }
         } catch _ {
         }

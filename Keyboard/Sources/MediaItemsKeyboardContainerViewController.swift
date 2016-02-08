@@ -11,6 +11,7 @@ import Fabric
 import Crashlytics
 
 enum MediaItemsKeyboardSection: Int {
+    case Keyboard
     case Favorites
     case Recents
     case Trending
@@ -24,6 +25,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var mediaItem: MediaItem?
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
+    var tabChangeListener: Listener?
 
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
@@ -38,6 +40,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         sections = []
         
         super.init(extraHeight: extraHeight, debug: debug)
+
+        tabChangeListener = sectionsTabBarController.didChangeTab.on(onTabChange)
 
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
@@ -80,30 +84,68 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     }
 
     func setupSections() {
+        // Keyboard
+        let keyboardVC = KeyboardViewController(textProcessor: textProcessor!)
+        keyboardVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfKeyboard(scale: 0.45), tag: 0)
+
         // Favorites
         let favoritesVC = KeyboardFavoritesAndRecentsViewController(viewModel: FavoritesService.defaultInstance, collectionType: .Favorites)
-        favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 0)
+        favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 1)
         favoritesVC.textProcessor = textProcessor
 
         // Recents
         let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: MediaItemsViewModel(), collectionType: .Recents)
-        recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 1)
+        recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 2)
         recentsVC.textProcessor = textProcessor
 
         // Browse
         let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
-        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 2)
+        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
         browseVC.textProcessor = textProcessor
+
         let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
+        trendingNavigationVC.view.backgroundColor = UIColor.clearColor()
 
         sections = [
+            (.Keyboard, keyboardVC),
             (.Favorites, favoritesVC),
             (.Recents, recentsVC),
             (.Trending, trendingNavigationVC)
         ]
 
         sectionsTabBarController.viewControllers = sections.map { $0.1 }
+
+        let currentTab = sectionsTabBarController.currentTab
+        if let section = MediaItemsKeyboardSection(rawValue: currentTab) {
+            setupCurrentSection(section, changeHeight: false)
+        }
+
         viewDidLayoutSubviews()
+    }
+
+    func onTabChange(tabItem: UITabBarItem) {
+        guard let section = MediaItemsKeyboardSection(rawValue: tabItem.tag) else {
+            return
+        }
+
+        setupCurrentSection(section)
+    }
+
+    func setupCurrentSection(section: MediaItemsKeyboardSection, changeHeight: Bool = true) {
+        switch section {
+        case .Keyboard:
+            sectionsTabBarController.tabBar.layer.zPosition = -1
+            togglePanelButton.hidden = true
+            keyboardExtraHeight = 44
+        default:
+            sectionsTabBarController.tabBar.layer.zPosition = 0
+            togglePanelButton.hidden = false
+            keyboardExtraHeight = 144
+        }
+
+        if changeHeight {
+            keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: true)
+        }
     }
 
     override func viewDidLoad() {

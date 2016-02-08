@@ -33,9 +33,12 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
     }
 
+    var currentTab: Int = 1
+
     private var containerView: UIView
     private(set) var tabBarHidden: Bool
 
+    let didChangeTab = Event<UITabBarItem>()
 
     init(viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
@@ -80,10 +83,10 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
             }
 
             if let tabBarButtons = tabBar.items {
-                tabBar.selectedItem = tabBarButtons[0]
+                tabBar.selectedItem = tabBarButtons[currentTab]
             }
 
-            selectedViewController = viewControllers[0]
+            selectedViewController = viewControllers[currentTab]
         }
     }
 
@@ -95,14 +98,13 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if viewControllers.count > 0 {
-            selectedViewController = selectedViewController ?? viewControllers[0]
-        }
-    }
+        if viewControllers.count > currentTab {
+            selectedViewController = selectedViewController ?? viewControllers[currentTab]
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+            if let item = tabBar.items?[currentTab] {
+                didChangeTab.emit(item)
+            }
+        }
     }
 
     func showTabBar(animated: Bool, animations: (() -> Void)? = nil) {
@@ -146,6 +148,8 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         self.selectedViewController = viewControllers[item.tag]
+        currentTab = item.tag
+        didChangeTab.emit(item)
     }
 
     private func transitionToChildViewController(toViewController: UIViewController) {

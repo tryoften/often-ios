@@ -27,14 +27,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
         didSet {
-            do {
-                sectionHeaders = [:]
-                try viewModel.fetchCollection(collectionType) { success in
-                    self.reloadData(false, collectionTypeChanged: true)
-                }
-            } catch let error {
-                print("Failed to request data \(error)")
-            }
+            sectionHeaders = [:]
+            requestData(true)
         }
     }
     var sectionHeaders: [Int: MediaItemsSectionHeaderView] = [:]
@@ -88,7 +82,11 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        requestData(false)
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
