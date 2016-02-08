@@ -86,7 +86,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         favoritesVC.textProcessor = textProcessor
 
         // Recents
-        let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: FavoritesService.defaultInstance, collectionType: .Recents)
+        let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: MediaItemsViewModel(), collectionType: .Recents)
         recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 1)
         recentsVC.textProcessor = textProcessor
 

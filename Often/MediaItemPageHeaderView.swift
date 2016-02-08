@@ -52,6 +52,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = TrendingHeaderViewArtistNameLabelTextFont
         titleLabel.textColor = TrendingHeaderViewNameLabelTextColor
+        titleLabel.lineBreakMode = .ByTruncatingTail
         titleLabel.textAlignment = .Center
         
         subtitleLabel = UILabel()
@@ -95,6 +96,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
             titleLabel.al_centerY == al_centerY,
             titleLabel.al_top >= al_top + 30,
             titleLabel.al_height == 22,
+            titleLabel.al_width <= al_width - 30,
 
             subtitleLabel.al_centerX == al_centerX,
             subtitleLabel.al_top  == titleLabel.al_bottom + 5

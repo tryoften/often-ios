@@ -67,6 +67,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
     }
 
     override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         shouldSendScrollEvents = false
     }
 
@@ -75,7 +76,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
     #if KEYBOARD
         artistImage = artist?.mediumImage
     #else
-         artistImage = artist?.largeImage
+        artistImage = artist?.largeImage
     #endif
 
         if let image = artistImage, let imageURL = NSURL(string: image), let name = artist?.name,

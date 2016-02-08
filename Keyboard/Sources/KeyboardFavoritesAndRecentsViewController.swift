@@ -140,17 +140,6 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
         }
     }
-
-    override func timeoutLoader() {
-        loaderView?.hidden = true
-        if collectionType == .Favorites {
-            showEmptyStateViewForState(.NoFavorites)
-        } else if collectionType == .Recents {
-            showEmptyStateViewForState(.NoRecents)
-        } else {
-            hideEmptyStateView()
-        }
-    }
     
     func shareOftenCloseButtonTapped(sender: UIButton!) {
         shareOftenMessageViewWasDismissed = true
@@ -160,6 +149,18 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     
     func shareButtonTapped(sender: UIButton!) {
         self.textProcessor?.defaultProxy.insertText(ShareMessage)
+    }
+
+    override func mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, groups: [MediaItemGroup]) {
+        super.mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel, collectionType: collectionType, groups: groups)
+    }
+
+    override func showLoadingView() {
+
+    }
+
+    override func hideLoadingView() {
+        
     }
 
 }

@@ -92,7 +92,7 @@ class TrackMediaItem: MediaItem {
 
         if let lyrics = data["lyrics"] as? NSDictionary,
             let lyricModels = LyricMediaItem.modelsFromDictionaryArray(lyrics.allValues) as? [LyricMediaItem] {
-                self.lyrics = lyricModels
+                self.lyrics = lyricModels.sort { $0.index < $1.index }
         }
 
         if let artist_name = data["artist_name"] as? String {

@@ -137,7 +137,7 @@ class EmptyStateView: UIView {
     }
     
     func setupLayout() {
-        imageViewTopConstraint = imageViewContainerView.al_centerY == al_centerY - 50
+        imageViewTopConstraint = imageViewContainerView.al_centerY == al_centerY - 60
 
         addConstraints([
             imageViewContainerView.al_centerX == al_centerX,

@@ -46,7 +46,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
         alphabeticalSidebar = CollectionViewAlphabeticalSidebar(frame: CGRectZero, indexTitles: SidebarIndexMap)
         alphabeticalSidebar.translatesAutoresizingMaskIntoConstraints = false
-        alphabeticalSidebar.alpha = 0.2
 
         collectionType = aCollectionType
         hasFetchedData = false
@@ -97,14 +96,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        delay(0.5) {
-            if !self.hasFetchedData {
-                self.requestData(true)
-                self.hasFetchedData = false
-            } else {
-                self.requestData(false)
-            }
-        }
+        requestData(animated)
     }
 
     override func viewWillLayoutSubviews() {
@@ -125,6 +117,9 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     func reloadData(animated: Bool = false, collectionTypeChanged: Bool = false) {
+        loaderTimeoutTimer?.invalidate()
+        collectionView?.scrollEnabled = true
+
         if viewModel.isDataLoaded {
             setupSidebar()
             loaderView?.hidden = true
@@ -134,15 +129,14 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 
                 if collection.isEmpty {
                     switch collectionType {
-                    case .Favorites: showEmptyStateViewForState(.NoFavorites, animated: true)
-                    case .Recents: showEmptyStateViewForState(.NoRecents, animated: true)
+                    case .Favorites: showEmptyStateViewForState(.NoFavorites, animated: animated)
+                    case .Recents: showEmptyStateViewForState(.NoRecents, animated: animated)
                     default: break
                     }
-                    emptyStateView?.hidden = false
                 } else {
                     emptyStateView?.hidden = true
                 #if !(KEYBOARD)
-                    collectionView?.setContentOffset(CGPointZero, animated: true)
+                    collectionView?.setContentOffset(CGPointZero, animated: animated)
                 #endif
                     collectionView?.reloadData()
                 }
@@ -165,6 +159,11 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     }
 
+    override func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
+        alphabeticalSidebar.hidden = true
+        super.scrollViewWillBeginDecelerating(scrollView)
+    }
+
     func showData(animated: Bool = false) {
         collectionView?.alpha = 0.0
         collectionView?.reloadSections(NSIndexSet(index: 0))
@@ -176,16 +175,17 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
 
     func indexViewValueChanged(sender: BDKCollectionIndexView) {
-        if let number = viewModel.sectionForSectionIndexTitleAtIndex(sender.currentIndexTitle) {
-            let path = NSIndexPath(forItem: 0, inSection: number)
-            collectionView?.scrollToItemAtIndexPath(path, atScrollPosition: .Top, animated: false)
-            // If you're using a collection view, bump the y-offset by a certain number of points
-            // because it won't otherwise account for any section headers you may have.
-            collectionView?.contentOffset = CGPoint(x: collectionView!.contentOffset.x,
-                y: collectionView!.contentOffset.y)
+        guard let sectionIndex = viewModel.sectionForSectionIndexTitleAtIndex(sender.currentIndexTitle) else {
+            return
         }
 
-        
+        let path = NSIndexPath(forItem: 0, inSection: sectionIndex)
+        collectionView?.scrollToItemAtIndexPath(path, atScrollPosition: .Top, animated: false)
+        // If you're using a collection view, bump the y-offset by a certain number of points
+        // because it won't otherwise account for any section headers you may have.
+        collectionView?.contentOffset = CGPoint(x: collectionView!.contentOffset.x,
+            y: collectionView!.contentOffset.y)
+
     }
 
     override func didTapEmptyStateViewCloseButton() {

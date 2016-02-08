@@ -9,7 +9,6 @@
 //  swiftlint:disable function_body_length
 
 import UIKit
-import EmitterKit
 
 let MediaItemCollectionViewCellReuseIdentifier = "MediaItemsCollectionViewCell"
 
@@ -63,9 +62,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
 
     func requestData(animated: Bool = false) {
-        delay(0.5) {
-            self.showLoaderIfNeeded()
-        }
+        showLoaderIfNeeded()
     }
 
     func showLoaderIfNeeded() {
@@ -122,6 +119,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
         emptyStateView?.closeButton.addTarget(self, action: "didTapEmptyStateViewCloseButton", forControlEvents: .TouchUpInside)
+        
 
         if let emptyStateView = emptyStateView {
             emptyStateView.alpha = 0.0
@@ -310,8 +308,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 textProcessor?.defaultProxy.deleteBackward()
             }
         }
-        
-        cell.overlayVisible = false
     }
     
     func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
