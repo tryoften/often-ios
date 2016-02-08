@@ -183,11 +183,25 @@ class MediaItemsViewModel: BaseViewModel {
         }
 
         for i in 0..<groups.count {
-            if let artistLyric = groups[i].items.first as? LyricMediaItem, let character = artistLyric.artist_name?.characters.first {
-                if sectionIndex["\(character)"] == nil {
-                    sectionIndex["\(character)"] = i
+            guard let artistLyric = groups[i].items.first as? LyricMediaItem, let character = artistLyric.artist_name?.characters.first else {
+                return
+            }
+
+            let letterChar = Letter(rawValue: character)
+            let numberChar = Digit(rawValue: character)
+
+            if let char = letterChar {
+                if sectionIndex[String(char)] == nil {
+                    sectionIndex[String(char)] = i
                 }
             }
+
+            if let _ = numberChar {
+                if sectionIndex["#"] == nil {
+                    sectionIndex["#"] = i
+                }
+            }
+
         }
     }
 
