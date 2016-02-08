@@ -21,8 +21,9 @@ let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 
 class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: MediaItemsViewModel
-    var alphabeticalSidebar: CollectionViewAlphabeticalSidebar
-
+    var alphabeticalSidebar: CollectionViewAlphabeticalSidebar?
+    var alphabeticalSidebarHideConstraint: NSLayoutConstraint?
+    var alphabeticalSidebarHideTimer: NSTimer?
     var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
         didSet {
@@ -44,9 +45,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     init(collectionViewLayout: UICollectionViewLayout, collectionType aCollectionType: MediaItemsCollectionType, viewModel: MediaItemsViewModel) {
         self.viewModel = viewModel
 
-        alphabeticalSidebar = CollectionViewAlphabeticalSidebar(frame: CGRectZero, indexTitles: SidebarIndexMap)
-        alphabeticalSidebar.translatesAutoresizingMaskIntoConstraints = false
-
         collectionType = aCollectionType
         hasFetchedData = false
         
@@ -57,42 +55,40 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
 
-        alphabeticalSidebar.addTarget(self, action: "indexViewValueChanged:", forControlEvents: .ValueChanged)
-
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.registerClass(MediaItemsSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
-
         }
-
-        view.addSubview(alphabeticalSidebar)
-        setupLayout()
     }
 
-    func setupLayout() {
-        view.addConstraints([
-            alphabeticalSidebar.al_right == view.al_right,
-            alphabeticalSidebar.al_width == 28.0,
-            alphabeticalSidebar.al_bottom == view.al_bottom - 20,
-            alphabeticalSidebar.al_top == view.al_top + KeyboardSearchBarHeight
+    func setupAlphabeticalSidebar() {
+        alphabeticalSidebar = CollectionViewAlphabeticalSidebar(frame: CGRectZero, indexTitles: AlphabeticalSidebarIndexTitles)
+
+        if let alphabeticalSidebar = alphabeticalSidebar {
+            alphabeticalSidebar.translatesAutoresizingMaskIntoConstraints = false
+            alphabeticalSidebar.addTarget(self, action: "indexViewValueChanged:", forControlEvents: .ValueChanged)
+
+            view.addSubview(alphabeticalSidebar)
+
+            alphabeticalSidebarHideConstraint = alphabeticalSidebar.al_right == view.al_right
+            view.addConstraints([
+                alphabeticalSidebarHideConstraint!,
+                alphabeticalSidebar.al_width == AlphabeticalSidebarWidth,
+                alphabeticalSidebar.al_bottom == view.al_bottom - 20,
+                alphabeticalSidebar.al_top == view.al_top + KeyboardSearchBarHeight
             ])
+
+            alphabeticalSidebarHideTimer?.invalidate()
+            alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        hideEmptyStateView()
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        hideEmptyStateView()
-    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -101,7 +97,11 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+    }
 
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        alphabeticalSidebarHideTimer?.invalidate()
     }
 
     override func requestData(animated: Bool = false) {
@@ -118,12 +118,11 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     func reloadData(animated: Bool = false, collectionTypeChanged: Bool = false) {
         loaderTimeoutTimer?.invalidate()
-        collectionView?.scrollEnabled = true
 
         if viewModel.isDataLoaded {
-            setupSidebar()
-            loaderView?.hidden = true
-            collectionView?.scrollEnabled = true
+            alphabeticalSidebar?.reloadData()
+            hideLoadingView()
+
             if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) {
                 let collection = viewModel.generateMediaItemGroupsForCollectionType(collectionType)
                 
@@ -134,34 +133,45 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     default: break
                     }
                 } else {
-                    emptyStateView?.hidden = true
+                    hideEmptyStateView()
                 #if !(KEYBOARD)
                     collectionView?.setContentOffset(CGPointZero, animated: animated)
                 #endif
                     collectionView?.reloadData()
                 }
-            } else {
-                collectionView?.scrollEnabled = false
             }
         }
     }
 
-    func setupSidebar() {
-        switch collectionType {
-        case .Favorites:
-            alphabeticalSidebar.hidden = false
-            viewModel.indexSectionHeaderTitles()
-            alphabeticalSidebar.reloadData()
+    func toggleSidebar(hidden: Bool, animated: Bool = false) {
+        alphabeticalSidebarHideConstraint?.constant = hidden ? AlphabeticalSidebarWidth : 0
 
-        default:
-            alphabeticalSidebar.hidden = true
+        if !hidden {
+            alphabeticalSidebarHideTimer?.invalidate()
+            alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
         }
 
+        UIView.animateWithDuration(animated ? 0.3 : 0.0) {
+            self.alphabeticalSidebar?.layoutIfNeeded()
+        }
     }
 
-    override func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
-        alphabeticalSidebar.hidden = true
-        super.scrollViewWillBeginDecelerating(scrollView)
+    func hideAlphabeticalSidebar() {
+        alphabeticalSidebarHideTimer?.invalidate()
+
+        if  alphabeticalSidebarHideConstraint?.constant == 0 {
+            toggleSidebar(true, animated: true)
+        }
+    }
+
+    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        alphabeticalSidebarHideTimer?.invalidate()
+        toggleSidebar(false, animated: true)
+    }
+
+    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        alphabeticalSidebarHideTimer?.invalidate()
+        alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
     }
 
     func showData(animated: Bool = false) {
@@ -175,7 +185,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
 
     func indexViewValueChanged(sender: BDKCollectionIndexView) {
-        guard let sectionIndex = viewModel.sectionForSectionIndexTitleAtIndex(sender.currentIndexTitle) else {
+        guard let sectionIndex = viewModel.sectionForSectionIndexTitle(sender.currentIndexTitle) else {
             return
         }
 

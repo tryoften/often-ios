@@ -14,7 +14,7 @@ class NoKeyboardEmptyStateView: EmptyStateView {
         let description = "Remember to allow full access! Trust us fam"
         let image = UIImage(named: "installoftenemptystate")!
         
-        super.init(frame: CGRectZero)
+        super.init(state: .NoKeyboard)
         
         titleLabel.text = title
         descriptionLabel.text = description

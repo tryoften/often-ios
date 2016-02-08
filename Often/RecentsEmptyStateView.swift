@@ -14,7 +14,7 @@ class RecentsEmptyStateView: EmptyStateView {
         let description = "See all your recently shared lyrics here"
         let image = UIImage(named: "recentsemptystate")!
         
-        super.init(frame: CGRectZero)
+        super.init(state: .NoRecents)
         
         titleLabel.text = title
         descriptionLabel.text = description
