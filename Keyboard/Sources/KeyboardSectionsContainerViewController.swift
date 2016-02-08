@@ -176,6 +176,16 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     override func childViewControllerForStatusBarStyle() -> UIViewController? {
         return selectedViewController
     }
+    
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+//        let orientation = UIDevice.currentDevice().orientation
+//        if UIDeviceOrientationIsLandscape(orientation) {
+//            tabBarHeight = 32
+//        } else if UIDeviceOrientationIsPortrait(orientation) {
+//            tabBarHeight = 44
+//        }
+        viewDidLayoutSubviews()
+    }
 }
 
 @objc protocol KeyboardSectionsContainerViewControllerDelegate {

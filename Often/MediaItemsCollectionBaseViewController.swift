@@ -278,6 +278,10 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cellsAnimated[indexPath] = true
     }
     
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        collectionView?.reloadData()
+    }
+    
     // MediaItemCollectionViewCellDelegate
     func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
@@ -291,7 +295,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     
     func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         cell.overlayVisible = false
-        
     }
     
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
