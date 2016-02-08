@@ -148,7 +148,7 @@ class KeyboardKeyButton: UIControl {
         
         self.borderView?.lineWidth = 0.5
         self.borderView?.fillColor = UIColor.clearColor()
-        
+
         self.label.textAlignment = NSTextAlignment.Center
         self.label.baselineAdjustment = UIBaselineAdjustment.AlignCenters
         self.label.font = UIFont(name: "OpenSans", size: 20)
@@ -158,92 +158,92 @@ class KeyboardKeyButton: UIControl {
         self.label.numberOfLines = 1
     }
     
-        func setupKey() {
-            if let key = key {
-                label.font = UIFont(name: "OpenSans", size: 18.75)
-                color = theme.keyboardKeyBackgroundColor
-                textColor = theme.keyboardKeyTextColor
-                underColor = theme.keyboardKeyUnderColor
-                background.layer.borderColor = UIColor.clearColor().CGColor
-                shape = nil
-                iconView.image = nil
-                text = ""
-                background.layer.borderColor = ClearColor.CGColor
+    func setupKey() {
+        if let key = key {
+            label.font = UIFont(name: "OpenSans", size: 18.75)
+            color = theme.keyboardKeyBackgroundColor
+            textColor = theme.keyboardKeyTextColor
+            underColor = theme.keyboardKeyUnderColor
+            background.layer.borderColor = UIColor.clearColor().CGColor
+            shape = nil
+            iconView.image = nil
+            text = ""
+            background.layer.borderColor = ClearColor.CGColor
 
-                switch(key) {
-                case .letter(let character):
-                    color = theme.keyboardKeyBackgroundColor
-                    let str = String(character.rawValue)
-                    text = str
-                case .digit(let number):
-                    text = String(number.rawValue)
-                case .special(let character, _):
-                    text = String(character.rawValue)
-                case .modifier(let modifier, _):
-                    switch(modifier) {
-                    case .Backspace:
-                        color = UIColor.clearColor()
-                        underColor = UIColor.clearColor()
-                        shape = BackspaceShape(color: theme.backspaceKeyTextColor)
-                        break
-                    case .CapsLock:
-                        color = UIColor.clearColor()
-                        underColor = UIColor.clearColor()
-                        shape = ArrowShape(color: theme.keyboardKeyTextColor)
-                        background.layer.cornerRadius = 5.0
-                        background.layer.borderWidth = 1.8
-                        background.layer.borderColor = UIColor.clearColor().CGColor
-                        break
-                    case .SwitchKeyboard:
-                        label.font = NextKeyboardButtonFont
-                        text = "\u{f114}"
-                        color = theme.keyboardKeyBackgroundColor
-                        textColor = theme.keyboardKeyTextColor
-                        break
-                    case .GoToBrowse:
-                        iconView.image = UIImage(named: "IconWhite")!
-                        iconView.contentMode = .ScaleAspectFill
-                        break
-                    case .Space:
-                        text = "Space".uppercaseString
-                        label.font = UIFont(name: "OpenSans-Semibold", size: 12)
-                        break
-                    case .Enter:
-                        text = "Entr".uppercaseString
-                        textColor = UIColor.blackColor()
-                        color = theme.enterKeyBackgroundColor
-                        label.font = UIFont(name: "OpenSans-Semibold", size: 12)
-                        break
-                    case .CallService:
-                        text = "#"
-                        label.font = UIFont(name: "OpenSans-Semibold", size: 16)
-                        color = WhiteColor
-                        textColor = BlackColor
-                        background.userInteractionEnabled = true
-                        background.layer.cornerRadius = 5.0
-                        background.layer.borderWidth = 1.8
-                        background.layer.borderColor = LightBlackColor.CGColor
-                    default:
-                        break
-                    }
-                case .changePage(let pageNumber, _):
-                    switch(pageNumber) {
-                    case 0:
-                        text = "ABC"
-                    case 1:
-                        text = "123"
-                    case 2:
-                        text = "#+="
-                    default:
-                        break
-                    }
-                    underColor = UIColor.clearColor()
+            switch(key) {
+            case .letter(let character):
+                color = theme.keyboardKeyBackgroundColor
+                let str = String(character.rawValue)
+                text = str
+            case .digit(let number):
+                text = String(number.rawValue)
+            case .special(let character, _):
+                text = String(character.rawValue)
+            case .modifier(let modifier, _):
+                switch(modifier) {
+                case .Backspace:
                     color = UIColor.clearColor()
+                    underColor = UIColor.clearColor()
+                    shape = BackspaceShape(color: theme.backspaceKeyTextColor)
+                    break
+                case .CapsLock:
+                    color = UIColor.clearColor()
+                    underColor = UIColor.clearColor()
+                    shape = ArrowShape(color: theme.keyboardKeyTextColor)
+                    background.layer.cornerRadius = 5.0
+                    background.layer.borderWidth = 1.8
+                    background.layer.borderColor = UIColor.clearColor().CGColor
+                    break
+                case .SwitchKeyboard:
+                    label.font = NextKeyboardButtonFont
+                    text = "\u{f114}"
+                    color = theme.keyboardKeyBackgroundColor
+                    textColor = theme.keyboardKeyTextColor
+                    break
+                case .GoToBrowse:
+                    iconView.image = UIImage(named: "IconWhite")!
+                    iconView.contentMode = .ScaleAspectFill
+                    break
+                case .Space:
+                    text = "Space".uppercaseString
                     label.font = UIFont(name: "OpenSans-Semibold", size: 12)
-                    textColor = theme.keyboardKeyTextColor.colorWithAlphaComponent(0.74)
+                    break
+                case .Enter:
+                    text = "Enter".uppercaseString
+                    textColor = UIColor.blackColor()
+                    color = theme.enterKeyBackgroundColor
+                    label.font = UIFont(name: "OpenSans-Semibold", size: 12)
+                    break
+                case .CallService:
+                    text = "#"
+                    label.font = UIFont(name: "OpenSans-Semibold", size: 16)
+                    color = WhiteColor
+                    textColor = BlackColor
+                    background.userInteractionEnabled = true
+                    background.layer.cornerRadius = 5.0
+                    background.layer.borderWidth = 1.8
+                    background.layer.borderColor = LightBlackColor.CGColor
+                default:
+                    break
                 }
-                updateColors()
+            case .changePage(let pageNumber, _):
+                switch(pageNumber) {
+                case 0:
+                    text = "ABC"
+                case 1:
+                    text = "123"
+                case 2:
+                    text = "#+="
+                default:
+                    break
+                }
+                underColor = UIColor.clearColor()
+                color = UIColor.clearColor()
+                label.font = UIFont(name: "OpenSans-Semibold", size: 12)
+                textColor = theme.keyboardKeyTextColor.colorWithAlphaComponent(0.74)
             }
+            updateColors()
+        }
     }
 
     required init?(coder: NSCoder) {

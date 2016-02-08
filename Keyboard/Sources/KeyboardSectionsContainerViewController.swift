@@ -33,9 +33,23 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
     }
 
+    var currentTab: Int {
+        get {
+            if let value = NSUserDefaults.standardUserDefaults().objectForKey("currentSelectedTab") as? Int {
+                return value
+            }
+            return 1
+        }
+
+        set(value) {
+            NSUserDefaults.standardUserDefaults().setInteger(value, forKey: "currentSelectedTab")
+        }
+    }
+
     private var containerView: UIView
     private(set) var tabBarHidden: Bool
 
+    let didChangeTab = Event<UITabBarItem>()
 
     init(viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
@@ -80,10 +94,10 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
             }
 
             if let tabBarButtons = tabBar.items {
-                tabBar.selectedItem = tabBarButtons[0]
+                tabBar.selectedItem = tabBarButtons[currentTab]
             }
 
-            selectedViewController = viewControllers[0]
+            selectedViewController = viewControllers[currentTab]
         }
     }
 
@@ -95,8 +109,12 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if viewControllers.count > 0 {
-            selectedViewController = selectedViewController ?? viewControllers[0]
+        if viewControllers.count > currentTab {
+            selectedViewController = selectedViewController ?? viewControllers[currentTab]
+
+            if let item = tabBar.items?[currentTab] {
+                didChangeTab.emit(item)
+            }
         }
     }
 
@@ -146,6 +164,8 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         self.selectedViewController = viewControllers[item.tag]
+        currentTab = item.tag
+        didChangeTab.emit(item)
     }
 
     private func transitionToChildViewController(toViewController: UIViewController) {

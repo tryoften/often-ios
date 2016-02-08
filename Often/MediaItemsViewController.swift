@@ -25,14 +25,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
         didSet {
-            do {
-                sectionHeaders = [:]
-                try viewModel.fetchCollection(collectionType) { success in
-                    self.reloadData(false, collectionTypeChanged: true)
-                }
-            } catch let error {
-                print("Failed to request data \(error)")
-            }
+            sectionHeaders = [:]
+            requestData(true)
         }
     }
     var sectionHeaders: [Int: MediaItemsSectionHeaderView] = [:]
@@ -108,16 +102,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 }
             }
         }
-    }
-
-    func showData(animated: Bool = false) {
-        collectionView?.alpha = 0.0
-        collectionView?.reloadSections(NSIndexSet(index: 0))
-        
-        UIView.animateWithDuration(animated ? 0.3 : 0.0, animations: {
-            self.collectionView?.alpha = 1.0
-        })
-        collectionView?.scrollEnabled = true
     }
 
     override func didTapEmptyStateViewCloseButton() {
