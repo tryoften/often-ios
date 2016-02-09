@@ -200,7 +200,7 @@ class KeyboardKeyButton: UIControl {
                     color = theme.keyboardKeyBackgroundColor
                     textColor = theme.keyboardKeyTextColor
                     break
-                case .GoToBrowse:
+                case .Share:
                     iconView.image = UIImage(named: "IconWhite")!
                     iconView.contentMode = .ScaleAspectFill
                     break

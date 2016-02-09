@@ -94,7 +94,7 @@ enum Modifier: String {
     case Enter = "Enter"
     case SwitchKeyboard = "SwitchKeyboard"
     case SearchMode = "SearchMode"
-    case GoToBrowse = "GoToBrowse"
+    case Share = "Share"
     case CallService = "CallService"
 }
 
