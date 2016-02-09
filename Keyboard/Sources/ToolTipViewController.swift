@@ -69,7 +69,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
 
         backgroundKeyboardView = UIImageView()
         backgroundKeyboardView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundKeyboardView.contentMode = .ScaleAspectFit
+        backgroundKeyboardView.contentMode = .ScaleAspectFill
         backgroundKeyboardView.image = UIImage(named: "tooltipbackground1")!
 
         scrollView = UIScrollView()
