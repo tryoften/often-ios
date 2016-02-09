@@ -74,6 +74,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     func showTooltipsIfNeeded() {
         if viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips == false {
+            if let tabBarItem = self.sectionsTabBarController.tabBar.items?[0] {
+                self.sectionsTabBarController.tabBar.selectedItem = tabBarItem
+                
+            }
             tooltipVC = ToolTipViewController()
             tooltipVC?.delegate = self
 
@@ -198,7 +202,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips = true
 
         UIView.animateWithDuration(0.3) {
-            self.sectionsTabBarController.tabBar.selectedItem = self.sectionsTabBarController.tabBar.items![0]
+            if let tabBarItem = self.sectionsTabBarController.tabBar.items?[1] {
+                self.sectionsTabBarController.tabBar.selectedItem = tabBarItem
+
+            }
             self.tooltipVC?.view.alpha = 0
             self.tooltipVC?.delegate = nil
             self.tooltipVC?.view.removeFromSuperview()
