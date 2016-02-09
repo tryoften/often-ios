@@ -43,16 +43,19 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         pageImages = [
             UIImage(named: "tooltipimage1")!,
             UIImage(named: "tooltipimage2")!,
+            UIImage(named: "tooltipimage3")!,
             UIImage(named: "tooltipimage4")!
         ]
 
         backgroundImages = [
+            UIImage(named: "tooltipbackground1")!,
             UIImage(named: "tooltipbackground1")!,
             UIImage(named: "tooltipbackground2")!,
             UIImage(named: "tooltipbackground3")!
         ]
         
         pageTexts = [
+            "Edit lyrics or messages by tapping Keys",
             "View all of your saved lyrics\n by tapping Favorites",
             "See lyrics you've previously\n sent by tapping Recents",
             "Discover top lyrics, songs &\n artists by tapping Search"
@@ -66,7 +69,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
 
         backgroundKeyboardView = UIImageView()
         backgroundKeyboardView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundKeyboardView.contentMode = .ScaleAspectFit
+        backgroundKeyboardView.contentMode = .ScaleAspectFill
         backgroundKeyboardView.image = UIImage(named: "tooltipbackground1")!
 
         scrollView = UIScrollView()
@@ -80,7 +83,7 @@ class ToolTipViewController: UIViewController, UIScrollViewDelegate {
         pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = DarkGrey
         pageControl.currentPageIndicatorTintColor = TealColor.colorWithAlphaComponent(0.75)
-        pageCount = 3
+        pageCount = 4
         
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false

@@ -89,10 +89,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         searchSuggestionsViewController.view.frame = containerFrame
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         searchSuggestionsViewController.viewModel.requestData()

@@ -70,6 +70,7 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
             view.alpha = 0.0
         }
 
+        tableView.setContentOffset(CGPointMake(0, -2 * KeyboardSearchBarHeight), animated: false)
     }
 
     override func viewDidLoad() {
@@ -82,6 +83,8 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.contentInset = contentInset
         tableView.backgroundColor = VeryLightGray
+
+        viewModel.requestData()
     }
 
     func setupLayout() {
@@ -192,6 +195,7 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
     func searchSuggestionsViewModelDidReceiveSuggestions(searchSuggestionsViewModel: SearchSuggestionsViewModel, suggestions: [SearchSuggestion]?) {
         tableView.reloadData()
         tableView.scrollRectToVisible(CGRectZero, animated: true)
+        tableView.setContentOffset(CGPointZero, animated: false)
     }
 
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
