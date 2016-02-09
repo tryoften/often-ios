@@ -1,4 +1,4 @@
-//
+
 //  MediaItemsKeyboardContainerViewController.swift
 //  Often
 //
@@ -26,6 +26,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
     var tabChangeListener: Listener?
+    var orientationChangeListener: Listener?
 
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
@@ -42,6 +43,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         super.init(extraHeight: extraHeight)
 
         tabChangeListener = sectionsTabBarController.didChangeTab.on(onTabChange)
+        orientationChangeListener = sectionsTabBarController.didChangeOrientation.on(onOrientationChange)
+        
 
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
@@ -134,6 +137,27 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
 
         setupCurrentSection(section)
+    }
+    
+    func onOrientationChange() {
+        let currentTab = sectionsTabBarController.currentTab
+        let section = sections[currentTab].0
+        let controller = sections[currentTab].1
+        
+        switch section {
+        case .Favorites,
+             .Recents:
+            if let vc = controller as? KeyboardFavoritesAndRecentsViewController {
+                vc.collectionView?.performBatchUpdates(nil, completion: nil)
+            }
+        case .Trending:
+            guard let navvc = controller as? UINavigationController, bvc = navvc.viewControllers.first as? BrowseViewController else {
+                return
+            }
+            bvc.collectionView?.performBatchUpdates(nil, completion: nil)
+        default:
+            break
+        }
     }
 
     func setupCurrentSection(section: MediaItemsKeyboardSection, changeHeight: Bool = true) {

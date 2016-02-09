@@ -97,6 +97,7 @@ class MediaItemsViewModel: BaseViewModel {
         case .Favorites:
             // TODO: use actual comparison between mediaItems and new items collection
             if mediaItems.count != items.count {
+                mediaItems = items
                 var groups: [String: MediaItemGroup] = [:]
                 for item in items {
                     guard let lyric = item as? LyricMediaItem,
