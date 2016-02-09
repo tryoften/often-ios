@@ -267,9 +267,7 @@
 		813324271C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324241C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m */; };
 		8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */; };
 		813B27E41C69B01D003B6110 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E01C69B01D003B6110 /* Security.framework */; };
-		813B27E51C69B01D003B6110 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E01C69B01D003B6110 /* Security.framework */; };
 		813B27E61C69B01E003B6110 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E11C69B01D003B6110 /* SystemConfiguration.framework */; };
-		813B27E71C69B01E003B6110 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E11C69B01D003B6110 /* SystemConfiguration.framework */; };
 		813B27E81C69B01E003B6110 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E21C69B01D003B6110 /* Fabric.framework */; };
 		813B27E91C69B01E003B6110 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E21C69B01D003B6110 /* Fabric.framework */; };
 		813B27EA1C69B01E003B6110 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E31C69B01D003B6110 /* Crashlytics.framework */; };
@@ -1082,7 +1080,6 @@
 				81794EFF1A81ECDB009D4A71 /* Social.framework in Frameworks */,
 				81794EFE1A81ECD5009D4A71 /* Security.framework in Frameworks */,
 				3BD971CC1B992E43007EAB5A /* Spotify.framework in Frameworks */,
-				813B27E71C69B01E003B6110 /* SystemConfiguration.framework in Frameworks */,
 				81794EFD1A81ECCD009D4A71 /* QuartzCore.framework in Frameworks */,
 				81794EFC1A81ECC6009D4A71 /* MobileCoreServices.framework in Frameworks */,
 				812E3F0E1B4BBA6A00C0F3BE /* Crashlytics.framework in Frameworks */,
@@ -1096,7 +1093,6 @@
 				813B27E91C69B01E003B6110 /* Fabric.framework in Frameworks */,
 				81794EF61A81EC62009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794EF51A81EC58009D4A71 /* Accounts.framework in Frameworks */,
-				813B27E51C69B01D003B6110 /* Security.framework in Frameworks */,
 				74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

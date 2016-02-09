@@ -145,7 +145,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
         if !hidden {
             alphabeticalSidebarHideTimer?.invalidate()
-            alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
+            alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
         }
 
         UIView.animateWithDuration(animated ? 0.3 : 0.0) {
@@ -168,7 +168,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         alphabeticalSidebarHideTimer?.invalidate()
-        alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
+        alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
     }
 
     func showData(animated: Bool = false) {
@@ -186,12 +186,16 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             return
         }
 
+        var sectionHeaderPadding: CGFloat = 45
+
+        if sectionIndex == 0 {
+            sectionHeaderPadding = 0
+        }
+
         let path = NSIndexPath(forItem: 0, inSection: sectionIndex)
         collectionView?.scrollToItemAtIndexPath(path, atScrollPosition: .Top, animated: false)
-        // If you're using a collection view, bump the y-offset by a certain number of points
-        // because it won't otherwise account for any section headers you may have.
         collectionView?.contentOffset = CGPoint(x: collectionView!.contentOffset.x,
-            y: collectionView!.contentOffset.y)
+            y: collectionView!.contentOffset.y - sectionHeaderPadding)
 
     }
 
