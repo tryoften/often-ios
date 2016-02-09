@@ -30,6 +30,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
+    var browseVC: BrowseViewController?
     var sections: [(MediaItemsKeyboardSection, UIViewController)]
     var tooltipVC: ToolTipViewController?
 
@@ -107,11 +108,11 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         recentsVC.textProcessor = textProcessor
 
         // Browse
-        let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
-        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
-        browseVC.textProcessor = textProcessor
+        browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
+        browseVC!.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
+        browseVC!.textProcessor = textProcessor
 
-        let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
+        let trendingNavigationVC = UINavigationController(rootViewController: browseVC!)
         trendingNavigationVC.view.backgroundColor = UIColor.clearColor()
 
         sections = [
@@ -145,33 +146,18 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         let controller = sections[currentTab].1
         
         switch section {
-//        case .Keyboard:
-//            if let vc = controller as? KeyboardViewController {
-//                vc.updateLayout()
-//            }
         case .Favorites,
              .Recents:
             if let vc = controller as? KeyboardFavoritesAndRecentsViewController {
                 vc.collectionView?.performBatchUpdates(nil, completion: nil)
             }
         case .Trending:
-            if let vc = controller as? BrowseViewController {
-                vc.collectionView?.reloadData()
+            if let _ = browseVC {
+                browseVC!.collectionView?.reloadData()
             }
         default:
             break
         }
-        
-        
-//        if let vc = controller as? KeyboardViewController {
-//            vc.updateLayout()
-//        }
-//        if let vc = controller as? KeyboardFavoritesAndRecentsViewController {
-//            vc.collectionView?.performBatchUpdates(nil, completion: nil)
-//        }
-//        if let vc = controller as? BrowseViewController {
-//            vc.collectionView?.reloadData()
-//        }
     }
 
     func setupCurrentSection(section: MediaItemsKeyboardSection, changeHeight: Bool = true) {
