@@ -82,6 +82,8 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.contentInset = contentInset
         tableView.backgroundColor = VeryLightGray
+
+        viewModel.requestData()
     }
 
     func setupLayout() {

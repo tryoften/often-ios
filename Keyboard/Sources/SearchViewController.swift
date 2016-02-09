@@ -89,10 +89,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         searchSuggestionsViewController.view.frame = containerFrame
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         searchSuggestionsViewController.viewModel.requestData()
@@ -163,6 +159,10 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         }
         searchSuggestionsViewController.tableViewBottomInset = keyboardHeightForOrientation(interfaceOrientation)
         searchSuggestionsViewController.showSearchSuggestionsView(true)
+
+//        let vc = UIViewController()
+//        vc.modalPresentationStyle = .OverFullScreen
+//        presentViewController(vc, animated: true, completion: nil)
     }
 
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {

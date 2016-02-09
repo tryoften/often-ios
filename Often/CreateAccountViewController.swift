@@ -39,6 +39,7 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
         createAccountView.signupButton.addTarget(self, action: "didTapSignupButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
         createAccountView.signupFacebookButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+        createAccountView.signupTwitterButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
         createAccountView.termsOfUseAndPrivacyPolicyButton.addTarget(self, action: "didTapTermsOfUseButton:", forControlEvents: .TouchUpInside)
     }
     

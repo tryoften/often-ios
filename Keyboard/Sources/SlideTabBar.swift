@@ -45,17 +45,16 @@ class SlideTabBar: UITabBar {
         
         topSeperator.frame = CGRectMake(0, 0, CGRectGetWidth(frame), 0.6)
         bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
-        
     }
 
     override var items: [UITabBarItem]? {
         didSet {
             if let constraint = highlightBarWidthConstraint {
-                constraint.constant = highlightBarWidth
-            } else {
-                highlightBarWidthConstraint = highlightBarView.al_width == highlightBarWidth
-                addConstraint(highlightBarWidthConstraint!)
+                removeConstraint(constraint)
             }
+            let count = items?.count ?? 1
+            highlightBarWidthConstraint = highlightBarView.al_width == al_width / CGFloat(count)
+            addConstraint(highlightBarWidthConstraint!)
 
             UIView.animateWithDuration(0.3) {
                 self.layoutIfNeeded()
