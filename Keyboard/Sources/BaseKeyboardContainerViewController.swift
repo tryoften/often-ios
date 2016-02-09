@@ -15,7 +15,6 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     var constraintsAdded: Bool = false
     var containerView: UIView
     var keyboardExtraHeight: CGFloat
-    var debugKeyboard = false
     var keyboard: KeyboardViewController?
     var textProcessor: TextProcessingManager?
 
@@ -34,11 +33,10 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     }
     static var oncePredicate: dispatch_once_t = 0
 
-    init(extraHeight: CGFloat = 144, debug: Bool = false) {
+    init(extraHeight: CGFloat = 144) {
         containerView = UIView()
         containerView.backgroundColor = UIColor.whiteColor()
         keyboardExtraHeight = extraHeight
-        debugKeyboard = debug
 
         super.init(nibName: nil, bundle: nil)
 
@@ -47,7 +45,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     }
 
     override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        self.init(extraHeight: 144, debug: false)
+        self.init(extraHeight: 144)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -156,14 +154,14 @@ class BaseKeyboardContainerViewController: UIInputViewController {
             heightConstraint?.constant = height
         }
 
-        if debugKeyboard {
-            if let window = view.window {
-                var frame = window.frame
-                frame.origin.y = UIScreen.mainScreen().bounds.size.height - height
-                frame.size.height = height
-                window.frame = frame
-            }
+   #if KEYBOARD_DEBUG
+        if let window = view.window {
+            var frame = window.frame
+            frame.origin.y = UIScreen.mainScreen().bounds.size.height - height
+            frame.size.height = height
+            window.frame = frame
         }
+    #endif
     }
 
     func setupKludge() {

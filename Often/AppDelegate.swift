@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let sessionManager = SessionManager.defaultManager
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        Fabric.sharedSDK().debug = true
         Fabric.with([Crashlytics()])
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)

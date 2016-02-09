@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Project Surf. All rights reserved.
 //
 
+import Crashlytics
+
 class User: NSObject {
     var id: String = ""
     var isNew: Bool = false
@@ -72,7 +74,8 @@ class User: NSObject {
         if let phoneString = keyedValues["phone"] as? String {
             phone = phoneString
         }
-            
+
+        setupCrashlytics()
     }
     
     func dataChangedToDictionary() -> [String: String] {
@@ -90,6 +93,12 @@ class User: NSObject {
         ]
 
         return userData
+    }
+
+    private func setupCrashlytics() {
+        Crashlytics.sharedInstance().setUserEmail(email)
+        Crashlytics.sharedInstance().setUserIdentifier(id)
+        Crashlytics.sharedInstance().setUserName(name)
     }
 }
 
