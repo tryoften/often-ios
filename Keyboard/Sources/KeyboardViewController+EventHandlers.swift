@@ -273,8 +273,8 @@ extension KeyboardViewController {
         
     }
     
-    func didTapGoToBrowseKey(button: KeyboardKeyButton?) {
-
+    func didTapShareKey(button: KeyboardKeyButton?) {
+        textProcessor.insertText(ShareMessage)
     }
 
     func updateKeyCaps(lettercase: Lettercase) {

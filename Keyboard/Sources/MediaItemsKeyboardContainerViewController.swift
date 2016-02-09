@@ -32,26 +32,27 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var sections: [(MediaItemsKeyboardSection, UIViewController)]
     var tooltipVC: ToolTipViewController?
 
-    override init(extraHeight: CGFloat, debug: Bool) {
+    override init(extraHeight: CGFloat) {
         togglePanelButton = TogglePanelButton()
         togglePanelButton.mode = .SwitchKeyboard
 
         sectionsTabBarController = KeyboardSectionsContainerViewController()
         sections = []
         
-        super.init(extraHeight: extraHeight, debug: debug)
+        super.init(extraHeight: extraHeight)
 
         tabChangeListener = sectionsTabBarController.didChangeTab.on(onTabChange)
 
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
+        #if !(KEYBOARD_DEBUG)
         dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
-            if !self.debugKeyboard {
-                Fabric.with([Crashlytics()])
-                Flurry.startSession(FlurryClientKey)
-                Firebase.defaultConfig().persistenceEnabled = true
-            }
+            Fabric.sharedSDK().debug = true
+            Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
+            Flurry.startSession(FlurryClientKey)
+            Firebase.defaultConfig().persistenceEnabled = true
         }
+        #endif
 
         viewModel = KeyboardViewModel()
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)

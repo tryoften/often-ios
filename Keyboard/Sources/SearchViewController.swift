@@ -159,10 +159,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         }
         searchSuggestionsViewController.tableViewBottomInset = keyboardHeightForOrientation(interfaceOrientation)
         searchSuggestionsViewController.showSearchSuggestionsView(true)
-
-//        let vc = UIViewController()
-//        vc.modalPresentationStyle = .OverFullScreen
-//        presentViewController(vc, animated: true, completion: nil)
     }
 
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {

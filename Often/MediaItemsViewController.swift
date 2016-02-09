@@ -254,6 +254,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+
         if collectionType == .Favorites {
             if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell {
                 cell.favoriteRibbon.hidden = true
