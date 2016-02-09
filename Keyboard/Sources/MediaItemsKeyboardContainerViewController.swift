@@ -1,4 +1,4 @@
-//
+
 //  MediaItemsKeyboardContainerViewController.swift
 //  Often
 //
@@ -145,10 +145,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         let controller = sections[currentTab].1
         
         switch section {
-        case .Keyboard:
-            if let vc = controller as? KeyboardViewController {
-                vc.updateLayout()
-            }
+//        case .Keyboard:
+//            if let vc = controller as? KeyboardViewController {
+//                vc.updateLayout()
+//            }
         case .Favorites,
              .Recents:
             if let vc = controller as? KeyboardFavoritesAndRecentsViewController {

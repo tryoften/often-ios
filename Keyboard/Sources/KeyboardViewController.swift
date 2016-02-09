@@ -115,8 +115,8 @@ class KeyboardViewController: UIViewController {
             updateKeyCaps(shiftState.lettercase())
             constraintsAdded = true
 
-            updateLayout()
         }
+        updateLayout()
     }
 
     func updateLayout() {

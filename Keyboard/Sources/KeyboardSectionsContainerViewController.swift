@@ -108,7 +108,7 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     }
 
     func checkOrientation() {
-        let newScreenWidth = UIScreen.mainScreen().bounds.height
+        let newScreenWidth = UIScreen.mainScreen().bounds.size.width
         if newScreenWidth != oldScreenWidth {
             didChangeOrientation.emit()
             oldScreenWidth = newScreenWidth
