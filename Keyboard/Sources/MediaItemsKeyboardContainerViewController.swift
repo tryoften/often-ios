@@ -30,7 +30,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
-    var browseVC: BrowseViewController?
     var sections: [(MediaItemsKeyboardSection, UIViewController)]
     var tooltipVC: ToolTipViewController?
 
@@ -108,11 +107,11 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         recentsVC.textProcessor = textProcessor
 
         // Browse
-        browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
-        browseVC!.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
-        browseVC!.textProcessor = textProcessor
+        let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
+        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
+        browseVC.textProcessor = textProcessor
 
-        let trendingNavigationVC = UINavigationController(rootViewController: browseVC!)
+        let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
         trendingNavigationVC.view.backgroundColor = UIColor.clearColor()
 
         sections = [
@@ -152,9 +151,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
                 vc.collectionView?.performBatchUpdates(nil, completion: nil)
             }
         case .Trending:
-            if let _ = browseVC {
-                browseVC!.collectionView?.reloadData()
+            guard let navvc = controller as? UINavigationController, bvc = navvc.viewControllers.first as? BrowseViewController else {
+                return
             }
+            bvc.collectionView?.performBatchUpdates(nil, completion: nil)
         default:
             break
         }
