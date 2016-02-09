@@ -194,8 +194,7 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
     // MARK: SearchSuggestionsViewModelDelegate
     func searchSuggestionsViewModelDidReceiveSuggestions(searchSuggestionsViewModel: SearchSuggestionsViewModel, suggestions: [SearchSuggestion]?) {
         tableView.reloadData()
-        tableView.scrollRectToVisible(CGRectZero, animated: true)
-        tableView.setContentOffset(CGPointZero, animated: false)
+        tableView.setContentOffset(CGPointMake(0, -2 * KeyboardSearchBarHeight), animated: false)
     }
 
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
