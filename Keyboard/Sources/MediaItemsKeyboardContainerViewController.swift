@@ -26,6 +26,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
     var tabChangeListener: Listener?
+    var orientationChangeListener: Listener?
 
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
@@ -42,6 +43,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         super.init(extraHeight: extraHeight, debug: debug)
 
         tabChangeListener = sectionsTabBarController.didChangeTab.on(onTabChange)
+        orientationChangeListener = sectionsTabBarController.didChangeOrientation.on(onOrientationChange)
+        
 
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
@@ -129,6 +132,41 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
 
         setupCurrentSection(section)
+    }
+    
+    func onOrientationChange() {
+        let currentTab = sectionsTabBarController.currentTab
+        let section = sections[currentTab].0
+        let controller = sections[currentTab].1
+        
+        switch section {
+        case .Keyboard:
+            if let vc = controller as? KeyboardViewController {
+                vc.updateLayout()
+            }
+        case .Favorites,
+             .Recents:
+            if let vc = controller as? KeyboardFavoritesAndRecentsViewController {
+                vc.collectionView?.performBatchUpdates(nil, completion: nil)
+            }
+        case .Trending:
+            if let vc = controller as? BrowseViewController {
+                vc.collectionView?.reloadData()
+            }
+        default:
+            break
+        }
+        
+        
+//        if let vc = controller as? KeyboardViewController {
+//            vc.updateLayout()
+//        }
+//        if let vc = controller as? KeyboardFavoritesAndRecentsViewController {
+//            vc.collectionView?.performBatchUpdates(nil, completion: nil)
+//        }
+//        if let vc = controller as? BrowseViewController {
+//            vc.collectionView?.reloadData()
+//        }
     }
 
     func setupCurrentSection(section: MediaItemsKeyboardSection, changeHeight: Bool = true) {

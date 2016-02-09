@@ -278,10 +278,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cellsAnimated[indexPath] = true
     }
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        collectionView?.reloadData()
-    }
-    
     // MediaItemCollectionViewCellDelegate
     func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
