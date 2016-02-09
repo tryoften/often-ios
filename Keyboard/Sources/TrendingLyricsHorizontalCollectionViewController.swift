@@ -109,7 +109,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
-        
+
         if let lyric = group?.items[indexPath.row] as? LyricMediaItem,
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TrendingLyricsCellReuseIdentifier,
             forIndexPath: indexPath) as? MediaItemCollectionViewCell {

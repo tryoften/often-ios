@@ -266,6 +266,12 @@
 		813324261C24A4F80084918B /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324221C24A4F80084918B /* NJKScrollFullScreen.m */; };
 		813324271C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324241C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m */; };
 		8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */; };
+		813B27E41C69B01D003B6110 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E01C69B01D003B6110 /* Security.framework */; };
+		813B27E61C69B01E003B6110 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E11C69B01D003B6110 /* SystemConfiguration.framework */; };
+		813B27E81C69B01E003B6110 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E21C69B01D003B6110 /* Fabric.framework */; };
+		813B27E91C69B01E003B6110 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E21C69B01D003B6110 /* Fabric.framework */; };
+		813B27EA1C69B01E003B6110 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E31C69B01D003B6110 /* Crashlytics.framework */; };
+		813B27EB1C69B01E003B6110 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E31C69B01D003B6110 /* Crashlytics.framework */; };
 		8142F7A01B534FB10061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		8142F7A11B5350800061AE90 /* TextProcessingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */; };
 		81459AF11AACEE9800718C09 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
@@ -896,6 +902,10 @@
 		813324231C24A4F80084918B /* UIViewController+NJKFullScreenSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NJKFullScreenSupport.h"; sourceTree = "<group>"; };
 		813324241C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NJKFullScreenSupport.m"; sourceTree = "<group>"; };
 		8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RefreshResultsButton.swift; path = Sources/RefreshResultsButton.swift; sourceTree = "<group>"; };
+		813B27E01C69B01D003B6110 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Security.framework; sourceTree = "<group>"; };
+		813B27E11C69B01D003B6110 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SystemConfiguration.framework; sourceTree = "<group>"; };
+		813B27E21C69B01D003B6110 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		813B27E31C69B01D003B6110 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextProcessingManager.swift; path = Sources/TextProcessingManager.swift; sourceTree = "<group>"; };
 		81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+DeviceList.swift"; sourceTree = "<group>"; };
 		816588ED1B61676000F7C9F5 /* KeyboardPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardPage.swift; path = Sources/KeyboardPage.swift; sourceTree = "<group>"; };
@@ -1025,9 +1035,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				811FA2871BED160400E07660 /* RealmSwift.framework in Frameworks */,
+				813B27E41C69B01D003B6110 /* Security.framework in Frameworks */,
 				81794EE71A81E660009D4A71 /* SystemConfiguration.framework in Frameworks */,
 				3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */,
 				3BD971CD1B992E49007EAB5A /* Spotify.framework in Frameworks */,
+				813B27E81C69B01E003B6110 /* Fabric.framework in Frameworks */,
+				813B27EA1C69B01E003B6110 /* Crashlytics.framework in Frameworks */,
 				3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */,
 				81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */,
 				81794EEB1A81E66D009D4A71 /* libsqlite3.dylib in Frameworks */,
@@ -1041,6 +1054,7 @@
 				81794EDF1A81E642009D4A71 /* QuartzCore.framework in Frameworks */,
 				81794EDD1A81E63B009D4A71 /* MobileCoreServices.framework in Frameworks */,
 				81794EDB1A81E633009D4A71 /* CoreLocation.framework in Frameworks */,
+				813B27E61C69B01E003B6110 /* SystemConfiguration.framework in Frameworks */,
 				81794ED91A81E62D009D4A71 /* CoreGraphics.framework in Frameworks */,
 				81794ED71A81E621009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794ED51A81E613009D4A71 /* CFNetwork.framework in Frameworks */,
@@ -1073,8 +1087,10 @@
 				81794EFA1A81EC8C009D4A71 /* libz.dylib in Frameworks */,
 				81794EF91A81EC85009D4A71 /* libsqlite3.dylib in Frameworks */,
 				81794EF81A81EC74009D4A71 /* CoreGraphics.framework in Frameworks */,
+				813B27EB1C69B01E003B6110 /* Crashlytics.framework in Frameworks */,
 				812E3F0C1B4BBA6A00C0F3BE /* Fabric.framework in Frameworks */,
 				81794EF71A81EC6D009D4A71 /* CFNetwork.framework in Frameworks */,
+				813B27E91C69B01E003B6110 /* Fabric.framework in Frameworks */,
 				81794EF61A81EC62009D4A71 /* AudioToolbox.framework in Frameworks */,
 				81794EF51A81EC58009D4A71 /* Accounts.framework in Frameworks */,
 				74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */,
@@ -1189,6 +1205,10 @@
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				813B27E01C69B01D003B6110 /* Security.framework */,
+				813B27E11C69B01D003B6110 /* SystemConfiguration.framework */,
+				813B27E21C69B01D003B6110 /* Fabric.framework */,
+				813B27E31C69B01D003B6110 /* Crashlytics.framework */,
 				8119618E1BEC18340014B25B /* Realm.framework */,
 				8119618F1BEC18340014B25B /* RealmSwift.framework */,
 				30E00C761BC86C3D00DDF24C /* Spring.framework */,
@@ -1886,6 +1906,7 @@
 				81F833281C0F70E8001B8662 /* Run SwiftLint */,
 				9633E710905EB4B9C554F7FB /* Embed Pods Frameworks */,
 				8192A7C41C62404D00B25AC6 /* Run Script */,
+				813B27DF1C69A9F3003B6110 /* Upload symbols to crashlytics */,
 			);
 			buildRules = (
 			);
@@ -2179,7 +2200,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run e4598140f72849daf847791f325b1eabae27a254 d6286229dfcfc4a30ec93ce38e1237bd5168d469296be7842aa314720d358417";
+			shellScript = "./Fabric.framework/run e869c8341ef7380d0df5ebd7131f8b82beb9ee82 b8c3e2bcef09c0f926026f95157f53330c66afa4aa940bc1c4ab0d62c584a496";
+		};
+		813B27DF1C69A9F3003B6110 /* Upload symbols to crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload symbols to crashlytics";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run e869c8341ef7380d0df5ebd7131f8b82beb9ee82 b8c3e2bcef09c0f926026f95157f53330c66afa4aa940bc1c4ab0d62c584a496";
 		};
 		8192A7C01C62390D00B25AC6 /* Run carthage strip */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2974,6 +3009,7 @@
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3004,6 +3040,7 @@
 				PRODUCT_NAME = Often;
 				PROVISIONING_PROFILE = "ff85483c-50d0-4609-81c2-0693b20daf8f";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -3015,6 +3052,7 @@
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3107,6 +3145,7 @@
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3143,6 +3182,7 @@
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3235,6 +3275,7 @@
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
