@@ -303,6 +303,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         if selected {
             self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
+
+            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additonalProperties: AnalyticsAdditonalProperties.addRecent(result.toDictionary()))
+
         } else {
             for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
                 textProcessor?.defaultProxy.deleteBackward()
@@ -317,6 +320,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         if selected {
             UIPasteboard.generalPasteboard().string = result.getInsertableText()
+
+            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additonalProperties: AnalyticsAdditonalProperties.addRecent(result.toDictionary()))
 
         #if !(KEYBOARD)
             DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
