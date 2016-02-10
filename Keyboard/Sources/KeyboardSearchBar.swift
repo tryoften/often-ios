@@ -109,7 +109,6 @@ class KeyboardSearchBar: UIView, SearchBar {
         bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
         
         toggleCancelButton(true)
-
         repositionSearchTextField()
     }
 

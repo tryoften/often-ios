@@ -17,7 +17,6 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <ParseTwitterUtils/PFTwitterUtils.h>
 #import <ParseTwitterUtils/PF_Twitter.h>
-#import <Spotify/Spotify.h>
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayoutAttributes.h>
 #import <DateTools/DateTools.h>

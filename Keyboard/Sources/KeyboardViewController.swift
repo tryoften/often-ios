@@ -128,6 +128,7 @@ class KeyboardViewController: UIViewController {
             let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
             layoutEngine?.layoutKeys(currentPage, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
             lastLayoutBounds = orientationSavvyBounds
+            setupKeys()
         }
     }
 
@@ -250,13 +251,13 @@ class KeyboardViewController: UIViewController {
             return nil
         }
 
-        for page in layout.pages {
-            for rowKeys in page.rows {
-                for key in rowKeys {
-                    setupKey(key)
-                }
+        let page = layout.pages[currentPage]
+        for rowKeys in page.rows {
+            for key in rowKeys {
+                setupKey(key)
             }
         }
+
     }
 
 }

@@ -65,9 +65,9 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         let screenHeight = UIScreen.mainScreen().bounds.size.height
         
         if screenHeight < screenWidth {
-            return CGSizeMake(screenWidth, 95)
+            return CGSizeMake(screenWidth - 20, 90)
         } else {
-            return CGSizeMake(screenWidth, 125)
+            return CGSizeMake(screenWidth - 20, 105)
         }
     }
     
