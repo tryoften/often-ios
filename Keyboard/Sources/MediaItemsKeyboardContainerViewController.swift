@@ -45,7 +45,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         tabChangeListener = sectionsTabBarController.didChangeTab.on(onTabChange)
         orientationChangeListener = sectionsTabBarController.didChangeOrientation.on(onOrientationChange)
         
-
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
         #if !(KEYBOARD_DEBUG)
@@ -86,14 +85,13 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             tooltipVC?.delegate = self
 
             sectionsTabBarController.view.userInteractionEnabled = false
-
             view.addSubview(tooltipVC!.view)
         }
     }
 
     func setupSections() {
         // Keyboard
-        let keyboardVC = KeyboardViewController(textProcessor: textProcessor!)
+        let keyboardVC = KeyboardContainerViewController(textProcessor: textProcessor!)
         keyboardVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfKeyboard(scale: 0.45), tag: 0)
 
         // Favorites
@@ -145,6 +143,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         let controller = sections[currentTab].1
         
         switch section {
+        case .Keyboard:
+            if let vc = controller as? KeyboardViewController {
+                vc.updateLayout()
+            }
         case .Favorites,
              .Recents:
             if let vc = controller as? KeyboardFavoritesAndRecentsViewController {
@@ -157,6 +159,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             bvc.collectionView?.performBatchUpdates(nil, completion: nil)
         default:
             break
+        }
+
+        if section != .Keyboard {
+            hideKeyboard()
         }
     }
 
@@ -182,8 +188,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "hideKeyboard", name: CollapseKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "showKeyboard", name: RestoreKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "hideKeyboard:", name: CollapseKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "showKeyboard:", name: RestoreKeyboardEvent, object: nil)
         center.addObserver(self, selector: "didTapOnMediaItem:", name: SearchResultsInsertLinkEvent, object: nil)
         center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
 

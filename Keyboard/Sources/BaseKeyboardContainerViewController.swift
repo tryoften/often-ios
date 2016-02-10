@@ -82,23 +82,24 @@ class BaseKeyboardContainerViewController: UIInputViewController {
         advanceToNextInputMode()
     }
 
-    func showKeyboard() {
+    func showKeyboard(animated: Bool = false) {
         if let textProcessor = textProcessor where keyboard == nil {
             keyboard = KeyboardViewController(textProcessor: textProcessor)
             containerView.addSubview(keyboard!.view)
             keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame), view.bounds.width, keyboardHeight)
         } else {
             keyboard!.view.hidden = false
+            containerView.bringSubviewToFront(keyboard!.view)
         }
 
-        UIView.animateWithDuration(0.3) {
+        UIView.animateWithDuration(animated ? 0.3 : 0.0) {
             let keyboardHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
             self.keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(self.containerView.frame) - keyboardHeight, self.view.bounds.width, keyboardHeight)
         }
     }
 
-    func hideKeyboard() {
-        UIView.animateWithDuration(0.3, animations: {
+    func hideKeyboard(animated: Bool = false) {
+        UIView.animateWithDuration(animated ? 0.3 : 0.0, animations: {
             let keyboardHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
             self.keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(self.containerView.frame), self.view.bounds.width, keyboardHeight)
         }, completion: { done in

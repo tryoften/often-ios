@@ -36,7 +36,7 @@ class KeyboardViewController: UIViewController {
     var autoPeriodState: AutoPeriodState = .NoSpace
     var constraintsAdded: Bool = false
     var collapsed: Bool = false
-    var shouldSetupKeysOnLayoutChange: Bool = true
+    var shouldSetupKeysOnLayoutChange: Bool = false
     
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
@@ -116,20 +116,18 @@ class KeyboardViewController: UIViewController {
             constraintsAdded = true
         }
         updateLayout()
+        shouldSetupKeysOnLayoutChange = false
     }
 
     func updateLayout() {
         let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
         let orientationSavvyBounds = CGRectMake(0, CGRectGetHeight(view.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
 
-        if !(lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
+        if lastLayoutBounds?.width != orientationSavvyBounds.width {
             let uppercase = shiftState.uppercase()
             let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
             layoutEngine?.layoutKeys(currentPage, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
             lastLayoutBounds = orientationSavvyBounds
-            if shouldSetupKeysOnLayoutChange {
-                setupKeys()
-            }
         }
     }
 
