@@ -171,6 +171,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             togglePanelButton.hidden = false
             keyboardExtraHeight = 144
         }
+        
+        if let navvc = sections[sectionsTabBarController.currentTab].1 as? UINavigationController, bvc = navvc.viewControllers.first as? BrowseViewController {
+            bvc.collectionView?.performBatchUpdates(nil, completion: nil)
+        }
 
         if changeHeight {
             keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: true)

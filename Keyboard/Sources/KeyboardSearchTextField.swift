@@ -195,6 +195,11 @@ class KeyboardSearchTextField: UIControl {
     override func addTarget(target: AnyObject?, action: Selector, forControlEvents controlEvents: UIControlEvents) {
         super.addTarget(target, action: action, forControlEvents: controlEvents)
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        repositionText()
+    }
 
     override func resignFirstResponder() -> Bool {
         selected = false

@@ -111,6 +111,7 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         let newScreenWidth = UIScreen.mainScreen().bounds.size.width
         if newScreenWidth != oldScreenWidth {
             didChangeOrientation.emit()
+            NSNotificationCenter.defaultCenter().postNotificationName(KeyboardOrientationChangeEvent, object: self)
             oldScreenWidth = newScreenWidth
         }
     }
