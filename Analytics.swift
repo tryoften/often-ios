@@ -71,6 +71,7 @@ func fileNameFromFilepath(filepath: String) -> String {
 struct AnalyticsEvent {
     static var sentQuery = "Sent Query"
     static var insertedLyric = "Inserted Lyric"
+    static var removedLyric = "Removed Lyric"
     static var login = "Login"
     static var logout = "Logout"
     static var favorited = "Favorited"
@@ -89,31 +90,10 @@ class AnalyticsAdditonalProperties: NSDictionary {
         ]
     }
 
-    class func insertedLyric(mediaItemDictionary: [String: AnyObject], screen: String)  -> NSDictionary {
+    class func mediaItem(mediaItemDictionary: [String: AnyObject]) -> NSDictionary {
         return [
             "media_item": mediaItemDictionary,
-            "screen": screen
         ]
-    }
-
-    class func addRecent(mediaItemDictionary: [String: AnyObject]) -> NSDictionary {
-        return [
-            "media_item": mediaItemDictionary
-        ]
-
-    }
-
-    class func addfavorited(mediaItemDictionary: [String: AnyObject]) -> NSDictionary {
-        return [
-            "media_item": mediaItemDictionary
-        ]
-    }
-
-    class func unfavorited(mediaItemDictionary: [String: AnyObject]) -> NSDictionary {
-        return [
-            "media_item": mediaItemDictionary
-        ]
-
     }
 
     class func sendQuery(query: String, type: String) -> NSDictionary {

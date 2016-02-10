@@ -51,7 +51,7 @@ class FavoritesService: MediaItemsViewModel {
         ids.insert(result.id)
         sendTask("addFavorite", result: result)
 
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.favorited), additonalProperties: AnalyticsAdditonalProperties.addfavorited(result.toDictionary()))
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.favorited), additonalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
 
         if var collection = collections[.Favorites] {
             collection.append(result)
@@ -60,7 +60,7 @@ class FavoritesService: MediaItemsViewModel {
     }
     
     func removeFavorite(result: MediaItem) {
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.unfavorited), additonalProperties: AnalyticsAdditonalProperties.unfavorited(result.toDictionary()))
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.unfavorited), additonalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
 
         ids.remove(result.id)
         sendTask("removeFavorite", result: result)

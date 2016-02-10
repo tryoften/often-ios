@@ -42,7 +42,7 @@ class KeyboardViewModel: NSObject {
             "result": mediaLink.toDictionary()
         ]
         
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.addRecent), additonalProperties: AnalyticsAdditonalProperties.addRecent(mediaLink.toDictionary()))
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.addRecent), additonalProperties: AnalyticsAdditonalProperties.mediaItem(mediaLink.toDictionary()))
 
         firebaseRef.childByAppendingPath("queues/user/tasks").childByAutoId().setValue(data)
     }
