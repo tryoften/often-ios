@@ -43,6 +43,7 @@ class SlideTabBar: UITabBar {
             return
         }
         
+        repositionSlideBar()
         topSeperator.frame = CGRectMake(0, 0, CGRectGetWidth(frame), 0.6)
         bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
     }
@@ -64,14 +65,18 @@ class SlideTabBar: UITabBar {
 
     override var selectedItem: UITabBarItem? {
         didSet {
-            guard let items = items else {
-                return
-            }
-            if let item = selectedItem, let index = items.indexOf(item) {
-                highlightBarLeftConstraint?.constant = highlightBarWidth * CGFloat(index)
-                UIView.animateWithDuration(0.3) {
-                    self.layoutIfNeeded()
-                }
+            repositionSlideBar()
+        }
+    }
+    
+    func repositionSlideBar() {
+        guard let items = items else {
+            return
+        }
+        if let item = selectedItem, let index = items.indexOf(item) {
+            highlightBarLeftConstraint?.constant = highlightBarWidth * CGFloat(index)
+            UIView.animateWithDuration(0.3) {
+                self.layoutIfNeeded()
             }
         }
     }
