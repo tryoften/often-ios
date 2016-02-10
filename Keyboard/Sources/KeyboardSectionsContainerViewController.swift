@@ -37,7 +37,6 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     private(set) var tabBarHidden: Bool
 
     let didChangeTab = Event<UITabBarItem>()
-    let didChangeOrientation = Signal()
 
     init(viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
@@ -110,7 +109,6 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     func checkOrientation() {
         let newScreenWidth = UIScreen.mainScreen().bounds.size.width
         if newScreenWidth != oldScreenWidth {
-            didChangeOrientation.emit()
             NSNotificationCenter.defaultCenter().postNotificationName(KeyboardOrientationChangeEvent, object: self)
             oldScreenWidth = newScreenWidth
         }

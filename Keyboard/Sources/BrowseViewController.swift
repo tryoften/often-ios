@@ -84,7 +84,7 @@ class BrowseViewController: MediaItemGroupsViewController,
     }
 
     func onOrientationChanged() {
-        collectionView?.reloadData()
+        collectionView?.performBatchUpdates(nil, completion: nil)
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
