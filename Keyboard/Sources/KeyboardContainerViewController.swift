@@ -12,4 +12,4 @@ let SwitchKeyboardEvent = "switchKeyboard"
 let CollapseKeyboardEvent = "collapseKeyboard"
 let RestoreKeyboardEvent = "restoreKeyboard"
 let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
-
+let KeyboardOrientationChangeEvent = "orientationChange"
