@@ -25,6 +25,8 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             collectionView?.backgroundColor = UIColor.clearColor()
             collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 80, 0)
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
 
     }
 
@@ -40,6 +42,10 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         layout.minimumLineSpacing = 7.0
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10.0, bottom: 10.0, right: 10.0)
         return layout
+    }
+    
+    func onOrientationChanged() {
+        collectionView?.performBatchUpdates(nil, completion: nil)
     }
 
     override func scrollViewDidScroll(scrollView: UIScrollView) {

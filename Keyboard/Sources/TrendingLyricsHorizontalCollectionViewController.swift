@@ -55,7 +55,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
     }
 
     func onOrientationChanged() {
-        collectionView?.reloadData()
+        collectionView?.performBatchUpdates(nil, completion: nil)
     }
 
     // MARK: UICollectionViewDataSource
@@ -69,6 +69,17 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
             return group.items.count
         }
         return 5
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
+        
+        if screenHeight < screenWidth {
+            return CGSizeMake(screenWidth - 20, 90)
+        } else {
+            return CGSizeMake(screenWidth - 20, 105)
+        }
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

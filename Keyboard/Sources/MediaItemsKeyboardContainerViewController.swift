@@ -43,7 +43,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         super.init(extraHeight: extraHeight)
 
         tabChangeListener = sectionsTabBarController.didChangeTab.on(onTabChange)
-        orientationChangeListener = sectionsTabBarController.didChangeOrientation.on(onOrientationChange)
         
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
@@ -69,6 +68,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         showTooltipsIfNeeded()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didInsertMediaItem:", name: "mediaItemInserted", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -134,32 +135,16 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             return
         }
 
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: "Changed Tab"), additionalProperties: [
+            "item": tabItem.tag
+        ])
+
         setupCurrentSection(section)
     }
     
-    func onOrientationChange() {
+    func onOrientationChanged() {
         let currentTab = sectionsTabBarController.currentTab
         let section = sections[currentTab].0
-        let controller = sections[currentTab].1
-        
-        switch section {
-        case .Keyboard:
-            if let vc = controller as? KeyboardViewController {
-                vc.updateLayout()
-            }
-        case .Favorites,
-             .Recents:
-            if let vc = controller as? KeyboardFavoritesAndRecentsViewController {
-                vc.collectionView?.performBatchUpdates(nil, completion: nil)
-            }
-        case .Trending:
-            guard let navvc = controller as? UINavigationController, bvc = navvc.viewControllers.first as? BrowseViewController else {
-                return
-            }
-            bvc.collectionView?.performBatchUpdates(nil, completion: nil)
-        default:
-            break
-        }
 
         if section != .Keyboard {
             hideKeyboard()

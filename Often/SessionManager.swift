@@ -21,8 +21,8 @@ class SessionManager: NSObject, AccountManagerDelegate {
 
     override init() {
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
-        SEGAnalytics.setupWithConfiguration(configuration)
-        SEGAnalytics.sharedAnalytics().screen("Service_Loaded")
+        Analytics.setupWithConfiguration(configuration)
+        Analytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
         Firebase.defaultConfig().persistenceEnabled = true
 
@@ -35,7 +35,7 @@ class SessionManager: NSObject, AccountManagerDelegate {
         accountManager.delegate = self
 
         if let userID = sessionManagerFlags.userId {
-            SEGAnalytics.sharedAnalytics().identify(userID)
+            Analytics.sharedAnalytics().identify(userID)
             let crashlytics = Crashlytics.sharedInstance()
             crashlytics.setUserIdentifier(userID)
             accountManager.isUserLoggedIn()
@@ -56,6 +56,7 @@ class SessionManager: NSObject, AccountManagerDelegate {
 
 
     func logout() {
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.logout))
         PFUser.logOut()
         accountManager.logout()
         firebase.unauth()

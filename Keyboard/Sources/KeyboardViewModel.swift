@@ -19,7 +19,7 @@ class KeyboardViewModel: NSObject {
         _ = ParseConfig.defaultConfig
         
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
-        SEGAnalytics.setupWithConfiguration(configuration)
+        Analytics.setupWithConfiguration(configuration)
         
         super.init()
         
@@ -27,7 +27,7 @@ class KeyboardViewModel: NSObject {
             return
         }
         print("User authenticated: ", userId)
-        SEGAnalytics.sharedAnalytics().identify(userId)
+        Analytics.sharedAnalytics().identify(userId)
     }
     
     func logTextSendEvent(mediaLink: MediaItem) {
@@ -42,7 +42,8 @@ class KeyboardViewModel: NSObject {
             "result": mediaLink.toDictionary()
         ]
         
-        SEGAnalytics.sharedAnalytics().track("addRecent", properties: data as [NSObject : AnyObject])
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.addRecent), additionalProperties: AnalyticsAdditonalProperties.mediaItem(mediaLink.toDictionary()))
+
         firebaseRef.childByAppendingPath("queues/user/tasks").childByAutoId().setValue(data)
     }
 

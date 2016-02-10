@@ -61,7 +61,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
+    
         promptUserToRegisterPushNotifications()
         reloadUserData()
     }

@@ -275,6 +275,7 @@ extension KeyboardViewController {
     
     func didTapShareKey(button: KeyboardKeyButton?) {
         textProcessor.insertText(ShareMessage)
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: "Shared Often"))
     }
 
     func updateKeyCaps(lettercase: Lettercase) {
