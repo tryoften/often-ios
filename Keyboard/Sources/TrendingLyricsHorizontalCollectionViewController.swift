@@ -76,9 +76,9 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
         let screenHeight = UIScreen.mainScreen().bounds.size.height
         
         if screenHeight < screenWidth {
-            return CGSizeMake(screenWidth - 20, 90)
+            return CGSizeMake(screenWidth - 60, 90)
         } else {
-            return CGSizeMake(screenWidth - 20, 105)
+            return CGSizeMake(screenWidth - 60, 105)
         }
     }
 
