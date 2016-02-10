@@ -61,6 +61,7 @@ class LoginViewModel: NSObject, SessionManagerDelegate {
 
 
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.login))
         delegate?.loginViewModelDidLoginUser(self, user: user)
 
     }

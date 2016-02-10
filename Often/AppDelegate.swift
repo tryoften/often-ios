@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFTwitterUtils.initializeWithConsumerKey(TwitterConsumerKey, consumerSecret: TwitterConsumerSecret)
         FBAppEvents.activateApp()
         Flurry.startSession(FlurryClientKey)
-        
+
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
 

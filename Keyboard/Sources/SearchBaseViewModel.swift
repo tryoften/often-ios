@@ -67,11 +67,9 @@ class SearchBaseViewModel {
             userId = uId
         }
 
-        SEGAnalytics.sharedAnalytics().track("Sent Query", properties: [
-            "query": query,
-            "type": type.rawValue,
-            "userId": userId
-        ])
+        if type == .Search {
+            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.sentQuery), additonalProperties: AnalyticsAdditonalProperties.sendQuery(query, type: type.rawValue))
+        }
 
         let request = SearchRequest(id: id, query: query, userId: userId,
             timestamp: NSDate().timeIntervalSince1970 * 1000,

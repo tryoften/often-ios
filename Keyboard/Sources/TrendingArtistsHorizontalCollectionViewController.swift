@@ -65,6 +65,9 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         guard let group = group, let artist = group.items[indexPath.row] as? ArtistMediaItem else {
             return
         }
+        
+
+         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additonalProperties: AnalyticsAdditonalProperties.navigate("BrowseArtistCollectionViewController", itemID: artist.id, itemIndex: String(indexPath.length), itemType: artist.type.rawValue))
 
         let artistsVC = BrowseArtistCollectionViewController(artistId: artist.id, viewModel: viewModel, textProcessor: textProcessor)
         self.navigationController?.pushViewController(artistsVC, animated: true)
