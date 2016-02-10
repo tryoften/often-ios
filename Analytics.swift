@@ -35,16 +35,7 @@ struct AnalyticsProperties {
             self.userID = userID
         }
 
-        var eventIDString = ""
-
-        for character in eventName.characters {
-            let char = String(character)
-            if char == " " {
-                eventIDString = eventIDString + "_"
-            } else {
-                eventIDString = eventIDString + char
-            }
-        }
+        let eventIDString = eventName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: .LiteralSearch, range: nil)
 
         eventID = eventIDString.lowercaseString
     }
@@ -110,10 +101,10 @@ class Analytics: SEGAnalytics {
         track(properties.event, properties: properties.toDictionary() as [NSObject : AnyObject])
     }
 
-    func track(properties: AnalyticsProperties, additonalProperties: NSDictionary) {
+    func track(properties: AnalyticsProperties, additionalProperties: NSDictionary) {
         var allProperties = properties.toDictionary()
 
-        for (key, value) in additonalProperties {
+        for (key, value) in additionalProperties {
             if let key = key as? String {
                 allProperties[key] = value
             }

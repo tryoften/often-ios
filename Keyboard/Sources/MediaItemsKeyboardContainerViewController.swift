@@ -134,6 +134,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             return
         }
 
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: "Changed Tab"), additionalProperties: [
+            "item": tabItem.tag
+        ])
+
         setupCurrentSection(section)
     }
     
