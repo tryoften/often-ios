@@ -35,16 +35,7 @@ struct AnalyticsProperties {
             self.userID = userID
         }
 
-        var eventIDString = ""
-
-        for character in eventName.characters {
-            let char = String(character)
-            if char == " " {
-                eventIDString = eventIDString + "_"
-            } else {
-                eventIDString = eventIDString + char
-            }
-        }
+        let eventIDString = eventName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: .LiteralSearch, range: nil)
 
         eventID = eventIDString.lowercaseString
     }
