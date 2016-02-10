@@ -132,7 +132,7 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
             }
         case .Track:
             if let track = item as? TrackMediaItem {
-                Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additonalProperties: AnalyticsAdditonalProperties.navigate("BrowseTrackCollectionViewController", itemID: track.id, itemIndex: String(indexPath.length), itemType: track.type.rawValue))
+                Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additionalProperties: AnalyticsAdditonalProperties.navigate("BrowseTrackCollectionViewController", itemID: track.id, itemIndex: String(indexPath.length), itemType: track.type.rawValue))
 
                 let lyricsVC = BrowseTrackCollectionViewController(trackId: track.id, viewModel: viewModel, textProcessor: textProcessor)
                 self.navigationController?.pushViewController(lyricsVC, animated: true)

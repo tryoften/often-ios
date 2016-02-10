@@ -67,7 +67,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         }
         
 
-         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additonalProperties: AnalyticsAdditonalProperties.navigate("BrowseArtistCollectionViewController", itemID: artist.id, itemIndex: String(indexPath.length), itemType: artist.type.rawValue))
+         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additionalProperties: AnalyticsAdditonalProperties.navigate("BrowseArtistCollectionViewController", itemID: artist.id, itemIndex: String(indexPath.length), itemType: artist.type.rawValue))
 
         let artistsVC = BrowseArtistCollectionViewController(artistId: artist.id, viewModel: viewModel, textProcessor: textProcessor)
         self.navigationController?.pushViewController(artistsVC, animated: true)

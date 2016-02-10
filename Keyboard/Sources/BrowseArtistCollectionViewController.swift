@@ -130,7 +130,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
             return
         }
 
-         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additonalProperties: AnalyticsAdditonalProperties.navigate("BrowseTrackCollectionViewController", itemID: track.id, itemIndex: String(indexPath.length), itemType: track.type.rawValue))
+         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additionalProperties: AnalyticsAdditonalProperties.navigate("BrowseTrackCollectionViewController", itemID: track.id, itemIndex: String(indexPath.length), itemType: track.type.rawValue))
 
         let tracksVC = BrowseTrackCollectionViewController(trackId: track.id, viewModel: self.viewModel, textProcessor: textProcessor)
 

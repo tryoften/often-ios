@@ -140,7 +140,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
             return
         }
 
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additonalProperties: AnalyticsAdditonalProperties.navigate("BrowseArtistCollectionViewController", itemID: artistMediaItem.id, itemIndex: String(currentPage), itemType: artistMediaItem.type.rawValue))
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additionalProperties: AnalyticsAdditonalProperties.navigate("BrowseArtistCollectionViewController", itemID: artistMediaItem.id, itemIndex: String(currentPage), itemType: artistMediaItem.type.rawValue))
 
         let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: BrowseViewModel(), textProcessor: textProcessor)
         navigationController?.pushViewController(browseVC, animated: true)
