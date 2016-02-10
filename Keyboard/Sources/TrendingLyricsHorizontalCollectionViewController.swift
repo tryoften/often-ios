@@ -20,6 +20,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
 
     init() {
         super.init(collectionViewLayout: TrendingLyricsHorizontalCollectionViewController.provideLayout())
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -53,8 +54,11 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
         return layout
     }
 
-    // MARK: UICollectionViewDataSource
+    func onOrientationChanged() {
+        collectionView?.reloadData()
+    }
 
+    // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1

@@ -9,8 +9,6 @@
 import UIKit
 import Fabric
 import Crashlytics
-import Realm
-import OAuthSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,17 +33,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = VeryLightGray
 
         if let window = self.window {
-#if KEYBOARD_DEBUG
+        #if KEYBOARD_DEBUG
             var frame = window.frame
             frame.origin.y = frame.size.height - (KeyboardHeight + 100)
             frame.size.height = KeyboardHeight + 100
             window.frame = frame
             window.clipsToBounds = true
-            mainController = MediaItemsKeyboardContainerViewController(extraHeight: 144.0, debug: true)
-#else
+            mainController = MediaItemsKeyboardContainerViewController(extraHeight: 144.0)
+        #else
             let loginViewModel = LoginViewModel(sessionManager: sessionManager)
             mainController = LoginViewController(viewModel: loginViewModel)
-#endif
+        #endif
             window.rootViewController = mainController
             window.makeKeyAndVisible()
         }

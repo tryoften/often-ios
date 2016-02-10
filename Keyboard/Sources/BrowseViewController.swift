@@ -43,6 +43,8 @@ class BrowseViewController: MediaItemGroupsViewController,
         setupSearchBar()
         view.addSubview(errorDropView)
         startMonitoring()
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
     }
 
     func setupSearchBar() {
@@ -79,6 +81,10 @@ class BrowseViewController: MediaItemGroupsViewController,
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         updateReachabilityStatusBar()
+    }
+
+    func onOrientationChanged() {
+        collectionView?.reloadData()
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {

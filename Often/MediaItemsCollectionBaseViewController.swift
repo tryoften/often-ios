@@ -291,7 +291,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     
     func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         cell.overlayVisible = false
-        
     }
     
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {

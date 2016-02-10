@@ -70,7 +70,11 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
             view.alpha = 0.0
         }
 
+    #if KEYBOARD
         tableView.setContentOffset(CGPointMake(0, -2 * KeyboardSearchBarHeight), animated: false)
+    #else
+        tableView.setContentOffset(CGPointMake(0, -64), animated: false)
+    #endif
     }
 
     override func viewDidLoad() {
@@ -194,8 +198,11 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
     // MARK: SearchSuggestionsViewModelDelegate
     func searchSuggestionsViewModelDidReceiveSuggestions(searchSuggestionsViewModel: SearchSuggestionsViewModel, suggestions: [SearchSuggestion]?) {
         tableView.reloadData()
-        tableView.scrollRectToVisible(CGRectZero, animated: true)
-        tableView.setContentOffset(CGPointZero, animated: false)
+    #if KEYBOARD
+        tableView.setContentOffset(CGPointMake(0, -2 * KeyboardSearchBarHeight), animated: false)
+    #else
+        tableView.setContentOffset(CGPointMake(0, -64), animated: false)
+    #endif
     }
 
     func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {

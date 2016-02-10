@@ -60,6 +60,17 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         }
     }
 
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
+        
+        if screenHeight < screenWidth {
+            return CGSizeMake(screenWidth - 20, 90)
+        } else {
+            return CGSizeMake(screenWidth - 20, 105)
+        }
+    }
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
         guard let mediaItemCell = cell as? MediaItemCollectionViewCell else {

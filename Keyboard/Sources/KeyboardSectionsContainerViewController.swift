@@ -10,6 +10,7 @@ import UIKit
 
 class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegate {
     weak var delegate: KeyboardSectionsContainerViewControllerDelegate?
+    var oldScreenWidth: CGFloat?
 
     var viewControllers: [UIViewController] {
         didSet {
@@ -18,9 +19,6 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     }
 
     var tabBarHeight: CGFloat {
-        if UIInterfaceOrientationIsLandscape(interfaceOrientation) {
-            return 32.0
-        }
         return 44.0
     }
 
@@ -39,6 +37,7 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     private(set) var tabBarHidden: Bool
 
     let didChangeTab = Event<UITabBarItem>()
+    let didChangeOrientation = Signal()
 
     init(viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
@@ -93,6 +92,7 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         positionTabBar(false)
+        checkOrientation()
     }
 
     override func viewDidLoad() {
@@ -107,6 +107,15 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
     }
 
+    func checkOrientation() {
+        let newScreenWidth = UIScreen.mainScreen().bounds.size.width
+        if newScreenWidth != oldScreenWidth {
+            didChangeOrientation.emit()
+            NSNotificationCenter.defaultCenter().postNotificationName(KeyboardOrientationChangeEvent, object: self)
+            oldScreenWidth = newScreenWidth
+        }
+    }
+    
     func showTabBar(animated: Bool, animations: (() -> Void)? = nil) {
         tabBarHidden = false
         positionTabBar(animated, animations: animations)
