@@ -27,9 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFTwitterUtils.initializeWithConsumerKey(TwitterConsumerKey, consumerSecret: TwitterConsumerSecret)
         FBAppEvents.activateApp()
         Flurry.startSession(FlurryClientKey)
-        SPTAuth.defaultInstance().clientID = SpotifyClientID
-        SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
-        
+
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
 
