@@ -455,7 +455,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
         
         var currentOrigin = frame.origin.x + sideSpace
         
-        for (_, key) in row.enumerate() {
+        for (_, _) in row.enumerate() {
             let roundedOrigin = rounded(currentOrigin)
             
             // avoiding rounding errors

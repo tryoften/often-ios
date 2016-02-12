@@ -200,8 +200,6 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
                 titleLabel.al_centerY == al_centerY
             ])
             break
-        default:
-            print("Cell Type not defined")
         }
     }
 }

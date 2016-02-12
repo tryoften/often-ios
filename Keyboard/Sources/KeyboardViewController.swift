@@ -168,7 +168,7 @@ class KeyboardViewController: UIViewController {
     func updateKeyboardLetterCases() {
         for button in allKeys {
             if let key = button.key {
-                switch(key) {
+                switch key {
                 case .letter (let character):
                     let str = String(character.rawValue)
                     if shiftState.uppercase() {

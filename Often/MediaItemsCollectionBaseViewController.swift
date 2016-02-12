@@ -167,7 +167,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         cell.reset()
         
-        switch(result.type) {
+        switch result.type {
         case .Article:
             let article = (result as! ArticleMediaItem)
             cell.mainTextLabel.text = article.title
