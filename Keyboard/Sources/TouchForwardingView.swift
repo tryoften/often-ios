@@ -101,13 +101,13 @@ class TouchRecognizerView: UIView {
         
         var closest = rect.origin
         
-        if (rect.origin.x + rect.size.width < point.x) {
+        if rect.origin.x + rect.size.width < point.x {
             closest.x += rect.size.width
-        } else if (point.x > rect.origin.x) {
+        } else if point.x > rect.origin.x {
             closest.x = point.x
         }
 
-        if (rect.origin.y + rect.size.height < point.y) {
+        if rect.origin.y + rect.size.height < point.y {
             closest.y += rect.size.height
         } else if (point.y > rect.origin.y) {
             closest.y = point.y

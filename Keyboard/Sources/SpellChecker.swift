@@ -379,12 +379,12 @@ class SpellChecker {
                         
                         //save some time.
                         //remove all existing suggestions of higher distance, if verbose<2
-                        if (verbose < 2) && suggestions.count > 0 && (suggestions[0].distance > distance) {
+                        if verbose < 2 && suggestions.count > 0 && (suggestions[0].distance > distance) {
                             suggestions.removeAll()
                         }
                         
                         //do not process higher distances than those already found, if verbose<2
-                        if (verbose < 2) && suggestions.count > 0 && distance > suggestions[0].distance {
+                        if verbose < 2 && suggestions.count > 0 && distance > suggestions[0].distance {
                             continue
                         }
                         

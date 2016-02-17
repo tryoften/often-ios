@@ -8,6 +8,10 @@
 
 import UIKit
 
+/**
+ *  Protocol that define an event to animate UICollectionViewCell
+ */
+
 protocol CellAnimatable {
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath)
 }

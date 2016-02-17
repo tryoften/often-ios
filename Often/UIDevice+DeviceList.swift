@@ -1,4 +1,4 @@
-public class Diagnostics : NSObject {
+public class Diagnostics: NSObject {
     
     //MARK: Device Platform
     /** A String value of the device platform information */

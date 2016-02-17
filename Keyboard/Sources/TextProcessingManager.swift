@@ -55,7 +55,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
 
         if let currentProxy = currentProxy as? UIResponder {
             // swiftlint:disable force_cast
-            if (currentProxy as NSObject) != (proxy as! NSObject) {
+            if currentProxy as NSObject != (proxy as! NSObject) {
                 currentProxy.resignFirstResponder()
             }
             // swiftlint:enable force_cast
@@ -257,7 +257,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
             let offset = min(3, beforeContext.characters.count)
             var index = beforeContext.endIndex
 
-            for (var i = 0; i < offset; i += 1) {
+            for var i = 0; i < offset; i += 1 {
                 index = index.predecessor()
                 let char = beforeContext[index]
 

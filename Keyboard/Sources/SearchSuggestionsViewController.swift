@@ -157,7 +157,7 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
             return cell
         }
         
-        switch (suggestion.type) {
+        switch suggestion.type {
         case .Filter:
             cell = tableView.dequeueReusableCellWithIdentifier(ServiceProviderSuggestionCellReuseIdentifier, forIndexPath: indexPath)
             

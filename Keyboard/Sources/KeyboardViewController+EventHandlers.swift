@@ -15,7 +15,7 @@ extension KeyboardViewController {
 
     func didTapButton(button: KeyboardKeyButton?) {
         if let button = button, key = button.key {
-            switch(key) {
+            switch key {
             case .letter(let character):
                 var str = String(character.rawValue)
                 if shiftState.lettercase() == .Lowercase {
@@ -54,7 +54,7 @@ extension KeyboardViewController {
     
     func pageChangeTapped(button: KeyboardKeyButton?) {
         if let button = button, key = button.key {
-            switch(key) {
+            switch key {
             case .changePage(let pageNumber, _):
                 setPage(pageNumber)
             default:
@@ -326,7 +326,7 @@ extension KeyboardViewController {
     
     func handleAutoPeriod(button: KeyboardKeyButton?){
         if let button = button, key = button.key {
-            switch(key) {
+            switch key {
             case .modifier(.Space, _):
                 if self.autoPeriodState == .FirstSpace {
                     if self.textProcessor.charactersAreInCorrectState() == true {

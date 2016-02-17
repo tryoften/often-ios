@@ -10,15 +10,15 @@ import Foundation
 
 class StreamReader {
     
-    let encoding : UInt
-    let chunkSize : Int
+    let encoding: UInt
+    let chunkSize: Int
     
-    var fileHandle : NSFileHandle!
-    let buffer : NSMutableData!
-    let delimData : NSData!
-    var atEof : Bool = false
+    var fileHandle: NSFileHandle!
+    let buffer: NSMutableData!
+    let delimData: NSData!
+    var atEof: Bool = false
     
-    init?(path: String, delimiter: String = "\n", encoding : UInt = NSUTF8StringEncoding, chunkSize : Int = 4096) {
+    init?(path: String, delimiter: String = "\n", encoding: UInt = NSUTF8StringEncoding, chunkSize: Int = 4096) {
         self.chunkSize = chunkSize
         self.encoding = encoding
         

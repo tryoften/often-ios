@@ -145,7 +145,7 @@ class MediaItemsViewModel: BaseViewModel {
     
     func mediaItemGroupItemsForIndex(index: Int, collectionType: MediaItemsCollectionType) -> [MediaItem] {
         let groups = generateMediaItemGroupsForCollectionType(collectionType)
-        if(!groups.isEmpty) {
+        if !groups.isEmpty {
             return groups[index].items
         }
         return []
