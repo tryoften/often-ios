@@ -180,7 +180,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.mainTextLabel.text = track.name
             cell.rightMetadataLabel.text = track.formattedCreatedDate
             
-            switch(result.source) {
+            switch result.source {
             case .Spotify:
                 cell.leftHeaderLabel.text = "Spotify"
                 cell.mainTextLabel.text = "\(track.name)"

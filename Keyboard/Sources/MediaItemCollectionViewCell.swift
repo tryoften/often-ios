@@ -53,7 +53,6 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
 
     var avatarImageURL: NSURL? {
         didSet {
-
             if let _ = avatarImageURL {
                 sourceLogoView.setImageWithURL(avatarImageURL!)
                 avatarImageViewWidthConstraint.constant = 18
