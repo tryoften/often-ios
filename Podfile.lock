@@ -20,14 +20,6 @@ PODS:
   - AFNetworking/UIKit (2.6.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Analytics/Core-iOS (1.11.3):
-    - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
-  - Analytics/Flurry (1.11.3):
-    - Analytics/Core-iOS
-    - Analytics/Segmentio
-    - FlurrySDK (= 4.4.0)
-  - Analytics/Segmentio (1.11.3):
-    - Analytics/Core-iOS
   - BDKCollectionIndexView (2.2.1)
   - Bolts (1.5.1):
     - Bolts/AppLinks (= 1.5.1)
@@ -40,9 +32,10 @@ PODS:
   - Facebook-iOS-SDK (3.24.1):
     - Bolts (~> 1.2)
   - Firebase (2.5.0)
-  - FlurrySDK (4.4.0):
-    - FlurrySDK/FlurrySDK (= 4.4.0)
-  - FlurrySDK/FlurrySDK (4.4.0)
+  - Flurry-iOS-SDK/FlurrySDK (7.3.0)
+  - Gaikan (0.3.0):
+    - KVOController (~> 1.x)
+  - KVOController (1.0.3)
   - Parse (1.11.0):
     - Bolts/Tasks (~> 1.5)
   - ParseFacebookUtils (1.9.1):
@@ -53,44 +46,35 @@ PODS:
     - Bolts/Tasks (~> 1.5)
     - Parse (~> 1.9)
   - Reveal-iOS-SDK (1.6.2)
-  - TRVSDictionaryWithCaseInsensitivity (0.0.2)
 
 DEPENDENCIES:
   - AFNetworking (= 2.6.0)
-  - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
   - BDKCollectionIndexView
   - CSStickyHeaderFlowLayout
   - DateTools (~> 1.6)
   - Facebook-iOS-SDK (~> 3.0)
   - Firebase (>= 2.0.2)
+  - Flurry-iOS-SDK/FlurrySDK
+  - Gaikan
   - Parse (~> 1.11)
   - ParseFacebookUtils
   - ParseTwitterUtils
   - Reveal-iOS-SDK
 
-EXTERNAL SOURCES:
-  Analytics:
-    :git: https://github.com/October-Labs/analytics-ios.git
-
-CHECKOUT OPTIONS:
-  Analytics:
-    :commit: f55c68031f7c92235f861ccc744623f9897db989
-    :git: https://github.com/October-Labs/analytics-ios.git
-
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
-  Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
   BDKCollectionIndexView: 819bd123d618f20c061caacd409e2d8f1590df7d
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Facebook-iOS-SDK: 08689c2690dc4e087b9c8e171e48667608b72a2a
   Firebase: 744617c0733b45198f9486ebd5cac64ec2d10d79
-  FlurrySDK: ee51555de016e77ff6b516d473de7a57eb858ef7
+  Flurry-iOS-SDK: 054befae0fa0244fb000985bfe757d70f87a9f60
+  Gaikan: a61566383101bd1209c375ad9b8e9a3d7db5f341
+  KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   Parse: 886af46a0a677402f6374bb97ac212e795f70afe
   ParseFacebookUtils: 14016713d460f605e8b4834cd616f19339d7e9c0
   ParseTwitterUtils: 41e8849e37db471e874c6e515190ded19e043dc8
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
-  TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
 
 COCOAPODS: 0.39.0
