@@ -13,13 +13,15 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         
         if collectionType == .Favorites {
             let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout()
+            layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 10.0, right: 26)
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
 
             collectionView?.backgroundColor = UIColor.clearColor()
-            collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 0, 0)
+            collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 0, 22)
             setupAlphabeticalSidebar()
         } else {
             let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout()
+            layout.sectionInset = UIEdgeInsets(top: 10, left: 10.0, bottom: 10.0, right: 10.0)
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
 
             collectionView?.backgroundColor = UIColor.clearColor()
@@ -37,11 +39,9 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
         let layout = CSStickyHeaderFlowLayout()
         layout.disableStickyHeaders = false
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10.0, bottom: 10.0, right: 10.0)
 
         return layout
     }
@@ -71,11 +71,16 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let screenHeight = UIScreen.mainScreen().bounds.size.height
+        var cellWidthPadding: CGFloat = 20
+
+        if collectionType == .Favorites {
+            cellWidthPadding = 46
+        }
         
         if screenHeight < screenWidth {
             return CGSizeMake(screenWidth - 20, 90)
         } else {
-            return CGSizeMake(screenWidth - 20, 105)
+            return CGSizeMake(screenWidth - cellWidthPadding, 105)
         }
     }
     

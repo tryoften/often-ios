@@ -15,7 +15,11 @@ class CollectionViewAlphabeticalSidebar: BDKCollectionIndexView {
     override init(frame: CGRect, indexTitles: [AnyObject]!) {
         super.init(frame: frame, indexTitles: indexTitles)
 
-        touchStatusBackgroundColor = UIColor(hex: "#D8D8D8")
+        touchStatusBackgroundColor = UIColor.clearColor()
+        touchStatusViewAlpha = 0
+
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor(fromHexString: "#DDDDDD").CGColor
         backgroundColor = UIColor(hex: "#F8F8F8")
         font = UIFont(name: "OpenSans-Semibold", size: 6.5)
         alpha = 0.74

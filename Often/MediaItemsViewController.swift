@@ -22,8 +22,6 @@ let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: MediaItemsViewModel
     var alphabeticalSidebar: CollectionViewAlphabeticalSidebar?
-    var alphabeticalSidebarHideConstraint: NSLayoutConstraint?
-    var alphabeticalSidebarHideTimer: NSTimer?
     var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
         didSet {
@@ -66,16 +64,13 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
             view.addSubview(alphabeticalSidebar)
 
-            alphabeticalSidebarHideConstraint = alphabeticalSidebar.al_right == view.al_right
             view.addConstraints([
-                alphabeticalSidebarHideConstraint!,
+                alphabeticalSidebar.al_right == view.al_right,
                 alphabeticalSidebar.al_width == AlphabeticalSidebarWidth,
                 alphabeticalSidebar.al_bottom == view.al_bottom - 20,
-                alphabeticalSidebar.al_top == view.al_top + KeyboardSearchBarHeight
+                alphabeticalSidebar.al_top == view.al_top + KeyboardSearchBarHeight - 0.5
             ])
 
-            alphabeticalSidebarHideTimer?.invalidate()
-            alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
         }
     }
 
@@ -95,11 +90,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-    }
-
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        alphabeticalSidebarHideTimer?.invalidate()
     }
 
     override func requestData(animated: Bool = false) {
@@ -138,37 +128,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 }
             }
         }
-    }
-
-    func toggleSidebar(hidden: Bool, animated: Bool = false) {
-        alphabeticalSidebarHideConstraint?.constant = hidden ? AlphabeticalSidebarWidth : 0
-
-        if !hidden {
-            alphabeticalSidebarHideTimer?.invalidate()
-            alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
-        }
-
-        UIView.animateWithDuration(animated ? 0.3 : 0.0) {
-            self.alphabeticalSidebar?.layoutIfNeeded()
-        }
-    }
-
-    func hideAlphabeticalSidebar() {
-        alphabeticalSidebarHideTimer?.invalidate()
-
-        if  alphabeticalSidebarHideConstraint?.constant == 0 {
-            toggleSidebar(true, animated: true)
-        }
-    }
-
-    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        alphabeticalSidebarHideTimer?.invalidate()
-        toggleSidebar(false, animated: true)
-    }
-
-    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        alphabeticalSidebarHideTimer?.invalidate()
-        alphabeticalSidebarHideTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideAlphabeticalSidebar", userInfo: nil, repeats: false)
     }
 
     func showData(animated: Bool = false) {

@@ -148,7 +148,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
     func updateKeyCap(key: KeyboardKeyButton, model: KeyboardKey, fullReset: Bool, uppercase: Bool, characterUppercase: Bool, shiftState: ShiftState) {
         key.key = model
         
-        switch(model) {
+        switch model {
         case .letter (let character):
             let str = String(character.rawValue)
             if shiftState.uppercase() {
