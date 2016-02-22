@@ -11,12 +11,13 @@ import UIKit
 class EmojiKeyboardContainerViewController: UIViewController, EmojiSectionSelectable {
     var emojiTableView: EmojiKeyboardTableViewController
     var sectionSelectorView: EmojiSectionSelectorView
+    var textProcessor: TextProcessingManager?
     
+    // May not need the View Model in the new system - Plist info is only in there
     init(viewModel: EmojiKeyboardViewModel) {
         emojiTableView = EmojiKeyboardTableViewController(viewModel: viewModel)
         
         sectionSelectorView = EmojiSectionSelectorView()
-        sectionSelectorView.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(nibName: nil, bundle: nil)
         
@@ -26,8 +27,6 @@ class EmojiKeyboardContainerViewController: UIViewController, EmojiSectionSelect
         
         view.addSubview(emojiTableView.view)
         view.addSubview(sectionSelectorView)
-        
-        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -45,17 +44,13 @@ class EmojiKeyboardContainerViewController: UIViewController, EmojiSectionSelect
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: EmojiSectionSelectable
-    func scrollToEmojiSection(section: Int) {
-        emojiTableView.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        sectionSelectorView.frame = CGRectMake(view.frame.width - 40, 0, 40, view.frame.height)
     }
     
-    func setupLayout() {
-        view.addConstraints([
-            sectionSelectorView.al_right == view.al_right,
-            sectionSelectorView.al_top == view.al_top,
-            sectionSelectorView.al_bottom == view.al_bottom,
-            sectionSelectorView.al_width == 40
-        ])
+    // MARK: EmojiSectionSelectable
+    func scrollToEmojiSection(section: Int) {
+        emojiTableView.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
     }
 }

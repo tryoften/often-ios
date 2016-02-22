@@ -9,10 +9,17 @@
 import UIKit
 
 class EmojiKeyboardTableViewCell: UITableViewCell {
+    var keysContainerView: TouchRecognizerView
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        keysContainerView = TouchRecognizerView()
+        keysContainerView.backgroundColor = DefaultTheme.keyboardBackgroundColor
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = ClearColor
+        
+        addSubview(keysContainerView)
     }
 
     required init?(coder aDecoder: NSCoder) {

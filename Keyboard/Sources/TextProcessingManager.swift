@@ -17,7 +17,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     weak var delegate: TextProcessingManagerDelegate?
     var currentProxy: UITextDocumentProxy
     let defaultProxy: UITextDocumentProxy
-    var spellChecker: SpellChecker?
     var lastInsertedString: String?
     var proxies: [String: UITextDocumentProxy]
     var autocorrectEnabled = true
@@ -110,42 +109,10 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
- 
-            processAutocorrectSuggestions(text, tokens: tokens)
             processFilters(text, tokens: tokens)
         }
 
         delegate?.textProcessingManagerDidChangeText(self)
-    }
-    
-    func processAutocorrectSuggestions(text: String, tokens: [String]) {
-        guard let lastWord = tokens.last else {
-            return
-        }
-        print(tokens)
-        let query = lastWord == "" && tokens.count > 1 ? tokens[tokens.count - 2] : lastWord
-        
-        
-        var suggestions = [SuggestItem]()
-        
-        var inputSuggestion = SuggestItem()
-        inputSuggestion.term = query
-        inputSuggestion.distance = 0
-        inputSuggestion.isInput = true
-        
-        suggestions.append(inputSuggestion)
-        
-        if let engineSuggestions = spellChecker?.lookup(query, language: "", editDistanceMax: 2) {
-            for engineSuggestion in engineSuggestions {
-                if engineSuggestion != inputSuggestion {
-                    suggestions.append(engineSuggestion)
-                }
-            }
-            delegate?.textProcessingManagerDidReceiveSpellCheckSuggestions(self, suggestions: suggestions)
-            
-        } else {
-            delegate?.textProcessingManagerDidReceiveSpellCheckSuggestions(self, suggestions: suggestions)
-        }
     }
     
     func processFilters(text: String, tokens: [String]) {
@@ -164,62 +131,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
             }
         }
     }
-    
-    func applyTextSuggestion(var suggestion: SuggestItem) {
-        guard var text = currentProxy.documentContextBeforeInput else {
-            return
-        }
-        print("text ", text)
-        
-        
-        if suggestion.isInput {
-            suggestion.count = 100000
-            spellChecker?.createDictionaryEntry(suggestion.term, language: "")
-        }
-        
-        let characterSet = NSMutableCharacterSet.punctuationCharacterSet()
-        characterSet.formUnionWithCharacterSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        
-        let tokens = text.componentsSeparatedByCharactersInSet(characterSet)
-        var word: String?
-        
-        for token in tokens.reverse() {
-            if token.isEmpty {
-                continue
-            }
-            
-            var found = false
-            for character in token.unicodeScalars {
-                if characterSet.longCharacterIsMember(character.value) {
-                    found = true
-                    break
-                }
-                
-            }
-            
-            if !found {
-                word = token
-                break
-            }
-        }
-        
-        guard let lastWord = word else {
-            return
-        }
-        
-        print("lastWord: ", lastWord)
-        
-        if let range = text.rangeOfString(lastWord) {
-            text.replaceRange(range, with: suggestion.term)
-        }
-        
-        for _ in 0...text.length {
-            currentProxy.deleteBackward()
-        }
-        
-        currentProxy.insertText(text + " ")
-    }
-    
+
     func clearInput() {
         //move cursor to end of text
         if let afterInputText = currentProxy.documentContextAfterInput {
@@ -378,7 +290,6 @@ protocol TextProcessingManagerDelegate: class {
     func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter)
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter?
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String)
-    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem])
 }
 
 extension TextProcessingManagerDelegate {
@@ -386,5 +297,4 @@ extension TextProcessingManagerDelegate {
     func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
         return nil
     }
-    func textProcessingManagerDidReceiveSpellCheckSuggestions(textProcessingManager: TextProcessingManager, suggestions: [SuggestItem]) {}
 }

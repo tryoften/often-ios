@@ -1,4 +1,4 @@
-//
+
 //  MediaItemsKeyboardContainerViewController.swift
 //  Often
 //
@@ -26,6 +26,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
     var tabChangeListener: Listener?
+    var orientationChangeListener: Listener?
 
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
@@ -42,7 +43,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         super.init(extraHeight: extraHeight)
 
         tabChangeListener = sectionsTabBarController.didChangeTab.on(onTabChange)
-
+        
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
         #if !(KEYBOARD_DEBUG)
@@ -67,6 +68,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         showTooltipsIfNeeded()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didInsertMediaItem:", name: "mediaItemInserted", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -83,14 +86,13 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             tooltipVC?.delegate = self
 
             sectionsTabBarController.view.userInteractionEnabled = false
-
             view.addSubview(tooltipVC!.view)
         }
     }
 
     func setupSections() {
         // Keyboard
-        let keyboardVC = KeyboardViewController(textProcessor: textProcessor!)
+        let keyboardVC = KeyboardContainerViewController(textProcessor: textProcessor!)
         keyboardVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfKeyboard(scale: 0.45), tag: 0)
 
         // Favorites
@@ -133,7 +135,20 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             return
         }
 
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: "Changed Tab"), additionalProperties: [
+            "item": tabItem.tag
+        ])
+
         setupCurrentSection(section)
+    }
+    
+    func onOrientationChanged() {
+        let currentTab = sectionsTabBarController.currentTab
+        let section = sections[currentTab].0
+
+        if section != .Keyboard {
+            hideKeyboard()
+        }
     }
 
     func setupCurrentSection(section: MediaItemsKeyboardSection, changeHeight: Bool = true) {
@@ -147,6 +162,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             togglePanelButton.hidden = false
             keyboardExtraHeight = 144
         }
+        
+        if let navvc = sections[sectionsTabBarController.currentTab].1 as? UINavigationController, bvc = navvc.viewControllers.first as? BrowseViewController {
+            bvc.collectionView?.performBatchUpdates(nil, completion: nil)
+        }
 
         if changeHeight {
             keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: true)
@@ -158,8 +177,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "hideKeyboard", name: CollapseKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "showKeyboard", name: RestoreKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "hideKeyboard:", name: CollapseKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "showKeyboard:", name: RestoreKeyboardEvent, object: nil)
         center.addObserver(self, selector: "didTapOnMediaItem:", name: SearchResultsInsertLinkEvent, object: nil)
         center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
 

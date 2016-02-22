@@ -155,4 +155,20 @@ class LayoutConstants {
         }
         return 0
     }
+    
+    // Emoji Layout Helpers
+    class func numberOfEmojiSectionRows(emojiCount: Int) -> Int {
+        return (emojiCount) / 8
+    }
+    
+    class func numberOfEmojiSectionColumns() -> Int {
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let emojiKeyWidth: CGFloat = 40.0
+        return Int((screenWidth - 40) / emojiKeyWidth) // "- 40" for the section selector view
+    }
+    
+    class func heightForEmojiSection(count: Int) -> CGFloat {
+        let emojiKeyHeight: CGFloat = 30.0 // temporary
+        return CGFloat((count / 8) + 1) * emojiKeyHeight
+    }
 }

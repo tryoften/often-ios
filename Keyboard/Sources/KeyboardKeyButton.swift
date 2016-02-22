@@ -179,6 +179,26 @@ class KeyboardKeyButton: UIControl {
                 text = String(number.rawValue)
             case .special(let character, _):
                 text = String(character.rawValue)
+            case .natureEmoji(let character):
+                color = theme.keyboardKeyBackgroundColor
+                let str = String(character.rawValue)
+                text = str
+            case .objectEmoji(let character):
+                color = theme.keyboardKeyBackgroundColor
+                let str = String(character.rawValue)
+                text = str
+            case .peopleEmoji(let character):
+                color = theme.keyboardKeyBackgroundColor
+                let str = String(character.rawValue)
+                text = str
+            case .placeEmoji(let character):
+                color = theme.keyboardKeyBackgroundColor
+                let str = String(character.rawValue)
+                text = str
+            case .symbolEmoji(let character):
+                color = theme.keyboardKeyBackgroundColor
+                let str = String(character.rawValue)
+                text = str
             case .modifier(let modifier, _):
                 switch(modifier) {
                 case .Backspace:

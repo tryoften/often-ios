@@ -91,10 +91,7 @@ class EmojiSectionSelectorView: UIView {
             break
         }
         
-        UIView.animateWithDuration(0.3, animations: {
-            self.layoutIfNeeded()
-        })
-        
+        layoutIfNeeded()
         sectionSelectionDelegate?.scrollToEmojiSection(section)
     }
     

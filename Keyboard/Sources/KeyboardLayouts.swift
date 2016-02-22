@@ -18,6 +18,125 @@ private let EnglishKeyboardMap: [KeyboardRow] = [
         [.changePage(1, .Letter), .modifier(.SwitchKeyboard, .Letter), .modifier(.Share, .Letter), .modifier(.Space, .Letter), .modifier(.Enter, .Letter)]
 ]
 
+private let NatureEmojiKeyboardMap: [KeyboardRow] = [
+[.natureEmoji(.🐶),.natureEmoji(.🐺),.natureEmoji(.🐱),.natureEmoji(.🐭),.natureEmoji(.🐹),.natureEmoji(.🐰),.natureEmoji(.🐸)],
+[.natureEmoji(.🐯),.natureEmoji(.🐨),.natureEmoji(.🐻),.natureEmoji(.🐷),.natureEmoji(.🐽),.natureEmoji(.🐮),.natureEmoji(.🐗)],
+[.natureEmoji(.🐵),.natureEmoji(.🐒),.natureEmoji(.🐴),.natureEmoji(.🐑),.natureEmoji(.🐘),.natureEmoji(.🐼),.natureEmoji(.🐧)],
+[.natureEmoji(.🐦),.natureEmoji(.🐤),.natureEmoji(.🐥),.natureEmoji(.🐣),.natureEmoji(.🐔),.natureEmoji(.🐍),.natureEmoji(.🐢)],
+[.natureEmoji(.🐛),.natureEmoji(.🐝),.natureEmoji(.🐜),.natureEmoji(.🐞),.natureEmoji(.🐌),.natureEmoji(.🐙),.natureEmoji(.🐚)],
+[.natureEmoji(.🐠),.natureEmoji(.🐟),.natureEmoji(.🐬),.natureEmoji(.🐳),.natureEmoji(.🐋),.natureEmoji(.🐄),.natureEmoji(.🐏)],
+[.natureEmoji(.🐀),.natureEmoji(.🐃),.natureEmoji(.🐅),.natureEmoji(.🐇),.natureEmoji(.🐉),.natureEmoji(.🐎),.natureEmoji(.🐐)],
+[.natureEmoji(.🐓),.natureEmoji(.🐕),.natureEmoji(.🐖),.natureEmoji(.🐁),.natureEmoji(.🐂),.natureEmoji(.🐲),.natureEmoji(.🐡)],
+[.natureEmoji(.🐊),.natureEmoji(.🐫),.natureEmoji(.🐪),.natureEmoji(.🐆),.natureEmoji(.🐈),.natureEmoji(.🐩),.natureEmoji(.🐾)],
+[.natureEmoji(.💐),.natureEmoji(.🌸),.natureEmoji(.🌷),.natureEmoji(.🍀),.natureEmoji(.🌹),.natureEmoji(.🌻),.natureEmoji(.🌺)],
+[.natureEmoji(.🍁),.natureEmoji(.🍃),.natureEmoji(.🍂),.natureEmoji(.🌿),.natureEmoji(.🌾),.natureEmoji(.🍄),.natureEmoji(.🌵)],
+[.natureEmoji(.🌴),.natureEmoji(.🌲),.natureEmoji(.🌳),.natureEmoji(.🌰),.natureEmoji(.🌱),.natureEmoji(.🌼),.natureEmoji(.🌐)],
+[.natureEmoji(.🌞),.natureEmoji(.🌝),.natureEmoji(.🌚),.natureEmoji(.🌑),.natureEmoji(.🌒),.natureEmoji(.🌓),.natureEmoji(.🌔)],
+[.natureEmoji(.🌕),.natureEmoji(.🌖),.natureEmoji(.🌗),.natureEmoji(.🌘),.natureEmoji(.🌜),.natureEmoji(.🌛),.natureEmoji(.🌙)],
+[.natureEmoji(.🌍),.natureEmoji(.🌎),.natureEmoji(.🌏),.natureEmoji(.🌋),.natureEmoji(.🌌),.natureEmoji(.🌠),.natureEmoji(.🌀)],
+[.natureEmoji(.🌁),.natureEmoji(.🌈),.natureEmoji(.🌊)]
+]
+
+private let ObjectEmojiKeyboardMap: [KeyboardRow] = [
+    [.objectEmoji(.🎍),.objectEmoji(.💝),.objectEmoji(.🎎),.objectEmoji(.🎒),.objectEmoji(.🎓),.objectEmoji(.🎏),.objectEmoji(.🎆)],
+    [.objectEmoji(.🎇),.objectEmoji(.🎐),.objectEmoji(.🎑),.objectEmoji(.🎃),.objectEmoji(.👻),.objectEmoji(.🎅),.objectEmoji(.🎄)],
+    [.objectEmoji(.🎁),.objectEmoji(.🎋),.objectEmoji(.🎉),.objectEmoji(.🎊),.objectEmoji(.🎈),.objectEmoji(.🎌),.objectEmoji(.🔮)],
+    [.objectEmoji(.🎥),.objectEmoji(.📷),.objectEmoji(.📹),.objectEmoji(.📼),.objectEmoji(.💿),.objectEmoji(.📀),.objectEmoji(.💽)],
+    [.objectEmoji(.💾),.objectEmoji(.💻),.objectEmoji(.📱),.objectEmoji(.📞),.objectEmoji(.📟),.objectEmoji(.📠),.objectEmoji(.📡)],
+    [.objectEmoji(.📺),.objectEmoji(.📻),.objectEmoji(.🔊),.objectEmoji(.🔉),.objectEmoji(.🔈),.objectEmoji(.🔇),.objectEmoji(.🔔)],
+    [.objectEmoji(.🔕),.objectEmoji(.📢),.objectEmoji(.📣),.objectEmoji(.🔓),.objectEmoji(.🔒),.objectEmoji(.🔏),.objectEmoji(.🔐)],
+    [.objectEmoji(.🔑),.objectEmoji(.🔎),.objectEmoji(.💡),.objectEmoji(.🔦),.objectEmoji(.🔆),.objectEmoji(.🔅),.objectEmoji(.🔌)],
+    [.objectEmoji(.🔋),.objectEmoji(.🔍),.objectEmoji(.🛁),.objectEmoji(.🛀),.objectEmoji(.🚿),.objectEmoji(.🚽),.objectEmoji(.🔧)],
+    [.objectEmoji(.🔩),.objectEmoji(.🔨),.objectEmoji(.🚪),.objectEmoji(.🚬),.objectEmoji(.💣),.objectEmoji(.🔫),.objectEmoji(.🔪)],
+    [.objectEmoji(.💊),.objectEmoji(.💉),.objectEmoji(.💰),.objectEmoji(.💴),.objectEmoji(.💵),.objectEmoji(.💷),.objectEmoji(.💶)],
+    [.objectEmoji(.💳),.objectEmoji(.💸),.objectEmoji(.📲),.objectEmoji(.📧),.objectEmoji(.📥),.objectEmoji(.📤),.objectEmoji(.📩)],
+    [.objectEmoji(.📨),.objectEmoji(.📯),.objectEmoji(.📫),.objectEmoji(.📪),.objectEmoji(.📬),.objectEmoji(.📭),.objectEmoji(.📮)],
+    [.objectEmoji(.📦),.objectEmoji(.📝),.objectEmoji(.📄),.objectEmoji(.📃),.objectEmoji(.📑),.objectEmoji(.📊),.objectEmoji(.📈)],
+    [.objectEmoji(.📉),.objectEmoji(.📜),.objectEmoji(.📋),.objectEmoji(.📅),.objectEmoji(.📆),.objectEmoji(.📇),.objectEmoji(.📁)],
+    [.objectEmoji(.📂),.objectEmoji(.📌),.objectEmoji(.📎),.objectEmoji(.📏),.objectEmoji(.📐),.objectEmoji(.📕),.objectEmoji(.📗)],
+    [.objectEmoji(.📘),.objectEmoji(.📙),.objectEmoji(.📓),.objectEmoji(.📔),.objectEmoji(.📒),.objectEmoji(.📚),.objectEmoji(.📖)],
+    [.objectEmoji(.🔖),.objectEmoji(.📛),.objectEmoji(.🔬),.objectEmoji(.🔭),.objectEmoji(.📰),.objectEmoji(.🎨),.objectEmoji(.🎬)],
+    [.objectEmoji(.🎤),.objectEmoji(.🎧),.objectEmoji(.🎼),.objectEmoji(.🎵),.objectEmoji(.🎶),.objectEmoji(.🎹),.objectEmoji(.🎻)],
+    [.objectEmoji(.🎺),.objectEmoji(.🎷),.objectEmoji(.🎸),.objectEmoji(.👾),.objectEmoji(.🎮),.objectEmoji(.🃏),.objectEmoji(.🎴)],
+    [.objectEmoji(.🀄),.objectEmoji(.🎲),.objectEmoji(.🎯),.objectEmoji(.🏈),.objectEmoji(.🏀),.objectEmoji(.🎾),.objectEmoji(.🎱)],
+    [.objectEmoji(.🏉),.objectEmoji(.🎳), .objectEmoji(.🚵),.objectEmoji(.🚴),.objectEmoji(.🏁),.objectEmoji(.🏇),.objectEmoji(.🏆)],
+    [.objectEmoji(.🎿),.objectEmoji(.🏂),.objectEmoji(.🏊),.objectEmoji(.🏄),.objectEmoji(.🎣),.objectEmoji(.🍵),.objectEmoji(.🍶)],
+    [.objectEmoji(.🍼),.objectEmoji(.🍺),.objectEmoji(.🍻),.objectEmoji(.🍸),.objectEmoji(.🍹),.objectEmoji(.🍷),.objectEmoji(.🍴)],
+    [.objectEmoji(.🍕),.objectEmoji(.🍔),.objectEmoji(.🍟),.objectEmoji(.🍗),.objectEmoji(.🍖),.objectEmoji(.🍝),.objectEmoji(.🍛)],
+    [.objectEmoji(.🍤),.objectEmoji(.🍱),.objectEmoji(.🍣),.objectEmoji(.🍥),.objectEmoji(.🍙),.objectEmoji(.🍘),.objectEmoji(.🍚)],
+    [.objectEmoji(.🍜),.objectEmoji(.🍲),.objectEmoji(.🍢),.objectEmoji(.🍡),.objectEmoji(.🍳),.objectEmoji(.🍞),.objectEmoji(.🍩)],
+    [.objectEmoji(.🍮),.objectEmoji(.🍦),.objectEmoji(.🍨),.objectEmoji(.🍧),.objectEmoji(.🎂),.objectEmoji(.🍰),.objectEmoji(.🍪)],
+    [.objectEmoji(.🍫),.objectEmoji(.🍬),.objectEmoji(.🍭),.objectEmoji(.🍯),.objectEmoji(.🍎),.objectEmoji(.🍏),.objectEmoji(.🍊)],
+    [.objectEmoji(.🍋),.objectEmoji(.🍒),.objectEmoji(.🍇),.objectEmoji(.🍉),.objectEmoji(.🍓),.objectEmoji(.🍑),.objectEmoji(.🍈)],
+    [.objectEmoji(.🍌),.objectEmoji(.🍐),.objectEmoji(.🍍),.objectEmoji(.🍠),.objectEmoji(.🍆),.objectEmoji(.🍅),.objectEmoji(.🌽)]
+]
+
+private let PeopleEmojiKeyboardMap: [KeyboardRow] = [
+    [.peopleEmoji(.😄),.peopleEmoji(.😃),.peopleEmoji(.😀),.peopleEmoji(.😊),.peopleEmoji(.😉),.peopleEmoji(.😍),.peopleEmoji(.😘)],
+    [.peopleEmoji(.😚),.peopleEmoji(.😗),.peopleEmoji(.😙),.peopleEmoji(.😜),.peopleEmoji(.😝),.peopleEmoji(.😛),.peopleEmoji(.😳)],
+    [.peopleEmoji(.😁),.peopleEmoji(.😔),.peopleEmoji(.😌),.peopleEmoji(.😒),.peopleEmoji(.😞),.peopleEmoji(.😣),.peopleEmoji(.😢)],
+    [.peopleEmoji(.😂),.peopleEmoji(.😭),.peopleEmoji(.😪),.peopleEmoji(.😥),.peopleEmoji(.😰),.peopleEmoji(.😅),.peopleEmoji(.😓)],
+    [.peopleEmoji(.😩),.peopleEmoji(.😫),.peopleEmoji(.😨),.peopleEmoji(.😱),.peopleEmoji(.😠),.peopleEmoji(.😡),.peopleEmoji(.😤)],
+    [.peopleEmoji(.😖),.peopleEmoji(.😆),.peopleEmoji(.😋),.peopleEmoji(.😷),.peopleEmoji(.😎),.peopleEmoji(.😴),.peopleEmoji(.😵)],
+    [.peopleEmoji(.😲),.peopleEmoji(.😟),.peopleEmoji(.😦),.peopleEmoji(.😧),.peopleEmoji(.😈),.peopleEmoji(.👿),.peopleEmoji(.😮)],
+    [.peopleEmoji(.😬),.peopleEmoji(.😐),.peopleEmoji(.😕),.peopleEmoji(.😯),.peopleEmoji(.😶),.peopleEmoji(.😇),.peopleEmoji(.😏)],
+    [.peopleEmoji(.😑),.peopleEmoji(.👲),.peopleEmoji(.👳),.peopleEmoji(.👮),.peopleEmoji(.👷),.peopleEmoji(.💂),.peopleEmoji(.👶)],
+    [.peopleEmoji(.👦),.peopleEmoji(.👧),.peopleEmoji(.👨),.peopleEmoji(.👩),.peopleEmoji(.👴),.peopleEmoji(.👵),.peopleEmoji(.👱)],
+    [.peopleEmoji(.👼),.peopleEmoji(.👸),.peopleEmoji(.😺),.peopleEmoji(.😸),.peopleEmoji(.😻),.peopleEmoji(.😽),.peopleEmoji(.😼)],
+    [.peopleEmoji(.🙀),.peopleEmoji(.😿),.peopleEmoji(.😹),.peopleEmoji(.😾),.peopleEmoji(.👹),.peopleEmoji(.👺),.peopleEmoji(.🙈)],
+    [.peopleEmoji(.🙉),.peopleEmoji(.🙊),.peopleEmoji(.💀),.peopleEmoji(.👽),.peopleEmoji(.💩),.peopleEmoji(.🔥),.peopleEmoji(.🌟)],
+    [.peopleEmoji(.💫),.peopleEmoji(.💥),.peopleEmoji(.💢),.peopleEmoji(.💦),.peopleEmoji(.💧),.peopleEmoji(.💤),.peopleEmoji(.💨)],
+    [.peopleEmoji(.👂),.peopleEmoji(.👀),.peopleEmoji(.👃),.peopleEmoji(.👅),.peopleEmoji(.👄),.peopleEmoji(.👍),.peopleEmoji(.👎)],
+    [.peopleEmoji(.👌),.peopleEmoji(.👊),.peopleEmoji(.👋),.peopleEmoji(.👐),.peopleEmoji(.👆),.peopleEmoji(.👇),.peopleEmoji(.👉)],
+    [.peopleEmoji(.👈),.peopleEmoji(.🙌),.peopleEmoji(.🙏),.peopleEmoji(.👏),.peopleEmoji(.💪),.peopleEmoji(.🚶),.peopleEmoji(.🏃)],
+    [.peopleEmoji(.💃),.peopleEmoji(.👫),.peopleEmoji(.👪),.peopleEmoji(.👬),.peopleEmoji(.👭),.peopleEmoji(.💏),.peopleEmoji(.💑)],
+    [.peopleEmoji(.👯),.peopleEmoji(.🙆),.peopleEmoji(.🙅),.peopleEmoji(.💁),.peopleEmoji(.🙋),.peopleEmoji(.💆),.peopleEmoji(.💇)],
+    [.peopleEmoji(.💅),.peopleEmoji(.👰),.peopleEmoji(.🙎),.peopleEmoji(.🙍),.peopleEmoji(.🙇),.peopleEmoji(.🎩),.peopleEmoji(.👑)],
+    [.peopleEmoji(.👒),.peopleEmoji(.👟),.peopleEmoji(.👞),.peopleEmoji(.👡),.peopleEmoji(.👠),.peopleEmoji(.👢),.peopleEmoji(.👕)],
+    [.peopleEmoji(.👔),.peopleEmoji(.👚),.peopleEmoji(.👗),.peopleEmoji(.🎽),.peopleEmoji(.👖),.peopleEmoji(.👘),.peopleEmoji(.👙)],
+    [.peopleEmoji(.💼),.peopleEmoji(.👜),.peopleEmoji(.👝),.peopleEmoji(.👛),.peopleEmoji(.👓),.peopleEmoji(.🎀),.peopleEmoji(.🌂)],
+    [.peopleEmoji(.💄),.peopleEmoji(.💛),.peopleEmoji(.💙),.peopleEmoji(.💜),.peopleEmoji(.💚),.peopleEmoji(.💔),.peopleEmoji(.💗)],
+    [.peopleEmoji(.💓),.peopleEmoji(.💕),.peopleEmoji(.💖),.peopleEmoji(.💞),.peopleEmoji(.💘),.peopleEmoji(.💌),.peopleEmoji(.💋)],
+    [.peopleEmoji(.💍),.peopleEmoji(.💎),.peopleEmoji(.👤),.peopleEmoji(.👥),.peopleEmoji(.💬),.peopleEmoji(.👣),.peopleEmoji(.💭)]
+]
+
+private let PlaceEmojiKeyboardMap: [KeyboardRow] = [
+    [.placeEmoji(.🏠),.placeEmoji(.🏡),.placeEmoji(.🏫),.placeEmoji(.🏢),.placeEmoji(.🏣),.placeEmoji(.🏥),.placeEmoji(.🏦)],
+    [.placeEmoji(.🏪),.placeEmoji(.🏩),.placeEmoji(.🏨),.placeEmoji(.💒),.placeEmoji(.🏬),.placeEmoji(.🏤),.placeEmoji(.🌇)],
+    [.placeEmoji(.🌆),.placeEmoji(.🏯),.placeEmoji(.🏰),.placeEmoji(.🏭),.placeEmoji(.🗼),.placeEmoji(.🗾),.placeEmoji(.🗻)],
+    [.placeEmoji(.🌄),.placeEmoji(.🌅),.placeEmoji(.🌃),.placeEmoji(.🗽),.placeEmoji(.🌉),.placeEmoji(.🎠),.placeEmoji(.🎡)],
+    [.placeEmoji(.🎢),.placeEmoji(.🚢),.placeEmoji(.🚤),.placeEmoji(.🚣),.placeEmoji(.🚀),.placeEmoji(.💺),.placeEmoji(.🚁)],
+    [.placeEmoji(.🚂),.placeEmoji(.🚊),.placeEmoji(.🚉),.placeEmoji(.🚞),.placeEmoji(.🚆),.placeEmoji(.🚄),.placeEmoji(.🚅)],
+    [.placeEmoji(.🚈),.placeEmoji(.🚇),.placeEmoji(.🚝),.placeEmoji(.🚋),.placeEmoji(.🚃),.placeEmoji(.🚎),.placeEmoji(.🚌)],
+    [.placeEmoji(.🚍),.placeEmoji(.🚙),.placeEmoji(.🚘),.placeEmoji(.🚗),.placeEmoji(.🚕),.placeEmoji(.🚖),.placeEmoji(.🚛)],
+    [.placeEmoji(.🚚),.placeEmoji(.🚨),.placeEmoji(.🚓),.placeEmoji(.🚔),.placeEmoji(.🚒),.placeEmoji(.🚑),.placeEmoji(.🚐)],
+    [.placeEmoji(.🚲),.placeEmoji(.🚡),.placeEmoji(.🚟),.placeEmoji(.🚠),.placeEmoji(.🚜),.placeEmoji(.💈),.placeEmoji(.🚏)],
+    [.placeEmoji(.🎫),.placeEmoji(.🚦),.placeEmoji(.🚥),.placeEmoji(.🚧),.placeEmoji(.🔰),.placeEmoji(.🏮),.placeEmoji(.🎰)],
+    [.placeEmoji(.🗿),.placeEmoji(.🎪),.placeEmoji(.🎭),.placeEmoji(.📍),.placeEmoji(.🚩),.placeEmoji(.🇯),.placeEmoji(.🇰)],
+    [.placeEmoji(.🇩),.placeEmoji(.🇨),.placeEmoji(.🇺),.placeEmoji(.🇫),.placeEmoji(.🇪),.placeEmoji(.🇮),.placeEmoji(.🇷)]
+]
+
+private let SymbolEmojiKeyboardMap: [KeyboardRow] = [
+    [.symbolEmoji(.🔟),.symbolEmoji(.🔢),.symbolEmoji(.🔣),.symbolEmoji(.🔠),.symbolEmoji(.🔡),.symbolEmoji(.🔤),.symbolEmoji(.🔄)],
+    [.symbolEmoji(.🔼),.symbolEmoji(.🔽),.symbolEmoji(.🆗),.symbolEmoji(.🔀),.symbolEmoji(.🔁),.symbolEmoji(.🔂),.symbolEmoji(.🆕)],
+    [.symbolEmoji(.🆙),.symbolEmoji(.🆒),.symbolEmoji(.🆓),.symbolEmoji(.🆖),.symbolEmoji(.📶),.symbolEmoji(.🎦),.symbolEmoji(.🈁)],
+    [.symbolEmoji(.🈯),.symbolEmoji(.🈳),.symbolEmoji(.🈵),.symbolEmoji(.🈴),.symbolEmoji(.🈲),.symbolEmoji(.🉐),.symbolEmoji(.🈹)],
+    [.symbolEmoji(.🈺),.symbolEmoji(.🈶),.symbolEmoji(.🈚),.symbolEmoji(.🚻),.symbolEmoji(.🚹),.symbolEmoji(.🚺),.symbolEmoji(.🚼)],
+    [.symbolEmoji(.🚾),.symbolEmoji(.🚰),.symbolEmoji(.🚮),.symbolEmoji(.🅿),.symbolEmoji(.🚭),.symbolEmoji(.🈷),.symbolEmoji(.🈸)],
+    [.symbolEmoji(.🈂),.symbolEmoji(.Ⓜ),.symbolEmoji(.🛂),.symbolEmoji(.🛄),.symbolEmoji(.🛅),.symbolEmoji(.🛃),.symbolEmoji(.🉑)],
+    [.symbolEmoji(.㊙),.symbolEmoji(.㊗),.symbolEmoji(.🆑),.symbolEmoji(.🆘),.symbolEmoji(.🆔),.symbolEmoji(.🚫),.symbolEmoji(.🔞)],
+    [.symbolEmoji(.📵),.symbolEmoji(.🚯),.symbolEmoji(.🚱),.symbolEmoji(.🚳),.symbolEmoji(.🚷),.symbolEmoji(.🚸),.symbolEmoji(.💟)],
+    [.symbolEmoji(.🆚),.symbolEmoji(.📳),.symbolEmoji(.📴),.symbolEmoji(.🅰),.symbolEmoji(.🅱),.symbolEmoji(.🆎),.symbolEmoji(.🅾)],
+    [.symbolEmoji(.💠),.symbolEmoji(.🔯),.symbolEmoji(.🏧),.symbolEmoji(.💹),.symbolEmoji(.💲),.symbolEmoji(.💱),.symbolEmoji(.🔝)],
+    [.symbolEmoji(.🔚),.symbolEmoji(.🔛),.symbolEmoji(.🔜),.symbolEmoji(.🔃),.symbolEmoji(.🕛),.symbolEmoji(.🕧),.symbolEmoji(.🕐)],
+    [.symbolEmoji(.🕜),.symbolEmoji(.🕑),.symbolEmoji(.🕝),.symbolEmoji(.🕒),.symbolEmoji(.🕞),.symbolEmoji(.🕓),.symbolEmoji(.🕟)],
+    [.symbolEmoji(.🕔),.symbolEmoji(.🕠),.symbolEmoji(.🕕),.symbolEmoji(.🕖),.symbolEmoji(.🕗),.symbolEmoji(.🕘),.symbolEmoji(.🕙)],
+    [.symbolEmoji(.🕚),.symbolEmoji(.🕡),.symbolEmoji(.🕢),.symbolEmoji(.🕣),.symbolEmoji(.🕤),.symbolEmoji(.🕥),.symbolEmoji(.🕦)],
+    [.symbolEmoji(.💮),.symbolEmoji(.💯),.symbolEmoji(.🔘),.symbolEmoji(.🔗),.symbolEmoji(.〽),.symbolEmoji(.🔱),.symbolEmoji(.🔺)],
+    [.symbolEmoji(.🔲),.symbolEmoji(.🔳),.symbolEmoji(.🔴),.symbolEmoji(.🔵),.symbolEmoji(.🔻),.symbolEmoji(.🔶),.symbolEmoji(.🔷)],
+    [.symbolEmoji(.🔸),.symbolEmoji(.🔹)]
+]
+
 private let SpecialCharacterKeyboardMap: [KeyboardRow] = [
     [.digit(.One), .digit(.Two), .digit(.Three), .digit(.Four), .digit(.Five), .digit(.Six), .digit(.Seven), .digit(.Eight), .digit(.Nine), .digit(.Zero)],
     [.special(.Hyphen, .Special), .special(.Slash, .Special), .special(.Colon, .Special), .special(.Semicolon, .Special), .special(.OpenParenthesis, .Special), .special(.CloseParenthesis, .Special), .special(.DollarSign, .Special), .special(.Ampersand, .Special), .special(.At, .Special), .special(.Quote, .Special)],
@@ -36,6 +155,7 @@ private let NextSpecialCharacterKeyboardMap: [KeyboardRow] = [
 
 enum Language: String {
     case English = "en_US"
+    case Emoji = "emoji"
 }
 
 let KeyboardLayouts: [Language: KeyboardLayout] = [
@@ -43,6 +163,14 @@ let KeyboardLayouts: [Language: KeyboardLayout] = [
         KeyboardPage(id: .Letter, rows: EnglishKeyboardMap),
         KeyboardPage(id: .Special, rows: SpecialCharacterKeyboardMap),
         KeyboardPage(id: .SecondSpecial, rows: NextSpecialCharacterKeyboardMap)
+    ]),
+    
+    .Emoji: KeyboardLayout(locale: Language.Emoji.rawValue, pages: [
+        KeyboardPage(id: .Emoji, rows: NatureEmojiKeyboardMap),
+        KeyboardPage(id: .Emoji, rows: ObjectEmojiKeyboardMap),
+        KeyboardPage(id: .Emoji, rows: PeopleEmojiKeyboardMap),
+        KeyboardPage(id: .Emoji, rows: PlaceEmojiKeyboardMap),
+        KeyboardPage(id: .Emoji, rows: SymbolEmojiKeyboardMap)
     ])
 ]
 
