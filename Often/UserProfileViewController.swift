@@ -13,10 +13,15 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     UICollectionViewDelegateFlowLayout {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: MediaItemsSectionHeaderView?
+    var viewModels: [MediaItemsCollectionType: MediaItemsViewModel]
     
-    init(collectionViewLayout: UICollectionViewLayout, viewModel: MediaItemsViewModel) {
-        super.init(collectionViewLayout: collectionViewLayout, collectionType: .Favorites, viewModel: viewModel)
+    init(collectionViewLayout: UICollectionViewLayout, recentsViewModel: MediaItemsViewModel, favoritesViewModel: FavoritesService) {
+        
+        viewModels = [.Favorites: favoritesViewModel, .Recents: recentsViewModel]
+        
+        super.init(collectionViewLayout: collectionViewLayout, collectionType: .Favorites, viewModel: recentsViewModel)
 
+        viewModel = viewModels[collectionType]!
         viewModel.delegate = self
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -200,10 +205,12 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     func userFavoritesTabSelected() {
+        viewModel = viewModels[.Favorites]!
         collectionType = .Favorites
     }
     
     func userRecentsTabSelected() {
+        viewModel = viewModels[.Recents]!
         collectionType = .Recents
     }
 

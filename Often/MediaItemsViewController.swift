@@ -21,6 +21,7 @@ let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 
 class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: MediaItemsViewModel
+    var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
     var alphabeticalSidebar: CollectionViewAlphabeticalSidebar?
     var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
@@ -49,9 +50,11 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
+//            collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: lyricsCellReuseIdentifier)
             collectionView.registerClass(MediaItemsSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
+            
         }
     }
 
@@ -111,7 +114,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             hideLoadingView()
 
             if !(viewModel.userState == .NoTwitter || viewModel.userState == .NoKeyboard) {
-                let collection = viewModel.generateMediaItemGroupsForCollectionType(collectionType)
+                let collection = viewModel.generateMediaItemGroups()
                 
                 if collection.isEmpty {
                     switch collectionType {
@@ -166,19 +169,38 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return viewModel.generateMediaItemGroupsForCollectionType(collectionType).count
+        return viewModel.generateMediaItemGroups().count
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.mediaItemGroupItemsForIndex(section, collectionType: collectionType).count
+        return viewModel.mediaItemGroupItemsForIndex(section).count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell: MediaItemCollectionViewCell
-        cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section, collectionType: collectionType), indexPath: indexPath, collectionView: collectionView)
-        cell.delegate = self
         
-        animateCell(cell, indexPath: indexPath)
+        if indexPath.section == 0 && collectionType == .Favorites {
+//            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
+//                return MediaItemCollectionViewCell()
+//            }
+//            let lyricsHorizontalVC = provideRecentlyAddedLyricsHorizontalCollectionViewController()
+//            lyricsHorizontalVC.group = viewModel.generateRecentlyAddedFavoritesLyrics()
+//            cell.backgroundColor = UIColor.clearColor()
+//            cell.contentView.addSubview(lyricsHorizontalVC.view)
+//            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+//            lyricsHorizontalVC.view.frame = cell.bounds
+            
+            cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView)
+            cell.delegate = self
+            
+            animateCell(cell, indexPath: indexPath)
+        } else {
+            cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView)
+            cell.delegate = self
+            
+            animateCell(cell, indexPath: indexPath)
+        }
+        
         
         return cell
     }
@@ -190,20 +212,20 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                     
-                    sectionView.artistImageURL = nil
-                    if collectionType == .Favorites {
-                        if let url = viewModel.sectionHeaderImageURL(collectionType, index: indexPath.section) {
-                            sectionView.artistImageURL = url
-                        }
-                    }
-                    
-                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
-                    if collectionType == .Recents {
-                        sectionView.rightText = ""
-                    } else {
-                        sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
-                    }
-                    sectionHeaders[indexPath.section] = sectionView
+//                    sectionView.artistImageURL = nil
+//                    if collectionType == .Favorites {
+//                        if let url = viewModel.sectionHeaderImageURL(collectionType, index: indexPath.section) {
+//                            sectionView.artistImageURL = url
+//                        }
+//                    }
+//                    
+//                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
+//                    if collectionType == .Recents {
+//                        sectionView.rightText = ""
+//                    } else {
+//                        sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+//                    }
+//                    sectionHeaders[indexPath.section] = sectionView
                     return sectionView
             }
         }
@@ -223,6 +245,16 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 cell.favoriteRibbon.hidden = true
             }
         }
+    }
+    
+    func provideRecentlyAddedLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
+        if lyricsHorizontalVC == nil {
+            lyricsHorizontalVC = TrendingLyricsHorizontalCollectionViewController()
+            lyricsHorizontalVC?.parentVC = self
+            lyricsHorizontalVC?.textProcessor = textProcessor
+            addChildViewController(lyricsHorizontalVC!)
+        }
+        return lyricsHorizontalVC!
     }
 
     
