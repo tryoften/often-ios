@@ -9,95 +9,54 @@
 import UIKit
 
 class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
-    var headerView: ShareOftenMessageHeaderView?
-    var shareOftenMessageViewWasDismissed: Bool = false
-
     init(viewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType) {
         
         if collectionType == .Favorites {
-            let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewLayout()
+            let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout()
+            layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 10.0, right: 26)
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
 
             collectionView?.backgroundColor = UIColor.clearColor()
-            collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + 2, 0, 0, 0)
-            collectionView?.registerClass(ShareOftenMessageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "messageHeader")
+            collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 0, 22)
+            setupAlphabeticalSidebar()
         } else {
             let layout = KeyboardFavoritesAndRecentsViewController.provideCollectionViewFlowLayout()
+            layout.sectionInset = UIEdgeInsets(top: 10, left: 10.0, bottom: 10.0, right: 10.0)
             super.init(collectionViewLayout: layout, collectionType: collectionType, viewModel: viewModel)
+
+            collectionView?.backgroundColor = UIColor.clearColor()
+            collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 80, 0)
         }
-        collectionView?.backgroundColor = UIColor.clearColor()
-        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 80, 0)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
+
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if !shareOftenMessageViewWasDismissed {
-            showShareOftenHeaderIfNeeded()
-        }
-    }
-
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
-        layout.scrollDirection = .Vertical
-        layout.minimumInteritemSpacing = 7.0
-        layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10.0, bottom: 80.0, right: 10.0)
-        return layout
-    }
-
-    class func provideCollectionViewLayout(var headerHeight: CGFloat = 150) -> UICollectionViewLayout {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
         let layout = CSStickyHeaderFlowLayout()
-        var topMargin: CGFloat = 0.0
-
-    #if KEYBOARD
-        topMargin = 10.0
-    #endif
-
-        let count = SessionManagerFlags.defaultManagerFlags.userMessageCount
-        if count % 10 != 0 {
-            headerHeight = 0.0
-        }
-
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 0)
-        layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, headerHeight)
-        layout.parallaxHeaderAlwaysOnTop = false
         layout.disableStickyHeaders = false
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         layout.scrollDirection = .Vertical
         layout.minimumInteritemSpacing = 7.0
         layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: topMargin, left: 10.0, bottom: 10.0, right: 10.0)
-        
-        return layout
-    }
 
-    func showShareOftenHeaderIfNeeded() {
-        if collectionType == .Favorites {
-            let count = SessionManagerFlags.defaultManagerFlags.userMessageCount
-            if count % 10 == 0 && headerView?.hidden == true {
-                headerView?.hidden = false
-                collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(), animated: true)
-                collectionView?.contentOffset = CGPointMake(0, -(KeyboardTabBarHeight + 2))
-            } else {
-                headerView?.hidden = true
-            }
-        }
+        return layout
     }
     
+    func onOrientationChanged() {
+        collectionView?.performBatchUpdates(nil, completion: nil)
+    }
+
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        guard let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX, cells = collectionView?.visibleCells()
+        guard let profileViewCenter = collectionView?.frame.midX, cells = collectionView?.visibleCells()
             where collectionType == .Favorites else {
                 return
         }
 
-        let point = CGPointMake(profileViewCenter, profileViewHeight + scrollView.contentOffset.y + KeyboardTabBarHeight + MediaItemsSectionHeaderHeight)
+        let point = CGPointMake(profileViewCenter, scrollView.contentOffset.y + KeyboardTabBarHeight + MediaItemsSectionHeaderHeight)
         for cell in cells {
             if cell.frame.contains(point) {
                 if let indexPath = collectionView?.indexPathForCell(cell) {
@@ -109,6 +68,22 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         }
     }
 
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
+        var cellWidthPadding: CGFloat = 20
+
+        if collectionType == .Favorites {
+            cellWidthPadding = 46
+        }
+        
+        if screenHeight < screenWidth {
+            return CGSizeMake(screenWidth - 20, 90)
+        } else {
+            return CGSizeMake(screenWidth - cellWidthPadding, 105)
+        }
+    }
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
         guard let mediaItemCell = cell as? MediaItemCollectionViewCell else {
@@ -119,40 +94,6 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         mediaItemCell.favoriteRibbon.hidden = collectionType == .Recents ? !mediaItemCell.itemFavorited : true
 
         return cell
-    }
-
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-
-        if kind == CSStickyHeaderParallaxHeader {
-            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
-                withReuseIdentifier: "messageHeader", forIndexPath: indexPath) as? ShareOftenMessageHeaderView else {
-                    return UICollectionReusableView()
-            }
-            
-            if headerView == nil {
-                headerView = cell
-                headerView?.closeButton.addTarget(self, action: "shareOftenCloseButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-                headerView?.primaryButton.addTarget(self, action: "shareButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-            }
-            
-            return headerView!
-        } else {
-            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
-        }
-    }
-    
-    func shareOftenCloseButtonTapped(sender: UIButton!) {
-        shareOftenMessageViewWasDismissed = true
-        headerView?.hidden = true
-        collectionView?.setCollectionViewLayout(self.dynamicType.provideCollectionViewLayout(0), animated: true)
-    }
-    
-    func shareButtonTapped(sender: UIButton!) {
-        self.textProcessor?.defaultProxy.insertText(ShareMessage)
-    }
-
-    override func mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, groups: [MediaItemGroup]) {
-        super.mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel, collectionType: collectionType, groups: groups)
     }
 
     override func showLoadingView() {

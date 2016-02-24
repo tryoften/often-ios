@@ -1,4 +1,3 @@
-//
 //  MediaItemsKeyboardContainerViewController.swift
 //  Often
 //
@@ -11,6 +10,7 @@ import Fabric
 import Crashlytics
 
 enum MediaItemsKeyboardSection: Int {
+    case Keyboard
     case Favorites
     case Recents
     case Trending
@@ -24,30 +24,35 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var mediaItem: MediaItem?
     var viewModel: KeyboardViewModel?
     var togglePanelButton: TogglePanelButton
+    var tabChangeListener: Listener?
+    var orientationChangeListener: Listener?
 
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
     var sections: [(MediaItemsKeyboardSection, UIViewController)]
     var tooltipVC: ToolTipViewController?
 
-    override init(extraHeight: CGFloat, debug: Bool) {
+    override init(extraHeight: CGFloat) {
         togglePanelButton = TogglePanelButton()
         togglePanelButton.mode = .SwitchKeyboard
 
         sectionsTabBarController = KeyboardSectionsContainerViewController()
         sections = []
         
-        super.init(extraHeight: extraHeight, debug: debug)
+        super.init(extraHeight: extraHeight)
 
+        tabChangeListener = sectionsTabBarController.didChangeTab.on(onTabChange)
+        
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
+        #if !(KEYBOARD_DEBUG)
         dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
-            if !self.debugKeyboard {
-                Fabric.with([Crashlytics()])
-                Flurry.startSession(FlurryClientKey)
-                Firebase.defaultConfig().persistenceEnabled = true
-            }
+            Fabric.sharedSDK().debug = true
+            Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
+            Flurry.startSession(FlurryClientKey)
+            Firebase.defaultConfig().persistenceEnabled = true
         }
+        #endif
 
         viewModel = KeyboardViewModel()
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
@@ -62,6 +67,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         showTooltipsIfNeeded()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didInsertMediaItem:", name: "mediaItemInserted", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -70,40 +77,98 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     func showTooltipsIfNeeded() {
         if viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips == false {
+            if let tabBarItem = self.sectionsTabBarController.tabBar.items?[0] {
+                self.sectionsTabBarController.tabBar.selectedItem = tabBarItem
+                
+            }
             tooltipVC = ToolTipViewController()
             tooltipVC?.delegate = self
 
             sectionsTabBarController.view.userInteractionEnabled = false
-
             view.addSubview(tooltipVC!.view)
         }
     }
 
     func setupSections() {
+        // Keyboard
+        let keyboardVC = KeyboardContainerViewController(textProcessor: textProcessor!)
+        keyboardVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfKeyboard(scale: 0.45), tag: 0)
+
         // Favorites
         let favoritesVC = KeyboardFavoritesAndRecentsViewController(viewModel: FavoritesService.defaultInstance, collectionType: .Favorites)
-        favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 0)
+        favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 1)
         favoritesVC.textProcessor = textProcessor
 
         // Recents
         let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: MediaItemsViewModel(), collectionType: .Recents)
-        recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 1)
+        recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 2)
         recentsVC.textProcessor = textProcessor
 
         // Browse
         let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
-        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 2)
+        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
         browseVC.textProcessor = textProcessor
+
         let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
+        trendingNavigationVC.view.backgroundColor = UIColor.clearColor()
 
         sections = [
+            (.Keyboard, keyboardVC),
             (.Favorites, favoritesVC),
             (.Recents, recentsVC),
             (.Trending, trendingNavigationVC)
         ]
 
         sectionsTabBarController.viewControllers = sections.map { $0.1 }
+
+        let currentTab = sectionsTabBarController.currentTab
+        if let section = MediaItemsKeyboardSection(rawValue: currentTab) {
+            setupCurrentSection(section, changeHeight: false)
+        }
+
         viewDidLayoutSubviews()
+    }
+
+    func onTabChange(tabItem: UITabBarItem) {
+        guard let section = MediaItemsKeyboardSection(rawValue: tabItem.tag) else {
+            return
+        }
+
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: "Changed Tab"), additionalProperties: [
+            "item": tabItem.tag
+        ])
+
+        setupCurrentSection(section)
+    }
+    
+    func onOrientationChanged() {
+        let currentTab = sectionsTabBarController.currentTab
+        let section = sections[currentTab].0
+
+        if section != .Keyboard {
+            hideKeyboard()
+        }
+    }
+
+    func setupCurrentSection(section: MediaItemsKeyboardSection, changeHeight: Bool = true) {
+        switch section {
+        case .Keyboard:
+            sectionsTabBarController.tabBar.layer.zPosition = -1
+            togglePanelButton.hidden = true
+            keyboardExtraHeight = 44
+        default:
+            sectionsTabBarController.tabBar.layer.zPosition = 0
+            togglePanelButton.hidden = false
+            keyboardExtraHeight = 144
+        }
+        
+        if let navvc = sections[sectionsTabBarController.currentTab].1 as? UINavigationController, bvc = navvc.viewControllers.first as? BrowseViewController {
+            bvc.collectionView?.performBatchUpdates(nil, completion: nil)
+        }
+
+        if changeHeight {
+            keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: true)
+        }
     }
 
     override func viewDidLoad() {
@@ -111,8 +176,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "switchKeyboard", name: SwitchKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "hideKeyboard", name: CollapseKeyboardEvent, object: nil)
-        center.addObserver(self, selector: "showKeyboard", name: RestoreKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "hideKeyboard:", name: CollapseKeyboardEvent, object: nil)
+        center.addObserver(self, selector: "showKeyboard:", name: RestoreKeyboardEvent, object: nil)
         center.addObserver(self, selector: "didTapOnMediaItem:", name: SearchResultsInsertLinkEvent, object: nil)
         center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
 
@@ -156,7 +221,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips = true
 
         UIView.animateWithDuration(0.3) {
-            self.sectionsTabBarController.tabBar.selectedItem = self.sectionsTabBarController.tabBar.items![0]
+            if let tabBarItem = self.sectionsTabBarController.tabBar.items?[1] {
+                self.sectionsTabBarController.tabBar.selectedItem = tabBarItem
+
+            }
             self.tooltipVC?.view.alpha = 0
             self.tooltipVC?.delegate = nil
             self.tooltipVC?.view.removeFromSuperview()

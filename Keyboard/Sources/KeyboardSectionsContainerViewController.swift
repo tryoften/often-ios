@@ -10,6 +10,7 @@ import UIKit
 
 class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegate {
     weak var delegate: KeyboardSectionsContainerViewControllerDelegate?
+    var oldScreenWidth: CGFloat?
 
     var viewControllers: [UIViewController] {
         didSet {
@@ -18,9 +19,6 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     }
 
     var tabBarHeight: CGFloat {
-        if UIInterfaceOrientationIsLandscape(interfaceOrientation) {
-            return 32.0
-        }
         return 44.0
     }
 
@@ -33,9 +31,12 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
     }
 
+    var currentTab: Int = 1
+
     private var containerView: UIView
     private(set) var tabBarHidden: Bool
 
+    let didChangeTab = Event<UITabBarItem>()
 
     init(viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
@@ -80,31 +81,39 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
             }
 
             if let tabBarButtons = tabBar.items {
-                tabBar.selectedItem = tabBarButtons[0]
+                tabBar.selectedItem = tabBarButtons[currentTab]
             }
 
-            selectedViewController = viewControllers[0]
+            selectedViewController = viewControllers[currentTab]
         }
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         positionTabBar(false)
+        checkOrientation()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if viewControllers.count > 0 {
-            selectedViewController = selectedViewController ?? viewControllers[0]
+        if viewControllers.count > currentTab {
+            selectedViewController = selectedViewController ?? viewControllers[currentTab]
+
+            if let item = tabBar.items?[currentTab] {
+                didChangeTab.emit(item)
+            }
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func checkOrientation() {
+        let newScreenWidth = UIScreen.mainScreen().bounds.size.width
+        if newScreenWidth != oldScreenWidth {
+            NSNotificationCenter.defaultCenter().postNotificationName(KeyboardOrientationChangeEvent, object: self)
+            oldScreenWidth = newScreenWidth
+        }
     }
-
+    
     func showTabBar(animated: Bool, animations: (() -> Void)? = nil) {
         tabBarHidden = false
         positionTabBar(animated, animations: animations)
@@ -146,6 +155,8 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         self.selectedViewController = viewControllers[item.tag]
+        currentTab = item.tag
+        didChangeTab.emit(item)
     }
 
     private func transitionToChildViewController(toViewController: UIViewController) {

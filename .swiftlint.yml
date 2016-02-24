@@ -4,6 +4,7 @@ disabled_rules:
   - variable_name
   - todo
   - trailing_whitespace
+  - trailing_newline
   - function_body_length
 excluded: # paths to ignore during linting. overridden by `included`.
   - Carthage
@@ -12,5 +13,5 @@ excluded: # paths to ignore during linting. overridden by `included`.
   - Keyboard/StyleKit.swift
 
 line_length: 
-  - 180
+  - 300
   - 300

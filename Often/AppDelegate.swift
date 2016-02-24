@@ -9,8 +9,6 @@
 import UIKit
 import Fabric
 import Crashlytics
-import Realm
-import OAuthSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let sessionManager = SessionManager.defaultManager
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        Fabric.sharedSDK().debug = true
         Fabric.with([Crashlytics()])
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
@@ -26,9 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFTwitterUtils.initializeWithConsumerKey(TwitterConsumerKey, consumerSecret: TwitterConsumerSecret)
         FBAppEvents.activateApp()
         Flurry.startSession(FlurryClientKey)
-        SPTAuth.defaultInstance().clientID = SpotifyClientID
-        SPTAuth.defaultInstance().redirectURL = NSURL(string: OftenCallbackURL)
-        
+
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
 
@@ -36,17 +33,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = VeryLightGray
 
         if let window = self.window {
-#if KEYBOARD_DEBUG
+        #if KEYBOARD_DEBUG
             var frame = window.frame
             frame.origin.y = frame.size.height - (KeyboardHeight + 100)
             frame.size.height = KeyboardHeight + 100
             window.frame = frame
             window.clipsToBounds = true
-            mainController = MediaItemsKeyboardContainerViewController(extraHeight: 144.0, debug: true)
-#else
+            mainController = MediaItemsKeyboardContainerViewController(extraHeight: 144.0)
+        #else
             let loginViewModel = LoginViewModel(sessionManager: sessionManager)
             mainController = LoginViewController(viewModel: loginViewModel)
-#endif
+        #endif
             window.rootViewController = mainController
             window.makeKeyAndVisible()
         }

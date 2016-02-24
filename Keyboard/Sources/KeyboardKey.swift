@@ -94,7 +94,7 @@ enum Modifier: String {
     case Enter = "Enter"
     case SwitchKeyboard = "SwitchKeyboard"
     case SearchMode = "SearchMode"
-    case GoToBrowse = "GoToBrowse"
+    case Share = "Share"
     case CallService = "CallService"
 }
 
@@ -158,7 +158,7 @@ enum KeyboardKey: Hashable {
     }
     
     func toString() -> String {
-        switch(self) {
+        switch self {
         case .digit(let digit):
             return String(digit.rawValue)
         case .letter(let letter):
@@ -173,7 +173,7 @@ enum KeyboardKey: Hashable {
     }
     
     func toInt() -> Int {
-        switch(self) {
+        switch self {
         case .digit(let character):
             return character.hashValue
         case .letter(let character):
@@ -197,6 +197,7 @@ extension KeyboardKey: CustomStringConvertible, CustomDebugStringConvertible {
         return toString()
     }
 }
+
 
 extension KeyboardKey: Equatable {}
 

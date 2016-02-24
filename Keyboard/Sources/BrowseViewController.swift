@@ -43,6 +43,8 @@ class BrowseViewController: MediaItemGroupsViewController,
         setupSearchBar()
         view.addSubview(errorDropView)
         startMonitoring()
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
     }
 
     func setupSearchBar() {
@@ -71,9 +73,18 @@ class BrowseViewController: MediaItemGroupsViewController,
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateReachabilityStatusBar()
+    }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         updateReachabilityStatusBar()
+    }
+
+    func onOrientationChanged() {
+        collectionView?.performBatchUpdates(nil, completion: nil)
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {

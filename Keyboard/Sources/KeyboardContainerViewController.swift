@@ -12,4 +12,25 @@ let SwitchKeyboardEvent = "switchKeyboard"
 let CollapseKeyboardEvent = "collapseKeyboard"
 let RestoreKeyboardEvent = "restoreKeyboard"
 let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
+let KeyboardOrientationChangeEvent = "orientationChange"
 
+class KeyboardContainerViewController: UIViewController {
+    var keyboard: KeyboardViewController
+
+    init(textProcessor: TextProcessingManager) {
+        keyboard = KeyboardViewController(textProcessor: textProcessor)
+
+        super.init(nibName: nil, bundle: nil)
+
+        view.addSubview(keyboard.view)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        keyboard.view.frame = view.bounds
+    }
+}

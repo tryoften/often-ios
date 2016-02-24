@@ -89,10 +89,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         searchSuggestionsViewController.view.frame = containerFrame
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         searchSuggestionsViewController.viewModel.requestData()
@@ -203,7 +199,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     func searchSuggestionViewControllerDidTapSuggestion(viewController: SearchSuggestionsViewController, suggestion: SearchSuggestion) {
         var searchBar = searchBarController.searchBar
 
-        switch(suggestion.type) {
+        switch suggestion.type {
         case .Query:
             isNewSearch = true
             containerViewController?.resetPosition()
@@ -213,7 +209,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             searchResultsViewController.response = nil
             searchResultsViewController.refreshResults()
 
-            if let searchBar = searchBarController.searchBar as? KeyboardSearchBar {     
+            if let searchBar = searchBarController.searchBar as? KeyboardSearchBar {
                 searchBar.cancelButton.selected = true
 
             }

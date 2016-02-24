@@ -167,7 +167,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         cell.reset()
         
-        switch(result.type) {
+        switch result.type {
         case .Article:
             let article = (result as! ArticleMediaItem)
             cell.mainTextLabel.text = article.title
@@ -180,7 +180,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.mainTextLabel.text = track.name
             cell.rightMetadataLabel.text = track.formattedCreatedDate
             
-            switch(result.source) {
+            switch result.source {
             case .Spotify:
                 cell.leftHeaderLabel.text = "Spotify"
                 cell.mainTextLabel.text = "\(track.name)"
@@ -291,7 +291,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     
     func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         cell.overlayVisible = false
-        
     }
     
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
@@ -303,10 +302,15 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         if selected {
             self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
+
+            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
+
         } else {
             for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
                 textProcessor?.defaultProxy.deleteBackward()
             }
+
+            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.removedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
         }
     }
     
@@ -317,6 +321,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         if selected {
             UIPasteboard.generalPasteboard().string = result.getInsertableText()
+
+            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
 
         #if !(KEYBOARD)
             DropDownErrorMessage().setMessage("Copied link!".uppercaseString,

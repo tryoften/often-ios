@@ -148,7 +148,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
     func updateKeyCap(key: KeyboardKeyButton, model: KeyboardKey, fullReset: Bool, uppercase: Bool, characterUppercase: Bool, shiftState: ShiftState) {
         key.key = model
         
-        switch(model) {
+        switch model {
         case .letter (let character):
             let str = String(character.rawValue)
             if shiftState.uppercase() {
@@ -455,7 +455,7 @@ class KeyboardLayoutEngine: NSObject, KeyboardKeyProtocol {
         
         var currentOrigin = frame.origin.x + sideSpace
         
-        for (_, key) in row.enumerate() {
+        for (_, _) in row.enumerate() {
             let roundedOrigin = rounded(currentOrigin)
             
             // avoiding rounding errors

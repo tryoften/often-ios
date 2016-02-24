@@ -30,7 +30,7 @@ class KeyboardSearchBar: UIView, SearchBar {
         }
     }
 
-    var selected: Bool  {
+    var selected: Bool {
         get {
             return textInput.selected
         }
@@ -51,9 +51,10 @@ class KeyboardSearchBar: UIView, SearchBar {
         searchBarPositioned = false
 
         textInput = KeyboardSearchTextField(frame: CGRectZero)
-        
+
         topSeperator = UIView()
-        topSeperator.backgroundColor = UIColor.clearColor()
+        topSeperator.hidden = true
+        topSeperator.backgroundColor = DarkGrey
         
         bottomSeperator = UIView()
         bottomSeperator.backgroundColor = DarkGrey
@@ -80,9 +81,15 @@ class KeyboardSearchBar: UIView, SearchBar {
         addSubview(topSeperator)
         addSubview(bottomSeperator)
         addSubview(textInput)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
 
     }
 
+    func onOrientationChanged() {
+        layoutSubviews()
+    }
+    
     convenience init() {
         self.init(frame: CGRectZero)
     }
@@ -102,11 +109,7 @@ class KeyboardSearchBar: UIView, SearchBar {
         bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
         
         toggleCancelButton(true)
-
-        if !searchBarPositioned {
-            repositionSearchTextField()
-            searchBarPositioned = true
-        }
+        repositionSearchTextField()
     }
 
     func textFieldEditingDidBegin(sender: KeyboardSearchTextField) {
@@ -161,6 +164,7 @@ class KeyboardSearchBar: UIView, SearchBar {
         let textInputWidth = CGRectGetWidth(frame) - (shouldShowCancelButton() ? 80 : 10)
         let topMargin = (CGRectGetHeight(frame) - 28) / 2
         textInput.frame = CGRectMake(5, topMargin, textInputWidth, 28)
+        textInput.repositionText()
     }
 
     private func repositionCancelButton() {

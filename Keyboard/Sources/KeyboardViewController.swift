@@ -36,6 +36,7 @@ class KeyboardViewController: UIViewController {
     var autoPeriodState: AutoPeriodState = .NoSpace
     var constraintsAdded: Bool = false
     var collapsed: Bool = false
+    var shouldSetupKeysOnLayoutChange: Bool = false
     
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
@@ -102,18 +103,8 @@ class KeyboardViewController: UIViewController {
         }
 
         let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
-        let orientationSavvyBounds = CGRectMake(0, CGRectGetHeight(view.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
-
-        keysContainerView.frame = orientationSavvyBounds
+        keysContainerView.frame = CGRectMake(0, CGRectGetHeight(view.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
         setupLayout()
-
-        if !(lastLayoutBounds != nil && lastLayoutBounds == orientationSavvyBounds) {
-            let uppercase = shiftState.uppercase()
-            let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
-            layoutEngine?.layoutKeys(currentPage, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
-            lastLayoutBounds = orientationSavvyBounds
-            setupKeys()
-        }
     }
 
     func setupLayout() {
@@ -123,6 +114,21 @@ class KeyboardViewController: UIViewController {
             setPage(0)
             updateKeyCaps(shiftState.lettercase())
             constraintsAdded = true
+        }
+        updateLayout()
+        shouldSetupKeysOnLayoutChange = false
+    }
+
+    func updateLayout() {
+        let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
+        let orientationSavvyBounds = CGRectMake(0, CGRectGetHeight(view.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
+
+        if lastLayoutBounds?.width != orientationSavvyBounds.width {
+            let uppercase = shiftState.uppercase()
+            let characterUppercase = (NSUserDefaults.standardUserDefaults().boolForKey(ShiftStateUserDefaultsKey) ? uppercase : true)
+            layoutEngine?.layoutKeys(currentPage, uppercase: uppercase, characterUppercase: characterUppercase, shiftState: shiftState)
+            lastLayoutBounds = orientationSavvyBounds
+            setupKeys()
         }
     }
 
@@ -162,7 +168,7 @@ class KeyboardViewController: UIViewController {
     func updateKeyboardLetterCases() {
         for button in allKeys {
             if let key = button.key {
-                switch(key) {
+                switch key {
                 case .letter (let character):
                     let str = String(character.rawValue)
                     if shiftState.uppercase() {
@@ -211,8 +217,8 @@ class KeyboardViewController: UIViewController {
                 case .modifier(.CallService, _):
                     keyView.addTarget(self, action: "didTapCallKey:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseCallKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
-                case .modifier(.GoToBrowse, _):
-                    keyView.addTarget(self, action: "didTapGoToBrowseKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
+                case .modifier(.Share, _):
+                    keyView.addTarget(self, action: "didTapShareKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
                 case .modifier(.Enter, _):
                     keyView.addTarget(self, action: "didTapEnterKey:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseEnterKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
@@ -245,13 +251,13 @@ class KeyboardViewController: UIViewController {
             return nil
         }
 
-        for page in layout.pages {
-            for rowKeys in page.rows {
-                for key in rowKeys {
-                    setupKey(key)
-                }
+        let page = layout.pages[currentPage]
+        for rowKeys in page.rows {
+            for key in rowKeys {
+                setupKey(key)
             }
         }
+
     }
 
 }

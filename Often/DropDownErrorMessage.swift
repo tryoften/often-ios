@@ -115,7 +115,7 @@ class DropDownErrorMessage: UIButton {
         
         let frontToBackWindows = UIApplication.sharedApplication().windows.reverse()
         for window in frontToBackWindows {
-            if (!window.hidden) {
+            if !window.hidden {
                 window.addSubview(self)
             }
         }
@@ -137,5 +137,5 @@ class DropDownErrorMessage: UIButton {
 
 protocol DropDownErrorMessageDelegate: class {
     func dropdownAlertWasDismissed(bool: Bool)
-    func dropdownAlertWasTapped(alert:DropDownErrorMessage)
+    func dropdownAlertWasTapped(alert: DropDownErrorMessage)
 }

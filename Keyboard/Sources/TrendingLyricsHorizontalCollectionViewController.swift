@@ -20,6 +20,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
 
     init() {
         super.init(collectionViewLayout: TrendingLyricsHorizontalCollectionViewController.provideLayout())
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -28,9 +29,6 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
         collectionView!.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: TrendingLyricsCellReuseIdentifier)
@@ -53,8 +51,11 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
         return layout
     }
 
-    // MARK: UICollectionViewDataSource
+    func onOrientationChanged() {
+        collectionView?.performBatchUpdates(nil, completion: nil)
+    }
 
+    // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -65,6 +66,17 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
             return group.items.count
         }
         return 5
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
+        
+        if screenHeight < screenWidth {
+            return CGSizeMake(screenWidth - 60, 90)
+        } else {
+            return CGSizeMake(screenWidth - 60, 105)
+        }
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -109,7 +121,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
-        
+
         if let lyric = group?.items[indexPath.row] as? LyricMediaItem,
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TrendingLyricsCellReuseIdentifier,
             forIndexPath: indexPath) as? MediaItemCollectionViewCell {
