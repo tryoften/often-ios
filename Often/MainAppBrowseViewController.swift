@@ -127,9 +127,6 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
     }
 
     func searchViewControllerDidReceiveResponse(viewController: SearchViewController) {
-        if let cancelButton = searchBar.valueForKey("cancelButton") as? UIButton {
-            cancelButton.setTitle("done".uppercaseString, forState: UIControlState.Normal)
-        }
     }
 
     func provideFeaturedArtistsCollectionViewController() -> FeaturedArtistViewController {
