@@ -109,7 +109,7 @@ class TouchRecognizerView: UIView {
 
         if rect.origin.y + rect.size.height < point.y {
             closest.y += rect.size.height
-        } else if (point.y > rect.origin.y) {
+        } else if point.y > rect.origin.y {
             closest.y = point.y
         }
         
