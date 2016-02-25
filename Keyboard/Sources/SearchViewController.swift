@@ -85,7 +85,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         searchSuggestionsViewController.viewModel.requestData()
     }
 
-    func didTapEnterButton(button: KeyboardKeyButton?) {
+    func didTapEnterButton(button: KeyboardKeyButton?) { 
         guard let searchBar = searchBarController.searchBar as? KeyboardSearchBar else {
             return
         }
@@ -111,7 +111,12 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     #endif
 
         let searchResultsViewController = SearchResultsCollectionViewController(textProcessor: textProcessor, query: text)
-        navigationController?.pushViewController(searchResultsViewController, animated: true)
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionFade
+        navigationController?.view.layer.addAnimation(transition, forKey: nil)
+        navigationController?.pushViewController(searchResultsViewController, animated: false)
     }
 
     func keyboardHeightForOrientation(orientation: UIInterfaceOrientation) -> CGFloat {

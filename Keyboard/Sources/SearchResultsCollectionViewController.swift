@@ -173,8 +173,13 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
     }
 
     func didTapDoneButton(sender: UIButton) {
-        navigationController?.popViewControllerAnimated(true)
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionFade
+        navigationController?.view.layer.addAnimation(transition, forKey: nil)
         navigationController?.navigationBar.hidden = false
+        navigationController?.popViewControllerAnimated(false)
     }
 
     func didTapRefreshResultsButton() {
