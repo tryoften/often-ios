@@ -94,22 +94,20 @@ class FavoritesService: MediaItemsViewModel {
             "type": "lyric"
             ])
         
-        group.items = collections.sort({ (l, r) in
+        let sortedGroup = collections.sort({ (l, r) in
             if let d1 = l.created, let d2 = r.created {
                 return d1.compare(d2) == .OrderedDescending
             }
             return false
         })
         
-        while group.items.count > 10 {
-            group.items.removeLast()
-        }
+        group.items = Array(sortedGroup[0..<10])
         
         return group
     }
     
     func separateGroupByArtists(items: [MediaItem]) -> [MediaItemGroup] {
-        if mediaItems.count != items.count {
+        if mediaItems != items {
             mediaItems = items
             var groups: [String: MediaItemGroup] = [:]
             for item in items {
