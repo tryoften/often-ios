@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let KeyboardSectionCurrentTabKey = "CurrentTabKey"
+
 class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegate {
     weak var delegate: KeyboardSectionsContainerViewControllerDelegate?
     var oldScreenWidth: CGFloat?
@@ -31,7 +33,18 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
     }
 
-    var currentTab: Int = 1
+    var currentTab: Int {
+        get {
+            if let value = NSUserDefaults.standardUserDefaults().objectForKey(KeyboardSectionCurrentTabKey) as? Int {
+                return value
+            }
+            return 1
+        }
+        
+        set(value) {
+            NSUserDefaults.standardUserDefaults().setInteger(value, forKey: KeyboardSectionCurrentTabKey)
+        }
+    }
 
     private var containerView: UIView
     private(set) var tabBarHidden: Bool
