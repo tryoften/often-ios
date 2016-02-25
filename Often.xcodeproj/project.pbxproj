@@ -30,6 +30,12 @@
 		3B4C474B1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
 		3B4C474C1C31FA5B00A2E167 /* MainAppSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */; };
 		3B58FAE11C4455DB00A38F9E /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58FAE01C4455DB00A38F9E /* AccountManager.swift */; };
+		3B5AF3741C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AF3731C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift */; };
+		3B5AF3751C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AF3731C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift */; };
+		3B5AF3761C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AF3731C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift */; };
+		3B5AF37B1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AF37A1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift */; };
+		3B5AF37C1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AF37A1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift */; };
+		3B5AF37D1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AF37A1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift */; };
 		3B5F255F1BF3386E00AA7A98 /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */; };
 		3B5F25621BF3E85300AA7A98 /* SkipSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */; };
 		3B5F25681BF4032500AA7A98 /* AnonymousAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */; };
@@ -684,11 +690,13 @@
 		3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSpacerWithText.swift; sourceTree = "<group>"; };
 		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		3B20C0351C7E016100D98803 /* SearchResultNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultNavigationBar.swift; sourceTree = "<group>"; };
+		3B20C0351C7E016100D98803 /* SearchResultNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultNavigationBar.swift; path = ../Often/SearchResultNavigationBar.swift; sourceTree = "<group>"; };
 		3B3A1B7E1C4F4AAA0075D601 /* LoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginButton.swift; path = Often/LoginButton.swift; sourceTree = SOURCE_ROOT; };
 		3B3A1B8F1C5697BB0075D601 /* FeaturedArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeaturedArtistViewController.swift; sourceTree = "<group>"; };
 		3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAppSearchBar.swift; sourceTree = "<group>"; };
 		3B58FAE01C4455DB00A38F9E /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		3B5AF3731C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardSearchResultNavgationBar.swift; sourceTree = "<group>"; };
+		3B5AF37A1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAppSearchResultNavigationBar.swift; sourceTree = "<group>"; };
 		3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkipSignupView.swift; sourceTree = "<group>"; };
 		3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnonymousAccountManager.swift; sourceTree = "<group>"; };
@@ -1366,6 +1374,9 @@
 				3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */,
 				3B01B3771C61D40E002ED18A /* CollectionViewAlphabeticalSidebar.swift */,
 				690805D21C3A1916001589A5 /* EmptyStateView.swift */,
+				3B20C0351C7E016100D98803 /* SearchResultNavigationBar.swift */,
+				3B5AF37A1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift */,
+				3B5AF3731C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1487,7 +1498,6 @@
 				3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */,
 				810B04FC1C4446AE00BA731B /* ContainerNavigationBar.swift */,
 				3B82FCC31C56B98500B3F112 /* FeaturedArtistView.swift */,
-				3B20C0351C7E016100D98803 /* SearchResultNavigationBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -2468,6 +2478,7 @@
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
 				813323921C226BD70084918B /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
 				813323841C2227840084918B /* KeyboardContainerViewController.swift in Sources */,
+				3B5AF37B1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift in Sources */,
 				698674171C4A911900826FAA /* DropDownMessageView.swift in Sources */,
 				8192A7D81C62410300B25AC6 /* Helpers.swift in Sources */,
 				69138B4F1C25DBD100F33F76 /* TrackCollectionViewCell.swift in Sources */,
@@ -2535,6 +2546,7 @@
 				81D4BF251B38F6DA006430AB /* Window.swift in Sources */,
 				3B20C0361C7E016100D98803 /* SearchResultNavigationBar.swift in Sources */,
 				69E7FD851B8E0611003BC281 /* AppSettingsViewController.swift in Sources */,
+				3B5AF3741C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */,
 				3BAC294D1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift in Sources */,
 				81BDA71E1C3F096300198AF8 /* BaseViewModel.swift in Sources */,
 				3BD971E11B9FD374007EAB5A /* LogInViewController.swift in Sources */,
@@ -2577,6 +2589,7 @@
 				813323801C2216BB0084918B /* EventEmittable.swift in Sources */,
 				6944A54B1C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift in Sources */,
 				810B04E51C4303F200BA731B /* UIImageView+AnimateImage.swift in Sources */,
+				3B5AF37D1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift in Sources */,
 				813324261C24A4F80084918B /* NJKScrollFullScreen.m in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
@@ -2647,6 +2660,7 @@
 				6944A5431C3B0A9F00EA57C3 /* FavoritesEmptyStateView.swift in Sources */,
 				69DBDE0F1C665E6900701A5D /* EmojiSectionSelectorView.swift in Sources */,
 				813323971C23652D0084918B /* MediaItemsSectionHeaderView.swift in Sources */,
+				3B5AF3761C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */,
 				698AD3421C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */,
 				81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* KeyboardSearchTextField.swift in Sources */,
@@ -2776,6 +2790,7 @@
 				698674181C4A911900826FAA /* DropDownMessageView.swift in Sources */,
 				81BDA71B1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
 				3B47F6AB1C66FAA100B000A5 /* Event.swift in Sources */,
+				3B5AF3751C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */,
 				81DA3EFE1C24BE85006822D3 /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
 				81DA3EFF1C24BE85006822D3 /* KeyboardSectionsContainerViewController.swift in Sources */,
 				69A731341C602C9B00F3DBAD /* EmojiKeyboardTableViewController.swift in Sources */,
@@ -2821,6 +2836,7 @@
 				81DA3F231C24BE85006822D3 /* MessageBarView.swift in Sources */,
 				81DA3F291C24BE85006822D3 /* SlideTabBar.swift in Sources */,
 				81DA3F2A1C24BE85006822D3 /* VideoMediaItem.swift in Sources */,
+				3B5AF37C1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift in Sources */,
 				81DA3F2C1C24BE85006822D3 /* PKHUDAssets.swift in Sources */,
 				81DA3F2D1C24BE85006822D3 /* Window.swift in Sources */,
 				81BDA71F1C3F096300198AF8 /* BaseViewModel.swift in Sources */,

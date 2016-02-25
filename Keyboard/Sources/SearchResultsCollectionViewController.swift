@@ -63,16 +63,18 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
         textProcessor: TextProcessingManager?, query: String, searchType: SearchRequestType = .Search) {
     #if KEYBOARD
         contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
+        searchResultNavigationBar = KeyboardSearchResultNavgationBar()
     #else
         contentInset = UIEdgeInsetsMake(64, 0, 40, 0)
+        searchResultNavigationBar = MainAppSearchResultNavigationBar()
     #endif
+        searchResultNavigationBar.translatesAutoresizingMaskIntoConstraints = false
+        searchResultNavigationBar.titleLabel.text = query
+
         messageBarView = MessageBarView()
         searchViewModel = SearchViewModel(base: Firebase(url: BaseURL))
 
-        searchResultNavigationBar = SearchResultNavigationBar()
-        searchResultNavigationBar.translatesAutoresizingMaskIntoConstraints = false
-        searchResultNavigationBar.titleLabel.text = query
-                
+
         super.init(collectionViewLayout: layout, viewModel:  BrowseViewModel(), textProcessor: textProcessor)
 
         searchResultNavigationBar.doneButton.addTarget(self, action: "didTapDoneButton:", forControlEvents: .TouchUpInside)
