@@ -1,4 +1,4 @@
- //
+//
 //  SignupViewModel.swift
 //  Often
 //
@@ -14,13 +14,7 @@ class LoginViewModel: NSObject, SessionManagerObserver {
     var user: User
     var password: String
     var isInternetReachable: Bool
-    
-    enum ResultType {
-        case Success(r: Bool)
-        case Error(e: ErrorType)
-        case SystemError(e: NSError)
-    }
-    
+
     init(sessionManager: SessionManager) {
 
         self.sessionManager = sessionManager
@@ -128,7 +122,13 @@ class LoginViewModel: NSObject, SessionManagerObserver {
         delegate?.loginViewModelNoUserFound(self)
     }
 }
- 
+
+ enum ResultType {
+    case Success(r: Bool)
+    case Error(e: ErrorType)
+    case SystemError(e: NSError)
+ }
+
  enum SignupError: ErrorType {
     case EmailNotVaild
     case PasswordNotVaild

@@ -11,7 +11,7 @@ import UIKit
 private let EmojiCellReuseIdentifier = "emojiCell"
 
 class EmojiKeyboardTableViewController: UITableViewController {
-    var viewModel: EmojiKeyboardViewModel
+    var viewModel: EmojiKeyboardLayoutEngine
     var layout: KeyboardLayout
     var layoutEngine: KeyboardLayoutEngine?
     var constraintsAdded: Bool = false
@@ -32,7 +32,7 @@ class EmojiKeyboardTableViewController: UITableViewController {
         }
     }
     
-    enum EmojiReuseIdentifier: String {
+    enum EmojiReuseIdentifier: String {   
         case Nature = "Nature"
         case Objects = "Objects"
         case People = "People"
@@ -40,7 +40,7 @@ class EmojiKeyboardTableViewController: UITableViewController {
         case Symbols = "Symbols"
     }
     
-    init(viewModel: EmojiKeyboardViewModel) {
+    init(viewModel: EmojiKeyboardLayoutEngine) {
         self.viewModel = viewModel
         
         if let defaultLayout = KeyboardLayouts[.Emoji] {

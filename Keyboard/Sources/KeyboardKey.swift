@@ -5,6 +5,8 @@
 //  Created by Luc Succes on 7/14/15.
 //  Copyright (c) 2015 October Labs Inc. All rights reserved.
 //
+// swiftlint:disable line_length
+// swiftlint:disable file_length
 
 import Foundation
 
@@ -354,10 +356,8 @@ enum ObjectEmoji: Character {
     case 📇 = "📇"
     case 📁 = "📁"
     case 📂 = "📂"
-    
     case 📌 = "📌"
     case 📎 = "📎"
-    
     case 📏 = "📏"
     case 📐 = "📐"
     case 📕 = "📕"
@@ -395,12 +395,10 @@ enum ObjectEmoji: Character {
     case 🎯 = "🎯"
     case 🏈 = "🏈"
     case 🏀 = "🏀"
-    
     case 🎾 = "🎾"
     case 🎱 = "🎱"
     case 🏉 = "🏉"
     case 🎳 = "🎳"
-    
     case 🚵 = "🚵"
     case 🚴 = "🚴"
     case 🏁 = "🏁"
@@ -411,7 +409,6 @@ enum ObjectEmoji: Character {
     case 🏊 = "🏊"
     case 🏄 = "🏄"
     case 🎣 = "🎣"
-    
     case 🍵 = "🍵"
     case 🍶 = "🍶"
     case 🍼 = "🍼"
@@ -1108,7 +1105,7 @@ enum KeyboardKey: Hashable {
     }
     
     func toString() -> String {
-        switch(self) {
+        switch self {
         case .digit(let digit):
             return String(digit.rawValue)
         case .letter(let letter):
@@ -1133,7 +1130,7 @@ enum KeyboardKey: Hashable {
     }
     
     func toInt() -> Int {
-        switch(self) {
+        switch self {
         case .digit(let character):
             return character.hashValue
         case .letter(let character):
@@ -1167,6 +1164,7 @@ extension KeyboardKey: CustomStringConvertible, CustomDebugStringConvertible {
         return toString()
     }
 }
+
 
 extension KeyboardKey: Equatable {}
 

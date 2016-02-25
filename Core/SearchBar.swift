@@ -7,6 +7,9 @@
 //
 
 import Foundation
+/**
+ *  Protocol that defines a set of events need for SearchBar
+ */
 
 protocol SearchBar {
     init(frame: CGRect)

@@ -14,7 +14,7 @@ class EmojiKeyboardContainerViewController: UIViewController, EmojiSectionSelect
     var textProcessor: TextProcessingManager?
     
     // May not need the View Model in the new system - Plist info is only in there
-    init(viewModel: EmojiKeyboardViewModel) {
+    init(viewModel: EmojiKeyboardLayoutEngine) {
         emojiTableView = EmojiKeyboardTableViewController(viewModel: viewModel)
         
         sectionSelectorView = EmojiSectionSelectorView()

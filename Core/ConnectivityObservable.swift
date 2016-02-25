@@ -8,6 +8,10 @@
 
 import Foundation
 
+/**
+ *  Protocol that defines a set of events needed to manage network reachability
+ */
+
 protocol ConnectivityObservable: class {
     var isNetworkReachable: Bool {get set}
 

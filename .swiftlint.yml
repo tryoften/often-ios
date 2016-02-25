@@ -13,5 +13,5 @@ excluded: # paths to ignore during linting. overridden by `included`.
   - Keyboard/StyleKit.swift
 
 line_length: 
-  - 180
+  - 300
   - 300

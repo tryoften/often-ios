@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum TextFieldKey : Int {
+enum TextFieldKey: Int {
     case FullName = 0, Email, Password, Submit
 }
 

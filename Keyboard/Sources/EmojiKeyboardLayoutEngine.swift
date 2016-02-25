@@ -1,5 +1,5 @@
 //
-//  EmojiKeyboardViewModel.swift
+//  EmojiKeyboardLayoutEngine.swift
 //  Often
 //
 //  Created by Komran Ghahremani on 2/1/16.

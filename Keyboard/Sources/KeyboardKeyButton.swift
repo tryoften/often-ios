@@ -170,7 +170,7 @@ class KeyboardKeyButton: UIControl {
             text = ""
             background.layer.borderColor = ClearColor.CGColor
 
-            switch(key) {
+            switch key {
             case .letter(let character):
                 color = theme.keyboardKeyBackgroundColor
                 let str = String(character.rawValue)
@@ -200,7 +200,7 @@ class KeyboardKeyButton: UIControl {
                 let str = String(character.rawValue)
                 text = str
             case .modifier(let modifier, _):
-                switch(modifier) {
+                switch modifier {
                 case .Backspace:
                     color = UIColor.clearColor()
                     underColor = UIColor.clearColor()
@@ -247,7 +247,7 @@ class KeyboardKeyButton: UIControl {
                     break
                 }
             case .changePage(let pageNumber, _):
-                switch(pageNumber) {
+                switch pageNumber {
                 case 0:
                     text = "ABC"
                 case 1:
@@ -417,9 +417,9 @@ class KeyboardKeyButton: UIControl {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         if let key = key {
-            switch(key) {
+            switch key {
             case .modifier(let modifier, _):
-                switch(modifier) {
+                switch modifier {
                 case .Backspace:
                     if selected {
                         shape?.color = TealColor

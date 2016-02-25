@@ -16,7 +16,7 @@ extension Double {
         
         num = fabs(num)
         
-        if (num < 1000.0) {
+        if num < 1000.0 {
             return "\(sign)\(num)"
         }
         

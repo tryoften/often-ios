@@ -47,7 +47,7 @@ class SearchBaseViewModel {
             currentResponseRef = responseRef
             
             responseRef.observeEventType(.Value, withBlock: { snapshot in
-                if (self.currentRequest?.id != snapshot.key) {
+                if self.currentRequest?.id != snapshot.key {
                     return
                 }
                 

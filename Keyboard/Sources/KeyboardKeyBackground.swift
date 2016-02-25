@@ -125,17 +125,17 @@ class KeyboardKeyBackground: UIView, Connectable {
             var floatXCorner: CGFloat = 0
             var floatYCorner: CGFloat = 0
             
-            if (i == 1) {
+            if i == 1 {
                 floatXCorner = cornerRadius
             }
-            else if (i == 3) {
+            else if i == 3 {
                 floatXCorner = -cornerRadius
             }
             
-            if (i == 0) {
+            if i == 0 {
                 floatYCorner = -cornerRadius
             }
-            else if (i == 2) {
+            else if i == 2 {
                 floatYCorner = cornerRadius
             }
             
@@ -196,7 +196,7 @@ class KeyboardKeyBackground: UIView, Connectable {
             
             let shouldDrawArcInOppositeMode = (self.attached != nil ? (self.attached!.rawValue == i) || (self.attached!.rawValue == ((i + 1) % 4)) : false)
             
-            if (self.attached != nil && (self.hideDirectionIsOpposite ? !shouldDrawArcInOppositeMode : self.attached!.rawValue == ((i + 1) % 4))) {
+            if self.attached != nil && (self.hideDirectionIsOpposite ? !shouldDrawArcInOppositeMode : self.attached!.rawValue == ((i + 1) % 4)) {
                 // do nothing
             } else {
                 edgePath = (edgePath == nil ? UIBezierPath() : edgePath)
