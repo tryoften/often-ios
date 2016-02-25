@@ -50,10 +50,10 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
-//            collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: lyricsCellReuseIdentifier)
             collectionView.registerClass(MediaItemsSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
+            collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
             
         }
     }
@@ -83,6 +83,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         requestData(false)
     }
     
@@ -173,34 +174,27 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 && collectionType == .Favorites {
+            return 1
+        }
         return viewModel.mediaItemGroupItemsForIndex(section).count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell: MediaItemCollectionViewCell
+        var cell: UICollectionViewCell
         
         if indexPath.section == 0 && collectionType == .Favorites {
-//            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
-//                return MediaItemCollectionViewCell()
-//            }
-//            let lyricsHorizontalVC = provideRecentlyAddedLyricsHorizontalCollectionViewController()
-//            lyricsHorizontalVC.group = viewModel.generateRecentlyAddedFavoritesLyrics()
-//            cell.backgroundColor = UIColor.clearColor()
-//            cell.contentView.addSubview(lyricsHorizontalVC.view)
-//            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-//            lyricsHorizontalVC.view.frame = cell.bounds
-            
-            cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView)
-            cell.delegate = self
-            
-            animateCell(cell, indexPath: indexPath)
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier("RecentlyUsedCellIdentifier", forIndexPath: indexPath)
+            let lyricsHorizontalVC = provideRecentlyAddedLyricsHorizontalCollectionViewController()
+            lyricsHorizontalVC.group = viewModel.generateMediaItemGroups()[indexPath.section]
+            cell.backgroundColor = UIColor.clearColor()
+            cell.contentView.addSubview(lyricsHorizontalVC.view)
+            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            lyricsHorizontalVC.view.frame = cell.bounds
         } else {
-            cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView)
-            cell.delegate = self
-            
+            cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView) as MediaItemCollectionViewCell
             animateCell(cell, indexPath: indexPath)
         }
-        
         
         return cell
     }
@@ -212,20 +206,15 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                     
-//                    sectionView.artistImageURL = nil
-//                    if collectionType == .Favorites {
-//                        if let url = viewModel.sectionHeaderImageURL(collectionType, index: indexPath.section) {
-//                            sectionView.artistImageURL = url
-//                        }
-//                    }
-//                    
-//                    sectionView.leftText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: true, indexPath: indexPath)
-//                    if collectionType == .Recents {
-//                        sectionView.rightText = ""
-//                    } else {
-//                        sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
-//                    }
-//                    sectionHeaders[indexPath.section] = sectionView
+                    sectionView.artistImageURL = nil
+                    if let url = viewModel.sectionHeaderImageURL(indexPath) {
+                        sectionView.artistImageURL = url
+                    }
+                    
+                    sectionView.leftText = viewModel.leftSectionHeaderTitle(indexPath.section)
+                    sectionView.rightText = viewModel.rightSectionHeaderTitle(indexPath)
+                    
+                    sectionHeaders[indexPath.section] = sectionView
                     return sectionView
             }
         }
@@ -249,7 +238,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     func provideRecentlyAddedLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
         if lyricsHorizontalVC == nil {
-            lyricsHorizontalVC = TrendingLyricsHorizontalCollectionViewController()
+            lyricsHorizontalVC = RecentlyAddedHorizontalCollectionViewController()
             lyricsHorizontalVC?.parentVC = self
             lyricsHorizontalVC?.textProcessor = textProcessor
             addChildViewController(lyricsHorizontalVC!)

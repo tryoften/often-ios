@@ -8,6 +8,9 @@
 
 import Foundation
 
+
+/// fetches favorites for current user and keeps them up to date
+/// also has methods to add/remove favorites
 class FavoritesService: MediaItemsViewModel {
     static let defaultInstance = FavoritesService()
     private(set) var ids: Set<String> = []
@@ -16,16 +19,16 @@ class FavoritesService: MediaItemsViewModel {
     
     override func fetchData() throws {
         try fetchCollection(.Favorites, completion: { success in
-            guard let collection = self.collections[.Favorites] else {
+            if self.collections.isEmpty {
                 return
             }
             
             self.ids = []
-            for favorite in collection {
+            for favorite in self.collections {
                 self.ids.insert(favorite.id)
             }
             
-            self.didChangeFavorites.emit(collection)
+            self.didChangeFavorites.emit(self.collections)
         })
     }
     
@@ -41,7 +44,7 @@ class FavoritesService: MediaItemsViewModel {
         } else {
             removeFavorite(result)
         }
-
+        
         didChangeFavorites.emit([result])
         delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: .Favorites, groups: generateMediaItemGroups())
     }
@@ -50,21 +53,18 @@ class FavoritesService: MediaItemsViewModel {
     func addFavorite(result: MediaItem) {
         ids.insert(result.id)
         sendTask("addFavorite", result: result)
-
+        
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.favorited), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
-
-        if var collection = collections[.Favorites] {
-            collection.append(result)
-            collections[.Favorites] = collection
-        }
+        
+        collections.append(result)
     }
     
     func removeFavorite(result: MediaItem) {
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.unfavorited), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
-
+        
         ids.remove(result.id)
         sendTask("removeFavorite", result: result)
-        collections[.Favorites] = collections[.Favorites]?.filter({ $0 != result })
+        collections = collections.filter({ $0 != result })
     }
     
     func checkFavorite(result: MediaItem) -> Bool {
@@ -72,11 +72,10 @@ class FavoritesService: MediaItemsViewModel {
     }
     
     override func generateMediaItemGroups() -> [MediaItemGroup] {
-        if let collection = self.collections[.Favorites] {
-            return generateFavoritesGroups(collection)
-        } else {
-            return []
+        if !collections.isEmpty {
+            return generateFavoritesGroups(collections)
         }
+        return []
     }
     
     func generateFavoritesGroups(items: [MediaItem]) -> [MediaItemGroup] {
@@ -88,14 +87,24 @@ class FavoritesService: MediaItemsViewModel {
     }
     
     override func generateRecentlyAddedFavoritesLyrics() -> MediaItemGroup {
+        
         let group = MediaItemGroup(dictionary: [
             "id": "recentlyAddedFavorites",
             "title": "Recently Added",
             "type": "lyric"
             ])
-        if let items = self.collections[.Favorites] {
-            group.items = items
+        
+        group.items = collections.sort({ (l, r) in
+            if let d1 = l.created, let d2 = r.created {
+                return d1.compare(d2) == .OrderedDescending
+            }
+            return false
+        })
+        
+        while group.items.count > 10 {
+            group.items.removeLast()
         }
+        
         return group
     }
     
@@ -136,41 +145,78 @@ class FavoritesService: MediaItemsViewModel {
         return groups
     }
     
-//    override func sectionHeaderTitleForCollectionType(collectionType: MediaItemsCollectionType, isLeft: Bool, indexPath: NSIndexPath) -> String {
-//        var header: String = ""
-//        let groups = generateMediaItemGroupsForCollectionType(collectionType)
-//
-//        guard indexPath.section < groups.count else {
-//            return header
-//        }
-//
-//        let group = groups[indexPath.section]
-//        if isLeft {
-//            if let artist = group.title {
-//                header = artist
-//            }
-//        } else {
-//            if let lyric = group.items[indexPath.row] as? LyricMediaItem {
-//                if let track = lyric.track_title {
-//                    header = "\(track) | \(group.items.count) \(lyric.type.rawValue)"
-//                    if group.items.count > 1 {
-//                        header += "s"
-//                    }
-//                }
-//            }
-//        }
-//        return header
-//    }
+    override func leftSectionHeaderTitle(index: Int) -> String {
+        if index == 0 {
+            return "Recently Added"
+        } else {
+            let group = generateMediaItemGroups()[index]
+            if let artist = group.title {
+                return artist
+            }
+            return ""
+        }
+    }
     
-//    override func sectionHeaderImageURL(collectionType: MediaItemsCollectionType, index: Int) -> NSURL? {
-//        let group = mediaItemGroupItemsForIndex(index, collectionType: collectionType)
-//        if !group.isEmpty {
-//            if let lyric = group.first as? LyricMediaItem, urlString = lyric.smallImage, let imageURL = NSURL(string: urlString) {
-//                return imageURL
-//            }
-//        }
-//        return nil
-//    }
+    override func rightSectionHeaderTitle(indexPath: NSIndexPath) -> String {
+        var header = ""
+        let group = generateMediaItemGroups()[indexPath.section]
+        
+        if indexPath.section == 0 {
+            header = "\(group.items.count) lyrics"
+        } else {
+            if let lyric = group.items[indexPath.row] as? LyricMediaItem {
+                if let track = lyric.track_title {
+                    header = "\(track) | \(group.items.count) \(lyric.type.rawValue)"
+                    if group.items.count > 1 {
+                        header += "s"
+                    }
+                }
+            }
+        }
+        return header
+    }
+    
+    override func sectionHeaderImageURL(indexPath: NSIndexPath) -> NSURL? {
+        if indexPath.section != 0 {
+            let group = generateMediaItemGroups()[indexPath.section].items
+            if !group.isEmpty {
+                if let lyric = group.first as? LyricMediaItem, urlString = lyric.smallImage, let imageURL = NSURL(string: urlString) {
+                    return imageURL
+                }
+            }
+        }
+        return nil
+    }
+    
+    func indexSectionHeaderTitles(groups: [MediaItemGroup]) {
+        sectionIndex = [:]
+        
+        for indexTitle in AlphabeticalSidebarIndexTitles {
+            sectionIndex[indexTitle] = nil
+        }
+        
+        for i in 0..<groups.count {
+            guard let artistLyric = groups[i].items.first as? LyricMediaItem, let character = artistLyric.artist_name?.characters.first else {
+                return
+            }
+            
+            let letterChar = Letter(rawValue: character)
+            let numberChar = Digit(rawValue: character)
+            
+            if let char = letterChar {
+                if sectionIndex[String(char)] == nil {
+                    sectionIndex[String(char)] = i
+                }
+            }
+            
+            if let _ = numberChar {
+                if sectionIndex["#"] == nil {
+                    sectionIndex["#"] = i
+                }
+            }
+            
+        }
+    }
     
     private func sendTask(task: String, result: MediaItem) {
         guard let userId = currentUser?.id else {
@@ -182,8 +228,8 @@ class FavoritesService: MediaItemsViewModel {
             "task": task,
             "user": userId,
             "result": result.toDictionary()
-        ])
-
+            ])
+        
         // Preemptively add item to collection before backend queue modifies
         // in case user worker is down
         let ref = Firebase(url: BaseURL).childByAppendingPath("users/\(userId)/favorites/\(result.id)")
@@ -193,5 +239,5 @@ class FavoritesService: MediaItemsViewModel {
             ref.removeValue()
         }
     }
-
+    
 }

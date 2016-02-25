@@ -8,79 +8,45 @@
 
 import Foundation
 
-private let RecentlyAddedCellReuseIdentifier = "RecentlyAddedLyricsCell"
+private let TrendingLyricsCellReuseIdentifier = "TrendingLyricsCell"
 
-class RecentlyAddedHorizontalCollectionViewController : MediaItemsCollectionBaseViewController {
-    var parentVC: MediaItemsViewController?
-    var group: MediaItemGroup? {
-        didSet {
-            collectionView?.reloadData()
+class RecentlyAddedHorizontalCollectionViewController : TrendingLyricsHorizontalCollectionViewController {
+
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TrendingLyricsCellReuseIdentifier,
+            forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
+                return UICollectionViewCell()
         }
-    }
-    
-    init() {
-        super.init(collectionViewLayout: RecentlyAddedHorizontalCollectionViewController.provideLayout())
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
-        // Register cell classes
-        collectionView!.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: RecentlyAddedCellReuseIdentifier)
-        collectionView!.backgroundColor = UIColor.clearColor()
-        collectionView!.showsHorizontalScrollIndicator = false
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    class func provideLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width-60, 105)
-        layout.scrollDirection = .Horizontal
-        layout.minimumInteritemSpacing = 9.0
-        layout.minimumLineSpacing = 9.0
-        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
-        return layout
-    }
-    
-    func onOrientationChanged() {
-        collectionView?.performBatchUpdates(nil, completion: nil)
-    }
-    
-    // MARK: UICollectionViewDataSource
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let group = group {
-            return group.items.count
-        }
-        return 5
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
-        let screenHeight = UIScreen.mainScreen().bounds.size.height
+        cell.reset()
         
-        if screenHeight < screenWidth {
-            return CGSizeMake(screenWidth - 60, 90)
-        } else {
-            return CGSizeMake(screenWidth - 60, 105)
+        guard let lyric = group?.items[indexPath.row] as? LyricMediaItem else {
+            return cell
         }
+        
+        if let url = lyric.smallImage, let imageURL = NSURL(string: url) {
+            cell.avatarImageURL = imageURL
+        }
+        
+        cell.leftHeaderLabel.text = lyric.artist_name
+        cell.rightHeaderLabel.text = lyric.track_title
+        cell.mainTextLabel.text = lyric.text
+        cell.leftMetadataLabel.text = lyric.created?.timeAgoSinceNow()
+        cell.mainTextLabel.textAlignment = .Center
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        cell.layer.shouldRasterize = true
+        cell.showImageView = false
+        cell.mediaLink = lyric
+        cell.type = .Metadata
+        cell.delegate = self
+        
+        #if !(KEYBOARD)
+            cell.inMainApp = true
+        #endif
+        
+        cell.itemFavorited = false
+        
+        return cell
+        
     }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSizeZero
-    }
-    
-    
 }

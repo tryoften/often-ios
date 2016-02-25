@@ -26,6 +26,8 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
         collectionView?.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 70.0, right: 0.0)
+    
+        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
         
     }
     
@@ -117,7 +119,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             if cell.frame.contains(point) {
                 if let indexPath = collectionView?.indexPathForCell(cell) {
                     if let sectionView = sectionHeaders[indexPath.section] {
-                        sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+                        sectionView.rightText = viewModel.rightSectionHeaderTitle(indexPath)
                     }
                 }
             }
@@ -126,6 +128,9 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     // MARK: UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        if indexPath.section == 0 && collectionType == .Favorites {
+            return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 120)
+        }
         switch collectionType {
         case .Recents:  return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         default:        return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
@@ -160,19 +165,21 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as? MediaItemCollectionViewCell else {
+        guard let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as? UICollectionViewCell else {
             return UICollectionViewCell()
         }
         
-        cell.delegate = self
-        cell.type = collectionType == .Recents ? .Metadata : .NoMetadata
-        cell.inMainApp = true
-        
-        if let result = cell.mediaLink {
-            cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
+        if let cell = cell as? MediaItemCollectionViewCell {
+            cell.delegate = self
+            cell.type = collectionType == .Recents ? .Metadata : .NoMetadata
+            cell.inMainApp = true
+            
+            if let result = cell.mediaLink {
+                cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
+            }
+            
+            cell.favoriteRibbon.hidden = collectionType == .Recents ? !cell.itemFavorited : true
         }
-        
-        cell.favoriteRibbon.hidden = collectionType == .Recents ? !cell.itemFavorited : true
 
         return cell
     }

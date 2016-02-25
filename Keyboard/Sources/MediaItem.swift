@@ -93,6 +93,10 @@ class MediaItem: Equatable {
             "source": source.rawValue
         ]
         
+        if let time = created {
+            data["time_added"] = time
+        }
+        
         for (key, value) in self.data {
             data[key as! String] = value
         }

@@ -10,16 +10,16 @@ enum MediaItemsViewModelError: ErrorType {
     case FetchingCollectionDataFailed
 }
 
-/// fetches favorites and recent links for current user and keeps them up to date
-/// also has methods to add/remove favorites
+/// fetches recents for current user and keeps them up to date
 class MediaItemsViewModel: BaseViewModel {
     weak var delegate: MediaItemsViewModelDelegate?
     
-    var collections: [MediaItemsCollectionType: [MediaItem]]
+    var collections: [MediaItem]
     var mediaItemGroups: [MediaItemGroup]
     var mediaItems: [MediaItem]
+    var sectionIndex: [String: NSInteger?]
+
     private var collectionEndpoints: [MediaItemsCollectionType: Firebase]
-    private var sectionIndex: [String: NSInteger?]
     private var collectionType: MediaItemsCollectionType
     
     var userState: UserState = .NonEmpty
@@ -31,7 +31,7 @@ class MediaItemsViewModel: BaseViewModel {
     
     init(baseRef: Firebase = Firebase(url: BaseURL)) {
         collectionEndpoints = [:]
-        collections = [:]
+        collections = []
         mediaItemGroups = []
         mediaItems = []
         sectionIndex = [:]
@@ -74,7 +74,7 @@ class MediaItemsViewModel: BaseViewModel {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
                 self.isDataLoaded = true
                 if let data = snapshot.value as? [String: AnyObject] {
-                    self.collections[collectionType] = self.processMediaItemsCollectionData(data)
+                    self.collections = self.processMediaItemsCollectionData(data)
                 }
                 
                 self.collectionType = collectionType
@@ -88,11 +88,10 @@ class MediaItemsViewModel: BaseViewModel {
     }
     
     func generateMediaItemGroups() -> [MediaItemGroup] {
-        if let collection = self.collections[.Recents] {
-            return generateRecentsGroup(collection)
-        } else {
-            return []
+        if !collections.isEmpty {
+            return generateRecentsGroup(collections)
         }
+        return []
     }
 
     func generateRecentsGroup(items: [MediaItem]) -> [MediaItemGroup] {
@@ -122,114 +121,20 @@ class MediaItemsViewModel: BaseViewModel {
         return MediaItemGroup(dictionary: [:])
     }
     
-//    func generateSectionHeaderView(sectionView: MediaItemsSectionHeaderView) -> MediaItemsSectionHeaderView {
-//        sectionView.artistImageURL = nil
-//        sectionView.leftText = sectionHeaderTitle()
-//        
-//    }
+    func leftSectionHeaderTitle(index: Int) -> String {
+        return sectionHeaderTitle()
+    }
     
     func sectionHeaderTitle() -> String {
         var headerTitle = ""
-        
-        if let links = collections[collectionType] {
-            headerTitle =  "\(links.count)" + " " + collectionType.rawValue
+        if !collections.isEmpty {
+            headerTitle =  "\(collections.count)" + " " + collectionType.rawValue
         }
         
         return headerTitle
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    
-//    func generateMediaItemGroupsForCollectionType(collectionType: MediaItemsCollectionType) -> [MediaItemGroup] {
-//        if let collection = self.collections[collectionType] {
-//            return separateGroupByArtist(collectionType, items: collection)
-//        } else {
-//            return []
-//        }
-//    }
-//    
-//    func separateGroupByArtist(collectionType: MediaItemsCollectionType, items: [MediaItem]) -> [MediaItemGroup] {
-//        switch collectionType {
-//        case .Favorites:
-//            // TODO: use actual comparison between mediaItems and new items collection
-//            if mediaItems.count != items.count {
-//                mediaItems = items
-//                var groups: [String: MediaItemGroup] = [:]
-//                for item in items {
-//                    guard let lyric = item as? LyricMediaItem,
-//                        let artistName = lyric.artist_name else {
-//                            continue
-//                    }
-//                    
-//                    if let _ = groups[artistName] {
-//                        groups[artistName]!.items.append(item)
-//                    } else {
-//                        let group = MediaItemGroup(dictionary: [
-//                            "title": artistName,
-//                            ])
-//                        group.items = [item]
-//                        groups[artistName] = group
-//                    }
-//                }
-//                
-//                mediaItemGroups = groups.values.sort({ $0.title < $1.title })
-//                for group in mediaItemGroups {
-//                    group.items = sortLyricsByTrack(group.items)
-//                }
-//                indexSectionHeaderTitles(mediaItemGroups)
-//            }
-//            return mediaItemGroups
-//        case .Recents:
-//            let group = MediaItemGroup(dictionary: [
-//                "id": "recents",
-//                "title": sectionHeaderTitle(collectionType),
-//                "type": "lyric"
-//                ])
-//            group.items = items.sort({ (l, r) in
-//                if let d1 = l.created, let d2 = r.created {
-//                    return d1.compare(d2) == .OrderedDescending
-//                }
-//                return false
-//            })
-//            return [group]
-//        default:
-//            return []
-//        }
-//    }
-//
-    
-//    func mediaItemGroupItemsForIndex(index: Int, collectionType: MediaItemsCollectionType) -> [MediaItem] {
-//        let groups = generateMediaItemGroupsForCollectionType(collectionType)
-//        if !groups.isEmpty {
-//            return groups[index].items
-//        }
-//        return []
-//    }
-    
-    
-    
-    func sectionHeaderTitle(collectionType: MediaItemsCollectionType) -> String {
-        var headerTitle = ""
-        
-        if let links = collections[collectionType] {
-            headerTitle =  "\(links.count)" + " " + collectionType.rawValue
-        }
-        
-        return headerTitle
-    }
-    
-    func sectionHeaderTitleForCollectionType(collectionType: MediaItemsCollectionType, isLeft: Bool, indexPath: NSIndexPath) -> String {
-        if isLeft {
-            return sectionHeaderTitle(collectionType)
-        }
+    func rightSectionHeaderTitle(indexPath: NSIndexPath) -> String {
         return ""
     }
 
@@ -241,45 +146,8 @@ class MediaItemsViewModel: BaseViewModel {
         return index
     }
 
-    func sectionHeaderImageURL(collectionType: MediaItemsCollectionType, index: Int) -> NSURL? {
+    func sectionHeaderImageURL(indexPath: NSIndexPath) -> NSURL? {
         return nil
-    }
-
-    private func sortLyricsByTrack(groups: [MediaItem]) -> [MediaItem] {
-        if let unsorted = groups as? [LyricMediaItem] {
-            return unsorted.sort({ $0.track_title < $1.track_title })
-        }
-        return groups
-    }
-
-    func indexSectionHeaderTitles(groups: [MediaItemGroup]) {
-        sectionIndex = [:]
-
-        for indexTitle in AlphabeticalSidebarIndexTitles {
-            sectionIndex[indexTitle] = nil
-        }
-
-        for i in 0..<groups.count {
-            guard let artistLyric = groups[i].items.first as? LyricMediaItem, let character = artistLyric.artist_name?.characters.first else {
-                return
-            }
-
-            let letterChar = Letter(rawValue: character)
-            let numberChar = Digit(rawValue: character)
-
-            if let char = letterChar {
-                if sectionIndex[String(char)] == nil {
-                    sectionIndex[String(char)] = i
-                }
-            }
-
-            if let _ = numberChar {
-                if sectionIndex["#"] == nil {
-                    sectionIndex["#"] = i
-                }
-            }
-
-        }
     }
     
     private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
