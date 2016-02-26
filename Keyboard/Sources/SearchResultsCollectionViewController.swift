@@ -93,7 +93,6 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
         setupLayout()
 
         searchViewModel.sendRequestForQuery(query, type: searchType)
-            
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -105,9 +104,9 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
 
         showLoadingView()
         noResultsTimer?.invalidate()
-        noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
+        noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showEmptyStateView", userInfo: nil, repeats: false)
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -117,8 +116,17 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
             showMessageBar()
         }
 
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
         navigationItem.setHidesBackButton(true, animated: false)
         navigationController?.navigationBar.hidden = true
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+         navigationController?.navigationBar.hidden = false
     }
 
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
@@ -173,12 +181,13 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
     }
 
     func didTapDoneButton(sender: UIButton) {
+        noResultsTimer?.invalidate()
+
         let transition = CATransition()
         transition.duration = 0.3
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         transition.type = kCATransitionFade
         navigationController?.view.layer.addAnimation(transition, forKey: nil)
-        navigationController?.navigationBar.hidden = false
         navigationController?.popViewControllerAnimated(false)
     }
 
@@ -204,7 +213,7 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
 
         showLoadingView()
         noResultsTimer?.invalidate()
-        noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showNoResultsEmptyState", userInfo: nil, repeats: false)
+        noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showEmptyStateView", userInfo: nil, repeats: false)
     }
 
     internal override func groupAtIndex(section: Int) -> MediaItemGroup? {
@@ -268,6 +277,7 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
         ])
     }
 
+
     override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         refreshResults()
     }
@@ -307,6 +317,7 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
         }
         
         super.showEmptyStateViewForState(state, completion: { emptyStateView in
+                self.view.insertSubview(emptyStateView, belowSubview: self.searchResultNavigationBar)
                 emptyStateView.primaryButton.addTarget(self, action: "didTapEmptyStateView", forControlEvents: .TouchUpInside)
 
         })
@@ -316,7 +327,7 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
         }
     }
 
-    func showNoResultsEmptyState() {
+    func showEmptyStateView() {
         updateEmptyStateContent(.NoResults, animated: true)
     }
 
