@@ -22,10 +22,11 @@ class MainAppSearchResultNavigationBar: SearchResultNavigationBar {
             titleLabel.al_right == doneButton.al_left,
             titleLabel.al_height == 17,
 
-            doneButton.al_top == al_top + 35,
+            doneButton.al_top == al_top + 25,
             doneButton.al_left == titleLabel.al_right,
-            doneButton.al_bottom == al_bottom - 18,
+            doneButton.al_bottom == al_bottom - 5,
             doneButton.al_right == al_right - 18,
+
             ])
     }
 }

@@ -22,9 +22,9 @@ class KeyboardSearchResultNavgationBar: SearchResultNavigationBar {
             titleLabel.al_right == doneButton.al_left,
             titleLabel.al_height == 17,
 
-            doneButton.al_top == al_top + 11,
+            doneButton.al_top == al_top,
             doneButton.al_left == titleLabel.al_right,
-            doneButton.al_bottom == al_bottom - 18,
+            doneButton.al_bottom == al_bottom,
             doneButton.al_right == al_right - 18,
             
             ])
