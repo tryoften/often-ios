@@ -582,6 +582,9 @@
 		81F833861C18E904001B8662 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833841C18E904001B8662 /* ArtistCollectionViewCell.swift */; };
 		81F833901C1A38B2001B8662 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
 		81F833911C1A38B2001B8662 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
+		BFEB1EBA1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */; };
+		BFEB1EBB1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */; };
+		BFEB1EBC1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -948,6 +951,7 @@
 		B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.release.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.release.xcconfig"; sourceTree = "<group>"; };
 		B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.debug.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.debug.xcconfig"; sourceTree = "<group>"; };
 		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
+		BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedHorizontalCollectionViewController.swift; sourceTree = "<group>"; };
 		C85359BC0D2B9C5AAD1BD2F3 /* Pods-Surf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.debug.xcconfig"; sourceTree = "<group>"; };
 		D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.debug.xcconfig"; sourceTree = "<group>"; };
 		F0DD50C141D01B72F4932753 /* Pods-Core.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Core/Pods-Core.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1339,6 +1343,7 @@
 				3B75E5081C6D4864008D4CE3 /* MediaItems VCs */,
 				81F833831C18CB56001B8662 /* Browse VCs */,
 				3B75E5051C6D28FB008D4CE3 /* Search VCs */,
+				BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -2461,6 +2466,7 @@
 				3B5F256B1BF4342E00AA7A98 /* AccountManagerProtocol.swift in Sources */,
 				3BE12EF21BEF020800F300FA /* MediaItemsViewController.swift in Sources */,
 				81BDA7221C3F152E00198AF8 /* MediaType.swift in Sources */,
+				BFEB1EBA1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */,
 				69F3BC1B1BE9079300080628 /* ToolTipLoadingView.swift in Sources */,
 				69DBDE1A1C66793900701A5D /* EmojiKeyboardContainerViewController.swift in Sources */,
 				81F8337E1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
@@ -2640,6 +2646,7 @@
 				813323851C2227840084918B /* KeyboardContainerViewController.swift in Sources */,
 				69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */,
 				81E26D971B67C29D00FC1F2F /* Shape.swift in Sources */,
+				BFEB1EBC1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */,
 				8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
 				81028A411C4C9220000533FA /* FavoritesService.swift in Sources */,
 				81F833571C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift in Sources */,
@@ -2740,6 +2747,7 @@
 				81DA3EBF1C24BE85006822D3 /* SearchBaseViewModel.swift in Sources */,
 				81DA3EC21C24BE85006822D3 /* SearchViewController.swift in Sources */,
 				81DA3EC31C24BE85006822D3 /* Direction.swift in Sources */,
+				BFEB1EBB1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */,
 				81DA3EC41C24BE85006822D3 /* KeyboardViewModel.swift in Sources */,
 				81BDA7271C3F154300198AF8 /* MediaItemSource.swift in Sources */,
 				81DA3EC61C24BE85006822D3 /* FrameView.swift in Sources */,

@@ -61,7 +61,7 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
             if cell.frame.contains(point) {
                 if let indexPath = collectionView?.indexPathForCell(cell) {
                     if let sectionView = sectionHeaders[indexPath.section] {
-                        sectionView.rightText = viewModel.sectionHeaderTitleForCollectionType(collectionType, isLeft: false, indexPath: indexPath)
+                        sectionView.rightText = viewModel.rightSectionHeaderTitle(indexPath)
                     }
                 }
             }
@@ -71,9 +71,10 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let screenHeight = UIScreen.mainScreen().bounds.size.height
+        
         var cellWidthPadding: CGFloat = 20
 
-        if collectionType == .Favorites {
+        if collectionType == .Favorites && indexPath.section != 0 {
             cellWidthPadding = 46
         }
         
