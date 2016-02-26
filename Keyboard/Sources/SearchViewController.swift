@@ -122,8 +122,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         transition.duration = 0.3
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         transition.type = kCATransitionFade
-        transition.subtype = kCATransitionFromBottom
-
         navigationController?.view.layer.addAnimation(transition, forKey: nil)
 
         let searchResultsViewController = SearchResultsCollectionViewController(textProcessor: textProcessor, query: text)
