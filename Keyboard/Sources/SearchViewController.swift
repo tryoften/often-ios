@@ -104,18 +104,29 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             return
         }
 
+        if let searchBar = searchBarController.searchBar as? MainAppSearchBar {
+            searchBar.setShowsCancelButton(false, animated: false)
+        }
+        searchSuggestionsViewController.showSearchSuggestionsView(false)
+        view.hidden = true
+        
+        searchBarController.searchBar.reset()
+        
         viewModel.sendRequestForQuery(text, type: .Search)
 
     #if KEYBOARD
         NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
     #endif
 
-        let searchResultsViewController = SearchResultsCollectionViewController(textProcessor: textProcessor, query: text)
         let transition = CATransition()
         transition.duration = 0.3
         transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         transition.type = kCATransitionFade
+        transition.subtype = kCATransitionFromBottom
+
         navigationController?.view.layer.addAnimation(transition, forKey: nil)
+
+        let searchResultsViewController = SearchResultsCollectionViewController(textProcessor: textProcessor, query: text)
         navigationController?.pushViewController(searchResultsViewController, animated: false)
     }
 
