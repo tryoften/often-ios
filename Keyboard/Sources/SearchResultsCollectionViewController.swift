@@ -12,7 +12,7 @@ let SearchResultsInsertLinkEvent = "SearchResultsCollectionViewCell.insertButton
 
 /// This class displays search results for a given response object
 class SearchResultsCollectionViewController: MediaItemGroupsViewController,
-    MessageBarDelegate, SearchViewModelDelegate, UISearchBarDelegate {
+     SearchViewModelDelegate, UISearchBarDelegate {
     weak var searchBarController: SearchBarController?
     var browseViewModel: BrowseViewModel?
     weak var searchViewController: SearchViewController?
@@ -40,22 +40,12 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
     private var refreshResultsButton: RefreshResultsButton?
     private var refreshResultsButtonTopConstraint: NSLayoutConstraint!
     private var refreshTimer: NSTimer?
-    private var messageBarView: MessageBarView
     private var messageBarVisibleConstraint: NSLayoutConstraint?
     private var oldResponse: SearchResponse?
 
     var contentInset: UIEdgeInsets {
         didSet {
             collectionView?.contentInset = contentInset
-        }
-    }
-
-    var isFullAccessEnabled: Bool {
-        let pbWrapped: UIPasteboard? = UIPasteboard.generalPasteboard()
-        if let _ = pbWrapped {
-            return true
-        } else {
-            return false
         }
     }
 
@@ -71,7 +61,6 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
         searchResultNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         searchResultNavigationBar.titleLabel.text = query
 
-        messageBarView = MessageBarView()
         searchViewModel = SearchViewModel(base: Firebase(url: BaseURL))
 
 
@@ -83,10 +72,8 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
 
         
         view.layer.masksToBounds = true
-        view.addSubview(messageBarView)
         view.addSubview(searchResultNavigationBar)
 
-        messageBarView.delegate = self
         searchViewModel.delegate = self
         collectionView?.contentInset = contentInset
         
@@ -105,17 +92,6 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
         showLoadingView()
         noResultsTimer?.invalidate()
         noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showEmptyStateView", userInfo: nil, repeats: false)
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-
-        if isFullAccessEnabled {
-            hideMessageBar()
-        } else {
-            showMessageBar()
-        }
-
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -261,20 +237,12 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
             searchResultNavigationBarHeight = KeyboardSearchBarHeight
         #endif
 
-        messageBarVisibleConstraint = messageBarView.al_bottom == view.al_top
-        
         view.addConstraints([
             searchResultNavigationBar.al_left == view.al_left,
             searchResultNavigationBar.al_right == view.al_right,
             searchResultNavigationBar.al_top == view.al_top + searchResultNavigationBarTopPadding,
-            searchResultNavigationBar.al_height == searchResultNavigationBarHeight,
-
-
-            messageBarView.al_left == view.al_left,
-            messageBarView.al_right == view.al_right,
-            messageBarVisibleConstraint!,
-            messageBarView.al_height == 39
-        ])
+            searchResultNavigationBar.al_height == searchResultNavigationBarHeight
+            ])
     }
 
 
@@ -292,23 +260,7 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
         cell.itemFavorited = selected
     }
 
-    // MARK: MessageBarViewDelegate
-    func showMessageBar() {
-        messageBarVisibleConstraint?.constant = 39
-        
-        UIView.animateWithDuration(0.4, animations: {
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    func hideMessageBar() {
-        messageBarVisibleConstraint?.constant = 0
-        
-        UIView.animateWithDuration(0.4, animations: {
-            self.view.layoutIfNeeded()
-        })
-    }
-    
+
     // MARK: EmptySetDelegate
     func updateEmptyStateContent(state: UserState, animated: Bool) {
         if animated {
