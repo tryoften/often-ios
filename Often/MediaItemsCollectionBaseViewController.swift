@@ -269,7 +269,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             let finalFrame = cell.frame
             cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
 
-            UIView.animateWithDuration(0.3, delay: 0.03 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            UIView.animateWithDuration(0.3, delay: 0.02 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 cell.alpha = 1.0
                 cell.frame = finalFrame
             }, completion: nil)
