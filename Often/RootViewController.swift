@@ -103,9 +103,10 @@ class RootViewController: UITabBarController {
         if SessionManagerFlags.defaultManagerFlags.userIsAnonymous {
             userProfileVC = SkipSignupViewController(viewModel: LoginViewModel(sessionManager: sessionManager))
         } else {
-            userProfileVC = UserProfileViewController(
-                collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(),
-                viewModel: FavoritesService.defaultInstance)
+            userProfileVC = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), recentsViewModel: MediaItemsViewModel(), favoritesViewModel: FavoritesService.defaultInstance)
+//            userProfileVC = UserProfileViewController(
+//                collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(),
+//                viewModel: FavoritesService.defaultInstance)
         }
 
         let browseVC = ContainerNavigationController(rootViewController: MainAppBrowseViewController(
