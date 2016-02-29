@@ -136,11 +136,34 @@ class FavoritesService: MediaItemsViewModel {
         return mediaItemGroups
     }
     
-    func sortLyricsByTracks(groups: [MediaItem]) -> [MediaItem] {
-        if let unsorted = groups as? [LyricMediaItem] {
-            return unsorted.sort({ $0.track_title < $1.track_title })
+    func sortLyricsByTracks(group: [MediaItem]) -> [MediaItem] {
+        var sortedTracks: [String: [MediaItem]] = [:]
+        for item in group {
+            if let lyric = item as? LyricMediaItem, let title = lyric.track_title {
+                if let _ = sortedTracks[title] {
+                    sortedTracks[title]!.append(lyric)
+                } else {
+                    sortedTracks[title] = [lyric]
+                }
+            }
         }
-        return groups
+        var keys: [String] = []
+        for key in sortedTracks.keys {
+            if let tracks = sortedTracks[key] as? [LyricMediaItem] {
+                sortedTracks[key] = tracks.sort({ $0.index < $1.index })
+            }
+            keys.append(key)
+        }
+        let sortedKeys = keys.sort({$0 < $1})
+        
+        var sortedGroup: [MediaItem] = []
+        for key in sortedKeys {
+            if let tracks = sortedTracks[key] {
+                sortedGroup.appendContentsOf(tracks)
+            }
+        }
+        
+        return sortedGroup
     }
     
     override func leftSectionHeaderTitle(index: Int) -> String {
