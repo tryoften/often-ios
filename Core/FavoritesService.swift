@@ -139,11 +139,11 @@ class FavoritesService: MediaItemsViewModel {
     func sortLyricsByTracks(group: [MediaItem]) -> [MediaItem] {
         var sortedTracks: [String: [MediaItem]] = [:]
         for item in group {
-            if let lyric = item as? LyricMediaItem {
-                if let _ = sortedTracks[lyric.track_title!] {
-                    sortedTracks[lyric.track_title!]!.append(lyric)
+            if let lyric = item as? LyricMediaItem, let title = lyric.track_title {
+                if let _ = sortedTracks[title] {
+                    sortedTracks[title]!.append(lyric)
                 } else {
-                    sortedTracks[lyric.track_title!] = [lyric]
+                    sortedTracks[title] = [lyric]
                 }
             }
         }
