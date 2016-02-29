@@ -1,5 +1,5 @@
 //
-//  EmojiKeyboardViewModel.swift
+//  EmojiKeyboardLayoutEngine.swift
 //  Often
 //
 //  Created by Komran Ghahremani on 2/1/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmojiKeyboardViewModel: NSObject {
+class EmojiKeyboardLayoutEngine: NSObject {
     var emojis: [String : AnyObject]?
     
     override init() {

@@ -11,9 +11,28 @@ import UIKit
 private let EmojiCellReuseIdentifier = "emojiCell"
 
 class EmojiKeyboardTableViewController: UITableViewController {
-    var viewModel: EmojiKeyboardViewModel
+    var viewModel: EmojiKeyboardLayoutEngine
+    var layout: KeyboardLayout
+    var layoutEngine: KeyboardLayoutEngine?
+    var constraintsAdded: Bool = false
+    var currentPage: Int = 0
+    var allKeys: [KeyboardKeyButton] {
+        get {
+            var keys = [KeyboardKeyButton]()
+            for page in layout.pages {
+                for rowKeys in page.rows {
+                    for key in rowKeys {
+                        if let keyView = layoutEngine?.viewForKey(key) {
+                            keys.append(keyView as KeyboardKeyButton)
+                        }
+                    }
+                }
+            }
+            return keys
+        }
+    }
     
-    enum EmojiReuseIdentifier: String {
+    enum EmojiReuseIdentifier: String {   
         case Nature = "Nature"
         case Objects = "Objects"
         case People = "People"
@@ -21,8 +40,14 @@ class EmojiKeyboardTableViewController: UITableViewController {
         case Symbols = "Symbols"
     }
     
-    init(viewModel: EmojiKeyboardViewModel) {
+    init(viewModel: EmojiKeyboardLayoutEngine) {
         self.viewModel = viewModel
+        
+        if let defaultLayout = KeyboardLayouts[.Emoji] {
+            layout = defaultLayout
+        } else {
+            layout = DefaultKeyboardLayout
+        }
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -99,27 +124,20 @@ class EmojiKeyboardTableViewController: UITableViewController {
         } else {
             reuseIdentifier = "Symbols"
         }
+
         
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as? EmojiKeyboardTableViewCell
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
-        let emojiSection = reuseIdentifier
-        
-        let currentEmojiSet = viewModel.emojis![emojiSection] as? [String]
-        let rows = (currentEmojiSet?.count)! / 8
-        
-        for i in 0...(currentEmojiSet?.count)! - 1 {
-            let button = UIButton()
-            button.setTitle("\(currentEmojiSet![i])", forState: .Normal)
-            button.titleLabel?.font = UIFont.systemFontOfSize(25.0)
-            button.frame = CGRectMake(CGFloat(i % 8) * ((screenWidth - 40) / 8), CGFloat(i / 8) * 30, 30, 30)
-            cell?.addSubview(button)
-        }
-        
+        cell?.keysContainerView.frame = (cell?.frame)!
+        cell?.userInteractionEnabled = false // Because setupKeys not setting up Targets yet
+
+        layoutEngine = KeyboardLayoutEngine(model: layout, superview: (cell?.keysContainerView)!, layoutConstants: LayoutConstants.self)
+        layoutEngine?.layoutKeys(indexPath.row, uppercase: false, characterUppercase: false, shiftState: .Disabled)
+        setupKeys()
+      
         return cell!
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
         let emojiSection: String
         if indexPath.section == 0 {
             emojiSection = "Nature"
@@ -133,13 +151,83 @@ class EmojiKeyboardTableViewController: UITableViewController {
             emojiSection = "Symbols"
         }
         
+        // Still using Plist
         let currentEmojiSet = viewModel.emojis![emojiSection] as? [String]
-        let sectionHeight = CGFloat(((currentEmojiSet?.count)! / 8) * 30)
+        let sectionHeight = CGFloat((((currentEmojiSet?.count)! / 8) + 1) * 30)
         
-        return CGFloat((((currentEmojiSet?.count)! / 8) + 1) * 30)
+        return 650 //sectionHeight
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    }
+    
+    func setupKeys() {
+        let setupKey: (KeyboardKey) -> (KeyboardKeyButton?) = { key in
+            if let keyView = self.layoutEngine?.viewForKey(key) {
+                keyView.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+                switch key {
+                case .modifier(.SwitchKeyboard, _):
+                    keyView.addTarget(self, action: "advanceTapped:", forControlEvents: .TouchUpInside)
+                case .modifier(.Backspace, _):
+                    let cancelEvents: UIControlEvents = [
+                        UIControlEvents.TouchUpInside,
+                        UIControlEvents.TouchDragExit,
+                        UIControlEvents.TouchUpOutside,
+                        UIControlEvents.TouchCancel,
+                        UIControlEvents.TouchDragOutside
+                    ]
+                    keyView.addTarget(self, action: "backspaceDown:", forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: "backspaceUp:", forControlEvents: cancelEvents)
+                case .modifier(.CapsLock, _):
+                    keyView.addTarget(self, action: "shiftDown:", forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: "shiftUp:", forControlEvents: .TouchUpInside)
+                    keyView.addTarget(self, action: "shiftDoubleTapped:", forControlEvents: .TouchDownRepeat)
+                case .modifier(.Space, _):
+                    keyView.addTarget(self, action: "didTapSpaceButton:", forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: "didReleaseSpaceButton:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
+                case .modifier(.CallService, _):
+                    keyView.addTarget(self, action: "didTapCallKey:", forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: "didReleaseCallKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
+                case .modifier(.Share, _):
+                    keyView.addTarget(self, action: "didTapShareKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
+                case .modifier(.Enter, _):
+                    keyView.addTarget(self, action: "didTapEnterKey:", forControlEvents: .TouchDown)
+                    keyView.addTarget(self, action: "didReleaseEnterKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
+                case .changePage(_, _):
+                    keyView.addTarget(self, action: "pageChangeTapped:", forControlEvents: .TouchDown)
+                default:
+                    break
+                }
+                
+                if key.isCharacter {
+                    if UIDevice.currentDevice().userInterfaceIdiom != UIUserInterfaceIdiom.Pad {
+                        keyView.addTarget(self, action: "showPopup:", forControlEvents: [.TouchDown, .TouchDragInside, .TouchDragEnter])
+                        keyView.addTarget(keyView, action: "hidePopup", forControlEvents: [.TouchDragExit, .TouchCancel])
+                        keyView.addTarget(self, action: "hidePopupDelay:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside])
+                    }
+                }
+                
+                if !key.isModifier {
+                    keyView.addTarget(self, action: "highlightKey:", forControlEvents: [.TouchDown, .TouchDragInside, .TouchDragEnter])
+                    keyView.addTarget(self, action: "unHighlightKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
+                }
+                
+                if key.hasOutput {
+                    keyView.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+                }
+                
+                return keyView
+            }
+            return nil
+        }
+        
+        let page = layout.pages[currentPage]
+        for rowKeys in page.rows {
+            for key in rowKeys {
+                setupKey(key)
+            }
+        }
+        
     }
 }

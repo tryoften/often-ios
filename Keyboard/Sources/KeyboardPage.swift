@@ -15,6 +15,7 @@ enum KeyboardPageIdentifier: String {
     case Numeric = "numeric"
     case Special = "special"
     case SecondSpecial = "second-special"
+    case Emoji = "emoji"
 }
 
 struct KeyboardPage {
