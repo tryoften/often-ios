@@ -124,7 +124,7 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         transition.type = kCATransitionFade
         navigationController?.view.layer.addAnimation(transition, forKey: nil)
 
-        let searchResultsViewController = SearchResultsCollectionViewController(textProcessor: textProcessor, query: text)
+        let searchResultsViewController = SearchResultsCollectionViewController(textProcessor: textProcessor, searchViewModel: SearchViewModel(base: Firebase(url: BaseURL)), query: text)
         navigationController?.pushViewController(searchResultsViewController, animated: false)
     }
 

@@ -50,7 +50,7 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
     }
 
     init(collectionViewLayout layout: UICollectionViewLayout = SearchResultsCollectionViewController.provideCollectionViewFlowLayout(),
-        textProcessor: TextProcessingManager?, query: String, searchType: SearchRequestType = .Search) {
+        textProcessor: TextProcessingManager?, searchViewModel: SearchViewModel, query: String, searchType: SearchRequestType = .Search) {
     #if KEYBOARD
         contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
         searchResultNavigationBar = KeyboardSearchResultNavgationBar()
@@ -61,7 +61,7 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
         searchResultNavigationBar.translatesAutoresizingMaskIntoConstraints = false
         searchResultNavigationBar.titleLabel.text = query
 
-        searchViewModel = SearchViewModel(base: Firebase(url: BaseURL))
+        self.searchViewModel = searchViewModel
 
 
         super.init(collectionViewLayout: layout, viewModel:  BrowseViewModel(), textProcessor: textProcessor)
