@@ -32,7 +32,7 @@ class AnimatedLoaderView: UIView {
     func setupLayout() {
         addConstraints([
             loaderImageView.al_centerX == al_centerX,
-            loaderImageView.al_centerY == al_centerY,
+            loaderImageView.al_centerY == al_centerY + 20,
             loaderImageView.al_width == 80,
             loaderImageView.al_height == 80
         ])

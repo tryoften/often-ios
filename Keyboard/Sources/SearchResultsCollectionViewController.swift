@@ -11,10 +11,12 @@ import UIKit
 let SearchResultsInsertLinkEvent = "SearchResultsCollectionViewCell.insertButton"
 
 /// This class displays search results for a given response object
-class SearchResultsCollectionViewController: MediaItemGroupsViewController, MessageBarDelegate {
+class SearchResultsCollectionViewController: MediaItemGroupsViewController,
+     SearchViewModelDelegate, UISearchBarDelegate {
     weak var searchBarController: SearchBarController?
-    weak var searchViewController: SearchViewController?
     var browseViewModel: BrowseViewModel?
+    weak var searchViewController: SearchViewController?
+    var searchViewModel: SearchViewModel
     var response: SearchResponse? {
         didSet {
             if let response = response {
@@ -33,10 +35,11 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
     
     // object the current response needs to be replaced/updated with, (use only if refresh button should be shown)
     var nextResponse: SearchResponse?
+    private var noResultsTimer: NSTimer?
+    private var searchResultNavigationBar: SearchResultNavigationBar
     private var refreshResultsButton: RefreshResultsButton?
     private var refreshResultsButtonTopConstraint: NSLayoutConstraint!
     private var refreshTimer: NSTimer?
-    private var messageBarView: MessageBarView
     private var messageBarVisibleConstraint: NSLayoutConstraint?
     private var oldResponse: SearchResponse?
 
@@ -46,34 +49,37 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
         }
     }
 
-    var isFullAccessEnabled: Bool {
-        let pbWrapped: UIPasteboard? = UIPasteboard.generalPasteboard()
-        if let _ = pbWrapped {
-            return true
-        } else {
-            return false
-        }
-    }
-
     init(collectionViewLayout layout: UICollectionViewLayout = SearchResultsCollectionViewController.provideCollectionViewFlowLayout(),
-        textProcessor: TextProcessingManager?) {
+        textProcessor: TextProcessingManager?, searchViewModel: SearchViewModel, query: String, searchType: SearchRequestType = .Search) {
     #if KEYBOARD
         contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight, 0, 0, 0)
+        searchResultNavigationBar = KeyboardSearchResultNavgationBar()
     #else
-        contentInset = UIEdgeInsetsMake(68, 0, 40, 0)
+        contentInset = UIEdgeInsetsMake(64, 0, 40, 0)
+        searchResultNavigationBar = MainAppSearchResultNavigationBar()
     #endif
-        messageBarView = MessageBarView()
-        
-        super.init(collectionViewLayout: layout, viewModel: BrowseViewModel(), textProcessor: textProcessor)
+        searchResultNavigationBar.translatesAutoresizingMaskIntoConstraints = false
+        searchResultNavigationBar.titleLabel.text = query
+
+        self.searchViewModel = searchViewModel
+
+
+        super.init(collectionViewLayout: layout, viewModel:  BrowseViewModel(), textProcessor: textProcessor)
+
+        searchResultNavigationBar.doneButton.addTarget(self, action: "didTapDoneButton:", forControlEvents: .TouchUpInside)
+
         self.textProcessor = textProcessor
+
         
         view.layer.masksToBounds = true
-        view.addSubview(messageBarView)
+        view.addSubview(searchResultNavigationBar)
 
-        messageBarView.delegate = self
+        searchViewModel.delegate = self
         collectionView?.contentInset = contentInset
         
         setupLayout()
+
+        searchViewModel.sendRequestForQuery(query, type: searchType)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -82,17 +88,21 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = UIColor.clearColor()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
 
-        if isFullAccessEnabled {
-            hideMessageBar()
-        } else {
-            showMessageBar()
-        }
+        showLoadingView()
+        noResultsTimer?.invalidate()
+        noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showEmptyStateView", userInfo: nil, repeats: false)
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationItem.setHidesBackButton(true, animated: false)
+        navigationController?.navigationBar.hidden = true
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+         navigationController?.navigationBar.hidden = false
     }
 
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
@@ -146,6 +156,17 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
             }, completion: nil)
     }
 
+    func didTapDoneButton(sender: UIButton) {
+        noResultsTimer?.invalidate()
+
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionFade
+        navigationController?.view.layer.addAnimation(transition, forKey: nil)
+        navigationController?.popViewControllerAnimated(false)
+    }
+
     func didTapRefreshResultsButton() {
         response = nextResponse
         refreshResultsButtonTopConstraint.constant = -40
@@ -161,6 +182,14 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
             }, completion: nil)
 
         refreshResults()
+    }
+
+    func didTapEmptyStateView() {
+        response = oldResponse
+
+        showLoadingView()
+        noResultsTimer?.invalidate()
+        noResultsTimer = NSTimer.scheduledTimerWithTimeInterval(6.5, target: self, selector: "showEmptyStateView", userInfo: nil, repeats: false)
     }
 
     internal override func groupAtIndex(section: Int) -> MediaItemGroup? {
@@ -201,15 +230,21 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
     }
     
     func setupLayout() {
-        messageBarVisibleConstraint = messageBarView.al_bottom == view.al_top
-        
+        var searchResultNavigationBarHeight: CGFloat = 64
+        var searchResultNavigationBarTopPadding: CGFloat = 0
+        #if KEYBOARD
+            searchResultNavigationBarTopPadding = KeyboardSearchBarHeight
+            searchResultNavigationBarHeight = KeyboardSearchBarHeight
+        #endif
+
         view.addConstraints([
-            messageBarView.al_left == view.al_left,
-            messageBarView.al_right == view.al_right,
-            messageBarVisibleConstraint!,
-            messageBarView.al_height == 39
-        ])
+            searchResultNavigationBar.al_left == view.al_left,
+            searchResultNavigationBar.al_right == view.al_right,
+            searchResultNavigationBar.al_top == view.al_top + searchResultNavigationBarTopPadding,
+            searchResultNavigationBar.al_height == searchResultNavigationBarHeight
+            ])
     }
+
 
     override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         refreshResults()
@@ -225,23 +260,7 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
         cell.itemFavorited = selected
     }
 
-    // MARK: MessageBarViewDelegate
-    func showMessageBar() {
-        messageBarVisibleConstraint?.constant = 39
-        
-        UIView.animateWithDuration(0.4, animations: {
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    func hideMessageBar() {
-        messageBarVisibleConstraint?.constant = 0
-        
-        UIView.animateWithDuration(0.4, animations: {
-            self.view.layoutIfNeeded()
-        })
-    }
-    
+
     // MARK: EmptySetDelegate
     func updateEmptyStateContent(state: UserState, animated: Bool) {
         if animated {
@@ -250,14 +269,18 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
         }
         
         super.showEmptyStateViewForState(state, completion: { emptyStateView in
-            if let searchViewController = self.searchViewController {
-                emptyStateView.primaryButton.addTarget(searchViewController, action: "didTapEmptyStateView", forControlEvents: .TouchUpInside)
-            }
+                self.view.insertSubview(emptyStateView, belowSubview: self.searchResultNavigationBar)
+                emptyStateView.primaryButton.addTarget(self, action: "didTapEmptyStateView", forControlEvents: .TouchUpInside)
+
         })
         
         if animated {
             UIView.commitAnimations()
         }
+    }
+
+    func showEmptyStateView() {
+        updateEmptyStateContent(.NoResults, animated: true)
     }
 
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
@@ -277,6 +300,19 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController, Mess
             self.searchBarController?.view.frame = searchBarFrame
             containerViewController.tabBar.frame = frame
         }
+    }
+
+    // MARK: SearchViewModelDelegate
+    func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
+        // TODO(luc): don't do anything if the keyboard is restored
+        if response.groups.isEmpty {
+            return
+        }
+
+        noResultsTimer?.invalidate()
+
+        self.response = response
+        refreshResults()
     }
 }
 

@@ -48,11 +48,10 @@ class SessionManagerFlags {
     
     var hasSeenKeyboardSearchBarToolTips: Bool {
         get {
-            return userDefaults.boolForKey(SessionManagerPropertyKey.keyboardSearchBarToolTips)
-        }
+            return NSUserDefaults.standardUserDefaults().boolForKey(SessionManagerPropertyKey.keyboardSearchBarToolTips)        }
         
         set(value) {
-            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.keyboardSearchBarToolTips)
+            NSUserDefaults.standardUserDefaults().setBool(value, forKey: SessionManagerPropertyKey.keyboardSearchBarToolTips)
         }
     }
     
