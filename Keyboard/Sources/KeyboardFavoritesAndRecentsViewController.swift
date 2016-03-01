@@ -74,10 +74,15 @@ class KeyboardFavoritesAndRecentsViewController: MediaItemsViewController {
         
         var cellWidthPadding: CGFloat = 20
 
-        if collectionType == .Favorites && indexPath.section != 0 {
-            cellWidthPadding = 46
+        if collectionType == .Favorites && indexPath.section == 0 {
+            return CGSizeMake(screenWidth - cellWidthPadding, 105)
         }
-        
+
+        if collectionType == .Favorites {
+            cellWidthPadding = 46
+            return CGSizeMake(screenWidth - cellWidthPadding, 75)
+        }
+
         if screenHeight < screenWidth {
             return CGSizeMake(screenWidth - 20, 90)
         } else {

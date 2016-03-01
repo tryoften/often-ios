@@ -33,7 +33,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     }
     static var oncePredicate: dispatch_once_t = 0
 
-    init(extraHeight: CGFloat = 144) {
+    init(extraHeight: CGFloat = 64) {
         containerView = UIView()
         containerView.backgroundColor = UIColor.whiteColor()
         keyboardExtraHeight = extraHeight
@@ -45,7 +45,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     }
 
     override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        self.init(extraHeight: 144)
+        self.init(extraHeight: 108)
     }
 
     required init?(coder aDecoder: NSCoder) {

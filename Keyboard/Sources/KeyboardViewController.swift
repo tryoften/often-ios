@@ -92,7 +92,7 @@ class KeyboardViewController: UIViewController {
         let actualScreenWidth = (UIScreen.mainScreen().nativeBounds.size.width / UIScreen.mainScreen().nativeScale)
         let canonicalPortraitHeight = (isPad ? CGFloat(264) : CGFloat(orientation.isPortrait && actualScreenWidth >= 400 ? 226 : 216))
         let canonicalLandscapeHeight = (isPad ? CGFloat(352) : CGFloat(162))
-        let topBannerHeight: CGFloat = withTopBanner ? 100 : 0.0
+        let topBannerHeight: CGFloat = withTopBanner ? 64 : 0.0
 
         return CGFloat(orientation.isPortrait ? canonicalPortraitHeight : canonicalLandscapeHeight) + topBannerHeight
     }

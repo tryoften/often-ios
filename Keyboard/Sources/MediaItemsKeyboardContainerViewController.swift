@@ -159,7 +159,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         default:
             sectionsTabBarController.tabBar.layer.zPosition = 0
             togglePanelButton.hidden = false
-            keyboardExtraHeight = 144
+            keyboardExtraHeight = 108
         }
         
         if let navvc = sections[sectionsTabBarController.currentTab].1 as? UINavigationController, bvc = navvc.viewControllers.first as? BrowseViewController {
