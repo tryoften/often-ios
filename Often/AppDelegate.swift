@@ -14,7 +14,6 @@ import Crashlytics
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var mainController: UIViewController!
-    let sessionManager = SessionManager.defaultManager
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.sharedSDK().debug = true
@@ -41,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.clipsToBounds = true
             mainController = MediaItemsKeyboardContainerViewController(extraHeight: 64.0)
         #else
+            let sessionManager = SessionManager.defaultManager
             let loginViewModel = LoginViewModel(sessionManager: sessionManager)
             mainController = LoginViewController(viewModel: loginViewModel)
         #endif

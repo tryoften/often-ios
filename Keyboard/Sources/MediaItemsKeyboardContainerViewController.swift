@@ -156,6 +156,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             sectionsTabBarController.tabBar.layer.zPosition = -1
             togglePanelButton.hidden = true
             keyboardExtraHeight = 44
+        case .Favorites:
+            sectionsTabBarController.tabBar.layer.zPosition = 0
+            togglePanelButton.hidden = true
+            keyboardExtraHeight = 108
         default:
             sectionsTabBarController.tabBar.layer.zPosition = 0
             togglePanelButton.hidden = false

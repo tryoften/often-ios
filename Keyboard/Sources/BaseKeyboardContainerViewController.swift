@@ -42,6 +42,8 @@ class BaseKeyboardContainerViewController: UIInputViewController {
 
         view.backgroundColor = DefaultTheme.keyboardBackgroundColor
         view.addSubview(containerView)
+
+        NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
     }
 
     override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
