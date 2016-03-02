@@ -31,7 +31,10 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
         }
 
         view.endEditing(true)
-        showHud()
+
+        if button.type != .Twitter {
+            showHud()
+        }
 
         do {
             try viewModel.login(button.type, completion: { results in
