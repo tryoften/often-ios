@@ -19,9 +19,7 @@ end
 target 'Often' do
   base_deps
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
-  pod 'Facebook-iOS-SDK', '~> 3.0'
-  pod 'ParseTwitterUtils'
-  pod 'ParseFacebookUtils'
+  pod 'Facebook-iOS-SDK' 
 end
 
 target 'Keyboard' do
