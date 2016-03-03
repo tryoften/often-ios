@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import TwitterKit
+
 
 class TwitterAccountManager: AccountManager {
 
     override func openSession(completion: (results: ResultType) -> Void) {
-        guard let userId = PFTwitterUtils.twitter()?.userId, twitterToken = PFTwitterUtils.twitter()?.authToken else {
+        guard let userId = Twitter.sharedInstance().sessionStore.session()?.userID, twitterToken = Twitter.sharedInstance().sessionStore.session()?.authToken else {
             completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
             return
         }
@@ -49,62 +51,56 @@ class TwitterAccountManager: AccountManager {
             return
         }
 
-        PFTwitterUtils.logInWithBlock(handleParseUser(completion))
-    }
-    
-    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
-        func parseUserData(data: AnyObject) {
-            guard let userdata = data as? [String: AnyObject], parseUser = PFUser.currentUser() else {
-                completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
-                return
-            }
-
-            var firebaseData = [String: AnyObject]()
-
-            let urlString = userdata["profile_image_url_https"] as? String
-            let hiResUrlString = urlString?.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
-
-            firebaseData["id"] = authData.uid
-            firebaseData["profileImageURL"] = hiResUrlString
-            firebaseData["name"] = userdata["name"] as? String
-            firebaseData["username"] = userdata["screen_name"] as? String
-            firebaseData["description"] = userdata["description"] as? String
-            firebaseData["parseId"] = parseUser.objectId
-            firebaseData["backgroundImage"] = "user-profile-bg-1"
-
-            if sessionManagerFlags.userId == nil {
-                guard let userID = PFTwitterUtils.twitter()?.userId  else {
+        Twitter.sharedInstance().logInWithCompletion { result, error in
+            if error == nil {
+                if result == nil {
                     completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
-                    return
+                } else {
+                    self.openSession(completion)
                 }
-
-                sessionManagerFlags.userId =  "twitter:\(userID)"
-
-                currentUser = User()
-                currentUser?.setValuesForKeysWithDictionary(firebaseData)
-
-                if let user = currentUser {
-                    userRef?.updateChildValues(user.dataChangedToDictionary())
-                    completion(results: ResultType.Success(r: true))
-                    delegate?.accountManagerUserDidLogin(self, user: user)
-                }
+            } else {
+                self.logout()
+                completion(results: ResultType.SystemError(e: error!))
             }
 
         }
+    }
+    
+    override func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {
+        if let userID = Twitter.sharedInstance().sessionStore.session()?.userID {
+            let client = TWTRAPIClient(userID: userID)
+            client.loadUserWithID(userID) { (user, error) -> Void in
+                if error == nil {
+                    if user == nil {
+                        completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+                    } else {
+                        var firebaseData = [String: AnyObject]()
+                        firebaseData["id"] = authData.uid
+                        firebaseData["profileImageURL"] = user?.profileImageLargeURL
+                        firebaseData["name"] = user?.name
+                        firebaseData["username"] = user?.screenName
+                        firebaseData["backgroundImage"] = "user-profile-bg-1"
 
-        let verify = NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json")
-        let request = NSMutableURLRequest(URL: verify!)
-        PFTwitterUtils.twitter()?.signRequest(request)
-        var response: NSURLResponse?
-        
-        do {
-        let data = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response)
-        let result = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
-        
-        parseUserData(result)
-            
-        } catch {
-            completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+                        if self.sessionManagerFlags.userId == nil {
+                            guard let userID = user?.userID  else {
+                                completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+                                return
+                            }
+
+                            self.sessionManagerFlags.userId =  "twitter:\(userID)"
+
+                            self.currentUser = User()
+                            self.currentUser?.setValuesForKeysWithDictionary(firebaseData)
+
+                            if let user = self.currentUser {
+                                self.userRef?.updateChildValues(user.dataChangedToDictionary())
+                                completion(results: ResultType.Success(r: true))
+                                self.delegate?.accountManagerUserDidLogin(self, user: user)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

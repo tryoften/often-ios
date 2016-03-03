@@ -8,6 +8,7 @@
 
 import Foundation
 import Crashlytics
+import TwitterKit
 
 typealias AccountManagerResultCallback = (results: ResultType) -> Void
 
@@ -59,9 +60,15 @@ class AccountManager: AccountManagerProtocol {
         fatalError("login method must be overridden in every child class")
     }
 
-    final func logout() {
+    func logout() {
         PFUser.logOut()
         currentUser = nil
+        FBSDKLoginManager().logOut()
+
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()?.userID {
+            store.logOutUserID(userID)
+        }
     }
 
     internal func handleParseUser(completion: AccountManagerResultCallback) -> PFUserResultBlock {
