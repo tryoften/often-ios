@@ -26,6 +26,7 @@ class LyricMediaItem: MediaItem {
     var track_song_art_image_url: String?
     var track_title: String?
     var index: Int = 0
+    var category: Category?
 
     required init(data: NSDictionary) {
         if let text = data["text"] as? String {

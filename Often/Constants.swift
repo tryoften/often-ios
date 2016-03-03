@@ -92,23 +92,24 @@ let LyricSelectedEventIdentifier = "lyric:selected"
 
 let CoverArtViewImageWidth: CGFloat = 35.0
 
-let SectionPickerViewHeight: CGFloat = 55.0
+let SectionPickerViewHeight: CGFloat = 40.0
+let SectionPickerViewOpenedHeight: CGFloat = 190.0
 let SectionPickerViewSwitchArtistHeight: CGFloat = 20.0
-let SectionPickerViewBackgroundColor = BlackColor
+let SectionPickerViewBackgroundColor = UIColor.oftBlack74Color()
 
 let SectionPickerViewCellHeight: CGFloat = 50.0
 let SectionPickerViewCellNormalBackgroundColor = SectionPickerViewBackgroundColor
-let SectionPickerViewCellHighlightedBackgroundColor = UIColor.blackColor()
+let SectionPickerViewCellHighlightedBackgroundColor = UIColor.oftBlackColor()
 let SectionPickerViewCellTitleFont = BaseFont
-let SectionPickerViewCellTitleFontColor = UIColor.whiteColor()
-let SectionPickerViewCurrentCategoryLabelTextColor = UIColor.whiteColor()
+let SectionPickerViewCellTitleFontColor = UIColor.oftWhiteColor()
+let SectionPickerViewCurrentCategoryLabelTextColor = UIColor.oftBlackColor()
 
-let NextKeyboardButtonBackgroundColor = BlackColor
+let NextKeyboardButtonBackgroundColor = UIColor.oftWhiteColor()
 let NextKeyboardButtonFont = UIFont(name: "font_icons8", size:16)
 
-let CategoriesCollectionViewBackgroundColor = BlackColor
+let CategoriesCollectionViewBackgroundColor = UIColor.oftGrayColor()
 let CategoryCollectionViewCellBackgroundColor = UIColor(fromHexString: "#1c1c1c")
-let CategoryCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 15)
+let CategoryCollectionViewCellTitleFont = UIFont(name: "OpenSans-Semibold", size: 10.5)
 let CategoryCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 10)
 let CategoryCollectionViewCellSubtitleTextColor = UIColor(fromHexString: "#aeb5b8")
 let CategoryCollectionViewCellReuseIdentifier = "CategoryCollectionViewCell"

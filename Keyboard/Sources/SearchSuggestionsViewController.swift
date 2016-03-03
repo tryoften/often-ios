@@ -127,7 +127,11 @@ class SearchSuggestionsViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    #if KEYBOARD
+        return 0.1
+    #else
         return 30.0
+    #endif
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
