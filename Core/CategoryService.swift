@@ -43,7 +43,8 @@ class CategoryService {
         userQueueRef.setValue([
             "task": "assignCategory",
             "user": userId,
-            "result": lyric.toDictionary()
+            "result": lyric.toDictionary(),
+            "category": category.toDictionary()
         ])
 
         // Preemptively add item to collection before backend queue modifies

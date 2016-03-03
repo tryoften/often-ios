@@ -68,7 +68,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didInsertMediaItem:", name: "mediaItemInserted", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
-
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -95,12 +94,12 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         keyboardVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfKeyboard(scale: 0.45), tag: 0)
 
         // Favorites
-        let favoritesVC = KeyboardFavoritesAndRecentsViewController(viewModel: FavoritesService.defaultInstance, collectionType: .Favorites)
+        let favoritesVC = KeyboardFavoritesViewController(viewModel: FavoritesService.defaultInstance)
         favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 1)
         favoritesVC.textProcessor = textProcessor
 
         // Recents
-        let recentsVC = KeyboardFavoritesAndRecentsViewController(viewModel: MediaItemsViewModel(), collectionType: .Recents)
+        let recentsVC = KeyboardRecentsViewController(viewModel: MediaItemsViewModel())
         recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 2)
         recentsVC.textProcessor = textProcessor
 

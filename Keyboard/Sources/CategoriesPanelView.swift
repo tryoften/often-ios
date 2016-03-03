@@ -60,6 +60,10 @@ class CategoriesPanelView: UIView {
         toolbarView = UIView()
         toolbarView.translatesAutoresizingMaskIntoConstraints = false
         toolbarView.backgroundColor = UIColor.oftWhiteColor()
+        toolbarView.layer.shadowOffset = CGSizeMake(0, 0)
+        toolbarView.layer.shadowOpacity = 0.8
+        toolbarView.layer.shadowColor = DarkGrey.CGColor
+        toolbarView.layer.shadowRadius = 4
 
         currentCategoryView = UIView()
         currentCategoryView.translatesAutoresizingMaskIntoConstraints = false

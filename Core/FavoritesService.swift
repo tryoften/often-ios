@@ -101,7 +101,7 @@ class FavoritesService: MediaItemsViewModel {
             return false
         })
         
-        group.items = Array(sortedGroup[0..<10])
+        group.items = sortedGroup.count > 10 ? Array(sortedGroup[0..<10]) : sortedGroup
         
         return group
     }
