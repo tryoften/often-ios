@@ -40,6 +40,10 @@ class CategoriesPanelView: UIView {
         }
     }
 
+    var isOpened: Bool {
+        return drawerOpened
+    }
+
     convenience required init?(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }

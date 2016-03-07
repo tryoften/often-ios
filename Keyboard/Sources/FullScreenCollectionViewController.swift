@@ -102,5 +102,7 @@ class FullScreenCollectionViewController: UICollectionViewController, NJKScrollF
     var tabBarFrame: CGRect {
         return CGRectZero
     }
+
+    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) { }
 #endif
 }

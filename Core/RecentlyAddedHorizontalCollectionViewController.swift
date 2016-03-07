@@ -23,11 +23,8 @@ class RecentlyAddedHorizontalCollectionViewController : TrendingLyricsHorizontal
         guard let lyric = group?.items[indexPath.row] as? LyricMediaItem else {
             return cell
         }
-        
-        if let url = lyric.smallImage, let imageURL = NSURL(string: url) {
-            cell.avatarImageURL = imageURL
-        }
-        
+
+        cell.avatarImageURL = lyric.smallImageURL
         cell.leftHeaderLabel.text = lyric.artist_name
         cell.rightHeaderLabel.text = lyric.track_title
         cell.mainTextLabel.text = lyric.text

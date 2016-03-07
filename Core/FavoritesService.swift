@@ -206,8 +206,8 @@ class FavoritesService: MediaItemsViewModel {
         if indexPath.section != 0 {
             let group = generateMediaItemGroups()[indexPath.section].items
             if !group.isEmpty {
-                if let lyric = group.first as? LyricMediaItem, urlString = lyric.smallImage, let imageURL = NSURL(string: urlString) {
-                    return imageURL
+                if let lyric = group.first as? LyricMediaItem {
+                    return lyric.smallImageURL
                 }
             }
         }

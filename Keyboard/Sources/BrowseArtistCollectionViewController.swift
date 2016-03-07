@@ -73,19 +73,15 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
     }
 
     override func headerViewDidLoad() {
-        var artistImage: String?
-        var imageURL: NSURL? = nil
-        var subtitle: String? = nil
+        var imageURL: NSURL?
+
     #if KEYBOARD
-        artistImage = artist?.mediumImage
+        imageURL = artist?.squareImageURL
     #else
-        artistImage = artist?.largeImage
+        imageURL = artist?.largeImageURL
     #endif
 
-        if let image = artistImage {
-            imageURL = NSURL(string: image)
-        }
-
+        var subtitle: String? = nil
         if let tracksCount = artist?.tracks_count {
             subtitle = "\(tracksCount) tracks"
         }
@@ -118,7 +114,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
                 return UICollectionViewCell()
         }
 
-        if let imageURLString = track.mediumImage, let imageURL = NSURL(string: imageURLString) {
+        if let imageURL = track.squareImageURL {
             cell.imageURL = imageURL
         }
         cell.titleLabel.text = track.title

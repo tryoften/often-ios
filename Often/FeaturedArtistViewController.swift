@@ -113,7 +113,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
 
         featuredArtistView.featureLabel.text = "Featured Artist".uppercaseString
 
-        if let image = artist.largeImage, let imageURL = NSURL(string: image) {
+        if let imageURL = artist.largeImageURL {
             featuredArtistView.imageView.setImageWithAnimation(imageURL)
         }
 

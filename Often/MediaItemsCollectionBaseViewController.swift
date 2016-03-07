@@ -175,6 +175,10 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             let track = (result as! TrackMediaItem)
             cell.mainTextLabel.text = track.name
             cell.rightMetadataLabel.text = track.formattedCreatedDate
+
+            if let imageURL = track.squareImageURL {
+                cell.contentImageView.setImageWithAnimation(imageURL)
+            }
             
             switch result.source {
             case .Spotify:
@@ -210,28 +214,15 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.leftMetadataLabel.text = lyric.created?.timeAgoSinceNow()
             cell.mainTextLabel.textAlignment = .Center
             cell.showImageView = false
-            cell.avatarImageURL = nil
+            cell.avatarImageURL =  lyric.smallImageURL
         default:
             break
         }
+
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.mediaLink = result
         cell.contentImageView.image = nil
-        if  let image = result.smallImage,
-            let imageURL = NSURL(string: image) {
-                print("Loading image: \(imageURL)")
-                cell.contentImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
-                    if result.type == .Lyric {
-                        cell.avatarImageURL = imageURL
-                    } else {
-                        cell.contentImageView.image = image
-                    }
-
-                    }, failure: { (req, res, error) in
-                        print("Failed to load image: \(imageURL)")
-                })
-        }
         
         cell.delegate = self
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)

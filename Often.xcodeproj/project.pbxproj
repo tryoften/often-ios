@@ -825,6 +825,8 @@
 		8192A7E31C6530E500B25AC6 /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C71C62410300B25AC6 /* Emitter.swift */; };
 		8192A7E61C6530EA00B25AC6 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7CB1C62410300B25AC6 /* Helpers.swift */; };
 		819A4C041C8DD5A50095BD7B /* KeyboardBrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816D50E31C8A2FC0007B3249 /* KeyboardBrowseViewController.swift */; };
+		819A4C061C8DF2860095BD7B /* KeyboardBrowseMediaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819A4C051C8DF2860095BD7B /* KeyboardBrowseMediaItemViewController.swift */; };
+		819A4C071C8DF2860095BD7B /* KeyboardBrowseMediaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819A4C051C8DF2860095BD7B /* KeyboardBrowseMediaItemViewController.swift */; };
 		81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
 		81B19EAC1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
 		81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */; };
@@ -1344,6 +1346,7 @@
 		8192A7CD1C62410300B25AC6 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		8192A7CE1C62410300B25AC6 /* NotificationListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationListener.swift; sourceTree = "<group>"; };
 		8192A7CF1C62410300B25AC6 /* Signal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signal.swift; sourceTree = "<group>"; };
+		819A4C051C8DF2860095BD7B /* KeyboardBrowseMediaItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardBrowseMediaItemViewController.swift; path = Sources/KeyboardBrowseMediaItemViewController.swift; sourceTree = "<group>"; };
 		81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HEXString.h"; sourceTree = "<group>"; };
 		81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HEXString.m"; sourceTree = "<group>"; };
 		81B19E8D1B30A66700D3575C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -2074,6 +2077,7 @@
 			isa = PBXGroup;
 			children = (
 				816D50E31C8A2FC0007B3249 /* KeyboardBrowseViewController.swift */,
+				819A4C051C8DF2860095BD7B /* KeyboardBrowseMediaItemViewController.swift */,
 			);
 			name = "Browse VCs";
 			sourceTree = "<group>";
@@ -3446,6 +3450,7 @@
 				810EA5E11C8579F1005A6C6D /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */,
 				810EA5E21C8579F1005A6C6D /* SearchSuggestionTableHeaderView.swift in Sources */,
 				810EA5E31C8579F1005A6C6D /* FavoritesService.swift in Sources */,
+				819A4C071C8DF2860095BD7B /* KeyboardBrowseMediaItemViewController.swift in Sources */,
 				810EA5E41C8579F1005A6C6D /* MediaItemsKeyboardContainerViewController.swift in Sources */,
 				810EA5E51C8579F1005A6C6D /* BrowseViewModel.swift in Sources */,
 				816D50181C86278C007B3249 /* CategoryCollectionViewController.swift in Sources */,
@@ -3750,6 +3755,7 @@
 				8127A8FB1B975FBD00BD070B /* SearchSuggestionTableHeaderView.swift in Sources */,
 				81028A411C4C9220000533FA /* FavoritesService.swift in Sources */,
 				81F833571C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift in Sources */,
+				819A4C061C8DF2860095BD7B /* KeyboardBrowseMediaItemViewController.swift in Sources */,
 				810B04F41C43181800BA731B /* BrowseViewModel.swift in Sources */,
 				816D50171C86278C007B3249 /* CategoryCollectionViewController.swift in Sources */,
 				816D50091C860F97007B3249 /* Category.swift in Sources */,

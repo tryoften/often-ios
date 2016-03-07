@@ -13,8 +13,6 @@ extension UIImageView {
     func setImageWithAnimation(url: NSURL, blurRadius: CGFloat = 0, placeholderImage: UIImage? = UIImage(named: "placeholder"), completion: ((Bool) -> ())? = nil) {
         alpha = 0.0
 
-        print("About to set image: ", url)
-
         let urlRequest = NSURLRequest(URL: url, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60 * 60)
         self.cancelImageRequestOperation()
         
