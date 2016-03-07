@@ -39,6 +39,11 @@ class KeyboardSearchBarController: SearchBarController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func reset() {
+        super.reset()
+        NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: nil)
+    }
+
     func textFieldDidBeginEditing() {
         guard let searchBar = self.searchBar as? KeyboardSearchBar else {
             return

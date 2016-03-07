@@ -11,6 +11,8 @@ import UIKit
 class KeyboardFavoritesViewController: MediaItemsViewController {
     var categoriesVC: CategoryCollectionViewController? = nil
     var panelToggleListener: Listener?
+
+    private var didInitialLayout: Bool = false
     private var HUDMaskView: UIView?
 
     init(viewModel: MediaItemsViewModel) {
@@ -20,7 +22,6 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 0, 22)
         setupAlphabeticalSidebar()
-        setupCategoryCollectionViewController()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
     }
@@ -44,10 +45,25 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         collectionView?.performBatchUpdates(nil, completion: nil)
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        layoutCategoryPanelView()
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        layoutCategoryPanelView()
+
+        if view.frame == CGRectZero {
+            return
+        }
+
         HUDMaskView?.frame = view.bounds
+        if !didInitialLayout {
+            setupCategoryCollectionViewController()
+            layoutCategoryPanelView()
+            didInitialLayout = true
+        }
     }
 
     override func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -69,7 +85,6 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
-
         var cellWidthPadding: CGFloat = 20
 
         if indexPath.section == 0 {
@@ -104,8 +119,6 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         view.addSubview(categoriesVC.view)
         addChildViewController(categoriesVC)
 
-
-
         panelToggleListener = categoriesVC.panelView.didToggle.on({ opening in
             guard let maskView = self.HUDMaskView else {
                 return
@@ -118,10 +131,10 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
 
             UIView.animateWithDuration(0.3, animations: {
                 maskView.alpha = opening ? 1.0 : 0.0
-                }, completion: { done in
-                    if !opening {
-                        maskView.hidden = true
-                    }
+            }, completion: { done in
+                if !opening {
+                    maskView.hidden = true
+                }
             })
         })
 
@@ -137,7 +150,6 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
                 SectionPickerViewOpenedHeight)
         }
     }
-
 
     override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
         if let linkMediaItem = cell.mediaLink as? LyricMediaItem {

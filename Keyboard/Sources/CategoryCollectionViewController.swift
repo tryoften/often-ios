@@ -56,6 +56,10 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
 
         let viewLayout = CategoriesPanelView.provideCollectionViewLayout(panelView.bounds)
         panelView.categoriesCollectionView.setCollectionViewLayout(viewLayout, animated: false)
+
+        if let categories =  CategoryService.defaultInstance.categories {
+            self.categories = categories
+        }
     }
 
     func handleCategories(categories: [Category]) {

@@ -11,17 +11,18 @@ import UIKit
 let MediaItemPageHeaderViewIdentifier = "MediaItemPageHeaderView"
 
 class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
-    KeyboardBrowseNavigationDelegate,
     CellAnimatable {
     class var cellHeight: CGFloat {
         return 105.0
     }
 
-    var navigationBar: KeyboardBrowseNavigationBar?
     var navigationBarHideConstraint: NSLayoutConstraint?
     var headerView: MediaItemPageHeaderView?
     var viewModel: BrowseViewModel
     var hudTimer: NSTimer?
+#if KEYBOARD
+    var navigationBar: KeyboardBrowseNavigationBar?
+#endif
 
     init(viewModel: BrowseViewModel) {
         self.viewModel = viewModel
@@ -37,8 +38,8 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
 
     #if KEYBOARD
         navigationBar = KeyboardBrowseNavigationBar()
+        navigationBar?.thumbnailImageButton.addTarget(self, action: "backButtonSelected", forControlEvents: .TouchUpInside)
         navigationBar?.translatesAutoresizingMaskIntoConstraints = false
-        navigationBar?.browseDelegate = self
         view.addSubview(navigationBar!)
     #else
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
@@ -61,14 +62,19 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
-        containerViewController?.resetPosition()
         showNavigationBar(false)
+    #if KEYBOARD
+        containerViewController?.resetPosition()
+    #endif
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        containerViewController?.resetPosition()
         showNavigationBar(false)
+
+    #if KEYBOARD
+        containerViewController?.resetPosition()
+    #endif
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -105,15 +111,15 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         return layout
     }
 
-    func setupHeaderView(imageURL: NSURL, title: String, subtitle: String) {
+    func setupHeaderView(imageURL: NSURL?, title: String?, subtitle: String?) {
     #if KEYBOARD
         navigationBar?.imageURL = imageURL
         navigationBar?.titleLabel.text = title
         navigationBar?.subtitleLabel.text = subtitle
     #else
         headerView?.imageURL = imageURL
-        headerView?.titleLabel.text = title.uppercaseString
-        headerView?.subtitleLabel.text = subtitle.uppercaseString
+        headerView?.titleLabel.text = title?.uppercaseString
+        headerView?.subtitleLabel.text = subtitle?.uppercaseString
     #endif
     }
 
@@ -165,6 +171,9 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         navigationController?.popViewControllerAnimated(true)
     }
 
+
+#if KEYBOARD
+
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
         guard let containerViewController = containerViewController else {
             return
@@ -189,7 +198,6 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
     }
 
     func setupLayout() {
-    #if KEYBOARD
         let topMargin = KeyboardSearchBarHeight
         guard let navigationBar = navigationBar else {
             return
@@ -203,10 +211,11 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
             navigationBar.al_right == view.al_right,
             navigationBar.al_height == 64
         ])
-    #endif
     }
+#else
+    func setupLayout() {
 
-#if !(KEYBOARD)
+    }
     func showHud() {
         hudTimer?.invalidate()
         PKHUD.sharedHUD.contentView = HUDProgressView()
