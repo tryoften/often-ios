@@ -50,7 +50,6 @@ class SearchBarController: UIViewController, UISearchBarDelegate {
     
     func reset() {
         filter = nil
-        NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: nil)
     }
 
     func scheduleAutocompleteRequestTimer() {

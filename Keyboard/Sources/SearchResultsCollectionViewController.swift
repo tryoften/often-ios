@@ -283,10 +283,24 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
         updateEmptyStateContent(.NoResults, animated: true)
     }
 
+    // MARK: SearchViewModelDelegate
+    func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
+        // TODO(luc): don't do anything if the keyboard is restored
+        if response.groups.isEmpty {
+            return
+        }
+
+        noResultsTimer?.invalidate()
+
+        self.response = response
+        refreshResults()
+    }
+
+#if KEYBOARD && !(KEYBOARD_DEBUG)
     override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
         guard let containerViewController = containerViewController,
             let searchBarController = searchBarController else {
-            return
+                return
         }
 
         var frame = tabBarFrame
@@ -301,18 +315,6 @@ class SearchResultsCollectionViewController: MediaItemGroupsViewController,
             containerViewController.tabBar.frame = frame
         }
     }
-
-    // MARK: SearchViewModelDelegate
-    func searchViewModelDidReceiveResponse(searchViewModel: SearchViewModel, response: SearchResponse, responseChanged: Bool) {
-        // TODO(luc): don't do anything if the keyboard is restored
-        if response.groups.isEmpty {
-            return
-        }
-
-        noResultsTimer?.invalidate()
-
-        self.response = response
-        refreshResults()
-    }
+#endif
 }
 

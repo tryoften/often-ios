@@ -8,13 +8,18 @@
 
 import Foundation
 
+enum FavoritesFilterType {
+    case category
+    case artist
+}
 
 /// fetches favorites for current user and keeps them up to date
 /// also has methods to add/remove favorites
 class FavoritesService: MediaItemsViewModel {
     static let defaultInstance = FavoritesService()
     private(set) var ids: Set<String> = []
-    
+
+    let filters: [FavoritesFilterType: String] = [:]
     let didChangeFavorites = Event<[MediaItem]>()
     
     override func fetchData() throws {
@@ -92,7 +97,7 @@ class FavoritesService: MediaItemsViewModel {
             "id": "recentlyAddedFavorites",
             "title": "Recently Added",
             "type": "lyric"
-            ])
+        ])
         
         let sortedGroup = collections.sort({ (l, r) in
             if let d1 = l.created, let d2 = r.created {

@@ -144,7 +144,9 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
 
         let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: BrowseViewModel(), textProcessor: textProcessor)
         navigationController?.pushViewController(browseVC, animated: true)
+        #if KEYBOARD
         containerViewController?.resetPosition()
+        #endif
     }
 
     func scrollViewDidScroll(scrollView: UIScrollView) {

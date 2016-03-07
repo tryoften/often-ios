@@ -104,7 +104,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         recentsVC.textProcessor = textProcessor
 
         // Browse
-        let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
+        let browseVC = KeyboardBrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
         browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
         browseVC.textProcessor = textProcessor
 

@@ -41,9 +41,7 @@ class KeyboardBrowseNavigationBar: UIView {
             }
         }
     }
-    
-    var browseDelegate: KeyboardBrowseNavigationDelegate?
-    
+
     override init(frame: CGRect) {
         backArrowView = UIImageView()
         backArrowView.translatesAutoresizingMaskIntoConstraints = false
@@ -116,7 +114,7 @@ class KeyboardBrowseNavigationBar: UIView {
     }
     
     func backSelected() {
-        browseDelegate?.backButtonSelected()
+        
     }
     
     func showOptions() {
@@ -151,8 +149,4 @@ class KeyboardBrowseNavigationBar: UIView {
             moreOptionsButton.al_height == 18
         ])
     }
-}
-
-protocol KeyboardBrowseNavigationDelegate {
-    func backButtonSelected()
 }

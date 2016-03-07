@@ -20,7 +20,9 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
 
     init() {
         super.init(collectionViewLayout: TrendingLyricsHorizontalCollectionViewController.provideLayout())
+        #if KEYBOARD
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
+        #endif
     }
 
     required init?(coder aDecoder: NSCoder) {
