@@ -37,6 +37,7 @@ class KeyboardViewController: UIViewController {
     var constraintsAdded: Bool = false
     var collapsed: Bool = false
     var shouldSetupKeysOnLayoutChange: Bool = false
+    var emojiViewController: EmojiKeyboardViewController
     
     var backspaceActive: Bool {
         return (backspaceDelayTimer != nil) || (backspaceRepeatTimer != nil)
@@ -67,6 +68,7 @@ class KeyboardViewController: UIViewController {
 
         keysContainerView = TouchRecognizerView()
         keysContainerView.backgroundColor = DefaultTheme.keyboardBackgroundColor
+        emojiViewController = EmojiKeyboardViewController(textProcessor: textProcessor)
 
         shiftState = .Enabled
 
@@ -77,8 +79,12 @@ class KeyboardViewController: UIViewController {
         }
 
         super.init(nibName: nil, bundle: nil)
-
+        
         view.addSubview(keysContainerView)
+        view.addSubview(emojiViewController.view)
+        emojiViewController.view.hidden = true
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "backToKeyboardButtonPressed", name: BackToKeyboardButtonPressedEvent, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -104,6 +110,7 @@ class KeyboardViewController: UIViewController {
 
         let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
         keysContainerView.frame = CGRectMake(0, CGRectGetHeight(view.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
+        emojiViewController.view.frame = keysContainerView.frame
         setupLayout()
     }
 
@@ -219,6 +226,8 @@ class KeyboardViewController: UIViewController {
                     keyView.addTarget(self, action: "didReleaseCallKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
                 case .modifier(.Share, _):
                     keyView.addTarget(self, action: "didTapShareKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
+                case .modifier(.Emoji, _):
+                    keyView.addTarget(self, action: "didTapEmojiKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
                 case .modifier(.Enter, _):
                     keyView.addTarget(self, action: "didTapEnterKey:", forControlEvents: .TouchDown)
                     keyView.addTarget(self, action: "didReleaseEnterKey:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchDragOutside, .TouchDragExit, .TouchCancel])
@@ -258,6 +267,10 @@ class KeyboardViewController: UIViewController {
             }
         }
 
+    }
+    
+    func backToKeyboardButtonPressed() {
+        emojiViewController.view.hidden = true
     }
 
 }

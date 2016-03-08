@@ -13,6 +13,8 @@ let CollapseKeyboardEvent = "collapseKeyboard"
 let RestoreKeyboardEvent = "restoreKeyboard"
 let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
 let KeyboardOrientationChangeEvent = "orientationChange"
+let BackToKeyboardButtonPressedEvent = "BackToKeyboardButtonPressed"
+
 
 class KeyboardContainerViewController: UIViewController {
     var keyboard: KeyboardViewController

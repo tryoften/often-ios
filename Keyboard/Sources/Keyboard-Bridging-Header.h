@@ -22,3 +22,4 @@
 #import <DateTools/DateTools.h>
 #import "NJKScrollFullScreen.h"
 #import <BDKCollectionIndexView/BDKCollectionIndexView.h>
+#import <AGEmojiKeyboard/AGEmojiKeyboardView.h>

@@ -14,6 +14,7 @@ def base_deps
   pod 'Parse', '~> 1.11'
   pod 'CSStickyHeaderFlowLayout'
   pod 'BDKCollectionIndexView'
+  pod 'AGEmojiKeyboard', :git => 'https://github.com/tryoften/AGEmojiKeyboard'
 end
 
 target 'Often' do

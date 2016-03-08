@@ -981,6 +981,11 @@
 		81F833861C18E904001B8662 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833841C18E904001B8662 /* ArtistCollectionViewCell.swift */; };
 		81F833901C1A38B2001B8662 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
 		81F833911C1A38B2001B8662 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
+		BF8008321C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
+		BF8008331C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
+		BF8008341C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
+		BF8008351C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
+		BF8008361C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
 		BFEB1EBA1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */; };
 		BFEB1EBB1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */; };
 		BFEB1EBC1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */; };
@@ -1392,6 +1397,7 @@
 		B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.release.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.release.xcconfig"; sourceTree = "<group>"; };
 		B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.debug.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.debug.xcconfig"; sourceTree = "<group>"; };
 		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
+		BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiKeyboardViewController.swift; sourceTree = "<group>"; };
 		BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedHorizontalCollectionViewController.swift; sourceTree = "<group>"; };
 		C85359BC0D2B9C5AAD1BD2F3 /* Pods-Surf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.debug.xcconfig"; sourceTree = "<group>"; };
 		D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2296,6 +2302,7 @@
 			children = (
 				81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */,
 				3B63ED5C1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift */,
+				BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */,
 			);
 			name = "Keyboard VCs";
 			sourceTree = "<group>";
@@ -3282,6 +3289,7 @@
 				810EA4FE1C8579D1005A6C6D /* UserCreationViewController.swift in Sources */,
 				810EA4FF1C8579D1005A6C6D /* FuzzySearch.swift in Sources */,
 				810EA5001C8579D1005A6C6D /* ArrowShape.swift in Sources */,
+				BF8008351C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */,
 				810EA5011C8579D1005A6C6D /* Listener.swift in Sources */,
 				810EA5021C8579D1005A6C6D /* CreateAccountViewController.swift in Sources */,
 				810EA5031C8579D1005A6C6D /* AppDelegate.swift in Sources */,
@@ -3472,6 +3480,7 @@
 				810EA5F41C8579F1005A6C6D /* EmojiSectionSelectorView.swift in Sources */,
 				810EA5F51C8579F1005A6C6D /* MediaItemsSectionHeaderView.swift in Sources */,
 				810EA5F61C8579F1005A6C6D /* KeyboardSearchResultNavgationBar.swift in Sources */,
+				BF8008361C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */,
 				810EA5F71C8579F1005A6C6D /* KeyboardBrowseNavigationBar.swift in Sources */,
 				810EA5F81C8579F1005A6C6D /* SearchResultsCellOverlayView.swift in Sources */,
 				810EA5F91C8579F1005A6C6D /* KeyboardSearchTextField.swift in Sources */,
@@ -3618,6 +3627,7 @@
 				3BAC29541C4838D300F44DF7 /* UserCreationViewController.swift in Sources */,
 				8176BEA01B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				8176BEF01B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
+				BF8008321C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */,
 				8192A7DA1C62410300B25AC6 /* Listener.swift in Sources */,
 				3B5F25691BF40C5C00AA7A98 /* CreateAccountViewController.swift in Sources */,
 				8180E60E1A142157007FA1CF /* AppDelegate.swift in Sources */,
@@ -3808,6 +3818,7 @@
 				69DBDE0F1C665E6900701A5D /* EmojiSectionSelectorView.swift in Sources */,
 				813323971C23652D0084918B /* MediaItemsSectionHeaderView.swift in Sources */,
 				3B5AF3761C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */,
+				BF8008341C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */,
 				698AD3421C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */,
 				81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */,
 				81E26D9D1B6812E200FC1F2F /* KeyboardSearchTextField.swift in Sources */,
@@ -3940,6 +3951,7 @@
 				3B47F6AB1C66FAA100B000A5 /* Event.swift in Sources */,
 				3B5AF3751C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */,
 				81DA3EFE1C24BE85006822D3 /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
+				BF8008331C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */,
 				81DA3EFF1C24BE85006822D3 /* KeyboardSectionsContainerViewController.swift in Sources */,
 				69A731341C602C9B00F3DBAD /* EmojiKeyboardTableViewController.swift in Sources */,
 				81DA3F001C24BE85006822D3 /* MediaItemsKeyboardContainerViewController.swift in Sources */,
