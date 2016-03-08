@@ -37,27 +37,6 @@ class ArticleMediaItem: MediaItem {
 
         super.init(data: data)
 
-        if let images = data["images"] as? [ [String: AnyObject] ] {
-            var rectangleImage: [String: AnyObject]? = nil
-            for imageData in images {
-                if let transformation = imageData["transformation"] as? String {
-                    if transformation == "square" {
-                        rectangleImage = imageData
-                    }
-                }
-            }
-
-            if rectangleImage != nil {
-                self.smallImage = rectangleImage?["url"] as? String
-                self.mediumImage = rectangleImage?["url"] as? String
-                self.largeImage = rectangleImage?["url"] as? String
-            }
-        } else {
-             self.smallImage = data["image"] as? String
-             self.mediumImage = data["image"] as? String
-             self.largeImage = data["image"] as? String
-        }
-
         self.type = .Article
         self.score = data["_score"] as? Double ?? 0.0
     }

@@ -17,11 +17,17 @@ class MediaItem: Equatable {
     var sourceName: String {
         return getNameForSource()
     }
-    var smallImage: String?
-    var mediumImage: String?
-    var largeImage: String?
+    var smallImageURL: NSURL?
+    var squareImageURL: NSURL?
+    var mediumImageURL: NSURL?
+    var largeImageURL: NSURL?
+
     var created: NSDate?
     var data: NSDictionary = [:]
+
+    var imageProperty: String {
+        return "image_url"
+    }
 
     class func mediaItemFromType(data: NSDictionary) -> MediaItem? {
         guard let typeString = data["type"] as? String,
@@ -75,6 +81,42 @@ class MediaItem: Equatable {
             let date = NSDate(timeIntervalSince1970: time_added / 1000.0)
             self.created = date
         }
+
+        if let image = data[imageProperty] as? String, let imageURL = NSURL(string: image) {
+            self.smallImageURL = imageURL
+            self.squareImageURL = imageURL
+            self.mediumImageURL = imageURL
+            self.largeImageURL = imageURL
+        }
+
+        if let images = data["images"] as? NSDictionary,
+            let image_url_images = images[imageProperty] as? NSDictionary,
+            let small = image_url_images["square_small"] as? NSDictionary,
+            let image_url = small["url"] as? String {
+                self.smallImageURL = NSURL(string: image_url)
+        }
+
+        if let images = data["images"] as? NSDictionary,
+            let image_url_images = images[imageProperty] as? NSDictionary,
+            let small = image_url_images["square"] as? NSDictionary,
+            let image_url = small["url"] as? String {
+                self.squareImageURL = NSURL(string: image_url)
+        }
+
+        if let images = data["images"] as? NSDictionary,
+            let image_url_images = images[imageProperty] as? NSDictionary,
+            let medium = image_url_images["medium"] as? NSDictionary,
+            let image_url = medium["url"] as? String {
+                self.mediumImageURL = NSURL(string: image_url)
+        }
+
+        if let images = data["images"] as? NSDictionary,
+            let image_url_images = images[imageProperty] as? NSDictionary,
+            let large = image_url_images["large"] as? NSDictionary,
+            let image_url = large["url"] as? String {
+                self.largeImageURL = NSURL(string: image_url)
+        }
+
     }
 
     func iconImageForSource() -> UIImage? {

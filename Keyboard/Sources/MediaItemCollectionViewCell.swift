@@ -53,8 +53,9 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
 
     var avatarImageURL: NSURL? {
         didSet {
-            if let _ = avatarImageURL {
-                sourceLogoView.setImageWithURL(avatarImageURL!)
+            if let imageURL = avatarImageURL {
+                print("Avatar image URL", imageURL)
+                sourceLogoView.setImageWithAnimation(imageURL)
                 avatarImageViewWidthConstraint.constant = 18
                 leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left + 24
             } else {

@@ -12,7 +12,6 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
     var categoriesVC: CategoryCollectionViewController? = nil
     var panelToggleListener: Listener?
 
-    private var didInitialLayout: Bool = false
     private var HUDMaskView: UIView?
 
     init(viewModel: MediaItemsViewModel) {
@@ -21,7 +20,7 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
 
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 0, 22)
-        setupAlphabeticalSidebar()
+
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
     }
@@ -48,22 +47,20 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupAlphabeticalSidebar()
+        setupCategoryCollectionViewController()
         layoutCategoryPanelView()
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        HUDMaskView?.frame = view.bounds
 
-        if view.frame == CGRectZero {
+        guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
             return
         }
 
-        HUDMaskView?.frame = view.bounds
-        if !didInitialLayout {
-            setupCategoryCollectionViewController()
-            layoutCategoryPanelView()
-            didInitialLayout = true
-        }
+        layoutCategoryPanelView()
     }
 
     override func scrollViewDidScroll(scrollView: UIScrollView) {
