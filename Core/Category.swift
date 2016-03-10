@@ -12,6 +12,8 @@ struct Category: Equatable {
     let id: String
     let name: String
 
+    static var all = Category(id: "all", name: "All")
+
     func toDictionary() -> [String: AnyObject] {
         return [
             "id": id,

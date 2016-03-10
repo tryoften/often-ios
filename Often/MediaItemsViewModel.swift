@@ -14,9 +14,9 @@ enum MediaItemsViewModelError: ErrorType {
 class MediaItemsViewModel: BaseViewModel {
     weak var delegate: MediaItemsViewModelDelegate?
     
-    var collections: [MediaItem]
-    var mediaItemGroups: [MediaItemGroup]
     var mediaItems: [MediaItem]
+    var mediaItemGroups: [MediaItemGroup]
+    var filteredMediaItems: [MediaItem]
     var sectionIndex: [String: NSInteger?]
 
     private var collectionEndpoints: [MediaItemsCollectionType: Firebase]
@@ -31,9 +31,9 @@ class MediaItemsViewModel: BaseViewModel {
     
     init(baseRef: Firebase = Firebase(url: BaseURL)) {
         collectionEndpoints = [:]
-        collections = []
-        mediaItemGroups = []
         mediaItems = []
+        mediaItemGroups = []
+        filteredMediaItems = []
         sectionIndex = [:]
         collectionType = .Recents
 
@@ -74,7 +74,7 @@ class MediaItemsViewModel: BaseViewModel {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
                 self.isDataLoaded = true
                 if let data = snapshot.value as? [String: AnyObject] {
-                    self.collections = self.processMediaItemsCollectionData(data)
+                    self.mediaItems = self.processMediaItemsCollectionData(data)
                 }
                 
                 self.collectionType = collectionType
@@ -88,37 +88,15 @@ class MediaItemsViewModel: BaseViewModel {
     }
     
     func generateMediaItemGroups() -> [MediaItemGroup] {
-        if !collections.isEmpty {
-            return generateRecentsGroup(collections)
-        }
         return []
     }
 
-    func generateRecentsGroup(items: [MediaItem]) -> [MediaItemGroup] {
-        let group = MediaItemGroup(dictionary: [
-            "id": "recents",
-            "title": sectionHeaderTitle(),
-            "type": "lyric"
-            ])
-        group.items = items.sort({ (l, r) in
-            if let d1 = l.created, let d2 = r.created {
-                return d1.compare(d2) == .OrderedDescending
-            }
-            return false
-        })
-        return [group]
-    }
-
     func mediaItemGroupItemsForIndex(index: Int) -> [MediaItem] {
-        let groups = generateMediaItemGroups()
+        let groups = mediaItemGroups
         if !groups.isEmpty {
             return groups[index].items
         }
         return []
-    }
-    
-    func generateRecentlyAddedFavoritesLyrics() -> MediaItemGroup {
-        return MediaItemGroup(dictionary: [:])
     }
     
     func leftSectionHeaderTitle(index: Int) -> String {
@@ -127,8 +105,8 @@ class MediaItemsViewModel: BaseViewModel {
     
     func sectionHeaderTitle() -> String {
         var headerTitle = ""
-        if !collections.isEmpty {
-            headerTitle =  "\(collections.count)" + " " + collectionType.rawValue
+        if !mediaItems.isEmpty {
+            headerTitle =  "\(mediaItems.count)" + " " + collectionType.rawValue
         }
         
         return headerTitle

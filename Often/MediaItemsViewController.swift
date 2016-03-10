@@ -53,8 +53,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             collectionView.registerClass(MediaItemsSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
-            collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
-            
         }
     }
 
@@ -174,27 +172,13 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0 && collectionType == .Favorites {
-            return 1
-        }
         return viewModel.mediaItemGroupItemsForIndex(section).count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell: UICollectionViewCell
-        
-        if indexPath.section == 0 && collectionType == .Favorites {
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier("RecentlyUsedCellIdentifier", forIndexPath: indexPath)
-            let lyricsHorizontalVC = provideRecentlyAddedLyricsHorizontalCollectionViewController()
-            lyricsHorizontalVC.group = viewModel.generateMediaItemGroups()[indexPath.section]
-            cell.backgroundColor = UIColor.clearColor()
-            cell.contentView.addSubview(lyricsHorizontalVC.view)
-            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-            lyricsHorizontalVC.view.frame = cell.bounds
-        } else {
-            cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView) as MediaItemCollectionViewCell
-            animateCell(cell, indexPath: indexPath)
-        }
+        let cell: UICollectionViewCell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView) as MediaItemCollectionViewCell
+
+        animateCell(cell, indexPath: indexPath)
         
         return cell
     }

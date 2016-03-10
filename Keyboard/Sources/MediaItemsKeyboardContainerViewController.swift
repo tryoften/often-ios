@@ -99,7 +99,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         favoritesVC.textProcessor = textProcessor
 
         // Recents
-        let recentsVC = KeyboardRecentsViewController(viewModel: MediaItemsViewModel())
+        let recentsVC = KeyboardRecentsViewController(viewModel: RecentsViewModel())
         recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 2)
         recentsVC.textProcessor = textProcessor
 
@@ -109,6 +109,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         browseVC.textProcessor = textProcessor
 
         let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
+        trendingNavigationVC.navigationBarHidden = true
+        trendingNavigationVC.toolbarHidden = true
         trendingNavigationVC.view.backgroundColor = UIColor.clearColor()
 
         sections = [

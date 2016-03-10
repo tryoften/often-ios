@@ -18,7 +18,7 @@ class KeyboardRecentsViewController: MediaItemsViewController {
         collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 80, 0)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
-
+        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -40,11 +40,23 @@ class KeyboardRecentsViewController: MediaItemsViewController {
         collectionView?.performBatchUpdates(nil, completion: nil)
     }
 
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        }
+
+        return viewModel.mediaItemGroupItemsForIndex(section).count
+    }
+
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let screenHeight = UIScreen.mainScreen().bounds.size.height
         
-        var cellWidthPadding: CGFloat = 20
+        let cellWidthPadding: CGFloat = 20
+
+        if indexPath.section == 0 {
+            return CGSizeMake(screenWidth - cellWidthPadding, 115)
+        }
 
         if screenHeight < screenWidth {
             return CGSizeMake(screenWidth - 20, 90)
@@ -54,13 +66,25 @@ class KeyboardRecentsViewController: MediaItemsViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
-        guard let mediaItemCell = cell as? MediaItemCollectionViewCell else {
-            return cell
-        }
+        var cell: UICollectionViewCell
 
-        mediaItemCell.type = .Metadata
-        mediaItemCell.favoriteRibbon.hidden = !mediaItemCell.itemFavorited
+        if indexPath.section == 0 {
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier("RecentlyUsedCellIdentifier", forIndexPath: indexPath)
+            let lyricsHorizontalVC = provideRecentlyAddedLyricsHorizontalCollectionViewController()
+            lyricsHorizontalVC.group = viewModel.generateMediaItemGroups()[indexPath.section]
+            cell.backgroundColor = UIColor.clearColor()
+            cell.contentView.addSubview(lyricsHorizontalVC.view)
+            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            lyricsHorizontalVC.view.frame = cell.bounds
+        } else {
+            cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+            guard let mediaItemCell = cell as? MediaItemCollectionViewCell else {
+                return cell
+            }
+
+            mediaItemCell.type = .Metadata
+            mediaItemCell.favoriteRibbon.hidden = !mediaItemCell.itemFavorited
+        }
 
         return cell
     }
