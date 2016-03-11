@@ -185,7 +185,11 @@ class FavoritesService: MediaItemsViewModel {
                     return true
                 }
 
-                if category.id == Category.all.id && lyricCategory.id != category.id {
+                if category.id == Category.all.id {
+                    return false
+                }
+
+                if lyricCategory.id != category.id {
                     return true
                 }
             }

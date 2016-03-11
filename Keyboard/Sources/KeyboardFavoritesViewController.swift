@@ -63,6 +63,9 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         layoutCategoryPanelView()
     }
 
+    override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
+    }
+
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         guard let profileViewCenter = collectionView?.frame.midX, cells = collectionView?.visibleCells() else {
             return
@@ -141,11 +144,4 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
                 SectionPickerViewOpenedHeight)
         }
     }
-
-//    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-//        if let linkMediaItem = cell.mediaLink as? LyricMediaItem {
-//            CategoryService.defaultInstance.assignCategory(linkMediaItem, category: Category(id: "success", name: "Success"))
-//        }
-//    }
-
 }
