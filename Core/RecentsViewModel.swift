@@ -34,6 +34,8 @@ class RecentsViewModel: MediaItemsViewModel {
             groups.append(FavoritesService.defaultInstance.generateRecentlyAddedFavoritesLyrics())
             groups.appendContentsOf(generateRecentsGroup(mediaItems))
 
+            mediaItemGroups = groups
+
             return groups
         }
 

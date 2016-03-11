@@ -81,7 +81,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         requestData(false)
     }
     
