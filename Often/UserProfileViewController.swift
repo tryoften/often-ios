@@ -15,7 +15,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     var sectionHeaderView: MediaItemsSectionHeaderView?
     var viewModels: [MediaItemsCollectionType: MediaItemsViewModel]
     
-    init(collectionViewLayout: UICollectionViewLayout, recentsViewModel: MediaItemsViewModel, favoritesViewModel: FavoritesService) {
+    init(collectionViewLayout: UICollectionViewLayout, recentsViewModel: RecentsViewModel, favoritesViewModel: FavoritesService) {
         
         viewModels = [.Favorites: favoritesViewModel, .Recents: recentsViewModel]
         

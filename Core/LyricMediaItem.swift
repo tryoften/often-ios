@@ -40,6 +40,12 @@ class LyricMediaItem: MediaItem {
         if let index = data["index"] as? Int {
             self.index = index
         }
+
+        if let categoryData = data["category"] as? NSDictionary,
+            let categoryId = categoryData["id"] as? String,
+            let categoryName = categoryData["name"] as? String {
+                category = Category(id: categoryId, name: categoryName)
+        }
     }
 
     override func getInsertableText() -> String {

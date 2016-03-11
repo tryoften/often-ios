@@ -41,7 +41,7 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
     }
 
     func onOrientationChanged() {
-        collectionView?.performBatchUpdates(nil, completion: nil)
+        collectionView?.reloadData()
     }
 
     override func viewDidLoad() {
@@ -63,6 +63,9 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         layoutCategoryPanelView()
     }
 
+    override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
+    }
+
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         guard let profileViewCenter = collectionView?.frame.midX, cells = collectionView?.visibleCells() else {
             return
@@ -82,13 +85,7 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
-        var cellWidthPadding: CGFloat = 20
-
-        if indexPath.section == 0 {
-            return CGSizeMake(screenWidth - cellWidthPadding, 105)
-        }
-
-        cellWidthPadding = 46
+        let cellWidthPadding: CGFloat = 46
         return CGSizeMake(screenWidth - cellWidthPadding, 75)
     }
 
@@ -147,11 +144,4 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
                 SectionPickerViewOpenedHeight)
         }
     }
-
-    override func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
-        if let linkMediaItem = cell.mediaLink as? LyricMediaItem {
-            CategoryService.defaultInstance.assignCategory(linkMediaItem, category: Category(id: "success", name: "Success"))
-        }
-    }
-
 }

@@ -9,8 +9,6 @@
 import UIKit
 
 class CategoriesPanelView: UIView {
-    weak var delegate: SectionPickerViewDelegate?
-
     var toggleDrawerButton: UIButton
     var switchArtistButton: UIButton
 
@@ -225,8 +223,4 @@ class CategoriesPanelView: UIView {
 
         didToggle.emit(false)
     }
-}
-
-protocol SectionPickerViewDelegate: class {
-    func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category, index: Int)
 }
