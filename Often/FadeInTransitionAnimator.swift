@@ -9,7 +9,7 @@
 import Foundation
 
 class FadeInTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-    let presenting: Bool
+    private let presenting: Bool
 
     init(presenting: Bool) {
         self.presenting = presenting
