@@ -95,7 +95,7 @@ class KeyboardMediaItemDetailViewController: UIViewController {
     func favoriteButtonDidTap(sender: UIButton) {
         sender.selected = !sender.selected
         FavoritesService.defaultInstance.toggleFavorite(sender.selected, result: lyric)
-
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     func populateDetailView() {
@@ -107,8 +107,7 @@ class KeyboardMediaItemDetailViewController: UIViewController {
         keyboardMediaItemDetailView.favoriteButton.addTarget(self, action: "favoriteButtonDidTap:", forControlEvents: .TouchUpInside)
         keyboardMediaItemDetailView.favoriteButton.selected = FavoritesService.defaultInstance.checkFavorite(lyric)
 
-        if  let image = lyric.smallImage,
-            let imageURL = NSURL(string: image) {
+        if let imageURL = lyric.smallImageURL {
                 print("Loading image: \(imageURL)")
                 keyboardMediaItemDetailView.mediaItemImage.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
                     self.keyboardMediaItemDetailView.mediaItemImage.image = image
