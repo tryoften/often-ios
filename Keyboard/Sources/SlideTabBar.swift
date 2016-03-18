@@ -100,6 +100,8 @@ class SlideTabBar: UITabBar {
         setupHighlightBar()
         addSubview(topSeperator)
         addSubview(bottomSeperator)
+
+        backgroundColor = UIColor.whiteColor()
     }
 
     required init?(coder aDecoder: NSCoder) {

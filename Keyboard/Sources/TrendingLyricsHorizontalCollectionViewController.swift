@@ -20,7 +20,9 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
 
     init() {
         super.init(collectionViewLayout: TrendingLyricsHorizontalCollectionViewController.provideLayout())
+    #if KEYBOARD
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
+    #endif
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -95,7 +97,7 @@ class TrendingLyricsHorizontalCollectionViewController: MediaItemsCollectionBase
             return cell
         }
 
-        if let url = lyric.smallImage, let imageURL = NSURL(string: url) {
+        if let imageURL = lyric.smallImageURL {
             cell.avatarImageURL = imageURL
         }
 

@@ -17,20 +17,22 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     var currentCategory: Category? {
         didSet {
             panelView.currentCategoryText = currentCategory?.name.uppercaseString
+            if let category = currentCategory {
+                FavoritesService.defaultInstance.applyFilter(.category(category))
+            }
         }
     }
     var categories: [Category] = [] {
         didSet {
             if (categories.count > 1) {
                 currentCategory = categories[0]
-                panelView.delegate?.didSelectSection(panelView, category: currentCategory!, index: 0)
                 panelView.categoriesCollectionView.reloadData()
                 panelView.categoriesCollectionView.setNeedsLayout()
             }
         }
     }
 
-    var categoryServiceListener: Listener?
+    private var categoryServiceListener: Listener?
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         panelView = CategoriesPanelView(frame: CGRectZero)
@@ -56,6 +58,10 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
 
         let viewLayout = CategoriesPanelView.provideCollectionViewLayout(panelView.bounds)
         panelView.categoriesCollectionView.setCollectionViewLayout(viewLayout, animated: false)
+
+        if let categories =  CategoryService.defaultInstance.categories {
+            self.categories = categories
+        }
     }
 
     func handleCategories(categories: [Category]) {
@@ -92,7 +98,8 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let category = categories[indexPath.row] as? Category {
+        if indexPath.row < categories.count {
+            let category = categories[indexPath.row]
             currentCategory = category
             panelView.toggleDrawer()
 
@@ -102,7 +109,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             ]
 
             SEGAnalytics.sharedAnalytics().track("keyboard:categorySelected", properties: data)
-            panelView.delegate?.didSelectSection(panelView, category: category, index: indexPath.row)
         }
     }
 }

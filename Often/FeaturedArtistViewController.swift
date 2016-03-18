@@ -113,7 +113,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
 
         featuredArtistView.featureLabel.text = "Featured Artist".uppercaseString
 
-        if let image = artist.largeImage, let imageURL = NSURL(string: image) {
+        if let imageURL = artist.largeImageURL {
             featuredArtistView.imageView.setImageWithAnimation(imageURL)
         }
 
@@ -144,7 +144,9 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
 
         let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: BrowseViewModel(), textProcessor: textProcessor)
         navigationController?.pushViewController(browseVC, animated: true)
+        #if KEYBOARD
         containerViewController?.resetPosition()
+        #endif
     }
 
     func scrollViewDidScroll(scrollView: UIScrollView) {

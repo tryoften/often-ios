@@ -12,14 +12,6 @@ class FullScreenCollectionViewController: UICollectionViewController, NJKScrollF
     var scrollProxy: NJKScrollFullScreen?
     var shouldSendScrollEvents: Bool = false
 
-    var tabBarFrame: CGRect {
-        guard let containerViewController = containerViewController else {
-            return CGRectZero
-        }
-
-        return containerViewController.tabBar.frame
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -62,6 +54,14 @@ class FullScreenCollectionViewController: UICollectionViewController, NJKScrollF
     }
 
 #if KEYBOARD && !(KEYBOARD_DEBUG)
+    var tabBarFrame: CGRect {
+        guard let containerViewController = containerViewController else {
+            return CGRectZero
+        }
+
+        return containerViewController.tabBar.frame
+    }
+
     func showNavigationBar(animated: Bool) {
         if shouldSendScrollEvents {
             setNavigationBarOriginY(0, animated: true)
@@ -98,5 +98,11 @@ class FullScreenCollectionViewController: UICollectionViewController, NJKScrollF
             containerViewController.tabBar.frame = frame
         }
     }
+#else
+    var tabBarFrame: CGRect {
+        return CGRectZero
+    }
+
+    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) { }
 #endif
 }

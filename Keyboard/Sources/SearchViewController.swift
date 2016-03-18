@@ -11,7 +11,7 @@ import UIKit
 /// Controller that displays a search bar and search results
 class SearchViewController: UIViewController, SearchViewModelDelegate,
     SearchSuggestionViewControllerDelegate,
-    KeyboardSectionsContainerViewControllerDelegate,
+
     UISearchBarDelegate {
     var delegate: SearchViewControllerDelegate?
     var viewModel: SearchViewModel
@@ -59,10 +59,6 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             viewModel.delegate = self
             searchSuggestionsViewController.delegate = self
             searchBarController.searchBar.delegate = self
-
-            let center = NSNotificationCenter.defaultCenter()
-
-            center.addObserver(self, selector: "didTapEnterButton:", name: KeyboardEnterKeyTappedEvent, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -85,18 +81,15 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         searchSuggestionsViewController.viewModel.requestData()
     }
 
-    func didTapEnterButton(button: KeyboardKeyButton?) { 
-        guard let searchBar = searchBarController.searchBar as? KeyboardSearchBar else {
-            return
-        }
+    func didTapEnterButton(button: UIButton?) {
+        let searchBar = searchBarController.searchBar
 
-        if searchBar.textInput.text == "" {
+        if searchBar.text == "" {
             return
         }
 
         submitSearchRequest()
-        searchBar.textInput.resignFirstResponder()
-        
+        searchBar.resignFirstResponder()
     }
 
     func submitSearchRequest() {
@@ -104,9 +97,9 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             return
         }
 
-        if let searchBar = searchBarController.searchBar as? MainAppSearchBar {
-            searchBar.setShowsCancelButton(false, animated: false)
-        }
+//        if let searchBar = searchBarController.searchBar as? MainAppSearchBar {
+//            searchBar.setShowsCancelButton(false, animated: false)
+//        }
         searchSuggestionsViewController.showSearchSuggestionsView(false)
         view.hidden = true
         
@@ -142,25 +135,18 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         view.hidden = false
         delegate?.searchViewControllerSearchBarDidTextDidBeginEditing(self, searchBar: searchBar)
-        if let containerViewController = containerViewController {
-            containerViewController.hideTabBar(true, animations: nil)
-            var searchBarFrame = self.searchBarController.view.frame
-            searchBarFrame.origin.y = containerViewController.tabBarHeight
-            searchBarController.view.frame = searchBarFrame
-        }
+
         searchSuggestionsViewController.tableViewBottomInset = keyboardHeightForOrientation(interfaceOrientation)
         searchSuggestionsViewController.showSearchSuggestionsView(true)
     }
 
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        containerViewController?.resetPosition()
-        containerViewController?.showTabBar(true, animations: nil)
+
         searchSuggestionsViewController.tableViewBottomInset = 0
     }
 
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchSuggestionsViewController.showSearchSuggestionsView(true)
-        containerViewController?.resetPosition()
         view.hidden = true
         delegate?.searchViewControllerSearchBarDidTapCancel(self, searchBar: searchBar)
     }
@@ -187,14 +173,9 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         switch suggestion.type {
         case .Query:
             isNewSearch = true
-            containerViewController?.resetPosition()
+
             textProcessor?.parseTextInCurrentDocumentProxy()
             searchBar.text = suggestion.text
-
-            if let searchBar = searchBarController.searchBar as? KeyboardSearchBar {
-                searchBar.cancelButton.selected = true
-
-            }
 
             submitSearchRequest()
             searchBar.resignFirstResponder()
@@ -217,14 +198,11 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
         }
 
         delegate?.searchViewControllerDidReceiveResponse(self)
-        NSNotificationCenter.defaultCenter().postNotificationName(CollapseKeyboardEvent, object: self)
         searchBarController.searchBar.resignFirstResponder()
         isNewSearch = false
     }
 
-    func keyboardSectionsContainerViewControllerShouldShowBarShadow(containerViewController: KeyboardSectionsContainerViewController) -> Bool {
-        return false
-    }
+
 }
 
 protocol SearchViewControllerDelegate: class {

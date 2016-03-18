@@ -43,7 +43,7 @@ class KeyboardSearchBar: UIView, SearchBar {
     var cancelButtonLeftPadding: CGFloat {
         return CGRectGetWidth(frame) - 70
     }
-    
+
     private var filterButton: UIButton?
 
     override required init(frame: CGRect) {

@@ -9,8 +9,6 @@
 import UIKit
 
 class CategoriesPanelView: UIView {
-    weak var delegate: SectionPickerViewDelegate?
-
     var toggleDrawerButton: UIButton
     var switchArtistButton: UIButton
 
@@ -38,6 +36,10 @@ class CategoriesPanelView: UIView {
             let attributedString = NSAttributedString(string: currentCategoryText!.uppercaseString, attributes: attributes)
             currentCategoryLabel.attributedText = attributedString
         }
+    }
+
+    var isOpened: Bool {
+        return drawerOpened
     }
 
     convenience required init?(coder aDecoder: NSCoder) {
@@ -221,8 +223,4 @@ class CategoriesPanelView: UIView {
 
         didToggle.emit(false)
     }
-}
-
-protocol SectionPickerViewDelegate: class {
-    func didSelectSection(sectionPickerView: CategoriesPanelView, category: Category, index: Int)
 }

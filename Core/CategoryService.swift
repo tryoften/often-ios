@@ -22,13 +22,13 @@ class CategoryService {
             if let data = snapshot.value as? [String: AnyObject] {
 
                 for (_, categoryData) in data {
-                    if let categoryData = categoryData as? [String: String],
-                        let id = categoryData["id"], let name = categoryData["name"] {
+                    if let categoryData = categoryData as? [String: AnyObject],
+                        let id = categoryData["id"] as? String, let name = categoryData["name"] as? String {
                             let category = Category(id: id, name: name)
                             newCategories.append(category)
                     }
                 }
-                self.categories = newCategories
+                self.categories = newCategories.sort { $0.name < $1.name }
                 self.didUpdateCategories.emit(newCategories)
             }
         })

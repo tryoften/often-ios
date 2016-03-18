@@ -99,16 +99,18 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         favoritesVC.textProcessor = textProcessor
 
         // Recents
-        let recentsVC = KeyboardRecentsViewController(viewModel: MediaItemsViewModel())
+        let recentsVC = KeyboardRecentsViewController(viewModel: RecentsViewModel())
         recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 2)
         recentsVC.textProcessor = textProcessor
 
         // Browse
-        let browseVC = BrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
+        let browseVC = KeyboardBrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
         browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
         browseVC.textProcessor = textProcessor
 
         let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
+        trendingNavigationVC.navigationBarHidden = true
+        trendingNavigationVC.toolbarHidden = true
         trendingNavigationVC.view.backgroundColor = UIColor.clearColor()
 
         sections = [

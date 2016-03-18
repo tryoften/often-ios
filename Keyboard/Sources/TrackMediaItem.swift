@@ -15,25 +15,25 @@ class TrackMediaItem: MediaItem {
     var url: String = ""
     var lyrics: [LyricMediaItem] = []
     var plays: Int?
-
     var artist_external_url: String?
     var artist_genius_id: Int?
     var artist_id: String?
-    var artist_image_url: String?
     var artist_is_verified: String?
     var artist_name: String?
     var external_url: String?
     var genius_id: Int?
-    var header_image_url: String?
     var hot: String?
     var lyrics_count: Int?
-    var song_art_image_url: String?
     var time_modified: Int?
     var formattedCreatedDate: String {
         if let created = created {
             return created.timeAgoSinceNow()
         }
         return ""
+    }
+
+    override var imageProperty: String {
+        return "song_art_image_url"
     }
 
     required init(data: NSDictionary) {
@@ -59,12 +59,6 @@ class TrackMediaItem: MediaItem {
         
         if let url = data["external_url"] as? String {
             self.url = url
-        }
-        
-        if let image = data["album_cover_art_url"] as? String {
-            self.smallImage = image
-            self.mediumImage = image
-            self.largeImage = image
         }
 
         if let albumName = data["album_name"] as? String {
@@ -111,10 +105,6 @@ class TrackMediaItem: MediaItem {
             self.artist_id = artist_id
         }
 
-        if let artist_image_url = data["artist_image_url"] as? String {
-            self.artist_image_url = artist_image_url
-        }
-
         if let artist_is_verified = data["artist_is_verified"] as? String {
             self.artist_is_verified = artist_is_verified
         }
@@ -127,16 +117,8 @@ class TrackMediaItem: MediaItem {
             self.genius_id = genius_id
         }
 
-        if let header_image_url = data["header_image_url"] as? String {
-            self.header_image_url = header_image_url
-        }
-
         if let lyrics_count = data["lyrics_count"] as? Int {
             self.lyrics_count = lyrics_count
-        }
-
-        if let song_art_image_url = data["song_art_image_url"] as? String {
-            self.song_art_image_url = song_art_image_url
         }
 
         if let time_modified = data["time_modified"] as? Int {

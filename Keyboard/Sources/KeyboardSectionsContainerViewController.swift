@@ -23,8 +23,8 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
     var tabBarHeight: CGFloat {
         return 44.0
-    }
 
+    }
     var tabBar: UITabBar
     var selectedViewController: UIViewController? {
         didSet {
