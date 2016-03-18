@@ -279,6 +279,10 @@ extension KeyboardViewController {
     }
     
     func didTapEmojiKey(button: KeyboardKeyButton?) {
+        if let parentVC = self.parentViewController as? KeyboardSectionsContainerViewController {
+            parentVC.hideTabBar(false, animations: nil)
+        }
+        
         emojiViewController.view.hidden = false
     }
 

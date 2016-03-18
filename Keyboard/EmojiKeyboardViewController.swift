@@ -54,27 +54,27 @@ class EmojiKeyboardViewController: UIViewController, AGEmojiKeyboardViewDelegate
         
         switch category {
         case .Keyboard:
-            return StyleKit.imageOfAbcIcon(emojiScale: 0.55)
+            return StyleKit.imageOfAbcIcon(emojiScale: 0.5)
         case .Recent:
-            return StyleKit.imageOfRecentIcon(emojiScale: 0.55)
+            return StyleKit.imageOfRecentIcon(emojiScale: 0.5)
         case .People:
-            return StyleKit.imageOfPersonIcon(emojiScale: 0.55)
+            return StyleKit.imageOfPeopleIcon(emojiScale: 0.5)
         case .Nature:
-            return StyleKit.imageOfNatureIcon(emojiScale: 0.55)
+            return StyleKit.imageOfNatureIcon(emojiScale: 0.5)
         case .Food:
-            return StyleKit.imageOfFoodIcon(emojiScale: 0.55)
+            return StyleKit.imageOfFoodIcon(emojiScale: 0.5)
         case .Activity:
-            return StyleKit.imageOfConfettiIcon(emojiScale: 0.55)
+            return StyleKit.imageOfActivityIcon(emojiScale: 0.5)
         case .Travel:
-            return StyleKit.imageOfBuildingsIcon(emojiScale: 0.55)
+            return StyleKit.imageOfBuildingsIcon(emojiScale: 0.5)
         case .Objects:
-            return StyleKit.imageOfRandomIcon(emojiScale: 0.55)
+            return StyleKit.imageOfConfettiIcon(emojiScale: 0.5)
         case .Symbols:
-            return StyleKit.imageOfRandomIcon(emojiScale: 0.55)
+            return StyleKit.imageOfRandomIcon(emojiScale: 0.5)
         case .Flags:
-            return StyleKit.imageOfRandomIcon(emojiScale: 0.55)
+            return StyleKit.imageOfFlagIcon(emojiScale: 0.5)
         case .Delete:
-            return StyleKit.imageOfRandomIcon(emojiScale: 0.55)
+            return StyleKit.imageOfBackspaceIcon(emojiScale: 0.4)
         }
         
     }

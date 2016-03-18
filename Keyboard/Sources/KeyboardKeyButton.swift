@@ -209,8 +209,8 @@ class KeyboardKeyButton: UIControl {
                     label.font = UIFont(name: "OpenSans-Semibold", size: 12)
                     break
                 case .Space:
-                    text = "Space".uppercaseString
-                    label.font = UIFont(name: "OpenSans-Semibold", size: 12)
+                    iconView.image = UIImage(named: "")
+                    iconView.contentMode = .ScaleAspectFill
                     break
                 case .Enter:
                     text = "Enter".uppercaseString
