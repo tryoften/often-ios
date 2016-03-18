@@ -153,16 +153,6 @@
 		3BC55AC41C8A264600363AB0 /* KeyboardMediaItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55AC21C8A264600363AB0 /* KeyboardMediaItemDetailView.swift */; };
 		3BC55AC51C8A264600363AB0 /* KeyboardMediaItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55AC21C8A264600363AB0 /* KeyboardMediaItemDetailView.swift */; };
 		3BC55AC61C8A264600363AB0 /* KeyboardMediaItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55AC21C8A264600363AB0 /* KeyboardMediaItemDetailView.swift */; };
-		3BDF70B41C861D6D00EB2C58 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF70B31C861D6D00EB2C58 /* Fabric.framework */; };
-		3BDF70B51C861D6D00EB2C58 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF70B31C861D6D00EB2C58 /* Fabric.framework */; };
-		3BDF70B61C861D6D00EB2C58 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF70B31C861D6D00EB2C58 /* Fabric.framework */; };
-		3BDF70B71C861D6E00EB2C58 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF70B31C861D6D00EB2C58 /* Fabric.framework */; };
-		3BDF70B81C861D6E00EB2C58 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF70B31C861D6D00EB2C58 /* Fabric.framework */; };
-		3BDF70BA1C861DB900EB2C58 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF70B91C861DB900EB2C58 /* Fabric.framework */; };
-		3BDF70BB1C861DB900EB2C58 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF70B91C861DB900EB2C58 /* Fabric.framework */; };
-		3BDF70BC1C861DB900EB2C58 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF70B91C861DB900EB2C58 /* Fabric.framework */; };
-		3BDF70BD1C861DB900EB2C58 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF70B91C861DB900EB2C58 /* Fabric.framework */; };
-		3BDF70BE1C861DB900EB2C58 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDF70B91C861DB900EB2C58 /* Fabric.framework */; };
 		3BE0BCA31BEDB8B700037E21 /* MediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C663211B8B6FA60014433D /* MediaItemsViewModel.swift */; };
 		3BE12EF31BEF020800F300FA /* MediaItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsViewController.swift */; };
 		3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
@@ -202,9 +192,6 @@
 		69A731361C602CA000F3DBAD /* EmojiKeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A731251C600EC500F3DBAD /* EmojiKeyboardViewModel.swift */; };
 		69DBDE0F1C665E6900701A5D /* EmojiSectionSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */; };
 		69DBDE141C6660FB00701A5D /* EmojiSectionSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */; };
-		69DBDE171C66769100701A5D /* EmojiKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DBDE161C66769100701A5D /* EmojiKeyboardContainerViewController.swift */; };
-		69DBDE181C66793600701A5D /* EmojiKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DBDE161C66769100701A5D /* EmojiKeyboardContainerViewController.swift */; };
-		69F3BC181BE8FB7100080628 /* ToolTipLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */; };
 		69FEDDE21BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FEDDE11BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift */; };
 		74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */; };
 		8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
@@ -297,7 +284,7 @@
 		810EA4F21C8579D1005A6C6D /* MediaItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsViewController.swift */; };
 		810EA4F31C8579D1005A6C6D /* MediaType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7211C3F152E00198AF8 /* MediaType.swift */; };
 		810EA4F41C8579D1005A6C6D /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */; };
-		810EA4F51C8579D1005A6C6D /* ToolTipLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */; };
+		810EA4F51C8579D1005A6C6D /* (null) in Sources */ = {isa = PBXBuildFile; };
 		810EA4F71C8579D1005A6C6D /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337D1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift */; };
 		810EA4F81C8579D1005A6C6D /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323991C249A410084918B /* AppSettingsView.swift */; };
 		810EA4F91C8579D1005A6C6D /* KeyboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816588ED1B61676000F7C9F5 /* KeyboardPage.swift */; };
@@ -444,8 +431,8 @@
 		810EA5B31C8579F1005A6C6D /* ArticleMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F78451BBDD2A20087EBE8 /* ArticleMediaItem.swift */; };
 		810EA5B41C8579F1005A6C6D /* EmitterListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C91C62410300B25AC6 /* EmitterListener.swift */; };
 		810EA5B51C8579F1005A6C6D /* SearchBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817939061B5C29560064B0CF /* SearchBarController.swift */; };
-		810EA5B61C8579F1005A6C6D /* EmojiKeyboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A731201C600E8200F3DBAD /* EmojiKeyboardTableViewController.swift */; };
-		810EA5B71C8579F1005A6C6D /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEE471A1BE17D5D002E4394 /* FilterButton.swift */; };
+		810EA5B61C8579F1005A6C6D /* (null) in Sources */ = {isa = PBXBuildFile; };
+		810EA5B71C8579F1005A6C6D /* (null) in Sources */ = {isa = PBXBuildFile; };
 		810EA5B81C8579F1005A6C6D /* RecentsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5441C3B0EFA00EA57C3 /* RecentsEmptyStateView.swift */; };
 		810EA5B91C8579F1005A6C6D /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; };
 		810EA5BA1C8579F1005A6C6D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F817BF1C2A094F00B1C1E6 /* SearchBar.swift */; };
@@ -1953,7 +1940,6 @@
 				81F833831C18CB56001B8662 /* Browse VCs */,
 				3B75E5051C6D28FB008D4CE3 /* Search VCs */,
 				BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */,
-				813323881C2268E10084918B /* FullScreenCollectionViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -2067,7 +2053,6 @@
 		816D50331C8A0081007B3249 /* Category VCs */ = {
 			isa = PBXGroup;
 			children = (
-				816D50151C86278C007B3249 /* CategoryCollectionViewController.swift */,
 			);
 			name = "Category VCs";
 			sourceTree = "<group>";
@@ -2075,8 +2060,6 @@
 		816D50D51C8A0856007B3249 /* Media Item Cells */ = {
 			isa = PBXGroup;
 			children = (
-				69138B4C1C25CD6800F33F76 /* TrackCollectionViewCell.swift */,
-				81F833841C18E904001B8662 /* ArtistCollectionViewCell.swift */,
 			);
 			name = "Media Item Cells";
 			sourceTree = "<group>";
@@ -2094,9 +2077,7 @@
 		816D50D81C8A08D1007B3249 /* Emoji Views */ = {
 			isa = PBXGroup;
 			children = (
-				69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */,
 				6901C7271C65530600652F92 /* EmojiSectionHeaderView.swift */,
-				69A7312B1C6011BF00F3DBAD /* EmojiKeyboardTableViewCell.swift */,
 			);
 			name = "Emoji Views";
 			sourceTree = "<group>";
@@ -2299,10 +2280,8 @@
 				817619F41AEAF40D00C7D9CB /* Buttons */,
 				696C2DB01BB61357004AC9F6 /* ToolTip.swift */,
 				698AD33F1C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift */,
-				69F3BC171BE8FB7100080628 /* ToolTipLoadingView.swift */,
 				69138B4C1C25CD6800F33F76 /* TrackCollectionViewCell.swift */,
 				69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */,
-				69428AE01BEEAD5600282B8D /* MessageBarView.swift */,
 				3BC55AC21C8A264600363AB0 /* KeyboardMediaItemDetailView.swift */,
 				69A7312B1C6011BF00F3DBAD /* EmojiKeyboardTableViewCell.swift */,
 				81F833841C18E904001B8662 /* ArtistCollectionViewCell.swift */,
@@ -2338,8 +2317,6 @@
 				81F8338C1C1A3555001B8662 /* Favorites & Recents VCs */,
 				81F833881C1A3538001B8662 /* Search VCs */,
 				696C2DA61BB6126B004AC9F6 /* ToolTipViewController.swift */,
-				69A731201C600E8200F3DBAD /* EmojiKeyboardTableViewController.swift */,
-				69DBDE161C66769100701A5D /* EmojiKeyboardContainerViewController.swift */,
 				819A4C081C8E47760095BD7B /* PresentArtistPickerAnimationController.swift */,
 				813323881C2268E10084918B /* FullScreenCollectionViewController.swift */,
 				816D50151C86278C007B3249 /* CategoryCollectionViewController.swift */,
@@ -3323,7 +3300,7 @@
 				810EA4F21C8579D1005A6C6D /* MediaItemsViewController.swift in Sources */,
 				810EA4F31C8579D1005A6C6D /* MediaType.swift in Sources */,
 				810EA4F41C8579D1005A6C6D /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */,
-				810EA4F51C8579D1005A6C6D /* ToolTipLoadingView.swift in Sources */,
+				810EA4F51C8579D1005A6C6D /* (null) in Sources */,
 				810EA4F71C8579D1005A6C6D /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
 				810EA4F81C8579D1005A6C6D /* AppSettingsView.swift in Sources */,
 				810EA4F91C8579D1005A6C6D /* KeyboardPage.swift in Sources */,
@@ -3447,9 +3424,9 @@
 				810EA5B41C8579F1005A6C6D /* EmitterListener.swift in Sources */,
 				816D502F1C8657BF007B3249 /* KeyboardFavoritesViewController.swift in Sources */,
 				810EA5B51C8579F1005A6C6D /* SearchBarController.swift in Sources */,
-				810EA5B61C8579F1005A6C6D /* EmojiKeyboardTableViewController.swift in Sources */,
+				810EA5B61C8579F1005A6C6D /* (null) in Sources */,
 				819A4C101C90BFCD0095BD7B /* RecentsViewModel.swift in Sources */,
-				810EA5B71C8579F1005A6C6D /* FilterButton.swift in Sources */,
+				810EA5B71C8579F1005A6C6D /* (null) in Sources */,
 				810EA5B81C8579F1005A6C6D /* RecentsEmptyStateView.swift in Sources */,
 				810EA5B91C8579F1005A6C6D /* SearchSuggestion.swift in Sources */,
 				810EA5BA1C8579F1005A6C6D /* SearchBar.swift in Sources */,
@@ -3756,8 +3733,6 @@
 				8192A7D51C62410300B25AC6 /* EmitterListener.swift in Sources */,
 				816D502E1C8657BF007B3249 /* KeyboardFavoritesViewController.swift in Sources */,
 				817939081B5C29560064B0CF /* SearchBarController.swift in Sources */,
-				69A731211C600E8200F3DBAD /* EmojiKeyboardTableViewController.swift in Sources */,
-				3BEE471C1BE17D5D002E4394 /* FilterButton.swift in Sources */,
 				6944A5471C3B0EFA00EA57C3 /* RecentsEmptyStateView.swift in Sources */,
 				819A4C0E1C90BFCD0095BD7B /* RecentsViewModel.swift in Sources */,
 				81B92D5A1BD6CE5000FFAC92 /* SearchSuggestion.swift in Sources */,
