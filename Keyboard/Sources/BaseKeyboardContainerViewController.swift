@@ -17,6 +17,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     var keyboardExtraHeight: CGFloat
     var keyboard: KeyboardViewController?
     var textProcessor: TextProcessingManager?
+    var emojiKeyboard: EmojiKeyboardViewController?
 
     private var kludge: UIView?
     var keyboardHeight: CGFloat {
@@ -84,8 +85,11 @@ class BaseKeyboardContainerViewController: UIInputViewController {
 
     func showKeyboard(animated: Bool = false) {
         if let textProcessor = textProcessor where keyboard == nil {
-            keyboard = KeyboardViewController(textProcessor: textProcessor)
+            emojiKeyboard = EmojiKeyboardViewController(textProcessor: textProcessor)
+            keyboard = KeyboardViewController(textProcessor: textProcessor, emojiKeyboard: emojiKeyboard!)
             containerView.addSubview(keyboard!.view)
+            containerView.addSubview(emojiKeyboard!.view)
+            emojiKeyboard?.view.frame = containerView.frame
             keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame), view.bounds.width, keyboardHeight)
         } else {
             keyboard!.view.hidden = false

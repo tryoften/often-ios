@@ -63,12 +63,12 @@ class KeyboardViewController: UIViewController {
         }
     }
 
-    init(textProcessor aTextProcessor: TextProcessingManager) {
+    init(textProcessor aTextProcessor: TextProcessingManager, emojiKeyboard aEmojiKeyboard: EmojiKeyboardViewController) {
         textProcessor = aTextProcessor
+        emojiViewController = aEmojiKeyboard
 
         keysContainerView = TouchRecognizerView()
         keysContainerView.backgroundColor = DefaultTheme.keyboardBackgroundColor
-        emojiViewController = EmojiKeyboardViewController(textProcessor: textProcessor)
 
         shiftState = .Enabled
 
@@ -81,8 +81,6 @@ class KeyboardViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         view.addSubview(keysContainerView)
-        view.addSubview(emojiViewController.view)
-        emojiViewController.view.hidden = true
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "backToKeyboardButtonPressed", name: BackToKeyboardButtonPressedEvent, object: nil)
     }
@@ -110,7 +108,6 @@ class KeyboardViewController: UIViewController {
 
         let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
         keysContainerView.frame = CGRectMake(0, CGRectGetHeight(view.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
-        emojiViewController.view.frame = keysContainerView.frame
         setupLayout()
     }
 
