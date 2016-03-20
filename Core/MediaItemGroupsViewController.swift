@@ -188,7 +188,7 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
                     return TrackCollectionViewCell()
             }
 
-            if let imageURLStr = track.mediumImage, let imageURL = NSURL(string: imageURLStr) {
+            if let imageURL = track.squareImageURL {
                 cell.imageView.setImageWithAnimation(imageURL)
             }
             cell.titleLabel.text = track.album_name
@@ -211,13 +211,17 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
     func presentBrowseArtistCollectionViewController(artistMediaItem: ArtistMediaItem) {
         let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: viewModel, textProcessor: textProcessor)
         navigationController?.pushViewController(browseVC, animated: true)
+        #if KEYBOARD
         containerViewController?.resetPosition()
+        #endif
     }
 
     func presentBrowseTrackCollectionViewController(trackMediaItem: TrackMediaItem) {
         let trackVC = BrowseTrackCollectionViewController(trackId: trackMediaItem.id, viewModel: viewModel, textProcessor: textProcessor)
         navigationController?.pushViewController(trackVC, animated: true)
+        #if KEYBOARD
         containerViewController?.resetPosition()
+        #endif
     }
 
     func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {

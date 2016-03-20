@@ -27,7 +27,7 @@ class ContainerNavigationController: UINavigationController, UINavigationControl
         super.viewDidLoad()
         navigationBar.translucent = false
 
-        let backNavImage = StyleKit.imageOfBackarrow(frame: CGRectMake(0, 0, 22, 22), color: WhiteColor, scale: 0.5, selected: false)
+        let backNavImage = StyleKit.imageOfBackarrow(frame: CGRectMake(0, 0, 22, 22), color: WhiteColor, scale: 0.5, selected: false, rotate: 0)
 
         UITextField.appearance().font = UIFont(name: "OpenSans-Semibold", size: 12)
 

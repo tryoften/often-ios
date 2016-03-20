@@ -14,9 +14,9 @@
 #import <FlurrySDK/Flurry.h>
 #import <Parse/Parse.h>
 #import <Analytics/SEGAnalytics.h>
-#import <ParseFacebookUtils/PFFacebookUtils.h>
-#import <ParseTwitterUtils/PFTwitterUtils.h>
-#import <ParseTwitterUtils/PF_Twitter.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayoutAttributes.h>
 #import <DateTools/DateTools.h>

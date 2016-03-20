@@ -20,6 +20,8 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
     var scrollsNavigationbar: Bool = false
     var navBarBackground: UIView
     var browseHeader: UICollectionReusableView?
+    var hudTimer: NSTimer?
+
 
     override init(collectionViewLayout: UICollectionViewLayout, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         navBarBackground = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.size.width, height: 64))
@@ -30,6 +32,7 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         automaticallyAdjustsScrollViewInsets = true
         setupSearchBar()
 
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -80,6 +83,11 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         layout.disableStickyHeaders = false
     
         return layout
+    }
+
+    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
+        hideHud()
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -137,51 +145,18 @@ class MainAppBrowseViewController: BrowseViewController, SearchViewControllerDel
         return featuredArtistHorizontalVC!
     }
 
-    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
-        if !scrollsNavigationbar {
-            return
+    func showHud() {
+        hudTimer?.invalidate()
+        if !displayedData {
+            PKHUD.sharedHUD.contentView = HUDProgressView()
+            PKHUD.sharedHUD.show()
+            hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
         }
 
-        super.setNavigationBarOriginY(y, animated: animated)
+    }
 
-        guard let navigationController = navigationController as? ContainerNavigationController,
-            let collectionView = collectionView else {
-                return
-        }
-
-        let frame = navigationController.navigationBar.frame
-        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
-        let bottomLimit = CGFloat(20.0)
-        let baseY = frame.origin.y + frame.size.height
-        let topLimit = CGRectGetHeight(frame) + statusBarHeight
-        let boundedY = fmin(fmax(baseY, bottomLimit), topLimit)
-        let contentOffset = collectionView.contentOffset
-
-        func setStatusBarYOffset(statusBarY: CGFloat) {
-            if let statusBar = UIApplication.sharedApplication().valueForKey("statusBarWindow") as? UIWindow {
-                var statusBarFrame = statusBar.frame
-                statusBarFrame.origin.y = fmin(fmax(0, y), 20) - statusBarHeight
-                statusBar.frame = statusBarFrame
-            }
-        }
-
-        var contentInset = collectionView.contentInset
-        contentInset.top = boundedY
-
-        if contentOffset.y > bottomLimit || contentOffset.y < -topLimit {
-            collectionView.contentInset = contentInset
-            if scrollsStatusBar {
-                setStatusBarYOffset(0)
-            }
-            return
-        }
-
-        UIView.animateWithDuration(0.2) {
-            collectionView.contentInset = contentInset
-            collectionView.contentOffset = contentOffset
-            if self.scrollsStatusBar {
-                setStatusBarYOffset(y)
-            }
-        }
+    func hideHud() {
+        PKHUD.sharedHUD.hide(animated: true)
+        hudTimer?.invalidate()
     }
 }

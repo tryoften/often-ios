@@ -9,6 +9,7 @@
 import UIKit
 import Fabric
 import Crashlytics
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,12 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         Fabric.sharedSDK().debug = true
-        Fabric.with([Crashlytics()])
+        Twitter.sharedInstance().startWithConsumerKey(TwitterConsumerKey, consumerSecret: TwitterConsumerSecret)
+        Fabric.with([Crashlytics(), Twitter.sharedInstance()])
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
-        PFFacebookUtils.initializeFacebook()
-        PFTwitterUtils.initializeWithConsumerKey(TwitterConsumerKey, consumerSecret: TwitterConsumerSecret)
-        FBAppEvents.activateApp()
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Flurry.startSession(FlurryClientKey)
 
         let screen = UIScreen.mainScreen()
@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             frame.size.height = KeyboardHeight + 100
             window.frame = frame
             window.clipsToBounds = true
-            mainController = MediaItemsKeyboardContainerViewController(extraHeight: 144.0)
+            mainController = MediaItemsKeyboardContainerViewController(extraHeight: 64.0)
         #else
             let sessionManager = SessionManager.defaultManager
             let loginViewModel = LoginViewModel(sessionManager: sessionManager)
@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         if url.absoluteString.hasPrefix("fb") {
-            return FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication, withSession: PFFacebookUtils.session())
+            return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
         }
 
         return false
@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        FBAppCall.handleDidBecomeActiveWithSession(PFFacebookUtils.session())
+        FBSDKAppEvents.activateApp()
     }
 
     func applicationWillTerminate(application: UIApplication) {

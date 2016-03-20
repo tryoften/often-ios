@@ -26,33 +26,6 @@ class ArtistMediaItem: MediaItem {
             self.featuredImage = image
         }
 
-        if let image = data["image_url"] as? String {
-            self.smallImage = image
-            self.mediumImage = image
-            self.largeImage = image
-        }
-
-        if let images = data["images"] as? NSDictionary,
-            let image_url_images = images["image_url"] as? NSDictionary,
-            let small = image_url_images["square_small"] as? NSDictionary,
-            let image_url = small["url"] as? String {
-                self.smallImage = image_url
-        }
-
-        if let images = data["images"] as? NSDictionary,
-            let image_url_images = images["image_url"] as? NSDictionary,
-            let medium = image_url_images["square"] as? NSDictionary,
-            let image_url = medium["url"] as? String {
-                self.mediumImage = image_url
-        }
-
-        if let images = data["images"] as? NSDictionary,
-            let image_url_images = images["image_url"] as? NSDictionary,
-            let large = image_url_images["large"] as? NSDictionary,
-            let image_url = large["url"] as? String {
-                self.largeImage = image_url
-        }
-
         if let name = data["name"] as? String {
             self.name = name
         }

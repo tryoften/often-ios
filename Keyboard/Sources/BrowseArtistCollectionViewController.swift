@@ -73,17 +73,20 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
     }
 
     override func headerViewDidLoad() {
-        var artistImage: String?
+        var imageURL: NSURL?
+
     #if KEYBOARD
-        artistImage = artist?.mediumImage
+        imageURL = artist?.squareImageURL
     #else
-        artistImage = artist?.largeImage
+        imageURL = artist?.largeImageURL
     #endif
 
-        if let image = artistImage, let imageURL = NSURL(string: image), let name = artist?.name,
-            let tracksCount = artist?.tracks_count {
-            setupHeaderView(imageURL, title: name, subtitle: "\(tracksCount) tracks")
+        var subtitle: String? = nil
+        if let tracksCount = artist?.tracks_count {
+            subtitle = "\(tracksCount) tracks"
         }
+
+        setupHeaderView(imageURL, title: artist?.name, subtitle: subtitle)
     }
 
     override func sectionHeaderTitleAtIndexPath(indexPath: NSIndexPath) -> String {
@@ -111,7 +114,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
                 return UICollectionViewCell()
         }
 
-        if let imageURLString = track.mediumImage, let imageURL = NSURL(string: imageURLString) {
+        if let imageURL = track.squareImageURL {
             cell.imageURL = imageURL
         }
         cell.titleLabel.text = track.title

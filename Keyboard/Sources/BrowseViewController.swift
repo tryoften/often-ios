@@ -8,6 +8,7 @@
 //  swiftlint:disable line_length
 
 import UIKit
+import MediaPlayer
 
 
 let cellReuseIdentifier = "cell"
@@ -22,7 +23,18 @@ class BrowseViewController: MediaItemGroupsViewController,
     var isNetworkReachable: Bool = true
     var errorDropView: DropDownMessageView
     var searchViewController: SearchViewController?
-    var hudTimer: NSTimer?
+
+    var topPadding: CGFloat {
+        if let topPadding = collectionView?.contentInset.top {
+            return topPadding
+        }
+
+        return 0.0
+    }
+
+    var barHeight: CGFloat {
+        return MediaItemsSectionHeaderHeight
+    }
 
     override init(collectionViewLayout: UICollectionViewLayout = BrowseViewController.getLayout(),
         viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
@@ -37,36 +49,13 @@ class BrowseViewController: MediaItemGroupsViewController,
 
         collectionView?.contentInset = UIEdgeInsetsMake(2 * KeyboardSearchBarHeight + 2, 0, 0, 0)
 
-    #if !(KEYBOARD)
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
-    #endif
         setupSearchBar()
         view.addSubview(errorDropView)
         startMonitoring()
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
     }
 
     func setupSearchBar() {
-        let baseURL = Firebase(url: BaseURL)
-        searchViewController = SearchViewController(
-            viewModel: SearchViewModel(base: baseURL),
-            suggestionsViewModel: SearchSuggestionsViewModel(base: baseURL),
-            textProcessor: self.textProcessor!,
-            SearchBarControllerClass: KeyboardSearchBarController.self,
-            SearchBarClass: KeyboardSearchBar.self)
 
-        guard let searchViewController = searchViewController else {
-            return
-        }
-
-        if let keyboardSearchBarController = searchViewController.searchBarController as? KeyboardSearchBarController {
-            keyboardSearchBarController.textProcessor = textProcessor!
-        }
-
-        addChildViewController(searchViewController)
-        view.addSubview(searchViewController.view)
-        view.addSubview(searchViewController.searchBarController.view)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -101,9 +90,6 @@ class BrowseViewController: MediaItemGroupsViewController,
     }
 
     override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        #if !(KEYBOARD)
-            hideHud()
-        #endif
 
         if !displayedData {
             collectionView?.reloadData()
@@ -119,21 +105,9 @@ class BrowseViewController: MediaItemGroupsViewController,
     
     // MARK: ConnectivityObservable
     func updateReachabilityStatusBar() {
-        guard let collectionView = collectionView else {
-            return
-        }
-
-    #if KEYBOARD
-        let topPadding = KeyboardTabBarHeight
-        let barHeight = KeyboardSearchBarHeight
-    #else
-        let topPadding = collectionView.contentInset.top
-        let barHeight = MediaItemsSectionHeaderHeight
-    #endif
-
         if isNetworkReachable {
             UIView.animateWithDuration(0.3, animations: {
-                self.errorDropView.frame = CGRectMake(0, -topPadding, UIScreen.mainScreen().bounds.width, barHeight)
+                self.errorDropView.frame = CGRectMake(0, -self.topPadding, UIScreen.mainScreen().bounds.width, self.barHeight)
             })
 
             delay(0.5) {
@@ -142,67 +116,10 @@ class BrowseViewController: MediaItemGroupsViewController,
             
         } else {
             UIView.animateWithDuration(0.3, animations: {
-                self.errorDropView.frame = CGRectMake(0, topPadding, UIScreen.mainScreen().bounds.width, barHeight)
+                self.errorDropView.frame = CGRectMake(0, self.topPadding, UIScreen.mainScreen().bounds.width, self.barHeight)
             })
             
             errorDropView.hidden = false
         }
     }
-
-#if KEYBOARD
-    override func viewWillAppear(animated: Bool) {
-        navigationController?.navigationBarHidden = true
-        isFullAccessGranted()
-    }
-
-    func isFullAccessGranted() {
-        let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
-
-        if !isFullAccessEnabled {
-            showEmptyStateViewForState(.NoKeyboard, completion: { view -> Void in
-                view.primaryButton.hidden = true
-                view.imageViewTopConstraint?.constant = -35
-                view.titleLabel.text = "You forgot to allow Full-Access"
-            })
-            
-        } else {
-            hideEmptyStateView()
-        }
-    }
-
-    override func showNavigationBar(animated: Bool) {
-        if shouldSendScrollEvents {
-            setNavigationBarOriginY(0, animated: true)
-        }
-    }
-
-    override func hideNavigationBar(animated: Bool) {
-        if shouldSendScrollEvents {
-            var top = -2 * CGRectGetHeight(tabBarFrame)
-            if searchViewController?.searchBarController.searchBar.selected == true {
-                top = -CGRectGetHeight(tabBarFrame)
-            }
-
-            setNavigationBarOriginY(top, animated: true)
-        }
-    }
-
-    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
-    }
-#else
-    func showHud() {
-        hudTimer?.invalidate()
-        if !displayedData {
-            PKHUD.sharedHUD.contentView = HUDProgressView()
-            PKHUD.sharedHUD.show()
-            hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
-        }
-
-    }
-
-    func hideHud() {
-        PKHUD.sharedHUD.hide(animated: true)
-        hudTimer?.invalidate()
-    }
-#endif
 }

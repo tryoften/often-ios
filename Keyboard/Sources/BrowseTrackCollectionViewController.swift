@@ -64,12 +64,15 @@ class BrowseTrackCollectionViewController: BrowseMediaItemViewController {
     }
 
     override func headerViewDidLoad() {
-        if let imageURLStr = track?.mediumImage,
-            let title = track?.title,
-            let subtitle = track?.artist_name,
-            let imageURL = NSURL(string: imageURLStr) {
-            setupHeaderView(imageURL, title: title, subtitle: subtitle)
-        }
+        var imageURL: NSURL?
+
+        #if KEYBOARD
+            imageURL = track?.mediumImageURL
+        #else
+            imageURL = track?.largeImageURL
+        #endif
+
+        setupHeaderView(imageURL, title: track?.title, subtitle: track?.artist_name)
     }
 
     override func sectionHeaderTitleAtIndexPath(indexPath: NSIndexPath) -> String {
