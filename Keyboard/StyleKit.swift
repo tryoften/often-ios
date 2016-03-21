@@ -1663,7 +1663,7 @@ public class StyleKit : NSObject {
         //// arrow Drawing
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, frame.minX + 0.50500 * frame.width, frame.minY + 0.49700 * frame.height)
-        CGContextRotateCTM(context, -(rotate + 93.4891815186) * CGFloat(M_PI) / 180)
+        CGContextRotateCTM(context, -rotate * CGFloat(M_PI) / 180)
         CGContextScaleCTM(context, scale, scale)
 
         let arrowPath = UIBezierPath()
