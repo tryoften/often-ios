@@ -13,16 +13,22 @@ let CollapseKeyboardEvent = "collapseKeyboard"
 let RestoreKeyboardEvent = "restoreKeyboard"
 let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
 let KeyboardOrientationChangeEvent = "orientationChange"
+let BackToKeyboardButtonPressedEvent = "BackToKeyboardButtonPressed"
+
 
 class KeyboardContainerViewController: UIViewController {
     var keyboard: KeyboardViewController
+    var emojiKeyboard: EmojiKeyboardViewController
 
     init(textProcessor: TextProcessingManager) {
-        keyboard = KeyboardViewController(textProcessor: textProcessor)
+        emojiKeyboard = EmojiKeyboardViewController(textProcessor: textProcessor)
+        keyboard = KeyboardViewController(textProcessor: textProcessor, emojiKeyboard: emojiKeyboard)
 
         super.init(nibName: nil, bundle: nil)
 
         view.addSubview(keyboard.view)
+        view.addSubview(emojiKeyboard.view)
+        emojiKeyboard.view.hidden = true
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -32,5 +38,6 @@ class KeyboardContainerViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         keyboard.view.frame = view.bounds
+        emojiKeyboard.view.frame = view.bounds
     }
 }

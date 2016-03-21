@@ -277,6 +277,14 @@ extension KeyboardViewController {
         textProcessor.insertText(ShareMessage)
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: "Shared Often"))
     }
+    
+    func didTapEmojiKey(button: KeyboardKeyButton?) {
+        if let parentVC = self.parentViewController as? KeyboardSectionsContainerViewController {
+            parentVC.hideTabBar(false, animations: nil)
+        }
+        
+        emojiViewController.view.hidden = false
+    }
 
     func updateKeyCaps(lettercase: Lettercase) {
         let uppercase: Bool = lettercase == .Uppercase
