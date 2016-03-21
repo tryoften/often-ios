@@ -96,6 +96,7 @@ enum Modifier: String {
     case SearchMode = "SearchMode"
     case Share = "Share"
     case CallService = "CallService"
+    case Emoji = "Emoji"
 }
 
 enum KeyboardKey: Hashable {

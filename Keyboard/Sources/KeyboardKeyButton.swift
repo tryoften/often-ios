@@ -204,9 +204,12 @@ class KeyboardKeyButton: UIControl {
                     iconView.image = UIImage(named: "IconWhite")!
                     iconView.contentMode = .ScaleAspectFill
                     break
+                case .Emoji:
+                    iconView.image = StyleKit.imageOfSmileyIcon()
+                    break
                 case .Space:
-                    text = "Space".uppercaseString
-                    label.font = UIFont(name: "OpenSans-Semibold", size: 12)
+                    iconView.image = UIImage(named: "")
+                    iconView.contentMode = .ScaleAspectFill
                     break
                 case .Enter:
                     text = "Enter".uppercaseString
