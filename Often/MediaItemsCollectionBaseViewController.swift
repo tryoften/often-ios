@@ -12,7 +12,7 @@ import UIKit
 
 let MediaItemCollectionViewCellReuseIdentifier = "MediaItemsCollectionViewCell"
 
-class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate {
+class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate, UIViewControllerTransitioningDelegate {
 
     var favoritesCollectionListener: Listener? = nil
     var favoriteSelected: Bool = false
@@ -240,13 +240,20 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
-            let result = cell.mediaLink else {
+            let result = cell.mediaLink as? LyricMediaItem else {
                 return
         }
 
+    #if KEYBOARD
+        let vc = KeyboardMediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
+        vc.transitioningDelegate = self
+        vc.modalPresentationStyle = .Custom
+        presentViewController(vc, animated: true, completion: nil)
+    #else
         cell.prepareOverlayView()
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         cell.overlayVisible = !cell.overlayVisible
+    #endif
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
@@ -319,5 +326,18 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         cell.overlayVisible = false
     }
+
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = FadeInTransitionAnimator(presenting: true)
+
+        return animator
+    }
+
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = FadeInTransitionAnimator(presenting: false)
+
+        return animator
+    }
+
 
 }

@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.6.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - AGEmojiKeyboard (0.2.0)
   - Analytics/Core-iOS (1.11.3):
     - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
   - Analytics/Flurry (1.11.3):
@@ -64,6 +65,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 2.6.0)
+  - AGEmojiKeyboard (from `https://github.com/tryoften/AGEmojiKeyboard`)
   - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
   - BDKCollectionIndexView
   - CSStickyHeaderFlowLayout
@@ -74,16 +76,22 @@ DEPENDENCIES:
   - Reveal-iOS-SDK
 
 EXTERNAL SOURCES:
+  AGEmojiKeyboard:
+    :git: https://github.com/tryoften/AGEmojiKeyboard
   Analytics:
     :git: https://github.com/October-Labs/analytics-ios.git
 
 CHECKOUT OPTIONS:
+  AGEmojiKeyboard:
+    :commit: 3bd0a894e7ab00a479705562f1fc43c3fca77eb2
+    :git: https://github.com/tryoften/AGEmojiKeyboard
   Analytics:
     :commit: f55c68031f7c92235f861ccc744623f9897db989
     :git: https://github.com/October-Labs/analytics-ios.git
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  AGEmojiKeyboard: efcb7244ace99deb8eb2c63867ffad198d219fe0
   Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
   BDKCollectionIndexView: 819bd123d618f20c061caacd409e2d8f1590df7d
   Bolts: f52a250053bb517ca874523c3913776359ab3def
