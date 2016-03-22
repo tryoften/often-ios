@@ -65,12 +65,12 @@ class KeyboardMediaItemDetailViewController: UIViewController {
         super.viewDidAppear(animated)
         keyboardMediaItemDetailViewTopConstraint?.constant = -KeyboardMediaItemDetailViewHeight
 
-        UIView.animateWithDuration(0.15, delay: 0.05, options: .CurveEaseIn, animations: { () -> Void in
+        UIView.animateWithDuration(0.10, delay: 0.02, options: .CurveLinear, animations: { () -> Void in
              self.view.layoutSubviews()
             }, completion: nil)
     }
 
-    func cancelButtonDidTap(sender: UIButton) {
+    func dismissView() {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -98,12 +98,22 @@ class KeyboardMediaItemDetailViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
+    func snapchatButtonDidTap(sender: UIButton) {
+        sender.selected = !sender.selected
+    }
+
     func populateDetailView() {
+        let tapRecognizer = UITapGestureRecognizer()
+        tapRecognizer.addTarget(self, action: "dismissView")
+
+        tintView.addGestureRecognizer(tapRecognizer)
+        tintView.userInteractionEnabled = true
         keyboardMediaItemDetailView.mediaItemText.text = lyric.text
         keyboardMediaItemDetailView.mediaItemAuthor.text = lyric.artist_name
         keyboardMediaItemDetailView.mediaItemTitle.text = lyric.track_title
-        keyboardMediaItemDetailView.cancelButton.addTarget(self, action: "cancelButtonDidTap:", forControlEvents: .TouchUpInside)
+        keyboardMediaItemDetailView.cancelButton.addTarget(self, action: "dismissView", forControlEvents: .TouchUpInside)
         keyboardMediaItemDetailView.insertButton.addTarget(self, action: "insertButtonDidTap:", forControlEvents: .TouchUpInside)
+        keyboardMediaItemDetailView.snapchatButton.addTarget(self, action: "snapchatButtonDidTap:", forControlEvents: .TouchUpInside)
         keyboardMediaItemDetailView.favoriteButton.addTarget(self, action: "favoriteButtonDidTap:", forControlEvents: .TouchUpInside)
         keyboardMediaItemDetailView.favoriteButton.selected = FavoritesService.defaultInstance.checkFavorite(lyric)
 
