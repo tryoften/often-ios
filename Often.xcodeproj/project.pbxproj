@@ -840,6 +840,8 @@
 		819A4C0F1C90BFCD0095BD7B /* RecentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819A4C0B1C90BFCD0095BD7B /* RecentsViewModel.swift */; };
 		819A4C101C90BFCD0095BD7B /* RecentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819A4C0B1C90BFCD0095BD7B /* RecentsViewModel.swift */; };
 		81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */; };
+		81ABD2571CA0793C0026B59E /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
+		81ABD2581CA0793D0026B59E /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
 		81B19EAC1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
 		81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */; };
 		81B92D5A1BD6CE5000FFAC92 /* SearchSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B92D591BD6CE5000FFAC92 /* SearchSuggestion.swift */; };
@@ -3289,6 +3291,7 @@
 				810EA4DC1C8579D1005A6C6D /* StyleKit.swift in Sources */,
 				810EA4DD1C8579D1005A6C6D /* PKHUD.swift in Sources */,
 				810EA4DF1C8579D1005A6C6D /* Analytics.swift in Sources */,
+				81ABD2581CA0793D0026B59E /* FadeInTransitionAnimator.swift in Sources */,
 				810EA4E21C8579D1005A6C6D /* TextMessageOnBoardingView.swift in Sources */,
 				810EA4E31C8579D1005A6C6D /* Emitter.swift in Sources */,
 				810EA4E51C8579D1005A6C6D /* UIColor+HEXString.m in Sources */,
@@ -3613,6 +3616,7 @@
 				816D505E1C8A04F4007B3249 /* NoKeyboardEmptyStateView.swift in Sources */,
 				816D50871C8A057C007B3249 /* Validation.swift in Sources */,
 				816D50B11C8A0596007B3249 /* ContainerNavigationController.swift in Sources */,
+				81ABD2571CA0793C0026B59E /* FadeInTransitionAnimator.swift in Sources */,
 				816D50A41C8A0591007B3249 /* UserProfileSettingsTableViewCell.swift in Sources */,
 				816D50511C8A04D9007B3249 /* SearchResultNavigationBar.swift in Sources */,
 				816D507B1C8A052D007B3249 /* MediaItemsCollectionBaseViewController.swift in Sources */,

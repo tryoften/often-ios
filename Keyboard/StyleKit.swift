@@ -1349,6 +1349,7 @@ public class StyleKit : NSObject {
         //// icon
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
+        CGContextRotateCTM(context, 1.19 * CGFloat(M_PI) / 180)
         CGContextScaleCTM(context, scale, scale)
 
 
@@ -1880,6 +1881,183 @@ public class StyleKit : NSObject {
         selectedHighlightColor.setStroke()
         path106Path.lineWidth = 4
         path106Path.stroke()
+
+
+
+        CGContextRestoreGState(context)
+    }
+
+    public class func drawLyricsclosebutton(scale scale: CGFloat = 0.5) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()
+
+        //// Color Declarations
+        let fillColor7 = UIColor(red: 0.383, green: 0.383, blue: 0.387, alpha: 1.000)
+        let fillColor10 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+
+        //// Frames
+        let frame = CGRectMake(0, 0, 35, 35)
+
+
+        //// icon
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, 1, 2)
+        CGContextScaleCTM(context, scale, scale)
+
+
+
+        //// Oval-77 Drawing
+        let oval77Path = UIBezierPath(ovalInRect: CGRectMake(frame.minX + 6, frame.minY + 4, 56, 56))
+        fillColor10.setFill()
+        oval77Path.fill()
+
+
+        //// Rectangle-614 Drawing
+        let rectangle614Path = UIBezierPath()
+        rectangle614Path.moveToPoint(CGPointMake(36.23, 31.97))
+        rectangle614Path.addLineToPoint(CGPointMake(42.46, 25.74))
+        rectangle614Path.addCurveToPoint(CGPointMake(42.46, 23.49), controlPoint1: CGPointMake(43.08, 25.12), controlPoint2: CGPointMake(43.08, 24.11))
+        rectangle614Path.addCurveToPoint(CGPointMake(40.2, 23.48), controlPoint1: CGPointMake(41.83, 22.86), controlPoint2: CGPointMake(40.82, 22.86))
+        rectangle614Path.addLineToPoint(CGPointMake(frame.minX + 33.97, frame.minY + 29.71))
+        rectangle614Path.addLineToPoint(CGPointMake(frame.minX + 27.74, frame.minY + 23.48))
+        rectangle614Path.addCurveToPoint(CGPointMake(frame.minX + 25.49, frame.minY + 23.49), controlPoint1: CGPointMake(frame.minX + 27.12, frame.minY + 22.86), controlPoint2: CGPointMake(frame.minX + 26.11, frame.minY + 22.86))
+        rectangle614Path.addCurveToPoint(CGPointMake(frame.minX + 25.48, frame.minY + 25.74), controlPoint1: CGPointMake(frame.minX + 24.86, frame.minY + 24.11), controlPoint2: CGPointMake(frame.minX + 24.86, frame.minY + 25.12))
+        rectangle614Path.addLineToPoint(CGPointMake(frame.minX + 31.71, frame.minY + 31.97))
+        rectangle614Path.addLineToPoint(CGPointMake(25.48, 38.2))
+        rectangle614Path.addCurveToPoint(CGPointMake(25.49, 40.46), controlPoint1: CGPointMake(24.86, 38.82), controlPoint2: CGPointMake(24.86, 39.83))
+        rectangle614Path.addCurveToPoint(CGPointMake(27.74, 40.46), controlPoint1: CGPointMake(26.11, 41.09), controlPoint2: CGPointMake(27.12, 41.08))
+        rectangle614Path.addLineToPoint(CGPointMake(frame.minX + 33.97, frame.minY + 34.23))
+        rectangle614Path.addLineToPoint(CGPointMake(40.2, 40.46))
+        rectangle614Path.addCurveToPoint(CGPointMake(42.46, 40.46), controlPoint1: CGPointMake(40.82, 41.08), controlPoint2: CGPointMake(41.83, 41.08))
+        rectangle614Path.addCurveToPoint(CGPointMake(42.46, 38.2), controlPoint1: CGPointMake(43.09, 39.83), controlPoint2: CGPointMake(43.08, 38.82))
+        rectangle614Path.addLineToPoint(CGPointMake(36.23, 31.97))
+        rectangle614Path.closePath()
+        rectangle614Path.miterLimit = 4;
+
+        rectangle614Path.usesEvenOddFillRule = true;
+
+        fillColor7.setFill()
+        rectangle614Path.fill()
+
+
+
+        CGContextRestoreGState(context)
+    }
+
+    public class func drawSnapchat(scale scale: CGFloat = 0.5) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()
+
+        //// Color Declarations
+        let strokeColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
+        let fillColor10 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+
+        //// Frames
+        let frame = CGRectMake(0, 0, 35, 35)
+
+
+        //// icon
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, 7, 4)
+        CGContextScaleCTM(context, scale, scale)
+
+
+
+        //// Bezier Drawing
+        let bezierPath = UIBezierPath()
+        bezierPath.moveToPoint(CGPointMake(frame.minX + 13.71, frame.minY + 21.36))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 14.3, frame.minY + 20.75), controlPoint1: CGPointMake(frame.minX + 14.09, frame.minY + 21.4), controlPoint2: CGPointMake(frame.minX + 14.35, frame.minY + 21.13))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 21.96, frame.minY + 9), controlPoint1: CGPointMake(frame.minX + 14.3, frame.minY + 20.75), controlPoint2: CGPointMake(frame.minX + 11.89, frame.minY + 9))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 29.49, frame.minY + 20.75), controlPoint1: CGPointMake(frame.minX + 32.04, frame.minY + 9), controlPoint2: CGPointMake(frame.minX + 29.49, frame.minY + 20.75))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 30.07, frame.minY + 21.36), controlPoint1: CGPointMake(frame.minX + 29.43, frame.minY + 21.13), controlPoint2: CGPointMake(frame.minX + 29.69, frame.minY + 21.4))
+        bezierPath.addLineToPoint(CGPointMake(frame.minX + 32.4, frame.minY + 21.07))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 33.25, frame.minY + 21.37), controlPoint1: CGPointMake(frame.minX + 32.67, frame.minY + 21.04), controlPoint2: CGPointMake(frame.minX + 33.06, frame.minY + 21.16))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 33.54, frame.minY + 22.53), controlPoint1: CGPointMake(frame.minX + 33.25, frame.minY + 21.37), controlPoint2: CGPointMake(frame.minX + 33.9, frame.minY + 21.79))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 30.39, frame.minY + 24.75), controlPoint1: CGPointMake(frame.minX + 33.18, frame.minY + 23.27), controlPoint2: CGPointMake(frame.minX + 30.39, frame.minY + 24.75))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 32.36, frame.minY + 29.37), controlPoint1: CGPointMake(frame.minX + 30.39, frame.minY + 24.75), controlPoint2: CGPointMake(frame.minX + 30.69, frame.minY + 27.55))
+        bezierPath.addCurveToPoint(CGPointMake(37, 32.17), controlPoint1: CGPointMake(frame.minX + 33.91, frame.minY + 31.05), controlPoint2: CGPointMake(37, 31.48))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 33.88, frame.minY + 33.81), controlPoint1: CGPointMake(37.01, 33.72), controlPoint2: CGPointMake(frame.minX + 33.88, frame.minY + 33.81))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 32.74, frame.minY + 34.9), controlPoint1: CGPointMake(frame.minX + 33.33, frame.minY + 33.86), controlPoint2: CGPointMake(frame.minX + 32.82, frame.minY + 34.34))
+        bezierPath.addLineToPoint(CGPointMake(32.51, 36.48))
+        bezierPath.addCurveToPoint(CGPointMake(31.41, 37.18), controlPoint1: CGPointMake(32.43, 37.03), controlPoint2: CGPointMake(31.94, 37.35))
+        bezierPath.addLineToPoint(CGPointMake(32.36, 37.48))
+        bezierPath.addCurveToPoint(CGPointMake(25.04, 39.55), controlPoint1: CGPointMake(30.47, 36.89), controlPoint2: CGPointMake(27.2, 37.82))
+        bezierPath.addLineToPoint(CGPointMake(24.31, 40.14))
+        bezierPath.addCurveToPoint(CGPointMake(19.65, 40.13), controlPoint1: CGPointMake(23.01, 41.18), controlPoint2: CGPointMake(20.93, 41.17))
+        bezierPath.addLineToPoint(CGPointMake(18.99, 39.58))
+        bezierPath.addCurveToPoint(CGPointMake(11.74, 37.48), controlPoint1: CGPointMake(16.86, 37.83), controlPoint2: CGPointMake(13, 37.08))
+        bezierPath.addLineToPoint(CGPointMake(12.7, 37.18))
+        bezierPath.addCurveToPoint(CGPointMake(11.59, 36.48), controlPoint1: CGPointMake(12.17, 37.34), controlPoint2: CGPointMake(11.67, 37.04))
+        bezierPath.addLineToPoint(CGPointMake(frame.minX + 11.34, frame.minY + 34.9))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 10.2, frame.minY + 33.92), controlPoint1: CGPointMake(frame.minX + 11.26, frame.minY + 34.35), controlPoint2: CGPointMake(frame.minX + 10.74, frame.minY + 33.92))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 7, frame.minY + 32.62), controlPoint1: CGPointMake(frame.minX + 10.2, frame.minY + 33.92), controlPoint2: CGPointMake(frame.minX + 7, frame.minY + 34.17))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 11.74, frame.minY + 29.21), controlPoint1: CGPointMake(frame.minX + 7, frame.minY + 32), controlPoint2: CGPointMake(frame.minX + 10.15, frame.minY + 31.14))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 13.58, frame.minY + 24.75), controlPoint1: CGPointMake(frame.minX + 13.33, frame.minY + 27.27), controlPoint2: CGPointMake(frame.minX + 13.58, frame.minY + 24.75))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 10.15, frame.minY + 22.63), controlPoint1: CGPointMake(frame.minX + 13.58, frame.minY + 24.75), controlPoint2: CGPointMake(frame.minX + 10.64, frame.minY + 23.67))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 10.24, frame.minY + 21.36), controlPoint1: CGPointMake(frame.minX + 9.66, frame.minY + 21.58), controlPoint2: CGPointMake(frame.minX + 10.24, frame.minY + 21.36))
+        bezierPath.addCurveToPoint(CGPointMake(frame.minX + 11.1, frame.minY + 21.07), controlPoint1: CGPointMake(frame.minX + 10.44, frame.minY + 21.17), controlPoint2: CGPointMake(frame.minX + 10.82, frame.minY + 21.04))
+        bezierPath.addLineToPoint(CGPointMake(frame.minX + 13.71, frame.minY + 21.36))
+        bezierPath.closePath()
+        bezierPath.miterLimit = 4;
+
+        bezierPath.lineJoinStyle = .Bevel;
+
+        bezierPath.usesEvenOddFillRule = true;
+
+        fillColor10.setFill()
+        bezierPath.fill()
+        strokeColor3.setStroke()
+        bezierPath.lineWidth = 2.5
+        bezierPath.stroke()
+
+
+
+        CGContextRestoreGState(context)
+    }
+
+    public class func drawEnterkey(frame frame: CGRect = CGRectMake(0, 0, 50, 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()
+
+        //// icon
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, frame.minX + 24.81, frame.minY + 24.98)
+        CGContextScaleCTM(context, scale, scale)
+
+
+
+        //// Path-82 Drawing
+        let path82Path = UIBezierPath()
+        path82Path.moveToPoint(CGPointMake(-11.99, 0.02))
+        path82Path.addLineToPoint(CGPointMake(12.22, 0.02))
+        path82Path.addCurveToPoint(CGPointMake(16.22, -3.99), controlPoint1: CGPointMake(14.43, 0.02), controlPoint2: CGPointMake(16.22, -1.77))
+        path82Path.addLineToPoint(CGPointMake(16.22, -9.86))
+        path82Path.miterLimit = 4;
+
+        path82Path.lineCapStyle = .Round;
+
+        path82Path.usesEvenOddFillRule = true;
+
+        color.setStroke()
+        path82Path.lineWidth = 4
+        path82Path.stroke()
+
+
+        //// Path-83 Drawing
+        let path83Path = UIBezierPath()
+        path83Path.moveToPoint(CGPointMake(-3.21, -12))
+        path83Path.addLineToPoint(CGPointMake(-15.91, -0.63))
+        path83Path.addCurveToPoint(CGPointMake(-15.91, 0.7), controlPoint1: CGPointMake(-16.32, -0.26), controlPoint2: CGPointMake(-16.32, 0.33))
+        path83Path.addLineToPoint(CGPointMake(-3.21, 12))
+        path83Path.miterLimit = 4;
+
+        path83Path.lineCapStyle = .Round;
+
+        path83Path.usesEvenOddFillRule = true;
+
+        color.setStroke()
+        path83Path.lineWidth = 4
+        path83Path.stroke()
 
 
 
@@ -3332,6 +3510,36 @@ public class StyleKit : NSObject {
         UIGraphicsEndImageContext()
 
         return imageOfInsertbutton
+    }
+
+    public class func imageOfLyricsclosebutton(scale scale: CGFloat = 0.5) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(35, 35), false, 0)
+            StyleKit.drawLyricsclosebutton(scale: scale)
+
+        let imageOfLyricsclosebutton = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return imageOfLyricsclosebutton
+    }
+
+    public class func imageOfSnapchat(scale scale: CGFloat = 0.5) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(35, 35), false, 0)
+            StyleKit.drawSnapchat(scale: scale)
+
+        let imageOfSnapchat = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return imageOfSnapchat
+    }
+
+    public class func imageOfEnterkey(frame frame: CGRect = CGRectMake(0, 0, 50, 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+            StyleKit.drawEnterkey(frame: CGRectMake(0, 0, frame.size.width, frame.size.height), color: color, scale: scale)
+
+        let imageOfEnterkey = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return imageOfEnterkey
     }
 
     public class func imageOfEmojiSelectedIcon(frame frame: CGRect = CGRectMake(0, 0, 52, 52), emojiScale: CGFloat = 1) -> UIImage {
