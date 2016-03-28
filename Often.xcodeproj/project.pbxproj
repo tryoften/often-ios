@@ -160,6 +160,9 @@
 		3BFAB2A41C0CEEE7003DE25A /* SessionManagerFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */; };
 		6901C7281C65530600652F92 /* EmojiSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6901C7271C65530600652F92 /* EmojiSectionHeaderView.swift */; };
 		6901C72D1C6556A900652F92 /* EmojiSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6901C7271C65530600652F92 /* EmojiSectionHeaderView.swift */; };
+		690553341CA78E04004680CA /* PackBrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553331CA78E04004680CA /* PackBrowseHeaderView.swift */; };
+		690553361CA78E25004680CA /* PackBrowseSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553351CA78E25004680CA /* PackBrowseSectionHeaderView.swift */; };
+		6905533A1CA79087004680CA /* PackBrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* PackBrowseCollectionViewCell.swift */; };
 		69138B4D1C25CD6800F33F76 /* TrackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69138B4C1C25CD6800F33F76 /* TrackCollectionViewCell.swift */; };
 		69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */; };
 		6944A5341C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5321C3AF03E00EA57C3 /* TwitterEmptyStateView.swift */; };
@@ -190,6 +193,10 @@
 		69A731311C602A3E00F3DBAD /* EmojisList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69A7312F1C602A3E00F3DBAD /* EmojisList.plist */; };
 		69A731321C602A3E00F3DBAD /* EmojisList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69A7312F1C602A3E00F3DBAD /* EmojisList.plist */; };
 		69A731361C602CA000F3DBAD /* EmojiKeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A731251C600EC500F3DBAD /* EmojiKeyboardViewModel.swift */; };
+		69D112541CA73A330030EB79 /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
+		69D1126B1CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D112691CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift */; };
+		69D1126C1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126A1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift */; };
+		69D1126E1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126D1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift */; };
 		69DBDE0F1C665E6900701A5D /* EmojiSectionSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */; };
 		69DBDE141C6660FB00701A5D /* EmojiSectionSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */; };
 		69FEDDE21BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FEDDE11BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift */; };
@@ -1224,6 +1231,9 @@
 		45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.release.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.release.xcconfig"; sourceTree = "<group>"; };
 		690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
 		6901C7271C65530600652F92 /* EmojiSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiSectionHeaderView.swift; path = Sources/EmojiSectionHeaderView.swift; sourceTree = "<group>"; };
+		690553331CA78E04004680CA /* PackBrowseHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackBrowseHeaderView.swift; sourceTree = "<group>"; };
+		690553351CA78E25004680CA /* PackBrowseSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackBrowseSectionHeaderView.swift; sourceTree = "<group>"; };
+		690553391CA79087004680CA /* PackBrowseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackBrowseCollectionViewCell.swift; sourceTree = "<group>"; };
 		690805D21C3A1916001589A5 /* EmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmptyStateView.swift; path = ../Often/EmptyStateView.swift; sourceTree = "<group>"; };
 		69138B4C1C25CD6800F33F76 /* TrackCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackCollectionViewCell.swift; path = ../Keyboard/Sources/TrackCollectionViewCell.swift; sourceTree = "<group>"; };
 		69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewModel.swift; path = Sources/KeyboardViewModel.swift; sourceTree = "<group>"; };
@@ -1246,6 +1256,9 @@
 		69A7312F1C602A3E00F3DBAD /* EmojisList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EmojisList.plist; sourceTree = "<group>"; };
 		69B2924D1BD7550800277EC2 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		69C663211B8B6FA60014433D /* MediaItemsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsViewModel.swift; path = ../Often/MediaItemsViewModel.swift; sourceTree = "<group>"; };
+		69D112691CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackBrowseCollectionViewController.swift; sourceTree = "<group>"; };
+		69D1126A1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackBrowseHeaderCollectionViewController.swift; sourceTree = "<group>"; };
+		69D1126D1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackBrowseHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		69D51DBC1B3CDE0B00B2714D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiSectionSelectorView.swift; path = Sources/EmojiSectionSelectorView.swift; sourceTree = "<group>"; };
 		69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1773,6 +1786,17 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
+		690553371CA78E2E004680CA /* Pack Browse */ = {
+			isa = PBXGroup;
+			children = (
+				69D1126D1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift */,
+				690553351CA78E25004680CA /* PackBrowseSectionHeaderView.swift */,
+				690553331CA78E04004680CA /* PackBrowseHeaderView.swift */,
+				690553391CA79087004680CA /* PackBrowseCollectionViewCell.swift */,
+			);
+			name = "Pack Browse";
+			sourceTree = "<group>";
+		};
 		6944A53F1C3B0A5200EA57C3 /* Empty State Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2109,6 +2133,8 @@
 				3BAC29531C4838D300F44DF7 /* UserCreationViewController.swift */,
 				3BAC29461C458AF700F44DF7 /* InstallationWalkthroughViewContoller.swift */,
 				3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */,
+				69D112691CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift */,
+				69D1126A1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift */,
 				3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */,
 				695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */,
 				3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */,
@@ -2145,6 +2171,7 @@
 				3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */,
 				810B04FC1C4446AE00BA731B /* ContainerNavigationBar.swift */,
 				3B82FCC31C56B98500B3F112 /* FeaturedArtistView.swift */,
+				690553371CA78E2E004680CA /* Pack Browse */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3560,8 +3587,10 @@
 				816D50481C8A04CF007B3249 /* TrackMediaItem.swift in Sources */,
 				816D50901C8A058D007B3249 /* HUDProgressView.swift in Sources */,
 				816D50741C8A0521007B3249 /* MediaItemsViewModel.swift in Sources */,
+				690553341CA78E04004680CA /* PackBrowseHeaderView.swift in Sources */,
 				816D506F1C8A051B007B3249 /* EventEmittable.swift in Sources */,
 				816D505C1C8A04E5007B3249 /* MediaItemsSectionHeaderView.swift in Sources */,
+				690553361CA78E25004680CA /* PackBrowseSectionHeaderView.swift in Sources */,
 				816D509C1C8A058D007B3249 /* ViewSpacerWithText.swift in Sources */,
 				816D50631C8A04FB007B3249 /* SearchBarController.swift in Sources */,
 				816D50A01C8A058D007B3249 /* ContainerNavigationBar.swift in Sources */,
@@ -3613,6 +3642,7 @@
 				816D505E1C8A04F4007B3249 /* NoKeyboardEmptyStateView.swift in Sources */,
 				816D50871C8A057C007B3249 /* Validation.swift in Sources */,
 				816D50B11C8A0596007B3249 /* ContainerNavigationController.swift in Sources */,
+				69D112541CA73A330030EB79 /* FadeInTransitionAnimator.swift in Sources */,
 				816D50A41C8A0591007B3249 /* UserProfileSettingsTableViewCell.swift in Sources */,
 				816D50511C8A04D9007B3249 /* SearchResultNavigationBar.swift in Sources */,
 				816D507B1C8A052D007B3249 /* MediaItemsCollectionBaseViewController.swift in Sources */,
@@ -3641,6 +3671,7 @@
 				816D50921C8A058D007B3249 /* LoginButton.swift in Sources */,
 				816D50BE1C8A05E6007B3249 /* Emitter.swift in Sources */,
 				816D50801C8A0534007B3249 /* BrowseArtistCollectionViewController.swift in Sources */,
+				69D1126C1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift in Sources */,
 				816D50C01C8A0609007B3249 /* UIViewController+NJKFullScreenSupport.m in Sources */,
 				816D50751C8A0521007B3249 /* MediaItemGroupViewModel.swift in Sources */,
 				816D50E71C8A32AE007B3249 /* CategoriesPanelView.swift in Sources */,
@@ -3649,6 +3680,8 @@
 				816D504F1C8A04D9007B3249 /* CollectionViewAlphabeticalSidebar.swift in Sources */,
 				816D50651C8A04FB007B3249 /* SearchSuggestionsViewController.swift in Sources */,
 				816D50C11C8A060F007B3249 /* PKHUD.swift in Sources */,
+				6905533A1CA79087004680CA /* PackBrowseCollectionViewCell.swift in Sources */,
+				69D1126B1CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift in Sources */,
 				816D50791C8A052D007B3249 /* MediaItemGroupsViewController.swift in Sources */,
 				816D507D1C8A0534007B3249 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
 				816D50611C8A04F4007B3249 /* TwitterEmptyStateView.swift in Sources */,
@@ -3677,6 +3710,7 @@
 				816D50661C8A04FB007B3249 /* SearchViewController.swift in Sources */,
 				816D506A1C8A0506007B3249 /* String+Utils.swift in Sources */,
 				816D50BC1C8A05E3007B3249 /* Signal.swift in Sources */,
+				69D1126E1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift in Sources */,
 				816D506C1C8A0506007B3249 /* ParseConfig.swift in Sources */,
 				816D50501C8A04D9007B3249 /* EmptyStateView.swift in Sources */,
 				816D50AA1C8A0596007B3249 /* UserProfileViewController.swift in Sources */,

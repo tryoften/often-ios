@@ -106,9 +106,12 @@ class RootViewController: UITabBarController {
             userProfileVC = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), recentsViewModel: RecentsViewModel(), favoritesViewModel: FavoritesService.defaultInstance)
         }
 
-        let browseVC = ContainerNavigationController(rootViewController: MainAppBrowseViewController(
-                collectionViewLayout: MainAppBrowseViewController.provideCollectionViewLayout(),
-                viewModel: BrowseViewModel(), textProcessor: nil))
+        let browseVC = ContainerNavigationController(rootViewController: PackBrowseCollectionViewController())
+
+        
+//            ContainerNavigationController(rootViewController: MainAppBrowseViewController(
+//                collectionViewLayout: MainAppBrowseViewController.provideCollectionViewLayout(),
+//                viewModel: BrowseViewModel(), textProcessor: nil))
 
         let settingVC = ContainerNavigationController(rootViewController: AppSettingsViewController(
             viewModel: SettingsViewModel(sessionManager: sessionManager)))
