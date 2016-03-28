@@ -64,8 +64,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         containerView.addSubview(sectionsTabBarController.view)
         containerView.addSubview(togglePanelButton)
 
-        showTooltipsIfNeeded()
-
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didInsertMediaItem:", name: "mediaItemInserted", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
     }
@@ -98,26 +96,9 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 1)
         favoritesVC.textProcessor = textProcessor
 
-        // Recents
-        let recentsVC = KeyboardRecentsViewController(viewModel: RecentsViewModel())
-        recentsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfRecentstab(scale: 0.45), tag: 2)
-        recentsVC.textProcessor = textProcessor
-
-        // Browse
-        let browseVC = KeyboardBrowseViewController(collectionViewLayout: BrowseViewController.getLayout(), viewModel: BrowseViewModel(), textProcessor: textProcessor)
-        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSearchtab(scale: 0.45), tag: 3)
-        browseVC.textProcessor = textProcessor
-
-        let trendingNavigationVC = UINavigationController(rootViewController: browseVC)
-        trendingNavigationVC.navigationBarHidden = true
-        trendingNavigationVC.toolbarHidden = true
-        trendingNavigationVC.view.backgroundColor = UIColor.clearColor()
-
         sections = [
             (.Keyboard, keyboardVC),
-            (.Favorites, favoritesVC),
-            (.Recents, recentsVC),
-            (.Trending, trendingNavigationVC)
+            (.Favorites, favoritesVC)
         ]
 
         sectionsTabBarController.viewControllers = sections.map { $0.1 }
