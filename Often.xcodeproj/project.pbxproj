@@ -3310,11 +3310,7 @@
 				810EA4DC1C8579D1005A6C6D /* StyleKit.swift in Sources */,
 				810EA4DD1C8579D1005A6C6D /* PKHUD.swift in Sources */,
 				810EA4DF1C8579D1005A6C6D /* Analytics.swift in Sources */,
-<<<<<<< HEAD
-				BFD877821CA9890B00DCDA08 /* FadeInTransitionAnimator.swift in Sources */,
-=======
 				81ABD2581CA0793D0026B59E /* FadeInTransitionAnimator.swift in Sources */,
->>>>>>> 4a34c013f315f884658817b97ada4023befcb694
 				810EA4E21C8579D1005A6C6D /* TextMessageOnBoardingView.swift in Sources */,
 				810EA4E31C8579D1005A6C6D /* Emitter.swift in Sources */,
 				810EA4E51C8579D1005A6C6D /* UIColor+HEXString.m in Sources */,
