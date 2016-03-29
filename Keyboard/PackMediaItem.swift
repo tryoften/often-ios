@@ -14,7 +14,7 @@ class PackMediaItem: MediaItem {
     var image_url: String?
     var name: String?
     var items_count: Int?
-    var lyrics: [LyricMediaItem] = []
+    var items: [LyricMediaItem] = []
     var premium: Bool?
     var price: Int?
     
@@ -41,9 +41,9 @@ class PackMediaItem: MediaItem {
             self.items_count = itemsCount
         }
         
-        if let lyrics = data["items"] as? NSDictionary,
-            let lyricModels = LyricMediaItem.modelsFromDictionaryArray(lyrics.allValues) as? [LyricMediaItem] {
-            self.lyrics = lyricModels.sort { $0.index < $1.index }
+        if let items = data["items"] as? NSArray,
+            let itemsModel = LyricMediaItem.modelsFromDictionaryArray(items) as? [LyricMediaItem] {
+            self.items = itemsModel
         }
         
         if let premium = data["premium"] as? Bool {
