@@ -92,7 +92,7 @@ class SessionManagerFlags {
                 return false
             }
             
-            if !keyboards.contains("com.tryoften.often.Keyboard") {
+            if !keyboards.contains(KeyboardIdentifier) {
                 return false
             } else {
                 return true

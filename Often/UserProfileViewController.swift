@@ -128,7 +128,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     // MARK: UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if indexPath.section == 0 && collectionType == .Favorites {
+        if indexPath.section == 0 && collectionType == .Recents {
             return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 120)
         }
         switch collectionType {
@@ -165,8 +165,19 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as? UICollectionViewCell else {
-            return UICollectionViewCell()
+        
+        var cell: UICollectionViewCell
+        
+        if indexPath.section == 0 && collectionType == .Recents {
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier("RecentlyUsedCellIdentifier", forIndexPath: indexPath)
+            let lyricsHorizontalVC = provideRecentlyAddedLyricsHorizontalCollectionViewController()
+            lyricsHorizontalVC.group = viewModel.generateMediaItemGroups()[indexPath.section]
+            cell.backgroundColor = UIColor.clearColor()
+            cell.contentView.addSubview(lyricsHorizontalVC.view)
+            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            lyricsHorizontalVC.view.frame = cell.bounds
+        } else {
+            cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
         }
         
         if let cell = cell as? MediaItemCollectionViewCell {

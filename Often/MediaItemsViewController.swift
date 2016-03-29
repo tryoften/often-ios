@@ -171,6 +171,9 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 && collectionType == .Recents {
+            return 1
+        }
         return viewModel.mediaItemGroupItemsForIndex(section).count
     }
     
