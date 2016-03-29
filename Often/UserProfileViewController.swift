@@ -15,11 +15,11 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     var sectionHeaderView: MediaItemsSectionHeaderView?
     var viewModels: [MediaItemsCollectionType: MediaItemsViewModel]
     
-    init(collectionViewLayout: UICollectionViewLayout, recentsViewModel: RecentsViewModel, favoritesViewModel: FavoritesService) {
+    init(collectionViewLayout: UICollectionViewLayout, recentsViewModel: RecentsViewModel, favoritesViewModel: FavoritesService, packsViewModel: PacksViewModel) {
         
-        viewModels = [.Favorites: favoritesViewModel, .Recents: recentsViewModel]
+        viewModels = [.Favorites: favoritesViewModel, .Recents: recentsViewModel, .Packs: packsViewModel]
         
-        super.init(collectionViewLayout: collectionViewLayout, collectionType: .Favorites, viewModel: recentsViewModel)
+        super.init(collectionViewLayout: collectionViewLayout, collectionType: .Packs, viewModel: packsViewModel)
 
         viewModel = viewModels[collectionType]!
         viewModel.delegate = self
@@ -209,6 +209,11 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
                 
             }
         }
+    }
+    
+    func userPacksTabSelected() {
+        viewModel = viewModels[.Packs]!
+        collectionType = .Packs
     }
     
     func userFavoritesTabSelected() {
