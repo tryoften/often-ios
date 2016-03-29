@@ -358,11 +358,12 @@ public class StyleKit : NSObject {
         let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
         let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
         let tealColor = UIColor(red: 0.145, green: 0.780, blue: 0.530, alpha: 1.000)
+        let favoriteIconColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
         //// Variable Declarations
         let strokeColor = selected ? highlightedColor : color
         let favoritedFillColor = favorited ? tealColor : noneColor
-        let favoritedIconColor = favorited ? tealColor : strokeColor
+        let favoritedIconColor = favorited ? favoriteIconColor : strokeColor
         let favoritedStrokeColor = favorited ? tealColor : strokeColor
 
         //// Frames
@@ -1534,11 +1535,11 @@ public class StyleKit : NSObject {
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
         let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
-        let tealColor = UIColor(red: 0.145, green: 0.780, blue: 0.530, alpha: 1.000)
+        let favoriteIconColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
         //// Variable Declarations
         let strokeColor = selected ? highlightedColor : color
-        let favoritedIconColor = favorited ? tealColor : strokeColor
+        let favoritedIconColor = favorited ? favoriteIconColor : strokeColor
 
         //// star Drawing
         CGContextSaveGState(context)
@@ -1943,17 +1944,13 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawSnapchat(scale scale: CGFloat = 0.5, snapchatSelect: Bool = false) {
+    public class func drawSnapchat(scale scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
         //// Color Declarations
-        let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
         let strokeColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
-        let snapchatYellow = UIColor(red: 0.988, green: 1.000, blue: 0.012, alpha: 1.000)
-
-        //// Variable Declarations
-        let snapchatFillColor = snapchatSelect ? snapchatYellow : noneColor
+        let fillColor10 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
         //// Frames
         let frame = CGRectMake(0, 0, 35, 35)
@@ -2007,11 +2004,60 @@ public class StyleKit : NSObject {
 
         bezierPath.usesEvenOddFillRule = true;
 
-        snapchatFillColor.setFill()
+        fillColor10.setFill()
         bezierPath.fill()
         strokeColor3.setStroke()
-        bezierPath.lineWidth = 2
+        bezierPath.lineWidth = 2.5
         bezierPath.stroke()
+
+
+
+        CGContextRestoreGState(context)
+    }
+
+    public class func drawEnterkey(frame frame: CGRect = CGRectMake(0, 0, 50, 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()
+
+        //// icon
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, frame.minX + 24.81, frame.minY + 24.98)
+        CGContextScaleCTM(context, scale, scale)
+
+
+
+        //// Path-82 Drawing
+        let path82Path = UIBezierPath()
+        path82Path.moveToPoint(CGPointMake(-11.99, 0.02))
+        path82Path.addLineToPoint(CGPointMake(12.22, 0.02))
+        path82Path.addCurveToPoint(CGPointMake(16.22, -3.99), controlPoint1: CGPointMake(14.43, 0.02), controlPoint2: CGPointMake(16.22, -1.77))
+        path82Path.addLineToPoint(CGPointMake(16.22, -9.86))
+        path82Path.miterLimit = 4;
+
+        path82Path.lineCapStyle = .Round;
+
+        path82Path.usesEvenOddFillRule = true;
+
+        color.setStroke()
+        path82Path.lineWidth = 4
+        path82Path.stroke()
+
+
+        //// Path-83 Drawing
+        let path83Path = UIBezierPath()
+        path83Path.moveToPoint(CGPointMake(-3.21, -12))
+        path83Path.addLineToPoint(CGPointMake(-15.91, -0.63))
+        path83Path.addCurveToPoint(CGPointMake(-15.91, 0.7), controlPoint1: CGPointMake(-16.32, -0.26), controlPoint2: CGPointMake(-16.32, 0.33))
+        path83Path.addLineToPoint(CGPointMake(-3.21, 12))
+        path83Path.miterLimit = 4;
+
+        path83Path.lineCapStyle = .Round;
+
+        path83Path.usesEvenOddFillRule = true;
+
+        color.setStroke()
+        path83Path.lineWidth = 4
+        path83Path.stroke()
 
 
 
@@ -3476,14 +3522,24 @@ public class StyleKit : NSObject {
         return imageOfLyricsclosebutton
     }
 
-    public class func imageOfSnapchat(scale scale: CGFloat = 0.5, snapchatSelect: Bool = false) -> UIImage {
+    public class func imageOfSnapchat(scale scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(35, 35), false, 0)
-            StyleKit.drawSnapchat(scale: scale, snapchatSelect: snapchatSelect)
+            StyleKit.drawSnapchat(scale: scale)
 
         let imageOfSnapchat = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
         return imageOfSnapchat
+    }
+
+    public class func imageOfEnterkey(frame frame: CGRect = CGRectMake(0, 0, 50, 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+            StyleKit.drawEnterkey(frame: CGRectMake(0, 0, frame.size.width, frame.size.height), color: color, scale: scale)
+
+        let imageOfEnterkey = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return imageOfEnterkey
     }
 
     public class func imageOfEmojiSelectedIcon(frame frame: CGRect = CGRectMake(0, 0, 52, 52), emojiScale: CGFloat = 1) -> UIImage {

@@ -19,8 +19,7 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         super.init(collectionViewLayout: layout, collectionType: .Favorites, viewModel: viewModel)
 
         collectionView?.backgroundColor = UIColor.clearColor()
-        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 0, 22)
-
+        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, SectionPickerViewHeight, 0)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
     }
@@ -31,11 +30,11 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
 
     class func provideCollectionViewFlowLayout() -> UICollectionViewFlowLayout {
         let layout = CSStickyHeaderFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 10.0, right: 26)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.disableStickyHeaders = false
         layout.scrollDirection = .Vertical
-        layout.minimumInteritemSpacing = 7.0
-        layout.minimumLineSpacing = 7.0
+        layout.minimumInteritemSpacing = 0.0
+        layout.minimumLineSpacing = 0.0
 
         return layout
     }
@@ -47,7 +46,6 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupAlphabeticalSidebar()
         setupCategoryCollectionViewController()
         layoutCategoryPanelView()
     }
@@ -83,9 +81,17 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         }
     }
 
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        let sectionView = super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+
+        sectionView.backgroundColor = WhiteColor
+
+        return sectionView
+    }
+
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
-        let cellWidthPadding: CGFloat = 46
+        let cellWidthPadding: CGFloat = 0
         return CGSizeMake(screenWidth - cellWidthPadding, 75)
     }
 
@@ -96,6 +102,7 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         }
 
         mediaItemCell.type = .NoMetadata
+        mediaItemCell.style = .Cell
         mediaItemCell.favoriteRibbon.hidden = true
 
         return cell

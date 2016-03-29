@@ -29,14 +29,22 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
 
+    var bottomSeperator: UIView
+
     private var contentImageViewWidthConstraint: NSLayoutConstraint
     private var mainTextLabelCenterConstraint: NSLayoutConstraint?
     private var avatarImageViewWidthConstraint: NSLayoutConstraint
     private var leftHeaderLabelLeftPaddingConstraint: NSLayoutConstraint?
 
-    var type: MediaItemCollectionViewCellTypes = .Metadata {
+    var type: MediaItemCollectionViewCellType = .Metadata {
         didSet {
             setupCellType()
+        }
+    }
+
+    var style: MediaItemCollectionViewCellStyle = .Card {
+        didSet {
+            setupCellStyle()
         }
     }
 
@@ -106,6 +114,9 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         metadataContentView = UIView()
         metadataContentView.translatesAutoresizingMaskIntoConstraints = false
+
+        bottomSeperator = UIView()
+        bottomSeperator.backgroundColor = DarkGrey
 
         contentEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
         
@@ -193,20 +204,14 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
 
         avatarImageURL = nil
 
-        backgroundColor = WhiteColor
-        layer.cornerRadius = 2.0
-        layer.shadowColor = UIColor.blackColor().CGColor
-        layer.shadowOpacity = 0.14
-        layer.shadowOffset = CGSizeMake(0, 1)
-        layer.shadowRadius = 1
-        
-        contentView.layer.cornerRadius = 2.0
+
         contentView.clipsToBounds = true
         contentView.addSubview(metadataContentView)
         contentView.addSubview(contentPlaceholderImageView)
         contentView.addSubview(contentImageView)
         contentView.addSubview(favoriteRibbon)
         contentView.addSubview(overlayView)
+        contentView.addSubview(bottomSeperator)
         
         metadataContentView.addSubview(sourceLogoView)
         metadataContentView.addSubview(leftHeaderLabel)
@@ -219,6 +224,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         metadataContentView.addSubview(hotnessLogoView)
         
         setupLayout()
+        setupCellStyle()
         layoutIfNeeded()
         
         overlayView.favoriteButton.addTarget(self, action: "didTapFavoriteButton:", forControlEvents: .TouchUpInside)
@@ -235,6 +241,10 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
     }
     
     func reset() {
@@ -261,6 +271,25 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         leftHeaderLabel.hidden = hasNoMetadata
         rightHeaderLabel.hidden = hasNoMetadata
         mainTextLabelCenterConstraint?.constant = hasNoMetadata ? 0 : 5
+    }
+
+    func setupCellStyle() {
+        switch style {
+        case .Cell:
+            contentView.layer.cornerRadius = 0.0
+            layer.cornerRadius = 0.0
+            backgroundColor = VeryLightGray
+            layer.shadowOpacity = 0.0
+        case .Card:
+            contentView.layer.cornerRadius = 2.0
+            backgroundColor = WhiteColor
+            layer.cornerRadius = 2.0
+            layer.shadowColor = UIColor.blackColor().CGColor
+            layer.shadowOpacity = 0.14
+            layer.shadowOffset = CGSizeMake(0, 1)
+            layer.shadowRadius = 1
+            bottomSeperator.hidden = true
+        }
     }
 
     func prepareOverlayView() {
@@ -405,7 +434,6 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
             rightHeaderLabel.al_height == 16,
             leftHeaderLabel.al_left <= metadataContentView.al_centerX,
 
-
             hotnessLogoView.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             hotnessLogoView.al_centerY == metadataContentView.al_top + contentEdgeInsets.top,
             hotnessLogoView.al_top == metadataContentView.al_top + contentEdgeInsets.top,
@@ -443,9 +471,14 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
     }
 }
 
-enum MediaItemCollectionViewCellTypes: ErrorType {
+enum MediaItemCollectionViewCellType: ErrorType {
     case Metadata
     case NoMetadata
+}
+
+enum MediaItemCollectionViewCellStyle {
+    case Cell
+    case Card
 }
 
 protocol MediaItemsCollectionViewCellDelegate: class {

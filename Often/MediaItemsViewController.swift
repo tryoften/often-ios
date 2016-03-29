@@ -196,7 +196,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     
                     sectionView.leftText = viewModel.leftSectionHeaderTitle(indexPath.section)
                     sectionView.rightText = viewModel.rightSectionHeaderTitle(indexPath)
-                    
+
                     sectionHeaders[indexPath.section] = sectionView
                     return sectionView
             }
