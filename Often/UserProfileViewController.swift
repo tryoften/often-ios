@@ -15,11 +15,11 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     var sectionHeaderView: MediaItemsSectionHeaderView?
     var viewModels: [MediaItemsCollectionType: MediaItemsViewModel]
     
-    init(collectionViewLayout: UICollectionViewLayout, recentsViewModel: RecentsViewModel, favoritesViewModel: FavoritesService) {
+    init(collectionViewLayout: UICollectionViewLayout, recentsViewModel: RecentsViewModel, favoritesViewModel: FavoritesService, packsViewModel: PacksViewModel) {
         
-        viewModels = [.Favorites: favoritesViewModel, .Recents: recentsViewModel]
+        viewModels = [.Favorites: favoritesViewModel, .Recents: recentsViewModel, .Packs: packsViewModel]
         
-        super.init(collectionViewLayout: collectionViewLayout, collectionType: .Favorites, viewModel: recentsViewModel)
+        super.init(collectionViewLayout: collectionViewLayout, collectionType: .Packs, viewModel: packsViewModel)
 
         viewModel = viewModels[collectionType]!
         viewModel.delegate = self
@@ -28,6 +28,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         collectionView?.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 70.0, right: 0.0)
     
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
+        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "PackCellIdentifier")
         
     }
     
@@ -128,7 +129,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     // MARK: UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if indexPath.section == 0 && collectionType == .Favorites {
+        if indexPath.section == 0 && collectionType == .Recents {
             return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 120)
         }
         switch collectionType {
@@ -138,6 +139,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
         
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
@@ -165,8 +167,28 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as? UICollectionViewCell else {
-            return UICollectionViewCell()
+        
+        var cell: UICollectionViewCell
+        
+        if collectionType == .Packs {
+            if let newCell = collectionView.dequeueReusableCellWithReuseIdentifier("PackCellIdentifier", forIndexPath: indexPath) as? ArtistCollectionViewCell {
+                cell = newCell
+            } else {
+                cell = ArtistCollectionViewCell()
+            }
+
+        }
+        
+        if indexPath.section == 0 && collectionType == .Recents {
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier("RecentlyUsedCellIdentifier", forIndexPath: indexPath)
+            let lyricsHorizontalVC = provideRecentlyAddedLyricsHorizontalCollectionViewController()
+            lyricsHorizontalVC.group = viewModel.generateMediaItemGroups()[indexPath.section]
+            cell.backgroundColor = UIColor.clearColor()
+            cell.contentView.addSubview(lyricsHorizontalVC.view)
+            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+            lyricsHorizontalVC.view.frame = cell.bounds
+        } else {
+            cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
         }
         
         if let cell = cell as? MediaItemCollectionViewCell {
@@ -209,6 +231,11 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
                 
             }
         }
+    }
+    
+    func userPacksTabSelected() {
+        viewModel = viewModels[.Packs]!
+        collectionType = .Packs
     }
     
     func userFavoritesTabSelected() {
