@@ -191,12 +191,12 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                    
+                
                     sectionView.artistImageURL = nil
                     if let url = viewModel.sectionHeaderImageURL(indexPath) {
                         sectionView.artistImageURL = url
                     }
-                    
+                
                     sectionView.leftText = viewModel.leftSectionHeaderTitle(indexPath.section)
                     sectionView.rightText = viewModel.rightSectionHeaderTitle(indexPath)
 
@@ -204,6 +204,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     return sectionView
             }
         }
+        
         
         return UICollectionReusableView()
     }

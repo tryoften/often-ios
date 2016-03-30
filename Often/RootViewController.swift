@@ -61,7 +61,7 @@ class RootViewController: UITabBarController {
         if SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough {
             PKHUD.sharedHUD.hide(animated: true)
             
-            alertView.actionButton.addTarget(self, action: "actionButtonDidTap:", forControlEvents: .TouchUpInside)
+            alertView.actionButton.addTarget(self, action: #selector(RootViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
 
             view.addSubview(visualEffectView)
             view.addSubview(alertView)
@@ -106,9 +106,12 @@ class RootViewController: UITabBarController {
             userProfileVC = UserProfileViewController(collectionViewLayout: UserProfileViewController.provideCollectionViewLayout(), recentsViewModel: RecentsViewModel(), favoritesViewModel: FavoritesService.defaultInstance, packsViewModel: PacksViewModel())
         }
 
-        let browseVC = ContainerNavigationController(rootViewController: MainAppBrowseViewController(
-                collectionViewLayout: MainAppBrowseViewController.provideCollectionViewLayout(),
-                viewModel: BrowseViewModel(), textProcessor: nil))
+        let browseVC = ContainerNavigationController(rootViewController: PackBrowseCollectionViewController())
+
+        
+//            ContainerNavigationController(rootViewController: MainAppBrowseViewController(
+//                collectionViewLayout: MainAppBrowseViewController.provideCollectionViewLayout(),
+//                viewModel: BrowseViewModel(), textProcessor: nil))
 
         let settingVC = ContainerNavigationController(rootViewController: AppSettingsViewController(
             viewModel: SettingsViewModel(sessionManager: sessionManager)))

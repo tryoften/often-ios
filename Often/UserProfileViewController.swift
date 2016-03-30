@@ -28,6 +28,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         collectionView?.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 70.0, right: 0.0)
     
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
+        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "PackCellIdentifier")
         
     }
     
@@ -139,6 +140,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
+        
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
                 withReuseIdentifier: UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileHeaderView else {
@@ -167,6 +169,15 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         var cell: UICollectionViewCell
+        
+        if collectionType == .Packs {
+            if let newCell = collectionView.dequeueReusableCellWithReuseIdentifier("PackCellIdentifier", forIndexPath: indexPath) as? ArtistCollectionViewCell {
+                cell = newCell
+            } else {
+                cell = ArtistCollectionViewCell()
+            }
+
+        }
         
         if indexPath.section == 0 && collectionType == .Recents {
             cell = collectionView.dequeueReusableCellWithReuseIdentifier("RecentlyUsedCellIdentifier", forIndexPath: indexPath)

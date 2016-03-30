@@ -12,7 +12,7 @@
 import UIKit
 
 class ArtistCollectionViewCell: UICollectionViewCell {
-    private var placeholderImageView: UIImageView
+    var placeholderImageView: UIImageView
     var imageView: UIImageView
     var titleLabel: UILabel
     var subtitleLabel: UILabel
