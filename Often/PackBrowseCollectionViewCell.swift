@@ -23,11 +23,7 @@ class PackBrowseCollectionViewCell: ArtistCollectionViewCell {
         primaryButton.setTitleColor(BlackColor, forState: .Selected)
         
         super.init(frame: frame)
-        
-        imageView.image = UIImage(named: "future")
-        titleLabel.text = "Queen B"
-        subtitleLabel.text = "58 Lyrics"
-        
+
         var layer = CAShapeLayer()
         layer.path = ArtistCollectionViewCell.drawImageMask(frame: CGRectMake(0, 0, PackCellWidth, PackCellHeight/2)).CGPath
         layer.fillColor = UIColor.whiteColor().CGColor
