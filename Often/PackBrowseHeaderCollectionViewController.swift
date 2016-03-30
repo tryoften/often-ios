@@ -30,8 +30,7 @@ class PackBrowseHeaderCollectionViewController: UICollectionViewController {
         super.init(collectionViewLayout: layout)
         
         scrollView.delegate = self
-        
-        view.backgroundColor = WhiteColor
+        view.backgroundColor = UIColor.clearColor()
         
         view.clipsToBounds = false
         view.addSubview(scrollView)

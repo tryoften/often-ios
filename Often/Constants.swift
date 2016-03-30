@@ -108,7 +108,7 @@ let SectionPickerViewCurrentCategoryLabelTextColor = UIColor.oftBlackColor()
 let NextKeyboardButtonBackgroundColor = UIColor.oftWhiteColor()
 let NextKeyboardButtonFont = UIFont(name: "font_icons8", size:16)
 
-let CategoriesCollectionViewBackgroundColor = UIColor.oftGrayColor()
+let CategoriesCollectionViewBackgroundColor = UIColor.oftBlack74Color()
 let CategoryCollectionViewCellBackgroundColor = UIColor(fromHexString: "#1c1c1c")
 let CategoryCollectionViewCellTitleFont = UIFont(name: "OpenSans-Semibold", size: 10.5)
 let CategoryCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 10)
