@@ -15,6 +15,7 @@ class PackBrowseHeaderView: UICollectionReusableView {
     var actionButton: UIButton // Download or Buy
     var underlineButton: UIButton
     var sectionHeaderView: PackBrowseSectionHeaderView
+    var premiumIcon: UIImageView
     
     override init(frame: CGRect) {
         browsePicker = PackBrowseHeaderCollectionViewController()
@@ -45,6 +46,9 @@ class PackBrowseHeaderView: UICollectionReusableView {
         sectionHeaderView = PackBrowseSectionHeaderView()
         sectionHeaderView.translatesAutoresizingMaskIntoConstraints = false
         sectionHeaderView.leftLabel.text = "featured packs".uppercaseString
+
+        premiumIcon = UIImageView(image: StyleKit.imageOfPremium(color: TealColor, frame: CGRectMake(0, 0, 25, 25)))
+        premiumIcon.translatesAutoresizingMaskIntoConstraints = false
         
         underlineButton = UIButton()
         
@@ -71,6 +75,7 @@ class PackBrowseHeaderView: UICollectionReusableView {
         addSubview(browsePicker.view)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
+        addSubview(premiumIcon)
         addSubview(sectionHeaderView)
 
         setupLayout()
@@ -102,9 +107,12 @@ class PackBrowseHeaderView: UICollectionReusableView {
             browsePicker.view.al_width == al_width,
             browsePicker.view.al_height == 260,
             
-            titleLabel.al_top == browsePicker.view.al_bottom - 10,
+            titleLabel.al_top == browsePicker.view.al_bottom,
             titleLabel.al_centerX == al_centerX,
-            
+
+            premiumIcon.al_centerY == titleLabel.al_centerY,
+            premiumIcon.al_left == titleLabel.al_right + 5,
+
             subtitleLabel.al_top == titleLabel.al_bottom + 5,
             subtitleLabel.al_centerX == al_centerX,
 

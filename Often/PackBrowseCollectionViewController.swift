@@ -34,7 +34,7 @@ class PackBrowseCollectionViewController: UICollectionViewController {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 0)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 350)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 370)
         flowLayout.itemSize = CGSizeMake(PackCellWidth, PackCellHeight) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
@@ -71,6 +71,13 @@ class PackBrowseCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("packCell", forIndexPath: indexPath) as? PackBrowseCollectionViewCell else {
             return UICollectionViewCell()
         }
+
+        cell.imageView.image = UIImage(named: "future")
+        cell.titleLabel.text = "Queen B"
+        cell.subtitleLabel.text = "58 Lyrics"
+        
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        cell.layer.shouldRasterize = true
         
         return cell
     }

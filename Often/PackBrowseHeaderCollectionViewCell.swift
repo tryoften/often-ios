@@ -15,13 +15,16 @@ class PackBrowseHeaderCollectionViewCell: UICollectionViewCell {
     var shadowLayer: CAShapeLayer
     
     override init(frame: CGRect) {
-        placeholderImage = UIImageView(image: UIImage(named: "angie"))
+        placeholderImage = UIImageView()
         placeholderImage.translatesAutoresizingMaskIntoConstraints = false
+        placeholderImage.clipsToBounds = true
+        placeholderImage.layer.cornerRadius = 4.0
         
         artistImage = UIImageView()
         artistImage.translatesAutoresizingMaskIntoConstraints = false
-        artistImage.contentMode = .ScaleAspectFit
+        artistImage.contentMode = .ScaleAspectFill
         artistImage.clipsToBounds = true
+        artistImage.layer.cornerRadius = 4.0
         
         confirmView = UIImageView()
         confirmView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,8 +41,11 @@ class PackBrowseHeaderCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(confirmView)
         
         layer.cornerRadius = 4.0
-        clipsToBounds = true
-        
+        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowOpacity = 0.25
+        layer.shadowOffset = CGSizeMake(0, 2)
+        layer.shadowRadius = 4
+
         setupLayout()
     }
     
