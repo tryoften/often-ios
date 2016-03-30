@@ -23,11 +23,8 @@ class PacksViewModel : MediaItemsViewModel {
     
     override func generateMediaItemGroups() -> [MediaItemGroup] {
         if !mediaItems.isEmpty {
-            var groups: [MediaItemGroup] = []
-            groups.appendContentsOf(generatePacksGroup(mediaItems))
-            
-            mediaItemGroups = groups
-            return groups
+            mediaItemGroups = generatePacksGroup(mediaItems)
+            return mediaItemGroups
         }
         
         return []
