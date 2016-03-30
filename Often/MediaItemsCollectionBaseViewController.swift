@@ -173,6 +173,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
         
         cell.titleLabel.text = pack.name
+        cell.layer.shouldRasterize = true
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         return cell
         
     }
