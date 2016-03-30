@@ -10,8 +10,10 @@ import Foundation
 
 #if DEBUG
     var BaseURL = "https://often-dev.firebaseio.com/"
+    let KeyboardIdentifier = "com.tryoften.often.master.Keyboard"
 #else
     var BaseURL = "https://often-prod.firebaseio.com/"
+    let KeyboardIdentifier = "com.tryoften.often.Keyboard"
 #endif
 var AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let ParseAppID = "zOkdtEf6pbq3wHN7aTWVGe6tH236I6n934Wsr59g"
