@@ -148,16 +148,16 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         })
     }
 
-    func parseMediaItemData(searchResultsData: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaItemCollectionViewCell {
+    func parseMediaItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaItemCollectionViewCell {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
             return MediaItemCollectionViewCell()
         }
 
-        if indexPath.row >= searchResultsData?.count {
+        if indexPath.row >= items?.count {
             return cell
         }
         
-        guard let result = searchResultsData?[indexPath.row] else {
+        guard let result = items?[indexPath.row] else {
             return cell
         }
         
@@ -217,6 +217,12 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.avatarImageURL =  lyric.smallImageURL
         default:
             break
+        }
+
+        if let items = items where items.count - 1 == indexPath.row {
+            cell.bottomSeperator.hidden = true
+        } else {
+            cell.bottomSeperator.hidden = false
         }
 
         cell.layer.shouldRasterize = true

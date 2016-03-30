@@ -29,7 +29,7 @@ class CategoryService {
                     }
                 }
                 self.categories = newCategories.sort { $0.name < $1.name }
-                self.didUpdateCategories.emit(newCategories)
+                self.didUpdateCategories.emit(self.categories!)
             }
         })
     }

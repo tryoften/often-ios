@@ -212,10 +212,8 @@ class KeyboardKeyButton: UIControl {
                     iconView.contentMode = .ScaleAspectFill
                     break
                 case .Enter:
-                    text = "Enter".uppercaseString
-                    textColor = UIColor.blackColor()
-                    color = theme.enterKeyBackgroundColor
-                    label.font = UIFont(name: "OpenSans-Semibold", size: 12)
+                    //iconView.image = StyleKit.imageOfEnterkey(scale: 1.0)
+                    iconView.contentMode = .ScaleAspectFill
                     break
                 case .CallService:
                     text = "#"
