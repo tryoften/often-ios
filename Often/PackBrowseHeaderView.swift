@@ -15,6 +15,7 @@ class PackBrowseHeaderView: UICollectionReusableView {
     var actionButton: UIButton // Download or Buy
     var underlineButton: UIButton
     var sectionHeaderView: PackBrowseSectionHeaderView
+    var premiumIcon: UIImageView
     
     override init(frame: CGRect) {
         browsePicker = PackBrowseHeaderCollectionViewController()
@@ -45,7 +46,9 @@ class PackBrowseHeaderView: UICollectionReusableView {
         sectionHeaderView = PackBrowseSectionHeaderView()
         sectionHeaderView.translatesAutoresizingMaskIntoConstraints = false
         sectionHeaderView.leftLabel.text = "featured packs".uppercaseString
-        sectionHeaderView.rightLabel.text = "(5)"
+
+        premiumIcon = UIImageView(image: StyleKit.imageOfPremium(color: TealColor, frame: CGRectMake(0, 0, 25, 25)))
+        premiumIcon.translatesAutoresizingMaskIntoConstraints = false
         
         underlineButton = UIButton()
         
@@ -66,26 +69,22 @@ class PackBrowseHeaderView: UICollectionReusableView {
         
         super.init(frame: frame)
         
-        backgroundColor = WhiteColor
+        backgroundColor = UIColor.oftWhiteThreeColor()
+        clipsToBounds = true
         
         addSubview(browsePicker.view)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
-        addSubview(actionButton)
+        addSubview(premiumIcon)
         addSubview(sectionHeaderView)
-        addSubview(underlineButton)
-        
+
         setupLayout()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             let progressiveness = attributes.progressiveness
-            
+
             UIView.animateWithDuration(0.3) {
                 if progressiveness <= 0.8 {
                     let val = progressiveness - 0.3
@@ -96,29 +95,27 @@ class PackBrowseHeaderView: UICollectionReusableView {
             }
         }
     }
-    
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     func setupLayout() {
         addConstraints([
-            browsePicker.view.al_top == al_top + 20,
+            browsePicker.view.al_top == sectionHeaderView.al_bottom,
             browsePicker.view.al_left == al_left,
             browsePicker.view.al_width == al_width,
-            browsePicker.view.al_bottom == al_bottom - 110,
-            browsePicker.view.al_height <= 370,
+            browsePicker.view.al_height == 260,
             
-            titleLabel.al_top == browsePicker.view.al_bottom - 35,
+            titleLabel.al_top == browsePicker.view.al_bottom,
             titleLabel.al_centerX == al_centerX,
-            
+
+            premiumIcon.al_centerY == titleLabel.al_centerY,
+            premiumIcon.al_left == titleLabel.al_right + 5,
+
             subtitleLabel.al_top == titleLabel.al_bottom + 5,
             subtitleLabel.al_centerX == al_centerX,
-            
-            actionButton.al_top == subtitleLabel.al_bottom + 19,
-            actionButton.al_centerX == al_centerX,
-            actionButton.al_width == 104,
-            actionButton.al_height == 30,
-            
-            underlineButton.al_centerX == al_centerX,
-            underlineButton.al_top == actionButton.al_bottom + 10,
-            
+
             sectionHeaderView.al_top == al_top,
             sectionHeaderView.al_right == al_right,
             sectionHeaderView.al_left == al_left,

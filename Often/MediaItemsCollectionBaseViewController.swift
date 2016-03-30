@@ -288,6 +288,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         vc.modalPresentationStyle = .Custom
         presentViewController(vc, animated: true, completion: nil)
     #else
+        
         cell.prepareOverlayView()
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         cell.overlayVisible = !cell.overlayVisible

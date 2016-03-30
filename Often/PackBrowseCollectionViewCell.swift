@@ -23,7 +23,7 @@ class PackBrowseCollectionViewCell: ArtistCollectionViewCell {
         primaryButton.setTitleColor(BlackColor, forState: .Selected)
         
         super.init(frame: frame)
-        
+
         imageView.image = UIImage(named: "future")
         titleLabel.text = "Queen B"
         subtitleLabel.text = "58 Lyrics"

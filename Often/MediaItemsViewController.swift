@@ -220,6 +220,15 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if collectionType == .Packs {
+//            if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PackProfileCollectionViewCell {
+//                let vc = BrowseMediaItemViewController()
+//                vc.transitioningDelegate = self
+//                vc.modalPresentationStyle = .Custom
+//                presentViewController(vc, animated: true, completion: nil)
+//            }
+        }
+        
         super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
 
         if collectionType == .Favorites {
