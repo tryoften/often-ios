@@ -35,7 +35,7 @@ class PackBrowseCollectionViewController: UICollectionViewController {
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 110)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 480)
-        flowLayout.itemSize = CGSizeMake((screenWidth / 2) - 25, 237) /// height of the cell
+        flowLayout.itemSize = CGSizeMake(PackCellWidth, PackCellHeight) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.sectionInset = UIEdgeInsetsMake(20.0, 17.0, 0.0, 17.0)

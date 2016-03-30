@@ -25,7 +25,7 @@ class PackBrowseHeaderCollectionViewController: UICollectionViewController {
         scrollView = UIScrollView(frame: CGRectMake(0, 0, width, width))
         scrollView.pagingEnabled = true
         scrollView.hidden = true
-        scrollView.contentSize = CGSizeMake(5 * (width + (2 * padding)) + (2 * padding), width) // 5 is # items from viewModel
+        scrollView.contentSize = CGSizeMake(4 * (width + padding), width) // 4 is n-1 from viewModel
         
         super.init(collectionViewLayout: layout)
         

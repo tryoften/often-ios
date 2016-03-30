@@ -8,37 +8,10 @@
 
 import UIKit
 
-class PackBrowseCollectionViewCell: UICollectionViewCell {
-    var imageView: UIImageView
-    var coverView: UIView
-    var titleLabel: UILabel
-    var subtitleLabel: UILabel
+class PackBrowseCollectionViewCell: ArtistCollectionViewCell {
     var primaryButton: UIButton
-    var shadowLayer: CAShapeLayer
     
     override init(frame: CGRect) {
-        imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .ScaleAspectFit
-        imageView.image = UIImage(named: "bey")
-        
-        coverView = UIView()
-        coverView.translatesAutoresizingMaskIntoConstraints = false
-        coverView.backgroundColor = WhiteColor
-        
-        titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont(name: "OpenSans", size: 15.0)
-        titleLabel.textAlignment = .Center
-        titleLabel.text = "Queen B"
-        
-        subtitleLabel = UILabel()
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.font = UIFont(name: "OpenSans", size: 9.0)
-        subtitleLabel.textColor = LightBlackColor
-        subtitleLabel.textAlignment = .Center
-        subtitleLabel.text = "58 Lyrics"
-        
         primaryButton = UIButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         primaryButton.titleLabel?.font = UIFont(name: "OpenSans-Semibold", size: 8.0)
@@ -49,22 +22,29 @@ class PackBrowseCollectionViewCell: UICollectionViewCell {
         primaryButton.setTitleColor(WhiteColor, forState: .Normal)
         primaryButton.setTitleColor(BlackColor, forState: .Selected)
         
-        shadowLayer = CAShapeLayer()
-        
         super.init(frame: frame)
         
-        primaryButton.addTarget(self, action: "primaryButtonSelected", forControlEvents: .TouchUpInside)
+        imageView.image = UIImage(named: "future")
+        titleLabel.text = "Queen B"
+        subtitleLabel.text = "58 Lyrics"
         
-        layer.borderWidth = 0.5
-        layer.borderColor = BlackColor.CGColor
-        layer.cornerRadius = 3.0
-        clipsToBounds = true
+        var layer = CAShapeLayer()
+        layer.path = ArtistCollectionViewCell.drawImageMask(frame: CGRectMake(0, 0, PackCellWidth, PackCellHeight/2)).CGPath
+        layer.fillColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.frame = CGRectMake(0, 0, PackCellWidth, PackCellHeight)
+        placeholderImageView.layer.mask = layer
         
-        addSubview(imageView)
-        coverView.addSubview(titleLabel)
-        coverView.addSubview(subtitleLabel)
-        coverView.addSubview(primaryButton)
-        addSubview(coverView)
+        layer = CAShapeLayer()
+        layer.path = ArtistCollectionViewCell.drawImageMask(frame: CGRectMake(0, 0, PackCellWidth, PackCellHeight/2)).CGPath
+        layer.fillColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.frame = CGRectMake(0, 0, PackCellWidth, PackCellHeight)
+        imageView.layer.mask = layer
+        
+        primaryButton.addTarget(self, action: #selector(PackBrowseCollectionViewCell.primaryButtonSelected), forControlEvents: .TouchUpInside)
+        
+        addSubview(primaryButton)
         
         setupLayout()
     }
@@ -84,28 +64,28 @@ class PackBrowseCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setupLayout() {
+    override func setupLayout() {
         addConstraints([
-            imageView.al_left == al_left,
-            imageView.al_right == al_right,
+            imageView.al_width == al_width,
+            imageView.al_height == imageView.al_width,
+            imageView.al_centerX == al_centerX,
             imageView.al_top == al_top,
-            imageView.al_bottom == al_centerY,
             
-            coverView.al_left == al_left,
-            coverView.al_right == al_right,
-            coverView.al_bottom == al_bottom,
-            coverView.al_top == al_centerY,
+            placeholderImageView.al_width == imageView.al_width,
+            placeholderImageView.al_height == imageView.al_height,
+            placeholderImageView.al_centerX == imageView.al_centerX,
+            placeholderImageView.al_centerY == imageView.al_centerY,
             
-            titleLabel.al_centerX == coverView.al_centerX,
-            titleLabel.al_top == coverView.al_top + 15,
+            titleLabel.al_top == al_centerY + (bounds.size.height * 0.1),
+            titleLabel.al_centerX == al_centerX,
             
-            subtitleLabel.al_centerX == coverView.al_centerX,
             subtitleLabel.al_top == titleLabel.al_bottom,
+            subtitleLabel.al_centerX == al_centerX,
             
-            primaryButton.al_centerX == coverView.al_centerX,
+            primaryButton.al_centerX == al_centerX,
             primaryButton.al_height == 22.5,
             primaryButton.al_width == 78,
-            primaryButton.al_top == subtitleLabel.al_bottom + 10
+            primaryButton.al_top == subtitleLabel.al_bottom + (bounds.size.height * 0.07)
         ])
     }
 }
