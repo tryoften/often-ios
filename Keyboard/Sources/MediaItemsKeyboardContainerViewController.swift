@@ -19,7 +19,6 @@ enum MediaItemsKeyboardSection: Int {
 
 class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewController,
     UIScrollViewDelegate,
-    ToolTipViewControllerDelegate,
     TextProcessingManagerDelegate {
     var mediaItem: MediaItem?
     var viewModel: KeyboardViewModel?
@@ -30,7 +29,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
     var sections: [(MediaItemsKeyboardSection, UIViewController)]
-    var tooltipVC: ToolTipViewController?
 
     override init(extraHeight: CGFloat) {
         togglePanelButton = TogglePanelButton()
@@ -72,33 +70,24 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         fatalError("init(coder:) has not been implemented")
     }
 
-    func showTooltipsIfNeeded() {
-        if viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips == false {
-            if let tabBarItem = self.sectionsTabBarController.tabBar.items?[0] {
-                self.sectionsTabBarController.tabBar.selectedItem = tabBarItem
-                
-            }
-            tooltipVC = ToolTipViewController()
-            tooltipVC?.delegate = self
-
-            sectionsTabBarController.view.userInteractionEnabled = false
-            view.addSubview(tooltipVC!.view)
-        }
-    }
 
     func setupSections() {
         // Keyboard
         let keyboardVC = KeyboardContainerViewController(textProcessor: textProcessor!)
         keyboardVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfKeyboard(scale: 0.45), tag: 0)
 
-        // Favorites
-        let favoritesVC = KeyboardFavoritesViewController(viewModel: FavoritesService.defaultInstance)
-        favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 1)
-        favoritesVC.textProcessor = textProcessor
+        // Packs
+        let packsVC = KeyboardMediaItemPackViewController(viewModel: BrowseViewModel())
+        packsVC.textProcessor = textProcessor
+        packsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 1)
+
+//        let favoritesVC = KeyboardFavoritesViewController(viewModel: FavoritesService.defaultInstance)
+//        favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 1)
+//        favoritesVC.textProcessor = textProcessor
 
         sections = [
             (.Keyboard, keyboardVC),
-            (.Favorites, favoritesVC)
+            (.Favorites, packsVC)
         ]
 
         sectionsTabBarController.viewControllers = sections.map { $0.1 }
@@ -183,8 +172,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         togglePanelButton.frame = togglePanelButtonFrame
         sectionsTabBarController.view.frame = view.bounds
 
-        let tabBarHeight = sectionsTabBarController.tabBarHeight
-        tooltipVC?.view.frame = CGRectMake(0, tabBarHeight, CGRectGetWidth(view.frame), CGRectGetHeight(view.frame) - tabBarHeight)
     }
 
     func resizeKeyboard(notification: NSNotification) {
@@ -203,21 +190,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
     }
 
-    func closeToolTipButtonDidTap(sender: UIButton) {
-        viewModel?.sessionManagerFlags.hasSeenKeyboardSearchBarToolTips = true
-
-        UIView.animateWithDuration(0.3) {
-            if let tabBarItem = self.sectionsTabBarController.tabBar.items?[1] {
-                self.sectionsTabBarController.tabBar.selectedItem = tabBarItem
-
-            }
-            self.tooltipVC?.view.alpha = 0
-            self.tooltipVC?.delegate = nil
-            self.tooltipVC?.view.removeFromSuperview()
-            self.sectionsTabBarController.view.userInteractionEnabled = true
-        }
-    }
-
     func toggleShowKeyboardButton(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
             let hide = userInfo["hide"] as? Bool else {
@@ -225,14 +197,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
 
         togglePanelButton.hidden = hide
-    }
-
-    //MARK: ToolTipViewControllerDelegate
-    func toolTipViewControllerCurrentPage(toolTipViewController: ToolTipViewController, currentPage: Int) {
-        if let toolBarItems = sectionsTabBarController.tabBar.items
-            where currentPage <= sectionsTabBarController.viewControllers.count && currentPage <= toolBarItems.count {
-            sectionsTabBarController.tabBar.selectedItem = toolBarItems[currentPage]
-        }
     }
 
     //MARK: TextProcessingManagerDelegate
