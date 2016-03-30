@@ -193,7 +193,6 @@
 		69A731311C602A3E00F3DBAD /* EmojisList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69A7312F1C602A3E00F3DBAD /* EmojisList.plist */; };
 		69A731321C602A3E00F3DBAD /* EmojisList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69A7312F1C602A3E00F3DBAD /* EmojisList.plist */; };
 		69A731361C602CA000F3DBAD /* EmojiKeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A731251C600EC500F3DBAD /* EmojiKeyboardViewModel.swift */; };
-		69D112541CA73A330030EB79 /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
 		69D1126B1CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D112691CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift */; };
 		69D1126C1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126A1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift */; };
 		69D1126E1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126D1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift */; };
@@ -600,6 +599,12 @@
 		813323971C23652D0084918B /* MediaItemsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323951C23652C0084918B /* MediaItemsSectionHeaderView.swift */; };
 		813324261C24A4F80084918B /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324221C24A4F80084918B /* NJKScrollFullScreen.m */; };
 		8136F6DF1BCEE687000401BF /* RefreshResultsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */; };
+		813A1B681CAC4561006BBB2E /* PackBrowseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D112691CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift */; };
+		813A1B691CAC4586006BBB2E /* PackBrowseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553331CA78E04004680CA /* PackBrowseHeaderView.swift */; };
+		813A1B6A1CAC458A006BBB2E /* PackBrowseSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553351CA78E25004680CA /* PackBrowseSectionHeaderView.swift */; };
+		813A1B6B1CAC4595006BBB2E /* PackBrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* PackBrowseCollectionViewCell.swift */; };
+		813A1B6C1CAC45BA006BBB2E /* PackBrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126A1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift */; };
+		813A1B6D1CAC45DB006BBB2E /* PackBrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126D1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift */; };
 		813B27E61C69B01E003B6110 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E11C69B01D003B6110 /* SystemConfiguration.framework */; };
 		813B27EA1C69B01E003B6110 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E31C69B01D003B6110 /* Crashlytics.framework */; };
 		813B27EB1C69B01E003B6110 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 813B27E31C69B01D003B6110 /* Crashlytics.framework */; };
@@ -3296,6 +3301,7 @@
 				810EA4C31C8579D1005A6C6D /* Direction.swift in Sources */,
 				810EA4C41C8579D1005A6C6D /* KeyboardViewModel.swift in Sources */,
 				810EA4C51C8579D1005A6C6D /* UserProfileHeaderView.swift in Sources */,
+				813A1B681CAC4561006BBB2E /* PackBrowseCollectionViewController.swift in Sources */,
 				810EA4C61C8579D1005A6C6D /* FrameView.swift in Sources */,
 				810EA4C71C8579D1005A6C6D /* KeyboardKey.swift in Sources */,
 				810EA4C81C8579D1005A6C6D /* MediaItemSource.swift in Sources */,
@@ -3314,6 +3320,7 @@
 				810EA4D71C8579D1005A6C6D /* AnonymousAccountManager.swift in Sources */,
 				810EA4D81C8579D1005A6C6D /* AlertView.swift in Sources */,
 				810EA4D91C8579D1005A6C6D /* EmitterListener.swift in Sources */,
+				813A1B6B1CAC4595006BBB2E /* PackBrowseCollectionViewCell.swift in Sources */,
 				810EA4DB1C8579D1005A6C6D /* SearchResultsCellOverlayView.swift in Sources */,
 				810EA4DC1C8579D1005A6C6D /* StyleKit.swift in Sources */,
 				810EA4DD1C8579D1005A6C6D /* PKHUD.swift in Sources */,
@@ -3338,6 +3345,7 @@
 				810EA4F51C8579D1005A6C6D /* (null) in Sources */,
 				810EA4F71C8579D1005A6C6D /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
 				810EA4F81C8579D1005A6C6D /* AppSettingsView.swift in Sources */,
+				813A1B6A1CAC458A006BBB2E /* PackBrowseSectionHeaderView.swift in Sources */,
 				810EA4F91C8579D1005A6C6D /* KeyboardPage.swift in Sources */,
 				810EA4FA1C8579D1005A6C6D /* MainAppBrowseViewController.swift in Sources */,
 				810EA4FD1C8579D1005A6C6D /* TermsOfUseViewController.swift in Sources */,
@@ -3362,6 +3370,7 @@
 				810EA5151C8579D1005A6C6D /* MainAppSearchBar.swift in Sources */,
 				810EA5161C8579D1005A6C6D /* AnimatedLoaderView.swift in Sources */,
 				810EA5181C8579D1005A6C6D /* String+Utils.swift in Sources */,
+				813A1B6D1CAC45DB006BBB2E /* PackBrowseHeaderCollectionViewCell.swift in Sources */,
 				810EA5191C8579D1005A6C6D /* NoKeyboardEmptyStateView.swift in Sources */,
 				810EA51A1C8579D1005A6C6D /* BrowseViewController.swift in Sources */,
 				810EA51B1C8579D1005A6C6D /* MediaItemGroupsViewController.swift in Sources */,
@@ -3370,6 +3379,7 @@
 				810EA51E1C8579D1005A6C6D /* SearchRequest.swift in Sources */,
 				810EA51F1C8579D1005A6C6D /* KeyboardTheme.swift in Sources */,
 				810EA5201C8579D1005A6C6D /* FavoritesEmptyStateView.swift in Sources */,
+				813A1B6C1CAC45BA006BBB2E /* PackBrowseHeaderCollectionViewController.swift in Sources */,
 				819A4C0F1C90BFCD0095BD7B /* RecentsViewModel.swift in Sources */,
 				810EA5221C8579D1005A6C6D /* ContainerNavigationBar.swift in Sources */,
 				810EA5231C8579D1005A6C6D /* BrowseTrackCollectionViewController.swift in Sources */,
@@ -3404,6 +3414,7 @@
 				810EA5451C8579D1005A6C6D /* VideoMediaItem.swift in Sources */,
 				810EA5461C8579D1005A6C6D /* CreateAccountView.swift in Sources */,
 				810EA5471C8579D1005A6C6D /* PKHUDAssets.swift in Sources */,
+				813A1B691CAC4586006BBB2E /* PackBrowseHeaderView.swift in Sources */,
 				810EA5481C8579D1005A6C6D /* Window.swift in Sources */,
 				810EA5491C8579D1005A6C6D /* SearchResultNavigationBar.swift in Sources */,
 				810EA54A1C8579D1005A6C6D /* AppSettingsViewController.swift in Sources */,

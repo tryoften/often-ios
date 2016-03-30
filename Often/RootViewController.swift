@@ -61,7 +61,7 @@ class RootViewController: UITabBarController {
         if SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough {
             PKHUD.sharedHUD.hide(animated: true)
             
-            alertView.actionButton.addTarget(self, action: "actionButtonDidTap:", forControlEvents: .TouchUpInside)
+            alertView.actionButton.addTarget(self, action: #selector(RootViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
 
             view.addSubview(visualEffectView)
             view.addSubview(alertView)
