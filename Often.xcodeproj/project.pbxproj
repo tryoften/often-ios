@@ -1030,12 +1030,17 @@
 		81F8337F1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337D1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift */; };
 		81F833861C18E904001B8662 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833841C18E904001B8662 /* ArtistCollectionViewCell.swift */; };
 		81F833911C1A38B2001B8662 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
+		BF3FA1DC1CAC539700DBB87B /* PackBrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* PackBrowseCollectionViewCell.swift */; };
+		BF3FA1DD1CAC539900DBB87B /* PackBrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* PackBrowseCollectionViewCell.swift */; };
+		BF3FA1DE1CAC539900DBB87B /* PackBrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* PackBrowseCollectionViewCell.swift */; };
+		BF3FA1E01CAC5B7700DBB87B /* PackProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FA1DF1CAC5B7700DBB87B /* PackProfileCollectionViewCell.swift */; };
+		BF3FA1E11CAC5CEB00DBB87B /* PackProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FA1DF1CAC5B7700DBB87B /* PackProfileCollectionViewCell.swift */; };
+		BF3FA1E21CAC5CEC00DBB87B /* PackProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FA1DF1CAC5B7700DBB87B /* PackProfileCollectionViewCell.swift */; };
+		BF3FA1E31CAC5CEC00DBB87B /* PackProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FA1DF1CAC5B7700DBB87B /* PackProfileCollectionViewCell.swift */; };
+		BF3FA1E41CAC5CED00DBB87B /* PackProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3FA1DF1CAC5B7700DBB87B /* PackProfileCollectionViewCell.swift */; };
 		BF8008331C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
 		BF8008341C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
 		BF8008361C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
-		BFD877811CA9890500DCDA08 /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
-		BFD877821CA9890B00DCDA08 /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
-		BFD877841CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877851CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877861CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877871CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
@@ -1460,6 +1465,7 @@
 		B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.release.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.release.xcconfig"; sourceTree = "<group>"; };
 		B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.debug.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.debug.xcconfig"; sourceTree = "<group>"; };
 		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
+		BF3FA1DF1CAC5B7700DBB87B /* PackProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiKeyboardViewController.swift; sourceTree = "<group>"; };
 		BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacksViewModel.swift; sourceTree = "<group>"; };
 		BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackMediaItem.swift; sourceTree = "<group>"; };
@@ -1837,6 +1843,7 @@
 				8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */,
 				698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */,
 				696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */,
+				BF3FA1DF1CAC5B7700DBB87B /* PackProfileCollectionViewCell.swift */,
 			);
 			name = "User Profile";
 			sourceTree = "<group>";
@@ -3332,6 +3339,7 @@
 				810EA4D01C8579D1005A6C6D /* SearchResultsCollectionViewController.swift in Sources */,
 				810EA4D11C8579D1005A6C6D /* UIViewController+NJKFullScreenSupport.m in Sources */,
 				810EA4D21C8579D1005A6C6D /* ContainerNavigationController.swift in Sources */,
+				BF3FA1E31CAC5CEC00DBB87B /* PackProfileCollectionViewCell.swift in Sources */,
 				810EA4D31C8579D1005A6C6D /* SearchBarController.swift in Sources */,
 				810EA4D41C8579D1005A6C6D /* MediaItemsViewModel.swift in Sources */,
 				810EA4D51C8579D1005A6C6D /* SearchBar.swift in Sources */,
@@ -3550,6 +3558,7 @@
 				810EA5E81C8579F1005A6C6D /* SearchSuggestionTableViewCell.swift in Sources */,
 				810EA5E91C8579F1005A6C6D /* BaseViewModel.swift in Sources */,
 				810EA5EA1C8579F1005A6C6D /* SearchRequest.swift in Sources */,
+				BF3FA1DC1CAC539700DBB87B /* PackBrowseCollectionViewCell.swift in Sources */,
 				810EA5EB1C8579F1005A6C6D /* UIKit+Guard.swift in Sources */,
 				810EA5EC1C8579F1005A6C6D /* SearchBaseViewModel.swift in Sources */,
 				810EA5ED1C8579F1005A6C6D /* MediaType.swift in Sources */,
@@ -3595,6 +3604,7 @@
 				810EA6121C8579F1005A6C6D /* SingleCollectionMediaItemsViewModel.swift in Sources */,
 				810EA6131C8579F1005A6C6D /* Constants.swift in Sources */,
 				810EA6141C8579F1005A6C6D /* CollectionViewAlphabeticalSidebar.swift in Sources */,
+				BF3FA1E41CAC5CED00DBB87B /* PackProfileCollectionViewCell.swift in Sources */,
 				810EA6151C8579F1005A6C6D /* SearchViewModel.swift in Sources */,
 				810EA6161C8579F1005A6C6D /* KeyboardLayouts.swift in Sources */,
 				810EA6171C8579F1005A6C6D /* MediaItemCollectionViewCell.swift in Sources */,
@@ -3651,6 +3661,7 @@
 				816D50A61C8A0596007B3249 /* UserCreationViewController.swift in Sources */,
 				816D50421C8A04CA007B3249 /* SearchRequest.swift in Sources */,
 				816D505D1C8A04E5007B3249 /* MediaItemCollectionViewCell.swift in Sources */,
+				BF3FA1E01CAC5B7700DBB87B /* PackProfileCollectionViewCell.swift in Sources */,
 				816D50601C8A04F4007B3249 /* RecentsEmptyStateView.swift in Sources */,
 				816D50981C8A058D007B3249 /* LoginView.swift in Sources */,
 				816D504B1C8A04D9007B3249 /* UIImageView+AnimateImage.swift in Sources */,
@@ -3807,6 +3818,7 @@
 				3B5AF37D1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift in Sources */,
 				813324261C24A4F80084918B /* NJKScrollFullScreen.m in Sources */,
 				81E26D8F1B65BFAC00FC1F2F /* KeyboardLayoutEngine.swift in Sources */,
+				BF3FA1DD1CAC539900DBB87B /* PackBrowseCollectionViewCell.swift in Sources */,
 				8176BEF11B7529DA00E1BDCD /* ArrowShape.swift in Sources */,
 				817F78471BBDD2A20087EBE8 /* ArticleMediaItem.swift in Sources */,
 				8192A7D51C62410300B25AC6 /* EmitterListener.swift in Sources */,
@@ -3922,6 +3934,7 @@
 				8192A7D11C62410300B25AC6 /* ChangeListener.swift in Sources */,
 				81BDC11E1C500FCE00E7C524 /* ConnectivityObservable.swift in Sources */,
 				817F784A1BBDD2FB0087EBE8 /* VideoMediaItem.swift in Sources */,
+				BF3FA1E21CAC5CEC00DBB87B /* PackProfileCollectionViewCell.swift in Sources */,
 				81F833631C179A5B001B8662 /* BrowseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3951,6 +3964,7 @@
 				81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */,
 				81DA3EB21C24BE85006822D3 /* SearchSuggestion.swift in Sources */,
 				81DA3EB31C24BE85006822D3 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
+				BF3FA1E11CAC5CEB00DBB87B /* PackProfileCollectionViewCell.swift in Sources */,
 				6958C7B81C2AEAF800BDAB3F /* TrackCollectionViewCell.swift in Sources */,
 				81DA3EB41C24BE85006822D3 /* ArticleMediaItem.swift in Sources */,
 				81DA3EB51C24BE85006822D3 /* KeyboardSearchTextField.swift in Sources */,
@@ -4003,6 +4017,7 @@
 				81F817C51C2A119500B1C1E6 /* KeyboardSearchBarController.swift in Sources */,
 				3BA021521C6AB6DA00FE9009 /* Analytics.swift in Sources */,
 				81DA3EE41C24BE85006822D3 /* (null) in Sources */,
+				BF3FA1DE1CAC539900DBB87B /* PackBrowseCollectionViewCell.swift in Sources */,
 				81BDA7231C3F152E00198AF8 /* MediaType.swift in Sources */,
 				81DA3EE51C24BE85006822D3 /* MediaItemsViewController.swift in Sources */,
 				3B47F6B11C66FAE500B000A5 /* EmitterListener.swift in Sources */,

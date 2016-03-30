@@ -11,7 +11,7 @@ import Foundation
 class PackMediaItem: MediaItem {
     var description: String?
     var pack_id: String?
-    var image_url: String?
+    var image_url: NSURL?
     var name: String?
     var items_count: Int?
     var items: [LyricMediaItem] = []
@@ -29,8 +29,8 @@ class PackMediaItem: MediaItem {
             self.pack_id = id
         }
         
-        if let image = data["image_url"] as? String {
-            self.image_url = image
+        if let image = data["image_url"] as? String, let imageURL = NSURL(string: image) {
+            self.image_url = imageURL
         }
         
         if let name = data["name"] as? String {
