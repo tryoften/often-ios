@@ -68,7 +68,9 @@ class PackBrowseCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("packCell", forIndexPath: indexPath) as! PackBrowseCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("packCell", forIndexPath: indexPath) as? PackBrowseCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         
         return cell
     }
@@ -76,14 +78,18 @@ class PackBrowseCollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as! PackBrowseHeaderView
+            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as? PackBrowseHeaderView else {
+                return UICollectionViewCell()
+            }
             
             if headerView == nil {
                 headerView = cell
             }
             return headerView!
         } else if kind == UICollectionElementKindSectionHeader {
-            let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as! PackBrowseSectionHeaderView
+            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as? PackBrowseSectionHeaderView else {
+                return UICollectionViewCell()
+            }
             
             sectionHeaderView = cell
             

@@ -89,7 +89,9 @@ class PackBrowseHeaderCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("browseCell", forIndexPath: indexPath) as! PackBrowseHeaderCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("browseCell", forIndexPath: indexPath) as? PackBrowseHeaderCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         
         return cell
     }
