@@ -215,6 +215,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.mainTextLabel.textAlignment = .Center
             cell.showImageView = false
             cell.avatarImageURL =  lyric.smallImageURL
+        case .Pack:
+            let pack = (result as! PackMediaItem)
+            cell.mainTextLabel.text = pack.name
         default:
             break
         }

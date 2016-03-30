@@ -10,8 +10,10 @@ import Foundation
 
 #if DEBUG
     var BaseURL = "https://often-dev.firebaseio.com/"
+    let KeyboardIdentifier = "com.tryoften.often.master.Keyboard"
 #else
     var BaseURL = "https://often-prod.firebaseio.com/"
+    let KeyboardIdentifier = "com.tryoften.often.Keyboard"
 #endif
 var AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let ParseAppID = "zOkdtEf6pbq3wHN7aTWVGe6tH236I6n934Wsr59g"
@@ -37,7 +39,7 @@ let MediumGrey = UIColor(fromHexString: "#eeeeee")
 let VeryLightGray = UIColor(fromHexString: "#f7f7f7")
 let BlackColor = UIColor(fromHexString: "#121314")
 let MediumLightGrey = UIColor(fromHexString: "#1c1c1c")
-let MainBackgroundColor = UIColor(fromHexString: "F7F7F7")
+let MainBackgroundColor = UIColor(fromHexString: "#F7F7F7")
 let MainTextColor = UIColor(fromHexString: "#777777")
 let SubtitleGreyColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 0.74)
 let LightBlackColor = UIColor(fromHexString: "#202020")
@@ -403,4 +405,8 @@ let SearchBarPlaceholderText: String = "Search"
 
 // Empty State Views
 let TwitterButtonColor = UIColor(fromHexString: "#62A9E0")
+
+//Pack Cells
+let PackCellWidth: CGFloat = (UIScreen.mainScreen().bounds.width / 2) - 25
+let PackCellHeight: CGFloat = 237.0
 

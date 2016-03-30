@@ -146,10 +146,11 @@ class MediaItemsViewModel: BaseViewModel {
 enum MediaItemsCollectionType: String {
     case Favorites = "favorites"
     case Recents = "recents"
+    case Packs = "packs"
     case Tracks = "tracks"
     case Lyrics = "lyrics"
     
-    static let allValues = [Favorites, Recents]
+    static let allValues = [Favorites, Recents, Packs]
 }
 
 protocol MediaItemsViewModelDelegate: class {

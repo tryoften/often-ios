@@ -58,8 +58,8 @@ PODS:
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
-  - Parse (1.12.0):
-    - Bolts/Tasks (~> 1.5)
+  - Parse (1.13.0):
+    - Bolts/Tasks (~> 1.6)
   - Reveal-iOS-SDK (1.6.2)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
 
@@ -100,7 +100,7 @@ SPEC CHECKSUMS:
   Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
   Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
   FlurrySDK: ee51555de016e77ff6b516d473de7a57eb858ef7
-  Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
+  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
 

@@ -18,6 +18,7 @@ enum MediaType: String {
     case User = "user"
     case Gif = "gif"
     case Other = "other"
+    case Pack = "pack"
 
     var isVideo: Bool {
         switch self {
@@ -60,5 +61,6 @@ let MediaItemTypes: [MediaType: MediaItem.Type] = [
     .Article: ArticleMediaItem.self,
     .Artist: ArtistMediaItem.self,
     .Track: TrackMediaItem.self,
-    .Lyric: LyricMediaItem.self
+    .Lyric: LyricMediaItem.self,
+    .Pack: PackMediaItem.self
 ]
