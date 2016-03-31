@@ -77,8 +77,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         keyboardVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfKeyboard(scale: 0.45), tag: 0)
 
         // Packs
-        let packsVC = KeyboardMediaItemPackViewController(viewModel: BrowseViewModel())
-        packsVC.textProcessor = textProcessor
+        let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksViewModel())
         packsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 1)
 
 //        let favoritesVC = KeyboardFavoritesViewController(viewModel: FavoritesService.defaultInstance)

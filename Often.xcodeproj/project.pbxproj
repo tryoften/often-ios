@@ -153,6 +153,9 @@
 		3BAB168E1CAC481F00904185 /* PackPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB168D1CAC481F00904185 /* PackPanelView.swift */; };
 		3BAB168F1CAC481F00904185 /* PackPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB168D1CAC481F00904185 /* PackPanelView.swift */; };
 		3BAB16901CAC481F00904185 /* PackPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB168D1CAC481F00904185 /* PackPanelView.swift */; };
+		3BAB16941CAC5DCA00904185 /* PackBrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* PackBrowseCollectionViewCell.swift */; };
+		3BAB16951CAC5DCB00904185 /* PackBrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* PackBrowseCollectionViewCell.swift */; };
+		3BAB16961CAC5DCC00904185 /* PackBrowseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* PackBrowseCollectionViewCell.swift */; };
 		3BAC294A1C45A73600F44DF7 /* OftenInstallGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC29491C45A73600F44DF7 /* OftenInstallGIF.gif */; };
 		3BAC294B1C45A73600F44DF7 /* OftenInstallGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC29491C45A73600F44DF7 /* OftenInstallGIF.gif */; };
 		3BC55ABB1C8A261300363AB0 /* KeyboardMediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* KeyboardMediaItemDetailViewController.swift */; };
@@ -1039,9 +1042,6 @@
 		BF8008331C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
 		BF8008341C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
 		BF8008361C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
-		BFD877811CA9890500DCDA08 /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
-		BFD877821CA9890B00DCDA08 /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
-		BFD877841CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877851CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877861CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877871CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
@@ -3540,6 +3540,7 @@
 				810EA5D61C8579F1005A6C6D /* FuzzySearch.swift in Sources */,
 				810EA5D71C8579F1005A6C6D /* KeyboardPage.swift in Sources */,
 				816D50E51C8A2FD9007B3249 /* KeyboardBrowseViewController.swift in Sources */,
+				3BAB16961CAC5DCC00904185 /* PackBrowseCollectionViewCell.swift in Sources */,
 				810EA5D81C8579F1005A6C6D /* delay.swift in Sources */,
 				810EA5D91C8579F1005A6C6D /* String+Utils.swift in Sources */,
 				810EA5DA1C8579F1005A6C6D /* TogglePanelButton.swift in Sources */,
@@ -3883,6 +3884,7 @@
 				81D0CDC41BD542C20009859D /* SearchBaseViewModel.swift in Sources */,
 				81BDA7241C3F152E00198AF8 /* MediaType.swift in Sources */,
 				81F8335C1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift in Sources */,
+				3BAB16951CAC5DCB00904185 /* PackBrowseCollectionViewCell.swift in Sources */,
 				81BDA71C1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
 				3B63ED5E1B68354B00E54AFA /* KeyboardViewController+EventHandlers.swift in Sources */,
 				819A4C091C8E47760095BD7B /* PresentArtistPickerAnimationController.swift in Sources */,
@@ -4065,6 +4067,7 @@
 				81DA3F121C24BE85006822D3 /* Shape.swift in Sources */,
 				81DA3F141C24BE85006822D3 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
 				BFD8778B1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */,
+				3BAB16941CAC5DCA00904185 /* PackBrowseCollectionViewCell.swift in Sources */,
 				81DA3F161C24BE85006822D3 /* NJKScrollFullScreen.m in Sources */,
 				3B20C03A1C7E0D3F00D98803 /* SearchResultNavigationBar.swift in Sources */,
 				81BDA7401C40884300198AF8 /* CellAnimatable.swift in Sources */,
