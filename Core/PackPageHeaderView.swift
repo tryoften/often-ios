@@ -32,9 +32,6 @@ class PackPageHeaderView : MediaItemPageHeaderView {
         priceButton = UIButton()
         priceButton.translatesAutoresizingMaskIntoConstraints = false
         priceButton.setAttributedTitle(attributedString, forState: .Normal)
-//        priceButton.titleLabel?.font = UIFont(name: "OpenSans-Bold", size: 8.0)
-//        priceButton.setTitle("try sample".uppercaseString, forState: .Normal)
-//        priceButton.setTitleColor(WhiteColor, forState: .Normal)
         priceButton.backgroundColor = ClearColor
         priceButton.layer.borderWidth = 1.5
         priceButton.layer.borderColor = WhiteColor.CGColor

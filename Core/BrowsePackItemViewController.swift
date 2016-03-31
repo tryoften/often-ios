@@ -8,7 +8,6 @@
 
 import UIKit
 
-private let packItemCellReuseIdentifier = "packItemCell"
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class BrowsePackItemViewController: BrowseMediaItemViewController {
@@ -66,19 +65,11 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
         return layout
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Register cell classes
-        collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: packItemCellReuseIdentifier)
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         pack = nil
         collectionView?.reloadData()
-        shouldSendScrollEvents = true
         
         viewModel.getPackWithOftenId(packId) { model in
             self.pack = model
@@ -88,11 +79,6 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
             #endif
         }
         
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        shouldSendScrollEvents = false
     }
     
     override func headerViewDidLoad() {
@@ -146,10 +132,6 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
     }
     
     // MARK: UICollectionViewDataSource
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let itemsCount = pack?.items.count {
             return itemsCount
