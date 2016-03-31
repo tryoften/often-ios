@@ -64,7 +64,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
 
         super.init(frame: frame)
         
-        header.subtitleLabel.numberOfLines = 2
+        subtitleLabel.numberOfLines = 2
 
         backgroundColor = AddArtistModalHeaderViewBackgroundColor
 
