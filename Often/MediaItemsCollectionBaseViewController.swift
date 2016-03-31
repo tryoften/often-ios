@@ -31,6 +31,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         super.init(collectionViewLayout: layout)
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
+        collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: "PackCellIdentifier")
+
 
         favoritesCollectionListener = FavoritesService.defaultInstance.didChangeFavorites.on { items in
 
@@ -148,7 +150,37 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         })
     }
 
+    func parsePackItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> PackProfileCollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PackCellIdentifier", forIndexPath: indexPath) as? PackProfileCollectionViewCell else {
+            return PackProfileCollectionViewCell()
+        }
+        
+        if indexPath.row >= items?.count {
+            return cell
+        }
+        
+        guard let result = items?[indexPath.row], pack = result as? PackMediaItem else {
+            return cell
+        }
+        
+        if let imageURL = pack.image_url {
+            cell.imageView.setImageWithURL(imageURL)
+        }
+        
+        if let lyricsCount = pack.items_count {
+            cell.subtitleLabel.text = "\(lyricsCount) lyrics".uppercaseString
+        }
+        
+        cell.titleLabel.text = pack.name
+        cell.layer.shouldRasterize = true
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        return cell
+        
+    }
+    
     func parseMediaItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaItemCollectionViewCell {
+        
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
             return MediaItemCollectionViewCell()
         }
@@ -215,9 +247,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.mainTextLabel.textAlignment = .Center
             cell.showImageView = false
             cell.avatarImageURL =  lyric.smallImageURL
-        case .Pack:
-            let pack = (result as! PackMediaItem)
-            cell.mainTextLabel.text = pack.name
         default:
             break
         }
@@ -259,6 +288,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         vc.modalPresentationStyle = .Custom
         presentViewController(vc, animated: true, completion: nil)
     #else
+        
         cell.prepareOverlayView()
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
         cell.overlayVisible = !cell.overlayVisible

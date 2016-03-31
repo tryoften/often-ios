@@ -34,4 +34,15 @@ class BrowseViewModel: MediaItemGroupViewModel {
             completion(track)
         })
     }
+    
+    func getPackWithOftenId(oftenId: String, completion: (PackMediaItem) -> ()) {
+        let packRef = baseRef.childByAppendingPath("packs/\(oftenId)")
+        packRef.observeEventType(.Value, withBlock: { snapshot in
+            guard let value = snapshot.value as? NSDictionary else {
+                return
+            }
+            let pack = PackMediaItem(data: value)
+            completion(pack)
+        })
+    }
 }
