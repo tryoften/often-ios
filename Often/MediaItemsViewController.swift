@@ -221,12 +221,12 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if collectionType == .Packs {
-//            if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PackProfileCollectionViewCell {
-//                let vc = BrowseMediaItemViewController()
-//                vc.transitioningDelegate = self
-//                vc.modalPresentationStyle = .Custom
-//                presentViewController(vc, animated: true, completion: nil)
-//            }
+            let result = viewModel.mediaItemGroupItemsForIndex(indexPath.section)[indexPath.row]
+            guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
+                return
+            }
+            let packVC = BrowsePackItemViewController(packId: id, viewModel: BrowseViewModel())
+            self.navigationController?.pushViewController(packVC, animated: true)
         }
         
         super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
