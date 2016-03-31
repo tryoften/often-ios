@@ -33,10 +33,10 @@ class PackBrowseCollectionViewController: UICollectionViewController {
     class func getLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 110)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 480)
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 0)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 370)
         flowLayout.itemSize = CGSizeMake(PackCellWidth, PackCellHeight) /// height of the cell
-        flowLayout.parallaxHeaderAlwaysOnTop = true
+        flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
         flowLayout.sectionInset = UIEdgeInsetsMake(20.0, 17.0, 0.0, 17.0)
         return flowLayout
@@ -71,6 +71,13 @@ class PackBrowseCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("packCell", forIndexPath: indexPath) as? PackBrowseCollectionViewCell else {
             return UICollectionViewCell()
         }
+
+        cell.imageView.image = UIImage(named: "future")
+        cell.titleLabel.text = "Queen B"
+        cell.subtitleLabel.text = "58 Lyrics"
+        
+        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        cell.layer.shouldRasterize = true
         
         return cell
     }
@@ -97,6 +104,10 @@ class PackBrowseCollectionViewController: UICollectionViewController {
         }
         
         return UICollectionReusableView()
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        // hook up pack detail view
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {

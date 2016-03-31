@@ -10,28 +10,29 @@ import UIKit
 
 class PackBrowseHeaderCollectionViewController: UICollectionViewController {
     let scrollView: UIScrollView
-    var currentPage: Int
-    
     let itemWidth: CGFloat
     let width: CGFloat
-    let padding: CGFloat
+
+    var currentPage: Int
+
+    static var padding: CGFloat {
+        return 80.0
+    }
     
     override init(collectionViewLayout layout: UICollectionViewLayout) {
-        padding = 75.0
-        itemWidth = UIScreen.mainScreen().bounds.width - (padding * 2)
-        width = itemWidth + (padding / 2)
+        itemWidth = UIScreen.mainScreen().bounds.width - (self.dynamicType.padding * 2)
+        width = itemWidth + (self.dynamicType.padding / 2)
         currentPage = 0
         
         scrollView = UIScrollView(frame: CGRectMake(0, 0, width, width))
         scrollView.pagingEnabled = true
         scrollView.hidden = true
-        scrollView.contentSize = CGSizeMake(4 * (width + padding), width) // 4 is n-1 from viewModel
+        scrollView.contentSize = CGSizeMake(4 * (width + self.dynamicType.padding), width)
         
         super.init(collectionViewLayout: layout)
         
         scrollView.delegate = self
-        
-        view.backgroundColor = WhiteColor
+        view.backgroundColor = UIColor.clearColor()
         
         view.clipsToBounds = false
         view.addSubview(scrollView)
@@ -42,7 +43,7 @@ class PackBrowseHeaderCollectionViewController: UICollectionViewController {
     }
     
     required convenience init() {
-        self.init(collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout(UIScreen.mainScreen().bounds.width - (75.0 * 2), padding: 75.0))
+        self.init(collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout(UIScreen.mainScreen().bounds.width - (self.dynamicType.padding * 2), padding: self.dynamicType.padding))
     }
     
     override func viewDidLoad() {
@@ -92,6 +93,8 @@ class PackBrowseHeaderCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("browseCell", forIndexPath: indexPath) as? PackBrowseHeaderCollectionViewCell else {
             return UICollectionViewCell()
         }
+
+        cell.artistImage.image = UIImage(named: "angie")
         
         return cell
     }

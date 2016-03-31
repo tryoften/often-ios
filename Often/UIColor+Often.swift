@@ -56,11 +56,11 @@ extension UIColor {
         return UIColor(white: 0.0, alpha: 0.54)
     }
 
-    class func oftGrayColor() -> UIColor {
-        return UIColor(white: 247.0 / 255.0, alpha: 1.0)
-    }
-
     class func oftWhiteFourColor() -> UIColor {
         return UIColor(white: 239.0 / 255.0, alpha: 1.0)
+    }
+    
+    class func oftWhiteThreeColor() -> UIColor {
+        return UIColor(white: 247.0 / 255.0, alpha: 1.0)
     }
 }

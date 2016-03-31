@@ -178,7 +178,13 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell: UICollectionViewCell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView) as MediaItemCollectionViewCell
+        let cell: UICollectionViewCell
+        
+        if collectionType == .Packs {
+            cell = parsePackItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView) as PackProfileCollectionViewCell
+        } else {
+            cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView) as MediaItemCollectionViewCell
+        }
 
         animateCell(cell, indexPath: indexPath)
         
@@ -214,6 +220,15 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if collectionType == .Packs {
+            let result = viewModel.mediaItemGroupItemsForIndex(indexPath.section)[indexPath.row]
+            guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
+                return
+            }
+            let packVC = BrowsePackItemViewController(packId: id, viewModel: BrowseViewModel())
+            self.navigationController?.pushViewController(packVC, animated: true)
+        }
+        
         super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
 
         if collectionType == .Favorites {
