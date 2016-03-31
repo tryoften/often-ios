@@ -16,7 +16,7 @@ class PackMediaItem: MediaItem {
     var items_count: Int?
     var items: [LyricMediaItem] = []
     var premium: Bool?
-    var price: Int?
+    var price: CGFloat?
     
     required init(data: NSDictionary) {
         super.init(data: data)
@@ -50,7 +50,7 @@ class PackMediaItem: MediaItem {
             self.premium = premium
         }
         
-        if let price = data["price"] as? Int {
+        if let price = data["price"] as? CGFloat {
             self.price = price
         }
     }

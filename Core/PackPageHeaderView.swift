@@ -16,31 +16,40 @@ class PackPageHeaderView : MediaItemPageHeaderView {
     
     override init(frame: CGRect) {
         
+        var attributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "OpenSans", size: 10.5)!,
+            NSForegroundColorAttributeName: UIColor.oftWhiteColor()
+        ]
+        let browsePacksString = NSAttributedString(string: "browse packs".uppercaseString, attributes: attributes)
+        
         backLabel = UILabel()
         backLabel.font = TrendingHeaderViewSongTitleLabelTextFont
         backLabel.textColor = TrendingHeaderViewNameLabelTextColor
         backLabel.translatesAutoresizingMaskIntoConstraints = false
-        backLabel.text = "browse packs".uppercaseString
+        backLabel.attributedText = browsePacksString
         
-        let attributes: [String: AnyObject] = [
-            NSKernAttributeName: NSNumber(float: 1.0),
-            NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 8.0)!,
-            NSForegroundColorAttributeName: UIColor.oftWhiteColor()
-        ]
-        let attributedString = NSAttributedString(string: "try sample".uppercaseString, attributes: attributes)
+        attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Semibold", size: 7.0)!
+        let sampleString = NSAttributedString(string: "try sample".uppercaseString, attributes: attributes)
+        
+        sampleButton = UIButton()
+        sampleButton.translatesAutoresizingMaskIntoConstraints = false
+        sampleButton.setAttributedTitle(sampleString, forState: .Normal)
+        sampleButton.backgroundColor = ClearColor
+        sampleButton.layer.borderWidth = 1.5
+        sampleButton.layer.borderColor = WhiteColor.CGColor
+        sampleButton.layer.cornerRadius = 11.25
         
         priceButton = UIButton()
         priceButton.translatesAutoresizingMaskIntoConstraints = false
-        priceButton.setAttributedTitle(attributedString, forState: .Normal)
-        priceButton.backgroundColor = ClearColor
-        priceButton.layer.borderWidth = 1.5
-        priceButton.layer.borderColor = WhiteColor.CGColor
-        priceButton.layer.cornerRadius = 11.25
+        priceButton.backgroundColor = TealColor
+        priceButton.layer.cornerRadius = 15
         
-        sampleButton = UIButton()
         
         super.init(frame: frame)
         
+        addSubview(backLabel)
+        addSubview(sampleButton)
         addSubview(priceButton)
 
     }
@@ -68,12 +77,24 @@ class PackPageHeaderView : MediaItemPageHeaderView {
             titleLabel.al_width <= al_width - 30,
             
             subtitleLabel.al_centerX == al_centerX,
+            subtitleLabel.al_left == al_left + 20,
+            subtitleLabel.al_right == al_right - 20,
             subtitleLabel.al_top  == titleLabel.al_bottom + 5,
+            subtitleLabel.al_height == 30,
             
-            priceButton.al_right == al_right - 18,
-            priceButton.al_height == 22.5,
-            priceButton.al_width == 78.5,
-            priceButton.al_top == al_top + 15
+            priceButton.al_centerX == al_centerX,
+            priceButton.al_top == subtitleLabel.al_bottom + 18,
+            priceButton.al_width == 84,
+            priceButton.al_height == 30,
+            
+            sampleButton.al_right == al_right - 16.5,
+            sampleButton.al_height == 22.5,
+            sampleButton.al_width == 78.5,
+            sampleButton.al_top == al_top + 31,
+            
+            backLabel.al_centerY == sampleButton.al_centerY - 1,
+            backLabel.al_left == al_left + 42.5
+            
             ])
     }
 }

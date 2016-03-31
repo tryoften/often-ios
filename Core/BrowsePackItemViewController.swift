@@ -52,7 +52,7 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
             let topMargin = CGFloat(10.0)
             let layout = CSStickyHeaderFlowLayout()
             layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 90)
-            layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 250)
+            layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 270)
             layout.parallaxHeaderAlwaysOnTop = true
             layout.disableStickyHeaders = false
         #endif
@@ -89,15 +89,33 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
     }
     
     override func setupHeaderView(imageURL: NSURL?, title: String?, subtitle: String?) {
-        #if KEYBOARD
-            navigationBar?.imageURL = imageURL
-            navigationBar?.titleLabel.text = title
-            navigationBar?.subtitleLabel.text = subtitle
-        #else
-            headerView?.imageURL = imageURL
-            headerView?.titleLabel.text = title?.uppercaseString
-            headerView?.subtitleLabel.text = subtitle
-        #endif
+        if let header = headerView as? PackPageHeaderView {
+            var attributes: [String: AnyObject] = [
+                NSKernAttributeName: NSNumber(float: 1.5),
+                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 18.0)!,
+                NSForegroundColorAttributeName: UIColor.oftWhiteColor()
+            ]
+            if let text = title {
+                let attributedString = NSAttributedString(string: text.uppercaseString, attributes: attributes)
+                header.titleLabel.attributedText = attributedString
+            }
+            
+            if let price = pack?.price {
+                attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Semibold", size: 10.5)!
+                let priceString = NSAttributedString(string: "$0.99".uppercaseString, attributes: attributes)
+                header.priceButton.titleLabel?.attributedText = priceString
+            }
+            
+            attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Semibold", size: 12)!
+            
+            if let string = subtitle {
+                let subtitleString = NSAttributedString(string: string, attributes: attributes)
+                header.subtitleLabel.attributedText = subtitleString
+            }
+            
+            header.imageURL = imageURL
+            
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
