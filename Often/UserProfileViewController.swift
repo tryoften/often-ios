@@ -77,6 +77,9 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         super.viewWillAppear(animated)
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
         checkUserEmptyStateStatus()
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.hidden = true
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -106,6 +109,10 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
