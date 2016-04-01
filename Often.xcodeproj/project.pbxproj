@@ -569,6 +569,11 @@
 		810EA6421C8579F1005A6C6D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18F1B1A5D3700EA1925 /* OpenSans-Regular.ttf */; };
 		810EA6431C8579F1005A6C6D /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */; };
 		810EA6531C857A36005A6C6D /* Keyboard (Dev).appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 810EA64F1C8579F2005A6C6D /* Keyboard (Dev).appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		811114601CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111145F1CAC937A002EDBD9 /* QuoteMediaItem.swift */; };
+		811114611CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111145F1CAC937A002EDBD9 /* QuoteMediaItem.swift */; };
+		811114621CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111145F1CAC937A002EDBD9 /* QuoteMediaItem.swift */; };
+		811114631CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111145F1CAC937A002EDBD9 /* QuoteMediaItem.swift */; };
+		811114641CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8111145F1CAC937A002EDBD9 /* QuoteMediaItem.swift */; };
 		81153CBD1BBC7FC000A91EAD /* TogglePanelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */; };
 		81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
 		81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8C1A9D67C100AE5B30 /* libstdc++.6.dylib */; };
@@ -1038,9 +1043,6 @@
 		BF8008331C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
 		BF8008341C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
 		BF8008361C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */; };
-		BFD877811CA9890500DCDA08 /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
-		BFD877821CA9890B00DCDA08 /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
-		BFD877841CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877851CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877861CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877871CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
@@ -1305,6 +1307,7 @@
 		810EA5901C8579D2005A6C6D /* Often copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Often copy2-Info.plist"; path = "/Users/luc/Projects/often-ios/Often copy2-Info.plist"; sourceTree = "<absolute>"; };
 		810EA64F1C8579F2005A6C6D /* Keyboard (Dev).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Keyboard (Dev).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		810EA6501C8579F2005A6C6D /* Keyboard copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Keyboard copy-Info.plist"; path = "/Users/luc/Projects/often-ios/Keyboard copy-Info.plist"; sourceTree = "<absolute>"; };
+		8111145F1CAC937A002EDBD9 /* QuoteMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuoteMediaItem.swift; path = Core/QuoteMediaItem.swift; sourceTree = SOURCE_ROOT; };
 		81153CB01BBB267000A91EAD /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		81153CBC1BBC7FC000A91EAD /* TogglePanelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TogglePanelButton.swift; path = Sources/TogglePanelButton.swift; sourceTree = "<group>"; };
 		81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -2241,6 +2244,7 @@
 				817F78481BBDD2FB0087EBE8 /* VideoMediaItem.swift */,
 				81BDA72D1C3F24BE00198AF8 /* LyricMediaItem.swift */,
 				BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */,
+				8111145F1CAC937A002EDBD9 /* QuoteMediaItem.swift */,
 			);
 			name = "Media Item Models";
 			path = Keyboard;
@@ -3309,6 +3313,7 @@
 				810EA4AD1C8579D1005A6C6D /* LayoutConstants.swift in Sources */,
 				810EA4AE1C8579D1005A6C6D /* SearchViewModel.swift in Sources */,
 				810EA4AF1C8579D1005A6C6D /* LoginViewModel.swift in Sources */,
+				811114631CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */,
 				810EA4B01C8579D1005A6C6D /* ParseConfig.swift in Sources */,
 				810EA4B11C8579D1005A6C6D /* FeaturedArtistViewController.swift in Sources */,
 				810EA4B21C8579D1005A6C6D /* SearchSuggestion.swift in Sources */,
@@ -3591,6 +3596,7 @@
 				810EA6021C8579F1005A6C6D /* Event.swift in Sources */,
 				810EA6031C8579F1005A6C6D /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
 				810EA6051C8579F1005A6C6D /* UIDevice+DeviceList.swift in Sources */,
+				811114641CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */,
 				810EA6061C8579F1005A6C6D /* EmptyStateView.swift in Sources */,
 				810EA6071C8579F1005A6C6D /* LayoutConstants.swift in Sources */,
 				810EA6081C8579F1005A6C6D /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
@@ -3707,6 +3713,7 @@
 				816D50551C8A04DE007B3249 /* SearchBarButton.swift in Sources */,
 				816D50931C8A058D007B3249 /* SkipSignupView.swift in Sources */,
 				816D50531C8A04D9007B3249 /* KeyboardSearchResultNavgationBar.swift in Sources */,
+				811114601CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */,
 				819A4C0C1C90BFCD0095BD7B /* RecentsViewModel.swift in Sources */,
 				816D509A1C8A058D007B3249 /* KeyboardWalkthroughSuccessMessageView.swift in Sources */,
 				816D50941C8A058D007B3249 /* DropDownErrorMessage.swift in Sources */,
@@ -3890,6 +3897,7 @@
 				811E6EAD1C6AB73E008B789C /* TextProcessingManager.swift in Sources */,
 				6944A5431C3B0A9F00EA57C3 /* FavoritesEmptyStateView.swift in Sources */,
 				816D501F1C862830007B3249 /* CategoryCollectionViewCell.swift in Sources */,
+				811114621CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */,
 				69DBDE0F1C665E6900701A5D /* EmojiSectionSelectorView.swift in Sources */,
 				813323971C23652D0084918B /* MediaItemsSectionHeaderView.swift in Sources */,
 				816D501B1C8627F5007B3249 /* CategoriesPanelView.swift in Sources */,
@@ -4072,6 +4080,7 @@
 				81DA3F1C1C24BE85006822D3 /* SearchResponse.swift in Sources */,
 				81DA3F1D1C24BE85006822D3 /* StreamReader.swift in Sources */,
 				81DA3F1F1C24BE85006822D3 /* WindowRootViewController.swift in Sources */,
+				811114611CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */,
 				698AD3411C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */,
 				3B9991D61C7E4E9B00C60A99 /* AnimatedLoaderView.swift in Sources */,
 				81DA3F211C24BE85006822D3 /* suffixNumber.swift in Sources */,
