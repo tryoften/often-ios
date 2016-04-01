@@ -18,7 +18,7 @@ class PackPageHeaderView : MediaItemPageHeaderView {
         
         var attributes: [String: AnyObject] = [
             NSKernAttributeName: NSNumber(float: 1.0),
-            NSFontAttributeName: UIFont(name: "OpenSans", size: 10.5)!,
+            NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 9)!,
             NSForegroundColorAttributeName: UIColor.oftWhiteColor()
         ]
         let browsePacksString = NSAttributedString(string: "browse packs".uppercaseString, attributes: attributes)
@@ -29,7 +29,7 @@ class PackPageHeaderView : MediaItemPageHeaderView {
         backLabel.translatesAutoresizingMaskIntoConstraints = false
         backLabel.attributedText = browsePacksString
         
-        attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Semibold", size: 7.0)!
+        attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Bold", size: 7.0)!
         let sampleString = NSAttributedString(string: "try sample".uppercaseString, attributes: attributes)
         
         sampleButton = UIButton()
@@ -45,8 +45,9 @@ class PackPageHeaderView : MediaItemPageHeaderView {
         priceButton.backgroundColor = TealColor
         priceButton.layer.cornerRadius = 15
         
-        
         super.init(frame: frame)
+        
+        subtitleLabel.numberOfLines = 2
         
         addSubview(backLabel)
         addSubview(sampleButton)
@@ -56,6 +57,29 @@ class PackPageHeaderView : MediaItemPageHeaderView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
+        if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
+            let progressiveness = attributes.progressiveness
+            
+            UIView.beginAnimations("", context: nil)
+            
+            if progressiveness <= 0.58 {
+                self.subtitleLabel.alpha = 0
+                self.priceButton.alpha = 0
+                self.backLabel.alpha = 0
+                self.sampleButton.alpha = 0
+                
+            } else {
+                self.subtitleLabel.alpha = 1
+                self.priceButton.alpha = 1
+                self.backLabel.alpha = 1
+                self.sampleButton.alpha = 1
+            }
+            
+            UIView.commitAnimations()
+        }
     }
     
     override func setupLayout() {
@@ -77,8 +101,8 @@ class PackPageHeaderView : MediaItemPageHeaderView {
             titleLabel.al_width <= al_width - 30,
             
             subtitleLabel.al_centerX == al_centerX,
-            subtitleLabel.al_left == al_left + 20,
-            subtitleLabel.al_right == al_right - 20,
+            subtitleLabel.al_left == al_left + 50,
+            subtitleLabel.al_right == al_right - 50,
             subtitleLabel.al_top  == titleLabel.al_bottom + 5,
             subtitleLabel.al_height == 30,
             

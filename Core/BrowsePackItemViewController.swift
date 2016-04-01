@@ -82,7 +82,7 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
     }
     
     override func headerViewDidLoad() {
-        let imageURL: NSURL? = pack?.image_url
+        let imageURL: NSURL? = pack?.largeImageURL
         let subtitle: String? = pack?.description
         
         setupHeaderView(imageURL, title: pack?.name, subtitle: subtitle)
@@ -91,7 +91,7 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
     override func setupHeaderView(imageURL: NSURL?, title: String?, subtitle: String?) {
         if let header = headerView as? PackPageHeaderView {
             var attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.5),
+                NSKernAttributeName: NSNumber(float: 1.7),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 18.0)!,
                 NSForegroundColorAttributeName: UIColor.oftWhiteColor()
             ]
@@ -100,13 +100,15 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
                 header.titleLabel.attributedText = attributedString
             }
             
-//            if let price = pack?.price {
-//                attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Semibold", size: 10.5)!
-//                let priceString = NSAttributedString(string: "$0.99", attributes: attributes)
-//                header.priceButton.titleLabel?.attributedText = priceString
-//            }
+            if let price = pack?.price {
+                attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Semibold", size: 10.5)!
+                attributes[NSKernAttributeName] = NSNumber(float: 1.0)
+                let priceString = NSAttributedString(string: "$\(price)", attributes: attributes)
+                header.priceButton.setAttributedTitle(priceString, forState: .Normal)
+            }
             
-            attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Semibold", size: 12)!
+            attributes[NSFontAttributeName] = UIFont(name: "OpenSans", size: 12)!
+            attributes[NSKernAttributeName] = NSNumber(float: 0.6)
             
             if let string = subtitle {
                 let subtitleString = NSAttributedString(string: string, attributes: attributes)

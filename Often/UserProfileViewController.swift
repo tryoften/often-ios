@@ -77,6 +77,10 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         super.viewWillAppear(animated)
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
         checkUserEmptyStateStatus()
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.barStyle = .Black
+            navigationBar.translucent = true
+        }
     }
     
     override func didReceiveMemoryWarning() {
