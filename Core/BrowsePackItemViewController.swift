@@ -100,11 +100,11 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
                 header.titleLabel.attributedText = attributedString
             }
             
-            if let price = pack?.price {
-                attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Semibold", size: 10.5)!
-                let priceString = NSAttributedString(string: "$0.99".uppercaseString, attributes: attributes)
-                header.priceButton.titleLabel?.attributedText = priceString
-            }
+//            if let price = pack?.price {
+//                attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Semibold", size: 10.5)!
+//                let priceString = NSAttributedString(string: "$0.99", attributes: attributes)
+//                header.priceButton.titleLabel?.attributedText = priceString
+//            }
             
             attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Semibold", size: 12)!
             
