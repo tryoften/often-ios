@@ -226,6 +226,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 return
             }
             let packVC = BrowsePackItemViewController(packId: id, viewModel: BrowseViewModel())
+            navigationController?.navigationBar.hidden = false
             self.navigationController?.pushViewController(packVC, animated: true)
         }
         
