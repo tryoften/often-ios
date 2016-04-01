@@ -14,7 +14,7 @@ class PackBrowseCollectionViewCell: ArtistCollectionViewCell {
     override init(frame: CGRect) {
         primaryButton = UIButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
-        primaryButton.titleLabel?.font = UIFont(name: "OpenSans-Semibold", size: 8.0)
+        primaryButton.titleLabel?.font = UIFont(name: "OpenSans", size: 8.0)
         primaryButton.layer.cornerRadius = 11.25
         primaryButton.backgroundColor = BlackColor
         primaryButton.setTitle("download".uppercaseString, forState: .Normal)
@@ -24,25 +24,36 @@ class PackBrowseCollectionViewCell: ArtistCollectionViewCell {
         
         super.init(frame: frame)
 
-        var layer = CAShapeLayer()
-        layer.path = ArtistCollectionViewCell.drawImageMask(frame: CGRectMake(0, 0, PackCellWidth, PackCellHeight/2)).CGPath
-        layer.fillColor = UIColor.whiteColor().CGColor
-        layer.backgroundColor = UIColor.clearColor().CGColor
-        layer.frame = CGRectMake(0, 0, PackCellWidth, PackCellHeight)
-        placeholderImageView.layer.mask = layer
+        imageView.image = UIImage(named: "future")
+        titleLabel.text = "Queen B"
+        subtitleLabel.text = "58 Lyrics"
         
-        layer = CAShapeLayer()
-        layer.path = ArtistCollectionViewCell.drawImageMask(frame: CGRectMake(0, 0, PackCellWidth, PackCellHeight/2)).CGPath
-        layer.fillColor = UIColor.whiteColor().CGColor
-        layer.backgroundColor = UIColor.clearColor().CGColor
-        layer.frame = CGRectMake(0, 0, PackCellWidth, PackCellHeight)
-        imageView.layer.mask = layer
+        setImageViewLayers()
         
         primaryButton.addTarget(self, action: #selector(PackBrowseCollectionViewCell.primaryButtonSelected), forControlEvents: .TouchUpInside)
         
         addSubview(primaryButton)
         
         setupLayout()
+    }
+    
+    func setImageViewLayers() {
+        
+        let width: CGFloat = self.frame.size.width
+        let height: CGFloat = self.frame.size.height
+        var layer = CAShapeLayer()
+        layer.path = ArtistCollectionViewCell.drawImageMask(frame: CGRectMake(0, 0, width, height/2)).CGPath
+        layer.fillColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.frame = CGRectMake(0, 0, width, height)
+        placeholderImageView.layer.mask = layer
+        
+        layer = CAShapeLayer()
+        layer.path = ArtistCollectionViewCell.drawImageMask(frame: CGRectMake(0, 0, frame.size.width, height/2)).CGPath
+        layer.fillColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.frame = CGRectMake(0, 0, width, height)
+        imageView.layer.mask = layer
     }
     
     required init?(coder aDecoder: NSCoder) {

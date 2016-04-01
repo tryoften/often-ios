@@ -106,6 +106,10 @@ class PackBrowseCollectionViewController: UICollectionViewController {
         return UICollectionReusableView()
     }
     
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        // hook up pack detail view
+    }
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 20.0 as CGFloat
     }

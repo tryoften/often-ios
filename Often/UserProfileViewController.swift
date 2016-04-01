@@ -28,7 +28,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         collectionView?.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 70.0, right: 0.0)
     
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
-        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "PackCellIdentifier")
         
     }
     
@@ -134,6 +133,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         }
         switch collectionType {
         case .Recents:  return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
+        case .Packs:    return CGSizeMake(171, 237)
         default:        return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
         }
     }
@@ -169,15 +169,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         var cell: UICollectionViewCell
-        
-        if collectionType == .Packs {
-            if let newCell = collectionView.dequeueReusableCellWithReuseIdentifier("PackCellIdentifier", forIndexPath: indexPath) as? ArtistCollectionViewCell {
-                cell = newCell
-            } else {
-                cell = ArtistCollectionViewCell()
-            }
-
-        }
         
         if indexPath.section == 0 && collectionType == .Recents {
             cell = collectionView.dequeueReusableCellWithReuseIdentifier("RecentlyUsedCellIdentifier", forIndexPath: indexPath)
@@ -272,6 +263,9 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if collectionType == .Packs {
+            return CGSizeZero
+        }
         return CGSizeMake(UIScreen.mainScreen().bounds.width, MediaItemsSectionHeaderHeight)
     }
     
