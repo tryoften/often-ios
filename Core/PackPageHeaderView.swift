@@ -96,7 +96,7 @@ class PackPageHeaderView : MediaItemPageHeaderView {
             
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_centerY == al_centerY,
-            titleLabel.al_top >= al_top + 30,
+            titleLabel.al_top >= al_top + 15,
             titleLabel.al_height == 22,
             titleLabel.al_width <= al_width - 30,
             
@@ -104,10 +104,10 @@ class PackPageHeaderView : MediaItemPageHeaderView {
             subtitleLabel.al_left == al_left + 50,
             subtitleLabel.al_right == al_right - 50,
             subtitleLabel.al_top  == titleLabel.al_bottom + 5,
-            subtitleLabel.al_height == 30,
-            
+            subtitleLabel.al_height == 60,
+
             priceButton.al_centerX == al_centerX,
-            priceButton.al_top == subtitleLabel.al_bottom + 18,
+            priceButton.al_top == subtitleLabel.al_bottom + 5,
             priceButton.al_width == 84,
             priceButton.al_height == 30,
             
@@ -118,7 +118,6 @@ class PackPageHeaderView : MediaItemPageHeaderView {
             
             backLabel.al_centerY == sampleButton.al_centerY - 1,
             backLabel.al_left == al_left + 42.5
-            
-            ])
+        ])
     }
 }

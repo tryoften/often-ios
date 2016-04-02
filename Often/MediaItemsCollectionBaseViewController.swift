@@ -164,7 +164,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             return cell
         }
         
-        if let imageURL = pack.image_url {
+        if let imageURL = pack.smallImageURL {
             cell.imageView.setImageWithURL(imageURL)
         }
         
