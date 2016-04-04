@@ -15,7 +15,7 @@ class KeyboardRecentsViewController: MediaItemsViewController {
         super.init(collectionViewLayout: layout, collectionType: .Recents, viewModel: viewModel)
 
         collectionView?.backgroundColor = UIColor.clearColor()
-        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, 80, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(-1, 0, SectionPickerViewHeight, 0)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
@@ -34,6 +34,27 @@ class KeyboardRecentsViewController: MediaItemsViewController {
         layout.minimumLineSpacing = 7.0
 
         return layout
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupCategoryCollectionViewController()
+        layoutCategoryPanelView()
+
+        populatePanelMetaData(collectionType.rawValue.uppercaseString, itemCount: viewModel.mediaItemGroupItemsForIndex(0).count, imageUrl: nil)
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        HUDMaskView?.frame = view.bounds
+
+        guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
+            return
+        }
+
+        layoutCategoryPanelView()
     }
 
     func onOrientationChanged() {
@@ -95,6 +116,16 @@ class KeyboardRecentsViewController: MediaItemsViewController {
 
     override func hideLoadingView() {
         
+    }
+    
+    override func togglePack() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false)
+
+        return animator
     }
 
 }

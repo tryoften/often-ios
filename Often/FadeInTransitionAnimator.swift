@@ -10,9 +10,11 @@ import Foundation
 
 class FadeInTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     private let presenting: Bool
+    private let resizePresentingViewController: Bool
 
-    init(presenting: Bool) {
+    init(presenting: Bool, resizePresentingViewController: Bool) {
         self.presenting = presenting
+        self.resizePresentingViewController = resizePresentingViewController
     }
     
     @objc func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
@@ -25,9 +27,15 @@ class FadeInTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
                 return
         }
 
-        let lastViewControllerFrame = CGRectMake(fromViewController.view.bounds.origin.x, fromViewController.view.bounds.origin.y,  fromViewController.view.bounds.width, fromViewController.view.bounds.height)
+        var lastViewControllerFrame = CGRectMake(fromViewController.view.bounds.origin.x, fromViewController.view.bounds.origin.y,  fromViewController.view.bounds.width, fromViewController.view.bounds.height)
 
         if presenting {
+            if resizePresentingViewController {
+                lastViewControllerFrame.size.height = fromViewController.view.bounds.height - KeyboardTabBarHeight
+            }
+
+            lastViewControllerFrame.origin.y = fromViewController.view.bounds.origin.y + KeyboardTabBarHeight
+
             toViewController.view.frame = lastViewControllerFrame
             toViewController.view.alpha = 0
 

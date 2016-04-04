@@ -210,8 +210,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     return sectionView
             }
         }
-        
-        
+
         return UICollectionReusableView()
     }
     
@@ -225,9 +224,10 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
                 return
             }
-            let packVC = BrowsePackItemViewController(packId: id, viewModel: BrowseViewModel())
+
+            let packVC = BrowsePackItemViewController(packId: id, viewModel: BrowseViewModel(), textProcessor: nil)
             navigationController?.navigationBar.hidden = false
-            self.navigationController?.pushViewController(packVC, animated: true)
+            navigationController?.pushViewController(packVC, animated: true)
         }
         
         super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)

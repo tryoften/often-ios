@@ -10,31 +10,60 @@ import UIKit
 
 class CategoriesPanelView: UIView {
     var toggleDrawerButton: UIButton
-    var switchArtistButton: UIButton
+    var mediaItemImageView: UIImageView
+    var switchKeyboardButton: UIButton
+    var switchKeyboardButtonSeperator: UIView
+    var togglePackSelectedView: UIView
 
     var topSeperator: UIView
     var bottomSeperator: UIView
     var categoriesCollectionView: UICollectionView
 
     private var currentCategoryLabel: UILabel
+    private var mediaItemTitle: UILabel
+    private var mediaItemItemCount: UILabel
     private var drawerOpened: Bool = false
 
     private var tapRecognizer: UITapGestureRecognizer!
-    private var currentCategoryView: UIView
+    private var toggleCategorySelectedView: UIView
     private var selectedBgView: UIView
     private var toolbarView: UIView
 
     let didToggle = Event<Bool>()
 
+    var currentCategoryCount: String? {
+        didSet {
+            let attributes: [String: AnyObject] = [
+                NSKernAttributeName: NSNumber(float: 1.0),
+                NSFontAttributeName: UIFont(name: "Montserrat", size: 9)!,
+                NSForegroundColorAttributeName: UIColor.oftBlackColor()
+            ]
+            let attributedString = NSAttributedString(string: "(\(currentCategoryCount!.uppercaseString))", attributes: attributes)
+            mediaItemItemCount.attributedText = attributedString
+        }
+    }
+
     var currentCategoryText: String? {
         didSet {
             let attributes: [String: AnyObject] = [
                 NSKernAttributeName: NSNumber(float: 1.0),
-                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 11)!,
+                NSFontAttributeName: UIFont(name: "Montserrat", size: 9)!,
                 NSForegroundColorAttributeName: UIColor.oftBlackColor()
             ]
             let attributedString = NSAttributedString(string: currentCategoryText!.uppercaseString, attributes: attributes)
             currentCategoryLabel.attributedText = attributedString
+        }
+    }
+
+    var mediaItemTitleText: String? {
+        didSet {
+            let attributes: [String: AnyObject] = [
+                NSKernAttributeName: NSNumber(float: 1.0),
+                NSFontAttributeName: UIFont(name: "Montserrat", size: 9)!,
+                NSForegroundColorAttributeName: UIColor.oftBlackColor()
+            ]
+            let attributedString = NSAttributedString(string: mediaItemTitleText!.uppercaseString, attributes: attributes)
+            mediaItemTitle.attributedText = attributedString
         }
     }
 
@@ -47,11 +76,32 @@ class CategoriesPanelView: UIView {
     }
 
     override init(frame: CGRect) {
+        mediaItemImageView = UIImageView()
+        mediaItemImageView.translatesAutoresizingMaskIntoConstraints = false
+        mediaItemImageView.contentMode = .ScaleAspectFill
+        mediaItemImageView.image = UIImage(named: "placeholder")
+        mediaItemImageView.layer.cornerRadius = 2.0
+        mediaItemImageView.clipsToBounds = true
+
+        mediaItemTitle = UILabel()
+        mediaItemTitle.translatesAutoresizingMaskIntoConstraints = false
+        mediaItemTitle.textColor = BlackColor
+        mediaItemTitle.userInteractionEnabled = true
+        mediaItemTitle.textAlignment = .Left
+        mediaItemTitle.font = UIFont(name: "Montserrat", size: 9)
+
+        togglePackSelectedView = UIView()
+        togglePackSelectedView.translatesAutoresizingMaskIntoConstraints = false
+
         topSeperator = UIView()
         topSeperator.backgroundColor = DarkGrey
 
         bottomSeperator = UIView()
         bottomSeperator.backgroundColor = DarkGrey
+
+        switchKeyboardButtonSeperator = UIView()
+        switchKeyboardButtonSeperator.translatesAutoresizingMaskIntoConstraints = false
+        switchKeyboardButtonSeperator.backgroundColor = BlackColor
 
         categoriesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: CategoriesPanelView.provideCollectionViewLayout(frame))
         categoriesCollectionView.backgroundColor = CategoriesCollectionViewBackgroundColor
@@ -67,24 +117,33 @@ class CategoriesPanelView: UIView {
         toolbarView.layer.shadowColor = DarkGrey.CGColor
         toolbarView.layer.shadowRadius = 4
 
-        currentCategoryView = UIView()
-        currentCategoryView.translatesAutoresizingMaskIntoConstraints = false
+        toggleCategorySelectedView = UIView()
+        toggleCategorySelectedView.translatesAutoresizingMaskIntoConstraints = false
 
         toggleDrawerButton = UIButton()
-        toggleDrawerButton.setImage(StyleKit.imageOfBackarrow(scale: 0.5, rotate: -90), forState: .Normal)
+        toggleDrawerButton.setImage(StyleKit.imageOfCategoryicon(scale: 0.5), forState: .Normal)
+        toggleDrawerButton.setImage(StyleKit.imageOfCategoryicon(scale: 0.5, selected: true), forState: .Selected)
         toggleDrawerButton.translatesAutoresizingMaskIntoConstraints = false
-        toggleDrawerButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        toggleDrawerButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -7, bottom: 0, right: 7)
 
-        switchArtistButton = UIButton()
-        switchArtistButton.setImage(StyleKit.imageOfMenu(scale: 1.0), forState: .Normal)
-        switchArtistButton.translatesAutoresizingMaskIntoConstraints = false
+        switchKeyboardButton = UIButton()
+        switchKeyboardButton.setImage(StyleKit.imageOfGlobe(scale: 0.65), forState: .Normal)
+        switchKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
+        switchKeyboardButton.contentEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
 
         currentCategoryLabel = UILabel()
         currentCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
         currentCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
         currentCategoryLabel.userInteractionEnabled = true
-        currentCategoryLabel.textAlignment = .Center
-        currentCategoryLabel.font = UIFont(name: "OpenSans-Semibold", size: 11)
+        currentCategoryLabel.textAlignment = .Right
+        currentCategoryLabel.font = UIFont(name: "Montserrat", size: 9)
+
+        mediaItemItemCount = UILabel()
+        mediaItemItemCount.textColor = SectionPickerViewCurrentCategoryLabelTextColor
+        mediaItemItemCount.translatesAutoresizingMaskIntoConstraints = false
+        mediaItemItemCount.userInteractionEnabled = true
+        mediaItemItemCount.textAlignment = .Right
+        mediaItemItemCount.font = UIFont(name: "Montserrat", size: 9)
 
         selectedBgView = UIView(frame: CGRectZero)
         selectedBgView.backgroundColor = SectionPickerViewCellHighlightedBackgroundColor
@@ -93,23 +152,27 @@ class CategoriesPanelView: UIView {
 
         backgroundColor = SectionPickerViewBackgroundColor
 
-        currentCategoryView.addSubview(toggleDrawerButton)
-        currentCategoryView.addSubview(currentCategoryLabel)
-
         addSubview(toolbarView)
         addSubview(categoriesCollectionView)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
 
-        toolbarView.addSubview(currentCategoryView)
-        toolbarView.addSubview(switchArtistButton)
+        toolbarView.addSubview(toggleDrawerButton)
+        toolbarView.addSubview(currentCategoryLabel)
+        toolbarView.addSubview(mediaItemItemCount)
+        toolbarView.addSubview(switchKeyboardButton)
+        toolbarView.addSubview(switchKeyboardButtonSeperator)
+        toolbarView.addSubview(mediaItemImageView)
+        toolbarView.addSubview(mediaItemTitle)
+        toolbarView.addSubview(togglePackSelectedView)
+        toolbarView.addSubview(toggleCategorySelectedView)
 
         setupLayout()
 
         let toggleSelector = Selector("toggleDrawer")
         tapRecognizer = UITapGestureRecognizer(target: self, action: toggleSelector)
         toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
-        currentCategoryLabel.addGestureRecognizer(tapRecognizer)
+        toggleCategorySelectedView.addGestureRecognizer(tapRecognizer)
     }
 
     class func provideCollectionViewLayout(frame: CGRect) -> UICollectionViewLayout {
@@ -138,17 +201,7 @@ class CategoriesPanelView: UIView {
     }
 
     func setupLayout() {
-        let collectionView = categoriesCollectionView
-        let toggleDrawer = toggleDrawerButton
-        let switchArtistButton = self.switchArtistButton
-
-        let currentCategoryLabelLeftConstraint = currentCategoryLabel.al_left == al_left
-        currentCategoryLabelLeftConstraint.priority = 800
-
-        let switchArtistButtonLeftConstraint = switchArtistButton.al_left == al_left + 10
-        switchArtistButtonLeftConstraint.priority = 800
-
-        let collectionViewTopConstraint = collectionView.al_top == toolbarView.al_bottom
+        let collectionViewTopConstraint = categoriesCollectionView.al_top == toolbarView.al_bottom
         collectionViewTopConstraint.priority = 800
 
         let constraints: [NSLayoutConstraint] = [
@@ -158,67 +211,97 @@ class CategoriesPanelView: UIView {
             toolbarView.al_top == al_top,
             toolbarView.al_height == SectionPickerViewHeight,
 
-            // switch artist button
-            switchArtistButtonLeftConstraint,
-            switchArtistButton.al_centerY == toolbarView.al_centerY,
-            switchArtistButton.al_height == SectionPickerViewSwitchArtistHeight,
-            switchArtistButton.al_width == switchArtistButton.al_height,
+            // switch keyboard button
+            switchKeyboardButton.al_left == al_left,
+            switchKeyboardButton.al_centerY == toolbarView.al_centerY,
+            switchKeyboardButton.al_height == SectionPickerViewHeight,
+            switchKeyboardButton.al_right == switchKeyboardButtonSeperator.al_left,
+            switchKeyboardButton.al_width == switchKeyboardButton.al_height,
+
+            // switch keyboard button seperator
+            switchKeyboardButtonSeperator.al_width == 0.5,
+            switchKeyboardButtonSeperator.al_height == 20,
+            switchKeyboardButtonSeperator.al_centerY == toolbarView.al_centerY,
+
+            // media item imageview
+            mediaItemImageView.al_left == switchKeyboardButtonSeperator.al_right + 10,
+            mediaItemImageView.al_centerY == toolbarView.al_centerY,
+            mediaItemImageView.al_height == SectionPickerViewSwitchArtistHeight,
+            mediaItemImageView.al_width == mediaItemImageView.al_height,
+
+            // media item title label
+            mediaItemTitle.al_left ==  mediaItemImageView.al_right + 7,
+            mediaItemTitle.al_centerY == toolbarView.al_centerY,
+            mediaItemTitle.al_right == al_centerX,
+            mediaItemTitle.al_height == SectionPickerViewHeight,
+            mediaItemTitle.al_top == toggleCategorySelectedView.al_top,
 
             // current category view
-            currentCategoryView.al_left == switchArtistButton.al_left + SectionPickerViewHeight + 10.0,
-            currentCategoryView.al_right == toolbarView.al_right,
-            currentCategoryView.al_height == SectionPickerViewHeight,
-            currentCategoryView.al_top == toolbarView.al_top,
+            toggleCategorySelectedView.al_left == mediaItemTitle.al_right,
+            toggleCategorySelectedView.al_right == toolbarView.al_right,
+            toggleCategorySelectedView.al_height == SectionPickerViewHeight,
+            toggleCategorySelectedView.al_top == toolbarView.al_top,
 
             // toggle drawer
-            toggleDrawer.al_right == currentCategoryView.al_right,
-            toggleDrawer.al_top == currentCategoryView.al_top,
-            toggleDrawer.al_height == SectionPickerViewHeight,
-            toggleDrawer.al_width == toggleDrawer.al_height,
+            toggleDrawerButton.al_right == toggleCategorySelectedView.al_right + 7,
+            toggleDrawerButton.al_top == toggleCategorySelectedView.al_top,
+            toggleDrawerButton.al_height == SectionPickerViewHeight,
+            toggleDrawerButton.al_width == toggleDrawerButton.al_height,
+            toggleDrawerButton.al_left == mediaItemItemCount.al_right,
+
+            // toggle pack selected view
+            togglePackSelectedView.al_centerY == toolbarView.al_centerY,
+            togglePackSelectedView.al_left == switchKeyboardButtonSeperator.al_right,
+            togglePackSelectedView.al_right == mediaItemTitle.al_right,
+            togglePackSelectedView.al_height == SectionPickerViewHeight,
 
             // current category label
-            currentCategoryLabelLeftConstraint,
-            currentCategoryLabel.al_right == al_right,
+            currentCategoryLabel.al_left == mediaItemTitle.al_right + 10,
+            currentCategoryLabel.al_right == mediaItemItemCount.al_left - 2,
             currentCategoryLabel.al_height == SectionPickerViewHeight,
-            currentCategoryLabel.al_top == currentCategoryView.al_top,
-            currentCategoryLabel.al_centerY == switchArtistButton.al_centerY,
+            currentCategoryLabel.al_top == toggleCategorySelectedView.al_top,
+            currentCategoryLabel.al_centerY == mediaItemImageView.al_centerY,
+
+            // current category item count label
+            mediaItemItemCount.al_left == currentCategoryLabel.al_right,
+            mediaItemItemCount.al_right == toggleDrawerButton.al_left,
+            mediaItemItemCount.al_height == SectionPickerViewHeight,
+            mediaItemItemCount.al_top == toggleCategorySelectedView.al_top,
+            mediaItemItemCount.al_centerY == mediaItemImageView.al_centerY,
+
+
 
             collectionViewTopConstraint,
-            collectionView.al_left == al_left,
-            collectionView.al_right == al_right,
-            collectionView.al_bottom == al_bottom,
+            categoriesCollectionView.al_left == al_left,
+            categoriesCollectionView.al_right == al_right,
+            categoriesCollectionView.al_bottom == al_bottom,
         ]
 
         addConstraints(constraints)
     }
 
-    func animateArrow(pointingUp: Bool = true) {
-        let angle = (pointingUp) ? CGFloat(M_PI) : 0
-
-        UIView.animateWithDuration(0.2, animations: {
-            self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(angle)
-        })
-    }
-
     func open() {
+        toggleDrawerButton.selected = true
+        togglePackSelectedView.userInteractionEnabled = false
         categoriesCollectionView.reloadData()
 
         UIView.animateWithDuration(0.25) {
             var frame = self.frame
             frame.origin.y = self.superview!.frame.height - SectionPickerViewOpenedHeight
             self.frame = frame
-            self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
         }
 
         didToggle.emit(true)
     }
 
     func close() {
+        toggleDrawerButton.selected = false
+        togglePackSelectedView.userInteractionEnabled = true
+
         UIView.animateWithDuration(0.25) {
             var frame = self.frame
             frame.origin.y = self.superview!.frame.height - SectionPickerViewHeight
             self.frame = frame
-            self.toggleDrawerButton.transform = CGAffineTransformMakeRotation(CGFloat(0))
         }
 
         didToggle.emit(false)
