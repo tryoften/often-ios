@@ -76,17 +76,8 @@ class BrowsePackItemViewController: BrowseMediaItemViewController, KeyboardMedia
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
-        pack = nil
-        collectionView?.reloadData()
-
-        viewModel.getPackWithOftenId(packId) { model in
-            self.pack = model
-            
-            #if !(KEYBOARD)
-                self.hideHud()
-            #endif
-        }
+        
+        loadPackData()
         
     }
 
@@ -212,9 +203,8 @@ class BrowsePackItemViewController: BrowseMediaItemViewController, KeyboardMedia
         presentViewController(packsVC, animated: true, completion: nil)
     }
 
-    func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
+    func loadPackData()  {
         self.pack = nil
-        packId = pack.id
 
         collectionView?.reloadData()
 
@@ -225,6 +215,12 @@ class BrowsePackItemViewController: BrowseMediaItemViewController, KeyboardMedia
                 self.hideHud()
             #endif
         }
+    }
+
+    func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
+        packId = pack.id
+
+        loadPackData()
     }
 
 }
