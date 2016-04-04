@@ -110,4 +110,10 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
     override func togglePack() {
         dismissViewControllerAnimated(true, completion: nil)
     }
+
+    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false)
+
+        return animator
+    }
 }
