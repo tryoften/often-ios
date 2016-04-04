@@ -224,9 +224,10 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
                 return
             }
-            
+
             let packVC = BrowsePackItemViewController(packId: id, viewModel: BrowseViewModel(), textProcessor: nil)
-            self.navigationController?.pushViewController(packVC, animated: true)
+            navigationController?.navigationBar.hidden = false
+            navigationController?.pushViewController(packVC, animated: true)
         }
         
         super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
