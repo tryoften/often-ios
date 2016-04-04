@@ -77,13 +77,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         keyboardVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfKeyboard(scale: 0.45), tag: 0)
 
         // Packs
-        let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksViewModel())
-        packsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 1)
-
-//        let favoritesVC = KeyboardFavoritesViewController(viewModel: FavoritesService.defaultInstance)
-//        favoritesVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfFavoritestab(scale: 0.45), tag: 1)
-//        favoritesVC.textProcessor = textProcessor
-
+        let packsVC = BrowsePackItemViewController(packId: "testing", viewModel: BrowseViewModel(), textProcessor: textProcessor)
+        packsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPacktab(scale: 0.45), tag: 1)
         sections = [
             (.Keyboard, keyboardVC),
             (.Favorites, packsVC)
