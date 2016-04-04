@@ -9,6 +9,9 @@
 import Foundation
 
 class PacksViewModel : MediaItemsViewModel {
+    init() {
+        super.init(collectionType: .Packs)
+    }
     
     func generatePacksGroup(items: [MediaItem]) -> [MediaItemGroup] {
         let group = MediaItemGroup(dictionary: [

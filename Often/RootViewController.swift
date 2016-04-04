@@ -111,7 +111,7 @@ class RootViewController: UITabBarController {
                     packsViewModel: PacksViewModel()))
         }
 
-        let browseVC = ContainerNavigationController(rootViewController: PackBrowseCollectionViewController())
+        let browseVC = ContainerNavigationController(rootViewController: BrowsePackCollectionViewController())
 
         let settingVC = ContainerNavigationController(rootViewController: AppSettingsViewController(
             viewModel: SettingsViewModel(sessionManager: sessionManager)))

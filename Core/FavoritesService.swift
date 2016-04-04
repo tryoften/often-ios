@@ -42,8 +42,13 @@ class FavoritesService: MediaItemsViewModel {
     var filters: [String: FavoritesFilter] = [:]
     let didChangeFavorites = Event<[MediaItem]>()
 
-    override func fetchData() throws {
-        try fetchCollection(.Favorites, completion: { success in
+    init() {
+        super.init(collectionType: .Favorites)
+        fetchData()
+    }
+
+    override func fetchData() {
+        fetchCollection(.Favorites, completion: { success in
             if self.mediaItems.isEmpty {
                 return
             }
@@ -56,13 +61,7 @@ class FavoritesService: MediaItemsViewModel {
             self.didChangeFavorites.emit(self.mediaItems)
         })
     }
-    
-    override func didSetupUser() {
-        do {
-            try fetchData()
-        } catch _ {}
-    }
-    
+
     func toggleFavorite(selected: Bool, result: MediaItem) {
         if selected {
             addFavorite(result)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PackProfileCollectionViewCell: PackBrowseCollectionViewCell {
+class PackProfileCollectionViewCell: BrowsePackCollectionViewCell {
     override init(frame: CGRect) {
 
         super.init(frame: frame)

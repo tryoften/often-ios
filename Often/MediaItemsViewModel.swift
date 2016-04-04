@@ -19,7 +19,7 @@ class MediaItemsViewModel: BaseViewModel {
     var filteredMediaItems: [MediaItem]
     var sectionIndex: [String: NSInteger?]
 
-    private var collectionEndpoints: [MediaItemsCollectionType: Firebase]
+    internal var collectionEndpoint: Firebase
     private var collectionType: MediaItemsCollectionType
     
     var userState: UserState = .NonEmpty
@@ -29,48 +29,19 @@ class MediaItemsViewModel: BaseViewModel {
         return !(userState == .NoTwitter || userState == .NoKeyboard) || hasSeenTwitter
     }
     
-    init(baseRef: Firebase = Firebase(url: BaseURL)) {
-        collectionEndpoints = [:]
+    init(baseRef: Firebase = Firebase(url: BaseURL), collectionType aCollectionType: MediaItemsCollectionType) {
+        collectionType = aCollectionType
+        collectionEndpoint = baseRef.childByAppendingPath(collectionType.rawValue)
         mediaItems = []
         mediaItemGroups = []
         filteredMediaItems = []
         sectionIndex = [:]
-        collectionType = .Recents
 
         super.init(baseRef: baseRef, path: nil)
-
-        if let userId = sessionManagerFlags.userId  {
-            for type in MediaItemsCollectionType.allValues {
-                let endpoint = baseRef.childByAppendingPath("users/\(userId)/\(type.rawValue.lowercaseString)")
-                self.collectionEndpoints[type] = endpoint
-            }
-        }
-
-        do {
-            try setupUser { inner in
-                self.didSetupUser()
-            }
-        } catch _ {
-        }
     }
     
-    func didSetupUser() {}
-    
-    func fetchAllData() throws {
-        for type in MediaItemsCollectionType.allValues {
-            try fetchCollection(type)
-        }
-    }
-    
-    func fetchCollection(collectionType: MediaItemsCollectionType, completion: ((Bool) -> Void)? = nil) throws {
-        guard let ref = collectionEndpoints[collectionType] else {
-            completion?(false)
-            let error: MediaItemsViewModelError = .FetchingCollectionDataFailed
-            delegate?.mediaLinksViewModelDidFailLoadingMediaItems(self, error: error)
-            throw error
-        }
-        
-        ref.observeEventType(.Value, withBlock: { snapshot in
+    func fetchCollection(collectionType: MediaItemsCollectionType, completion: ((Bool) -> Void)? = nil) {
+        collectionEndpoint.observeEventType(.Value, withBlock: { snapshot in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
                 self.isDataLoaded = true
                 if let data = snapshot.value as? [String: AnyObject] {

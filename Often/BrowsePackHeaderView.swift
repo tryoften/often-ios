@@ -1,5 +1,5 @@
 //
-//  PackBrowseHeaderView.swift
+//  BrowsePackHeaderView.swift
 //  Often
 //
 //  Created by Komran Ghahremani on 3/26/16.
@@ -8,17 +8,17 @@
 
 import UIKit
 
-class PackBrowseHeaderView: UICollectionReusableView {
-    var browsePicker: PackBrowseHeaderCollectionViewController
+class BrowsePackHeaderView: UICollectionReusableView {
+    var browsePicker: BrowsePackHeaderCollectionViewController
     var titleLabel: UILabel
     var subtitleLabel: UILabel
     var actionButton: UIButton // Download or Buy
     var underlineButton: UIButton
-    var sectionHeaderView: PackBrowseSectionHeaderView
+    var sectionHeaderView: BrowsePackSectionHeaderView
     var premiumIcon: UIImageView
     
     override init(frame: CGRect) {
-        browsePicker = PackBrowseHeaderCollectionViewController()
+        browsePicker = BrowsePackHeaderCollectionViewController()
         browsePicker.view.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel = UILabel()
@@ -43,7 +43,7 @@ class PackBrowseHeaderView: UICollectionReusableView {
         actionButton.setTitle("BUY $0.99", forState: .Normal)
         actionButton.setTitleColor(WhiteColor, forState: .Normal)
         
-        sectionHeaderView = PackBrowseSectionHeaderView()
+        sectionHeaderView = BrowsePackSectionHeaderView()
         sectionHeaderView.translatesAutoresizingMaskIntoConstraints = false
         sectionHeaderView.leftLabel.text = "featured packs".uppercaseString
 

@@ -1,5 +1,5 @@
 //
-//  PackBrowseSectionHeaderView.swift
+//  BrowsePackSectionHeaderView.swift
 //  Often
 //
 //  Created by Komran Ghahremani on 3/26/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PackBrowseSectionHeaderView: UICollectionReusableView {
+class BrowsePackSectionHeaderView: UICollectionReusableView {
     var leftLabel: UILabel
     var rightLabel: UILabel
     var bottomBorderView: UIView

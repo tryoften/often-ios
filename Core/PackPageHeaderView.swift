@@ -95,7 +95,7 @@ class PackPageHeaderView : MediaItemPageHeaderView {
             coverPhotoTintView.al_top == coverPhoto.al_top,
             
             titleLabel.al_centerX == al_centerX,
-            titleLabel.al_centerY == al_centerY,
+            titleLabel.al_centerY == al_centerY - 20,
             titleLabel.al_top >= al_top + 15,
             titleLabel.al_height == 22,
             titleLabel.al_width <= al_width - 30,

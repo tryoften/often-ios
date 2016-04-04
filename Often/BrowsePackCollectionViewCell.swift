@@ -1,5 +1,5 @@
 //
-//  PackBrowseCollectionViewCell.swift
+//  BrowsePackCollectionViewCell.swift
 //  Often
 //
 //  Created by Komran Ghahremani on 3/26/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PackBrowseCollectionViewCell: ArtistCollectionViewCell {
+class BrowsePackCollectionViewCell: ArtistCollectionViewCell {
     var primaryButton: UIButton
     
     override init(frame: CGRect) {
@@ -30,7 +30,7 @@ class PackBrowseCollectionViewCell: ArtistCollectionViewCell {
         
         setImageViewLayers()
         
-        primaryButton.addTarget(self, action: #selector(PackBrowseCollectionViewCell.primaryButtonSelected), forControlEvents: .TouchUpInside)
+        primaryButton.addTarget(self, action: #selector(BrowsePackCollectionViewCell.primaryButtonSelected), forControlEvents: .TouchUpInside)
         
         addSubview(primaryButton)
         
