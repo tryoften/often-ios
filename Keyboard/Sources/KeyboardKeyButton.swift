@@ -212,7 +212,7 @@ class KeyboardKeyButton: UIControl {
                     iconView.contentMode = .ScaleAspectFill
                     break
                 case .Enter:
-//                    iconView.image = StyleKit.imageOfEnterkey(scale: 1.0)
+                    iconView.image = StyleKit.imageOfEnterkey(scale: 1.0)
                     iconView.contentMode = .ScaleAspectFill
                     break
                 case .CallService:

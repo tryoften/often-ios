@@ -1213,7 +1213,7 @@
 		3B4C47491C31FA5B00A2E167 /* MainAppSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAppSearchBar.swift; sourceTree = "<group>"; };
 		3B50062A1CADA9DE003D4144 /* BrowseMediaItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseMediaItemViewController.swift; path = Sources/BrowseMediaItemViewController.swift; sourceTree = "<group>"; };
 		3B5006301CADAAE2003D4144 /* PackProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackProfileCollectionViewCell.swift; sourceTree = "<group>"; };
-		3B5006391CADABDB003D4144 /* BrowsePackItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackItemViewController.swift; sourceTree = "<group>"; };
+		3B5006391CADABDB003D4144 /* BrowsePackItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowsePackItemViewController.swift; path = ../Core/BrowsePackItemViewController.swift; sourceTree = "<group>"; };
 		3B50063F1CADACB9003D4144 /* PackPageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackPageHeaderView.swift; sourceTree = "<group>"; };
 		3B58FAE01C4455DB00A38F9E /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		3B5AF3731C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardSearchResultNavgationBar.swift; sourceTree = "<group>"; };
@@ -1760,7 +1760,6 @@
 		3B75E5061C6D2ACB008D4CE3 /* Search Views */ = {
 			isa = PBXGroup;
 			children = (
-				3B5006391CADABDB003D4144 /* BrowsePackItemViewController.swift */,
 				8136F6DE1BCEE687000401BF /* RefreshResultsButton.swift */,
 				810C4AF61B5D81FA005AABEA /* SearchBarButton.swift */,
 				81B2BB701BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift */,
@@ -2482,6 +2481,7 @@
 		81F833831C18CB56001B8662 /* Browse VCs */ = {
 			isa = PBXGroup;
 			children = (
+				3B5006391CADABDB003D4144 /* BrowsePackItemViewController.swift */,
 				81F833611C179A5B001B8662 /* BrowseViewController.swift */,
 				81F8337A1C18B7CA001B8662 /* TrendingLyricsHorizontalCollectionViewController.swift */,
 				81F8337D1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift */,
