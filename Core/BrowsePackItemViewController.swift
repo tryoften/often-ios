@@ -10,7 +10,7 @@ import UIKit
 
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
-class BrowsePackItemViewController: BrowseMediaItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
+class BrowsePackItemViewController: BrowseMediaItemViewController {
 
     var pack: PackMediaItem? {
         didSet {
@@ -19,7 +19,9 @@ class BrowsePackItemViewController: BrowseMediaItemViewController, KeyboardMedia
                 self.collectionView?.reloadData()
             }
             headerViewDidLoad()
+        #if KEYBOARD
             populatePanelMetaData(pack?.name, itemCount: pack?.items.count, imageUrl: pack?.smallImageURL)
+        #endif
         }
     }
     
@@ -80,26 +82,6 @@ class BrowsePackItemViewController: BrowseMediaItemViewController, KeyboardMedia
         loadPackData()
         
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        setupCategoryCollectionViewController()
-        layoutCategoryPanelView()
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-
-        HUDMaskView?.frame = view.bounds
-
-        guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
-            return
-        }
-
-        layoutCategoryPanelView()
-    }
-
 
     override func headerViewDidLoad() {
         let imageURL: NSURL? = pack?.largeImageURL
@@ -195,14 +177,6 @@ class BrowsePackItemViewController: BrowseMediaItemViewController, KeyboardMedia
     }
 
 
-    override func togglePack() {
-        let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksViewModel())
-        packsVC.delegate = self
-        packsVC.transitioningDelegate = self
-        packsVC.modalPresentationStyle = .Custom
-        presentViewController(packsVC, animated: true, completion: nil)
-    }
-
     func loadPackData()  {
         self.pack = nil
 
@@ -216,11 +190,4 @@ class BrowsePackItemViewController: BrowseMediaItemViewController, KeyboardMedia
             #endif
         }
     }
-
-    func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
-        packId = pack.id
-
-        loadPackData()
-    }
-
 }

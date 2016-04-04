@@ -125,6 +125,12 @@
 		3B5006421CB24350003D4144 /* PackPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50063F1CADACB9003D4144 /* PackPageHeaderView.swift */; };
 		3B5006431CB24353003D4144 /* PackPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50063F1CADACB9003D4144 /* PackPageHeaderView.swift */; };
 		3B5006441CB24354003D4144 /* PackPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50063F1CADACB9003D4144 /* PackPageHeaderView.swift */; };
+		3B5006471CB2E50B003D4144 /* KeyboardMediaItemPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB16851CAAF96400904185 /* KeyboardMediaItemPackViewController.swift */; };
+		3B5006481CB2E50C003D4144 /* KeyboardMediaItemPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB16851CAAF96400904185 /* KeyboardMediaItemPackViewController.swift */; };
+		3B5006491CB2E50D003D4144 /* KeyboardMediaItemPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB16851CAAF96400904185 /* KeyboardMediaItemPackViewController.swift */; };
+		3B50064B1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50064A1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift */; };
+		3B50064C1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50064A1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift */; };
+		3B50064D1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50064A1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift */; };
 		3B5AF3751C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AF3731C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift */; };
 		3B5AF3761C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AF3731C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift */; };
 		3B5AF37C1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5AF37A1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift */; };
@@ -167,9 +173,6 @@
 		3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */; };
 		3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
 		3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
-		3BAB16861CAAF96400904185 /* KeyboardMediaItemPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB16851CAAF96400904185 /* KeyboardMediaItemPackViewController.swift */; };
-		3BAB16871CAAF96400904185 /* KeyboardMediaItemPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB16851CAAF96400904185 /* KeyboardMediaItemPackViewController.swift */; };
-		3BAB16881CAAF96400904185 /* KeyboardMediaItemPackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB16851CAAF96400904185 /* KeyboardMediaItemPackViewController.swift */; };
 		3BAB168A1CAB2CA600904185 /* KeyboardMediaItemPackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB16891CAB2CA600904185 /* KeyboardMediaItemPackHeaderView.swift */; };
 		3BAB168B1CAB2CA600904185 /* KeyboardMediaItemPackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB16891CAB2CA600904185 /* KeyboardMediaItemPackHeaderView.swift */; };
 		3BAB168C1CAB2CA600904185 /* KeyboardMediaItemPackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB16891CAB2CA600904185 /* KeyboardMediaItemPackHeaderView.swift */; };
@@ -1218,6 +1221,7 @@
 		3B5006301CADAAE2003D4144 /* PackProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B5006391CADABDB003D4144 /* BrowsePackItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowsePackItemViewController.swift; path = ../Core/BrowsePackItemViewController.swift; sourceTree = "<group>"; };
 		3B50063F1CADACB9003D4144 /* PackPageHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackPageHeaderView.swift; sourceTree = "<group>"; };
+		3B50064A1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardBrowsePackItemViewController.swift; sourceTree = "<group>"; };
 		3B58FAE01C4455DB00A38F9E /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		3B5AF3731C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardSearchResultNavgationBar.swift; sourceTree = "<group>"; };
 		3B5AF37A1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAppSearchResultNavigationBar.swift; sourceTree = "<group>"; };
@@ -2491,6 +2495,7 @@
 				3B50062A1CADA9DE003D4144 /* BrowseMediaItemViewController.swift */,
 				69F6EE801C2861DC0070CCA8 /* BrowseArtistCollectionViewController.swift */,
 				81BDA7351C404BCF00198AF8 /* BrowseTrackCollectionViewController.swift */,
+				3B50064A1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift */,
 			);
 			name = "Browse VCs";
 			path = ../Keyboard;
@@ -3538,7 +3543,6 @@
 				3BC55ABE1C8A261300363AB0 /* KeyboardMediaItemDetailViewController.swift in Sources */,
 				810EA5BB1C8579F1005A6C6D /* MediaItemsViewModel.swift in Sources */,
 				810EA5BC1C8579F1005A6C6D /* KeyboardKeyBackgroundConnector.swift in Sources */,
-				3BAB16881CAAF96400904185 /* KeyboardMediaItemPackViewController.swift in Sources */,
 				810EA5BD1C8579F1005A6C6D /* ToolTip.swift in Sources */,
 				810EA5BE1C8579F1005A6C6D /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
 				810EA5BF1C8579F1005A6C6D /* SearchBarButton.swift in Sources */,
@@ -3567,6 +3571,7 @@
 				810EA5D71C8579F1005A6C6D /* KeyboardPage.swift in Sources */,
 				816D50E51C8A2FD9007B3249 /* KeyboardBrowseViewController.swift in Sources */,
 				810EA5D81C8579F1005A6C6D /* delay.swift in Sources */,
+				3B5006491CB2E50D003D4144 /* KeyboardMediaItemPackViewController.swift in Sources */,
 				3B5006351CADAB0E003D4144 /* PackBrowseCollectionViewCell.swift in Sources */,
 				810EA5D91C8579F1005A6C6D /* String+Utils.swift in Sources */,
 				810EA5DA1C8579F1005A6C6D /* TogglePanelButton.swift in Sources */,
@@ -3606,6 +3611,7 @@
 				810EA5F61C8579F1005A6C6D /* KeyboardSearchResultNavgationBar.swift in Sources */,
 				BF8008361C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */,
 				810EA5F71C8579F1005A6C6D /* KeyboardBrowseNavigationBar.swift in Sources */,
+				3B50064D1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift in Sources */,
 				3B50062F1CADA9DE003D4144 /* BrowseMediaItemViewController.swift in Sources */,
 				810EA5F81C8579F1005A6C6D /* SearchResultsCellOverlayView.swift in Sources */,
 				810EA5F91C8579F1005A6C6D /* KeyboardSearchTextField.swift in Sources */,
@@ -3825,6 +3831,7 @@
 				810703711BFD05AC00FDBF57 /* ParseConfig.swift in Sources */,
 				81F833911C1A38B2001B8662 /* KeyboardViewController.swift in Sources */,
 				3BAB168B1CAB2CA600904185 /* KeyboardMediaItemPackHeaderView.swift in Sources */,
+				3B5006481CB2E50C003D4144 /* KeyboardMediaItemPackViewController.swift in Sources */,
 				816D50E01C8A0EF2007B3249 /* KeyboardSearchViewController.swift in Sources */,
 				8192A7DD1C62410300B25AC6 /* Notification.swift in Sources */,
 				817F784D1BC085440087EBE8 /* suffixNumber.swift in Sources */,
@@ -3945,6 +3952,7 @@
 				69FEDDE21BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
 				3B75E5121C6E6B1B008D4CE3 /* UIDevice+DeviceList.swift in Sources */,
 				6944A53A1C3AF09600EA57C3 /* EmptyStateView.swift in Sources */,
+				3B50064C1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
 				81B2BB721BD42EBB00F22AF8 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
 				8192A7DF1C62410300B25AC6 /* NotificationListener.swift in Sources */,
@@ -3954,7 +3962,6 @@
 				BFD877861CA9B41300DCDA08 /* PacksViewModel.swift in Sources */,
 				6944A5351C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */,
 				817F783A1BBDD2780087EBE8 /* TrackMediaItem.swift in Sources */,
-				3BAB16871CAAF96400904185 /* KeyboardMediaItemPackViewController.swift in Sources */,
 				8176BEC61B72DA9800E1BDCD /* SearchResultsCollectionViewController.swift in Sources */,
 				817938FE1B59A41A0064B0CF /* KeyboardSearchBar.swift in Sources */,
 				81BDA7411C40884300198AF8 /* CellAnimatable.swift in Sources */,
@@ -4001,6 +4008,7 @@
 				81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */,
 				81DA3EB21C24BE85006822D3 /* SearchSuggestion.swift in Sources */,
 				81DA3EB31C24BE85006822D3 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
+				3B5006471CB2E50B003D4144 /* KeyboardMediaItemPackViewController.swift in Sources */,
 				6958C7B81C2AEAF800BDAB3F /* TrackCollectionViewCell.swift in Sources */,
 				81DA3EB41C24BE85006822D3 /* ArticleMediaItem.swift in Sources */,
 				81DA3EB51C24BE85006822D3 /* KeyboardSearchTextField.swift in Sources */,
@@ -4107,12 +4115,12 @@
 				3B20C03A1C7E0D3F00D98803 /* SearchResultNavigationBar.swift in Sources */,
 				81BDA7401C40884300198AF8 /* CellAnimatable.swift in Sources */,
 				81DA3F181C24BE85006822D3 /* KeyboardRecentsViewController.swift in Sources */,
+				3B50064B1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift in Sources */,
 				81DA3F191C24BE85006822D3 /* KeyboardKeyBackgroundConnector.swift in Sources */,
 				81DA3F1A1C24BE85006822D3 /* SessionManagerFlags.swift in Sources */,
 				81DA3F1B1C24BE85006822D3 /* Constants.swift in Sources */,
 				81DA3F1C1C24BE85006822D3 /* SearchResponse.swift in Sources */,
 				81DA3F1D1C24BE85006822D3 /* StreamReader.swift in Sources */,
-				3BAB16861CAAF96400904185 /* KeyboardMediaItemPackViewController.swift in Sources */,
 				81DA3F1F1C24BE85006822D3 /* WindowRootViewController.swift in Sources */,
 				698AD3411C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift in Sources */,
 				3B9991D61C7E4E9B00C60A99 /* AnimatedLoaderView.swift in Sources */,
