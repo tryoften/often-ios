@@ -40,6 +40,16 @@ class PackMediaItem: MediaItem {
         if let itemsCount = data["items_count"] as? Int {
             self.items_count = itemsCount
         }
+
+        if let images = data["image"] as? NSDictionary,
+            let small = images["small_url"] as? String {
+            self.smallImageURL = NSURL(string: small)
+        }
+
+        if let images = data["image"] as? NSDictionary,
+            let large = images["large_url"] as? String  {
+            self.largeImageURL = NSURL(string: large)
+        }
         
         if let items = data["items"] as? NSArray,
             let itemsModel = LyricMediaItem.modelsFromDictionaryArray(items) as? [LyricMediaItem] {
