@@ -11,7 +11,7 @@ import Foundation
 private let KeyboardMediaItemPackHeaderViewCellReuseIdentifier = "PackHeaderViewCell"
 private let PacksCellReuseIdentifier = "TrendingArtistsCell"
 
-class KeyboardMediaItemPackPickerViewController: FullScreenCollectionViewController, MediaItemsViewModelDelegate {
+class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: PacksViewModel
     var packPanelView: PackPanelView
     var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
@@ -28,6 +28,8 @@ class KeyboardMediaItemPackPickerViewController: FullScreenCollectionViewControl
         packPanelView.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(collectionViewLayout: KeyboardMediaItemPackPickerViewController.provideLayout())
+
+        collectionView?.contentInset = UIEdgeInsets(top: -40, left: 0, bottom: 0, right: 0)
 
         do {
             try viewModel.fetchCollection(.Packs)
@@ -123,7 +125,7 @@ class KeyboardMediaItemPackPickerViewController: FullScreenCollectionViewControl
 
             // Configure the cell
             cell.titleLabel.text = pack.name
-            if let imageURL = pack.squareImageURL {
+            if let imageURL = pack.largeImageURL {
                 cell.imageView.setImageWithAnimation(imageURL)
             }
             cell.layer.shouldRasterize = true
@@ -137,7 +139,7 @@ class KeyboardMediaItemPackPickerViewController: FullScreenCollectionViewControl
         guard let group = group, pack = group.items[indexPath.row] as? PackMediaItem else {
             return
         }
-
+        print(pack.id)
         delegate?.keyboardMediaItemPackPickerViewControllerDidSelectPack(self, pack: pack)
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -148,11 +150,15 @@ class KeyboardMediaItemPackPickerViewController: FullScreenCollectionViewControl
 
     func favoriteButtonDidTap(sender: UIButton) {
         let favoritesVC = KeyboardFavoritesViewController(viewModel: FavoritesService.defaultInstance)
+        favoritesVC.transitioningDelegate = self
+        favoritesVC.modalPresentationStyle = .Custom
         presentViewController(favoritesVC, animated: true, completion: nil)
     }
 
     func recentButtonDidTap(sender: UIButton) {
         let recentVC = KeyboardRecentsViewController(viewModel: RecentsViewModel())
+        recentVC.transitioningDelegate = self
+        recentVC.modalPresentationStyle = .Custom
         presentViewController(recentVC, animated: true, completion: nil)
     }
 
@@ -194,6 +200,12 @@ class KeyboardMediaItemPackPickerViewController: FullScreenCollectionViewControl
         }
 
         throw NSError(domain: "UIInputViewController+sharedApplication.swift", code: 1, userInfo: nil)
+    }
+
+    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false)
+
+        return animator
     }
 
 }

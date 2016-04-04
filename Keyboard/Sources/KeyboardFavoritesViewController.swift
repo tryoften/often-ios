@@ -9,17 +9,13 @@
 import UIKit
 
 class KeyboardFavoritesViewController: MediaItemsViewController {
-    var categoriesVC: CategoryCollectionViewController? = nil
-    var panelToggleListener: Listener?
-
-    private var HUDMaskView: UIView?
 
     init(viewModel: MediaItemsViewModel) {
         let layout = KeyboardFavoritesViewController.provideCollectionViewFlowLayout()
         super.init(collectionViewLayout: layout, collectionType: .Favorites, viewModel: viewModel)
 
         collectionView?.backgroundColor = UIColor.clearColor()
-        collectionView?.contentInset = UIEdgeInsetsMake(KeyboardSearchBarHeight + -1, 0, SectionPickerViewHeight, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(-1, 0, SectionPickerViewHeight, 0)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
     }
@@ -48,10 +44,13 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
 
         setupCategoryCollectionViewController()
         layoutCategoryPanelView()
+
+        populatePanelMetaData(collectionType.rawValue.uppercaseString, itemCount: viewModel.mediaItemGroupItemsForIndex(0).count, imageUrl: nil)
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+
         HUDMaskView?.frame = view.bounds
 
         guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
@@ -108,47 +107,7 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         return cell
     }
 
-    func setupCategoryCollectionViewController() {
-        let categoriesVC = CategoryCollectionViewController()
-        self.categoriesVC = categoriesVC
-
-        HUDMaskView = UIView()
-        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
-        HUDMaskView?.hidden = true
-
-        view.addSubview(HUDMaskView!)
-        view.addSubview(categoriesVC.view)
-        addChildViewController(categoriesVC)
-
-        panelToggleListener = categoriesVC.panelView.didToggle.on({ opening in
-            guard let maskView = self.HUDMaskView else {
-                return
-            }
-
-            if opening {
-                maskView.alpha = 0.0
-                maskView.hidden = false
-            }
-
-            UIView.animateWithDuration(0.3, animations: {
-                maskView.alpha = opening ? 1.0 : 0.0
-            }, completion: { done in
-                if !opening {
-                    maskView.hidden = true
-                }
-            })
-        })
-
-        layoutCategoryPanelView()
-    }
-
-    func layoutCategoryPanelView() {
-        let superviewHeight: CGFloat = CGRectGetHeight(view.frame)
-        if let panelView = categoriesVC?.view {
-            panelView.frame = CGRectMake(CGRectGetMinX(view.frame),
-                superviewHeight - SectionPickerViewHeight,
-                CGRectGetWidth(view.frame),
-                SectionPickerViewOpenedHeight)
-        }
+    override func togglePack() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
