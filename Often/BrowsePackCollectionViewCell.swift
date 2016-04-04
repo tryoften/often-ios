@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BrowsePackCollectionViewCell: ArtistCollectionViewCell {
+class BrowsePackCollectionViewCell: BrowseMediaItemCollectionViewCell {
     var primaryButton: UIButton
     
     override init(frame: CGRect) {
@@ -21,13 +21,11 @@ class BrowsePackCollectionViewCell: ArtistCollectionViewCell {
         primaryButton.setTitle("remove".uppercaseString, forState: .Selected)
         primaryButton.setTitleColor(WhiteColor, forState: .Normal)
         primaryButton.setTitleColor(BlackColor, forState: .Selected)
-        
+
         super.init(frame: frame)
 
-        imageView.image = UIImage(named: "future")
-        titleLabel.text = "Queen B"
-        subtitleLabel.text = "58 Lyrics"
-        
+        imageView.image = UIImage(named: "placeholder")
+
         setImageViewLayers()
         
         primaryButton.addTarget(self, action: #selector(BrowsePackCollectionViewCell.primaryButtonSelected), forControlEvents: .TouchUpInside)
@@ -37,25 +35,7 @@ class BrowsePackCollectionViewCell: ArtistCollectionViewCell {
         setupLayout()
     }
     
-    func setImageViewLayers() {
-        
-        let width: CGFloat = self.frame.size.width
-        let height: CGFloat = self.frame.size.height
-        var layer = CAShapeLayer()
-        layer.path = ArtistCollectionViewCell.drawImageMask(frame: CGRectMake(0, 0, width, height/2)).CGPath
-        layer.fillColor = UIColor.whiteColor().CGColor
-        layer.backgroundColor = UIColor.clearColor().CGColor
-        layer.frame = CGRectMake(0, 0, width, height)
-        placeholderImageView.layer.mask = layer
-        
-        layer = CAShapeLayer()
-        layer.path = ArtistCollectionViewCell.drawImageMask(frame: CGRectMake(0, 0, frame.size.width, height/2)).CGPath
-        layer.fillColor = UIColor.whiteColor().CGColor
-        layer.backgroundColor = UIColor.clearColor().CGColor
-        layer.frame = CGRectMake(0, 0, width, height)
-        imageView.layer.mask = layer
-    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -65,9 +45,14 @@ class BrowsePackCollectionViewCell: ArtistCollectionViewCell {
         if primaryButton.selected {
             primaryButton.backgroundColor = BlackColor
             primaryButton.selected = false
+            primaryButton.layer.shadowOpacity = 0.0
         } else {
             primaryButton.backgroundColor = WhiteColor
             primaryButton.selected = true
+            primaryButton.layer.shadowRadius = 2
+            primaryButton.layer.shadowOpacity = 0.2
+            primaryButton.layer.shadowColor = MediumLightGrey.CGColor
+            primaryButton.layer.shadowOffset = CGSizeMake(0, 2)
         }
     }
     

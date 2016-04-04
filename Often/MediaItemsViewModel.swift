@@ -40,18 +40,17 @@ class MediaItemsViewModel: BaseViewModel {
         super.init(baseRef: baseRef, path: nil)
     }
     
-    func fetchCollection(collectionType: MediaItemsCollectionType, completion: ((Bool) -> Void)? = nil) {
+    func fetchCollection(completion: ((Bool) -> Void)? = nil) {
         collectionEndpoint.observeEventType(.Value, withBlock: { snapshot in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
                 self.isDataLoaded = true
                 if let data = snapshot.value as? [String: AnyObject] {
                     self.mediaItems = self.processMediaItemsCollectionData(data)
                 }
-                
-                self.collectionType = collectionType
+
                 let mediaItemGroups = self.generateMediaItemGroups()
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: collectionType, groups: mediaItemGroups)
+                    self.delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: self.collectionType, groups: mediaItemGroups)
                     completion?(true)
                 }
             }

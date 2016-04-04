@@ -35,7 +35,7 @@ func ==(lhs: FavoritesFilter, rhs: FavoritesFilter) -> Bool {
 
 /// fetches favorites for current user and keeps them up to date
 /// also has methods to add/remove favorites
-class FavoritesService: MediaItemsViewModel {
+class FavoritesService: UserMediaItemsViewModel {
     static let defaultInstance = FavoritesService()
     private(set) var ids: Set<String> = []
 
@@ -48,7 +48,7 @@ class FavoritesService: MediaItemsViewModel {
     }
 
     override func fetchData() {
-        fetchCollection(.Favorites, completion: { success in
+        fetchCollection { success in
             if self.mediaItems.isEmpty {
                 return
             }
@@ -59,7 +59,7 @@ class FavoritesService: MediaItemsViewModel {
             }
             
             self.didChangeFavorites.emit(self.mediaItems)
-        })
+        }
     }
 
     func toggleFavorite(selected: Bool, result: MediaItem) {

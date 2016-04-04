@@ -8,13 +8,16 @@
 
 import UIKit
 
-class BrowsePackCollectionViewController: UICollectionViewController {
+class BrowsePackCollectionViewController: MediaItemsViewController {
     var headerView: BrowsePackHeaderView?
     var sectionHeaderView: BrowsePackSectionHeaderView?
     var packServiceListener: Listener?
     
-    init() {
-        super.init(collectionViewLayout: BrowsePackCollectionViewController.getLayout())
+    init(viewModel: PacksViewModel) {
+        super.init(collectionViewLayout: BrowsePackCollectionViewController.getLayout(),
+                   collectionType: .Packs,
+                   viewModel: viewModel)
+
         navigationItem.title = "often".uppercaseString
     }
     
@@ -27,11 +30,6 @@ class BrowsePackCollectionViewController: UICollectionViewController {
             collectionView.registerClass(BrowsePackHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowsePackSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
             collectionView.registerClass(BrowsePackCollectionViewCell.self, forCellWithReuseIdentifier: "packCell")
-            collectionView.contentInset = UIEdgeInsetsMake(0, 0, CGRectGetHeight(tabBarController!.tabBar.frame) + 10, 0)
-        }
-
-        packServiceListener = PackService.defaultInstance.didUpdatePacks.on { packs in
-            self.collectionView?.reloadData()
         }
     }
 
@@ -68,30 +66,6 @@ class BrowsePackCollectionViewController: UICollectionViewController {
         navigationController?.navigationBar.barTintColor = MainBackgroundColor
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return PackService.defaultInstance.packs.count
-    }
-    
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("packCell", forIndexPath: indexPath) as? BrowsePackCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-
-        let pack = PackService.defaultInstance.packs[indexPath.row]
-
-        if let smallImageURL = pack.smallImageURL {
-            cell.imageView.setImageWithURL(smallImageURL)
-        }
-        cell.titleLabel.text = pack.name
-        cell.subtitleLabel.text = "\(pack.items.count) items"
-        
-        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
-        cell.layer.shouldRasterize = true
-        
-        return cell
-    }
-    
-    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as? BrowsePackHeaderView else {
@@ -115,10 +89,6 @@ class BrowsePackCollectionViewController: UICollectionViewController {
         return UICollectionReusableView()
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-
-    }
-    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 20.0 as CGFloat
     }
@@ -127,7 +97,7 @@ class BrowsePackCollectionViewController: UICollectionViewController {
         return 0.0 as CGFloat
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         return CGSizeMake(screenWidth, 35.0)
         

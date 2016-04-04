@@ -31,7 +31,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         super.init(collectionViewLayout: layout)
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
-        collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: "PackCellIdentifier")
+        collectionView?.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: "PackCellIdentifier")
 
 
         favoritesCollectionListener = FavoritesService.defaultInstance.didChangeFavorites.on { items in
@@ -80,7 +80,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0,
             target: self,
-            selector: "timeoutLoader",
+            selector: #selector(MediaItemsCollectionBaseViewController.timeoutLoader),
             userInfo: nil,
             repeats: false)
     }
@@ -115,7 +115,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         emptyStateView?.removeFromSuperview()
 
         emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
-        emptyStateView?.closeButton.addTarget(self, action: "didTapEmptyStateViewCloseButton", forControlEvents: .TouchUpInside)
+        emptyStateView?.closeButton.addTarget(self, action: #selector(MediaItemsCollectionBaseViewController.didTapEmptyStateViewCloseButton), forControlEvents: .TouchUpInside)
         
 
         if let emptyStateView = emptyStateView {
@@ -150,9 +150,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         })
     }
 
-    func parsePackItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> PackProfileCollectionViewCell {
+    func parsePackItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> BrowseMediaItemCollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PackCellIdentifier", forIndexPath: indexPath) as? PackProfileCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PackCellIdentifier", forIndexPath: indexPath) as? BrowseMediaItemCollectionViewCell else {
             return PackProfileCollectionViewCell()
         }
         
@@ -169,12 +169,13 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
         
         if let lyricsCount = pack.items_count {
-            cell.subtitleLabel.text = "\(lyricsCount) lyrics".uppercaseString
+            cell.subtitleLabel.text = "\(lyricsCount) items".uppercaseString
         }
         
         cell.titleLabel.text = pack.name
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+
         return cell
         
     }

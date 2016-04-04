@@ -96,12 +96,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     override func requestData(animated: Bool = false) {
         super.requestData(animated)
 
-        do {
-            try viewModel.fetchCollection(collectionType) { success in
-                self.reloadData(animated)
-            }
-        } catch let error {
-            print("Failed to request data \(error)")
+        viewModel.fetchCollection { success in
+            self.reloadData(animated)
         }
     }
     
@@ -220,6 +216,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+
         if collectionType == .Packs {
             let result = viewModel.mediaItemGroupItemsForIndex(indexPath.section)[indexPath.row]
             guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
@@ -229,8 +227,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             navigationController?.navigationBar.hidden = false
             self.navigationController?.pushViewController(packVC, animated: true)
         }
-        
-        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+
 
         if collectionType == .Favorites {
             if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell {
@@ -238,7 +235,8 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             }
         }
     }
-    
+
+    //TODO(luc): move this method out into a subclass
     func provideRecentlyAddedLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
         if lyricsHorizontalVC == nil {
             lyricsHorizontalVC = RecentlyAddedHorizontalCollectionViewController()

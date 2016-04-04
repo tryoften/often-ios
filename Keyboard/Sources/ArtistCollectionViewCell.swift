@@ -11,7 +11,7 @@
 
 import UIKit
 
-class ArtistCollectionViewCell: UICollectionViewCell {
+class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     var placeholderImageView: UIImageView
     var imageView: UIImageView
     var titleLabel: UILabel
@@ -37,7 +37,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
 
         var layer = CAShapeLayer()
-        layer.path = ArtistCollectionViewCell.drawImageMask().CGPath
+        layer.path = BrowseMediaItemCollectionViewCell.drawImageMask().CGPath
         layer.fillColor = UIColor.whiteColor().CGColor
         layer.backgroundColor = UIColor.clearColor().CGColor
         layer.frame = CGRectMake(0, 0, ArtistCollectionViewCellWidth, ArtistCollectionViewCellWidth)
@@ -50,7 +50,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         imageView.clipsToBounds = true
 
         layer = CAShapeLayer()
-        layer.path = ArtistCollectionViewCell.drawImageMask().CGPath
+        layer.path = BrowseMediaItemCollectionViewCell.drawImageMask().CGPath
         layer.fillColor = UIColor.whiteColor().CGColor
         layer.backgroundColor = UIColor.clearColor().CGColor
         layer.frame = CGRectMake(0, 0, ArtistCollectionViewCellWidth, ArtistCollectionViewCellWidth)
@@ -91,6 +91,26 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     required convenience init?(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
+
+    func setImageViewLayers() {
+        let width: CGFloat = self.frame.size.width
+        let height: CGFloat = self.frame.size.height
+
+        var layer = CAShapeLayer()
+        layer.path = self.dynamicType.drawImageMask(frame: CGRectMake(0, 0, width, height/2)).CGPath
+        layer.fillColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.frame = CGRectMake(0, 0, width, height)
+        placeholderImageView.layer.mask = layer
+
+        layer = CAShapeLayer()
+        layer.path = self.dynamicType.drawImageMask(frame: CGRectMake(0, 0, frame.size.width, height/2)).CGPath
+        layer.fillColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.frame = CGRectMake(0, 0, width, height)
+        imageView.layer.mask = layer
+    }
+
 
     override func prepareForReuse() {
         imageView.image = nil

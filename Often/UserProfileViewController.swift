@@ -15,16 +15,18 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     var sectionHeaderView: MediaItemsSectionHeaderView?
     var viewModels: [MediaItemsCollectionType: MediaItemsViewModel]
     
-    init(collectionViewLayout: UICollectionViewLayout, recentsViewModel: RecentsViewModel, favoritesViewModel: FavoritesService, packsViewModel: PacksViewModel) {
+    init(recentsViewModel: RecentsViewModel,
+         favoritesViewModel: FavoritesService,
+         packsViewModel: PacksService) {
         
         viewModels = [.Favorites: favoritesViewModel, .Recents: recentsViewModel, .Packs: packsViewModel]
         
-        super.init(collectionViewLayout: collectionViewLayout, collectionType: .Packs, viewModel: packsViewModel)
+        super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout(), collectionType: .Packs, viewModel: packsViewModel)
 
         viewModel = viewModels[collectionType]!
         viewModel.delegate = self
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "checkUserEmptyStateStatus", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.checkUserEmptyStateStatus), name: UIApplicationDidBecomeActiveNotification, object: nil)
         collectionView?.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 70.0, right: 0.0)
     
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
@@ -157,14 +159,8 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             if headerView == nil {
                 headerView = cell
                 headerView?.tabContainerView.delegate = self
-                
-                do {
-                    try viewModel.fetchCollection(collectionType)
-                } catch MediaItemsViewModelError.FetchingCollectionDataFailed {
-                    print("Failed to request data")
-                } catch let error {
-                    print("Failed to request data \(error)")
-                }
+                viewModel.fetchCollection()
+
             }
             
             return headerView!
@@ -260,7 +256,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             viewModel.userState = .NoKeyboard
             collectionView?.scrollEnabled = false
             showEmptyStateViewForState(.NoKeyboard)
-            emptyStateView?.primaryButton.addTarget(self, action: "didTapSettingsButton", forControlEvents: .TouchUpInside)
+            emptyStateView?.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapSettingsButton), forControlEvents: .TouchUpInside)
         }
     }
        

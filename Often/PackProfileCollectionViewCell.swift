@@ -17,10 +17,6 @@ class PackProfileCollectionViewCell: BrowsePackCollectionViewCell {
         primaryButton.setTitle("remove".uppercaseString, forState: .Normal)
         primaryButton.titleLabel?.font = UIFont(name: "OpenSans", size: 8)
         primaryButton.setTitleColor(BlackColor, forState: .Normal)
-        primaryButton.layer.shadowRadius = 2
-        primaryButton.layer.shadowOpacity = 0.2
-        primaryButton.layer.shadowColor = MediumLightGrey.CGColor
-        primaryButton.layer.shadowOffset = CGSizeMake(0, 2)
         
         imageView.image = UIImage(named: "placeholder")
         titleLabel.text = ""
