@@ -26,7 +26,7 @@ class BrowsePackCollectionViewCell: BrowseMediaItemCollectionViewCell {
 
         imageView.image = UIImage(named: "placeholder")
 
-        setImageViewLayers()
+        setImageViewLayers(CGRectMake(0, 0, frame.size.width, frame.size.height/2))
         
         primaryButton.addTarget(self, action: #selector(BrowsePackCollectionViewCell.primaryButtonSelected), forControlEvents: .TouchUpInside)
         

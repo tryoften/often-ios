@@ -10,7 +10,8 @@
 
 import UIKit
 
-let MediaItemCollectionViewCellReuseIdentifier = "MediaItemsCollectionViewCell"
+let MediaItemCollectionViewCellReuseIdentifier = "MediaItemCollectionViewCell"
+let BrowseMediaItemCollectionViewCellReuseIdentifier = "BrowseMediaItemCollectionViewCell"
 
 class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate, UIViewControllerTransitioningDelegate {
 
@@ -37,7 +38,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         super.init(collectionViewLayout: layout)
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
-        collectionView?.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: "PackCellIdentifier")
+        collectionView?.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
 
 
         favoritesCollectionListener = FavoritesService.defaultInstance.didChangeFavorites.on { items in
@@ -158,7 +159,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
     func parsePackItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> BrowseMediaItemCollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PackCellIdentifier", forIndexPath: indexPath) as? BrowseMediaItemCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(BrowseMediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? BrowseMediaItemCollectionViewCell else {
             return PackProfileCollectionViewCell()
         }
         

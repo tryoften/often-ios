@@ -177,7 +177,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         let cell: UICollectionViewCell
         
         if collectionType == .Packs {
-            cell = parsePackItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView) as PackProfileCollectionViewCell
+            cell = parsePackItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView) as BrowseMediaItemCollectionViewCell
         } else {
             cell = parseMediaItemData(viewModel.mediaItemGroupItemsForIndex(indexPath.section), indexPath: indexPath, collectionView: collectionView) as MediaItemCollectionViewCell
         }

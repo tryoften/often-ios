@@ -53,20 +53,19 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         layer.path = BrowseMediaItemCollectionViewCell.drawImageMask().CGPath
         layer.fillColor = UIColor.whiteColor().CGColor
         layer.backgroundColor = UIColor.clearColor().CGColor
-        layer.frame = CGRectMake(0, 0, ArtistCollectionViewCellWidth, ArtistCollectionViewCellWidth)
         imageView.layer.mask = layer
 
         titleLabel = UILabel()
         titleLabel.font = ArtistCollectionViewCellTitleFont
         titleLabel.textColor = ArtistCollectionViewCellTitleTextColor
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textAlignment = .Left
+        titleLabel.textAlignment = .Center
 
         subtitleLabel = UILabel()
         subtitleLabel.font = ArtistCollectionViewCellSubtitleFont
         subtitleLabel.textColor = ArtistCollectionViewCellSubtitleTextColor
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.textAlignment = .Left
+        subtitleLabel.textAlignment = .Center
 
         contentEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
 
@@ -86,28 +85,28 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
 
         selected = false
         setupLayout()
+
+        let width: CGFloat = self.frame.size.width
+        setImageViewLayers(CGRectMake(0, 0, width, width))
     }
 
     required convenience init?(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
 
-    func setImageViewLayers() {
-        let width: CGFloat = self.frame.size.width
-        let height: CGFloat = self.frame.size.height
-
+    func setImageViewLayers(frame: CGRect) {
         var layer = CAShapeLayer()
-        layer.path = self.dynamicType.drawImageMask(frame: CGRectMake(0, 0, width, height/2)).CGPath
+        layer.path = self.dynamicType.drawImageMask(frame: frame).CGPath
         layer.fillColor = UIColor.whiteColor().CGColor
         layer.backgroundColor = UIColor.clearColor().CGColor
-        layer.frame = CGRectMake(0, 0, width, height)
+        layer.frame = frame
         placeholderImageView.layer.mask = layer
 
         layer = CAShapeLayer()
-        layer.path = self.dynamicType.drawImageMask(frame: CGRectMake(0, 0, frame.size.width, height/2)).CGPath
+        layer.path = self.dynamicType.drawImageMask(frame: frame).CGPath
         layer.fillColor = UIColor.whiteColor().CGColor
         layer.backgroundColor = UIColor.clearColor().CGColor
-        layer.frame = CGRectMake(0, 0, width, height)
+        layer.frame = frame
         imageView.layer.mask = layer
     }
 

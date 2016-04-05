@@ -24,16 +24,12 @@ class PackProfileCollectionViewCell: BrowsePackCollectionViewCell {
         subtitleLabel.text = ""
         subtitleLabel.font = UIFont(name: "OpenSans", size: 9)
         subtitleLabel.alpha = 0.54
-        
+
+        primaryButtonSelected()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func primaryButtonSelected() {
-        // animation
-        // remove pack
     }
 
 }
