@@ -17,6 +17,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
     var pageCount: Int
     var pageViews: [UIImageView]
     var pageImages: [UIImage]
+    var pageTitle: [String]
     var pagesubTitle: [String]
     var scrollTimer: NSTimer?
     var launchScreenLoaderTimer: NSTimer?
@@ -39,17 +40,21 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         pageViews = [UIImageView]()
         
         pageImages = [
-            UIImage(named: "productWalkthroughStep_1")!,
-            UIImage(named: "productWalkthroughStep_2")!,
-            UIImage(named: "productWalkthroughStep_3")!,
-            UIImage(named: "productWalkthroughStep_4")!
+            UIImage(named: "onboarding1")!,
+            UIImage(named: "onboarding2")!,
+            UIImage(named: "onboarding3")!
+        ]
+        
+        pageTitle = [
+            "Packs. Packs. Packs.",
+            "Share inside Snapchat",
+            "Over 12 different categories"
         ]
         
         pagesubTitle = [
-            "Search, collect & share lyrics, \n in any app, right from your keyboard",
-            "Save all the best lyrics to your Favorites & easily share them again later",
-            "Discover the hottest lyrics, songs & artists right inside your keyboard",
-            "Powered by Lyricfind, Often helps \n you find any lyric, song or artist"
+            "Share all the best lyrics & quotes right from\n your keyboard with new packs",
+            "Use Often to caption your Snaps with all\n your favorite lyrics & quotes",
+            "Sort by over 12 different categories and\n find the perfect one every time"
         ]
         
         super.init(viewModel: viewModel)
@@ -61,11 +66,6 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         
         scrollTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
         launchScreenLoaderTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
-    }
-
-    func scrollToNextPage() {
-        let xOffset = pageWidth * CGFloat((currentPage + 1) % pageCount)
-        loginView.scrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: true)
     }
 
     override func viewDidLoad() {
@@ -86,6 +86,15 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         }
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    func scrollToNextPage() {
+        let xOffset = pageWidth * CGFloat((currentPage + 1) % pageCount)
+        loginView.scrollView.setContentOffset(CGPoint(x: xOffset, y: 0), animated: true)
+    }
+    
     func loadVisiblePages() {
         for index in 0...pageCount - 1 {
             loadPage(index)
@@ -97,8 +106,8 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = pageImages[page]
-        imageView.contentMode = .Center
-
+        imageView.contentMode = .ScaleAspectFit
+        
         if Diagnostics.platformString().number == 5 {
             imageView.contentMode = .ScaleAspectFit
         }
@@ -108,7 +117,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         
         loginView.scrollView.addConstraints([
             imageView.al_top == loginView.scrollView.al_top,
-            imageView.al_height == loginView.scrollView.al_height,
+            imageView.al_height == loginView.scrollView.al_height - 49.6,
             imageView.al_width == pageWidth,
             imageView.al_left == loginView.scrollView.al_left + pageWidth * CGFloat(page)
         ])
@@ -117,6 +126,13 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        let titleString = pageTitle[currentPage]
+        let titleRange = NSMakeRange(0, titleString.characters.count)
+        let title = NSMutableAttributedString(string: titleString)
+        
+        title.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 15)!, range: titleRange)
+        title.addAttribute(NSKernAttributeName, value: 2, range: titleRange)
+        
         let subtitleString = pagesubTitle[currentPage]
         let subtitleRange = NSMakeRange(0, subtitleString.characters.count)
         let subtitle = NSMutableAttributedString(string: subtitleString)
@@ -128,6 +144,9 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
         
         loginView.pageControl.currentPage = currentPage
+        loginView.titleLabel.text = titleString
+        loginView.titleLabel.attributedText = title
+        loginView.titleLabel.textAlignment = .Center
         loginView.subtitleLabel.text = subtitleString
         loginView.subtitleLabel.attributedText = subtitle
         loginView.subtitleLabel.textAlignment = .Center

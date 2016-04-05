@@ -16,7 +16,6 @@ class LoginView: UIView {
     let pageControl: UIPageControl
     let createAccountButton: UIButton
     let skipButton: UIButton
-    var buttonDivider: UIView
     var launchScreenLoader: UIImageView
     let signinButton: UIButton
 
@@ -28,7 +27,7 @@ class LoginView: UIView {
     }
     
     override init(frame: CGRect) {
-        let titleString = "often".uppercaseString
+        let titleString = "packs. packs. packs.".uppercaseString
         let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
         let subtitleString = "Search, collect & share lyrics, \n in any app, right from your keyboard"
@@ -41,7 +40,7 @@ class LoginView: UIView {
         subtitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 13)!, range: subtitleRange)
         subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
 
-        title.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 30)!, range: titleRange)
+        title.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 15)!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 2, range: titleRange)
         
         titleLabel = UILabel()
@@ -75,7 +74,7 @@ class LoginView: UIView {
         createAccountButton = UIButton()
         createAccountButton.translatesAutoresizingMaskIntoConstraints = false
         createAccountButton.backgroundColor = SignupViewCreateAccountButtonColor
-        createAccountButton.setTitle("create your account".uppercaseString, forState: .Normal)
+        createAccountButton.setTitle("sign up".uppercaseString, forState: .Normal)
         createAccountButton.titleLabel!.font = UIFont(name: "Montserrat-Regular", size: 11)
         createAccountButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
         createAccountButton.layer.cornerRadius = 4.0
@@ -92,10 +91,6 @@ class LoginView: UIView {
         signinButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
         signinButton.setTitleColor(UIColor(fromHexString: "#152036")  , forState: .Normal)
         signinButton.alpha = 0.54
-        
-        buttonDivider = UIView()
-        buttonDivider.translatesAutoresizingMaskIntoConstraints = false
-        buttonDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         var splashImage: UIImage = UIImage(named: "LaunchImage-800-667h@2x")!
         
@@ -115,12 +110,11 @@ class LoginView: UIView {
         
         backgroundColor = UIColor(fromHexString: "#f7f7f7")
         
-        addSubview(titleLabel)
         addSubview(scrollView)
+        addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(pageControl)
         addSubview(createAccountButton)
-        addSubview(buttonDivider)
         addSubview(skipButton)
         addSubview(signinButton)
         addSubview(launchScreenLoader)
@@ -134,46 +128,40 @@ class LoginView: UIView {
     
     func setupLayout() {
         var constraints = [
-            titleLabel.al_top == al_top + 50,
-            titleLabel.al_left == al_left,
-            titleLabel.al_right == al_right,
-            titleLabel.al_height == 40,
+            skipButton.al_left == al_left + 25,
+            skipButton.al_top == al_top + 25,
+            skipButton.al_height == 25,
+            skipButton.al_width == 49.6,
             
-            subtitleLabel.al_top == titleLabel.al_bottom,
-            subtitleLabel.al_left == al_left + subtitleLabelLeftAndRightMargin,
-            subtitleLabel.al_right == al_right - subtitleLabelLeftAndRightMargin,
-            subtitleLabel.al_height == 60,
+            signinButton.al_centerY == skipButton.al_centerY,
+            signinButton.al_right == al_right - 25,
+            signinButton.al_height == skipButton.al_height,
+            signinButton.al_width == skipButton.al_width,
             
-            scrollView.al_top == subtitleLabel.al_bottom + 10,
-            
+            scrollView.al_top == skipButton.al_bottom,
             scrollView.al_left == al_left + 20,
             scrollView.al_right == al_right - 20,
+            scrollView.al_bottom == titleLabel.al_top,
             
-            pageControl.al_bottom == createAccountButton.al_top - 25,
+            titleLabel.al_bottom == subtitleLabel.al_top - 10,
+            titleLabel.al_left == al_left,
+            titleLabel.al_right == al_right,
+            titleLabel.al_height == 16.5,
+            
+            subtitleLabel.al_bottom == pageControl.al_top - 18.5,
+            subtitleLabel.al_left == al_left + subtitleLabelLeftAndRightMargin,
+            subtitleLabel.al_right == al_right - subtitleLabelLeftAndRightMargin,
+            subtitleLabel.al_height == 42,
+            
+            pageControl.al_bottom == createAccountButton.al_top - 34,
             pageControl.al_centerX == al_centerX,
             pageControl.al_height == 2,
             pageControl.al_width == 40,
             
-            createAccountButton.al_bottom == skipButton.al_top - 10,
-            createAccountButton.al_left == al_left + 52,
-            createAccountButton.al_right == al_right - 52,
-            createAccountButton.al_height == 50,
-            
-            skipButton.al_left == al_left + 20,
-            skipButton.al_right == buttonDivider.al_left,
-            skipButton.al_height == 60,
-            skipButton.al_width == al_width/2 - 20,
-            
-            signinButton.al_centerY == skipButton.al_centerY,
-            signinButton.al_left == buttonDivider.al_right,
-            signinButton.al_right == al_right - 20,
-            signinButton.al_height == skipButton.al_height,
-            signinButton.al_width == skipButton.al_width,
-            
-            buttonDivider.al_centerY == signinButton.al_centerY,
-            buttonDivider.al_centerX == al_centerX,
-            buttonDivider.al_height == 30,
-            buttonDivider.al_width == 1.0,
+            createAccountButton.al_bottom == al_bottom,
+            createAccountButton.al_left == al_left,
+            createAccountButton.al_right == al_right,
+            createAccountButton.al_height == 55,
             
             launchScreenLoader.al_bottom == al_bottom,
             launchScreenLoader.al_top == al_top,
