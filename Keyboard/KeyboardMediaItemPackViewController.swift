@@ -12,7 +12,7 @@ private let KeyboardMediaItemPackHeaderViewCellReuseIdentifier = "PackHeaderView
 private let PacksCellReuseIdentifier = "TrendingArtistsCell"
 
 class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
-    var viewModel: PacksViewModel
+    var viewModel: PacksService
     var packPanelView: PackPanelView
     var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
     var group: MediaItemGroup? {
@@ -21,7 +21,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         }
     }
 
-     init(viewModel: PacksViewModel) {
+     init(viewModel: PacksService) {
         self.viewModel = viewModel
 
         packPanelView = PackPanelView()
@@ -138,7 +138,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     }
 
     func addPacksButtonDidTap(sender: UIButton) {
-        openURL(NSURL(string: "tryoften://")!)
+        openURL(NSURL(string: OftenCallbackURL)!)
     }
 
     func favoriteButtonDidTap(sender: UIButton) {
@@ -175,7 +175,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     func openURL(url: NSURL) {
         do {
             let application = try self.sharedApplication()
-             application.performSelector("openURL:", withObject: url)
+             application.performSelector(#selector(KeyboardMediaItemPackPickerViewController.openURL(_:)), withObject: url)
         }
         catch {
 
