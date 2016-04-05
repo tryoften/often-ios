@@ -44,7 +44,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         layout.scrollDirection = .Horizontal
         layout.minimumInteritemSpacing = 9.0
         layout.minimumLineSpacing = 9.0
-        layout.sectionInset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        layout.sectionInset = UIEdgeInsets(top: 12.5, left: 10.0, bottom: 12.0, right: 10.0)
         return layout
     }
 
@@ -65,7 +65,6 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         guard let group = group, let artist = group.items[indexPath.row] as? ArtistMediaItem else {
             return
         }
-        
 
          Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additionalProperties: AnalyticsAdditonalProperties.navigate("BrowseArtistCollectionViewController", itemID: artist.id, itemIndex: String(indexPath.length), itemType: artist.type.rawValue))
 

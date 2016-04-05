@@ -48,6 +48,7 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
 
         // Register cell classes
         collectionView?.registerClass(TrackCollectionViewCell.self, forCellWithReuseIdentifier: artistAlbumCellReuseIdentifier)
+
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -139,4 +140,5 @@ class BrowseArtistCollectionViewController: BrowseMediaItemViewController {
 
         self.navigationController?.pushViewController(tracksVC, animated: true)
     }
+
 }

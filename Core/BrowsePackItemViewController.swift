@@ -19,34 +19,45 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
                 self.collectionView?.reloadData()
             }
             headerViewDidLoad()
+        #if KEYBOARD
+            populatePanelMetaData(pack?.name, itemCount: pack?.items.count, imageUrl: pack?.smallImageURL)
+        #endif
         }
     }
     
     var packId: String
     
-    init(packId: String, viewModel: BrowseViewModel) {
+    init(packId: String, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         self.packId = packId
         super.init(viewModel: viewModel)
+        self.textProcessor = textProcessor
         
         #if KEYBOARD
-            collectionView?.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0)
+            collectionView?.contentInset = UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
+
+            if let navigationBar = navigationBar {
+                navigationBar.removeFromSuperview()
+
+            }
         #else
             hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
+            collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
         #endif
-        
-        collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
+
     }
     
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    
     
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         
         #if KEYBOARD
-            let topMargin = CGFloat(115.0)
+            let topMargin = CGFloat(0)
             let layout = UICollectionViewFlowLayout()
         #else
             let topMargin = CGFloat(10.0)
@@ -68,26 +79,17 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        pack = nil
-        collectionView?.reloadData()
-        
-        viewModel.getPackWithOftenId(packId) { model in
-            self.pack = model
-            
-            #if !(KEYBOARD)
-                self.hideHud()
-            #endif
-        }
+        loadPackData()
         
     }
-    
+
     override func headerViewDidLoad() {
         let imageURL: NSURL? = pack?.largeImageURL
         let subtitle: String? = pack?.description
         
         setupHeaderView(imageURL, title: pack?.name, subtitle: subtitle)
     }
-    
+
     override func setupHeaderView(imageURL: NSURL?, title: String?, subtitle: String?) {
         if let header = headerView as? PackPageHeaderView {
             var attributes: [String: AnyObject] = [
@@ -165,12 +167,27 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: MediaItemCollectionViewCell
-        
         cell = parseMediaItemData(pack?.items, indexPath: indexPath, collectionView: collectionView) as MediaItemCollectionViewCell
         cell.style = .Cell
         cell.type = .NoMetadata
+
         animateCell(cell, indexPath: indexPath)
+
         return cell
     }
-    
+
+
+    func loadPackData()  {
+        self.pack = nil
+
+        collectionView?.reloadData()
+
+        viewModel.getPackWithOftenId(packId) { model in
+            self.pack = model
+
+            #if !(KEYBOARD)
+                self.hideHud()
+            #endif
+        }
+    }
 }
