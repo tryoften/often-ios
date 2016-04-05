@@ -1,5 +1,5 @@
 //
-//  PackBrowseContainerViewController.swift
+//  BrowsePackContainerViewController.swift
 //  Often
 //
 //  Created by Komran Ghahremani on 3/23/16.
@@ -8,12 +8,16 @@
 
 import UIKit
 
-class PackBrowseCollectionViewController: UICollectionViewController {
-    var headerView: PackBrowseHeaderView?
-    var sectionHeaderView: PackBrowseSectionHeaderView?
+class BrowsePackCollectionViewController: MediaItemsViewController {
+    var headerView: BrowsePackHeaderView?
+    var sectionHeaderView: BrowsePackSectionHeaderView?
+    var packServiceListener: Listener?
     
-    init() {
-        super.init(collectionViewLayout: PackBrowseCollectionViewController.getLayout())
+    init(viewModel: PacksViewModel) {
+        super.init(collectionViewLayout: BrowsePackCollectionViewController.getLayout(),
+                   collectionType: .Packs,
+                   viewModel: viewModel)
+
         navigationItem.title = "often".uppercaseString
     }
     
@@ -21,12 +25,11 @@ class PackBrowseCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         if let collectionView = collectionView {
-            collectionView.backgroundColor = WhiteColor
+            collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(PackBrowseHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
-            collectionView.registerClass(PackBrowseSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
-            collectionView.registerClass(PackBrowseCollectionViewCell.self, forCellWithReuseIdentifier: "packCell")
-            collectionView.contentInset = UIEdgeInsetsMake(0, 0, CGRectGetHeight(tabBarController!.tabBar.frame) + 10, 0)
+            collectionView.registerClass(BrowsePackHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
+            collectionView.registerClass(BrowsePackSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
+            collectionView.registerClass(BrowsePackCollectionViewCell.self, forCellWithReuseIdentifier: "packCell")
         }
     }
 
@@ -63,29 +66,9 @@ class PackBrowseCollectionViewController: UICollectionViewController {
         navigationController?.navigationBar.barTintColor = MainBackgroundColor
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 16
-    }
-    
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("packCell", forIndexPath: indexPath) as? PackBrowseCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-
-        cell.imageView.image = UIImage(named: "future")
-        cell.titleLabel.text = "Queen B"
-        cell.subtitleLabel.text = "58 Lyrics"
-        
-        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
-        cell.layer.shouldRasterize = true
-        
-        return cell
-    }
-    
-    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as? PackBrowseHeaderView else {
+            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as? BrowsePackHeaderView else {
                 return UICollectionViewCell()
             }
             
@@ -94,7 +77,7 @@ class PackBrowseCollectionViewController: UICollectionViewController {
             }
             return headerView!
         } else if kind == UICollectionElementKindSectionHeader {
-            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as? PackBrowseSectionHeaderView else {
+            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as? BrowsePackSectionHeaderView else {
                 return UICollectionViewCell()
             }
             
@@ -106,10 +89,6 @@ class PackBrowseCollectionViewController: UICollectionViewController {
         return UICollectionReusableView()
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // hook up pack detail view
-    }
-    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 20.0 as CGFloat
     }
@@ -118,7 +97,7 @@ class PackBrowseCollectionViewController: UICollectionViewController {
         return 0.0 as CGFloat
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         return CGSizeMake(screenWidth, 35.0)
         

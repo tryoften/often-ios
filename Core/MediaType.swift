@@ -19,6 +19,7 @@ enum MediaType: String {
     case Gif = "gif"
     case Other = "other"
     case Pack = "pack"
+    case Quote = "quote"
 
     var isVideo: Bool {
         switch self {

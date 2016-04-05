@@ -10,6 +10,9 @@ import Foundation
 
 /// View Model for Recents
 class RecentsViewModel: MediaItemsViewModel {
+    init() {
+        super.init(collectionType: .Recents)
+    }
 
     func generateRecentsGroup(items: [MediaItem]) -> [MediaItemGroup] {
         let group = MediaItemGroup(dictionary: [

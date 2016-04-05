@@ -11,7 +11,7 @@
 
 import UIKit
 
-class ArtistCollectionViewCell: UICollectionViewCell {
+class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     var placeholderImageView: UIImageView
     var imageView: UIImageView
     var titleLabel: UILabel
@@ -37,7 +37,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
 
         var layer = CAShapeLayer()
-        layer.path = ArtistCollectionViewCell.drawImageMask().CGPath
+        layer.path = BrowseMediaItemCollectionViewCell.drawImageMask().CGPath
         layer.fillColor = UIColor.whiteColor().CGColor
         layer.backgroundColor = UIColor.clearColor().CGColor
         layer.frame = CGRectMake(0, 0, ArtistCollectionViewCellWidth, ArtistCollectionViewCellWidth)
@@ -50,23 +50,22 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         imageView.clipsToBounds = true
 
         layer = CAShapeLayer()
-        layer.path = ArtistCollectionViewCell.drawImageMask().CGPath
+        layer.path = BrowseMediaItemCollectionViewCell.drawImageMask().CGPath
         layer.fillColor = UIColor.whiteColor().CGColor
         layer.backgroundColor = UIColor.clearColor().CGColor
-        layer.frame = CGRectMake(0, 0, ArtistCollectionViewCellWidth, ArtistCollectionViewCellWidth)
         imageView.layer.mask = layer
 
         titleLabel = UILabel()
         titleLabel.font = ArtistCollectionViewCellTitleFont
         titleLabel.textColor = ArtistCollectionViewCellTitleTextColor
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textAlignment = .Left
+        titleLabel.textAlignment = .Center
 
         subtitleLabel = UILabel()
         subtitleLabel.font = ArtistCollectionViewCellSubtitleFont
         subtitleLabel.textColor = ArtistCollectionViewCellSubtitleTextColor
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.textAlignment = .Left
+        subtitleLabel.textAlignment = .Center
 
         contentEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
 
@@ -86,11 +85,31 @@ class ArtistCollectionViewCell: UICollectionViewCell {
 
         selected = false
         setupLayout()
+
+        let width: CGFloat = self.frame.size.width
+        setImageViewLayers(CGRectMake(0, 0, width, width))
     }
 
     required convenience init?(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
+
+    func setImageViewLayers(frame: CGRect) {
+        var layer = CAShapeLayer()
+        layer.path = self.dynamicType.drawImageMask(frame: frame).CGPath
+        layer.fillColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.frame = frame
+        placeholderImageView.layer.mask = layer
+
+        layer = CAShapeLayer()
+        layer.path = self.dynamicType.drawImageMask(frame: frame).CGPath
+        layer.fillColor = UIColor.whiteColor().CGColor
+        layer.backgroundColor = UIColor.clearColor().CGColor
+        layer.frame = frame
+        imageView.layer.mask = layer
+    }
+
 
     override func prepareForReuse() {
         imageView.image = nil

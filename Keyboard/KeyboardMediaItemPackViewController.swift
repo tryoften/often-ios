@@ -12,7 +12,7 @@ private let KeyboardMediaItemPackHeaderViewCellReuseIdentifier = "PackHeaderView
 private let PacksCellReuseIdentifier = "TrendingArtistsCell"
 
 class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
-    var viewModel: PacksViewModel
+    var viewModel: PacksService
     var packPanelView: PackPanelView
     var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
     var group: MediaItemGroup? {
@@ -21,7 +21,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         }
     }
 
-     init(viewModel: PacksViewModel) {
+     init(viewModel: PacksService) {
         self.viewModel = viewModel
 
         packPanelView = PackPanelView()
@@ -31,14 +31,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
         collectionView?.contentInset = UIEdgeInsets(top: -40, left: 0, bottom: 0, right: 0)
 
-        do {
-            try viewModel.fetchCollection(.Packs)
-        } catch MediaItemsViewModelError.FetchingCollectionDataFailed {
-            print("Failed to request data")
-        } catch let error {
-            print("Failed to request data \(error)")
-        }
-
+        viewModel.fetchCollection()
         viewModel.delegate = self
 
         view.backgroundColor = VeryLightGray
@@ -57,7 +50,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         packPanelView.cancelButton.addTarget(self, action: #selector(KeyboardMediaItemPackPickerViewController.cancelButtonDidTap(_:)), forControlEvents: .TouchUpInside)
 
         collectionView!.registerClass(KeyboardMediaItemPackHeaderView.self, forCellWithReuseIdentifier: KeyboardMediaItemPackHeaderViewCellReuseIdentifier)
-        collectionView!.registerClass(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: PacksCellReuseIdentifier)
+        collectionView!.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: PacksCellReuseIdentifier)
         collectionView!.backgroundColor = UIColor.clearColor()
         collectionView!.showsHorizontalScrollIndicator = false
     }
@@ -115,7 +108,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
             return cell
         default:
-            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PacksCellReuseIdentifier, forIndexPath: indexPath) as? ArtistCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PacksCellReuseIdentifier, forIndexPath: indexPath) as? BrowseMediaItemCollectionViewCell else {
                 return UICollectionViewCell()
             }
 
@@ -145,7 +138,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     }
 
     func addPacksButtonDidTap(sender: UIButton) {
-        openURL(NSURL(string: "tryoften://")!)
+        openURL(NSURL(string: OftenCallbackURL)!)
     }
 
     func favoriteButtonDidTap(sender: UIButton) {
@@ -182,7 +175,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     func openURL(url: NSURL) {
         do {
             let application = try self.sharedApplication()
-             application.performSelector("openURL:", withObject: url)
+             application.performSelector(#selector(KeyboardMediaItemPackPickerViewController.openURL(_:)), withObject: url)
         }
         catch {
 

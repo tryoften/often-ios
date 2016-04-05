@@ -33,7 +33,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         super.viewDidLoad()
 
         // Register cell classes
-        collectionView!.registerClass(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: TrendingArtistsCellReuseIdentifier)
+        collectionView!.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: TrendingArtistsCellReuseIdentifier)
         collectionView!.backgroundColor = UIColor.clearColor()
         collectionView!.showsHorizontalScrollIndicator = false
     }
@@ -73,7 +73,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TrendingArtistsCellReuseIdentifier, forIndexPath: indexPath) as? ArtistCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(TrendingArtistsCellReuseIdentifier, forIndexPath: indexPath) as? BrowseMediaItemCollectionViewCell else {
             return UICollectionViewCell()
         }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PackProfileCollectionViewCell: PackBrowseCollectionViewCell {
+class PackProfileCollectionViewCell: BrowsePackCollectionViewCell {
     override init(frame: CGRect) {
 
         super.init(frame: frame)
@@ -17,10 +17,6 @@ class PackProfileCollectionViewCell: PackBrowseCollectionViewCell {
         primaryButton.setTitle("remove".uppercaseString, forState: .Normal)
         primaryButton.titleLabel?.font = UIFont(name: "OpenSans", size: 8)
         primaryButton.setTitleColor(BlackColor, forState: .Normal)
-        primaryButton.layer.shadowRadius = 2
-        primaryButton.layer.shadowOpacity = 0.2
-        primaryButton.layer.shadowColor = MediumLightGrey.CGColor
-        primaryButton.layer.shadowOffset = CGSizeMake(0, 2)
         
         imageView.image = UIImage(named: "placeholder")
         titleLabel.text = ""
@@ -28,16 +24,12 @@ class PackProfileCollectionViewCell: PackBrowseCollectionViewCell {
         subtitleLabel.text = ""
         subtitleLabel.font = UIFont(name: "OpenSans", size: 9)
         subtitleLabel.alpha = 0.54
-        
+
+        primaryButtonSelected()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func primaryButtonSelected() {
-        // animation
-        // remove pack
     }
 
 }

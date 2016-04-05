@@ -30,7 +30,7 @@ class KeyboardBrowsePackItemViewController: BrowsePackItemViewController, Keyboa
     }
 
     override func togglePack() {
-        let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksViewModel())
+        let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksService.defaultInstance)
         packsVC.delegate = self
         packsVC.transitioningDelegate = self
         packsVC.modalPresentationStyle = .Custom

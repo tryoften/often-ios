@@ -123,7 +123,7 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        
+
         #if !(KEYBOARD)
             if kind == CSStickyHeaderParallaxHeader {
                 guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: PackPageHeaderViewIdentifier, forIndexPath: indexPath) as? PackPageHeaderView else {

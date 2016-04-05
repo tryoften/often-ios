@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PackBrowseHeaderCollectionViewController: UICollectionViewController {
+class BrowsePackHeaderCollectionViewController: UICollectionViewController {
     let scrollView: UIScrollView
     let itemWidth: CGFloat
     let width: CGFloat
@@ -59,7 +59,7 @@ class PackBrowseHeaderCollectionViewController: UICollectionViewController {
             collectionView.backgroundColor = BrowseHeaderCollectionViewControllerBackground
             collectionView.showsHorizontalScrollIndicator = false
             
-            collectionView.registerClass(PackBrowseHeaderCollectionViewCell.self, forCellWithReuseIdentifier: "browseCell")
+            collectionView.registerClass(BrowsePackHeaderCollectionViewCell.self, forCellWithReuseIdentifier: "browseCell")
         } else {
             print("Collection View is Nil")
         }
@@ -90,7 +90,7 @@ class PackBrowseHeaderCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("browseCell", forIndexPath: indexPath) as? PackBrowseHeaderCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("browseCell", forIndexPath: indexPath) as? BrowsePackHeaderCollectionViewCell else {
             return UICollectionViewCell()
         }
 

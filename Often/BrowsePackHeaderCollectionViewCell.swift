@@ -1,5 +1,5 @@
 //
-//  PackBrowseCollectionViewCell.swift
+//  BrowsePackCollectionViewCell.swift
 //  Often
 //
 //  Created by Komran Ghahremani on 3/22/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PackBrowseHeaderCollectionViewCell: UICollectionViewCell {
+class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
     var placeholderImage: UIImageView
     var artistImage: UIImageView
     var confirmView: UIImageView
