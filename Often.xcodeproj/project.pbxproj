@@ -225,6 +225,15 @@
 		69A731361C602CA000F3DBAD /* EmojiKeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A731251C600EC500F3DBAD /* EmojiKeyboardViewModel.swift */; };
 		69D1126B1CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D112691CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift */; };
 		69D1126C1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126A1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift */; };
+		69B549051CB32AF800C3D1BC /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
+		69B549081CB348F400C3D1BC /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
+		69B549091CB348F500C3D1BC /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
+		69B5490A1CB348F500C3D1BC /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
+		69B5490B1CB348F600C3D1BC /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
+		69B5490C1CB348F600C3D1BC /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
+		69D1126B1CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D112691CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift */; };
+		69D1126C1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126A1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift */; };
+		69D1126E1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126D1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift */; };
 		69DBDE0F1C665E6900701A5D /* EmojiSectionSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */; };
 		69DBDE141C6660FB00701A5D /* EmojiSectionSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */; };
 		69FEDDE21BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FEDDE11BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift */; };
@@ -1322,6 +1331,7 @@
 		69A7312B1C6011BF00F3DBAD /* EmojiKeyboardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiKeyboardTableViewCell.swift; path = ../Often/EmojiKeyboardTableViewCell.swift; sourceTree = "<group>"; };
 		69A7312F1C602A3E00F3DBAD /* EmojisList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EmojisList.plist; sourceTree = "<group>"; };
 		69B2924D1BD7550800277EC2 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.otf"; sourceTree = "<group>"; };
 		69C663211B8B6FA60014433D /* MediaItemsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsViewModel.swift; path = ../Often/MediaItemsViewModel.swift; sourceTree = "<group>"; };
 		69D112691CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackCollectionViewController.swift; sourceTree = "<group>"; };
 		69D1126A1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackHeaderCollectionViewController.swift; sourceTree = "<group>"; };
@@ -2454,6 +2464,7 @@
 				3BAAB1901B1A5D3700EA1925 /* OpenSans-Semibold.ttf */,
 				3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */,
 				695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */,
+				69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2810,6 +2821,7 @@
 				810EA5751C8579D1005A6C6D /* OpenSans-Italic.ttf in Resources */,
 				810EA5761C8579D1005A6C6D /* OpenSans-Regular.ttf in Resources */,
 				810EA5771C8579D1005A6C6D /* Oswald-Light.ttf in Resources */,
+				69B5490B1CB348F600C3D1BC /* Montserrat-SemiBold.otf in Resources */,
 				3B25C6E21C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
 				810EA5781C8579D1005A6C6D /* EmojisList.plist in Resources */,
 				810EA5791C8579D1005A6C6D /* OpenSans-Light.ttf in Resources */,
@@ -2829,6 +2841,7 @@
 			files = (
 				810EA6331C8579F1005A6C6D /* Montserrat-Regular.ttf in Resources */,
 				810EA6341C8579F1005A6C6D /* Oswald-Bold.ttf in Resources */,
+				69B5490C1CB348F600C3D1BC /* Montserrat-SemiBold.otf in Resources */,
 				810EA6351C8579F1005A6C6D /* Images.xcassets in Resources */,
 				810EA6361C8579F1005A6C6D /* OpenSans-Light.ttf in Resources */,
 				810EA6371C8579F1005A6C6D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
@@ -2861,6 +2874,7 @@
 				3BAAB19A1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				3BAAB1A01B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
 				3BAAB1AB1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
+				69B549081CB348F400C3D1BC /* Montserrat-SemiBold.otf in Resources */,
 				3B25C6DF1C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
 				69A731301C602A3E00F3DBAD /* EmojisList.plist in Resources */,
 				3BAAB19C1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
@@ -2880,6 +2894,7 @@
 			files = (
 				81DF4BBE1BB49371008B1A38 /* Montserrat-Regular.ttf in Resources */,
 				3BAAB1AA1B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
+				69B5490A1CB348F500C3D1BC /* Montserrat-SemiBold.otf in Resources */,
 				81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */,
 				3BAAB19D1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
 				3BAAB1991B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
@@ -2912,6 +2927,7 @@
 				81DA3F5D1C24BE85006822D3 /* OpenSans-Italic.ttf in Resources */,
 				81DA3F5E1C24BE85006822D3 /* OpenSans-Regular.ttf in Resources */,
 				81DA3F5F1C24BE85006822D3 /* Oswald-Light.ttf in Resources */,
+				69B549091CB348F500C3D1BC /* Montserrat-SemiBold.otf in Resources */,
 				3B25C6E01C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
 				69A731311C602A3E00F3DBAD /* EmojisList.plist in Resources */,
 				81DA3F611C24BE85006822D3 /* OpenSans-Light.ttf in Resources */,
@@ -3832,6 +3848,8 @@
 				816D50661C8A04FB007B3249 /* SearchViewController.swift in Sources */,
 				816D506A1C8A0506007B3249 /* String+Utils.swift in Sources */,
 				816D50BC1C8A05E3007B3249 /* Signal.swift in Sources */,
+				69D1126E1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift in Sources */,
+				69B549051CB32AF800C3D1BC /* PacksViewModel.swift in Sources */,
 				816D506C1C8A0506007B3249 /* ParseConfig.swift in Sources */,
 				816D50501C8A04D9007B3249 /* EmptyStateView.swift in Sources */,
 				816D50AA1C8A0596007B3249 /* UserProfileViewController.swift in Sources */,
