@@ -103,6 +103,7 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Montserrat-SemiBold.otf</string>
 		<string>ss-glyphish-filled.ttf</string>
 		<string>ss-glyphish-outlined.ttf</string>
 		<string>ss-social-regular.ttf</string>
