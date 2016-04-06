@@ -19,6 +19,10 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
                    viewModel: viewModel)
 
         navigationItem.title = "often".uppercaseString
+
+        packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
+            self.collectionView?.reloadData()
+        }
     }
     
     override func viewDidLoad() {

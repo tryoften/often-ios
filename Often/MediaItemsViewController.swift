@@ -71,7 +71,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 alphabeticalSidebar.al_bottom == view.al_bottom - 20,
                 alphabeticalSidebar.al_top == view.al_top + KeyboardSearchBarHeight - 0.5
             ])
-
         }
     }
 
