@@ -17,19 +17,7 @@ enum BrowsePackDownloadButtonState {
 
 class BrowsePackDownloadButton: UIButton {
     var pack: PackMediaItem? = nil
-    var packState: BrowsePackDownloadButtonState = .NotAdded {
-        didSet {
-            guard let pack = pack else {
-                return
-            }
-
-            if pack.premium {
-
-            } else {
-
-            }
-        }
-    }
+    var packState: BrowsePackDownloadButtonState = .NotAdded
 
     var title: String = "Download" {
         didSet {
@@ -54,7 +42,6 @@ class BrowsePackDownloadButton: UIButton {
 
     init() {
         super.init(frame: CGRectZero)
-
 
         setTitleColor(BlackColor, forState: .Selected)
         setTitleColor(WhiteColor, forState: .Normal)
