@@ -30,12 +30,12 @@ PODS:
   - Analytics/Segmentio (1.11.3):
     - Analytics/Core-iOS
   - BDKCollectionIndexView (2.2.1)
-  - Bolts (1.6.0):
-    - Bolts/AppLinks (= 1.6.0)
-    - Bolts/Tasks (= 1.6.0)
-  - Bolts/AppLinks (1.6.0):
+  - Bolts (1.7.0):
+    - Bolts/AppLinks (= 1.7.0)
+    - Bolts/Tasks (= 1.7.0)
+  - Bolts/AppLinks (1.7.0):
     - Bolts/Tasks
-  - Bolts/Tasks (1.6.0)
+  - Bolts/Tasks (1.7.0)
   - CSStickyHeaderFlowLayout (0.2.10)
   - DateTools (1.7.0)
   - Facebook-iOS-SDK (4.1.0):
@@ -94,7 +94,7 @@ SPEC CHECKSUMS:
   AGEmojiKeyboard: efcb7244ace99deb8eb2c63867ffad198d219fe0
   Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
   BDKCollectionIndexView: 819bd123d618f20c061caacd409e2d8f1590df7d
-  Bolts: f52a250053bb517ca874523c3913776359ab3def
+  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
