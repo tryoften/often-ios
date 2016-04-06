@@ -8,9 +8,8 @@
 
 import Foundation
 
-class PackPageHeaderView : MediaItemPageHeaderView {
-
-    var priceButton: UIButton
+class PackPageHeaderView: MediaItemPageHeaderView {
+    var primaryButton: BrowsePackDownloadButton
     var sampleButton: UIButton
     var backLabel: UILabel
 
@@ -40,10 +39,10 @@ class PackPageHeaderView : MediaItemPageHeaderView {
         sampleButton.layer.borderColor = WhiteColor.CGColor
         sampleButton.layer.cornerRadius = 11.25
 
-        priceButton = UIButton()
-        priceButton.translatesAutoresizingMaskIntoConstraints = false
-        priceButton.backgroundColor = TealColor
-        priceButton.layer.cornerRadius = 15
+        primaryButton = BrowsePackDownloadButton()
+        primaryButton.translatesAutoresizingMaskIntoConstraints = false
+        primaryButton.backgroundColor = TealColor
+        primaryButton.layer.cornerRadius = 15
 
         super.init(frame: frame)
 
@@ -51,7 +50,7 @@ class PackPageHeaderView : MediaItemPageHeaderView {
 
         addSubview(backLabel)
         addSubview(sampleButton)
-        addSubview(priceButton)
+        addSubview(primaryButton)
 
     }
 
@@ -67,13 +66,13 @@ class PackPageHeaderView : MediaItemPageHeaderView {
 
             if progressiveness <= 0.58 {
                 self.subtitleLabel.alpha = 0
-                self.priceButton.alpha = 0
+                self.primaryButton.alpha = 0
                 self.backLabel.alpha = 0
                 self.sampleButton.alpha = 0
 
             } else {
                 self.subtitleLabel.alpha = 1
-                self.priceButton.alpha = 1
+                self.primaryButton.alpha = 1
                 self.backLabel.alpha = 1
                 self.sampleButton.alpha = 1
             }
@@ -106,10 +105,10 @@ class PackPageHeaderView : MediaItemPageHeaderView {
             subtitleLabel.al_top  == titleLabel.al_bottom + 5,
             subtitleLabel.al_height == 60,
 
-            priceButton.al_centerX == al_centerX,
-            priceButton.al_top == subtitleLabel.al_bottom + 5,
-            priceButton.al_width == 84,
-            priceButton.al_height == 30,
+            primaryButton.al_centerX == al_centerX,
+            primaryButton.al_top == subtitleLabel.al_bottom + 5,
+            primaryButton.al_width == 84,
+            primaryButton.al_height == 30,
 
             sampleButton.al_right == al_right - 16.5,
             sampleButton.al_height == 22.5,

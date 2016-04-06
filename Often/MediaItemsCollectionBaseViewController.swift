@@ -160,7 +160,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     func parsePackItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> BrowseMediaItemCollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(BrowseMediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? BrowseMediaItemCollectionViewCell else {
-            return PackProfileCollectionViewCell()
+            return BrowseMediaItemCollectionViewCell()
         }
         
         if indexPath.row >= items?.count {

@@ -67,7 +67,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.textAlignment = .Center
 
-        contentEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
+        contentEdgeInsets = UIEdgeInsets(top: 15, left: 14, bottom: 10, right: 14)
 
         super.init(frame: frame)
 
@@ -87,7 +87,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         setupLayout()
 
         let width: CGFloat = self.frame.size.width
-        setImageViewLayers(CGRectMake(0, 0, width, width))
+        setImageViewLayers(CGRectMake(0, 0, width, frame.size.height/2 + 20))
     }
 
     required convenience init?(coder aDecoder: NSCoder) {
@@ -118,7 +118,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     func setupLayout() {
         addConstraints([
             imageView.al_width == al_width,
-            imageView.al_height == imageView.al_width,
+            imageView.al_height == al_height / 2 + 20,
             imageView.al_centerX == al_centerX,
             imageView.al_top == al_top,
 

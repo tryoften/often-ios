@@ -61,7 +61,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
 
         if let alphabeticalSidebar = alphabeticalSidebar {
             alphabeticalSidebar.translatesAutoresizingMaskIntoConstraints = false
-            alphabeticalSidebar.addTarget(self, action: "indexViewValueChanged:", forControlEvents: .ValueChanged)
+            alphabeticalSidebar.addTarget(self, action: #selector(MediaItemsViewController.indexViewValueChanged(_:)), forControlEvents: .ValueChanged)
 
             view.addSubview(alphabeticalSidebar)
 
@@ -118,9 +118,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                     }
                 } else {
                     hideEmptyStateView()
-                #if !(KEYBOARD)
-                    collectionView?.setContentOffset(CGPointZero, animated: animated)
-                #endif
                     collectionView?.reloadData()
                 }
             }
@@ -216,18 +213,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
-
-        if collectionType == .Packs {
-            let result = viewModel.mediaItemGroupItemsForIndex(indexPath.section)[indexPath.row]
-            guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
-                return
-            }
-
-            let packVC = BrowsePackItemViewController(packId: id, viewModel: BrowseViewModel(), textProcessor: nil)
-            navigationController?.navigationBar.hidden = false
-            navigationController?.pushViewController(packVC, animated: true)
-        }
-
 
         if collectionType == .Favorites {
             if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell {
