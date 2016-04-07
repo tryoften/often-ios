@@ -71,7 +71,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         panelView.categoriesCollectionView.setCollectionViewLayout(viewLayout, animated: false)
 
         currentCategory = self.categories.first
-
     }
 
     func handleCategories(categories: [Category]) {
@@ -84,7 +83,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
 
     // MARK: UICollectionViewDataSource
-
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
     }

@@ -288,7 +288,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
-            let result = cell.mediaLink as? LyricMediaItem else {
+            let result = cell.mediaLink  else {
                 return
         }
 
