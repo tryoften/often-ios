@@ -17,15 +17,15 @@ class BrowsePackSectionHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         leftLabel = UILabel()
         leftLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
-        leftLabel.textColor = BlackColor
-        leftLabel.text = "all packs".uppercaseString
+        leftLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 9.0)!,
+                              letterSpacing: 1.0,
+                              color: UIColor.oftDarkGrey74Color(),
+                              text: "all packs".uppercaseString)
         
         rightLabel = UILabel()
         rightLabel.translatesAutoresizingMaskIntoConstraints = false
         rightLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
         rightLabel.textColor = BlackColor
-        rightLabel.text = "(10)"
         
         bottomBorderView = UIView()
         bottomBorderView.translatesAutoresizingMaskIntoConstraints = false
