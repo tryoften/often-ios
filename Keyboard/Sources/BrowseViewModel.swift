@@ -8,9 +8,30 @@
 
 import Foundation
 
+enum MediaItemFilter: Hashable, Equatable {
+    case category(Category)
+
+    var hashValue: Int {
+        switch self {
+        case .category(let category):
+            return category.id.hashValue
+        }
+    }
+
+    var type: String {
+        switch self {
+        case .category(_): return "category"
+        }
+    }
+}
+
+func ==(lhs: MediaItemFilter, rhs: MediaItemFilter) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
 class BrowseViewModel: MediaItemGroupViewModel {
     var filteredMediaItems: [MediaItem]
-    var filters: [String: FavoritesFilter] = [:]
+    var filters: [String: MediaItemFilter] = [:]
     var mediaItems: [MediaItem]
     let didChangeMediaItems = Event<[MediaItem]>()
     
@@ -58,7 +79,7 @@ class BrowseViewModel: MediaItemGroupViewModel {
         })
     }
 
-    func applyFilter(filter: FavoritesFilter) {
+    func applyFilter(filter: MediaItemFilter) {
         filteredMediaItems = []
         filters[filter.type] = filter
         generateMediaItemGroups()
@@ -74,34 +95,27 @@ class BrowseViewModel: MediaItemGroupViewModel {
 
     private func separateGroupByArtists(items: [MediaItem]) -> [MediaItemGroup] {
         if filteredMediaItems != items {
-
             for item in items {
-                guard let lyric = item as? MediaItem else {
-                        continue
-                }
-
-                // Check for filters, if present applies them
-                if shouldFilterLyric(lyric) {
+                guard let item = item as? MediaItem else {
                     continue
                 }
 
-                 filteredMediaItems.append(lyric)
-
+                // Check for filters, if present applies them
+                if shouldFilterMediaItem(item) {
+                    continue
+                }
+                filteredMediaItems.append(item)
             }
-
         }
 
         return mediaItemGroups
     }
 
-    private func shouldFilterLyric(lyric: MediaItem) -> Bool {
+    private func shouldFilterMediaItem(item: MediaItem) -> Bool {
         for filter in filters.values {
             switch filter {
-            case .artist(let artist):
-                    return true
-    
             case .category(let category):
-                guard let lyricCategory = lyric.category else {
+                guard let itemCategory = item.category else {
                     if category.id == Category.all.id {
                         return false
                     }
@@ -112,43 +126,13 @@ class BrowseViewModel: MediaItemGroupViewModel {
                     return false
                 }
 
-                if lyricCategory.id != category.id {
+                if itemCategory.id != category.id {
                     return true
                 }
             }
         }
         
         return false
-    }
-
-    private func sortLyricsByTracks(group: [MediaItem]) -> [MediaItem] {
-        var sortedTracks: [String: [MediaItem]] = [:]
-        for item in group {
-            if let lyric = item as? LyricMediaItem, let title = lyric.track_title {
-                if let _ = sortedTracks[title] {
-                    sortedTracks[title]!.append(lyric)
-                } else {
-                    sortedTracks[title] = [lyric]
-                }
-            }
-        }
-        var keys: [String] = []
-        for key in sortedTracks.keys {
-            if let tracks = sortedTracks[key] as? [LyricMediaItem] {
-                sortedTracks[key] = tracks.sort({ $0.index < $1.index })
-            }
-            keys.append(key)
-        }
-        let sortedKeys = keys.sort({$0 < $1})
-
-        var sortedGroup: [MediaItem] = []
-        for key in sortedKeys {
-            if let tracks = sortedTracks[key] {
-                sortedGroup.appendContentsOf(tracks)
-            }
-        }
-
-        return sortedGroup
     }
 
 }

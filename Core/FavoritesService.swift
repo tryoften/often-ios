@@ -8,38 +8,13 @@
 
 import Foundation
 
-enum FavoritesFilter: Hashable, Equatable {
-    case category(Category)
-    case artist(ArtistMediaItem)
-
-    var hashValue: Int {
-        switch self {
-        case .category(let category):
-            return category.id.hashValue
-        case .artist(let artist):
-            return artist.id.hashValue
-        }
-    }
-
-    var type: String {
-        switch self {
-        case .category(_): return "category"
-        case .artist(_): return "artist"
-        }
-    }
-}
-
-func ==(lhs: FavoritesFilter, rhs: FavoritesFilter) -> Bool {
-    return lhs.hashValue == rhs.hashValue
-}
-
 /// fetches favorites for current user and keeps them up to date
 /// also has methods to add/remove favorites
 class FavoritesService: UserMediaItemsViewModel {
     static let defaultInstance = FavoritesService()
     private(set) var ids: Set<String> = []
 
-    var filters: [String: FavoritesFilter] = [:]
+    var filters: [String: MediaItemFilter] = [:]
     let didChangeFavorites = Event<[MediaItem]>()
 
     init() {
@@ -94,7 +69,7 @@ class FavoritesService: UserMediaItemsViewModel {
         return ids.contains(result.id)
     }
 
-    func applyFilter(filter: FavoritesFilter) {
+    func applyFilter(filter: MediaItemFilter) {
         filteredMediaItems = []
         filters[filter.type] = filter
         generateMediaItemGroups()
@@ -172,10 +147,6 @@ class FavoritesService: UserMediaItemsViewModel {
     private func shouldFilterLyric(lyric: LyricMediaItem) -> Bool {
         for filter in filters.values {
             switch filter {
-            case .artist(let artist):
-                if lyric.artist_id != artist.id {
-                    return true
-                }
             case .category(let category):
                 guard let lyricCategory = lyric.category else {
                     if category.id == Category.all.id {

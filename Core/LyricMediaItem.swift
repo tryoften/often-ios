@@ -40,10 +40,9 @@ class LyricMediaItem: MediaItem {
             self.index = index
         }
 
-        if let categoryData = data["category"] as? NSDictionary,
-            let categoryId = categoryData["id"] as? String,
-            let categoryName = categoryData["name"] as? String {
-                category = Category(id: categoryId, name: categoryName)
+        if let categoryId = data["category_id"] as? String,
+            let categoryName = data["category_name"] as? String {
+            category = Category(id: categoryId, name: categoryName)
         }
     }
 

@@ -26,9 +26,8 @@ class QuoteMediaItem: MediaItem {
         owner_image_url = data["owner_image_url"] as? String
         owner_name = data["owner_name"] as? String
 
-        if let categoryData = data["category"] as? NSDictionary,
-            let categoryId = categoryData["id"] as? String,
-            let categoryName = categoryData["name"] as? String {
+        if let categoryId = data["category_id"] as? String,
+            let categoryName = data["category_name"] as? String {
             category = Category(id: categoryId, name: categoryName)
         }
     }
