@@ -14,7 +14,6 @@ let MediaItemCollectionViewCellReuseIdentifier = "MediaItemCollectionViewCell"
 let BrowseMediaItemCollectionViewCellReuseIdentifier = "BrowseMediaItemCollectionViewCell"
 
 class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate, UIViewControllerTransitioningDelegate {
-
     var favoritesCollectionListener: Listener? = nil
     var favoriteSelected: Bool = false
     var textProcessor: TextProcessingManager?
@@ -23,12 +22,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     var isDataLoaded: Bool {
         return false
     }
-
-#if KEYBOARD
-    var categoriesVC: CategoryCollectionViewController? = nil
-    var panelToggleListener: Listener?
-    var HUDMaskView: UIView?
-#endif
 
     internal var cellsAnimated: [NSIndexPath: Bool]
     internal var loaderTimeoutTimer: NSTimer?
@@ -394,79 +387,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         return animator
     }
-
-#if KEYBOARD
-    func populatePanelMetaData(title: String?, itemCount: Int?, imageUrl: NSURL?) {
-        guard let title = title, categoriesVC = categoriesVC else {
-            return
-        }
-        categoriesVC.panelView.mediaItemTitleText = title
-
-        if let itemCount = itemCount {
-            categoriesVC.panelView.currentCategoryCount = String(itemCount)
-        }
-
-        if let imageURL = imageUrl {
-            categoriesVC.panelView.mediaItemImageView.setImageWithAnimation(imageURL)
-        }
-
-    }
-
-    func setupCategoryCollectionViewController() {
-        let categoriesVC = CategoryCollectionViewController()
-        self.categoriesVC = categoriesVC
-
-        let togglePackSelector = #selector(MediaItemsCollectionBaseViewController.togglePack)
-        let toggleRecognizer = UITapGestureRecognizer(target: self, action: togglePackSelector)
-
-        categoriesVC.panelView.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
-        categoriesVC.panelView.togglePackSelectedView.userInteractionEnabled = true
-
-
-        HUDMaskView = UIView()
-        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
-        HUDMaskView?.hidden = true
-
-        view.addSubview(HUDMaskView!)
-        view.addSubview(categoriesVC.view)
-        addChildViewController(categoriesVC)
-
-        panelToggleListener = categoriesVC.panelView.didToggle.on({ opening in
-            guard let maskView = self.HUDMaskView else {
-                return
-            }
-
-            if opening {
-                maskView.alpha = 0.0
-                maskView.hidden = false
-            }
-
-            UIView.animateWithDuration(0.3, animations: {
-                maskView.alpha = opening ? 1.0 : 0.0
-                }, completion: { done in
-                    if !opening {
-                        maskView.hidden = true
-                    }
-            })
-        })
-
-        layoutCategoryPanelView()
-    }
-
-    func layoutCategoryPanelView() {
-        let superviewHeight: CGFloat = CGRectGetHeight(view.frame)
-        if let panelView = categoriesVC?.view {
-            panelView.frame = CGRectMake(CGRectGetMinX(view.frame),
-                                         superviewHeight - SectionPickerViewHeight,
-                                         CGRectGetWidth(view.frame),
-                                         SectionPickerViewOpenedHeight)
-        }
-    }
-
-    func togglePack() {
-    }
-
-#endif
 
 
 }
