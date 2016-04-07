@@ -129,7 +129,7 @@ let ArtistCollectionViewCloseButtonBackgroundColor = UIColor(fromHexString: "#12
 
 let ArtistCollectionViewCellBackgroundColor = UIColor.whiteColor()
 let ArtistCollectionViewCellTitleTextColor = UIColor(fromHexString: "#121314")
-let ArtistCollectionViewCellSubtitleTextColor = UIColor(fromHexString: "#202020")
+let ArtistCollectionViewCellSubtitleTextColor = UIColor.oftDarkGrey74Color()
 let ArtistCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 15)
 let ArtistCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 8)
 let ArtistCollectionViewCellWidth: CGFloat = 135
@@ -407,6 +407,6 @@ let SearchBarPlaceholderText: String = "Search"
 let TwitterButtonColor = UIColor(fromHexString: "#62A9E0")
 
 //Pack Cells
-let PackCellWidth: CGFloat = (UIScreen.mainScreen().bounds.width / 2) - 25
+let PackCellWidth: CGFloat = 171
 let PackCellHeight: CGFloat = 237.0
 

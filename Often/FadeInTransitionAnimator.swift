@@ -32,9 +32,12 @@ class FadeInTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
         if presenting {
             if resizePresentingViewController {
                 lastViewControllerFrame.size.height = fromViewController.view.bounds.height - KeyboardTabBarHeight
+                lastViewControllerFrame.origin.y = fromViewController.view.bounds.origin.y + KeyboardTabBarHeight
+            } else {
+                lastViewControllerFrame.size.height = fromViewController.view.bounds.height
+                lastViewControllerFrame.origin.y = fromViewController.view.bounds.origin.y
             }
 
-            lastViewControllerFrame.origin.y = fromViewController.view.bounds.origin.y + KeyboardTabBarHeight
 
             toViewController.view.frame = lastViewControllerFrame
             toViewController.view.alpha = 0

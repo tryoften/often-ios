@@ -36,6 +36,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.collectionView?.reloadData()
+            self.hideHud()
         }
 
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)

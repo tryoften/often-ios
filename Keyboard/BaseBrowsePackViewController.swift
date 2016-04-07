@@ -93,6 +93,8 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
 
         let togglePackSelector = #selector(BaseBrowsePackItemViewController.togglePack)
         let toggleRecognizer = UITapGestureRecognizer(target: self, action: togglePackSelector)
+        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.toggleCategoryViewController)
+        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
 
         categoriesVC.panelView.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
         categoriesVC.panelView.togglePackSelectedView.userInteractionEnabled = true
@@ -101,6 +103,8 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
         HUDMaskView = UIView()
         HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
         HUDMaskView?.hidden = true
+        HUDMaskView?.userInteractionEnabled = true
+        HUDMaskView?.addGestureRecognizer(hudRecognizer)
 
         view.addSubview(HUDMaskView!)
         view.addSubview(categoriesVC.view)
@@ -162,6 +166,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
 
     func togglePack() {
 
+    }
+    
+    func toggleCategoryViewController() {
+        categoriesVC?.panelView.toggleDrawer()
     }
 
 }
