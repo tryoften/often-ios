@@ -11,7 +11,10 @@ import UIKit
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class BrowsePackItemViewController: BrowseMediaItemViewController {
-
+    var packCollectionListener: Listener? = nil
+    var categoriesVC: CategoryCollectionViewController? = nil
+    var panelToggleListener: Listener?
+    var HUDMaskView: UIView?
     var pack: PackMediaItem? {
         didSet {
             cellsAnimated = [:]
@@ -19,9 +22,6 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
                 self.collectionView?.reloadData()
             }
             headerViewDidLoad()
-        #if KEYBOARD
-            populatePanelMetaData(pack?.name, itemCount: pack?.items.count, imageUrl: pack?.smallImageURL)
-        #endif
         }
     }
     
@@ -31,6 +31,15 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
         self.packId = packId
         super.init(viewModel: viewModel)
         self.textProcessor = textProcessor
+
+        packCollectionListener = viewModel.didChangeMediaItems.on { items in
+
+            #if KEYBOARD
+                self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
+            #endif
+
+            self.collectionView?.reloadData()
+        }
         
         #if KEYBOARD
             collectionView?.contentInset = UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
@@ -76,11 +85,9 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
         return layout
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        loadPackData()
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+         loadPackData()
     }
 
     override func headerViewDidLoad() {
@@ -155,10 +162,7 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
     
     // MARK: UICollectionViewDataSource
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let itemsCount = pack?.items.count {
-            return itemsCount
-        }
-        return 0
+        return viewModel.filteredMediaItems.count
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -167,7 +171,7 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: MediaItemCollectionViewCell
-        cell = parseMediaItemData(pack?.items, indexPath: indexPath, collectionView: collectionView) as MediaItemCollectionViewCell
+        cell = parseMediaItemData(viewModel.filteredMediaItems, indexPath: indexPath, collectionView: collectionView) as MediaItemCollectionViewCell
         cell.style = .Cell
         cell.type = .NoMetadata
 
@@ -176,7 +180,6 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
         return cell
     }
 
-
     func loadPackData()  {
         self.pack = nil
 
@@ -184,10 +187,86 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
 
         viewModel.getPackWithOftenId(packId) { model in
             self.pack = model
-
+            
+            self.setupCategoryCollectionViewController()
+            self.layoutCategoryPanelView()
+            self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
+            
             #if !(KEYBOARD)
                 self.hideHud()
+                
             #endif
         }
     }
+
+    func populatePanelMetaData(title: String?, itemCount: Int?, imageUrl: NSURL?) {
+        guard let title = title, categoriesVC = categoriesVC else {
+            return
+        }
+        categoriesVC.panelView.mediaItemTitleText = title
+
+        if let itemCount = itemCount {
+            categoriesVC.panelView.currentCategoryCount = String(itemCount)
+        }
+
+        if let imageURL = imageUrl {
+            categoriesVC.panelView.mediaItemImageView.setImageWithAnimation(imageURL)
+        }
+
+    }
+
+    func setupCategoryCollectionViewController() {
+        let categoriesVC = CategoryCollectionViewController(viewModel: viewModel, categories: pack!.categories)
+        self.categoriesVC = categoriesVC
+
+        let togglePackSelector = #selector(BrowsePackItemViewController.togglePack)
+        let toggleRecognizer = UITapGestureRecognizer(target: self, action: togglePackSelector)
+
+        categoriesVC.panelView.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
+        categoriesVC.panelView.togglePackSelectedView.userInteractionEnabled = true
+
+
+        HUDMaskView = UIView()
+        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
+        HUDMaskView?.hidden = true
+
+        view.addSubview(HUDMaskView!)
+        view.addSubview(categoriesVC.view)
+        addChildViewController(categoriesVC)
+
+        panelToggleListener = categoriesVC.panelView.didToggle.on({ opening in
+            guard let maskView = self.HUDMaskView else {
+                return
+            }
+
+            if opening {
+                maskView.alpha = 0.0
+                maskView.hidden = false
+            }
+
+            UIView.animateWithDuration(0.3, animations: {
+                maskView.alpha = opening ? 1.0 : 0.0
+                }, completion: { done in
+                    if !opening {
+                        maskView.hidden = true
+                    }
+            })
+        })
+
+        layoutCategoryPanelView()
+    }
+
+    func layoutCategoryPanelView() {
+        let superviewHeight: CGFloat = CGRectGetHeight(view.frame)
+        if let panelView = categoriesVC?.view {
+            panelView.frame = CGRectMake(CGRectGetMinX(view.frame),
+                                         superviewHeight - SectionPickerViewHeight,
+                                         CGRectGetWidth(view.frame),
+                                         SectionPickerViewOpenedHeight)
+        }
+    }
+    
+    func togglePack() {
+    }
+
 }

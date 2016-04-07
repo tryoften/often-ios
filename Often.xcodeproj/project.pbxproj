@@ -223,17 +223,15 @@
 		69A731311C602A3E00F3DBAD /* EmojisList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69A7312F1C602A3E00F3DBAD /* EmojisList.plist */; };
 		69A731321C602A3E00F3DBAD /* EmojisList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69A7312F1C602A3E00F3DBAD /* EmojisList.plist */; };
 		69A731361C602CA000F3DBAD /* EmojiKeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A731251C600EC500F3DBAD /* EmojiKeyboardViewModel.swift */; };
-		69D1126B1CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D112691CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift */; };
-		69D1126C1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126A1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift */; };
 		69B549051CB32AF800C3D1BC /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		69B549081CB348F400C3D1BC /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
 		69B549091CB348F500C3D1BC /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
 		69B5490A1CB348F500C3D1BC /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
 		69B5490B1CB348F600C3D1BC /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
 		69B5490C1CB348F600C3D1BC /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
-		69D1126B1CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D112691CA73DBB0030EB79 /* PackBrowseCollectionViewController.swift */; };
-		69D1126C1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126A1CA73DBB0030EB79 /* PackBrowseHeaderCollectionViewController.swift */; };
-		69D1126E1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126D1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift */; };
+		69D1126B1CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D112691CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift */; };
+		69D1126C1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126A1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift */; };
+		69D1126E1CA73DC00030EB79 /* BrowsePackHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126D1CA73DC00030EB79 /* BrowsePackHeaderCollectionViewCell.swift */; };
 		69DBDE0F1C665E6900701A5D /* EmojiSectionSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */; };
 		69DBDE141C6660FB00701A5D /* EmojiSectionSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */; };
 		69FEDDE21BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FEDDE11BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift */; };
@@ -1063,7 +1061,6 @@
 		81F15C101CB2B5B700D074CB /* PacksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C0C1CB2B5B700D074CB /* PacksService.swift */; };
 		81F15C111CB2B5B700D074CB /* PacksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C0C1CB2B5B700D074CB /* PacksService.swift */; };
 		81F15C131CB2BFBD00D074CB /* BrowsePackHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126D1CA73DC00030EB79 /* BrowsePackHeaderCollectionViewCell.swift */; };
-		81F15C141CB2BFEE00D074CB /* BrowsePackHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126A1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift */; };
 		81F15C171CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C161CB2E12000D074CB /* UserMediaItemsViewModel.swift */; };
 		81F15C181CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C161CB2E12000D074CB /* UserMediaItemsViewModel.swift */; };
 		81F15C191CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C161CB2E12000D074CB /* UserMediaItemsViewModel.swift */; };
@@ -3848,7 +3845,7 @@
 				816D50661C8A04FB007B3249 /* SearchViewController.swift in Sources */,
 				816D506A1C8A0506007B3249 /* String+Utils.swift in Sources */,
 				816D50BC1C8A05E3007B3249 /* Signal.swift in Sources */,
-				69D1126E1CA73DC00030EB79 /* PackBrowseHeaderCollectionViewCell.swift in Sources */,
+				69D1126E1CA73DC00030EB79 /* BrowsePackHeaderCollectionViewCell.swift in Sources */,
 				69B549051CB32AF800C3D1BC /* PacksViewModel.swift in Sources */,
 				816D506C1C8A0506007B3249 /* ParseConfig.swift in Sources */,
 				816D50501C8A04D9007B3249 /* EmptyStateView.swift in Sources */,
@@ -4186,7 +4183,6 @@
 				3B47B7A21C92004200D7A543 /* FadeInTransitionAnimator.swift in Sources */,
 				81DA3F221C24BE85006822D3 /* User.swift in Sources */,
 				6944A5341C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */,
-				81F15C141CB2BFEE00D074CB /* BrowsePackHeaderCollectionViewController.swift in Sources */,
 				81DA3F291C24BE85006822D3 /* SlideTabBar.swift in Sources */,
 				81DA3F2A1C24BE85006822D3 /* VideoMediaItem.swift in Sources */,
 				3B5AF37C1C7F7A960047E42B /* MainAppSearchResultNavigationBar.swift in Sources */,

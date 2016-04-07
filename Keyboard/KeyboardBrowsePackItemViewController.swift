@@ -13,8 +13,6 @@ class KeyboardBrowsePackItemViewController: BrowsePackItemViewController, Keyboa
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupCategoryCollectionViewController()
-        layoutCategoryPanelView()
     }
 
     override func viewWillLayoutSubviews() {
