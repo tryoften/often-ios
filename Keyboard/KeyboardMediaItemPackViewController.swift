@@ -14,7 +14,7 @@ private let PacksCellReuseIdentifier = "TrendingArtistsCell"
 class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: PacksService
     var packPanelView: PackPanelView
-    var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
+    weak var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
     var group: MediaItemGroup? {
         didSet {
             collectionView?.reloadData()
