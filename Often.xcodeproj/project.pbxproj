@@ -149,6 +149,11 @@
 		3B9991D71C7E4E9B00C60A99 /* AnimatedLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */; };
 		3BA021511C6A999600FE9009 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA0214F1C6A999600FE9009 /* Analytics.swift */; };
 		3BA021521C6AB6DA00FE9009 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA0214F1C6A999600FE9009 /* Analytics.swift */; };
+		3BA7D8321CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7D8311CB6F4A200C7E5C7 /* UILabel+AttributeText.swift */; };
+		3BA7D8331CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7D8311CB6F4A200C7E5C7 /* UILabel+AttributeText.swift */; };
+		3BA7D8341CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7D8311CB6F4A200C7E5C7 /* UILabel+AttributeText.swift */; };
+		3BA7D8351CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7D8311CB6F4A200C7E5C7 /* UILabel+AttributeText.swift */; };
+		3BA7D8361CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7D8311CB6F4A200C7E5C7 /* UILabel+AttributeText.swift */; };
 		3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
 		3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */; };
@@ -1271,6 +1276,7 @@
 		3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedLoaderView.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BA0214F1C6A999600FE9009 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		3BA7D8311CB6F4A200C7E5C7 /* UILabel+AttributeText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+AttributeText.swift"; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -1871,6 +1877,7 @@
 				81D09D8D1BE1C4F400AFBEC0 /* String+Utils.swift */,
 				81E881741BE7DDD600523ECC /* StreamReader.swift */,
 				8107036F1BFD05AB00FDBF57 /* ParseConfig.swift */,
+				3BA7D8311CB6F4A200C7E5C7 /* UILabel+AttributeText.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -3391,6 +3398,7 @@
 				810EA4B71C8579D1005A6C6D /* MediaItemsSectionHeaderView.swift in Sources */,
 				810EA4B81C8579D1005A6C6D /* AccountManager.swift in Sources */,
 				810EA4B91C8579D1005A6C6D /* MediaItem.swift in Sources */,
+				3BA7D8351CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				810EA4BA1C8579D1005A6C6D /* TogglePanelButton.swift in Sources */,
 				810EA4BB1C8579D1005A6C6D /* NotificationListener.swift in Sources */,
 				810EA4BC1C8579D1005A6C6D /* PKHUDContentView.swift in Sources */,
@@ -3700,6 +3708,7 @@
 				810EA6141C8579F1005A6C6D /* CollectionViewAlphabeticalSidebar.swift in Sources */,
 				810EA6151C8579F1005A6C6D /* SearchViewModel.swift in Sources */,
 				810EA6161C8579F1005A6C6D /* KeyboardLayouts.swift in Sources */,
+				3BA7D8361CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				810EA6171C8579F1005A6C6D /* MediaItemCollectionViewCell.swift in Sources */,
 				810EA6181C8579F1005A6C6D /* MediaItem.swift in Sources */,
 				810EA6191C8579F1005A6C6D /* Direction.swift in Sources */,
@@ -3736,6 +3745,7 @@
 				816D50A01C8A058D007B3249 /* ContainerNavigationBar.swift in Sources */,
 				816D50AC1C8A0596007B3249 /* MainAppBrowseViewController.swift in Sources */,
 				816D503E1C8A04CA007B3249 /* MediaItemGroup.swift in Sources */,
+				3BA7D8321CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				816D503A1C8A04C4007B3249 /* Analytics.swift in Sources */,
 				816D508E1C8A0589007B3249 /* SettingsViewModel.swift in Sources */,
 				816D50EB1C8A3390007B3249 /* KeyboardKey.swift in Sources */,
@@ -3904,6 +3914,7 @@
 				816D50271C862E86007B3249 /* UIColor+Often.swift in Sources */,
 				81028A391C49D2B0000533FA /* BrowseArtistCollectionViewController.swift in Sources */,
 				8127A8F11B90E27F00BD070B /* SearchSuggestionsViewController.swift in Sources */,
+				3BA7D8341CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				81D60AD11B84BF3200347BCA /* SearchResponse.swift in Sources */,
 				3B50062D1CADA9DE003D4144 /* BrowseMediaItemViewController.swift in Sources */,
 				8176BEE71B73F9A100E1BDCD /* KeyboardTheme.swift in Sources */,
@@ -4076,6 +4087,7 @@
 				81DA3EAE1C24BE85006822D3 /* SearchViewModel.swift in Sources */,
 				81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */,
 				81DA3EB21C24BE85006822D3 /* SearchSuggestion.swift in Sources */,
+				3BA7D8331CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				81DA3EB31C24BE85006822D3 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
 				3B5006471CB2E50B003D4144 /* KeyboardMediaItemPackViewController.swift in Sources */,
 				6958C7B81C2AEAF800BDAB3F /* TrackCollectionViewCell.swift in Sources */,
