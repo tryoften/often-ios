@@ -19,6 +19,10 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
                    viewModel: viewModel)
 
         navigationItem.title = "often".uppercaseString
+
+        packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
+            self.collectionView?.reloadData()
+        }
     }
     
     override func viewDidLoad() {
@@ -38,7 +42,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 0)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 370)
-        flowLayout.itemSize = CGSizeMake(PackCellWidth, PackCellHeight) /// height of the cell
+        flowLayout.itemSize = CGSizeMake(PackCellWidth, 225) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
         flowLayout.sectionInset = UIEdgeInsetsMake(20.0, 17.0, 0.0, 17.0)
@@ -62,7 +66,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         navigationController?.navigationBar.translucent = false
         navigationController?.navigationBar.barStyle = .Default
-        navigationController?.navigationBar.tintColor = BlackColor
+        navigationController?.navigationBar.tintColor = WhiteColor
         navigationController?.navigationBar.barTintColor = MainBackgroundColor
     }
     
@@ -88,7 +92,22 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
         
         return UICollectionReusableView()
     }
-    
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+
+        if collectionType == .Packs {
+            let result = viewModel.mediaItemGroupItemsForIndex(indexPath.section)[indexPath.row]
+            guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
+                return
+            }
+
+            let packVC = BrowsePackItemViewController(packId: id, viewModel: BrowseViewModel(), textProcessor: nil)
+            navigationController?.navigationBar.hidden = false
+            navigationController?.pushViewController(packVC, animated: true)
+        }
+    }
+
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 20.0 as CGFloat
     }

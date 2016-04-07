@@ -17,6 +17,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     var titleLabel: UILabel
     var subtitleLabel: UILabel
     var contentEdgeInsets: UIEdgeInsets
+    var addedBadgeView: UIImageView
 
     var songCount: Int? {
         didSet {
@@ -35,6 +36,15 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         placeholderImageView.backgroundColor = MediumGrey
         placeholderImageView.image = UIImage(named: "placeholder")
         placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
+
+        addedBadgeView = UIImageView(image: StyleKit.imageOfCheckicon(color: TealColor, scale: 0.4))
+        addedBadgeView.backgroundColor = WhiteColor
+        addedBadgeView.translatesAutoresizingMaskIntoConstraints = false
+        addedBadgeView.layer.cornerRadius = 18.0
+        addedBadgeView.layer.shadowRadius = 2
+        addedBadgeView.layer.shadowOpacity = 0.2
+        addedBadgeView.layer.shadowColor = MediumLightGrey.CGColor
+        addedBadgeView.layer.shadowOffset = CGSizeMake(0, 1)
 
         var layer = CAShapeLayer()
         layer.path = BrowseMediaItemCollectionViewCell.drawImageMask().CGPath
@@ -67,7 +77,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.textAlignment = .Center
 
-        contentEdgeInsets = UIEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
+        contentEdgeInsets = UIEdgeInsets(top: 15, left: 14, bottom: 10, right: 14)
 
         super.init(frame: frame)
 
@@ -76,6 +86,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
+        addSubview(addedBadgeView)
 
         self.layer.cornerRadius = 2.0
         self.layer.shadowColor = UIColor.blackColor().CGColor
@@ -87,7 +98,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         setupLayout()
 
         let width: CGFloat = self.frame.size.width
-        setImageViewLayers(CGRectMake(0, 0, width, width))
+        setImageViewLayers(CGRectMake(0, 0, width, frame.size.height/2 + 20))
     }
 
     required convenience init?(coder aDecoder: NSCoder) {
@@ -118,9 +129,14 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     func setupLayout() {
         addConstraints([
             imageView.al_width == al_width,
-            imageView.al_height == imageView.al_width,
+            imageView.al_height == al_height / 2 + 20,
             imageView.al_centerX == al_centerX,
             imageView.al_top == al_top,
+
+            addedBadgeView.al_width == 36,
+            addedBadgeView.al_height == addedBadgeView.al_width,
+            addedBadgeView.al_right == al_right - 12,
+            addedBadgeView.al_top == al_top + 96,
 
             placeholderImageView.al_width == imageView.al_width,
             placeholderImageView.al_height == imageView.al_height,
