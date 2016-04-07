@@ -82,10 +82,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
             }
             self.layoutCategoryPanelView()
             self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
-            
-        #if !(KEYBOARD)
-            self.hideHud()
-        #endif
         }
     }
 
