@@ -105,15 +105,17 @@ class KeyboardMediaItemDetailViewController: UIViewController {
     func setupDetailView() {
         switch item.type {
         case .Lyric:
-            let lyric = (item as! LyricMediaItem)
+            if let lyric = item as? LyricMediaItem {
             keyboardMediaItemDetailView.mediaItemText.text = lyric.text
             keyboardMediaItemDetailView.mediaItemAuthor.text = lyric.artist_name
             keyboardMediaItemDetailView.mediaItemTitle.text = lyric.track_title
+            }
         case .Quote:
-            let quote = (item as! QuoteMediaItem)
-            keyboardMediaItemDetailView.mediaItemText.text = quote.text
-            keyboardMediaItemDetailView.mediaItemAuthor.text = quote.owner_name
-            keyboardMediaItemDetailView.mediaItemTitle.text = quote.origin_name
+            if let quote = item as? QuoteMediaItem {
+                keyboardMediaItemDetailView.mediaItemText.text = quote.text
+                keyboardMediaItemDetailView.mediaItemAuthor.text = quote.owner_name
+                keyboardMediaItemDetailView.mediaItemTitle.text = quote.origin_name
+            }
         default: break
         }
 
