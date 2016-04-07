@@ -1,4 +1,4 @@
-//
+    //
 //  PackMediaItem.swift
 //  Often
 //
@@ -13,9 +13,11 @@ class PackMediaItem: MediaItem {
     var pack_id: String?
     var name: String?
     var items_count: Int?
-    var items: [LyricMediaItem] = []
+    var items: [MediaItem] = []
     var premium: Bool = false
     var price: Double = 0.0
+    var categories: [Category] = []
+
     
     required init(data: NSDictionary) {
         super.init(data: data)
@@ -47,10 +49,14 @@ class PackMediaItem: MediaItem {
         }
         
         if let items = data["items"] as? NSArray,
-            let itemsModel = LyricMediaItem.modelsFromDictionaryArray(items) as? [LyricMediaItem] {
+            let itemsModel = MediaItem.modelsFromDictionaryArray(items) as? [MediaItem] {
             self.items = itemsModel
         }
-        
+
+        if let items = data["categories"] as? NSDictionary {
+            self.categories = Category.modelsFromDictionary(items)
+        }
+
         if let premium = data["premium"] as? Bool {
             self.premium = premium
         }

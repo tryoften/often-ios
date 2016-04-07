@@ -96,7 +96,7 @@ class BrowseViewController: MediaItemGroupsViewController,
             displayedData = true
         } else {
             collectionView?.performBatchUpdates({
-                let range = NSMakeRange(0, viewModel.groups.count)
+                let range = NSMakeRange(0, viewModel.mediaItemGroups.count)
                 self.collectionView?.reloadSections(NSIndexSet(indexesInRange: range))
             }, completion: nil)
 

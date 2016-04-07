@@ -14,8 +14,9 @@ private let PacksCellReuseIdentifier = "TrendingArtistsCell"
 class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: PacksService
     var packPanelView: PackPanelView
-    var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
-    var group: MediaItemGroup? {
+    weak var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
+    var packServiceListener: Listener?
+    var mediaItems: MediaItemGroup? {
         didSet {
             collectionView?.reloadData()
         }
@@ -32,7 +33,10 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         collectionView?.contentInset = UIEdgeInsets(top: -40, left: 0, bottom: 0, right: 0)
 
         viewModel.fetchCollection()
-        viewModel.delegate = self
+
+        packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
+            self.collectionView?.reloadData()
+        }
 
         view.backgroundColor = VeryLightGray
         view.addSubview(packPanelView)
@@ -79,16 +83,11 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
         if section == 0 {
             return 1
         }
 
-        if let group = group {
-            return group.items.count
-        }
-
-        return 5
+        return viewModel.mediaItems.count
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
@@ -108,31 +107,18 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
             return cell
         default:
-            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PacksCellReuseIdentifier, forIndexPath: indexPath) as? BrowseMediaItemCollectionViewCell else {
-                return UICollectionViewCell()
-            }
+            let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as BrowseMediaItemCollectionViewCell
+            cell.addedBadgeView.hidden = true
 
-            guard let pack = group?.items[indexPath.row] as? PackMediaItem else {
-                return cell
-            }
-
-            // Configure the cell
-            cell.titleLabel.text = pack.name
-            if let imageURL = pack.largeImageURL {
-                cell.imageView.setImageWithAnimation(imageURL)
-            }
-            cell.layer.shouldRasterize = true
-            cell.layer.rasterizationScale = UIScreen.mainScreen().scale
-            
             return cell
         }
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let group = group, pack = group.items[indexPath.row] as? PackMediaItem else {
+        guard let pack = viewModel.mediaItems[indexPath.row] as? PackMediaItem else {
             return
         }
-        print(pack.id)
+
         delegate?.keyboardMediaItemPackPickerViewControllerDidSelectPack(self, pack: pack)
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -168,7 +154,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     }
 
     func mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, groups: [MediaItemGroup]) {
-        group = viewModel.generateMediaItemGroups().first
+        mediaItems = viewModel.generateMediaItemGroups().first
     }
 
     // MARK: LaunchMainApp

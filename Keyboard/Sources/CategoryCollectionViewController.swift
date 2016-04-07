@@ -13,12 +13,14 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
 
     private var drawerOpened: Bool = false
     var panelView: CategoriesPanelView
+    var viewModel: BrowseViewModel
 
     var currentCategory: Category? {
         didSet {
             panelView.currentCategoryText = currentCategory?.name.uppercaseString
+
             if let category = currentCategory {
-                FavoritesService.defaultInstance.applyFilter(.category(category))
+                viewModel.applyFilter(.category(category))
             }
         }
     }
@@ -34,15 +36,24 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
 
     private var categoryServiceListener: Listener?
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    init(viewModel: BrowseViewModel, categories: [Category]) {
+        self.viewModel = viewModel
+
+        self.categories = [Category.all]
+
+        for category in categories {
+            self.categories.append(category)
+        }
+
         panelView = CategoriesPanelView(frame: CGRectZero)
 
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        super.init(nibName: nil, bundle: nil)
+
+        view.backgroundColor = VeryLightGray
 
         panelView.categoriesCollectionView.dataSource = self
         panelView.categoriesCollectionView.delegate = self
 
-        categoryServiceListener = CategoryService.defaultInstance.didUpdateCategories.on(self.handleCategories)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -59,17 +70,19 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         let viewLayout = CategoriesPanelView.provideCollectionViewLayout(panelView.bounds)
         panelView.categoriesCollectionView.setCollectionViewLayout(viewLayout, animated: false)
 
-        if let categories =  CategoryService.defaultInstance.categories {
-            self.categories = categories
-        }
+        currentCategory = self.categories.first
     }
 
     func handleCategories(categories: [Category]) {
-        self.categories = categories
+        var newCategories: [Category] = [Category.all]
+
+        for category in categories {
+            newCategories.append(category)
+        }
+        self.categories = newCategories
     }
 
     // MARK: UICollectionViewDataSource
-
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
     }

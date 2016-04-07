@@ -36,27 +36,7 @@ class KeyboardRecentsViewController: MediaItemsViewController {
         return layout
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        setupCategoryCollectionViewController()
-        layoutCategoryPanelView()
-
-        populatePanelMetaData(collectionType.rawValue.uppercaseString, itemCount: viewModel.mediaItemGroupItemsForIndex(0).count, imageUrl: nil)
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-
-        HUDMaskView?.frame = view.bounds
-
-        guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
-            return
-        }
-
-        layoutCategoryPanelView()
-    }
-
+    
     func onOrientationChanged() {
         collectionView?.performBatchUpdates(nil, completion: nil)
     }
@@ -116,10 +96,6 @@ class KeyboardRecentsViewController: MediaItemsViewController {
 
     override func hideLoadingView() {
         
-    }
-    
-    override func togglePack() {
-        dismissViewControllerAnimated(true, completion: nil)
     }
 
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

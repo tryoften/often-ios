@@ -61,7 +61,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         timer?.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(3.75, target: self, selector: #selector(FeaturedArtistViewController.scrollToNextPage), userInfo: nil, repeats: true)
     }
 
     func setupLayout() {
@@ -82,7 +82,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
 
 
     func setupPages() {
-        guard let group = viewModel.groups.first else {
+        guard let group = viewModel.mediaItemGroups.first else {
             return
         }
         
@@ -99,7 +99,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
     }
 
     func loadPage(page: Int) {
-        guard let artist = viewModel.groups.first?.items[page] as? ArtistMediaItem else {
+        guard let artist = viewModel.mediaItemGroups.first?.items[page] as? ArtistMediaItem else {
             return
         }
 
@@ -136,7 +136,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
         timer?.invalidate()
         showNavigationBar(true)
 
-        guard let artistMediaItem = viewModel.groups.first?.items[currentPage] as? ArtistMediaItem else {
+        guard let artistMediaItem = viewModel.mediaItemGroups.first?.items[currentPage] as? ArtistMediaItem else {
             return
         }
 
