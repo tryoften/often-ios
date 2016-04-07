@@ -174,12 +174,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         if let imageURL = pack.smallImageURL {
             cell.imageView.setImageWithURL(imageURL)
         }
-        
-        if let lyricsCount = pack.items_count {
-            cell.subtitleLabel.text = "\(lyricsCount) items".uppercaseString
-        }
 
         cell.titleLabel.text = pack.name
+        cell.subtitleLabel.text = "\(pack.items_count) items".uppercaseString
         cell.addedBadgeView.hidden = !PacksService.defaultInstance.checkPack(pack)
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale

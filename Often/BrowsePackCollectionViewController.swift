@@ -45,7 +45,9 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
         flowLayout.itemSize = CGSizeMake(PackCellWidth, 225) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
-        flowLayout.sectionInset = UIEdgeInsetsMake(20.0, 17.0, 0.0, 17.0)
+        flowLayout.minimumInteritemSpacing = 7.0
+        flowLayout.minimumLineSpacing = 7.0
+        flowLayout.sectionInset = UIEdgeInsetsMake(12.0, 12.0, 12.0, 12.0)
         return flowLayout
     }
 

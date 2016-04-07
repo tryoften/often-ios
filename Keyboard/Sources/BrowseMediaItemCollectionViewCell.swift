@@ -69,13 +69,13 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         titleLabel.font = ArtistCollectionViewCellTitleFont
         titleLabel.textColor = ArtistCollectionViewCellTitleTextColor
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .Left
 
         subtitleLabel = UILabel()
         subtitleLabel.font = ArtistCollectionViewCellSubtitleFont
         subtitleLabel.textColor = ArtistCollectionViewCellSubtitleTextColor
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.textAlignment = .Center
+        subtitleLabel.textAlignment = .Left
 
         contentEdgeInsets = UIEdgeInsets(top: 15, left: 14, bottom: 10, right: 14)
 

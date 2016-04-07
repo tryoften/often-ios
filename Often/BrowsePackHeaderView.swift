@@ -12,10 +12,8 @@ class BrowsePackHeaderView: UICollectionReusableView {
     var browsePicker: BrowsePackHeaderCollectionViewController
     var titleLabel: UILabel
     var subtitleLabel: UILabel
-    var actionButton: UIButton // Download or Buy
-    var underlineButton: UIButton
-    var sectionHeaderView: BrowsePackSectionHeaderView
     var premiumIcon: UIImageView
+    var topBorderView: UIView
     
     override init(frame: CGRect) {
         browsePicker = BrowsePackHeaderCollectionViewController()
@@ -34,49 +32,28 @@ class BrowsePackHeaderView: UICollectionReusableView {
         subtitleLabel.textColor = BlackColor
         subtitleLabel.textAlignment = .Center
         subtitleLabel.text = "Share quotes from Angie Martinez's new book \"My Voice\""
-        
-        actionButton = UIButton()
-        actionButton.translatesAutoresizingMaskIntoConstraints = false
-        actionButton.backgroundColor = BlackColor
-        actionButton.titleLabel?.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
-        actionButton.layer.cornerRadius = 15
-        actionButton.setTitle("BUY $0.99", forState: .Normal)
-        actionButton.setTitleColor(WhiteColor, forState: .Normal)
-        
-        sectionHeaderView = BrowsePackSectionHeaderView()
-        sectionHeaderView.translatesAutoresizingMaskIntoConstraints = false
-        sectionHeaderView.leftLabel.text = "featured packs".uppercaseString
 
         premiumIcon = UIImageView(image: StyleKit.imageOfPremium(color: TealColor, frame: CGRectMake(0, 0, 25, 25)))
         premiumIcon.translatesAutoresizingMaskIntoConstraints = false
-        
-        underlineButton = UIButton()
-        
-        if let font = UIFont(name: "OpenSans-Semibold", size: 9.0) {
-            let attributes = [
-                NSFontAttributeName : font,
-                NSForegroundColorAttributeName : BlackColor,
-                NSUnderlineStyleAttributeName : 1,
-                NSKernAttributeName: 1
-            ]
-            let buttonTitle = NSMutableAttributedString(string: "")
-            let buttonTitleString = NSMutableAttributedString(string: "try sample".uppercaseString, attributes: attributes)
-            
-            underlineButton.translatesAutoresizingMaskIntoConstraints = false
-            buttonTitle.appendAttributedString(buttonTitleString)
-            underlineButton.setAttributedTitle(buttonTitle, forState: .Normal)
-        }
-        
+
+        topBorderView = UIView()
+        topBorderView.translatesAutoresizingMaskIntoConstraints = false
+        topBorderView.backgroundColor = LightGrey
+
         super.init(frame: frame)
-        
-        backgroundColor = UIColor.oftWhiteThreeColor()
+
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = bounds
+        gradient.colors = [UIColor.oftWhiteColor().CGColor, UIColor.oftWhiteThreeColor().CGColor]
+        layer.insertSublayer(gradient, atIndex: 0)
+
         clipsToBounds = true
         
         addSubview(browsePicker.view)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(premiumIcon)
-        addSubview(sectionHeaderView)
+        addSubview(topBorderView)
 
         setupLayout()
     }
@@ -102,7 +79,7 @@ class BrowsePackHeaderView: UICollectionReusableView {
 
     func setupLayout() {
         addConstraints([
-            browsePicker.view.al_top == sectionHeaderView.al_bottom,
+            browsePicker.view.al_top == al_top + 25,
             browsePicker.view.al_left == al_left,
             browsePicker.view.al_width == al_width,
             browsePicker.view.al_height == 260,
@@ -116,10 +93,10 @@ class BrowsePackHeaderView: UICollectionReusableView {
             subtitleLabel.al_top == titleLabel.al_bottom + 5,
             subtitleLabel.al_centerX == al_centerX,
 
-            sectionHeaderView.al_top == al_top,
-            sectionHeaderView.al_right == al_right,
-            sectionHeaderView.al_left == al_left,
-            sectionHeaderView.al_height == 35,
+            topBorderView.al_left == al_left,
+            topBorderView.al_right == al_right,
+            topBorderView.al_top == al_top,
+            topBorderView.al_height == 0.5
         ])
     }
 }

@@ -25,7 +25,6 @@ class BrowsePackSectionHeaderView: UICollectionReusableView {
         rightLabel.translatesAutoresizingMaskIntoConstraints = false
         rightLabel.font = UIFont(name: "OpenSans-Semibold", size: 9.0)
         rightLabel.textColor = BlackColor
-        rightLabel.text = "(10)"
         
         bottomBorderView = UIView()
         bottomBorderView.translatesAutoresizingMaskIntoConstraints = false
