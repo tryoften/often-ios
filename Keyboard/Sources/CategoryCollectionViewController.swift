@@ -75,7 +75,12 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
 
     func handleCategories(categories: [Category]) {
-        self.categories = categories
+        var newCategories: [Category] = [Category.all]
+
+        for category in categories {
+            newCategories.append(category)
+        }
+        self.categories = newCategories
     }
 
     // MARK: UICollectionViewDataSource
