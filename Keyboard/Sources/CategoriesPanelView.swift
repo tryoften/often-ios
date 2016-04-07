@@ -7,6 +7,10 @@
 //
 
 import UIKit
+enum CategoryPanelStyle {
+    case Simple
+    case Detailed
+}
 
 class CategoriesPanelView: UIView {
     var toggleDrawerButton: UIButton
@@ -37,7 +41,7 @@ class CategoriesPanelView: UIView {
         NSForegroundColorAttributeName: UIColor.oftBlackColor()
     ]
 
-    var style: CategoriesPanelViewPanelStyle = .Detailed {
+    var style: CategoryPanelStyle = .Detailed {
         didSet {
             setupPanelStyle()
         }
@@ -188,6 +192,7 @@ class CategoriesPanelView: UIView {
             switchKeyboardButtonSeperator.hidden = true
             switchKeyboardButton.hidden = true
             toggleDrawerButton.hidden = true
+            mediaItemItemCount.hidden = true
         case .Detailed:
             middleCategoryLabel.hidden = true
             currentCategoryLabel.hidden = false
@@ -196,6 +201,7 @@ class CategoriesPanelView: UIView {
             switchKeyboardButtonSeperator.hidden = false
             switchKeyboardButton.hidden = false
             toggleDrawerButton.hidden = false
+            mediaItemItemCount.hidden = false
         }
     }
 
@@ -339,9 +345,5 @@ class CategoriesPanelView: UIView {
 
         didToggle.emit(false)
     }
-    
-    enum CategoriesPanelViewPanelStyle {
-        case Simple
-        case Detailed
-    }
+
 }

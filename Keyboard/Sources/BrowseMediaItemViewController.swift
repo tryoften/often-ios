@@ -222,6 +222,7 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
     func setupLayout() {
 
     }
+    
     func showHud() {
         hudTimer?.invalidate()
         PKHUD.sharedHUD.contentView = HUDProgressView()

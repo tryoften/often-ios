@@ -10,10 +10,10 @@ import Foundation
 
 class MediaItemGroupViewModel: BaseViewModel {
     weak var delegate: MediaItemGroupViewModelDelegate?
-    var groups: [MediaItemGroup]
+    var mediaItemGroups: [MediaItemGroup]
 
     override init(baseRef: Firebase = Firebase(url: BaseURL), path: String?) {
-        groups = []
+        mediaItemGroups = []
         
         super.init(baseRef: baseRef, path: path)
     }
@@ -21,18 +21,19 @@ class MediaItemGroupViewModel: BaseViewModel {
     override func fetchData() throws {
         ref.observeEventType(.Value, withBlock: { snapshot in
             if let data = snapshot.value as? NSArray {
-                self.groups = MediaItemGroup.modelsFromDictionaryArray(data)
-                self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.groups)
+                self.mediaItemGroups = MediaItemGroup.modelsFromDictionaryArray(data)
+                self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
             }
         })
     }
 
     func groupAtIndex(index: Int) -> MediaItemGroup? {
-        if index < groups.count {
-            return groups[index]
+        if index < mediaItemGroups.count {
+            return mediaItemGroups[index]
         }
         return nil
     }
+
 }
 
 protocol MediaItemGroupViewModelDelegate: class {

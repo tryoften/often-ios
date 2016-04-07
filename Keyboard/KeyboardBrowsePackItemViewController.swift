@@ -8,25 +8,44 @@
 
 import Foundation
 
-class KeyboardBrowsePackItemViewController: BrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
+class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
+
+    override init(packId: String, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
+        super.init(packId: packId, viewModel: viewModel, textProcessor: textProcessor)
+
+        packCollectionListener = viewModel.didChangeMediaItems.on { items in
+            self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
+            self.collectionView?.reloadData()
+        }
+
+        collectionView?.contentInset = UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
+
+        if let navigationBar = navigationBar {
+            navigationBar.removeFromSuperview()
+
+        }
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupCategoryCollectionViewController()
-        layoutCategoryPanelView()
+        loadPackData(.Detailed)
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
+        let topMargin = CGFloat(0)
+        let layout = UICollectionViewFlowLayout()
 
-        HUDMaskView?.frame = view.bounds
+        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, cellHeight)
+        layout.minimumLineSpacing = 7.0
+        layout.minimumInteritemSpacing = 7.0
+        layout.sectionInset = UIEdgeInsetsMake(topMargin, 0.0, 30.0, 0.0)
 
-        guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
-            return
-        }
-
-        layoutCategoryPanelView()
+        return layout
     }
 
     override func togglePack() {
@@ -40,6 +59,6 @@ class KeyboardBrowsePackItemViewController: BrowsePackItemViewController, Keyboa
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
         packId = pack.id
 
-        loadPackData()
+        loadPackData(.Detailed)
     }
 }

@@ -42,22 +42,11 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupCategoryCollectionViewController()
-        layoutCategoryPanelView()
 
-        populatePanelMetaData(collectionType.rawValue.uppercaseString, itemCount: viewModel.mediaItemGroupItemsForIndex(0).count, imageUrl: nil)
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
-        HUDMaskView?.frame = view.bounds
-
-        guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
-            return
-        }
-
-        layoutCategoryPanelView()
     }
 
     override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
@@ -105,10 +94,6 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         mediaItemCell.favoriteRibbon.hidden = true
 
         return cell
-    }
-
-    override func togglePack() {
-        dismissViewControllerAnimated(true, completion: nil)
     }
 
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
