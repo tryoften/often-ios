@@ -26,11 +26,32 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
     }
     
     var packId: String
+    var filterButton: UIButton
     
     init(packId: String, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         self.packId = packId
+        
+        var attributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
+            NSForegroundColorAttributeName: BlackColor
+        ]
+        let filterString = NSAttributedString(string: "filter by".uppercaseString, attributes: attributes)
+        
+        filterButton = UIButton()
+        filterButton.translatesAutoresizingMaskIntoConstraints = false
+        filterButton.backgroundColor = WhiteColor
+        filterButton.layer.cornerRadius = 15
+        filterButton.layer.shadowRadius = 2
+        filterButton.layer.shadowOpacity = 0.2
+        filterButton.layer.shadowColor = MediumLightGrey.CGColor
+        filterButton.layer.shadowOffset = CGSizeMake(0, 2)
+        filterButton.setAttributedTitle(filterString, forState: .Normal)
+        
+        
         super.init(viewModel: viewModel)
         self.textProcessor = textProcessor
+       
         
         #if KEYBOARD
             collectionView?.contentInset = UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
@@ -40,6 +61,11 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
 
             }
         #else
+            guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
+                return
+            }
+            view.insertSubview(filterButton, belowSubview: categoriesVC.view)
+            setLayout()
             hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
             collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
         #endif
@@ -82,6 +108,47 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
         loadPackData()
         
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupCategoryCollectionViewController()
+        layoutCategoryPanelView()
+        
+        filterButton.addTarget(self, action: #selector(BrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        HUDMaskView?.frame = view.bounds
+        
+        guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
+            return
+        }
+        #if KEYBOARD
+            categoriesVC.panelView.style = .Detailed
+        #else
+            categoriesVC.panelView.style = .Simple
+        #endif
+        
+        layoutCategoryPanelView()
+    }
+    
+    override func layoutCategoryPanelView() {
+        let height: CGFloat
+        if categoriesVC?.panelView.style == .Detailed {
+            height = CGRectGetHeight(view.frame) - SectionPickerViewHeight
+        } else {
+            height = CGRectGetHeight(view.frame)
+        }
+        if let panelView = categoriesVC?.view {
+            panelView.frame = CGRectMake(CGRectGetMinX(view.frame),
+                                         height,
+                                         CGRectGetWidth(view.frame),
+                                         SectionPickerViewOpenedHeight)
+        }
+    }
 
     override func headerViewDidLoad() {
         let imageURL: NSURL? = pack?.largeImageURL
@@ -106,6 +173,10 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
         }
     }
     
+    func filterButtonDidTap(sender: UIButton) {
+        categoriesVC?.panelView.toggleDrawer()
+    }
+    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
 
         #if !(KEYBOARD)
@@ -126,10 +197,16 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                sectionView.leftText = "inspiration".uppercaseString
-                if let count = pack?.items_count {
-                    sectionView.rightText = "\(count) quotes".uppercaseString
-                }
+                
+//                guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
+//                    return UICollectionReusableView()
+//                }
+                
+//                if let category = categoriesVC.panelView.currentCategoryText, count = categoriesVC.panelView.currentCategoryCount {
+                    sectionView.leftText = "inspiration".uppercaseString
+                    sectionView.rightText = "count".uppercaseString
+//                }
+                
                 return sectionView
             }
         }
@@ -158,6 +235,16 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
         animateCell(cell, indexPath: indexPath)
 
         return cell
+    }
+    
+    func setLayout() {
+        
+        view.addConstraints([
+            filterButton.al_centerX == view.al_centerX,
+            filterButton.al_height == 30,
+            filterButton.al_width == 94,
+            filterButton.al_bottom == view.al_bottom - 23.5
+        ])
     }
 
 

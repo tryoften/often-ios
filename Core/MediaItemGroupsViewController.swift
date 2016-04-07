@@ -57,7 +57,7 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
     }
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return viewModel.groups.count
+        return viewModel.mediaItemGroups.count
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

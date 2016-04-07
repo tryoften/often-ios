@@ -7,6 +7,10 @@
 //
 
 import UIKit
+enum CategoryPanelStyle {
+    case Simple
+    case Detailed
+}
 
 class CategoriesPanelView: UIView {
     var toggleDrawerButton: UIButton
@@ -20,6 +24,7 @@ class CategoriesPanelView: UIView {
     var categoriesCollectionView: UICollectionView
 
     private var currentCategoryLabel: UILabel
+    private var middleCategoryLabel: UILabel
     private var mediaItemTitle: UILabel
     private var mediaItemItemCount: UILabel
     private var drawerOpened: Bool = false
@@ -30,14 +35,20 @@ class CategoriesPanelView: UIView {
     private var toolbarView: UIView
 
     let didToggle = Event<Bool>()
+    let attributes: [String: AnyObject] = [
+        NSKernAttributeName: NSNumber(float: 1.0),
+        NSFontAttributeName: UIFont(name: "Montserrat", size: 9)!,
+        NSForegroundColorAttributeName: UIColor.oftBlackColor()
+    ]
 
+    var style: CategoryPanelStyle = .Detailed {
+        didSet {
+            setupPanelStyle()
+        }
+    }
+    
     var currentCategoryCount: String? {
         didSet {
-            let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.0),
-                NSFontAttributeName: UIFont(name: "Montserrat", size: 9)!,
-                NSForegroundColorAttributeName: UIColor.oftBlackColor()
-            ]
             let attributedString = NSAttributedString(string: "(\(currentCategoryCount!.uppercaseString))", attributes: attributes)
             mediaItemItemCount.attributedText = attributedString
         }
@@ -45,23 +56,14 @@ class CategoriesPanelView: UIView {
 
     var currentCategoryText: String? {
         didSet {
-            let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.0),
-                NSFontAttributeName: UIFont(name: "Montserrat", size: 9)!,
-                NSForegroundColorAttributeName: UIColor.oftBlackColor()
-            ]
             let attributedString = NSAttributedString(string: currentCategoryText!.uppercaseString, attributes: attributes)
             currentCategoryLabel.attributedText = attributedString
+            middleCategoryLabel.attributedText = attributedString
         }
     }
 
     var mediaItemTitleText: String? {
         didSet {
-            let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.0),
-                NSFontAttributeName: UIFont(name: "Montserrat", size: 9)!,
-                NSForegroundColorAttributeName: UIColor.oftBlackColor()
-            ]
             let attributedString = NSAttributedString(string: mediaItemTitleText!.uppercaseString, attributes: attributes)
             mediaItemTitle.attributedText = attributedString
         }
@@ -137,6 +139,13 @@ class CategoriesPanelView: UIView {
         currentCategoryLabel.userInteractionEnabled = true
         currentCategoryLabel.textAlignment = .Right
         currentCategoryLabel.font = UIFont(name: "Montserrat", size: 9)
+        
+        middleCategoryLabel = UILabel()
+        middleCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
+        middleCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
+        middleCategoryLabel.userInteractionEnabled = true
+        middleCategoryLabel.textAlignment = .Center
+//        currentCategoryLabel.font = UIFont(name: "Montserrat", size: 9)
 
         mediaItemItemCount = UILabel()
         mediaItemItemCount.textColor = SectionPickerViewCurrentCategoryLabelTextColor
@@ -159,6 +168,7 @@ class CategoriesPanelView: UIView {
 
         toolbarView.addSubview(toggleDrawerButton)
         toolbarView.addSubview(currentCategoryLabel)
+        toolbarView.addSubview(middleCategoryLabel)
         toolbarView.addSubview(mediaItemItemCount)
         toolbarView.addSubview(switchKeyboardButton)
         toolbarView.addSubview(switchKeyboardButtonSeperator)
@@ -168,11 +178,35 @@ class CategoriesPanelView: UIView {
         toolbarView.addSubview(toggleCategorySelectedView)
 
         setupLayout()
+        setupPanelStyle()
 
         let toggleSelector = Selector("toggleDrawer")
         tapRecognizer = UITapGestureRecognizer(target: self, action: toggleSelector)
         toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
         toggleCategorySelectedView.addGestureRecognizer(tapRecognizer)
+    }
+    
+    func setupPanelStyle() {
+        switch style {
+        case .Simple:
+            middleCategoryLabel.hidden = false
+            currentCategoryLabel.hidden = true
+            mediaItemImageView.hidden = true
+            mediaItemTitle.hidden = true
+            switchKeyboardButtonSeperator.hidden = true
+            switchKeyboardButton.hidden = true
+            toggleDrawerButton.hidden = true
+            mediaItemItemCount.hidden = true
+        case .Detailed:
+            middleCategoryLabel.hidden = true
+            currentCategoryLabel.hidden = false
+            mediaItemImageView.hidden = false
+            mediaItemTitle.hidden = false
+            switchKeyboardButtonSeperator.hidden = false
+            switchKeyboardButton.hidden = false
+            toggleDrawerButton.hidden = false
+            mediaItemItemCount.hidden = false
+        }
     }
 
     class func provideCollectionViewLayout(frame: CGRect) -> UICollectionViewLayout {
@@ -269,6 +303,9 @@ class CategoriesPanelView: UIView {
             mediaItemItemCount.al_top == toggleCategorySelectedView.al_top,
             mediaItemItemCount.al_centerY == mediaItemImageView.al_centerY,
 
+            //middle category label
+            middleCategoryLabel.al_centerX == toolbarView.al_centerX,
+            middleCategoryLabel.al_centerY == toolbarView.al_centerY,
 
 
             collectionViewTopConstraint,
@@ -300,10 +337,17 @@ class CategoriesPanelView: UIView {
 
         UIView.animateWithDuration(0.25) {
             var frame = self.frame
-            frame.origin.y = self.superview!.frame.height - SectionPickerViewHeight
+            switch self.style {
+            case .Detailed:
+                frame.origin.y = self.superview!.frame.height - SectionPickerViewHeight
+            case .Simple:
+                frame.origin.y = self.superview!.frame.height
+            }
+            
             self.frame = frame
         }
 
         didToggle.emit(false)
     }
+
 }

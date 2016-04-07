@@ -20,6 +20,19 @@ struct Category: Equatable {
             "name": name
         ]
     }
+
+    static func modelsFromDictionary(dictionary: NSDictionary) -> [Category] {
+        var models: [Category] = []
+        for (_, categoryData) in dictionary  {
+            if let itemData = categoryData as? NSDictionary,
+                id = itemData["id"] as? String, name = itemData["name"] as? String {
+                let category = Category(id: id, name: name)
+                models.append(category)
+            }
+        }
+        
+        return models
+    }
 }
 
 func ==(lhs: Category, rhs: Category) -> Bool {

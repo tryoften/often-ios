@@ -17,7 +17,6 @@ class LyricMediaItem: MediaItem {
     var track_id: String?
     var track_title: String?
     var index: Int = 0
-    var category: Category?
 
     override var imageProperty: String {
         return "artist_image_url"
@@ -41,10 +40,9 @@ class LyricMediaItem: MediaItem {
             self.index = index
         }
 
-        if let categoryData = data["category"] as? NSDictionary,
-            let categoryId = categoryData["id"] as? String,
-            let categoryName = categoryData["name"] as? String {
-                category = Category(id: categoryId, name: categoryName)
+        if let categoryId = data["category_id"] as? String,
+            let categoryName = data["category_name"] as? String {
+            category = Category(id: categoryId, name: categoryName)
         }
     }
 
