@@ -129,6 +129,12 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
 
     func headerViewDidLoad() {
     }
+    
+    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false)
+        
+        return animator
+    }
 
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {

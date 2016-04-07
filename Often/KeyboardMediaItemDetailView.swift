@@ -18,6 +18,7 @@ class KeyboardMediaItemDetailView: UIView {
     var favoriteButton: SpringButton
     var cancelButton: UIButton
     var insertButton: SpringButton
+    var copyButton: SpringButton
     var snapchatButton: SpringButton
     var mediaItemTextSeperator: UIView
     var mediaItemTitleSeperator: UIView
@@ -25,6 +26,12 @@ class KeyboardMediaItemDetailView: UIView {
     var secondButtonSeperator: UIView
     var cancelButtonBackground: UIImageView
 
+    var style: ButtonStyle = .Insert {
+        didSet {
+            setupButtonStyle()
+        }
+    }
+    
     override init(frame: CGRect) {
         cancelButtonBackground = UIImageView()
         cancelButtonBackground = UIImageView(image: UIImage(named: "collapse-keyboard"))
@@ -70,6 +77,11 @@ class KeyboardMediaItemDetailView: UIView {
         insertButton = SpringButton()
         insertButton.translatesAutoresizingMaskIntoConstraints = false
         insertButton.setImage(StyleKit.imageOfInsertbutton(scale: 0.45), forState: .Normal)
+        
+        copyButton = SpringButton()
+        copyButton.translatesAutoresizingMaskIntoConstraints = false
+        copyButton.setImage(StyleKit.imageOfClipboard_button(scale: 0.45), forState: .Normal)
+        
 
         favoriteButton = SpringButton()
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -105,7 +117,7 @@ class KeyboardMediaItemDetailView: UIView {
             addSubview(seperator)
         }
 
-        for button in [insertButton, favoriteButton, snapchatButton] {
+        for button in [insertButton, copyButton, favoriteButton, snapchatButton] {
             button.addTarget(self, action: "didTouchUpButton:", forControlEvents: .TouchUpInside)
         }
 
@@ -117,10 +129,12 @@ class KeyboardMediaItemDetailView: UIView {
         addSubview(mediaItemImage)
         addSubview(mediaItemCategoryButton)
         addSubview(insertButton)
+        addSubview(copyButton)
         addSubview(favoriteButton)
         addSubview(snapchatButton)
 
         setupLayout()
+        setupButtonStyle()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -178,6 +192,11 @@ class KeyboardMediaItemDetailView: UIView {
             insertButton.al_left == firstButtonSeperator.al_right,
             insertButton.al_top == mediaItemTitleSeperator.al_bottom,
             insertButton.al_width == al_width/3 - 1,
+            
+            copyButton.al_bottom == al_bottom,
+            copyButton.al_left == firstButtonSeperator.al_right,
+            copyButton.al_top == mediaItemTitleSeperator.al_bottom,
+            copyButton.al_width == al_width/3 - 1,
 
             secondButtonSeperator.al_left == insertButton.al_right,
             secondButtonSeperator.al_width == 1,
@@ -200,11 +219,27 @@ class KeyboardMediaItemDetailView: UIView {
             cancelButton.al_centerY == cancelButtonBackground.al_centerY
             ])
     }
+    
+    func setupButtonStyle() {
+        switch style {
+        case .Copy:
+            copyButton.hidden = false
+            insertButton.hidden = true
+        case .Insert:
+            copyButton.hidden = true
+            insertButton.hidden = false
+        }
+    }
 
     func didTouchUpButton(button: SpringButton?) {
         button?.animation = "pop"
         button?.duration = 0.3
         button?.curve = "easeIn"
         button?.animate()
+    }
+    
+    enum ButtonStyle {
+        case Copy
+        case Insert
     }
 }

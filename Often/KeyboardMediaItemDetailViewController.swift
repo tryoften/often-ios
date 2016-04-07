@@ -10,7 +10,7 @@ import Foundation
 
 
 class KeyboardMediaItemDetailViewController: UIViewController {
-    private var keyboardMediaItemDetailView: KeyboardMediaItemDetailView
+    var keyboardMediaItemDetailView: KeyboardMediaItemDetailView
     private var textProcessor: TextProcessingManager?
     private var keyboardMediaItemDetailViewTopConstraint: NSLayoutConstraint?
     private var tintView: UIView
@@ -91,6 +91,22 @@ class KeyboardMediaItemDetailViewController: UIViewController {
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.removedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(lyric.toDictionary()))
         }
     }
+    
+    func copyButtonDidTap(sender: UIButton) {
+        sender.selected = !sender.selected
+        
+        if sender.selected {
+            UIPasteboard.generalPasteboard().string = lyric.getInsertableText()
+            
+            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(lyric.toDictionary()))
+            
+            #if !(KEYBOARD)
+            DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
+                                                  subtitle: lyric.getInsertableText(), duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            #endif
+        }
+        
+    }
 
     func favoriteButtonDidTap(sender: UIButton) {
         sender.selected = !sender.selected
@@ -111,8 +127,9 @@ class KeyboardMediaItemDetailViewController: UIViewController {
         keyboardMediaItemDetailView.mediaItemText.text = lyric.text
         keyboardMediaItemDetailView.mediaItemAuthor.text = lyric.artist_name
         keyboardMediaItemDetailView.mediaItemTitle.text = lyric.track_title
-        keyboardMediaItemDetailView.cancelButton.addTarget(self, action: "dismissView", forControlEvents: .TouchUpInside)
+        keyboardMediaItemDetailView.cancelButton.addTarget(self, action: #selector(KeyboardMediaItemDetailViewController.dismissView), forControlEvents: .TouchUpInside)
         keyboardMediaItemDetailView.insertButton.addTarget(self, action: "insertButtonDidTap:", forControlEvents: .TouchUpInside)
+        keyboardMediaItemDetailView.copyButton.addTarget(self, action: "copyButtonDidTap:", forControlEvents: .TouchUpInside)
         keyboardMediaItemDetailView.snapchatButton.addTarget(self, action: "snapchatButtonDidTap:", forControlEvents: .TouchUpInside)
         keyboardMediaItemDetailView.favoriteButton.addTarget(self, action: "favoriteButtonDidTap:", forControlEvents: .TouchUpInside)
         keyboardMediaItemDetailView.favoriteButton.selected = FavoritesService.defaultInstance.checkFavorite(lyric)
