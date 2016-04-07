@@ -390,8 +390,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         self.categoriesVC = categoriesVC
         
         let togglePackSelector = #selector(MediaItemsCollectionBaseViewController.togglePack)
+        let toggleDrawerSelector = #selector(MediaItemsCollectionBaseViewController.dismissCategoryViewController)
         let toggleRecognizer = UITapGestureRecognizer(target: self, action: togglePackSelector)
-        let hudRecognizer = UITapGestureRecognizer(target: self, action: togglePackSelector)
+        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
         
         categoriesVC.panelView.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
         categoriesVC.panelView.togglePackSelectedView.userInteractionEnabled = true
@@ -400,6 +401,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         HUDMaskView = UIView()
         HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
         HUDMaskView?.hidden = true
+        HUDMaskView?.userInteractionEnabled = true
+        HUDMaskView?.addGestureRecognizer(hudRecognizer)
         
         view.addSubview(HUDMaskView!)
         view.addSubview(categoriesVC.view)
@@ -413,8 +416,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             if opening {
                 maskView.alpha = 0.0
                 maskView.hidden = false
-                maskView.userInteractionEnabled = true
-                maskView.addGestureRecognizer(hudRecognizer)
             }
             
             UIView.animateWithDuration(0.3, animations: {
@@ -437,6 +438,10 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                                          CGRectGetWidth(view.frame),
                                          SectionPickerViewOpenedHeight)
         }
+    }
+    
+    func dismissCategoryViewController() {
+        categoriesVC?.panelView.toggleDrawer()
     }
     
     func togglePack() {

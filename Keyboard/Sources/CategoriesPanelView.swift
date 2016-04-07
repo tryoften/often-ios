@@ -86,7 +86,6 @@ class CategoriesPanelView: UIView {
         mediaItemTitle.textColor = BlackColor
         mediaItemTitle.userInteractionEnabled = true
         mediaItemTitle.textAlignment = .Left
-        mediaItemTitle.font = UIFont(name: "Montserrat", size: 9)
 
         togglePackSelectedView = UIView()
         togglePackSelectedView.translatesAutoresizingMaskIntoConstraints = false
@@ -134,21 +133,18 @@ class CategoriesPanelView: UIView {
         currentCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
         currentCategoryLabel.userInteractionEnabled = true
         currentCategoryLabel.textAlignment = .Right
-        currentCategoryLabel.font = UIFont(name: "Montserrat", size: 9)
         
         middleCategoryLabel = UILabel()
         middleCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
         middleCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
         middleCategoryLabel.userInteractionEnabled = true
         middleCategoryLabel.textAlignment = .Center
-//        currentCategoryLabel.font = UIFont(name: "Montserrat", size: 9)
 
         mediaItemItemCount = UILabel()
         mediaItemItemCount.textColor = SectionPickerViewCurrentCategoryLabelTextColor
         mediaItemItemCount.translatesAutoresizingMaskIntoConstraints = false
         mediaItemItemCount.userInteractionEnabled = true
         mediaItemItemCount.textAlignment = .Right
-        mediaItemItemCount.font = UIFont(name: "Montserrat", size: 9)
 
         selectedBgView = UIView(frame: CGRectZero)
         selectedBgView.backgroundColor = SectionPickerViewCellHighlightedBackgroundColor
