@@ -15,29 +15,17 @@ class PackPageHeaderView: MediaItemPageHeaderView {
 
     override init(frame: CGRect) {
 
-        var attributes: [String: AnyObject] = [
-            NSKernAttributeName: NSNumber(float: 1.0),
-            NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 9)!,
-            NSForegroundColorAttributeName: UIColor.oftWhiteColor()
-        ]
-        let browsePacksString = NSAttributedString(string: "browse packs".uppercaseString, attributes: attributes)
-
         backLabel = UILabel()
-        backLabel.font = TrendingHeaderViewSongTitleLabelTextFont
-        backLabel.textColor = TrendingHeaderViewNameLabelTextColor
         backLabel.translatesAutoresizingMaskIntoConstraints = false
-        backLabel.attributedText = browsePacksString
-
-        attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Bold", size: 7.0)!
-        let sampleString = NSAttributedString(string: "try sample".uppercaseString, attributes: attributes)
+        backLabel.setTextWith(UIFont(name: "Montserrat-Regular", size: 9)!, letterSpacing: 1, color: WhiteColor, text: "browse packs".uppercaseString)
 
         sampleButton = UIButton()
         sampleButton.translatesAutoresizingMaskIntoConstraints = false
-        sampleButton.setAttributedTitle(sampleString, forState: .Normal)
         sampleButton.backgroundColor = ClearColor
         sampleButton.layer.borderWidth = 1.5
         sampleButton.layer.borderColor = WhiteColor.CGColor
         sampleButton.layer.cornerRadius = 11.25
+        sampleButton.titleLabel?.setTextWith(UIFont(name: "OpenSans-Bold", size:  7)!, letterSpacing: 1, color: WhiteColor, text: "try sample".uppercaseString)
 
         primaryButton = BrowsePackDownloadButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
