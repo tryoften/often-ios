@@ -63,5 +63,6 @@ let MediaItemTypes: [MediaType: MediaItem.Type] = [
     .Artist: ArtistMediaItem.self,
     .Track: TrackMediaItem.self,
     .Lyric: LyricMediaItem.self,
-    .Pack: PackMediaItem.self
+    .Pack: PackMediaItem.self,
+    .Quote: QuoteMediaItem.self
 ]
