@@ -17,7 +17,6 @@ class LyricMediaItem: MediaItem {
     var track_id: String?
     var track_title: String?
     var index: Int = 0
-    var category: Category?
 
     override var imageProperty: String {
         return "artist_image_url"

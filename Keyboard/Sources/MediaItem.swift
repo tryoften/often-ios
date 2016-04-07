@@ -14,6 +14,7 @@ class MediaItem: Equatable {
     var type: MediaType = .Other
     var score: Double = 0.0
     var source: MediaItemSource = .Unknown
+    var category: Category?
     var sourceName: String {
         return getNameForSource()
     }
