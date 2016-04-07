@@ -255,6 +255,15 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.mainTextLabel.textAlignment = .Center
             cell.showImageView = false
             cell.avatarImageURL =  lyric.smallImageURL
+        case .Quote:
+            let quote = (result as! QuoteMediaItem)
+            cell.leftHeaderLabel.text = quote.owner_name
+            cell.rightHeaderLabel.text = quote.origin_name
+            cell.mainTextLabel.text = quote.text
+            cell.leftMetadataLabel.text = quote.created?.timeAgoSinceNow()
+            cell.mainTextLabel.textAlignment = .Center
+            cell.showImageView = false
+            cell.avatarImageURL =  quote.smallImageURL
         default:
             break
         }
