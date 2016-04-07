@@ -97,7 +97,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
 
         let togglePackSelector = #selector(BaseBrowsePackItemViewController.togglePack)
         let toggleRecognizer = UITapGestureRecognizer(target: self, action: togglePackSelector)
-        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.dismissCategoryViewController)
+        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.toggleCategoryViewController)
         let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
 
         categoriesVC.panelView.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
@@ -172,7 +172,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
 
     }
     
-    func dismissCategoryViewController() {
+    func toggleCategoryViewController() {
         categoriesVC?.panelView.toggleDrawer()
     }
 
