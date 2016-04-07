@@ -16,6 +16,6 @@ extension UILabel {
             NSForegroundColorAttributeName: color
         ]
 
-        attributedText = NSAttributedString(string: text.uppercaseString, attributes: attributes)
+        attributedText = NSAttributedString(string: text, attributes: attributes)
     }
 }

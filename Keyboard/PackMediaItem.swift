@@ -14,9 +14,10 @@ class PackMediaItem: MediaItem {
     var name: String?
     var items_count: Int?
     var items: [MediaItem] = []
-    var premium: Bool?
-    var price: Double?
+    var premium: Bool = false
+    var price: Double = 0.0
     var categories: [Category] = []
+
     
     required init(data: NSDictionary) {
         super.init(data: data)
@@ -28,14 +29,7 @@ class PackMediaItem: MediaItem {
         if let id = data["id"] as? String {
             self.pack_id = id
         }
-        
-        if let image = data["image"] as? NSDictionary,
-            let smallImage = image["small_url"] as? String,
-            let largeImage = image["large_url"] as? String {
-            self.smallImageURL = NSURL(string: smallImage)
-            self.largeImageURL = NSURL(string: largeImage)
-        }
-        
+
         if let name = data["name"] as? String {
             self.name = name
         }
@@ -50,7 +44,7 @@ class PackMediaItem: MediaItem {
         }
 
         if let images = data["image"] as? NSDictionary,
-            let large = images["large_url"] as? String  {
+            let large = images["large_url"] as? String {
             self.largeImageURL = NSURL(string: large)
         }
         
@@ -70,6 +64,20 @@ class PackMediaItem: MediaItem {
         if let price = data["price"] as? Double {
             self.price = price
         }
+    }
+
+    func callToActionText() -> String {
+        if premium {
+            if price == 0.0 {
+                return "Free"
+            }
+
+            let formatter = NSNumberFormatter()
+            formatter.numberStyle = .CurrencyStyle
+            return formatter.stringFromNumber(NSNumber(double: price))!
+        }
+        
+        return "Download"
     }
 }
 

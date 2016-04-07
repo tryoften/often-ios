@@ -27,11 +27,9 @@ class BrowsePackCollectionViewCell: BrowseMediaItemCollectionViewCell {
         imageView.image = UIImage(named: "placeholder")
 
         setImageViewLayers(CGRectMake(0, 0, frame.size.width, frame.size.height/2))
-        
         primaryButton.addTarget(self, action: #selector(BrowsePackCollectionViewCell.primaryButtonSelected), forControlEvents: .TouchUpInside)
-        
         addSubview(primaryButton)
-        
+
         setupLayout()
     }
     
@@ -62,7 +60,12 @@ class BrowsePackCollectionViewCell: BrowseMediaItemCollectionViewCell {
             imageView.al_height == imageView.al_width,
             imageView.al_centerX == al_centerX,
             imageView.al_top == al_top,
-            
+
+            addedBadgeView.al_width == 36,
+            addedBadgeView.al_height == addedBadgeView.al_width,
+            addedBadgeView.al_right == al_right - 12,
+            addedBadgeView.al_top == al_top + 96,
+
             placeholderImageView.al_width == imageView.al_width,
             placeholderImageView.al_height == imageView.al_height,
             placeholderImageView.al_centerX == imageView.al_centerX,

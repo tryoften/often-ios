@@ -9,13 +9,16 @@
 import Foundation
 
 class UserMediaItemsViewModel: MediaItemsViewModel {
+    let userRef: Firebase
+    let userId: String
 
     override init(baseRef: Firebase = Firebase(url: BaseURL), collectionType: MediaItemsCollectionType) {
+        userId = SessionManagerFlags.defaultManagerFlags.userId!
+        userRef = baseRef.childByAppendingPath("users/\(userId)")
+
         super.init(baseRef: baseRef, collectionType: collectionType)
 
-        if let userId = sessionManagerFlags.userId  {
-            collectionEndpoint = baseRef.childByAppendingPath("users/\(userId)/\(collectionType.rawValue.lowercaseString)")
-        }
+        collectionEndpoint = baseRef.childByAppendingPath("users/\(userId)/\(collectionType.rawValue.lowercaseString)")
 
         do {
             try setupUser { inner in

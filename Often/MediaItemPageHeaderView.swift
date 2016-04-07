@@ -24,6 +24,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
     var coverPhotoTintView: UIView
     var titleLabel: UILabel
     var subtitleLabel: UILabel
+
     var imageURL: NSURL? {
         willSet(newValue) {
             if let url = newValue where imageURL != newValue {
@@ -31,9 +32,30 @@ class MediaItemPageHeaderView: UICollectionReusableView {
             }
         }
     }
+
     var mediaItem: MediaItem? {
         didSet {
 
+        }
+    }
+
+    var title: String = "" {
+        didSet {
+            titleLabel.attributedText = NSAttributedString(string: title.uppercaseString, attributes: [
+                NSKernAttributeName: NSNumber(float: 1.7),
+                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 18.0)!,
+                NSForegroundColorAttributeName: UIColor.oftWhiteColor()
+            ])
+        }
+    }
+
+    var subtitle: String = "" {
+        didSet {
+            subtitleLabel.attributedText = NSAttributedString(string: subtitle.uppercaseString, attributes: [
+                NSKernAttributeName: NSNumber(float: 0.6),
+                NSFontAttributeName: UIFont(name: "OpenSans", size: 12)!,
+                NSForegroundColorAttributeName: UIColor.oftWhiteColor()
+            ])
         }
     }
 

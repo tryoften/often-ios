@@ -153,13 +153,13 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     func parsePackItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> BrowseMediaItemCollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(BrowseMediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? BrowseMediaItemCollectionViewCell else {
-            return PackProfileCollectionViewCell()
+            return BrowseMediaItemCollectionViewCell()
         }
         
         if indexPath.row >= items?.count {
             return cell
         }
-        
+
         guard let result = items?[indexPath.row], pack = result as? PackMediaItem else {
             return cell
         }
@@ -171,8 +171,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         if let lyricsCount = pack.items_count {
             cell.subtitleLabel.text = "\(lyricsCount) items".uppercaseString
         }
-        
+
         cell.titleLabel.text = pack.name
+        cell.addedBadgeView.hidden = !PacksService.defaultInstance.checkPack(pack)
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
 
