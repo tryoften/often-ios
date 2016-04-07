@@ -169,7 +169,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
 
         cell.titleLabel.text = pack.name
-        cell.subtitleLabel.text = "\(pack.items_count) items".uppercaseString
+        cell.itemCount = pack.items_count
         cell.addedBadgeView.hidden = !PacksService.defaultInstance.checkPack(pack)
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale

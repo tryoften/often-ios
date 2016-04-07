@@ -83,7 +83,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
     
         // Configure the cell
         cell.titleLabel.text = artist.name
-        cell.songCount = artist.lyrics_count ?? 0
+        cell.itemCount = artist.lyrics_count ?? 0
         if let imageURL = artist.squareImageURL {
             cell.imageView.setImageWithAnimation(imageURL)
         }

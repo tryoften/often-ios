@@ -21,17 +21,17 @@ class BrowsePackHeaderView: UICollectionReusableView {
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont(name: "Montserrat", size: 16.0)
-        titleLabel.textColor = BlackColor
-        titleLabel.textAlignment = .Center
-        titleLabel.text = "my voice".uppercaseString
+        titleLabel.setTextWith(UIFont(name: "Montserrat", size: 16.0)!,
+                               letterSpacing: 1.5,
+                               color: BlackColor,
+                               text: "my voice".uppercaseString)
         
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.font = UIFont(name: "OpenSans", size: 10.5)
-        subtitleLabel.textColor = BlackColor
-        subtitleLabel.textAlignment = .Center
-        subtitleLabel.text = "Share quotes from Angie Martinez's new book \"My Voice\""
+        subtitleLabel.setTextWith(UIFont(name: "OpenSans", size: 10.5)!,
+                                  letterSpacing: 0.5,
+                                  color: UIColor.oftDarkGrey74Color(),
+                                  text: "Share quotes from Angie Martinez's new book \"My Voice\"")
 
         premiumIcon = UIImageView(image: StyleKit.imageOfPremium(color: TealColor, frame: CGRectMake(0, 0, 25, 25)))
         premiumIcon.translatesAutoresizingMaskIntoConstraints = false

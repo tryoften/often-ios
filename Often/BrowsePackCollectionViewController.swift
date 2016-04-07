@@ -18,7 +18,14 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
                    collectionType: .Packs,
                    viewModel: viewModel)
 
-        navigationItem.title = "often".uppercaseString
+        let brandLabel = UILabel(frame: CGRectMake(0, 0, 64, 20))
+        brandLabel.textAlignment = .Center
+        brandLabel.setTextWith(UIFont(name: "Montserrat-Regular", size: 15)!,
+                               letterSpacing: 2.0,
+                               color: UIColor.oftBlackColor(),
+                               text: "OFTEN")
+
+        navigationItem.titleView = brandLabel
 
         packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
             self.collectionView?.reloadData()

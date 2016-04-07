@@ -19,17 +19,16 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     var contentEdgeInsets: UIEdgeInsets
     var addedBadgeView: UIImageView
 
-    var songCount: Int? {
+    var itemCount: Int? {
         didSet {
-            let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1),
-                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 8)!,
-                NSForegroundColorAttributeName: UIColor.grayColor()
-            ]
-            let attributedString = NSAttributedString(string: "\(songCount!) lyrics".uppercaseString, attributes: attributes)
-            subtitleLabel.attributedText = attributedString
+            subtitleLabel.setTextWith(ArtistCollectionViewCellSubtitleFont!,
+                                      letterSpacing: 1.0,
+                                      color: ArtistCollectionViewCellSubtitleTextColor,
+                                      text: "\(itemCount!) lyrics".uppercaseString)
         }
     }
+
+
 
     override init(frame: CGRect) {
         placeholderImageView = UIImageView()
@@ -72,8 +71,6 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         titleLabel.textAlignment = .Left
 
         subtitleLabel = UILabel()
-        subtitleLabel.font = ArtistCollectionViewCellSubtitleFont
-        subtitleLabel.textColor = ArtistCollectionViewCellSubtitleTextColor
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.textAlignment = .Left
 
