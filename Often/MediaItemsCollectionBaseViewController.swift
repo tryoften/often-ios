@@ -293,17 +293,13 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 return
         }
 
-    #if KEYBOARD
         let vc = KeyboardMediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
+        #if !(KEYBOARD)
+            vc.keyboardMediaItemDetailView.style = .Copy
+        #endif
         vc.transitioningDelegate = self
         vc.modalPresentationStyle = .Custom
         presentViewController(vc, animated: true, completion: nil)
-    #else
-        
-        cell.prepareOverlayView()
-        cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
-        cell.overlayVisible = !cell.overlayVisible
-    #endif
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
@@ -388,6 +384,5 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         return animator
     }
-
 
 }

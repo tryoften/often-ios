@@ -115,7 +115,7 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
         setupCategoryCollectionViewController()
         layoutCategoryPanelView()
         
-        filterButton.addTarget(self, action: #selector(BrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        filterButton.addTarget(self, action: #selector(BrowseMediaItemViewController.dismissCategoryViewController), forControlEvents: .TouchUpInside)
     }
     
     override func viewWillLayoutSubviews() {
@@ -171,10 +171,6 @@ class BrowsePackItemViewController: BrowseMediaItemViewController {
             header.primaryButton.title = pack.callToActionText()
             header.imageURL = imageURL
         }
-    }
-    
-    func filterButtonDidTap(sender: UIButton) {
-        categoriesVC?.panelView.toggleDrawer()
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
