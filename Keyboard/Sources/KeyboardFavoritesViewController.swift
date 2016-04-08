@@ -9,15 +9,31 @@
 import UIKit
 
 class KeyboardFavoritesViewController: MediaItemsViewController {
+    //TODO(kervs): Must remove after we can filter favorites
+    var panelViewBar: CategoriesPanelView
 
     init(viewModel: MediaItemsViewModel) {
+        panelViewBar = CategoriesPanelView()
+        panelViewBar.translatesAutoresizingMaskIntoConstraints = false
+
         let layout = KeyboardFavoritesViewController.provideCollectionViewFlowLayout()
         super.init(collectionViewLayout: layout, collectionType: .Favorites, viewModel: viewModel)
+        let toggleRecognizer = UITapGestureRecognizer(target: self, action: #selector(KeyboardFavoritesViewController.togglePack))
+
+        panelViewBar.currentCategoryText = "all".uppercaseString
+        panelViewBar.mediaItemTitleText = collectionType.rawValue.uppercaseString
+        panelViewBar.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
+        panelViewBar.toggleDrawerButton.userInteractionEnabled = false
+        panelViewBar.toggleCategorySelectedView.userInteractionEnabled = false
 
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.contentInset = UIEdgeInsetsMake(-1, 0, SectionPickerViewHeight, 0)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
+
+        view.addSubview(panelViewBar)
+
+        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -35,15 +51,23 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         return layout
     }
 
+    func setupLayout() {
+        view.addConstraints([
+            panelViewBar.al_bottom == view.al_bottom,
+            panelViewBar.al_left == view.al_left,
+            panelViewBar.al_right == view.al_right,
+            panelViewBar.al_height == SectionPickerViewHeight
+            ])
+    }
+
     func onOrientationChanged() {
         collectionView?.reloadData()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
     }
+
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -67,6 +91,10 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
                 }
             }
         }
+    }
+    
+    func togglePack() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -97,7 +125,7 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
     }
 
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false)
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: false)
 
         return animator
     }

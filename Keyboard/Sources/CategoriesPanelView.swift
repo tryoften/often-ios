@@ -18,6 +18,7 @@ class CategoriesPanelView: UIView {
     var switchKeyboardButton: UIButton
     var switchKeyboardButtonSeperator: UIView
     var togglePackSelectedView: UIView
+    var toggleCategorySelectedView: UIView
 
     var topSeperator: UIView
     var bottomSeperator: UIView
@@ -30,7 +31,6 @@ class CategoriesPanelView: UIView {
     private var drawerOpened: Bool = false
 
     private var tapRecognizer: UITapGestureRecognizer!
-    private var toggleCategorySelectedView: UIView
     private var selectedBgView: UIView
     private var toolbarView: UIView
 
