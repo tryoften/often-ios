@@ -201,6 +201,21 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
 
         return cell
     }
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+
+        if collectionType == .Packs {
+            let result = viewModel.mediaItemGroupItemsForIndex(indexPath.section)[indexPath.row]
+            guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
+                return
+            }
+
+            let packVC = MainAppBrowsePackItemViewController(packId: id, viewModel: BrowseViewModel(), textProcessor: nil)
+            navigationController?.navigationBar.hidden = false
+            navigationController?.pushViewController(packVC, animated: true)
+        }
+    }
     
     override func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
         reloadUserData()

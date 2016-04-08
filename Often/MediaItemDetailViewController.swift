@@ -121,15 +121,17 @@ class MediaItemDetailViewController: UIViewController {
     func setupDetailView() {
         switch item.type {
         case .Lyric:
-            let lyric = (item as! LyricMediaItem)
+            if let lyric = item as? LyricMediaItem {
             mediaItemDetailView.mediaItemText.text = lyric.text
             mediaItemDetailView.mediaItemAuthor.text = lyric.artist_name
             mediaItemDetailView.mediaItemTitle.text = lyric.track_title
+            }
         case .Quote:
-            let quote = (item as! QuoteMediaItem)
-            mediaItemDetailView.mediaItemText.text = quote.text
-            mediaItemDetailView.mediaItemAuthor.text = quote.owner_name
-            mediaItemDetailView.mediaItemTitle.text = quote.origin_name
+            if let quote = item as? QuoteMediaItem {
+                mediaItemDetailView.mediaItemText.text = quote.text
+                mediaItemDetailView.mediaItemAuthor.text = quote.owner_name
+                mediaItemDetailView.mediaItemTitle.text = quote.origin_name
+            }
         default: break
         }
 
