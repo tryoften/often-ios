@@ -17,16 +17,27 @@ enum BrowsePackDownloadButtonState {
 
 class BrowsePackDownloadButton: UIButton {
     var pack: PackMediaItem? = nil
-    var packState: BrowsePackDownloadButtonState = .NotAdded
+    var packState: BrowsePackDownloadButtonState = .NotAdded {
+        didSet {
+            switch packState {
+            case .Added:
+                selected = true
+            case .NotAdded:
+                selected = false
+            default: break
+            }
+        }
+    }
 
     var title: String = "Download" {
         didSet {
             let text = NSAttributedString(string: title, attributes: [
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10.5)!,
                 NSKernAttributeName: NSNumber(float: 1.0),
-                NSForegroundColorAttributeName: UIColor.oftWhiteColor()
+                NSForegroundColorAttributeName: textColor
             ])
             setAttributedTitle(text, forState: .Normal)
+            setAttributedTitle(text, forState: .Selected)
         }
     }
 
@@ -34,22 +45,23 @@ class BrowsePackDownloadButton: UIButton {
         didSet {
             if selected {
                 backgroundColor = WhiteColor
+                textColor = BlackColor
+                title = "Remove"
             } else {
                 backgroundColor = TealColor
+                textColor = UIColor.oftWhiteColor()
+                title = "Download"
             }
         }
     }
+    
+    private var textColor: UIColor = UIColor.oftWhiteColor()
 
     init() {
         super.init(frame: CGRectZero)
-
-        setTitleColor(BlackColor, forState: .Selected)
-        setTitleColor(WhiteColor, forState: .Normal)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-
 }

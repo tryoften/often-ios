@@ -184,6 +184,11 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             lyricsHorizontalVC.view.frame = cell.bounds
         } else {
             cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+            
+            if let packProfileCell = cell as? PackProfileCollectionViewCell {
+                packProfileCell.primaryButton.tag = indexPath.row
+                packProfileCell.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapRemovePackButton(_:)), forControlEvents: .TouchUpInside)
+            }
         }
         
         if let cell = cell as? MediaItemCollectionViewCell {
@@ -263,6 +268,15 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     func checkUserEmptyStateStatus() {
         collectionView?.scrollEnabled = false
         isKeyboardEnabled()
+    }
+    
+    func didTapRemovePackButton(button: UIButton?) {
+        guard let button = button else {
+            return
+        }
+        if let pack = viewModel.mediaItems[button.tag] as? PackMediaItem {
+            PacksService.defaultInstance.removePack(pack)
+        }
     }
     
     func isKeyboardEnabled() {
