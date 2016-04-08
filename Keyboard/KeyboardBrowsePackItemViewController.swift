@@ -18,7 +18,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             self.collectionView?.reloadData()
         }
 
-        collectionView?.contentInset = UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(7, 0, SectionPickerViewHeight, 0)
 
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()

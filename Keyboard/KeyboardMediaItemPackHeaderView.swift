@@ -31,11 +31,12 @@ class KeyboardMediaItemPackHeaderView: UICollectionViewCell {
             button.titleLabel!.font = UIFont(name: "Montserrat", size: 10.5)
             button.setTitleColor(BlackColor , forState: .Normal)
             button.backgroundColor = WhiteColor
-            button.layer.shadowOffset = CGSizeMake(0, 0)
-            button.layer.shadowOpacity = 0.8
-            button.layer.shadowColor = DarkGrey.CGColor
+            button.layer.shadowOffset = CGSizeMake(0, 1)
             button.layer.shadowRadius = 2
             button.layer.cornerRadius = 2
+            button.layer.shadowColor = UIColor.blackColor().CGColor
+            button.layer.shadowOpacity = 0.14
+            button.layer.shadowRadius = 1
 
             addSubview(button)
         }
