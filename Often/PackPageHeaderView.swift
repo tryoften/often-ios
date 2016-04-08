@@ -15,29 +15,24 @@ class PackPageHeaderView: MediaItemPageHeaderView {
 
     override init(frame: CGRect) {
 
+        backLabel = UILabel()
+        backLabel.translatesAutoresizingMaskIntoConstraints = false
+        backLabel.setTextWith(UIFont(name: "Montserrat-Regular", size: 9)!, letterSpacing: 1, color: WhiteColor, text: "browse packs".uppercaseString)
+        
         var attributes: [String: AnyObject] = [
             NSKernAttributeName: NSNumber(float: 1.0),
-            NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 9)!,
+            NSFontAttributeName: UIFont(name: "OpenSans-Bold", size: 7.0)!,
             NSForegroundColorAttributeName: UIColor.oftWhiteColor()
         ]
-        let browsePacksString = NSAttributedString(string: "browse packs".uppercaseString, attributes: attributes)
-
-        backLabel = UILabel()
-        backLabel.font = TrendingHeaderViewSongTitleLabelTextFont
-        backLabel.textColor = TrendingHeaderViewNameLabelTextColor
-        backLabel.translatesAutoresizingMaskIntoConstraints = false
-        backLabel.attributedText = browsePacksString
-
-        attributes[NSFontAttributeName] = UIFont(name: "OpenSans-Bold", size: 7.0)!
         let sampleString = NSAttributedString(string: "try sample".uppercaseString, attributes: attributes)
-
+        
         sampleButton = UIButton()
         sampleButton.translatesAutoresizingMaskIntoConstraints = false
-        sampleButton.setAttributedTitle(sampleString, forState: .Normal)
         sampleButton.backgroundColor = ClearColor
         sampleButton.layer.borderWidth = 1.5
         sampleButton.layer.borderColor = WhiteColor.CGColor
         sampleButton.layer.cornerRadius = 11.25
+        sampleButton.setAttributedTitle(sampleString, forState: .Normal)
 
         primaryButton = BrowsePackDownloadButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +75,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             UIView.commitAnimations()
         }
     }
-
+    
     override func setupLayout() {
         addConstraints([
             coverPhoto.al_top == al_top,

@@ -25,7 +25,7 @@ class PackProfileCollectionViewCell: BrowsePackCollectionViewCell {
         subtitleLabel.font = UIFont(name: "OpenSans", size: 9)
         subtitleLabel.alpha = 0.54
 
-        primaryButtonSelected()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

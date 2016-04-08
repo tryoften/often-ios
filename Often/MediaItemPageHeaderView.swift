@@ -51,7 +51,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
 
     var subtitle: String = "" {
         didSet {
-            subtitleLabel.attributedText = NSAttributedString(string: subtitle.uppercaseString, attributes: [
+            subtitleLabel.attributedText = NSAttributedString(string: subtitle, attributes: [
                 NSKernAttributeName: NSNumber(float: 0.6),
                 NSFontAttributeName: UIFont(name: "OpenSans", size: 12)!,
                 NSForegroundColorAttributeName: UIColor.oftWhiteColor()

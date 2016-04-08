@@ -144,7 +144,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         switch collectionType {
         case .Recents:  return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         case .Packs:    return CGSizeMake(171, 237)
-        default:        return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
+        default:        return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 75)
         }
     }
 
@@ -184,12 +184,18 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             lyricsHorizontalVC.view.frame = cell.bounds
         } else {
             cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+            
+            if let packProfileCell = cell as? PackProfileCollectionViewCell {
+                packProfileCell.primaryButton.tag = indexPath.row
+                packProfileCell.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapRemovePackButton(_:)), forControlEvents: .TouchUpInside)
+            }
         }
         
         if let cell = cell as? MediaItemCollectionViewCell {
             cell.delegate = self
             cell.type = collectionType == .Recents ? .Metadata : .NoMetadata
             cell.inMainApp = true
+            cell.style = .Cell
             
             if let result = cell.mediaLink {
                 cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
@@ -262,6 +268,15 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     func checkUserEmptyStateStatus() {
         collectionView?.scrollEnabled = false
         isKeyboardEnabled()
+    }
+    
+    func didTapRemovePackButton(button: UIButton?) {
+        guard let button = button else {
+            return
+        }
+        if let pack = viewModel.mediaItems[button.tag] as? PackMediaItem {
+            PacksService.defaultInstance.removePack(pack)
+        }
     }
     
     func isKeyboardEnabled() {

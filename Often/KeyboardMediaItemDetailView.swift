@@ -9,7 +9,7 @@
 import Foundation
 import Spring
 
-class KeyboardMediaItemDetailView: UIView {
+class MediaItemDetailView: UIView {
     var mediaItemText: UILabel
     var mediaItemTitle: UILabel
     var mediaItemImage: UIImageView
