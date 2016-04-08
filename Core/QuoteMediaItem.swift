@@ -33,5 +33,8 @@ class QuoteMediaItem: MediaItem {
         }
     }
 
+    override func getInsertableText() -> String {
+        return text
+    }
 
 }

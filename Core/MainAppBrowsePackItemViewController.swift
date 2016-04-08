@@ -46,8 +46,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    
     
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
@@ -65,6 +63,11 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         return layout
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        headerViewDidLoad()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          loadPackData(.Simple)
@@ -100,7 +103,25 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
 
             header.sampleButton.hidden = !pack.premium
             header.primaryButton.title = pack.callToActionText()
+            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
             header.imageURL = imageURL
+        }
+    }
+    
+    func primaryButtonTapped(sender: UIButton) {
+        guard let button = sender as? BrowsePackDownloadButton else {
+            return
+        }
+        
+        if let pack = pack {
+            if PacksService.defaultInstance.checkPack(pack) {
+                PacksService.defaultInstance.removePack(pack)
+                button.packState = .NotAdded
+            } else {
+                PacksService.defaultInstance.addPack(pack)
+                button.packState = .Added
+            }
         }
     }
     
@@ -150,5 +171,11 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         }
         
         return UICollectionReusableView()
+    }
+    
+    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false)
+        
+        return animator
     }
 }
