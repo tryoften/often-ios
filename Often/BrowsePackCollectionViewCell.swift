@@ -16,18 +16,19 @@ class BrowsePackCollectionViewCell: BrowseMediaItemCollectionViewCell {
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         primaryButton.titleLabel?.font = UIFont(name: "OpenSans", size: 8.0)
         primaryButton.layer.cornerRadius = 11.25
-        primaryButton.backgroundColor = BlackColor
-        primaryButton.setTitle("download".uppercaseString, forState: .Normal)
-        primaryButton.setTitle("remove".uppercaseString, forState: .Selected)
+        primaryButton.setTitle("remove".uppercaseString, forState: .Normal)
         primaryButton.setTitleColor(WhiteColor, forState: .Normal)
-        primaryButton.setTitleColor(BlackColor, forState: .Selected)
+        primaryButton.layer.shadowRadius = 2
+        primaryButton.layer.shadowOpacity = 0.2
+        primaryButton.layer.shadowColor = MediumLightGrey.CGColor
+        primaryButton.layer.shadowOffset = CGSizeMake(0, 2)
+
 
         super.init(frame: frame)
 
         imageView.image = UIImage(named: "placeholder")
 
         setImageViewLayers(CGRectMake(0, 0, frame.size.width, frame.size.height/2))
-        primaryButton.addTarget(self, action: #selector(BrowsePackCollectionViewCell.primaryButtonSelected), forControlEvents: .TouchUpInside)
         addSubview(primaryButton)
 
         setupLayout()
@@ -37,23 +38,7 @@ class BrowsePackCollectionViewCell: BrowseMediaItemCollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // Ex. Download or Buy a pack
-    func primaryButtonSelected() {
-        if primaryButton.selected {
-            primaryButton.backgroundColor = BlackColor
-            primaryButton.selected = false
-            primaryButton.layer.shadowOpacity = 0.0
-        } else {
-            primaryButton.backgroundColor = WhiteColor
-            primaryButton.selected = true
-            primaryButton.layer.shadowRadius = 2
-            primaryButton.layer.shadowOpacity = 0.2
-            primaryButton.layer.shadowColor = MediumLightGrey.CGColor
-            primaryButton.layer.shadowOffset = CGSizeMake(0, 2)
-        }
-    }
-    
+
     override func setupLayout() {
         addConstraints([
             imageView.al_width == al_width,

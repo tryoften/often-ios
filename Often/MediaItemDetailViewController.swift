@@ -9,10 +9,10 @@
 import Foundation
 
 
-class KeyboardMediaItemDetailViewController: UIViewController {
-    var keyboardMediaItemDetailView: KeyboardMediaItemDetailView
+class MediaItemDetailViewController: UIViewController {
+    var mediaItemDetailView: MediaItemDetailView
     private var textProcessor: TextProcessingManager?
-    private var keyboardMediaItemDetailViewTopConstraint: NSLayoutConstraint?
+    private var mediaItemDetailViewTopConstraint: NSLayoutConstraint?
     private var tintView: UIView
     private var item: MediaItem
 
@@ -24,13 +24,13 @@ class KeyboardMediaItemDetailViewController: UIViewController {
         tintView.translatesAutoresizingMaskIntoConstraints = false
         tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
 
-        keyboardMediaItemDetailView = KeyboardMediaItemDetailView()
-        keyboardMediaItemDetailView.translatesAutoresizingMaskIntoConstraints = false
+        mediaItemDetailView = MediaItemDetailView()
+        mediaItemDetailView.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(nibName: nil, bundle: nil)
 
         view.addSubview(tintView)
-        view.addSubview(keyboardMediaItemDetailView)
+        view.addSubview(mediaItemDetailView)
 
         setupLayout()
     }
@@ -40,17 +40,17 @@ class KeyboardMediaItemDetailViewController: UIViewController {
     }
 
     func setupLayout() {
-        keyboardMediaItemDetailViewTopConstraint = keyboardMediaItemDetailView.al_top == view.al_bottom + 0
+        mediaItemDetailViewTopConstraint = mediaItemDetailView.al_top == view.al_bottom + 0
         view.addConstraints([
             tintView.al_top == view.al_top,
             tintView.al_bottom == view.al_bottom,
             tintView.al_left == view.al_left,
             tintView.al_right == view.al_right,
 
-            keyboardMediaItemDetailView.al_right == view.al_right,
-            keyboardMediaItemDetailView.al_left == view.al_left,
-            keyboardMediaItemDetailViewTopConstraint!,
-            keyboardMediaItemDetailView.al_height == KeyboardMediaItemDetailViewHeight
+            mediaItemDetailView.al_right == view.al_right,
+            mediaItemDetailView.al_left == view.al_left,
+            mediaItemDetailViewTopConstraint!,
+            mediaItemDetailView.al_height == KeyboardMediaItemDetailViewHeight
             ])
     }
 
@@ -63,7 +63,7 @@ class KeyboardMediaItemDetailViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        keyboardMediaItemDetailViewTopConstraint?.constant = -KeyboardMediaItemDetailViewHeight
+        mediaItemDetailViewTopConstraint?.constant = -KeyboardMediaItemDetailViewHeight
 
         UIView.animateWithDuration(0.10, delay: 0.02, options: .CurveLinear, animations: { () -> Void in
              self.view.layoutSubviews()
@@ -122,31 +122,31 @@ class KeyboardMediaItemDetailViewController: UIViewController {
         switch item.type {
         case .Lyric:
             if let lyric = item as? LyricMediaItem {
-            keyboardMediaItemDetailView.mediaItemText.text = lyric.text
-            keyboardMediaItemDetailView.mediaItemAuthor.text = lyric.artist_name
-            keyboardMediaItemDetailView.mediaItemTitle.text = lyric.track_title
+            mediaItemDetailView.mediaItemText.text = lyric.text
+            mediaItemDetailView.mediaItemAuthor.text = lyric.artist_name
+            mediaItemDetailView.mediaItemTitle.text = lyric.track_title
             }
         case .Quote:
             if let quote = item as? QuoteMediaItem {
-                keyboardMediaItemDetailView.mediaItemText.text = quote.text
-                keyboardMediaItemDetailView.mediaItemAuthor.text = quote.owner_name
-                keyboardMediaItemDetailView.mediaItemTitle.text = quote.origin_name
+                mediaItemDetailView.mediaItemText.text = quote.text
+                mediaItemDetailView.mediaItemAuthor.text = quote.owner_name
+                mediaItemDetailView.mediaItemTitle.text = quote.origin_name
             }
         default: break
         }
 
         if let category = item.category {
-            keyboardMediaItemDetailView.mediaItemCategoryButton.setTitle(category.name.uppercaseString, forState: .Normal)
+            mediaItemDetailView.mediaItemCategoryButton.setTitle(category.name.uppercaseString, forState: .Normal)
         } else {
-            keyboardMediaItemDetailView.mediaItemCategoryButton.setTitle(Category.all.name.uppercaseString, forState: .Normal)
+            mediaItemDetailView.mediaItemCategoryButton.setTitle(Category.all.name.uppercaseString, forState: .Normal)
         }
         
-        keyboardMediaItemDetailView.cancelButton.addTarget(self, action: "dismissView", forControlEvents: .TouchUpInside)
-        keyboardMediaItemDetailView.insertButton.addTarget(self, action: "insertButtonDidTap:", forControlEvents: .TouchUpInside)
-        keyboardMediaItemDetailView.copyButton.addTarget(self, action: "copyButtonDidTap:", forControlEvents: .TouchUpInside)
-        keyboardMediaItemDetailView.snapchatButton.addTarget(self, action: "snapchatButtonDidTap:", forControlEvents: .TouchUpInside)
-        keyboardMediaItemDetailView.favoriteButton.addTarget(self, action: "favoriteButtonDidTap:", forControlEvents: .TouchUpInside)
-        keyboardMediaItemDetailView.favoriteButton.selected = FavoritesService.defaultInstance.checkFavorite(item)
+        mediaItemDetailView.cancelButton.addTarget(self, action: "dismissView", forControlEvents: .TouchUpInside)
+        mediaItemDetailView.insertButton.addTarget(self, action: "insertButtonDidTap:", forControlEvents: .TouchUpInside)
+        mediaItemDetailView.copyButton.addTarget(self, action: "copyButtonDidTap:", forControlEvents: .TouchUpInside)
+        mediaItemDetailView.snapchatButton.addTarget(self, action: "snapchatButtonDidTap:", forControlEvents: .TouchUpInside)
+        mediaItemDetailView.favoriteButton.addTarget(self, action: "favoriteButtonDidTap:", forControlEvents: .TouchUpInside)
+        mediaItemDetailView.favoriteButton.selected = FavoritesService.defaultInstance.checkFavorite(item)
 
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.addTarget(self, action: "dismissView")
@@ -156,8 +156,8 @@ class KeyboardMediaItemDetailViewController: UIViewController {
 
         if let imageURL = item.smallImageURL {
                 print("Loading image: \(imageURL)")
-                keyboardMediaItemDetailView.mediaItemImage.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
-                    self.keyboardMediaItemDetailView.mediaItemImage.image = image
+                mediaItemDetailView.mediaItemImage.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
+                    self.mediaItemDetailView.mediaItemImage.image = image
 
                     }, failure: { (req, res, error) in
                         print("Failed to load image: \(imageURL)")

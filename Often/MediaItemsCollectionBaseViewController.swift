@@ -290,9 +290,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 return
         }
 
-        let vc = KeyboardMediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
+        let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
         #if !(KEYBOARD)
-            vc.keyboardMediaItemDetailView.style = .Copy
+            vc.mediaItemDetailView.style = .Copy
         #endif
         vc.transitioningDelegate = self
         vc.modalPresentationStyle = .Custom
