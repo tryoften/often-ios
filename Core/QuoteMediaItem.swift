@@ -25,7 +25,7 @@ class QuoteMediaItem: MediaItem {
         owner_id = data["owner_id"] as? String
         owner_image_url = data["owner_image_url"] as? String
         owner_name = data["owner_name"] as? String
-        origin_name = data["origin_name"] as? String
+        origin_name = data["origin"] as? String
 
         if let categoryId = data["category_id"] as? String,
             let categoryName = data["category_name"] as? String {

@@ -98,7 +98,13 @@ class BrowsePackHeaderCollectionViewController: UICollectionViewController {
         
         return cell
     }
-    
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let packVC = MainAppBrowsePackItemViewController(packId: "Eyl04mekZ", viewModel: BrowseViewModel(), textProcessor: nil)
+        navigationController?.navigationBar.hidden = false
+        navigationController?.pushViewController(packVC, animated: true)
+    }
+
     override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         if currentPage != getCurrentPage() {
             currentPage = getCurrentPage()
