@@ -11,10 +11,9 @@ import Foundation
 class CategoryService {
     static let defaultInstance = CategoryService()
     var categories: [Category]?
-
     let didUpdateCategories = Event<[Category]>()
-
     let ref: Firebase
+
     init(baseRef: Firebase = Firebase(url: BaseURL)) {
         ref = baseRef.childByAppendingPath("categories")
         ref.observeEventType(.Value, withBlock: { snapshot in
@@ -24,7 +23,7 @@ class CategoryService {
                 for (_, categoryData) in data {
                     if let categoryData = categoryData as? [String: AnyObject],
                         let id = categoryData["id"] as? String, let name = categoryData["name"] as? String {
-                            let category = Category(id: id, name: name)
+                            let category = Category(id: id, name: name, smallImageURL: nil, largeImageURL: nil)
                             newCategories.append(category)
                     }
                 }

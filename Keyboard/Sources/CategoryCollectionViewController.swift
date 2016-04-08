@@ -49,8 +49,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
 
         super.init(nibName: nil, bundle: nil)
 
-        view.backgroundColor = VeryLightGray
-
+        panelView.categoriesCollectionView.backgroundColor = VeryLightGray
         panelView.categoriesCollectionView.dataSource = self
         panelView.categoriesCollectionView.delegate = self
 
@@ -88,7 +87,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-
         var screenWidth = CGRectGetWidth(collectionView.bounds)
         if screenWidth == 0 {
             screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
@@ -105,6 +103,10 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         if indexPath.row < categories.count {
             let category = categories[indexPath.row]
             cell.title = category.name
+
+            if let image = category.smallImageURL {
+                cell.backgroundImageView.setImageWithURL(image)
+            }
         }
 
         return cell

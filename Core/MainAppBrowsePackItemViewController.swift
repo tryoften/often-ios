@@ -164,7 +164,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
                 }
 
                 sectionView.leftText = "\(categoryName.name)".uppercaseString
-                sectionView.rightText = "\(viewModel.filteredMediaItems.count)".uppercaseString
+                sectionView.rightText = viewModel.filteredMediaItems.count == 1 ? "\(viewModel.filteredMediaItems.count) quote".uppercaseString : "\(viewModel.filteredMediaItems.count) quotes".uppercaseString
 
                 return sectionView
             }
