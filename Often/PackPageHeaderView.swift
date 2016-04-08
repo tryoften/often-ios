@@ -36,8 +36,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
 
         primaryButton = BrowsePackDownloadButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
-        primaryButton.backgroundColor = TealColor
-        primaryButton.layer.cornerRadius = 15
+
 
         super.init(frame: frame)
 
@@ -97,12 +96,11 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             subtitleLabel.al_centerX == al_centerX,
             subtitleLabel.al_left == al_left + 50,
             subtitleLabel.al_right == al_right - 50,
-            subtitleLabel.al_top  == titleLabel.al_bottom + 5,
+            subtitleLabel.al_top  == titleLabel.al_bottom,
             subtitleLabel.al_height == 60,
 
             primaryButton.al_centerX == al_centerX,
             primaryButton.al_top == subtitleLabel.al_bottom + 5,
-            primaryButton.al_width == 84,
             primaryButton.al_height == 30,
 
             sampleButton.al_right == al_right - 16.5,

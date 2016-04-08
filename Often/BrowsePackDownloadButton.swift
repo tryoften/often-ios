@@ -32,7 +32,7 @@ class BrowsePackDownloadButton: UIButton {
     var title: String = "Download" {
         didSet {
             let text = NSAttributedString(string: title, attributes: [
-                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 10.5)!,
+                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 11.0)!,
                 NSKernAttributeName: NSNumber(float: 1.0),
                 NSForegroundColorAttributeName: textColor
             ])
@@ -59,6 +59,14 @@ class BrowsePackDownloadButton: UIButton {
 
     init() {
         super.init(frame: CGRectZero)
+        
+        backgroundColor = TealColor
+        contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
+        layer.cornerRadius = 15
+        layer.shadowRadius = 2
+        layer.shadowOpacity = 0.2
+        layer.shadowColor = MediumLightGrey.CGColor
+        layer.shadowOffset = CGSizeMake(0, 2)
     }
     
     required init?(coder aDecoder: NSCoder) {
