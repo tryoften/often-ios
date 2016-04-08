@@ -371,13 +371,13 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
 
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: true)
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: true, lowerPresentingViewController: true)
 
         return animator
     }
 
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: false, resizePresentingViewController: false)
+        let animator = FadeInTransitionAnimator(presenting: false, resizePresentingViewController: false, lowerPresentingViewController: false)
 
         return animator
     }

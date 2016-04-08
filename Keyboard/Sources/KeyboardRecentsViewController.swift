@@ -9,16 +9,30 @@
 import UIKit
 
 class KeyboardRecentsViewController: MediaItemsViewController {
+    //TODO(kervs): Must remove after we can filter recents
+    var panelViewBar: CategoriesPanelView
 
     init(viewModel: MediaItemsViewModel) {
+        panelViewBar = CategoriesPanelView()
+        panelViewBar.translatesAutoresizingMaskIntoConstraints = false
+
         let layout = KeyboardRecentsViewController.provideCollectionViewFlowLayout()
         super.init(collectionViewLayout: layout, collectionType: .Recents, viewModel: viewModel)
+        let toggleRecognizer = UITapGestureRecognizer(target: self, action: #selector(KeyboardRecentsViewController.togglePack))
+
+        panelViewBar.currentCategoryText = "all".uppercaseString
+        panelViewBar.mediaItemTitleText = collectionType.rawValue.uppercaseString
+        panelViewBar.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
+        panelViewBar.toggleDrawerButton.userInteractionEnabled = false
+        panelViewBar.toggleCategorySelectedView.userInteractionEnabled = false
 
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.contentInset = UIEdgeInsetsMake(-1, 0, SectionPickerViewHeight, 0)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
+        view.addSubview(panelViewBar)
+        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +50,6 @@ class KeyboardRecentsViewController: MediaItemsViewController {
         return layout
     }
 
-    
     func onOrientationChanged() {
         collectionView?.performBatchUpdates(nil, completion: nil)
     }
@@ -47,6 +60,22 @@ class KeyboardRecentsViewController: MediaItemsViewController {
         }
 
         return viewModel.mediaItemGroupItemsForIndex(section).count
+    }
+
+    func setupLayout() {
+        view.addConstraints([
+            panelViewBar.al_bottom == view.al_bottom,
+            panelViewBar.al_left == view.al_left,
+            panelViewBar.al_right == view.al_right,
+            panelViewBar.al_height == SectionPickerViewHeight
+            ])
+    }
+
+    override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
+        super.showEmptyStateViewForState(state, animated: animated, completion: completion)
+        if let emptyStateView = emptyStateView {
+            view.insertSubview(panelViewBar, aboveSubview: emptyStateView)
+        }
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -98,8 +127,12 @@ class KeyboardRecentsViewController: MediaItemsViewController {
         
     }
 
+    func togglePack() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false)
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: false)
 
         return animator
     }

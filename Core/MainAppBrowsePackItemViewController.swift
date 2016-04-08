@@ -174,7 +174,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     }
     
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false)
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: false)
         
         return animator
     }
