@@ -30,7 +30,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
         super.init(collectionViewLayout: KeyboardMediaItemPackPickerViewController.provideLayout())
 
-        collectionView?.contentInset = UIEdgeInsets(top: -40, left: 0, bottom: 0, right: 0)
+        collectionView?.contentInset = UIEdgeInsets(top: -40, left: 9, bottom: 0, right: 9)
 
         viewModel.fetchCollection()
 
