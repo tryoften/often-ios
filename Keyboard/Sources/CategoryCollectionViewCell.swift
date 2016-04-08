@@ -13,6 +13,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     var subtitleLabel: UILabel!
     var borderColor: UIColor!
     var highlightColorBorder: UIView!
+    var backgroundImageView: UIImageView
 
     var title: String? {
         didSet {
@@ -27,6 +28,9 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
 
     override init(frame: CGRect) {
+        backgroundImageView = UIImageView()
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+
         super.init(frame: frame)
         backgroundColor = CategoryCollectionViewCellBackgroundColor
 
@@ -45,6 +49,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         highlightColorBorder = UIView(frame: CGRectZero)
         highlightColorBorder.translatesAutoresizingMaskIntoConstraints = false
 
+        addSubview(backgroundImageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(highlightColorBorder)
@@ -60,6 +65,11 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 
     func setupLayout() {
         addConstraints([
+            backgroundImageView.al_top == al_top,
+            backgroundImageView.al_right == al_right,
+            backgroundImageView.al_left == al_left,
+            backgroundImageView.al_top == al_top,
+
             highlightColorBorder.al_width == al_width,
             highlightColorBorder.al_left == al_left,
             highlightColorBorder.al_top == al_top,
