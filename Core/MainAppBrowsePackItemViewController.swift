@@ -46,8 +46,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    
     
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
@@ -100,8 +98,15 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
 
             header.sampleButton.hidden = !pack.premium
             header.primaryButton.title = pack.callToActionText()
+            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
             header.imageURL = imageURL
         }
+    }
+    
+    func primaryButtonTapped(sender: UIButton) {
+//        if let pack = pack {
+//            PacksService.defaultInstance.addPack(pack)   
+//        }
     }
     
     func filterButtonDidTap(sender: UIButton) {

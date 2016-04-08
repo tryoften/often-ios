@@ -47,7 +47,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
 
         layoutCategoryPanelView()
     }
-
+    
     // MARK: UICollectionViewDataSource
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.filteredMediaItems.count

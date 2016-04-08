@@ -18,14 +18,21 @@ class PackPageHeaderView: MediaItemPageHeaderView {
         backLabel = UILabel()
         backLabel.translatesAutoresizingMaskIntoConstraints = false
         backLabel.setTextWith(UIFont(name: "Montserrat-Regular", size: 9)!, letterSpacing: 1, color: WhiteColor, text: "browse packs".uppercaseString)
-
+        
+        var attributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "OpenSans-Bold", size: 7.0)!,
+            NSForegroundColorAttributeName: UIColor.oftWhiteColor()
+        ]
+        let sampleString = NSAttributedString(string: "try sample".uppercaseString, attributes: attributes)
+        
         sampleButton = UIButton()
         sampleButton.translatesAutoresizingMaskIntoConstraints = false
         sampleButton.backgroundColor = ClearColor
         sampleButton.layer.borderWidth = 1.5
         sampleButton.layer.borderColor = WhiteColor.CGColor
         sampleButton.layer.cornerRadius = 11.25
-        sampleButton.titleLabel?.setTextWith(UIFont(name: "OpenSans-Bold", size:  7)!, letterSpacing: 1, color: WhiteColor, text: "try sample".uppercaseString)
+        sampleButton.setAttributedTitle(sampleString, forState: .Normal)
 
         primaryButton = BrowsePackDownloadButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +75,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             UIView.commitAnimations()
         }
     }
-
+    
     override func setupLayout() {
         addConstraints([
             coverPhoto.al_top == al_top,
