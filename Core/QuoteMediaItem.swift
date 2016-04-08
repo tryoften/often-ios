@@ -29,7 +29,7 @@ class QuoteMediaItem: MediaItem {
 
         if let categoryId = data["category_id"] as? String,
             let categoryName = data["category_name"] as? String {
-            category = Category(id: categoryId, name: categoryName)
+            category = Category(id: categoryId, name: categoryName, smallImageURL: nil, largeImageURL: nil) 
         }
     }
 

@@ -24,7 +24,7 @@ class CategoryService {
                 for (_, categoryData) in data {
                     if let categoryData = categoryData as? [String: AnyObject],
                         let id = categoryData["id"] as? String, let name = categoryData["name"] as? String {
-                            let category = Category(id: id, name: name)
+                            let category = Category(id: id, name: name, smallImageURL: nil, largeImageURL: nil)
                             newCategories.append(category)
                     }
                 }
