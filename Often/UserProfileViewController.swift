@@ -144,7 +144,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         switch collectionType {
         case .Recents:  return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
         case .Packs:    return CGSizeMake(171, 237)
-        default:        return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
+        default:        return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 75)
         }
     }
 
@@ -190,6 +190,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             cell.delegate = self
             cell.type = collectionType == .Recents ? .Metadata : .NoMetadata
             cell.inMainApp = true
+            cell.style = .Cell
             
             if let result = cell.mediaLink {
                 cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)

@@ -150,4 +150,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         
         return UICollectionReusableView()
     }
+    
+    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false)
+        
+        return animator
+    }
 }
