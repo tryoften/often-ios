@@ -52,8 +52,8 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
         flowLayout.itemSize = CGSizeMake(PackCellWidth, 225) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
-        flowLayout.minimumInteritemSpacing = 7.0
-        flowLayout.minimumLineSpacing = 7.0
+        flowLayout.minimumInteritemSpacing = 6.0
+        flowLayout.minimumLineSpacing = 6.0
         flowLayout.sectionInset = UIEdgeInsetsMake(12.0, 12.0, 12.0, 12.0)
         return flowLayout
     }
@@ -87,6 +87,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
             
             if headerView == nil {
                 headerView = cell
+                addChildViewController(cell.browsePicker)
             }
             return headerView!
         } else if kind == UICollectionElementKindSectionHeader {
