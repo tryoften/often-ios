@@ -259,12 +259,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             break
         }
 
-        if let items = items where items.count - 1 == indexPath.row {
-            cell.bottomSeperator.hidden = true
-        } else {
-            cell.bottomSeperator.hidden = false
-        }
 
+        cell.bottomSeperator.hidden = false
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.mediaLink = result
