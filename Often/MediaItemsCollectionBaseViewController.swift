@@ -292,7 +292,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         #endif
         vc.transitioningDelegate = self
         vc.modalPresentationStyle = .Custom
-        presentViewController(vc, animated: false, completion: nil)
+        presentViewController(vc, animated: true, completion: nil)
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
