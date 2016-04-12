@@ -22,7 +22,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
-
         }
         
     }
