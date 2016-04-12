@@ -69,7 +69,7 @@ class MediaItemDetailViewController: UIViewController {
     }
 
     func dismissView() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     func insertButtonDidTap(sender: UIButton) {
