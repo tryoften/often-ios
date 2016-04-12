@@ -12,7 +12,6 @@ import Foundation
 class MediaItemDetailViewController: UIViewController {
     var mediaItemDetailView: MediaItemDetailView
     private var textProcessor: TextProcessingManager?
-    private var mediaItemDetailViewTopConstraint: NSLayoutConstraint?
     private var tintView: UIView
     private var item: MediaItem
 
@@ -25,6 +24,7 @@ class MediaItemDetailViewController: UIViewController {
         tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
 
         mediaItemDetailView = MediaItemDetailView()
+        mediaItemDetailView.alpha = 0.0
         mediaItemDetailView.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(nibName: nil, bundle: nil)
@@ -40,7 +40,6 @@ class MediaItemDetailViewController: UIViewController {
     }
 
     func setupLayout() {
-        mediaItemDetailViewTopConstraint = mediaItemDetailView.al_top == view.al_bottom + 0
         view.addConstraints([
             tintView.al_top == view.al_top,
             tintView.al_bottom == view.al_bottom,
@@ -49,9 +48,9 @@ class MediaItemDetailViewController: UIViewController {
 
             mediaItemDetailView.al_right == view.al_right,
             mediaItemDetailView.al_left == view.al_left,
-            mediaItemDetailViewTopConstraint!,
+            mediaItemDetailView.al_top == view.al_bottom - KeyboardMediaItemDetailViewHeight,
             mediaItemDetailView.al_height == KeyboardMediaItemDetailViewHeight
-            ])
+        ])
     }
 
     override func viewDidLoad() {
@@ -61,10 +60,9 @@ class MediaItemDetailViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        mediaItemDetailViewTopConstraint?.constant = -KeyboardMediaItemDetailViewHeight
 
-        UIView.animateWithDuration(0.10, delay: 0.0, options: .CurveLinear, animations: { () -> Void in
-             self.view.layoutSubviews()
+        UIView.animateWithDuration(0.1, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
+             self.mediaItemDetailView.alpha = 1.0
             }, completion: nil)
     }
 
