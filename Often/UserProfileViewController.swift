@@ -325,4 +325,8 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: false)
         return animator
     }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 9.0 as CGFloat
+    }
 }
