@@ -23,3 +23,5 @@
 #import "NJKScrollFullScreen.h"
 #import <BDKCollectionIndexView/BDKCollectionIndexView.h>
 #import <AGEmojiKeyboard/AGEmojiKeyboardView.h>
+#import <FLAnimatedImage/FLAnimatedImageView.h>
+#import <FLAnimatedImage/FLAnimatedImage.h>

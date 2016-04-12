@@ -92,7 +92,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
         }
 
-        return CGSizeMake(screenWidth / 2.5 - 12, 60)
+        return CGSizeMake(screenWidth / 2.5 - 12, 65)
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -104,8 +104,19 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             let category = categories[indexPath.row]
             cell.title = category.name
 
-            if let image = category.smallImageURL {
-                cell.backgroundImageView.setImageWithURL(image)
+            if let image = category.smallImageURL, let pathExtension = image.pathExtension {
+                if pathExtension == "gif" {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                        let data = NSData(contentsOfURL: image)
+                        let animatedImage = FLAnimatedImage(animatedGIFData: data)
+                        dispatch_async(dispatch_get_main_queue()) {
+                            cell.backgroundImageView.animatedImage = animatedImage
+                        }
+                    }
+                } else {
+                    cell.backgroundImageView.setImageWithURL(image)
+                }
+                cell.backgroundImageView.frame = cell.bounds
             }
         }
 

@@ -1094,11 +1094,6 @@
 		81F8337F1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8337D1C18B9B3001B8662 /* TrendingArtistsHorizontalCollectionViewController.swift */; };
 		81F833861C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833841C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift */; };
 		81F833911C1A38B2001B8662 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
-		BF0A4BF11CB6DF0700824A81 /* KeyboardMediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* KeyboardMediaItemDetailViewController.swift */; };
-		BF0A4BF21CB6DF0800824A81 /* KeyboardMediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* KeyboardMediaItemDetailViewController.swift */; };
-		BF0A4BEE1CB5A3A000824A81 /* BrowsePackHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126D1CA73DC00030EB79 /* BrowsePackHeaderCollectionViewCell.swift */; };
-		BF0A4BEF1CB5A3A100824A81 /* BrowsePackHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126D1CA73DC00030EB79 /* BrowsePackHeaderCollectionViewCell.swift */; };
-		BF0A4BF01CB5A3A200824A81 /* BrowsePackHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126D1CA73DC00030EB79 /* BrowsePackHeaderCollectionViewCell.swift */; };
 		BF0A4BF11CB6DF0700824A81 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
 		BF0A4BF21CB6DF0800824A81 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
 		BF3FA1DD1CAC539900DBB87B /* BrowsePackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* BrowsePackCollectionViewCell.swift */; };
@@ -1370,7 +1365,7 @@
 		8107036F1BFD05AB00FDBF57 /* ParseConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseConfig.swift; path = ../Often/ParseConfig.swift; sourceTree = "<group>"; };
 		8107F7E11BD45B4D00357A26 /* SearchSuggestionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSuggestionsViewModel.swift; path = Sources/SearchSuggestionsViewModel.swift; sourceTree = "<group>"; };
 		810A242D1BE058250032AFC7 /* SpellChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpellChecker.swift; path = Sources/SpellChecker.swift; sourceTree = "<group>"; };
-		810B04E21C4303F200BA731B /* UIImageView+AnimateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+AnimateImage.swift"; sourceTree = "<group>"; };
+		810B04E21C4303F200BA731B /* UIImageView+AnimateImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+AnimateImage.swift"; path = "../Core/UIImageView+AnimateImage.swift"; sourceTree = "<group>"; };
 		810B04F11C43181800BA731B /* BrowseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewModel.swift; path = ../Keyboard/Sources/BrowseViewModel.swift; sourceTree = "<group>"; };
 		810B04F91C4327B400BA731B /* Keyboard-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Keyboard-Bridging-Header.h"; path = "Sources/Keyboard-Bridging-Header.h"; sourceTree = "<group>"; };
 		810B04FC1C4446AE00BA731B /* ContainerNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationBar.swift; sourceTree = "<group>"; };
@@ -2111,7 +2106,6 @@
 				6944A53F1C3B0A5200EA57C3 /* Empty State Views */,
 				3B75E50A1C6D4BE4008D4CE3 /* Collection Cell Views */,
 				3B75E5061C6D2ACB008D4CE3 /* Search Views */,
-				810B04E21C4303F200BA731B /* UIImageView+AnimateImage.swift */,
 				810B05051C47357E00BA731B /* MediaItemPageHeaderView.swift */,
 				698674161C4A911900826FAA /* DropDownMessageView.swift */,
 				3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */,
@@ -2186,6 +2180,7 @@
 			children = (
 				81A1A4F41A19817F00D566B8 /* UIColor+HEXString.h */,
 				81A1A4F51A19817F00D566B8 /* UIColor+HEXString.m */,
+				810B04E21C4303F200BA731B /* UIImageView+AnimateImage.swift */,
 			);
 			name = Categories;
 			path = ../Often;
@@ -2764,6 +2759,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Surf Inc.";
 				TargetAttributes = {
+					810EA4981C8579D1005A6C6D = {
+						DevelopmentTeam = VPYJKM228K;
+					};
 					810EA5941C8579F1005A6C6D = {
 						DevelopmentTeam = VPYJKM228K;
 					};
@@ -4498,7 +4496,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
