@@ -55,9 +55,7 @@ class MediaItemDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupDetailView()
-
     }
 
     override func viewDidAppear(animated: Bool) {
