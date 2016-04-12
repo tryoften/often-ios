@@ -55,6 +55,7 @@ PODS:
     - Bolts (~> 1.1)
     - Facebook-iOS-SDK/CoreKit
   - Firebase (2.5.1)
+  - FLAnimatedImage (1.0.12)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
@@ -72,6 +73,7 @@ DEPENDENCIES:
   - DateTools (~> 1.6)
   - Facebook-iOS-SDK
   - Firebase (>= 2.0.2)
+  - FLAnimatedImage (~> 1.0)
   - Parse (~> 1.11)
   - Reveal-iOS-SDK
 
@@ -99,6 +101,7 @@ SPEC CHECKSUMS:
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
   Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FlurrySDK: ee51555de016e77ff6b516d473de7a57eb858ef7
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33

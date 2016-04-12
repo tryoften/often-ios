@@ -29,13 +29,14 @@ class BrowsePackDownloadButton: UIButton {
         }
     }
 
-    var title: String = "Download" {
+    var title: String = "Download".uppercaseString {
         didSet {
             let text = NSAttributedString(string: title, attributes: [
-                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 11.0)!,
                 NSKernAttributeName: NSNumber(float: 1.0),
+                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
                 NSForegroundColorAttributeName: textColor
             ])
+            
             setAttributedTitle(text, forState: .Normal)
             setAttributedTitle(text, forState: .Selected)
         }
@@ -46,11 +47,11 @@ class BrowsePackDownloadButton: UIButton {
             if selected {
                 backgroundColor = WhiteColor
                 textColor = BlackColor
-                title = "Remove"
+                title = "Remove".uppercaseString
             } else {
                 backgroundColor = TealColor
                 textColor = UIColor.oftWhiteColor()
-                title = "Download"
+                title = "Download".uppercaseString
             }
         }
     }
@@ -61,7 +62,7 @@ class BrowsePackDownloadButton: UIButton {
         super.init(frame: CGRectZero)
         
         backgroundColor = TealColor
-        contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10)
+        contentEdgeInsets = UIEdgeInsetsMake(0, 18, 0, 18)
         layer.cornerRadius = 15
         layer.shadowRadius = 2
         layer.shadowOpacity = 0.2
