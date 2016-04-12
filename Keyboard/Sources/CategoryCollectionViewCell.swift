@@ -13,7 +13,8 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     var subtitleLabel: UILabel!
     var borderColor: UIColor!
     var highlightColorBorder: UIView!
-    var backgroundImageView: UIImageView
+    var backgroundImageView: FLAnimatedImageView
+    private var tintView: UIView
 
     var title: String? {
         didSet {
@@ -28,8 +29,11 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
 
     override init(frame: CGRect) {
-        backgroundImageView = UIImageView()
-        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImageView = FLAnimatedImageView()
+
+        tintView = UIImageView()
+        tintView.translatesAutoresizingMaskIntoConstraints = false
+        tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
 
         super.init(frame: frame)
         backgroundColor = CategoryCollectionViewCellBackgroundColor
@@ -50,6 +54,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         highlightColorBorder.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(backgroundImageView)
+        addSubview(tintView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(highlightColorBorder)
@@ -69,6 +74,11 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             backgroundImageView.al_right == al_right,
             backgroundImageView.al_left == al_left,
             backgroundImageView.al_top == al_top,
+
+            tintView.al_top == al_top,
+            tintView.al_bottom == al_bottom,
+            tintView.al_left == al_left,
+            tintView.al_right == al_right,
 
             highlightColorBorder.al_width == al_width,
             highlightColorBorder.al_left == al_left,

@@ -15,6 +15,7 @@ def base_deps
   pod 'CSStickyHeaderFlowLayout'
   pod 'BDKCollectionIndexView'
   pod 'AGEmojiKeyboard', :git => 'https://github.com/tryoften/AGEmojiKeyboard'
+  pod 'FLAnimatedImage', '~> 1.0'
 end
 
 target 'Often' do

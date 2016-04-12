@@ -56,16 +56,14 @@ class MediaItemDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupDetailView()
-
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         mediaItemDetailViewTopConstraint?.constant = -KeyboardMediaItemDetailViewHeight
 
-        UIView.animateWithDuration(0.10, delay: 0.02, options: .CurveLinear, animations: { () -> Void in
+        UIView.animateWithDuration(0.10, delay: 0.0, options: .CurveLinear, animations: { () -> Void in
              self.view.layoutSubviews()
             }, completion: nil)
     }
