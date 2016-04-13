@@ -18,7 +18,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     var currentCategory: Category? {
         didSet {
             panelView.currentCategoryText = currentCategory?.name.uppercaseString
-
             if let category = currentCategory {
                 viewModel.applyFilter(.category(category))
             }
@@ -69,7 +68,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         let viewLayout = CategoriesPanelView.provideCollectionViewLayout(panelView.bounds)
         panelView.categoriesCollectionView.setCollectionViewLayout(viewLayout, animated: false)
 
-        currentCategory = self.categories.first
+        currentCategory = self.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex]
     }
 
     func handleCategories(categories: [Category]) {
@@ -126,6 +125,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row < categories.count {
             let category = categories[indexPath.row]
+            SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = indexPath.row
             currentCategory = category
             panelView.toggleDrawer()
 

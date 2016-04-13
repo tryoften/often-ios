@@ -24,6 +24,8 @@ class SessionManagerFlags {
         static var keyboardSearchBarToolTips = "searchBarTool"
         static var keyboardInstallWalkthrough = "keyboardInstallWalkthrough"
         static var userNotificationSettings = "userNotificationSettings"
+        static var lastPack = "pack"
+        static var lastCategory = "category"
     }
 
     var userNotificationSettings: Bool {
@@ -118,6 +120,26 @@ class SessionManagerFlags {
         
         set(value) {
             setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.userID)
+        }
+    }
+
+    var lastPack: String? {
+        get {
+            return  NSUserDefaults.standardUserDefaults().objectForKey(SessionManagerPropertyKey.lastPack) as? String
+        }
+
+        set(value) {
+             NSUserDefaults.standardUserDefaults().setObject(value, forKey: SessionManagerPropertyKey.lastPack)
+        }
+    }
+
+    var lastCategoryIndex: Int {
+        get {
+            return  NSUserDefaults.standardUserDefaults().integerForKey(SessionManagerPropertyKey.lastCategory)
+        }
+
+        set(value) {
+            NSUserDefaults.standardUserDefaults().setInteger(value, forKey: SessionManagerPropertyKey.lastCategory)
         }
     }
     
