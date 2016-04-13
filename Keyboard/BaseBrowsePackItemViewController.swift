@@ -69,6 +69,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
     }
 
     func loadPackData(panelStyle: CategoryPanelStyle)  {
+        if packId.isEmpty {
+            return
+        }
+
         self.pack = nil
 
         collectionView?.reloadData()
@@ -78,7 +82,9 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
             if self.categoriesVC == nil {
                 self.setupCategoryCollectionViewController(panelStyle)
             } else {
-                self.categoriesVC?.handleCategories(self.pack!.categories)
+                if let pack = self.pack {
+                    self.categoriesVC?.handleCategories(pack.categories)
+                }
             }
             self.layoutCategoryPanelView()
             self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
