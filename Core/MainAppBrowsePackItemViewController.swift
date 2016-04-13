@@ -35,6 +35,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
+            self.collectionView?.setContentOffset(CGPointZero, animated: true)
             self.collectionView?.reloadData()
             self.hideHud()
         }
