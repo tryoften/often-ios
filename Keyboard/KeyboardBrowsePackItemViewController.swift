@@ -9,7 +9,6 @@
 import Foundation
 
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
-    weak var delegate: KeyboardBrowsePackItemViewControllerDelegate?
     var packServiceListener: Listener? = nil
 
     override init(packId: String, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
@@ -76,7 +75,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     func switchKeyboardButtonDidTap(sender: UIButton) {
-        delegate?.keyboardBrowsePackItemViewControllerDidSwitchKeyboard(self)
+         NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
     }
 
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
@@ -84,8 +83,4 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         SessionManagerFlags.defaultManagerFlags.lastPack = packId
         loadPackData(.Detailed)
     }
-}
-
-protocol KeyboardBrowsePackItemViewControllerDelegate: class {
-     func keyboardBrowsePackItemViewControllerDidSwitchKeyboard(browsePackViewController: KeyboardBrowsePackItemViewController)
 }

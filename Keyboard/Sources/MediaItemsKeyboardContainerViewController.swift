@@ -25,6 +25,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     var togglePanelButton: TogglePanelButton
     var tabChangeListener: Listener?
     var orientationChangeListener: Listener?
+    var packServiceListener: Listener? = nil
 
     var viewModelsLoaded: dispatch_once_t = 0
     var sectionsTabBarController: KeyboardSectionsContainerViewController
@@ -200,7 +201,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     }
 
     //MARK: TextProcessingManagerDelegate
-
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {}
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
         if let item = mediaItem {
