@@ -1,5 +1,5 @@
 //
-//  KeyboardMediaItemDetailViewController.swift
+//  MediaItemDetailViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 3/4/16.
@@ -101,7 +101,6 @@ class MediaItemDetailViewController: UIViewController {
                                                   subtitle: item.getInsertableText(), duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
         #endif
         }
-        
     }
 
     func favoriteButtonDidTap(sender: UIButton) {

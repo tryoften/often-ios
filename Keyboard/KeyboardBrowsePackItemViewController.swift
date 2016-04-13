@@ -22,7 +22,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
-
         }
         
     }
@@ -58,7 +57,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
         packId = pack.id
-
+        SessionManagerFlags.defaultManagerFlags.lastPack = packId
         loadPackData(.Detailed)
     }
 }

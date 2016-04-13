@@ -50,6 +50,11 @@ class PacksService: UserMediaItemsViewModel {
                 dispatch_async(dispatch_get_main_queue()) {
                     completion?(true)
                     if let packs = self.mediaItems as? [PackMediaItem] {
+                        if let packsID = packs.first?.pack_id {
+                            if SessionManagerFlags.defaultManagerFlags.lastPack == nil {
+                                SessionManagerFlags.defaultManagerFlags.lastPack = packsID
+                            }
+                        }
                         self.didUpdatePacks.emit(packs)
                     }
                 }

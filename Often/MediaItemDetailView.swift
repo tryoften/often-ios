@@ -1,5 +1,5 @@
 //
-//  KeyboardMediaItemDetailView.swift
+//  MediaItemDetailView.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 3/4/16.
@@ -118,7 +118,7 @@ class MediaItemDetailView: UIView {
         }
 
         for button in [insertButton, copyButton, favoriteButton, snapchatButton] {
-            button.addTarget(self, action: "didTouchUpButton:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(MediaItemDetailView.didTouchUpButton(_:)), forControlEvents: .TouchUpInside)
         }
 
         addSubview(cancelButtonBackground)
