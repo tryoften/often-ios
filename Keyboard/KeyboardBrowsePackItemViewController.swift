@@ -9,12 +9,26 @@
 import Foundation
 
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
+    weak var delegate: KeyboardBrowsePackItemViewControllerDelegate?
+    var packServiceListener: Listener? = nil
 
     override init(packId: String, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
         super.init(packId: packId, viewModel: viewModel, textProcessor: textProcessor)
+        showLoadingView()
+        
+        if packId.isEmpty {
+            packServiceListener = PacksService.defaultInstance.didUpdatePacks.once({ items in
+                if let packId = items.first?.pack_id {
+                    self.packId = packId
+                    self.loadPackData(.Detailed)
+                }
+            })
+        }
+
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
+            self.hideLoadingView()
             self.collectionView?.reloadData()
         }
 
@@ -55,9 +69,23 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         presentViewController(packsVC, animated: true, completion: nil)
     }
 
+    override func setupCategoryCollectionViewController(panelStyle: CategoryPanelStyle) {
+        super.setupCategoryCollectionViewController(panelStyle)
+
+        categoriesVC?.panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+    }
+
+    func switchKeyboardButtonDidTap(sender: UIButton) {
+        delegate?.keyboardBrowsePackItemViewControllerDidSwitchKeyboard(self)
+    }
+
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
         packId = pack.id
         SessionManagerFlags.defaultManagerFlags.lastPack = packId
         loadPackData(.Detailed)
     }
+}
+
+protocol KeyboardBrowsePackItemViewControllerDelegate: class {
+     func keyboardBrowsePackItemViewControllerDidSwitchKeyboard(browsePackViewController: KeyboardBrowsePackItemViewController)
 }

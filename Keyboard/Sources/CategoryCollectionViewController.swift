@@ -25,7 +25,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
     var categories: [Category] = [] {
         didSet {
-            if (categories.count > 1) {
+            if (categories.count >= 1) {
                 currentCategory = categories[0]
                 panelView.categoriesCollectionView.reloadData()
                 panelView.categoriesCollectionView.setNeedsLayout()
