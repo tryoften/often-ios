@@ -78,6 +78,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         // Packs
         var packId = ""
+
         if let lastPack = SessionManagerFlags.defaultManagerFlags.lastPack {
             packId = lastPack
         }
