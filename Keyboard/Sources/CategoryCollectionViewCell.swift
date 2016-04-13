@@ -27,6 +27,16 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             titleLabel.attributedText = attributedString
         }
     }
+    
+    override var selected: Bool {
+        didSet {
+            if selected {
+                highlightColorBorder.hidden = false
+            } else {
+                highlightColorBorder.hidden = true
+            }
+        }
+    }
 
     override init(frame: CGRect) {
         backgroundImageView = FLAnimatedImageView()
@@ -52,6 +62,8 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 
         highlightColorBorder = UIView(frame: CGRectZero)
         highlightColorBorder.translatesAutoresizingMaskIntoConstraints = false
+        highlightColorBorder.backgroundColor = UIColor.oftBrightLavenderColor()
+        highlightColorBorder.hidden = true
 
         addSubview(backgroundImageView)
         addSubview(tintView)
@@ -82,7 +94,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 
             highlightColorBorder.al_width == al_width,
             highlightColorBorder.al_left == al_left,
-            highlightColorBorder.al_top == al_top,
+            highlightColorBorder.al_bottom == al_bottom,
             highlightColorBorder.al_height == 4.5,
 
             titleLabel.al_centerX == al_centerX,
