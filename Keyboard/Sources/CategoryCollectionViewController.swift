@@ -45,7 +45,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         }
 
         panelView = CategoriesPanelView(frame: CGRectZero)
-
+        
         super.init(nibName: nil, bundle: nil)
 
         panelView.categoriesCollectionView.backgroundColor = VeryLightGray
@@ -117,6 +117,12 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
                 }
                 cell.backgroundImageView.frame = cell.bounds
             }
+        }
+        
+        if currentCategory == categories[indexPath.row] {
+            cell.selected = true
+        } else {
+            cell.selected = false
         }
 
         return cell
