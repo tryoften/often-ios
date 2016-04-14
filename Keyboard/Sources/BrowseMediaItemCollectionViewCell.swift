@@ -18,6 +18,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     var subtitleLabel: UILabel
     var contentEdgeInsets: UIEdgeInsets
     var addedBadgeView: UIImageView
+    var highlightColorBorder: UIView
 
     var itemCount: Int? {
         didSet {
@@ -27,8 +28,6 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
                                       text: "\(itemCount!) lyrics".uppercaseString)
         }
     }
-
-
 
     override init(frame: CGRect) {
         placeholderImageView = UIImageView()
@@ -64,6 +63,11 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         layer.backgroundColor = UIColor.clearColor().CGColor
         imageView.layer.mask = layer
 
+        highlightColorBorder = UIView(frame: CGRectZero)
+        highlightColorBorder.translatesAutoresizingMaskIntoConstraints = false
+        highlightColorBorder.backgroundColor = UIColor.oftGreenblueColor()
+        highlightColorBorder.hidden = true
+
         titleLabel = UILabel()
         titleLabel.font = ArtistCollectionViewCellTitleFont
         titleLabel.textColor = ArtistCollectionViewCellTitleTextColor
@@ -84,6 +88,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(addedBadgeView)
+        addSubview(highlightColorBorder)
 
         self.layer.cornerRadius = 2.0
         self.layer.shadowColor = UIColor.blackColor().CGColor
@@ -143,6 +148,11 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
             titleLabel.al_top == imageView.al_bottom + contentEdgeInsets.top,
             titleLabel.al_left == al_left + contentEdgeInsets.left,
             titleLabel.al_right == al_right - contentEdgeInsets.right,
+
+            highlightColorBorder.al_width == al_width,
+            highlightColorBorder.al_left == al_left,
+            highlightColorBorder.al_bottom == al_bottom,
+            highlightColorBorder.al_height == 4.5,
 
             subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_left == titleLabel.al_left,
