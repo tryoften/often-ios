@@ -19,7 +19,7 @@ class MediaItemDetailViewController: UIViewController {
         self.item = mediaItem
         self.textProcessor = textProcessor
 
-        tintView = UIImageView()
+        tintView = UIView()
         tintView.translatesAutoresizingMaskIntoConstraints = false
         tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
 
@@ -160,5 +160,4 @@ class MediaItemDetailViewController: UIViewController {
         }
     }
 
-    
 }
