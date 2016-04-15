@@ -28,12 +28,12 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         }
     }
 
-
+    var imageURL: NSURL = NSURL()
 
     override init(frame: CGRect) {
         placeholderImageView = UIImageView()
         placeholderImageView.backgroundColor = MediumGrey
-        placeholderImageView.image = UIImage(named: "placeholder")
+        placeholderImageView.contentMode = .Center
         placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
 
         addedBadgeView = UIImageView(image: StyleKit.imageOfCheckicon(color: TealColor, scale: 0.4))
@@ -53,7 +53,6 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         placeholderImageView.layer.mask = layer
 
         imageView = UIImageView()
-        imageView.backgroundColor = ArtistCollectionViewImageViewBackgroundColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true

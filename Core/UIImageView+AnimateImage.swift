@@ -15,8 +15,6 @@ extension UIImageView {
 
         let urlRequest = NSURLRequest(URL: url, cachePolicy: .ReturnCacheDataElseLoad, timeoutInterval: 60 * 60)
         self.cancelImageRequestOperation()
-
-        print(url)
         
         self.setImageWithURLRequest(urlRequest, placeholderImage: UIImage(named: "placeholder"), success: { (req, res, image) in
             let processedImage: UIImage = image

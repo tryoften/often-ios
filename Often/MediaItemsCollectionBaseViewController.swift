@@ -150,7 +150,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         })
     }
 
-    func parsePackItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> BrowseMediaItemCollectionViewCell {
+    func parsePackItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView, animated: Bool = false) -> BrowseMediaItemCollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(BrowseMediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? BrowseMediaItemCollectionViewCell else {
             return BrowseMediaItemCollectionViewCell()
@@ -165,7 +165,12 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
         
         if let imageURL = pack.smallImageURL {
-            cell.imageView.setImageWithURL(imageURL)
+            if imageURL != cell.imageURL && animated {
+                cell.imageView.setImageWithAnimation(imageURL)
+            } else {
+                cell.imageView.setImageWithURL(imageURL)
+            }
+            cell.imageURL = imageURL
         }
 
         cell.titleLabel.text = pack.name

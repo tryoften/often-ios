@@ -44,14 +44,16 @@ class BrowsePackDownloadButton: UIButton {
 
     override var selected: Bool {
         didSet {
-            if selected {
-                backgroundColor = WhiteColor
-                textColor = BlackColor
-                title = "Remove".uppercaseString
-            } else {
-                backgroundColor = TealColor
-                textColor = UIColor.oftWhiteColor()
-                title = "Download".uppercaseString
+            UIView.animateWithDuration(0.3) {
+                if self.selected {
+                    self.backgroundColor = WhiteColor
+                    self.textColor = BlackColor
+                    self.title = "Remove".uppercaseString
+                } else {
+                    self.backgroundColor = TealColor
+                    self.textColor = UIColor.oftWhiteColor()
+                    self.title = "Download".uppercaseString
+                }
             }
         }
     }
