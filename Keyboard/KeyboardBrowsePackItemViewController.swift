@@ -27,7 +27,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             })
         }
 
-
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
             self.hideLoadingView()
@@ -54,7 +53,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
         let topMargin = CGFloat(0)
         let layout = UICollectionViewFlowLayout()
-
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, cellHeight)
         layout.minimumLineSpacing = 7.0
         layout.minimumInteritemSpacing = 7.0
