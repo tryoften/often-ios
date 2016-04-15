@@ -10,7 +10,6 @@ import UIKit
 
 class CategoryCollectionViewController: UIViewController, UICollectionViewDelegate,
     UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
     private var drawerOpened: Bool = false
     var panelView: CategoriesPanelView
     var viewModel: BrowseViewModel
