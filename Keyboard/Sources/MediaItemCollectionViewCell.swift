@@ -10,8 +10,7 @@
 import UIKit
 import Spring
 
-class MediaItemCollectionViewCell: UICollectionViewCell {
-    weak var delegate: MediaItemsCollectionViewCellDelegate?
+class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
     
     var metadataContentView: UIView
     var sourceLogoView: UIImageView
@@ -79,7 +78,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var overlayVisible: Bool {
+    override var overlayVisible: Bool {
         didSet {
             if overlayVisible {
                 overlayView.hidden = false
@@ -96,7 +95,7 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var itemFavorited: Bool {
+    override var itemFavorited: Bool {
         didSet {
             overlayView.favoriteButton.selected = itemFavorited
             favoriteRibbon.hidden = !itemFavorited
@@ -109,7 +108,6 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var mediaLink: MediaItem?
 
     override init(frame: CGRect) {
         metadataContentView = UIView()
@@ -193,12 +191,13 @@ class MediaItemCollectionViewCell: UICollectionViewCell {
         overlayView.hidden = true
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         
-        overlayVisible = false
-        itemFavorited = false
         inMainApp = false
         showImageView = true
         
         super.init(frame: frame)
+        
+        itemFavorited = false
+        overlayVisible = false
         
         leftHeaderLabelLeftPaddingConstraint = leftHeaderLabel.al_left == al_left + contentEdgeInsets.left
 
@@ -481,9 +480,4 @@ enum MediaItemCollectionViewCellStyle {
     case Card
 }
 
-protocol MediaItemsCollectionViewCellDelegate: class {
-    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool)
-    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool)
-    func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool)
-    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool)
-}
+

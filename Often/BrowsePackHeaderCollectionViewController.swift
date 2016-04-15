@@ -222,12 +222,14 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MediaItemGroupVi
         return cell
     }
 
+
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         guard let group = viewModel.groupAtIndex(indexPath.section), let pack = group.items[indexPath.row] as? PackMediaItem, let Id = pack.pack_id else {
             return
         }
         
-        let packVC = MainAppBrowsePackItemViewController(packId: Id, viewModel: BrowseViewModel(), textProcessor: nil)
+        let id: String = "Eyl04mekZ"
+        let packVC = MainAppBrowsePackItemViewController(packId: id, panelStyle: .Simple, viewModel: PackItemViewModel(packId: id), textProcessor: nil)
         navigationController?.navigationBar.hidden = false
         navigationController?.pushViewController(packVC, animated: true)
     }

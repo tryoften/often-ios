@@ -84,7 +84,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             backgroundImageView.al_top == al_top,
             backgroundImageView.al_right == al_right,
             backgroundImageView.al_left == al_left,
-            backgroundImageView.al_top == al_top,
+            backgroundImageView.al_bottom == al_bottom,
 
             tintView.al_top == al_top,
             tintView.al_bottom == al_bottom,
