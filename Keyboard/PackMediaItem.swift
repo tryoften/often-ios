@@ -80,4 +80,46 @@ class PackMediaItem: MediaItem {
         
         return "Download"
     }
+    
+    func getMediaItemGroups() -> [MediaItemGroup] {
+        var gifs = [MediaItem]()
+        var quotes = [MediaItem]()
+        
+        for item in items {
+            switch item.type {
+            case .Gif:
+                gifs.append(item)
+            case .Quote, .Lyric:
+                quotes.append(item)
+            default:
+                continue
+            }
+        }
+        
+        let gifGroup = MediaItemGroup(dictionary: [
+            "id": "gifs",
+            "title": "Gifs",
+            "type": MediaType.Gif.rawValue
+        ])
+        gifGroup.items = gifs
+        
+        let quoteGroup = MediaItemGroup(dictionary: [
+            "id": "quotes",
+            "title": "Quotes",
+            "type": MediaType.Quote.rawValue
+        ])
+        quoteGroup.items = quotes
+        
+        var groups = [MediaItemGroup]()
+        
+        if !gifGroup.items.isEmpty {
+            groups.append(gifGroup)
+        }
+        
+        if !quoteGroup.items.isEmpty {
+            groups.append(quoteGroup)
+        }
+        
+        return groups
+    }
 }

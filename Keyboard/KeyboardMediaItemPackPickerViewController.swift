@@ -11,16 +11,12 @@ import Foundation
 private let KeyboardMediaItemPackHeaderViewCellReuseIdentifier = "PackHeaderViewCell"
 private let PacksCellReuseIdentifier = "TrendingArtistsCell"
 
-class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
+class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController {
     var viewModel: PacksService
     var packPanelView: PackPanelView
     weak var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
     var packServiceListener: Listener?
-    var mediaItems: MediaItemGroup? {
-        didSet {
-            collectionView?.reloadData()
-        }
-    }
+
 
      init(viewModel: PacksService) {
         self.viewModel = viewModel
@@ -110,6 +106,12 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as BrowseMediaItemCollectionViewCell
             cell.addedBadgeView.hidden = true
 
+            if let pack = viewModel.mediaItems[indexPath.row] as? PackMediaItem, let packId = pack.pack_id, let currentPackID = SessionManagerFlags.defaultManagerFlags.lastPack {
+                if packId == currentPackID {
+                    cell.highlightColorBorder.hidden = false
+                }
+            }
+
             return cell
         }
     }
@@ -145,19 +147,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         dismissViewControllerAnimated(true, completion: nil)
     }
 
-    // MARK: MediaItemsViewModelDelegate
-    func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
-    }
-
-    func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
-        collectionView?.hidden = false
-    }
-
-    func mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, groups: [MediaItemGroup]) {
-        mediaItems = viewModel.generateMediaItemGroups().first
-    }
-
-    // MARK: LaunchMainApp
+       // MARK: LaunchMainApp
     func openURL(url: NSURL) {
         do {
             let application = try self.sharedApplication()

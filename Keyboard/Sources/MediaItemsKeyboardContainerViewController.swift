@@ -84,7 +84,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             packId = lastPack
         }
 
-        let packsVC = KeyboardBrowsePackItemViewController(packId: packId, viewModel: BrowseViewModel(), textProcessor: textProcessor)
+        let packsVC = KeyboardBrowsePackItemViewController(packId: packId, panelStyle: .Detailed, viewModel: PackItemViewModel(packId: packId), textProcessor: textProcessor)
         packsVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPacktab(scale: 0.45), tag: 1)
         sections = [
             (.Keyboard, keyboardVC),

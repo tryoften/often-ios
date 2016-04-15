@@ -9,10 +9,9 @@
 import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
-    var titleLabel: UILabel!
-    var subtitleLabel: UILabel!
-    var borderColor: UIColor!
-    var highlightColorBorder: UIView!
+    var titleLabel: UILabel
+    var subtitleLabel: UILabel
+    var highlightColorBorder: UIView
     var backgroundImageView: FLAnimatedImageView
     private var tintView: UIView
 
@@ -45,9 +44,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         tintView.translatesAutoresizingMaskIntoConstraints = false
         tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
 
-        super.init(frame: frame)
-        backgroundColor = CategoryCollectionViewCellBackgroundColor
-
         titleLabel = UILabel()
         titleLabel.textColor = CategoryCollectionViewCellTitleLabelTextColor
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -62,8 +58,11 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 
         highlightColorBorder = UIView(frame: CGRectZero)
         highlightColorBorder.translatesAutoresizingMaskIntoConstraints = false
-        highlightColorBorder.backgroundColor = UIColor.oftBrightLavenderColor()
+        highlightColorBorder.backgroundColor = UIColor.oftGreenblueColor()
         highlightColorBorder.hidden = true
+
+        super.init(frame: frame)
+        backgroundColor = CategoryCollectionViewCellBackgroundColor
 
         addSubview(backgroundImageView)
         addSubview(tintView)
@@ -85,7 +84,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             backgroundImageView.al_top == al_top,
             backgroundImageView.al_right == al_right,
             backgroundImageView.al_left == al_left,
-            backgroundImageView.al_top == al_top,
+            backgroundImageView.al_bottom == al_bottom,
 
             tintView.al_top == al_top,
             tintView.al_bottom == al_bottom,

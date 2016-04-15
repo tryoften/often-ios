@@ -247,7 +247,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
     
     // MARK: MediaItemCollectionViewCellDelegate
-    override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+    override func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }

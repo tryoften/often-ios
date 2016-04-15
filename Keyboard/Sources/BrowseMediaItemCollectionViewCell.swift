@@ -18,6 +18,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     var subtitleLabel: UILabel
     var contentEdgeInsets: UIEdgeInsets
     var addedBadgeView: UIImageView
+    var highlightColorBorder: UIView
 
     var itemCount: Int? {
         didSet {
@@ -27,8 +28,6 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
                                       text: "\(itemCount!) lyrics".uppercaseString)
         }
     }
-
-    var imageURL: NSURL = NSURL()
 
     override init(frame: CGRect) {
         placeholderImageView = UIImageView()
@@ -63,6 +62,11 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         layer.backgroundColor = UIColor.clearColor().CGColor
         imageView.layer.mask = layer
 
+        highlightColorBorder = UIView(frame: CGRectZero)
+        highlightColorBorder.translatesAutoresizingMaskIntoConstraints = false
+        highlightColorBorder.backgroundColor = UIColor.oftGreenblueColor()
+        highlightColorBorder.hidden = true
+
         titleLabel = UILabel()
         titleLabel.font = ArtistCollectionViewCellTitleFont
         titleLabel.textColor = ArtistCollectionViewCellTitleTextColor
@@ -83,6 +87,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(addedBadgeView)
+        addSubview(highlightColorBorder)
 
         self.layer.cornerRadius = 2.0
         self.layer.shadowColor = UIColor.blackColor().CGColor
@@ -143,6 +148,11 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
             titleLabel.al_left == al_left + contentEdgeInsets.left,
             titleLabel.al_right == al_right - contentEdgeInsets.right,
 
+            highlightColorBorder.al_width == al_width,
+            highlightColorBorder.al_left == al_left,
+            highlightColorBorder.al_bottom == al_bottom,
+            highlightColorBorder.al_height == 4.5,
+
             subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_left == titleLabel.al_left,
             subtitleLabel.al_width == titleLabel.al_width
@@ -160,9 +170,8 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         path.addLineToPoint(CGPointMake(frame.minX + 0.00000 * frame.width, frame.minY + 1.00000 * frame.height))
         path.addLineToPoint(CGPointMake(frame.minX + 0.00000 * frame.width, frame.minY + 0.01428 * frame.height))
         path.closePath()
-        path.miterLimit = 4;
-
-        path.usesEvenOddFillRule = true;
+        path.miterLimit = 4
+        path.usesEvenOddFillRule = true
         
         return path
     }

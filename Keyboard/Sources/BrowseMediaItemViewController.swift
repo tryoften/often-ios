@@ -11,6 +11,7 @@ import UIKit
 let MediaItemPageHeaderViewIdentifier = "MediaItemPageHeaderView"
 
 class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
+    MediaItemGroupViewModelDelegate,
     CellAnimatable {
     class var cellHeight: CGFloat {
         return 105.0
@@ -28,6 +29,8 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         self.viewModel = viewModel
 
         super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
+        viewModel.delegate = self
+        
         setupLayout()
 
         collectionView?.backgroundColor = VeryLightGray
@@ -169,6 +172,11 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
     // MARK: KeyboardBrowseNavigationDelegate
     func backButtonSelected() {
         navigationController?.popViewControllerAnimated(true)
+    }
+    
+    // MARK: MediaItemGroupViewModelDelegate
+    func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        collectionView?.reloadData()
     }
 
 

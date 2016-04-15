@@ -10,20 +10,22 @@ import Foundation
 
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
     var packServiceListener: Listener? = nil
+    var packViewModel: PackItemViewModel
 
-    override init(packId: String, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
-        super.init(packId: packId, viewModel: viewModel, textProcessor: textProcessor)
+    override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+        packViewModel = viewModel
+        super.init(packId: packId, panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
+        packViewModel.delegate = self
         showLoadingView()
         
         if packId.isEmpty {
             packServiceListener = PacksService.defaultInstance.didUpdatePacks.once({ items in
                 if let packId = items.first?.pack_id {
                     self.packId = packId
-                    self.loadPackData(.Detailed)
+                    self.loadPackData()
                 }
             })
         }
-
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
@@ -45,13 +47,12 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadPackData(.Detailed)
+        loadPackData()
     }
 
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
         let topMargin = CGFloat(0)
         let layout = UICollectionViewFlowLayout()
-
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, cellHeight)
         layout.minimumLineSpacing = 7.0
         layout.minimumInteritemSpacing = 7.0
@@ -68,8 +69,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         presentViewController(packsVC, animated: true, completion: nil)
     }
 
-    override func setupCategoryCollectionViewController(panelStyle: CategoryPanelStyle) {
-        super.setupCategoryCollectionViewController(panelStyle)
+    override func setupCategoryCollectionViewController() {
+        super.setupCategoryCollectionViewController()
 
         categoriesVC?.panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
@@ -79,8 +80,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
-        packId = pack.id
-        SessionManagerFlags.defaultManagerFlags.lastPack = packId
-        loadPackData(.Detailed)
+        packViewModel.packId = pack.id
+        SessionManagerFlags.defaultManagerFlags.lastPack = pack.id
+        loadPackData()
     }
 }

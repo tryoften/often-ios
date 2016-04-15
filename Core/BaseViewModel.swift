@@ -10,7 +10,7 @@ import Foundation
 
 class BaseViewModel: DataLoadable {
     let baseRef: Firebase
-    let ref: Firebase
+    var ref: Firebase
     var path: String?
     var isDataLoaded: Bool
 
@@ -29,10 +29,8 @@ class BaseViewModel: DataLoadable {
 
     /**
      Fetches data for current view model
-
-     - throws:
      */
-    func fetchData() throws {
+    func fetchData() {
     }
 
     /**

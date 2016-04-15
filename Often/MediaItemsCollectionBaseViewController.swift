@@ -317,7 +317,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
     
     // MediaItemCollectionViewCellDelegate
-    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }
@@ -327,11 +327,11 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.overlayVisible = false
     }
     
-    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
         cell.overlayVisible = false
     }
     
-    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
         NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
 
         guard let result = cell.mediaLink else {
@@ -352,7 +352,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
     }
     
-    func mediaLinkCollectionViewCellDidToggleCopyButton(cell: MediaItemCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleCopyButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }
@@ -364,10 +364,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         #if !(KEYBOARD)
             DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
-                subtitle: cell.mainTextLabel.text!, duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+                subtitle: result.getInsertableText(), duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
         #endif
         }
-        
         cell.overlayVisible = false
     }
 

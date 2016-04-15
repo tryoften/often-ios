@@ -17,6 +17,7 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         placeholderImage = UIImageView()
         placeholderImage.translatesAutoresizingMaskIntoConstraints = false
+        placeholderImage.backgroundColor = MediumGrey
         placeholderImage.clipsToBounds = true
         placeholderImage.layer.cornerRadius = 4.0
         
@@ -103,7 +104,4 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func setImageWithURLString(imageURLString: String) {
-        artistImage.setImageWithAnimation(NSURL(string: imageURLString)!, completion: nil)
-    }
 }
