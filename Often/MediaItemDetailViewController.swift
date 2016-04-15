@@ -109,10 +109,6 @@ class MediaItemDetailViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
-    func snapchatButtonDidTap(sender: UIButton) {
-        sender.selected = !sender.selected
-    }
-
     func setupDetailView() {
         switch item.type {
         case .Lyric:
@@ -139,8 +135,7 @@ class MediaItemDetailViewController: UIViewController {
         mediaItemDetailView.cancelButton.addTarget(self, action: "dismissView", forControlEvents: .TouchUpInside)
         mediaItemDetailView.insertButton.addTarget(self, action: "insertButtonDidTap:", forControlEvents: .TouchUpInside)
         mediaItemDetailView.copyButton.addTarget(self, action: "copyButtonDidTap:", forControlEvents: .TouchUpInside)
-        mediaItemDetailView.snapchatButton.addTarget(self, action: "snapchatButtonDidTap:", forControlEvents: .TouchUpInside)
-        mediaItemDetailView.favoriteButton.addTarget(self, action: "favoriteButtonDidTap:", forControlEvents: .TouchUpInside)
+            mediaItemDetailView.favoriteButton.addTarget(self, action: "favoriteButtonDidTap:", forControlEvents: .TouchUpInside)
         mediaItemDetailView.favoriteButton.selected = FavoritesService.defaultInstance.checkFavorite(item)
 
         let tapRecognizer = UITapGestureRecognizer()

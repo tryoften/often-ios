@@ -19,11 +19,9 @@ class MediaItemDetailView: UIView {
     var cancelButton: UIButton
     var insertButton: SpringButton
     var copyButton: SpringButton
-    var snapchatButton: SpringButton
     var mediaItemTextSeperator: UIView
     var mediaItemTitleSeperator: UIView
     var firstButtonSeperator: UIView
-    var secondButtonSeperator: UIView
     var cancelButtonBackground: UIImageView
 
     var style: ButtonStyle = .Insert {
@@ -88,11 +86,6 @@ class MediaItemDetailView: UIView {
         favoriteButton.setImage(StyleKit.imageOfFavoritestab(scale: 0.5), forState: .Normal)
         favoriteButton.setImage(StyleKit.imageOfFavoritestab(scale: 0.5, favorited: true), forState: .Selected)
 
-        snapchatButton = SpringButton()
-        snapchatButton.translatesAutoresizingMaskIntoConstraints = false
-        snapchatButton.setImage(StyleKit.imageOfSnapchat(scale: 0.60), forState: .Normal)
-        snapchatButton.setImage(StyleKit.imageOfSnapchat(scale: 0.60, snapchatSelect: true), forState: .Selected)
-
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setImage(StyleKit.imageOfLyricsclosebutton(scale: 0.5), forState: .Normal)
@@ -105,19 +98,18 @@ class MediaItemDetailView: UIView {
         mediaItemTextSeperator = UIView()
         mediaItemTitleSeperator = UIView()
         firstButtonSeperator = UIView()
-        secondButtonSeperator = UIView()
 
         super.init(frame: frame)
 
         backgroundColor = WhiteColor
 
-        for seperator in [mediaItemTextSeperator, mediaItemTitleSeperator, firstButtonSeperator, secondButtonSeperator] {
+        for seperator in [mediaItemTextSeperator, mediaItemTitleSeperator, firstButtonSeperator] {
             seperator.translatesAutoresizingMaskIntoConstraints = false
             seperator.backgroundColor = UIColor(fromHexString: "#D8D8D8")
             addSubview(seperator)
         }
 
-        for button in [insertButton, copyButton, favoriteButton, snapchatButton] {
+        for button in [insertButton, copyButton, favoriteButton] {
             button.addTarget(self, action: #selector(MediaItemDetailView.didTouchUpButton(_:)), forControlEvents: .TouchUpInside)
         }
 
@@ -131,7 +123,6 @@ class MediaItemDetailView: UIView {
         addSubview(insertButton)
         addSubview(copyButton)
         addSubview(favoriteButton)
-        addSubview(snapchatButton)
 
         setupLayout()
         setupButtonStyle()
@@ -178,33 +169,23 @@ class MediaItemDetailView: UIView {
             mediaItemCategoryButton.al_bottom == mediaItemTitleSeperator.al_bottom - 19.5,
             mediaItemCategoryButton.al_width == 72,
 
-            snapchatButton.al_bottom == al_bottom,
-            snapchatButton.al_left == al_left,
-            snapchatButton.al_top == mediaItemTitleSeperator.al_bottom,
-            snapchatButton.al_width == al_width/3 - 1,
+            insertButton.al_bottom == al_bottom,
+            insertButton.al_left == al_left,
+            insertButton.al_top == mediaItemTitleSeperator.al_bottom,
+            insertButton.al_width == al_width/2 - 1,
 
-            firstButtonSeperator.al_left == snapchatButton.al_right,
+            firstButtonSeperator.al_left == insertButton.al_right,
             firstButtonSeperator.al_width == 1,
-            firstButtonSeperator.al_centerY == snapchatButton.al_centerY,
+            firstButtonSeperator.al_centerY == insertButton.al_centerY,
             firstButtonSeperator.al_height == 25,
 
-            insertButton.al_bottom == al_bottom,
-            insertButton.al_left == firstButtonSeperator.al_right,
-            insertButton.al_top == mediaItemTitleSeperator.al_bottom,
-            insertButton.al_width == al_width/3 - 1,
-            
-            copyButton.al_bottom == al_bottom,
+            copyButton.al_bottom == insertButton.al_bottom,
             copyButton.al_left == firstButtonSeperator.al_right,
-            copyButton.al_top == mediaItemTitleSeperator.al_bottom,
-            copyButton.al_width == al_width/3 - 1,
-
-            secondButtonSeperator.al_left == insertButton.al_right,
-            secondButtonSeperator.al_width == 1,
-            secondButtonSeperator.al_centerY == insertButton.al_centerY,
-            secondButtonSeperator.al_height == 25,
+            copyButton.al_top == insertButton.al_top,
+            copyButton.al_width == insertButton.al_width,
 
             favoriteButton.al_bottom == al_bottom,
-            favoriteButton.al_left == secondButtonSeperator.al_right,
+            favoriteButton.al_left == firstButtonSeperator.al_right,
             favoriteButton.al_top == mediaItemTitleSeperator.al_bottom,
             favoriteButton.al_right == al_right,
 
