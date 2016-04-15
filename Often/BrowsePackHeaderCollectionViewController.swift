@@ -100,7 +100,8 @@ class BrowsePackHeaderCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let packVC = MainAppBrowsePackItemViewController(packId: "Eyl04mekZ", viewModel: BrowseViewModel(), textProcessor: nil)
+        let id: String = "Eyl04mekZ"
+        let packVC = MainAppBrowsePackItemViewController(packId: id, panelStyle: .Simple, viewModel: PackItemViewModel(packId: id), textProcessor: nil)
         navigationController?.navigationBar.hidden = false
         navigationController?.pushViewController(packVC, animated: true)
     }

@@ -12,7 +12,7 @@ private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     var filterButton: UIButton
     
-    override init(packId: String, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
+    override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         let attributes: [String: AnyObject] = [
             NSKernAttributeName: NSNumber(float: 1.0),
             NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
@@ -31,7 +31,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         filterButton.setAttributedTitle(filterString, forState: .Normal)
 
 
-        super.init(packId: packId, viewModel: viewModel, textProcessor: textProcessor)
+        super.init(packId: packId, panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
@@ -71,8 +71,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         loadPackData(.Simple)
-
+         loadPackData()
         filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
 
@@ -130,8 +129,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         categoriesVC?.panelView.toggleDrawer()
     }
 
-    override func setupCategoryCollectionViewController(panelStyle: CategoryPanelStyle) {
-        super.setupCategoryCollectionViewController(panelStyle)
+    override func setupCategoryCollectionViewController() {
+        super.setupCategoryCollectionViewController()
 
         guard let categoriesVC = categoriesVC else {
             return

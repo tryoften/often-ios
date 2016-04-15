@@ -10,16 +10,19 @@ import Foundation
 
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
     var packServiceListener: Listener? = nil
+    var packViewModel: PackItemViewModel
 
-    override init(packId: String, viewModel: BrowseViewModel, textProcessor: TextProcessingManager?) {
-        super.init(packId: packId, viewModel: viewModel, textProcessor: textProcessor)
+    override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+        packViewModel = viewModel
+        super.init(packId: packId, panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
+        packViewModel.delegate = self
         showLoadingView()
         
         if packId.isEmpty {
             packServiceListener = PacksService.defaultInstance.didUpdatePacks.once({ items in
                 if let packId = items.first?.pack_id {
                     self.packId = packId
-                    self.loadPackData(.Detailed)
+                    self.loadPackData()
                 }
             })
         }
@@ -45,7 +48,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadPackData(.Detailed)
+        loadPackData()
     }
 
     override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
@@ -68,8 +71,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         presentViewController(packsVC, animated: true, completion: nil)
     }
 
-    override func setupCategoryCollectionViewController(panelStyle: CategoryPanelStyle) {
-        super.setupCategoryCollectionViewController(panelStyle)
+    override func setupCategoryCollectionViewController() {
+        super.setupCategoryCollectionViewController()
 
         categoriesVC?.panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
@@ -79,8 +82,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
-        packId = pack.id
-        SessionManagerFlags.defaultManagerFlags.lastPack = packId
-        loadPackData(.Detailed)
+        packViewModel.packId = pack.id
+        SessionManagerFlags.defaultManagerFlags.lastPack = pack.id
+        loadPackData()
     }
 }

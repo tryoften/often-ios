@@ -18,7 +18,7 @@ class MediaItemGroupViewModel: BaseViewModel {
         super.init(baseRef: baseRef, path: path)
     }
 
-    override func fetchData() throws {
+    override func fetchData() {
         ref.observeEventType(.Value, withBlock: { snapshot in
             if let data = snapshot.value as? NSArray {
                 self.mediaItemGroups = MediaItemGroup.modelsFromDictionaryArray(data)
