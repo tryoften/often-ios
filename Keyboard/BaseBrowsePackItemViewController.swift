@@ -143,7 +143,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
     func provideGifsHorizontalCollectionViewController() -> GifsHorizontalViewController {
         if gifsHorizontalVC == nil {
             gifsHorizontalVC = GifsHorizontalViewController()
-            gifsHorizontalVC?.parentVC = self
             gifsHorizontalVC?.textProcessor = textProcessor
             addChildViewController(gifsHorizontalVC!)
         }

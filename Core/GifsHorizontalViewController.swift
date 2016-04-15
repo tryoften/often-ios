@@ -10,7 +10,6 @@ private let GifCellReuseIdentifier = "GifCell"
 
 
 class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
-    var parentVC: MediaItemsCollectionBaseViewController?
     var group: MediaItemGroup? {
         didSet {
             collectionView?.reloadData()
