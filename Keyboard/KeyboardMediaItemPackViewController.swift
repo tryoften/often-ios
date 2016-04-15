@@ -11,7 +11,7 @@ import Foundation
 private let KeyboardMediaItemPackHeaderViewCellReuseIdentifier = "PackHeaderViewCell"
 private let PacksCellReuseIdentifier = "TrendingArtistsCell"
 
-class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController{
+class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController {
     var viewModel: PacksService
     var packPanelView: PackPanelView
     weak var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
