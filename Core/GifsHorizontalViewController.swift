@@ -40,9 +40,9 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSizeMake((UIScreen.mainScreen().bounds.width - 25)/2, 100)
         layout.scrollDirection = .Horizontal
-        layout.minimumInteritemSpacing = 7.5
-        layout.minimumLineSpacing = 7.5
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10.0, bottom: 0, right: 10.0)
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 7
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10.0, bottom: 9, right: 10.0)
         return layout
     }
     
@@ -88,7 +88,9 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
             cell.gifURL = imageURL
         }
         
+        cell.mediaLink = gif
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(gif)
+        cell.delegate = self
         
         return cell
     }

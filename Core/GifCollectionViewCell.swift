@@ -7,7 +7,7 @@
 //
 import Spring
 
-class GifCollectionViewCell : UICollectionViewCell {
+class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
     
     var overlayView: GifCellOverlayView
     var backgroundImageView: FLAnimatedImageView
@@ -27,7 +27,7 @@ class GifCollectionViewCell : UICollectionViewCell {
         }
     }
     
-    var overlayVisible: Bool {
+    override var overlayVisible: Bool {
         didSet {
             if overlayVisible {
                 overlayView.hidden = false
@@ -44,7 +44,7 @@ class GifCollectionViewCell : UICollectionViewCell {
         }
     }
     
-    var itemFavorited: Bool {
+    override var itemFavorited: Bool {
         didSet {
             overlayView.favoriteButton.selected = itemFavorited
             favoriteRibbon.hidden = !itemFavorited
@@ -63,10 +63,10 @@ class GifCollectionViewCell : UICollectionViewCell {
         overlayView.hidden = true
         overlayView.translatesAutoresizingMaskIntoConstraints = false
         
-        overlayVisible = false
-        itemFavorited = false
-        
         super.init(frame: frame)
+        
+        itemFavorited = false
+        overlayVisible = false
         
         addSubview(backgroundImageView)
         addSubview(overlayView)
@@ -109,14 +109,12 @@ class GifCollectionViewCell : UICollectionViewCell {
     
     func didTapFavoriteButton(button: SpringButton) {
         overlayView.favoriteButton.selected = !overlayView.favoriteButton.selected
-        // hook up what happens when favorite button hit
-//        delegate?.mediaLinkCollectionViewCellDidToggleFavoriteButton(self, selected: overlayView.favoriteButton.selected)
+        delegate?.mediaLinkCollectionViewCellDidToggleFavoriteButton(self, selected: overlayView.favoriteButton.selected)
     }
     
     func didTapCopyButton(button: SpringButton) {
         overlayView.copyButton.selected = !overlayView.copyButton.selected
-        // hook up what happens when copy button is hit
-//        delegate?.mediaLinkCollectionViewCellDidToggleCopyButton(self, selected: overlayView.copyButton.selected)
+        delegate?.mediaLinkCollectionViewCellDidToggleCopyButton(self, selected: overlayView.copyButton.selected)
     }
     
     func didTouchUpButton(button: SpringButton?) {
