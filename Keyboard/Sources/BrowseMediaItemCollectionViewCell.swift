@@ -29,6 +29,8 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    var imageURL: NSURL = NSURL()
+
     override init(frame: CGRect) {
         placeholderImageView = UIImageView()
         placeholderImageView.backgroundColor = MediumGrey
