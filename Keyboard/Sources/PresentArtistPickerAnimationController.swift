@@ -24,7 +24,7 @@ class PresentArtistPickerAnimationController: NSObject, UIViewControllerAnimated
 
         let finalFrameForVC = transitionContext.finalFrameForViewController(toViewController)
         let bounds = UIScreen.mainScreen().bounds
-        toViewController.view.frame = CGRectOffset(finalFrameForVC, 0, bounds.size.height)
+        toViewController.view.frame = CGRectMake(-bounds.size.width, 0, finalFrameForVC.size.width, finalFrameForVC.size.height)
         containerView.addSubview(toViewController.view)
 
         UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .CurveLinear, animations: {

@@ -32,7 +32,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         placeholderImageView = UIImageView()
         placeholderImageView.backgroundColor = MediumGrey
-        placeholderImageView.image = UIImage(named: "placeholder")
+        placeholderImageView.contentMode = .Center
         placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
 
         addedBadgeView = UIImageView(image: StyleKit.imageOfCheckicon(color: TealColor, scale: 0.4))
@@ -52,7 +52,6 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         placeholderImageView.layer.mask = layer
 
         imageView = UIImageView()
-        imageView.backgroundColor = ArtistCollectionViewImageViewBackgroundColor
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .ScaleAspectFill
         imageView.clipsToBounds = true
@@ -171,9 +170,8 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         path.addLineToPoint(CGPointMake(frame.minX + 0.00000 * frame.width, frame.minY + 1.00000 * frame.height))
         path.addLineToPoint(CGPointMake(frame.minX + 0.00000 * frame.width, frame.minY + 0.01428 * frame.height))
         path.closePath()
-        path.miterLimit = 4;
-
-        path.usesEvenOddFillRule = true;
+        path.miterLimit = 4
+        path.usesEvenOddFillRule = true
         
         return path
     }
