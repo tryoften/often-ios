@@ -47,22 +47,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
-        let topMargin = CGFloat(10.0)
-        let layout = CSStickyHeaderFlowLayout()
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 90)
-        layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 270)
-        layout.parallaxHeaderAlwaysOnTop = true
-        layout.disableStickyHeaders = false
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, cellHeight)
-        layout.minimumLineSpacing = 7.0
-        layout.minimumInteritemSpacing = 7.0
-        layout.sectionInset = UIEdgeInsetsMake(topMargin, 0.0, 30.0, 0.0)
-
-        return layout
-    }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -155,22 +139,18 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
                 return headerView!
             }
         
-        if kind == UICollectionElementKindSectionHeader {
-            // Create Header
-            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                
-                guard let categoryName = categoriesVC?.currentCategory else {
-                    return sectionView
-                }
-
-                sectionView.leftText = "\(categoryName.name)".uppercaseString
-                sectionView.rightText = viewModel.filteredMediaItems.count == 1 ? "\(viewModel.filteredMediaItems.count) quote".uppercaseString : "\(viewModel.filteredMediaItems.count) quotes".uppercaseString
-
-                return sectionView
-            }
-        }
-        
         return UICollectionReusableView()
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        
+        if section == 0 {
+            return UIEdgeInsetsMake(10, 0, 0, 0)
+        } else if section == viewModel.mediaItemGroups.count - 1 {
+            return UIEdgeInsetsMake(0, 0, 60, 0)
+        } else {
+            return UIEdgeInsetsZero
+        }
     }
     
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

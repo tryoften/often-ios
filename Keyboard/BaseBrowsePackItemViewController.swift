@@ -10,7 +10,7 @@ import Foundation
 
 let gifCellReuseIdentifier = "gifCellIdentifier"
 
-class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
+class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollectionViewDelegateFlowLayout {
     var packCollectionListener: Listener? = nil
     var categoriesVC: CategoryCollectionViewController? = nil
     var panelToggleListener: Listener?
@@ -36,8 +36,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
         self.textProcessor = textProcessor
         
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
-
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -85,6 +83,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
         }
     }
     
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeZero
+    }
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
         guard let group = groupAtIndex(indexPath.section) else {
@@ -99,9 +101,9 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
             if itemsCount == 0 {
                 height = 0
             } else if itemsCount < 3 {
-                height = 113
+                height = 103
             } else {
-                height = 226
+                height = 216
             }
             
             return CGSizeMake(UIScreen.mainScreen().bounds.width, height)

@@ -23,6 +23,7 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
         #endif
         collectionView?.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: GifCellReuseIdentifier)
         collectionView?.backgroundColor = UIColor.clearColor()
+        collectionView?.showsHorizontalScrollIndicator = false
 
     }
     
@@ -37,11 +38,11 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
     
     class func provideLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake((UIScreen.mainScreen().bounds.width - 25)/2, 100)
+        layout.itemSize = CGSizeMake(171.5, 100)
         layout.scrollDirection = .Horizontal
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 7
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10.0, bottom: 9, right: 10.0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10.0, bottom: 9, right: 10.0)
         return layout
     }
     
@@ -62,9 +63,7 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
-        
-        return CGSizeMake((screenWidth - 25)/2, 100)
+        return CGSizeMake(171.5, 100)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

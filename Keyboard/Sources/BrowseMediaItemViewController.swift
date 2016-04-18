@@ -28,9 +28,8 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
     init(viewModel: BrowseViewModel) {
         self.viewModel = viewModel
 
-        super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
+        super.init(collectionViewLayout: BrowseMediaItemViewController.provideCollectionViewLayout())
         viewModel.delegate = self
-        
         setupLayout()
 
         collectionView?.backgroundColor = VeryLightGray
@@ -95,10 +94,10 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         let screenWidth = UIScreen.mainScreen().bounds.size.width
 
     #if KEYBOARD
-        let topMargin = CGFloat(115.0)
+        let topMargin = CGFloat(41.0)
         let layout = UICollectionViewFlowLayout()
     #else
-        let topMargin = CGFloat(10.0)
+        let topMargin = CGFloat(0.0)
         let layout = CSStickyHeaderFlowLayout()
         layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 90)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 250)
@@ -109,7 +108,7 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, cellHeight)
         layout.minimumLineSpacing = 7.0
         layout.minimumInteritemSpacing = 7.0
-        layout.sectionInset = UIEdgeInsetsMake(topMargin, 0.0, 30.0, 0.0)
+        layout.sectionInset = UIEdgeInsetsMake(topMargin, 0.0, 0.0, 0.0)
         
         return layout
     }
