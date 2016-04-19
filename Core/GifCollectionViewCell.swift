@@ -14,21 +14,6 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
     var overlayView: GifCellOverlayView
     var backgroundImageView: FLAnimatedImageView
     var favoriteRibbon: UIImageView
-    
-//    var gifURL: NSURL? {
-//        didSet {
-//
-//            if let animatedURL = gifURL {
-////                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-////                    let data = NSData(contentsOfURL: animatedURL)
-////                    let animatedImage = FLAnimatedImage(animatedGIFData: data)
-////                    dispatch_async(dispatch_get_main_queue()) {
-////                        self.backgroundImageView.animatedImage = animatedImage
-////                    }
-////                }
-//            }
-//        }
-//    }
 
     override var overlayVisible: Bool {
         didSet {
@@ -168,6 +153,9 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
             }
 
             if task.progress.fractionCompleted == 1 {
+                if let image = task.response?.image {
+                    self?.backgroundImageView.nk_displayImage(image)
+                }
             }
         }
         if task.state == .Completed {

@@ -27,6 +27,8 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
         let cache = AnimatedImageMemoryCache()
         manager = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
 
+        ImageManager.shared = manager
+
         super.init(collectionViewLayout: GifsHorizontalViewController.provideLayout())
 
         #if KEYBOARD
@@ -40,18 +42,7 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        ImageManager.shared = manager
-    }
-    
     class func provideLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSizeMake((UIScreen.mainScreen().bounds.width - 25)/2, 100)
@@ -93,8 +84,6 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
         guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(GifCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
-//        cell.reset()
 
         guard let gif = group?.items[indexPath.row] as? GifMediaItem else {
             return cell
@@ -109,12 +98,6 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
         cell.delegate = self
         
         return cell
-    }
-
-    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-//        if let cell = cell as? GifCollectionViewCell {
-//            cell.reset()
-//        }
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

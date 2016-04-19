@@ -189,7 +189,7 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
             }
 
             if let imageURL = track.squareImageURL {
-                cell.imageView.setImageWithAnimation(imageURL)
+                cell.imageView.nk_setImageWith(imageURL)
             }
             cell.titleLabel.text = track.album_name
             cell.subtitleLabel.text = track.artist_name

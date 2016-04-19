@@ -165,12 +165,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
         
         if let imageURL = pack.smallImageURL {
-            if imageURL != cell.imageURL && animated {
-                cell.imageView.setImageWithAnimation(imageURL)
-            } else {
-                cell.imageView.nk_setImageWith(imageURL)
-            }
-            cell.imageURL = imageURL
+            cell.imageView.nk_setImageWith(imageURL)
         }
 
         cell.titleLabel.text = pack.name
@@ -213,7 +208,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.rightMetadataLabel.text = track.formattedCreatedDate
 
             if let imageURL = track.squareImageURL {
-                cell.contentImageView.setImageWithAnimation(imageURL)
+                cell.contentImageView.nk_setImageWith(imageURL)
             }
             
             switch result.source {
