@@ -15,6 +15,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     private var drawerOpened: Bool = false
     var panelView: CategoriesPanelView
     var viewModel: BrowseViewModel
+    weak var delegate: CategoriesCollectionViewControllerDelegate?
 
     var currentCategory: Category? {
         didSet {
@@ -132,7 +133,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row < categories.count {
             let category = categories[indexPath.row]
-            SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = indexPath.row
+            delegate?.categoriesCollectionViewControlleDidSwitchCategory(self, category: category, categoryIndex: indexPath.row)
             currentCategory = category
             panelView.toggleDrawer()
 
@@ -144,4 +145,8 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             SEGAnalytics.sharedAnalytics().track("keyboard:categorySelected", properties: data)
         }
     }
+}
+
+protocol CategoriesCollectionViewControllerDelegate: class {
+    func categoriesCollectionViewControlleDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int)
 }

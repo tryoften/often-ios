@@ -9,6 +9,8 @@
 import UIKit
 import Nuke
 
+let BrowsePackHeaderViewIdentifier = "browseCell"
+
 class BrowsePackHeaderCollectionViewController: UIViewController, UICollectionViewDelegate,
 UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MediaItemGroupViewModelDelegate {
     private var viewModel: MediaItemGroupViewModel
@@ -137,7 +139,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MediaItemGroupVi
         collectionView.addGestureRecognizer(scrollView.panGestureRecognizer)
         collectionView.backgroundColor = BrowseHeaderCollectionViewControllerBackground
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.registerClass(BrowsePackHeaderCollectionViewCell.self, forCellWithReuseIdentifier: "browseCell")
+        collectionView.registerClass(BrowsePackHeaderCollectionViewCell.self, forCellWithReuseIdentifier: BrowsePackHeaderViewIdentifier)
 
     }
 
@@ -164,10 +166,10 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MediaItemGroupVi
             collectionView.contentOffset = contentOffset
         }
 
-        updatePacMetaData()
+        updatePackMetaData()
     }
 
-    func updatePacMetaData() {
+    func updatePackMetaData() {
         let centerPoint = CGPointMake(collectionView.frame.size.width / 2 + scrollView.contentOffset.x, collectionView.frame.size.height / 2 + scrollView.contentOffset.y)
         if let indexPathOfCentralCell = collectionView.indexPathForItemAtPoint(centerPoint), let group = viewModel.groupAtIndex(indexPathOfCentralCell.section), let pack = group.items[indexPathOfCentralCell.row] as? PackMediaItem {
             if let title = pack.name {
@@ -203,7 +205,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MediaItemGroupVi
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier("browseCell", forIndexPath: indexPath) as? BrowsePackHeaderCollectionViewCell, let group = viewModel.groupAtIndex(indexPath.section) else {
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(BrowsePackHeaderViewIdentifier, forIndexPath: indexPath) as? BrowsePackHeaderCollectionViewCell, let group = viewModel.groupAtIndex(indexPath.section) else {
             return UICollectionViewCell()
         }
 
@@ -228,16 +230,15 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MediaItemGroupVi
         guard let group = viewModel.groupAtIndex(indexPath.section), let pack = group.items[indexPath.row] as? PackMediaItem, let Id = pack.pack_id else {
             return
         }
-        
-        let id: String = "Eyl04mekZ"
-        let packVC = MainAppBrowsePackItemViewController(packId: id, panelStyle: .Simple, viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+
+        let packVC = MainAppBrowsePackItemViewController(packId: Id, panelStyle: .Simple, viewModel: PackItemViewModel(packId: Id), textProcessor: nil)
         navigationController?.navigationBar.hidden = false
         navigationController?.pushViewController(packVC, animated: true)
     }
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         collectionView.reloadData()
-        updatePacMetaData()
+        updatePackMetaData()
     }
 
 }

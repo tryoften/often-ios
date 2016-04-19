@@ -8,7 +8,7 @@
 
 import Foundation
 
-class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
+class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate {
     var packServiceListener: Listener? = nil
     var packViewModel: PackItemViewModel
 
@@ -94,7 +94,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     
     override func setupCategoryCollectionViewController() {
         super.setupCategoryCollectionViewController()
-
+        categoriesVC?.delegate = self
+        categoriesVC?.currentCategory = categoriesVC?.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex]
         categoriesVC?.panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
 
@@ -106,5 +107,9 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         packViewModel.packId = pack.id
         SessionManagerFlags.defaultManagerFlags.lastPack = pack.id
         loadPackData()
+    }
+
+    func categoriesCollectionViewControlleDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
+        SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
     }
 }
