@@ -11,9 +11,10 @@ import NukeAnimatedImagePlugin
 import FLAnimatedImage
 
 class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
-    var overlayView: GifCellOverlayView
-    var backgroundImageView: FLAnimatedImageView
-    var favoriteRibbon: UIImageView
+    private var overlayView: GifCellOverlayView
+    private var backgroundImageView: FLAnimatedImageView
+    private var favoriteRibbon: UIImageView
+    private var progressView: UIProgressView
 
     override var overlayVisible: Bool {
         didSet {
@@ -50,6 +51,10 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
         overlayView = GifCellOverlayView()
         overlayView.hidden = true
         overlayView.translatesAutoresizingMaskIntoConstraints = false
+
+        progressView = UIProgressView()
+        progressView.progressTintColor = TealColor
+        progressView.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(frame: frame)
         
@@ -59,8 +64,10 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
         backgroundColor = UIColor.oftBlack74Color()
         
         addSubview(backgroundImageView)
+        addSubview(progressView)
         addSubview(overlayView)
         addSubview(favoriteRibbon)
+
         setupLayout()
         layer.cornerRadius = 2.0
         clipsToBounds = true
@@ -69,7 +76,6 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
         overlayView.favoriteButton.addTarget(self, action: #selector(GifCollectionViewCell.didTouchUpButton(_:)), forControlEvents: .TouchUpInside)
         overlayView.copyButton.addTarget(self, action: #selector(GifCollectionViewCell.didTapCopyButton(_:)), forControlEvents: .TouchUpInside)
         overlayView.copyButton.addTarget(self, action: #selector(GifCollectionViewCell.didTouchUpButton(_:)), forControlEvents: .TouchUpInside)
-
     }
     
     convenience required init?(coder aDecoder: NSCoder) {
@@ -84,7 +90,12 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
             overlayView.al_right == contentView.al_right,
             
             favoriteRibbon.al_right == al_right,
-            favoriteRibbon.al_bottom == al_bottom
+            favoriteRibbon.al_bottom == al_bottom,
+
+            progressView.al_bottom == contentView.al_bottom,
+            progressView.al_left == contentView.al_left,
+            progressView.al_right == contentView.al_right,
+            progressView.al_height == 4.0
         ])
     }
     
@@ -95,15 +106,16 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
     
     func reset() {
         overlayView.hidden = true
-//        backgroundImageView.animatedImage = nil
     }
 
     internal override func prepareForReuse() {
         super.prepareForReuse()
 
         overlayView.hidden = true
-        self.backgroundImageView.nk_displayImage(nil)
-        self.backgroundImageView.nk_cancelLoading()
+        backgroundImageView.nk_displayImage(nil)
+        backgroundImageView.nk_cancelLoading()
+        progressView.progress = 0
+        progressView.alpha = 1
     }
 
     func didTapFavoriteButton(button: SpringButton) {
@@ -152,13 +164,16 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
                 return
             }
 
+            self?.progressView.setProgress(Float(task.progress.fractionCompleted), animated: true)
+
             if task.progress.fractionCompleted == 1 {
-                if let image = task.response?.image {
-                    self?.backgroundImageView.nk_displayImage(image)
+                UIView.animateWithDuration(0.2) {
+                    self?.progressView.alpha = 0
                 }
             }
         }
         if task.state == .Completed {
+            progressView.alpha = 0
         }                               
     }
 

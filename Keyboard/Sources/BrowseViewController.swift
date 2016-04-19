@@ -64,12 +64,12 @@ class BrowseViewController: MediaItemGroupsViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateReachabilityStatusBar()
+        updateReachabilityView()
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        updateReachabilityStatusBar()
+        updateReachabilityView()
     }
 
     func onOrientationChanged() {
@@ -104,7 +104,7 @@ class BrowseViewController: MediaItemGroupsViewController,
     }
     
     // MARK: ConnectivityObservable
-    func updateReachabilityStatusBar() {
+    func updateReachabilityView() {
         if isNetworkReachable {
             UIView.animateWithDuration(0.3, animations: {
                 self.errorDropView.frame = CGRectMake(0, -self.topPadding, UIScreen.mainScreen().bounds.width, self.barHeight)
