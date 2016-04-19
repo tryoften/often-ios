@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FLAnimatedImage
 
 class CategoryCollectionViewCell: UICollectionViewCell {
     var titleLabel: UILabel

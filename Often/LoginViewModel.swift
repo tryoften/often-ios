@@ -8,30 +8,22 @@
 
 import Foundation
 
-class LoginViewModel: NSObject, SessionManagerDelegate {
+class LoginViewModel: NSObject, SessionManagerDelegate, ConnectivityObservable {
     weak var delegate: LoginViewModelDelegate?
     var sessionManager: SessionManager
     var isNewUser: Bool
     var userAuthData: UserAuthData
+    var isNetworkReachable: Bool = true
 
-    private var isInternetReachable: Bool
-    
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
 
         isNewUser = false
-        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
-        isInternetReachable = reachabilitymanager.reachable
-
         userAuthData = UserAuthData(username: "", email: "",  password: "", isNewUser: false)
 
         super.init()
 
-        reachabilitymanager.setReachabilityStatusChangeBlock { status in
-            self.isInternetReachable = reachabilitymanager.reachable
-        }
-        reachabilitymanager.startMonitoring()
-
+        startMonitoring()
         self.sessionManager.delegate = self
     }
 
@@ -40,7 +32,7 @@ class LoginViewModel: NSObject, SessionManagerDelegate {
     }
 
     func login(accountType: AccountManagerType, completion: (results: ResultType) -> Void) throws {
-        guard isInternetReachable else {
+        guard isNetworkReachable else {
             completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
             throw SignupError.NotConnectedOnline
         }
@@ -59,6 +51,9 @@ class LoginViewModel: NSObject, SessionManagerDelegate {
 
     }
 
+    func updateReachabilityView() {
+
+    }
 
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.login))

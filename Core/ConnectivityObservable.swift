@@ -7,27 +7,28 @@
 //
 
 import Foundation
+import Alamofire
 
 /**
  *  Protocol that defines a set of events needed to manage network reachability
  */
-
 protocol ConnectivityObservable: class {
-    var isNetworkReachable: Bool {get set}
+    var isNetworkReachable: Bool { get set }
 
     func startMonitoring()
-    func updateReachabilityStatusBar()
+    func updateReachabilityView()
 }
 
-extension ConnectivityObservable where Self: UIViewController {
+extension ConnectivityObservable {
     func startMonitoring() {
-        let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
-        isNetworkReachable = reachabilityManager.reachable
-
-        reachabilityManager.setReachabilityStatusChangeBlock { status in
-            self.isNetworkReachable = reachabilityManager.reachable
-            self.updateReachabilityStatusBar()
+        if let networkManager = NetworkReachabilityManager() {
+            networkManager.listener = { status in
+                self.isNetworkReachable = networkManager.isReachable
+                self.updateReachabilityView()
+            }
+            networkManager.startListening()
         }
-        reachabilityManager.startMonitoring()
     }
+
+    func updateReachabilityView() {}
 }

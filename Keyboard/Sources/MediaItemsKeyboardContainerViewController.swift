@@ -50,6 +50,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
             Flurry.startSession(FlurryClientKey)
             Firebase.defaultConfig().persistenceEnabled = true
+            CacheConfig.setupStandardConfig()
         }
         #endif
 
@@ -63,8 +64,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         containerView.addSubview(sectionsTabBarController.view)
         containerView.addSubview(togglePanelButton)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didInsertMediaItem:", name: "mediaItemInserted", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {

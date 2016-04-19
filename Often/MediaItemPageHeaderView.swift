@@ -8,16 +8,6 @@
 
 import UIKit
 
-//
-//  AddArtistModalHeaderView.swift
-//  Drizzy
-//
-//  Created by Komran Ghahremani on 6/21/15.
-//  Copyright (c) 2015 Luc Success. All rights reserved.
-//
-
-import UIKit
-
 class MediaItemPageHeaderView: UICollectionReusableView {
     var screenWidth: CGFloat
     var coverPhoto: UIImageView
@@ -28,16 +18,12 @@ class MediaItemPageHeaderView: UICollectionReusableView {
     var imageURL: NSURL? {
         willSet(newValue) {
             if let url = newValue where imageURL != newValue {
-                coverPhoto.setImageWithAnimation(url)
+                coverPhoto.nk_setImageWith(url)
             }
         }
     }
 
-    var mediaItem: MediaItem? {
-        didSet {
-
-        }
-    }
+    var mediaItem: MediaItem?
 
     var title: String = "" {
         didSet {
