@@ -50,7 +50,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
             Flurry.startSession(FlurryClientKey)
             Firebase.defaultConfig().persistenceEnabled = true
-            CacheConfig.setupStandardConfig()
         }
         #endif
 
