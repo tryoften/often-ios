@@ -11,18 +11,18 @@ import Foundation
 
 class MediaItemGroup: Equatable {
     var id: String?
-    var _items: [MediaItem] = []
+    private var originalItems: [MediaItem] = []
     var items: [MediaItem] {
         get {
             if filteredItems.isEmpty {
-                return _items
+                return originalItems
             } else {
                 return filteredItems
             }
         }
         
         set {
-            _items = newValue
+            originalItems = newValue
         }
    }
     var score: Int?
@@ -86,11 +86,7 @@ class MediaItemGroup: Equatable {
     func filterMediaItems(category: Category) {
         filteredItems = []
         
-        for item in _items {
-            guard let item = item as? MediaItem else {
-                continue
-            }
-            
+        for item in originalItems {
             // Check for filters, if present applies them
             if shouldFilterMediaItem(category, item: item) {
                 continue
