@@ -168,7 +168,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             if imageURL != cell.imageURL && animated {
                 cell.imageView.setImageWithAnimation(imageURL)
             } else {
-                cell.imageView.setImageWithURL(imageURL)
+                cell.imageView.nk_setImageWith(imageURL)
             }
             cell.imageURL = imageURL
         }

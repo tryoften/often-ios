@@ -73,7 +73,7 @@ public extension UIView {
 
     // MARK: Checking
     func guard_check() {
-        assert(NSThread.isMainThread())
+//        assert(NSThread.isMainThread())
 
         // iOS 8 layouts the MFMailComposeController in a background thread on an UIKit queue.
     }

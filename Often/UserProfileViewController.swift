@@ -237,13 +237,14 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             headerView.collapseNameLabel.text = user.name
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
-                headerView.profileImageView.setImageWithURL(imageURL)
-                headerView.collapseProfileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
-                    headerView.collapseProfileImageView.image = image
-                    }, failure: { (req, res, error) in
-                        print("Failed to load image: \(imageURL)")
-                })
-                
+                headerView.profileImageView.nk_setImageWith(imageURL)
+                headerView.collapseProfileImageView.nk_setImageWith(imageURL)
+//                headerView.collapseProfileImageView.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
+//                    headerView.collapseProfileImageView.image = image
+//                    }, failure: { (req, res, error) in
+//                        print("Failed to load image: \(imageURL)")
+//                })
+
                 
             }
         }

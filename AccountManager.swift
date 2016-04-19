@@ -24,14 +24,15 @@ class AccountManager: AccountManagerProtocol {
 
    required init (firebase: Firebase) {
         self.firebase = firebase
-        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
-        isInternetReachable = reachabilitymanager.reachable
-
-        reachabilitymanager.setReachabilityStatusChangeBlock { status in
-            self.isInternetReachable = reachabilitymanager.reachable
-        }
-
-        reachabilitymanager.startMonitoring()
+        isInternetReachable = true
+//        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+//        isInternetReachable = reachabilitymanager.reachable
+//
+//        reachabilitymanager.setReachabilityStatusChangeBlock { status in
+//            self.isInternetReachable = reachabilitymanager.reachable
+//        }
+//
+//        reachabilitymanager.startMonitoring()
 
     }
 

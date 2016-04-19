@@ -6,8 +6,11 @@
 //  Copyright © 2016 Surf Inc. All rights reserved.
 //
 
-private let GifCellReuseIdentifier = "GifCell"
+import Nuke
+import NukeAnimatedImagePlugin
+import FLAnimatedImage
 
+private let GifCellReuseIdentifier = "GifCell"
 
 class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
     var group: MediaItemGroup? {
@@ -15,15 +18,23 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
             collectionView?.reloadData()
         }
     }
+
+    let manager: ImageManager
     
     init() {
+        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
+        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
+        let cache = AnimatedImageMemoryCache()
+        manager = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
+
         super.init(collectionViewLayout: GifsHorizontalViewController.provideLayout())
+
         #if KEYBOARD
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(GifsHorizontalViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
         #endif
+
         collectionView?.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: GifCellReuseIdentifier)
         collectionView?.backgroundColor = UIColor.clearColor()
-
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,6 +44,12 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        ImageManager.shared = manager
     }
     
     class func provideLayout() -> UICollectionViewFlowLayout {
@@ -64,7 +81,7 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         
-        return CGSizeMake((screenWidth - 25)/2, 100)
+        return CGSizeMake((screenWidth - 30)/2, 100)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -77,21 +94,27 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
             return UICollectionViewCell()
         }
         
-        cell.reset()
-        
+//        cell.reset()
+
         guard let gif = group?.items[indexPath.row] as? GifMediaItem else {
             return cell
         }
         
         if let imageURL = gif.mediumImageURL {
-            cell.gifURL = imageURL
+            cell.setImageWith(imageURL)
         }
-        
+
         cell.mediaLink = gif
         cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(gif)
         cell.delegate = self
         
         return cell
+    }
+
+    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+//        if let cell = cell as? GifCollectionViewCell {
+//            cell.reset()
+//        }
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

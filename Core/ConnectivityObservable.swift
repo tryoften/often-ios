@@ -21,13 +21,13 @@ protocol ConnectivityObservable: class {
 
 extension ConnectivityObservable where Self: UIViewController {
     func startMonitoring() {
-        let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
-        isNetworkReachable = reachabilityManager.reachable
-
-        reachabilityManager.setReachabilityStatusChangeBlock { status in
-            self.isNetworkReachable = reachabilityManager.reachable
-            self.updateReachabilityStatusBar()
-        }
-        reachabilityManager.startMonitoring()
+//        let reachabilityManager = AFNetworkReachabilityManager.sharedManager()
+//        isNetworkReachable = reachabilityManager.reachable
+//
+//        reachabilityManager.setReachabilityStatusChangeBlock { status in
+//            self.isNetworkReachable = reachabilityManager.reachable
+//            self.updateReachabilityStatusBar()
+//        }
+//        reachabilityManager.startMonitoring()
     }
 }

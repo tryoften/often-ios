@@ -20,17 +20,18 @@ class LoginViewModel: NSObject, SessionManagerDelegate {
         self.sessionManager = sessionManager
 
         isNewUser = false
-        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
-        isInternetReachable = reachabilitymanager.reachable
+//        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
+//        isInternetReachable = reachabilitymanager.reachable
+        isInternetReachable = true
 
         userAuthData = UserAuthData(username: "", email: "",  password: "", isNewUser: false)
 
         super.init()
 
-        reachabilitymanager.setReachabilityStatusChangeBlock { status in
-            self.isInternetReachable = reachabilitymanager.reachable
-        }
-        reachabilitymanager.startMonitoring()
+//        reachabilitymanager.setReachabilityStatusChangeBlock { status in
+//            self.isInternetReachable = reachabilitymanager.reachable
+//        }
+//        reachabilitymanager.startMonitoring()
 
         self.sessionManager.delegate = self
     }
