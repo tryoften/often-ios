@@ -18,7 +18,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     var packServiceListener: Listener?
 
 
-     init(viewModel: PacksService) {
+    init(viewModel: PacksService) {
         self.viewModel = viewModel
 
         packPanelView = PackPanelView()
@@ -26,17 +26,24 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
         super.init(collectionViewLayout: KeyboardMediaItemPackPickerViewController.provideLayout())
 
+        packPanelView.slider.addTarget(self, action: #selector(KeyboardMediaItemPackPickerViewController.sliderDidChange(_:)), forControlEvents: .ValueChanged)
+        packPanelView.slider.minimumValue = 0
+
         collectionView?.contentInset = UIEdgeInsets(top: -40, left: 9, bottom: 0, right: 9)
 
         viewModel.fetchCollection()
 
         packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
+
+            if let width = self.collectionView?.contentSize.width {
+                self.packPanelView.slider.maximumValue = Float(width + ArtistCollectionViewCellWidth)
+            }
         }
 
         view.backgroundColor = VeryLightGray
         view.addSubview(packPanelView)
-
+        
         setupLayout()
     }
 
@@ -145,6 +152,16 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
     func cancelButtonDidTap(sender: UIButton)  {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+
+        packPanelView.slider.value = Float(scrollView.contentOffset.x)
+    }
+
+    func sliderDidChange(sender: UISlider) {
+        collectionView?.setContentOffset(CGPointMake(CGFloat(sender.value), 40), animated: false)
     }
 
        // MARK: LaunchMainApp
