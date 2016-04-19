@@ -85,7 +85,7 @@ class TrendingArtistsHorizontalCollectionViewController: FullScreenCollectionVie
         cell.titleLabel.text = artist.name
         cell.itemCount = artist.lyrics_count ?? 0
         if let imageURL = artist.squareImageURL {
-            cell.imageView.setImageWithAnimation(imageURL)
+            cell.imageView.nk_setImageWith(imageURL)
         }
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale

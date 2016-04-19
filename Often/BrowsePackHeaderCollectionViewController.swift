@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class BrowsePackHeaderCollectionViewController: UIViewController, UICollectionViewDelegate,
 UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MediaItemGroupViewModelDelegate {
@@ -111,7 +112,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MediaItemGroupVi
             topBorderView.al_right == view.al_right,
             topBorderView.al_top == view.al_top,
             topBorderView.al_height == 0.5
-            ])
+        ])
     }
 
     class BrowseCollectionViewFlowLayout: UICollectionViewFlowLayout {
@@ -213,7 +214,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MediaItemGroupVi
             }
 
             if let imageURL = pack.largeImageURL {
-                cell.artistImage.setImageWithAnimation(imageURL, completion: nil)
+                cell.artistImage.nk_setImageWith(imageURL)
             }
         default:
             return UICollectionViewCell()

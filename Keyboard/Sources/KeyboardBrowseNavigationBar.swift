@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class KeyboardBrowseNavigationBar: UIView {
     var backArrowView: UIImageView
@@ -19,12 +20,7 @@ class KeyboardBrowseNavigationBar: UIView {
     var imageURL: NSURL? {
         willSet(newValue) {
             if let url = newValue where imageURL != newValue {
-                let request = NSURLRequest(URL: url)
-                thumbnailImageButton.imageView?.setImageWithURLRequest(request, placeholderImage: UIImage(named: "placeholder"), success: { (req, res, image) in
-                        self.thumbnailImageButton.setImage(image, forState: .Normal)
-                    }, failure: { (req, res, err) -> Void in
-
-                })
+                thumbnailImageButton.imageView?.nk_setImageWith(url)
             }
         }
     }
@@ -85,8 +81,8 @@ class KeyboardBrowseNavigationBar: UIView {
         
         backgroundColor = WhiteColor
         
-        thumbnailImageButton.addTarget(self, action: "backSelected", forControlEvents: .TouchUpInside)
-        moreOptionsButton.addTarget(self, action: "showOptions", forControlEvents: .TouchUpInside)
+        thumbnailImageButton.addTarget(self, action: #selector(KeyboardBrowseNavigationBar.backSelected), forControlEvents: .TouchUpInside)
+        moreOptionsButton.addTarget(self, action: #selector(KeyboardBrowseNavigationBar.showOptions), forControlEvents: .TouchUpInside)
         
         addSubview(backArrowView)
         addSubview(thumbnailImageButton)

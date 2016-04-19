@@ -114,7 +114,7 @@ class FeaturedArtistViewController: UIViewController, UIScrollViewDelegate, Medi
         featuredArtistView.featureLabel.text = "Featured Artist".uppercaseString
 
         if let imageURL = artist.largeImageURL {
-            featuredArtistView.imageView.setImageWithAnimation(imageURL)
+            featuredArtistView.imageView.nk_setImageWith(imageURL)
         }
 
         let tapRecognizer = UITapGestureRecognizer()

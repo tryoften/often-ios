@@ -6,8 +6,6 @@
 //  Copyright © 2016 Surf Inc. All rights reserved.
 //
 
-#import <AFNetworking/AFNetworking.h>
-#import <AFNetworking/UIImageView+AFNetworking.h>
 #import <Firebase/Firebase.h>
 #import "SwiftAutoLayout.h"
 #import "UIColor+HEXString.h"
@@ -23,5 +21,3 @@
 #import "NJKScrollFullScreen.h"
 #import <BDKCollectionIndexView/BDKCollectionIndexView.h>
 #import <AGEmojiKeyboard/AGEmojiKeyboardView.h>
-#import <FLAnimatedImage/FLAnimatedImageView.h>
-#import <FLAnimatedImage/FLAnimatedImage.h>

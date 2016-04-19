@@ -62,7 +62,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         didSet {
             if let imageURL = avatarImageURL {
                 print("Avatar image URL", imageURL)
-                sourceLogoView.setImageWithAnimation(imageURL)
+                sourceLogoView.nk_setImageWith(imageURL)
                 avatarImageViewWidthConstraint.constant = 18
                 leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left + 24
             } else {

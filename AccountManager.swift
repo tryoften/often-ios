@@ -9,30 +9,22 @@
 import Foundation
 import Crashlytics
 import TwitterKit
+import Alamofire
 
 typealias AccountManagerResultCallback = (results: ResultType) -> Void
 
-class AccountManager: AccountManagerProtocol {
+class AccountManager: AccountManagerProtocol, ConnectivityObservable {
     weak var delegate: AccountManagerDelegate?
     var currentUser: User?
 
     final internal var sessionManagerFlags: SessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     internal var userRef: Firebase?
     internal var firebase: Firebase
-    internal var isInternetReachable: Bool
+    internal var isNetworkReachable: Bool = true
 
-
-   required init (firebase: Firebase) {
+    required init (firebase: Firebase) {
         self.firebase = firebase
-        let reachabilitymanager = AFNetworkReachabilityManager.sharedManager()
-        isInternetReachable = reachabilitymanager.reachable
-
-        reachabilitymanager.setReachabilityStatusChangeBlock { status in
-            self.isInternetReachable = reachabilitymanager.reachable
-        }
-
-        reachabilitymanager.startMonitoring()
-
+        startMonitoring()
     }
 
     func isUserLoggedIn() {
