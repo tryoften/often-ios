@@ -25,7 +25,6 @@ class BrowsePackHeaderView: UICollectionReusableView {
         clipsToBounds = true
 
         addSubview(browsePicker.view)
-
         setupLayout()
     }
 
@@ -34,8 +33,8 @@ class BrowsePackHeaderView: UICollectionReusableView {
             let progressiveness = attributes.progressiveness
 
             UIView.animateWithDuration(0.3) {
-                if progressiveness <= 0.8 {
-                    let val = progressiveness - 0.3
+                if progressiveness <= 0.95 {
+                    let val = max(progressiveness - 0.25, 0.2)
                     self.browsePicker.view.alpha = val
                 } else {
                     self.browsePicker.view.alpha = 1.0

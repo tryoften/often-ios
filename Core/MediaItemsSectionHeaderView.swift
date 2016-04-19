@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class MediaItemsSectionHeaderView: UICollectionReusableView {
     var leftLabel: UILabel
@@ -47,7 +48,7 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
     var artistImageURL: NSURL? {
         didSet {
             if let _ = artistImageURL {
-                artistImageView.setImageWithURL(artistImageURL!)
+                artistImageView.nk_setImageWith(artistImageURL!)
                 artistImageViewWidthConstraint.constant = 18
                 leftHeaderLabelLeftPaddingConstraint?.constant = contentEdgeInsets.left + 24
             } else {

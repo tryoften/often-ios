@@ -1,25 +1,4 @@
 PODS:
-  - AFNetworking (2.6.0):
-    - AFNetworking/NSURLConnection (= 2.6.0)
-    - AFNetworking/NSURLSession (= 2.6.0)
-    - AFNetworking/Reachability (= 2.6.0)
-    - AFNetworking/Security (= 2.6.0)
-    - AFNetworking/Serialization (= 2.6.0)
-    - AFNetworking/UIKit (= 2.6.0)
-  - AFNetworking/NSURLConnection (2.6.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.6.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
-  - AFNetworking/UIKit (2.6.0):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
   - AGEmojiKeyboard (0.2.0)
   - Analytics/Core-iOS (1.11.3):
     - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
@@ -55,7 +34,6 @@ PODS:
     - Bolts (~> 1.1)
     - Facebook-iOS-SDK/CoreKit
   - Firebase (2.5.1)
-  - FLAnimatedImage (1.0.12)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
@@ -65,7 +43,6 @@ PODS:
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
 
 DEPENDENCIES:
-  - AFNetworking (= 2.6.0)
   - AGEmojiKeyboard (from `https://github.com/tryoften/AGEmojiKeyboard`)
   - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
   - BDKCollectionIndexView
@@ -73,7 +50,6 @@ DEPENDENCIES:
   - DateTools (~> 1.6)
   - Facebook-iOS-SDK
   - Firebase (>= 2.0.2)
-  - FLAnimatedImage (~> 1.0)
   - Parse (~> 1.11)
   - Reveal-iOS-SDK
 
@@ -92,7 +68,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/October-Labs/analytics-ios.git
 
 SPEC CHECKSUMS:
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   AGEmojiKeyboard: efcb7244ace99deb8eb2c63867ffad198d219fe0
   Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
   BDKCollectionIndexView: 819bd123d618f20c061caacd409e2d8f1590df7d
@@ -101,7 +76,6 @@ SPEC CHECKSUMS:
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
   Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
-  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FlurrySDK: ee51555de016e77ff6b516d473de7a57eb858ef7
   Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class TrackCollectionViewCell: UICollectionViewCell {
     private var placeholderImageView: UIImageView
@@ -17,7 +18,7 @@ class TrackCollectionViewCell: UICollectionViewCell {
     var imageURL: NSURL? {
         willSet(newValue) {
             if let url = newValue where imageURL != newValue {
-                imageView.setImageWithAnimation(url)
+                imageView.nk_setImageWith(url)
             }
         }
     }

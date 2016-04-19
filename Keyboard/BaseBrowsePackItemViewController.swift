@@ -204,7 +204,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         }
         
         if let imageURL = imageUrl {
-            categoriesVC.panelView.mediaItemImageView.setImageWithAnimation(imageURL)
+            categoriesVC.panelView.mediaItemImageView.nk_setImageWith(imageURL)
         }
         
     }

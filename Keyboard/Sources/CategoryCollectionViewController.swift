@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Nuke
+import FLAnimatedImage
 
 class CategoryCollectionViewController: UIViewController, UICollectionViewDelegate,
     UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -112,7 +114,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
                         }
                     }
                 } else {
-                    cell.backgroundImageView.setImageWithURL(image)
+                    cell.backgroundImageView.nk_setImageWith(image)
                 }
                 cell.backgroundImageView.frame = cell.bounds
             }

@@ -8,14 +8,12 @@ xcodeproj 'Often.xcodeproj'
 
 def base_deps
   pod 'Firebase', '>= 2.0.2'
-  pod 'AFNetworking', '2.6.0'
   pod 'DateTools', '~> 1.6'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'Parse', '~> 1.11'
   pod 'CSStickyHeaderFlowLayout'
   pod 'BDKCollectionIndexView'
   pod 'AGEmojiKeyboard', :git => 'https://github.com/tryoften/AGEmojiKeyboard'
-  pod 'FLAnimatedImage', '~> 1.0'
 end
 
 target 'Often' do
