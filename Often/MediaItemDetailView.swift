@@ -180,7 +180,7 @@ class MediaItemDetailView: UIView {
             firstButtonSeperator.al_height == 25,
 
             copyButton.al_bottom == insertButton.al_bottom,
-            copyButton.al_left == firstButtonSeperator.al_right,
+            copyButton.al_left == insertButton.al_left,
             copyButton.al_top == insertButton.al_top,
             copyButton.al_width == insertButton.al_width,
 
