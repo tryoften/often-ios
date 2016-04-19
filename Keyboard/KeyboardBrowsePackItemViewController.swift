@@ -67,6 +67,31 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        guard let group = groupAtIndex(indexPath.section) else {
+            return CGSizeZero
+        }
+        
+        switch group.type {
+        case .Gif:
+            let itemsCount = group.items.count
+            var height: CGFloat
+            
+            if itemsCount == 0 {
+                height = 0
+            } else {
+                height = 103
+            }
+            
+            return CGSizeMake(UIScreen.mainScreen().bounds.width, height)
+        case .Quote:
+            return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
+        default:
+            return CGSizeZero
+        }
+    }
+    
     override func setupCategoryCollectionViewController() {
         super.setupCategoryCollectionViewController()
 

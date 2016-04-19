@@ -153,6 +153,33 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         }
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        guard let group = groupAtIndex(indexPath.section) else {
+            return CGSizeZero
+        }
+        
+        switch group.type {
+        case .Gif:
+            let itemsCount = group.items.count
+            var height: CGFloat
+            
+            if itemsCount == 0 {
+                height = 0
+            } else if itemsCount < 3 {
+                height = 103
+            } else {
+                height = 216
+            }
+            
+            return CGSizeMake(UIScreen.mainScreen().bounds.width, height)
+        case .Quote:
+            return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
+        default:
+            return CGSizeZero
+        }
+    }
+    
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: false)
         
