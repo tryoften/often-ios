@@ -15,6 +15,10 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
     private var backgroundImageView: FLAnimatedImageView
     private var favoriteRibbon: UIImageView
     private var progressView: UIProgressView
+    
+    var animatedImage: FLAnimatedImage {
+        return backgroundImageView.animatedImage
+    }
 
     override var overlayVisible: Bool {
         didSet {
@@ -167,6 +171,7 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
             self?.progressView.setProgress(Float(task.progress.fractionCompleted), animated: true)
 
             if task.progress.fractionCompleted == 1 {
+    
                 UIView.animateWithDuration(0.2) {
                     self?.progressView.alpha = 0
                 }
