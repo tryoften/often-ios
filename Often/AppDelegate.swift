@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var mainController: UIViewController!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        CacheConfig.setupStandardConfig()
         Fabric.sharedSDK().debug = true
         Twitter.sharedInstance().startWithConsumerKey(TwitterConsumerKey, consumerSecret: TwitterConsumerSecret)
         Fabric.with([Crashlytics(), Twitter.sharedInstance()])

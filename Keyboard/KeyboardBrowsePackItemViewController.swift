@@ -28,12 +28,10 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
-            self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
+            self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
             self.hideLoadingView()
             self.collectionView?.reloadData()
         }
-
-        collectionView?.contentInset = UIEdgeInsetsMake(7, 0, SectionPickerViewHeight, 0)
 
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
@@ -50,17 +48,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         loadPackData()
     }
 
-    override class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
-        let topMargin = CGFloat(0)
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, cellHeight)
-        layout.minimumLineSpacing = 7.0
-        layout.minimumInteritemSpacing = 7.0
-        layout.sectionInset = UIEdgeInsetsMake(topMargin, 0.0, 30.0, 0.0)
-
-        return layout
-    }
-
     override func togglePack() {
         let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksService.defaultInstance)
         packsVC.delegate = self
@@ -69,6 +56,42 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         presentViewController(packsVC, animated: true, completion: nil)
     }
 
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        
+        if section == 0 {
+            return UIEdgeInsetsMake(51.0, 0, 0, 0)
+        } else if section == viewModel.mediaItemGroups.count - 1 {
+            return UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
+        } else {
+            return UIEdgeInsetsZero
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        guard let group = groupAtIndex(indexPath.section) else {
+            return CGSizeZero
+        }
+        
+        switch group.type {
+        case .Gif:
+            let itemsCount = group.items.count
+            var height: CGFloat
+            
+            if itemsCount == 0 {
+                height = 0
+            } else {
+                height = 103
+            }
+            
+            return CGSizeMake(UIScreen.mainScreen().bounds.width, height)
+        case .Quote:
+            return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
+        default:
+            return CGSizeZero
+        }
+    }
+    
     override func setupCategoryCollectionViewController() {
         super.setupCategoryCollectionViewController()
         categoriesVC?.delegate = self

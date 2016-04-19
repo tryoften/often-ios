@@ -10,7 +10,7 @@ import Foundation
 
 let gifCellReuseIdentifier = "gifCellIdentifier"
 
-class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
+class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollectionViewDelegateFlowLayout {
     var packCollectionListener: Listener? = nil
     var categoriesVC: CategoryCollectionViewController? = nil
     var panelToggleListener: Listener?
@@ -36,8 +36,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
         self.textProcessor = textProcessor
         
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
-
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -85,33 +83,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
         }
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
-        guard let group = groupAtIndex(indexPath.section) else {
-            return CGSizeZero
-        }
-        
-        switch group.type {
-        case .Gif:
-            let itemsCount = group.items.count
-            var height: CGFloat
-            
-            if itemsCount == 0 {
-                height = 0
-            } else if itemsCount < 3 {
-                height = 113
-            } else {
-                height = 226
-            }
-            
-            return CGSizeMake(UIScreen.mainScreen().bounds.width, height)
-        case .Quote:
-            return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
-        default:
-            return CGSizeZero
-        }
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeZero
     }
-    
+        
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         guard let group = groupAtIndex(indexPath.section) else {
@@ -255,7 +230,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController {
             }
         }
         self.layoutCategoryPanelView()
-        self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
+        self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
     }
     
 }

@@ -21,7 +21,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         didSet {
             panelView.currentCategoryText = currentCategory?.name.uppercaseString
             if let category = currentCategory {
-                viewModel.applyFilter(.category(category))
+                viewModel.applyFilter(category)
             }
         }
     }
