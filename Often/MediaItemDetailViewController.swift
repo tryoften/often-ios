@@ -145,13 +145,7 @@ class MediaItemDetailViewController: UIViewController {
         tintView.userInteractionEnabled = true
 
         if let imageURL = item.smallImageURL {
-                print("Loading image: \(imageURL)")
-//                mediaItemDetailView.mediaItemImage.setImageWithURLRequest(NSURLRequest(URL: imageURL), placeholderImage: nil, success: { (req, res, image) in
-//                    self.mediaItemDetailView.mediaItemImage.image = image
-//
-//                    }, failure: { (req, res, error) in
-//                        print("Failed to load image: \(imageURL)")
-//                })
+            self.mediaItemDetailView.mediaItemImage.nk_setImageWith(imageURL)
         }
     }
 
