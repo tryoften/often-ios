@@ -1150,6 +1150,11 @@
 		BF9971611CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */; };
 		BF9971621CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */; };
 		BF9971631CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */; };
+		BFBA72EE1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
+		BFBA72EF1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
+		BFBA72F01CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
+		BFBA72F11CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
+		BFBA72F21CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
 		BFD877851CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877861CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877871CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
@@ -1606,6 +1611,7 @@
 		BF9971521CBEF388008351C7 /* GifCellOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCellOverlayView.swift; sourceTree = "<group>"; };
 		BF9971581CC00942008351C7 /* PackItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackItemViewModel.swift; sourceTree = "<group>"; };
 		BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMediaItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifHorizontalCollectionViewCell.swift; sourceTree = "<group>"; };
 		BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacksViewModel.swift; sourceTree = "<group>"; };
 		BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackMediaItem.swift; sourceTree = "<group>"; };
 		BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedHorizontalCollectionViewController.swift; sourceTree = "<group>"; };
@@ -1935,6 +1941,7 @@
 			children = (
 				813323951C23652C0084918B /* MediaItemsSectionHeaderView.swift */,
 				8176BECA1B72DAA400E1BDCD /* MediaItemCollectionViewCell.swift */,
+				BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */,
 			);
 			name = "Collection Cell Views";
 			sourceTree = "<group>";
@@ -3531,6 +3538,7 @@
 				3B5006321CADAAE2003D4144 /* PackProfileCollectionViewCell.swift in Sources */,
 				810EA4D41C8579D1005A6C6D /* MediaItemsViewModel.swift in Sources */,
 				810EA4D51C8579D1005A6C6D /* SearchBar.swift in Sources */,
+				BFBA72F11CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */,
 				810EA4D61C8579D1005A6C6D /* EmojiKeyboardViewModel.swift in Sources */,
 				810EA4D71C8579D1005A6C6D /* AnonymousAccountManager.swift in Sources */,
 				810EA4D81C8579D1005A6C6D /* AlertView.swift in Sources */,
@@ -3781,6 +3789,7 @@
 				810EA5F11C8579F1005A6C6D /* ShapeView.swift in Sources */,
 				810EA5F21C8579F1005A6C6D /* TextProcessingManager.swift in Sources */,
 				810EA5F31C8579F1005A6C6D /* FavoritesEmptyStateView.swift in Sources */,
+				BFBA72F21CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */,
 				816D50201C862830007B3249 /* CategoryCollectionViewCell.swift in Sources */,
 				810EA5F41C8579F1005A6C6D /* EmojiSectionSelectorView.swift in Sources */,
 				810EA5F51C8579F1005A6C6D /* MediaItemsSectionHeaderView.swift in Sources */,
@@ -3978,6 +3987,7 @@
 				816D50B61C8A05E3007B3249 /* EmitterListener.swift in Sources */,
 				816D50581C8A04DE007B3249 /* SearchSuggestionTableViewCell.swift in Sources */,
 				816D50731C8A0521007B3249 /* SingleCollectionMediaItemsViewModel.swift in Sources */,
+				BFBA72EE1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */,
 				816D509F1C8A058D007B3249 /* MainAppSearchBar.swift in Sources */,
 				816D50591C8A04DE007B3249 /* SearchSuggestionTableHeaderView.swift in Sources */,
 				816D50691C8A0506007B3249 /* suffixNumber.swift in Sources */,
@@ -4098,6 +4108,7 @@
 				30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */,
 				816D50E41C8A2FC0007B3249 /* KeyboardBrowseViewController.swift in Sources */,
 				BF9971431CBEC310008351C7 /* GifMediaItem.swift in Sources */,
+				BFBA72F01CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */,
 				81D09D8F1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */,
 				81153CBD1BBC7FC000A91EAD /* TogglePanelButton.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
@@ -4258,6 +4269,7 @@
 				3B50062C1CADA9DE003D4144 /* BrowseMediaItemViewController.swift in Sources */,
 				81DA3ED01C24BE85006822D3 /* MediaItemsViewModel.swift in Sources */,
 				81F817C11C2A094F00B1C1E6 /* SearchBar.swift in Sources */,
+				BFBA72EF1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */,
 				8192A7E61C6530EA00B25AC6 /* Helpers.swift in Sources */,
 				81DA3ED31C24BE85006822D3 /* KeyboardLayoutEngine.swift in Sources */,
 				81DA3ED51C24BE85006822D3 /* SearchResultsCellOverlayView.swift in Sources */,
