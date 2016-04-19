@@ -10,38 +10,36 @@ import Foundation
 
 class GifHorizontalCollectionViewCell: UICollectionViewCell {
     
-    var gifsHorizontalVC: GifsHorizontalViewController?
+    var gifsHorizontalVC: GifsHorizontalViewController
     var bottomSeperator: UIView
     
     var textProcessor: TextProcessingManager? {
         didSet {
-            gifsHorizontalVC?.textProcessor = textProcessor
+            gifsHorizontalVC.textProcessor = textProcessor
         }
     }
     
     var group: MediaItemGroup? {
         didSet {
-            gifsHorizontalVC?.group = group
+            gifsHorizontalVC.group = group
         }
     }
     
     override init(frame: CGRect) {
-        if gifsHorizontalVC == nil {
-            gifsHorizontalVC = GifsHorizontalViewController()
-        }
+        gifsHorizontalVC = GifsHorizontalViewController()
         
         bottomSeperator = UIView()
         bottomSeperator.backgroundColor = DarkGrey
         
         super.init(frame: frame)
         
-        contentView.addSubview(gifsHorizontalVC!.view)
+        contentView.addSubview(gifsHorizontalVC.view)
         contentView.addSubview(bottomSeperator)
         
         backgroundColor = UIColor.clearColor()
         
-        gifsHorizontalVC!.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        gifsHorizontalVC!.view.frame = bounds
+        gifsHorizontalVC.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        gifsHorizontalVC.view.frame = bounds
         
         bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
         
