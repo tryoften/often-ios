@@ -353,7 +353,12 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
         
         if selected {
-            UIPasteboard.generalPasteboard().string = result.getInsertableText()
+            if let cell = cell as? GifCollectionViewCell, let data = cell.animatedImage.data {
+                // Copy this data to pasteboard
+                UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
+            } else {
+                UIPasteboard.generalPasteboard().string = result.getInsertableText()
+            }
 
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
 
