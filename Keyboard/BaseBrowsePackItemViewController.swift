@@ -257,7 +257,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
             }
         }
         self.layoutCategoryPanelView()
-        self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
+        self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
     }
     
 }

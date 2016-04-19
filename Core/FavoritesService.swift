@@ -10,6 +10,30 @@ import Foundation
 
 /// fetches favorites for current user and keeps them up to date
 /// also has methods to add/remove favorites
+
+// TODO: remove when favorites become a pack
+enum MediaItemFilter: Hashable, Equatable {
+    case category(Category)
+    
+    var hashValue: Int {
+        switch self {
+        case .category(let category):
+            return category.id.hashValue
+        }
+    }
+    
+    var type: String {
+        switch self {
+        case .category(_): return "category"
+        }
+    }
+}
+
+func ==(lhs: MediaItemFilter, rhs: MediaItemFilter) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+
 class FavoritesService: UserMediaItemsViewModel {
     static let defaultInstance = FavoritesService()
     private(set) var ids: Set<String> = []

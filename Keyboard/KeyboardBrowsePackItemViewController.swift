@@ -28,7 +28,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
-            self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.filteredMediaItems.count, imageUrl: self.pack?.smallImageURL)
+            self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
             self.hideLoadingView()
             self.collectionView?.reloadData()
         }

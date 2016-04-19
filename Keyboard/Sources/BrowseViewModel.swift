@@ -8,37 +8,10 @@
 
 import Foundation
 
-enum MediaItemFilter: Hashable, Equatable {
-    case category(Category)
-
-    var hashValue: Int {
-        switch self {
-        case .category(let category):
-            return category.id.hashValue
-        }
-    }
-
-    var type: String {
-        switch self {
-        case .category(_): return "category"
-        }
-    }
-}
-
-func ==(lhs: MediaItemFilter, rhs: MediaItemFilter) -> Bool {
-    return lhs.hashValue == rhs.hashValue
-}
-
 class BrowseViewModel: MediaItemGroupViewModel {
-    var filteredMediaItems: [MediaItem]
-    var filters: [String: MediaItemFilter] = [:]
-    var mediaItems: [MediaItem]
-    let didChangeMediaItems = Event<[MediaItem]>()
+    let didChangeMediaItems = Event<[MediaItemGroup]>()
     
     init(path: String = "trending") {
-        filteredMediaItems = []
-        mediaItems = []
-
         super.init(baseRef: Firebase(url: BaseURL), path: path)
 
     }
@@ -65,60 +38,19 @@ class BrowseViewModel: MediaItemGroupViewModel {
         })
     }
 
-    func applyFilter(filter: MediaItemFilter) {
-        filteredMediaItems = []
-        filters[filter.type] = filter
-        generateMediaItemGroups()
-        didChangeMediaItems.emit(self.mediaItems)
-    }
-
-    func generateMediaItemGroups() -> [MediaItemGroup] {
-        if !mediaItems.isEmpty {
-            return separateGroupByArtists(mediaItems)
+    func applyFilter(filter: Category) {
+        for group in mediaItemGroups {
+            group.filterMediaItems(filter)
         }
-        return []
+        didChangeMediaItems.emit(mediaItemGroups)
     }
-
-    private func separateGroupByArtists(items: [MediaItem]) -> [MediaItemGroup] {
-        if filteredMediaItems != items {
-            for item in items {
-                guard let item = item as? MediaItem else {
-                    continue
-                }
-
-                // Check for filters, if present applies them
-                if shouldFilterMediaItem(item) {
-                    continue
-                }
-                filteredMediaItems.append(item)
-            }
+    
+    func getItemCount() -> Int {
+        var count = 0
+        for group in mediaItemGroups {
+            count += group.items.count
         }
-
-        return mediaItemGroups
-    }
-
-    private func shouldFilterMediaItem(item: MediaItem) -> Bool {
-        for filter in filters.values {
-            switch filter {
-            case .category(let category):
-                guard let itemCategory = item.category else {
-                    if category.id == Category.all.id {
-                        return false
-                    }
-                    return true
-                }
-
-                if category.id == Category.all.id {
-                    return false
-                }
-
-                if itemCategory.id != category.id {
-                    return true
-                }
-            }
-        }
-        
-        return false
+        return count
     }
 
 }

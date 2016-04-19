@@ -24,10 +24,7 @@ class PackItemViewModel: BrowseViewModel {
     override func fetchData() {
         ref.observeEventType(.Value, withBlock: { snapshot in
             if let data = snapshot.value as? NSDictionary {
-                self.pack = PackMediaItem(data: data)
-                self.mediaItems = self.pack!.items
-                self.filteredMediaItems = self.pack!.items
-                
+                self.pack = PackMediaItem(data: data)                
                 self.mediaItemGroups = self.pack!.getMediaItemGroups()
                 self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
             }
