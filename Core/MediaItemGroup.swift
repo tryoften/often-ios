@@ -11,17 +11,31 @@ import Foundation
 
 class MediaItemGroup: Equatable {
     var id: String?
-    var items: [MediaItem] = []
+    private var originalItems: [MediaItem] = []
+    var items: [MediaItem] {
+        get {
+            if filteredItems.isEmpty {
+                return originalItems
+            } else {
+                return filteredItems
+            }
+        }
+        
+        set {
+            originalItems = newValue
+        }
+   }
     var score: Int?
     var title: String?
     var type: MediaType = .Other
-
+    private var filteredItems: [MediaItem] = []
+    
     /**
      Returns an array of models based on given dictionary.
-
+     
      Sample usage:
      let groups = MediaItemGroup.modelsFromDictionaryArray(someDictionaryArrayFromJSON)
-
+     
      - parameter array:  NSArray from JSON dictionary.
      - returns: Array of MediaItemGroup Instances.
      */
@@ -34,48 +48,85 @@ class MediaItemGroup: Equatable {
         }
         return models
     }
-
+    
     /**
      Constructs the object based on the given dictionary.
-
+     
      Sample usage:
      let group = MediaItemGroup(someDictionaryFromJSON)
-
+     
      - parameter dictionary:  NSDictionary from JSON.
      - returns: MediaItemGroup Instance.
      */
     init(dictionary: NSDictionary) {
+        self.items = []
         id = dictionary["id"] as? String
         if let items = dictionary["items"] as? NSArray {
             self.items = MediaItem.modelsFromDictionaryArray(items)
         }
-
+        
         if let items = dictionary["results"] as? NSArray {
             self.items = MediaItem.modelsFromDictionaryArray(items)
         }
-
+        
         score = dictionary["score"] as? Int
-
+        
         if let typeStr = dictionary["type"] as? String, let type = MediaType(rawValue: typeStr) {
             self.type = type
         }
-
+        
         if let title = dictionary["title"] as? String {
             self.title = title
         } else {
             self.title = "\(items.count) \(type)s"
         }
-
-     }
-
+        
+    }
+    
+    func filterMediaItems(category: Category) {
+        filteredItems = []
+        
+        for item in originalItems {
+            // Check for filters, if present applies them
+            if shouldFilterMediaItem(category, item: item) {
+                continue
+            }
+            
+            filteredItems.append(item)
+        }
+    }
+    
+    
+    private func shouldFilterMediaItem(category: Category, item: MediaItem) -> Bool {
+        guard let itemCategory = item.category else {
+            if category.id == Category.all.id {
+                return false
+            }
+            return true
+        }
+        
+        if category.id == Category.all.id {
+            return false
+        }
+        
+        if itemCategory.id != category.id {
+            return true
+        }
+        
+        
+        return false
+    }
+    
+    
+    
     /**
      Returns the dictionary representation for the current instance.
-
+     
      - returns: NSDictionary.
      */
     func toDictionary() -> NSDictionary {
         let dictionary = NSMutableDictionary()
-
+        
         dictionary.setValue(self.id, forKey: "id")
         dictionary.setValue(self.score, forKey: "score")
         dictionary.setValue(self.title, forKey: "title")
