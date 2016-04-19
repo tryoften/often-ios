@@ -15,7 +15,6 @@ class KeyboardViewModel: NSObject {
     override init() {
         sessionManagerFlags.userHasOpenedKeyboard = true
         firebaseRef = Firebase(url: BaseURL)
-        CacheConfig.setupStandardConfig()
         
         _ = ParseConfig.defaultConfig
         
