@@ -17,6 +17,7 @@ class PackMediaItem: MediaItem {
     var premium: Bool = false
     var price: Double = 0.0
     var categories: [Category] = []
+    var published: Bool = false
     
     required init(data: NSDictionary) {
         super.init(data: data)
@@ -64,6 +65,10 @@ class PackMediaItem: MediaItem {
         
         if let price = data["price"] as? Double {
             self.price = price
+        }
+
+        if let published = data["published"] as? Bool {
+            self.published = published
         }
     }
 
