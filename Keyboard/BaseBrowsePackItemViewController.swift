@@ -15,7 +15,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     var categoriesVC: CategoryCollectionViewController? = nil
     var panelToggleListener: Listener?
     var HUDMaskView: UIView?
-    var gifsHorizontalVC: GifsHorizontalViewController?
     var pack: PackMediaItem? {
         didSet {
             cellsAnimated = [:]
@@ -35,7 +34,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         super.init(viewModel: viewModel)
         self.textProcessor = textProcessor
         
-        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
+        collectionView?.registerClass(GifHorizontalCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,13 +94,11 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         
         switch group.type {
         case .Gif:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(gifCellReuseIdentifier, forIndexPath: indexPath)
-            let gifsVC = provideGifsHorizontalCollectionViewController()
-            gifsVC.group = group
-            cell.backgroundColor = UIColor.clearColor()
-            cell.contentView.addSubview(gifsVC.view)
-            gifsVC.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-            gifsVC.view.frame = cell.bounds
+            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(gifCellReuseIdentifier, forIndexPath: indexPath) as? GifHorizontalCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.group = group
+            cell.textProcessor = textProcessor
             return cell
         case .Quote:
             let cell = parseMediaItemData(groupAtIndex(indexPath.section)?.items, indexPath: indexPath, collectionView: collectionView)
@@ -115,14 +112,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         
     }
     
-    func provideGifsHorizontalCollectionViewController() -> GifsHorizontalViewController {
-        if gifsHorizontalVC == nil {
-            gifsHorizontalVC = GifsHorizontalViewController()
-            gifsHorizontalVC?.textProcessor = textProcessor
-            addChildViewController(gifsHorizontalVC!)
-        }
-        return gifsHorizontalVC!
-    }
+
     
     func loadPackData()  {
         pack = nil
