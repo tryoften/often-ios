@@ -14,12 +14,18 @@ class PacksViewModel: MediaItemsViewModel {
     }
     
     func generatePacksGroup(items: [MediaItem]) -> [MediaItemGroup] {
+        guard let packs = items as? [PackMediaItem] else {
+            return [MediaItemGroup]()
+        }
+
         let group = MediaItemGroup(dictionary: [
             "id": "packs",
             "title": "Packs",
             "type": "pack"
             ])
-        group.items = items
+        group.items = packs.filter { item in
+            return item.published
+        }
         
         return [group]
     }
