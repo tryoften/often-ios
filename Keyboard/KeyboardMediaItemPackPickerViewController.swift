@@ -36,9 +36,6 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
 
-            if let width = self.collectionView?.contentSize.width {
-                self.packPanelView.slider.maximumValue = Float(width + ArtistCollectionViewCellWidth)
-            }
         }
 
         view.backgroundColor = VeryLightGray
@@ -89,6 +86,10 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         if section == 0 {
             return 1
         }
+
+        let count = viewModel.mediaItems.count <= 1 ? 0: viewModel.mediaItems.count
+
+        self.packPanelView.slider.maximumValue = Float(ArtistCollectionViewCellWidth * CGFloat(count))
 
         return viewModel.mediaItems.count
     }
@@ -161,7 +162,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     }
 
     func sliderDidChange(sender: UISlider) {
-        collectionView?.setContentOffset(CGPointMake(CGFloat(sender.value), 40), animated: false)
+        collectionView?.setContentOffset(CGPointMake(CGFloat(sender.value) - 12 , 40), animated: false)
     }
 
        // MARK: LaunchMainApp
