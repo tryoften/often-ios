@@ -192,6 +192,16 @@
 		3BC55AC41C8A264600363AB0 /* MediaItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55AC21C8A264600363AB0 /* MediaItemDetailView.swift */; };
 		3BC55AC51C8A264600363AB0 /* MediaItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55AC21C8A264600363AB0 /* MediaItemDetailView.swift */; };
 		3BC55AC61C8A264600363AB0 /* MediaItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55AC21C8A264600363AB0 /* MediaItemDetailView.swift */; };
+		3BD522391CC6F31900A5577F /* NukeAnimatedImagePlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080F01CC57207009DA5E8 /* NukeAnimatedImagePlugin.framework */; };
+		3BD5223A1CC6F31900A5577F /* NukeAnimatedImagePlugin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080F01CC57207009DA5E8 /* NukeAnimatedImagePlugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3BD5223B1CC6F32300A5577F /* Nuke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080F21CC57207009DA5E8 /* Nuke.framework */; };
+		3BD5223C1CC6F32300A5577F /* Nuke.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080F21CC57207009DA5E8 /* Nuke.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3BD5223D1CC6F32A00A5577F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080E11CC557F3009DA5E8 /* Alamofire.framework */; };
+		3BD5223E1CC6F32A00A5577F /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080E11CC557F3009DA5E8 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3BD5223F1CC6F33F00A5577F /* NukeAlamofirePlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080F11CC57207009DA5E8 /* NukeAlamofirePlugin.framework */; };
+		3BD522401CC6F33F00A5577F /* NukeAlamofirePlugin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080F11CC57207009DA5E8 /* NukeAlamofirePlugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3BD522411CC6F40000A5577F /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C081051CC5769F009DA5E8 /* FLAnimatedImage.framework */; };
+		3BD522421CC6F40000A5577F /* FLAnimatedImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81C081051CC5769F009DA5E8 /* FLAnimatedImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3BE0BCA31BEDB8B700037E21 /* MediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C663211B8B6FA60014433D /* MediaItemsViewModel.swift */; };
 		3BE12EF31BEF020800F300FA /* MediaItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsViewController.swift */; };
 		3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
@@ -1280,7 +1290,12 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3BD5223C1CC6F32300A5577F /* Nuke.framework in Embed Frameworks */,
+				3BD522421CC6F40000A5577F /* FLAnimatedImage.framework in Embed Frameworks */,
 				81DA3F701C24BE85006822D3 /* Spring.framework in Embed Frameworks */,
+				3BD5223A1CC6F31900A5577F /* NukeAnimatedImagePlugin.framework in Embed Frameworks */,
+				3BD522401CC6F33F00A5577F /* NukeAlamofirePlugin.framework in Embed Frameworks */,
+				3BD5223E1CC6F32A00A5577F /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1817,11 +1832,14 @@
 				81DA3F401C24BE85006822D3 /* libz.dylib in Frameworks */,
 				3B25C6C21C861F3A00C1BD74 /* CoreData.framework in Frameworks */,
 				3B25C6A91C861F3A00C1BD74 /* Accounts.framework in Frameworks */,
+				3BD5223B1CC6F32300A5577F /* Nuke.framework in Frameworks */,
 				3B25C6C71C861F3A00C1BD74 /* QuartzCore.framework in Frameworks */,
 				81DA3F431C24BE85006822D3 /* Social.framework in Frameworks */,
+				3BD522391CC6F31900A5577F /* NukeAnimatedImagePlugin.framework in Frameworks */,
 				3B25C69A1C861F3A00C1BD74 /* CoreGraphics.framework in Frameworks */,
 				81DA3F471C24BE85006822D3 /* Spring.framework in Frameworks */,
 				3B25C6B81C861F3A00C1BD74 /* CoreText.framework in Frameworks */,
+				3BD5223D1CC6F32A00A5577F /* Alamofire.framework in Frameworks */,
 				81DA3F481C24BE85006822D3 /* QuartzCore.framework in Frameworks */,
 				81DA3F491C24BE85006822D3 /* MobileCoreServices.framework in Frameworks */,
 				3B25C6B31C861F3A00C1BD74 /* CoreMedia.framework in Frameworks */,
@@ -1837,7 +1855,9 @@
 				81DA3F511C24BE85006822D3 /* libPods-Often.a in Frameworks */,
 				3B25C6AE1C861F3A00C1BD74 /* Security.framework in Frameworks */,
 				3B25C6D11C861F3A00C1BD74 /* Foundation.framework in Frameworks */,
+				3BD522411CC6F40000A5577F /* FLAnimatedImage.framework in Frameworks */,
 				811E6EB41C6AE192008B789C /* Crashlytics.framework in Frameworks */,
+				3BD5223F1CC6F33F00A5577F /* NukeAlamofirePlugin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

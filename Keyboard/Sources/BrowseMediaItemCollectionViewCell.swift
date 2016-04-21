@@ -125,6 +125,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         imageView.image = nil
+        highlightColorBorder.hidden = true
     }
 
     func setupLayout() {

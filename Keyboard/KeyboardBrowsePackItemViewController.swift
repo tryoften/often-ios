@@ -27,6 +27,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             })
         }
 
+
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
             self.hideLoadingView()
@@ -59,7 +60,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         
         if section == 0 {
-            return UIEdgeInsetsMake(51.0, 0, 0, 0)
+            return UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
         } else if section == viewModel.mediaItemGroups.count - 1 {
             return UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
         } else {
@@ -91,7 +92,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             return CGSizeZero
         }
     }
-    
+
     override func setupCategoryCollectionViewController() {
         super.setupCategoryCollectionViewController()
         categoriesVC?.delegate = self
@@ -111,5 +112,11 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     func categoriesCollectionViewControlleDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
         SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
+    }
+
+    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: false)
+
+        return animator
     }
 }
