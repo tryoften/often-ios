@@ -9,25 +9,26 @@
 import Spring
 
 class GifCellOverlayView : UIView {
-    let favoriteButton : SpringButton
-    let copyButton : SpringButton
+    let loaderView: UIImageView
+    let primaryTextLabel: UILabel
     
     override init(frame: CGRect) {
-        favoriteButton = SpringButton()
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.setImage(StyleKit.imageOfFavorite(scale: 0.5, color: WhiteColor), forState: .Normal)
-        favoriteButton.setImage(StyleKit.imageOfFavorite(scale: 0.5, favorited: true), forState: .Selected)
-        
-        copyButton = SpringButton()
-        copyButton.translatesAutoresizingMaskIntoConstraints = false
-        copyButton.setImage(StyleKit.imageOfClipboard(scale: 0.5, color: WhiteColor), forState: .Normal)
-        copyButton.setImage(StyleKit.imageOfClipboard(scale: 0.5, selected: true), forState: .Selected)
+        primaryTextLabel = UILabel()
+        primaryTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        primaryTextLabel.textAlignment = .Center
+        primaryTextLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 10.0)!,
+                                     letterSpacing: 1.0,
+                                     color: WhiteColor,
+                                     text: "Copied!".uppercaseString)
+
+        loaderView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
+        loaderView.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(frame: frame)
-        
-        addSubview(favoriteButton)
-        addSubview(copyButton)
-        
+
+        addSubview(loaderView)
+        addSubview(primaryTextLabel)
+
         setupLayout()
         backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
     }
@@ -36,56 +37,35 @@ class GifCellOverlayView : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func showButtons(completion: () -> ()) {
-        func setupAnimation(button: SpringButton) {
-            button.animation = "slideUp"
-            button.duration = 0.2
-            button.curve = "easeIn"
-        }
-        
-        for button in [favoriteButton, copyButton] {
-            button.selected = false
-        }
-        
-        setupAnimation(favoriteButton)
-        favoriteButton.animate()
-        
-        setupAnimation(copyButton)
-        copyButton.delay = 0.1
-        copyButton.animateNext(completion)
-    }
-    
-    func hideButtons(completion: () -> ()) {
-        func setupAnimation(button: SpringButton) {
-            button.animation = "slideDown"
-            button.duration = 0.2
-            button.curve = "easeOut"
-        }
-        
-        for button in [favoriteButton, copyButton] {
-            button.selected = false
-        }
-        
-        setupAnimation(favoriteButton)
-        favoriteButton.animate()
-        
-        setupAnimation(copyButton)
-        copyButton.delay = 0.1
-        copyButton.animateNext(completion)
-    }
-    
     func setupLayout() {
         addConstraints([
-            
-            favoriteButton.al_centerY == al_centerY,
-            favoriteButton.al_width == 40,
-            favoriteButton.al_height == favoriteButton.al_width,
-            favoriteButton.al_right == al_centerX - 12,
-            
-            copyButton.al_centerY == al_centerY,
-            copyButton.al_width == favoriteButton.al_width,
-            copyButton.al_height == favoriteButton.al_height,
-            copyButton.al_left == al_centerX + 12
+            primaryTextLabel.al_left == al_left,
+            primaryTextLabel.al_right == al_right,
+            primaryTextLabel.al_centerY == al_centerY,
+
+            loaderView.al_centerY == al_centerY,
+            loaderView.al_centerX == al_centerX,
+            loaderView.al_width == 40,
+            loaderView.al_height == 40
         ])
+    }
+
+    func reset() {
+        loaderView.alpha = 0
+        primaryTextLabel.alpha = 0
+    }
+
+    func startLoader() {
+        reset()
+        UIView.animateWithDuration(0.3) {
+            self.loaderView.alpha = 1.0
+        }
+    }
+
+    func showSuccessMessage() {
+        UIView.animateWithDuration(0.3) {
+            self.loaderView.alpha = 0
+            self.primaryTextLabel.alpha = 1.0
+        }
     }
 }
