@@ -21,7 +21,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         if packId.isEmpty {
             packServiceListener = PacksService.defaultInstance.didUpdatePacks.once({ items in
                 if let packId = items.first?.pack_id {
-                    self.packId = packId
+                    viewModel.packId = packId
                     self.loadPackData()
                 }
             })

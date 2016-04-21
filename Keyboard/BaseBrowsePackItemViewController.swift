@@ -24,11 +24,9 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
             headerViewDidLoad()
         }
     }
-    var packId: String
     var panelStyle: CategoryPanelStyle
     
     init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        self.packId = packId
         self.panelStyle = panelStyle
         
         super.init(viewModel: viewModel)
