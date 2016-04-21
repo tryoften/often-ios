@@ -23,9 +23,9 @@ class PacksViewModel: MediaItemsViewModel {
             "title": "Packs",
             "type": "pack"
             ])
-        group.items = packs.filter { item in
-            return item.published
-        }
+        group.items = packs
+            .filter { $0.published }
+            .sort { $0.publishedTime.compare($1.publishedTime) == .OrderedDescending }
         
         return [group]
     }
