@@ -15,6 +15,8 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     var categoriesVC: CategoryCollectionViewController? = nil
     var panelToggleListener: Listener?
     var HUDMaskView: UIView?
+    var menuButton: AnimatedMenuButton?
+
     var pack: PackMediaItem? {
         didSet {
             cellsAnimated = [:]
@@ -128,20 +130,12 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         
         let togglePackSelector = #selector(BaseBrowsePackItemViewController.togglePack)
         let toggleRecognizer = UITapGestureRecognizer(target: self, action: togglePackSelector)
-        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.toggleCategoryViewController)
-        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
         
         categoriesVC.panelView.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
         categoriesVC.panelView.togglePackSelectedView.userInteractionEnabled = true
         
+        setupHudView()
         
-        HUDMaskView = UIView()
-        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
-        HUDMaskView?.hidden = true
-        HUDMaskView?.userInteractionEnabled = true
-        HUDMaskView?.addGestureRecognizer(hudRecognizer)
-        
-        view.addSubview(HUDMaskView!)
         view.addSubview(categoriesVC.view)
         addChildViewController(categoriesVC)
         
@@ -167,6 +161,24 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         layoutCategoryPanelView()
     }
     
+    func setupHudView() {
+        
+        if HUDMaskView != nil {
+            return
+        }
+        
+        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.toggleCategoryViewController)
+        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
+        
+        HUDMaskView = UIView()
+        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
+        HUDMaskView?.hidden = true
+        HUDMaskView?.userInteractionEnabled = true
+        HUDMaskView?.addGestureRecognizer(hudRecognizer)
+        
+        view.addSubview(HUDMaskView!)
+    }
+    
     func layoutCategoryPanelView() {
         let height: CGFloat
         if categoriesVC?.panelView.style == .Detailed {
@@ -188,14 +200,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         }
         
         categoriesVC.panelView.mediaItemTitleText = title
-        
-        if let itemCount = itemCount {
-            categoriesVC.panelView.currentCategoryCount = String(itemCount)
-        }
-        
-        if let imageURL = imageUrl {
-            categoriesVC.panelView.mediaItemImageView.nk_setImageWith(imageURL)
-        }
         
     }
     
@@ -221,6 +225,9 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         }
         self.layoutCategoryPanelView()
         self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
+        
+        if let menuButton = menuButton, imageURL = self.pack?.smallImageURL {
+            menuButton.startButton.contentImageView.nk_setImageWith(imageURL)
+        }
     }
-    
 }

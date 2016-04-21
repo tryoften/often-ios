@@ -8,15 +8,22 @@
 
 import Foundation
 
-class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate {
+class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate, AwesomeMenuDelegate {
     var packServiceListener: Listener? = nil
     var packViewModel: PackItemViewModel
 
     override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         packViewModel = viewModel
+        
+
+
+        
         super.init(packId: packId, panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         packViewModel.delegate = self
         showLoadingView()
+
+        menuButton = AnimatedMenuButton(frame: CGRectMake(0, 0, view.frame.width, KeyboardHeight))
+        menuButton!.delegate = self
         
         if packId.isEmpty {
             packServiceListener = PacksService.defaultInstance.didUpdatePacks.once({ items in
@@ -28,6 +35,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
 
+        setupHudView()
+
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
             self.hideLoadingView()
@@ -37,6 +46,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
         }
+        
+        view.addSubview(menuButton!)
         
     }
     
@@ -119,4 +130,33 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         return animator
     }
+
+    // AwesomeMenu Delegate Methods
+    func awesomeMenu(menu: AwesomeMenu!, didSelectIndex idx: Int) {
+    }
+    
+    func awesomeMenuWillAnimateOpen(menu: AwesomeMenu!) {
+        guard let maskView = self.HUDMaskView else {
+            return
+        }
+        
+        maskView.hidden = false
+        maskView.alpha = 0
+        
+        UIView.animateWithDuration(0.3, animations: {
+            maskView.alpha = 1.0
+            }, completion: nil)
+    }
+    
+    func awesomeMenuWillAnimateClose(menu: AwesomeMenu!) {
+        
+        guard let maskView = self.HUDMaskView else {
+            return
+        }
+        
+        UIView.animateWithDuration(0.3, animations: {
+            maskView.alpha = 0.0
+            }, completion: nil)
+    }
+
 }

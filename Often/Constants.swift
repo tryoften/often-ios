@@ -12,7 +12,7 @@ import Foundation
     var BaseURL = "https://often-dev.firebaseio.com/"
     let KeyboardIdentifier = "com.tryoften.often.master.Keyboard"
 #else
-    var BaseURL = "https://often-prod.firebaseio.com/"
+    var BaseURL = "https://often-dev.firebaseio.com/"
     let KeyboardIdentifier = "com.tryoften.often.Keyboard"
 #endif
 var AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
@@ -95,7 +95,7 @@ let LyricSelectedEventIdentifier = "lyric:selected"
 
 let CoverArtViewImageWidth: CGFloat = 35.0
 
-let SectionPickerViewHeight: CGFloat = 40.0
+let SectionPickerViewHeight: CGFloat = 30.5
 let SectionPickerViewOpenedHeight: CGFloat = 200.0
 let SectionPickerViewSwitchArtistHeight: CGFloat = 20.0
 let SectionPickerViewBackgroundColor = UIColor.oftBlack74Color()
