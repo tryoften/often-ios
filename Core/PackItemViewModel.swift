@@ -14,8 +14,14 @@ class PackItemViewModel: BrowseViewModel {
             ref = baseRef.childByAppendingPath("packs/\(packId)")
         }
     }
-    var pack: PackMediaItem?
     
+    var pack: PackMediaItem?
+    var typeFilter: MediaType = .Gif {
+        didSet {
+            delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
+        }
+    }
+
     init(packId: String) {
         self.packId = packId
         super.init(path: "packs/\(packId)")
@@ -29,5 +35,14 @@ class PackItemViewModel: BrowseViewModel {
                 self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
             }
         })
+    }
+
+    func getMediaItemGroupForCurrentType() -> MediaItemGroup? {
+        for group in mediaItemGroups {
+            if group.type == typeFilter {
+                return group
+            }
+        }
+        return nil
     }
 }
