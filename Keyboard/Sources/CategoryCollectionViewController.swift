@@ -133,7 +133,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row < categories.count {
             let category = categories[indexPath.row]
-            delegate?.categoriesCollectionViewControlleDidSwitchCategory(self, category: category, categoryIndex: indexPath.row)
+            delegate?.categoriesCollectionViewControllerDidSwitchCategory(self, category: category, categoryIndex: indexPath.row)
             currentCategory = category
             panelView.toggleDrawer()
 
@@ -148,5 +148,5 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
 }
 
 protocol CategoriesCollectionViewControllerDelegate: class {
-    func categoriesCollectionViewControlleDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int)
+    func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int)
 }

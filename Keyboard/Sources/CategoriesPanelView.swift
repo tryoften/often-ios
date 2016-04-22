@@ -14,8 +14,6 @@ enum CategoryPanelStyle {
 
 class CategoriesPanelView: UIView {
     var switchKeyboardButton: UIButton
-    var togglePackSelectedView: UIView
-    var toggleCategorySelectedView: UIView
 
     var topSeperator: UIView
     var bottomSeperator: UIView
@@ -74,9 +72,6 @@ class CategoriesPanelView: UIView {
         mediaItemTitle.userInteractionEnabled = true
         mediaItemTitle.textAlignment = .Left
 
-        togglePackSelectedView = UIView()
-        togglePackSelectedView.translatesAutoresizingMaskIntoConstraints = false
-
         topSeperator = UIView()
         topSeperator.backgroundColor = DarkGrey
 
@@ -96,9 +91,6 @@ class CategoriesPanelView: UIView {
         toolbarView.layer.shadowOpacity = 0.8
         toolbarView.layer.shadowColor = DarkGrey.CGColor
         toolbarView.layer.shadowRadius = 4
-
-        toggleCategorySelectedView = UIView()
-        toggleCategorySelectedView.translatesAutoresizingMaskIntoConstraints = false
 
         switchKeyboardButton = UIButton()
         switchKeyboardButton.setImage(StyleKit.imageOfGlobe(scale: 1.1), forState: .Normal)
@@ -133,16 +125,9 @@ class CategoriesPanelView: UIView {
         toolbarView.addSubview(middleCategoryLabel)
         toolbarView.addSubview(switchKeyboardButton)
         toolbarView.addSubview(mediaItemTitle)
-        toolbarView.addSubview(togglePackSelectedView)
-        toolbarView.addSubview(toggleCategorySelectedView)
 
         setupLayout()
         setupPanelStyle()
-
-        let toggleSelector = Selector("toggleDrawer")
-        tapRecognizer = UITapGestureRecognizer(target: self, action: toggleSelector)
-//        toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
-        toggleCategorySelectedView.addGestureRecognizer(tapRecognizer)
     }
     
     func setupPanelStyle() {
@@ -197,10 +182,9 @@ class CategoriesPanelView: UIView {
             toolbarView.al_height == SectionPickerViewHeight,
 
             // switch keyboard button
-            switchKeyboardButton.al_left == al_left,
+            switchKeyboardButton.al_left == al_left + 4,
             switchKeyboardButton.al_centerY == toolbarView.al_centerY,
             switchKeyboardButton.al_height == SectionPickerViewHeight,
-            switchKeyboardButton.al_right == mediaItemTitle.al_left,
             switchKeyboardButton.al_width == switchKeyboardButton.al_height,
 
             // media item title label
@@ -208,25 +192,10 @@ class CategoriesPanelView: UIView {
             mediaItemTitle.al_centerY == toolbarView.al_centerY,
             mediaItemTitle.al_right == al_centerX,
             mediaItemTitle.al_height == SectionPickerViewHeight,
-            mediaItemTitle.al_top == toggleCategorySelectedView.al_top,
-
-            // current category view
-            toggleCategorySelectedView.al_left == mediaItemTitle.al_right,
-            toggleCategorySelectedView.al_right == toolbarView.al_right,
-            toggleCategorySelectedView.al_height == SectionPickerViewHeight,
-            toggleCategorySelectedView.al_top == toolbarView.al_top,
-
-            // toggle pack selected view
-            togglePackSelectedView.al_centerY == toolbarView.al_centerY,
-            togglePackSelectedView.al_left == switchKeyboardButton.al_right,
-            togglePackSelectedView.al_right == mediaItemTitle.al_right,
-            togglePackSelectedView.al_height == SectionPickerViewHeight,
 
             // current category label
-            currentCategoryLabel.al_left == mediaItemTitle.al_right + 10,
-            currentCategoryLabel.al_right == al_right - 7,
+            currentCategoryLabel.al_right == al_right - 12,
             currentCategoryLabel.al_height == SectionPickerViewHeight,
-            currentCategoryLabel.al_top == toggleCategorySelectedView.al_top,
             currentCategoryLabel.al_centerY == switchKeyboardButton.al_centerY,
 
             //middle category label
@@ -244,7 +213,6 @@ class CategoriesPanelView: UIView {
     }
 
     func open() {
-        togglePackSelectedView.userInteractionEnabled = false
         categoriesCollectionView.reloadData()
 
         UIView.animateWithDuration(0.25) {
@@ -257,8 +225,6 @@ class CategoriesPanelView: UIView {
     }
 
     func close() {
-        togglePackSelectedView.userInteractionEnabled = true
-
         UIView.animateWithDuration(0.25) {
             var frame = self.frame
             switch self.style {

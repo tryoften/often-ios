@@ -15,9 +15,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         packViewModel = viewModel
         
-
-
-        
         super.init(packId: packId, panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         packViewModel.delegate = self
         showLoadingView()
@@ -33,7 +30,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 }
             })
         }
-
 
         setupHudView()
 
@@ -121,7 +117,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         loadPackData()
     }
 
-    func categoriesCollectionViewControlleDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
+    func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
         SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
     }
 
