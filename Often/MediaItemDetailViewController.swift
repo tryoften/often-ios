@@ -132,14 +132,12 @@ class MediaItemDetailViewController: UIViewController {
             mediaItemDetailView.mediaItemCategoryButton.setTitle(Category.all.name.uppercaseString, forState: .Normal)
         }
         
-        mediaItemDetailView.cancelButton.addTarget(self, action: "dismissView", forControlEvents: .TouchUpInside)
-        mediaItemDetailView.insertButton.addTarget(self, action: "insertButtonDidTap:", forControlEvents: .TouchUpInside)
-        mediaItemDetailView.copyButton.addTarget(self, action: "copyButtonDidTap:", forControlEvents: .TouchUpInside)
-            mediaItemDetailView.favoriteButton.addTarget(self, action: "favoriteButtonDidTap:", forControlEvents: .TouchUpInside)
-        mediaItemDetailView.favoriteButton.selected = FavoritesService.defaultInstance.checkFavorite(item)
+        mediaItemDetailView.cancelButton.addTarget(self, action: #selector(MediaItemDetailViewController.dismissView), forControlEvents: .TouchUpInside)
+        mediaItemDetailView.insertButton.addTarget(self, action: #selector(MediaItemDetailViewController.insertButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        mediaItemDetailView.copyButton.addTarget(self, action: #selector(MediaItemDetailViewController.copyButtonDidTap(_:)), forControlEvents: .TouchUpInside)
 
         let tapRecognizer = UITapGestureRecognizer()
-        tapRecognizer.addTarget(self, action: "dismissView")
+        tapRecognizer.addTarget(self, action: #selector(MediaItemDetailViewController.dismissView))
 
         tintView.addGestureRecognizer(tapRecognizer)
         tintView.userInteractionEnabled = true

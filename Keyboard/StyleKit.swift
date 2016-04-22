@@ -2529,29 +2529,19 @@ public class StyleKit : NSObject {
 
         //// icon
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50997 * frame.width, frame.minY + 0.49000 * frame.height)
+        CGContextTranslateCTM(context, frame.minX + 0.50740 * frame.width, frame.minY + 0.49500 * frame.height)
         CGContextScaleCTM(context, scale, scale)
 
 
 
         //// Label Drawing
-        let labelRect = CGRect(x: -24.23, y: -15.5, width: 21.94, height: 31)
+        let labelRect = CGRect(x: -24.97, y: -14, width: 49.94, height: 28)
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .Left
 
-        let labelFontAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Light", size: 21)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: labelStyle]
+        let labelFontAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 21)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: labelStyle]
 
-        "GI".drawInRect(labelRect, withAttributes: labelFontAttributes)
-
-
-        //// Label 2 Drawing
-        let label2Rect = CGRect(x: -0.42, y: -15.5, width: 24.65, height: 31)
-        let label2Style = NSMutableParagraphStyle()
-        label2Style.alignment = .Left
-
-        let label2FontAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Light", size: 21)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: label2Style]
-
-        "FS".drawInRect(label2Rect, withAttributes: label2FontAttributes)
+        "GIFS\n".drawInRect(labelRect, withAttributes: labelFontAttributes)
 
 
 
@@ -2573,21 +2563,21 @@ public class StyleKit : NSObject {
 
 
         //// Label Drawing
-        let labelRect = CGRect(x: -2.81, y: -11.5, width: 17.23, height: 36)
+        let labelRect = CGRect(x: -8.81, y: -13.5, width: 17.23, height: 36)
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .Left
 
-        let labelFontAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Light", size: 24)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: labelStyle]
+        let labelFontAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 24)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: labelStyle]
 
         "A".drawInRect(labelRect, withAttributes: labelFontAttributes)
 
 
         //// Label 2 Drawing
-        let label2Rect = CGRect(x: -14.42, y: -34.5, width: 13.52, height: 69)
+        let label2Rect = CGRect(x: -20.82, y: -34.5, width: 19.92, height: 69)
         let label2Style = NSMutableParagraphStyle()
         label2Style.alignment = .Left
 
-        let label2FontAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Light", size: 48)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: label2Style]
+        let label2FontAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 48)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: label2Style]
 
         "“".drawInRect(label2Rect, withAttributes: label2FontAttributes)
 

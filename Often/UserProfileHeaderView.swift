@@ -101,7 +101,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         userProfilePlaceholder.layer.borderWidth = 2
         userProfilePlaceholder.clipsToBounds = true
 
-
         profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .ScaleAspectFit
