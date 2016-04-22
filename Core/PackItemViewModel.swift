@@ -16,7 +16,11 @@ class PackItemViewModel: BrowseViewModel {
     }
     
     var pack: PackMediaItem?
-    var typeFilter: MediaType = .Gif
+    var typeFilter: MediaType = .Gif {
+        didSet {
+            delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
+        }
+    }
 
     init(packId: String) {
         self.packId = packId

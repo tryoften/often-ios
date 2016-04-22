@@ -1165,6 +1165,11 @@
 		BFBA72F01CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
 		BFBA72F11CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
 		BFBA72F21CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
+		BFCDB8691CC824D0001C1E88 /* AnimatedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCDB8681CC824D0001C1E88 /* AnimatedMenu.swift */; };
+		BFCDB86A1CC824D0001C1E88 /* AnimatedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCDB8681CC824D0001C1E88 /* AnimatedMenu.swift */; };
+		BFCDB86B1CC824D0001C1E88 /* AnimatedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCDB8681CC824D0001C1E88 /* AnimatedMenu.swift */; };
+		BFCDB86C1CC824D0001C1E88 /* AnimatedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCDB8681CC824D0001C1E88 /* AnimatedMenu.swift */; };
+		BFCDB86D1CC824D0001C1E88 /* AnimatedMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCDB8681CC824D0001C1E88 /* AnimatedMenu.swift */; };
 		BFD877851CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877861CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877871CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
@@ -1174,6 +1179,16 @@
 		BFD8778C1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */; };
 		BFD8778D1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */; };
 		BFD8778E1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */; };
+		BFE741171CC9552900F55DD9 /* AwesomeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE741141CC9552900F55DD9 /* AwesomeMenu.m */; };
+		BFE741181CC9552900F55DD9 /* AwesomeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE741141CC9552900F55DD9 /* AwesomeMenu.m */; };
+		BFE741191CC9552900F55DD9 /* AwesomeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE741141CC9552900F55DD9 /* AwesomeMenu.m */; };
+		BFE7411A1CC9552900F55DD9 /* AwesomeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE741141CC9552900F55DD9 /* AwesomeMenu.m */; };
+		BFE7411B1CC9552900F55DD9 /* AwesomeMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE741141CC9552900F55DD9 /* AwesomeMenu.m */; };
+		BFE7411C1CC9552900F55DD9 /* AwesomeMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE741161CC9552900F55DD9 /* AwesomeMenuItem.m */; };
+		BFE7411D1CC9552900F55DD9 /* AwesomeMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE741161CC9552900F55DD9 /* AwesomeMenuItem.m */; };
+		BFE7411E1CC9552900F55DD9 /* AwesomeMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE741161CC9552900F55DD9 /* AwesomeMenuItem.m */; };
+		BFE7411F1CC9552900F55DD9 /* AwesomeMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE741161CC9552900F55DD9 /* AwesomeMenuItem.m */; };
+		BFE741201CC9552900F55DD9 /* AwesomeMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE741161CC9552900F55DD9 /* AwesomeMenuItem.m */; };
 		BFEB1EBB1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */; };
 		BFEB1EBC1C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */; };
 /* End PBXBuildFile section */
@@ -1627,8 +1642,13 @@
 		BF9971581CC00942008351C7 /* PackItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackItemViewModel.swift; sourceTree = "<group>"; };
 		BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMediaItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifHorizontalCollectionViewCell.swift; sourceTree = "<group>"; };
+		BFCDB8681CC824D0001C1E88 /* AnimatedMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedMenu.swift; sourceTree = "<group>"; };
 		BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacksViewModel.swift; sourceTree = "<group>"; };
 		BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackMediaItem.swift; sourceTree = "<group>"; };
+		BFE741131CC9552900F55DD9 /* AwesomeMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AwesomeMenu.h; path = AwesomeMenu/AwesomeMenu.h; sourceTree = "<group>"; };
+		BFE741141CC9552900F55DD9 /* AwesomeMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AwesomeMenu.m; path = AwesomeMenu/AwesomeMenu.m; sourceTree = "<group>"; };
+		BFE741151CC9552900F55DD9 /* AwesomeMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AwesomeMenuItem.h; path = AwesomeMenu/AwesomeMenuItem.h; sourceTree = "<group>"; };
+		BFE741161CC9552900F55DD9 /* AwesomeMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AwesomeMenuItem.m; path = AwesomeMenu/AwesomeMenuItem.m; sourceTree = "<group>"; };
 		BFEB1EB91C7CE93100BDB0BE /* RecentlyAddedHorizontalCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentlyAddedHorizontalCollectionViewController.swift; sourceTree = "<group>"; };
 		C85359BC0D2B9C5AAD1BD2F3 /* Pods-Surf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.debug.xcconfig"; sourceTree = "<group>"; };
 		D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2130,6 +2150,7 @@
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				BFE741121CC9551C00F55DD9 /* AwesomeMenu */,
 				8192A7C51C6240F200B25AC6 /* EmitterKit */,
 				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
 				81C6EEE11C52A82D00BC061B /* UIKit+Guard.swift */,
@@ -2547,6 +2568,7 @@
 				69A7312B1C6011BF00F3DBAD /* EmojiKeyboardTableViewCell.swift */,
 				81F833841C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift */,
 				813323691C1F8A1A0084918B /* SlideTabBar.swift */,
+				BFCDB8681CC824D0001C1E88 /* AnimatedMenu.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -2732,6 +2754,17 @@
 				81E26D951B67C29D00FC1F2F /* Shape.swift */,
 			);
 			name = "Keyboard Views";
+			sourceTree = "<group>";
+		};
+		BFE741121CC9551C00F55DD9 /* AwesomeMenu */ = {
+			isa = PBXGroup;
+			children = (
+				BFE741131CC9552900F55DD9 /* AwesomeMenu.h */,
+				BFE741141CC9552900F55DD9 /* AwesomeMenu.m */,
+				BFE741151CC9552900F55DD9 /* AwesomeMenuItem.h */,
+				BFE741161CC9552900F55DD9 /* AwesomeMenuItem.m */,
+			);
+			name = AwesomeMenu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3542,6 +3575,7 @@
 				810EA4C41C8579D1005A6C6D /* KeyboardViewModel.swift in Sources */,
 				810EA4C51C8579D1005A6C6D /* UserProfileHeaderView.swift in Sources */,
 				813A1B681CAC4561006BBB2E /* BrowsePackCollectionViewController.swift in Sources */,
+				BFE7411F1CC9552900F55DD9 /* AwesomeMenuItem.m in Sources */,
 				810EA4C61C8579D1005A6C6D /* FrameView.swift in Sources */,
 				810EA4C71C8579D1005A6C6D /* KeyboardKey.swift in Sources */,
 				810EA4C81C8579D1005A6C6D /* MediaItemSource.swift in Sources */,
@@ -3581,6 +3615,7 @@
 				810EA4ED1C8579D1005A6C6D /* delay.swift in Sources */,
 				BF99715C1CC00942008351C7 /* PackItemViewModel.swift in Sources */,
 				810EA4EE1C8579D1005A6C6D /* BrowseViewModel.swift in Sources */,
+				BFE7411A1CC9552900F55DD9 /* AwesomeMenu.m in Sources */,
 				810EA4EF1C8579D1005A6C6D /* TwitterEmptyStateView.swift in Sources */,
 				BF9971561CBEF388008351C7 /* GifCellOverlayView.swift in Sources */,
 				810EA4F11C8579D1005A6C6D /* AccountManagerProtocol.swift in Sources */,
@@ -3645,6 +3680,7 @@
 				810EA52B1C8579D1005A6C6D /* TwitterAccountManager.swift in Sources */,
 				810EA52C1C8579D1005A6C6D /* LoginButton.swift in Sources */,
 				810EA52D1C8579D1005A6C6D /* CellAnimatable.swift in Sources */,
+				BFCDB86C1CC824D0001C1E88 /* AnimatedMenu.swift in Sources */,
 				810EA52E1C8579D1005A6C6D /* NJKScrollFullScreen.m in Sources */,
 				810EA5321C8579D1005A6C6D /* SessionManagerFlags.swift in Sources */,
 				810EA5331C8579D1005A6C6D /* Constants.swift in Sources */,
@@ -3748,6 +3784,7 @@
 				810EA5BE1C8579F1005A6C6D /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
 				810EA5BF1C8579F1005A6C6D /* SearchBarButton.swift in Sources */,
 				810EA5C01C8579F1005A6C6D /* AnimatedLoaderView.swift in Sources */,
+				BFE7411B1CC9552900F55DD9 /* AwesomeMenu.m in Sources */,
 				810EA5C11C8579F1005A6C6D /* MediaItemsViewController.swift in Sources */,
 				81F15C1B1CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */,
 				810EA5C21C8579F1005A6C6D /* KeyboardRecentsViewController.swift in Sources */,
@@ -3755,6 +3792,7 @@
 				810EA5C41C8579F1005A6C6D /* BrowseTrackCollectionViewController.swift in Sources */,
 				810EA5C61C8579F1005A6C6D /* StyleKit.swift in Sources */,
 				BF9971631CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */,
+				BFE741201CC9552900F55DD9 /* AwesomeMenuItem.m in Sources */,
 				810EA5C71C8579F1005A6C6D /* SessionManagerFlags.swift in Sources */,
 				8157AD831CB56982001D0B80 /* PackSubscription.swift in Sources */,
 				810EA5C81C8579F1005A6C6D /* SearchResultNavigationBar.swift in Sources */,
@@ -3827,6 +3865,7 @@
 				810EA5FC1C8579F1005A6C6D /* StreamReader.swift in Sources */,
 				810EA5FD1C8579F1005A6C6D /* MediaItemPageHeaderView.swift in Sources */,
 				810EA5FE1C8579F1005A6C6D /* NoKeyboardEmptyStateView.swift in Sources */,
+				BFCDB86D1CC824D0001C1E88 /* AnimatedMenu.swift in Sources */,
 				810EA5FF1C8579F1005A6C6D /* MediaItemGroupsViewController.swift in Sources */,
 				810EA6001C8579F1005A6C6D /* User.swift in Sources */,
 				810EA6011C8579F1005A6C6D /* Helpers.swift in Sources */,
@@ -3871,6 +3910,7 @@
 				816D50471C8A04CF007B3249 /* ArticleMediaItem.swift in Sources */,
 				8157AD851CB58533001D0B80 /* BrowsePackDownloadButton.swift in Sources */,
 				816D50451C8A04CF007B3249 /* MediaItem.swift in Sources */,
+				BFE741171CC9552900F55DD9 /* AwesomeMenu.m in Sources */,
 				816D50811C8A0534007B3249 /* BrowseTrackCollectionViewController.swift in Sources */,
 				816D507C1C8A0534007B3249 /* BrowseViewController.swift in Sources */,
 				816D50561C8A04DE007B3249 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
@@ -3993,6 +4033,7 @@
 				816D507D1C8A0534007B3249 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
 				816D50611C8A04F4007B3249 /* TwitterEmptyStateView.swift in Sources */,
 				816D509D1C8A058D007B3249 /* SigninView.swift in Sources */,
+				BFE7411C1CC9552900F55DD9 /* AwesomeMenuItem.m in Sources */,
 				816D50B21C8A0596007B3249 /* FeaturedArtistViewController.swift in Sources */,
 				816D50C51C8A061B007B3249 /* WindowRootViewController.swift in Sources */,
 				816D503C1C8A04C4007B3249 /* CategoryService.swift in Sources */,
@@ -4022,6 +4063,7 @@
 				3B50064F1CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift in Sources */,
 				816D506A1C8A0506007B3249 /* String+Utils.swift in Sources */,
 				816D50BC1C8A05E3007B3249 /* Signal.swift in Sources */,
+				BFCDB8691CC824D0001C1E88 /* AnimatedMenu.swift in Sources */,
 				69B549051CB32AF800C3D1BC /* PacksViewModel.swift in Sources */,
 				816D506C1C8A0506007B3249 /* ParseConfig.swift in Sources */,
 				816D50501C8A04D9007B3249 /* EmptyStateView.swift in Sources */,
@@ -4123,6 +4165,7 @@
 				81BDA7281C3F154300198AF8 /* MediaItemSource.swift in Sources */,
 				81F833861C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift in Sources */,
 				8133236E1C1FB0500084918B /* SearchViewController.swift in Sources */,
+				BFE741191CC9552900F55DD9 /* AwesomeMenu.m in Sources */,
 				8176BEA11B72743000E1BDCD /* FuzzySearch.swift in Sources */,
 				816588EF1B61676000F7C9F5 /* KeyboardPage.swift in Sources */,
 				30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */,
@@ -4187,6 +4230,7 @@
 				8192A7D71C62410300B25AC6 /* Event.swift in Sources */,
 				69FEDDE21BF1B4AD00F1556E /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
 				3B75E5121C6E6B1B008D4CE3 /* UIDevice+DeviceList.swift in Sources */,
+				BFE7411E1CC9552900F55DD9 /* AwesomeMenuItem.m in Sources */,
 				6944A53A1C3AF09600EA57C3 /* EmptyStateView.swift in Sources */,
 				3B50064C1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift in Sources */,
 				81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */,
@@ -4208,6 +4252,7 @@
 				81F15C191CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */,
 				3B5006371CADAB44003D4144 /* PackProfileCollectionViewCell.swift in Sources */,
 				81D60AC31B84BD4200347BCA /* SearchViewModel.swift in Sources */,
+				BFCDB86B1CC824D0001C1E88 /* AnimatedMenu.swift in Sources */,
 				8179388B1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				8176BECC1B72DAA400E1BDCD /* MediaItemCollectionViewCell.swift in Sources */,
 				81D60AD41B854D8500347BCA /* MediaItem.swift in Sources */,
@@ -4245,6 +4290,7 @@
 				81DA3EAD1C24BE85006822D3 /* LayoutConstants.swift in Sources */,
 				81DA3EAE1C24BE85006822D3 /* SearchViewModel.swift in Sources */,
 				81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */,
+				BFE7411D1CC9552900F55DD9 /* AwesomeMenuItem.m in Sources */,
 				81DA3EB21C24BE85006822D3 /* SearchSuggestion.swift in Sources */,
 				3BA7D8331CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				81DA3EB31C24BE85006822D3 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
@@ -4330,6 +4376,7 @@
 				81BDA71B1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
 				3B47F6AB1C66FAA100B000A5 /* Event.swift in Sources */,
 				3B5AF3751C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift in Sources */,
+				BFE741181CC9552900F55DD9 /* AwesomeMenu.m in Sources */,
 				81DA3EFE1C24BE85006822D3 /* SearchLoaderSuggestionTableViewCell.swift in Sources */,
 				BF8008331C86350E00113481 /* EmojiKeyboardViewController.swift in Sources */,
 				81DA3EFF1C24BE85006822D3 /* KeyboardSectionsContainerViewController.swift in Sources */,
@@ -4391,6 +4438,7 @@
 				81BDA7171C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */,
 				81DA3F351C24BE85006822D3 /* EventEmittable.swift in Sources */,
 				3B75E50D1C6E6474008D4CE3 /* MediaItemPageHeaderView.swift in Sources */,
+				BFCDB86A1CC824D0001C1E88 /* AnimatedMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

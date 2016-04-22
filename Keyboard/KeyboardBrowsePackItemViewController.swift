@@ -8,14 +8,16 @@
 
 import Foundation
 
-class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate {
+class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate, AwesomeMenuDelegate {
     var packServiceListener: Listener? = nil
 
     override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-
         super.init(packId: packId, panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         packViewModel.delegate = self
         showLoadingView()
+
+        menuButton = AnimatedMenu(frame: CGRectMake(0, 0, view.frame.width, KeyboardHeight))
+        menuButton!.delegate = self
         
         if packId.isEmpty {
             packServiceListener = PacksService.defaultInstance.didUpdatePacks.once({ items in
@@ -35,10 +37,19 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
         }
+        
+        view.addSubview(menuButton!)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        menuButton?.frame = view.bounds
+        menuButton?.resetStartPoint()
     }
 
     override func viewDidLoad() {
@@ -79,6 +90,55 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: false)
 
         return animator
+    }
+
+    // AwesomeMenu Delegate Methods
+    func awesomeMenu(menu: AwesomeMenu!, didSelectIndex idx: Int) {
+        hideMaskView()
+
+        guard let item = AnimatedMenuItem(rawValue: idx) else {
+            return
+        }
+
+        switch item {
+        case .Packs:
+            togglePack()
+        case .Categories:
+            toggleCategoryViewController()
+        case .Gifs:
+            packViewModel.typeFilter = .Gif
+        case .Quotes:
+            packViewModel.typeFilter = .Quote
+        }
+    }
+    
+    func awesomeMenuWillAnimateOpen(menu: AwesomeMenu!) {
+        guard let maskView = self.HUDMaskView else {
+            return
+        }
+
+        view.insertSubview(menuButton!, aboveSubview: maskView)
+        
+        maskView.hidden = false
+        maskView.alpha = 0
+        
+        UIView.animateWithDuration(0.3, animations: {
+            maskView.alpha = 1.0
+            }, completion: nil)
+    }
+    
+    func awesomeMenuWillAnimateClose(menu: AwesomeMenu!) {
+        hideMaskView()
+    }
+
+    func hideMaskView() {
+        guard let maskView = self.HUDMaskView else {
+            return
+        }
+
+        UIView.animateWithDuration(0.3, animations: {
+            maskView.alpha = 0.0
+            }, completion: nil)
     }
 
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

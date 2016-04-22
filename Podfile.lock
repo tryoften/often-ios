@@ -8,6 +8,7 @@ PODS:
     - FlurrySDK (= 4.4.0)
   - Analytics/Segmentio (1.11.3):
     - Analytics/Core-iOS
+  - AwesomeMenu (2.0.0)
   - BDKCollectionIndexView (2.2.1)
   - Bolts (1.7.0):
     - Bolts/AppLinks (= 1.7.0)
@@ -45,6 +46,7 @@ PODS:
 DEPENDENCIES:
   - AGEmojiKeyboard (from `https://github.com/tryoften/AGEmojiKeyboard`)
   - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
+  - AwesomeMenu (from `git@github.com:levey/AwesomeMenu.git`, commit `f52b91cea704562d10f3f453da4b74104696ab46`)
   - BDKCollectionIndexView
   - CSStickyHeaderFlowLayout
   - DateTools (~> 1.6)
@@ -58,6 +60,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/tryoften/AGEmojiKeyboard
   Analytics:
     :git: https://github.com/October-Labs/analytics-ios.git
+  AwesomeMenu:
+    :commit: f52b91cea704562d10f3f453da4b74104696ab46
+    :git: git@github.com:levey/AwesomeMenu.git
 
 CHECKOUT OPTIONS:
   AGEmojiKeyboard:
@@ -66,10 +71,14 @@ CHECKOUT OPTIONS:
   Analytics:
     :commit: f55c68031f7c92235f861ccc744623f9897db989
     :git: https://github.com/October-Labs/analytics-ios.git
+  AwesomeMenu:
+    :commit: f52b91cea704562d10f3f453da4b74104696ab46
+    :git: git@github.com:levey/AwesomeMenu.git
 
 SPEC CHECKSUMS:
   AGEmojiKeyboard: efcb7244ace99deb8eb2c63867ffad198d219fe0
   Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
+  AwesomeMenu: e1fe6d85c2ac82e0646fc95c17f548855be1cc36
   BDKCollectionIndexView: 819bd123d618f20c061caacd409e2d8f1590df7d
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
