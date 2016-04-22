@@ -12,24 +12,23 @@ import Foundation
 class MediaItemDetailViewController: UIViewController {
     var mediaItemDetailView: MediaItemDetailView
     private var textProcessor: TextProcessingManager?
-    private var tintView: UIView
+    private var dismissalView: UIView
     private var item: MediaItem
 
     init(mediaItem: MediaItem, textProcessor: TextProcessingManager?) {
         self.item = mediaItem
         self.textProcessor = textProcessor
 
-        tintView = UIView()
-        tintView.translatesAutoresizingMaskIntoConstraints = false
-        tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.8)
+        dismissalView = UIView()
+        dismissalView.translatesAutoresizingMaskIntoConstraints = false
+        dismissalView.backgroundColor = ClearColor
 
         mediaItemDetailView = MediaItemDetailView()
-        mediaItemDetailView.alpha = 0.0
         mediaItemDetailView.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(nibName: nil, bundle: nil)
 
-        view.addSubview(tintView)
+        view.addSubview(dismissalView)
         view.addSubview(mediaItemDetailView)
 
         setupLayout()
@@ -41,10 +40,10 @@ class MediaItemDetailViewController: UIViewController {
 
     func setupLayout() {
         view.addConstraints([
-            tintView.al_top == view.al_top,
-            tintView.al_bottom == view.al_bottom,
-            tintView.al_left == view.al_left,
-            tintView.al_right == view.al_right,
+            dismissalView.al_top == view.al_top,
+            dismissalView.al_bottom == view.al_bottom,
+            dismissalView.al_left == view.al_left,
+            dismissalView.al_right == view.al_right,
 
             mediaItemDetailView.al_right == view.al_right,
             mediaItemDetailView.al_left == view.al_left,
@@ -56,14 +55,6 @@ class MediaItemDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDetailView()
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-
-        UIView.animateWithDuration(0.1, delay: 0, options: .CurveEaseIn, animations: { () -> Void in
-             self.mediaItemDetailView.alpha = 1.0
-            }, completion: nil)
     }
 
     func dismissView() {
@@ -141,8 +132,8 @@ class MediaItemDetailViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.addTarget(self, action: "dismissView")
 
-        tintView.addGestureRecognizer(tapRecognizer)
-        tintView.userInteractionEnabled = true
+        dismissalView.addGestureRecognizer(tapRecognizer)
+        dismissalView.userInteractionEnabled = true
 
         if let imageURL = item.smallImageURL {
             self.mediaItemDetailView.mediaItemImage.nk_setImageWith(imageURL)

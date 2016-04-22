@@ -11,7 +11,6 @@ import UIKit
 import Spring
 
 class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
-    
     var metadataContentView: UIView
     var sourceLogoView: UIImageView
     var hotnessLogoView: UIImageView
