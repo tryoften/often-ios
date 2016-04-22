@@ -269,5 +269,16 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         self.layoutCategoryPanelView()
         self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
     }
-    
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        for cell in collectionView.visibleCells() {
+            if let cell = cell as? BaseMediaItemCollectionViewCell where collectionView.indexPathForCell(cell) != indexPath {
+                cell.overlayVisible = false
+            }
+        }
+
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? GifCollectionViewCell {
+            cell.overlayVisible = !cell.overlayVisible
+        }
+    }
 }

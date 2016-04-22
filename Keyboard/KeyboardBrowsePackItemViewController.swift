@@ -87,10 +87,9 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         if packViewModel.typeFilter == .Gif {
-            return UIEdgeInsets(top: 10.0, left: 12.0, bottom: 10.0, right: 12.0)
+            return UIEdgeInsets(top: 10.0, left: 12.0, bottom: 60.0, right: 12.0)
         }
 
-        return UIEdgeInsetsZero
+        return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
-
 }
