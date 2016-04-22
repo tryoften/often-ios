@@ -11,35 +11,48 @@ import Foundation
 private let KeyboardMediaItemPackHeaderViewCellReuseIdentifier = "PackHeaderViewCell"
 private let PacksCellReuseIdentifier = "TrendingArtistsCell"
 
-class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController {
+class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewController, UICollectionViewDelegateFlowLayout {
     var viewModel: PacksService
-    var packPanelView: PackPanelView
+    private var packSliderView: PackSliderView
+    private var dismissalView: UIView
+    private var cancelBarView: KeyboardCancelBar
     weak var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
-    var packServiceListener: Listener?
+    private var packServiceListener: Listener?
 
 
     init(viewModel: PacksService) {
         self.viewModel = viewModel
 
-        packPanelView = PackPanelView()
-        packPanelView.translatesAutoresizingMaskIntoConstraints = false
+        packSliderView = PackSliderView()
+        packSliderView.translatesAutoresizingMaskIntoConstraints = false
+
+        cancelBarView = KeyboardCancelBar()
+        cancelBarView.translatesAutoresizingMaskIntoConstraints = false
+
+        dismissalView = UIView()
+        dismissalView.translatesAutoresizingMaskIntoConstraints = false
+        dismissalView.backgroundColor = ClearColor
 
         super.init(collectionViewLayout: KeyboardMediaItemPackPickerViewController.provideLayout())
 
-        packPanelView.slider.addTarget(self, action: #selector(KeyboardMediaItemPackPickerViewController.sliderDidChange(_:)), forControlEvents: .ValueChanged)
-        packPanelView.slider.minimumValue = 0
+        packSliderView.slider.addTarget(self, action: #selector(KeyboardMediaItemPackPickerViewController.sliderDidChange(_:)), forControlEvents: .ValueChanged)
+        packSliderView.slider.minimumValue = 40
 
-        collectionView?.contentInset = UIEdgeInsets(top: -40, left: 9, bottom: 0, right: 9)
+        collectionView?.contentInset = UIEdgeInsets(top: 4, left: 40, bottom: 36.5, right: 9)
 
         viewModel.fetchCollection()
 
         packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
-
+            self.centerOnDefaultCard()
         }
 
-        view.backgroundColor = VeryLightGray
-        view.addSubview(packPanelView)
+        view.backgroundColor = ClearColor
+        collectionView?.backgroundColor = VeryLightGray
+
+        view.addSubview(packSliderView)
+        view.addSubview(cancelBarView)
+        view.addSubview(dismissalView)
         
         setupLayout()
     }
@@ -51,8 +64,9 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        packPanelView.cancelButton.addTarget(self, action: #selector(KeyboardMediaItemPackPickerViewController.cancelButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-
+        cancelBarView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(KeyboardMediaItemPackPickerViewController.cancelButtonDidTap)))
+        cancelBarView.cancelButton.addTarget(self, action: #selector(KeyboardMediaItemPackPickerViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
+        dismissalView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(KeyboardMediaItemPackPickerViewController.cancelButtonDidTap)))
         collectionView!.registerClass(KeyboardMediaItemPackHeaderView.self, forCellWithReuseIdentifier: KeyboardMediaItemPackHeaderViewCellReuseIdentifier)
         collectionView!.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: PacksCellReuseIdentifier)
         collectionView!.backgroundColor = UIColor.clearColor()
@@ -60,26 +74,46 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     }
 
     func setupLayout() {
+        collectionView?.frame = CGRectMake(view.bounds.origin.x, view.bounds.origin.y + KeyboardPackPickerDismissalViewHeight, view.bounds.width, view.bounds.height - KeyboardPackPickerDismissalViewHeight)
+
         view.addConstraints([
-            packPanelView.al_right == view.al_right,
-            packPanelView.al_left == view.al_left,
-            packPanelView.al_bottom == view.al_bottom,
-            packPanelView.al_height == 40
+            dismissalView.al_top == view.al_top,
+            dismissalView.al_height == KeyboardPackPickerDismissalViewHeight,
+            dismissalView.al_right == view.al_right,
+            dismissalView.al_left == view.al_left,
+
+            packSliderView.al_right == view.al_right,
+            packSliderView.al_left == cancelBarView.al_right,
+            packSliderView.al_bottom == view.al_bottom,
+            packSliderView.al_height == 40,
+
+            cancelBarView.al_left == view.al_left,
+            cancelBarView.al_top == view.al_top + KeyboardPackPickerDismissalViewHeight,
+            cancelBarView.al_bottom == view.al_bottom,
+            cancelBarView.al_width == 31
             ])
     }
 
     class func provideLayout() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(ArtistCollectionViewCellWidth, 210)
+        layout.itemSize = CGSizeMake(ArtistCollectionViewCellWidth, 200)
         layout.scrollDirection = .Horizontal
         layout.minimumInteritemSpacing = 9.0
         layout.minimumLineSpacing = 9.0
-        layout.sectionInset = UIEdgeInsets(top: 12.5, left: 10.0, bottom: 12.0, right: 10.0)
+        layout.sectionInset = UIEdgeInsets(top: 12.5, left: 0, bottom: 12.0, right: 0)
         return layout
     }
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 2
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        if indexPath.section == 0 {
+            return CGSizeMake(96.5, 200)
+        }
+
+        return CGSizeMake(ArtistCollectionViewCellWidth, 200)
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -89,7 +123,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
         let count = viewModel.mediaItems.count <= 1 ? 0: viewModel.mediaItems.count
 
-        self.packPanelView.slider.maximumValue = Float(ArtistCollectionViewCellWidth * CGFloat(count))
+        self.packSliderView.slider.maximumValue = Float(ArtistCollectionViewCellWidth * CGFloat(count))
 
         return viewModel.mediaItems.count
     }
@@ -106,7 +140,6 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             }
 
             cell.addPacks.addTarget(self, action: #selector(KeyboardMediaItemPackPickerViewController.addPacksButtonDidTap(_:)) , forControlEvents: .TouchUpInside)
-            cell.favoriteButton.addTarget(self, action: #selector(KeyboardMediaItemPackPickerViewController.favoriteButtonDidTap(_:)), forControlEvents: .TouchUpInside)
             cell.recentButton.addTarget(self, action: #selector(KeyboardMediaItemPackPickerViewController.recentButtonDidTap(_:)), forControlEvents: .TouchUpInside)
 
             return cell
@@ -137,13 +170,6 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         openURL(NSURL(string: OftenCallbackURL)!)
     }
 
-    func favoriteButtonDidTap(sender: UIButton) {
-        let favoritesVC = KeyboardFavoritesViewController(viewModel: FavoritesService.defaultInstance)
-        favoritesVC.transitioningDelegate = self
-        favoritesVC.modalPresentationStyle = .Custom
-        presentViewController(favoritesVC, animated: true, completion: nil)
-    }
-
     func recentButtonDidTap(sender: UIButton) {
         let recentVC = KeyboardRecentsViewController(viewModel: RecentsViewModel())
         recentVC.transitioningDelegate = self
@@ -151,21 +177,47 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         presentViewController(recentVC, animated: true, completion: nil)
     }
 
-    func cancelButtonDidTap(sender: UIButton)  {
+    func cancelButtonDidTap()  {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
 
-        packPanelView.slider.value = Float(scrollView.contentOffset.x)
+        packSliderView.slider.value = Float(scrollView.contentOffset.x)
     }
 
     func sliderDidChange(sender: UISlider) {
-        collectionView?.setContentOffset(CGPointMake(CGFloat(sender.value) - 12 , 40), animated: false)
+        if sender.value > 40 {
+            collectionView?.setContentOffset(CGPointMake(CGFloat(sender.value) , -4), animated: false)
+        } else {
+            collectionView?.setContentOffset(CGPointMake(-40 , -4), animated: false)
+        }
     }
 
-       // MARK: LaunchMainApp
+    func centerOnDefaultCard() {
+        let count = viewModel.mediaItems.count
+        for i in 1..<count {
+            if let currentPackID = SessionManagerFlags.defaultManagerFlags.lastPack,
+                let pack = viewModel.mediaItems[i] as? PackMediaItem,
+                let packId = pack.pack_id where  packId == currentPackID {
+                scrollToCellAtIndex(i)
+            }
+        }
+    }
+
+    func scrollToCellAtIndex(index: Int) {
+        if let collectionView = collectionView {
+            var xPosition = CGFloat(index) * (ArtistCollectionViewCellWidth + 9.0)
+                - (collectionView.frame.size.width - ArtistCollectionViewCellWidth) / 2
+            xPosition = max(0, min(xPosition, collectionView.contentSize.width)) + 40
+
+            collectionView.setContentOffset(CGPointMake(xPosition, -4), animated: true)
+        }
+    }
+
+
+    // MARK: LaunchMainApp
     func openURL(url: NSURL) {
         do {
             let application = try self.sharedApplication()
@@ -190,7 +242,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     }
 
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: true)
+        let animator = FadeInTransitionAnimator(presenting: true)
         return animator
     }
 
