@@ -18,12 +18,9 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
 
         let layout = KeyboardFavoritesViewController.provideCollectionViewFlowLayout()
         super.init(collectionViewLayout: layout, collectionType: .Favorites, viewModel: viewModel)
-        let toggleRecognizer = UITapGestureRecognizer(target: self, action: #selector(KeyboardFavoritesViewController.togglePack))
 
         panelViewBar.currentCategoryText = "all".uppercaseString
         panelViewBar.mediaItemTitleText = collectionType.rawValue.uppercaseString
-        panelViewBar.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
-        panelViewBar.toggleCategorySelectedView.userInteractionEnabled = false
 
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.contentInset = UIEdgeInsetsMake(-1, 0, SectionPickerViewHeight, 0)

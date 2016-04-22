@@ -30,8 +30,8 @@ class AnimatedMenu: AwesomeMenu {
         startMenuItem = AwesomeMenuItem(image: menuButton, highlightedImage: nil, contentImage: StyleKit.imageOfPacktab(), highlightedContentImage: nil)
         packsMenuItem = AwesomeMenuItem(image: menuButton, highlightedImage: menuButtonSelected, contentImage: StyleKit.imageOfPacktab(), highlightedContentImage: nil)
         categoryMenuItem = AwesomeMenuItem(image: menuButton, highlightedImage: menuButtonSelected, contentImage: StyleKit.imageOfCategoryButton(), highlightedContentImage: nil)
-        quotesMenuItem = AwesomeMenuItem(image: menuButton, highlightedImage: menuButtonSelected, contentImage: StyleKit.imageOfPacktab(), highlightedContentImage: nil)
-        gifsMenuItem = AwesomeMenuItem(image: menuButton, highlightedImage: menuButtonSelected, contentImage: StyleKit.imageOfPacktab(), highlightedContentImage: nil)
+        quotesMenuItem = AwesomeMenuItem(image: menuButton, highlightedImage: menuButtonSelected, contentImage: StyleKit.imageOfQuotesButton(), highlightedContentImage: nil)
+        gifsMenuItem = AwesomeMenuItem(image: menuButton, highlightedImage: menuButtonSelected, contentImage: StyleKit.imageOfGifsButton(), highlightedContentImage: nil)
 
         let blankMenuItem = AwesomeMenuItem(image: UIImage(), highlightedImage: UIImage(), contentImage: nil, highlightedContentImage: nil)
         
@@ -53,6 +53,7 @@ class AnimatedMenu: AwesomeMenu {
         rotateAngle = CGFloat(3 * M_PI_2)
         menuWholeAngle = CGFloat(M_PI_2)
         endRadius = 130.0
+        animationDuration = 0.2
         resetStartPoint()
     }
     

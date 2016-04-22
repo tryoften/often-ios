@@ -28,6 +28,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             })
         }
 
+        setupHudView()
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
             self.hideLoadingView()
@@ -82,7 +83,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         loadPackData()
     }
 
-    func categoriesCollectionViewControlleDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
+    func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
         SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
     }
 

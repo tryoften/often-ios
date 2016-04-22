@@ -175,12 +175,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         self.categoriesVC = categoriesVC
         self.categoriesVC?.panelView.style = panelStyle
         
-        let togglePackSelector = #selector(BaseBrowsePackItemViewController.togglePack)
-        let toggleRecognizer = UITapGestureRecognizer(target: self, action: togglePackSelector)
-        
-        categoriesVC.panelView.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
-        categoriesVC.panelView.togglePackSelectedView.userInteractionEnabled = true
-        
         setupHudView()
         
         view.addSubview(categoriesVC.view)

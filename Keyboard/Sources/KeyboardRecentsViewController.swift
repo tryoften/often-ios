@@ -18,13 +18,10 @@ class KeyboardRecentsViewController: MediaItemsViewController {
 
         let layout = KeyboardRecentsViewController.provideCollectionViewFlowLayout()
         super.init(collectionViewLayout: layout, collectionType: .Recents, viewModel: viewModel)
-        let toggleRecognizer = UITapGestureRecognizer(target: self, action: #selector(KeyboardRecentsViewController.togglePack))
 
         panelViewBar.currentCategoryText = "all".uppercaseString
         panelViewBar.mediaItemTitleText = collectionType.rawValue.uppercaseString
-        panelViewBar.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
-        panelViewBar.toggleCategorySelectedView.userInteractionEnabled = false
-
+        
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.contentInset = UIEdgeInsetsMake(-1, 0, SectionPickerViewHeight, 0)
         
