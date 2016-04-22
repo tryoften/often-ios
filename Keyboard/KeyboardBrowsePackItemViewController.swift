@@ -10,10 +10,9 @@ import Foundation
 
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate {
     var packServiceListener: Listener? = nil
-    var packViewModel: PackItemViewModel
 
     override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        packViewModel = viewModel
+
         super.init(packId: packId, panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         packViewModel.delegate = self
         showLoadingView()
@@ -27,7 +26,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             })
         }
 
-
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
             self.hideLoadingView()
@@ -37,9 +35,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
         }
-        
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -55,42 +52,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         packsVC.transitioningDelegate = self
         packsVC.modalPresentationStyle = .Custom
         presentViewController(packsVC, animated: true, completion: nil)
-    }
-
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        
-        if section == 0 {
-            return UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
-        } else if section == viewModel.mediaItemGroups.count - 1 {
-            return UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
-        } else {
-            return UIEdgeInsetsZero
-        }
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
-        guard let group = groupAtIndex(indexPath.section) else {
-            return CGSizeZero
-        }
-        
-        switch group.type {
-        case .Gif:
-            let itemsCount = group.items.count
-            var height: CGFloat
-            
-            if itemsCount == 0 {
-                height = 0
-            } else {
-                height = 103
-            }
-            
-            return CGSizeMake(UIScreen.mainScreen().bounds.width, height)
-        case .Quote:
-            return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
-        default:
-            return CGSizeZero
-        }
     }
 
     override func setupCategoryCollectionViewController() {
@@ -118,5 +79,17 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: false)
 
         return animator
+    }
+
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeZero
+    }
+
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        if packViewModel.typeFilter == .Gif {
+            return UIEdgeInsets(top: 10.0, left: 12.0, bottom: 60.0, right: 12.0)
+        }
+
+        return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
 }
