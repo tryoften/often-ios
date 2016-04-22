@@ -23,7 +23,6 @@ class KeyboardFavoritesViewController: MediaItemsViewController {
         panelViewBar.currentCategoryText = "all".uppercaseString
         panelViewBar.mediaItemTitleText = collectionType.rawValue.uppercaseString
         panelViewBar.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
-//        panelViewBar.toggleDrawerButton.userInteractionEnabled = false
         panelViewBar.toggleCategorySelectedView.userInteractionEnabled = false
 
         collectionView?.backgroundColor = UIColor.clearColor()

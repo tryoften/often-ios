@@ -138,11 +138,6 @@ class CategoriesPanelView: UIView {
 
         setupLayout()
         setupPanelStyle()
-
-        let toggleSelector = Selector("toggleDrawer")
-        tapRecognizer = UITapGestureRecognizer(target: self, action: toggleSelector)
-//        toggleDrawerButton.addTarget(self, action: toggleSelector, forControlEvents: .TouchUpInside)
-        toggleCategorySelectedView.addGestureRecognizer(tapRecognizer)
     }
     
     func setupPanelStyle() {
