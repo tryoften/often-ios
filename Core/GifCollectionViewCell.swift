@@ -13,7 +13,6 @@ import FLAnimatedImage
 class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
     private var overlayView: GifCellOverlayView
     private var backgroundImageView: FLAnimatedImageView
-    private var favoriteRibbon: UIImageView
     private var progressView: UIProgressView
     
     var animatedImage: FLAnimatedImage {
@@ -24,8 +23,16 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
         didSet {
             if overlayVisible {
                 overlayView.hidden = false
-                overlayView.showButtons({})
-                overlayView.favoriteButton.selected = itemFavorited
+                overlayView.startLoader()
+
+                delay(0.8) {
+                    self.overlayView.showSuccessMessage()
+                }
+
+                delay(2.5) {
+                    self.overlayVisible = false
+                    self.overlayView.reset()
+                }
             } else {
                 UIView.animateWithDuration(0.2, animations: {
                     self.overlayView.alpha = 0.0
@@ -36,21 +43,10 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
             }
         }
     }
-    
-    override var itemFavorited: Bool {
-        didSet {
-            overlayView.favoriteButton.selected = itemFavorited
-            favoriteRibbon.hidden = !itemFavorited
-        }
-    }
+
     
     override init(frame: CGRect) {
         backgroundImageView = FLAnimatedImageView()
-        
-        favoriteRibbon = UIImageView()
-        favoriteRibbon.translatesAutoresizingMaskIntoConstraints = false
-        favoriteRibbon.image = StyleKit.imageOfFavoritedstate(frame: CGRectMake(0, 0, 62, 62), scale: 0.5)
-        favoriteRibbon.hidden = true
         
         overlayView = GifCellOverlayView()
         overlayView.hidden = true
@@ -70,16 +66,10 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
         addSubview(backgroundImageView)
         addSubview(progressView)
         addSubview(overlayView)
-        addSubview(favoriteRibbon)
 
         setupLayout()
         layer.cornerRadius = 2.0
         clipsToBounds = true
-        
-        overlayView.favoriteButton.addTarget(self, action: #selector(GifCollectionViewCell.didTapFavoriteButton(_:)), forControlEvents: .TouchUpInside)
-        overlayView.favoriteButton.addTarget(self, action: #selector(GifCollectionViewCell.didTouchUpButton(_:)), forControlEvents: .TouchUpInside)
-        overlayView.copyButton.addTarget(self, action: #selector(GifCollectionViewCell.didTapCopyButton(_:)), forControlEvents: .TouchUpInside)
-        overlayView.copyButton.addTarget(self, action: #selector(GifCollectionViewCell.didTouchUpButton(_:)), forControlEvents: .TouchUpInside)
     }
     
     convenience required init?(coder aDecoder: NSCoder) {
@@ -92,9 +82,6 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
             overlayView.al_bottom == contentView.al_bottom,
             overlayView.al_left == contentView.al_left,
             overlayView.al_right == contentView.al_right,
-            
-            favoriteRibbon.al_right == al_right,
-            favoriteRibbon.al_bottom == al_bottom,
 
             progressView.al_bottom == contentView.al_bottom,
             progressView.al_left == contentView.al_left,
@@ -120,41 +107,6 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
         backgroundImageView.nk_cancelLoading()
         progressView.progress = 0
         progressView.alpha = 1
-    }
-
-    func didTapFavoriteButton(button: SpringButton) {
-        overlayView.favoriteButton.selected = !overlayView.favoriteButton.selected
-        delegate?.mediaLinkCollectionViewCellDidToggleFavoriteButton(self, selected: overlayView.favoriteButton.selected)
-    }
-    
-    func didTapCopyButton(button: SpringButton) {
-        overlayView.copyButton.selected = !overlayView.copyButton.selected
-        delegate?.mediaLinkCollectionViewCellDidToggleCopyButton(self, selected: overlayView.copyButton.selected)
-    }
-    
-    func didTouchUpButton(button: SpringButton?) {
-        if let button = button {
-            animateButton(button)
-        }
-    }
-    
-    //MARK: Button Animation
-    func animateButton(button: SpringButton) {
-        if button == overlayView.favoriteButton {
-            button.animation = "pop"
-            button.duration = 0.3
-            button.curve = "easeIn"
-        }
-        
-        button.animate()
-        
-        if button == overlayView.copyButton {
-            if overlayView.copyButton.selected {
-                UIView.animateWithDuration(0.3, animations: {
-                    button.transform = CGAffineTransformMakeRotation((90.0 * CGFloat(M_PI)) / 180.0)
-                })
-            }
-        }
     }
 
     func setImageWith(URL: NSURL) {

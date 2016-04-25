@@ -14,6 +14,7 @@ def base_deps
   pod 'CSStickyHeaderFlowLayout'
   pod 'BDKCollectionIndexView'
   pod 'AGEmojiKeyboard', :git => 'https://github.com/tryoften/AGEmojiKeyboard'
+  pod 'AwesomeMenu', :git => 'git@github.com:levey/AwesomeMenu.git', :commit => 'f52b91cea704562d10f3f453da4b74104696ab46'
 end
 
 target 'Often' do

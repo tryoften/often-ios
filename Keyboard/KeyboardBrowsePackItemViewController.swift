@@ -8,15 +8,16 @@
 
 import Foundation
 
-class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate {
+class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate, AwesomeMenuDelegate {
     var packServiceListener: Listener? = nil
-    var packViewModel: PackItemViewModel
 
     override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        packViewModel = viewModel
         super.init(packId: packId, panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         packViewModel.delegate = self
         showLoadingView()
+
+        menuButton = AnimatedMenu(frame: CGRectMake(0, 0, view.frame.width, KeyboardHeight))
+        menuButton!.delegate = self
         
         if packId.isEmpty {
             packServiceListener = PacksService.defaultInstance.didUpdatePacks.once({ items in
@@ -27,7 +28,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             })
         }
 
-
+        setupHudView()
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
             self.hideLoadingView()
@@ -38,10 +39,18 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             navigationBar.removeFromSuperview()
         }
         
+        view.addSubview(menuButton!)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        menuButton?.frame = view.bounds
+        menuButton?.resetStartPoint()
     }
 
     override func viewDidLoad() {
@@ -56,42 +65,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         packsVC.title = "packsVC"
         packsVC.modalPresentationStyle = .Custom
         presentViewController(packsVC, animated: true, completion: nil)
-    }
-
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        
-        if section == 0 {
-            return UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
-        } else if section == viewModel.mediaItemGroups.count - 1 {
-            return UIEdgeInsetsMake(0, 0, SectionPickerViewHeight, 0)
-        } else {
-            return UIEdgeInsetsZero
-        }
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
-        guard let group = groupAtIndex(indexPath.section) else {
-            return CGSizeZero
-        }
-        
-        switch group.type {
-        case .Gif:
-            let itemsCount = group.items.count
-            var height: CGFloat
-            
-            if itemsCount == 0 {
-                height = 0
-            } else {
-                height = 103
-            }
-            
-            return CGSizeMake(UIScreen.mainScreen().bounds.width, height)
-        case .Quote:
-            return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
-        default:
-            return CGSizeZero
-        }
     }
 
     override func setupCategoryCollectionViewController() {
@@ -111,7 +84,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         loadPackData()
     }
 
-    func categoriesCollectionViewControlleDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
+    func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
         SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
     }
 
@@ -125,5 +98,66 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
         return animator
+    }
+
+    // AwesomeMenu Delegate Methods
+    func awesomeMenu(menu: AwesomeMenu!, didSelectIndex idx: Int) {
+        hideMaskView()
+
+        guard let item = AnimatedMenuItem(rawValue: idx) else {
+            return
+        }
+
+        switch item {
+        case .Packs:
+            togglePack()
+        case .Categories:
+            toggleCategoryViewController()
+        case .Gifs:
+            packViewModel.typeFilter = .Gif
+        case .Quotes:
+            packViewModel.typeFilter = .Quote
+        }
+    }
+    
+    func awesomeMenuWillAnimateOpen(menu: AwesomeMenu!) {
+        guard let maskView = self.HUDMaskView else {
+            return
+        }
+
+        view.insertSubview(menuButton!, aboveSubview: maskView)
+        
+        maskView.hidden = false
+        maskView.alpha = 0
+        
+        UIView.animateWithDuration(0.3, animations: {
+            maskView.alpha = 1.0
+            }, completion: nil)
+    }
+    
+    func awesomeMenuWillAnimateClose(menu: AwesomeMenu!) {
+        hideMaskView()
+    }
+
+    func hideMaskView() {
+        guard let maskView = self.HUDMaskView else {
+            return
+        }
+
+        UIView.animateWithDuration(0.3, animations: {
+            maskView.alpha = 0.0
+            }, completion: nil)
+    }
+
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeZero
+    }
+
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        if packViewModel.typeFilter == .Gif {
+            return UIEdgeInsets(top: 10.0, left: 12.0, bottom: 60.0, right: 12.0)
+        }
+
+        return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
 }

@@ -11,7 +11,7 @@ private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     var filterButton: UIButton
-    
+
     override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         let attributes: [String: AnyObject] = [
             NSKernAttributeName: NSNumber(float: 1.0),
@@ -38,7 +38,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             self.collectionView?.setContentOffset(CGPointZero, animated: true)
             self.collectionView?.reloadData()
             self.hideHud()
+            self.headerViewDidLoad()
         }
+
+        collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
 
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
     }
@@ -122,7 +125,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
 
         view.insertSubview(filterButton, belowSubview: categoriesVC.view)
         setLayout()
-
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -140,44 +142,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             }
         
         return UICollectionReusableView()
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        
-        if section == 0 {
-            return UIEdgeInsetsMake(10, 0, 0, 0)
-        } else if section == viewModel.mediaItemGroups.count - 1 {
-            return UIEdgeInsetsMake(0, 0, 60, 0)
-        } else {
-            return UIEdgeInsetsZero
-        }
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
-        guard let group = groupAtIndex(indexPath.section) else {
-            return CGSizeZero
-        }
-        
-        switch group.type {
-        case .Gif:
-            let itemsCount = group.items.count
-            var height: CGFloat
-            
-            if itemsCount == 0 {
-                height = 0
-            } else if itemsCount < 3 {
-                height = 103
-            } else {
-                height = 216
-            }
-            
-            return CGSizeMake(UIScreen.mainScreen().bounds.width, height)
-        case .Quote:
-            return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
-        default:
-            return CGSizeZero
-        }
     }
     
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

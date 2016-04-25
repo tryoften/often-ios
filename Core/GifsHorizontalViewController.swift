@@ -18,17 +18,8 @@ class GifsHorizontalViewController: MediaItemsCollectionBaseViewController {
             collectionView?.reloadData()
         }
     }
-
-    let manager: ImageManager
     
     init() {
-        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
-        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
-        let cache = AnimatedImageMemoryCache()
-        manager = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
-
-        ImageManager.shared = manager
-
         super.init(collectionViewLayout: GifsHorizontalViewController.provideLayout())
 
         #if KEYBOARD

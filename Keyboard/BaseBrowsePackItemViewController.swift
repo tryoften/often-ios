@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import Nuke
+import NukeAnimatedImagePlugin
+import FLAnimatedImage
 
 let gifCellReuseIdentifier = "gifCellIdentifier"
 
@@ -15,24 +18,33 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     var categoriesVC: CategoryCollectionViewController? = nil
     var panelToggleListener: Listener?
     var HUDMaskView: UIView?
+    var menuButton: AnimatedMenu?
+
     var pack: PackMediaItem? {
         didSet {
             cellsAnimated = [:]
             delay(0.5) {
                 self.collectionView?.reloadData()
             }
-            headerViewDidLoad()
         }
     }
     var panelStyle: CategoryPanelStyle
+    var packViewModel: PackItemViewModel
     
-    init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+    init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
+        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
+        let cache = AnimatedImageMemoryCache()
+
+        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
+
         self.panelStyle = panelStyle
+        self.packViewModel = viewModel
         
         super.init(viewModel: viewModel)
         self.textProcessor = textProcessor
         
-        collectionView?.registerClass(GifHorizontalCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
+        collectionView?.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,7 +52,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     }
     
     internal func groupAtIndex(index: Int) -> MediaItemGroup? {
-        
         if index > viewModel.mediaItemGroups.count {
             return nil
         }
@@ -62,44 +73,60 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return viewModel.mediaItemGroups.count
+        return 1
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let group = groupAtIndex(section) else {
+        guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
             return 0
         }
-        
-        switch group.type {
-        case .Gif:
-            return 1
-        case .Quote:
-            return group.items.count
-        default:
-            return 0
-        }
+
+        return group.items.count
     }
-    
+
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeZero
     }
-        
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        if packViewModel.typeFilter == .Gif {
+            return 8.0
+        }
+        return 0.0
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        if packViewModel.typeFilter == .Gif {
+            return 8.0
+        }
+        return 0.0
+    }
+
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        guard let group = groupAtIndex(indexPath.section) else {
+        guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
             return UICollectionViewCell()
         }
         
         switch group.type {
         case .Gif:
-            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(gifCellReuseIdentifier, forIndexPath: indexPath) as? GifHorizontalCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(gifCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            cell.group = group
-            cell.textProcessor = textProcessor
+
+            guard let gif = group.items[indexPath.row] as? GifMediaItem else {
+                return cell
+            }
+
+            if let imageURL = gif.mediumImageURL {
+                cell.setImageWith(imageURL)
+            }
+
+            cell.mediaLink = gif
+            cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(gif)
+            cell.delegate = self
             return cell
         case .Quote:
-            let cell = parseMediaItemData(groupAtIndex(indexPath.section)?.items, indexPath: indexPath, collectionView: collectionView)
+            let cell = parseMediaItemData(group.items, indexPath: indexPath, collectionView: collectionView)
             cell.style = .Cell
             cell.type = .NoMetadata
             animateCell(cell, indexPath: indexPath)
@@ -109,37 +136,44 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         }
         
     }
-    
 
-    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
+            return CGSizeZero
+        }
+        
+        switch group.type {
+        case .Gif:
+            return CGSizeMake(171.5, 100)
+        case .Quote:
+            return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
+        default:
+            return CGSizeZero
+        }
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        if packViewModel.typeFilter == .Gif {
+            return UIEdgeInsets(top: 10.0, left: 12.0, bottom: 10.0, right: 12.0)
+        }
+
+        return UIEdgeInsetsZero
+    }
+
+
     func loadPackData()  {
         pack = nil
         collectionView?.reloadData()
         viewModel.fetchData()
-    }
-    
+    }    
     
     func setupCategoryCollectionViewController() {
         let categoriesVC = CategoryCollectionViewController(viewModel: viewModel, categories: pack!.categories)
         self.categoriesVC = categoriesVC
         self.categoriesVC?.panelView.style = panelStyle
         
-        let togglePackSelector = #selector(BaseBrowsePackItemViewController.togglePack)
-        let toggleRecognizer = UITapGestureRecognizer(target: self, action: togglePackSelector)
-        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.toggleCategoryViewController)
-        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
+        setupHudView()
         
-        categoriesVC.panelView.togglePackSelectedView.addGestureRecognizer(toggleRecognizer)
-        categoriesVC.panelView.togglePackSelectedView.userInteractionEnabled = true
-        
-        
-        HUDMaskView = UIView()
-        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
-        HUDMaskView?.hidden = true
-        HUDMaskView?.userInteractionEnabled = true
-        HUDMaskView?.addGestureRecognizer(hudRecognizer)
-        
-        view.addSubview(HUDMaskView!)
         view.addSubview(categoriesVC.view)
         addChildViewController(categoriesVC)
         
@@ -165,6 +199,24 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         layoutCategoryPanelView()
     }
     
+    func setupHudView() {
+        
+        if HUDMaskView != nil {
+            return
+        }
+        
+        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.toggleCategoryViewController)
+        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
+        
+        HUDMaskView = UIView()
+        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
+        HUDMaskView?.hidden = true
+        HUDMaskView?.userInteractionEnabled = true
+        HUDMaskView?.addGestureRecognizer(hudRecognizer)
+        
+        view.addSubview(HUDMaskView!)
+    }
+    
     func layoutCategoryPanelView() {
         let height: CGFloat
         if categoriesVC?.panelView.style == .Detailed {
@@ -186,14 +238,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         }
         
         categoriesVC.panelView.mediaItemTitleText = title
-        
-        if let itemCount = itemCount {
-            categoriesVC.panelView.currentCategoryCount = String(itemCount)
-        }
-        
-        if let imageURL = imageUrl {
-            categoriesVC.panelView.mediaItemImageView.nk_setImageWith(imageURL)
-        }
         
     }
     
@@ -219,6 +263,21 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         }
         self.layoutCategoryPanelView()
         self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
+        
+        if let menuButton = menuButton, imageURL = self.pack?.smallImageURL {
+            menuButton.startButton.contentImageView.nk_setImageWith(imageURL)
+        }
     }
-    
+
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        for cell in collectionView.visibleCells() {
+            if let cell = cell as? BaseMediaItemCollectionViewCell where collectionView.indexPathForCell(cell) != indexPath {
+                cell.overlayVisible = false
+            }
+        }
+
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? GifCollectionViewCell {
+            cell.overlayVisible = !cell.overlayVisible
+        }
+    }
 }

@@ -15,7 +15,6 @@ class MediaItemDetailView: UIView {
     var mediaItemImage: UIImageView
     var mediaItemAuthor: UILabel
     var mediaItemCategoryButton: UIButton
-    var favoriteButton: SpringButton
     var cancelButton: UIButton
     var insertButton: SpringButton
     var copyButton: SpringButton
@@ -79,12 +78,6 @@ class MediaItemDetailView: UIView {
         copyButton = SpringButton()
         copyButton.translatesAutoresizingMaskIntoConstraints = false
         copyButton.setImage(StyleKit.imageOfClipboard_button(scale: 0.45), forState: .Normal)
-        
-
-        favoriteButton = SpringButton()
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.setImage(StyleKit.imageOfFavoritestab(scale: 0.5), forState: .Normal)
-        favoriteButton.setImage(StyleKit.imageOfFavoritestab(scale: 0.5, favorited: true), forState: .Selected)
 
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
@@ -109,7 +102,7 @@ class MediaItemDetailView: UIView {
             addSubview(seperator)
         }
 
-        for button in [insertButton, copyButton, favoriteButton] {
+        for button in [insertButton, copyButton] {
             button.addTarget(self, action: #selector(MediaItemDetailView.didTouchUpButton(_:)), forControlEvents: .TouchUpInside)
         }
 
@@ -122,7 +115,6 @@ class MediaItemDetailView: UIView {
         addSubview(mediaItemCategoryButton)
         addSubview(insertButton)
         addSubview(copyButton)
-        addSubview(favoriteButton)
 
         setupLayout()
         setupButtonStyle()
@@ -172,7 +164,7 @@ class MediaItemDetailView: UIView {
             insertButton.al_bottom == al_bottom,
             insertButton.al_left == al_left,
             insertButton.al_top == mediaItemTitleSeperator.al_bottom,
-            insertButton.al_width == al_width/2 - 1,
+            insertButton.al_width == al_width,
 
             firstButtonSeperator.al_left == insertButton.al_right,
             firstButtonSeperator.al_width == 1,
@@ -184,11 +176,6 @@ class MediaItemDetailView: UIView {
             copyButton.al_top == insertButton.al_top,
             copyButton.al_width == insertButton.al_width,
 
-            favoriteButton.al_bottom == al_bottom,
-            favoriteButton.al_left == firstButtonSeperator.al_right,
-            favoriteButton.al_top == mediaItemTitleSeperator.al_bottom,
-            favoriteButton.al_right == al_right,
-
             cancelButtonBackground.al_bottom == mediaItemText.al_top - 2,
             cancelButtonBackground.al_centerX == al_centerX,
             cancelButtonBackground.al_height == 45,
@@ -198,7 +185,7 @@ class MediaItemDetailView: UIView {
             cancelButton.al_width == cancelButtonBackground.al_width,
             cancelButton.al_centerX == cancelButtonBackground.al_centerX,
             cancelButton.al_centerY == cancelButtonBackground.al_centerY
-            ])
+        ])
     }
     
     func setupButtonStyle() {
