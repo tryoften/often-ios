@@ -91,10 +91,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         var animator = FadeInTransitionAnimator(presenting: true)
 
-        if let VCTitle = presented.title {
-            if VCTitle == "packsVC" {
-                animator = FadeInTransitionAnimator(presenting: true, direction: .Left, duration: 0.2)
-            }
+        if let VCTitle = presented.title where VCTitle == "packsVC" {
+            animator = FadeInTransitionAnimator(presenting: true, direction: .Left, duration: 0.2)
         }
 
         return animator

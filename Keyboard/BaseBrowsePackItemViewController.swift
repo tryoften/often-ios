@@ -200,7 +200,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     }
     
     func setupHudView() {
-        
         if HUDMaskView != nil {
             return
         }
