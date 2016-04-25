@@ -25,7 +25,7 @@ class KeyboardRecentsViewController: MediaItemsViewController {
         collectionView?.backgroundColor = UIColor.clearColor()
         collectionView?.contentInset = UIEdgeInsetsMake(-1, 0, SectionPickerViewHeight, 0)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: KeyboardOrientationChangeEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardRecentsViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
         view.addSubview(panelViewBar)
         setupLayout()

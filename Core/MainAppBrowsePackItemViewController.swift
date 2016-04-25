@@ -30,7 +30,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         filterButton.layer.shadowOffset = CGSizeMake(0, 2)
         filterButton.setAttributedTitle(filterString, forState: .Normal)
 
-
         super.init(panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
 

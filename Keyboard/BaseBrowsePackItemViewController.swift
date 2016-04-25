@@ -28,6 +28,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
             }
         }
     }
+
     var panelStyle: CategoryPanelStyle
     var packViewModel: PackItemViewModel
     
@@ -269,6 +270,8 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+        
         for cell in collectionView.visibleCells() {
             if let cell = cell as? BaseMediaItemCollectionViewCell where collectionView.indexPathForCell(cell) != indexPath {
                 cell.overlayVisible = false
@@ -277,6 +280,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
 
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? GifCollectionViewCell {
             cell.overlayVisible = !cell.overlayVisible
+            mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: true)
         }
     }
 }
