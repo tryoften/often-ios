@@ -28,18 +28,17 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
             }
         }
     }
-    var packId: String
+
     var panelStyle: CategoryPanelStyle
     var packViewModel: PackItemViewModel
     
-    init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+    init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
         let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
         let cache = AnimatedImageMemoryCache()
 
         ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
 
-        self.packId = packId
         self.panelStyle = panelStyle
         self.packViewModel = viewModel
         
@@ -273,6 +272,8 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+        
         for cell in collectionView.visibleCells() {
             if let cell = cell as? BaseMediaItemCollectionViewCell where collectionView.indexPathForCell(cell) != indexPath {
                 cell.overlayVisible = false
@@ -281,6 +282,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
 
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? GifCollectionViewCell {
             cell.overlayVisible = !cell.overlayVisible
+            mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: true)
         }
     }
 }

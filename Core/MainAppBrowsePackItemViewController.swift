@@ -12,7 +12,7 @@ private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     var filterButton: UIButton
 
-    override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+    override init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         let attributes: [String: AnyObject] = [
             NSKernAttributeName: NSNumber(float: 1.0),
             NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
@@ -30,8 +30,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         filterButton.layer.shadowOffset = CGSizeMake(0, 2)
         filterButton.setAttributedTitle(filterString, forState: .Normal)
 
-
-        super.init(packId: packId, panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
+        super.init(panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
