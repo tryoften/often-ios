@@ -59,7 +59,7 @@ class AlertView: SpringView {
         subtitleLabel.alpha = 0.74
         subtitleLabel.textColor = WalkthroughSubTitleFontColor
         subtitleLabel.numberOfLines = 0
-        subtitleLabel.text = "Any lyrics you favorite here get added to your keyboard"
+        subtitleLabel.text = "Any packs you download here get added to your keyboard"
 
         actionButton = UIButton()
         actionButton.translatesAutoresizingMaskIntoConstraints = false

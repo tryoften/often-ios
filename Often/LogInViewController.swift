@@ -47,14 +47,14 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         
         pageTitle = [
             "Packs. Packs. Packs.",
-            "Share inside Snapchat",
-            "Over 12 different categories"
+            "Super Easy Switching",
+            "Unique Categories"
         ]
         
         pagesubTitle = [
-            "Share all the best lyrics & quotes right from\n your keyboard with new packs",
-            "Use Often to caption your Snaps with all\n your favorite lyrics & quotes",
-            "Sort by over 12 different categories and\n find the perfect one every time"
+            "Share curated quotes & GIFs by\n theme, all in just one keyboard",
+            "Toggling through packs is a 1000x\n easier than switching keyboards",
+            "Categories are unique to each pack. Find\n the perfect response every time"
         ]
         
         super.init(viewModel: viewModel)

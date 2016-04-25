@@ -56,7 +56,7 @@ class CreateAccountView: UIView {
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = UIFont(name: "OpenSans", size: 12)
-        subtitleLabel.text = "Save your favorite lyrics to your keyboard \n and profile by creating an account!"
+        subtitleLabel.text = "Save your favorite packs to your keyboard \n and profile by creating an account!"
         subtitleLabel.numberOfLines = 2
         subtitleLabel.textAlignment = .Center
         subtitleLabel.alpha = 0.54

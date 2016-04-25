@@ -42,7 +42,7 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
         subtitleLabel.textColor = WalkthroughSubTitleFontColor
         subtitleLabel.numberOfLines = 0
         subtitleLabel.alpha = 0.74
-        subtitleLabel.text = "You’ve successfully installed Often. Tap “Finish” to start adding lyrics."
+        subtitleLabel.text = "You’ve successfully installed Often. Tap “Finish” to start adding packs."
 
         finishedButton = UIButton()
         finishedButton.translatesAutoresizingMaskIntoConstraints = false

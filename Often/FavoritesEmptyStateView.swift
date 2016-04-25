@@ -10,7 +10,7 @@ import UIKit
 
 class FavoritesEmptyStateView: EmptyStateView {
     init() {
-        let title = "Show these lyrics some love"
+        let title = "Show these quotes & gifs some love"
         let description = "Tap any lyric to start adding favorites"
         let image = UIImage(named: "favoritesemptystate")!
         

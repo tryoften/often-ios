@@ -30,7 +30,7 @@ class LoginView: UIView {
         let titleString = "packs. packs. packs.".uppercaseString
         let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
-        let subtitleString = "Search, collect & share lyrics, \n in any app, right from your keyboard"
+        let subtitleString = "Packs are curated quotes & GIFs by \n theme, all in just one keyboard"
         let subtitleRange = NSMakeRange(0, subtitleString.characters.count)
         let subtitle = NSMutableAttributedString(string: subtitleString)
         let paragraphStyle = NSMutableParagraphStyle()
@@ -40,8 +40,8 @@ class LoginView: UIView {
         subtitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 13)!, range: subtitleRange)
         subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
 
-        title.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 15)!, range: titleRange)
-        title.addAttribute(NSKernAttributeName, value: 2, range: titleRange)
+        title.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 14)!, range: titleRange)
+        title.addAttribute(NSKernAttributeName, value: 1, range: titleRange)
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,7 @@ class LoginView: UIView {
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.pagingEnabled = true
-        scrollView.backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        scrollView.backgroundColor = UIColor(fromHexString: "#ffffff")
         scrollView.showsHorizontalScrollIndicator = false
         
         pageControl = UIPageControl()
@@ -77,19 +77,19 @@ class LoginView: UIView {
         createAccountButton.setTitle("sign up".uppercaseString, forState: .Normal)
         createAccountButton.titleLabel!.font = UIFont(name: "Montserrat-Regular", size: 11)
         createAccountButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
-        createAccountButton.layer.cornerRadius = 4.0
+        createAccountButton.layer.cornerRadius = 0
         createAccountButton.clipsToBounds = true
         
         skipButton = LoginButton.AnonymousButton()
         skipButton.setTitle("skip".uppercaseString, forState: .Normal)
-        skipButton.setTitleColor(UIColor(fromHexString: "#152036") , forState: .Normal)
+        skipButton.setTitleColor(UIColor(fromHexString: "#202020") , forState: .Normal)
         skipButton.alpha = 0.54
         
         signinButton = UIButton()
         signinButton.translatesAutoresizingMaskIntoConstraints = false
         signinButton.setTitle("sign in".uppercaseString, forState: .Normal)
         signinButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        signinButton.setTitleColor(UIColor(fromHexString: "#152036")  , forState: .Normal)
+        signinButton.setTitleColor(UIColor(fromHexString: "#202020")  , forState: .Normal)
         signinButton.alpha = 0.54
         
         var splashImage: UIImage = UIImage(named: "LaunchImage-800-667h@2x")!
@@ -108,7 +108,7 @@ class LoginView: UIView {
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#f7f7f7")
+        backgroundColor = UIColor(fromHexString: "#ffffff")
         
         addSubview(scrollView)
         addSubview(titleLabel)
@@ -149,8 +149,8 @@ class LoginView: UIView {
             titleLabel.al_height == 16.5,
             
             subtitleLabel.al_bottom == pageControl.al_top - 18.5,
-            subtitleLabel.al_left == al_left + subtitleLabelLeftAndRightMargin,
-            subtitleLabel.al_right == al_right - subtitleLabelLeftAndRightMargin,
+            subtitleLabel.al_left == al_left + 45,
+            subtitleLabel.al_right == al_right - 45,
             subtitleLabel.al_height == 42,
             
             pageControl.al_bottom == createAccountButton.al_top - 34,
