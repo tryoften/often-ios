@@ -52,7 +52,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
         textProcessor?.delegate = self
 
-        packsVC = KeyboardBrowsePackItemViewController(packId: packId, panelStyle: .Detailed, viewModel: PackItemViewModel(packId: packId), textProcessor: textProcessor)
+        packsVC = KeyboardBrowsePackItemViewController(panelStyle: .Detailed, viewModel: PackItemViewModel(packId: packId), textProcessor: textProcessor)
     
         view.backgroundColor = DefaultTheme.keyboardBackgroundColor
 

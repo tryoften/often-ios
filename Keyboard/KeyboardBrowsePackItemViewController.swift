@@ -11,18 +11,18 @@ import Foundation
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate, AwesomeMenuDelegate {
     var packServiceListener: Listener? = nil
 
-    override init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        super.init(packId: packId, panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
+    override init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+        super.init(panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         packViewModel.delegate = self
         showLoadingView()
 
         menuButton = AnimatedMenu(frame: CGRectMake(0, 0, view.frame.width, KeyboardHeight))
         menuButton!.delegate = self
         
-        if packId.isEmpty {
+        if viewModel.packId.isEmpty {
             packServiceListener = PacksService.defaultInstance.didUpdatePacks.once({ items in
                 if let packId = items.first?.pack_id {
-                    self.packId = packId
+                    viewModel.packId = packId
                     self.loadPackData()
                 }
             })
@@ -62,6 +62,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksService.defaultInstance)
         packsVC.delegate = self
         packsVC.transitioningDelegate = self
+        packsVC.title = "packsVC"
         packsVC.modalPresentationStyle = .Custom
         presentViewController(packsVC, animated: true, completion: nil)
     }
@@ -88,7 +89,11 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: false)
+        var animator = FadeInTransitionAnimator(presenting: true)
+
+        if let VCTitle = presented.title where VCTitle == "packsVC" {
+            animator = FadeInTransitionAnimator(presenting: true, direction: .Left, duration: 0.2)
+        }
 
         return animator
     }

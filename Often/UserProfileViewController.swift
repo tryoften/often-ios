@@ -216,7 +216,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
                 return
             }
 
-            let packVC = MainAppBrowsePackItemViewController(packId: id, panelStyle: .Simple, viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+            let packVC = MainAppBrowsePackItemViewController(panelStyle: .Simple, viewModel: PackItemViewModel(packId: id), textProcessor: nil)
             navigationController?.navigationBar.hidden = false
             navigationController?.pushViewController(packVC, animated: true)
         }
@@ -316,7 +316,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
 
     override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: false, lowerPresentingViewController: false)
+        let animator = FadeInTransitionAnimator(presenting: true)
         return animator
     }
     

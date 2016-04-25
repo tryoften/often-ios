@@ -28,18 +28,16 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
             }
         }
     }
-    var packId: String
     var panelStyle: CategoryPanelStyle
     var packViewModel: PackItemViewModel
     
-    init(packId: String, panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+    init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
         let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
         let cache = AnimatedImageMemoryCache()
 
         ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
 
-        self.packId = packId
         self.panelStyle = panelStyle
         self.packViewModel = viewModel
         
@@ -140,11 +138,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-
         guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
             return CGSizeZero
         }
-
+        
         switch group.type {
         case .Gif:
             return CGSizeMake(171.5, 100)
@@ -203,7 +200,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     }
     
     func setupHudView() {
-        
         if HUDMaskView != nil {
             return
         }
