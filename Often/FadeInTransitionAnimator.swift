@@ -49,15 +49,16 @@ class FadeInTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
             toViewController.view.alpha = 0
             toViewController.view.frame = lastViewControllerFrame
 
+
             switch fadeInTransitionDirection {
             case .Up:
-                toViewController.view.frame.origin.y += toViewController.view.frame.height
+                toViewController.view.frame.origin.y += lastViewControllerFrame.height
             case .Down:
-                toViewController.view.frame.origin.y -= toViewController.view.frame.height
+                toViewController.view.frame.origin.y -= lastViewControllerFrame.height
             case .Left:
-                toViewController.view.frame.origin.x +=  toViewController.view.frame.width
+                toViewController.view.frame.origin.x += lastViewControllerFrame.width
             case .Right:
-                toViewController.view.frame.origin.x -=  toViewController.view.frame.width
+                toViewController.view.frame.origin.x -= lastViewControllerFrame.width
             case .None:
                 break
             }
@@ -73,16 +74,17 @@ class FadeInTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
 
                 switch self.fadeInTransitionDirection {
                 case .Up:
-                    toViewController.view.frame.origin.y -= toViewController.view.frame.height
+                    toViewController.view.frame.origin.y -= lastViewControllerFrame.height
                 case .Down:
-                    toViewController.view.frame.origin.y += toViewController.view.frame.height
+                    toViewController.view.frame.origin.y += lastViewControllerFrame.height
                 case .Left:
-                    toViewController.view.frame.origin.x -=  toViewController.view.frame.width
+                    toViewController.view.frame.origin.x -= lastViewControllerFrame.width
                 case .Right:
-                    toViewController.view.frame.origin.x +=  toViewController.view.frame.width
+                    toViewController.view.frame.origin.x += lastViewControllerFrame.width
                 case .None:
                     break
                 }
+                
             } else {
                 transitionContextContainerView.alpha = 0
                 toViewController.view.userInteractionEnabled = true

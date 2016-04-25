@@ -216,7 +216,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
                 return
             }
 
-            let packVC = MainAppBrowsePackItemViewController(packId: id, panelStyle: .Simple, viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+            let packVC = MainAppBrowsePackItemViewController(panelStyle: .Simple, viewModel: PackItemViewModel(packId: id), textProcessor: nil)
             navigationController?.navigationBar.hidden = false
             navigationController?.pushViewController(packVC, animated: true)
         }
