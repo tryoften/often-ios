@@ -10,7 +10,7 @@ import UIKit
 
 class RecentsEmptyStateView: EmptyStateView {
     init() {
-        let title = "Go hit the squad with lyrics"
+        let title = "Go hit the squad with packs"
         let description = "See all your recently shared lyrics here"
         let image = UIImage(named: "recentsemptystate")!
         

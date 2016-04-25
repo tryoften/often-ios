@@ -367,17 +367,16 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 subtitle: result.getInsertableText(), duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
         #endif
         }
-        cell.overlayVisible = false
     }
 
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true, resizePresentingViewController: true, lowerPresentingViewController: true)
+        let animator = FadeInTransitionAnimator(presenting: true)
 
         return animator
     }
 
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: false, resizePresentingViewController: false, lowerPresentingViewController: false)
+        let animator = FadeInTransitionAnimator(presenting: false)
 
         return animator
     }

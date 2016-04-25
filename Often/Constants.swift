@@ -59,13 +59,14 @@ let TitleFont = UIFont(name: "Oswald-Regular", size: 19)
 
 
 // Share Message
-let ShareMessage = "What's good fam. Check out this new lyric keyboard called Often. Share lyrics from any song or artist. It's littt. oftn.me/app"
+let ShareMessage = "Check out this new keyboard called Often! oftn.me/app"
 
 // Navbar
 let NavbarDefaultBackgroundColor = MediumLightGrey
 let NavBarHightlightedBackgroundColor = UIColor(fromHexString: "#e85769")
 
 let KeyboardHeight: CGFloat = 255
+let KeyboardPackPickerDismissalViewHeight: CGFloat = 71
 let KeyboardSearchBarHeight: CGFloat = 44.0
 let KeyboardTabBarHeight: CGFloat = 44.0
 let KeyboardTableViewBackgroundColor = LightGrey

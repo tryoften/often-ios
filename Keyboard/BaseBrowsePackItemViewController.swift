@@ -139,11 +139,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-
         guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
             return CGSizeZero
         }
-
+        
         switch group.type {
         case .Gif:
             return CGSizeMake(171.5, 100)
@@ -202,7 +201,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
     }
     
     func setupHudView() {
-        
         if HUDMaskView != nil {
             return
         }
