@@ -10,6 +10,7 @@ import Foundation
 
 class BrowseViewModel: MediaItemGroupViewModel {
     let didChangeMediaItems = Event<[MediaItemGroup]>()
+    var currentCategory: Category?
     
     init(path: String = "trending") {
         super.init(baseRef: Firebase(url: BaseURL), path: path)
@@ -39,6 +40,8 @@ class BrowseViewModel: MediaItemGroupViewModel {
     }
 
     func applyFilter(filter: Category) {
+        currentCategory = filter
+        
         for group in mediaItemGroups {
             group.filterMediaItems(filter)
         }

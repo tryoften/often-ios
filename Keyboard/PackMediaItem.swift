@@ -56,8 +56,12 @@ class PackMediaItem: MediaItem {
             self.items_count = self.items.count
         }
 
+        self.categories = [Category.all]
+        
         if let items = data["categories"] as? NSDictionary {
-            self.categories = Category.modelsFromDictionary(items)
+            for category in Category.modelsFromDictionary(items) {
+                self.categories.append(category)
+            }
         }
 
         if let premium = data["premium"] as? Bool {
