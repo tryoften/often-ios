@@ -102,6 +102,8 @@ class EmailAccountManager: AccountManager {
                 completion(results: ResultType.Success(r: true))
                 delegate?.accountManagerUserDidLogin(self, user: user)
             }
+
+            self.initiateUserWithPacks()
         }
     }
 }
