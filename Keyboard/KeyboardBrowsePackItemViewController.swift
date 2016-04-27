@@ -143,10 +143,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         self.pack = pack
 
-        if  SessionManagerFlags.defaultManagerFlags.lastCategoryIndex < pack.categories.count {
-            viewModel.applyFilter(pack.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex])
-        }
-
+        viewModel.applyLastFilter()
         populatePanelMetaData(self.pack)
 
         if let menuButton = menuButton, imageURL = pack.smallImageURL {

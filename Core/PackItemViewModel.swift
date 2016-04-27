@@ -45,4 +45,14 @@ class PackItemViewModel: BrowseViewModel {
         }
         return nil
     }
+
+    func applyLastFilter() {
+        guard let pack = pack else {
+            return
+        }
+
+        if  SessionManagerFlags.defaultManagerFlags.lastCategoryIndex < pack.categories.count {
+            applyFilter(pack.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex])
+        }
+    }
 }
