@@ -14,7 +14,7 @@ class KeyboardSearchViewController: SearchViewController,
     override init(viewModel aViewModel: SearchViewModel,
         suggestionsViewModel: SearchSuggestionsViewModel,
         textProcessor aTextProcessor: TextProcessingManager?,
-        SearchBarControllerClass: SearchBarController.Type,
+        SearchBarControllerClass: SearchBarViewController.Type,
         SearchBarClass: SearchBar.Type) {
 
             super.init(viewModel: aViewModel,
