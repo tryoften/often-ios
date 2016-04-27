@@ -63,6 +63,18 @@ class AccountManager: AccountManagerProtocol, ConnectivityObservable {
         }
     }
 
+    func initiateUserWithPacks() {
+        guard let user = currentUser else {
+            return
+        }
+
+        let userQueue = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
+        userQueue.setValue([
+            "userId": user.id,
+            "type": "initiatePacks"
+        ])
+    }
+
     internal func handleParseUser(completion: AccountManagerResultCallback) -> PFUserResultBlock {
         return { (user, error) in
             if error == nil {

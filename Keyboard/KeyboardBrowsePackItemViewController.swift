@@ -69,9 +69,14 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     override func setupCategoryCollectionViewController() {
         super.setupCategoryCollectionViewController()
-        categoriesVC?.delegate = self
-        categoriesVC?.currentCategory = categoriesVC?.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex]
-        categoriesVC?.panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        guard let categoriesVC = categoriesVC else {
+            return
+        }
+        let lastCategoryIndex = SessionManagerFlags.defaultManagerFlags.lastCategoryIndex
+        let categories = categoriesVC.categories
+        categoriesVC.delegate = self
+        categoriesVC.currentCategory = lastCategoryIndex < categories.count ? categories[lastCategoryIndex] : categories.first
+        categoriesVC.panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
 
     func switchKeyboardButtonDidTap(sender: UIButton) {

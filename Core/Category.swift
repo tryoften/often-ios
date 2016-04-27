@@ -29,7 +29,6 @@ struct Category: Equatable {
             if let itemData = categoryData as? NSDictionary,
                 id = itemData["id"] as? String, name = itemData["name"] as? String {
                 var category = Category(id: id, name: name, smallImageURL: nil, largeImageURL: nil)
-                print(itemData["image"])
 
                 if let imageData = itemData["image"] as? NSDictionary, smallImage = imageData["small_url"] as? String {
                     category.smallImageURL = NSURL(string: smallImage)
