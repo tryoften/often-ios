@@ -48,7 +48,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     }
 
     override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        self.init(extraHeight: 108)
+        self.init(extraHeight: 64)
     }
 
     required init?(coder aDecoder: NSCoder) {
