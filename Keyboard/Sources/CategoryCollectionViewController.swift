@@ -11,89 +11,99 @@ import Nuke
 import FLAnimatedImage
 
 class CategoryCollectionViewController: UIViewController, UICollectionViewDelegate,
-    UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    private var drawerOpened: Bool = false
-    var panelView: CategoriesPanelView
-    var viewModel: BrowseViewModel
+    UICollectionViewDataSource {
     weak var delegate: CategoriesCollectionViewControllerDelegate?
 
-    var currentCategory: Category? {
-        didSet {
-            panelView.currentCategoryText = currentCategory?.name.uppercaseString
-            if let category = currentCategory {
-                viewModel.applyFilter(category)
-            }
-        }
-    }
-    var categories: [Category] = [] {
+    private var dismissalView: UIView
+    private var cancelBarView: KeyboardCancelBar
+    private var categoriesCollectionView: UICollectionView
+    private var viewModel: BrowseViewModel
+    private var categoryServiceListener: Listener?
+    private var categories: [Category] = [] {
         didSet {
             if (categories.count >= 1) {
-                currentCategory = categories[0]
-                panelView.categoriesCollectionView.reloadData()
-                panelView.categoriesCollectionView.setNeedsLayout()
+                categoriesCollectionView.reloadData()
+                categoriesCollectionView.setNeedsLayout()
             }
         }
     }
 
-    private var categoryServiceListener: Listener?
-
     init(viewModel: BrowseViewModel, categories: [Category]) {
+        cancelBarView = KeyboardCancelBar()
+        cancelBarView.translatesAutoresizingMaskIntoConstraints = false
+
+        dismissalView = UIView()
+        dismissalView.translatesAutoresizingMaskIntoConstraints = false
+        dismissalView.backgroundColor = ClearColor
+
+        categoriesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: CategoryCollectionViewController.provideCollectionViewLayout())
+        categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        categoriesCollectionView.backgroundColor = VeryLightGray
+        categoriesCollectionView.showsHorizontalScrollIndicator = false
+
         self.viewModel = viewModel
+        self.categories = categories
 
-        self.categories = [Category.all]
-
-        for category in categories {
-            self.categories.append(category)
-        }
-
-        panelView = CategoriesPanelView(frame: CGRectZero)
-        
         super.init(nibName: nil, bundle: nil)
 
-        panelView.categoriesCollectionView.backgroundColor = VeryLightGray
-        panelView.categoriesCollectionView.dataSource = self
-        panelView.categoriesCollectionView.delegate = self
+        categoriesCollectionView.dataSource = self
+        categoriesCollectionView.delegate = self
 
+        view.addSubview(dismissalView)
+        view.addSubview(categoriesCollectionView)
+        view.addSubview(cancelBarView)
+        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func loadView() {
-        view = panelView
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let viewLayout = CategoriesPanelView.provideCollectionViewLayout(panelView.bounds)
-        panelView.categoriesCollectionView.setCollectionViewLayout(viewLayout, animated: false)
-
-        currentCategory = self.categories.first
+        categoriesCollectionView.registerClass(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
+        cancelBarView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(CategoryCollectionViewController.cancelButtonDidTap)))
+        cancelBarView.cancelButton.addTarget(self, action: #selector(CategoryCollectionViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
+        dismissalView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(CategoryCollectionViewController.cancelButtonDidTap)))
     }
 
-    func handleCategories(categories: [Category]) {
-        var newCategories: [Category] = [Category.all]
+    class func provideCollectionViewLayout() -> UICollectionViewLayout {
+        let viewLayout = UICollectionViewFlowLayout()
+        viewLayout.scrollDirection = .Horizontal
+        viewLayout.itemSize = CGSizeMake(113, 60)
+        viewLayout.minimumInteritemSpacing = 3
+        viewLayout.minimumLineSpacing = 3
+        viewLayout.sectionInset = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
+        return viewLayout
+    }
 
-        for category in categories {
-            newCategories.append(category)
-        }
-        self.categories = newCategories
+    func setupLayout() {
+        view.addConstraints([
+            categoriesCollectionView.al_left == cancelBarView.al_right,
+            categoriesCollectionView.al_right == view.al_right,
+            categoriesCollectionView.al_bottom == view.al_bottom,
+            categoriesCollectionView.al_height == 144,
+
+            cancelBarView.al_left == view.al_left,
+            cancelBarView.al_top == categoriesCollectionView.al_top,
+            cancelBarView.al_bottom == categoriesCollectionView.al_bottom,
+            cancelBarView.al_width == 31,
+
+            dismissalView.al_top == view.al_top,
+            dismissalView.al_left == view.al_left,
+            dismissalView.al_right == view.al_right,
+            dismissalView.al_bottom == view.al_bottom
+            ])
+    }
+
+    func cancelButtonDidTap() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     // MARK: UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
-    }
-
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        var screenWidth = CGRectGetWidth(collectionView.bounds)
-        if screenWidth == 0 {
-            screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
-        }
-
-        return CGSizeMake(screenWidth / 2.5 - 12, 65)
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -121,7 +131,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             }
         }
         
-        if currentCategory == categories[indexPath.row] {
+        if viewModel.currentCategory == categories[indexPath.row] {
             cell.selected = true
         } else {
             cell.selected = false
@@ -133,16 +143,17 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row < categories.count {
             let category = categories[indexPath.row]
-            delegate?.categoriesCollectionViewControllerDidSwitchCategory(self, category: category, categoryIndex: indexPath.row)
-            currentCategory = category
-            panelView.toggleDrawer()
+
+            viewModel.applyFilter(category)
 
             let data: [String: AnyObject] = [
                 "category_name": category.name,
                 "category_id": category.id
             ]
-
             SEGAnalytics.sharedAnalytics().track("keyboard:categorySelected", properties: data)
+
+            delegate?.categoriesCollectionViewControllerDidSwitchCategory(self, category: category, categoryIndex: indexPath.row)
+            dismissViewControllerAnimated(true, completion: nil)
         }
     }
 }
