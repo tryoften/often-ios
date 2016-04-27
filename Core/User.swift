@@ -20,6 +20,8 @@ class User: NSObject {
     var userDescription: String = ""
     var password: String = ""
     var backgroundImage: String = ""
+    var favoritesPackId: String = ""
+    var recentsPackId: String = ""
 
     override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
 
@@ -73,6 +75,14 @@ class User: NSObject {
         
         if let phoneString = keyedValues["phone"] as? String {
             phone = phoneString
+        }
+
+        if let favsId = keyedValues["favoritesPackId"] as? String {
+            favoritesPackId = favsId
+        }
+
+        if let recentsId = keyedValues["recentsPackId"] as? String {
+            recentsPackId = recentsId
         }
 
         setupCrashlytics()

@@ -101,6 +101,7 @@ class FacebookAccountManager: AccountManager {
                         completion(results: ResultType.Success(r: true))
                         self.delegate?.accountManagerUserDidLogin(self, user: user)
                     }
+                    self.initiateUserWithPacks()
                 } else {
                     completion(results: ResultType.SystemError(e: error!))
                 }

@@ -91,7 +91,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             cancelBarView.al_top == view.al_top + KeyboardPackPickerDismissalViewHeight,
             cancelBarView.al_bottom == view.al_bottom,
             cancelBarView.al_width == 31
-            ])
+        ])
     }
 
     class func provideLayout() -> UICollectionViewFlowLayout {

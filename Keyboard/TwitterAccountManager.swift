@@ -23,16 +23,16 @@ class TwitterAccountManager: AccountManager {
             "task": "createToken",
             "user": "twitter:\(userId)",
             "data": ["token": twitterToken]
-            ])
+        ])
         
         userRef = firebase.childByAppendingPath("users/twitter:\(userId)")
         userRef?.observeEventType(.Value, withBlock: { snapshot in
             if snapshot.exists() {
                 if let value = snapshot.value as? [String: AnyObject] {
-                    self.firebase.authWithCustomToken(value["auth_token"] as? String, withCompletionBlock: { (err, aut ) -> Void in
+                    self.firebase.authWithCustomToken(value["auth_token"] as? String, withCompletionBlock: { (err, auth ) -> Void in
                         self.userRef?.removeAllObservers()
                         if err == nil {
-                            self.fetchUserData(aut, completion: completion)
+                            self.fetchUserData(auth, completion: completion)
                         } else {
                              completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                         }
@@ -87,7 +87,7 @@ class TwitterAccountManager: AccountManager {
                                 return
                             }
 
-                            self.sessionManagerFlags.userId =  "twitter:\(userID)"
+                            self.sessionManagerFlags.userId = "twitter:\(userID)"
 
                             self.currentUser = User()
                             self.currentUser?.setValuesForKeysWithDictionary(firebaseData)
@@ -97,6 +97,7 @@ class TwitterAccountManager: AccountManager {
                                 completion(results: ResultType.Success(r: true))
                                 self.delegate?.accountManagerUserDidLogin(self, user: user)
                             }
+                            self.initiateUserWithPacks()
                         }
                     }
                 }
