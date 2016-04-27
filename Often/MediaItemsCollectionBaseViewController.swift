@@ -366,7 +366,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 subtitle: result.getInsertableText(), duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
         #endif
         }
-        cell.overlayVisible = false
     }
 
     func presentViewCotntrollerWithCustomTransitionAnimator(presentingController: UIViewController, direction: FadeInTransitionDirection = .None, duration: NSTimeInterval = 0.15) {

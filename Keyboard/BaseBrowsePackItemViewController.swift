@@ -25,6 +25,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             }
         }
     }
+
     var packViewModel: PackItemViewModel
     
     init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
@@ -154,10 +155,12 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
         let categoriesVC = CategoryCollectionViewController(viewModel: viewModel, categories: pack.categories)
         categoriesVC.delegate = self
-        presentViewCotntrollerWithCustomTransitionAnimator(categoriesVC, direction: .Left)
+        presentViewCotntrollerWithCustomTransitionAnimator(categoriesVC, direction: .Left, duration: 0.25)
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+        
         for cell in collectionView.visibleCells() {
             if let cell = cell as? BaseMediaItemCollectionViewCell where collectionView.indexPathForCell(cell) != indexPath {
                 cell.overlayVisible = false
@@ -166,6 +169,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? GifCollectionViewCell {
             cell.overlayVisible = !cell.overlayVisible
+            mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: true)
         }
     }
 

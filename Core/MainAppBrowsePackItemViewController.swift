@@ -30,8 +30,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         filterButton.layer.shadowOffset = CGSizeMake(0, 2)
         filterButton.setAttributedTitle(filterString, forState: .Normal)
 
-
         super.init(viewModel: viewModel, textProcessor: textProcessor)
+
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
