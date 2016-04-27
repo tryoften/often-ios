@@ -72,8 +72,12 @@ class PackMediaItem: MediaItem {
             self.published = published
         }
 
-        if let publishedTime = data["publishedTime"] as? String {
-            self.publishedTime = NSDate(string: publishedTime, formatString: "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+
+        if let publishedTime = data["publishedTime"] as? String,
+            let date = dateFormatter.dateFromString(publishedTime) {
+            self.publishedTime = date
         }
     }
 
