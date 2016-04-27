@@ -216,7 +216,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
                 return
             }
 
-            let packVC = MainAppBrowsePackItemViewController(panelStyle: .Simple, viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+            let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
             navigationController?.navigationBar.hidden = false
             navigationController?.pushViewController(packVC, animated: true)
         }
@@ -315,11 +315,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         viewDidLayoutSubviews()
     }
 
-    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true)
-        return animator
-    }
-    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 9.0 as CGFloat
     }

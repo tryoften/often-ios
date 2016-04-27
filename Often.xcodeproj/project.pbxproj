@@ -12,6 +12,8 @@
 		30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
 		3B01B3801C61F3D7002ED18A /* CollectionViewAlphabeticalSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01B3771C61D40E002ED18A /* CollectionViewAlphabeticalSidebar.swift */; };
 		3B01B3811C61F3D8002ED18A /* CollectionViewAlphabeticalSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01B3771C61D40E002ED18A /* CollectionViewAlphabeticalSidebar.swift */; };
+		3B029ABC1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7107A61CC9455300707602 /* KeyboardCancelBar.swift */; };
+		3B029ABD1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7107A61CC9455300707602 /* KeyboardCancelBar.swift */; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B20C03A1C7E0D3F00D98803 /* SearchResultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B20C0351C7E016100D98803 /* SearchResultNavigationBar.swift */; };
@@ -3599,6 +3601,7 @@
 				810EA4D51C8579D1005A6C6D /* SearchBar.swift in Sources */,
 				BFBA72F11CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */,
 				810EA4D61C8579D1005A6C6D /* EmojiKeyboardViewModel.swift in Sources */,
+				3B029ABD1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */,
 				810EA4D71C8579D1005A6C6D /* AnonymousAccountManager.swift in Sources */,
 				810EA4D81C8579D1005A6C6D /* AlertView.swift in Sources */,
 				810EA4D91C8579D1005A6C6D /* EmitterListener.swift in Sources */,
@@ -3971,6 +3974,7 @@
 				816D504E1C8A04D9007B3249 /* AnimatedLoaderView.swift in Sources */,
 				816D50C61C8A062C007B3249 /* SwiftAutoLayout.swift in Sources */,
 				816D50701C8A051B007B3249 /* SearchBar.swift in Sources */,
+				3B029ABC1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */,
 				816D50CF1C8A075D007B3249 /* FrameView.swift in Sources */,
 				BF99715F1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */,
 				816D50B91C8A05E3007B3249 /* Listener.swift in Sources */,

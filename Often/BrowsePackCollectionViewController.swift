@@ -112,7 +112,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
                 return
             }
 
-            let packVC = MainAppBrowsePackItemViewController(panelStyle: .Simple, viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+            let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
             navigationController?.navigationBar.hidden = false
             navigationController?.pushViewController(packVC, animated: true)
         }

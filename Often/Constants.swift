@@ -96,7 +96,7 @@ let LyricSelectedEventIdentifier = "lyric:selected"
 
 let CoverArtViewImageWidth: CGFloat = 35.0
 
-let SectionPickerViewHeight: CGFloat = 30.5
+let SectionPickerViewHeight: CGFloat = 35.5
 let SectionPickerViewOpenedHeight: CGFloat = 200.0
 let SectionPickerViewSwitchArtistHeight: CGFloat = 20.0
 let SectionPickerViewBackgroundColor = UIColor.oftBlack74Color()
