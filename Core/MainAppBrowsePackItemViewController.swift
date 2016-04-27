@@ -12,7 +12,7 @@ private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     var filterButton: UIButton
 
-    override init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+    override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         let attributes: [String: AnyObject] = [
             NSKernAttributeName: NSNumber(float: 1.0),
             NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
@@ -31,19 +31,21 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         filterButton.setAttributedTitle(filterString, forState: .Normal)
 
 
-        super.init(panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
+        super.init(viewModel: viewModel, textProcessor: textProcessor)
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.collectionView?.setContentOffset(CGPointZero, animated: true)
             self.collectionView?.reloadData()
-            self.hideHud()
             self.headerViewDidLoad()
         }
 
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
 
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
+
+        view.addSubview(filterButton)
+        setLayout()
     }
     
     
@@ -79,23 +81,27 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     }
 
     override func setupHeaderView(imageURL: NSURL?, title: String?, subtitle: String?) {
-        if let header = headerView as? PackPageHeaderView, let pack = pack {
-            if let text = title {
-                header.title = text
-            }
-
-            if let string = subtitle {
-                header.subtitle = string
-            }
-
-            header.sampleButton.hidden = !pack.premium
-            header.primaryButton.title = pack.callToActionText()
-            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
-            header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
-            header.imageURL = imageURL
+        guard let header = headerView as? PackPageHeaderView, let pack = pack else {
+            return
         }
+        self.hideHud()
+
+        if let text = title {
+            header.title = text
+        }
+
+        if let string = subtitle {
+            header.subtitle = string
+        }
+
+        header.sampleButton.hidden = !pack.premium
+        header.primaryButton.title = pack.callToActionText()
+        header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
+        header.imageURL = imageURL
+
     }
-    
+
     func primaryButtonTapped(sender: UIButton) {
         guard let button = sender as? BrowsePackDownloadButton else {
             return
@@ -113,20 +119,9 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     }
     
     func filterButtonDidTap(sender: UIButton) {
-        categoriesVC?.panelView.toggleDrawer()
+        toggleCategoryViewController()
     }
 
-    override func setupCategoryCollectionViewController() {
-        super.setupCategoryCollectionViewController()
-
-        guard let categoriesVC = categoriesVC else {
-            return
-        }
-
-        view.insertSubview(filterButton, belowSubview: categoriesVC.view)
-        setLayout()
-    }
-    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
                 guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: PackPageHeaderViewIdentifier, forIndexPath: indexPath) as? PackPageHeaderView else {
@@ -135,18 +130,12 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
                 
                 if headerView == nil {
                     headerView = cell
-                    headerViewDidLoad()
                 }
-                
+                headerViewDidLoad()
+
                 return headerView!
             }
         
         return UICollectionReusableView()
-    }
-    
-    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true)
-        
-        return animator
     }
 }

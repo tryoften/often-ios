@@ -13,13 +13,10 @@ import FLAnimatedImage
 
 let gifCellReuseIdentifier = "gifCellIdentifier"
 
-class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollectionViewDelegateFlowLayout {
+class BaseBrowsePackItemViewController: BrowseMediaItemViewController, CategoriesCollectionViewControllerDelegate, UICollectionViewDelegateFlowLayout {
     var packCollectionListener: Listener? = nil
-    var categoriesVC: CategoryCollectionViewController? = nil
     var panelToggleListener: Listener?
-    var HUDMaskView: UIView?
     var menuButton: AnimatedMenu?
-
     var pack: PackMediaItem? {
         didSet {
             cellsAnimated = [:]
@@ -28,17 +25,14 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
             }
         }
     }
-    var panelStyle: CategoryPanelStyle
     var packViewModel: PackItemViewModel
     
-    init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+    init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
         let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
         let cache = AnimatedImageMemoryCache()
 
         ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
-
-        self.panelStyle = panelStyle
         self.packViewModel = viewModel
         
         super.init(viewModel: viewModel)
@@ -55,22 +49,9 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         if index > viewModel.mediaItemGroups.count {
             return nil
         }
-        
         return viewModel.groupAtIndex(index)
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        HUDMaskView?.frame = view.bounds
-        
-        guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
-            return
-        }
-        
-        layoutCategoryPanelView()
-    }
-    
+
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -80,7 +61,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
             return 0
         }
-
         return group.items.count
     }
 
@@ -166,106 +146,15 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         collectionView?.reloadData()
         viewModel.fetchData()
     }    
-    
-    func setupCategoryCollectionViewController() {
-        let categoriesVC = CategoryCollectionViewController(viewModel: viewModel, categories: pack!.categories)
-        self.categoriesVC = categoriesVC
-        self.categoriesVC?.panelView.style = panelStyle
-        
-        setupHudView()
-        
-        view.addSubview(categoriesVC.view)
-        addChildViewController(categoriesVC)
-        
-        panelToggleListener = categoriesVC.panelView.didToggle.on({ opening in
-            guard let maskView = self.HUDMaskView else {
-                return
-            }
-            
-            if opening {
-                maskView.alpha = 0.0
-                maskView.hidden = false
-            }
-            
-            UIView.animateWithDuration(0.3, animations: {
-                maskView.alpha = opening ? 1.0 : 0.0
-                }, completion: { done in
-                    if !opening {
-                        maskView.hidden = true
-                    }
-            })
-        })
-        
-        layoutCategoryPanelView()
-    }
-    
-    func setupHudView() {
-        if HUDMaskView != nil {
-            return
-        }
-        
-        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.toggleCategoryViewController)
-        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
-        
-        HUDMaskView = UIView()
-        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
-        HUDMaskView?.hidden = true
-        HUDMaskView?.userInteractionEnabled = true
-        HUDMaskView?.addGestureRecognizer(hudRecognizer)
-        
-        view.addSubview(HUDMaskView!)
-    }
-    
-    func layoutCategoryPanelView() {
-        let height: CGFloat
-        if categoriesVC?.panelView.style == .Detailed {
-            height = CGRectGetHeight(view.frame) - SectionPickerViewHeight
-        } else {
-            height = CGRectGetHeight(view.frame)
-        }
-        if let panelView = categoriesVC?.view {
-            panelView.frame = CGRectMake(CGRectGetMinX(view.frame),
-                                         height,
-                                         CGRectGetWidth(view.frame),
-                                         SectionPickerViewOpenedHeight)
-        }
-    }
-    
-    func populatePanelMetaData(title: String?, itemCount: Int?, imageUrl: NSURL?) {
-        guard let title = title, categoriesVC = categoriesVC else {
-            return
-        }
-        
-        categoriesVC.panelView.mediaItemTitleText = title
-        
-    }
-    
-    func togglePack() {
-        
-    }
-    
+
     func toggleCategoryViewController() {
-        categoriesVC?.panelView.toggleDrawer()
-    }
-    
-    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        if let viewModel = viewModel as? PackItemViewModel, pack = viewModel.pack {
-            self.pack = pack
+        guard let pack = pack else {
+            return
         }
-        
-        if self.categoriesVC == nil {
-            self.setupCategoryCollectionViewController()
-        } else {
-            if let pack = self.pack {
-                self.categoriesVC?.handleCategories(pack.categories)
-            }
-        }
-        self.layoutCategoryPanelView()
-        self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
-        
-        if let menuButton = menuButton, imageURL = self.pack?.smallImageURL {
-            menuButton.startButton.contentImageView.nk_setImageWith(imageURL)
-        }
+
+        let categoriesVC = CategoryCollectionViewController(viewModel: viewModel, categories: pack.categories)
+        categoriesVC.delegate = self
+        presentViewCotntrollerWithCustomTransitionAnimator(categoriesVC, direction: .Left)
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -279,4 +168,13 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
             cell.overlayVisible = !cell.overlayVisible
         }
     }
+
+    func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {}
+
+    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        if let viewModel = viewModel as? PackItemViewModel, pack = viewModel.pack {
+            self.pack = pack
+        }
+    }
+
 }

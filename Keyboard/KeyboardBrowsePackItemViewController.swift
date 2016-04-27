@@ -8,13 +8,19 @@
 
 import Foundation
 
-class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate, AwesomeMenuDelegate {
-    var packServiceListener: Listener? = nil
+class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, AwesomeMenuDelegate {
+   private var packServiceListener: Listener? = nil
+    var panelView: CategoriesPanelView
 
-    override init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        super.init(panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
+    override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+        panelView = CategoriesPanelView()
+
+        super.init(viewModel: viewModel, textProcessor: textProcessor)
         packViewModel.delegate = self
         showLoadingView()
+
+        panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        panelView.backspaceButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.backspaceButtonDidTap), forControlEvents: .TouchUpInside)
 
         menuButton = AnimatedMenu(frame: CGRectMake(0, 0, view.frame.width, KeyboardHeight))
         menuButton!.delegate = self
@@ -28,9 +34,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             })
         }
 
-        setupHudView()
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
-            self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
+            self.populatePanelMetaData(self.pack)
             self.hideLoadingView()
             self.collectionView?.reloadData()
         }
@@ -38,8 +43,9 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
         }
-        
+
         view.addSubview(menuButton!)
+        view.addSubview(panelView)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -51,6 +57,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         menuButton?.frame = view.bounds
         menuButton?.resetStartPoint()
+
+        panelView.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - SectionPickerViewHeight, view.bounds.width, SectionPickerViewHeight)
     }
 
     override func viewDidLoad() {
@@ -58,24 +66,18 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         loadPackData()
     }
 
-    override func togglePack() {
+    func togglePack() {
         let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksService.defaultInstance)
         packsVC.delegate = self
-        packsVC.transitioningDelegate = self
-        packsVC.title = "packsVC"
-        packsVC.modalPresentationStyle = .Custom
-        presentViewController(packsVC, animated: true, completion: nil)
-    }
-
-    override func setupCategoryCollectionViewController() {
-        super.setupCategoryCollectionViewController()
-        categoriesVC?.delegate = self
-        categoriesVC?.currentCategory = categoriesVC?.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex]
-        categoriesVC?.panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        presentViewCotntrollerWithCustomTransitionAnimator(packsVC, direction: .Left, duration: 0.2)
     }
 
     func switchKeyboardButtonDidTap(sender: UIButton) {
          NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
+    }
+
+    func backspaceButtonDidTap(sender:UIButton) {
+        textProcessor?.deleteBackward()
     }
 
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
@@ -84,18 +86,9 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         loadPackData()
     }
 
-    func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
+    override func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
         SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
-    }
-
-    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        var animator = FadeInTransitionAnimator(presenting: true)
-
-        if let VCTitle = presented.title where VCTitle == "packsVC" {
-            animator = FadeInTransitionAnimator(presenting: true, direction: .Left, duration: 0.2)
-        }
-
-        return animator
+        populatePanelMetaData(self.pack)
     }
 
     // AwesomeMenu Delegate Methods
@@ -106,7 +99,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             return
         }
 
-        switch item {
+        switch item { 
         case .Packs:
             togglePack()
         case .Categories:
@@ -119,18 +112,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
     
     func awesomeMenuWillAnimateOpen(menu: AwesomeMenu!) {
-        guard let maskView = self.HUDMaskView else {
-            return
-        }
 
-        view.insertSubview(menuButton!, aboveSubview: maskView)
-        
-        maskView.hidden = false
-        maskView.alpha = 0
-        
-        UIView.animateWithDuration(0.3, animations: {
-            maskView.alpha = 1.0
-            }, completion: nil)
     }
     
     func awesomeMenuWillAnimateClose(menu: AwesomeMenu!) {
@@ -138,13 +120,38 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     func hideMaskView() {
-        guard let maskView = self.HUDMaskView else {
+
+    }
+
+    func populatePanelMetaData(pack: PackMediaItem?) {
+        guard let pack = pack else {
+            return
+        }
+        panelView.mediaItemTitleText = pack.name
+
+        if  SessionManagerFlags.defaultManagerFlags.lastCategoryIndex < pack.categories.count {
+            panelView.currentCategoryText = pack.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex].name
+        } else {
+            panelView.currentCategoryText = pack.categories.first?.name
+        }
+    }
+
+    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        guard let viewModel = viewModel as? PackItemViewModel, pack = viewModel.pack else {
             return
         }
 
-        UIView.animateWithDuration(0.3, animations: {
-            maskView.alpha = 0.0
-            }, completion: nil)
+        self.pack = pack
+
+        if  SessionManagerFlags.defaultManagerFlags.lastCategoryIndex < pack.categories.count {
+            viewModel.applyFilter(pack.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex])
+        }
+
+        populatePanelMetaData(self.pack)
+
+        if let menuButton = menuButton, imageURL = pack.smallImageURL {
+            menuButton.startButton.contentImageView.nk_setImageWith(imageURL)
+        }
     }
 
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
