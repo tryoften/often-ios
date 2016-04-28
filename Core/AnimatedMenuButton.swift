@@ -59,7 +59,7 @@ class AnimatedMenuButton: UIView {
         
         buttonSize = 40
         #if KEYBOARD
-            buttonSize = 30
+            buttonSize = 35
         #endif
 
         super.init(frame: frame)

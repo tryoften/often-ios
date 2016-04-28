@@ -47,7 +47,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 45, right: 18)
+        MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 40, right: 18)
         MaterialLayout.size(view, child: menuView, width: 45, height: 45)
     }
     

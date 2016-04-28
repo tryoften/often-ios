@@ -60,15 +60,16 @@ class AnimatedMenuView: MenuView {
         menu.direction = .Up
         
         menu.baseViewSize = CGSizeMake(50, 50)
-        menu.itemViewSize = CGSizeMake(40, 40)
+        menu.itemViewSize = CGSizeMake(41, 40)
+        menu.spacing = 10.0
         
         #if KEYBOARD
-            menu.baseViewSize = CGSizeMake(40, 40)
-            menu.itemViewSize = CGSizeMake(31, 30)
+            menu.baseViewSize = CGSizeMake(45, 45)
+            menu.itemViewSize = CGSizeMake(36, 40)
+            menu.spacing = 5.0
         #endif
         
         
-        menu.spacing = 10.0
         menu.views = [startMenuItem, gifsMenuItem, quotesMenuItem, categoryMenuItem, packsMenuItem]
         translatesAutoresizingMaskIntoConstraints = false
 
