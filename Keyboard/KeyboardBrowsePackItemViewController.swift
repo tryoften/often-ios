@@ -7,17 +7,16 @@
 //
 
 import Foundation
+import Material
 
-class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate, AwesomeMenuDelegate {
+class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, CategoriesCollectionViewControllerDelegate {
     var packServiceListener: Listener? = nil
 
     override init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+        
         super.init(panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         packViewModel.delegate = self
         showLoadingView()
-
-        menuButton = AnimatedMenu(frame: CGRectMake(0, 0, view.frame.width, KeyboardHeight))
-        menuButton!.delegate = self
         
         if viewModel.packId.isEmpty {
             packServiceListener = PacksService.defaultInstance.didUpdatePacks.once({ items in
@@ -39,7 +38,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             navigationBar.removeFromSuperview()
         }
         
-        view.addSubview(menuButton!)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -48,17 +46,18 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
-        menuButton?.frame = view.bounds
-        menuButton?.resetStartPoint()
+        
+        MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 40, right: 18)
+        MaterialLayout.size(view, child: menuView, width: 45, height: 45)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadPackData()
     }
 
     override func togglePack() {
+        menuView.menu.close()
         let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksService.defaultInstance)
         packsVC.delegate = self
         packsVC.transitioningDelegate = self
@@ -70,7 +69,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     override func setupCategoryCollectionViewController() {
         super.setupCategoryCollectionViewController()
         categoriesVC?.delegate = self
-        categoriesVC?.currentCategory = categoriesVC?.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex]
+        categoriesVC?.currentCategory = categoriesVC?.categories.first
         categoriesVC?.panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
 
@@ -97,56 +96,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         return animator
     }
-
-    // AwesomeMenu Delegate Methods
-    func awesomeMenu(menu: AwesomeMenu!, didSelectIndex idx: Int) {
-        hideMaskView()
-
-        guard let item = AnimatedMenuItem(rawValue: idx) else {
-            return
-        }
-
-        switch item {
-        case .Packs:
-            togglePack()
-        case .Categories:
-            toggleCategoryViewController()
-        case .Gifs:
-            packViewModel.typeFilter = .Gif
-        case .Quotes:
-            packViewModel.typeFilter = .Quote
-        }
-    }
     
-    func awesomeMenuWillAnimateOpen(menu: AwesomeMenu!) {
-        guard let maskView = self.HUDMaskView else {
-            return
-        }
-
-        view.insertSubview(menuButton!, aboveSubview: maskView)
-        
-        maskView.hidden = false
-        maskView.alpha = 0
-        
-        UIView.animateWithDuration(0.3, animations: {
-            maskView.alpha = 1.0
-            }, completion: nil)
-    }
-    
-    func awesomeMenuWillAnimateClose(menu: AwesomeMenu!) {
-        hideMaskView()
-    }
-
-    func hideMaskView() {
-        guard let maskView = self.HUDMaskView else {
-            return
-        }
-
-        UIView.animateWithDuration(0.3, animations: {
-            maskView.alpha = 0.0
-            }, completion: nil)
-    }
-
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSizeZero
     }
@@ -158,4 +108,5 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
+
 }

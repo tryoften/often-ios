@@ -97,9 +97,9 @@ class SearchViewController: UIViewController, SearchViewModelDelegate,
             return
         }
 
-//        if let searchBar = searchBarController.searchBar as? MainAppSearchBar {
-//            searchBar.setShowsCancelButton(false, animated: false)
-//        }
+        if let searchBar = searchBarController.searchBar as? MainAppSearchBar {
+            searchBar.setShowsCancelButton(false, animated: false)
+        }
         searchSuggestionsViewController.showSearchSuggestionsView(false)
         view.hidden = true
         

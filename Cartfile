@@ -5,3 +5,4 @@ github "kean/Nuke"
 github "kean/Nuke-Alamofire-Plugin" # optional
 github "kean/Nuke-AnimatedImage-Plugin" # optional
 github "levey/AwesomeMenu"
+github "CosmicMind/Material"
