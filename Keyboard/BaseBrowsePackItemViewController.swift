@@ -127,6 +127,20 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
             }, completion: nil)
     }
     
+    func showMaskView() {
+        guard let maskView = self.HUDMaskView else {
+            return
+        }
+        
+        view.insertSubview(menuView, aboveSubview: maskView)
+        maskView.hidden = false
+        maskView.alpha = 0
+        
+        UIView.animateWithDuration(0.1, animations: {
+            maskView.alpha = 1.0
+            }, completion: nil)
+    }
+    
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -317,32 +331,14 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         categoriesVC?.panelView.toggleDrawer()
     }
     
-    func startMenuItemPressed(sender: MaterialButton?) {
-        
+    func startMenuItemPressed(sender: MaterialButton) {
+
         if menuView.menu.opened {
             menuView.menu.close()
             hideMaskView()
-            sender?.selected = false
-            sender?.maskView?.hidden = true
-
         } else {
-            sender?.selected = true
-            sender?.maskView?.hidden = false
-            menuView.menu.open() { (v: UIView) in
-                (v as? MaterialButton)?.selected
-            }
-            guard let maskView = self.HUDMaskView else {
-                return
-            }
-            
-            view.insertSubview(menuView, aboveSubview: maskView)
-            
-            maskView.hidden = false
-            maskView.alpha = 0
-            
-            UIView.animateWithDuration(0.3, animations: {
-                maskView.alpha = 1.0
-                }, completion: nil)
+            menuView.menu.open()
+            showMaskView()
         }
     }
     
