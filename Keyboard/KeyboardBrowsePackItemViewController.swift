@@ -12,7 +12,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
    private var packServiceListener: Listener? = nil
     var panelView: CategoriesPanelView
 
-    override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+     init(viewModel: PacksService, textProcessor: TextProcessingManager?) {
         panelView = CategoriesPanelView()
 
         super.init(viewModel: viewModel, textProcessor: textProcessor)
@@ -24,18 +24,9 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         menuButton = AnimatedMenu(frame: CGRectMake(0, 0, view.frame.width, KeyboardHeight))
         menuButton!.delegate = self
-        
-        if viewModel.packId.isEmpty {
-            packServiceListener = PacksService.defaultInstance.didUpdatePacks.once({ items in
-                if let packId = items.first?.pack_id {
-                    viewModel.packId = packId
-                    self.loadPackData()
-                }
-            })
-        }
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
-            self.populatePanelMetaData(self.pack)
+            self.populatePanelMetaData()
             self.hideLoadingView()
             self.collectionView?.reloadData()
         }
@@ -81,14 +72,13 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
-        packViewModel.packId = pack.id
-        SessionManagerFlags.defaultManagerFlags.lastPack = pack.id
+        PacksService.defaultInstance.switchCurrentPack(pack.id)
         loadPackData()
     }
 
     override func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
         SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
-        populatePanelMetaData(self.pack)
+        populatePanelMetaData()
     }
 
     // AwesomeMenu Delegate Methods
@@ -123,28 +113,27 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     }
 
-    func populatePanelMetaData(pack: PackMediaItem?) {
-        guard let pack = pack else {
+    func populatePanelMetaData() {
+        guard let packsService = viewModel as? PacksService, let pack = packsService.pack,
+            let mediaItemTitleText = pack.name, let category =  viewModel.currentCategory, let currentCategoryText = category.name as? String else {
             return
         }
-        panelView.mediaItemTitleText = pack.name
+        
+        panelView.mediaItemTitleText = mediaItemTitleText
+        panelView.currentCategoryText = currentCategoryText
 
-        if  SessionManagerFlags.defaultManagerFlags.lastCategoryIndex < pack.categories.count {
-            panelView.currentCategoryText = pack.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex].name
-        } else {
-            panelView.currentCategoryText = pack.categories.first?.name
-        }
     }
 
     override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
+
         guard let viewModel = viewModel as? PackItemViewModel, pack = viewModel.pack else {
             return
         }
 
-        self.pack = pack
+        hideLoadingView()
 
-        viewModel.applyLastFilter()
-        populatePanelMetaData(self.pack)
+        populatePanelMetaData()
 
         if let menuButton = menuButton, imageURL = pack.smallImageURL {
             menuButton.startButton.contentImageView.nk_setImageWith(imageURL)
@@ -162,4 +151,5 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
+
 }

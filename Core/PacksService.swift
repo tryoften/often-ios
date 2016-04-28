@@ -8,8 +8,15 @@
 
 import Foundation
 
-class PacksService: UserMediaItemsViewModel {
+class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
+    let userRef: Firebase
+    let userId: String
+
+    var mediaItems: [MediaItem]
+    var currentTypeFilter: MediaType?
+
+    internal var collectionEndpoint: Firebase
 
     private var subscriptionsRef: Firebase!
     private var subscriptions: [PackSubscription] = []
@@ -18,7 +25,23 @@ class PacksService: UserMediaItemsViewModel {
     let didUpdatePacks = Event<[PackMediaItem]>()
 
     init() {
-        super.init(collectionType: .Packs)
+        userId = SessionManagerFlags.defaultManagerFlags.userId!
+        mediaItems = []
+        userRef = Firebase(url: BaseURL).childByAppendingPath("users/\(userId)")
+        collectionEndpoint = Firebase(url: BaseURL).childByAppendingPath("users/\(userId)/packs")
+
+        super.init(packId: "")
+
+        if let lastPack = SessionManagerFlags.defaultManagerFlags.lastPack {
+            packId = lastPack
+        }
+
+        do {
+            try setupUser { inner in
+               }
+        } catch _ {
+        }
+
         subscriptionsRef = userRef.childByAppendingPath("subscriptions")
         subscriptionsRef.observeEventType(.Value, withBlock: self.onSubscriptionsChanged)
         subscriptionsRef.keepSynced(true)
@@ -40,7 +63,7 @@ class PacksService: UserMediaItemsViewModel {
         return items
     }
 
-    override func fetchCollection(completion: ((Bool) -> Void)? = nil) {
+     func fetchCollection(completion: ((Bool) -> Void)? = nil) {
         collectionEndpoint.observeEventType(.Value, withBlock: { snapshot in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
                 self.isDataLoaded = true
@@ -49,14 +72,7 @@ class PacksService: UserMediaItemsViewModel {
                 }
                 dispatch_async(dispatch_get_main_queue()) {
                     completion?(true)
-                    if let packs = self.mediaItems as? [PackMediaItem] {
-                        if let packsID = packs.first?.pack_id {
-                            if SessionManagerFlags.defaultManagerFlags.lastPack == nil {
-                                SessionManagerFlags.defaultManagerFlags.lastPack = packsID
-                            }
-                        }
-                        self.didUpdatePacks.emit(packs)
-                    }
+                    self.populateCurrentPack()
                 }
             }
         })
@@ -73,7 +89,19 @@ class PacksService: UserMediaItemsViewModel {
         return [group]
     }
 
-    override func generateMediaItemGroups() -> [MediaItemGroup] {
+    override func fetchData() {
+        if packId.isEmpty {
+            fetchCollection({ completion in
+                if completion {
+                    super.fetchData()
+                }
+            })
+        } else {
+            super.fetchData()
+        }
+    }
+
+    func generateMediaItemGroups() -> [MediaItemGroup] {
         if !mediaItems.isEmpty {
             mediaItemGroups = generatePacksGroup(mediaItems)
             return mediaItemGroups
@@ -114,6 +142,44 @@ class PacksService: UserMediaItemsViewModel {
         } else if task == "removePack" {
             ref.removeValue()
         }
+    }
+
+    func switchCurrentPack(packId: String)  {
+        self.packId = packId
+        SessionManagerFlags.defaultManagerFlags.lastPack = packId
+        currentCategory = Category.all
+        fetchData()
+    }
+
+    private func populateCurrentPack() {
+        guard let packs = mediaItems as? [PackMediaItem], let packsID = packs.first?.pack_id  else {
+            return
+        }
+
+        if SessionManagerFlags.defaultManagerFlags.lastPack == nil {
+            SessionManagerFlags.defaultManagerFlags.lastPack = packsID
+            
+        }
+
+        for pack in packs where SessionManagerFlags.defaultManagerFlags.lastPack == pack.pack_id {
+            self.pack = pack
+            self.didUpdatePacks.emit(packs)
+
+            if let packId = pack.pack_id {
+                self.packId = packId
+            }
+            if SessionManagerFlags.defaultManagerFlags.lastCategoryIndex < pack.categories.count {
+                currentCategory = pack.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex]
+            } else {
+                currentCategory = pack.categories.first
+                SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = 0
+            }
+
+            if let currentCategory = currentCategory {
+                applyFilter(currentCategory)
+            }
+        }
+
     }
 
     private func onSubscriptionsChanged(snapshot: FDataSnapshot!) {
