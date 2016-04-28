@@ -17,15 +17,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     var packCollectionListener: Listener? = nil
     var panelToggleListener: Listener?
     var menuButton: AnimatedMenu?
-    var pack: PackMediaItem? {
-        didSet {
-            cellsAnimated = [:]
-            delay(0.5) {
-                self.collectionView?.reloadData()
-            }
-        }
-    }
-
     var packViewModel: PackItemViewModel
     
     init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
@@ -143,13 +134,12 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
 
     func loadPackData()  {
-        pack = nil
         collectionView?.reloadData()
         viewModel.fetchData()
     }    
 
     func toggleCategoryViewController() {
-        guard let pack = pack else {
+        guard let pack = packViewModel.pack  else {
             return
         }
 
@@ -172,13 +162,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: true)
         }
     }
-
+    
     func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {}
-
-    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        if let viewModel = viewModel as? PackItemViewModel, pack = viewModel.pack {
-            self.pack = pack
-        }
-    }
 
 }

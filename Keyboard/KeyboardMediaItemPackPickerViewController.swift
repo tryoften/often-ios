@@ -198,9 +198,8 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     func centerOnDefaultCard() {
         let count = viewModel.mediaItems.count
         for i in 1..<count {
-            if let currentPackID = SessionManagerFlags.defaultManagerFlags.lastPack,
-                let pack = viewModel.mediaItems[i] as? PackMediaItem,
-                let packId = pack.pack_id where  packId == currentPackID {
+            if let currentPackID = viewModel.pack,
+                let pack = viewModel.mediaItems[i] as? PackMediaItem where  currentPackID == pack {
                 scrollToCellAtIndex(i)
             }
         }

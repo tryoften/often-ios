@@ -74,14 +74,14 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     }
     
     override func headerViewDidLoad() {
-        let imageURL: NSURL? = pack?.largeImageURL
-        let subtitle: String? = pack?.description
+        let imageURL: NSURL? = packViewModel.pack?.largeImageURL
+        let subtitle: String? = packViewModel.pack?.description
         
-        setupHeaderView(imageURL, title: pack?.name, subtitle: subtitle)
+        setupHeaderView(imageURL, title: packViewModel.pack?.name, subtitle: subtitle)
     }
 
     override func setupHeaderView(imageURL: NSURL?, title: String?, subtitle: String?) {
-        guard let header = headerView as? PackPageHeaderView, let pack = pack else {
+        guard let header = headerView as? PackPageHeaderView, let pack = packViewModel.pack else {
             return
         }
         self.hideHud()
@@ -107,7 +107,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             return
         }
         
-        if let pack = pack {
+        if let pack = packViewModel.pack {
             if PacksService.defaultInstance.checkPack(pack) {
                 PacksService.defaultInstance.removePack(pack)
                 button.packState = .NotAdded
