@@ -18,6 +18,7 @@ class PackMediaItem: MediaItem {
     var price: Double = 0.0
     var categories: [Category] = []
     var published: Bool = false
+    var featured: Bool = false
     var publishedTime: NSDate = NSDate(timeIntervalSince1970: 0)
     
     required init(data: NSDictionary) {
@@ -74,6 +75,10 @@ class PackMediaItem: MediaItem {
 
         if let published = data["published"] as? Bool {
             self.published = published
+        }
+
+        if let featured = data["featured"] as? Bool {
+            self.featured = featured
         }
 
         let dateFormatter = NSDateFormatter()

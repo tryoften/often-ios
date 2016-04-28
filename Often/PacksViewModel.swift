@@ -25,6 +25,7 @@ class PacksViewModel: MediaItemsViewModel {
             ])
         group.items = packs
             .filter { $0.published }
+            .filter { !$0.featured }
             .sort { $0.publishedTime.compare($1.publishedTime) == .OrderedDescending }
         
         return [group]
