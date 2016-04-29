@@ -123,8 +123,7 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
             self?.progressView.setProgress(Float(task.progress.fractionCompleted), animated: true)
 
             if task.progress.fractionCompleted == 1 {
-                print(request.URLRequest.URL, task.response.debugDescription)
-    
+
                 UIView.animateWithDuration(0.2) {
                     self?.progressView.alpha = 0
                 }
