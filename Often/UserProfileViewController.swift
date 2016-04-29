@@ -19,9 +19,9 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
          favoritesViewModel: FavoritesService,
          packsViewModel: PacksService) {
         
-        viewModels = [.Favorites: favoritesViewModel, .Recents: recentsViewModel, .Packs: packsViewModel]
+        viewModels = [.Favorites: favoritesViewModel, .Recents: recentsViewModel]
         
-        super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout(), collectionType: .Packs, viewModel: packsViewModel)
+        super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout(), collectionType: .Recents, viewModel: recentsViewModel)
 
         viewModel = viewModels[collectionType]!
         viewModel.delegate = self
@@ -51,7 +51,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         layout.disableStickyHeaders = false
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
         layout.scrollDirection = .Vertical
-        layout.minimumInteritemSpacing = 7.0
+        layout.minimumInteritemSpacing = 7.0 
         layout.minimumLineSpacing = 7.0
         layout.sectionInset = UIEdgeInsets(top: 12.0, left: 12.0, bottom: 12.0, right: 12.0)
         
@@ -216,7 +216,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
                 return
             }
 
-            let packVC = MainAppBrowsePackItemViewController(panelStyle: .Simple, viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+            let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
             navigationController?.navigationBar.hidden = false
             navigationController?.pushViewController(packVC, animated: true)
         }
@@ -315,11 +315,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         viewDidLayoutSubviews()
     }
 
-    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true)
-        return animator
-    }
-    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 9.0 as CGFloat
     }

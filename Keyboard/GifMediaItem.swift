@@ -26,11 +26,6 @@ class GifMediaItem: MediaItem {
         tags = data["tags"] as? String
         giphy_id = data["tags"] as? String
         
-        if let categoryId = data["category_id"] as? String,
-            let categoryName = data["category_name"] as? String {
-            category = Category(id: categoryId, name: categoryName, smallImageURL: nil, largeImageURL: nil)
-        }
-        
         if let imageData = data["image"] as? NSDictionary, smallImage = imageData["small_url"] as? String {
             smallImageURL = NSURL(string: smallImage)
         }

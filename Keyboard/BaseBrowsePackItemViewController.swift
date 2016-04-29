@@ -14,67 +14,58 @@ import Material
 
 let gifCellReuseIdentifier = "gifCellIdentifier"
 
-class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollectionViewDelegateFlowLayout {
+class BaseBrowsePackItemViewController: BrowseMediaItemViewController, CategoriesCollectionViewControllerDelegate, UICollectionViewDelegateFlowLayout {
     var packCollectionListener: Listener? = nil
-    var categoriesVC: CategoryCollectionViewController? = nil
     var panelToggleListener: Listener?
     var HUDMaskView: UIView?
     var menuView: AnimatedMenuView
-    
-    var pack: PackMediaItem? {
-        didSet {
-            cellsAnimated = [:]
-            delay(0.5) {
-                self.collectionView?.reloadData()
-            }
-        }
-    }
-
-    var panelStyle: CategoryPanelStyle
     var packViewModel: PackItemViewModel
     
-    init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+    init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
         let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
         let cache = AnimatedImageMemoryCache()
         menuView = AnimatedMenuView()
 
-        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
 
-        self.panelStyle = panelStyle
+        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
         self.packViewModel = viewModel
-        
+
         super.init(viewModel: viewModel)
         self.textProcessor = textProcessor
-        
+
         collectionView?.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
-        
-        menuView.startMenuItem.addTarget(self, action: #selector(BaseBrowsePackItemViewController.startMenuItemPressed(_:)), forControlEvents: .TouchUpInside)
-        
+
+        menuView.startMenuItem.addTarget(self, action: #selector(BaseBrowsePackItemViewController.startMenuItemPressed), forControlEvents: .TouchUpInside)
+
         for view in menuView.menu.views! {
             if let buttonView = view as? AnimatedMenuButton {
                 buttonView.button.addTarget(self, action: #selector(BaseBrowsePackItemViewController.menuButtonPressed(_:)), forControlEvents: .TouchUpInside)
             }
         }
-        
+
         if packViewModel.typeFilter == .Gif {
             menuView.gifsMenuItem.selected = true
         } else {
             menuView.quotesMenuItem.selected = true
         }
-        
-        
-        view.addSubview(menuView)
 
+        setupHudView() 
+        view.addSubview(menuView)
     }
     
     func closeAnimatedMenu() {
         menuView.menu.close()
         hideMaskView()
     }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        HUDMaskView?.frame = view.bounds
+    }
     
     func menuButtonPressed(sender: AnimatedMenuButton) {
-        
         guard let type = AnimatedMenuItem(rawValue: sender.tag) else {
             return
         }
@@ -88,11 +79,22 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
             closeAnimatedMenu()
         case .Categories:
             toggleCategoryViewController()
-        case .Packs:
-            togglePack()
+            closeAnimatedMenu()
+        default:
+            break
         }
     }
-    
+
+    func startMenuItemPressed() {
+        if menuView.menu.opened {
+            menuView.menu.close()
+            hideMaskView()
+        } else {
+            menuView.menu.open()
+            showMaskView()
+        }
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -101,46 +103,47 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         if index > viewModel.mediaItemGroups.count {
             return nil
         }
-        
         return viewModel.groupAtIndex(index)
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        HUDMaskView?.frame = view.bounds
-        
-        guard let categoriesVC = categoriesVC where !categoriesVC.panelView.isOpened else {
-            return
-        }
-        
-        layoutCategoryPanelView()
-    }
-    
     func hideMaskView() {
-        guard let maskView = self.HUDMaskView else {
-            return
-        }
-        
         UIView.animateWithDuration(0.3, animations: {
-            maskView.alpha = 0.0
+            self.HUDMaskView?.alpha = 0.0
+            self.HUDMaskView?.hidden = true
             }, completion: nil)
     }
     
     func showMaskView() {
-        guard let maskView = self.HUDMaskView else {
+        guard let maskeView = HUDMaskView else {
             return
         }
-        
-        view.insertSubview(menuView, aboveSubview: maskView)
-        maskView.hidden = false
-        maskView.alpha = 0
+
+        view.insertSubview(menuView, aboveSubview: maskeView)
+        maskeView.hidden = false
+        maskeView.alpha = 0
         
         UIView.animateWithDuration(0.1, animations: {
-            maskView.alpha = 1.0
+            maskeView.alpha = 1.0
             }, completion: nil)
     }
-    
+
+    func setupHudView() {
+        if HUDMaskView != nil {
+            return
+        }
+
+        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.startMenuItemPressed)
+        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
+
+        HUDMaskView = UIView()
+        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
+        HUDMaskView?.hidden = true
+        HUDMaskView?.userInteractionEnabled = true
+        HUDMaskView?.addGestureRecognizer(hudRecognizer)
+
+        view.addSubview(HUDMaskView!)
+    }
+
     // MARK: UICollectionViewDataSource
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -150,7 +153,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
             return 0
         }
-
         return group.items.count
     }
 
@@ -204,7 +206,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
         default:
             return UICollectionViewCell()
         }
-        
+
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -232,134 +234,22 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
 
 
     func loadPackData()  {
-        pack = nil
         collectionView?.reloadData()
         viewModel.fetchData()
         hideMaskView()
         
     }    
-    
-    func setupCategoryCollectionViewController() {
-        let categoriesVC = CategoryCollectionViewController(viewModel: viewModel, categories: pack!.categories)
-        self.categoriesVC = categoriesVC
-        self.categoriesVC?.panelView.style = panelStyle
-        
-        setupHudView()
-        
-        view.addSubview(categoriesVC.view)
-        addChildViewController(categoriesVC)
-        
-        panelToggleListener = categoriesVC.panelView.didToggle.on({ opening in
-            guard let maskView = self.HUDMaskView else {
-                return
-            }
-            
-            if opening {
-                maskView.alpha = 0.0
-                maskView.hidden = false
-            }
-            
-            UIView.animateWithDuration(0.3, animations: {
-                maskView.alpha = opening ? 1.0 : 0.0
-                }, completion: { done in
-                    if !opening {
-                        maskView.hidden = true
-                    }
-            })
-        })
-        
-        layoutCategoryPanelView()
-    }
-    
-    func setupHudView() {
-        if HUDMaskView != nil {
-            return
-        }
-        
-        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.closeCategoryView)
-        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
-        
-        HUDMaskView = UIView()
-        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
-        HUDMaskView?.hidden = true
-        HUDMaskView?.userInteractionEnabled = true
-        HUDMaskView?.addGestureRecognizer(hudRecognizer)
-        
-        view.addSubview(HUDMaskView!)
-    }
-    
-    func layoutCategoryPanelView() {
-        let height: CGFloat
-        if categoriesVC?.panelView.style == .Detailed {
-            height = CGRectGetHeight(view.frame) - SectionPickerViewHeight
-        } else {
-            height = CGRectGetHeight(view.frame)
-        }
-        if let panelView = categoriesVC?.view {
-            panelView.frame = CGRectMake(CGRectGetMinX(view.frame),
-                                         height,
-                                         CGRectGetWidth(view.frame),
-                                         SectionPickerViewOpenedHeight)
-        }
-    }
-    
-    func populatePanelMetaData(title: String?, itemCount: Int?, imageUrl: NSURL?) {
-        guard let title = title, categoriesVC = categoriesVC else {
-            return
-        }
-        
-        categoriesVC.panelView.mediaItemTitleText = title
-        
-    }
-    
-    func togglePack() {
-        
-    }
-    
-    func closeCategoryView() {
-        guard let categoriesVC = categoriesVC else {
-            return
-        }
-        
-        if categoriesVC.panelView.isOpened {
-            categoriesVC.panelView.toggleDrawer()
-        }
-    }
-    
-    func toggleCategoryViewController() {
-        menuView.menu.close()
-        categoriesVC?.panelView.toggleDrawer()
-    }
-    
-    func startMenuItemPressed(sender: MaterialButton) {
 
-        if menuView.menu.opened {
-            menuView.menu.close()
-            hideMaskView()
-        } else {
-            menuView.menu.open()
-            showMaskView()
+
+    func toggleCategoryViewController() {
+        guard let pack = packViewModel.pack  else {
+            return
         }
-    }
-    
-    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        if let viewModel = viewModel as? PackItemViewModel, pack = viewModel.pack {
-            self.pack = pack
-        }
-        
-        if self.categoriesVC == nil {
-            self.setupCategoryCollectionViewController()
-        } else {
-            if let pack = self.pack {
-                self.categoriesVC?.handleCategories(pack.categories)
-            }
-        }
-        self.layoutCategoryPanelView()
-        self.populatePanelMetaData(self.pack?.name, itemCount: self.viewModel.getItemCount(), imageUrl: self.pack?.smallImageURL)
-        
-        if let imageURL = self.pack?.smallImageURL, image = UIImage(data: NSData(contentsOfURL: imageURL)!) {
-            menuView.startMenuItem.setImage(image, forState: .Normal)
-        }
+        menuView.menu.close()
+
+        let categoriesVC = CategoryCollectionViewController(viewModel: viewModel, categories: pack.categories)
+        categoriesVC.delegate = self
+        presentViewCotntrollerWithCustomTransitionAnimator(categoriesVC, direction: .Left, duration: 0.25)
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -376,4 +266,15 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, UICollect
             mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: true)
         }
     }
+    
+    func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {}
+
+    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
+
+        if let imageURL = self.packViewModel.pack?.smallImageURL, image = UIImage(data: NSData(contentsOfURL: imageURL)!) {
+            menuView.startMenuItem.setImage(image, forState: .Normal)
+        }
+    }
+
 }

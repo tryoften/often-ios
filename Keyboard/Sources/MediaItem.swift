@@ -83,6 +83,12 @@ class MediaItem: Equatable {
             self.created = date
         }
 
+        if let categoryData = data["category"] as? NSDictionary,
+            let categoryId = categoryData["id"] as? String,
+            let categoryName =  categoryData["name"] as? String {
+            category = Category(id: categoryId, name: categoryName, smallImageURL: nil, largeImageURL: nil)
+        }
+
         if let image = data[imageProperty] as? String, let imageURL = NSURL(string: image) {
             self.smallImageURL = imageURL
             self.squareImageURL = imageURL

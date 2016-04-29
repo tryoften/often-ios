@@ -7,45 +7,33 @@
 //
 
 import UIKit
-enum CategoryPanelStyle {
-    case Simple
-    case Detailed
-}
 
 class CategoriesPanelView: UIView {
     var switchKeyboardButton: UIButton
-
+    var backspaceButton: UIButton
     var topSeperator: UIView
     var bottomSeperator: UIView
-    var categoriesCollectionView: UICollectionView
 
     private var currentCategoryLabel: UILabel
-    private var middleCategoryLabel: UILabel
     private var mediaItemTitle: UILabel
     private var drawerOpened: Bool = false
-
-    private var tapRecognizer: UITapGestureRecognizer!
     private var selectedBgView: UIView
     private var toolbarView: UIView
 
-    let didToggle = Event<Bool>()
     var attributes: [String: AnyObject] = [
         NSKernAttributeName: NSNumber(float: 1.0),
         NSFontAttributeName: UIFont(name: "Montserrat", size: 9)!,
         NSForegroundColorAttributeName: UIColor.oftBlackColor()
     ]
 
-    var style: CategoryPanelStyle = .Detailed {
-        didSet {
-            setupPanelStyle()
-        }
-    }
-
     var currentCategoryText: String? {
         didSet {
-            let attributedString = NSAttributedString(string: currentCategoryText!.uppercaseString, attributes: attributes)
+            let attributedString = NSAttributedString(string: currentCategoryText!.uppercaseString, attributes: [
+                NSKernAttributeName: NSNumber(float: 1.0),
+                NSFontAttributeName: UIFont(name: "OpenSans-Italic", size: 9)!,
+                NSForegroundColorAttributeName: UIColor.oftBlackColor()
+                ])
             currentCategoryLabel.attributedText = attributedString
-            middleCategoryLabel.attributedText = attributedString
         }
     }
 
@@ -56,16 +44,11 @@ class CategoriesPanelView: UIView {
         }
     }
 
-    var isOpened: Bool {
-        return drawerOpened
-    }
-
     convenience required init?(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
 
     override init(frame: CGRect) {
-
         mediaItemTitle = UILabel()
         mediaItemTitle.translatesAutoresizingMaskIntoConstraints = false
         mediaItemTitle.textColor = BlackColor
@@ -77,12 +60,6 @@ class CategoriesPanelView: UIView {
 
         bottomSeperator = UIView()
         bottomSeperator.backgroundColor = DarkGrey
-
-        categoriesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: CategoriesPanelView.provideCollectionViewLayout(frame))
-        categoriesCollectionView.backgroundColor = CategoriesCollectionViewBackgroundColor
-        categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        categoriesCollectionView.registerClass(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
-        categoriesCollectionView.showsHorizontalScrollIndicator = false
 
         toolbarView = UIView()
         toolbarView.translatesAutoresizingMaskIntoConstraints = false
@@ -97,17 +74,16 @@ class CategoriesPanelView: UIView {
         switchKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
         switchKeyboardButton.contentEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
 
+        backspaceButton = UIButton()
+        backspaceButton.setImage(StyleKit.imageOfBackspaceIcon(emojiScale: 0.7), forState: .Normal)
+        backspaceButton.translatesAutoresizingMaskIntoConstraints = false
+        backspaceButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 0, bottom: 3, right: 4)
+
         currentCategoryLabel = UILabel()
         currentCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
         currentCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
         currentCategoryLabel.userInteractionEnabled = true
         currentCategoryLabel.textAlignment = .Right
-        
-        middleCategoryLabel = UILabel()
-        middleCategoryLabel.textColor = SectionPickerViewCurrentCategoryLabelTextColor
-        middleCategoryLabel.translatesAutoresizingMaskIntoConstraints = false
-        middleCategoryLabel.userInteractionEnabled = true
-        middleCategoryLabel.textAlignment = .Center
 
         selectedBgView = UIView(frame: CGRectZero)
         selectedBgView.backgroundColor = SectionPickerViewCellHighlightedBackgroundColor
@@ -117,41 +93,15 @@ class CategoriesPanelView: UIView {
         backgroundColor = SectionPickerViewBackgroundColor
 
         addSubview(toolbarView)
-        addSubview(categoriesCollectionView)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
 
         toolbarView.addSubview(currentCategoryLabel)
-        toolbarView.addSubview(middleCategoryLabel)
         toolbarView.addSubview(switchKeyboardButton)
         toolbarView.addSubview(mediaItemTitle)
+        toolbarView.addSubview(backspaceButton)
 
         setupLayout()
-        setupPanelStyle()
-    }
-    
-    func setupPanelStyle() {
-        switch style {
-        case .Simple:
-            middleCategoryLabel.hidden = false
-            currentCategoryLabel.hidden = true
-            mediaItemTitle.hidden = true
-            switchKeyboardButton.hidden = true
-        case .Detailed:
-            middleCategoryLabel.hidden = true
-            currentCategoryLabel.hidden = false
-            mediaItemTitle.hidden = false
-            switchKeyboardButton.hidden = false
-        }
-    }
-
-    class func provideCollectionViewLayout(frame: CGRect) -> UICollectionViewLayout {
-        let viewLayout = UICollectionViewFlowLayout()
-        viewLayout.scrollDirection = .Horizontal
-        viewLayout.minimumInteritemSpacing = 6
-        viewLayout.minimumLineSpacing = 6
-        viewLayout.sectionInset = UIEdgeInsets(top: 12.0, left: 12.0, bottom: 12.0, right: 12.0)
-        return viewLayout
     }
 
     override func layoutSubviews() {
@@ -161,19 +111,7 @@ class CategoriesPanelView: UIView {
         bottomSeperator.frame = CGRectMake(0, SectionPickerViewHeight - 0.6, CGRectGetWidth(frame), 0.6)
     }
 
-    func toggleDrawer() {
-        if (!drawerOpened) {
-            open()
-        } else {
-            close()
-        }
-        drawerOpened = !drawerOpened
-    }
-
     func setupLayout() {
-        let collectionViewTopConstraint = categoriesCollectionView.al_top == toolbarView.al_bottom
-        collectionViewTopConstraint.priority = 800
-
         let constraints: [NSLayoutConstraint] = [
             // toolbar
             toolbarView.al_left == al_left,
@@ -194,50 +132,18 @@ class CategoriesPanelView: UIView {
             mediaItemTitle.al_height == SectionPickerViewHeight,
 
             // current category label
-            currentCategoryLabel.al_right == al_right - 12,
+            currentCategoryLabel.al_right == backspaceButton.al_left - 5,
             currentCategoryLabel.al_height == SectionPickerViewHeight,
             currentCategoryLabel.al_centerY == switchKeyboardButton.al_centerY,
 
-            //middle category label
-            middleCategoryLabel.al_centerX == toolbarView.al_centerX,
-            middleCategoryLabel.al_centerY == toolbarView.al_centerY,
-
-
-            collectionViewTopConstraint,
-            categoriesCollectionView.al_left == al_left,
-            categoriesCollectionView.al_right == al_right,
-            categoriesCollectionView.al_bottom == al_bottom,
+            // current category label
+            backspaceButton.al_right == al_right,
+            backspaceButton.al_height == SectionPickerViewHeight,
+            backspaceButton.al_width == SectionPickerViewHeight,
+            backspaceButton.al_centerY == switchKeyboardButton.al_centerY
         ]
 
         addConstraints(constraints)
-    }
-
-    func open() {
-        categoriesCollectionView.reloadData()
-
-        UIView.animateWithDuration(0.25) {
-            var frame = self.frame
-            frame.origin.y = self.superview!.frame.height - SectionPickerViewOpenedHeight
-            self.frame = frame
-        }
-
-        didToggle.emit(true)
-    }
-
-    func close() {
-        UIView.animateWithDuration(0.25) {
-            var frame = self.frame
-            switch self.style {
-            case .Detailed:
-                frame.origin.y = self.superview!.frame.height - SectionPickerViewHeight
-            case .Simple:
-                frame.origin.y = self.superview!.frame.height
-            }
-            
-            self.frame = frame
-        }
-
-        didToggle.emit(false)
     }
 
 }

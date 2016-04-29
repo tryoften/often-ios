@@ -28,13 +28,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
     override init(extraHeight: CGFloat) {
 
-        // Packs
-        var packId = ""
-
-        if let lastPack = SessionManagerFlags.defaultManagerFlags.lastPack {
-            packId = lastPack
-        }
-
         super.init(extraHeight: extraHeight)
         
         // Only setup firebase once because this view controller gets instantiated
@@ -52,7 +45,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
         textProcessor?.delegate = self
 
-        packsVC = KeyboardBrowsePackItemViewController(panelStyle: .Detailed, viewModel: PackItemViewModel(packId: packId), textProcessor: textProcessor)
+        packsVC = KeyboardBrowsePackItemViewController(viewModel: PacksService.defaultInstance, textProcessor: textProcessor)
     
         view.backgroundColor = DefaultTheme.keyboardBackgroundColor
 

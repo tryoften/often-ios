@@ -12,15 +12,14 @@ private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
 
-    override init(panelStyle: CategoryPanelStyle, viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+    override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+        super.init(viewModel: viewModel, textProcessor: textProcessor)
 
-        super.init(panelStyle: panelStyle, viewModel: viewModel, textProcessor: textProcessor)
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
 
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.collectionView?.setContentOffset(CGPointZero, animated: true)
             self.collectionView?.reloadData()
-            self.hideHud()
             self.headerViewDidLoad()
         }
         
@@ -30,6 +29,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
 
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
+
     }
     
     
@@ -56,36 +56,40 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     }
     
     override func headerViewDidLoad() {
-        let imageURL: NSURL? = pack?.largeImageURL
-        let subtitle: String? = pack?.description
+        let imageURL: NSURL? = packViewModel.pack?.largeImageURL
+        let subtitle: String? = packViewModel.pack?.description
         
-        setupHeaderView(imageURL, title: pack?.name, subtitle: subtitle)
+        setupHeaderView(imageURL, title: packViewModel.pack?.name, subtitle: subtitle)
     }
 
     override func setupHeaderView(imageURL: NSURL?, title: String?, subtitle: String?) {
-        if let header = headerView as? PackPageHeaderView, let pack = pack {
-            if let text = title {
-                header.title = text
-            }
-
-            if let string = subtitle {
-                header.subtitle = string
-            }
-
-            header.sampleButton.hidden = !pack.premium
-            header.primaryButton.title = pack.callToActionText()
-            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
-            header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
-            header.imageURL = imageURL
+        guard let header = headerView as? PackPageHeaderView, let pack = packViewModel.pack else {
+            return
         }
+        self.hideHud()
+
+        if let text = title {
+            header.title = text
+        }
+
+        if let string = subtitle {
+            header.subtitle = string
+        }
+
+        header.sampleButton.hidden = !pack.premium
+        header.primaryButton.title = pack.callToActionText()
+        header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
+        header.imageURL = imageURL
+
     }
-    
+
     func primaryButtonTapped(sender: UIButton) {
         guard let button = sender as? BrowsePackDownloadButton else {
             return
         }
         
-        if let pack = pack {
+        if let pack = packViewModel.pack {
             if PacksService.defaultInstance.checkPack(pack) {
                 PacksService.defaultInstance.removePack(pack)
                 button.packState = .NotAdded
@@ -95,7 +99,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             }
         }
     }
-    
+
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
                 guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: PackPageHeaderViewIdentifier, forIndexPath: indexPath) as? PackPageHeaderView else {
@@ -104,18 +108,12 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
                 
                 if headerView == nil {
                     headerView = cell
-                    headerViewDidLoad()
                 }
-                
+                headerViewDidLoad()
+
                 return headerView!
             }
         
         return UICollectionReusableView()
-    }
-    
-    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true)
-        
-        return animator
     }
 }

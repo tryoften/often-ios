@@ -18,6 +18,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     var favoriteSelected: Bool = false
     var textProcessor: TextProcessingManager?
     var emptyStateView: EmptyStateView?
+    var transitionAnimator: FadeInTransitionAnimator?
     var loaderView: AnimatedLoaderView?
     var isDataLoaded: Bool {
         return false
@@ -75,6 +76,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         if let loaderView = loaderView {
             loaderView.removeFromSuperview()
         }
+
         loaderView = AnimatedLoaderView(frame: view.bounds)
         view.addSubview(loaderView!)
 
@@ -113,7 +115,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
         collectionView?.scrollEnabled = false
         emptyStateView?.removeFromSuperview()
-
         emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
         emptyStateView?.closeButton.addTarget(self, action: #selector(MediaItemsCollectionBaseViewController.didTapEmptyStateViewCloseButton), forControlEvents: .TouchUpInside)
         
@@ -290,9 +291,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         #if !(KEYBOARD)
             vc.mediaItemDetailView.style = .Copy
         #endif
-        vc.transitioningDelegate = self
-        vc.modalPresentationStyle = .Custom
-        presentViewController(vc, animated: true, completion: nil)
+        presentViewCotntrollerWithCustomTransitionAnimator(vc)
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
@@ -369,10 +368,19 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
     }
 
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true)
+    func presentViewCotntrollerWithCustomTransitionAnimator(presentingController: UIViewController, direction: FadeInTransitionDirection = .None, duration: NSTimeInterval = 0.15) {
+        transitionAnimator = FadeInTransitionAnimator(presenting: true, direction: direction, duration: duration)
+        presentingController.transitioningDelegate = self
+        presentingController.modalPresentationStyle = .Custom
+        presentViewController(presentingController, animated: true, completion: nil)
+    }
 
-        return animator
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if let animator = transitionAnimator {
+            return animator
+        } else {
+            return FadeInTransitionAnimator(presenting: true)
+        }
     }
 
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {

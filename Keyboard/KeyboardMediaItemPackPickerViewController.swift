@@ -162,6 +162,8 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             return
         }
 
+        SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = 0
+        
         delegate?.keyboardMediaItemPackPickerViewControllerDidSelectPack(self, pack: pack)
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -172,9 +174,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
     func recentButtonDidTap(sender: UIButton) {
         let recentVC = KeyboardRecentsViewController(viewModel: RecentsViewModel())
-        recentVC.transitioningDelegate = self
-        recentVC.modalPresentationStyle = .Custom
-        presentViewController(recentVC, animated: true, completion: nil)
+        presentViewCotntrollerWithCustomTransitionAnimator(recentVC)
     }
 
     func cancelButtonDidTap()  {
@@ -198,9 +198,8 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     func centerOnDefaultCard() {
         let count = viewModel.mediaItems.count
         for i in 1..<count {
-            if let currentPackID = SessionManagerFlags.defaultManagerFlags.lastPack,
-                let pack = viewModel.mediaItems[i] as? PackMediaItem,
-                let packId = pack.pack_id where  packId == currentPackID {
+            if let currentPackID = viewModel.pack,
+                let pack = viewModel.mediaItems[i] as? PackMediaItem where  currentPackID == pack {
                 scrollToCellAtIndex(i)
             }
         }
@@ -215,7 +214,6 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             collectionView.setContentOffset(CGPointMake(xPosition, -4), animated: true)
         }
     }
-
 
     // MARK: LaunchMainApp
     func openURL(url: NSURL) {
@@ -237,13 +235,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
             responder = responder?.nextResponder()
         }
-
         throw NSError(domain: "UIInputViewController+sharedApplication.swift", code: 1, userInfo: nil)
-    }
-
-    override func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let animator = FadeInTransitionAnimator(presenting: true)
-        return animator
     }
 
 }
