@@ -17,7 +17,7 @@ let gifCellReuseIdentifier = "gifCellIdentifier"
 class BaseBrowsePackItemViewController: BrowseMediaItemViewController, CategoriesCollectionViewControllerDelegate, UICollectionViewDelegateFlowLayout {
     var packCollectionListener: Listener? = nil
     var panelToggleListener: Listener?
-    var HUDMaskView: UIView
+    var HUDMaskView: UIView?
     var menuView: AnimatedMenuView
     var packViewModel: PackItemViewModel
     
@@ -28,15 +28,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         menuView = AnimatedMenuView()
 
 
-        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.hideMaskView)
-        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
-
-        HUDMaskView = UIView()
-        HUDMaskView.backgroundColor = UIColor.oftBlack74Color()
-        HUDMaskView.hidden = true
-        HUDMaskView.userInteractionEnabled = true
-        HUDMaskView.addGestureRecognizer(hudRecognizer)
-
         ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
         self.packViewModel = viewModel
 
@@ -45,7 +36,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
         collectionView?.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
 
-        menuView.startMenuItem.addTarget(self, action: #selector(BaseBrowsePackItemViewController.startMenuItemPressed(_:)), forControlEvents: .TouchUpInside)
+        menuView.startMenuItem.addTarget(self, action: #selector(BaseBrowsePackItemViewController.startMenuItemPressed), forControlEvents: .TouchUpInside)
 
         for view in menuView.menu.views! {
             if let buttonView = view as? AnimatedMenuButton {
@@ -59,6 +50,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             menuView.quotesMenuItem.selected = true
         }
 
+        setupHudView() 
         view.addSubview(menuView)
     }
     
@@ -70,7 +62,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
-        HUDMaskView.frame = view.bounds
+        HUDMaskView?.frame = view.bounds
     }
     
     func menuButtonPressed(sender: AnimatedMenuButton) {
@@ -87,12 +79,13 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             closeAnimatedMenu()
         case .Categories:
             toggleCategoryViewController()
+            closeAnimatedMenu()
         default:
             break
         }
     }
 
-    func startMenuItemPressed(sender: MaterialButton) {
+    func startMenuItemPressed() {
         if menuView.menu.opened {
             menuView.menu.close()
             hideMaskView()
@@ -115,19 +108,40 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     
     func hideMaskView() {
         UIView.animateWithDuration(0.3, animations: {
-            self.HUDMaskView.alpha = 0.0
-            
+            self.HUDMaskView?.alpha = 0.0
+            self.HUDMaskView?.hidden = true
             }, completion: nil)
     }
     
     func showMaskView() {
-        view.insertSubview(menuView, aboveSubview: HUDMaskView)
-        HUDMaskView.hidden = false
-        HUDMaskView.alpha = 0
+        guard let maskeView = HUDMaskView else {
+            return
+        }
+
+        view.insertSubview(menuView, aboveSubview: maskeView)
+        maskeView.hidden = false
+        maskeView.alpha = 0
         
         UIView.animateWithDuration(0.1, animations: {
-            self.HUDMaskView.alpha = 1.0
+            maskeView.alpha = 1.0
             }, completion: nil)
+    }
+
+    func setupHudView() {
+        if HUDMaskView != nil {
+            return
+        }
+
+        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.startMenuItemPressed)
+        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
+
+        HUDMaskView = UIView()
+        HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
+        HUDMaskView?.hidden = true
+        HUDMaskView?.userInteractionEnabled = true
+        HUDMaskView?.addGestureRecognizer(hudRecognizer)
+
+        view.addSubview(HUDMaskView!)
     }
 
     // MARK: UICollectionViewDataSource

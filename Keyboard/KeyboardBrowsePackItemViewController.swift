@@ -64,6 +64,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         switch type {
         case .Packs:
             togglePack()
+            closeAnimatedMenu()
         default:
             break
         }
