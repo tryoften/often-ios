@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import Material
 
-class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, AwesomeMenuDelegate {
+
+class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
    private var packServiceListener: Listener? = nil
     var panelView: CategoriesPanelView
 
@@ -22,9 +24,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         panelView.backspaceButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.backspaceButtonDidTap), forControlEvents: .TouchUpInside)
 
-        menuButton = AnimatedMenu(frame: CGRectMake(0, 0, view.frame.width, KeyboardHeight))
-        menuButton!.delegate = self
-
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.populatePanelMetaData()
             self.hideLoadingView()
@@ -35,7 +34,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             navigationBar.removeFromSuperview()
         }
 
-        view.addSubview(menuButton!)
         view.addSubview(panelView)
     }
 
@@ -45,16 +43,30 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
-        menuButton?.frame = view.bounds
-        menuButton?.resetStartPoint()
-
         panelView.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - SectionPickerViewHeight, view.bounds.width, SectionPickerViewHeight)
+        
+        MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 40, right: 18)
+        MaterialLayout.size(view, child: menuView, width: 45, height: 45)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadPackData()
+    }
+
+    override func menuButtonPressed(sender: AnimatedMenuButton) {
+        super.menuButtonPressed(sender)
+
+        guard let type = AnimatedMenuItem(rawValue: sender.tag) else {
+            return
+        }
+
+        switch type {
+        case .Packs:
+            togglePack()
+        default:
+            break
+        }
     }
 
     func togglePack() {
@@ -81,38 +93,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         populatePanelMetaData()
     }
 
-    // AwesomeMenu Delegate Methods
-    func awesomeMenu(menu: AwesomeMenu!, didSelectIndex idx: Int) {
-        hideMaskView()
-
-        guard let item = AnimatedMenuItem(rawValue: idx) else {
-            return
-        }
-
-        switch item { 
-        case .Packs:
-            togglePack()
-        case .Categories:
-            toggleCategoryViewController()
-        case .Gifs:
-            packViewModel.typeFilter = .Gif
-        case .Quotes:
-            packViewModel.typeFilter = .Quote
-        }
-    }
-    
-    func awesomeMenuWillAnimateOpen(menu: AwesomeMenu!) {
-
-    }
-    
-    func awesomeMenuWillAnimateClose(menu: AwesomeMenu!) {
-        hideMaskView()
-    }
-
-    func hideMaskView() {
-
-    }
-
     func populatePanelMetaData() {
         guard let packsService = viewModel as? PacksService, let pack = packsService.pack,
             let mediaItemTitleText = pack.name, let category =  viewModel.currentCategory, let currentCategoryText = category.name as? String else {
@@ -134,10 +114,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         hideLoadingView()
 
         populatePanelMetaData()
-
-        if let menuButton = menuButton, imageURL = pack.smallImageURL {
-            menuButton.startButton.contentImageView.nk_setImageWith(imageURL)
-        }
     }
 
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

@@ -8,13 +8,6 @@
 
 import Foundation
 
-enum AnimatedMenuItem: Int {
-    case Packs = 0
-    case Categories = 1
-    case Quotes = 3
-    case Gifs = 4
-}
-
 class AnimatedMenu: AwesomeMenu {
     var packsMenuItem: AwesomeMenuItem
     var categoryMenuItem: AwesomeMenuItem

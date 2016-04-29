@@ -7,29 +7,12 @@
 //
 
 import UIKit
+import Material
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
-    var filterButton: UIButton
 
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        let attributes: [String: AnyObject] = [
-            NSKernAttributeName: NSNumber(float: 1.0),
-            NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
-            NSForegroundColorAttributeName: BlackColor
-        ]
-        let filterString = NSAttributedString(string: "filter by".uppercaseString, attributes: attributes)
-
-        filterButton = UIButton()
-        filterButton.translatesAutoresizingMaskIntoConstraints = false
-        filterButton.backgroundColor = WhiteColor
-        filterButton.layer.cornerRadius = 15
-        filterButton.layer.shadowRadius = 2
-        filterButton.layer.shadowOpacity = 0.2
-        filterButton.layer.shadowColor = MediumLightGrey.CGColor
-        filterButton.layer.shadowOffset = CGSizeMake(0, 2)
-        filterButton.setAttributedTitle(filterString, forState: .Normal)
-
         super.init(viewModel: viewModel, textProcessor: textProcessor)
 
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
@@ -39,13 +22,14 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             self.collectionView?.reloadData()
             self.headerViewDidLoad()
         }
+        
+        menuView.menu.views?.removeLast()
+        menuView.menu.baseViewSize = CGSizeMake(50, 50)
 
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
 
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
 
-        view.addSubview(filterButton)
-        setLayout()
     }
     
     
@@ -58,19 +42,17 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         headerViewDidLoad()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        menuView.menu.itemViewSize = CGSizeMake(40, 40)
+        MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 20, right: 18)
+        MaterialLayout.size(view, child: menuView, width: 50, height: 50)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          loadPackData()
-        filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-    }
-
-    func setLayout() {
-        view.addConstraints([
-            filterButton.al_centerX == view.al_centerX,
-            filterButton.al_height == 30,
-            filterButton.al_width == 94,
-            filterButton.al_bottom == view.al_bottom - 23.5
-            ])
     }
     
     override func headerViewDidLoad() {
@@ -116,10 +98,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
                 button.packState = .Added
             }
         }
-    }
-    
-    func filterButtonDidTap(sender: UIButton) {
-        toggleCategoryViewController()
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {

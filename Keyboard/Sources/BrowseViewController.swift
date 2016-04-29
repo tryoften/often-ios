@@ -22,7 +22,7 @@ class BrowseViewController: MediaItemGroupsViewController,
     ConnectivityObservable {
     var isNetworkReachable: Bool = true
     var errorDropView: DropDownMessageView
-    var searchViewController: SearchViewController?
+//    var searchViewController: SearchViewController?
 
     var topPadding: CGFloat {
         if let topPadding = collectionView?.contentInset.top {
