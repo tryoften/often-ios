@@ -71,13 +71,36 @@ class MediaItemDetailView: UIView {
         mediaItemCategoryButton.layer.cornerRadius = 12
         mediaItemCategoryButton.clipsToBounds = true
 
+        let insertNormalText = NSAttributedString(string: "remove".uppercaseString, attributes: [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: BlackColor
+            ])
+
+        let insertSelectedText = NSAttributedString(string: "share".uppercaseString, attributes: [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: BlackColor
+            ])
+        let copyText = NSAttributedString(string: "Copy".uppercaseString, attributes: [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: BlackColor
+            ])
+
         insertButton = SpringButton()
+        insertButton.backgroundColor = VeryLightGray
         insertButton.translatesAutoresizingMaskIntoConstraints = false
-        insertButton.setImage(StyleKit.imageOfInsertbutton(scale: 0.45), forState: .Normal)
-        
+        insertButton.setAttributedTitle(insertNormalText, forState: .Normal)
+        insertButton.setAttributedTitle(insertSelectedText, forState: .Selected)
+
         copyButton = SpringButton()
+        copyButton.backgroundColor = VeryLightGray
         copyButton.translatesAutoresizingMaskIntoConstraints = false
-        copyButton.setImage(StyleKit.imageOfClipboard_button(scale: 0.45), forState: .Normal)
+
+
+        copyButton.setAttributedTitle(copyText, forState: .Normal)
+
 
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false

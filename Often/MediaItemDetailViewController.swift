@@ -66,16 +66,15 @@ class MediaItemDetailViewController: UIViewController {
         sender.selected = !sender.selected
 
         if sender.selected {
-            textProcessor?.defaultProxy.insertText(item.getInsertableText())
-
-            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
-
-        } else {
             for var i = 0, len = item.getInsertableText().utf16.count; i < len; i++ {
                 textProcessor?.defaultProxy.deleteBackward()
             }
 
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.removedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
+        } else {
+            textProcessor?.defaultProxy.insertText(item.getInsertableText())
+
+            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
         }
     }
     
