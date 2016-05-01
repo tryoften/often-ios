@@ -8,12 +8,17 @@
 
 import UIKit
 
-class BrowsePackCollectionViewController: MediaItemsViewController {
+class BrowsePackCollectionViewController: MediaItemsViewController, ConnectivityObservable {
     var headerView: BrowsePackHeaderView?
     var sectionHeaderView: BrowsePackSectionHeaderView?
     var packServiceListener: Listener?
+    var isNetworkReachable: Bool = true
+    var reachabilityView: DropDownMessageView
     
     init(viewModel: PacksViewModel) {
+        reachabilityView = DropDownMessageView(frame: CGRectMake(0, -35, UIScreen.mainScreen().bounds.width, 35))
+        reachabilityView.text = "no internet connection".uppercaseString
+        
         super.init(collectionViewLayout: BrowsePackCollectionViewController.getLayout(),
                    collectionType: .Packs,
                    viewModel: viewModel)
@@ -30,6 +35,9 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
         packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
         }
+        
+        view.addSubview(reachabilityView)
+        startMonitoring()
     }
     
     override func viewDidLoad() {
@@ -77,6 +85,11 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
         navigationController?.navigationBar.barStyle = .Default
         navigationController?.navigationBar.tintColor = WhiteColor
         navigationController?.navigationBar.barTintColor = MainBackgroundColor
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        updateReachabilityView()
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -130,5 +143,19 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         return CGSizeMake(screenWidth, 35.0)
         
+    }
+    
+    //MARK: ConnectivityObservable
+    func updateReachabilityView() {
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        if isNetworkReachable {
+            UIView.animateWithDuration(0.3, animations: {
+                self.reachabilityView.frame = CGRectMake(0, -35, screenWidth, 35)
+            })
+        } else {
+            UIView.animateWithDuration(0.3, animations: {
+                self.reachabilityView.frame = CGRectMake(0, 0, screenWidth, 35)
+            })
+        }
     }
 }
