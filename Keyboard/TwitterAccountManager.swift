@@ -59,7 +59,7 @@ class TwitterAccountManager: AccountManager {
                                 return
                             }
 
-                            self.sessionManagerFlags.userId =  "twitter:\(userID)"
+                            self.sessionManagerFlags.userId = "twitter:\(userID)"
 
                             self.currentUser = User()
                             self.currentUser?.setValuesForKeysWithDictionary(firebaseData)
@@ -69,6 +69,7 @@ class TwitterAccountManager: AccountManager {
                                 completion?(results: ResultType.Success(r: true))
                                 self.delegate?.accountManagerUserDidLogin(self, user: user)
                             }
+                            self.initiateUserWithPacks()
                         }
                     }
                 }
