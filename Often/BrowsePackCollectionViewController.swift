@@ -14,10 +14,14 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
     var packServiceListener: Listener?
     var isNetworkReachable: Bool = true
     var reachabilityView: DropDownMessageView
+    var screenWidth: CGFloat
     
     init(viewModel: PacksViewModel) {
-        reachabilityView = DropDownMessageView(frame: CGRectMake(0, -35, UIScreen.mainScreen().bounds.width, 35))
+        screenWidth = UIScreen.mainScreen().bounds.width
+        
+        reachabilityView = DropDownMessageView()
         reachabilityView.text = "no internet connection".uppercaseString
+        reachabilityView.frame = CGRectMake(0, -35, screenWidth, 35)
         
         super.init(collectionViewLayout: BrowsePackCollectionViewController.getLayout(),
                    collectionType: .Packs,
@@ -147,14 +151,13 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
     
     //MARK: ConnectivityObservable
     func updateReachabilityView() {
-        let screenWidth = UIScreen.mainScreen().bounds.width
         if isNetworkReachable {
             UIView.animateWithDuration(0.3, animations: {
-                self.reachabilityView.frame = CGRectMake(0, -35, screenWidth, 35)
+                self.reachabilityView.frame = CGRectMake(0, -35, self.screenWidth, 35)
             })
         } else {
             UIView.animateWithDuration(0.3, animations: {
-                self.reachabilityView.frame = CGRectMake(0, 0, screenWidth, 35)
+                self.reachabilityView.frame = CGRectMake(0, 0, self.screenWidth, 35)
             })
         }
     }
