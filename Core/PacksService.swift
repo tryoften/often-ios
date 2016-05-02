@@ -35,6 +35,7 @@ class PacksService: PackItemViewModel {
         if let lastPack = SessionManagerFlags.defaultManagerFlags.lastPack {
             packId = lastPack
         }
+        currentCategory = Category.all
 
         do {
             try setupUser { inner in
@@ -170,6 +171,7 @@ class PacksService: PackItemViewModel {
             if let packId = pack.pack_id {
                 self.packId = packId
             }
+
             if SessionManagerFlags.defaultManagerFlags.lastCategoryIndex < pack.categories.count {
                 currentCategory = pack.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex]
             } else {
@@ -180,6 +182,8 @@ class PacksService: PackItemViewModel {
             if let currentCategory = currentCategory {
                 applyFilter(currentCategory)
             }
+
+            self.didUpdatePacks.emit(packs)
         }
 
     }

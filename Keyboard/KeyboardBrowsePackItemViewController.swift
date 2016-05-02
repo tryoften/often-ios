@@ -8,7 +8,7 @@
 
 import Foundation
 import Material
-
+import Nuke
 
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
    private var packServiceListener: Listener? = nil
@@ -23,7 +23,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         panelView.backspaceButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.backspaceButtonDidTap), forControlEvents: .TouchUpInside)
 
-        packCollectionListener = viewModel.didChangeMediaItems.on { items in
+        packCollectionListener = viewModel.didUpdatePacks.on { items in
             self.populatePanelMetaData()
             self.hideLoadingView()
             self.collectionView?.reloadData()
@@ -34,10 +34,16 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
         view.addSubview(panelView)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func didReceiveMemoryWarning() {
+        ImageManager.shared.removeAllCachedImages()
     }
 
     override func viewWillLayoutSubviews() {
@@ -48,9 +54,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         MaterialLayout.size(view, child: menuView, width: 45, height: 45)
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        showLoadingView()
+    override func loadPackData() {
+        super.loadPackData()
     }
 
     override func menuButtonPressed(sender: AnimatedMenuButton) {
@@ -94,8 +99,11 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     func populatePanelMetaData() {
-        guard let packsService = viewModel as? PacksService, let pack = packsService.pack,
-            let mediaItemTitleText = pack.name, let category =  viewModel.currentCategory, let currentCategoryText = category.name as? String else {
+        guard let packsService = viewModel as? PacksService,
+            let pack = packsService.pack,
+            let mediaItemTitleText = pack.name,
+            let category = viewModel.currentCategory,
+            let currentCategoryText = category.name as? String else {
             return
         }
         
