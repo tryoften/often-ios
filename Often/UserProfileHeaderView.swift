@@ -62,13 +62,8 @@ class UserProfileHeaderView: UICollectionReusableView {
         return 0
     }
     
-    private var tabContainerViewHeight: CGFloat {
-        if Diagnostics.platformString().number == 5 {
-            return 50
-        }
-        return 45
-    }
-    
+
+
     private var profileImageViewWidth: CGFloat {
         if Diagnostics.platformString().number == 6 {
             return 80

@@ -9,24 +9,27 @@
 
 import UIKit
 
-class UserProfileViewController: MediaItemsViewController,
+
+class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaItemGroupViewModelDelegate,
     UICollectionViewDelegateFlowLayout {
+    var viewModel: PacksService
     var headerView: UserProfileHeaderView?
-    var sectionHeaderView: MediaItemsSectionHeaderView?
+    private var packServiceListener: Listener?
+
     
-    init(recentsViewModel: RecentsViewModel,
-         favoritesViewModel: FavoritesService,
-         packsViewModel: PacksService) {
-        
-        super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout(), collectionType: .Packs, viewModel: recentsViewModel)
+    init(viewModel: PacksService) {
+        self.viewModel = viewModel
+        super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
+
         viewModel.delegate = self
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.checkUserEmptyStateStatus), name: UIApplicationDidBecomeActiveNotification, object: nil)
-        collectionView?.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 70.0, right: 0.0)
-    
-        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "RecentlyUsedCellIdentifier")
+        viewModel.fetchCollection()
+
+        packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
+            self.collectionView?.reloadData()
+        }
+
         collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,18 +42,16 @@ class UserProfileViewController: MediaItemsViewController,
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
-        let layout = CSStickyHeaderFlowLayout()
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 110)
-        layout.parallaxHeaderReferenceSize = UserProfileHeaderView.preferredSize
-        layout.parallaxHeaderAlwaysOnTop = true
-        layout.disableStickyHeaders = false
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 95)
-        layout.scrollDirection = .Vertical
-        layout.minimumInteritemSpacing = 7.0 
-        layout.minimumLineSpacing = 7.0
-        layout.sectionInset = UIEdgeInsets(top: 12.0, left: 12.0, bottom: 12.0, right: 12.0)
-        
-        return layout
+        let flowLayout = CSStickyHeaderFlowLayout()
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 210)
+        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
+        flowLayout.parallaxHeaderAlwaysOnTop = true
+        flowLayout.disableStickyHeaders = false
+        flowLayout.minimumInteritemSpacing = 6.0
+        flowLayout.minimumLineSpacing = 6.0
+        flowLayout.sectionInset = UIEdgeInsetsMake(12.0, 12.0, 12.0, 12.0)
+        return flowLayout
     }
     
     override func viewDidLoad() {
@@ -74,31 +75,13 @@ class UserProfileViewController: MediaItemsViewController,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
-        checkUserEmptyStateStatus()
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.hidden = true
         }
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let screenWidth = UIScreen.mainScreen().bounds.width
-        let screenHeight = UIScreen.mainScreen().bounds.height
 
-        var headerHeight = UserProfileHeaderView.preferredSize.height
-        if let headerViewFrame = headerView?.frame {
-            headerHeight = CGRectGetHeight(headerViewFrame)
-        }
-        
-        var tabBarHeight: CGFloat = 0.0
-        if let tabBarController = tabBarController {
-            tabBarHeight = CGRectGetHeight(tabBarController.tabBar.frame)
-        }
-        
-        let contentFrame = CGRectMake(0, headerHeight, screenWidth, screenHeight - headerHeight - tabBarHeight)
-        
-        emptyStateView?.frame = contentFrame
-        loaderView?.frame = contentFrame
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -108,40 +91,13 @@ class UserProfileViewController: MediaItemsViewController,
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
-    
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        guard let profileViewHeight = headerView?.frame.height, profileViewCenter = headerView?.frame.midX, cells = collectionView?.visibleCells()
-            where collectionType == .Favorites else {
-                return
-        }
-        
-        let point = CGPointMake(profileViewCenter, profileViewHeight + scrollView.contentOffset.y + 37)
-        for cell in cells {
-            if cell.frame.contains(point) {
-                if let indexPath = collectionView?.indexPathForCell(cell) {
-                    if let sectionView = sectionHeaders[indexPath.section] {
-                        sectionView.rightText = viewModel.rightSectionHeaderTitle(indexPath)
-                    }
-                }
-            }
-        }
-    }
-    
-    // MARK: UICollectionViewDataSource
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if indexPath.section == 0 && collectionType == .Recents {
-            return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 120)
-        }
-        switch collectionType {
-        case .Recents:  return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 105)
-        case .Packs:    return CGSizeMake(171, 237)
-        default:        return CGSizeMake(UIScreen.mainScreen().bounds.width - 20, 75)
-        }
+
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.mediaItems.count
     }
 
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        
-        
+    
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
                 withReuseIdentifier: UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileHeaderView else {
@@ -160,71 +116,28 @@ class UserProfileViewController: MediaItemsViewController,
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        var cell: UICollectionViewCell
-        
-        if indexPath.section == 0 && collectionType == .Recents {
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier("RecentlyUsedCellIdentifier", forIndexPath: indexPath)
-            let lyricsHorizontalVC = provideRecentlyAddedLyricsHorizontalCollectionViewController()
-            lyricsHorizontalVC.group = viewModel.generateMediaItemGroups()[indexPath.section]
-            cell.backgroundColor = UIColor.clearColor()
-            cell.contentView.addSubview(lyricsHorizontalVC.view)
-            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-            lyricsHorizontalVC.view.frame = cell.bounds
-        } else {
-            cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
-            
-            if let packProfileCell = cell as? PackProfileCollectionViewCell {
-                packProfileCell.primaryButton.tag = indexPath.row
-                
-                if viewModel.mediaItemGroupItemsForIndex(indexPath.section).count == 1 {
-                    packProfileCell.primaryButton.hidden = true
-                } else {
-                    packProfileCell.primaryButton.hidden = false
-                    packProfileCell.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapRemovePackButton(_:)), forControlEvents: .TouchUpInside)
-                }
-            }
+        guard let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as? PackProfileCollectionViewCell else {
+             return PackProfileCollectionViewCell()
         }
         
-        if let cell = cell as? MediaItemCollectionViewCell {
-            cell.delegate = self
-            cell.type = collectionType == .Recents ? .Metadata : .NoMetadata
-            cell.inMainApp = true
-            cell.style = .Cell
-            
-            if let result = cell.mediaLink {
-                cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
-            }
-            
-            cell.favoriteRibbon.hidden = collectionType == .Recents ? !cell.itemFavorited : true
-        }
+        cell.addedBadgeView.hidden = true
+        cell.primaryButton.tag = indexPath.row
+        cell.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapRemovePackButton(_:)), forControlEvents: .TouchUpInside)
+
 
         return cell
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
-
-        if collectionType == .Packs {
-            let result = viewModel.mediaItemGroupItemsForIndex(indexPath.section)[indexPath.row]
-            guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
-                return
-            }
-
-            let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
-            navigationController?.navigationBar.hidden = false
-            navigationController?.pushViewController(packVC, animated: true)
+        guard let pack = viewModel.mediaItems[indexPath.row] as? PackMediaItem , let id = pack.pack_id else {
+            return
         }
+
+        let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+        navigationController?.navigationBar.hidden = false
+        navigationController?.pushViewController(packVC, animated: true)
     }
-    
-    override func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User) {
-        reloadUserData()
-    }
-    
-    override func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError) {
-        reloadData()
-    }
-    
+
     func reloadUserData() {
         if let headerView = headerView, let user = SessionManager.defaultManager.currentUser {
             headerView.sharedText = "\(SessionManagerFlags.defaultManagerFlags.userMessageCount) Lyrics Shared"
@@ -238,12 +151,6 @@ class UserProfileViewController: MediaItemsViewController,
         }
     }
 
-    //MARK: Check for empty state
-    func checkUserEmptyStateStatus() {
-        collectionView?.scrollEnabled = false
-        isKeyboardEnabled()
-    }
-    
     func didTapRemovePackButton(button: UIButton?) {
         guard let button = button else {
             return
@@ -252,43 +159,19 @@ class UserProfileViewController: MediaItemsViewController,
             PacksService.defaultInstance.removePack(pack)
         }
     }
-    
-    func isKeyboardEnabled() {
-        if viewModel.sessionManagerFlags.isKeyboardInstalled {
-            hideEmptyStateView()
-            collectionView?.scrollEnabled = true
-        } else {
-            viewModel.userState = .NoKeyboard
-            collectionView?.scrollEnabled = false
-            showEmptyStateViewForState(.NoKeyboard)
-            emptyStateView?.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapSettingsButton), forControlEvents: .TouchUpInside)
-        }
-    }
-       
+
     func promptUserToRegisterPushNotifications() {
         UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
         UIApplication.sharedApplication().registerForRemoteNotifications()
     }
-    
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if collectionType == .Packs {
-            return CGSizeZero
-        }
-        return CGSizeMake(UIScreen.mainScreen().bounds.width, MediaItemsSectionHeaderHeight)
-    }
-    
+
     // Empty States button actions
     func didTapSettingsButton() {
         if let appSettings = NSURL(string: "prefs:root=General&path=Keyboard/KEYBOARDS") {
             UIApplication.sharedApplication().openURL(appSettings)
         }
     }
-    
-    func didTapCancelButton() {
-        hideEmptyStateView()
-        isKeyboardEnabled()
-        reloadData()
-    }
+
 
     override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
         super.showEmptyStateViewForState(state, animated: animated, completion: completion)
@@ -297,5 +180,9 @@ class UserProfileViewController: MediaItemsViewController,
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 9.0 as CGFloat
+    }
+
+    func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        reloadUserData()
     }
 }
