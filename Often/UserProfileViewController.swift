@@ -187,7 +187,13 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             
             if let packProfileCell = cell as? PackProfileCollectionViewCell {
                 packProfileCell.primaryButton.tag = indexPath.row
-                packProfileCell.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapRemovePackButton(_:)), forControlEvents: .TouchUpInside)
+                
+                if viewModel.mediaItemGroupItemsForIndex(indexPath.section).count == 1 {
+                    packProfileCell.primaryButton.hidden = true
+                } else {
+                    packProfileCell.primaryButton.hidden = false
+                    packProfileCell.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapRemovePackButton(_:)), forControlEvents: .TouchUpInside)
+                }
             }
         }
         
