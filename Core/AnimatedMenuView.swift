@@ -58,7 +58,6 @@ class AnimatedMenuView: MenuView {
         addSubview(packsMenuItem)
         
         menu.direction = .Up
-//        menu.enabled = false
 
         menu.baseViewSize = CGSizeMake(50, 50)
         menu.itemViewSize = CGSizeMake(41, 40)
