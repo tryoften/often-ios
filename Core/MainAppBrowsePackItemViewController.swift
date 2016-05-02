@@ -22,9 +22,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             self.collectionView?.reloadData()
             self.headerViewDidLoad()
         }
-        
-        menuView.menu.views?.removeLast()
-        menuView.menu.baseViewSize = CGSizeMake(50, 50)
 
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
 
@@ -44,10 +41,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        menuView.menu.itemViewSize = CGSizeMake(40, 40)
-        MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 20, right: 18)
-        MaterialLayout.size(view, child: menuView, width: 50, height: 50)
     }
     
     override func viewDidLoad() {

@@ -10,64 +10,59 @@ import Foundation
 import Material
 
 
-class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate {
-   private var packServiceListener: Listener? = nil
-    var panelView: CategoriesPanelView
-
-     init(viewModel: PacksService, textProcessor: TextProcessingManager?) {
-        panelView = CategoriesPanelView()
-
+class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, UITabBarDelegate {
+    private var packServiceListener: Listener? = nil
+    var tabBar: BrowsePackTabBar
+    
+    init(viewModel: PacksService, textProcessor: TextProcessingManager?) {
+        tabBar = BrowsePackTabBar(highlightBarEnabled: true)
+        
         super.init(viewModel: viewModel, textProcessor: textProcessor)
+        
+        collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
+        
+        tabBar.delegate = self
         packViewModel.delegate = self
         showLoadingView()
-
-        panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-        panelView.backspaceButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.backspaceButtonDidTap), forControlEvents: .TouchUpInside)
-
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
+        
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
-            self.populatePanelMetaData()
             self.hideLoadingView()
             self.collectionView?.reloadData()
         }
-
+        
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
         }
-
-        view.addSubview(panelView)
+        
+        if packViewModel.typeFilter == .Gif {
+            tabBar.selectedItem = tabBar.items![BrowsePackTabType.Gifs.rawValue]
+        } else {
+            tabBar.selectedItem = tabBar.items![BrowsePackTabType.Quotes.rawValue]
+        }
+        
+        tabBar.lastSelectedTab = tabBar.selectedItem
+        
+        view.addSubview(tabBar)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        panelView.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - SectionPickerViewHeight, view.bounds.width, SectionPickerViewHeight)
-        
-        MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 40, right: 18)
-        MaterialLayout.size(view, child: menuView, width: 45, height: 45)
+        tabBar.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - 44.5, view.bounds.width, 44.5)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadPackData()
     }
-
-    override func menuButtonPressed(sender: AnimatedMenuButton) {
-        super.menuButtonPressed(sender)
-
-        guard let type = AnimatedMenuItem(rawValue: sender.tag) else {
-            return
-        }
-
-        switch type {
-        case .Packs:
-            togglePack()
-            closeAnimatedMenu()
-        default:
-            break
-        }
+    
+    func onOrientationChanged() {
+        collectionView?.performBatchUpdates(nil, completion: nil)
     }
 
     func togglePack() {
@@ -75,58 +70,105 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         packsVC.delegate = self
         presentViewCotntrollerWithCustomTransitionAnimator(packsVC, direction: .Left, duration: 0.2)
     }
-
-    func switchKeyboardButtonDidTap(sender: UIButton) {
-         NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
-    }
-
-    func backspaceButtonDidTap(sender:UIButton) {
-        textProcessor?.deleteBackward()
-    }
-
+    
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
         PacksService.defaultInstance.switchCurrentPack(pack.id)
         loadPackData()
     }
-
+    
     override func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
         SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
-        populatePanelMetaData()
     }
-
-    func populatePanelMetaData() {
-        guard let packsService = viewModel as? PacksService, let pack = packsService.pack,
-            let mediaItemTitleText = pack.name, let category =  viewModel.currentCategory, let currentCategoryText = category.name as? String else {
+    
+    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
+        
+        guard let viewModel = viewModel as? PackItemViewModel, _ = viewModel.pack else {
             return
         }
         
-        panelView.mediaItemTitleText = mediaItemTitleText
-        panelView.currentCategoryText = currentCategoryText
-
-    }
-
-    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
-
-        guard let viewModel = viewModel as? PackItemViewModel, pack = viewModel.pack else {
-            return
-        }
-
         hideLoadingView()
-
-        populatePanelMetaData()
     }
-
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSizeZero
+    
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
+            return CGSizeZero
+        }
+        
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenHeight = UIScreen.mainScreen().bounds.height
+        
+        switch group.type {
+        case .Gif:
+            var width: CGFloat
+            if screenHeight > screenWidth {
+                width = screenWidth/2 - 12.5
+            } else {
+                width = screenWidth/3 - 12.5
+            }
+            let height = width * (4/7)
+            return CGSizeMake(width, height)
+        case .Quote:
+            return CGSizeMake(screenWidth, 75)
+        default:
+            return CGSizeZero
+        }
     }
+    
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionElementKindSectionHeader {
+            // Create Header
+            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
+                
+                guard let packsService = viewModel as? PacksService, let pack = packsService.pack,
+                    let mediaItemTitleText = pack.name, let category =  viewModel.currentCategory else {
+                        return sectionView
+                }
 
+                if let imageURL = self.packViewModel.pack?.smallImageURL {
+                    sectionView.artistImageURL = imageURL
+                }
+
+                sectionView.leftText = mediaItemTitleText
+                sectionView.rightText = category.name
+                return sectionView
+            }
+        }
+        
+        return UICollectionReusableView()
+    }
+    
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         if packViewModel.typeFilter == .Gif {
-            return UIEdgeInsets(top: 10.0, left: 12.0, bottom: 60.0, right: 12.0)
+            return UIEdgeInsets(top: 9.0, left: 9.0, bottom: 60.0, right: 9.0)
         }
-
+        
         return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
-
+    
+    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        guard let type = BrowsePackTabType(rawValue: item.tag) else {
+            return
+        }
+        
+        switch type {
+        case .Keyboard:
+            NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
+        case .Gifs:
+            packViewModel.typeFilter = .Gif
+            self.tabBar.lastSelectedTab = item
+        case .Quotes:
+            packViewModel.typeFilter = .Quote
+            self.tabBar.lastSelectedTab = item
+        case .Categories:
+            toggleCategoryViewController()
+            self.tabBar.selectedItem = self.tabBar.lastSelectedTab
+        case .Packs:
+            togglePack()
+            self.tabBar.selectedItem = self.tabBar.lastSelectedTab
+        case .Delete:
+            textProcessor?.deleteBackward()
+        }
+    }
 }

@@ -84,13 +84,13 @@ class SlideTabBar: UITabBar {
     init(highlightBarEnabled enabled: Bool) {
         highlightBarView = UIView()
         highlightBarView.translatesAutoresizingMaskIntoConstraints = false
-        highlightBarView.backgroundColor = TealColor
+        highlightBarView.backgroundColor = UIColor.oftBrightLavenderColor()
         
         topSeperator = UIView()
-        topSeperator.backgroundColor = DarkGrey
+        topSeperator.backgroundColor = LightGrey
         
         bottomSeperator = UIView()
-        bottomSeperator.backgroundColor = DarkGrey
+        bottomSeperator.backgroundColor = LightGrey
 
         self.highlightBarEnabled = enabled
 

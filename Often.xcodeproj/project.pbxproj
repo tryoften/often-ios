@@ -1099,11 +1099,13 @@
 		81F833911C1A38B2001B8662 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8338F1C1A38B2001B8662 /* KeyboardViewController.swift */; };
 		BF0A4BF11CB6DF0700824A81 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
 		BF0A4BF21CB6DF0800824A81 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
-		BF1C79BB1CCEC41D002ED5B7 /* AnimatedMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1C79BA1CCEC41D002ED5B7 /* AnimatedMenuView.swift */; };
-		BF1C79BC1CCEC41D002ED5B7 /* AnimatedMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1C79BA1CCEC41D002ED5B7 /* AnimatedMenuView.swift */; };
-		BF1C79BD1CCEC41D002ED5B7 /* AnimatedMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1C79BA1CCEC41D002ED5B7 /* AnimatedMenuView.swift */; };
-		BF1C79BE1CCEC41D002ED5B7 /* AnimatedMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1C79BA1CCEC41D002ED5B7 /* AnimatedMenuView.swift */; };
-		BF1C79BF1CCEC41D002ED5B7 /* AnimatedMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1C79BA1CCEC41D002ED5B7 /* AnimatedMenuView.swift */; };
+		BF18A40A1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
+		BF18A40B1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
+		BF18A40C1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
+		BF18A40D1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
+		BF18A40E1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
+		BF18A40F1CD7C9A2009732AE /* SlideTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323691C1F8A1A0084918B /* SlideTabBar.swift */; };
+		BF18A4101CD7C9A2009732AE /* SlideTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323691C1F8A1A0084918B /* SlideTabBar.swift */; };
 		BF1C79C11CCECCD9002ED5B7 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; };
 		BF3FA1DD1CAC539900DBB87B /* BrowsePackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* BrowsePackCollectionViewCell.swift */; };
 		BF3FA1DE1CAC539900DBB87B /* BrowsePackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* BrowsePackCollectionViewCell.swift */; };
@@ -1143,11 +1145,6 @@
 		BF9971631CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */; };
 		BF9DF2F61CD015A5002C7F15 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; };
 		BF9DF2F81CD015AD002C7F15 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF9DF2F71CD015AD002C7F15 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BF9DF2FA1CD018E1002C7F15 /* AnimatedMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DF2F91CD018E1002C7F15 /* AnimatedMenuButton.swift */; };
-		BF9DF2FB1CD018E1002C7F15 /* AnimatedMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DF2F91CD018E1002C7F15 /* AnimatedMenuButton.swift */; };
-		BF9DF2FC1CD018E1002C7F15 /* AnimatedMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DF2F91CD018E1002C7F15 /* AnimatedMenuButton.swift */; };
-		BF9DF2FD1CD018E1002C7F15 /* AnimatedMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DF2F91CD018E1002C7F15 /* AnimatedMenuButton.swift */; };
-		BF9DF2FE1CD018E1002C7F15 /* AnimatedMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9DF2F91CD018E1002C7F15 /* AnimatedMenuButton.swift */; };
 		BFBA72EE1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
 		BFBA72EF1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
 		BFBA72F01CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
@@ -1632,6 +1629,7 @@
 		B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.release.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.release.xcconfig"; sourceTree = "<group>"; };
 		B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.debug.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.debug.xcconfig"; sourceTree = "<group>"; };
 		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
+		BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackTabBar.swift; sourceTree = "<group>"; };
 		BF1C79B81CCEC3E2002ED5B7 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
 		BF1C79BA1CCEC41D002ED5B7 /* AnimatedMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedMenuView.swift; sourceTree = "<group>"; };
 		BF8008311C86350E00113481 /* EmojiKeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiKeyboardViewController.swift; sourceTree = "<group>"; };
@@ -2257,6 +2255,7 @@
 				3B5AF3731C7F79C00047E42B /* KeyboardSearchResultNavgationBar.swift */,
 				BF1C79BA1CCEC41D002ED5B7 /* AnimatedMenuView.swift */,
 				BF9DF2F91CD018E1002C7F15 /* AnimatedMenuButton.swift */,
+				BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3546,7 +3545,6 @@
 				810EA49E1C8579D1005A6C6D /* DropDownErrorMessage.swift in Sources */,
 				816D50E61C8A32AB007B3249 /* CategoryCollectionViewController.swift in Sources */,
 				810EA49F1C8579D1005A6C6D /* SearchSuggestionTableViewCell.swift in Sources */,
-				BF1C79BE1CCEC41D002ED5B7 /* AnimatedMenuView.swift in Sources */,
 				816D50121C861000007B3249 /* CategoryService.swift in Sources */,
 				810EA4A01C8579D1005A6C6D /* FavoritesService.swift in Sources */,
 				810EA4A11C8579D1005A6C6D /* ViewSpacerWithText.swift in Sources */,
@@ -3688,7 +3686,6 @@
 				810EA52B1C8579D1005A6C6D /* TwitterAccountManager.swift in Sources */,
 				810EA52C1C8579D1005A6C6D /* LoginButton.swift in Sources */,
 				810EA52D1C8579D1005A6C6D /* CellAnimatable.swift in Sources */,
-				BF9DF2FD1CD018E1002C7F15 /* AnimatedMenuButton.swift in Sources */,
 				810EA52E1C8579D1005A6C6D /* NJKScrollFullScreen.m in Sources */,
 				810EA5321C8579D1005A6C6D /* SessionManagerFlags.swift in Sources */,
 				810EA5331C8579D1005A6C6D /* Constants.swift in Sources */,
@@ -3696,6 +3693,7 @@
 				810EA5351C8579D1005A6C6D /* CollectionViewAlphabeticalSidebar.swift in Sources */,
 				810EA5361C8579D1005A6C6D /* Notification.swift in Sources */,
 				816D50EA1C8A3354007B3249 /* CategoryCollectionViewCell.swift in Sources */,
+				BF18A4101CD7C9A2009732AE /* SlideTabBar.swift in Sources */,
 				810EA5371C8579D1005A6C6D /* StreamReader.swift in Sources */,
 				810EA5381C8579D1005A6C6D /* Validation.swift in Sources */,
 				810EA5391C8579D1005A6C6D /* WindowRootViewController.swift in Sources */,
@@ -3709,6 +3707,7 @@
 				816D50291C862E8C007B3249 /* UIColor+Often.swift in Sources */,
 				3B5006521CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift in Sources */,
 				810EA5411C8579D1005A6C6D /* EmailAccountManager.swift in Sources */,
+				BF18A40D1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */,
 				810EA5421C8579D1005A6C6D /* SkipSignupView.swift in Sources */,
 				810EA5441C8579D1005A6C6D /* BrowseArtistCollectionViewController.swift in Sources */,
 				810EA5451C8579D1005A6C6D /* VideoMediaItem.swift in Sources */,
@@ -3742,6 +3741,7 @@
 				810EA5981C8579F1005A6C6D /* ParseConfig.swift in Sources */,
 				810EA5991C8579F1005A6C6D /* KeyboardViewController.swift in Sources */,
 				810EA59A1C8579F1005A6C6D /* Notification.swift in Sources */,
+				BF18A40E1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */,
 				BFD8778E1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */,
 				810EA59B1C8579F1005A6C6D /* suffixNumber.swift in Sources */,
 				810EA59C1C8579F1005A6C6D /* EmojiSectionHeaderView.swift in Sources */,
@@ -3845,7 +3845,6 @@
 				810EA5E91C8579F1005A6C6D /* BaseViewModel.swift in Sources */,
 				810EA5EA1C8579F1005A6C6D /* SearchRequest.swift in Sources */,
 				810EA5EB1C8579F1005A6C6D /* UIKit+Guard.swift in Sources */,
-				BF1C79BF1CCEC41D002ED5B7 /* AnimatedMenuView.swift in Sources */,
 				810EA5EC1C8579F1005A6C6D /* SearchBaseViewModel.swift in Sources */,
 				810EA5ED1C8579F1005A6C6D /* MediaType.swift in Sources */,
 				810EA5EE1C8579F1005A6C6D /* BaseKeyboardContainerViewController.swift in Sources */,
@@ -3871,7 +3870,6 @@
 				810EA5FA1C8579F1005A6C6D /* TrendingArtistsHorizontalCollectionViewController.swift in Sources */,
 				810EA5FB1C8579F1005A6C6D /* ArtistMediaItem.swift in Sources */,
 				810EA5FC1C8579F1005A6C6D /* StreamReader.swift in Sources */,
-				BF9DF2FE1CD018E1002C7F15 /* AnimatedMenuButton.swift in Sources */,
 				810EA5FD1C8579F1005A6C6D /* MediaItemPageHeaderView.swift in Sources */,
 				810EA5FE1C8579F1005A6C6D /* NoKeyboardEmptyStateView.swift in Sources */,
 				810EA5FF1C8579F1005A6C6D /* MediaItemGroupsViewController.swift in Sources */,
@@ -4012,9 +4010,11 @@
 				816D509A1C8A058D007B3249 /* KeyboardWalkthroughSuccessMessageView.swift in Sources */,
 				BF99714D1CBEF030008351C7 /* GifCollectionViewCell.swift in Sources */,
 				816D50941C8A058D007B3249 /* DropDownErrorMessage.swift in Sources */,
+				BF18A40A1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */,
 				816D50B51C8A05BC007B3249 /* UIKit+Guard.swift in Sources */,
 				816D508F1C8A0589007B3249 /* LoginViewModel.swift in Sources */,
 				816D504C1C8A04D9007B3249 /* MediaItemPageHeaderView.swift in Sources */,
+				BF18A40F1CD7C9A2009732AE /* SlideTabBar.swift in Sources */,
 				816D50CB1C8A072A007B3249 /* FullScreenCollectionViewController.swift in Sources */,
 				816D50A11C8A058D007B3249 /* FeaturedArtistView.swift in Sources */,
 				816D50A71C8A0596007B3249 /* InstallationWalkthroughViewContoller.swift in Sources */,
@@ -4066,10 +4066,8 @@
 				3B50064F1CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift in Sources */,
 				816D506A1C8A0506007B3249 /* String+Utils.swift in Sources */,
 				816D50BC1C8A05E3007B3249 /* Signal.swift in Sources */,
-				BF9DF2FA1CD018E1002C7F15 /* AnimatedMenuButton.swift in Sources */,
 				69B549051CB32AF800C3D1BC /* PacksViewModel.swift in Sources */,
 				816D506C1C8A0506007B3249 /* ParseConfig.swift in Sources */,
-				BF1C79BB1CCEC41D002ED5B7 /* AnimatedMenuView.swift in Sources */,
 				816D50501C8A04D9007B3249 /* EmptyStateView.swift in Sources */,
 				816D50AA1C8A0596007B3249 /* UserProfileViewController.swift in Sources */,
 				816D506B1C8A0506007B3249 /* StreamReader.swift in Sources */,
@@ -4161,7 +4159,6 @@
 				8192A7D31C62410300B25AC6 /* Emitter.swift in Sources */,
 				8176BEEE1B7502C400E1BDCD /* BackspaceShape.swift in Sources */,
 				81BDA7301C3F24BE00198AF8 /* LyricMediaItem.swift in Sources */,
-				BF1C79BD1CCEC41D002ED5B7 /* AnimatedMenuView.swift in Sources */,
 				817938911B582B210064B0CF /* KeyboardKeyButton.swift in Sources */,
 				BF99715B1CC00942008351C7 /* PackItemViewModel.swift in Sources */,
 				8192A7DB1C62410300B25AC6 /* Listener.swift in Sources */,
@@ -4210,6 +4207,7 @@
 				6944A5431C3B0A9F00EA57C3 /* FavoritesEmptyStateView.swift in Sources */,
 				816D501F1C862830007B3249 /* CategoryCollectionViewCell.swift in Sources */,
 				811114621CAC937A002EDBD9 /* QuoteMediaItem.swift in Sources */,
+				BF18A40C1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */,
 				69DBDE0F1C665E6900701A5D /* EmojiSectionSelectorView.swift in Sources */,
 				813323971C23652D0084918B /* MediaItemsSectionHeaderView.swift in Sources */,
 				816D501B1C8627F5007B3249 /* CategoriesPanelView.swift in Sources */,
@@ -4252,7 +4250,6 @@
 				3B01B3811C61F3D8002ED18A /* CollectionViewAlphabeticalSidebar.swift in Sources */,
 				81F15C191CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */,
 				3B5006371CADAB44003D4144 /* PackProfileCollectionViewCell.swift in Sources */,
-				BF9DF2FC1CD018E1002C7F15 /* AnimatedMenuButton.swift in Sources */,
 				81D60AC31B84BD4200347BCA /* SearchViewModel.swift in Sources */,
 				8179388B1B5741050064B0CF /* KeyboardLayouts.swift in Sources */,
 				8176BECC1B72DAA400E1BDCD /* MediaItemCollectionViewCell.swift in Sources */,
@@ -4348,6 +4345,7 @@
 				81DA3EE01C24BE85006822D3 /* TouchForwardingView.swift in Sources */,
 				810B04F31C43181800BA731B /* BrowseViewModel.swift in Sources */,
 				6944A5391C3AF09600EA57C3 /* EmptyStateView.swift in Sources */,
+				BF18A40B1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */,
 				816D502D1C8657BF007B3249 /* KeyboardFavoritesViewController.swift in Sources */,
 				81DA3EE11C24BE85006822D3 /* SearchSuggestionTableHeaderView.swift in Sources */,
 				81DA3EE21C24BE85006822D3 /* delay.swift in Sources */,
@@ -4370,7 +4368,6 @@
 				BF99714E1CBEF030008351C7 /* GifCollectionViewCell.swift in Sources */,
 				81DA3EF51C24BE85006822D3 /* KeyboardContainerViewController.swift in Sources */,
 				698674181C4A911900826FAA /* DropDownMessageView.swift in Sources */,
-				BF1C79BC1CCEC41D002ED5B7 /* AnimatedMenuView.swift in Sources */,
 				8157AD901CB5A62F001D0B80 /* PackPageHeaderView.swift in Sources */,
 				81BDA71B1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */,
 				3B47F6AB1C66FAA100B000A5 /* Event.swift in Sources */,
@@ -4403,7 +4400,6 @@
 				81DA3F111C24BE85006822D3 /* TrackMediaItem.swift in Sources */,
 				3B75E5111C6E6B1B008D4CE3 /* UIDevice+DeviceList.swift in Sources */,
 				81DA3F121C24BE85006822D3 /* Shape.swift in Sources */,
-				BF9DF2FB1CD018E1002C7F15 /* AnimatedMenuButton.swift in Sources */,
 				81DA3F141C24BE85006822D3 /* ServiceProviderSuggestionTableViewCell.swift in Sources */,
 				BFD8778B1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */,
 				81DA3F161C24BE85006822D3 /* NJKScrollFullScreen.m in Sources */,
