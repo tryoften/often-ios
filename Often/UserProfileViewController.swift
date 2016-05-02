@@ -9,6 +9,7 @@
 
 import UIKit
 
+
 class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaItemGroupViewModelDelegate,
     UICollectionViewDelegateFlowLayout {
     var viewModel: PacksService
@@ -43,8 +44,8 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 230)
-        flowLayout.itemSize = CGSizeMake(PackCellWidth, 225) /// height of the cell
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 210)
+        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0
@@ -78,7 +79,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             navigationBar.hidden = true
         }
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -106,7 +107,6 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             if headerView == nil {
                 headerView = cell
                 viewModel.fetchCollection()
-
             }
             
             return headerView!
@@ -139,7 +139,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     }
 
     func reloadUserData() {
-        if let headerView = headerView, let user = viewModel.currentUser {
+        if let headerView = headerView, let user = SessionManager.defaultManager.currentUser {
             headerView.sharedText = "\(SessionManagerFlags.defaultManagerFlags.userMessageCount) Lyrics Shared"
             headerView.nameLabel.text = user.name
             headerView.collapseNameLabel.text = user.name

@@ -408,6 +408,5 @@ let SearchBarPlaceholderText: String = "Search"
 let TwitterButtonColor = UIColor(fromHexString: "#62A9E0")
 
 //Pack Cells
-let PackCellWidth: CGFloat = 171
 let PackCellHeight: CGFloat = 237.0
 

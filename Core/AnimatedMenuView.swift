@@ -58,7 +58,7 @@ class AnimatedMenuView: MenuView {
         addSubview(packsMenuItem)
         
         menu.direction = .Up
-        
+
         menu.baseViewSize = CGSizeMake(50, 50)
         menu.itemViewSize = CGSizeMake(41, 40)
         menu.spacing = 10.0
@@ -72,7 +72,7 @@ class AnimatedMenuView: MenuView {
         
         menu.views = [startMenuItem, gifsMenuItem, quotesMenuItem, categoryMenuItem, packsMenuItem]
         translatesAutoresizingMaskIntoConstraints = false
-
+        zPosition = 1000
     }
 
     required init?(coder aDecoder: NSCoder) {
