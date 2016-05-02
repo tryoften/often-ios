@@ -49,7 +49,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController {
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 0)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 370)
-        flowLayout.itemSize = CGSizeMake(PackCellWidth, 225) /// height of the cell
+        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0

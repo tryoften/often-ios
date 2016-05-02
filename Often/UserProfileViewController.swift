@@ -9,21 +9,16 @@
 
 import UIKit
 
-class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTabDelegate,
+class UserProfileViewController: MediaItemsViewController,
     UICollectionViewDelegateFlowLayout {
     var headerView: UserProfileHeaderView?
     var sectionHeaderView: MediaItemsSectionHeaderView?
-    var viewModels: [MediaItemsCollectionType: MediaItemsViewModel]
     
     init(recentsViewModel: RecentsViewModel,
          favoritesViewModel: FavoritesService,
          packsViewModel: PacksService) {
         
-        viewModels = [.Favorites: favoritesViewModel, .Recents: recentsViewModel]
-        
-        super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout(), collectionType: .Recents, viewModel: recentsViewModel)
-
-        viewModel = viewModels[collectionType]!
+        super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout(), collectionType: .Packs, viewModel: recentsViewModel)
         viewModel.delegate = self
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.checkUserEmptyStateStatus), name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -85,10 +80,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let screenWidth = UIScreen.mainScreen().bounds.width
@@ -159,9 +150,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
             
             if headerView == nil {
                 headerView = cell
-                headerView?.tabContainerView.delegate = self
                 viewModel.fetchCollection()
-
             }
             
             return headerView!
@@ -231,7 +220,7 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
     }
     
     func reloadUserData() {
-        if let headerView = headerView, let user = viewModel.currentUser {
+        if let headerView = headerView, let user = SessionManager.defaultManager.currentUser {
             headerView.sharedText = "\(SessionManagerFlags.defaultManagerFlags.userMessageCount) Lyrics Shared"
             headerView.nameLabel.text = user.name
             headerView.collapseNameLabel.text = user.name
@@ -241,21 +230,6 @@ class UserProfileViewController: MediaItemsViewController, FavoritesAndRecentsTa
                 headerView.collapseProfileImageView.nk_setImageWith(imageURL)
             }
         }
-    }
-    
-    func userPacksTabSelected() {
-        viewModel = viewModels[.Packs]!
-        collectionType = .Packs
-    }
-    
-    func userFavoritesTabSelected() {
-        viewModel = viewModels[.Favorites]!
-        collectionType = .Favorites
-    }
-    
-    func userRecentsTabSelected() {
-        viewModel = viewModels[.Recents]!
-        collectionType = .Recents
     }
 
     //MARK: Check for empty state

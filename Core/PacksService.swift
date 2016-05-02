@@ -45,7 +45,6 @@ class PacksService: PackItemViewModel {
         subscriptionsRef = userRef.childByAppendingPath("subscriptions")
         subscriptionsRef.observeEventType(.Value, withBlock: self.onSubscriptionsChanged)
         subscriptionsRef.keepSynced(true)
-        fetchCollection()
     }
 
     private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {

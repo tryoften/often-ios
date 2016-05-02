@@ -1,0 +1,10 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase data:remove /queues/user/tasks -f often-dev --debug
+[debug] Platform:     darwin
+[debug] Node Version: v5.9.1
+[debug] Time:         Wed Apr 27 2016 16:30:27 GMT-0400 (EDT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/often-dev/token?token=XXX 
+[debug] <<< HTTP RESPONSE 200
+[info] ✔  Data removed successfully
