@@ -104,10 +104,7 @@ class RootViewController: UITabBarController {
             userProfileVC = SkipSignupViewController(viewModel: LoginViewModel(sessionManager: sessionManager))
         } else {
             userProfileVC = ContainerNavigationController(
-                rootViewController: UserProfileViewController(
-                    recentsViewModel: RecentsViewModel(),
-                    favoritesViewModel: FavoritesService.defaultInstance,
-                    packsViewModel: PacksService.defaultInstance)
+                rootViewController: UserProfileViewController(viewModel: PacksService.defaultInstance)
             )
         }
 
