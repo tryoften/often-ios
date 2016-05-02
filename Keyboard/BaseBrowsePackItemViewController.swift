@@ -22,13 +22,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     var packViewModel: PackItemViewModel
     
     init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
-        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
-        let cache = AnimatedImageMemoryCache()
         menuView = AnimatedMenuView()
-
-
-        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
         self.packViewModel = viewModel
 
         super.init(viewModel: viewModel)
@@ -50,8 +44,15 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             menuView.quotesMenuItem.selected = true
         }
 
-        setupHudView() 
+        setupHudView()
         view.addSubview(menuView)
+    }
+
+    func setupImageManager() {
+        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
+        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
+        let cache = AnimatedImageMemoryCache()
+        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
     }
     
     func closeAnimatedMenu() {
@@ -59,10 +60,28 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         hideMaskView()
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupImageManager()
+        showLoadingView()
+
+        delay(0.5) {
+            self.loadPackData()
+        }
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
         HUDMaskView?.frame = view.bounds
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        loadPackData()
     }
     
     func menuButtonPressed(sender: AnimatedMenuButton) {
@@ -86,6 +105,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     }
 
     func startMenuItemPressed() {
+        menuView.userInteractionEnabled = false
         if menuView.menu.opened {
             menuView.menu.close()
             hideMaskView()
@@ -114,17 +134,16 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     }
     
     func showMaskView() {
-        guard let maskeView = HUDMaskView else {
+        guard let maskView = HUDMaskView else {
             return
         }
 
-        view.insertSubview(menuView, aboveSubview: maskeView)
-        maskeView.hidden = false
-        maskeView.alpha = 0
+        maskView.hidden = false
+        maskView.alpha = 0
         
         UIView.animateWithDuration(0.1, animations: {
-            maskeView.alpha = 1.0
-            }, completion: nil)
+            maskView.alpha = 1.0
+        }, completion: nil)
     }
 
     func setupHudView() {
@@ -201,7 +220,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             let cell = parseMediaItemData(group.items, indexPath: indexPath, collectionView: collectionView)
             cell.style = .Cell
             cell.type = .NoMetadata
-            animateCell(cell, indexPath: indexPath)
             return cell
         default:
             return UICollectionViewCell()
@@ -233,14 +251,11 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         return UIEdgeInsetsZero
     }
 
-
     func loadPackData()  {
         collectionView?.reloadData()
         viewModel.fetchData()
         hideMaskView()
-        
     }    
-
 
     func toggleCategoryViewController() {
         guard let pack = packViewModel.pack  else {
