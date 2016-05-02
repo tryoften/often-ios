@@ -16,7 +16,6 @@ class UserProfileHeaderView: UICollectionReusableView {
     var collapseNameLabel: UILabel
     var collapseProfileImageView: UIImageView
     var shareCountLabel: UILabel
-    var tabContainerView: FavoritesAndRecentsTabView
     var offsetValue: CGFloat
 
     static var preferredSize: CGSize {
@@ -138,9 +137,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         shareCountLabel.numberOfLines = 3
         shareCountLabel.alpha = 0.54
 
-        tabContainerView = FavoritesAndRecentsTabView()
-        tabContainerView.translatesAutoresizingMaskIntoConstraints = false
-
         offsetValue = 0.0
         sharedText = "85 Lyrics Shared"
         
@@ -159,7 +155,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         addSubview(profileImageView)
         addSubview(nameLabel)
         addSubview(shareCountLabel)
-        addSubview(tabContainerView)
         addSubview(collapseNameLabel)
         addSubview(collapseProfileImageView)
 
@@ -237,18 +232,13 @@ class UserProfileHeaderView: UICollectionReusableView {
             coverPhotoTintView.al_left == coverPhotoView.al_left,
             coverPhotoTintView.al_top == coverPhotoView.al_top,
             
-            nameLabel.al_bottom == tabContainerView.al_top - nameLabelHeightTopMargin,
+            nameLabel.al_bottom == al_bottom - nameLabelHeightTopMargin,
             nameLabel.al_centerX == al_centerX,
             nameLabel.al_height == 25,
             
             shareCountLabel.al_top == nameLabel.al_bottom + shareTextTopMargin,
             shareCountLabel.al_centerX == al_centerX,
             shareCountLabel.al_width == 250,
-
-            tabContainerView.al_bottom == al_bottom,
-            tabContainerView.al_left == al_left,
-            tabContainerView.al_right == al_right,
-            tabContainerView.al_height == tabContainerViewHeight,
         ])
     }
 

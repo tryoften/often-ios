@@ -19,7 +19,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         super.init(viewModel: viewModel, textProcessor: textProcessor)
         packViewModel.delegate = self
-        showLoadingView()
 
         panelView.switchKeyboardButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.switchKeyboardButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         panelView.backspaceButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.backspaceButtonDidTap), forControlEvents: .TouchUpInside)
@@ -48,10 +47,10 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 40, right: 18)
         MaterialLayout.size(view, child: menuView, width: 45, height: 45)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadPackData()
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        showLoadingView()
     }
 
     override func menuButtonPressed(sender: AnimatedMenuButton) {
@@ -80,7 +79,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
          NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
     }
 
-    func backspaceButtonDidTap(sender:UIButton) {
+    func backspaceButtonDidTap(sender: UIButton) {
         textProcessor?.deleteBackward()
     }
 
@@ -113,7 +112,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
         hideLoadingView()
-
         populatePanelMetaData()
     }
 

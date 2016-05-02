@@ -216,7 +216,8 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         
         switch group.type {
         case .Gif:
-            return CGSizeMake(171.5, 100)
+            let cellWidth = (UIScreen.mainScreen().bounds.width / 2) - 16
+            return CGSizeMake(cellWidth, 100)
         case .Quote:
             return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
         default:
