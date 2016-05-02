@@ -111,11 +111,11 @@ class PacksService: PackItemViewModel {
     }
 
     func addPack(pack: PackMediaItem) {
-        sendTask("addPack", result: pack)
+        sendTask("add", result: pack)
     }
 
     func removePack(pack: PackMediaItem) {
-        sendTask("removePack", result: pack)
+        sendTask("remove", result: pack)
     }
 
     func checkPack(result: MediaItem) -> Bool {
@@ -129,17 +129,19 @@ class PacksService: PackItemViewModel {
 
         let userQueue = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
         userQueue.setValue([
-            "task": task,
+            "task": "editUserSubscription",
+            "operation": task,
             "user": userId,
+            "packId": result.id,
             "result": result.toDictionary()
         ])
 
         // Preemptively add item to collection before backend queue modifies
         // in case user worker is down
-        let ref = collectionEndpoint.childByAppendingPath(result.id)
-        if task == "addPack" {
+        let ref = collectionEndpoint.childByAppendingPath("\(result.id)")
+        if task == "add" {
             ref.setValue(result.toDictionary())
-        } else if task == "removePack" {
+        } else if task == "remove" {
             ref.removeValue()
         }
     }
