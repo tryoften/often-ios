@@ -33,13 +33,37 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
         collectionView?.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
 
-        setupHudView() 
+        setupHudView()
+    }
+
+    func setupImageManager() {
+        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
+        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
+        let cache = AnimatedImageMemoryCache()
+        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupImageManager()
+
+        delay(0.5) {
+            self.loadPackData()
+        }
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
         HUDMaskView?.frame = view.bounds
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        loadPackData()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -61,16 +85,16 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     }
     
     func showMaskView() {
-        guard let maskeView = HUDMaskView else {
+        guard let maskView = HUDMaskView else {
             return
         }
 
-        maskeView.hidden = false
-        maskeView.alpha = 0
+        maskView.hidden = false
+        maskView.alpha = 0
         
         UIView.animateWithDuration(0.1, animations: {
-            maskeView.alpha = 1.0
-            }, completion: nil)
+            maskView.alpha = 1.0
+        }, completion: nil)
     }
 
     func setupHudView() {
@@ -143,7 +167,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             let cell = parseMediaItemData(group.items, indexPath: indexPath, collectionView: collectionView)
             cell.style = .Cell
             cell.type = .NoMetadata
-            animateCell(cell, indexPath: indexPath)
             return cell
         default:
             return UICollectionViewCell()
@@ -176,14 +199,11 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         return UIEdgeInsetsZero
     }
 
-
     func loadPackData()  {
         collectionView?.reloadData()
         viewModel.fetchData()
         hideMaskView()
-        
     }    
-
 
     func toggleCategoryViewController() {
         guard let pack = packViewModel.pack  else {

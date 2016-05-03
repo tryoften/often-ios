@@ -8,7 +8,7 @@
 
 import Foundation
 import Material
-
+import Nuke
 
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, UITabBarDelegate {
     private var packServiceListener: Listener? = nil
@@ -27,7 +27,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
         
-        packCollectionListener = viewModel.didChangeMediaItems.on { items in
+        packCollectionListener = viewModel.didUpdatePacks.on { items in
             self.hideLoadingView()
             self.collectionView?.reloadData()
         }
@@ -35,7 +35,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
         }
-        
+
         if packViewModel.typeFilter == .Gif {
             tabBar.selectedItem = tabBar.items![BrowsePackTabType.Gifs.rawValue]
         } else {
@@ -45,20 +45,29 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         tabBar.lastSelectedTab = tabBar.selectedItem
         
         view.addSubview(tabBar)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func didReceiveMemoryWarning() {
+        ImageManager.shared.removeAllCachedImages()
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         tabBar.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - 44.5, view.bounds.width, 44.5)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadPackData()
+        showLoadingView()
+    }
+    
+    override func loadPackData() {
+        super.loadPackData()
     }
     
     func onOrientationChanged() {
@@ -70,7 +79,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         packsVC.delegate = self
         presentViewCotntrollerWithCustomTransitionAnimator(packsVC, direction: .Left, duration: 0.2)
     }
-    
+
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
         PacksService.defaultInstance.switchCurrentPack(pack.id)
         loadPackData()

@@ -1302,7 +1302,6 @@
 				3BD522421CC6F40000A5577F /* FLAnimatedImage.framework in Embed Frameworks */,
 				81DA3F701C24BE85006822D3 /* Spring.framework in Embed Frameworks */,
 				3BD5223A1CC6F31900A5577F /* NukeAnimatedImagePlugin.framework in Embed Frameworks */,
-				BF9DF2F81CD015AD002C7F15 /* Material.framework in Embed Frameworks */,
 				3BD522401CC6F33F00A5577F /* NukeAlamofirePlugin.framework in Embed Frameworks */,
 				3BD5223E1CC6F32A00A5577F /* Alamofire.framework in Embed Frameworks */,
 			);
@@ -1639,7 +1638,6 @@
 		BF9971521CBEF388008351C7 /* GifCellOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCellOverlayView.swift; sourceTree = "<group>"; };
 		BF9971581CC00942008351C7 /* PackItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackItemViewModel.swift; sourceTree = "<group>"; };
 		BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMediaItemCollectionViewCell.swift; sourceTree = "<group>"; };
-		BF9DF2F71CD015AD002C7F15 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
 		BF9DF2F91CD018E1002C7F15 /* AnimatedMenuButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedMenuButton.swift; sourceTree = "<group>"; };
 		BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifHorizontalCollectionViewCell.swift; sourceTree = "<group>"; };
 		BFCDB8681CC824D0001C1E88 /* AnimatedMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedMenu.swift; sourceTree = "<group>"; };
@@ -2478,7 +2476,6 @@
 		8180E5FF1A142157007FA1CF = {
 			isa = PBXGroup;
 			children = (
-				BF9DF2F71CD015AD002C7F15 /* Material.framework */,
 				811B1E101B1F961100618E1A /* Shared */,
 				810C40641A21125B00170DB4 /* Constants.swift */,
 				3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */,

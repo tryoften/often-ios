@@ -35,6 +35,7 @@ class PacksService: PackItemViewModel {
         if let lastPack = SessionManagerFlags.defaultManagerFlags.lastPack {
             packId = lastPack
         }
+        currentCategory = Category.all
 
         do {
             try setupUser { inner in
@@ -45,7 +46,6 @@ class PacksService: PackItemViewModel {
         subscriptionsRef = userRef.childByAppendingPath("subscriptions")
         subscriptionsRef.observeEventType(.Value, withBlock: self.onSubscriptionsChanged)
         subscriptionsRef.keepSynced(true)
-        fetchCollection()
     }
 
     private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
@@ -158,6 +158,8 @@ class PacksService: PackItemViewModel {
             return
         }
 
+        self.didUpdatePacks.emit(packs)
+        
         if SessionManagerFlags.defaultManagerFlags.lastPack == nil {
             SessionManagerFlags.defaultManagerFlags.lastPack = packsID
             
@@ -165,11 +167,11 @@ class PacksService: PackItemViewModel {
 
         for pack in packs where SessionManagerFlags.defaultManagerFlags.lastPack == pack.pack_id {
             self.pack = pack
-            self.didUpdatePacks.emit(packs)
 
             if let packId = pack.pack_id {
                 self.packId = packId
             }
+
             if SessionManagerFlags.defaultManagerFlags.lastCategoryIndex < pack.categories.count {
                 currentCategory = pack.categories[SessionManagerFlags.defaultManagerFlags.lastCategoryIndex]
             } else {
@@ -180,6 +182,8 @@ class PacksService: PackItemViewModel {
             if let currentCategory = currentCategory {
                 applyFilter(currentCategory)
             }
+
+            self.didUpdatePacks.emit(packs)
         }
 
     }

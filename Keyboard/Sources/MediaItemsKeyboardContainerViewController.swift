@@ -51,7 +51,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         if let packVC = packsVC {
             containerView.addSubview(packVC.view)
-
         }
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
@@ -78,7 +77,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         if let packVC = packsVC {
              packVC.view.frame = view.bounds
-
         }
     }
 

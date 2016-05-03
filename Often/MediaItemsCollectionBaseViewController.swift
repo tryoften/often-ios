@@ -287,6 +287,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 return
         }
 
+        textProcessor?.defaultProxy.insertText(result.getInsertableText())
+        
         let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
         #if !(KEYBOARD)
             vc.mediaItemDetailView.style = .Copy
