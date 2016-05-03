@@ -56,14 +56,14 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         ImageManager.shared.removeAllCachedImages()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        tabBar.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - 44.5, view.bounds.width, 44.5)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         showLoadingView()
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        tabBar.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - 44.5, view.bounds.width, 44.5)
     }
     
     override func loadPackData() {

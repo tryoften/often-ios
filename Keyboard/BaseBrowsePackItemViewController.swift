@@ -46,7 +46,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     override func viewDidLoad() {
         super.viewDidLoad()
         setupImageManager()
-
         delay(0.5) {
             self.loadPackData()
         }
@@ -229,7 +228,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: true)
         }
     }
-    
+        
     func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {}
 
     override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
