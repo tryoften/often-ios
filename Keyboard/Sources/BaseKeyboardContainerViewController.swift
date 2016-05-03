@@ -191,5 +191,6 @@ class BaseKeyboardContainerViewController: UIInputViewController {
 
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
         keyboardHeight = heightForOrientation(toInterfaceOrientation, withTopBanner: true)
+        NSNotificationCenter.defaultCenter().postNotificationName(KeyboardOrientationChangeEvent, object: self)
     }
 }

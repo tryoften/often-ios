@@ -11,32 +11,29 @@ import Material
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
-
+    
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         super.init(viewModel: viewModel, textProcessor: textProcessor)
-
+        
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
-
+        
         packCollectionListener = viewModel.didChangeMediaItems.on { items in
             self.collectionView?.setContentOffset(CGPointZero, animated: true)
             self.collectionView?.reloadData()
             self.headerViewDidLoad()
         }
         
-        menuView.menu.views?.removeLast()
-        menuView.menu.baseViewSize = CGSizeMake(50, 50)
-
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
-
+        
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
-
+        
     }
     
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
@@ -44,10 +41,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        menuView.menu.itemViewSize = CGSizeMake(40, 40)
-        MaterialLayout.alignFromBottomRight(view, child: menuView, bottom: 20, right: 18)
-        MaterialLayout.size(view, child: menuView, width: 50, height: 50)
     }
     
     override func viewDidLoad() {
@@ -62,29 +55,29 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         
         setupHeaderView(imageURL, title: packViewModel.pack?.name, subtitle: subtitle)
     }
-
+    
     override func setupHeaderView(imageURL: NSURL?, title: String?, subtitle: String?) {
         guard let header = headerView as? PackPageHeaderView, let pack = packViewModel.pack else {
             return
         }
         self.hideHud()
-
+        
         if let text = title {
             header.title = text
         }
-
+        
         if let string = subtitle {
             header.subtitle = string
         }
-
+        
         header.sampleButton.hidden = !pack.premium
         header.primaryButton.title = pack.callToActionText()
         header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
         header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
         header.imageURL = imageURL
-
+        
     }
-
+    
     func primaryButtonTapped(sender: UIButton) {
         guard let button = sender as? BrowsePackDownloadButton else {
             return
@@ -100,21 +93,25 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             }
         }
     }
-
+    
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeZero
+    }
+    
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-                guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: PackPageHeaderViewIdentifier, forIndexPath: indexPath) as? PackPageHeaderView else {
-                    return UICollectionReusableView()
-                }
-                
-                if headerView == nil {
-                    headerView = cell
-                }
-                headerViewDidLoad()
-
-                return headerView!
+            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: PackPageHeaderViewIdentifier, forIndexPath: indexPath) as? PackPageHeaderView else {
+                return UICollectionReusableView()
             }
-        
-        return UICollectionReusableView()
+            
+            if headerView == nil {
+                headerView = cell
+            }
+            headerViewDidLoad()
+            
+            return headerView!
+        } else {
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+        }
     }
 }

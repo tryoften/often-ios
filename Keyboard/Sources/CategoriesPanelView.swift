@@ -75,7 +75,7 @@ class CategoriesPanelView: UIView {
         switchKeyboardButton.contentEdgeInsets = UIEdgeInsets(top: 7, left: 7, bottom: 7, right: 7)
 
         backspaceButton = UIButton()
-        backspaceButton.setImage(StyleKit.imageOfBackspaceIcon(emojiScale: 0.7), forState: .Normal)
+        backspaceButton.setImage(StyleKit.imageOfBackspaceIcon(scale: 0.7), forState: .Normal)
         backspaceButton.translatesAutoresizingMaskIntoConstraints = false
         backspaceButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 0, bottom: 3, right: 4)
 

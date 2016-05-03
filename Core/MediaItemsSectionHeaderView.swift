@@ -26,7 +26,7 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
             let attributes: [String: AnyObject] = [
                 NSKernAttributeName: NSNumber(float: 1.25),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9.5)!,
-                NSForegroundColorAttributeName: BlackColor.colorWithAlphaComponent(0.54)
+                NSForegroundColorAttributeName: UIColor.oftBlack74Color()
             ]
             let attributedString = NSAttributedString(string: leftText!.uppercaseString, attributes: attributes)
             leftLabel.attributedText = attributedString
@@ -37,7 +37,7 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
             let attributes: [String: AnyObject] = [
                 NSKernAttributeName: NSNumber(float: 1),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9.5)!,
-                NSForegroundColorAttributeName: UIColor.grayColor()
+                NSForegroundColorAttributeName: UIColor.oftBlack74Color()
             ]
             let attributedString = NSAttributedString(string: rightText!.uppercaseString, attributes: attributes)
             rightLabel.attributedText = attributedString
@@ -100,7 +100,7 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         addSubview(topSeperator)
         addSubview(bottomSeperator)
 
-        backgroundColor = UIColor(fromHexString: "#f7f7f7").colorWithAlphaComponent(0.9)
+        backgroundColor = WhiteColor
         setupLayout()
     }
 

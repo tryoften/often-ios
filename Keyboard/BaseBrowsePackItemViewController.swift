@@ -18,11 +18,14 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     var packCollectionListener: Listener? = nil
     var panelToggleListener: Listener?
     var HUDMaskView: UIView?
-    var menuView: AnimatedMenuView
     var packViewModel: PackItemViewModel
     
     init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        menuView = AnimatedMenuView()
+        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
+        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
+        let cache = AnimatedImageMemoryCache()
+
+        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
         self.packViewModel = viewModel
 
         super.init(viewModel: viewModel)
@@ -30,22 +33,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
         collectionView?.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
 
-        menuView.startMenuItem.addTarget(self, action: #selector(BaseBrowsePackItemViewController.startMenuItemPressed), forControlEvents: .TouchUpInside)
-
-        for view in menuView.menu.views! {
-            if let buttonView = view as? AnimatedMenuButton {
-                buttonView.button.addTarget(self, action: #selector(BaseBrowsePackItemViewController.menuButtonPressed(_:)), forControlEvents: .TouchUpInside)
-            }
-        }
-
-        if packViewModel.typeFilter == .Gif {
-            menuView.gifsMenuItem.selected = true
-        } else {
-            menuView.quotesMenuItem.selected = true
-        }
-
         setupHudView()
-        view.addSubview(menuView)
     }
 
     func setupImageManager() {
@@ -54,16 +42,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         let cache = AnimatedImageMemoryCache()
         ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
     }
-    
-    func closeAnimatedMenu() {
-        menuView.menu.close()
-        hideMaskView()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupImageManager()
-        
         delay(0.5) {
             self.loadPackData()
         }
@@ -81,37 +63,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         loadPackData()
-    }
-    
-    func menuButtonPressed(sender: AnimatedMenuButton) {
-        guard let type = AnimatedMenuItem(rawValue: sender.tag) else {
-            return
-        }
-        
-        switch type {
-        case .Gifs:
-            packViewModel.typeFilter = .Gif
-            closeAnimatedMenu()
-        case .Quotes:
-            packViewModel.typeFilter = .Quote
-            closeAnimatedMenu()
-        case .Categories:
-            toggleCategoryViewController()
-            closeAnimatedMenu()
-        default:
-            break
-        }
-    }
-
-    func startMenuItemPressed() {
-        menuView.userInteractionEnabled = false
-        if menuView.menu.opened {
-            menuView.menu.close()
-            hideMaskView()
-        } else {
-            menuView.menu.open()
-            showMaskView()
-        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -150,7 +101,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             return
         }
 
-        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.startMenuItemPressed)
+        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.toggleCategoryViewController)
         let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
 
         HUDMaskView = UIView()
@@ -174,20 +125,16 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         return group.items.count
     }
 
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSizeZero
-    }
-
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         if packViewModel.typeFilter == .Gif {
-            return 8.0
+            return 7.0
         }
         return 0.0
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         if packViewModel.typeFilter == .Gif {
-            return 8.0
+            return 7.0
         }
         return 0.0
     }
@@ -233,8 +180,9 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         
         switch group.type {
         case .Gif:
-            let cellWidth = (UIScreen.mainScreen().bounds.width / 2) - 16
-            return CGSizeMake(cellWidth, 100)
+            let width = UIScreen.mainScreen().bounds.width/2 - 12.5
+            let height = width * (4/7)
+            return CGSizeMake(width, height)
         case .Quote:
             return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
         default:
@@ -244,7 +192,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         if packViewModel.typeFilter == .Gif {
-            return UIEdgeInsets(top: 10.0, left: 12.0, bottom: 10.0, right: 12.0)
+            return UIEdgeInsets(top: 9.0, left: 9.0, bottom: 9.0, right: 9.0)
         }
 
         return UIEdgeInsetsZero
@@ -260,7 +208,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         guard let pack = packViewModel.pack  else {
             return
         }
-        menuView.menu.close()
 
         let categoriesVC = CategoryCollectionViewController(viewModel: viewModel, categories: pack.categories)
         categoriesVC.delegate = self
@@ -281,15 +228,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: true)
         }
     }
-    
+        
     func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {}
 
     override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
-
-        if let imageURL = self.packViewModel.pack?.smallImageURL, image = UIImage(data: NSData(contentsOfURL: imageURL)!) {
-            menuView.startMenuItem.setImage(image, forState: .Normal)
-        }
     }
-
 }

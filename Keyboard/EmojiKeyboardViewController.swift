@@ -74,7 +74,7 @@ class EmojiKeyboardViewController: UIViewController, AGEmojiKeyboardViewDelegate
         case .Flags:
             return StyleKit.imageOfFlagIcon(emojiScale: 0.5)
         case .Delete:
-            return StyleKit.imageOfBackspaceIcon(emojiScale: 0.4)
+            return StyleKit.imageOfBackspaceIcon()
         }
         
     }
