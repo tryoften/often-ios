@@ -9,7 +9,7 @@
 import Foundation
 
 class BrowseViewModel: MediaItemGroupViewModel {
-    let didChangeMediaItems = Event<[MediaItemGroup]>()
+    let didUpdateCurrentMediaItem = Event<[MediaItemGroup]>()
     var currentCategory: Category?
     
     init(path: String = "trending") {
@@ -45,7 +45,7 @@ class BrowseViewModel: MediaItemGroupViewModel {
         for group in mediaItemGroups {
             group.filterMediaItems(filter)
         }
-        didChangeMediaItems.emit(mediaItemGroups)
+        didUpdateCurrentMediaItem.emit(mediaItemGroups)
     }
     
     func getItemCount() -> Int {
