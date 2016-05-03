@@ -47,13 +47,17 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         view.addSubview(tabBar)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
     }
+
+    deinit {
+        packCollectionListener?.stopListening()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func didReceiveMemoryWarning() {
-        ImageManager.shared.removeAllCachedImages()
     }
 
     override func viewDidLoad() {
@@ -68,6 +72,11 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     
     override func loadPackData() {
         super.loadPackData()
+    }
+
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        super.scrollViewDidScroll(scrollView)
+        scrollView.bounces = scrollView.contentOffset.y > 100
     }
     
     func onOrientationChanged() {

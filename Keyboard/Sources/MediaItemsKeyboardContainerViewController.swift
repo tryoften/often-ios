@@ -32,32 +32,36 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
-        #if !(KEYBOARD_DEBUG)
+
         dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
+            #if !(KEYBOARD_DEBUG)
             Fabric.sharedSDK().debug = true
             Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
             Flurry.startSession(FlurryClientKey)
             Firebase.defaultConfig().persistenceEnabled = true
-        }
-        #endif
+            #endif
 
-        viewModel = KeyboardViewModel()
-        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
-        textProcessor?.delegate = self
+            self.viewModel = KeyboardViewModel()
+            self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
+            self.textProcessor?.delegate = self
 
-        packsVC = KeyboardBrowsePackItemViewController(viewModel: PacksService.defaultInstance, textProcessor: textProcessor)
-    
-        view.backgroundColor = DefaultTheme.keyboardBackgroundColor
-
-        if let packVC = packsVC {
-            containerView.addSubview(packVC.view)
+            self.view.backgroundColor = DefaultTheme.keyboardBackgroundColor
         }
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
+
+        self.packsVC = KeyboardBrowsePackItemViewController(viewModel: PacksService.defaultInstance, textProcessor: self.textProcessor)
+        if let packVC = self.packsVC {
+            self.containerView.addSubview(packVC.view)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        self.packsVC = nil
     }
 
     override func viewDidLoad() {
