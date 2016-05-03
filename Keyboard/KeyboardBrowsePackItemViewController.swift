@@ -27,7 +27,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
         
-        packCollectionListener = viewModel.didUpdatePacks.on { items in
+        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { items in
             self.hideLoadingView()
             self.collectionView?.reloadData()
         }
@@ -164,6 +164,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         switch type {
         case .Keyboard:
             NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
+            self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Gifs:
             packViewModel.typeFilter = .Gif
             self.tabBar.lastSelectedTab = item
@@ -178,6 +179,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Delete:
             textProcessor?.deleteBackward()
+            self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         }
     }
 }
