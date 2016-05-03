@@ -35,6 +35,11 @@ class PacksService: PackItemViewModel {
         if let lastPack = SessionManagerFlags.defaultManagerFlags.lastPack {
             packId = lastPack
         }
+
+        if let lastFilterType = SessionManagerFlags.defaultManagerFlags.lastFilterType, let type = MediaType(rawValue: lastFilterType) {
+            typeFilter = type
+        }
+
         currentCategory = Category.all
 
         do {
@@ -162,7 +167,6 @@ class PacksService: PackItemViewModel {
         
         if SessionManagerFlags.defaultManagerFlags.lastPack == nil {
             SessionManagerFlags.defaultManagerFlags.lastPack = packsID
-            
         }
 
         for pack in packs where SessionManagerFlags.defaultManagerFlags.lastPack == pack.pack_id {

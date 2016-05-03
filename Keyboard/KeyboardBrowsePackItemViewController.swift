@@ -46,6 +46,11 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         ImageManager.shared.removeAllCachedImages()
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        showLoadingView()
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         panelView.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - SectionPickerViewHeight, view.bounds.width, SectionPickerViewHeight)
@@ -66,6 +71,10 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
         switch type {
+        case .Gifs:
+            SessionManagerFlags.defaultManagerFlags.lastFilterType = MediaType.Gif.rawValue
+        case .Quotes:
+            SessionManagerFlags.defaultManagerFlags.lastFilterType = MediaType.Quote.rawValue
         case .Packs:
             togglePack()
             closeAnimatedMenu()

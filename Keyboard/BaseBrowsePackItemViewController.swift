@@ -63,8 +63,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     override func viewDidLoad() {
         super.viewDidLoad()
         setupImageManager()
-        showLoadingView()
-
+        
         delay(0.5) {
             self.loadPackData()
         }

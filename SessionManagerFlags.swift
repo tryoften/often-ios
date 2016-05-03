@@ -26,6 +26,7 @@ class SessionManagerFlags {
         static var userNotificationSettings = "userNotificationSettings"
         static var lastPack = "pack"
         static var lastCategory = "category"
+        static var lastFilterType = "filter"
     }
 
     var userNotificationSettings: Bool {
@@ -130,6 +131,16 @@ class SessionManagerFlags {
 
         set(value) {
              NSUserDefaults.standardUserDefaults().setObject(value, forKey: SessionManagerPropertyKey.lastPack)
+        }
+    }
+
+    var lastFilterType: String? {
+        get {
+            return  NSUserDefaults.standardUserDefaults().objectForKey(SessionManagerPropertyKey.lastFilterType) as? String
+        }
+
+        set(value) {
+            NSUserDefaults.standardUserDefaults().setObject(value, forKey: SessionManagerPropertyKey.lastFilterType)
         }
     }
 
