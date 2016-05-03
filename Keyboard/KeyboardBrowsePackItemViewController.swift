@@ -66,6 +66,10 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
         switch type {
+        case .Gifs:
+            SessionManagerFlags.defaultManagerFlags.lastFilterType = MediaType.Gif.rawValue
+        case .Quotes:
+            SessionManagerFlags.defaultManagerFlags.lastFilterType = MediaType.Quote.rawValue
         case .Packs:
             togglePack()
             closeAnimatedMenu()
