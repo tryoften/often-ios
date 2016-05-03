@@ -46,6 +46,11 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         ImageManager.shared.removeAllCachedImages()
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        showLoadingView()
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         panelView.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - SectionPickerViewHeight, view.bounds.width, SectionPickerViewHeight)

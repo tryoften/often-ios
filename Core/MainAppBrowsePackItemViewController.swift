@@ -52,7 +52,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         loadPackData()
+        showHud()
+        loadPackData()
     }
     
     override func headerViewDidLoad() {
