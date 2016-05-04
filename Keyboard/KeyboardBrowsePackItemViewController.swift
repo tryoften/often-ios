@@ -36,13 +36,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             navigationBar.removeFromSuperview()
         }
 
-        if packViewModel.typeFilter == .Gif {
-            tabBar.selectedItem = tabBar.items![BrowsePackTabType.Gifs.rawValue]
-        } else {
-            tabBar.selectedItem = tabBar.items![BrowsePackTabType.Quotes.rawValue]
-        }
-        
-        tabBar.lastSelectedTab = tabBar.selectedItem
+        updateTabBarSelectedItem()
         
         view.addSubview(tabBar)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
@@ -97,6 +91,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
         
         hideLoadingView()
+        updateTabBarSelectedItem()
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -154,7 +149,20 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         
         return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
-    
+
+    func updateTabBarSelectedItem() {
+        switch packViewModel.typeFilter {
+        case .Gif:
+             tabBar.selectedItem = tabBar.items![BrowsePackTabType.Gifs.rawValue]
+        case .Quote, .Lyric:
+             tabBar.selectedItem = tabBar.items![BrowsePackTabType.Quotes.rawValue]
+        default:
+            break
+        }
+        
+        tabBar.lastSelectedTab = tabBar.selectedItem
+    }
+
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         guard let type = BrowsePackTabType(rawValue: item.tag) else {
             return
@@ -165,11 +173,19 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Gifs:
-            packViewModel.typeFilter = .Gif
-            self.tabBar.lastSelectedTab = item
+            if PacksService.defaultInstance.doesPackContainTypeFilter(.Gif) {
+                packViewModel.typeFilter = .Gif
+                self.tabBar.lastSelectedTab = item
+            } else {
+                self.tabBar.selectedItem =  self.tabBar.lastSelectedTab
+            }
         case .Quotes:
-            packViewModel.typeFilter = .Quote
-            self.tabBar.lastSelectedTab = item
+            if PacksService.defaultInstance.doesPackContainTypeFilter(.Quote) {
+                packViewModel.typeFilter = .Quote
+                self.tabBar.lastSelectedTab = item
+            } else {
+                self.tabBar.selectedItem =  self.tabBar.lastSelectedTab
+            }
         case .Categories:
             toggleCategoryViewController()
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
