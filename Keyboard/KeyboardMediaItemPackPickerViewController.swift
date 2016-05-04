@@ -162,19 +162,26 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             return
         }
 
-        SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = 0
-        
-        delegate?.keyboardMediaItemPackPickerViewControllerDidSelectPack(self, pack: pack)
-        dismissViewControllerAnimated(true, completion: nil)
+        presentPack(pack)
     }
 
     func addPacksButtonDidTap(sender: UIButton) {
         openURL(NSURL(string: OftenCallbackURL)!)
     }
 
+    func presentPack(pack: PackMediaItem) {
+        SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = 0
+
+        delegate?.keyboardMediaItemPackPickerViewControllerDidSelectPack(self, pack: pack)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
     func recentButtonDidTap(sender: UIButton) {
-        let recentVC = KeyboardRecentsViewController(viewModel: RecentsViewModel())
-        presentViewControllerWithCustomTransitionAnimator(recentVC)
+        guard let pack = PacksService.defaultInstance.recentsPack else {
+            return
+        }
+
+        presentPack(pack)
     }
 
     func cancelButtonDidTap()  {

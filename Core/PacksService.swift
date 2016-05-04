@@ -21,6 +21,7 @@ class PacksService: PackItemViewModel {
     private var subscriptionsRef: Firebase!
     private var subscriptions: [PackSubscription] = []
     private(set) var ids: Set<String> = []
+    private(set) var recentsPack: PackMediaItem?
 
     init() {
         userId = SessionManagerFlags.defaultManagerFlags.userId!
@@ -34,7 +35,8 @@ class PacksService: PackItemViewModel {
             packId = lastPack
         }
 
-        if let lastFilterType = SessionManagerFlags.defaultManagerFlags.lastFilterType, let type = MediaType(rawValue: lastFilterType) {
+        if let lastFilterType = SessionManagerFlags.defaultManagerFlags.lastFilterType,
+            let type = MediaType(rawValue: lastFilterType) {
             typeFilter = type
         }
 
@@ -57,9 +59,12 @@ class PacksService: PackItemViewModel {
 
         for (id, item) in data {
             ids.insert(id)
-            if let dict = item as? NSDictionary,
-                let item = MediaItem.mediaItemFromType(dict) as? PackMediaItem {
+            if let dict = item as? NSDictionary, let item = MediaItem.mediaItemFromType(dict) as? PackMediaItem {
+                if item.isRecents {
+                    recentsPack = item
+                } else {
                     items.append(item)
+                }
             }
         }
 
