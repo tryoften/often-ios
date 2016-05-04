@@ -25,7 +25,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
             subtitleLabel.setTextWith(ArtistCollectionViewCellSubtitleFont!,
                                       letterSpacing: 1.0,
                                       color: ArtistCollectionViewCellSubtitleTextColor,
-                                      text: "\(itemCount!) lyrics".uppercaseString)
+                                      text: "\(itemCount!) snippets".uppercaseString)
         }
     }
 

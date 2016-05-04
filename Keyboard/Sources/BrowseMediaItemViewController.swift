@@ -40,7 +40,7 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
 
     #if KEYBOARD
         navigationBar = KeyboardBrowseNavigationBar()
-        navigationBar?.thumbnailImageButton.addTarget(self, action: "backButtonSelected", forControlEvents: .TouchUpInside)
+        navigationBar?.thumbnailImageButton.addTarget(self, action: #selector(BrowseMediaItemViewController.backButtonSelected), forControlEvents: .TouchUpInside)
         navigationBar?.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationBar!)
     #else
@@ -92,19 +92,18 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
 
     class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let layout = CSStickyHeaderFlowLayout()
 
     #if KEYBOARD
         let topMargin = CGFloat(41.0)
-        let layout = UICollectionViewFlowLayout()
     #else
         let topMargin = CGFloat(0.0)
-        let layout = CSStickyHeaderFlowLayout()
         layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 90)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 250)
         layout.parallaxHeaderAlwaysOnTop = true
-        layout.disableStickyHeaders = false
     #endif
 
+        layout.disableStickyHeaders = false
         layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, cellHeight)
         layout.minimumLineSpacing = 7.0
         layout.minimumInteritemSpacing = 7.0

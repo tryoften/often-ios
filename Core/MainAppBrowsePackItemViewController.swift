@@ -8,32 +8,31 @@
 
 import UIKit
 import Material
+
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
-class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
-    
+class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {    
     var filterButton: UIButton
     
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         filterButton = UIButton()
         
         super.init(viewModel: viewModel, textProcessor: textProcessor)
-        
-        collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
+
         
         packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { items in
             self.collectionView?.setContentOffset(CGPointZero, animated: true)
             self.collectionView?.reloadData()
             self.headerViewDidLoad()
         }
-        
+
+        collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
         
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
         
         view.addSubview(filterButton)
         setLayout()
-        
     }
     
     func setupFilterViews() {
@@ -52,10 +51,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         filterButton.layer.shadowColor = MediumLightGrey.CGColor
         filterButton.layer.shadowOffset = CGSizeMake(0, 2)
         filterButton.setAttributedTitle(filterString, forState: .Normal)
-        
-        
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

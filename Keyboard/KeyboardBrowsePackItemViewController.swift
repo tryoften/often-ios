@@ -27,9 +27,9 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
         
-        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { items in
-            self.hideLoadingView()
-            self.collectionView?.reloadData()
+        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
+            self?.hideLoadingView()
+            self?.collectionView?.reloadData()
         }
         
         if let navigationBar = navigationBar {
@@ -47,13 +47,17 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         view.addSubview(tabBar)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
     }
+
+    deinit {
+        packCollectionListener?.stopListening()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func didReceiveMemoryWarning() {
-        ImageManager.shared.removeAllCachedImages()
     }
 
     override func viewDidLoad() {
@@ -65,11 +69,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         super.viewWillLayoutSubviews()
         tabBar.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - 44.5, view.bounds.width, 44.5)
     }
-    
-    override func loadPackData() {
-        super.loadPackData()
-    }
-    
+
     func onOrientationChanged() {
         collectionView?.performBatchUpdates(nil, completion: nil)
     }
@@ -110,11 +110,13 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         switch group.type {
         case .Gif:
             var width: CGFloat
+
             if screenHeight > screenWidth {
-                width = screenWidth/2 - 12.5
+                width = screenWidth / 2 - 12.5
             } else {
-                width = screenWidth/3 - 12.5
+                width = screenWidth / 3 - 12.5
             }
+
             let height = width * (4/7)
             return CGSizeMake(width, height)
         case .Quote:

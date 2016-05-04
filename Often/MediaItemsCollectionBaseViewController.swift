@@ -14,9 +14,9 @@ let MediaItemCollectionViewCellReuseIdentifier = "MediaItemCollectionViewCell"
 let BrowseMediaItemCollectionViewCellReuseIdentifier = "BrowseMediaItemCollectionViewCell"
 
 class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate, UIViewControllerTransitioningDelegate {
+    weak var textProcessor: TextProcessingManager?
     var favoritesCollectionListener: Listener? = nil
     var favoriteSelected: Bool = false
-    var textProcessor: TextProcessingManager?
     var emptyStateView: EmptyStateView?
     var transitionAnimator: FadeInTransitionAnimator?
     var loaderView: AnimatedLoaderView?
