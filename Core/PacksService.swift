@@ -19,7 +19,7 @@ class PacksService: PackItemViewModel {
     private var subscriptions: [PackSubscription] = []
     private(set) var ids: Set<String> = []
 
-    override var typeFilter:  MediaType {
+    override var typeFilter: MediaType {
         didSet {
             SessionManagerFlags.defaultManagerFlags.lastFilterType = typeFilter.rawValue
             delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
