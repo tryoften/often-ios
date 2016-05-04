@@ -21,7 +21,9 @@ class PackMediaItem: MediaItem {
     var published: Bool = false
     var featured: Bool = false
     var publishedTime: NSDate = NSDate(timeIntervalSince1970: 0)
-    
+    var isFavorites: Bool = false
+    var isRecents: Bool = false
+
     required init(data: NSDictionary) {
         super.init(data: data)
         
@@ -96,6 +98,14 @@ class PackMediaItem: MediaItem {
         if let publishedTime = data["publishedTime"] as? String,
             let date = dateFormatter.dateFromString(publishedTime) {
             self.publishedTime = date
+        }
+
+        if let isRecents = data["isRecents"] as? Bool {
+            self.isRecents = isRecents
+        }
+
+        if let isFavorites = data["isFavorites"] as? Bool {
+            self.isFavorites = isFavorites
         }
     }
 

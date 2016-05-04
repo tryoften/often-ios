@@ -61,20 +61,29 @@ class MediaItemDetailViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
-    func insertButtonDidTap(sender: UIButton) {
+    func insertText() {
         NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: item)
+        textProcessor?.insertText(item.getInsertableText())
+
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
+    }
+
+    func removeText() {
+        NSNotificationCenter.defaultCenter().postNotificationName("mediaItemRemoved", object: item)
+        for var i = 0, len = item.getInsertableText().utf16.count; i < len; i++ {
+            textProcessor?.deleteBackward()
+        }
+
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.removedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
+    }
+
+    func insertButtonDidTap(sender: UIButton) {
         sender.selected = !sender.selected
 
         if sender.selected {
-            for var i = 0, len = item.getInsertableText().utf16.count; i < len; i++ {
-                textProcessor?.defaultProxy.deleteBackward()
-            }
-
-            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.removedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
+            removeText()
         } else {
-            textProcessor?.defaultProxy.insertText(item.getInsertableText())
-
-            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
+            insertText()
         }
     }
     
@@ -82,6 +91,7 @@ class MediaItemDetailViewController: UIViewController {
         sender.selected = !sender.selected
         
         if sender.selected {
+            NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: item)
             UIPasteboard.generalPasteboard().string = item.getInsertableText()
             
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))

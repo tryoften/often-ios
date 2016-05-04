@@ -35,12 +35,12 @@ class BrowsePackTabBar: SlideTabBar {
 
         gifsTabBarItem = UITabBarItem()
         gifsTabBarItem.tag = BrowsePackTabType.Gifs.rawValue
-        gifsTabBarItem.image = StyleKit.imageOfGifMenuButton()
+        gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
         gifsTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
         
         quotesTabBarItem = UITabBarItem()
         quotesTabBarItem.tag = BrowsePackTabType.Quotes.rawValue
-        quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton()
+        quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
         quotesTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
         
         categoriesTabBarItem = UITabBarItem()
