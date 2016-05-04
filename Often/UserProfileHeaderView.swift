@@ -118,6 +118,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         collapseNameLabel.translatesAutoresizingMaskIntoConstraints = false
         collapseNameLabel.font = UIFont(name: "Montserrat", size: 12.0)
         collapseNameLabel.textColor = WhiteColor
+        collapseNameLabel.alpha = 0
         collapseNameLabel.textAlignment = .Right
 
         nameLabel = UILabel()
@@ -170,6 +171,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             UIView.beginAnimations("", context: nil)
 
             if progressiveness <= 0.58 {
+                collapseProfileImageView.image = profileImageView.image
                 collapseNameLabel.alpha = 1
                 collapseProfileImageView.alpha = 1
 
