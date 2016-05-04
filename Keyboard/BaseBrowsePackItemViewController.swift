@@ -32,7 +32,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         self.textProcessor = textProcessor
 
         collectionView?.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
-
         setupHudView()
     }
 

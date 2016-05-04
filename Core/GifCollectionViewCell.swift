@@ -129,6 +129,7 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
                 }
             }
         }
+
         if task.state == .Completed {
             progressView.alpha = 0
         }                               
