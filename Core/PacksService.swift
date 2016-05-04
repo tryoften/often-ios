@@ -12,9 +12,8 @@ class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
     let userRef: Firebase
     let userId: String
-
     var mediaItems: [MediaItem]
-    var currentTypeFilter: MediaType?
+    
     override var typeFilter:  MediaType {
         didSet {
             SessionManagerFlags.defaultManagerFlags.lastFilterType = typeFilter.rawValue
@@ -27,8 +26,6 @@ class PacksService: PackItemViewModel {
     private var subscriptionsRef: Firebase!
     private var subscriptions: [PackSubscription] = []
     private(set) var ids: Set<String> = []
-
-    let didUpdatePacks = Event<[PackMediaItem]>()
 
     init() {
         userId = SessionManagerFlags.defaultManagerFlags.userId!
@@ -169,8 +166,6 @@ class PacksService: PackItemViewModel {
         guard let packs = mediaItems as? [PackMediaItem], let packsID = packs.first?.pack_id  else {
             return
         }
-
-        self.didUpdatePacks.emit(packs)
         
         if SessionManagerFlags.defaultManagerFlags.lastPack == nil {
             SessionManagerFlags.defaultManagerFlags.lastPack = packsID
@@ -194,7 +189,6 @@ class PacksService: PackItemViewModel {
                 applyFilter(currentCategory)
             }
 
-            self.didUpdatePacks.emit(packs)
         }
 
     }

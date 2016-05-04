@@ -36,7 +36,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
 
         navigationItem.titleView = brandLabel
 
-        packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
+        packServiceListener = PacksService.defaultInstance.didUpdateCurrentMediaItem.on { items in
             self.collectionView?.reloadData()
         }
         
