@@ -18,7 +18,6 @@ enum BrowsePackTabType: Int {
 }
 
 class BrowsePackTabBar: SlideTabBar {
-    
     var globeTabBarItem: UITabBarItem
     var gifsTabBarItem: UITabBarItem
     var quotesTabBarItem: UITabBarItem

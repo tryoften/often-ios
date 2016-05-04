@@ -13,19 +13,18 @@ class PacksService: PackItemViewModel {
     let userRef: Firebase
     let userId: String
     var mediaItems: [MediaItem]
-    
+
+    internal var collectionEndpoint: Firebase
+    private var subscriptionsRef: Firebase!
+    private var subscriptions: [PackSubscription] = []
+    private(set) var ids: Set<String> = []
+
     override var typeFilter:  MediaType {
         didSet {
             SessionManagerFlags.defaultManagerFlags.lastFilterType = typeFilter.rawValue
             delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
         }
     }
-
-    internal var collectionEndpoint: Firebase
-
-    private var subscriptionsRef: Firebase!
-    private var subscriptions: [PackSubscription] = []
-    private(set) var ids: Set<String> = []
 
     init() {
         userId = SessionManagerFlags.defaultManagerFlags.userId!
