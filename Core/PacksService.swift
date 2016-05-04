@@ -15,6 +15,12 @@ class PacksService: PackItemViewModel {
 
     var mediaItems: [MediaItem]
     var currentTypeFilter: MediaType?
+    override var typeFilter:  MediaType {
+        didSet {
+            SessionManagerFlags.defaultManagerFlags.lastFilterType = typeFilter.rawValue
+            delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
+        }
+    }
 
     internal var collectionEndpoint: Firebase
 
@@ -53,20 +59,6 @@ class PacksService: PackItemViewModel {
         subscriptionsRef.keepSynced(true)
     }
 
-    private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
-        var items: [PackMediaItem] = []
-        ids.removeAll()
-
-        for (id, item) in data {
-            ids.insert(id)
-            if let dict = item as? NSDictionary,
-                let item = MediaItem.mediaItemFromType(dict) as? PackMediaItem {
-                    items.append(item)
-            }
-        }
-
-        return items
-    }
 
      func fetchCollection(completion: ((Bool) -> Void)? = nil) {
         collectionEndpoint.observeEventType(.Value, withBlock: { snapshot in
@@ -127,6 +119,28 @@ class PacksService: PackItemViewModel {
         return ids.contains(result.id)
     }
 
+    func switchCurrentPack(packId: String)  {
+        self.packId = packId
+        SessionManagerFlags.defaultManagerFlags.lastPack = packId
+        currentCategory = Category.all
+        fetchData()
+    }
+
+    private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
+        var items: [PackMediaItem] = []
+        ids.removeAll()
+
+        for (id, item) in data {
+            ids.insert(id)
+            if let dict = item as? NSDictionary,
+                let item = MediaItem.mediaItemFromType(dict) as? PackMediaItem {
+                items.append(item)
+            }
+        }
+
+        return items
+    }
+
     private func sendTask(task: String, result: MediaItem) {
         guard let userId = currentUser?.id else {
             return
@@ -149,13 +163,6 @@ class PacksService: PackItemViewModel {
         } else if task == "remove" {
             ref.removeValue()
         }
-    }
-
-    func switchCurrentPack(packId: String)  {
-        self.packId = packId
-        SessionManagerFlags.defaultManagerFlags.lastPack = packId
-        currentCategory = Category.all
-        fetchData()
     }
 
     private func populateCurrentPack() {

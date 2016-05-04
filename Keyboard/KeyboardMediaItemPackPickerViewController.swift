@@ -147,7 +147,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as BrowseMediaItemCollectionViewCell
             cell.addedBadgeView.hidden = true
 
-            if let pack = viewModel.mediaItems[indexPath.row] as? PackMediaItem, let packId = pack.pack_id, let currentPackID = SessionManagerFlags.defaultManagerFlags.lastPack {
+            if let pack = viewModel.mediaItems[indexPath.row] as? PackMediaItem, let packId = pack.pack_id, let currentPackID = viewModel.pack?.pack_id {
                 if packId == currentPackID {
                     cell.highlightColorBorder.hidden = false
                 }
