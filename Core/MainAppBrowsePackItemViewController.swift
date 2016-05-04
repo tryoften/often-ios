@@ -10,13 +10,12 @@ import UIKit
 import Material
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
-class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
+class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, FilterTabDelegate {
     
     var filterButton: UIButton
     
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         filterButton = UIButton()
-        
         super.init(viewModel: viewModel, textProcessor: textProcessor)
         
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
@@ -32,6 +31,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
         
         view.addSubview(filterButton)
+        setupFilterViews()
         setLayout()
         
     }
@@ -116,6 +116,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
         header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
         header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
         header.imageURL = imageURL
+        header.tabContainerView.delegate = self
         
     }
     
@@ -148,11 +149,20 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             if headerView == nil {
                 headerView = cell
             }
+            
             headerViewDidLoad()
             
             return headerView!
         } else {
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
         }
+    }
+    
+    func leftTabSelected() {
+        packViewModel.typeFilter = .Gif
+    }
+    
+    func rightTabSelected() {
+        packViewModel.typeFilter = .Quote
     }
 }

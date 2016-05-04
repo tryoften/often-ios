@@ -12,19 +12,32 @@ class PackPageHeaderView: MediaItemPageHeaderView {
     var primaryButton: BrowsePackDownloadButton
     var sampleButton: UIButton
     var backLabel: UILabel
+    var tabContainerView: FilterTabView
 
+    private var tabContainerViewHeight: CGFloat {
+        if Diagnostics.platformString().number == 5 {
+            return 50
+        }
+        return 45
+    }
+    
     override init(frame: CGRect) {
 
         backLabel = UILabel()
         backLabel.translatesAutoresizingMaskIntoConstraints = false
         backLabel.setTextWith(UIFont(name: "Montserrat-Regular", size: 9)!, letterSpacing: 1, color: WhiteColor, text: "browse packs".uppercaseString)
         
-        var attributes: [String: AnyObject] = [
+        let attributes: [String: AnyObject] = [
             NSKernAttributeName: NSNumber(float: 1.0),
             NSFontAttributeName: UIFont(name: "OpenSans-Bold", size: 7.0)!,
             NSForegroundColorAttributeName: UIColor.oftWhiteColor()
         ]
         let sampleString = NSAttributedString(string: "try sample".uppercaseString, attributes: attributes)
+        
+        tabContainerView = FilterTabView()
+        tabContainerView.translatesAutoresizingMaskIntoConstraints = false
+        tabContainerView.leftTabButtonTitle = "Gifs"
+        tabContainerView.rightTabButtonTitle = "Quotes"
         
         sampleButton = UIButton()
         sampleButton.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +55,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
 
         subtitleLabel.numberOfLines = 2
 
+        addSubview(tabContainerView)
         addSubview(backLabel)
         addSubview(sampleButton)
         addSubview(primaryButton)
@@ -109,7 +123,13 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             sampleButton.al_top == al_top + 31,
 
             backLabel.al_centerY == sampleButton.al_centerY - 1,
-            backLabel.al_left == al_left + 42.5
+            backLabel.al_left == al_left + 42.5,
+            
+            tabContainerView.al_bottom == al_bottom,
+            tabContainerView.al_left == al_left,
+            tabContainerView.al_right == al_right,
+            tabContainerView.al_height == tabContainerViewHeight
+            
         ])
     }
 }
