@@ -81,11 +81,13 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
+        collectionView?.setContentOffset(CGPointZero, animated: false)
         PacksService.defaultInstance.switchCurrentPack(pack.id)
         loadPackData()
     }
     
     override func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
+        collectionView?.setContentOffset(CGPointZero, animated: false)
         SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
     }
     
@@ -168,9 +170,11 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Gifs:
+            collectionView?.setContentOffset(CGPointZero, animated: false)
             packViewModel.typeFilter = .Gif
             self.tabBar.lastSelectedTab = item
         case .Quotes:
+            collectionView?.setContentOffset(CGPointZero, animated: false)
             packViewModel.typeFilter = .Quote
             self.tabBar.lastSelectedTab = item
         case .Categories:
