@@ -203,7 +203,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         avatarImageURL = nil
 
 
-        contentView.clipsToBounds = true
+        contentView.clipsToBounds = false
         contentView.addSubview(metadataContentView)
         contentView.addSubview(contentPlaceholderImageView)
         contentView.addSubview(contentImageView)

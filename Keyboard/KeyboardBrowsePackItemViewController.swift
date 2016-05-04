@@ -69,16 +69,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         super.viewWillLayoutSubviews()
         tabBar.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - 44.5, view.bounds.width, 44.5)
     }
-    
-    override func loadPackData() {
-        super.loadPackData()
-    }
 
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-        super.scrollViewDidScroll(scrollView)
-        scrollView.bounces = scrollView.contentOffset.y > 100
-    }
-    
     func onOrientationChanged() {
         collectionView?.performBatchUpdates(nil, completion: nil)
     }
