@@ -91,7 +91,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             cancelBarView.al_top == view.al_top + KeyboardPackPickerDismissalViewHeight,
             cancelBarView.al_bottom == view.al_bottom,
             cancelBarView.al_width == 31
-            ])
+        ])
     }
 
     class func provideLayout() -> UICollectionViewFlowLayout {
@@ -225,26 +225,13 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     // MARK: LaunchMainApp
     func openURL(url: NSURL) {
         do {
-            let application = try self.sharedApplication()
+            let application = try BaseKeyboardContainerViewController.sharedApplication(self)
              application.performSelector(#selector(KeyboardMediaItemPackPickerViewController.openURL(_:)), withObject: url)
         }
         catch {
 
         }
     }
-
-    func sharedApplication() throws -> UIApplication {
-        var responder: UIResponder? = self
-        while responder != nil {
-            if let application = responder as? UIApplication {
-                return application
-            }
-
-            responder = responder?.nextResponder()
-        }
-        throw NSError(domain: "UIInputViewController+sharedApplication.swift", code: 1, userInfo: nil)
-    }
-
 }
 
 protocol KeyboardMediaItemPackPickerViewControllerDelegate: class {
