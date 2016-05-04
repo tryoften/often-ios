@@ -17,6 +17,7 @@ class PackMediaItem: MediaItem {
     var premium: Bool = false
     var price: Double = 0.0
     var categories: [Category] = []
+    var availableMediaType: [MediaType: Int] = [:]
     var published: Bool = false
     var featured: Bool = false
     var publishedTime: NSDate = NSDate(timeIntervalSince1970: 0)
@@ -49,6 +50,14 @@ class PackMediaItem: MediaItem {
         if let items = data["items"] as? NSArray,
             let itemsModel = MediaItem.modelsFromDictionaryArray(items) as? [MediaItem] {
             self.items = itemsModel
+
+            for item in itemsModel {
+                if let count = availableMediaType[item.type] {
+                    availableMediaType[item.type] = count + 1
+                } else {
+                    availableMediaType[item.type] = 1
+                }
+            }
         }
 
         if let itemsCount = data["items_count"] as? Int {
