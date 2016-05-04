@@ -49,7 +49,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         self.view.backgroundColor = DefaultTheme.keyboardBackgroundColor
         self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
         self.textProcessor?.delegate = self
-        self.packsVC = KeyboardBrowsePackItemViewController(viewModel: PacksService(), textProcessor: self.textProcessor)
+        self.packsVC = KeyboardBrowsePackItemViewController(viewModel: PacksService.defaultInstance, textProcessor: self.textProcessor)
 
         if let packVC = self.packsVC {
             self.containerView.addSubview(packVC.view)
