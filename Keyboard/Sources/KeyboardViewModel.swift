@@ -30,19 +30,24 @@ class KeyboardViewModel: NSObject {
         Analytics.sharedAnalytics().identify(userId)
     }
     
-    func logTextSendEvent(mediaLink: MediaItem) {
+    func logTextSendEvent(mediaItem: MediaItem) {
         guard let userId = sessionManagerFlags.userId else {
             print("User Id not found")
             return
         }
         
         let data = [
-            "task": "addRecent",
-            "user": userId,
-            "result": mediaLink.toDictionary()
+            "type": "editUserPackItems",
+            "task": "add",
+            "userId": userId,
+            "data": [
+                "operation": "add",
+                "packType": "recent",
+                "mediaItem": mediaItem.toDictionary()
+            ]
         ]
         
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.addRecent), additionalProperties: AnalyticsAdditonalProperties.mediaItem(mediaLink.toDictionary()))
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.addRecent), additionalProperties: AnalyticsAdditonalProperties.mediaItem(mediaItem.toDictionary()))
 
         firebaseRef.childByAppendingPath("queues/user/tasks").childByAutoId().setValue(data)
     }
