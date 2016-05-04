@@ -32,7 +32,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         self.textProcessor = textProcessor
 
         collectionView?.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
-
         setupHudView()
     }
 
@@ -211,7 +210,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
         let categoriesVC = CategoryCollectionViewController(viewModel: viewModel, categories: pack.categories)
         categoriesVC.delegate = self
-        presentViewCotntrollerWithCustomTransitionAnimator(categoriesVC, direction: .Left, duration: 0.25)
+        presentViewControllerWithCustomTransitionAnimator(categoriesVC, direction: .Left, duration: 0.25)
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

@@ -32,32 +32,38 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
-        #if !(KEYBOARD_DEBUG)
+
         dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
+            #if !(KEYBOARD_DEBUG)
             Fabric.sharedSDK().debug = true
             Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
             Flurry.startSession(FlurryClientKey)
             Firebase.defaultConfig().persistenceEnabled = true
-        }
-        #endif
-
-        viewModel = KeyboardViewModel()
-        textProcessor = TextProcessingManager(textDocumentProxy: textDocumentProxy)
-        textProcessor?.delegate = self
-
-        packsVC = KeyboardBrowsePackItemViewController(viewModel: PacksService.defaultInstance, textProcessor: textProcessor)
-    
-        view.backgroundColor = DefaultTheme.keyboardBackgroundColor
-
-        if let packVC = packsVC {
-            containerView.addSubview(packVC.view)
+            #endif
         }
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didRemoveMediaItem), name: "mediaItemRemoved", object: nil)
+
+        self.viewModel = KeyboardViewModel()
+        self.view.backgroundColor = DefaultTheme.keyboardBackgroundColor
+        self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
+        self.textProcessor?.delegate = self
+        self.packsVC = KeyboardBrowsePackItemViewController(viewModel: PacksService.defaultInstance, textProcessor: self.textProcessor)
+
+        if let packVC = self.packsVC {
+            self.containerView.addSubview(packVC.view)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        self.viewModel = nil
+        self.textProcessor = nil
+        self.packsVC = nil
     }
 
     override func viewDidLoad() {
@@ -65,7 +71,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector:  #selector(MediaItemsKeyboardContainerViewController.switchKeyboard), name: SwitchKeyboardEvent, object: nil)
-//        center.addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: SearchResultsInsertLinkEvent, object: nil)
         center.addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didTapEnterButton(_:)), name: KeyboardEnterKeyTappedEvent, object: nil)
     }
     
@@ -96,6 +101,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
     }
 
+    func didRemoveMediaItem() {
+        mediaItem = nil
+    }
+
     //MARK: TextProcessingManagerDelegate
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {}
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
@@ -104,6 +113,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             
             let count = SessionManagerFlags.defaultManagerFlags.userMessageCount
             SessionManagerFlags.defaultManagerFlags.userMessageCount = count + 1
+            mediaItem = nil
         }
     }
 }

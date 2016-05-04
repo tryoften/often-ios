@@ -14,9 +14,9 @@ let MediaItemCollectionViewCellReuseIdentifier = "MediaItemCollectionViewCell"
 let BrowseMediaItemCollectionViewCellReuseIdentifier = "BrowseMediaItemCollectionViewCell"
 
 class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate, UIViewControllerTransitioningDelegate {
+    weak var textProcessor: TextProcessingManager?
     var favoritesCollectionListener: Listener? = nil
     var favoriteSelected: Bool = false
-    var textProcessor: TextProcessingManager?
     var emptyStateView: EmptyStateView?
     var transitionAnimator: FadeInTransitionAnimator?
     var loaderView: AnimatedLoaderView?
@@ -105,7 +105,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
     func timeoutLoader() {
         hideLoadingView()
-        hideEmptyStateView()
     }
 
     func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
@@ -287,13 +286,13 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 return
         }
 
-        textProcessor?.defaultProxy.insertText(result.getInsertableText())
-        
         let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
         #if !(KEYBOARD)
             vc.mediaItemDetailView.style = .Copy
         #endif
-        presentViewCotntrollerWithCustomTransitionAnimator(vc)
+        vc.insertText()
+
+        presentViewControllerWithCustomTransitionAnimator(vc)
     }
 
     func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
@@ -328,20 +327,20 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
     
     func mediaLinkCollectionViewCellDidToggleInsertButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
-        NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
-
         guard let result = cell.mediaLink else {
             return
         }
 
         if selected {
-            self.textProcessor?.defaultProxy.insertText(result.getInsertableText())
+            NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
+            self.textProcessor?.insertText(result.getInsertableText())
 
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
 
         } else {
+            NSNotificationCenter.defaultCenter().postNotificationName("mediaItemRemoved", object: cell.mediaLink)
             for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
-                textProcessor?.defaultProxy.deleteBackward()
+                textProcessor?.deleteBackward()
             }
 
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.removedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
@@ -354,6 +353,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
         
         if selected {
+            NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
             if let cell = cell as? GifCollectionViewCell, let data = cell.animatedImage.data {
                 // Copy this data to pasteboard
                 UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
@@ -370,7 +370,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
     }
 
-    func presentViewCotntrollerWithCustomTransitionAnimator(presentingController: UIViewController, direction: FadeInTransitionDirection = .None, duration: NSTimeInterval = 0.15) {
+    func presentViewControllerWithCustomTransitionAnimator(presentingController: UIViewController, direction: FadeInTransitionDirection = .None, duration: NSTimeInterval = 0.15) {
         transitionAnimator = FadeInTransitionAnimator(presenting: true, direction: direction, duration: duration)
         presentingController.transitioningDelegate = self
         presentingController.modalPresentationStyle = .Custom
