@@ -40,10 +40,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             Flurry.startSession(FlurryClientKey)
             Firebase.defaultConfig().persistenceEnabled = true
             #endif
-
         }
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didRemoveMediaItem), name: "mediaItemRemoved", object: nil)
 
         self.viewModel = KeyboardViewModel()
         self.view.backgroundColor = DefaultTheme.keyboardBackgroundColor
@@ -61,6 +61,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     }
 
     deinit {
+        self.viewModel = nil
+        self.textProcessor = nil
         self.packsVC = nil
     }
 
@@ -99,6 +101,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
     }
 
+    func didRemoveMediaItem() {
+        mediaItem = nil
+    }
+
     //MARK: TextProcessingManagerDelegate
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {}
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
@@ -107,6 +113,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             
             let count = SessionManagerFlags.defaultManagerFlags.userMessageCount
             SessionManagerFlags.defaultManagerFlags.userMessageCount = count + 1
+            mediaItem = nil
         }
     }
 }

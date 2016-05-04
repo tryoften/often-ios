@@ -174,7 +174,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
     func recentButtonDidTap(sender: UIButton) {
         let recentVC = KeyboardRecentsViewController(viewModel: RecentsViewModel())
-        presentViewCotntrollerWithCustomTransitionAnimator(recentVC)
+        presentViewControllerWithCustomTransitionAnimator(recentVC)
     }
 
     func cancelButtonDidTap()  {
