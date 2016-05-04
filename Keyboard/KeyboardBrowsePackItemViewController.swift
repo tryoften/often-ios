@@ -13,6 +13,8 @@ import Nuke
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, UITabBarDelegate {
     private var packServiceListener: Listener? = nil
     var tabBar: BrowsePackTabBar
+
+    private let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
     
     init(viewModel: PacksService, textProcessor: TextProcessingManager?) {
         tabBar = BrowsePackTabBar(highlightBarEnabled: true)
@@ -65,9 +67,47 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         showLoadingView()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        showFullAccessMessageIfNeeded()
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         tabBar.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - 44.5, view.bounds.width, 44.5)
+    }
+
+    func showFullAccessMessageIfNeeded() {
+        if !isFullAccessEnabled {
+            showEmptyStateViewForState(.NoKeyboard, completion: { view in
+                view.primaryButton.setTitle("Go To Settings", forState: .Normal)
+                view.imageViewTopConstraint?.constant = -100
+                view.titleLabel.text = "You forgot to allow Full-Access"
+                view.primaryButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.didTapGoToSettingsButton), forControlEvents: .TouchUpInside)
+                self.view.bringSubviewToFront(view)
+                self.view.bringSubviewToFront(self.tabBar)
+            })
+
+        } else {
+            hideEmptyStateView()
+        }
+    }
+
+    func didTapGoToSettingsButton() {
+        let appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
+        if let appSettings = NSURL(string: appSettingsString) {
+            self.openURL(appSettings)
+        }
+    }
+
+    func openURL(url: NSURL) {
+        do {
+            let application = try BaseKeyboardContainerViewController.sharedApplication(self)
+            application.performSelector(#selector(KeyboardMediaItemPackPickerViewController.openURL(_:)), withObject: url)
+        }
+        catch {
+
+        }
     }
 
     func onOrientationChanged() {
@@ -92,7 +132,10 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
     
     override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
+        if isFullAccessEnabled {
+            super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
+        }
+        showFullAccessMessageIfNeeded()
         
         guard let viewModel = viewModel as? PackItemViewModel, _ = viewModel.pack else {
             return
@@ -159,9 +202,16 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         
         return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
-    
+
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         guard let type = BrowsePackTabType(rawValue: item.tag) else {
+            return
+        }
+
+        if !isFullAccessEnabled {
+            if type == .Keyboard {
+                NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
+            }
             return
         }
         

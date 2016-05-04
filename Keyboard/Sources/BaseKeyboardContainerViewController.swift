@@ -34,6 +34,18 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     }
     static var oncePredicate: dispatch_once_t = 0
 
+    static func sharedApplication(viewController: UIViewController) throws -> UIApplication {
+        var responder: UIResponder? = viewController
+        while responder != nil {
+            if let application = responder as? UIApplication {
+                return application
+            }
+
+            responder = responder?.nextResponder()
+        }
+        throw NSError(domain: "UIInputViewController+sharedApplication.swift", code: 1, userInfo: nil)
+    }
+
     init(extraHeight: CGFloat = 64) {
         containerView = UIView()
         containerView.backgroundColor = UIColor.whiteColor()

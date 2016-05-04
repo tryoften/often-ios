@@ -105,7 +105,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
     func timeoutLoader() {
         hideLoadingView()
-        hideEmptyStateView()
     }
 
     func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
