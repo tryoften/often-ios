@@ -10,6 +10,7 @@ import UIKit
 
 class AnimatedLoaderView: UIView {
     var loaderImageView: UIImageView
+    var topPadding: CGFloat = -20.0
 
     override init(frame: CGRect) {
         loaderImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
@@ -32,7 +33,7 @@ class AnimatedLoaderView: UIView {
     func setupLayout() {
         addConstraints([
             loaderImageView.al_centerX == al_centerX,
-            loaderImageView.al_centerY == al_centerY + 20,
+            loaderImageView.al_centerY == al_centerY + topPadding,
 
             loaderImageView.al_width == 80,
             loaderImageView.al_height == 80

@@ -27,9 +27,9 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
         
-        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { items in
-            self.hideLoadingView()
-            self.collectionView?.reloadData()
+        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
+            self?.hideLoadingView()
+            self?.collectionView?.reloadData()
         }
         
         if let navigationBar = navigationBar {
@@ -110,11 +110,13 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         switch group.type {
         case .Gif:
             var width: CGFloat
+
             if screenHeight > screenWidth {
-                width = screenWidth/2 - 12.5
+                width = screenWidth / 2 - 12.5
             } else {
-                width = screenWidth/3 - 12.5
+                width = screenWidth / 3 - 12.5
             }
+
             let height = width * (4/7)
             return CGSizeMake(width, height)
         case .Quote:

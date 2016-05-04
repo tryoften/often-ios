@@ -41,16 +41,16 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             Firebase.defaultConfig().persistenceEnabled = true
             #endif
 
-            self.viewModel = KeyboardViewModel()
-            self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
-            self.textProcessor?.delegate = self
-
-            self.view.backgroundColor = DefaultTheme.keyboardBackgroundColor
         }
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
 
-        self.packsVC = KeyboardBrowsePackItemViewController(viewModel: PacksService.defaultInstance, textProcessor: self.textProcessor)
+        self.viewModel = KeyboardViewModel()
+        self.view.backgroundColor = DefaultTheme.keyboardBackgroundColor
+        self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
+        self.textProcessor?.delegate = self
+        self.packsVC = KeyboardBrowsePackItemViewController(viewModel: PacksService(), textProcessor: self.textProcessor)
+
         if let packVC = self.packsVC {
             self.containerView.addSubview(packVC.view)
         }
@@ -69,7 +69,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector:  #selector(MediaItemsKeyboardContainerViewController.switchKeyboard), name: SwitchKeyboardEvent, object: nil)
-//        center.addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: SearchResultsInsertLinkEvent, object: nil)
         center.addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didTapEnterButton(_:)), name: KeyboardEnterKeyTappedEvent, object: nil)
     }
     

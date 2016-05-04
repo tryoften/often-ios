@@ -42,7 +42,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
         viewModel.fetchCollection()
 
-        packServiceListener = PacksService.defaultInstance.didUpdateCurrentMediaItem.on { items in
+        packServiceListener = viewModel.didUpdateCurrentMediaItem.on { items in
             self.collectionView?.reloadData()
             self.centerOnDefaultCard()
         }
