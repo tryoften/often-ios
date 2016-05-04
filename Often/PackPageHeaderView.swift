@@ -11,14 +11,8 @@ import Foundation
 class PackPageHeaderView: MediaItemPageHeaderView {
     var primaryButton: BrowsePackDownloadButton
     var sampleButton: UIButton
-    var backLabel: UILabel
 
     override init(frame: CGRect) {
-
-        backLabel = UILabel()
-        backLabel.translatesAutoresizingMaskIntoConstraints = false
-        backLabel.setTextWith(UIFont(name: "Montserrat-Regular", size: 9)!, letterSpacing: 1, color: WhiteColor, text: "browse packs".uppercaseString)
-        
         var attributes: [String: AnyObject] = [
             NSKernAttributeName: NSNumber(float: 1.0),
             NSFontAttributeName: UIFont(name: "OpenSans-Bold", size: 7.0)!,
@@ -42,7 +36,6 @@ class PackPageHeaderView: MediaItemPageHeaderView {
 
         subtitleLabel.numberOfLines = 2
 
-        addSubview(backLabel)
         addSubview(sampleButton)
         addSubview(primaryButton)
 
@@ -61,13 +54,11 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             if progressiveness <= 0.58 {
                 self.subtitleLabel.alpha = 0
                 self.primaryButton.alpha = 0
-                self.backLabel.alpha = 0
                 self.sampleButton.alpha = 0
 
             } else {
                 self.subtitleLabel.alpha = 1
                 self.primaryButton.alpha = 1
-                self.backLabel.alpha = 1
                 self.sampleButton.alpha = 1
             }
 
@@ -106,10 +97,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             sampleButton.al_right == al_right - 16.5,
             sampleButton.al_height == 22.5,
             sampleButton.al_width == 78.5,
-            sampleButton.al_top == al_top + 31,
-
-            backLabel.al_centerY == sampleButton.al_centerY - 1,
-            backLabel.al_left == al_left + 42.5
+            sampleButton.al_top == al_top + 31
         ])
     }
 }
