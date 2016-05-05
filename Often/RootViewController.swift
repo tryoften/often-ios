@@ -114,7 +114,7 @@ class RootViewController: UITabBarController {
             viewModel: SettingsViewModel(sessionManager: sessionManager)))
 
         browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPacktab(scale: 0.55), tag: 0)
-        browseVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, 20, -4, -20)
+        browseVC.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 20, -4, -20)
 
         userProfileVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfProfile(scale: 0.45), tag: 1)
         userProfileVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0)

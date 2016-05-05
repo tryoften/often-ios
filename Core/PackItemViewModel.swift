@@ -17,7 +17,7 @@ class PackItemViewModel: BrowseViewModel {
     
     var pack: PackMediaItem? {
         didSet {
-            if !doesPackContainTypeFilter(self.typeFilter) {
+            if !doesCurrentPackContainType(self.typeFilter) {
                 if let pack = self.pack, let availableType = pack.availableMediaType.keys.first {
                     typeFilter = availableType
                 }
@@ -55,7 +55,7 @@ class PackItemViewModel: BrowseViewModel {
         return nil
     }
 
-    func doesPackContainTypeFilter(type: MediaType) -> Bool {
+    func doesCurrentPackContainType(type: MediaType) -> Bool {
         guard let pack = pack, let _ = pack.availableMediaType[type] else {
             return false
         }
