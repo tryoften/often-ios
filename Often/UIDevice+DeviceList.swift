@@ -58,6 +58,9 @@ public class Diagnostics: NSObject {
             //iPhone 6's
         case "iPhone7,1": return ("iPhone", "iPhone 6 Plus", 6)
         case "iPhone7,2": return ("iPhone", "iPhone 6", 6)
+        case "iPhone8,1": return ("iPhone", "iPhone 6S", 6)
+        case "iPhone8,2": return ("iPhone", "iPhone 6S Plus", 6)
+        case "iPhone8,4": return ("iPhone SE", "iPhone SE", 6)
             
             //iPods
         case "iPod1,1": return ("iPod", "iPod Touch 1G", nil)

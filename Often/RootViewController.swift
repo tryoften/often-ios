@@ -14,14 +14,14 @@ class RootViewController: UITabBarController {
     var alertView: AlertView
 
     private var alertViewTopAndBottomMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 120
         }
         return 140
     }
 
     private var alertViewLeftAndRightMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 32
         }
         return 42

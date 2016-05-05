@@ -16,11 +16,11 @@ class AlertView: SpringView {
     let actionButton: UIButton
 
     var subtitleLabelLeftRightMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 30
         }
 
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             return 80
         }
 
@@ -28,11 +28,11 @@ class AlertView: SpringView {
     }
 
     var actionButtonLeftRightMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 60
         }
 
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             return 100
         }
         return 70

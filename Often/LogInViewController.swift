@@ -108,7 +108,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         imageView.image = pageImages[page]
         imageView.contentMode = .ScaleAspectFit
         
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             imageView.contentMode = .ScaleAspectFit
         }
 

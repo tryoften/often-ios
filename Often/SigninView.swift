@@ -23,7 +23,7 @@ class SigninView: UIView {
     let cancelButton: UIButton
 
     private var titleLabelHeightTopMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 90
         }
         return 120

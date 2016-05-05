@@ -13,7 +13,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
     var tabContainerView: FilterTabView
 
     private var tabContainerViewHeight: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 50
         }
         return 45
