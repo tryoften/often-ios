@@ -47,19 +47,20 @@ class TwitterAccountManager: AccountManager {
                         completion?(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                     } else {
                         var firebaseData = [String: AnyObject]()
-                        firebaseData["id"] = userID
+                        firebaseData["id"] = "twitter:\(userID)"
                         firebaseData["profileImageURL"] = user?.profileImageLargeURL
                         firebaseData["name"] = user?.name
                         firebaseData["username"] = user?.screenName
                         firebaseData["backgroundImage"] = "user-profile-bg-1"
 
                         if self.sessionManagerFlags.userId == nil {
-                            guard let userID = user?.userID  else {
+                            guard let userIDWithProvider = firebaseData["id"] as? String else {
                                 completion?(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                                 return
                             }
 
-                            self.sessionManagerFlags.userId = "twitter:\(userID)"
+                            self.sessionManagerFlags.userId = userIDWithProvider
+                            self.userRef = self.firebase.childByAppendingPath("users/\(userIDWithProvider)")
 
                             self.currentUser = User()
                             self.currentUser?.setValuesForKeysWithDictionary(firebaseData)

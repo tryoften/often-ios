@@ -27,13 +27,13 @@ class UserProfileHeaderView: UICollectionReusableView {
 
     var sharedText: String {
         didSet {
-            let subtitle = NSMutableAttributedString(string: sharedText)
-            let subtitleRange = NSMakeRange(0, sharedText.characters.count)
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 3
-            subtitle.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:subtitleRange)
-            subtitle.addAttribute(NSKernAttributeName, value: 0.5, range: subtitleRange)
-            shareCountLabel.attributedText = subtitle
+            let attributes: [String: AnyObject] = [
+                NSKernAttributeName: NSNumber(float: 1.0),
+                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
+                NSForegroundColorAttributeName: UIColor.oftBlack54Color()
+            ]
+
+            shareCountLabel.attributedText = NSMutableAttributedString(string: sharedText.uppercaseString, attributes: attributes)
             shareCountLabel.textAlignment = .Center
         }
     }
