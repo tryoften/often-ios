@@ -53,6 +53,9 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     deinit {
         packCollectionListener?.stopListening()
+        packServiceListener?.stopListening()
+        packServiceListener = nil
+        packCollectionListener = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     

@@ -36,8 +36,8 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
 
         navigationItem.titleView = brandLabel
 
-        packServiceListener = PacksService.defaultInstance.didUpdateCurrentMediaItem.on { items in
-            self.collectionView?.reloadData()
+        packServiceListener = PacksService.defaultInstance.didUpdateCurrentMediaItem.on { [weak self] items in
+            self?.collectionView?.reloadData()
         }
         
         view.addSubview(reachabilityView)
@@ -68,6 +68,10 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         flowLayout.minimumLineSpacing = 6.0
         flowLayout.sectionInset = UIEdgeInsetsMake(12.0, 12.0, 12.0, 12.0)
         return flowLayout
+    }
+
+    deinit {
+        packServiceListener = nil
     }
 
     required init?(coder aDecoder: NSCoder) {

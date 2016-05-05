@@ -154,7 +154,8 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         guard let button = button else {
             return
         }
-        if let pack = viewModel.mediaItems[button.tag] as? PackMediaItem {
+
+        if let pack = viewModel.mediaItems[button.tag] as? PackMediaItem where button.tag < viewModel.mediaItems.count {
             PacksService.defaultInstance.removePack(pack)
         }
     }

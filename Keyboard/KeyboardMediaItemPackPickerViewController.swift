@@ -19,7 +19,6 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     weak var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
     private var packServiceListener: Listener?
 
-
     init(viewModel: PacksService) {
         self.viewModel = viewModel
 
@@ -42,9 +41,9 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
         viewModel.fetchCollection()
 
-        packServiceListener = viewModel.didUpdateCurrentMediaItem.on { items in
-            self.collectionView?.reloadData()
-            self.centerOnDefaultCard()
+        packServiceListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
+            self?.collectionView?.reloadData()
+            self?.centerOnDefaultCard()
         }
 
         view.backgroundColor = ClearColor
@@ -59,6 +58,11 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        packServiceListener?.stopListening()
+        packServiceListener = nil
     }
 
     override func viewDidLoad() {

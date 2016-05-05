@@ -11,28 +11,32 @@ import Material
 
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
-class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {    
+class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, FilterTabDelegate {
     var filterButton: UIButton
     
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         filterButton = UIButton()
-        
         super.init(viewModel: viewModel, textProcessor: textProcessor)
 
         
-        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { items in
-            self.collectionView?.setContentOffset(CGPointZero, animated: true)
-            self.collectionView?.reloadData()
-            self.headerViewDidLoad()
+        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
+            self?.collectionView?.setContentOffset(CGPointZero, animated: true)
+            self?.collectionView?.reloadData()
+            self?.headerViewDidLoad()
         }
 
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
         
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showHud"), userInfo: nil, repeats: false)
         
         view.addSubview(filterButton)
+        setupFilterViews()
         setLayout()
+    }
+
+    deinit {
+        
     }
     
     func setupFilterViews() {
@@ -79,7 +83,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             filterButton.al_height == 30,
             filterButton.al_width == 94,
             filterButton.al_bottom == view.al_bottom - 23.5
-            ])
+        ])
     }
     
     func filterButtonDidTap(sender: UIButton) {
@@ -107,11 +111,11 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             header.subtitle = string
         }
         
-        header.sampleButton.hidden = !pack.premium
         header.primaryButton.title = pack.callToActionText()
         header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
         header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
         header.imageURL = imageURL
+        header.tabContainerView.delegate = self
         
     }
     
@@ -144,11 +148,20 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController {
             if headerView == nil {
                 headerView = cell
             }
+            
             headerViewDidLoad()
             
             return headerView!
         } else {
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
         }
+    }
+    
+    func leftTabSelected() {
+        packViewModel.typeFilter = .Gif
+    }
+    
+    func rightTabSelected() {
+        packViewModel.typeFilter = .Quote
     }
 }

@@ -10,7 +10,7 @@ import Nuke
 import NukeAnimatedImagePlugin
 import FLAnimatedImage
 
-class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
+class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
     private var overlayView: GifCellOverlayView
     private var backgroundImageView: FLAnimatedImageView
     private var progressView: UIProgressView
@@ -129,7 +129,6 @@ class GifCollectionViewCell : BaseMediaItemCollectionViewCell {
                 }
             }
         }
-
         if task.state == .Completed {
             progressView.alpha = 0
         }                               

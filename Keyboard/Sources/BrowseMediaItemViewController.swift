@@ -98,8 +98,8 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         let topMargin = CGFloat(41.0)
     #else
         let topMargin = CGFloat(0.0)
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 90)
-        layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 250)
+        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 110)
+        layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 295)
         layout.parallaxHeaderAlwaysOnTop = true
     #endif
 

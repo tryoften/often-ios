@@ -164,6 +164,8 @@ class PacksService: PackItemViewModel {
         } else if task == "remove" {
             ref.removeValue()
         }
+
+        fetchData()
     }
 
     private func populateCurrentPack() {
