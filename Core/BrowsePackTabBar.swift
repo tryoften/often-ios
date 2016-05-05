@@ -71,4 +71,30 @@ class BrowsePackTabBar: SlideTabBar {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    func updateTabBarSelectedItem() {
+        switch PacksService.defaultInstance.typeFilter {
+        case .Gif:
+            selectedItem = items![BrowsePackTabType.Gifs.rawValue]
+        case .Quote, .Lyric:
+            selectedItem = items![BrowsePackTabType.Quotes.rawValue]
+        default:
+            break
+        }
+
+
+        if !PacksService.defaultInstance.doesPackContainTypeFilter(.Gif) {
+            gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
+        } else {
+            gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
+        }
+
+        if !PacksService.defaultInstance.doesPackContainTypeFilter(.Quote) {
+            quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
+        } else {
+            quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
+        }
+
+        lastSelectedTab = selectedItem
+    }
 }
