@@ -21,11 +21,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     var packViewModel: PackItemViewModel
     
     init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
-        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
-        let cache = AnimatedImageMemoryCache()
-
-        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
         self.packViewModel = viewModel
 
         super.init(viewModel: viewModel)
@@ -35,16 +30,8 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         setupHudView()
     }
 
-    func setupImageManager() {
-        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
-        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
-        let cache = AnimatedImageMemoryCache()
-        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupImageManager()
         delay(0.5) {
             self.loadPackData()
         }

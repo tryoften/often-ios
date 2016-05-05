@@ -35,18 +35,19 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         collectionView?.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
 
 
-        favoritesCollectionListener = FavoritesService.defaultInstance.didChangeFavorites.on { items in
+        favoritesCollectionListener = FavoritesService.defaultInstance.didChangeFavorites.on { [weak self] items in
 
-            if self.favoriteSelected {
-                self.favoriteSelected = false
+            if self?.favoriteSelected == true {
+                self?.favoriteSelected = false
                 return
             }
 
-            self.collectionView?.reloadData()
+            self?.collectionView?.reloadData()
         }
     }
 
     deinit {
+        favoritesCollectionListener?.stopListening()
         favoritesCollectionListener = nil
     }
 

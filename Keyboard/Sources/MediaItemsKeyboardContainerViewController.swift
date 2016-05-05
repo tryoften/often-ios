@@ -8,6 +8,8 @@
 import Foundation
 import Fabric
 import Crashlytics
+import Nuke
+import NukeAnimatedImagePlugin
 
 enum MediaItemsKeyboardSection: Int {
     case Keyboard
@@ -39,6 +41,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
             Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
             Flurry.startSession(FlurryClientKey)
             Firebase.defaultConfig().persistenceEnabled = true
+            self.setupImageManager()
             #endif
         }
 
@@ -64,6 +67,14 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         self.viewModel = nil
         self.textProcessor = nil
         self.packsVC = nil
+        PacksService.defaultInstance
+    }
+
+    func setupImageManager() {
+        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
+        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
+        let cache = AnimatedImageMemoryCache()
+        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
     }
 
     override func viewDidLoad() {
