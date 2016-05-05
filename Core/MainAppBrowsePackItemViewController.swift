@@ -19,10 +19,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         super.init(viewModel: viewModel, textProcessor: textProcessor)
 
         
-        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { items in
-            self.collectionView?.setContentOffset(CGPointZero, animated: true)
-            self.collectionView?.reloadData()
-            self.headerViewDidLoad()
+        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
+            self?.collectionView?.setContentOffset(CGPointZero, animated: true)
+            self?.collectionView?.reloadData()
+            self?.headerViewDidLoad()
         }
 
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
@@ -33,6 +33,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         view.addSubview(filterButton)
         setupFilterViews()
         setLayout()
+    }
+
+    deinit {
+        
     }
     
     func setupFilterViews() {

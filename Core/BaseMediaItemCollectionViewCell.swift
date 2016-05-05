@@ -11,8 +11,7 @@ import Foundation
 
 class BaseMediaItemCollectionViewCell: UICollectionViewCell {
     weak var delegate: MediaItemsCollectionViewCellDelegate?
-    
-    var mediaLink: MediaItem?
+    weak var mediaLink: MediaItem?
     var overlayVisible: Bool
     var itemFavorited: Bool
     
