@@ -18,7 +18,7 @@ class GifCellOverlayView : UIView {
         primaryTextLabel.textAlignment = .Center
         primaryTextLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 10.0)!,
                                      letterSpacing: 1.0,
-                                     color: WhiteColor,
+                                     color: BlackColor,
                                      text: "Copied!".uppercaseString)
 
         loaderView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
@@ -30,7 +30,7 @@ class GifCellOverlayView : UIView {
         addSubview(primaryTextLabel)
 
         setupLayout()
-        backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.6)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -13,6 +13,12 @@ import Nuke
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, UITabBarDelegate {
     private var packServiceListener: Listener? = nil
     var tabBar: BrowsePackTabBar
+    var backspaceDelayTimer: NSTimer?
+    var backspaceRepeatTimer: NSTimer?
+    let backspaceDelay: NSTimeInterval = 0.5
+    let backspaceRepeat: NSTimeInterval = 0.07
+    var backspaceStartTime: CFAbsoluteTime!
+    var firstWordQuickDeleted: Bool = false
 
     private let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
     
@@ -38,7 +44,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             navigationBar.removeFromSuperview()
         }
 
-        updateTabBarSelectedItem()
+        tabBar.updateTabBarSelectedItem()
         
         view.addSubview(tabBar)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
@@ -186,32 +192,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
 
-    func updateTabBarSelectedItem() {
-        switch packViewModel.typeFilter {
-        case .Gif:
-             tabBar.selectedItem = tabBar.items![BrowsePackTabType.Gifs.rawValue]
-        case .Quote, .Lyric:
-             tabBar.selectedItem = tabBar.items![BrowsePackTabType.Quotes.rawValue]
-        default:
-            break
-        }
-
-
-        if !packViewModel.doesPackContainTypeFilter(.Gif) {
-            tabBar.gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
-        } else {
-             tabBar.gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
-        }
-
-        if !packViewModel.doesPackContainTypeFilter(.Quote) {
-            tabBar.quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
-        } else {
-            tabBar.quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
-        }
-
-        tabBar.lastSelectedTab = tabBar.selectedItem
-    }
-
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         guard let type = BrowsePackTabType(rawValue: item.tag) else {
             return
@@ -229,7 +209,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Gifs:
-            if PacksService.defaultInstance.doesPackContainTypeFilter(.Gif) {
+            if PacksService.defaultInstance.doesCurrentPackContainType(.Gif) {
                 collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Gif
                 self.tabBar.lastSelectedTab = item
@@ -237,7 +217,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 self.tabBar.selectedItem =  self.tabBar.lastSelectedTab
             }
         case .Quotes:
-            if PacksService.defaultInstance.doesPackContainTypeFilter(.Quote) {
+            if PacksService.defaultInstance.doesCurrentPackContainType(.Quote) {
                  collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Quote
                 self.tabBar.lastSelectedTab = item
@@ -251,8 +231,9 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             togglePack()
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Delete:
-            textProcessor?.deleteBackward()
-            self.tabBar.selectedItem = self.tabBar.lastSelectedTab
+           textProcessor?.deleteBackward()
+           
+           self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         }
     }
 
@@ -267,7 +248,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
         hideLoadingView()
-        updateTabBarSelectedItem()
+        tabBar.updateTabBarSelectedItem()
     }
 
 
