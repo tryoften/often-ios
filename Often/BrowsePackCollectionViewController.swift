@@ -52,7 +52,6 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(BrowsePackHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
             collectionView.registerClass(BrowsePackSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
-            collectionView.registerClass(BrowsePackCollectionViewCell.self, forCellWithReuseIdentifier: "packCell")
         }
     }
 

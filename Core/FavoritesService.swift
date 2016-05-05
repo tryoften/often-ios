@@ -46,7 +46,7 @@ class FavoritesService: UserMediaItemsViewModel {
         fetchData()
     }
 
-    override func fetchData() {
+    override func fetchData(completion: ((Bool) -> Void)? = nil) {
         fetchCollection { success in
             if self.mediaItems.isEmpty {
                 return

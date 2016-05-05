@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BaseViewModel: DataLoadable {
+class BaseViewModel {
     let baseRef: Firebase
     var ref: Firebase
     var path: String?
@@ -30,7 +30,7 @@ class BaseViewModel: DataLoadable {
     /**
      Fetches data for current view model
      */
-    func fetchData() {
+    func fetchData(completion: ((Bool) -> Void)? = nil) {
     }
 
     /**
@@ -75,8 +75,4 @@ class BaseViewModel: DataLoadable {
         }
     #endif
     }
-}
-
-protocol DataLoadable {
-    func fetchData() throws
 }
