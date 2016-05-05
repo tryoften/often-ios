@@ -43,9 +43,9 @@ class UserProfileHeaderView: UICollectionReusableView {
 
     private var coverPhotoBottonMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
-            return -15
+            return 0
         }
-        return -30
+        return -12
     }
 
     private var nameLabelHeightTopMargin: CGFloat {
