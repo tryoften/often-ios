@@ -9,10 +9,17 @@
 import Foundation
 import Material
 import Nuke
+import AudioToolbox
 
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, UITabBarDelegate {
     private var packServiceListener: Listener? = nil
     var tabBar: BrowsePackTabBar
+    var backspaceDelayTimer: NSTimer?
+    var backspaceRepeatTimer: NSTimer?
+    let backspaceDelay: NSTimeInterval = 0.5
+    let backspaceRepeat: NSTimeInterval = 0.07
+    var backspaceStartTime: CFAbsoluteTime!
+    var firstWordQuickDeleted: Bool = false
 
     private let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
     
@@ -38,7 +45,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             navigationBar.removeFromSuperview()
         }
 
-        updateTabBarSelectedItem()
+        tabBar.updateTabBarSelectedItem()
         
         view.addSubview(tabBar)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
@@ -183,32 +190,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
 
-    func updateTabBarSelectedItem() {
-        switch packViewModel.typeFilter {
-        case .Gif:
-             tabBar.selectedItem = tabBar.items![BrowsePackTabType.Gifs.rawValue]
-        case .Quote, .Lyric:
-             tabBar.selectedItem = tabBar.items![BrowsePackTabType.Quotes.rawValue]
-        default:
-            break
-        }
-
-
-        if !packViewModel.doesPackContainTypeFilter(.Gif) {
-            tabBar.gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
-        } else {
-             tabBar.gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
-        }
-
-        if !packViewModel.doesPackContainTypeFilter(.Quote) {
-            tabBar.quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
-        } else {
-            tabBar.quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
-        }
-
-        tabBar.lastSelectedTab = tabBar.selectedItem
-    }
-
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         guard let type = BrowsePackTabType(rawValue: item.tag) else {
             return
@@ -248,8 +229,95 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             togglePack()
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Delete:
-            textProcessor?.deleteBackward()
+            backspaceDown()
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
+        }
+    }
+
+    func cancelBackspaceTimers() {
+        backspaceDelayTimer?.invalidate()
+        backspaceRepeatTimer?.invalidate()
+        backspaceDelayTimer = nil
+        backspaceRepeatTimer = nil
+        backspaceStartTime = nil
+    }
+
+    func backspaceDown() {
+        cancelBackspaceTimers()
+        backspaceStartTime = CFAbsoluteTimeGetCurrent()
+        textProcessor?.deleteBackward()
+
+        // trigger for subsequent deletes
+        backspaceDelayTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceDelay - backspaceRepeat, target: self, selector: Selector("backspaceDelayCallback"), userInfo: nil, repeats: false)
+    }
+
+    func backspaceUp(button: KeyboardKeyButton?) {
+        if let button = button {
+            button.selected = false
+        }
+
+        cancelBackspaceTimers()
+        firstWordQuickDeleted = false
+    }
+
+    func backspaceDelayCallback() {
+        backspaceDelayTimer = nil
+        backspaceRepeatTimer = NSTimer.scheduledTimerWithTimeInterval(backspaceRepeat, target: self, selector: Selector("backspaceRepeatCallback"), userInfo: nil, repeats: true)
+    }
+
+    func backspaceRepeatCallback() {
+        playKeySound()
+
+        let timeElapsed = CFAbsoluteTimeGetCurrent() - backspaceStartTime
+        if timeElapsed < 2.0 {
+            textProcessor?.deleteBackward()
+        } else {
+            backspaceLongPressed()
+        }
+    }
+
+    func playKeySound() {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            AudioServicesPlaySystemSound(1104)
+        })
+    }
+
+    func backspaceLongPressed() {
+        if firstWordQuickDeleted == true {
+            NSThread.sleepForTimeInterval(0.4)
+        }
+
+        firstWordQuickDeleted = true
+
+        if let documentContextBeforeInput = textProcessor?.currentProxy.documentContextBeforeInput as NSString? {
+            if documentContextBeforeInput.length > 0 {
+                var charactersToDelete = 0
+                switch documentContextBeforeInput {
+                // If cursor is next to a letter
+                case let stringLeft where NSCharacterSet.letterCharacterSet().characterIsMember(stringLeft.characterAtIndex(stringLeft.length - 1)):
+                    let range = documentContextBeforeInput.rangeOfCharacterFromSet(NSCharacterSet.letterCharacterSet().invertedSet, options: .BackwardsSearch)
+                    if range.location != NSNotFound {
+                        charactersToDelete = documentContextBeforeInput.length - range.location
+                    } else {
+                        charactersToDelete = documentContextBeforeInput.length
+                    }
+                // If cursor is next to a whitespace
+                case let stringLeft where stringLeft.hasSuffix(" "):
+                    let range = documentContextBeforeInput.rangeOfCharacterFromSet(NSCharacterSet.whitespaceCharacterSet().invertedSet, options: .BackwardsSearch)
+                    if range.location != NSNotFound {
+                        charactersToDelete = documentContextBeforeInput.length - range.location - 1
+                    } else {
+                        charactersToDelete = documentContextBeforeInput.length
+                    }
+                // if there is only one character left
+                default:
+                    charactersToDelete = 1
+                }
+
+                for _ in 0..<charactersToDelete {
+                    textProcessor?.deleteBackward()
+                }
+            }
         }
     }
 
@@ -264,7 +332,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
         hideLoadingView()
-        updateTabBarSelectedItem()
+        tabBar.updateTabBarSelectedItem()
     }
 
 
