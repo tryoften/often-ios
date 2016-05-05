@@ -111,8 +111,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         if let item = mediaItem {
             viewModel?.logTextSendEvent(item)
             
-            let count = SessionManagerFlags.defaultManagerFlags.userMessageCount
-            SessionManagerFlags.defaultManagerFlags.userMessageCount = count + 1
             mediaItem = nil
         }
     }

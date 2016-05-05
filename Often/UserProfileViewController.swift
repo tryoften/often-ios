@@ -146,7 +146,6 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.nk_setImageWith(imageURL)
-                headerView.collapseProfileImageView.nk_setImageWith(imageURL)
             }
         }
     }
@@ -155,7 +154,8 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         guard let button = button else {
             return
         }
-        if let pack = viewModel.mediaItems[button.tag] as? PackMediaItem {
+
+        if let pack = viewModel.mediaItems[button.tag] as? PackMediaItem where button.tag < viewModel.mediaItems.count {
             PacksService.defaultInstance.removePack(pack)
         }
     }

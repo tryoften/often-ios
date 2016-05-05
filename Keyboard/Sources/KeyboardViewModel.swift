@@ -46,7 +46,10 @@ class KeyboardViewModel: NSObject {
                 "mediaItem": mediaItem.toDictionary()
             ]
         ]
-        
+
+        let count = SessionManagerFlags.defaultManagerFlags.userMessageCount
+        SessionManagerFlags.defaultManagerFlags.userMessageCount = count + 1
+
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.addRecent), additionalProperties: AnalyticsAdditonalProperties.mediaItem(mediaItem.toDictionary()))
 
         firebaseRef.childByAppendingPath("queues/user/tasks").childByAutoId().setValue(data)

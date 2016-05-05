@@ -46,10 +46,9 @@ class FilterTabView: UIView {
         rightTabButton.translatesAutoresizingMaskIntoConstraints = false
         rightTabButton.titleLabel?.textAlignment = .Center
         
-        
         highlightBarView = UIView()
         highlightBarView.translatesAutoresizingMaskIntoConstraints = false
-        highlightBarView.backgroundColor = UIColor.oftBrightLavenderColor()
+        highlightBarView.backgroundColor = TealColor
         
         super.init(frame: frame)
         backgroundColor = WhiteColor

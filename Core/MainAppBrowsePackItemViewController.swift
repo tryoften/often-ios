@@ -28,7 +28,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
         
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showHud", userInfo: nil, repeats: false)
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showHud"), userInfo: nil, repeats: false)
         
         view.addSubview(filterButton)
         setupFilterViews()
@@ -79,7 +79,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             filterButton.al_height == 30,
             filterButton.al_width == 94,
             filterButton.al_bottom == view.al_bottom - 23.5
-            ])
+        ])
     }
     
     func filterButtonDidTap(sender: UIButton) {
@@ -107,7 +107,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             header.subtitle = string
         }
         
-        header.sampleButton.hidden = !pack.premium
         header.primaryButton.title = pack.callToActionText()
         header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
         header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
