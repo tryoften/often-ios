@@ -9,27 +9,12 @@
 import UIKit
 
 class BrowsePackCollectionViewCell: BrowseMediaItemCollectionViewCell {
-    var primaryButton: UIButton
     
     override init(frame: CGRect) {
-        primaryButton = UIButton()
-        primaryButton.translatesAutoresizingMaskIntoConstraints = false
-        primaryButton.titleLabel?.font = UIFont(name: "OpenSans", size: 8.0)
-        primaryButton.layer.cornerRadius = 11.25
-        primaryButton.setTitle("remove".uppercaseString, forState: .Normal)
-        primaryButton.setTitleColor(WhiteColor, forState: .Normal)
-        primaryButton.layer.shadowRadius = 2
-        primaryButton.layer.shadowOpacity = 0.2
-        primaryButton.layer.shadowColor = MediumLightGrey.CGColor
-        primaryButton.layer.shadowOffset = CGSizeMake(0, 2)
-
-
         super.init(frame: frame)
 
         imageView.image = UIImage(named: "placeholder")
-
         setImageViewLayers(CGRectMake(0, 0, frame.size.width, frame.size.height/2))
-        addSubview(primaryButton)
 
         setupLayout()
     }
@@ -61,11 +46,6 @@ class BrowsePackCollectionViewCell: BrowseMediaItemCollectionViewCell {
             
             subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_centerX == al_centerX,
-            
-            primaryButton.al_centerX == al_centerX,
-            primaryButton.al_height == 22.5,
-            primaryButton.al_width == 78,
-            primaryButton.al_top == subtitleLabel.al_bottom + (bounds.size.height * 0.07)
         ])
     }
 }
