@@ -20,7 +20,7 @@ class LoginView: UIView {
     let signinButton: UIButton
 
     private var subtitleLabelLeftAndRightMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 30
         }
         return 55
@@ -94,11 +94,11 @@ class LoginView: UIView {
         
         var splashImage: UIImage = UIImage(named: "LaunchImage-800-667h@2x")!
         
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             splashImage = UIImage(named: "LaunchImage-568h@2x")!
         }
         
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             splashImage = UIImage(named: "LaunchImage-800-Portrait-736h@3x")!
         }
         
@@ -171,7 +171,7 @@ class LoginView: UIView {
             launchScreenLoader.al_centerY == al_centerY,
         ]
         
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             constraints += [
                 skipButton.al_bottom == al_bottom - 10,
                 scrollView.al_bottom == pageControl.al_top - 18,

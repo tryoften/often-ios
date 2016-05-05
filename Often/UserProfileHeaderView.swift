@@ -42,14 +42,14 @@ class UserProfileHeaderView: UICollectionReusableView {
     private var coverPhotoBottonMarginConstraint: NSLayoutConstraint?
 
     private var coverPhotoBottonMargin: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             return 0
         }
         return -12
     }
 
     private var nameLabelHeightTopMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 55
         }
         return 60

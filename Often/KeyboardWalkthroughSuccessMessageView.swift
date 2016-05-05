@@ -15,7 +15,7 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
     let finishedButton: UIButton
 
     private var subtitleLabelLeftAndRightMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 40
         }
         return 80

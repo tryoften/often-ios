@@ -26,21 +26,21 @@ class CreateAccountView: UIView {
     let termsOfUseAndPrivacyPolicyButton: UIButton
 
     private var titleLabelHeightTopMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 60
         }
         return 75
     }
 
     private var usernameTextFieldHeightTopMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 30
         }
         return 40
     }
 
     private var subtitleLabelHeightLeftAndRightMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 40
         }
         return 60

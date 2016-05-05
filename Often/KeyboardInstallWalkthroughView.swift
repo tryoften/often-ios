@@ -18,11 +18,11 @@ class KeyboardInstallWalkthroughView: UIView {
     let settingButton: UIButton
 
     private var iphoneGifViewTopMargin: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             return 210
         }
 
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 139
         }
 
@@ -30,11 +30,11 @@ class KeyboardInstallWalkthroughView: UIView {
     }
 
     private var iphoneGifViewLeftMargin: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             return 23
         }
 
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 19
         }
 
@@ -42,11 +42,11 @@ class KeyboardInstallWalkthroughView: UIView {
     }
 
     private var iphoneGifViewRightMargin: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             return 16
         }
 
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 13
         }
 
@@ -54,7 +54,7 @@ class KeyboardInstallWalkthroughView: UIView {
     }
 
     private var iphoneGifViewBottomMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 184
         }
 
@@ -62,21 +62,21 @@ class KeyboardInstallWalkthroughView: UIView {
     }
 
     private var stilliphoneImageViewTopMargin: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             return 60
         }
         return 0
     }
 
     private var subtitleLabelLeftAndRightMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 40
         }
         return 50
     }
 
     private var subViewTopMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 120
         }
         return 150
@@ -84,21 +84,21 @@ class KeyboardInstallWalkthroughView: UIView {
 
 
     private var stilliphoneImageViewLeftMargin: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             return 70
         }
         return 50
     }
 
     private var stilliphoneImageViewRightMargin: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             return 70
         }
         return 50
     }
 
     private var settingButtonHeight: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
             return 50
         }
         return 0
