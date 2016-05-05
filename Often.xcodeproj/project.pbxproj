@@ -14,6 +14,9 @@
 		3B01B3811C61F3D8002ED18A /* CollectionViewAlphabeticalSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01B3771C61D40E002ED18A /* CollectionViewAlphabeticalSidebar.swift */; };
 		3B029ABC1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7107A61CC9455300707602 /* KeyboardCancelBar.swift */; };
 		3B029ABD1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7107A61CC9455300707602 /* KeyboardCancelBar.swift */; };
+		3B046A8C1CDBAC7D001D25EF /* BackSpaceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B046A8B1CDBAC7D001D25EF /* BackSpaceHandler.swift */; };
+		3B046A8D1CDBAC7D001D25EF /* BackSpaceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B046A8B1CDBAC7D001D25EF /* BackSpaceHandler.swift */; };
+		3B046A8E1CDBAC7D001D25EF /* BackSpaceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B046A8B1CDBAC7D001D25EF /* BackSpaceHandler.swift */; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B20C03A1C7E0D3F00D98803 /* SearchResultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B20C0351C7E016100D98803 /* SearchResultNavigationBar.swift */; };
@@ -1324,6 +1327,7 @@
 		30E00C761BC86C3D00DDF24C /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = Carthage/Build/iOS/Spring.framework; sourceTree = "<group>"; };
 		30E00C791BC86CEA00DDF24C /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = delay.swift; path = ../Often/delay.swift; sourceTree = "<group>"; };
 		3B01B3771C61D40E002ED18A /* CollectionViewAlphabeticalSidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewAlphabeticalSidebar.swift; path = ../Often/CollectionViewAlphabeticalSidebar.swift; sourceTree = "<group>"; };
+		3B046A8B1CDBAC7D001D25EF /* BackSpaceHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackSpaceHandler.swift; sourceTree = "<group>"; };
 		3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSpacerWithText.swift; sourceTree = "<group>"; };
 		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -2573,6 +2577,7 @@
 				817619F41AEAF40D00C7D9CB /* Buttons */,
 				696C2DB01BB61357004AC9F6 /* ToolTip.swift */,
 				3BAB16891CAB2CA600904185 /* KeyboardMediaItemPackHeaderView.swift */,
+				3B046A8B1CDBAC7D001D25EF /* BackSpaceHandler.swift */,
 				698AD33F1C2AFDE40043B7F1 /* KeyboardBrowseNavigationBar.swift */,
 				69138B4C1C25CD6800F33F76 /* TrackCollectionViewCell.swift */,
 				69DBDE0E1C665E6900701A5D /* EmojiSectionSelectorView.swift */,
@@ -3798,6 +3803,7 @@
 				BFE7411B1CC9552900F55DD9 /* AwesomeMenu.m in Sources */,
 				810EA5C11C8579F1005A6C6D /* MediaItemsViewController.swift in Sources */,
 				81F15C1B1CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */,
+				3B046A8E1CDBAC7D001D25EF /* BackSpaceHandler.swift in Sources */,
 				810EA5C21C8579F1005A6C6D /* KeyboardRecentsViewController.swift in Sources */,
 				810EA5C31C8579F1005A6C6D /* FullScreenCollectionViewController.swift in Sources */,
 				810EA5C41C8579F1005A6C6D /* BrowseTrackCollectionViewController.swift in Sources */,
@@ -4124,6 +4130,7 @@
 				698674191C4A911900826FAA /* DropDownMessageView.swift in Sources */,
 				8107F7E31BD45B4D00357A26 /* SearchSuggestionsViewModel.swift in Sources */,
 				3B6EA4311BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift in Sources */,
+				3B046A8D1CDBAC7D001D25EF /* BackSpaceHandler.swift in Sources */,
 				3BA021511C6A999600FE9009 /* Analytics.swift in Sources */,
 				816D50111C861000007B3249 /* CategoryService.swift in Sources */,
 				BF9861541CDA9AEB005AB2BB /* FilterTabView.swift in Sources */,
@@ -4298,6 +4305,7 @@
 				3BA7D8331CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				81DA3EB31C24BE85006822D3 /* TrendingLyricsHorizontalCollectionViewController.swift in Sources */,
 				3B5006471CB2E50B003D4144 /* KeyboardMediaItemPackPickerViewController.swift in Sources */,
+				3B046A8C1CDBAC7D001D25EF /* BackSpaceHandler.swift in Sources */,
 				6958C7B81C2AEAF800BDAB3F /* TrackCollectionViewCell.swift in Sources */,
 				81DA3EB41C24BE85006822D3 /* ArticleMediaItem.swift in Sources */,
 				81DA3EB51C24BE85006822D3 /* KeyboardSearchTextField.swift in Sources */,
