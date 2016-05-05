@@ -7,7 +7,6 @@
 //
 //
 import Foundation
-import Material
 
 class AnimatedMenuView: MenuView {
 

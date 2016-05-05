@@ -151,7 +151,6 @@
 		3B75E5111C6E6B1B008D4CE3 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		3B75E5121C6E6B1B008D4CE3 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		3B9573911CD9591B00C9821B /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; };
-		3B9573921CD9591B00C9821B /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B9991D61C7E4E9B00C60A99 /* AnimatedLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */; };
 		3B9991D71C7E4E9B00C60A99 /* AnimatedLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */; };
 		3BA021511C6A999600FE9009 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA0214F1C6A999600FE9009 /* Analytics.swift */; };
@@ -1111,7 +1110,6 @@
 		BF18A40E1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
 		BF18A40F1CD7C9A2009732AE /* SlideTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323691C1F8A1A0084918B /* SlideTabBar.swift */; };
 		BF18A4101CD7C9A2009732AE /* SlideTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323691C1F8A1A0084918B /* SlideTabBar.swift */; };
-		BF1C79C11CCECCD9002ED5B7 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; };
 		BF3FA1DD1CAC539900DBB87B /* BrowsePackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* BrowsePackCollectionViewCell.swift */; };
 		BF3FA1DE1CAC539900DBB87B /* BrowsePackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553391CA79087004680CA /* BrowsePackCollectionViewCell.swift */; };
 		BF3FA1EC1CACAA6800DBB87B /* (null) in Sources */ = {isa = PBXBuildFile; };
@@ -1151,7 +1149,6 @@
 		BF9971611CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */; };
 		BF9971621CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */; };
 		BF9971631CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */; };
-		BF9DF2F61CD015A5002C7F15 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; };
 		BFBA72EE1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
 		BFBA72EF1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
 		BFBA72F01CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBA72ED1CC6EDAA00392FF7 /* GifHorizontalCollectionViewCell.swift */; };
@@ -1186,9 +1183,6 @@
 		BFF79FCE1CCEDEA20053E6F4 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* BrowseViewController.swift */; };
 		BFF79FCF1CCEDEA30053E6F4 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* BrowseViewController.swift */; };
 		BFF79FD01CCEDEA30053E6F4 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833611C179A5B001B8662 /* BrowseViewController.swift */; };
-		BFF79FD21CCFBEE10053E6F4 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		BFF79FD91CCFEA4B0053E6F4 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; };
-		BFF79FDA1CCFEA4B0053E6F4 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1231,7 +1225,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BFF79FD21CCFBEE10053E6F4 /* Material.framework in Embed Frameworks */,
 				30E00C781BC86C3D00DDF24C /* Spring.framework in Embed Frameworks */,
 				81C081041CC57462009DA5E8 /* Nuke.framework in Embed Frameworks */,
 				81C081001CC57462009DA5E8 /* NukeAnimatedImagePlugin.framework in Embed Frameworks */,
@@ -1252,7 +1245,6 @@
 				81C080F41CC57207009DA5E8 /* NukeAnimatedImagePlugin.framework in Embed Frameworks */,
 				81C080FD1CC57382009DA5E8 /* Alamofire.framework in Embed Frameworks */,
 				81C080F61CC57207009DA5E8 /* NukeAlamofirePlugin.framework in Embed Frameworks */,
-				BFF79FDA1CCFEA4B0053E6F4 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1311,7 +1303,6 @@
 				3BD5223A1CC6F31900A5577F /* NukeAnimatedImagePlugin.framework in Embed Frameworks */,
 				3BD522401CC6F33F00A5577F /* NukeAlamofirePlugin.framework in Embed Frameworks */,
 				3BD5223E1CC6F32A00A5577F /* Alamofire.framework in Embed Frameworks */,
-				3B9573921CD9591B00C9821B /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1710,7 +1701,6 @@
 				810EA56C1C8579D1005A6C6D /* Accounts.framework in Frameworks */,
 				810EA56D1C8579D1005A6C6D /* libPods-Often.a in Frameworks */,
 				3B25C6DD1C861F3A00C1BD74 /* TwitterKit.framework in Frameworks */,
-				BFF79FD91CCFEA4B0053E6F4 /* Material.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1779,7 +1769,6 @@
 				3B25C69E1C861F3A00C1BD74 /* AVFoundation.framework in Frameworks */,
 				81C080FF1CC57462009DA5E8 /* NukeAnimatedImagePlugin.framework in Frameworks */,
 				81794EE91A81E666009D4A71 /* libz.dylib in Frameworks */,
-				BF1C79C11CCECCD9002ED5B7 /* Material.framework in Frameworks */,
 				81794EE31A81E651009D4A71 /* Social.framework in Frameworks */,
 				30E00C771BC86C3D00DDF24C /* Spring.framework in Frameworks */,
 				81794EDF1A81E642009D4A71 /* QuartzCore.framework in Frameworks */,
@@ -1878,7 +1867,6 @@
 				3B25C6A41C861F3A00C1BD74 /* Social.framework in Frameworks */,
 				81DA3F4A1C24BE85006822D3 /* CoreLocation.framework in Frameworks */,
 				81DA3F4B1C24BE85006822D3 /* CoreGraphics.framework in Frameworks */,
-				BF9DF2F61CD015A5002C7F15 /* Material.framework in Frameworks */,
 				81DA3F4C1C24BE85006822D3 /* AudioToolbox.framework in Frameworks */,
 				81DA3F4D1C24BE85006822D3 /* CFNetwork.framework in Frameworks */,
 				81DA3F4F1C24BE85006822D3 /* StoreKit.framework in Frameworks */,

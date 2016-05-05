@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Material
 
 enum AnimatedMenuItem: Int {
     case Gifs = 0

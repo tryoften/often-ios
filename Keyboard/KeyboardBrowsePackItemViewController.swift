@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Material
 import Nuke
 
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, UITabBarDelegate {

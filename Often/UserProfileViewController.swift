@@ -9,7 +9,6 @@
 
 import UIKit
 
-
 class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaItemGroupViewModelDelegate,
     UICollectionViewDelegateFlowLayout {
     var viewModel: PacksService
