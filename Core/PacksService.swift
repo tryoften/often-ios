@@ -12,6 +12,7 @@ class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
     let userRef: Firebase
     let userId: String
+    let didUpdatePacks = Event<[PackMediaItem]>()
     var mediaItems: [MediaItem]
 
     internal var collectionEndpoint: Firebase
@@ -67,7 +68,6 @@ class PacksService: PackItemViewModel {
                 }
                 dispatch_async(dispatch_get_main_queue()) {
                     completion?(true)
-                    self.populateCurrentPack()
                 }
             }
         })
@@ -84,15 +84,12 @@ class PacksService: PackItemViewModel {
         return [group]
     }
 
-    override func fetchData() {
-        if packId.isEmpty {
-            fetchCollection({ completion in
-                if completion {
-                    super.fetchData()
-                }
-            })
-        } else {
-            super.fetchData()
+    override func fetchData(completion: ((Bool) -> Void)? = nil) {
+        fetchCollection { [weak self] done in
+            if let packs = self?.mediaItems as? [PackMediaItem] {
+                self?.populateCurrentPack()
+                self?.didUpdatePacks.emit(packs)
+            }
         }
     }
 
@@ -181,6 +178,7 @@ class PacksService: PackItemViewModel {
 
         for pack in packs where SessionManagerFlags.defaultManagerFlags.lastPack == pack.pack_id {
             self.pack = pack
+            self.mediaItemGroups = pack.getMediaItemGroups()
 
             if let packId = pack.pack_id {
                 self.packId = packId
@@ -197,6 +195,7 @@ class PacksService: PackItemViewModel {
                 applyFilter(currentCategory)
             }
 
+            self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
         }
 
     }

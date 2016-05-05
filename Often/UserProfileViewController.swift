@@ -25,7 +25,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
 
         viewModel.fetchCollection()
 
-        packServiceListener = PacksService.defaultInstance.didUpdateCurrentMediaItem.on { items in
+        packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
         }
 

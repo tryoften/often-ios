@@ -18,11 +18,12 @@ class MediaItemGroupViewModel: BaseViewModel {
         super.init(baseRef: baseRef, path: path)
     }
 
-    override func fetchData() {
+    override func fetchData(completion: ((Bool) -> Void)? = nil) {
         ref.observeEventType(.Value, withBlock: { snapshot in
             if let data = snapshot.value as? NSArray {
                 self.mediaItemGroups = MediaItemGroup.modelsFromDictionaryArray(data)
                 self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
+                completion?(true)
             }
         })
     }
