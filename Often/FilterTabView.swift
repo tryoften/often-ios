@@ -37,7 +37,6 @@ class FilterTabView: UIView {
     
     
     override init(frame: CGRect) {
-        
         leftTabButton = UIButton()
         leftTabButton.translatesAutoresizingMaskIntoConstraints = false
         leftTabButton.titleLabel?.textAlignment = .Center
@@ -53,8 +52,8 @@ class FilterTabView: UIView {
         super.init(frame: frame)
         backgroundColor = WhiteColor
 
-        leftTabButton.addTarget(self, action: #selector(FilterTabView.leftButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-        rightTabButton.addTarget(self, action: #selector(FilterTabView.rightButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        leftTabButton.addTarget(self, action: #selector(FilterTabView.leftButtonDidTap), forControlEvents: .TouchUpInside)
+        rightTabButton.addTarget(self, action: #selector(FilterTabView.rightButtonDidTap), forControlEvents: .TouchUpInside)
 
         addSubview(leftTabButton)
         addSubview(rightTabButton)
@@ -82,8 +81,7 @@ class FilterTabView: UIView {
             leftTabButton.al_right == al_right,
             leftTabButton.al_left == rightTabButton.al_right,
             leftTabButton.al_width == al_width / 2,
-            
-            
+
             highlightBarView.al_bottom == al_bottom,
             highlightBarView.al_height == 4,
             highlightBarView.al_width == al_width / 2,
@@ -91,7 +89,7 @@ class FilterTabView: UIView {
         ])
     }
     
-    func leftButtonDidTap(sender: UIButton) {
+    func leftButtonDidTap() {
         highlightBarLeftConstraint?.constant =  (UIScreen.mainScreen().bounds.width / 2)
         
         UIView.animateWithDuration(0.3) {
@@ -101,7 +99,7 @@ class FilterTabView: UIView {
         delegate?.leftTabSelected()
     }
     
-    func rightButtonDidTap(sender: UIButton) {
+    func rightButtonDidTap() {
         highlightBarLeftConstraint?.constant = 0.0
 
         UIView.animateWithDuration(0.3) {
@@ -110,7 +108,22 @@ class FilterTabView: UIView {
         
         delegate?.rightTabSelected()
     }
-    
+
+    func disableButtonFor(type: MediaType) {
+        switch type {
+        case .Gif:
+            leftTabButton.userInteractionEnabled = false
+            leftTabButton.alpha = 0.30
+            highlightBarLeftConstraint?.constant = 0
+        case .Lyric, .Quote:
+            rightTabButton.userInteractionEnabled = false
+            rightTabButton.alpha = 0.30
+            highlightBarLeftConstraint?.constant = (UIScreen.mainScreen().bounds.width / 2)
+        default:
+            break
+        }
+    }
+
 }
 
 protocol FilterTabDelegate {

@@ -128,7 +128,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
-        
     }
     
     func primaryButtonTapped(sender: UIButton) {
@@ -171,11 +170,42 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     
     func leftTabSelected() {
         collectionView?.setContentOffset(CGPointZero, animated: true)
-        packViewModel.typeFilter = .Gif
+
+        guard let viewModel = viewModel as? PackItemViewModel else {
+            return
+        }
+
+        if viewModel.doesCurrentPackContainType(.Gif) {
+            packViewModel.typeFilter = .Gif
+        }
     }
     
     func rightTabSelected() {
         collectionView?.setContentOffset(CGPointZero, animated: true)
-        packViewModel.typeFilter = .Quote
+
+        guard let viewModel = viewModel as? PackItemViewModel else {
+            return
+        }
+
+        if viewModel.doesCurrentPackContainType(.Quote) {
+            packViewModel.typeFilter = .Quote
+        }
+    }
+
+    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
+
+        guard let viewModel = viewModel as? PackItemViewModel, let headerView = headerView as? PackPageHeaderView else {
+            return
+        }
+
+        if !viewModel.doesCurrentPackContainType(.Quote) {
+            headerView.tabContainerView.disableButtonFor(.Quote)
+        }
+
+        if !viewModel.doesCurrentPackContainType(.Gif) {
+            headerView.tabContainerView.disableButtonFor(.Gif)
+
+        }
     }
 }
