@@ -30,7 +30,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             let attributes: [String: AnyObject] = [
                 NSKernAttributeName: NSNumber(float: 1.0),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
-                NSForegroundColorAttributeName: BlackColor
+                NSForegroundColorAttributeName: UIColor.oftBlack54Color()
             ]
 
             shareCountLabel.attributedText = NSMutableAttributedString(string: sharedText.uppercaseString, attributes: attributes)
