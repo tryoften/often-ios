@@ -39,9 +39,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
         collectionView?.contentInset = UIEdgeInsets(top: 4, left: 40, bottom: 36.5, right: 9)
 
-        viewModel.fetchCollection()
-
-        packServiceListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
+        packServiceListener = viewModel.didUpdatePacks.on { [weak self] items in
             self?.collectionView?.reloadData()
             self?.centerOnDefaultCard()
         }
@@ -61,7 +59,6 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     }
 
     deinit {
-        packServiceListener?.stopListening()
         packServiceListener = nil
     }
 
@@ -75,6 +72,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         collectionView!.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: PacksCellReuseIdentifier)
         collectionView!.backgroundColor = UIColor.clearColor()
         collectionView!.showsHorizontalScrollIndicator = false
+        viewModel.fetchData()
     }
 
     func setupLayout() {
@@ -208,10 +206,13 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
 
     func centerOnDefaultCard() {
         let count = viewModel.mediaItems.count
-        for i in 1..<count {
-            if let currentPackID = viewModel.pack,
-                let pack = viewModel.mediaItems[i] as? PackMediaItem where  currentPackID == pack {
-                scrollToCellAtIndex(i)
+
+        if count > 2 {
+            for i in 1..<count {
+                if let currentPackID = viewModel.pack,
+                    let pack = viewModel.mediaItems[i] as? PackMediaItem where  currentPackID == pack {
+                    scrollToCellAtIndex(i)
+                }
             }
         }
     }

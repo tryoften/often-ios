@@ -12,6 +12,7 @@ class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
     let userRef: Firebase
     let userId: String
+    let didUpdatePacks = Event<[PackMediaItem]>()
     var mediaItems: [MediaItem]
 
     internal var collectionEndpoint: Firebase
@@ -67,7 +68,6 @@ class PacksService: PackItemViewModel {
                 }
                 dispatch_async(dispatch_get_main_queue()) {
                     completion?(true)
-                    self.populateCurrentPack()
                 }
             }
         })
@@ -84,15 +84,12 @@ class PacksService: PackItemViewModel {
         return [group]
     }
 
-    override func fetchData() {
-        if packId.isEmpty {
-            fetchCollection({ completion in
-                if completion {
-                    super.fetchData()
-                }
-            })
-        } else {
-            super.fetchData()
+    override func fetchData(completion: ((Bool) -> Void)? = nil) {
+        fetchCollection { [weak self] done in
+            if let packs = self?.mediaItems as? [PackMediaItem] {
+                self?.populateCurrentPack()
+                self?.didUpdatePacks.emit(packs)
+            }
         }
     }
 
@@ -115,6 +112,26 @@ class PacksService: PackItemViewModel {
 
     func checkPack(result: MediaItem) -> Bool {
         return ids.contains(result.id)
+    }
+
+    func getPackForId(packId: String) -> PackMediaItem? {
+        guard let packs = mediaItems as? [PackMediaItem] else {
+            return nil
+        }
+
+        if recentsPack?.id == packId {
+            return recentsPack
+        }
+
+        if favoritesPack?.id == packId {
+            return favoritesPack
+        }
+
+        for pack in packs where packId == pack.pack_id {
+            return pack
+        }
+
+        return nil
     }
 
     func switchCurrentPack(packId: String)  {
@@ -151,7 +168,7 @@ class PacksService: PackItemViewModel {
 
         let userQueue = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
         userQueue.setValue([
-            "task": "editUserSubscription",
+            "type": "editUserSubscription",
             "operation": task,
             "user": userId,
             "packId": result.id,
@@ -179,8 +196,9 @@ class PacksService: PackItemViewModel {
             SessionManagerFlags.defaultManagerFlags.lastPack = packsID
         }
 
-        for pack in packs where SessionManagerFlags.defaultManagerFlags.lastPack == pack.pack_id {
+        if let currentPackId = SessionManagerFlags.defaultManagerFlags.lastPack, let pack = getPackForId(currentPackId) {
             self.pack = pack
+            self.mediaItemGroups = pack.getMediaItemGroups()
 
             if let packId = pack.pack_id {
                 self.packId = packId
@@ -197,6 +215,7 @@ class PacksService: PackItemViewModel {
                 applyFilter(currentCategory)
             }
 
+            self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
         }
 
     }

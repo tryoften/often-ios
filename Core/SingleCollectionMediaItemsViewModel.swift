@@ -16,7 +16,7 @@ class SingleMediaItemViewModel: BaseViewModel {
         super.init(path: "\(itemType.rawValue)s/\(id)")
     }
 
-    override func fetchData() {
+    override func fetchData(completion: ((Bool) -> Void)? = nil) {
         ref.observeEventType(.Value, withBlock: { snapshot in
             if let data = snapshot.value as? NSDictionary {
                 self.mediaItem = MediaItem.mediaItemFromType(data)
