@@ -114,6 +114,26 @@ class PacksService: PackItemViewModel {
         return ids.contains(result.id)
     }
 
+    func getPackForId(packId: String) -> PackMediaItem? {
+        guard let packs = mediaItems as? [PackMediaItem] else {
+            return nil
+        }
+
+        if recentsPack?.id == packId {
+            return recentsPack
+        }
+
+        if favoritesPack?.id == packId {
+            return favoritesPack
+        }
+
+        for pack in packs where packId == pack.pack_id {
+            return pack
+        }
+
+        return nil
+    }
+
     func switchCurrentPack(packId: String)  {
         self.packId = packId
         SessionManagerFlags.defaultManagerFlags.lastPack = packId
@@ -148,7 +168,7 @@ class PacksService: PackItemViewModel {
 
         let userQueue = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
         userQueue.setValue([
-            "task": "editUserSubscription",
+            "type": "editUserSubscription",
             "operation": task,
             "user": userId,
             "packId": result.id,
@@ -176,7 +196,7 @@ class PacksService: PackItemViewModel {
             SessionManagerFlags.defaultManagerFlags.lastPack = packsID
         }
 
-        for pack in packs where SessionManagerFlags.defaultManagerFlags.lastPack == pack.pack_id {
+        if let currentPackId = SessionManagerFlags.defaultManagerFlags.lastPack, let pack = getPackForId(currentPackId) {
             self.pack = pack
             self.mediaItemGroups = pack.getMediaItemGroups()
 

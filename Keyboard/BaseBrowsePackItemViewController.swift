@@ -216,8 +216,4 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     }
         
     func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {}
-
-    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
-    }
 }
