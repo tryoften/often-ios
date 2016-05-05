@@ -38,13 +38,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             navigationBar.removeFromSuperview()
         }
 
-        if packViewModel.typeFilter == .Gif {
-            tabBar.selectedItem = tabBar.items![BrowsePackTabType.Gifs.rawValue]
-        } else {
-            tabBar.selectedItem = tabBar.items![BrowsePackTabType.Quotes.rawValue]
-        }
-        
-        tabBar.lastSelectedTab = tabBar.selectedItem
+        updateTabBarSelectedItem()
         
         view.addSubview(tabBar)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
@@ -121,29 +115,16 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
-        collectionView?.setContentOffset(CGPointZero, animated: false)
+        collectionView?.setContentOffset(CGPointZero, animated: true)
         PacksService.defaultInstance.switchCurrentPack(pack.id)
         loadPackData()
     }
     
     override func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
-        collectionView?.setContentOffset(CGPointZero, animated: false)
+        collectionView?.setContentOffset(CGPointZero, animated: true)
         SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
     }
-    
-    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        if isFullAccessEnabled {
-            super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
-        }
-        showFullAccessMessageIfNeeded()
-        
-        guard let viewModel = viewModel as? PackItemViewModel, _ = viewModel.pack else {
-            return
-        }
-        
-        hideLoadingView()
-    }
-    
+
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
             return CGSizeZero
@@ -172,7 +153,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
@@ -203,6 +183,32 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
 
+    func updateTabBarSelectedItem() {
+        switch packViewModel.typeFilter {
+        case .Gif:
+             tabBar.selectedItem = tabBar.items![BrowsePackTabType.Gifs.rawValue]
+        case .Quote, .Lyric:
+             tabBar.selectedItem = tabBar.items![BrowsePackTabType.Quotes.rawValue]
+        default:
+            break
+        }
+
+
+        if !packViewModel.doesPackContainTypeFilter(.Gif) {
+            tabBar.gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
+        } else {
+             tabBar.gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
+        }
+
+        if !packViewModel.doesPackContainTypeFilter(.Quote) {
+            tabBar.quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
+        } else {
+            tabBar.quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
+        }
+
+        tabBar.lastSelectedTab = tabBar.selectedItem
+    }
+
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         guard let type = BrowsePackTabType(rawValue: item.tag) else {
             return
@@ -220,13 +226,21 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Gifs:
-            collectionView?.setContentOffset(CGPointZero, animated: false)
-            packViewModel.typeFilter = .Gif
-            self.tabBar.lastSelectedTab = item
+            if PacksService.defaultInstance.doesPackContainTypeFilter(.Gif) {
+                collectionView?.setContentOffset(CGPointZero, animated: true)
+                packViewModel.typeFilter = .Gif
+                self.tabBar.lastSelectedTab = item
+            } else {
+                self.tabBar.selectedItem =  self.tabBar.lastSelectedTab
+            }
         case .Quotes:
-            collectionView?.setContentOffset(CGPointZero, animated: false)
-            packViewModel.typeFilter = .Quote
-            self.tabBar.lastSelectedTab = item
+            if PacksService.defaultInstance.doesPackContainTypeFilter(.Quote) {
+                 collectionView?.setContentOffset(CGPointZero, animated: true)
+                packViewModel.typeFilter = .Quote
+                self.tabBar.lastSelectedTab = item
+            } else {
+                self.tabBar.selectedItem =  self.tabBar.lastSelectedTab
+            }
         case .Categories:
             toggleCategoryViewController()
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
@@ -238,4 +252,20 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         }
     }
+
+    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        if isFullAccessEnabled {
+            super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
+        }
+        showFullAccessMessageIfNeeded()
+
+        guard let viewModel = viewModel as? PackItemViewModel, _ = viewModel.pack else {
+            return
+        }
+
+        hideLoadingView()
+        updateTabBarSelectedItem()
+    }
+
+
 }

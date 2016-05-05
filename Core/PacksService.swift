@@ -12,16 +12,20 @@ class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
     let userRef: Firebase
     let userId: String
-
     var mediaItems: [MediaItem]
-    var currentTypeFilter: MediaType?
-    
-    internal var collectionEndpoint: Firebase
 
+    internal var collectionEndpoint: Firebase
     private var subscriptionsRef: Firebase!
     private var subscriptions: [PackSubscription] = []
     private(set) var ids: Set<String> = []
     private(set) var recentsPack: PackMediaItem?
+
+    override var typeFilter: MediaType {
+        didSet {
+            SessionManagerFlags.defaultManagerFlags.lastFilterType = typeFilter.rawValue
+            delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
+        }
+    }
 
     init() {
         userId = SessionManagerFlags.defaultManagerFlags.userId!
@@ -51,24 +55,6 @@ class PacksService: PackItemViewModel {
         subscriptionsRef = userRef.childByAppendingPath("subscriptions")
         subscriptionsRef.observeEventType(.Value, withBlock: self.onSubscriptionsChanged)
         subscriptionsRef.keepSynced(true)
-    }
-
-    private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
-        var items: [PackMediaItem] = []
-        ids.removeAll()
-
-        for (id, item) in data {
-            ids.insert(id)
-            if let dict = item as? NSDictionary, let item = MediaItem.mediaItemFromType(dict) as? PackMediaItem {
-                if item.isRecents {
-                    recentsPack = item
-                } else {
-                    items.append(item)
-                }
-            }
-        }
-
-        return items
     }
 
      func fetchCollection(completion: ((Bool) -> Void)? = nil) {
@@ -130,6 +116,32 @@ class PacksService: PackItemViewModel {
         return ids.contains(result.id)
     }
 
+    func switchCurrentPack(packId: String)  {
+        self.packId = packId
+        SessionManagerFlags.defaultManagerFlags.lastPack = packId
+        currentCategory = Category.all
+        fetchData()
+    }
+
+    private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
+        var items: [PackMediaItem] = []
+        ids.removeAll()
+
+        for (id, item) in data {
+            ids.insert(id)
+            if let dict = item as? NSDictionary, let item = MediaItem.mediaItemFromType(dict) as? PackMediaItem {
+                if item.isRecents {
+                    recentsPack = item
+                } else {
+                    items.append(item)
+                }
+            }
+        }
+
+        return items
+    }
+
+
     private func sendTask(task: String, result: MediaItem) {
         guard let userId = currentUser?.id else {
             return
@@ -153,13 +165,6 @@ class PacksService: PackItemViewModel {
             ref.removeValue()
         }
 
-        fetchData()
-    }
-
-    func switchCurrentPack(packId: String)  {
-        self.packId = packId
-        SessionManagerFlags.defaultManagerFlags.lastPack = packId
-        currentCategory = Category.all
         fetchData()
     }
 

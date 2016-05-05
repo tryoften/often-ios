@@ -150,8 +150,8 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
                 "category_name": category.name,
                 "category_id": category.id
             ]
-            SEGAnalytics.sharedAnalytics().track("keyboard:categorySelected", properties: data)
 
+            SEGAnalytics.sharedAnalytics().track("keyboard:categorySelected", properties: data)
             delegate?.categoriesCollectionViewControllerDidSwitchCategory(self, category: category, categoryIndex: indexPath.row)
             dismissViewControllerAnimated(true, completion: nil)
         }

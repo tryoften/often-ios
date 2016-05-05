@@ -146,7 +146,6 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.nk_setImageWith(imageURL)
-                headerView.collapseProfileImageView.nk_setImageWith(imageURL)
             }
         }
     }
