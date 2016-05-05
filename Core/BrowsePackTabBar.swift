@@ -83,13 +83,13 @@ class BrowsePackTabBar: SlideTabBar {
         }
 
 
-        if !PacksService.defaultInstance.doesPackContainTypeFilter(.Gif) {
+        if !PacksService.defaultInstance.doesCurrentPackContainType(.Gif) {
             gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
         } else {
             gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
         }
 
-        if !PacksService.defaultInstance.doesPackContainTypeFilter(.Quote) {
+        if !PacksService.defaultInstance.doesCurrentPackContainType(.Quote) {
             quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
         } else {
             quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)

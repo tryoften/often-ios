@@ -210,7 +210,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Gifs:
-            if PacksService.defaultInstance.doesPackContainTypeFilter(.Gif) {
+            if PacksService.defaultInstance.doesCurrentPackContainType(.Gif) {
                 collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Gif
                 self.tabBar.lastSelectedTab = item
@@ -218,7 +218,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 self.tabBar.selectedItem =  self.tabBar.lastSelectedTab
             }
         case .Quotes:
-            if PacksService.defaultInstance.doesPackContainTypeFilter(.Quote) {
+            if PacksService.defaultInstance.doesCurrentPackContainType(.Quote) {
                  collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Quote
                 self.tabBar.lastSelectedTab = item
