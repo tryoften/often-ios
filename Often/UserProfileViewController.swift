@@ -123,6 +123,11 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         
         cell.addedBadgeView.hidden = true
         cell.primaryButton.tag = indexPath.row
+        
+        if viewModel.mediaItems.count == 1 {
+            cell.primaryButton.hidden = true
+        }
+        
         cell.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapRemovePackButton(_:)), forControlEvents: .TouchUpInside)
 
 
@@ -184,6 +189,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     }
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        collectionView?.reloadData()
         reloadUserData()
     }
 }
