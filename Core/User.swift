@@ -22,6 +22,7 @@ class User: NSObject {
     var backgroundImage: String = ""
     var favoritesPackId: String = ""
     var recentsPackId: String = ""
+    var shareCount: Int = 0
 
     override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
 
@@ -83,6 +84,10 @@ class User: NSObject {
 
         if let recentsId = keyedValues["recentsPackId"] as? String {
             recentsPackId = recentsId
+        }
+
+        if let shareCount = keyedValues["shareCount"] as? Int {
+            self.shareCount = shareCount
         }
 
         setupCrashlytics()

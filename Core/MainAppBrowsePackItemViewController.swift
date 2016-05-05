@@ -8,6 +8,8 @@
 
 import UIKit
 import Material
+import Nuke
+import NukeAnimatedImagePlugin
 
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
@@ -60,7 +62,14 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    func setupImageManager() {
+        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
+        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
+        let cache = AnimatedImageMemoryCache()
+        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
+    }
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
@@ -72,8 +81,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupImageManager()
         showHud()
         loadPackData()
+
         filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
     
@@ -158,10 +169,12 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
     
     func leftTabSelected() {
+        collectionView?.setContentOffset(CGPointZero, animated: true)
         packViewModel.typeFilter = .Gif
     }
     
     func rightTabSelected() {
+        collectionView?.setContentOffset(CGPointZero, animated: true)
         packViewModel.typeFilter = .Quote
     }
 }

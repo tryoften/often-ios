@@ -19,6 +19,7 @@ class PacksService: PackItemViewModel {
     private var subscriptions: [PackSubscription] = []
     private(set) var ids: Set<String> = []
     private(set) var recentsPack: PackMediaItem?
+    private(set) var favoritesPack: PackMediaItem?
 
     override var typeFilter: MediaType {
         didSet {
@@ -132,6 +133,8 @@ class PacksService: PackItemViewModel {
             if let dict = item as? NSDictionary, let item = MediaItem.mediaItemFromType(dict) as? PackMediaItem {
                 if item.isRecents {
                     recentsPack = item
+                } else if item.isFavorites {
+                    favoritesPack = item
                 } else {
                     items.append(item)
                 }
@@ -140,7 +143,6 @@ class PacksService: PackItemViewModel {
 
         return items
     }
-
 
     private func sendTask(task: String, result: MediaItem) {
         guard let userId = currentUser?.id else {
