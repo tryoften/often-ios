@@ -28,7 +28,8 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         packServiceListener = PacksService.defaultInstance.didUpdateCurrentMediaItem.on { items in
             self.collectionView?.reloadData()
         }
-
+        
+        collectionView?.backgroundColor = WhiteColor
         collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
     }
     
@@ -44,7 +45,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 210)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 270)
         flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
