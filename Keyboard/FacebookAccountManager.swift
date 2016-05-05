@@ -11,8 +11,6 @@ import Foundation
 class FacebookAccountManager: AccountManager {
     private let loginPermissions = [
         "public_profile",
-        "user_actions.music",
-        "user_likes",
         "email"
     ]
 
