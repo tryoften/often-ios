@@ -164,7 +164,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                
+
                 guard let packsService = viewModel as? PacksService, let pack = packsService.pack,
                     let mediaItemTitleText = pack.name, let category =  viewModel.currentCategory else {
                         return sectionView
