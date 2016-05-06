@@ -18,7 +18,6 @@ class MediaItemGroup: Equatable {
                 return originalItems
             }
                 return filteredItems
-
         }
         
         set {

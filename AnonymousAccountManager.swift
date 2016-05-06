@@ -37,6 +37,7 @@ class AnonymousAccountManager: AccountManager {
         if let parseCurrentUser = PFUser.currentUser() {
             data["id"] = authData.uid
             data["parseId"] = parseCurrentUser.objectId
+            data["isAnonymous"] = true
 
             currentUser = User()
             currentUser?.setValuesForKeysWithDictionary(data)

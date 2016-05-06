@@ -40,8 +40,7 @@ class SkipSignupView: UIView {
         oftenAccountButton.layer.cornerRadius = 5
         oftenAccountButton.setTitle("create an account".uppercaseString, forState: .Normal)
         oftenAccountButton.setTitleColor(WhiteColor, forState: .Normal)
-        oftenAccountButton
-            .titleLabel?.font = UIFont(name: "Montserrat", size: 11.0)
+        oftenAccountButton.titleLabel?.font = UIFont(name: "Montserrat", size: 11.0)
         oftenAccountButton.backgroundColor = UIColor(fromHexString: "#152036")
 
         
@@ -65,9 +64,7 @@ class SkipSignupView: UIView {
         addConstraints([
             characterImageView.al_centerX == al_centerX,
             characterImageView.al_bottom == titleLabel.al_top - 15,
-            characterImageView.al_width == 150,
-            characterImageView.al_height == 100,
-            
+
             titleLabel.al_centerY == al_centerY,
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_height == 17,
