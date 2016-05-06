@@ -122,6 +122,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         
         cell.addedBadgeView.hidden = true
         cell.primaryButton.tag = indexPath.row
+        cell.primaryButton.hidden = false
         
         if viewModel.mediaItems.count == 1 {
             cell.primaryButton.hidden = true
