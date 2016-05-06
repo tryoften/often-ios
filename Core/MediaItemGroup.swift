@@ -25,7 +25,7 @@ class MediaItemGroup: Equatable {
             originalItems = newValue
         }
    }
-    var currentFilterCategory: Category?
+    private(set) var currentFilterCategory: Category?
     var score: Int?
     var title: String?
     var type: MediaType = .Other
