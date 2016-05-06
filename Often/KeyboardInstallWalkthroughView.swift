@@ -19,38 +19,38 @@ class KeyboardInstallWalkthroughView: UIView {
 
     private var iphoneGifViewTopMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
-            return 210
+            return 177
         }
 
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
-            return 139
+            return 165
         }
 
-        return 145
+        return 210
     }
 
     private var iphoneGifViewLeftMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
-            return 23
+            return 41
         }
 
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
-            return 19
+            return 41
         }
 
-        return 24
+        return 46
     }
 
     private var iphoneGifViewRightMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
-            return 16
+            return 40
         }
 
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
-            return 13
+            return 40
         }
 
-        return 16
+        return 45
     }
 
     private var iphoneGifViewBottomMargin: CGFloat {
@@ -63,9 +63,33 @@ class KeyboardInstallWalkthroughView: UIView {
 
     private var stilliphoneImageViewTopMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
+            return 40
+        }
+
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 60
         }
-        return 0
+
+        return 100
+    }
+
+    private var stilliphoneImageViewLeftAndRightMargin: CGFloat {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
+            return 40
+        }
+
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
+            return 20
+        }
+
+        return 30
+    }
+
+    private var stilliphoneImageViewBottonMargin: CGFloat {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
+            return 50
+        }
+        return 80
     }
 
     private var subtitleLabelLeftAndRightMargin: CGFloat {
@@ -75,6 +99,7 @@ class KeyboardInstallWalkthroughView: UIView {
         return 50
     }
 
+
     private var subViewTopMargin: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 120
@@ -82,20 +107,6 @@ class KeyboardInstallWalkthroughView: UIView {
         return 150
     }
 
-
-    private var stilliphoneImageViewLeftMargin: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
-            return 70
-        }
-        return 50
-    }
-
-    private var stilliphoneImageViewRightMargin: CGFloat {
-        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
-            return 70
-        }
-        return 50
-    }
 
     private var settingButtonHeight: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
@@ -186,9 +197,9 @@ class KeyboardInstallWalkthroughView: UIView {
             backgroundView.al_right == al_right,
 
             stilliphoneImageView.al_top == al_top - stilliphoneImageViewTopMargin,
-            stilliphoneImageView.al_left == al_left + stilliphoneImageViewLeftMargin,
-            stilliphoneImageView.al_right == al_right - stilliphoneImageViewRightMargin,
-            stilliphoneImageView.al_bottom == al_bottom + 50,
+            stilliphoneImageView.al_left == al_left + stilliphoneImageViewLeftAndRightMargin,
+            stilliphoneImageView.al_right == al_right - stilliphoneImageViewLeftAndRightMargin,
+            stilliphoneImageView.al_bottom == al_bottom + stilliphoneImageViewBottonMargin,
 
             iphoneGifView.al_top == stilliphoneImageView.al_top + iphoneGifViewTopMargin,
             iphoneGifView.al_left == stilliphoneImageView.al_left + iphoneGifViewLeftMargin,
