@@ -194,7 +194,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             return
         }
 
-        let categoriesVC = CategoryCollectionViewController(viewModel: viewModel, categories: pack.categories)
+        let categoriesVC = CategoryCollectionViewController(viewModel: packViewModel, categories: pack.categories)
         categoriesVC.delegate = self
         presentViewControllerWithCustomTransitionAnimator(categoriesVC, direction: .Left, duration: 0.25)
     }

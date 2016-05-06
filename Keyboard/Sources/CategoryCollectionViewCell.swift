@@ -13,7 +13,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     var titleLabel: UILabel
     var subtitleLabel: UILabel
     var highlightColorBorder: UIView
-    var backgroundImageView: FLAnimatedImageView
+    var backgroundImageView: UIImageView
     private var tintView: UIView
 
     var title: String? {
@@ -39,7 +39,8 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
 
     override init(frame: CGRect) {
-        backgroundImageView = FLAnimatedImageView()
+        backgroundImageView = UIImageView()
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
 
         tintView = UIImageView()
         tintView.translatesAutoresizingMaskIntoConstraints = false
