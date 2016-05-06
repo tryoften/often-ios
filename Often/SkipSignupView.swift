@@ -29,7 +29,7 @@ class SkipSignupView: UIView {
         
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.text = "Creating an account lets you save all your\n favorite lyrics to the keyboard"
+        subtitleLabel.text = "Creating an account lets you save all your\n favorite packs to the keyboard"
         subtitleLabel.font = UIFont(name: "OpenSans", size: 12.0)
         subtitleLabel.textAlignment = .Center
         subtitleLabel.numberOfLines = 2
