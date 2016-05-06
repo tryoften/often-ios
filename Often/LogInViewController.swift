@@ -46,15 +46,15 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         ]
         
         pageTitle = [
-            "Packs. Packs. Packs.",
-            "Super Easy Switching",
-            "Unique Categories"
+            "Share lyrics, quotes & GIFS",
+            "Share Everywhere",
+            "Feels to Hate"
         ]
         
         pagesubTitle = [
-            "Share curated quotes & GIFs by\n theme, all in just one keyboard",
-            "Toggling through packs is a 1000x\n easier than switching keyboards",
-            "Categories are unique to each pack. Find\n the perfect response every time"
+            "Pick packs from TV Shows, Artists, \n Movies, Tweets, Sports & More",
+            "Easily switch packs and share your\n favorite things in any app",
+            "Sort by categories and find the\n perfect response every time"
         ]
         
         super.init(viewModel: viewModel)
@@ -131,7 +131,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         let title = NSMutableAttributedString(string: titleString)
         
         title.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 15)!, range: titleRange)
-        title.addAttribute(NSKernAttributeName, value: 2, range: titleRange)
+        title.addAttribute(NSKernAttributeName, value: 1, range: titleRange)
         
         let subtitleString = pagesubTitle[currentPage]
         let subtitleRange = NSMakeRange(0, subtitleString.characters.count)

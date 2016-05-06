@@ -50,7 +50,7 @@ class AlertView: SpringView {
         titleLabel.font = UIFont(name: "Montserrat", size: 18)
         titleLabel.textColor = WalkthroughTitleFontColor
         titleLabel.alpha = 0.90
-        titleLabel.text = "Major Key Alert"
+        titleLabel.text = "Hey Good Lookin'"
 
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
