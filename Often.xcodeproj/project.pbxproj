@@ -1214,15 +1214,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		30A402071BC46FF600BF0C0E /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 11;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		30E00C701BC8523500DDF24C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2870,11 +2861,9 @@
 				8180E62E1A142199007FA1CF /* Frameworks */,
 				8180E62F1A142199007FA1CF /* Resources */,
 				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
-				30A402071BC46FF600BF0C0E /* CopyFiles */,
-				81A281CE1BF4C0780099419A /* ShellScript */,
-				8192A7C41C62404D00B25AC6 /* Run Script */,
 				813B27DF1C69A9F3003B6110 /* Upload symbols to crashlytics */,
 				9E8AD1A6983BB88BF76ACB5A /* Embed Pods Frameworks */,
+				8192A7C41C62404D00B25AC6 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -3465,19 +3454,6 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\nrm -fr Frameworks\nfi";
 		};
-		81A281CE1BF4C0780099419A /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nif [[ -d \"Frameworks\" ]]; then\nrm -fr Frameworks\nfi";
-		};
 		81B2EE761BF49FDA00C9B15B /* Copy Frameworks (Carthage) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3485,6 +3461,12 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Spring.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/EmitterKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FLAnimatedImage.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Nuke.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/NukeAlamofirePlugin.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/NukeAnimatedImagePlugin.framework",
 			);
 			name = "Copy Frameworks (Carthage)";
 			outputPaths = (
