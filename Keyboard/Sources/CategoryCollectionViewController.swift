@@ -17,7 +17,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     private var dismissalView: UIView
     private var cancelBarView: KeyboardCancelBar
     private var categoriesCollectionView: UICollectionView
-    private var viewModel: BrowseViewModel
+    private var viewModel: PackItemViewModel
     private var categoryServiceListener: Listener?
     private var categories: [Category] = [] {
         didSet {
@@ -28,7 +28,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         }
     }
 
-    init(viewModel: BrowseViewModel, categories: [Category]) {
+    init(viewModel: PackItemViewModel, categories: [Category]) {
         cancelBarView = KeyboardCancelBar()
         cancelBarView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -115,27 +115,25 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             let category = categories[indexPath.row]
             cell.title = category.name
 
-            if let image = category.smallImageURL, let pathExtension = image.pathExtension {
-                if pathExtension == "gif" {
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                        let data = NSData(contentsOfURL: image)
-                        let animatedImage = FLAnimatedImage(animatedGIFData: data)
-                        dispatch_async(dispatch_get_main_queue()) {
-                            cell.backgroundImageView.animatedImage = animatedImage
-                        }
-                    }
-                } else {
+            if categories[indexPath.row].id == Category.all.id {
+                if let image = viewModel.pack?.smallImageURL {
                     cell.backgroundImageView.nk_setImageWith(image)
                 }
-                cell.backgroundImageView.frame = cell.bounds
+
+            } else {
+                if let image = category.smallImageURL {
+                    cell.backgroundImageView.nk_setImageWith(image)
+                }
             }
         }
-        
+
+
         if viewModel.currentCategory == categories[indexPath.row] {
             cell.selected = true
         } else {
             cell.selected = false
         }
+
 
         return cell
     }
