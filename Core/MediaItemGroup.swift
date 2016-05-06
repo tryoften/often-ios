@@ -14,17 +14,18 @@ class MediaItemGroup: Equatable {
     private var originalItems: [MediaItem] = []
     var items: [MediaItem] {
         get {
-            if filteredItems.isEmpty {
+            guard  let _ = currentFilterCategory else {
                 return originalItems
-            } else {
-                return filteredItems
             }
+                return filteredItems
+
         }
         
         set {
             originalItems = newValue
         }
    }
+    var currentFilterCategory: Category?
     var score: Int?
     var title: String?
     var type: MediaType = .Other
@@ -85,6 +86,7 @@ class MediaItemGroup: Equatable {
     
     func filterMediaItems(category: Category) {
         filteredItems = []
+        currentFilterCategory = category
         
         for item in originalItems {
             // Check for filters, if present applies them
@@ -104,7 +106,8 @@ class MediaItemGroup: Equatable {
             }
             return true
         }
-        
+
+
         if category.id == Category.all.id {
             return false
         }
