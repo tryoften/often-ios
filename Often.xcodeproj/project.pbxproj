@@ -1071,6 +1071,10 @@
 		81DA3F671C24BE85006822D3 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18B1B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf */; };
 		81DA3F691C24BE85006822D3 /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		81DA3F701C24BE85006822D3 /* Spring.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30E00C761BC86C3D00DDF24C /* Spring.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81DED4FF1CDBECA400A34056 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080E11CC557F3009DA5E8 /* Alamofire.framework */; };
+		81DED5001CDBECA400A34056 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080E11CC557F3009DA5E8 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		81DED5011CDBECD700A34056 /* FLAnimatedImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C081051CC5769F009DA5E8 /* FLAnimatedImage.framework */; };
+		81DED5021CDBECD700A34056 /* FLAnimatedImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81C081051CC5769F009DA5E8 /* FLAnimatedImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		81DF4BB41BB3477B008B1A38 /* SearchResultsCellOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DF4BB31BB3477B008B1A38 /* SearchResultsCellOverlayView.swift */; };
 		81DF4BBE1BB49371008B1A38 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		81E26D801B65B09E00FC1F2F /* LayoutConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E26D7E1B65B09D00FC1F2F /* LayoutConstants.swift */; };
@@ -1225,8 +1229,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				81DED5001CDBECA400A34056 /* Alamofire.framework in Embed Frameworks */,
 				30E00C781BC86C3D00DDF24C /* Spring.framework in Embed Frameworks */,
 				81C081041CC57462009DA5E8 /* Nuke.framework in Embed Frameworks */,
+				81DED5021CDBECD700A34056 /* FLAnimatedImage.framework in Embed Frameworks */,
 				81C081001CC57462009DA5E8 /* NukeAnimatedImagePlugin.framework in Embed Frameworks */,
 				81C081021CC57462009DA5E8 /* NukeAlamofirePlugin.framework in Embed Frameworks */,
 			);
@@ -1777,12 +1783,14 @@
 				81C081031CC57462009DA5E8 /* Nuke.framework in Frameworks */,
 				3B25C6D01C861F3A00C1BD74 /* Foundation.framework in Frameworks */,
 				3B25C6AD1C861F3A00C1BD74 /* Security.framework in Frameworks */,
+				81DED5011CDBECD700A34056 /* FLAnimatedImage.framework in Frameworks */,
 				3B25C6D51C861F3A00C1BD74 /* Fabric.framework in Frameworks */,
 				81794EDB1A81E633009D4A71 /* CoreLocation.framework in Frameworks */,
 				3B25C6991C861F3A00C1BD74 /* CoreGraphics.framework in Frameworks */,
 				813B27E61C69B01E003B6110 /* SystemConfiguration.framework in Frameworks */,
 				3B25C6B21C861F3A00C1BD74 /* CoreMedia.framework in Frameworks */,
 				81794ED91A81E62D009D4A71 /* CoreGraphics.framework in Frameworks */,
+				81DED4FF1CDBECA400A34056 /* Alamofire.framework in Frameworks */,
 				3B25C6C11C861F3A00C1BD74 /* CoreData.framework in Frameworks */,
 				3B25C6B71C861F3A00C1BD74 /* CoreText.framework in Frameworks */,
 				81794ED71A81E621009D4A71 /* AudioToolbox.framework in Frameworks */,
@@ -4516,8 +4524,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -4547,7 +4555,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "5ee935e7-59c8-40fb-a4b6-5299ff3ae464";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4560,8 +4568,8 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4590,7 +4598,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DKEYBOARD";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6228a5d6-3348-4a10-a298-02eb9877e260";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

@@ -100,7 +100,7 @@ class EmptyStateView: UIView {
         primaryButton = UIButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         primaryButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        primaryButton.layer.cornerRadius = 4.0
+        primaryButton.layer.cornerRadius = 20.0
         primaryButton.clipsToBounds = true
         primaryButton.hidden = true
         

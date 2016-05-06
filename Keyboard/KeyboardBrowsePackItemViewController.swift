@@ -170,6 +170,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                         return sectionView
                 }
 
+                sectionView.artistImageView.image = nil
+
                 if let imageURL = self.packViewModel.pack?.smallImageURL {
                     sectionView.artistImageURL = imageURL
                 }

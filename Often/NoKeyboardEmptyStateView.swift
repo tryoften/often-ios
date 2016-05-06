@@ -24,6 +24,7 @@ class NoKeyboardEmptyStateView: EmptyStateView {
         imageSize = .Large
         
         primaryButton.backgroundColor = TealColor
+        primaryButton.setTitleColor(WhiteColor , forState: .Normal)
         primaryButton.setTitle("go to settings".uppercaseString, forState: .Normal)
         primaryButton.hidden = false
         primaryButton.userInteractionEnabled = true

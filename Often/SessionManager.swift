@@ -20,7 +20,7 @@ class SessionManager: NSObject, AccountManagerDelegate {
     }
 
     override init() {
-        let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
+        let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)!
         Analytics.setupWithConfiguration(configuration)
         Analytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
