@@ -98,7 +98,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         super.viewDidAppear(animated)
         updateReachabilityView()
     }
-    
+
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as? BrowsePackHeaderView else {

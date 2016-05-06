@@ -12,7 +12,7 @@ import Foundation
     var BaseURL = "https://often-dev.firebaseio.com/"
     let KeyboardIdentifier = "com.tryoften.often.master.Keyboard"
 #else
-    var BaseURL = "https://often-dev.firebaseio.com/"
+    var BaseURL = "https://often-prod.firebaseio.com/"
     let KeyboardIdentifier = "com.tryoften.often.Keyboard"
 #endif
 var AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
