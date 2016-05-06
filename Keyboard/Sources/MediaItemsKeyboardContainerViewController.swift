@@ -35,21 +35,24 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
 
+        self.view.backgroundColor = DefaultTheme.keyboardBackgroundColor
+
         dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
             #if !(KEYBOARD_DEBUG)
-            Fabric.sharedSDK().debug = true
-            Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
-            Flurry.startSession(FlurryClientKey)
             Firebase.defaultConfig().persistenceEnabled = true
-            self.setupImageManager()
+            delay(0.5) {
+                Fabric.sharedSDK().debug = true
+                Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
+                Flurry.startSession(FlurryClientKey)
+                self.setupImageManager()
+                self.viewModel = KeyboardViewModel()
+            }
             #endif
         }
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didRemoveMediaItem), name: "mediaItemRemoved", object: nil)
 
-        self.viewModel = KeyboardViewModel()
-        self.view.backgroundColor = DefaultTheme.keyboardBackgroundColor
         self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
         self.textProcessor?.delegate = self
         self.packsVC = KeyboardBrowsePackItemViewController(viewModel: PacksService.defaultInstance, textProcessor: self.textProcessor)

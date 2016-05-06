@@ -20,8 +20,7 @@ class SessionManager: NSObject, AccountManagerDelegate {
     }
 
     override init() {
-        let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
-        Analytics.setupWithConfiguration(configuration)
+        Analytics.setupWithConfiguration(SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey))
         Analytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
         Firebase.defaultConfig().persistenceEnabled = true

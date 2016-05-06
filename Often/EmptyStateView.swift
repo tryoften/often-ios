@@ -100,9 +100,10 @@ class EmptyStateView: UIView {
         primaryButton = UIButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         primaryButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        primaryButton.layer.cornerRadius = 4.0
+        primaryButton.layer.cornerRadius = 20.0
         primaryButton.clipsToBounds = true
         primaryButton.hidden = true
+        primaryButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18)
         
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -156,9 +157,7 @@ class EmptyStateView: UIView {
             
             primaryButton.al_centerX == al_centerX,
             primaryButton.al_top == descriptionLabel.al_bottom + 20,
-            primaryButton.al_left == al_left + 30,
-            primaryButton.al_right == al_right - 30,
-            primaryButton.al_height == 50,
+            primaryButton.al_height == 40,
             
             closeButton.al_height == 40,
             closeButton.al_width == 40,
