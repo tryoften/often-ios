@@ -82,7 +82,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     func showFullAccessMessageIfNeeded() {
         if !isFullAccessEnabled {
             showEmptyStateViewForState(.NoKeyboard, completion: { view in
-                view.primaryButton.setTitle("Go To Settings", forState: .Normal)
                 view.imageViewTopConstraint?.constant = -100
                 view.titleLabel.text = "You forgot to allow Full-Access"
                 view.primaryButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.didTapGoToSettingsButton), forControlEvents: .TouchUpInside)
