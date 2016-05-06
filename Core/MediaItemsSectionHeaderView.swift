@@ -144,4 +144,10 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         ])
     }
 
+    override func prepareForReuse() {
+        artistImageView.image = nil
+        rightLabel.text = nil
+        leftLabel.text = nil
+    }
+
 }
