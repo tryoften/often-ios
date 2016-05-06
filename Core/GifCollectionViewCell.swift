@@ -15,7 +15,7 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
     private var backgroundImageView: FLAnimatedImageView
     private var progressView: UIProgressView
     
-    var animatedImage: FLAnimatedImage {
+    var animatedImage: FLAnimatedImage? {
         return backgroundImageView.animatedImage
     }
 
