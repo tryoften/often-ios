@@ -27,7 +27,7 @@ class LoginView: UIView {
     }
     
     override init(frame: CGRect) {
-        let titleString = "Share lyrics, quotes & GIFS".uppercaseString
+        let titleString = "Share lyrics, quotes & GIFS"
         let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
         let subtitleString = "Pick packs from TV Shows, Artists, \n Movies, Tweets, Sports & More"

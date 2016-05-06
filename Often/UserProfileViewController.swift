@@ -145,7 +145,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
 
     func reloadUserData() {
         if let headerView = headerView, let user = SessionManager.defaultManager.currentUser {
-            headerView.sharedText = "\(user.shareCount) snippets shared"
+            headerView.sharedText = "\(user.shareCount) Quotes & Gifs shared"
             headerView.nameLabel.text = user.name
             headerView.collapseNameLabel.text = user.name
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)

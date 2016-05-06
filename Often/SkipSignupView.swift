@@ -23,7 +23,7 @@ class SkipSignupView: UIView {
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Don't play yourself, sign up"
+        titleLabel.text = "Do you even love me?"
         titleLabel.textAlignment = .Center
         titleLabel.font = UIFont(name: "Montserrat", size: 15.0)
         
