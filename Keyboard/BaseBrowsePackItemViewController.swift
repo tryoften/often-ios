@@ -10,7 +10,6 @@ import Foundation
 import Nuke
 import NukeAnimatedImagePlugin
 import FLAnimatedImage
-import Material
 
 let gifCellReuseIdentifier = "gifCellIdentifier"
 

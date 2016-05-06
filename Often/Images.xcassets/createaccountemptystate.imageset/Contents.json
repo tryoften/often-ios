@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "emptyaccount - 1x.png",
+      "filename" : "nofullaccess - 1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "emptyaccount - 2x.png",
+      "filename" : "nofullaccess - 2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "emptyaccount - 3x.png",
+      "filename" : "nofullaccess - 3x.png",
       "scale" : "3x"
     }
   ],

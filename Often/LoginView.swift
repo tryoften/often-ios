@@ -27,14 +27,14 @@ class LoginView: UIView {
     }
     
     override init(frame: CGRect) {
-        let titleString = "packs. packs. packs.".uppercaseString
+        let titleString = "Share lyrics, quotes & GIFS".uppercaseString
         let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
-        let subtitleString = "Packs are curated quotes & GIFs by \n theme, all in just one keyboard"
+        let subtitleString = "Pick packs from TV Shows, Artists, \n Movies, Tweets, Sports & More"
         let subtitleRange = NSMakeRange(0, subtitleString.characters.count)
         let subtitle = NSMutableAttributedString(string: subtitleString)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 3
+        paragraphStyle.lineSpacing = 2
         
         subtitle.addAttribute(NSParagraphStyleAttributeName, value:paragraphStyle, range:subtitleRange)
         subtitle.addAttribute(NSFontAttributeName, value: UIFont(name: "OpenSans", size: 13)!, range: subtitleRange)
