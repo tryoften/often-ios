@@ -28,7 +28,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             self.collectionView?.reloadData()
         }
         
-        collectionView?.backgroundColor = WhiteColor
+        collectionView?.backgroundColor = VeryLightGray
         collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
     }
     
