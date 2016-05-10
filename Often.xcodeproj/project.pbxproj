@@ -150,7 +150,6 @@
 		3B75E50E1C6E6479008D4CE3 /* MediaItemPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810B05051C47357E00BA731B /* MediaItemPageHeaderView.swift */; };
 		3B75E5111C6E6B1B008D4CE3 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		3B75E5121C6E6B1B008D4CE3 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
-		3B9573911CD9591B00C9821B /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; };
 		3B9991D61C7E4E9B00C60A99 /* AnimatedLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */; };
 		3B9991D71C7E4E9B00C60A99 /* AnimatedLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */; };
 		3BA021511C6A999600FE9009 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA0214F1C6A999600FE9009 /* Analytics.swift */; };
@@ -1843,7 +1842,6 @@
 				81DA3F3D1C24BE85006822D3 /* libstdc++.6.dylib in Frameworks */,
 				3B25C6DB1C861F3A00C1BD74 /* TwitterKit.framework in Frameworks */,
 				3B25C69F1C861F3A00C1BD74 /* AVFoundation.framework in Frameworks */,
-				3B9573911CD9591B00C9821B /* Material.framework in Frameworks */,
 				81DA3F3E1C24BE85006822D3 /* libsqlite3.dylib in Frameworks */,
 				3B25C6BD1C861F3A00C1BD74 /* MediaPlayer.framework in Frameworks */,
 				3B25C6E51C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */,

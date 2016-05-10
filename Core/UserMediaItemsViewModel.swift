@@ -13,7 +13,12 @@ class UserMediaItemsViewModel: MediaItemsViewModel {
     let userId: String
 
     override init(baseRef: Firebase = Firebase(url: BaseURL), collectionType: MediaItemsCollectionType) {
-        userId = SessionManagerFlags.defaultManagerFlags.userId!
+        if let userId = SessionManagerFlags.defaultManagerFlags.userId {
+            self.userId = userId
+        } else {
+            self.userId = "default"
+        }
+        
         userRef = baseRef.childByAppendingPath("users/\(userId)")
 
         super.init(baseRef: baseRef, collectionType: collectionType)

@@ -30,7 +30,12 @@ class PacksService: PackItemViewModel {
     }
 
     init() {
-        userId = SessionManagerFlags.defaultManagerFlags.userId!
+        if let userId = SessionManagerFlags.defaultManagerFlags.userId {
+            self.userId = userId
+        } else {
+            self.userId = "default"
+        }
+        
         mediaItems = []
         userRef = Firebase(url: BaseURL).childByAppendingPath("users/\(userId)")
         collectionEndpoint = Firebase(url: BaseURL).childByAppendingPath("users/\(userId)/packs")

@@ -37,7 +37,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
 
     deinit {
-        packCollectionListener?.stopListening()
         packCollectionListener = nil
     }
     
