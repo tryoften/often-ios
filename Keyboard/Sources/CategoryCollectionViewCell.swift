@@ -40,6 +40,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         backgroundImageView = UIImageView()
+        backgroundImageView.contentMode = .ScaleAspectFill
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
 
         tintView = UIImageView()
