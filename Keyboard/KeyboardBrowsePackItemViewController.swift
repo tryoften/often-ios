@@ -50,8 +50,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     deinit {
-        packCollectionListener?.stopListening()
-        packServiceListener?.stopListening()
         packServiceListener = nil
         packCollectionListener = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -67,11 +65,15 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     override func viewDidLoad() {
         super.viewDidLoad()
         showLoadingView()
+
+        delay(0.5) {
+            self.showFullAccessMessageIfNeeded()
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        showFullAccessMessageIfNeeded()
+
     }
 
     override func viewWillLayoutSubviews() {
@@ -81,6 +83,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     func showFullAccessMessageIfNeeded() {
         if !isFullAccessEnabled {
+            hideLoadingView()
             showEmptyStateViewForState(.NoKeyboard, completion: { view in
                 view.imageViewTopConstraint?.constant = -100
                 view.titleLabel.text = "You forgot to allow Full-Access"
@@ -88,7 +91,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 self.view.bringSubviewToFront(view)
                 self.view.bringSubviewToFront(self.tabBar)
             })
-
         } else {
             hideEmptyStateView()
         }
@@ -241,7 +243,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         if isFullAccessEnabled {
             super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
         }
-        showFullAccessMessageIfNeeded()
 
         guard let viewModel = viewModel as? PackItemViewModel, _ = viewModel.pack else {
             return
