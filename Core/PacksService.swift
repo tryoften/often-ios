@@ -174,9 +174,11 @@ class PacksService: PackItemViewModel {
         let userQueue = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
         userQueue.setValue([
             "type": "editPackSubscription",
-            "operation": task,
-            "user": userId,
-            "packId": result.id,
+            "userId": userId,
+            "data": [
+                "packId": result.id,
+                "operation": task
+            ],
             "result": result.toDictionary()
         ])
 
