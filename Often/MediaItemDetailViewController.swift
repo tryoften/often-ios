@@ -105,7 +105,6 @@ class MediaItemDetailViewController: UIViewController {
 
     func favoriteButtonDidTap(sender: UIButton) {
         sender.selected = !sender.selected
-        FavoritesService.defaultInstance.toggleFavorite(sender.selected, result: item)
         dismissViewControllerAnimated(true, completion: nil)
     }
 

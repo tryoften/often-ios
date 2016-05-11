@@ -251,8 +251,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         guard let result = cell.mediaLink else {
             return
         }
-        
-        FavoritesService.defaultInstance.toggleFavorite(selected, result: result)
+    
         cell.itemFavorited = selected
     }
 }
