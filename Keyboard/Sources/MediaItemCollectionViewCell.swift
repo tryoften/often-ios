@@ -21,12 +21,10 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
     var centerMetadataLabel: UILabel
     var rightMetadataLabel: UILabel
     var rightCornerImageView: UIImageView
-    var overlayView: SearchResultsCellOverlayView
     var favoriteRibbon: UIImageView
     var contentEdgeInsets: UIEdgeInsets
     var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
-
     var bottomSeperator: UIView
 
     private var contentImageViewWidthConstraint: NSLayoutConstraint
@@ -77,36 +75,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         }
     }
     
-    override var overlayVisible: Bool {
-        didSet {
-            if overlayVisible {
-                overlayView.hidden = false
-                overlayView.showButtons {}
-                overlayView.favoriteButton.selected = itemFavorited
-            } else {
-                UIView.animateWithDuration(0.2, animations: {
-                    self.overlayView.alpha = 0.0
-                }, completion: { done in
-                    self.overlayView.hidden = true
-                    self.overlayView.alpha = 1.0
-                })
-            }
-        }
-    }
-    
-    override var itemFavorited: Bool {
-        didSet {
-            overlayView.favoriteButton.selected = itemFavorited
-            favoriteRibbon.hidden = !itemFavorited
-        }
-    }
-    
-    var inMainApp: Bool {
-        didSet {
-            showCopyButton()
-        }
-    }
-    
+
 
     override init(frame: CGRect) {
         metadataContentView = UIView()
@@ -185,12 +154,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         
         contentImageViewWidthConstraint = contentImageView.al_width == 105
         avatarImageViewWidthConstraint = sourceLogoView.al_width == 0
-        
-        overlayView = SearchResultsCellOverlayView()
-        overlayView.hidden = true
-        overlayView.translatesAutoresizingMaskIntoConstraints = false
-        
-        inMainApp = false
+
         showImageView = true
         
         super.init(frame: frame)
@@ -208,7 +172,6 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         contentView.addSubview(contentPlaceholderImageView)
         contentView.addSubview(contentImageView)
         contentView.addSubview(favoriteRibbon)
-        contentView.addSubview(overlayView)
         contentView.addSubview(bottomSeperator)
         
         metadataContentView.addSubview(sourceLogoView)
@@ -224,17 +187,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         setupLayout()
         setupCellStyle()
         layoutIfNeeded()
-        
-        overlayView.favoriteButton.addTarget(self, action: "didTapFavoriteButton:", forControlEvents: .TouchUpInside)
-        overlayView.cancelButton.addTarget(self, action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
-        overlayView.doneButton.addTarget(self, action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
-        overlayView.insertButton.addTarget(self, action: "didTapInsertButton:", forControlEvents: .TouchUpInside)
-        overlayView.copyButton.addTarget(self, action: "didTapCopyButton:", forControlEvents: .TouchUpInside)
-        
-        for button in [overlayView.favoriteButton, overlayView.insertButton, overlayView.copyButton, overlayView.doneButton] {
-            button.addTarget(self, action: "didTouchUpButton:", forControlEvents: .TouchUpInside)
-        }
-        
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -256,7 +209,6 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         rightMetadataLabel.text = ""
         rightCornerImageView.image = nil
         showImageView = true
-        overlayView.hidden = true
     }
 
     func setupCellType() {
@@ -290,115 +242,6 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         }
     }
 
-    func prepareOverlayView() {
-        overlayView.middleLabel.text = "cancel".uppercaseString
-        overlayView.rightLabel.text = "send".uppercaseString
-        overlayView.leftLabel.text = "favorite".uppercaseString
-        overlayView.cancelButton.hidden = false
-        overlayView.doneButton.hidden = true
-        overlayView.copyButton.selected = false
-        showCopyButton()
-    }
-   
-    func didTapFavoriteButton(button: SpringButton) {
-        overlayView.favoriteButton.selected = !overlayView.favoriteButton.selected
-        updatedButtonLabels(button)
-        
-        delegate?.mediaLinkCollectionViewCellDidToggleFavoriteButton(self, selected: overlayView.favoriteButton.selected)
-    }
-    
-    
-    func didTapCancelButton(button: SpringButton) {
-        overlayView.cancelButton.selected = !overlayView.cancelButton.selected
-        delegate?.mediaLinkCollectionViewCellDidToggleCancelButton(self, selected: overlayView.cancelButton.selected)
-    }
-    
-    func didTapInsertButton(button: SpringButton) {
-        overlayView.insertButton.selected = !overlayView.insertButton.selected
-        updatedButtonLabels(button)
-        delegate?.mediaLinkCollectionViewCellDidToggleInsertButton(self, selected: overlayView.insertButton.selected)
-    }
-    
-    func didTapCopyButton(button: SpringButton) {
-        overlayView.copyButton.selected = !overlayView.copyButton.selected
-        updatedButtonLabels(button)
-        delegate?.mediaLinkCollectionViewCellDidToggleCopyButton(self, selected: overlayView.copyButton.selected)
-    }
-    
-    func didTouchUpButton(button: SpringButton?) {
-        if let button = button {
-            animateButton(button)
-        }
-    }
-    
-    //MARK: Button Animation
-    func animateButton(button: SpringButton) {
-        if !(button == overlayView.insertButton || button == overlayView.copyButton) {
-            button.animation = "pop"
-            button.duration = 0.3
-            button.curve = "easeIn"
-        }
-        
-        button.animate()
-        
-        if button == overlayView.insertButton {
-            if overlayView.insertButton.selected {
-                UIView.animateWithDuration(0.3, animations: {
-                    button.transform = CGAffineTransformMakeRotation((180.0 * CGFloat(M_PI)) / 180.0)
-                })
-            }
-        }
-        
-        if button == overlayView.copyButton {
-            if overlayView.copyButton.selected {
-                UIView.animateWithDuration(0.3, animations: {
-                    button.transform = CGAffineTransformMakeRotation((90.0 * CGFloat(M_PI)) / 180.0)
-                })
-            }
-        }
-    }
-    
-    //MARK: Show Buttons
-    func showCopyButton() {
-        if inMainApp {
-            self.overlayView.copyButton.hidden = !self.inMainApp
-            self.overlayView.rightLabel.text = "copy".uppercaseString
-            self.overlayView.insertButton.hidden = self.inMainApp
-        }
-    }
-
-    func updatedButtonLabels(button: SpringButton) {
-        if button == overlayView.favoriteButton {
-            if overlayView.favoriteButton.selected {
-                overlayView.leftLabel.text = "saved!".uppercaseString
-            } else {
-                overlayView.leftLabel.text = "Favorite".uppercaseString
-            }
-        }
-        
-        if button == overlayView.insertButton {
-            if overlayView.insertButton.selected {
-                overlayView.rightLabel.text = "Remove".uppercaseString
-            } else {
-                overlayView.rightLabel.text = "send".uppercaseString
-            }
-        }
-
-        if button == overlayView.copyButton {
-            if overlayView.copyButton.selected {
-                overlayView.rightLabel.text = "Copied".uppercaseString
-            } else {
-                overlayView.rightLabel.text = "Copy".uppercaseString
-            }
-
-        }
-
-        overlayView.cancelButton.hidden = true
-        overlayView.middleLabel.text = "Done".uppercaseString
-        overlayView.doneButton.hidden = false
-    }
-   
-    
     func setupLayout() {
         mainTextLabelCenterConstraint = mainTextLabel.al_centerY == al_centerY
 
@@ -461,10 +304,6 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
             favoriteRibbon.al_right == al_right,
             favoriteRibbon.al_bottom == al_bottom,
             
-            overlayView.al_top == contentView.al_top,
-            overlayView.al_bottom == contentView.al_bottom,
-            overlayView.al_left == contentView.al_left,
-            overlayView.al_right == contentView.al_right
         ])
     }
 }
