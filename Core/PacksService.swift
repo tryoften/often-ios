@@ -30,7 +30,12 @@ class PacksService: PackItemViewModel {
     }
 
     init() {
-        userId = SessionManagerFlags.defaultManagerFlags.userId!
+        if let userId = SessionManagerFlags.defaultManagerFlags.userId {
+            self.userId = userId
+        } else {
+            self.userId = "default"
+        }
+        
         mediaItems = []
         userRef = Firebase(url: BaseURL).childByAppendingPath("users/\(userId)")
         collectionEndpoint = Firebase(url: BaseURL).childByAppendingPath("users/\(userId)/packs")
@@ -169,9 +174,11 @@ class PacksService: PackItemViewModel {
         let userQueue = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
         userQueue.setValue([
             "type": "editPackSubscription",
-            "operation": task,
-            "user": userId,
-            "packId": result.id,
+            "userId": userId,
+            "data": [
+                "packId": result.id,
+                "operation": task
+            ],
             "result": result.toDictionary()
         ])
 

@@ -36,7 +36,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
 
     deinit {
-        favoritesCollectionListener?.stopListening()
         favoritesCollectionListener = nil
     }
 

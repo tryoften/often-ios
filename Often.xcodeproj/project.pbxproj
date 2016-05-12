@@ -1457,8 +1457,6 @@
 				81DA3F3D1C24BE85006822D3 /* libstdc++.6.dylib in Frameworks */,
 				3B25C6DB1C861F3A00C1BD74 /* TwitterKit.framework in Frameworks */,
 				3B25C69F1C861F3A00C1BD74 /* AVFoundation.framework in Frameworks */,
-				3B309D691CE39C36005B9942 /* Material.framework in Frameworks */,
-				3B309D671CE39C29005B9942 /* Material.framework in Frameworks */,
 				81DA3F3E1C24BE85006822D3 /* libsqlite3.dylib in Frameworks */,
 				3B25C6BD1C861F3A00C1BD74 /* MediaPlayer.framework in Frameworks */,
 				3B25C6E51C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */,
