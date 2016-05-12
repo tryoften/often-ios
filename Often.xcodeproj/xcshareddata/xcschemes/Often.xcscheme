@@ -85,7 +85,7 @@
       buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Crashlytics"
+      buildConfiguration = "Production"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
