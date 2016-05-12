@@ -13,11 +13,7 @@ class MediaItem: Equatable {
     var id: String = ""
     var type: MediaType = .Other
     var score: Double = 0.0
-    var source: MediaItemSource = .Unknown
     var category: Category?
-    var sourceName: String {
-        return getNameForSource()
-    }
     var smallImageURL: NSURL?
     var squareImageURL: NSURL?
     var mediumImageURL: NSURL?
@@ -74,10 +70,6 @@ class MediaItem: Equatable {
             self.score = score
         }
 
-        if let sourceStr = data["source"] as? String, let source = MediaItemSource(rawValue: sourceStr) {
-            self.source = source
-        }
-
         if let time_added = data["time_added"] as? Double {
             let date = NSDate(timeIntervalSince1970: time_added / 1000.0)
             self.created = date
@@ -126,10 +118,6 @@ class MediaItem: Equatable {
 
     }
 
-    func iconImageForSource() -> UIImage? {
-        return UIImage(named: source.rawValue)
-    }
-    
     func getInsertableText() -> String {
         return ""
     }
@@ -138,8 +126,7 @@ class MediaItem: Equatable {
         var data: [String: AnyObject] = [
             "_id": id,
             "id": id,
-            "type": type.rawValue,
-            "source": source.rawValue
+            "type": type.rawValue
         ]
         
         if let time = created {

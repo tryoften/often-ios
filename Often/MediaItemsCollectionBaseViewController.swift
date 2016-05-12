@@ -201,18 +201,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 cell.contentImageView.nk_setImageWith(imageURL)
             }
             
-            switch result.source {
-            case .Spotify:
-                cell.leftHeaderLabel.text = "Spotify"
-                cell.mainTextLabel.text = "\(track.name)"
-                cell.leftMetadataLabel.text = track.artist_name
-                cell.rightMetadataLabel.text = track.album_name
-            case .Soundcloud:
-                cell.leftHeaderLabel.text = track.artist_name
-                cell.leftMetadataLabel.text = track.formattedPlays()
-            default:
-                break
-            }
         case .Video:
             let video = (result as! VideoMediaItem)
             cell.mainTextLabel.text = video.title
