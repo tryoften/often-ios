@@ -30,6 +30,13 @@ let SoundcloudConsumerSecret = "c0d98423d7a0afa24e40a419cea0c141"
 let OftenCallbackURL = "tryoften://"
 let AppSuiteName = "group.com.tryoften.often"
 let CrashlyticsAPIKey = "e4598140f72849daf847791f325b1eabae27a254"
+let ShiftStateUserDefaultsKey = "kShiftState"
+let SwitchKeyboardEvent = "switchKeyboard"
+let CollapseKeyboardEvent = "collapseKeyboard"
+let RestoreKeyboardEvent = "restoreKeyboard"
+let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
+let KeyboardOrientationChangeEvent = "orientationChange"
+let BackToKeyboardButtonPressedEvent = "BackToKeyboardButtonPressed"
 
 
 // Colors
