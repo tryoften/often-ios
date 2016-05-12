@@ -185,13 +185,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.reset()
         
         switch result.type {
-        case .Article:
-            let article = (result as! ArticleMediaItem)
-            cell.mainTextLabel.text = article.title
-            cell.leftMetadataLabel.text = article.author
-            cell.leftHeaderLabel.text = article.sourceName
-            cell.rightMetadataLabel.text = article.date?.timeAgoSinceNow()
-            cell.centerMetadataLabel.text = nil
         case .Track:
             let track = (result as! TrackMediaItem)
             cell.mainTextLabel.text = track.name
@@ -253,7 +246,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 return
         }
 
-        cell.overlayVisible = false
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

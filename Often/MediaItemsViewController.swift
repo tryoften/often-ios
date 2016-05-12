@@ -21,8 +21,6 @@ let MediaItemsSectionHeaderViewReuseIdentifier = "MediaItemsSectionHeader"
 
 class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaItemsViewModelDelegate {
     var viewModel: MediaItemsViewModel
-    var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
-    var alphabeticalSidebar: CollectionViewAlphabeticalSidebar?
     var hasFetchedData: Bool
     var collectionType: MediaItemsCollectionType {
         didSet {
@@ -53,24 +51,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
             collectionView.registerClass(MediaItemsSectionHeaderView.self,
                 forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
                 withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
-        }
-    }
-
-    func setupAlphabeticalSidebar() {
-        alphabeticalSidebar = CollectionViewAlphabeticalSidebar(frame: CGRectZero, indexTitles: AlphabeticalSidebarIndexTitles)
-
-        if let alphabeticalSidebar = alphabeticalSidebar {
-            alphabeticalSidebar.translatesAutoresizingMaskIntoConstraints = false
-            alphabeticalSidebar.addTarget(self, action: #selector(MediaItemsViewController.indexViewValueChanged(_:)), forControlEvents: .ValueChanged)
-
-            view.addSubview(alphabeticalSidebar)
-
-            view.addConstraints([
-                alphabeticalSidebar.al_right == view.al_right,
-                alphabeticalSidebar.al_width == AlphabeticalSidebarWidth,
-                alphabeticalSidebar.al_bottom == view.al_bottom - 20,
-                alphabeticalSidebar.al_top == view.al_top + KeyboardSearchBarHeight - 0.5
-            ])
         }
     }
 
@@ -221,15 +201,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
     }
 
     //TODO(luc): move this method out into a subclass
-    func provideRecentlyAddedLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
-        if lyricsHorizontalVC == nil {
-            lyricsHorizontalVC = RecentlyAddedHorizontalCollectionViewController()
-            lyricsHorizontalVC?.parentVC = self
-            lyricsHorizontalVC?.textProcessor = textProcessor
-            addChildViewController(lyricsHorizontalVC!)
-        }
-        return lyricsHorizontalVC!
-    }
 
     
     // MARK: MediaItemsViewModelDelegate

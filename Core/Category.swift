@@ -15,7 +15,6 @@ struct Category: Equatable {
     var largeImageURL: NSURL?
     static var all = Category(id: "all", name: "All", smallImageURL: nil, largeImageURL: nil)
 
-
     func toDictionary() -> [String: AnyObject] {
         return [
             "id": id,

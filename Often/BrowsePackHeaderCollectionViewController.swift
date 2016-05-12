@@ -11,8 +11,11 @@ import Nuke
 
 let BrowsePackHeaderViewIdentifier = "browseCell"
 
-class BrowsePackHeaderCollectionViewController: UIViewController, UICollectionViewDelegate,
-UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MediaItemGroupViewModelDelegate {
+class BrowsePackHeaderCollectionViewController: UIViewController,
+    UICollectionViewDelegate,
+    UICollectionViewDataSource,
+    UICollectionViewDelegateFlowLayout,
+    MediaItemGroupViewModelDelegate {
     private var viewModel: MediaItemGroupViewModel
     private var collectionView: UICollectionView
     private var currentPage: Int
