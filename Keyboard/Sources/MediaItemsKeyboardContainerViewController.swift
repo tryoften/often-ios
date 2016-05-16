@@ -11,13 +11,6 @@ import Crashlytics
 import Nuke
 import NukeAnimatedImagePlugin
 
-enum MediaItemsKeyboardSection: Int {
-    case Keyboard
-    case Favorites
-    case Recents
-    case Trending
-    case Search
-}
 
 class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewController,
     UIScrollViewDelegate,
@@ -35,17 +28,20 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         // Only setup firebase once because this view controller gets instantiated
         // everytime the keyboard is spawned
 
-        self.view.backgroundColor = DefaultTheme.keyboardBackgroundColor
+        self.view.backgroundColor =  UIColor(fromHexString: "#E9E9E9")
 
         dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
+            delay(0.5) {
+                self.setupImageManager()
+                self.viewModel = KeyboardViewModel()
+            }
+            
             #if !(KEYBOARD_DEBUG)
             Firebase.defaultConfig().persistenceEnabled = true
             delay(0.5) {
                 Fabric.sharedSDK().debug = true
                 Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
                 Flurry.startSession(FlurryClientKey)
-                self.setupImageManager()
-                self.viewModel = KeyboardViewModel()
             }
             #endif
         }
@@ -85,7 +81,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector:  #selector(MediaItemsKeyboardContainerViewController.switchKeyboard), name: SwitchKeyboardEvent, object: nil)
-        center.addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didTapEnterButton(_:)), name: KeyboardEnterKeyTappedEvent, object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -105,10 +100,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
                 return
         }
     }
-
-    func didTapEnterButton(button: KeyboardKeyButton?) {
-    }
-
+    
     func didInsertMediaItem(notification: NSNotification) {
         if let item = notification.object as? MediaItem {
             mediaItem = item

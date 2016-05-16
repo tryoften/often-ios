@@ -1,5 +1,5 @@
 //
-//  BrowsePackCollectionViewCell.swift
+//  BrowsePackHeaderCollectionViewCell.swift
 //  Often
 //
 //  Created by Komran Ghahremani on 3/22/16.

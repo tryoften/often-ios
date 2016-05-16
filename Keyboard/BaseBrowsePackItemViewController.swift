@@ -144,7 +144,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             }
 
             cell.mediaLink = gif
-            cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(gif)
             cell.delegate = self
             return cell
         case .Quote:

@@ -33,17 +33,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         super.init(collectionViewLayout: layout)
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
         collectionView?.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
-
-
-        favoritesCollectionListener = FavoritesService.defaultInstance.didChangeFavorites.on { [weak self] items in
-
-            if self?.favoriteSelected == true {
-                self?.favoriteSelected = false
-                return
-            }
-
-            self?.collectionView?.reloadData()
-        }
     }
 
     deinit {
@@ -195,13 +184,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.reset()
         
         switch result.type {
-        case .Article:
-            let article = (result as! ArticleMediaItem)
-            cell.mainTextLabel.text = article.title
-            cell.leftMetadataLabel.text = article.author
-            cell.leftHeaderLabel.text = article.sourceName
-            cell.rightMetadataLabel.text = article.date?.timeAgoSinceNow()
-            cell.centerMetadataLabel.text = nil
         case .Track:
             let track = (result as! TrackMediaItem)
             cell.mainTextLabel.text = track.name
@@ -211,18 +193,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 cell.contentImageView.nk_setImageWith(imageURL)
             }
             
-            switch result.source {
-            case .Spotify:
-                cell.leftHeaderLabel.text = "Spotify"
-                cell.mainTextLabel.text = "\(track.name)"
-                cell.leftMetadataLabel.text = track.artist_name
-                cell.rightMetadataLabel.text = track.album_name
-            case .Soundcloud:
-                cell.leftHeaderLabel.text = track.artist_name
-                cell.leftMetadataLabel.text = track.formattedPlays()
-            default:
-                break
-            }
         case .Video:
             let video = (result as! VideoMediaItem)
             cell.mainTextLabel.text = video.title
@@ -265,10 +235,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
         cell.mediaLink = result
         cell.contentImageView.image = nil
-        
         cell.delegate = self
-        cell.itemFavorited = FavoritesService.defaultInstance.checkFavorite(result)
-        
+
         return cell
     }
 
@@ -277,7 +245,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 return
         }
 
-        cell.overlayVisible = false
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -318,7 +285,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
         
         favoriteSelected = true
-        FavoritesService.defaultInstance.toggleFavorite(selected, result: result)
         cell.overlayVisible = false
     }
     

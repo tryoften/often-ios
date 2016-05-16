@@ -61,7 +61,6 @@ class SessionManager: NSObject, AccountManagerDelegate {
         firebase.unauth()
         accountManager.delegate = nil
         sessionManagerFlags.clearSessionFlags()
-        FavoritesService.defaultInstance.currentUser = nil
 
         guard let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
             return
@@ -74,7 +73,6 @@ class SessionManager: NSObject, AccountManagerDelegate {
     }
 
     func accountManagerUserDidLogin(accountManager: AccountManagerProtocol, user: User) {
-        FavoritesService.defaultInstance.currentUser = user
         delegate?.sessionManagerDidLoginUser(self, user: user)
     }
 

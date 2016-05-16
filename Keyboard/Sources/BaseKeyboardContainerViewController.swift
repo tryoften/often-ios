@@ -15,9 +15,7 @@ class BaseKeyboardContainerViewController: UIInputViewController {
     var constraintsAdded: Bool = false
     var containerView: UIView
     var keyboardExtraHeight: CGFloat
-    var keyboard: KeyboardViewController?
     var textProcessor: TextProcessingManager?
-    var emojiKeyboard: EmojiKeyboardViewController?
 
     private var kludge: UIView?
     var keyboardHeight: CGFloat {
@@ -53,7 +51,6 @@ class BaseKeyboardContainerViewController: UIInputViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        view.backgroundColor = DefaultTheme.keyboardBackgroundColor
         view.addSubview(containerView)
 
         NSUserDefaults.standardUserDefaults().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
@@ -85,45 +82,15 @@ class BaseKeyboardContainerViewController: UIInputViewController {
         setupKludge()
         containerView.frame = CGRectMake(0, 0, view.bounds.width, heightForOrientation(interfaceOrientation, withTopBanner: true))
 
-        let keyboardHeight = heightForOrientation(interfaceOrientation, withTopBanner: false)
-        if keyboard?.collapsed == true {
-            keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame), view.bounds.width, keyboardHeight)
-        } else {
-            keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame) - keyboardHeight, view.bounds.width, keyboardHeight)
-        }
     }
 
     func switchKeyboard() {
         advanceToNextInputMode()
     }
 
-    func showKeyboard(animated: Bool = false) {
-        if let textProcessor = textProcessor where keyboard == nil {
-            emojiKeyboard = EmojiKeyboardViewController(textProcessor: textProcessor)
-            keyboard = KeyboardViewController(textProcessor: textProcessor, emojiKeyboard: emojiKeyboard!)
-            containerView.addSubview(keyboard!.view)
-            containerView.addSubview(emojiKeyboard!.view)
-            emojiKeyboard?.view.frame = containerView.frame
-            keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(containerView.frame), view.bounds.width, keyboardHeight)
-        } else {
-            keyboard!.view.hidden = false
-            containerView.bringSubviewToFront(keyboard!.view)
-        }
+    func showKeyboard(animated: Bool = false) {}
 
-        UIView.animateWithDuration(animated ? 0.3 : 0.0) {
-            let keyboardHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
-            self.keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(self.containerView.frame) - keyboardHeight, self.view.bounds.width, keyboardHeight)
-        }
-    }
-
-    func hideKeyboard(animated: Bool = false) {
-        UIView.animateWithDuration(animated ? 0.3 : 0.0, animations: {
-            let keyboardHeight = self.heightForOrientation(self.interfaceOrientation, withTopBanner: false)
-            self.keyboard?.view.frame = CGRectMake(0, CGRectGetHeight(self.containerView.frame), self.view.bounds.width, keyboardHeight)
-        }, completion: { done in
-            self.keyboard?.view.hidden = true
-        })
-    }
+    func hideKeyboard(animated: Bool = false) {}
 
     override func textDidChange(textInput: UITextInput?) {
         textProcessor?.textDidChange(textInput)

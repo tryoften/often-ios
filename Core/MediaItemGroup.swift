@@ -119,8 +119,6 @@ class MediaItemGroup: Equatable {
         return false
     }
     
-    
-    
     /**
      Returns the dictionary representation for the current instance.
      

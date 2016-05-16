@@ -9,8 +9,6 @@
 import UIKit
 
 class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UICollectionViewDelegateFlowLayout {
-    var lyricsHorizontalVC: TrendingLyricsHorizontalCollectionViewController?
-    var artistsHorizontalVC: TrendingArtistsHorizontalCollectionViewController?
     var viewModel: BrowseViewModel
     var displayedData: Bool
 
@@ -23,9 +21,6 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
         self.textProcessor = textProcessor
 
         collectionView?.backgroundColor = VeryLightGray
-        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: artistsCellReuseIdentifier)
-        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: lyricsCellReuseIdentifier)
-        collectionView?.registerClass(TrackCollectionViewCell.self, forCellWithReuseIdentifier: songCellReuseIdentifier)
         collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
 
         automaticallyAdjustsScrollViewInsets = false
@@ -125,18 +120,6 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
             if let lyric = item as? LyricMediaItem {
                 print(lyric)
             }
-        case .Artist:
-            if let artist = item as? ArtistMediaItem {
-                let artistsVC = BrowseArtistCollectionViewController(artistId: artist.id, viewModel: viewModel, textProcessor: textProcessor)
-                self.navigationController?.pushViewController(artistsVC, animated: true)
-            }
-        case .Track:
-            if let track = item as? TrackMediaItem {
-                Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.navigate), additionalProperties: AnalyticsAdditonalProperties.navigate("BrowseTrackCollectionViewController", itemID: track.id, itemIndex: String(indexPath.length), itemType: track.type.rawValue))
-
-                let lyricsVC = BrowseTrackCollectionViewController(trackId: track.id, viewModel: viewModel, textProcessor: textProcessor)
-                self.navigationController?.pushViewController(lyricsVC, animated: true)
-            }
         default:
             break
         }
@@ -152,97 +135,6 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
         cell.leftText = group.title
 
         return cell
-    }
-
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let group = groupAtIndex(indexPath.section) else {
-            return UICollectionViewCell()
-        }
-
-        switch group.type {
-        case .Lyric:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(lyricsCellReuseIdentifier, forIndexPath: indexPath)
-            let lyricsHorizontalVC = provideTrendingLyricsHorizontalCollectionViewController()
-            lyricsHorizontalVC.group = group
-
-            cell.backgroundColor = UIColor.clearColor()
-            cell.contentView.addSubview(lyricsHorizontalVC.view)
-            lyricsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-            lyricsHorizontalVC.view.frame = cell.bounds
-
-            return cell
-        case .Artist:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(artistsCellReuseIdentifier, forIndexPath: indexPath)
-            let artistsHorizontalVC = provideTrendingArtistsHorizontalCollectionViewController()
-            artistsHorizontalVC.group = group
-
-            cell.contentView.addSubview(artistsHorizontalVC.view)
-            artistsHorizontalVC.view.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-            artistsHorizontalVC.view.frame = cell.bounds
-
-            self.artistsHorizontalVC = artistsHorizontalVC
-            return cell
-        case .Track:
-            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(songCellReuseIdentifier, forIndexPath: indexPath) as? TrackCollectionViewCell,
-                let track = group.items[indexPath.row] as? TrackMediaItem else {
-                    return TrackCollectionViewCell()
-            }
-
-            if let imageURL = track.squareImageURL {
-                cell.imageView.nk_setImageWith(imageURL)
-            }
-            cell.titleLabel.text = track.album_name
-            cell.subtitleLabel.text = track.artist_name
-            cell.titleLabel.text = track.title
-            cell.layer.shouldRasterize = true
-            cell.layer.rasterizationScale = UIScreen.mainScreen().scale
-
-            if cellsAnimated[indexPath] != true {
-                animateCell(cell, indexPath: indexPath)
-                cellsAnimated[indexPath] = true
-            }
-
-            return cell
-        default:
-            return UICollectionViewCell()
-        }
-    }
-
-    func presentBrowseArtistCollectionViewController(artistMediaItem: ArtistMediaItem) {
-        let browseVC = BrowseArtistCollectionViewController(artistId: artistMediaItem.id, viewModel: viewModel, textProcessor: textProcessor)
-        navigationController?.pushViewController(browseVC, animated: true)
-        #if KEYBOARD
-        containerViewController?.resetPosition()
-        #endif
-    }
-
-    func presentBrowseTrackCollectionViewController(trackMediaItem: TrackMediaItem) {
-        let trackVC = BrowseTrackCollectionViewController(trackId: trackMediaItem.id, viewModel: viewModel, textProcessor: textProcessor)
-        navigationController?.pushViewController(trackVC, animated: true)
-        #if KEYBOARD
-        containerViewController?.resetPosition()
-        #endif
-    }
-
-    func provideTrendingLyricsHorizontalCollectionViewController() -> TrendingLyricsHorizontalCollectionViewController {
-        if lyricsHorizontalVC == nil {
-            lyricsHorizontalVC = TrendingLyricsHorizontalCollectionViewController()
-            lyricsHorizontalVC?.parentVC = self
-            lyricsHorizontalVC?.textProcessor = textProcessor
-            addChildViewController(lyricsHorizontalVC!)
-        }
-        return lyricsHorizontalVC!
-    }
-
-    func provideTrendingArtistsHorizontalCollectionViewController() -> TrendingArtistsHorizontalCollectionViewController {
-        if artistsHorizontalVC == nil {
-            artistsHorizontalVC = TrendingArtistsHorizontalCollectionViewController(viewModel: viewModel)
-            artistsHorizontalVC?.parentVC = self
-            artistsHorizontalVC?.textProcessor = textProcessor
-            addChildViewController(artistsHorizontalVC!)
-        }
-
-        return artistsHorizontalVC!
     }
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {

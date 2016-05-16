@@ -109,27 +109,9 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         
         if let text = currentProxy.documentContextBeforeInput {
             let tokens = text.componentsSeparatedByString(" ")
-            processFilters(text, tokens: tokens)
         }
 
         delegate?.textProcessingManagerDidChangeText(self)
-    }
-    
-    func processFilters(text: String, tokens: [String]) {
-        guard let firstToken = tokens.first else {
-            return
-        }
-        
-        // check if first token is command call
-        if firstToken.hasPrefix("#") {
-            
-            if let filter = delegate?.textProcessingManagerDidTextContainerFilter(text) {
-                for _ in 0...filter.text.characters.count {
-                    currentProxy.deleteBackward()
-                }
-                delegate?.textProcessingManagerDidDetectFilter(self, filter: filter)
-            }
-        }
     }
 
     func clearInput() {
@@ -287,14 +269,6 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
 
 protocol TextProcessingManagerDelegate: class {
     func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager)
-    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter)
-    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter?
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String)
 }
 
-extension TextProcessingManagerDelegate {
-    func textProcessingManagerDidDetectFilter(textProcessingManager: TextProcessingManager, filter: Filter) {}
-    func textProcessingManagerDidTextContainerFilter(text: String) -> Filter? {
-        return nil
-    }
-}
