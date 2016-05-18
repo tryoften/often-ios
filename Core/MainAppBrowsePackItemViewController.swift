@@ -63,11 +63,16 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         fatalError("init(coder:) has not been implemented")
     }
 
+    
     func setupImageManager() {
         let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
         let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
         let cache = AnimatedImageMemoryCache()
         ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 
     override func viewWillAppear(animated: Bool) {
