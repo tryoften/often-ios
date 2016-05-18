@@ -12,12 +12,6 @@ import Nuke
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, UITabBarDelegate {
     private var packServiceListener: Listener? = nil
     var tabBar: BrowsePackTabBar
-    var backspaceDelayTimer: NSTimer?
-    var backspaceRepeatTimer: NSTimer?
-    let backspaceDelay: NSTimeInterval = 0.5
-    let backspaceRepeat: NSTimeInterval = 0.07
-    var backspaceStartTime: CFAbsoluteTime!
-    var firstWordQuickDeleted: Bool = false
 
     private let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
     
@@ -35,6 +29,8 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
         
         packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
+            self?.tabBar.updateTabBarSelectedItem()
+            self?.packViewModel.checkCurrentPackContents()
             self?.hideLoadingView()
             self?.collectionView?.reloadData()
         }
@@ -211,20 +207,22 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Gifs:
-            if PacksService.defaultInstance.doesCurrentPackContainType(.Gif) {
+            if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Gif) {
                 collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Gif
                 self.tabBar.lastSelectedTab = item
             } else {
-                self.tabBar.selectedItem =  self.tabBar.lastSelectedTab
+                packViewModel.typeFilter = .Quote
+                self.tabBar.selectedItem = self.tabBar.lastSelectedTab
             }
         case .Quotes:
-            if PacksService.defaultInstance.doesCurrentPackContainType(.Quote) {
+            if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Quote) {
                  collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Quote
                 self.tabBar.lastSelectedTab = item
             } else {
-                self.tabBar.selectedItem =  self.tabBar.lastSelectedTab
+                self.tabBar.selectedItem = self.tabBar.lastSelectedTab
+                packViewModel.typeFilter = .Gif
             }
         case .Categories:
             toggleCategoryViewController()
@@ -249,7 +247,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
 
         hideLoadingView()
-        tabBar.updateTabBarSelectedItem()
     }
 
 

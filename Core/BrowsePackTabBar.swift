@@ -75,21 +75,21 @@ class BrowsePackTabBar: SlideTabBar {
     func updateTabBarSelectedItem() {
         switch PacksService.defaultInstance.typeFilter {
         case .Gif:
-            selectedItem = items![BrowsePackTabType.Gifs.rawValue]
+            selectedItem = PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Gif) ? items![BrowsePackTabType.Gifs.rawValue]: items![BrowsePackTabType.Quotes.rawValue]
         case .Quote, .Lyric:
-            selectedItem = items![BrowsePackTabType.Quotes.rawValue]
+            selectedItem = PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Quote) ? items![BrowsePackTabType.Quotes.rawValue] : items![BrowsePackTabType.Gifs.rawValue]
         default:
             break
         }
 
-
-        if !PacksService.defaultInstance.doesCurrentPackContainType(.Gif) {
+        if !PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Gif) {
             gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
+
         } else {
             gifsTabBarItem.image = StyleKit.imageOfGifMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
         }
 
-        if !PacksService.defaultInstance.doesCurrentPackContainType(.Quote) {
+        if !PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Quote) {
             quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color().colorWithAlphaComponent(0.3)).imageWithRenderingMode(.AlwaysOriginal)
         } else {
             quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
@@ -97,4 +97,5 @@ class BrowsePackTabBar: SlideTabBar {
 
         lastSelectedTab = selectedItem
     }
+
 }
