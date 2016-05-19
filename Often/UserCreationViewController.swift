@@ -40,7 +40,7 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
             showHud()
         }
 
-        if account.accountsWithAccountType(accountType).count > 0 {
+        if button.type == .Twitter && account.accountsWithAccountType(accountType).count > 0 {
             showHud()
         }
 
