@@ -320,7 +320,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         if selected {
             NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
-            if let cell = cell as? GifCollectionViewCell, let data = cell.animatedImage?.data {
+            if let cell = cell as? GifCollectionViewCell, let data = NSData(contentsOfURL: result.largeImageURL!) {
                 // Copy this data to pasteboard
                 UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
             } else {
