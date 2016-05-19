@@ -45,6 +45,7 @@ class BrowseViewModel: MediaItemGroupViewModel {
         for group in mediaItemGroups {
             group.filterMediaItems(filter)
         }
+        
         didUpdateCurrentMediaItem.emit(mediaItemGroups)
     }
     

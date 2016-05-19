@@ -63,4 +63,26 @@ class PackItemViewModel: BrowseViewModel {
         return true
     }
 
+    func checkCurrentPackContents() {
+        if !self.doesCurrentPackContainTypeForCategory(.Gif) {
+            typeFilter = .Quote
+        }
+
+        if !self.doesCurrentPackContainTypeForCategory(.Quote) {
+            typeFilter = .Gif
+        }
+    }
+
+    func doesCurrentPackContainTypeForCategory(type: MediaType) -> Bool {
+        for group in mediaItemGroups {
+            if group.type == type {
+                if group.items.isEmpty {
+                    return false
+                }
+                return true
+            }
+        }
+        return false
+    }
+
 }

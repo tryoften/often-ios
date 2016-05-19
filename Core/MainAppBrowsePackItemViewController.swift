@@ -23,6 +23,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
             self?.collectionView?.setContentOffset(CGPointZero, animated: true)
             self?.collectionView?.reloadData()
+            self?.packViewModel.checkCurrentPackContents()
             self?.headerViewDidLoad()
         }
 
@@ -131,6 +132,9 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
+
+        updateFilterBar(true)
+
     }
     
     func primaryButtonTapped(sender: UIButton) {
@@ -174,11 +178,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     func leftTabSelected() {
         collectionView?.setContentOffset(CGPointZero, animated: true)
 
-        guard let viewModel = viewModel as? PackItemViewModel else {
-            return
-        }
-
-        if viewModel.doesCurrentPackContainType(.Gif) {
+        if packViewModel.doesCurrentPackContainTypeForCategory(.Gif) {
             packViewModel.typeFilter = .Gif
         }
     }
@@ -186,29 +186,33 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     func rightTabSelected() {
         collectionView?.setContentOffset(CGPointZero, animated: true)
 
-        guard let viewModel = viewModel as? PackItemViewModel else {
+        if packViewModel.doesCurrentPackContainTypeForCategory(.Quote) {
+            packViewModel.typeFilter = .Quote
+        }
+    }
+
+    func updateFilterBar(withAnimation: Bool) {
+        guard let headerView = headerView as? PackPageHeaderView else {
             return
         }
 
-        if viewModel.doesCurrentPackContainType(.Quote) {
-            packViewModel.typeFilter = .Quote
+        if !packViewModel.doesCurrentPackContainTypeForCategory(.Quote) {
+            headerView.tabContainerView.disableButtonFor(.Quote, withAnimation: withAnimation)
+        }
+
+        if !packViewModel.doesCurrentPackContainTypeForCategory(.Gif) {
+            headerView.tabContainerView.disableButtonFor(.Gif, withAnimation: withAnimation)
+
+        }
+
+        if packViewModel.doesCurrentPackContainTypeForCategory(.Gif) && packViewModel.doesCurrentPackContainTypeForCategory(.Quote) {
+            headerView.tabContainerView.resetTabButtons()
         }
     }
 
     override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
 
-        guard let viewModel = viewModel as? PackItemViewModel, let headerView = headerView as? PackPageHeaderView else {
-            return
-        }
-
-        if !viewModel.doesCurrentPackContainType(.Quote) {
-            headerView.tabContainerView.disableButtonFor(.Quote)
-        }
-
-        if !viewModel.doesCurrentPackContainType(.Gif) {
-            headerView.tabContainerView.disableButtonFor(.Gif)
-
-        }
+        updateFilterBar(false)
     }
 }

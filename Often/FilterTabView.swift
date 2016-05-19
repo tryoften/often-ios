@@ -109,19 +109,36 @@ class FilterTabView: UIView {
         delegate?.rightTabSelected()
     }
 
-    func disableButtonFor(type: MediaType) {
+    func disableButtonFor(type: MediaType, withAnimation: Bool = false) {
         switch type {
         case .Gif:
             leftTabButton.userInteractionEnabled = false
             leftTabButton.alpha = 0.30
+            rightTabButton.alpha = 1
             highlightBarLeftConstraint?.constant = 0
         case .Lyric, .Quote:
             rightTabButton.userInteractionEnabled = false
             rightTabButton.alpha = 0.30
+            leftTabButton.alpha = 1
             highlightBarLeftConstraint?.constant = (UIScreen.mainScreen().bounds.width / 2)
         default:
             break
         }
+
+        if withAnimation {
+            UIView.animateWithDuration(0.3) {
+                self.layoutIfNeeded()
+            }
+
+        }
+
+    }
+
+    func resetTabButtons() {
+        leftTabButton.userInteractionEnabled = true
+        leftTabButton.alpha = 1
+        rightTabButton.userInteractionEnabled = true
+        rightTabButton.alpha = 1
     }
 
 }
