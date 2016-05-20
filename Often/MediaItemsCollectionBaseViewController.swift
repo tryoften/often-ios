@@ -10,6 +10,8 @@
 
 import UIKit
 import Nuke
+import NukeAnimatedImagePlugin
+import FLAnimatedImage
 
 let MediaItemCollectionViewCellReuseIdentifier = "MediaItemCollectionViewCell"
 let BrowseMediaItemCollectionViewCellReuseIdentifier = "BrowseMediaItemCollectionViewCell"
@@ -321,11 +323,12 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         if selected {
             NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
-            if let _ = cell as? GifCollectionViewCell, let url = result.largeImageURL {
+            if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
                 // Copy this data to pasteboard
                 Nuke.taskWith(url) {
-                    if let image = $0.image, data = UIImagePNGRepresentation(image) {
+                    if let image = $0.image as? AnimatedImage, let data = image.data {
                         UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
+                        gifCell.showDoneMessage()
                     }
                 }.resume()
                 
@@ -336,7 +339,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
 
         #if !(KEYBOARD)
-            DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
+            DropDownErrorMessage().setMessage("Copied GIF!".uppercaseString,
                 subtitle: result.getInsertableText(), duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
         #endif
         }

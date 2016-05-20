@@ -31,23 +31,17 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         self.view.backgroundColor =  UIColor(fromHexString: "#E9E9E9")
 
         dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
-            delay(0.5) {
-                self.setupImageManager()
-                self.viewModel = KeyboardViewModel()
-            }
-            
-            #if !(KEYBOARD_DEBUG)
             Firebase.defaultConfig().persistenceEnabled = true
             delay(0.5) {
+            #if !(KEYBOARD_DEBUG)
                 Fabric.sharedSDK().debug = true
                 Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
                 Flurry.startSession(FlurryClientKey)
-            }
             #endif
+                self.setupImageManager()
+                self.viewModel = KeyboardViewModel()
+            }
         }
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didRemoveMediaItem), name: "mediaItemRemoved", object: nil)
 
         self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
         self.textProcessor?.delegate = self
@@ -81,6 +75,10 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector:  #selector(MediaItemsKeyboardContainerViewController.switchKeyboard), name: SwitchKeyboardEvent, object: nil)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didRemoveMediaItem), name: "mediaItemRemoved", object: nil)
+
     }
     
     override func viewDidLayoutSubviews() {

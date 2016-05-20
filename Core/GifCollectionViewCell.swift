@@ -25,10 +25,6 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
                 overlayView.hidden = false
                 overlayView.startLoader()
 
-                delay(0.8) {
-                    self.overlayView.showSuccessMessage()
-                }
-
                 delay(2.5) {
                     self.overlayVisible = false
                     self.overlayView.reset()
@@ -88,6 +84,12 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
             progressView.al_right == contentView.al_right,
             progressView.al_height == 4.0
         ])
+    }
+
+    func showDoneMessage() {
+        delay(2.0) {
+            self.overlayView.showSuccessMessage()
+        }
     }
     
     override func layoutSubviews() {
