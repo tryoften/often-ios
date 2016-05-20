@@ -114,8 +114,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
         if let item = mediaItem {
             viewModel?.logTextSendEvent(item)
-            
             mediaItem = nil
         }
+        NSNotificationCenter.defaultCenter().postNotificationName("TextBufferDidClear", object: nil, userInfo: nil)
     }
 }
