@@ -167,8 +167,8 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         }
         
         NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagerTextChangedEvent, object: self, userInfo: [
-                "text": text
-            ])
+            "text": text
+        ])
     }
     
     func characterIsPunctuation(character: Character) -> Bool {

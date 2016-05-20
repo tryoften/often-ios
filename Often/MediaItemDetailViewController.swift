@@ -97,7 +97,7 @@ class MediaItemDetailViewController: UIViewController {
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
             
         #if !(KEYBOARD)
-            DropDownErrorMessage().setMessage("Copied link!".uppercaseString,
+            DropDownErrorMessage().setMessage("Copied quote!".uppercaseString,
                                                   subtitle: item.getInsertableText(), duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
         #endif
         }

@@ -16,10 +16,11 @@ class GifCellOverlayView : UIView {
         primaryTextLabel = UILabel()
         primaryTextLabel.translatesAutoresizingMaskIntoConstraints = false
         primaryTextLabel.textAlignment = .Center
+        primaryTextLabel.numberOfLines = 2
         primaryTextLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 10.0)!,
                                      letterSpacing: 1.0,
                                      color: BlackColor,
-                                     text: "Copied!".uppercaseString)
+                                     text: "Copied!\nNow Paste".uppercaseString)
 
         loaderView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
         loaderView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +31,7 @@ class GifCellOverlayView : UIView {
         addSubview(primaryTextLabel)
 
         setupLayout()
-        backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.6)
+        backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
     }
     
     required init?(coder aDecoder: NSCoder) {

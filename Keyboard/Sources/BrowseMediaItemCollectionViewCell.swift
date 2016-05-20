@@ -31,9 +31,10 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         placeholderImageView = UIImageView()
-        placeholderImageView.backgroundColor = MediumGrey
+        placeholderImageView.backgroundColor = VeryLightGray
         placeholderImageView.contentMode = .Center
         placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
+
 
         addedBadgeView = UIImageView(image: StyleKit.imageOfCheckicon(color: TealColor, scale: 0.4))
         addedBadgeView.backgroundColor = WhiteColor
@@ -83,6 +84,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
 
         backgroundColor = UIColor.whiteColor()
         addSubview(placeholderImageView)
+
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
