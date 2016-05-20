@@ -9,6 +9,7 @@
 //  swiftlint:disable function_body_length
 
 import UIKit
+import Nuke
 
 let MediaItemCollectionViewCellReuseIdentifier = "MediaItemCollectionViewCell"
 let BrowseMediaItemCollectionViewCellReuseIdentifier = "BrowseMediaItemCollectionViewCell"
@@ -320,9 +321,14 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         if selected {
             NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
-            if let cell = cell as? GifCollectionViewCell, let data = cell.animatedImage?.data {
+            if let _ = cell as? GifCollectionViewCell, let url = result.largeImageURL {
                 // Copy this data to pasteboard
-                UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
+                Nuke.taskWith(url) {
+                    if let image = $0.image, data = UIImagePNGRepresentation(image) {
+                        UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
+                    }
+                }.resume()
+                
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
             }
