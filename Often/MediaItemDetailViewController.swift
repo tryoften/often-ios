@@ -30,6 +30,7 @@ class MediaItemDetailViewController: UIViewController {
 
         view.addSubview(dismissalView)
         view.addSubview(mediaItemDetailView)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemDetailViewController.dismissView), name: "TextBufferDidClear", object: nil)
 
         setupLayout()
     }
@@ -55,6 +56,10 @@ class MediaItemDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDetailView()
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     func dismissView() {
