@@ -94,8 +94,6 @@
 		3B25C6E61C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6981C861F3A00C1BD74 /* TwitterCore.framework */; };
 		3B25C6E71C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6981C861F3A00C1BD74 /* TwitterCore.framework */; };
 		3B25C6E81C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6981C861F3A00C1BD74 /* TwitterCore.framework */; };
-		3B309D671CE39C29005B9942 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; };
-		3B309D691CE39C36005B9942 /* Material.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; };
 		3B309D6A1CE39C36005B9942 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B309D6C1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B309D6B1CE3E38B005B9942 /* BrowseMediaItemViewController.swift */; };
 		3B309D6D1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B309D6B1CE3E38B005B9942 /* BrowseMediaItemViewController.swift */; };
