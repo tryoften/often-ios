@@ -57,6 +57,10 @@ class MediaItemDetailViewController: UIViewController {
         super.viewDidLoad()
         setupDetailView()
     }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 
     func dismissView() {
         dismissViewControllerAnimated(true, completion: nil)
