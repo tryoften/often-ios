@@ -32,16 +32,17 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
 
         view.endEditing(true)
 
-        let account = ACAccountStore()
-        let accountType = account.accountTypeWithAccountTypeIdentifier(
-            ACAccountTypeIdentifierTwitter)
+        let accountStore = ACAccountStore()
+        let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
 
         if button.type != .Twitter {
             showHud()
         }
 
-        if button.type == .Twitter && account.accountsWithAccountType(accountType).count > 0 {
-            showHud()
+        if let accounts = accountStore.accountsWithAccountType(accountType) where accounts.count > 0 {
+            if button.type == .Twitter {
+                showHud()
+            }
         }
 
         do {

@@ -10,6 +10,7 @@ import Foundation
 import Crashlytics
 import TwitterKit
 import Alamofire
+import Firebase
 
 typealias AccountManagerResultCallback = (results: ResultType) -> Void
 
@@ -18,11 +19,11 @@ class AccountManager: AccountManagerProtocol, ConnectivityObservable {
     var currentUser: User?
 
     final internal var sessionManagerFlags: SessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    internal var userRef: Firebase?
-    internal var firebase: Firebase
+    internal var userRef: FIRDatabaseReference?
+    internal var firebase: FIRDatabaseReference
     internal var isNetworkReachable: Bool = true
 
-    required init (firebase: Firebase) {
+    required init (firebase: FIRDatabaseReference) {
         self.firebase = firebase
         startMonitoring()
     }
@@ -33,9 +34,9 @@ class AccountManager: AccountManagerProtocol, ConnectivityObservable {
             return
         }
 
-        userRef = firebase.childByAppendingPath("users/\(userID)")
+        userRef = firebase.child("users/\(userID)")
         userRef?.observeEventType(.Value, withBlock: { snapshot in
-            if let _ = snapshot.key, let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
+            if let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
                 self.currentUser = User()
                 self.currentUser?.setValuesForKeysWithDictionary(value)
                 if let currentUser = self.currentUser {                    
@@ -68,7 +69,7 @@ class AccountManager: AccountManagerProtocol, ConnectivityObservable {
             return
         }
 
-        let userQueue = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
+        let userQueue = FIRDatabase.database().reference().child("queues/user/tasks").childByAutoId()
         userQueue.setValue([
             "userId": user.id,
             "type": "initiatePacks"
@@ -91,7 +92,7 @@ class AccountManager: AccountManagerProtocol, ConnectivityObservable {
     }
 
     internal func openSession(completion: (results: ResultType) -> Void) {}
-    internal func fetchUserData(authData: FAuthData, completion: (results: ResultType) -> Void) {}
+    internal func fetchUserData(authData: FIRUser, completion: (results: ResultType) -> Void) {}
 }
 
 enum AccountManagerError: ErrorType {

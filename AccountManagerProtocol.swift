@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 /**
  *  Protocol that defines a set of events need for user creation
@@ -15,7 +16,7 @@ protocol AccountManagerProtocol {
     weak var delegate: AccountManagerDelegate? { get set }
     var currentUser: User? { get }
 
-    init (firebase: Firebase)
+    init (firebase: FIRDatabaseReference)
     func login(userData: UserAuthData?, completion: (results: ResultType) -> Void)
     func logout()
 }

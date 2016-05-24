@@ -8,12 +8,13 @@
 
 import Foundation
 import Crashlytics
+import Firebase
 
 class SessionManager: NSObject, AccountManagerDelegate {
     static let defaultManager = SessionManager()
     weak var delegate: SessionManagerDelegate?
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    private var firebase: Firebase
+    private var firebase: FIRDatabaseReference
     private var accountManager: AccountManager
     var currentUser: User? {
         return accountManager.currentUser
@@ -23,10 +24,10 @@ class SessionManager: NSObject, AccountManagerDelegate {
         Analytics.setupWithConfiguration(SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey))
         Analytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
-        Firebase.defaultConfig().persistenceEnabled = true
+        FIRDatabase.database().persistenceEnabled = true
 
         _ = ParseConfig.defaultConfig
-        firebase = Firebase(url: BaseURL)
+        firebase = FIRDatabase.database().reference()
         accountManager = AccountManager(firebase: firebase)
 
         super.init()
@@ -58,7 +59,7 @@ class SessionManager: NSObject, AccountManagerDelegate {
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.logout))
         PFUser.logOut()
         accountManager.logout()
-        firebase.unauth()
+        try! FIRAuth.auth()!.signOut()
         accountManager.delegate = nil
         sessionManagerFlags.clearSessionFlags()
 
