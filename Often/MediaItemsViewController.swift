@@ -113,24 +113,6 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         collectionView?.scrollEnabled = true
     }
 
-    func indexViewValueChanged(sender: BDKCollectionIndexView) {
-        guard let sectionIndex = viewModel.sectionForSectionIndexTitle(sender.currentIndexTitle) else {
-            return
-        }
-
-        var sectionHeaderPadding: CGFloat = 45
-
-        if sectionIndex == 0 {
-            sectionHeaderPadding = 0
-        }
-
-        let path = NSIndexPath(forItem: 0, inSection: sectionIndex)
-        collectionView?.scrollToItemAtIndexPath(path, atScrollPosition: .Top, animated: false)
-        collectionView?.contentOffset = CGPoint(x: collectionView!.contentOffset.x,
-            y: collectionView!.contentOffset.y - sectionHeaderPadding)
-
-    }
-
     override func didTapEmptyStateViewCloseButton() {
         super.didTapEmptyStateViewCloseButton()
         viewModel.hasSeenTwitter = true

@@ -7,12 +7,13 @@
 //
 
 import Foundation
+import Firebase
 
 class MediaItemGroupViewModel: BaseViewModel {
     weak var delegate: MediaItemGroupViewModelDelegate?
     var mediaItemGroups: [MediaItemGroup]
 
-    override init(baseRef: Firebase = Firebase(url: BaseURL), path: String?) {
+    override init(baseRef: FIRDatabaseReference = FIRDatabase.database().reference(), path: String?) {
         mediaItemGroups = []
         
         super.init(baseRef: baseRef, path: path)

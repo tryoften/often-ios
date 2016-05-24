@@ -513,6 +513,7 @@
 		813323801C2216BB0084918B /* EventEmittable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8133237E1C2216BB0084918B /* EventEmittable.swift */; };
 		813323971C23652D0084918B /* MediaItemsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323951C23652C0084918B /* MediaItemsSectionHeaderView.swift */; };
 		813324261C24A4F80084918B /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324221C24A4F80084918B /* NJKScrollFullScreen.m */; };
+		8138EEA71CF4B1820025BB24 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8138EEA61CF4B1820025BB24 /* GoogleService-Info.plist */; };
 		813A1B681CAC4561006BBB2E /* BrowsePackCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D112691CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift */; };
 		813A1B691CAC4586006BBB2E /* BrowsePackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553331CA78E04004680CA /* BrowsePackHeaderView.swift */; };
 		813A1B6A1CAC458A006BBB2E /* BrowsePackSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553351CA78E25004680CA /* BrowsePackSectionHeaderView.swift */; };
@@ -832,11 +833,6 @@
 		81F15C0F1CB2B5B700D074CB /* PacksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C0C1CB2B5B700D074CB /* PacksService.swift */; };
 		81F15C101CB2B5B700D074CB /* PacksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C0C1CB2B5B700D074CB /* PacksService.swift */; };
 		81F15C111CB2B5B700D074CB /* PacksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C0C1CB2B5B700D074CB /* PacksService.swift */; };
-		81F15C171CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C161CB2E12000D074CB /* UserMediaItemsViewModel.swift */; };
-		81F15C181CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C161CB2E12000D074CB /* UserMediaItemsViewModel.swift */; };
-		81F15C191CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C161CB2E12000D074CB /* UserMediaItemsViewModel.swift */; };
-		81F15C1A1CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C161CB2E12000D074CB /* UserMediaItemsViewModel.swift */; };
-		81F15C1B1CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F15C161CB2E12000D074CB /* UserMediaItemsViewModel.swift */; };
 		81F833571C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833551C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift */; };
 		81F8335C1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8335A1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift */; };
 		81F833861C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833841C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift */; };
@@ -1154,6 +1150,7 @@
 		813324231C24A4F80084918B /* UIViewController+NJKFullScreenSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NJKFullScreenSupport.h"; sourceTree = "<group>"; };
 		813324241C24A4F80084918B /* UIViewController+NJKFullScreenSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NJKFullScreenSupport.m"; sourceTree = "<group>"; };
 		81370EE21C85691C004EA40F /* oftn-debug-info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "oftn-debug-info.plist"; sourceTree = "<group>"; };
+		8138EEA61CF4B1820025BB24 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		813B27E11C69B01D003B6110 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SystemConfiguration.framework; sourceTree = "<group>"; };
 		813B27E31C69B01D003B6110 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		8142F79F1B534FB10061AE90 /* TextProcessingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextProcessingManager.swift; path = Sources/TextProcessingManager.swift; sourceTree = "<group>"; };
@@ -1235,7 +1232,6 @@
 		81DC114A1AF05CF400412BD2 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftyJSON; sourceTree = "<group>"; };
 		81E26D901B65DC4800FC1F2F /* font_icons8.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font_icons8.ttf; sourceTree = "<group>"; };
 		81F15C0C1CB2B5B700D074CB /* PacksService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PacksService.swift; path = Core/PacksService.swift; sourceTree = "<group>"; };
-		81F15C161CB2E12000D074CB /* UserMediaItemsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMediaItemsViewModel.swift; sourceTree = "<group>"; };
 		81F833551C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsKeyboardContainerViewController.swift; path = Sources/MediaItemsKeyboardContainerViewController.swift; sourceTree = "<group>"; };
 		81F8335A1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseKeyboardContainerViewController.swift; path = Sources/BaseKeyboardContainerViewController.swift; sourceTree = "<group>"; };
 		81F833841C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseMediaItemCollectionViewCell.swift; path = Sources/BrowseMediaItemCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1553,7 +1549,6 @@
 			children = (
 				69C663211B8B6FA60014433D /* MediaItemsViewModel.swift */,
 				81BDA7151C3F00DD00198AF8 /* MediaItemGroupViewModel.swift */,
-				81F15C161CB2E12000D074CB /* UserMediaItemsViewModel.swift */,
 			);
 			name = "Media Items View Models";
 			sourceTree = "<group>";
@@ -2016,6 +2011,7 @@
 		8180E60B1A142157007FA1CF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8138EEA61CF4B1820025BB24 /* GoogleService-Info.plist */,
 				81331E071A17E8FE003E4609 /* Often-Bridging-Header.h */,
 				810EA5901C8579D2005A6C6D /* Often copy2-Info.plist */,
 				81370EE21C85691C004EA40F /* oftn-debug-info.plist */,
@@ -2035,7 +2031,6 @@
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
 				8180E6331A142199007FA1CF /* Supporting Files */,
 				8180E67D1A147F7D007FA1CF /* Views */,
-				810B04F91C4327B400BA731B /* Keyboard-Bridging-Header.h */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -2044,6 +2039,7 @@
 			isa = PBXGroup;
 			children = (
 				810EA6501C8579F2005A6C6D /* Keyboard copy-Info.plist */,
+				810B04F91C4327B400BA731B /* Keyboard-Bridging-Header.h */,
 				8180E6341A142199007FA1CF /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -2393,6 +2389,7 @@
 			files = (
 				810EA56F1C8579D1005A6C6D /* Montserrat-Regular.ttf in Resources */,
 				810EA5701C8579D1005A6C6D /* OpenSans-SemiboldItalic.ttf in Resources */,
+				8138EEA71CF4B1820025BB24 /* GoogleService-Info.plist in Resources */,
 				810EA5711C8579D1005A6C6D /* OpenSans-Bold.ttf in Resources */,
 				810EA5721C8579D1005A6C6D /* Oswald-Bold.ttf in Resources */,
 				810EA5731C8579D1005A6C6D /* OpenSans-ExtraBold.ttf in Resources */,
@@ -3021,7 +3018,6 @@
 				3B5006411CADACB9003D4144 /* PackPageHeaderView.swift in Sources */,
 				810EA51B1C8579D1005A6C6D /* MediaItemGroupsViewController.swift in Sources */,
 				810EA51C1C8579D1005A6C6D /* MediaItemCollectionViewCell.swift in Sources */,
-				81F15C1A1CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */,
 				810EA5201C8579D1005A6C6D /* FavoritesEmptyStateView.swift in Sources */,
 				813A1B6C1CAC45BA006BBB2E /* BrowsePackHeaderCollectionViewController.swift in Sources */,
 				810EA5221C8579D1005A6C6D /* ContainerNavigationBar.swift in Sources */,
@@ -3109,7 +3105,6 @@
 				3B5006531CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift in Sources */,
 				810EA5C01C8579F1005A6C6D /* AnimatedLoaderView.swift in Sources */,
 				810EA5C11C8579F1005A6C6D /* MediaItemsViewController.swift in Sources */,
-				81F15C1B1CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */,
 				810EA5C61C8579F1005A6C6D /* StyleKit.swift in Sources */,
 				BF9971631CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */,
 				810EA5C71C8579F1005A6C6D /* SessionManagerFlags.swift in Sources */,
@@ -3289,7 +3284,6 @@
 				816D50BD1C8A05E6007B3249 /* ChangeListener.swift in Sources */,
 				816D50AB1C8A0596007B3249 /* TermsOfUseViewController.swift in Sources */,
 				816D506E1C8A0516007B3249 /* StyleKit.swift in Sources */,
-				81F15C171CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */,
 				816D50B61C8A05E3007B3249 /* EmitterListener.swift in Sources */,
 				816D50691C8A0506007B3249 /* suffixNumber.swift in Sources */,
 				816D50AD1C8A0596007B3249 /* SkipSignupViewController.swift in Sources */,
@@ -3410,7 +3404,6 @@
 				81BDA7411C40884300198AF8 /* CellAnimatable.swift in Sources */,
 				810C40691A21126500170DB4 /* Constants.swift in Sources */,
 				3B309D7A1CE4DF63005B9942 /* FullScreenCollectionViewController.swift in Sources */,
-				81F15C191CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */,
 				3B309D721CE3F48D005B9942 /* UIViewController+KeyboardSectionsContainerViewController.swift in Sources */,
 				3B5006371CADAB44003D4144 /* PackProfileCollectionViewCell.swift in Sources */,
 				8176BECC1B72DAA400E1BDCD /* MediaItemCollectionViewCell.swift in Sources */,
@@ -3479,7 +3472,6 @@
 				81DA3EE51C24BE85006822D3 /* MediaItemsViewController.swift in Sources */,
 				3B47F6B11C66FAE500B000A5 /* EmitterListener.swift in Sources */,
 				811E6EAE1C6AC2A6008B789C /* Signal.swift in Sources */,
-				81F15C181CB2E12000D074CB /* UserMediaItemsViewModel.swift in Sources */,
 				81DA3EF01C24BE85006822D3 /* FuzzySearch.swift in Sources */,
 				BF9971601CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */,
 				81DA3EF31C24BE85006822D3 /* AppDelegate.swift in Sources */,

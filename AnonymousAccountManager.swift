@@ -7,16 +7,18 @@
 //
 
 import Foundation
+import Firebase
 
 class AnonymousAccountManager: AccountManager {
 
   override func openSession(completion: (results: ResultType) -> Void) {
-        self.firebase.authAnonymouslyWithCompletionBlock { (err, auth) -> Void in
+        FIRAuth.auth()!.signInAnonymouslyWithCompletion { (user, err) in
             if err != nil {
-                print(err)
                 completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
             } else {
-                self.fetchUserData(auth, completion: completion)
+                if let user = user {
+                    self.fetchUserData(user, completion: completion)
+                }
             }
         }
 
@@ -26,16 +28,17 @@ class AnonymousAccountManager: AccountManager {
     
     override func login(userData: UserAuthData?, completion: AccountManagerResultCallback)  {
         PFAnonymousUtils.logInWithBlock(handleParseUser(completion))
+        initiateUserWithPacks()
     }
 
-    override func fetchUserData(authData: FAuthData, completion: AccountManagerResultCallback) {
-        userRef = firebase.childByAppendingPath("users/\(authData.uid)")
-        sessionManagerFlags.userId = authData.uid
+    override func fetchUserData(user: FIRUser, completion: AccountManagerResultCallback) {
+        userRef = firebase.child("users/\(user.uid)")
+        sessionManagerFlags.userId = user.uid
         
         var data = [String : AnyObject]()
 
         if let parseCurrentUser = PFUser.currentUser() {
-            data["id"] = authData.uid
+            data["id"] = user.uid
             data["parseId"] = parseCurrentUser.objectId
             data["isAnonymous"] = true
 

@@ -6,7 +6,6 @@
 //  Copyright © 2016 Surf Inc. All rights reserved.
 //
 
-#import <Firebase/Firebase.h>
 #import "SwiftAutoLayout.h"
 #import "UIColor+HEXString.h"
 #import <FlurrySDK/Flurry.h>
@@ -19,5 +18,3 @@
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayoutAttributes.h>
 #import <DateTools/DateTools.h>
 #import "NJKScrollFullScreen.h"
-#import <BDKCollectionIndexView/BDKCollectionIndexView.h>
-#import <AGEmojiKeyboard/AGEmojiKeyboardView.h>

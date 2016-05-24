@@ -7,16 +7,17 @@
 //
 
 import Foundation
+import Firebase
 
 class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
-    let userRef: Firebase
+    let userRef: FIRDatabaseReference
     let userId: String
     let didUpdatePacks = Event<[PackMediaItem]>()
     var mediaItems: [MediaItem]
 
-    internal var collectionEndpoint: Firebase
-    private var subscriptionsRef: Firebase!
+    internal var collectionEndpoint: FIRDatabaseReference
+    private var subscriptionsRef: FIRDatabaseReference!
     private var subscriptions: [PackSubscription] = []
     private(set) var ids: Set<String> = []
     private(set) var recentsPack: PackMediaItem?
@@ -37,8 +38,8 @@ class PacksService: PackItemViewModel {
         }
         
         mediaItems = []
-        userRef = Firebase(url: BaseURL).childByAppendingPath("users/\(userId)")
-        collectionEndpoint = Firebase(url: BaseURL).childByAppendingPath("users/\(userId)/packs")
+        userRef = FIRDatabase.database().reference().child("users/\(userId)")
+        collectionEndpoint = userRef.child("packs")
 
         super.init(packId: "")
 
@@ -171,7 +172,7 @@ class PacksService: PackItemViewModel {
             return
         }
 
-        let userQueue = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
+        let userQueue = FIRDatabase.database().reference().child("queues/user/tasks").childByAutoId()
         userQueue.setValue([
             "type": "editPackSubscription",
             "userId": userId,
@@ -184,7 +185,7 @@ class PacksService: PackItemViewModel {
 
         // Preemptively add item to collection before backend queue modifies
         // in case user worker is down
-        let ref = collectionEndpoint.childByAppendingPath("\(result.id)")
+        let ref = collectionEndpoint.child("\(result.id)")
         if task == "add" {
             ref.setValue(result.toDictionary())
         } else if task == "remove" {
@@ -227,7 +228,7 @@ class PacksService: PackItemViewModel {
 
     }
 
-    private func onSubscriptionsChanged(snapshot: FDataSnapshot!) {
+    private func onSubscriptionsChanged(snapshot: FIRDataSnapshot!) {
         var subscriptions = [PackSubscription]()
         if let data = snapshot.value as? [String: AnyObject] {
             for (_, item) in data {

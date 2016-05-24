@@ -7,22 +7,23 @@
 //
 
 import Foundation
+import Firebase
 
 class BaseViewModel {
-    let baseRef: Firebase
-    var ref: Firebase
+    let baseRef: FIRDatabaseReference
+    var ref: FIRDatabaseReference
     var path: String?
     var isDataLoaded: Bool
 
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     var currentUser: User?
     private var userId: String
-    private var userRef: Firebase?
+    private var userRef: FIRDatabaseReference?
 
-    init(baseRef: Firebase = Firebase(url: BaseURL), path: String? = nil) {
+    init(baseRef: FIRDatabaseReference = FIRDatabase.database().reference(), path: String? = nil) {
         self.baseRef = baseRef
         self.path = path
-        ref = path != nil ? baseRef.childByAppendingPath(path) : baseRef
+        ref = path != nil ? baseRef.child(path!) : baseRef
         isDataLoaded = false
         userId = ""
     }
@@ -54,11 +55,11 @@ class BaseViewModel {
     #if KEYBOARD
         self.userId = userId
 
-        userRef = ref.childByAppendingPath("users/\(userId)")
+        userRef = ref.child("users/\(userId)")
         userRef?.keepSynced(true)
 
         userRef?.observeEventType(.Value, withBlock: { snapshot in
-            if let _ = snapshot.key, let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
+            if let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
                 self.currentUser = User()
                 self.currentUser?.setValuesForKeysWithDictionary(value)
                 completion({ return self.currentUser! })

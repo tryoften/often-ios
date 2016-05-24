@@ -7,14 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
 class KeyboardViewModel: NSObject {
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
-    var firebaseRef: Firebase
     
     override init() {
         sessionManagerFlags.userHasOpenedKeyboard = true
-        firebaseRef = Firebase(url: BaseURL)
         
         _ = ParseConfig.defaultConfig
         
@@ -52,7 +51,7 @@ class KeyboardViewModel: NSObject {
 
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.addRecent), additionalProperties: AnalyticsAdditonalProperties.mediaItem(mediaItem.toDictionary()))
 
-        firebaseRef.childByAppendingPath("queues/user/tasks").childByAutoId().setValue(data)
+        FIRDatabase.database().reference().child("queues/user/tasks").childByAutoId().setValue(data)
     }
 
 }

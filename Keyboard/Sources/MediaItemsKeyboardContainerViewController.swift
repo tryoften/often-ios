@@ -10,7 +10,7 @@ import Fabric
 import Crashlytics
 import Nuke
 import NukeAnimatedImagePlugin
-
+import Firebase
 
 class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewController,
     UIScrollViewDelegate,
@@ -31,7 +31,7 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         self.view.backgroundColor =  UIColor(fromHexString: "#E9E9E9")
 
         dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
-            Firebase.defaultConfig().persistenceEnabled = true
+            FIRDatabase.database().persistenceEnabled = true
             delay(0.5) {
             #if !(KEYBOARD_DEBUG)
                 Fabric.sharedSDK().debug = true

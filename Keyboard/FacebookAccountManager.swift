@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 class FacebookAccountManager: AccountManager {
     private let loginPermissions = [
@@ -24,14 +25,16 @@ class FacebookAccountManager: AccountManager {
             let accessTokenData = FBSDKAccessToken.currentAccessToken().tokenString
 
             if accessTokenData != nil {
-                
-                firebase.authWithOAuthProvider("facebook", token: accessTokenData,
-                    withCompletionBlock: { error, accessToken in
-                        if error != nil {
-                            completion(results: ResultType.SystemError(e: error!))
-                        } else {
-                            self.fetchUserData(accessToken, completion: completion)
+                let credential = FIRFacebookAuthProvider.credentialWithAccessToken(accessTokenData)
+                FIRAuth.auth()?.signInWithCredential(credential, completion: { (user, err) in
+                    if err != nil {
+                        completion(results: ResultType.SystemError(e: err!))
+                    } else {
+                        if let user = user {
+                            self.fetchUserData(user, completion: completion)
+                            self.initiateUserWithPacks()
                         }
+                    }
                 })
             }
         } else {
@@ -66,8 +69,8 @@ class FacebookAccountManager: AccountManager {
 
     }
     
-    override func fetchUserData(authData: FAuthData, completion: AccountManagerResultCallback) {
-        userRef = firebase.childByAppendingPath("users/\(authData.uid)")
+    override func fetchUserData(authData: FIRUser, completion: AccountManagerResultCallback) {
+        userRef = firebase.child("users/\(authData.uid)")
         sessionManagerFlags.userId = authData.uid
 
         if FBSDKAccessToken.currentAccessToken() != nil {

@@ -7,15 +7,16 @@
 //
 
 import Foundation
+import Firebase
 
 class CategoryService {
     static let defaultInstance = CategoryService()
     var categories: [Category]?
     let didUpdateCategories = Event<[Category]>()
-    let ref: Firebase
+    let ref: FIRDatabaseReference
 
-    init(baseRef: Firebase = Firebase(url: BaseURL)) {
-        ref = baseRef.childByAppendingPath("categories")
+    init(baseRef: FIRDatabaseReference = FIRDatabase.database().reference()) {
+        ref = baseRef.child("categories")
         ref.observeEventType(.Value, withBlock: { snapshot in
             var newCategories = [Category]()
             if let data = snapshot.value as? [String: AnyObject] {
@@ -38,7 +39,7 @@ class CategoryService {
             return
         }
 
-        let userQueueRef = Firebase(url: BaseURL).childByAppendingPath("queues/user/tasks").childByAutoId()
+        let userQueueRef = FIRDatabase.database().reference().child("queues/user/tasks").childByAutoId()
         userQueueRef.setValue([
             "task": "assignCategory",
             "user": userId,

@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import Firebase
 
 enum MediaItemsViewModelError: ErrorType {
     case NoUser
@@ -19,7 +20,7 @@ class MediaItemsViewModel: BaseViewModel {
     var filteredMediaItems: [MediaItem]
     var sectionIndex: [String: NSInteger?]
 
-    internal var collectionEndpoint: Firebase
+    internal var collectionEndpoint: FIRDatabaseReference
     private var collectionType: MediaItemsCollectionType
     
     var userState: UserState = .NonEmpty
@@ -29,9 +30,9 @@ class MediaItemsViewModel: BaseViewModel {
         return !(userState == .NoTwitter || userState == .NoKeyboard) || hasSeenTwitter
     }
     
-    init(baseRef: Firebase = Firebase(url: BaseURL), collectionType aCollectionType: MediaItemsCollectionType) {
+    init(baseRef: FIRDatabaseReference = FIRDatabase.database().reference(), collectionType aCollectionType: MediaItemsCollectionType) {
         collectionType = aCollectionType
-        collectionEndpoint = baseRef.childByAppendingPath(collectionType.rawValue)
+        collectionEndpoint = baseRef.child(collectionType.rawValue)
         mediaItems = []
         mediaItemGroups = []
         filteredMediaItems = []

@@ -7,36 +7,14 @@
 //
 
 import Foundation
+import Firebase
 
 class BrowseViewModel: MediaItemGroupViewModel {
     let didUpdateCurrentMediaItem = Event<[MediaItemGroup]>()
     var currentCategory: Category?
     
     init(path: String = "trending") {
-        super.init(baseRef: Firebase(url: BaseURL), path: path)
-
-    }
-
-    func getArtistWithOftenId(oftenId: String, completion: (ArtistMediaItem) -> ()) {
-        let artistRef = baseRef.childByAppendingPath("artists/\(oftenId)")
-        artistRef.observeEventType(.Value, withBlock: { snapshot in
-            guard let value = snapshot.value as? NSDictionary else {
-                return
-            }
-            let artist = ArtistMediaItem(data: value)
-            completion(artist)
-        })
-    }
-
-    func getTrackWithOftenid(oftenId: String, completion: (TrackMediaItem) -> ()) {
-        let trackRef = baseRef.childByAppendingPath("tracks/\(oftenId)")
-        trackRef.observeEventType(.Value, withBlock: { snapshot in
-            guard let value = snapshot.value as? NSDictionary else {
-                return
-            }
-            let track = TrackMediaItem(data: value)
-            completion(track)
-        })
+        super.init(baseRef: FIRDatabase.database().reference(), path: path)
     }
 
     func applyFilter(filter: Category) {

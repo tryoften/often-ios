@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 class EmailAccountManager: AccountManager {
 
@@ -16,16 +17,18 @@ class EmailAccountManager: AccountManager {
                 completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                 return
         }
-        
-        self.firebase.authUser(email, password: password, withCompletionBlock: { error, authData -> Void in
-            if error != nil {
-                 completion(results: ResultType.SystemError(e: error!))
-                
-            } else {
-                self.fetchUserData(authData, completion: completion)
 
+        FIRAuth.auth()?.signInWithEmail(email, password: password, completion: { (user, error) in
+            if error != nil {
+                completion(results: ResultType.SystemError(e: error!))
+
+            } else {
+                if let user = user {
+                    self.fetchUserData(user, completion: completion)
+                }
             }
         })
+
         sessionManagerFlags.openSession = true
     }
     
@@ -66,9 +69,9 @@ class EmailAccountManager: AccountManager {
         
         user.signUpInBackgroundWithBlock { (success, error) in
             if error == nil {
-                self.firebase.createUser(email, password: password, withValueCompletionBlock: { error, result -> Void in
+                FIRAuth.auth()?.createUserWithEmail(email, password: password, completion: { (user, error) in
                     if error != nil {
-                        completion(results: ResultType.SystemError(e: error))
+                        completion(results: ResultType.SystemError(e: error!))
                     } else {
                         self.openSession(completion)
                     }
@@ -79,8 +82,8 @@ class EmailAccountManager: AccountManager {
         }
     }
 
-    override func fetchUserData(authData: FAuthData, completion: AccountManagerResultCallback) {
-        userRef = firebase.childByAppendingPath("users/\(authData.uid)")
+    override func fetchUserData(authData: FIRUser, completion: AccountManagerResultCallback) {
+        userRef = firebase.child("users/\(authData.uid)")
         sessionManagerFlags.userId = authData.uid
 
         var data = [String : AnyObject]()

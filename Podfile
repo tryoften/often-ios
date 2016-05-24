@@ -1,5 +1,4 @@
 platform :ios, '8.0'
-#use_frameworks!
 
 inhibit_all_warnings!
 source 'https://github.com/CocoaPods/Specs.git'
@@ -7,7 +6,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 xcodeproj 'Often.xcodeproj'
 
 def base_deps
-  pod 'Firebase', '>= 2.0.2'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
   pod 'DateTools', '~> 1.6'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'Parse', '~> 1.11'
