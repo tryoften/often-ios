@@ -15,6 +15,7 @@ class TwitterAccountManager: AccountManager {
     override func openSession(completion: (results: ResultType) -> Void) {
         fetchData(completion)
         sessionManagerFlags.openSession = true
+        initiateUserWithPacks()
     }
     
     override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
