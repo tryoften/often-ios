@@ -24,7 +24,6 @@ class SessionManager: NSObject, AccountManagerDelegate {
         Analytics.setupWithConfiguration(SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey))
         Analytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
-        FIRDatabase.database().persistenceEnabled = true
 
         _ = ParseConfig.defaultConfig
         firebase = FIRDatabase.database().reference()

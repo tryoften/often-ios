@@ -26,7 +26,7 @@ class FacebookAccountManager: AccountManager {
 
             if accessTokenData != nil {
                 let credential = FIRFacebookAuthProvider.credentialWithAccessToken(accessTokenData)
-                FIRAuth.auth()!.signInWithCredential(credential, completion: { (user, err) in
+                FIRAuth.auth()?.signInWithCredential(credential, completion: { (user, err) in
                     if err != nil {
                         completion(results: ResultType.SystemError(e: err!))
                     } else {
