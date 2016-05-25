@@ -849,6 +849,7 @@
 		BF9861531CDA9AEA005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
 		BF9861541CDA9AEB005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
 		BF9861551CDA9AEC005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
+		BF99550C1CF653D50054E770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF99550B1CF653D50054E770 /* GoogleService-Info.plist */; };
 		BF9971411CBEC310008351C7 /* GifMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9971401CBEC310008351C7 /* GifMediaItem.swift */; };
 		BF9971421CBEC310008351C7 /* GifMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9971401CBEC310008351C7 /* GifMediaItem.swift */; };
 		BF9971431CBEC310008351C7 /* GifMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9971401CBEC310008351C7 /* GifMediaItem.swift */; };
@@ -1246,6 +1247,7 @@
 		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
 		BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackTabBar.swift; sourceTree = "<group>"; };
 		BF1C79B81CCEC3E2002ED5B7 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
+		BF99550B1CF653D50054E770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		BF9971401CBEC310008351C7 /* GifMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifMediaItem.swift; sourceTree = "<group>"; };
 		BF99714C1CBEF030008351C7 /* GifCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF9971521CBEF388008351C7 /* GifCellOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCellOverlayView.swift; sourceTree = "<group>"; };
@@ -2011,7 +2013,8 @@
 		8180E60B1A142157007FA1CF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8138EEA61CF4B1820025BB24 /* GoogleService-Info.plist */,
+				BF9955081CF653520054E770 /* Prod */,
+				BF9955071CF653460054E770 /* Dev */,
 				81331E071A17E8FE003E4609 /* Often-Bridging-Header.h */,
 				810EA5901C8579D2005A6C6D /* Often copy2-Info.plist */,
 				81370EE21C85691C004EA40F /* oftn-debug-info.plist */,
@@ -2168,6 +2171,22 @@
 			path = ../Keyboard;
 			sourceTree = "<group>";
 		};
+		BF9955071CF653460054E770 /* Dev */ = {
+			isa = PBXGroup;
+			children = (
+				8138EEA61CF4B1820025BB24 /* GoogleService-Info.plist */,
+			);
+			name = Dev;
+			sourceTree = "<group>";
+		};
+		BF9955081CF653520054E770 /* Prod */ = {
+			isa = PBXGroup;
+			children = (
+				BF99550B1CF653D50054E770 /* GoogleService-Info.plist */,
+			);
+			name = Prod;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2309,6 +2328,11 @@
 				TargetAttributes = {
 					810EA4981C8579D1005A6C6D = {
 						DevelopmentTeam = VPYJKM228K;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					810EA5941C8579F1005A6C6D = {
 						DevelopmentTeam = VPYJKM228K;
@@ -2330,6 +2354,9 @@
 								enabled = 1;
 							};
 							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
 						};
@@ -2461,6 +2488,7 @@
 				81E26D911B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
 				3BAAB1A21B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
 				3BAAB1981B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				BF99550C1CF653D50054E770 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
