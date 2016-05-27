@@ -6,6 +6,8 @@
 	<array>
 		<string>applinks:ta553.app.goo.gl</string>
 		<string>applinks:u7zh8.app.goo.gl</string>
+		<string>https://ta553.app.goo.gl</string>
+		<string>applinks:https://ta553.app.goo.gl</string>
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>

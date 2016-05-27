@@ -47,7 +47,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string></string>
+			<string>com.tryoften.often.master</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>tryoften</string>
@@ -59,6 +59,16 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>prefs</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>meow</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.tryoften.often.master</string>
 			</array>
 		</dict>
 	</array>

@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.sharedSDK().debug = true
         Twitter.sharedInstance().startWithConsumerKey(TwitterConsumerKey, consumerSecret: TwitterConsumerSecret)
         Fabric.with([Crashlytics(), Twitter.sharedInstance()])
-        FIROptions.defaultOptions().deepLinkURLScheme = "tryoften"
+        FIROptions.defaultOptions().deepLinkURLScheme = "com.tryoften.often.master"
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
@@ -76,9 +76,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
         }
         
-        if let dynamicLink = FIRDynamicLinks.dynamicLinks()?.dynamicLinkFromCustomSchemeURL(url) {
-            print("dynamic link", dynamicLink)
+        if url.absoluteString.containsString("pack/") {
+            
+            guard let id = url.lastPathComponent else {
+                return false
+            }
+            
+            print(id)
+            NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : id])
+            
+            
         }
+        
+//        if let dynamicLink = FIRDynamicLinks.dynamicLinks()?.dynamicLinkFromCustomSchemeURL(url) {
+//            print("dynamic link", dynamicLink)
+//        }
 
         return false
     }

@@ -43,7 +43,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.tryoften.master</string>
+			<string>com.tryoften.often</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>tryoften</string>
