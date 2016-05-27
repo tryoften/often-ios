@@ -119,7 +119,6 @@ class PacksService: PackItemViewModel {
         let currentInstallation = PFInstallation.currentInstallation()
         currentInstallation.addUniqueObject(pack.id, forKey: "channels")
         currentInstallation.saveInBackground()
-
     }
 
     func removePack(pack: PackMediaItem) {

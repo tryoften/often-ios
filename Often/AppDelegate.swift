@@ -64,7 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation.setDeviceTokenFromData(deviceToken)
         installation.channels = ["global"]
         installation.saveInBackground()
-        print(deviceToken)
     }
     
 
@@ -106,23 +105,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    // [START receive_message]
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
                      fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        // If you are receiving a notification message while your app is in the background,
-        // this callback will not be fired till the user taps on the notification launching the application.
-        // TODO: Handle data of notification
 
-        // Print message ID.
-        print("Message ID: \(userInfo["gcm.message_id"])")
-
-        // Print full message.
-        print("%@", userInfo)
     }
 
     func tokenRefreshNotificaiton(notification: NSNotification) {
         let refreshedToken = FIRInstanceID.instanceID().token()
-        print("InstanceID token: \(refreshedToken)")
 
         // Connect to FCM since connection may have failed when attempted before having a token.
         connectToFcm()
