@@ -11,6 +11,8 @@ import Fabric
 import Crashlytics
 import TwitterKit
 import Firebase
+import FirebaseInstanceID
+import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -50,7 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.rootViewController = mainController
             window.makeKeyAndVisible()
         }
-        
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotificaiton),
+                                                         name: kFIRInstanceIDTokenRefreshNotification, object: nil)
+
         return true
     }
     
@@ -59,7 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation.setDeviceTokenFromData(deviceToken)
         installation.channels = ["global"]
         installation.saveInBackground()
+        print(deviceToken)
     }
+    
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
          PFPush.handlePush(userInfo)
@@ -83,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
+        FIRMessaging.messaging().disconnect()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -91,9 +99,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         FBSDKAppEvents.activateApp()
+        connectToFcm()
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+
+    // [START receive_message]
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
+                     fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        // If you are receiving a notification message while your app is in the background,
+        // this callback will not be fired till the user taps on the notification launching the application.
+        // TODO: Handle data of notification
+
+        // Print message ID.
+        print("Message ID: \(userInfo["gcm.message_id"])")
+
+        // Print full message.
+        print("%@", userInfo)
+    }
+
+    func tokenRefreshNotificaiton(notification: NSNotification) {
+        let refreshedToken = FIRInstanceID.instanceID().token()
+        print("InstanceID token: \(refreshedToken)")
+
+        // Connect to FCM since connection may have failed when attempted before having a token.
+        connectToFcm()
+    }
+
+    func connectToFcm() {
+        FIRMessaging.messaging().connectWithCompletion { (error) in
+            if (error != nil) {
+                print("Unable to connect with FCM. \(error)")
+            } else {
+                print("Connected to FCM.")
+            }
+        }
+    }
+
+
 }
