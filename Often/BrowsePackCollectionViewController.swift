@@ -81,6 +81,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
 
     deinit {
         packServiceListener = nil
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {

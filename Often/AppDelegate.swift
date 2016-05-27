@@ -77,20 +77,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if url.absoluteString.containsString("pack/") {
-            
             guard let id = url.lastPathComponent else {
                 return false
             }
             
             print(id)
             NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : id])
-            
-            
         }
-        
-//        if let dynamicLink = FIRDynamicLinks.dynamicLinks()?.dynamicLinkFromCustomSchemeURL(url) {
-//            print("dynamic link", dynamicLink)
-//        }
 
         return false
     }
